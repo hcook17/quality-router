@@ -17,7 +17,7 @@ cd any-service
 qr init --graph gortex
 ```
 
-Phase 1 implements `--help`, `status`, and `install` (wraps `$LOCAL_QUALITY_ROOT` `install.ps1` / `install.sh`). Phase 2 `qr init` is spec-gated in `docs/design/phase-2-init.md` (not implemented yet). Do not `irm | iex`. Flags > env > defaults. Default init is portable; do not imply `--host cursor`.
+Phase 1 is `--help`, `status`, and `install` (wraps `$LOCAL_QUALITY_ROOT` `install.ps1` / `install.sh`). Phase 2 `qr init` is implemented (portable first; optional `--host` / `--graph gortex`). Specs: `docs/design/phase-1-cli.md`, `docs/design/phase-2-init.md`. Architecture lock (one file): `docs/research/architecture-decisions.md`. Do not `irm | iex`. Flags > env > defaults. Default init is portable; do not imply `--host cursor`.
 
 ## Layout
 

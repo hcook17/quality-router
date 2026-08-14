@@ -1,10 +1,10 @@
 # Phase 1 CLI (spec gate)
 
-`qr init` and the Ollama/Hermes spike are out of scope.
+Ollama/Hermes spike is out of scope. `qr init` is Phase 2 (implemented).
 
 **Status:** implemented under `src/` + `tests/`. Host-agnostic status
 probes included (`agent_host_lock=none`). `uv.lock` pins pytest/ruff.
-Next spec: `docs/design/phase-2-init.md`.
+Next: `--json` on report commands, then `enable` / `disable`.
 
 ## Commands
 
@@ -27,7 +27,7 @@ Next spec: `docs/design/phase-2-init.md`.
 - Invoke the on-disk installer with `-File` / argv. Never `irm \| iex`, never `shell=True`.
 - `--reset-volume` / `--skip-bootstrap` map to the installer switches.
 - `--sonar-mcp-url` must be local (`127.0.0.1`, `localhost`, `host.docker.internal`). Do not probe org Sonar.
-- `--hooks` and `--no-gitnexus` are accepted and reported; stamping is `qr init` (later). Never set `GITNEXUS_HOOKS=0`.
+- `--hooks` and `--no-gitnexus` are accepted and reported; stamping is `qr init`. Never set `GITNEXUS_HOOKS=0`.
 - Tokens stay in the environment (or `QUALITY_ROUTER_SECRETS`). This tree does not write `mcp.json` for any host.
 
 ## Status

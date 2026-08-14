@@ -1,9 +1,8 @@
 # Phase 2: `qr init` (spec gate)
 
-Recorded after the host-agnostic lock in
-`docs/research/architecture-decisions.md`. Do not implement until this
-file is treated as approved SoT. Phase 1 (`help` / `status` / `install`)
-stays as-is except the host-agnostic status probes already landed.
+**Status:** implemented under `src/` + `tests/`. Architecture lock:
+`docs/research/architecture-decisions.md`. Phase 1 (`help` / `status` /
+`install`) stays as-is.
 
 ## Goal
 
