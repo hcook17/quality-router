@@ -126,6 +126,37 @@ Haiku cliff 10–15 tools, Rodrigues & Vas
 breaks direct-connect ([2607.15593](https://arxiv.org/abs/2607.15593))
 is refused here.
 
+An MCP `ask` cascade (`escalation-gate`) is that later Job A sibling,
+not a `qr` subcommand and not a phase in this tree. It does not route
+director completions. Honest pitch: gated answers for questions the
+host chooses to send. If that sibling is built, these pre-Phase-1
+locks apply (2026-08-15):
+
+1. Sibling repo only. Do not open a `docs/design/phase-N` here for it.
+2. One OpenAI-compat client. Probe for logprobs at runtime; fall back
+   to `ChatOllama` only on probe failure. Do not lock “Ollama `/v1`
+   supports logprobs” or “does not.” Public evidence conflicts
+   (v0.12.11 release-note headline vs current docs checkbox vs
+   ollama/ollama#16117 closed as not planned). Do not write
+   “#16117 proves `/v1` works” into any lock.
+3. Generate once. Either UQLM owns local generate+score, or the
+   orchestrator generates samples and calls `score()` only.
+4. Cascade-vs-router bake-off on a synthetic set **before** Phase 1.
+   If the router wins, stop.
+5. If a cascade still wins, prefer white-box (or vLLM) in production.
+   Black-box is a portability fallback, not the default. Do not
+   default to N+1 local generations. `noncontradiction` NLI is an
+   explicit dep if used.
+6. No `explain_last()`. Trace rides on `ask`, or a client-held request id.
+7. Fail-closed matrix and a single calibrator SoT (artifact owns tau;
+   config does not silently override) before any FastMCP stub.
+
+UCCI’s cost-optimality does not transfer from token-margin to
+black-box consistency. Zellinger & Thomson’s 4.3% error-cost AUC
+gain is for k≥3 and does not back a k=2 design. Coverage floor in
+*this* tree remains 98.7%. Model cascade stays out of scope for
+`qr init` / this product.
+
 ## Build sequence
 
 1. Phase 1 CLI — **done** (`help` / `status` / `install`).
@@ -145,4 +176,4 @@ silent prompt MITM; `qr` as LLM HTTP path; secrets in `mcp.json`;
 `irm | iex`; org/employer Sonar; in-CLI WASM/PyO3; WASM token filter;
 shell intercept; RL gym / OPD / weight updates; Context7 cache gateway;
 file-sync / memory MCP between hosts; Rekal / Claim Plane / CoAgent as
-`qr` subcommands.
+`qr` subcommands; `escalation-gate` / model cascade as a `qr` command.
