@@ -11,6 +11,9 @@ import shutil
 from dataclasses import dataclass, field
 from pathlib import Path
 
+from quality_router.harness.ci import stamp_ci
+from quality_router.harness.policy import HOST_HOOK_STAMPS, stamp_policy
+
 # --------------------------------------------------------------------------- #
 # Portable stamp contents
 # --------------------------------------------------------------------------- #
@@ -185,6 +188,8 @@ class InitConfig:
     workspace: str | None = None
     workspace_deps: list[tuple[str, str]] = field(default_factory=list)
     no_gitnexus: bool = False
+    policy: bool = False
+    ci: str | None = None
 
 
 # --------------------------------------------------------------------------- #
@@ -205,6 +210,16 @@ def run_init(config: InitConfig) -> None:
     # 3. Gortex graph stamps (optional, no-op if gortex not on PATH)
     if config.graph == "gortex":
         _write_gortex_config(cwd, config.workspace, config.workspace_deps)
+
+    # 4. Agent policy + host hook wiring (optional)
+    if config.policy:
+        stamp_policy(cwd)
+        if config.host in HOST_HOOK_STAMPS:
+            HOST_HOOK_STAMPS[config.host](cwd)
+
+    # 5. CI template (optional)
+    if config.ci:
+        stamp_ci(cwd, config.ci)
 
 
 def _write_portable_stamps(cwd: Path) -> None:
