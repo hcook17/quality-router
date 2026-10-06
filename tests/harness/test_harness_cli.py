@@ -237,9 +237,33 @@ class TestInitStamps:
         workflow = tmp_path / GITHUB_MAVEN_PATH
         text = workflow.read_text()
         assert "mvn -B verify" in text and "qr gate diff-coverage" in text
+        assert 'java-version: "17"' in text and "default; no release declared" in text
         workflow.write_text("custom\n")
         assert stamp_ci(tmp_path, "github-maven") is False
         assert workflow.read_text() == "custom\n"
+
+    def test_ci_java_from_build_file_or_flag(self, tmp_path, monkeypatch) -> None:
+        monkeypatch.chdir(tmp_path)
+        (tmp_path / ".git").mkdir()
+        (tmp_path / "build.gradle").write_text("sourceCompatibility = JavaVersion.VERSION_1_8\n")
+        assert run(["init", "--ci", "github-gradle"]) == 0
+        text = (tmp_path / GITHUB_MAVEN_PATH).read_text()
+        assert 'java-version: "8"' in text and "JDK 8: from build.gradle." in text
+        assert "./gradlew --no-daemon check jacocoTestReport" in text and "cache: gradle" in text
+        (tmp_path / GITHUB_MAVEN_PATH).unlink()
+        assert run(["init", "--ci", "github-maven", "--ci-java", "25"]) == 0
+        text = (tmp_path / GITHUB_MAVEN_PATH).read_text()
+        assert 'java-version: "25"' in text and "from --ci-java" in text
+        assert "'**/target/failsafe-reports/TEST-*.xml'" in text
+
+    def test_ci_java_reports_absolute_build_path_outside_root(self, tmp_path) -> None:
+        from quality_router.harness.ci import ci_java
+
+        (tmp_path / ".git").mkdir()
+        (tmp_path / "pom.xml").write_text("<project><java.version>11</java.version></project>")
+        module = tmp_path / "svc"
+        module.mkdir()
+        assert ci_java(module) == (11, f"from {tmp_path / 'pom.xml'}")
 
     def test_help_lists_harness_commands(self, capsys) -> None:
         with pytest.raises(SystemExit):

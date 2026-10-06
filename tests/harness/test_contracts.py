@@ -42,8 +42,10 @@ class TestReadContract:
         with pytest.raises(ContractError):
             read_contract("missing.json", repo)
         (repo / "o.yaml").write_text("openapi: 3.0.0", encoding="utf-8")
-        with pytest.raises(ContractError, match="YAML"):
-            read_contract("o.yaml", repo)
+        assert read_contract("o.yaml", repo) == {"openapi": "3.0.0"}
+        (repo / "a.yml").write_text("a: &x 1", encoding="utf-8")
+        with pytest.raises(ContractError, match="YAML subset only"):
+            read_contract("a.yml", repo)
         (repo / "bad.json").write_text("{", encoding="utf-8")
         with pytest.raises(ContractError, match="invalid JSON"):
             read_contract("bad.json", repo)
@@ -270,6 +272,37 @@ class TestGateWrappers:
         (tmp_path / "a.avsc").write_text(json.dumps(record("A")))
         avro = run_contract_diff("a.avsc", "a.avsc", tmp_path, "output", "backward")
         assert avro.summary["role"] == "backward" and avro.passed
+
+    def test_springdoc_yaml_property_removed(self, tmp_path: Path) -> None:
+        spec = """\
+openapi: 3.0.1
+paths:
+  /api/lesson/{id}:
+    get:
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Lesson'
+components:
+  schemas:
+    Lesson:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        updatedAt:
+          type: string
+          format: date-time
+"""
+        (tmp_path / "old.yaml").write_text(spec)
+        (tmp_path / "new.yaml").write_text(spec.replace(
+            "        updatedAt:\n          type: string\n          format: date-time\n", ""))
+        result = run_contract_diff("old.yaml", "new.yaml", tmp_path, "output", "full")
+        assert result.summary["kind"] == "openapi" and not result.passed
+        assert [f.code for f in result.findings] == ["property_removed"]
 
     def test_run_contract_check(self, tmp_path: Path) -> None:
         def put(rel: str, doc) -> None:

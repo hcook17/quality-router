@@ -172,8 +172,16 @@ harness for that team is host-agnostic; `qr` stays Job B inside it.
   scaffold`), and a human-approved hash lock (`qr spec lock`). The gate
   and the policy hook keep the implementing agent from editing them.
   Parsing JUnit XML for `qr feedback junit` is reading a build artifact,
-  like JaCoCo XML, not relaying Maven output. Spec:
+  like JaCoCo XML, not relaying Maven output.   Spec:
   `docs/design/phase-4-acceptance-first-sdd.md`.
+- **Spring Boot 2.7–4.x (phase 5):** one harness for Java 8 to 25,
+  JUnit 5.8 to 6, `javax` and `jakarta`, Maven and Gradle. `qr` reads the
+  Java release from `pom.xml`/`build.gradle` (reading a build file, not
+  running it), and scaffolds `@CsvSource(value = {...})` below Java 15.
+  The oracle gate judges MockMvc, WebTestClient/RestTestClient,
+  MockMvcTester and StepVerifier chains. Version-specific Spring test
+  imports are passed in by the team (`--import`), not guessed. Spec:
+  `docs/design/phase-5-spring-boot-2.7-4.x.md`.
 
 ## Build sequence
 
@@ -186,7 +194,11 @@ harness for that team is host-agnostic; `qr` stays Job B inside it.
 4. Phase 4 acceptance-first SDD — **done** (`spec new/lint/scaffold/
    lock`, `gate acceptance`, `feedback junit`, lock-aware policy hook).
    Spec: `docs/design/phase-4-acceptance-first-sdd.md`.
-5. Next: run the phase-4 pilot (prose spec vs acceptance-first under
+5. Phase 5 Spring Boot 2.7–4.x — **done** (`--java-release` detection,
+   array-form scaffold, Spring context options, Spring-aware oracles,
+   `github-gradle`, `--ci-java`). Spec:
+   `docs/design/phase-5-spring-boot-2.7-4.x.md`.
+6. Next: run the phase-4 pilot (prose spec vs acceptance-first under
    `qr eval`); `--json` on `status`, then `enable` / `disable`.
 
 Do not reopen Go, Wasmtime, docs MCP, RL trainer, or script intercept

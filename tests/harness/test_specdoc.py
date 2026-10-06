@@ -7,7 +7,9 @@ from pathlib import Path
 import pytest
 
 from quality_router.harness.scaffold import (
+    NULL_MARKERS,
     ScaffoldError,
+    TestContext,
     _csv_cell,
     java_identifier,
     method_name,
@@ -145,9 +147,11 @@ class TestScaffold:
         assert made.criteria == ["AC-1", "AC-2"] and made.unbound == ["AC-2"]
         assert src.startswith("package com.acme;")
         assert '@Tag("AC-1")' in src and '@DisplayName("AC-2 Missing license defaults")' in src
-        assert "void ac_1(String title, String expectedTitle) {" in src
+        assert "void ac_1(String title, String expectedTitle) throws Exception {" in src
         assert "'  Intro  ' | Intro" in src
-        assert "(null) | UNLICENSED" in src and "'(null)' | '(null)'" in src
+        # AC-2 has a literal "(null)" string, so its null marker moves to (nil).
+        assert 'nullValues = "(nil)"' in src and 'nullValues = "(null)"' in src
+        assert "(nil) | UNLICENSED" in src and "'(null)' | '(null)'" in src
         assert "assertEquals(expectedTitle, Objects.toString(svc.title(title), null));" in src
         assert "Object actualLicenseId = null; // bind AC-2: call the system under test with " \
                "manifest" in src
@@ -182,3 +186,70 @@ class TestScaffold:
         assert method_name("AC-2.1") == "ac_2_1"
         assert _csv_cell("") == "''" and _csv_cell("it's") == "'it''s'"
         assert _csv_cell(None) == "(null)" and _csv_cell("x") == "x"
+        assert _csv_cell(None, "(nil)") == "(nil)"
+        assert _csv_cell("a|b") == "'a|b'" and _csv_cell("#x") == "'#x'"
+        assert _csv_cell("x # y") == "x # y" and _csv_cell("(nil)") == "'(nil)'"
+
+    def test_null_marker_exhausted(self, write) -> None:
+        cells = " | ".join(f"`{m}`" for m in NULL_MARKERS)
+        spec = write("n.md", f"### AC-1 t\n| a | b | c | expected d |\n|---|---|---|---|\n"
+                             f"| {cells} |\n")
+        with pytest.raises(ScaffoldError, match="null marker"):
+            scaffold_tests(parse_spec(spec), "", "T", {})
+
+
+class TestScaffoldJavaReleaseAndContext:
+    def test_array_form_below_java_15(self, good: Path) -> None:
+        src = scaffold_tests(parse_spec(good), "", "T", {}, java_release=11).source
+        assert 'textBlock' not in src and '"""' not in src
+        assert "    @CsvSource(delimiter = '|', nullValues = \"(null)\", value = {" in src
+        assert "            \"'  Intro  ' | Intro\",\n" in src
+        assert "\n    })\n    void ac_1(" in src
+        with pytest.raises(ScaffoldError, match=">= 8"):
+            scaffold_tests(parse_spec(good), "", "T", {}, java_release=7)
+
+    def test_array_form_escapes_java_strings(self, write) -> None:
+        spec = write("e.md", '### AC-1 t\n| a | expected b |\n|---|---|\n'
+                             '| `say "hi"` | `back\\slash` |\n')
+        src = scaffold_tests(parse_spec(spec), "", "T", {}, java_release=8).source
+        assert '"say \\"hi\\" | back\\\\slash"' in src
+
+    def test_spring_boot_test_context(self, good: Path) -> None:
+        context = TestContext.spring_boot_test(
+            fields=("@Autowired ContentNormalizer normalizer;",),
+            imports=("com.acme.normalize.ContentNormalizer", "static org.x.Y.z",
+                     "org.springframework.beans.factory.annotation.Autowired"))
+        src = scaffold_tests(parse_spec(good), "com.acme", "T",
+                             {"AC-1": "normalizer.title(title)"}, context=context).source
+        assert "\n@SpringBootTest\nclass T {\n\n    @Autowired ContentNormalizer normalizer;\n\n" \
+            in src
+        assert src.count("import org.springframework.beans.factory.annotation.Autowired;") == 1
+        assert "import static org.x.Y.z;" in src
+        assert "import com.acme.normalize.ContentNormalizer;" in src
+        assert src.index("import org.springframework.boot") > src.index("import org.junit")
+
+    def test_explicit_spring_boot_test_annotation_kept(self, good: Path) -> None:
+        context = TestContext.spring_boot_test(
+            annotations=("@SpringBootTest(classes = App.class)", '@ActiveProfiles("test")'))
+        src = scaffold_tests(parse_spec(good), "", "T", {}, context=context).source
+        assert '@SpringBootTest(classes = App.class)\n@ActiveProfiles("test")\nclass T' in src
+        assert "\n@SpringBootTest\n" not in src
+
+    def test_indent_matches_house_style(self, good: Path) -> None:
+        src = scaffold_tests(parse_spec(good), "", "T", {}, indent=2).source
+        assert "\n  @ParameterizedTest(" in src and "\n      '  Intro  ' | Intro\n" in src
+        assert "\n    assertEquals(" in src and "\n  }\n" in src and "\n    " not in src.split(
+            "@ParameterizedTest")[0]
+        with pytest.raises(ScaffoldError, match="--indent"):
+            scaffold_tests(parse_spec(good), "", "T", {}, indent=0)
+
+    @pytest.mark.parametrize("context, message", [
+        (TestContext(imports=("com.acme; drop",)), "--import"),
+        (TestContext(annotations=("SpringBootTest",)), "--class-annotation"),
+        (TestContext(annotations=("@A\n@B",)), "--class-annotation"),
+        (TestContext(fields=(" ; ",)), "--field"),
+        (TestContext(fields=("A a;\nB b",)), "--field"),
+    ])
+    def test_context_validation(self, good: Path, context: TestContext, message: str) -> None:
+        with pytest.raises(ScaffoldError, match=message):
+            scaffold_tests(parse_spec(good), "", "T", {}, context=context)

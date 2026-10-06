@@ -179,12 +179,14 @@ INIT_EPILOG = textwrap.dedent(
       qr init --graph gortex --workspace-dep other-svc --module services/shared
       qr init --policy --host cursor
       qr init --policy --host claude-code --ci github-maven
+      qr init --ci github-gradle --ci-java 11
 
     Stamps a portable quality rule, hooks runner, and gitnexus off-marker.
     Optional --host adapters stamp that host's rule/hooks files only.
     --policy writes .quality-router/policy.json; with --host cursor|claude-code
     it also merges `qr policy hook` into that host's hook file.
-    --ci github-maven writes .github/workflows/qr-harness.yml (never overwrites).
+    --ci github-maven|github-gradle writes .github/workflows/qr-harness.yml
+    (never overwrites); its JDK comes from --ci-java, else the build file.
     Optional --graph gortex writes .gortex.yaml (no-op if gortex not on PATH).
     Does not write mcp.json. Does not set GITNEXUS_HOOKS=0. Idempotent.
     """
@@ -245,6 +247,12 @@ def _add_init_parser(subparsers) -> None:
         default=None,
         help="Stamp a CI workflow that builds, then runs the qr gates on its reports.",
     )
+    parser.add_argument(
+        "--ci-java",
+        type=int,
+        default=None,
+        help="JDK for --ci (default: the release in pom.xml/build.gradle, else 17).",
+    )
     parser.set_defaults(handler=cmd_init)
 
 
@@ -304,6 +312,7 @@ def cmd_init(args: Namespace) -> int:
         no_gitnexus=args.no_gitnexus,
         policy=args.policy,
         ci=args.ci,
+        ci_java=args.ci_java,
     )
     run_init(config)
     return 0

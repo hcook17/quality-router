@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import pytest
+
 from quality_router.harness.coverage_gate import (
     _match_report,
     is_test_path,
@@ -105,6 +107,9 @@ class TestDiffCoverage:
         assert is_test_path("src/test/java/A.java")
         assert is_test_path("svc/src/it/java/A.java")
         assert not is_test_path("src/main/java/test/A.java")
+        assert is_test_path("svc/src/integrationTest/java/A.java")
+        assert is_test_path("src/testFixtures/java/A.java")
+        assert not is_test_path("src/main/java/integrationTest/A.java")
 
 
 def method(body: str, args: str = "") -> TestMethod:
@@ -136,6 +141,123 @@ class TestOracleClassify:
         assert verdict.kind == "strong" and verdict.custom == 1
         helped = classify(method("checkItem(item);"), helpers=("checkItem",))
         assert helped.strong == 1 and helped.custom == 0
+
+    def test_bdd_mockito_then_should_is_mock(self) -> None:
+        assert classify(method("svc.run(); then(repo).should().save(any());")).kind == "mock_only"
+
+
+def kind(body: str) -> str:
+    return classify(method(body)).kind
+
+
+class TestSpringOracles:
+    """Spring Boot 2.7-4.x web and reactive test idioms (bodies are pre-blanked by javasrc)."""
+
+    def test_mockmvc_status_only_is_weak(self) -> None:
+        assert kind("mvc.perform(get( )).andExpect(status().isOk());") == "weak"
+        assert kind("mvc.perform(get( )).andExpect(MockMvcResultMatchers.status().is(404));") \
+            == "weak"
+        assert kind("mvc.perform(get( )).andExpect(jsonPath( ).exists());") == "weak"
+        assert kind("mvc.perform(get( ))"
+                    ".andExpectAll(status().isOk(), content().contentType(JSON));") == "weak"
+
+    def test_mockmvc_body_matchers_are_strong(self) -> None:
+        assert kind("mvc.perform(get( )).andExpect(status().isOk())"
+                    ".andExpect(jsonPath( ).value( ));") == "strong"
+        assert kind("mvc.perform(get( )).andExpect(content().json( ));") == "strong"
+        assert kind("mvc.perform(get( )).andExpectAll(status().isOk(), "
+                    "jsonPath( , is( )));") == "strong"
+        assert kind("mvc.perform(post( )).andExpect(redirectedUrl( ));") == "strong"
+
+    def test_web_and_rest_test_client(self) -> None:
+        assert kind("client.get().uri( ).exchange().expectStatus().isOk();") == "weak"
+        assert kind("client.get().uri( ).exchange().expectStatus().isOk()"
+                    ".expectBody().jsonPath( ).isEqualTo( );") == "strong"
+        assert kind("client.get().exchange().expectBody(String.class).isEqualTo( );") == "strong"
+        verdict = classify(method("client.get().exchange().expectBody(Item.class)"
+                                  ".consumeWith(r -> { assertThat(r.id()).isEqualTo( ); });"))
+        assert verdict.kind == "strong" and verdict.custom == 0
+
+    def test_mockmvc_tester(self) -> None:
+        assert kind("assertThat(mvc.get().uri( )).hasStatusOk();") == "weak"
+        assert kind("assertThat(mvc.get().uri( )).hasStatusOk().bodyJson()"
+                    ".extractingPath( ).isEqualTo( );") == "strong"
+        assert kind("assertThat(mvc.get().uri( )).bodyJson().isLenientlyEqualTo( );") == "strong"
+
+    def test_step_verifier(self) -> None:
+        assert kind("StepVerifier.create(flux).verifyComplete();") == "weak"
+        verdict = classify(method("StepVerifier.create(flux).expectNext( ).verifyComplete();"))
+        assert verdict.kind == "strong" and verdict.custom == 0
+        assert kind("flux.as(StepVerifier::create).expectNextCount(2).verifyComplete();") \
+            == "strong"
+
+    def test_openapi_validator_matcher_is_strong(self) -> None:
+        assert kind("mvc.perform(get( )).andExpect(openApi().isValid( ));") == "strong"
+
+
+class TestJUnit4AndRestAssuredOracles:
+    """Idioms from a real Boot 2.7 / JUnit 4 service (RestAssuredMockMvc, ExpectedException)."""
+
+    def test_rest_assured_status_only_is_weak(self) -> None:
+        assert kind("given().contentType(ContentType.JSON).body(dto).post(url)"
+                    ".then().statusCode(HttpStatus.OK.value());") == "weak"
+        assert kind("given().when().get( ).then().statusCode(200).contentType(JSON);") == "weak"
+
+    def test_rest_assured_body_matcher_or_contract_is_strong(self) -> None:
+        verdict = classify(method("given().when().get( ).then().statusCode(200)"
+                                  ".body( , equalTo( ));"))
+        assert verdict.kind == "strong" and verdict.custom == 0
+        assert kind("given().when().get( ).then().expect(openApi().isValid(SPEC))"
+                    ".statusCode(404);") == "strong"
+        assert kind("given().when().get( ).then().body( , notNullValue());") == "weak"
+
+    @pytest.mark.parametrize("body, expected", [
+        ("given().when().get( ).then().assertThat(status().isOk());", "weak"),
+        ("given().when().get( ).then().assertThat(status().isOk())"
+         ".expect(jsonPath( ).value(1));", "strong"),
+        ("given().when().get( ).then().expect(content().string( ));", "strong"),
+        ("given().when().get( ).then().statusCode(200)"
+         ".expect(authenticated().withUsername( ));", "strong"),
+        ("given().when().get( ).then().spec(okSpec);", "weak"),
+    ])
+    def test_rest_assured_mockmvc_result_matchers(self, body: str, expected: str) -> None:
+        verdict = classify(method(body))
+        assert verdict.kind == expected and verdict.strong + verdict.weak == 1
+
+    def test_rest_assured_extract_then_assert(self) -> None:
+        body = ("Item item = given().when().get( ).then().statusCode(200)"
+                ".extract().body().as(Item.class); assertEquals(1, item.count());")
+        assert kind(body) == "strong"
+        assert kind(body.replace("assertEquals(1, item.count())", "assertNotNull(item)")) \
+            == "weak"
+
+    def test_mockito_then_answer_is_not_rest_assured(self) -> None:
+        assert kind("when(repo.find(1)).then(inv -> null); svc.run();") == "none"
+
+    def test_expected_exception_rule(self) -> None:
+        assert kind("expectedException.expect(ItemNotFoundException.class); svc.save(x);") \
+            == "strong"
+        assert kind("thrown.expect(IllegalStateException.class);") == "strong"
+
+    @pytest.mark.parametrize("body, expected", [
+        ("assertTrue(router.isBookOrganized());", "strong"),
+        ("assertFalse(  , question.isCorrect(answers));", "strong"),
+        ("assertTrue(actual.containsKey( ),   );", "strong"),
+        ("assertTrue(!list.isEmpty());", "strong"),
+        ("assertTrue(Boolean.TRUE.equals(svc.flag(a)));", "strong"),
+        ("assertTrue(  , list.size() > 0);", "weak"),
+        ("assertTrue(a.isX() && b.isY());", "weak"),
+        ("assertTrue(x != null);", "weak"),
+        ("assertFalse(  , actual);", "weak"),
+        ("assertTrue(flag);", "weak"),
+        ("assertTrue(a.isX(), b.isY(), c);", "weak"),
+    ])
+    def test_boolean_predicate_assertions(self, body: str, expected: str) -> None:
+        assert kind(body) == expected
+
+    def test_context_loads_has_no_oracle(self) -> None:
+        assert kind("") == "none"
+        assert kind("if (x) { f(); }") == "none"
 
 
 TEST_FILE = """\
