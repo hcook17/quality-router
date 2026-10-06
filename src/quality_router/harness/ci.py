@@ -37,8 +37,15 @@ jobs:
           python-version: "3.13"
       - name: Install qr
         run: python -m pip install "$QR_PACKAGE"
+      - name: Acceptance lock
+        if: hashFiles('.quality-router/acceptance.lock.json') != ''
+        run: qr gate acceptance --base "$BASE_REF"
       - name: Build with JaCoCo
+        id: build
         run: mvn -B verify
+      - name: Test failure feedback
+        if: failure() && steps.build.outcome == 'failure'
+        run: qr feedback junit --reports '**/target/surefire-reports/*.xml' --sources src/test/java
       - name: Diff coverage
         run: qr gate diff-coverage --base "$BASE_REF" --jacoco '**/target/site/jacoco/jacoco.xml'
       - name: Test oracles
