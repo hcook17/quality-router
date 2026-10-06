@@ -68,6 +68,20 @@ qr init --ci github-gradle --ci-java 21
 
 Version table, binding layers (plain object, bean, MockMvc), verification and upgrade steer: `docs/design/phase-5-spring-boot-2.7-4.x.md`.
 
+## Shared-library API breaks and Gortex settings (phase 6)
+
+```text
+qr gate api-compat --report '**/target/japicmp/*.xml'           # binary/source breaks from japicmp XML
+qr gate api-compat --report build/japicmp.xml --level binary --ignore 'com.acme.internal.*'
+qr gate api-compat --report target/japicmp/japicmp.xml --allow-major-bump --strict
+qr init --graph gortex --workspace content-ingest \
+  --workspace-dep content-model --module edu.acme:content-model   # embedding off, facade-v1, Java Kafka boundaries
+```
+
+`qr init --graph gortex` prints the install-time flags (`gortex install --hook-mode=enrich`, `gortex init --no-skills`) and never runs `gortex`. Why each setting: `research/harness-kb/implementations.md`.
+
+Built test-first, with tests written by a separate agent and locked before implementation. The held-out tests ran by a third agent are in `tests/holdout/`. Criteria: `docs/design/phase-6-api-compat-and-gortex.md`. Lock: `.quality-router/acceptance.lock.json`.
+
 ## Layout
 
 | Path | Role |
