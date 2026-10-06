@@ -190,6 +190,7 @@ class InitConfig:
     no_gitnexus: bool = False
     policy: bool = False
     ci: str | None = None
+    ci_java: int | None = None
 
 
 # --------------------------------------------------------------------------- #
@@ -219,7 +220,7 @@ def run_init(config: InitConfig) -> None:
 
     # 5. CI template (optional)
     if config.ci:
-        stamp_ci(cwd, config.ci)
+        stamp_ci(cwd, config.ci, config.ci_java)
 
 
 def _write_portable_stamps(cwd: Path) -> None:

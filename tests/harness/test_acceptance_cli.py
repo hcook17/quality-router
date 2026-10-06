@@ -12,7 +12,7 @@ import pytest
 from harness.helpers import git
 from quality_router.cli import run
 from quality_router.harness.acceptance import LOCK_PATH
-from quality_router.harness.ci import GITHUB_MAVEN
+from quality_router.harness.ci import render_ci
 from quality_router.harness.report import EXIT_FAIL, EXIT_PASS, EXIT_USAGE
 
 SPEC = """\
@@ -221,6 +221,10 @@ class TestFeedback:
         assert run(args) == EXIT_USAGE
 
 
-def test_ci_template_runs_acceptance_and_feedback() -> None:
-    assert "qr gate acceptance --base" in GITHUB_MAVEN
-    assert "qr feedback junit" in GITHUB_MAVEN
+@pytest.mark.parametrize("kind", ["github-maven", "github-gradle"])
+def test_ci_template_runs_acceptance_and_feedback(kind: str) -> None:
+    text = render_ci(kind, 17, "default")
+    assert "qr gate acceptance --base" in text and "qr feedback junit --sources ." in text
+    assert text.index("Acceptance lock") < text.index("Build with JaCoCo")
+    assert "@" not in text.replace("actions/", "").replace("@v4", "").replace("@v5", "") \
+        .replace("@main", "")
