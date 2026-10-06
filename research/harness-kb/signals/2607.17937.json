@@ -1,0 +1,417 @@
+{
+ "arxiv_id": "2607.17937",
+ "fulltext_chars": 89443,
+ "fulltext_lines": 1379,
+ "authors_block": "A White-Box Study of Agent Skills in Code Auditing Yue Xue Affiliation: CertiK, USA Email: yue.xue@certik.com",
+ "vendor_affiliation_hits": [],
+ "n_authors": 1,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# When and How Context Rot Appears in Coding Agents:"
+  ],
+  [
+   30,
+   "###### Abstract"
+  ],
+  [
+   38,
+   "## 1 Introduction"
+  ],
+  [
+   89,
+   "## 2 Context Rot in Agent Skills"
+  ],
+  [
+   91,
+   "### 2.1 Agent Skills Are Contextual Capabilities"
+  ],
+  [
+   103,
+   "### 2.2 Operational Definition"
+  ],
+  [
+   109,
+   "### 2.3 From Instruction to Completed Work"
+  ],
+  [
+   137,
+   "### 2.4 Four Measurements of Rot"
+  ],
+  [
+   141,
+   "##### Frequency."
+  ],
+  [
+   151,
+   "##### Severity."
+  ],
+  [
+   167,
+   "##### Retention."
+  ],
+  [
+   177,
+   "##### Onset and propagation."
+  ],
+  [
+   183,
+   "## 3 White-Box Study Design"
+  ],
+  [
+   185,
+   "### 3.1 Design Principle"
+  ],
+  [
+   201,
+   "### 3.2 Primary Subject and Requirements"
+  ],
+  [
+   209,
+   "### 3.3 Sanitization and Leakage Control"
+  ],
+  [
+   215,
+   "### 3.4 Context Conditions"
+  ],
+  [
+   259,
+   "### 3.5 Onset Probes"
+  ],
+  [
+   265,
+   "### 3.6 Boundary Probes"
+  ],
+  [
+   269,
+   "### 3.7 Mitigation and Scaffold Probes"
+  ],
+  [
+   275,
+   "### 3.8 Delegated-Worker Probes"
+  ],
+  [
+   283,
+   "## 4 Empirical Method"
+  ],
+  [
+   285,
+   "### 4.1 Research Questions"
+  ],
+  [
+   315,
+   "### 4.2 Execution Configuration"
+  ],
+  [
+   321,
+   "### 4.3 Primary Quantitative Analysis"
+  ],
+  [
+   327,
+   "### 4.4 Stage Coding"
+  ],
+  [
+   333,
+   "### 4.5 Cross-Task and Cross-Model Interpretation"
+  ],
+  [
+   339,
+   "### 4.6 Operational Missingness"
+  ],
+  [
+   343,
+   "### 4.7 Usage and Equivalent Cost"
+  ],
+  [
+   347,
+   "## 5 Results"
+  ],
+  [
+   349,
+   "### 5.1 RQ1: When Does Context Rot Appear?"
+  ],
+  [
+   351,
+   "#### 5.1.1 The main pair is susceptible at the largest tested endpoint"
+  ],
+  [
+   379,
+   "#### 5.1.2 The onset is not a stable scalar threshold"
+  ],
+  [
+   422,
+   "#### 5.1.3 Tested context factors do not yield a stable ordering"
+  ],
+  [
+   428,
+   "##### Answer to RQ1."
+  ],
+  [
+   432,
+   "### 5.2 RQ2: How Often Does It Occur?"
+  ],
+  [
+   434,
+   "#### 5.2.1 Within the main pair, long-context failure is common"
+  ],
+  [
+   440,
+   "#### 5.2.2 Across tasks, frequency ranges from common to absent"
+  ],
+  [
+   504,
+   "##### Answer to RQ2."
+  ],
+  [
+   508,
+   "### 5.3 RQ3: How Much Capability Is Lost?"
+  ],
+  [
+   510,
+   "#### 5.3.1 Strict reliability loses more than average coverage"
+  ],
+  [
+   543,
+   "#### 5.3.2 Severity has a long tail"
+  ],
+  [
+   549,
+   "##### Answer to RQ3."
+  ],
+  [
+   553,
+   "### 5.4 RQ4: How Does Context Rot Propagate?"
+  ],
+  [
+   555,
+   "#### 5.4.1 The dominant failures occur after retrieval"
+  ],
+  [
+   603,
+   "##### Compilation loss."
+  ],
+  [
+   607,
+   "##### Execution drift."
+  ],
+  [
+   611,
+   "##### Verification blindness."
+  ],
+  [
+   615,
+   "##### Silent completion."
+  ],
+  [
+   621,
+   "##### Answer to RQ4."
+  ],
+  [
+   625,
+   "### 5.5 RQ5: What Mitigates the Observed Rot?"
+  ],
+  [
+   627,
+   "#### 5.5.1 Detailed external obligations outperform generic self-checking"
+  ],
+  [
+   650,
+   "#### 5.5.2 Coding-agent selection helps conditionally"
+  ],
+  [
+   656,
+   "##### Answer to RQ5."
+  ],
+  [
+   660,
+   "### 5.6 RQ6: Does Delegation Contain Context Rot?"
+  ],
+  [
+   662,
+   "#### 5.6.1 A fresh worker loses an old opaque contract across native compaction"
+  ],
+  [
+   718,
+   "#### 5.6.2 Refreshing data alone does not restore the executable contract"
+  ],
+  [
+   724,
+   "#### 5.6.3 Simpler history and collision attacks remain negative"
+  ],
+  [
+   728,
+   "##### Answer to RQ6."
+  ],
+  [
+   732,
+   "### 5.7 Operational Reliability Is a Separate Failure Process"
+  ],
+  [
+   775,
+   "## 6 Discussion"
+  ],
+  [
+   777,
+   "### 6.1 Context Rot Is a Reliability Distribution, Not a Window Limit"
+  ],
+  [
+   783,
+   "### 6.2 Useful Context and Harmful Context Compete"
+  ],
+  [
+   789,
+   "### 6.3 Rot Often Removes Obligations Rather Than General Ability"
+  ],
+  [
+   795,
+   "### 6.4 The Failure Chain Explains How Rot Becomes Silent"
+  ],
+  [
+   803,
+   "### 6.5 Why the Detailed Checklist Works"
+  ],
+  [
+   811,
+   "### 6.6 What Coding-Agent Scaffolds Can and Cannot Fix"
+  ],
+  [
+   817,
+   "### 6.7 Delegation Moves the Reliability Boundary"
+  ],
+  [
+   825,
+   "### 6.8 Implications for Evaluation"
+  ],
+  [
+   831,
+   "### 6.9 Research Agenda"
+  ],
+  [
+   839,
+   "## 7 Threats to Validity"
+  ],
+  [
+   841,
+   "### 7.1 Construct Validity"
+  ],
+  [
+   853,
+   "### 7.2 Internal and Conclusion Validity"
+  ],
+  [
+   865,
+   "### 7.3 External Validity"
+  ],
+  [
+   875,
+   "### 7.4 Reproducibility and Researcher Judgment"
+  ],
+  [
+   879,
+   "## 8 Related Work"
+  ],
+  [
+   881,
+   "### 8.1 Effective Context and Context Rot"
+  ],
+  [
+   889,
+   "### 8.2 Agentic Instruction Following and Skills"
+  ],
+  [
+   895,
+   "### 8.3 Agent and Coding-Agent Evaluation"
+  ],
+  [
+   901,
+   "### 8.4 Failure as a Trajectory"
+  ],
+  [
+   907,
+   "### 8.5 Position of This Work"
+  ],
+  [
+   911,
+   "## 9 Conclusion"
+  ],
+  [
+   923,
+   "## Data Availability"
+  ],
+  [
+   927,
+   "## Appendix A Failure-Coding Guide"
+  ],
+  [
+   931,
+   "### A.1 Ordered Decision Procedure"
+  ],
+  [
+   957,
+   "### A.2 Class Boundaries and Counterexamples"
+  ],
+  [
+   993,
+   "## Appendix B Condition and Check Inventory"
+  ],
+  [
+   995,
+   "### B.1 Main Check Families"
+  ],
+  [
+   1025,
+   "### B.2 Experimental Matrix"
+  ],
+  [
+   1101,
+   "### B.3 Why Some Pilot Runs Are Not Pooled"
+  ],
+  [
+   1105,
+   "## Appendix C Interrupted-Attempt Audit"
+  ],
+  [
+   1157,
+   "## Appendix D Usage and Cost Accounting"
+  ],
+  [
+   1169,
+   "## Appendix E Reproduction Checklist"
+  ],
+  [
+   1217,
+   "## Appendix F Additional Research Questions for a Larger Study"
+  ],
+  [
+   1223,
+   "## References"
+  ],
+  [
+   1379,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 7 Threats to Validity\n\n### 7.1 Construct Validity\n\nWe observe behavior, not attention, memory, comprehension, or private reasoning. A requirement absent from the artifact may have been internally represented and then lost later. Stage labels therefore identify the earliest visible failure, not a neural mechanism. Likewise, context rot is operationalized as a reliability change under controlled context manipulation; it is not evidence of irreversible model decay.\n\nCharacter count is reproducible but only a rough size measure. Relevant and Irrelevant are equal in characters, not necessarily tokens, semantic density, file layout, retrieval paths, or number of apparent tasks. The 299K result applies to two concrete context constructions. A future study should report tokenizer-specific lengths and manipulate structural factors independently.\n\nThe delegated-worker extension strengthens delivery evidence with per-call character counts and ordered canaries, but still reports characters rather than tokenizer-specific tokens. Its “model-visible” label means that each tool result was returned intact to the worker interface; it does not prove which content survived later compaction or received internal attention.\n\nThe 24 checks are strongest for schema presence, types, cardinality, protected content, and task-specific discriminators. They cannot prove the overall depth of an open-ended security audit. “Task success” therefore means success under the frozen operational requirements, not proof that every possible vulnerability insight is correct.\n\nThe realization chain simplifies interacting failures. A missing compiled obligation can cause a bad edit and an incomplete check; the summary assigns the earliest defensible visible stage. Independent double-coding would improve reliability. The broader 38/44 silent-completion and 2,857/2,916 coverage figures come from mixed historical inventories and are used only to show failure forms, never as population estimates.\n\n### 7.2 Internal and Conclusion Validity\n\nAgent output is stochastic, and the gateway may route a nominal model identifier to changing backends. We freeze prompts, workspaces, settings, and evaluator revisions, but cannot freeze provider internals. The main cells contain only ten valid runs. Their Wilson intervals are wide, and Clean-versus-long Fisher tests yield p=0.0698 . We therefore emphasize observed effect sizes and replication need rather than statistical confirmation.\n\nSample sizes were extended after inspecting pilot results. Irrelevant moved from 0/5 to 3/10 passes, showing the danger directly. The final analysis is exploratory rather than preregistered. The Detailed–Generic comparison reaches p=0.0325 , but a single n=10 comparison may overestimate the benefit and does not establish generality.\n\nChecks within an artifact are correlated. We do not treat 240 check results as independent trials. Coverage CRR is a descriptive severity measure; significance is computed only from run-level strict outcomes. Sparse factor, cross-model, and scaffold probes receive no inferential ranking or multiple-comparison claims.\n\nInfrastructure missingness is substantial and imbalanced. Twenty-eight extension attempts are excluded, including 20 in Irrelevant. If difficult generations disconnect more often, scoreable-run success may be optimistic; if disconnects are unrelated incidents, counting them as agent failures is unfair. The logs cannot distinguish these cases. We therefore expose both scoreable-run quality and attempt-level scoreability.\n\nThe decisive sub-agent result is one valid OLD trajectory and was discovered after earlier stress probes; it estimates neither a probability nor a threshold. The codebook-refresh arm is a separate fresh trajectory, not a branch from an identical post-compaction checkpoint, and the full-contract arm fails its Acquisition gate. Native compaction counts are system events, but the claim that the mapping was absent and the prohibited reads occurred d",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 8,
+  "seeds_or_runs": 0,
+  "swe_bench": 2,
+  "contamination": 7,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 1
+ },
+ "fulltext_source": "html"
+}

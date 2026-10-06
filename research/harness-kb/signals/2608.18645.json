@@ -1,0 +1,117 @@
+{
+ "arxiv_id": "2608.18645",
+ "fulltext_chars": 33038,
+ "fulltext_lines": 775,
+ "authors_block": "Effectiveness and Token Efficiency Freya Wirdemann Affiliation: Heidelberg University Heidelberg, Germany is316@stud.uni-heidelberg.de Markus Borg Affiliation: CodeScene and Lund University Malmö, Sweden markus.borg@codescene.com Nadim Hagatulah Affiliation: Lund University Lund, Sweden nadim.hagatulah@cs.lth.se Adam Tornhill Affiliation: CodeScene Malmö, Sweden adam.tornhill@codescene.com",
+ "vendor_affiliation_hits": [],
+ "n_authors": 4,
+ "comment": "Accepted at the Engineering Track of the 26th IEEE International Conference on Source Code Analysis and Manipulation (SCAM 2026)",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Code Health in LLM-Based Test Generation:"
+  ],
+  [
+   56,
+   "###### Abstract"
+  ],
+  [
+   60,
+   "###### Index Terms:"
+  ],
+  [
+   63,
+   "## I Introduction"
+  ],
+  [
+   82,
+   "## II Background and Related Work"
+  ],
+  [
+   92,
+   "## III Method"
+  ],
+  [
+   94,
+   "### III-A Dataset Creation"
+  ],
+  [
+   113,
+   "### III-B LLM and Prompt Engineering"
+  ],
+  [
+   121,
+   "### III-C Experimental Setup"
+  ],
+  [
+   129,
+   "### III-D Data Analysis"
+  ],
+  [
+   133,
+   "#### III-D1 Coverage Testing"
+  ],
+  [
+   137,
+   "#### III-D2 Mutation Testing"
+  ],
+  [
+   141,
+   "#### III-D3 Tokenization"
+  ],
+  [
+   145,
+   "## IV Results and Discussion"
+  ],
+  [
+   149,
+   "### IV-A RQ1: CodeHealth and Test Effectiveness"
+  ],
+  [
+   376,
+   "### IV-B RQ2: CodeHealth and Token Efficiency"
+  ],
+  [
+   461,
+   "## V Implications and Limitations"
+  ],
+  [
+   476,
+   "## VI Conclusion and Future Work"
+  ],
+  [
+   482,
+   "## Acknowledgment"
+  ],
+  [
+   486,
+   "## References"
+  ],
+  [
+   775,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgment\n\nThis work was partially supported by the Wallenberg AI, Autonomous Systems and Software Program (WASP WARA-Ops) and the Competence Centre NextG2Com (VINNOVA grant 2023-00541).\n\n## References\n\n[1]\nThoughtworks (2025)\n\nTechnology Radar: An Opinionated Guide to Today’s Technology Landscape.\n\nTechnical report\n\nTechnical Report 32.\n\nExternal Links: Link\n\nCited by: §I,\n§V.\n\n[2]\nM. Borg, N. Hagatulah, A. Tornhill, and E. Söderberg (2026)\n\nCode for Machines, Not Just Humans: Quantifying AI-Friendliness with Code Health Metrics.",
+ "limitations": "## V Implications and Limitations\n\nCoding agents’ ability to analyze and manipulate source code in practical settings does not depend only on the capabilities of their underlying LLMs, agent harnesses, and instructions. The maintainability of the code they operate on is also a critical factor. In our previous work [2], we used the success rate of AI-generated refactoring as a proxy for AI-friendliness [1]. In this study, we extend that perspective to test-case generation by analyzing whether healthier code is associated with more effective generated tests.\n\nOur results related to RQ1 add more evidence to the proposition that AI tools, just like humans, perform better in healthy codebases. Median line coverage, branch coverage, and mutation score are highest in the upper CH bins, and the correlation between CH and mutation score in particular suggests a potentially relevant implication for Java and C++.\n\nFor RQ2, our findings provide an initial link between software maintainability and LLM economics. Poor maintainability is traditionally understood as a human cost: it makes code harder to understand, test, and evolve. In line with our previous study [2], our analysis suggests an additional AI-era cost: unhealthy code may also consume more LLM context.\n\nThis matters for AI-assisted development because tokens are the unit on which LLM APIs are billed, affecting prompting costs, code retrieval, context-window usage, and the practical efficiency of agentic workflows. Poor maintainability may therefore create a double penalty, i.e., it challenges human cognition while also making LLM-driven work more costly.\n\nThis study constitutes a first exploration of test effectiveness and token efficiency. The main threat to the validity of this work is external validity, as the source code under study originates in competitive programming. CodeContests consists of standalone competitive-programming solutions rather than conventional production units, limiting generalizability to industrial unit testing.\nHowever, the corpus spans many quality levels, and CH captures local properties (nesting, complexity, etc.) that exist in any code regardless of domain. Also, our effectiveness scores are comparable to those reported in related work [13, 10], thus we argue that the relative differences across bins carry meaning.\n\nA second threat to generalizability is that we use a single LLM, Qwen3-Coder-30B. Larger frontier models might generate substantially better test cases, potentially also for lower-CH code. Given the rapid development of AI-assisted coding, future work should study code from additional domains, newer LLMs, and more advanced agentic workflows.\n\n## VI Conclusion and Future Work\n\nFirst, CH provides a weak but consistent signal of LLM-generated test effectiveness. The relationship is clearest for mutation score, suggesting that healthier code is more likely to yield test cases that detect injected behavioral changes, not only tests that execute lines or branches. Second, CH is negatively correlated with input-token count across tokenizers. For Java and C++, the association remains after controlling for SLOC. For Java, it also remains after controlling for character count, suggesting that low-CH Java code incurs token overhead beyond source-text length alone.\n\nThis preliminary work opens avenues for future research. First, we plan to expand the set of studied LLMs and move beyond the domain of competitive programming. The current setup was useful for identifying differences in how LLMs process code across varying levels of CH. However, future studies should consider more realistic testing workflows based on agentic designs, including test-suite execution and iterative test generation toward coverage targets. Such multi-turn settings would also provide a richer context for studying token economics, including output-token consumption, which was considered out of scope in the present study.\n\n## Acknowledgment\n\nThis work was partially supported ",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 3,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 44,
+  "industrial": 5
+ },
+ "fulltext_source": "html"
+}

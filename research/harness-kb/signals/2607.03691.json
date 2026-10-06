@@ -1,0 +1,515 @@
+{
+ "arxiv_id": "2607.03691",
+ "fulltext_chars": 155917,
+ "fulltext_lines": 2686,
+ "authors_block": "Journal: TOSEMVolume: 000CCS: Software and its engineering Software evolutionCCS: Software and its engineering Software maintenance toolsCCS: Computing methodologies Natural language processing Oussama Ben Sghaier Affiliation: Queen’s University, Canada email: oussama.sghaier@queensu.ca , Hao Li Affiliation: Queen’s University, Canada email: hao.li@queensu.ca , Bram Adams Affiliation: Queen’s University, Canada email: bram.adams@queensu.ca and Ahmed E. Hassan Affiliation: Queen’s University, Canada email: ahmed@cs.queensu.ca 2026",
+ "vendor_affiliation_hits": [],
+ "n_authors": 4,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/QwenLM/qwen-code",
+  "https://github.com/SWE-bench/SWE-bench",
+  "https://github.com/anthropics/claude-code",
+  "https://github.com/google-gemini/gemini-cli",
+  "https://github.com/openai/codex"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   26,
+   "# Don’t Blame the Large Language Model: How Agent Harness Evolution Shapes Coding Agent Quality"
+  ],
+  [
+   59,
+   "###### Abstract."
+  ],
+  [
+   69,
+   "###### Keywords:"
+  ],
+  [
+   72,
+   "## 1. Introduction"
+  ],
+  [
+   153,
+   "## 2. Background"
+  ],
+  [
+   157,
+   "### 2.1. Coding Agents"
+  ],
+  [
+   163,
+   "### 2.2. Agent Harness"
+  ],
+  [
+   179,
+   "### 2.3. SWE-bench"
+  ],
+  [
+   183,
+   "## 3. Methodology"
+  ],
+  [
+   192,
+   "### 3.1. Coding Agent Selection"
+  ],
+  [
+   194,
+   "#### 3.1.1. Landscape overview: Coding Agent Harnesses (RQ0)"
+  ],
+  [
+   203,
+   "#### 3.1.2. Longitudinal Analysis: Qwen Code CLI (RQ1–RQ3)"
+  ],
+  [
+   215,
+   "### 3.2. Task Sampling"
+  ],
+  [
+   255,
+   "### 3.3. Agent Execution and Evaluation"
+  ],
+  [
+   259,
+   "##### Model Serving."
+  ],
+  [
+   263,
+   "##### Agent Execution."
+  ],
+  [
+   267,
+   "##### Patch Evaluation."
+  ],
+  [
+   271,
+   "### 3.4. Metrics Computation"
+  ],
+  [
+   289,
+   "### 3.5. Reference Architecture"
+  ],
+  [
+   295,
+   "## 4. RQ0: What are the scale and evolutionary characteristics of agent harness projects?"
+  ],
+  [
+   297,
+   "### 4.1. Motivation"
+  ],
+  [
+   301,
+   "### 4.2. Study Design"
+  ],
+  [
+   360,
+   "#Stars"
+  ],
+  [
+   361,
+   "#Commits"
+  ],
+  [
+   362,
+   "#Releases"
+  ],
+  [
+   363,
+   "#Issues"
+  ],
+  [
+   364,
+   "#PRs"
+  ],
+  [
+   365,
+   "#Contributors"
+  ],
+  [
+   431,
+   "### 4.3. Results"
+  ],
+  [
+   433,
+   "##### Finding 1: Agent harnesses release 13–28 \\times more frequently than traditional open-source projects."
+  ],
+  [
+   441,
+   "#Releases"
+  ],
+  [
+   445,
+   "#Releases"
+  ],
+  [
+   514,
+   "##### Finding 2: Agent harnesses sustain 13–34 merged commits per day with near-instantaneous PR review times."
+  ],
+  [
+   523,
+   "#Commits"
+  ],
+  [
+   524,
+   "#Commits/day"
+  ],
+  [
+   525,
+   "#Commits/release"
+  ],
+  [
+   526,
+   "#PRs"
+  ],
+  [
+   578,
+   "##### Finding 3: Agent harnesses accumulate issues faster than they can resolve them, leading to growing backlogs."
+  ],
+  [
+   588,
+   "#Total"
+  ],
+  [
+   589,
+   "#Open"
+  ],
+  [
+   590,
+   "#Closed"
+  ],
+  [
+   592,
+   "#Issues/Day"
+  ],
+  [
+   655,
+   "## 5. RQ1: How Does Agent Quality Evolve Across Successive Releases?"
+  ],
+  [
+   657,
+   "### 5.1. Motivation"
+  ],
+  [
+   661,
+   "### 5.2. Study Design"
+  ],
+  [
+   663,
+   "#### 5.2.1. Agent Harness Selection and Version Control"
+  ],
+  [
+   670,
+   "#### 5.2.2. Local Model Configuration"
+  ],
+  [
+   674,
+   "#### 5.2.3. Evaluation Methodology and Metrics"
+  ],
+  [
+   686,
+   "### 5.3. Results"
+  ],
+  [
+   688,
+   "##### Finding 4: Quality metrics are consistent across independent runs."
+  ],
+  [
+   702,
+   "##### Finding 5: Resolve rate fluctuates without statistically significant trend across releases."
+  ],
+  [
+   710,
+   "##### Finding 6: Token consumption and number of tool calls exhibit an overall increasing trend with significant variations at intermediate versions."
+  ],
+  [
+   723,
+   "##### Finding 7: Failed tasks consume more resources than successful ones."
+  ],
+  [
+   727,
+   "##### Finding 8: Larger system prompts and more conversation turns compound to drive token inflation."
+  ],
+  [
+   733,
+   "### 5.4. Case Studies"
+  ],
+  [
+   763,
+   "## 6. RQ2: What Project-Level Development Patterns Explain Quality Shifts?"
+  ],
+  [
+   765,
+   "### 6.1. Motivation"
+  ],
+  [
+   769,
+   "### 6.2. Study Design"
+  ],
+  [
+   780,
+   "#"
+  ],
+  [
+   788,
+   "# Days elapsed between this release and the previous one"
+  ],
+  [
+   794,
+   "# Commits merged in the release window"
+  ],
+  [
+   798,
+   "# Pull requests merged"
+  ],
+  [
+   802,
+   "# Distinct contributing developers"
+  ],
+  [
+   808,
+   "#Total lines added + deleted across all PRs"
+  ],
+  [
+   828,
+   "# Files touched"
+  ],
+  [
+   866,
+   "# Open issues tagged needs-triage at release time"
+  ],
+  [
+   870,
+   "# Issues opened during the release window"
+  ],
+  [
+   874,
+   "# Issues labeled as bugs"
+  ],
+  [
+   878,
+   "# Issues categorized as feature requests"
+  ],
+  [
+   884,
+   "##### Classification Thresholding."
+  ],
+  [
+   902,
+   "##### Statistical Methods."
+  ],
+  [
+   916,
+   "##### Multiple Testing Correction."
+  ],
+  [
+   920,
+   "##### Absolute vs. Delta Analysis."
+  ],
+  [
+   925,
+   "### 6.3. Results"
+  ],
+  [
+   927,
+   "#### 6.3.1. Absolute Analysis: Accumulated Release Characteristics"
+  ],
+  [
+   941,
+   "#Tool Calls"
+  ],
+  [
+   1267,
+   "##### Finding 9: Development intensity correlates with cost, but not with improved effectiveness."
+  ],
+  [
+   1273,
+   "##### Finding 10: Feature and issue activity are positively associated with resolve rate, but at the cost of efficiency."
+  ],
+  [
+   1280,
+   "##### Finding 11: Refactoring and release cadence show no quality benefit."
+  ],
+  [
+   1284,
+   "#### 6.3.2. Delta ( \\Delta ) Analysis: Immediate Release-to-Release Transitions"
+  ],
+  [
+   1616,
+   "##### Finding 12: Larger PR size is associated with immediate cost savings."
+  ],
+  [
+   1621,
+   "##### Finding 13: Code cleanup associates with lower token consumption but fix-heavy transitions correlate with higher costs."
+  ],
+  [
+   1639,
+   "## 7. RQ3: Which Architectural Components Explain Quality Shifts?"
+  ],
+  [
+   1641,
+   "### 7.1. Motivation"
+  ],
+  [
+   1645,
+   "### 7.2. Study Design"
+  ],
+  [
+   1656,
+   "#"
+  ],
+  [
+   1678,
+   "#Lines changed in feature-oriented commits"
+  ],
+  [
+   1682,
+   "#Lines changed in bug-fix commits"
+  ],
+  [
+   1686,
+   "#Lines changed in refactoring commits"
+  ],
+  [
+   1706,
+   "##### Multiple Testing Correction."
+  ],
+  [
+   1710,
+   "### 7.3. Results"
+  ],
+  [
+   1712,
+   "#### 7.3.1. Absolute Analysis: Accumulated Architectural Impact"
+  ],
+  [
+   1718,
+   "#"
+  ],
+  [
+   1766,
+   "##### Finding 14: LLM Provider and Extensibility associate with better token efficiency."
+  ],
+  [
+   1772,
+   "##### Finding 15: Context management expansion associates with lower token efficiency."
+  ],
+  [
+   1776,
+   "##### Finding 16: UI refactoring shows divergent short- and long-term effects."
+  ],
+  [
+   1780,
+   "#### 7.3.2. Delta ( \\Delta ) Analysis: Immediate Release-to-Release Impacts"
+  ],
+  [
+   1786,
+   "#"
+  ],
+  [
+   1842,
+   "##### Finding 17: Security modifications associate with efficiency gains."
+  ],
+  [
+   1846,
+   "##### Finding 18: LLM Provider transitions associate with high regression risk; Persistence rework correlates with efficiency gains."
+  ],
+  [
+   1859,
+   "## 8. Discussion"
+  ],
+  [
+   1863,
+   "### 8.1. More Code Does Not Mean Better Agents"
+  ],
+  [
+   1875,
+   "### 8.2. The Absence of Non-functional Agentic Regression Testing"
+  ],
+  [
+   1885,
+   "### 8.3. Agentic CLIs as a New Category of Software"
+  ],
+  [
+   1896,
+   "## 9. Threats to Validity"
+  ],
+  [
+   1926,
+   "## 10. Related Work"
+  ],
+  [
+   1930,
+   "### 10.1. Coding Agents and Benchmarks"
+  ],
+  [
+   1941,
+   "### 10.2. Software Evolution and Release Engineering"
+  ],
+  [
+   1951,
+   "### 10.3. Empirical Studies of AI-Assisted Development"
+  ],
+  [
+   1961,
+   "## 11. Conclusion"
+  ],
+  [
+   1971,
+   "## References"
+  ],
+  [
+   2455,
+   "## Appendix A Appendix: Reference Architecture for Coding Agent Harness"
+  ],
+  [
+   2463,
+   "### A.1. Derivation Process"
+  ],
+  [
+   2467,
+   "##### Step 1: Conceptual and Concrete Architecture Extraction."
+  ],
+  [
+   2493,
+   "##### Step 2: Reference Architecture Synthesis."
+  ],
+  [
+   2507,
+   "### A.2. The Reference Architecture of AI coding agent harness"
+  ],
+  [
+   2515,
+   "#### A.2.1. Communication Backbone"
+  ],
+  [
+   2533,
+   "#### A.2.2. Core Components"
+  ],
+  [
+   2535,
+   "##### 1. User Interface (UI) Layer."
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 9. Threats to Validity\n\nInternal Validity.\nLLM stochasticity is a known confounding factor in agent evaluations. To mitigate this, we used the default sampling parameters of the Qwen Code CLI and executed each task twice per release. The resulting run-to-run agreement rate of 87.7% (Section 5.3), where both runs were strongly consistent in task outcomes, confirms that observed quality variations are attributable to agent harness changes rather than model non-determinism. By self-hosting the LLM via vLLM on dedicated hardware, we also eliminated external API variability (timeouts, rate-limiting, silent model updates) as a confound.\n\nOur statistical analyses in RQ2 and RQ3 employ multiple testing correction (Benjamini-Hochberg) to control the false discovery rate. However, the sample size of 35 releases limits statistical power, particularly for the delta analysis where n=34 . We report effect sizes (Cliff’s d ) alongside significance tests to ensure that reported findings reflect practically meaningful differences.\n\nExternal Validity.\nThe primary threat to external validity is our focus on a single coding agent harness (the Qwen Code CLI) for the controlled longitudinal analysis (i.e., RQ1–3). Whether the results generalize to other agent harnesses such as SWE-agent, OpenHands, or Codex remains an open question. We deliberately prioritized longitudinal depth (35 releases \\times 50 tasks \\times 2 runs = 3,500 inference executions and evaluations), which required several weeks of computation, over multi-harness breadth, as this design enables the controlled experimentation required to isolate the agent harness variable. The broad analysis in RQ0 provides complementary evidence that the hyper-churn development patterns we observe are industry-wide, suggesting that the conditions for quality fluctuations are present across multiple agent harnesses. Nevertheless, we encourage future replication studies across additional agent implementations.\n\nOur RQ0 analysis relies on GitHub repository data (commits, PRs, issues), which carries known threats when mining software repositories (Kalliamvakou et al., 2014). Not all development activity is visible through the public repository; some changes may occur in private forks or internal branches before being merged.\n\nOur evaluation uses a single LLM (Qwen3-Next-80B-A3B-Instruct). We selected this model because Qwen Code is designed and optimized for Qwen-series models,1616\n 16\n\n https://github.com/QwenLM/qwen-code and because Qwen Code is a strong open-weight model that can be self-hosted via vLLM on dedicated hardware, eliminating external API variability as a confound. Different models may interact with agent harness changes differently. A model with stronger instruction-following capabilities might be more robust to prompt bloat, while a weaker model might be more sensitive. Our findings should be interpreted as evidence that agent harness matters, not as universal quantitative predictions for all model-harness combinations.\n\nThe task sample (50 tasks from SWE-bench Verified) represents a subset of the full benchmark. While our stratified sampling preserves the difficulty distribution, the smaller sample size may not capture rare task types where agent harness changes have outsized effects.\n\nOur selection criteria for RQ0 (open-source, actively maintained, CLI-based) ensure that the projects under study have sufficient release history to observe meaningful evolution.\nAgent harnesses with few or no releases would not meet these criteria, which means that our characterization of high development activity may not generalize to less active projects. However, our goal in RQ0 is precisely to characterize the most actively developed agent harnesses, since these are the ones most likely to exhibit the evolution patterns we study.\n\nConstruct Validity.\nWe use the SWE-bench Resolve Rate as our primary effectiveness metric. This binary metric (all tests pass or not) does not capture partial progress",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 40,
+  "seeds_or_runs": 2,
+  "swe_bench": 34,
+  "contamination": 0,
+  "human_study": 3,
+  "java": 1,
+  "industrial": 2
+ },
+ "fulltext_source": "html"
+}

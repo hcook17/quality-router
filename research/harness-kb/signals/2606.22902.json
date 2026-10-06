@@ -1,0 +1,367 @@
+{
+ "arxiv_id": "2606.22902",
+ "fulltext_chars": 83284,
+ "fulltext_lines": 2286,
+ "authors_block": "Pengfei Zhou Zhiwei Tang Yixing Ma Jiasheng Tang‡ Yizeng Han Zhenglin Wan Fanqing Meng Wei Wang Bohan Zhuang Wangbo Zhao‡ Yang You‡ National University of Singapore DAMO Academy, Alibaba Group Hupan Lab Zhejiang University University of California, Berkeley The Hong Kong University of Science and Technology",
+ "vendor_affiliation_hits": [
+  "Alibaba"
+ ],
+ "n_authors": 11,
+ "comment": "39 pages, 21 figures, a living technical report with a living benchmark that continuously updates",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/LanceZPF/agent-as-a-router.",
+  "https://github.com/SWE-agent/mini-swe-agent",
+  "https://github.com/openai/codex"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   30,
+   "# Agent-as-a-Router: Agentic Model Routing for Coding Tasks"
+  ],
+  [
+   36,
+   "###### Abstract"
+  ],
+  [
+   40,
+   "## 1 Introduction"
+  ],
+  [
+   64,
+   "## 2 Related Work"
+  ],
+  [
+   66,
+   "##### LLM Routing."
+  ],
+  [
+   71,
+   "##### Coding Agent."
+  ],
+  [
+   77,
+   "## 3 Agent-as-a-Router"
+  ],
+  [
+   79,
+   "### 3.1 Preliminary: The Performance Gap Diagnosis"
+  ],
+  [
+   121,
+   "### 3.2 The C-A-F Loop"
+  ],
+  [
+   125,
+   "##### The C-A-F loop."
+  ],
+  [
+   135,
+   "##### Per-loop components."
+  ],
+  [
+   139,
+   "##### Contextual-bandit equivalence."
+  ],
+  [
+   155,
+   "##### Per-task oracle and cumulative regret."
+  ],
+  [
+   183,
+   "### 3.3 ACRouter Instantiation"
+  ],
+  [
+   202,
+   "### 3.4 Decomposed Routing Policies"
+  ],
+  [
+   214,
+   "## 4 CodeRouterBench"
+  ],
+  [
+   220,
+   "### 4.1 Benchmark Construction"
+  ],
+  [
+   244,
+   "##### Real-World Test: Agentic Programming"
+  ],
+  [
+   253,
+   "### 4.2 Model Pool"
+  ],
+  [
+   261,
+   "## 5 Empirical Validation"
+  ],
+  [
+   263,
+   "### 5.1 Metrics"
+  ],
+  [
+   414,
+   "### 5.2 Main Results and Observations"
+  ],
+  [
+   426,
+   "### 5.3 Discussion"
+  ],
+  [
+   428,
+   "##### Takeaways."
+  ],
+  [
+   436,
+   "##### Limitations."
+  ],
+  [
+   442,
+   "## 6 Conclusion"
+  ],
+  [
+   448,
+   "## References"
+  ],
+  [
+   911,
+   "## Appendix A ACRouter System Architecture"
+  ],
+  [
+   915,
+   "### A.1 Core Modules and Tool Layer"
+  ],
+  [
+   917,
+   "##### Core modules (decision layer)."
+  ],
+  [
+   931,
+   "##### Tool layer (execution infrastructure)."
+  ],
+  [
+   955,
+   "### A.2 Per-Loop Reward Weights and Reported Regret"
+  ],
+  [
+   963,
+   "##### Per-task (micro) oracle."
+  ],
+  [
+   971,
+   "##### Bandit reward."
+  ],
+  [
+   975,
+   "### A.3 Configuration Taxonomy"
+  ],
+  [
+   1011,
+   "## Appendix B Benchmark and Setup Details"
+  ],
+  [
+   1015,
+   "### B.1 Coding Dimensions"
+  ],
+  [
+   1074,
+   "### B.2 Data Split and Evaluation Levels"
+  ],
+  [
+   1090,
+   "### B.3 Model Pricing"
+  ],
+  [
+   1094,
+   "#### B.3.1 API Pricing"
+  ],
+  [
+   1145,
+   "#### B.3.2 Local Serving Token Cost Calculation"
+  ],
+  [
+   1149,
+   "##### Hardware and pricing."
+  ],
+  [
+   1159,
+   "##### Workload."
+  ],
+  [
+   1163,
+   "##### Configuration."
+  ],
+  [
+   1167,
+   "##### Measured throughput."
+  ],
+  [
+   1177,
+   "##### Derived per-token cost."
+  ],
+  [
+   1187,
+   "##### Reproducibility."
+  ],
+  [
+   1191,
+   "### B.4 Router Prompt Templates"
+  ],
+  [
+   1195,
+   "#### B.4.1 Zero-Shot Router Prompt"
+  ],
+  [
+   1203,
+   "#### B.4.2 Few-Shot Router Prompt"
+  ],
+  [
+   1207,
+   "## Examples"
+  ],
+  [
+   1209,
+   "### Example 1"
+  ],
+  [
+   1223,
+   "### Example 2"
+  ],
+  [
+   1227,
+   "### Example 3"
+  ],
+  [
+   1235,
+   "## Task to Route"
+  ],
+  [
+   1273,
+   "#### B.4.3 Performance-Statistics Ablation Prompt"
+  ],
+  [
+   1283,
+   "## Appendix C Supplementary Experiments"
+  ],
+  [
+   1287,
+   "### C.1 LLM-as-a-Router Across All 8 Models"
+  ],
+  [
+   1289,
+   "#### C.1.1 Setup"
+  ],
+  [
+   1476,
+   "#### C.1.2 Results and Findings"
+  ],
+  [
+   1480,
+   "### C.2 Qwen Router Scaling Sweep"
+  ],
+  [
+   1482,
+   "#### C.2.1 Setup"
+  ],
+  [
+   1486,
+   "#### C.2.2 Results and Findings"
+  ],
+  [
+   1526,
+   "##### Findings."
+  ],
+  [
+   1544,
+   "## Appendix D Supplementary Analyses"
+  ],
+  [
+   1548,
+   "### D.1 Model Capability Profiles"
+  ],
+  [
+   1554,
+   "### D.2 Full Model \\times Dimension Score Matrix"
+  ],
+  [
+   1888,
+   "### D.3 Variance Decomposition"
+  ],
+  [
+   1892,
+   "### D.4 Router Bias Distribution"
+  ],
+  [
+   1898,
+   "### D.5 Cost Comparison"
+  ],
+  [
+   1904,
+   "### D.6 In-distribution Per-Method Breakdown"
+  ],
+  [
+   2024,
+   "### D.7 Real-World Test (OOD) Per-Method Breakdown"
+  ],
+  [
+   2142,
+   "##### Why the static baselines collapse on OOD."
+  ],
+  [
+   2146,
+   "##### Honest tracking of agentic outcomes."
+  ],
+  [
+   2150,
+   "##### Per-Model Score Matrix on OOD."
+  ],
+  [
+   2216,
+   "## Appendix E Discussion"
+  ],
+  [
+   2218,
+   "### E.1 Why Routing Matters"
+  ],
+  [
+   2222,
+   "### E.2 Practitioner’s Guide: Building Your Own Agent Router"
+  ],
+  [
+   2254,
+   "### E.3 Beyond Model Routing"
+  ],
+  [
+   2258,
+   "### E.4 Extensibility Roadmap"
+  ],
+  [
+   2262,
+   "## Appendix F Task Examples Across All 10 Dimensions"
+  ],
+  [
+   2286,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "##### Limitations.\n\nA key limitation is that provider-side cache hit rates are not observable, so our monetary cost estimates are based on public token prices and measured token usage.\nTherefore, monetary cost serves only as a secondary reference metric for relative comparison rather than acting as a primary indicator.\nThe agentic programming evaluation uses a 40-step limit instead of the standard 250-step configuration to keep the budget tractable (the relative router comparison is unaffected). Our C-A-F instantiation uses an LLM policy with a memory-kNN ensemble; alternative instantiations (e.g., advanced parameter-level memory techniques) remain to be explored.\n\n## 6 Conclusion\n\nIn this work, we propose Agent-as-a-Router, a routing framework that acquires execution-grounded information through a Context-Action-Feedback loop, naturally formalizable as a contextual bandit with cumulative regret as its streaming metric.\nWe instantiate the framework as ACRouter, composed of an Orchestrator, a Verifier, and a Memory module, and evaluate it on CodeRouterBench, an evaluation environment built specifically to enable regret-based router comparison on streaming tasks. ACRouter attains the lowest cumulative regret on the in-distribution stream tasks and is the only router that maintains strong performance under\nthe OOD agentic-programming setting. More broadly, actively closing the information gap through execution-grounded feedback emerges as a general principle for building agentic systems that must route among heterogeneous tools or models.\n\n## References\n\n[1]\nP. Aggarwal, A. Madaan, A. Anand, S. P. Potharaju, S. Mishra, P. Zhou, A. Gupta, D. Rajagopal, K. Kappaganthu, Y. Yang, et al. (2024)\n\nAutomix: automatically mixing language models.\n\nAdvances in Neural Information Processing Systems 37, pp. 131000–131034.\n\nCited by: §2.\n\n[2]\nS. Agrawal and N. Goyal (2013)\n\nThompson sampling for contextual bandits with linear payoffs.\n\nIn International Conference on Machine Learning,\n\npp. 127–135.\n\nCited by: §A.2,\n§3.4.\n\n[3]\nAnthropic (2025)\n\nClaude code: an agentic coding tool.",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 4,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 3,
+  "swe_bench": 11,
+  "contamination": 3,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

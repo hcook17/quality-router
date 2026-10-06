@@ -1,0 +1,268 @@
+{
+ "arxiv_id": "2607.22511",
+ "fulltext_chars": 106127,
+ "fulltext_lines": 2708,
+ "authors_block": "Framework for Automated Research in Causal Inference Jiyuan Tan Vasilis Syrgkanis",
+ "vendor_affiliation_hits": [],
+ "n_authors": 2,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/Jiyuan-Tan/CausalSmith",
+  "https://github.com/Jiyuan-Tan/CausalSmith.",
+  "https://github.com/Lean-MoDS/StatsMLlib",
+  "https://github.com/auto-res/lean-rademacher",
+  "https://github.com/optsuite/optlib",
+  "https://github.com/stat-lib/statlib"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# CausalSmith: A Formally Grounded, Self-Improving Agentic"
+  ],
+  [
+   26,
+   "###### Abstract"
+  ],
+  [
+   30,
+   "## 1 Introduction"
+  ],
+  [
+   82,
+   "#### Contributions."
+  ],
+  [
+   107,
+   "#### CausalSmith pipeline."
+  ],
+  [
+   143,
+   "#### Availability."
+  ],
+  [
+   154,
+   "## 2 Related Work"
+  ],
+  [
+   236,
+   "#### Autoformalization, theorem proving, and statement matching."
+  ],
+  [
+   261,
+   "#### Automated research agents and verified discovery."
+  ],
+  [
+   278,
+   "#### LLMs for causal inference."
+  ],
+  [
+   301,
+   "#### Formal libraries for statistics and economics."
+  ],
+  [
+   322,
+   "## 3 Background"
+  ],
+  [
+   324,
+   "#### Causal inference."
+  ],
+  [
+   340,
+   "#### Lean 4 as a proof checker."
+  ],
+  [
+   367,
+   "## 4 The Causalean Library"
+  ],
+  [
+   373,
+   "### 4.1 Design and scope"
+  ],
+  [
+   512,
+   "### 4.2 A tour of the clusters"
+  ],
+  [
+   517,
+   "#### Graphs and structural models."
+  ],
+  [
+   530,
+   "#### Potential outcomes and identification."
+  ],
+  [
+   542,
+   "#### Estimation and asymptotic statistics."
+  ],
+  [
+   556,
+   "#### Panel, experiments, and discovery."
+  ],
+  [
+   570,
+   "### 4.3 Flagship results"
+  ],
+  [
+   732,
+   "### 4.4 Retrieval"
+  ],
+  [
+   757,
+   "### 4.5 Axiom checks"
+  ],
+  [
+   775,
+   "## 5 The CausalSmith Pipeline"
+  ],
+  [
+   793,
+   "### 5.1 The Dependency Graph as a Persistent Run Record"
+  ],
+  [
+   815,
+   "### 5.2 Discovery, formalization, and proof"
+  ],
+  [
+   835,
+   "### 5.3 Statement matching"
+  ],
+  [
+   894,
+   "### 5.4 Library feedback"
+  ],
+  [
+   910,
+   "### 5.5 Presentation"
+  ],
+  [
+   930,
+   "## 6 Results"
+  ],
+  [
+   976,
+   "### 6.1 Outcomes by cluster and question type"
+  ],
+  [
+   1122,
+   "#### Where the gaps come from."
+  ],
+  [
+   1136,
+   "### 6.2 A flagship result: closing a minimax gap for the ATE"
+  ],
+  [
+   1169,
+   "### 6.3 Machine-checked soundness"
+  ],
+  [
+   1179,
+   "### 6.4 Library feedback in action"
+  ],
+  [
+   1204,
+   "## 7 Discussion and Limitations"
+  ],
+  [
+   1222,
+   "## References"
+  ],
+  [
+   1860,
+   "## Appendix A Flagship theorem locations"
+  ],
+  [
+   2079,
+   "## Appendix B Logic-graph schema"
+  ],
+  [
+   2094,
+   "## Appendix C Implementation details of the pipeline"
+  ],
+  [
+   2234,
+   "### C.1 Topic selection"
+  ],
+  [
+   2281,
+   "### C.2 Proposal review"
+  ],
+  [
+   2309,
+   "### C.3 Solving and derivation review"
+  ],
+  [
+   2374,
+   "## Appendix D How the graph drives formalization, proof, and audit"
+  ],
+  [
+   2429,
+   "## Appendix E Presentation pipeline"
+  ],
+  [
+   2488,
+   "## Appendix F Study mode"
+  ],
+  [
+   2546,
+   "## Appendix G The reading interface"
+  ],
+  [
+   2558,
+   "### G.1 The paper page"
+  ],
+  [
+   2571,
+   "### G.2 Proof map"
+  ],
+  [
+   2592,
+   "### G.3 Natural-language statement and Lean 4 declaration"
+  ],
+  [
+   2614,
+   "### G.4 Reader Interaction"
+  ],
+  [
+   2640,
+   "### G.5 Slides"
+  ],
+  [
+   2650,
+   "## Appendix H Reproducibility"
+  ],
+  [
+   2656,
+   "#print axioms on each headline theorem in a clean build, and we cross-check"
+  ],
+  [
+   2686,
+   "#### Base models."
+  ],
+  [
+   2708,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 7 Discussion and Limitations\n\nAutomated theoretical research needs a reliable basis for judging correctness, and LLM\nreviewers can be misled. CausalSmith answers that at three separate levels of\nconfidence. The Lean 4 type check settles whether a proof is valid, and the statement\naudit guarantees that the Lean 4 statement matches the intended claim. Whether a finished paper matters stays a human judgment. Keeping the three apart is what stops a valid proof from being read as an important result.\n\nMost of the pipeline is domain-general, and only the formal library is specific to\ncausal inference. Moving to another field means building or adopting a comparable\nlibrary and retrieval interface. The graph, the audit, and the library feedback loop\nshould carry over with little change.\n\nOur current evaluation has the following limitations. First, research quality is rated by the pipeline itself, and these LLM ratings do not have independent human validation. Second, the statement-match audit is itself an LLM task; frontier models handled it well in our observations, but we do not estimate how often they err.\n\nTaken together, the verified library, the self-directed pipeline, and the feedback\nloop that grows the library give machine-checked proofs of self-proposed results with\naudited statements. We leave better novelty-evaluation metrics and faithfulness-audit benchmarks to future work.\n\n## References\n\n[1]\nS. Acharya, T. J. Zhang, others, and Z. Jin (2025)\n\nCauSciBench: can LLMs automate causal inference in real-world scientific research?.\n\narXiv preprint / OpenReview.\n\nNote: End-to-end causal-inference benchmark over real-world scientific research; causalNLP group\n\nCited by: §2.\n\n[2]\nD. Amrollahi, J. Lopez, and C. Barrett (2026)\n\nFaithful autoformalization via roundtrip verification and repair.\n\narXiv preprint arXiv:2604.25031.\n\nCited by: §2.",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 1,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 4,
+  "human_study": 1,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

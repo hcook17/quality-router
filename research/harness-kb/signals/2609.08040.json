@@ -1,0 +1,272 @@
+{
+ "arxiv_id": "2609.08040",
+ "fulltext_chars": 74876,
+ "fulltext_lines": 1657,
+ "authors_block": "Benchmarking LLM Agents for Assessing Exploitability of Software Supply Chain Vulnerabilities Jiahao Shi Affiliation: Department of Computer Science, Purdue University Email: shi768@purdue.edu Edward Tsien Affiliation: Red Hat Email: tianyi@purdue.edu Yifeng Di Affiliation: Department of Computer Science, Purdue University Email: etsien@redhat.com Hongjiao Zhang Affiliation: Red Hat Yuan Tang Affiliation: Red Hat Ronit Dey Affiliation: Red Hat Ilona Shishov Affiliation: Red Hat Gal Netanel Affiliation: Red Hat Zvi Grinberg Affiliation: Red Hat Vladimir Belousov Affiliation: Red Hat Bat-Zion Rotman Affiliation: Red Hat Ilan Pinto Affiliation: Red Hat Tianyi Zhang Affiliation: Department of Computer Science, Purdue University",
+ "vendor_affiliation_hits": [],
+ "n_authors": 13,
+ "comment": "Accepted to EMNLP 2026",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/anthropics/claude-code",
+  "https://github.com/aquasecurity/trivyAccessed",
+  "https://github.com/google/osv-scannerAccessed",
+  "https://github.com/openai/codex",
+  "https://github.com/sst/opencode",
+  "https://github.com/steven1518/vex-bench"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# VEX-Bench:"
+  ],
+  [
+   81,
+   "###### Abstract"
+  ],
+  [
+   86,
+   "## 1 Introduction"
+  ],
+  [
+   100,
+   "## 2 Related Work"
+  ],
+  [
+   102,
+   "### 2.1 Software Supply Chain Security"
+  ],
+  [
+   109,
+   "### 2.2 Cybersecurity Benchmarks for Agents"
+  ],
+  [
+   117,
+   "## 3 VEX-Bench"
+  ],
+  [
+   121,
+   "### 3.1 Task Formulation"
+  ],
+  [
+   125,
+   "##### Input Formulation"
+  ],
+  [
+   131,
+   "##### Output Formulation"
+  ],
+  [
+   135,
+   "##### Justification Labels"
+  ],
+  [
+   140,
+   "### 3.2 Benchmark Construction"
+  ],
+  [
+   144,
+   "##### Mining GitHub Data"
+  ],
+  [
+   148,
+   "##### Rule-based Filtering"
+  ],
+  [
+   153,
+   "##### Manual Annotation"
+  ],
+  [
+   159,
+   "### 3.3 Benchmark Statistics"
+  ],
+  [
+   204,
+   "### 3.4 Defense Against Benchmark Hacking"
+  ],
+  [
+   210,
+   "## 4 Evaluation"
+  ],
+  [
+   333,
+   "### 4.1 Experimental Setup"
+  ],
+  [
+   335,
+   "##### Models and Harness"
+  ],
+  [
+   343,
+   "##### Metrics"
+  ],
+  [
+   347,
+   "##### Other Settings"
+  ],
+  [
+   358,
+   "### 4.2 Main Results"
+  ],
+  [
+   364,
+   "### 4.3 Comparison with Traditional SCA Tools"
+  ],
+  [
+   419,
+   "### 4.4 Analysis Results"
+  ],
+  [
+   421,
+   "#### 4.4.1 Cost-Performance Analysis"
+  ],
+  [
+   429,
+   "#### 4.4.2 Language Analysis"
+  ],
+  [
+   435,
+   "#### 4.4.3 Error Analysis"
+  ],
+  [
+   439,
+   "#### 4.4.4 Repository Size Analysis"
+  ],
+  [
+   445,
+   "#### 4.4.5 Harness Ablation Study"
+  ],
+  [
+   451,
+   "## 5 Conclusion"
+  ],
+  [
+   455,
+   "## Limitations"
+  ],
+  [
+   477,
+   "## Ethical Considerations"
+  ],
+  [
+   491,
+   "## Acknowledgments"
+  ],
+  [
+   495,
+   "## References"
+  ],
+  [
+   969,
+   "## Appendix A Justification Category Definitions"
+  ],
+  [
+   1055,
+   "##### code_not_present"
+  ],
+  [
+   1069,
+   "##### code_not_reachable"
+  ],
+  [
+   1083,
+   "##### requires_configuration"
+  ],
+  [
+   1097,
+   "##### requires_environment"
+  ],
+  [
+   1110,
+   "## Appendix B Prompts"
+  ],
+  [
+   1112,
+   "### B.1 Task Instruction Prompt"
+  ],
+  [
+   1256,
+   "##### Mapping to Benchmark Labels."
+  ],
+  [
+   1266,
+   "## Appendix C Model-Side Leakage Analysis"
+  ],
+  [
+   1273,
+   "##### Source PR Audit"
+  ],
+  [
+   1281,
+   "##### Guided-Completion Probe"
+  ],
+  [
+   1327,
+   "## Appendix D Experimental Details"
+  ],
+  [
+   1329,
+   "### D.1 Environment"
+  ],
+  [
+   1357,
+   "### D.2 Model Backends"
+  ],
+  [
+   1428,
+   "### D.3 Harness Framework"
+  ],
+  [
+   1476,
+   "### D.4 Runtime and Timeout Analysis"
+  ],
+  [
+   1550,
+   "## Appendix E Responsible Research Details"
+  ],
+  [
+   1552,
+   "### E.1 Artifact Use and Intended Use"
+  ],
+  [
+   1568,
+   "### E.2 Data Privacy and Offensive Content"
+  ],
+  [
+   1587,
+   "### E.3 Potential Risks"
+  ],
+  [
+   1609,
+   "### E.4 Annotation Instructions and Consent"
+  ],
+  [
+   1649,
+   "### E.5 Use of AI Assistants"
+  ],
+  [
+   1657,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgments\n\nWe sincerely thank the anonymous reviewers for their constructive feedback. We also thank Theodor Mihalache, Shimon Tanny, Tamar Weisskopf, Michelle DiPalma, and Jude Niroshan at Red Hat for their contributions to this work. This work was supported in part by NSF Proto-OKN Award 2333736.\n\n## References\n\nAnomaly Innovations (SST) (2025)\nAnomaly Innovations (SST)\n\nOpencode: the AI coding agent built for the terminal.\n\nNote: https://opencode.ai/Source repository: https://github.com/sst/opencode\n\nCited by: §4.1.\n\nAnthropic (2025)\nAnthropic\n\nClaude Code: an agentic coding tool that lives in your terminal.\n\nNote: https://www.anthropic.com/product/claude-codeSource repository: https://github.com/anthropics/claude-code\n\nCited by: §4.1.\n\nAnthropic (2026a)",
+ "limitations": "## Limitations\n\nVEX-Bench has three main limitations. First, its scale and coverage\nare constrained by the high cost of expert annotation. The benchmark contains\n75 cases across three language ecosystems, and some fine-grained justification\ncategories contain only a small number of examples. Moreover, the current\ndataset covers only four types of not-affected justifications. This dataset also does not include other widely used ecosystems, such as JavaScript and npm. Consequently,\nthe reported results may not fully capture the diversity of exploitability\nassessment challenges encountered in practice, particularly at the\nfine-grained justification level.\n\nSecond, a single case may admit multiple valid explanations. We apply a predefined precedence rule to assign one gold label\nand make evaluation unambiguous. Nevertheless, this single-label formulation\nmay omit valid secondary reasons for why a project is not affected.\n\nThird, VEX-Bench assesses repository snapshots using the source code\nand configuration information available in the repository. Such static\nevidence cannot fully capture dynamic user inputs or deployment-specific\nenvironment settings. The resulting judgments therefore approximate\nexploitability under the repository’s documented or default conditions and may\nnot reflect every real-world deployment.\n\n## Ethical Considerations\n\nResearch on vulnerability exploitability has an inherent dual-use risk. In\nprinciple, the ability to determine whether a vulnerable dependency is\nreachable in a downstream project could help malicious actors prioritize known\nvulnerabilities for further investigation. However, VEX-Bench uses\nonly publicly disclosed CVEs and does not involve zero-day discovery. Its tasks\nask agents to classify exploitability and justify their decisions with code and\nadvisory evidence; they do not require exploit generation, payload construction,\nor attacks against running services. In addition, all experiments analyze\nsource-code snapshots inside isolated Docker environments without access to\ndeployed systems, reducing their direct operational value for attacks and the\nrisk of affecting real-world infrastructure. VEX-Bench is intended for defensive vulnerability triage, helping defenders prioritize genuine risks, reduce false-positive alerts, and evaluate the capabilities of LLM agents.\n\n## Acknowledgments\n\nWe sincerely thank the anonymous reviewers for their constructive feedback. We also thank Theodor Mihalache, Shimon Tanny, Tamar Weisskopf, Michelle DiPalma, and Jude Niroshan at Red Hat for their contributions to this work. This work was supported in part by NSF Proto-OKN Award 2333736.",
+ "ethics_coi": "## Ethical Considerations\n\nResearch on vulnerability exploitability has an inherent dual-use risk. In\nprinciple, the ability to determine whether a vulnerable dependency is\nreachable in a downstream project could help malicious actors prioritize known\nvulnerabilities for further investigation. However, VEX-Bench uses\nonly publicly disclosed CVEs and does not involve zero-day discovery. Its tasks\nask agents to classify exploitability and justify their decisions with code and\nadvisory evidence; they do not require exploit generation, payload construction,\nor attacks against running services. In addition, all experiments analyze\nsource-code snapshots inside isolated Docker environments without access to\ndeployed systems, reducing their direct operational value for attacks and the\nrisk of affecting real-world infrastructure. VEX-Bench is intended for defensive vulnerability triage, helping defenders prioritize genuine risks, reduce false-positive alerts, and evaluate the capabilities of LLM agents.\n\n## Acknowledgments\n\nWe sincerely thank the anonymous reviewers for their constructive feedback. We also thank Theodor Mihalache, Shimon Tanny, Tamar Weisskopf, Michelle DiPalma, and Jude Niroshan at Red Hat for their contributions to this work. This work was supported in part by NSF Proto-OKN Award 2333736.\n\n## References\n\nAnomaly Innovations (SST) (2025)\nAnomaly Innovations (SST)\n\nOpencode: the AI coding agent built for the terminal.",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 4,
+  "human_study": 0,
+  "java": 11,
+  "industrial": 1
+ },
+ "fulltext_source": "html"
+}

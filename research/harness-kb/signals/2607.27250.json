@@ -1,0 +1,227 @@
+{
+ "arxiv_id": "2607.27250",
+ "fulltext_chars": 40331,
+ "fulltext_lines": 727,
+ "authors_block": "A Two-Agent Ablation Study on Real Repositories Prakhar Khatri Affiliation: Independent Researcher Email: prakharkhatri123@gmail.com",
+ "vendor_affiliation_hits": [],
+ "n_authors": 1,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/codeprakhar25/context-files-coding-agents."
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   22,
+   "# Do Context Files Help Coding Agents?"
+  ],
+  [
+   32,
+   "###### Abstract"
+  ],
+  [
+   41,
+   "## 1 Introduction"
+  ],
+  [
+   68,
+   "## 2 Related Work"
+  ],
+  [
+   70,
+   "#### Coding agents and benchmarks."
+  ],
+  [
+   75,
+   "#### Context and memory for agents."
+  ],
+  [
+   84,
+   "#### Repository-level context for code generation."
+  ],
+  [
+   90,
+   "#### Equivalence testing in empirical SE."
+  ],
+  [
+   96,
+   "## 3 Method"
+  ],
+  [
+   98,
+   "### 3.1 Overview"
+  ],
+  [
+   132,
+   "### 3.2 Task Selection and Evaluation"
+  ],
+  [
+   134,
+   "#### Repositories."
+  ],
+  [
+   144,
+   "#### Tasks."
+  ],
+  [
+   154,
+   "#### Evaluation (Tier-C)."
+  ],
+  [
+   160,
+   "#### Safety and isolation."
+  ],
+  [
+   166,
+   "### 3.3 Independent Variable: Injection Strategy"
+  ],
+  [
+   183,
+   "### 3.4 Agents"
+  ],
+  [
+   198,
+   "### 3.5 Efficiency Metrics"
+  ],
+  [
+   212,
+   "### 3.6 Statistical Analysis"
+  ],
+  [
+   234,
+   "## 4 Results"
+  ],
+  [
+   236,
+   "### 4.1 Correctness: No Strategy Effect (Both Agents)"
+  ],
+  [
+   272,
+   "#### The null holds with dynamic range."
+  ],
+  [
+   277,
+   "#### Equivalence bounds."
+  ],
+  [
+   281,
+   "### 4.2 Efficiency: Two Narrow Process Signals, Otherwise Null"
+  ],
+  [
+   283,
+   "#### Claude."
+  ],
+  [
+   290,
+   "#### Codex."
+  ],
+  [
+   294,
+   "#### A within-agent process effect (Claude  \\times  opshin)."
+  ],
+  [
+   322,
+   "#### Cross-agent comparison (portable metrics, qualitative)."
+  ],
+  [
+   327,
+   "### 4.3 Agent-Specific Borderline Tasks"
+  ],
+  [
+   351,
+   "### 4.4 Classifier Portability Lesson"
+  ],
+  [
+   358,
+   "### 4.5 Power Analysis and Detection Limits"
+  ],
+  [
+   377,
+   "## 5 Discussion"
+  ],
+  [
+   379,
+   "### 5.1 Why the Null Holds: Skill, Not Knowledge"
+  ],
+  [
+   403,
+   "### 5.2 Manipulation-Validity Probe"
+  ],
+  [
+   431,
+   "### 5.3 Reconciling Prior Work"
+  ],
+  [
+   447,
+   "### 5.4 Practitioner Implications"
+  ],
+  [
+   454,
+   "## 6 Conclusion"
+  ],
+  [
+   465,
+   "## Limitations"
+  ],
+  [
+   499,
+   "## Ethics Statement"
+  ],
+  [
+   510,
+   "## References"
+  ],
+  [
+   682,
+   "## Appendix A Experimental Harness Details"
+  ],
+  [
+   684,
+   "#### Safety layers."
+  ],
+  [
+   693,
+   "#### Evaluation pipeline."
+  ],
+  [
+   701,
+   "## Appendix B Per-Task Results"
+  ],
+  [
+   705,
+   "#### Opshin full-suite test runs (§4.1)."
+  ],
+  [
+   709,
+   "## Appendix C Reproduction and Data Availability"
+  ],
+  [
+   720,
+   "# Requires: experiment_full.db"
+  ],
+  [
+   727,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## Limitations\n\n1. \n\nSample size. 15/17 tasks with 3 repeats. MDE > 30pp; a 10pp effect is undetectable. Our TOST bounds the effect to < 10–15pp but cannot achieve narrower equivalence without \\sim 120 tasks.\n\n2. \n\nRepository diversity. Three Python repositories. Results may not generalize to other languages, larger codebases, or repositories with exceptionally detailed context files.\n\n3. \n\nInjection-channel asymmetry. Claude receives context via system prompt; Codex via user-turn prepend (no system-prompt flag). This is a confound between the agent arms, though the within-agent strategy comparison remains clean.\n\n4. \n\nEcological validity. Our always_on condition injects context via system prompt every turn, which is stronger than the natural workflow (agent reads the file once from the workspace). We argue that if guaranteed presence does not help, natural discovery cannot either—but this is an inference, not a direct measurement. A fourth “natural” condition where the file simply exists in the workspace would strengthen ecological validity.\n\n5. \n\nSelective is our construction, and its corpus is not content-matched. The wiki-split design and retrieval hint are specific choices; alternative selective strategies (e.g., semantic retrieval) might yield different results. More importantly, the selective wiki equals the AGENTS.md only for opshin; for pdm and firebase it is a broader auto-generated repository wiki ( \\sim 10 \\times /18 \\times larger), so selective confounds delivery channel with context corpus for two of three repositories (§3.3). This does not threaten the correctness null (the larger corpus, if anything, gave selective an advantage it did not convert into passes), but it does mean we cannot cleanly attribute the selective cache-footprint reduction to channel alone, and a content-matched split is required before interpreting selective as a pure channel manipulation. We leave an equal-content selective arm across all repositories to future work.\n\n6. \n\nInert-manipulation concern. Our context files are naturalistic (not purpose-built for specific tasks). The manipulation-validity probe (§5.2) shows the real AGENTS.md can perturb behavior but never converts a near-miss to a pass, and our own rubric assessment rates the files Good/Excellent—so the null is not an artifact of low-quality or inert context. Whether purpose-built, task-specific context (a fact the agent provably cannot infer) would help remains an open question for future work.\n\n7. \n\nModel-version snapshot. All results are specific to claude-sonnet-4-6 and gpt-5.5 as of this study; agent behavior, and hence the null, may shift as these models are updated.\n\n8. \n\nMixed provenance. Claude repeat-0 ran on a local machine; repeats 1–2 on the pod. A sensitivity analysis that drops repeat-0 entirely and re-estimates the contrasts from the pod-only repeats leaves the correctness null intact: Claude’s marginal pass-rates remain 53–55% under all three strategies, and every paired strategy contrast stays within {\\pm}3.3 pp (largest shift: selective  -  none moves from +2.2 to 0.0 pp). Behavior is also stable on matched cross-check cells (e.g. 22 vs. 23 turns). The provenance split therefore does not drive the result.\n\n## Ethics Statement\n\nThis study involves no human subjects or personal data. The experimental subjects are\nAI coding agents operating on public open-source repositories. All agent runs execute in\nan egress-locked sandbox that prevents any modification of external state (no pushes,\ncommits, or pull requests reach GitHub); see Appendix A.",
+ "ethics_coi": "## Ethics Statement\n\nThis study involves no human subjects or personal data. The experimental subjects are\nAI coding agents operating on public open-source repositories. All agent runs execute in\nan egress-locked sandbox that prevents any modification of external state (no pushes,\ncommits, or pull requests reach GitHub); see Appendix A.\nAI coding agents (Claude Code, Codex) are the object of study, not authoring tools.\nSeparately, the authors used an AI assistant for drafting support and code scaffolding;\nall experimental results, statistics, and claims were verified by the authors against the\nreleased data.\n\n## References\n\nDing et al. (2023)\nY. Ding, Z. Wang, W. U. Ahmad, H. Ding, M. Tan, N. Jain, M. K. Ramanathan, R. Nallapati, P. Bhatia, D. Roth, and B. Xiang\n\nCrossCodeEval: a diverse and multilingual benchmark for cross-file code completion.\n\nIn Advances in Neural Information Processing Systems (NeurIPS),\n\nNote: arXiv:2310.11248\n\nCited by: §2.\n\nGloaguen et al. (2026)",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 7,
+  "seeds_or_runs": 0,
+  "swe_bench": 9,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

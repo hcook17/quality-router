@@ -1,0 +1,199 @@
+{
+ "arxiv_id": "2607.16617",
+ "fulltext_chars": 42643,
+ "fulltext_lines": 805,
+ "authors_block": "Runming He Zhen Hao Wong Hao Liang Zimo Meng Chengyu Shen Xiaochen Ma Wentao Zhang Affiliation: [ Email: wentao.zhang@pku.edu.cn August 24, 2026",
+ "vendor_affiliation_hits": [],
+ "n_authors": 7,
+ "comment": "13 pages, 2 figures, and 5 tables. Technical report",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/OpenDCAI/DataFlow-WebUI"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   28,
+   "# DataFlow-Harness: A Grounded Code-Agent Platform for Constructing Editable LLM Data Pipelines"
+  ],
+  [
+   50,
+   "###### Abstract"
+  ],
+  [
+   54,
+   "######"
+  ],
+  [
+   56,
+   "## 1 Introduction"
+  ],
+  [
+   82,
+   "## 2 Related Work"
+  ],
+  [
+   84,
+   "### 2.1 Agents for Code Generation."
+  ],
+  [
+   88,
+   "### 2.2 Data Engineering and LLM Pipelines."
+  ],
+  [
+   92,
+   "### 2.3 LLM-based Workflow Synthesis."
+  ],
+  [
+   96,
+   "## 3 System Architecture"
+  ],
+  [
+   104,
+   "### 3.1 Data Pipeline Backend"
+  ],
+  [
+   110,
+   "### 3.2 DataFlow-WebUI"
+  ],
+  [
+   116,
+   "#### Conversational Interface."
+  ],
+  [
+   120,
+   "#### Visual DAG Editor."
+  ],
+  [
+   124,
+   "### 3.3 MCP Tools Layer"
+  ],
+  [
+   128,
+   "#### State Retrieval."
+  ],
+  [
+   132,
+   "#### Mediated Mutation."
+  ],
+  [
+   136,
+   "#### Validation."
+  ],
+  [
+   140,
+   "#### Validated Commitment."
+  ],
+  [
+   144,
+   "### 3.4 DataFlow-Skills"
+  ],
+  [
+   150,
+   "## 4 Experiments"
+  ],
+  [
+   166,
+   "### 4.1 Experimental Setup"
+  ],
+  [
+   168,
+   "#### Benchmark."
+  ],
+  [
+   172,
+   "#### Experimental Settings."
+  ],
+  [
+   184,
+   "#### Evaluation Metrics."
+  ],
+  [
+   188,
+   "#### Task Success."
+  ],
+  [
+   192,
+   "#### Efficiency Metrics."
+  ],
+  [
+   196,
+   "### 4.2 Workflow Synthesis Effectiveness (RQ1)"
+  ],
+  [
+   245,
+   "### 4.3 Efficiency and System Cost (RQ2)"
+  ],
+  [
+   253,
+   "### 4.4 Textbook-to-VQA Workflow Evaluation"
+  ],
+  [
+   290,
+   "### 4.5 Ablation and Micro-mechanisms (RQ3)"
+  ],
+  [
+   354,
+   "#### Procedural guidance is most valuable when task success depends on implicit domain knowledge."
+  ],
+  [
+   358,
+   "#### Procedural guidance provides limited benefit when workflow routing is straightforward."
+  ],
+  [
+   362,
+   "#### Procedural guidance cannot overcome limitations outside workflow synthesis."
+  ],
+  [
+   368,
+   "### 4.6 Downstream Training Utility Evaluation (RQ4)"
+  ],
+  [
+   372,
+   "#### Protocol."
+  ],
+  [
+   376,
+   "#### Math Reasoning Pipeline."
+  ],
+  [
+   454,
+   "#### General SFT Pipeline."
+  ],
+  [
+   502,
+   "## 5 Conclusion"
+  ],
+  [
+   506,
+   "#### Limitations."
+  ],
+  [
+   510,
+   "## References"
+  ],
+  [
+   805,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "#### Procedural guidance cannot overcome limitations outside workflow synthesis.\n\nThe remaining failures appear to arise primarily from factors unrelated to workflow construction. Both methods exhibit the same failure rate on multi-field scoring tasks (4a and 4b), where outputs occasionally violate downstream numerical constraints despite correct DAG generation. On tasks 2a, 2b, and 3a, differences are small and occasionally favor MCP-only, suggesting that prescriptive procedures may reduce flexibility when multiple execution strategies are valid.\n\nOverall, these results indicate that DataFlow-Skills contribute primarily by injecting procedural knowledge that is difficult to recover from operator specifications alone. Their observed benefit is largest on ambiguous, procedurally complex tasks and diminishes when workflow construction is trivial or bottlenecked by the underlying model. Because this ablation compares MCP-only with the full system, it does not separately identify the contribution of validation.\n\n### 4.6 Downstream Training Utility Evaluation (RQ4)\n\nThe preceding experiments assess whether DataFlow-Harness produces workflows that are governable and that execute reliably. A distinct and arguably more consequential question is whether the harness helps the agent author better pipelines, i.e., pipelines whose output data is more useful downstream. To answer this, we adopt an end-to-end, outcome-based protocol: we let the coding agent construct a full data-synthesis pipeline, run the pipeline to synthesize a training set, fine-tune a model on that set, and measure the resulting model’s benchmark accuracy. Because a pipeline is ultimately a means to produce training data, the quality of the data it emits is a direct, if indirect, measure of the pipeline’s quality.\n\n#### Protocol.\n\nFor each scenario we compare two configurations that differ in exactly one respect. In Vanilla CC, Claude Code receives only the natural-language task description and writes a synthesis pipeline from its parametric knowledge. In DataFlow-Harness, the identical agent receives the identical prompt but is additionally grounded in the DataFlow environment through DataFlow-Skills and the MCP operator registry. Everything downstream of pipeline construction is held fixed across the two arms: the same underlying LLMs and OpenAI-style API settings (concurrency and timeout) are used to synthesize data, the same number of samples is generated, and the same base model, fine-tuning recipe, and evaluation harness are used. This controlled setup isolates the agent-authored pipeline as the primary source of differences in downstream accuracy, while holding model, data scale, and training settings fixed.\n\n#### Math Reasoning Pipeline.\n\nThe first scenario (Prompt 1) asks the agent to build a math data cleaning-and-synthesis pipeline: verify and filter incoming problems, discard ill-posed items, expand each seed question into two new synthetic problems, generate reasoning traces for every question, and apply n -gram deduplication to the resulting QA pairs, with per-stage models specified separately. We run each agent-authored pipeline over the same seed pool, fine-tune Qwen2.5-32B-Instruct following the LIMO recipe [27] (full-parameter SFT, lr 5\\mathrm{e}{-6} , cosine schedule without warmup, batch size 64 , 16K context), and evaluate on the math suite and protocol of DataFlow [16] (Table 5), reporting AIME24/25 as avg@32.\n\nTable 4: Math pipeline quality via downstream training. Both pipelines are authored by Claude Code from the same natural-language prompt (Prompt 1), synthesize data with the same models and API settings, and are used to fine-tune Qwen2.5-32B-Instruct under the same LIMO recipe. We report accuracy (%) on the DataFlow [16] Table 5 math suite; AIME24/25 are reported as avg@32. At matched epochs, data produced with DataFlow-Harness yields a higher average, indicating a higher-quality pipeline. Per-epoch best average is in bold.\n\nPipeline (author",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 1,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 2,
+  "swe_bench": 0,
+  "contamination": 1,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 3
+ },
+ "fulltext_source": "html"
+}

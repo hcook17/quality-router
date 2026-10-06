@@ -1,0 +1,273 @@
+{
+ "arxiv_id": "2607.22917",
+ "fulltext_chars": 79290,
+ "fulltext_lines": 2008,
+ "authors_block": "##### Report GitHub Issue Title: Content selection saved. Describe the issue below: Description: arXiv is now an independent nonprofit! Learn more Back to arXiv \\geq \\geq License: CC BY 4.0 arXiv:2607.22917v2 [cs.AI] 30 Jul 2026 \\addtokomafont chapter \\addtokomafontsection \\addtokomafontsubsection Agent Team Work Zone: An Automated, Persistent Workspace for Long-Lived Claude Code Agent Teams Shouren Wang Case Western Reserve University sxw992@case.edu \\marginnote Two API versions Claude Code’s agent-teams API changed with v2.1.178, simplifying the team-registration layer. This manual covers both versions, with the new API as the primary treatment; the core argument—files over context, checkpoints, and one-command reactivation—is unchanged by that simplification.",
+ "vendor_affiliation_hits": [
+  "GitHub"
+ ],
+ "n_authors": 1,
+ "comment": "31 pages, 9 figures",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/SR-A-W/agent-team-work-zone"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   87,
+   "## 1 Introduction"
+  ],
+  [
+   143,
+   "## 2 Background: Claude Code, Subagents, and Agent Teams"
+  ],
+  [
+   151,
+   "### 2.1 Claude Code, subagents, and agent teams"
+  ],
+  [
+   184,
+   "### 2.2 Where the state goes"
+  ],
+  [
+   235,
+   "### 2.3 The same shape in Codex"
+  ],
+  [
+   256,
+   "### 2.4 The gap this creates"
+  ],
+  [
+   265,
+   "## 3 Gaps and Problem Statement"
+  ],
+  [
+   337,
+   "## 4 Design Philosophy"
+  ],
+  [
+   339,
+   "### 4.1 An operations layer, not a replacement"
+  ],
+  [
+   354,
+   "### 4.2 State in files, not in-context memory"
+  ],
+  [
+   380,
+   "### 4.3 Principles"
+  ],
+  [
+   418,
+   "### 4.4 Two forms, not one"
+  ],
+  [
+   431,
+   "### 4.5 The layer is hardened by use"
+  ],
+  [
+   440,
+   "## 5 Workspace and Core Primitives"
+  ],
+  [
+   445,
+   "### 5.1 Workstations"
+  ],
+  [
+   458,
+   "### 5.2 The directory tree"
+  ],
+  [
+   492,
+   "### 5.3 Roles, the registry, and communication"
+  ],
+  [
+   506,
+   "## 6 Persistence and Recovery"
+  ],
+  [
+   516,
+   "### 6.1 Team state across a session boundary"
+  ],
+  [
+   518,
+   "#### New version (CC \\geq 2.1.178)."
+  ],
+  [
+   530,
+   "#### Prior versions (pre-2.1.178)."
+  ],
+  [
+   541,
+   "### 6.2 Reactivation"
+  ],
+  [
+   543,
+   "#### New version (CC \\geq 2.1.178)."
+  ],
+  [
+   565,
+   "#### Prior versions (pre-2.1.178)."
+  ],
+  [
+   580,
+   "### 6.3 Knowing whether a teammate is alive"
+  ],
+  [
+   604,
+   "### 6.4 Checkpoints: automatic and non-destructive"
+  ],
+  [
+   639,
+   "## 7 Communication and Audit"
+  ],
+  [
+   645,
+   "### 7.1 Two channels, one protocol"
+  ],
+  [
+   664,
+   "### 7.2 Processing an inbox"
+  ],
+  [
+   674,
+   "### 7.3 Why the issuer archives"
+  ],
+  [
+   687,
+   "### 7.4 Handing work across a boundary"
+  ],
+  [
+   696,
+   "## 8 Roles, Lifecycle, and Work Rules"
+  ],
+  [
+   708,
+   "### 8.1 A small library of roles"
+  ],
+  [
+   725,
+   "### 8.2 Lifecycle"
+  ],
+  [
+   749,
+   "#### Naming and permissions (version callout)."
+  ],
+  [
+   773,
+   "### 8.3 Work rules"
+  ],
+  [
+   791,
+   "## 9 Versioning and Release"
+  ],
+  [
+   808,
+   "### 9.1 Installing and upgrading"
+  ],
+  [
+   829,
+   "### 9.2 Migrations and release gates"
+  ],
+  [
+   844,
+   "## 10 Failure Modes and Hardening"
+  ],
+  [
+   851,
+   "### 10.1 A sample of problem and mitigation"
+  ],
+  [
+   917,
+   "### 10.2 What the catalog is, and is not"
+  ],
+  [
+   927,
+   "## 11 Related Work"
+  ],
+  [
+   932,
+   "#### Foundation models."
+  ],
+  [
+   943,
+   "#### Multi-agent LLM systems."
+  ],
+  [
+   958,
+   "#### Persisting agent state."
+  ],
+  [
+   979,
+   "#### Reasoning, acting, and self-improvement."
+  ],
+  [
+   1002,
+   "#### Tool use."
+  ],
+  [
+   1012,
+   "#### Memory, context, and agent architecture."
+  ],
+  [
+   1029,
+   "#### Skill acquisition and reuse."
+  ],
+  [
+   1039,
+   "#### Coding agents."
+  ],
+  [
+   1057,
+   "#### Benchmarking agents."
+  ],
+  [
+   1066,
+   "#### What this work adds."
+  ],
+  [
+   1080,
+   "## 12 Limitations and Future Work"
+  ],
+  [
+   1121,
+   "## Appendix A Background on LLMs and Agent Harnesses"
+  ],
+  [
+   1131,
+   "### A.1 Large Language Models"
+  ],
+  [
+   1164,
+   "### A.2 Agent Harnesses"
+  ],
+  [
+   1188,
+   "## References"
+  ],
+  [
+   2008,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 12 Limitations and Future Work\n\nThe design has edges we know about; stating them is part of the same posture as\nthe rest of the manual.\n\nSeveral limitations are deliberate trade-offs. The idle checkpoint gate fails\nopen when a teammate has no checkpoint file yet, so a brand-new teammate that\nhas never checkpointed gets no automatic nudge—a conscious choice (never block\na teammate out of doubt) that leaves a gap for the freshly-onboarded. And the\ncontract that keeps the checkpoint writer and\nreader in agreement is a documentation convention, not a checked one: a\ndeveloper who changes one side and forgets the other would silently weaken\nrecovery, and a consistency test would help.\n\nOthers are open questions. Two internal detections lean on text patterns rather\nthan structured state: whether a document’s completion checklist is fully\nchecked, and whether the installer’s sections are already present in a project’s\nCLAUDE.md. Two earlier entries have since closed themselves, both from the prior API, whose\nreactivation began by clearing and rebuilding the team registration. In the\nfirst, the clearing call tolerated a no-op, since a freshly restarted lead\nusually has no team context to clear—the normal path, not a degradation—while\na failed rebuild aborted the run. In the second, the lead had to infer whether a\nnamed reactivation should skip that clearing step, because registration could\nnot be queried. Version 2.1.178 removed both tools and the session-scoped team\nremoved the step, so neither question arises on the current line. None of\nthese are hidden; they are the current entries in the same find-and-fix loop the\nrest of the design came from.\n\nMost importantly, this manual is a design, not an evaluation. We have described\nmechanisms and the reasoning behind them and illustrated them through how the\nlayer is used, but we have not measured how much they help, compared them\nagainst alternatives, or studied how people work with them. Empirical\nevaluation—recovery reliability under real interruptions, the overhead the\ndiscipline adds, and usability of human-in-the-loop operation—is the main\ndirection for future work, alongside a tighter lead/teammate protocol, less\nprompt-writing overhead, and keeping the framework simple enough that agents\nreliably follow it. Established methodology for evaluating language models offers\na starting point [4], though it targets task quality rather\nthan the recovery and continuity properties at issue here. A more autonomous mode, with the human further out of the\nloop, is left for when models are capable enough to be trusted with it.",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 4,
+  "seeds_or_runs": 0,
+  "swe_bench": 2,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

@@ -1,0 +1,357 @@
+{
+ "arxiv_id": "2610.05300",
+ "fulltext_chars": 93112,
+ "fulltext_lines": 2217,
+ "authors_block": "Harnesses via Bandit-Guided Compositional Evolution Zhiwei Shang, Yu Huo, Mingrong Gong, An Yan, Zikun Qu, Junhao Dong, Bryan Kian Hsiang Low, Chenglin Wu, Zhongxiang Dai The Chinese University of Hong Kong, Shenzhen The Chinese University of Hong Kong Nanyang Technological University Fudan University National University of Singapore DeepWisdom Correspondence to: Zhongxiang Dai <daizhongxiang@cuhk.edu.cn>",
+ "vendor_affiliation_hits": [],
+ "n_authors": 9,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [
+  "https://huggingface.co/datasets/AI-MO",
+  "https://huggingface.co/datasets/AIMO-Corpus",
+  "https://huggingface.co/datasets/gretelai"
+ ],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# MESH-Harness: Self-Improving Agent"
+  ],
+  [
+   38,
+   "###### Abstract"
+  ],
+  [
+   43,
+   "## 1 Introduction"
+  ],
+  [
+   84,
+   "## 2 Related Work"
+  ],
+  [
+   86,
+   "#### Improving agents through external components."
+  ],
+  [
+   98,
+   "#### Bandit-guided search under limited evaluation budgets."
+  ],
+  [
+   111,
+   "## 3 Preliminaries"
+  ],
+  [
+   152,
+   "## 4 Method"
+  ],
+  [
+   214,
+   "### 4.1 Module Pools and Shared Representations"
+  ],
+  [
+   237,
+   "### 4.2 Bandit-Guided Compositional Search"
+  ],
+  [
+   329,
+   "### 4.3 Trace-Driven Module Evolution"
+  ],
+  [
+   377,
+   "## 5 Experiments"
+  ],
+  [
+   381,
+   "### 5.1 Experimental Setup"
+  ],
+  [
+   383,
+   "#### Tasks and evaluation."
+  ],
+  [
+   389,
+   "#### Comparisons and budget."
+  ],
+  [
+   395,
+   "#### Implementation."
+  ],
+  [
+   400,
+   "### 5.2 Performance under a Fixed Evaluation Cap"
+  ],
+  [
+   452,
+   "#### Main comparison."
+  ],
+  [
+   459,
+   "#### Where the gains arise."
+  ],
+  [
+   521,
+   "#### Improvement beyond initialization."
+  ],
+  [
+   528,
+   "### 5.3 Contributions of Selection and Evolution"
+  ],
+  [
+   532,
+   "#### Selecting which compositions to evaluate matters."
+  ],
+  [
+   599,
+   "#### Evolving the pools improves performance."
+  ],
+  [
+   605,
+   "### 5.4 Cost and Reuse of Optimized Harnesses"
+  ],
+  [
+   607,
+   "#### Search and execution costs."
+  ],
+  [
+   712,
+   "#### Reuse across execution models."
+  ],
+  [
+   744,
+   "#### Reuse of an existing optimized harness."
+  ],
+  [
+   750,
+   "## 6 Conclusion"
+  ],
+  [
+   758,
+   "## AI Use Statement"
+  ],
+  [
+   762,
+   "## Ethics Statement"
+  ],
+  [
+   766,
+   "## Reproducibility Statement"
+  ],
+  [
+   772,
+   "## References"
+  ],
+  [
+   1169,
+   "## Appendix A Theoretical Supplements"
+  ],
+  [
+   1173,
+   "### A.1 How one evaluation informs other compositions"
+  ],
+  [
+   1183,
+   "###### Proposition A.1 (Transfer through the shared ridge state)."
+  ],
+  [
+   1197,
+   "###### Proof."
+  ],
+  [
+   1214,
+   "### A.2 The role of full covariance in compositional uncertainty"
+  ],
+  [
+   1240,
+   "### A.3 Monotonicity and computational cost of coordinate search"
+  ],
+  [
+   1244,
+   "###### Proposition A.2 (Monotonic coordinate updates)."
+  ],
+  [
+   1248,
+   "###### Proof."
+  ],
+  [
+   1259,
+   "### A.4 Decomposing uncertainty and approximate selection"
+  ],
+  [
+   1270,
+   "###### Proposition A.3 (A conditional one-step decomposition)."
+  ],
+  [
+   1280,
+   "###### Proof."
+  ],
+  [
+   1294,
+   "## Appendix B Algorithmic Details"
+  ],
+  [
+   1298,
+   "### B.1 Search state and complete procedure"
+  ],
+  [
+   1438,
+   "### B.2 Mixed-start composition selection"
+  ],
+  [
+   1586,
+   "### B.3 Trace-guided proposals and fixed-capacity pool updates"
+  ],
+  [
+   1747,
+   "### B.4 Admissibility, history construction, and frozen execution"
+  ],
+  [
+   1839,
+   "#### History is selective context, not a new retrieval corpus."
+  ],
+  [
+   1843,
+   "#### Three state transitions have different roles."
+  ],
+  [
+   1847,
+   "#### Evaluation budget."
+  ],
+  [
+   1851,
+   "## Appendix C Implementation Details"
+  ],
+  [
+   1855,
+   "### C.1 Datasets and retrieval resources"
+  ],
+  [
+   1910,
+   "#### Text tasks."
+  ],
+  [
+   1914,
+   "#### Mathematical reasoning."
+  ],
+  [
+   1943,
+   "#### Code generation."
+  ],
+  [
+   1947,
+   "#### Interactive scientific tasks."
+  ],
+  [
+   1951,
+   "### C.2 Memory and information available to each harness"
+  ],
+  [
+   1955,
+   "#### Text."
+  ],
+  [
+   1959,
+   "#### Math."
+  ],
+  [
+   1963,
+   "#### LiveCodeBench and ScienceWorld."
+  ],
+  [
+   1967,
+   "### C.3 Search settings and execution limits"
+  ],
+  [
+   2033,
+   "#### Models and token budgets."
+  ],
+  [
+   2037,
+   "#### Task-specific computation."
+  ],
+  [
+   2041,
+   "### C.4 Metrics and aggregation"
+  ],
+  [
+   2045,
+   "#### Text."
+  ],
+  [
+   2055,
+   "#### Math."
+  ],
+  [
+   2065,
+   "#### LiveCodeBench: cap-8 solve rate."
+  ],
+  [
+   2069,
+   "#### ScienceWorld."
+  ],
+  [
+   2079,
+   "### C.5 Final selection and cost accounting"
+  ],
+  [
+   2081,
+   "#### Validation-based selection."
+  ],
+  [
+   2085,
+   "#### Search budget."
+  ],
+  [
+   2089,
+   "#### Reported cost."
+  ],
+  [
+   2093,
+   "## Appendix D Analysis of Optimized Harnesses"
+  ],
+  [
+   2097,
+   "### D.1 Text: evidence composition with explicit answer contracts"
+  ],
+  [
+   2123,
+   "### D.2 Math: compact problem context and exact-answer discipline"
+  ],
+  [
+   2151,
+   "### D.3 LiveCodeBench: complementary drafts and failure-directed repair"
+  ],
+  [
+   2183,
+   "### D.4 ScienceWorld: planning with observed preconditions"
+  ],
+  [
+   2211,
+   "### D.5 Reuse, selection, and evolution in the final programs"
+  ],
+  [
+   2217,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "",
+ "ethics_coi": "## Ethics Statement\n\nThis work studies the optimization of agent harnesses with existing language models and benchmark datasets spanning text tasks, mathematical reasoning, code generation, and simulated scientific interaction. The experiments evaluate model outputs and executable programs within the specified benchmark protocols; they do not involve recruiting human participants or deploying systems in real-world decision-making. Diagnosis, legal, and chemical outputs are used only as benchmark predictions. We are not aware of specific ethical concerns arising from the experiments reported in this study.\n\n## Reproducibility Statement\n\nThe main text and appendices detail the MESH-Harness design and experiments.\n\nAlgorithm 4 and Section 4 specify the MESH-Harness procedure, while Appendix A provides the theoretical analysis and Appendix B expands the optimization loop, composition selection, and module refresh procedures. Section 5.1 identifies the models, benchmarks, baselines, and evaluation protocol. Appendix C details the data splits, retrieval resources, memory boundaries, search hyperparameters, execution limits, scoring rules, and cost accounting. Appendix D describes the selected harnesses and their task-specific control flow. All comparisons use the shared task splits and scoring protocols described in the paper. Final harnesses are selected on validation data and frozen before testing; reported test scores average three executions of each frozen harness. The models, benchmarks, and retrieval sources are identified and cited in the manuscript.\n\n## References\n\nAbbasi-Yadkori et al. (2011)\n\nYasin Abbasi-Yadkori, Dávid Pál, and Csaba Szepesvári.\n\nImproved algorithms for linear stochastic bandits.\n\nAdvances in neural information processing systems, 24, 2011.\n\nAIMO-Corpus (2026)\n\nAIMO-Corpus.\n\nPolyMath.",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 9,
+  "swe_bench": 0,
+  "contamination": 2,
+  "human_study": 1,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

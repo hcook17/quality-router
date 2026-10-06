@@ -1,0 +1,85 @@
+{
+ "arxiv_id": "2607.02825",
+ "fulltext_chars": 28043,
+ "fulltext_lines": 1037,
+ "authors_block": "Splits, a Unified Multi-Backend Harness, and a Leakage-Aware Evaluation Mode Conference: 41th IEEE/ACM International Conference on Automated Software Engineering; October 2026; Munich, Germany Norbert Sándor Szolnoki Note: Both authors contributed equally to this research. email: szolnoki@inf.u-szeged.hu Affiliation: University Of Szeged, Szeged, Hungary and Gábor Antal email: antal@inf.u-szeged.hu Affiliation: University Of Szeged, Szeged, Hungary © none",
+ "vendor_affiliation_hits": [],
+ "n_authors": 2,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# JavaVulBench: A Java Vulnerability Benchmark with Realistic"
+  ],
+  [
+   44,
+   "###### Abstract."
+  ],
+  [
+   68,
+   "## 1. Introduction"
+  ],
+  [
+   129,
+   "## 2. Dataset"
+  ],
+  [
+   169,
+   "## 3. Evaluation Harness"
+  ],
+  [
+   224,
+   "## 4. Validation Studies"
+  ],
+  [
+   235,
+   "### 4.1. VS1: Split strategy is a first-class property"
+  ],
+  [
+   286,
+   "### 4.2. VS2: Reference baselines across backend families"
+  ],
+  [
+   413,
+   "### 4.3. VS3: Leakage-aware evaluation mode"
+  ],
+  [
+   527,
+   "## 5. Availability and Reproduction"
+  ],
+  [
+   568,
+   "## 6. Positioning and Limitations"
+  ],
+  [
+   654,
+   "## References"
+  ],
+  [
+   1037,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 6. Positioning and Limitations\n\nTable 5. Java vulnerability benchmarks. M = method/function-level\nlabels shipped directly; N = explicit non-vulnerable samples;\nL = line-level vulnerable-line labels; S = \\geq 2 realistic split\nstrategies shipped; H = unified multi-backend evaluation harness;\nA = per-model pre-training contamination audit. ✓ = yes,\n✗ = no, \\sim = partial / derivable from shipped diffs but not\nshipped directly.\n\nBenchmark\nJava-only\nM\nN\nL\nS\nH\nA\n\nVul4J (Bui et al., 2022)\n✓\n \\sim \n✗\n \\sim \n✗\n✗\n✗\n\nVJBench (Wu et al., 2023)\n✓\n \\sim \n✗\n \\sim \n✗\n✗\n✗\n\nCWE-Bench-Java (Li et al., 2024)\n✓\n✓",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 11,
+  "human_study": 0,
+  "java": 34,
+  "industrial": 2
+ },
+ "fulltext_source": "html"
+}

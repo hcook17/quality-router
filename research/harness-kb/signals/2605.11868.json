@@ -1,0 +1,134 @@
+{
+ "arxiv_id": "2605.11868",
+ "fulltext_chars": 30152,
+ "fulltext_lines": 435,
+ "authors_block": "Large-language-model (LLM) agents now routinely retrieve and reason over external content: web pages fetched through browser tools, documents loaded from corporate file shares, search results, and outputs from Model Context Protocol (MCP) servers [1]. This retrieval-augmented capability is the foundation of every modern agent product, from research assistants to autonomous developer agents. The same property that makes retrieval powerful, however, places untrusted third-party text into the same context window the model treats as authoritative instruction, collapsing the boundary between data and command. From this collapse emerges an attack class that does not exist in classical software: indirect prompt injection (IPI), in which an adversary embeds instructions in third-party content that the agent will later read, and the LLM follows those instructions as though they were issued by the legitimate user. Two factors compound this risk in practice. First, tool-using agents let a single injected instruction hijack a chain of tool calls, exfiltrate session state, or pivot to internal systems without leaving the authorized execution surface. Second, the enterprise whitelists meant to contain agents block naive lures but not IPI itself: every wiki page, comment field, and third-party widget on an approved domain remains a viable injection point the moment an attacker can write to one. Both factors converged in the recent EchoLeak [2] zero-click exploit against Microsoft 365 Copilo",
+ "vendor_affiliation_hits": [
+  "Microsoft",
+  "NVIDIA"
+ ],
+ "n_authors": 5,
+ "comment": "code: https://github.com/VulcanLab/IPI-Proxy/",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/NVIDIA/garak",
+  "https://github.com/VulcanLab/IPI-proxy",
+  "https://github.com/microsoft/PyRIT",
+  "https://github.com/promptfoo/promptfoo",
+  "https://github.com/protectai/rebuff"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   39,
+   "###### Abstract"
+  ],
+  [
+   43,
+   "## 1 Background"
+  ],
+  [
+   49,
+   "## 2 Related Work"
+  ],
+  [
+   53,
+   "### 2.1 IPI Attacks and Threat Models"
+  ],
+  [
+   57,
+   "### 2.2 Benchmarks and Datasets"
+  ],
+  [
+   61,
+   "### 2.3 Defence Techniques"
+  ],
+  [
+   65,
+   "### 2.4 Red-Teaming and Detection Tools"
+  ],
+  [
+   69,
+   "## 3 Problem Statement"
+  ],
+  [
+   135,
+   "## 4 Key Idea: IPI-proxy"
+  ],
+  [
+   155,
+   "## 5 Architecture Design"
+  ],
+  [
+   159,
+   "### 5.1 System Overview"
+  ],
+  [
+   167,
+   "### 5.2 Components"
+  ],
+  [
+   169,
+   "#### Proxy Addon (proxy/addon.py)."
+  ],
+  [
+   173,
+   "#### Payload Library and Selector (payloads/unified.jsonl, proxy/config.py)."
+  ],
+  [
+   177,
+   "#### Embedding Templates (templates/)."
+  ],
+  [
+   181,
+   "#### HTML Injector (proxy/injector.py)."
+  ],
+  [
+   215,
+   "#### Exfiltration Tracker (tracker/server.py)."
+  ],
+  [
+   219,
+   "### 5.3 Per-Request Data Flow"
+  ],
+  [
+   223,
+   "### 5.4 Configuration Interface"
+  ],
+  [
+   258,
+   "### 5.5 Design Discussion"
+  ],
+  [
+   262,
+   "## 6 Conclusion"
+  ],
+  [
+   266,
+   "## References"
+  ],
+  [
+   435,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 1,
+  "java": 0,
+  "industrial": 8
+ },
+ "fulltext_source": "html"
+}

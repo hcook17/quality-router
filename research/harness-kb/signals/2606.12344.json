@@ -1,0 +1,282 @@
+{
+ "arxiv_id": "2606.12344",
+ "fulltext_chars": 60856,
+ "fulltext_lines": 1774,
+ "authors_block": "Mengyu Zheng Affiliation: TokenRhythm Technologies Kai Han Affiliation: TokenRhythm Technologies Boxun Li Affiliation: Infinigence AI Haiyang Xu Affiliation: Infinigence AI Yuchuan Tian Affiliation: TokenRhythm Technologies Affiliation: Peking University Wei He Affiliation: TokenRhythm Technologies Hang Zhou Affiliation: TokenRhythm Technologies Jianyuan Guo Affiliation: City University of Hong Kong Hailin Hu Affiliation: TokenRhythm Technologies Lin Ma Affiliation: SEE Fund Chao Xu Affiliation: Peking University Guohao Dai Affiliation: Infinigence AI Affiliation: Shanghai Jiaotong University Lixue Xia Affiliation: Infinigence AI Yunchao Wei Affiliation: Beijing Jiaotong University Yunhe Wang Affiliation: TokenRhythm Technologies Yu Wang Affiliation: Tsinghua University {mengyu.zheng, kai.han, yunhe.wang}@tokenrhythm.ai yu-wang@mail.tsinghua.edu.cn",
+ "vendor_affiliation_hits": [],
+ "n_authors": 16,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/deepseek-ai/deepseek-harness",
+  "https://github.com/opensquilla/claw-swe-bench"
+ ],
+ "hf_urls": [
+  "https://huggingface.co/datasets/TokenRhythm"
+ ],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Claw-SWE-Bench: A Benchmark for Evaluating OpenClaw-style Agent Harnesses on Coding Tasks"
+  ],
+  [
+   92,
+   "###### Abstract"
+  ],
+  [
+   102,
+   "## 1 Introduction"
+  ],
+  [
+   148,
+   "## 2 Related Work and Background"
+  ],
+  [
+   158,
+   "#### General-Purpose Agent Harnesses."
+  ],
+  [
+   171,
+   "## 3 Claw-SWE-Bench"
+  ],
+  [
+   180,
+   "### 3.1 The Adapter Protocol"
+  ],
+  [
+   196,
+   "### 3.2 Standardized Execution Pipeline"
+  ],
+  [
+   209,
+   "## 4 Claw-SWE-Bench Lite"
+  ],
+  [
+   220,
+   "### 4.1 Lite Subset Definition"
+  ],
+  [
+   239,
+   "### 4.2 Subset Selection Method"
+  ],
+  [
+   241,
+   "#### Instance selection."
+  ],
+  [
+   284,
+   "#### Subset size selection."
+  ],
+  [
+   293,
+   "### 4.3 Validation Results"
+  ],
+  [
+   309,
+   "## 5 Experimental Setup"
+  ],
+  [
+   321,
+   "#### Claws."
+  ],
+  [
+   540,
+   "#### Models."
+  ],
+  [
+   548,
+   "#### Evaluation metrics."
+  ],
+  [
+   557,
+   "#### Runtime configuration."
+  ],
+  [
+   570,
+   "## 6 Results"
+  ],
+  [
+   572,
+   "### 6.1 The Adapter Makes a General Agent Scorable"
+  ],
+  [
+   578,
+   "### 6.2 Performance across Harnesses"
+  ],
+  [
+   597,
+   "### 6.3 Efficiency and Cost Analysis"
+  ],
+  [
+   616,
+   "### 6.4 Evaluation of Claw-SWE-Bench Lite"
+  ],
+  [
+   632,
+   "### 6.5 Effect of Future-Commit Cleanup"
+  ],
+  [
+   646,
+   "## 7 Conclusion"
+  ],
+  [
+   650,
+   "## References"
+  ],
+  [
+   1127,
+   "## Appendix A Reproducibility Statement"
+  ],
+  [
+   1131,
+   "### A.1 Code release"
+  ],
+  [
+   1133,
+   "#### Harness adapters."
+  ],
+  [
+   1137,
+   "### A.2 Data release"
+  ],
+  [
+   1141,
+   "### A.3 Reproduction protocol"
+  ],
+  [
+   1143,
+   "#### Per-instance run."
+  ],
+  [
+   1161,
+   "#### Evaluation."
+  ],
+  [
+   1182,
+   "### A.4 Model Pricing and API Cost Accounting"
+  ],
+  [
+   1224,
+   "#### Qwen pricing tier and cache pricing."
+  ],
+  [
+   1231,
+   "#### DeepSeek peak and off-peak pricing."
+  ],
+  [
+   1239,
+   "#### Cost calculation."
+  ],
+  [
+   1252,
+   "## Appendix B Compute and Environment Details"
+  ],
+  [
+   1261,
+   "### B.1 Hardware"
+  ],
+  [
+   1285,
+   "### B.2 Run-time parameters (held equal across all seven claws)"
+  ],
+  [
+   1305,
+   "### B.3 API provider"
+  ],
+  [
+   1310,
+   "### B.4 Compute cost (aggregate)"
+  ],
+  [
+   1319,
+   "## Appendix C Meta-Harness Implementation Details"
+  ],
+  [
+   1326,
+   "#### Seed harness and search space."
+  ],
+  [
+   1333,
+   "#### Proposer and feedback."
+  ],
+  [
+   1345,
+   "#### Search data and auditing."
+  ],
+  [
+   1353,
+   "#### Final evaluation and cross-model transfer."
+  ],
+  [
+   1362,
+   "#### Evolution cost."
+  ],
+  [
+   1368,
+   "## Appendix D Lite-80 Construction Detail"
+  ],
+  [
+   1374,
+   "### D.1 Calibration Pool and Constraints"
+  ],
+  [
+   1389,
+   "### D.2 Objective and Solver"
+  ],
+  [
+   1399,
+   "### D.3 K-sweep Decision"
+  ],
+  [
+   1454,
+   "### D.4 Coverage and Cost"
+  ],
+  [
+   1462,
+   "## Appendix E License and Ethics"
+  ],
+  [
+   1464,
+   "#### License of the released artifact."
+  ],
+  [
+   1482,
+   "## Appendix F Variation Along the LLM Axis"
+  ],
+  [
+   1484,
+   "### F.1 Aggregate Results"
+  ],
+  [
+   1624,
+   "### F.2 Per-Language Resolved Rate"
+  ],
+  [
+   1767,
+   "#### Commentary."
+  ],
+  [
+   1774,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "",
+ "ethics_coi": "## Appendix E License and Ethics\n\n#### License of the released artifact.\n\nThis benchmark is derived from two upstream sources, both released under MIT.\n(i) SWE-bench Multilingual is hosted at\nhuggingface.co/datasets/SWE-bench/SWE-bench_Multilingual, released as\npart of the official SWE-bench project.\n(ii) SWE-bench Verified-Mini\nis an MIT-licensed subset of SWE-bench Verified (the OpenAI-validated\n500-instance Python subset), hosted at\ngithub.com/mariushobbhahn/SWEBench-verified-mini.\n\nWe retain both upstream LICENSE files and citations. The underlying source\ncode in each task instance retains the license of its original GitHub\nrepository. Users\nredistributing patches or derivative work must comply with the\nper-repository license. REPO_LICENSES.md in the released artifact\nlists every underlying repository and its current upstream license.\n\n## Appendix F Variation Along the LLM Axis\n\n### F.1 Aggregate Results\n\nWe examine variation along the LLM axis using OpenClaw as the reference claw with eleven models on the full 350-instance set. The models are GPT 5.5, Claude Opus 4.7, GLM 5.1, DeepSeek-V4 Pro and Flash, Kimi K2.6, MiniMax M2.7, Qwen 3.6-flash, Seed 2.0-mini, MiMo-v2.6-flash, and LongCat-2.0. Table F.1 reports aggregate results. The highest resolved rate is achieved by GPT 5.5, at 78.0\\% (273/350), followed by Claude Opus 4.7 at 77.1\\% (270/350). The lowest cell is Seed 2.0-mini, at 48.6\\% (170/350). The observed Pass@1 spread across these OpenClaw runs is 29.4  pp.",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 30,
+  "swe_bench": 65,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 4,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

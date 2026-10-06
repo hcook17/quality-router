@@ -1,0 +1,253 @@
+{
+ "arxiv_id": "2605.15721",
+ "fulltext_chars": 194365,
+ "fulltext_lines": 3906,
+ "authors_block": "Jiachen Zhu ††thanks: Same Contribution Affiliation: Shanghai Jiao Tong Univ. Email: gebro13@sjtu.edu.cn Zhuoying Ou* Affiliation: Shanghai Jiao Tong Univ. Email: zoeouzy23@sjtu.edu.cn Congmin Zheng Affiliation: Shanghai Jiao Tong Univ. Email: desp.zcm@sjtu.edu.cn Yuxiang Chen Affiliation: Univ. College London Email: yuxiang.chen.25@ucl.ac.uk Zeyu Zheng Affiliation: Carnegie Mellon Univ. Email: zeyuzhen@andrew.cmu.edu Rong Shan Affiliation: Shanghai Jiao Tong Univ. Email: shanrong@sjtu.edu.cn Lingyu Yang Affiliation: Shanghai Jiao Tong Univ. Email: jlnhbyu.yang@sjtu.edu.cn Lionel Z. WANG Affiliation: Hong Kong Polytechnic Univ. Affiliation: lionel-z.wang Email: @connect.polyu.hk Weiwen Liu Affiliation: Shanghai Jiao Tong Univ. Email: wwliu@sjtu.edu.cn Yong Yu Affiliation: Shanghai Jiao Tong Univ. Email: yyu@sjtu.edu.cn Weinan Zhang Affiliation: Shanghai Jiao Tong Univ. Email: wnzhang@sjtu.edu.cn Jianghao Lin ††thanks: Corresponding Author Affiliation: Shanghai Jiao Tong Univ. Email: linjianghao@sjtu.edu.cn",
+ "vendor_affiliation_hits": [],
+ "n_authors": 12,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Contexting as Recommendation: Evolutionary Collaborative Filtering for Context Engineering"
+  ],
+  [
+   96,
+   "###### Abstract"
+  ],
+  [
+   100,
+   "## 1 Introduction"
+  ],
+  [
+   134,
+   "## 2 Preliminary"
+  ],
+  [
+   138,
+   "### 2.1 Context Engineering with Composite Strategies"
+  ],
+  [
+   154,
+   "### 2.2 Context Engineering as Recommendation"
+  ],
+  [
+   175,
+   "## 3 Methodology"
+  ],
+  [
+   181,
+   "### 3.1 Neural Collaborative Preference Model"
+  ],
+  [
+   197,
+   "### 3.2 Cluster-based Initialization"
+  ],
+  [
+   206,
+   "### 3.3 Context-CF Co-Evolution"
+  ],
+  [
+   236,
+   "### 3.4 Theoretical Justification"
+  ],
+  [
+   246,
+   "###### Assumption 1 (Cluster Lipschitz Preference)."
+  ],
+  [
+   254,
+   "###### Theorem 1 (PAC Bound for Instance-wise Routing)."
+  ],
+  [
+   268,
+   "## 4 Experiments"
+  ],
+  [
+   275,
+   "### 4.1 Experimental Setup"
+  ],
+  [
+   424,
+   "### 4.2 Main Results"
+  ],
+  [
+   428,
+   "### 4.3 Ablation Study"
+  ],
+  [
+   500,
+   "### 4.4 Co-Evolution Effect"
+  ],
+  [
+   510,
+   "### 4.5 Complementary experiments"
+  ],
+  [
+   512,
+   "#### Cluster Number Effect"
+  ],
+  [
+   518,
+   "#### Data Density"
+  ],
+  [
+   526,
+   "#### Routing Context Distribution"
+  ],
+  [
+   530,
+   "## 5 Related Work"
+  ],
+  [
+   547,
+   "## 6 Conclusion"
+  ],
+  [
+   551,
+   "## References"
+  ],
+  [
+   1025,
+   "## Appendix A Overall Algorithm"
+  ],
+  [
+   1217,
+   "## Appendix B Proof of Theorem 1"
+  ],
+  [
+   1261,
+   "#### Remarks."
+  ],
+  [
+   1265,
+   "## Appendix C Experiment Settings"
+  ],
+  [
+   1267,
+   "### C.1 Datasets"
+  ],
+  [
+   1271,
+   "#### HoVer."
+  ],
+  [
+   1276,
+   "#### SCONE."
+  ],
+  [
+   1281,
+   "#### HotpotQA."
+  ],
+  [
+   1288,
+   "### C.2 Base LLM and Implementation Details"
+  ],
+  [
+   1296,
+   "### C.3 Baselines"
+  ],
+  [
+   1300,
+   "#### APE."
+  ],
+  [
+   1304,
+   "#### OPRO."
+  ],
+  [
+   1308,
+   "#### EvoPrompt."
+  ],
+  [
+   1312,
+   "#### TextGrad."
+  ],
+  [
+   1316,
+   "#### MIPROv2."
+  ],
+  [
+   1320,
+   "#### GEPA."
+  ],
+  [
+   1324,
+   "## Appendix D Related Works"
+  ],
+  [
+   1326,
+   "### D.1 Prompt and Context Engineering"
+  ],
+  [
+   1338,
+   "### D.2 Recommendation and Collaborative Filtering"
+  ],
+  [
+   1350,
+   "## Appendix E Limitations"
+  ],
+  [
+   1358,
+   "## Appendix F Experimental Details"
+  ],
+  [
+   1360,
+   "### F.1 Dataset Partitioning and Statistics"
+  ],
+  [
+   1364,
+   "#### Data Splitting Protocol"
+  ],
+  [
+   1368,
+   "#### Cluster-based Partitioning"
+  ],
+  [
+   1372,
+   "#### Dataset Statistics"
+  ],
+  [
+   1402,
+   "### F.2 Model Configurations and Resource Costs"
+  ],
+  [
+   1426,
+   "### F.3 Router Training Configurations"
+  ],
+  [
+   1598,
+   "### F.4 Implementation Details of Context Evolution"
+  ],
+  [
+   3372,
+   "## NeurIPS Paper Checklist"
+  ],
+  [
+   3906,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## Appendix E Limitations\n\nWhile NCCE demonstrates substantial improvements in instance-wise context routing, we acknowledge a few boundaries of our current study that present natural avenues for future research.\n\nFirst, the Context-CF Co-Evolution phase relies on an LLM reflector to iteratively generate and evaluate new contexts. While this is a one-time, offline training cost and inference remains highly efficient, scaling the co-evolution process to massive datasets incurs unavoidable API latency and computational overhead. Future work could explore using smaller, locally hosted models for the reflection step to reduce dependency on proprietary APIs during training.\n\nSecond, our experiments primarily validate the framework using a single, highly capable base LLM. Although the NCF routing mechanism is inherently model-agnostic, exploring the cross-model transferability of the learned context catalog—for instance, evaluating whether contexts evolved using a frontier model can be effectively routed to smaller, open-weight models—remains an interesting open question.\n\n## Appendix F Experimental Details\n\n### F.1 Dataset Partitioning and Statistics\n\nTo evaluate the effectiveness of the instance-wise context routing, we adopt a systematic partitioning strategy for all three datasets.\n\n#### Data Splitting Protocol\n\nFor each dataset, we first aggregate all available samples and perform a random shuffle. A fixed number of instances are then held out as a Test Set to ensure an unbiased final evaluation. The remaining samples form a Training/Dev Pool.\n\n#### Cluster-based Partitioning\n\nTo facilitate the Context-CF co-evolution, we apply K-means clustering to this pool based on the input text embeddings. Within each cluster, samples are further divided into Training and Dev sets using a 1:1 ratio. This cluster-aware split ensures that both the router training and the context evolution stages have balanced access to the diverse semantic patterns identified during the clustering phase.\n\n#### Dataset Statistics\n\nTable 3 summarizes the number of samples used for training, dev, and testing across the three tasks.\n\nTable 3: Summary of dataset partitions for HoVer, SCONE, and HotpotQA.\n\nDataset\nTotal Samples\nTraining\nDev\nTest\n\nHoVer\n2,520\n500\n500\n1,520",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 10,
+  "seeds_or_runs": 1,
+  "swe_bench": 0,
+  "contamination": 1,
+  "human_study": 2,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

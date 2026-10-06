@@ -1,0 +1,250 @@
+{
+ "arxiv_id": "2609.08318",
+ "fulltext_chars": 82398,
+ "fulltext_lines": 2019,
+ "authors_block": "DOI: 10.1145/3832149Journal: PACMSEVolume: 3ISSTAISSTA05810issta26main-p483-pCCS: Software and its engineering Automatic programming Zhengran Zeng Note: Both authors contributed equally to this research. Affiliation: Peking University, Beijing, China email: zhengranzeng@stu.pku.edu.cn , Yixin Li Affiliation: Peking University, Beijing, China email: leason_lyx@stu.pku.edu.cn , Rui Xie Note: Those authors are the corresponding authors. Affiliation: Peking University, Beijing, China email: ruixie@pku.edu.cn , Wei Ye Affiliation: Peking University, Beijing, China email: wye@pku.edu.cn and Shikun Zhang Affiliation: Peking University, Beijing, China email: zhangsk@pku.edu.cn Received 2026-06-25",
+ "vendor_affiliation_hits": [],
+ "n_authors": 5,
+ "comment": "23 pages, 5 figures, accepted at ISSTA 2026",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/ZZR0/AttnCompressAccessed"
+ ],
+ "hf_urls": [
+  "https://huggingface.co/Qwen/Qwen3-235B-A22B-Instruct-2507",
+  "https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507Model",
+  "https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct",
+  "https://huggingface.co/datasets/ByteDance-Seed",
+  "https://huggingface.co/google/gemma-3-4b-itModel",
+  "https://huggingface.co/meta-llama/Llama-3.2-3B-InstructModel"
+ ],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# AttnCompress: Dynamic Attention-Guided Trajectory Compression for Software Engineering Agents"
+  ],
+  [
+   64,
+   "###### Abstract."
+  ],
+  [
+   71,
+   "###### Keywords:"
+  ],
+  [
+   76,
+   "## 1. Introduction"
+  ],
+  [
+   116,
+   "## 2. Background & Related Work"
+  ],
+  [
+   118,
+   "### 2.1. LLM-based SE Agents & Workflow"
+  ],
+  [
+   134,
+   "### 2.2. The Context Challenge in SE"
+  ],
+  [
+   144,
+   "##### Information Density Variance."
+  ],
+  [
+   150,
+   "##### Dynamic Relevance."
+  ],
+  [
+   155,
+   "### 2.3. Related Work"
+  ],
+  [
+   159,
+   "#### 2.3.1. Selection-based Compression"
+  ],
+  [
+   164,
+   "#### 2.3.2. Heuristic-based Compression"
+  ],
+  [
+   170,
+   "#### 2.3.3. Summarization-based Compression"
+  ],
+  [
+   180,
+   "## 3. Approach"
+  ],
+  [
+   182,
+   "### 3.1. Overview"
+  ],
+  [
+   190,
+   "### 3.2. Phase 1: Structure-Aware Segmentation via PPL Spikes"
+  ],
+  [
+   194,
+   "##### PPL Calculation."
+  ],
+  [
+   204,
+   "##### Boundary Detection."
+  ],
+  [
+   223,
+   "### 3.3. Phase 2: Importance Estimation via Proxy Attention"
+  ],
+  [
+   227,
+   "##### Input Construction."
+  ],
+  [
+   231,
+   "##### Scoring Metric."
+  ],
+  [
+   241,
+   "##### Selection Strategy."
+  ],
+  [
+   246,
+   "### 3.4. Phase 3: Dynamic Rolling Maintenance"
+  ],
+  [
+   250,
+   "##### The Context Buffer."
+  ],
+  [
+   270,
+   "##### Periodic Global Refresh."
+  ],
+  [
+   395,
+   "### 3.5. Implementation"
+  ],
+  [
+   425,
+   "## 4. Experimental Design"
+  ],
+  [
+   427,
+   "### 4.1. Research Questions"
+  ],
+  [
+   431,
+   "##### RQ1: Cost-Effectiveness Trade-off."
+  ],
+  [
+   436,
+   "##### RQ2: Component Contribution."
+  ],
+  [
+   441,
+   "##### RQ3: Generalization Capabilities."
+  ],
+  [
+   446,
+   "### 4.2. Experimental Setup"
+  ],
+  [
+   448,
+   "#### 4.2.1. Datasets"
+  ],
+  [
+   460,
+   "#### 4.2.2. Baselines"
+  ],
+  [
+   494,
+   "#### 4.2.3. Metrics"
+  ],
+  [
+   526,
+   "## 5. Results"
+  ],
+  [
+   530,
+   "### 5.1. RQ1: Cost-Effectiveness Trade-off"
+  ],
+  [
+   875,
+   "##### Pass Rate Analysis."
+  ],
+  [
+   963,
+   "##### Efficiency and Latency."
+  ],
+  [
+   977,
+   "### 5.2. RQ2: Component Contribution"
+  ],
+  [
+   981,
+   "##### Analysis of PPL-based Segmentation."
+  ],
+  [
+   1028,
+   "##### Analysis of Proxy Attention."
+  ],
+  [
+   1033,
+   "##### Analysis of Dynamic Rolling Window."
+  ],
+  [
+   1042,
+   "##### Hyperparameter Sensitivity."
+  ],
+  [
+   1206,
+   "### 5.3. RQ3: Generalization Capabilities"
+  ],
+  [
+   1210,
+   "##### Proxy Model Robustness."
+  ],
+  [
+   1342,
+   "##### Multi-Language Generalization."
+  ],
+  [
+   1442,
+   "## 6. Threats to Validity"
+  ],
+  [
+   1455,
+   "## 7. Conclusions"
+  ],
+  [
+   1459,
+   "## Data Availability"
+  ],
+  [
+   1463,
+   "## References"
+  ],
+  [
+   2019,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 6. Threats to Validity\n\nThreats to Internal Validity.\nThe primary internal threat is Data Leakage, as proprietary LLMs might have seen the SWE-Bench issues during training. We mitigated this by including the more recent Multi-SWE-Bench in our evaluation. Furthermore, since all baselines utilize the same backend models, any leakage affects them equally, preserving the validity of relative comparisons.\nA second threat is hyperparameter overfitting. To address this, we strictly isolated a 100-instance validation set for ablation studies and parameter tuning, ensuring the reported performance on the 200-instance test set reflects genuine generalization rather than overfitting.\n\nThreats to External Validity.\nThe main external threat is generalization across agent frameworks. Due to computational costs, we evaluated AttnCompress primarily on Trae-Agent. However, as most SE agents follow similar ReAct patterns, our middleware approach is theoretically transferable.\nWe also addressed model and language generalization by validating our framework across diverse proxy models (Qwen, Llama, Gemma) and seven programming languages. The consistent results suggest our findings are not limited to a specific model architecture or language ecosystem.\n\nThreats to Construct Validity.\nA threat to construct validity is the reliance on test-based evaluation. A patch passing available tests (plausible) may not be semantically equivalent to the developer’s fix (correct). While this is a known limitation of benchmarks like SWE-Bench, it serves as a standard proxy for task success. Crucially, this metric limits all comparison methods equally; therefore, the observed improvements in pass rate reliably indicate that AttnCompress retains more critical task information than other compression baselines.\n\n## 7. Conclusions\n\nIn this paper, we addressed the critical context scalability bottleneck in Autonomous Software Engineering (ASE) agents. We introduced AttnCompress, a dynamic compression framework that overcomes the limitations of static pruning and heuristic summarization through three key mechanisms: structure-aware segmentation via PPL spikes, proxy attention-guided relevance estimation, and a dynamic rolling window. This approach ensures the preservation of syntactic integrity and semantic dependencies essential for SE tasks. Extensive evaluation on SWE-Bench-Verified demonstrates that AttnCompress achieves a state-of-the-art pass rate of 53.17%, outperforming strong compression baselines while reducing token consumption by over 21.6% and total costs by 33.6%. Our results confirm that dynamic attention alignment offers a superior, model-agnostic solution for efficient, long-horizon software engineering tasks.\n\n## Data Availability\n\nThe replication package for our study, containing the necessary source code and scripts to reproduce our experiments, is available at the repository (2).\n\n## References\n\nAnthropic (2025)\nAnthropic\n\nClaude code.\n\nNote: https://claude.com/product/claude-codeAgentic AI coding tool for terminal and development workflows, accessed 2026-01-28\n\nCited by: §2.3.3.\n\n[2]\nAttnCompress: Dynamic Attention-Guided Trajectory Compression for Software Engineering Agents.\n\nNote: https://github.com/ZZR0/AttnCompressAccessed: 2026-07-16.\n\nCited by: Data Availability.\n\nBouzenia and Pradel (2025)",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 4,
+  "seeds_or_runs": 0,
+  "swe_bench": 36,
+  "contamination": 1,
+  "human_study": 0,
+  "java": 5,
+  "industrial": 1
+ },
+ "fulltext_source": "html"
+}

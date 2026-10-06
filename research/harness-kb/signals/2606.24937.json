@@ -1,0 +1,527 @@
+{
+ "arxiv_id": "2606.24937",
+ "fulltext_chars": 1730094,
+ "fulltext_lines": 55333,
+ "authors_block": "##### Report GitHub Issue Title: Content selection saved. Describe the issue below: Description: arXiv is now an independent nonprofit! Learn more Back to arXiv k p p \\lambda \\beta License: CC BY-SA 4.0 arXiv:2606.24937v3 [cs.AI] 29 Sep 2026 The Hitchhiker’s Guide to Agentic AI From Foundations to Systems Haggai Roitman 2026 Version 1.4 In memory of Dr. Dafna Sheinwald, R.I.P.",
+ "vendor_affiliation_hits": [
+  "GitHub"
+ ],
+ "n_authors": 1,
+ "comment": "version 1.4",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/THUDM/AgentBench",
+  "https://github.com/ag2ai/ag2",
+  "https://github.com/confident-ai/deepeval",
+  "https://github.com/explodinggradients/ragas",
+  "https://github.com/guidance-ai/guidance",
+  "https://github.com/haggair/agentic-ai-book",
+  "https://github.com/haggair/agentic-ai-book.git",
+  "https://github.com/huggingface/trl",
+  "https://github.com/langchain-ai/langgraph",
+  "https://github.com/microsoft/DeepSpeedExamples",
+  "https://github.com/microsoft/autogen",
+  "https://github.com/microsoft/promptflow",
+  "https://github.com/noamgat/lm-format-enforcer",
+  "https://github.com/openai/openai-agents-python",
+  "https://github.com/openclaw/openclaw"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   44,
+   "######"
+  ],
+  [
+   56,
+   "### Disclaimer"
+  ],
+  [
+   70,
+   "### About the Author"
+  ],
+  [
+   78,
+   "### In Memoriam: Dr. Dafna Sheinwald"
+  ],
+  [
+   94,
+   "### Preface"
+  ],
+  [
+   96,
+   "#### Why This Guide Exists"
+  ],
+  [
+   102,
+   "#### A Personal Journey to Agentic AI"
+  ],
+  [
+   110,
+   "#### The Landscape in 2026"
+  ],
+  [
+   130,
+   "#### Who This Guide Is For"
+  ],
+  [
+   156,
+   "#### What You Will Gain"
+  ],
+  [
+   188,
+   "#### How This Guide Is Organized"
+  ],
+  [
+   218,
+   "#### Design Philosophy"
+  ],
+  [
+   234,
+   "#### Scope and Deliberate Omissions"
+  ],
+  [
+   254,
+   "#### What’s New in Version 1.4"
+  ],
+  [
+   436,
+   "### Introduction"
+  ],
+  [
+   438,
+   "#### The Big Picture"
+  ],
+  [
+   444,
+   "#### The Road to Agentic AI: A Brief History"
+  ],
+  [
+   492,
+   "#### What You Should Expect"
+  ],
+  [
+   610,
+   "### The Guardian Angel System: Our Running Example"
+  ],
+  [
+   616,
+   "#### Why a Running Example?"
+  ],
+  [
+   630,
+   "#### The Clinical Problem"
+  ],
+  [
+   662,
+   "#### The Original Vision (1994)"
+  ],
+  [
+   696,
+   "#### System Architecture"
+  ],
+  [
+   789,
+   "#### How the Codebase Is Organised"
+  ],
+  [
+   813,
+   "#### Chapter-by-Chapter Roadmap"
+  ],
+  [
+   969,
+   "#### Running the Code"
+  ],
+  [
+   975,
+   "# 1. Clone and enter the repository"
+  ],
+  [
+   979,
+   "# 2. Create a virtual environment and install dependencies"
+  ],
+  [
+   983,
+   "# 3. Pull the default LLM (llama3.2, ˜2 GB) and start Ollama"
+  ],
+  [
+   986,
+   "# 4. Launch Jupyter and open the first notebook"
+  ],
+  [
+   997,
+   "### Glossary of Acronyms"
+  ],
+  [
+   1353,
+   "## Part I Foundations"
+  ],
+  [
+   1355,
+   "### Chapter 1 LLM Architecture and Optimization Methods"
+  ],
+  [
+   1375,
+   "#### 1.1 How LLMs Work: An Intuitive Overview"
+  ],
+  [
+   1401,
+   "#### 1.2 Tokenization"
+  ],
+  [
+   1409,
+   "##### 1.2.1 Why Not Characters or Words?"
+  ],
+  [
+   1433,
+   "##### 1.2.2 Byte-Pair Encoding (BPE)"
+  ],
+  [
+   1457,
+   "##### 1.2.3 Other Tokenization Methods"
+  ],
+  [
+   1491,
+   "##### 1.2.4 Tokenization Best Practices"
+  ],
+  [
+   1517,
+   "##### 1.2.5 Tokenization in Practice: HuggingFace Example"
+  ],
+  [
+   1525,
+   "# Load Llama-3 tokenizer (128K vocabulary, byte-level BPE)"
+  ],
+  [
+   1531,
+   "# Encode: text -> token IDs"
+  ],
+  [
+   1537,
+   "# [128000, 29934, 262, 11008, 4815, 6900, 1317, 9860, 21845, 13]"
+  ],
+  [
+   1539,
+   "# Decode individual tokens to see subword splits"
+  ],
+  [
+   1545,
+   "# [’<|begin_of_text|>’, ’Re’, ’inforce’, ’ment’, ’ learning’,"
+  ],
+  [
+   1547,
+   "# ’ optimizes’, ’ long’, ’-term’, ’ rewards’, ’.’]"
+  ],
+  [
+   1549,
+   "# Decode back to text (round-trip)"
+  ],
+  [
+   1555,
+   "# Tokenize with attention mask (for batched inputs with padding)"
+  ],
+  [
+   1569,
+   "##### 1.2.6 Special Tokens and Structured Prompts"
+  ],
+  [
+   1615,
+   "###### Role Markers for Instruction-Tuned Models."
+  ],
+  [
+   1621,
+   "# Llama-3 chat template"
+  ],
+  [
+   1631,
+   "# apply_chat_template handles all special token insertion"
+  ],
+  [
+   1637,
+   "# <|begin_of_text|><|start_header_id|>system<|end_header_id|>"
+  ],
+  [
+   1639,
+   "#"
+  ],
+  [
+   1641,
+   "# You are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>"
+  ],
+  [
+   1643,
+   "#"
+  ],
+  [
+   1645,
+   "# Explain PPO in one sentence.<|eot_id|><|start_header_id|>assistant<|end_header_id|>"
+  ],
+  [
+   1647,
+   "#"
+  ],
+  [
+   1649,
+   "#"
+  ],
+  [
+   1679,
+   "#### 1.3 The Transformer Architecture"
+  ],
+  [
+   1683,
+   "##### 1.3.1 High-Level Structure"
+  ],
+  [
+   1689,
+   "##### 1.3.2 The Original Encoder-Decoder Transformer"
+  ],
+  [
+   1695,
+   "###### Encoder."
+  ],
+  [
+   1715,
+   "###### Decoder — Masked Multi-Head Self-Attention."
+  ],
+  [
+   1732,
+   "###### Decoder — Cross-Attention."
+  ],
+  [
+   1756,
+   "###### Full Decoder Layer."
+  ],
+  [
+   1772,
+   "###### From Encoder-Decoder to Decoder-Only."
+  ],
+  [
+   1776,
+   "##### 1.3.3 Decoder-Only vs Encoder-Decoder"
+  ],
+  [
+   1808,
+   "##### 1.3.4 Embeddings: From Discrete Tokens to Continuous Space"
+  ],
+  [
+   1812,
+   "###### What is an Embedding?"
+  ],
+  [
+   1832,
+   "###### The Embedding Table."
+  ],
+  [
+   1870,
+   "###### The Anisotropy Problem."
+  ],
+  [
+   1890,
+   "###### Resolution: Whitening."
+  ],
+  [
+   1922,
+   "##### 1.3.5 Self-Attention Mechanism"
+  ],
+  [
+   1937,
+   "###### Computational Complexity."
+  ],
+  [
+   1983,
+   "###### Approaches to Taming Attention Cost."
+  ],
+  [
+   2012,
+   "##### 1.3.6 Multi-Head Attention"
+  ],
+  [
+   2025,
+   "###### Multi-head Latent Attention (MLA)."
+  ],
+  [
+   2033,
+   "##### 1.3.7 Positional Encodings"
+  ],
+  [
+   2069,
+   "###### Sinusoidal (Fixed) Positional Encoding."
+  ],
+  [
+   2083,
+   "###### Learned Absolute Positional Embedding."
+  ],
+  [
+   2095,
+   "###### Rotary Position Embedding (RoPE)."
+  ],
+  [
+   2143,
+   "###### ALiBi (Attention with Linear Biases)."
+  ],
+  [
+   2217,
+   "###### Scaling to Extremely Long Contexts (100K–1M+ Tokens)."
+  ],
+  [
+   2261,
+   "##### 1.3.8 Feed-Forward Network (MLP)"
+  ],
+  [
+   2281,
+   "##### 1.3.9 Layer Normalization"
+  ],
+  [
+   2285,
+   "###### How LayerNorm Works."
+  ],
+  [
+   2313,
+   "###### RMSNorm — The Modern Simplification."
+  ],
+  [
+   2341,
+   "##### 1.3.10 Model Size Reference"
+  ],
+  [
+   2447,
+   "##### 1.3.11 Attention Pathologies"
+  ],
+  [
+   2451,
+   "###### Attention Sink"
+  ],
+  [
+   2453,
+   "###### The phenomenon."
+  ],
+  [
+   2457,
+   "###### Why it happens."
+  ],
+  [
+   2463,
+   "###### Consequences."
+  ],
+  [
+   2477,
+   "###### Solutions."
+  ],
+  [
+   2491,
+   "###### Attention Dilution"
+  ],
+  [
+   2493,
+   "###### The phenomenon."
+  ],
+  [
+   2497,
+   "###### The “Lost in the Middle” effect."
+  ],
+  [
+   2501,
+   "###### Why it happens."
+  ],
+  [
+   2515,
+   "###### Mitigation strategies."
+  ],
+  [
+   2537,
+   "###### Other Attention Phenomena"
+  ],
+  [
+   2571,
+   "##### 1.3.12 Visualizing Attention for Explainability"
+  ],
+  [
+   2575,
+   "###### Attention Visualization Methods"
+  ],
+  [
+   2577,
+   "###### Raw attention maps."
+  ],
+  [
+   2581,
+   "###### Attention rollout."
+  ],
+  [
+   2589,
+   "###### Gradient-weighted attention."
+  ],
+  [
+   2601,
+   "###### Mechanistic Interpretability with Sparse Autoencoders (SAEs)"
+  ],
+  [
+   2603,
+   "###### The interpretability problem."
+  ],
+  [
+   2607,
+   "###### Sparse Autoencoders."
+  ],
+  [
+   2615,
+   "###### Key findings from SAE interpretability:"
+  ],
+  [
+   2655,
+   "###### Natural Language Autoencoders (Anthropic, 2026)"
+  ],
+  [
+   2659,
+   "###### How NLAEs work."
+  ],
+  [
+   2673,
+   "###### Advantages over SAEs."
+  ],
+  [
+   2691,
+   "###### Limitations."
+  ],
+  [
+   2721,
+   "#### 1.4 Prediction Heads: What Transformers Output"
+  ],
+  [
+   2727,
+   "##### 1.4.1 Language Modeling Head (Pretraining)"
+  ],
+  [
+   2759,
+   "##### 1.4.2 Conditional Generation Head (SFT / Instruction Following)"
+  ],
+  [
+   2789,
+   "##### 1.4.3 Value Head (Regression for RL)"
+  ],
+  [
+   2821,
+   "##### 1.4.4 Head Selection Summary"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "###### Limitations.\n\nNLAEs introduce a language-model-in-the-loop, making them computationally expensive and potentially subject to the same faithfulness concerns as any model-generated explanation. They also cannot easily represent sub-symbolic features (geometric patterns, exact numerical values) that SAEs handle naturally as activation magnitudes.\n\nThe Interpretability Stack\n\nThink of interpretability tools as a hierarchy:\n\n1. \n\nAttention maps: “What is the model looking at?” (cheapest, least faithful)\n\n2. \n\nProbing classifiers: “What information is encoded at this layer?”\n\n3. \n\nSparse Autoencoders: “What monosemantic features are active?” (scalable, requires human labelling)\n\n4. \n\nNatural Language Autoencoders: “What does the model think is happening?” (self-interpreting, expensive)\n\n5. \n\nCausal tracing / patching: “Which components actually cause this output?” (most faithful, most expensive)\n\nEach level trades off between cost, scalability, and faithfulness of explanation.\n\n#### 1.4 Prediction Heads: What Transformers Output\n\nThe transformer body produces contextual hidden states \\mathbf{h}_{t}\\in\\mathbb{R}^{d} for each position. What we do with these hidden states—the prediction head—defines the task. The same transformer backbone can serve radically different purposes simply by swapping the head.\n\nFigure 1.7: The same transformer backbone supports different tasks by swapping the prediction head. All three heads used in this paper share identical architecture below the final projection layer.\n\n##### 1.4.1 Language Modeling Head (Pretraining)\n\nThe standard LM head projects the final hidden state to vocabulary logits and trains with cross-entropy loss over the next token:",
+ "ethics_coi": "##### 17.4.3 Update: Conflict Resolution and Consolidation\n\nMemory consolidation merges related memories to reduce redundancy and surface higher-level patterns:\n\n \\mathcal{M}^{\\prime}=\\text{Consolidate}(\\mathcal{M})=\\text{Cluster}(\\mathcal{M})\\cup\\text{Summarize}(\\text{Cluster}(\\mathcal{M})). \n\n###### Forgetting Mechanisms.\n\nBiological memory forgets; so should artificial memory. Strategies:\n\n• \n\nLRU eviction: remove least-recently-used entries when capacity is exceeded.\n\n• \n\nImportance-weighted forgetting: p(\\text{forget}\\,|\\,d)\\propto\\exp(-\\text{importance}(d)) .\n\n• \n\nSpaced repetition: memories accessed repeatedly are retained longer, following the exponential forgetting curve [85].\n\n##### 17.4.4 Reflect: Meta-Cognitive Operations\n\nReflection [301, 344] is a higher-order memory operation: the agent reads its own memory and generates insights:",
+ "counts": {
+  "self_reported": 1,
+  "llm_as_judge": 38,
+  "p_value_or_ci": 68,
+  "seeds_or_runs": 40,
+  "swe_bench": 34,
+  "contamination": 38,
+  "human_study": 2,
+  "java": 2,
+  "industrial": 75
+ },
+ "fulltext_source": "html"
+}

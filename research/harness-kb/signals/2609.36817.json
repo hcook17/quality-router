@@ -1,0 +1,178 @@
+{
+ "arxiv_id": "2609.36817",
+ "fulltext_chars": 27181,
+ "fulltext_lines": 563,
+ "authors_block": "Zhuque Lab Security Team",
+ "vendor_affiliation_hits": [],
+ "n_authors": 8,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/Tencent/AI-Infra-Guard",
+  "https://github.com/deepseek-ai/deepseek-harness",
+  "https://github.com/earendil-works/pi",
+  "https://github.com/openclaw/openclaw"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# pikit: A Composable Toolkit for Indirect Prompt Injection Research"
+  ],
+  [
+   24,
+   "###### Abstract"
+  ],
+  [
+   43,
+   "## 1 Introduction"
+  ],
+  [
+   55,
+   "#### Contributions."
+  ],
+  [
+   73,
+   "## 2 Background"
+  ],
+  [
+   75,
+   "### 2.1 Indirect Prompt Injection"
+  ],
+  [
+   79,
+   "### 2.2 Threat Model"
+  ],
+  [
+   83,
+   "#### Adversary Capabilities."
+  ],
+  [
+   87,
+   "#### Adversary Constraints."
+  ],
+  [
+   91,
+   "## 3 The pikit Toolkit"
+  ],
+  [
+   99,
+   "### 3.1 Core Abstractions"
+  ],
+  [
+   103,
+   "#### Attack."
+  ],
+  [
+   122,
+   "#### Channel."
+  ],
+  [
+   126,
+   "#### Defense."
+  ],
+  [
+   145,
+   "### 3.2 Component Registry & Extensibility"
+  ],
+  [
+   164,
+   "### 3.3 Payload Synthesis: craft()"
+  ],
+  [
+   183,
+   "# result.mode -> ’indirect’"
+  ],
+  [
+   185,
+   "# result.delivery -> Tainted HTML containing embedded instructions"
+  ],
+  [
+   189,
+   "### 3.4 Combinatorial Evaluation: MatrixRunner"
+  ],
+  [
+   212,
+   "### 3.5 Component Catalog"
+  ],
+  [
+   216,
+   "#### Attacks (13 Methods)."
+  ],
+  [
+   230,
+   "#### Channels (16 Carriers)."
+  ],
+  [
+   247,
+   "#### Prevention Defenses (9 Strategies)."
+  ],
+  [
+   251,
+   "#### Detection Defenses (3 Baselines)."
+  ],
+  [
+   255,
+   "### 3.6 Target Adapters and Automated Evaluation"
+  ],
+  [
+   281,
+   "## 4 Validation: Empirical Evaluation on the pi Agent"
+  ],
+  [
+   285,
+   "#### Prior Threat Characterization."
+  ],
+  [
+   289,
+   "### 4.1 Defense Regression Analysis"
+  ],
+  [
+   358,
+   "### 4.2 Offline Detection Baseline"
+  ],
+  [
+   396,
+   "## 5 Discussion"
+  ],
+  [
+   398,
+   "### 5.1 Composability as a Research Primitive"
+  ],
+  [
+   404,
+   "### 5.2 Defense Effectiveness"
+  ],
+  [
+   410,
+   "## 6 Conclusion"
+  ],
+  [
+   416,
+   "## References"
+  ],
+  [
+   563,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 1
+ },
+ "fulltext_source": "html"
+}

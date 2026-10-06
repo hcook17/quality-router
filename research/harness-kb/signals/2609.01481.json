@@ -1,0 +1,353 @@
+{
+ "arxiv_id": "2609.01481",
+ "fulltext_chars": 129832,
+ "fulltext_lines": 6550,
+ "authors_block": "Haoyang Yan† Min-Le Su† Hangfan Zhang† Zhanhao Li† Chen Zhang Shao Zhang Yang Chen Lei Bai Shuyue Hu Affiliation: Shanghai Artificial Intelligence Laboratory",
+ "vendor_affiliation_hits": [],
+ "n_authors": 9,
+ "comment": "Github: https://github.com/Flesymeb/HarnessOfHarness Project Page: https://flesymeb.github.io/HarnessOfHarness/",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/anomalyco/opencode",
+  "https://github.com/earendil-works/pi",
+  "https://github.com/openai/codex"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   24,
+   "# Harness-of-Harness: Multi-Day Autonomous Software Development with Continual Improvement"
+  ],
+  [
+   46,
+   "###### Abstract"
+  ],
+  [
+   55,
+   "## 1 Introduction"
+  ],
+  [
+   72,
+   "## 2 Related Work"
+  ],
+  [
+   74,
+   "##### Agent Harnesses."
+  ],
+  [
+   92,
+   "##### Agentic Systems for Software Development."
+  ],
+  [
+   116,
+   "## 3 Harness-of-Harness"
+  ],
+  [
+   135,
+   "### 3.1 Problem Formulation and Challenges"
+  ],
+  [
+   163,
+   "### 3.2 Harness-of-Harness Overview"
+  ],
+  [
+   198,
+   "### 3.3 Cross-Loop State Management"
+  ],
+  [
+   253,
+   "### 3.4 Implementation of a HoH Loop"
+  ],
+  [
+   291,
+   "#### 3.4.1 Project Planning"
+  ],
+  [
+   326,
+   "#### 3.4.2 Artifact Development"
+  ],
+  [
+   365,
+   "#### 3.4.3 Independent Quality Assurance"
+  ],
+  [
+   444,
+   "## 4 Experiments: Benchmark Evaluation"
+  ],
+  [
+   448,
+   "### 4.1 Experimental Setup"
+  ],
+  [
+   450,
+   "##### Benchmarks."
+  ],
+  [
+   455,
+   "##### Harnesses and Models."
+  ],
+  [
+   468,
+   "##### Baseline and Evaluation Protocol."
+  ],
+  [
+   472,
+   "##### Metrics."
+  ],
+  [
+   476,
+   "### 4.2 Main Results"
+  ],
+  [
+   803,
+   "##### HoH improves software artifact quality across three benchmarks spanning game development, repository-level software engineering, and program reconstruction."
+  ],
+  [
+   807,
+   "##### HoH yields consistent gains over Vanilla across all three harness–model pairs."
+  ],
+  [
+   811,
+   "##### HoH continues to improve software artifact quality as development loops progress."
+  ],
+  [
+   815,
+   "### 4.3 Analysis and Ablation Study"
+  ],
+  [
+   817,
+   "##### On GameCraft-Bench, HoH improves software quality across mechanics, content, visuals, and presentation."
+  ],
+  [
+   825,
+   "##### On FrontierSWE, HoH sustains quality gains over ten loops."
+  ],
+  [
+   833,
+   "##### For the same number of development passes, HoH consistently outperforms the Vanilla baseline."
+  ],
+  [
+   876,
+   "##### Qualitative Analysis."
+  ],
+  [
+   904,
+   "##### Ablation Study."
+  ],
+  [
+   910,
+   "## 5 Experiments: Multi-Day Autonomous FPS Game Development"
+  ],
+  [
+   923,
+   "### 5.1 Case Design and Autonomy Boundary"
+  ],
+  [
+   925,
+   "##### Task and Autonomy Boundary."
+  ],
+  [
+   950,
+   "##### Domain-Specific Skills and Tools."
+  ],
+  [
+   971,
+   "##### Verification Scope."
+  ],
+  [
+   978,
+   "##### Project State and Traceability."
+  ],
+  [
+   989,
+   "### 5.2 Development Dynamics Across Loops"
+  ],
+  [
+   1031,
+   "## 6 Conclusion and Future Work"
+  ],
+  [
+   1051,
+   "## References"
+  ],
+  [
+   1652,
+   "## Appendix A Method and Implementation Details"
+  ],
+  [
+   1654,
+   "### A.1 HoH Execution Protocol"
+  ],
+  [
+   1737,
+   "### A.2 Role-Specific Prompt Construction"
+  ],
+  [
+   1803,
+   "## Project Planner Priorities"
+  ],
+  [
+   1804,
+   "### Priority Order"
+  ],
+  [
+   1806,
+   "### Preservation Gate"
+  ],
+  [
+   1808,
+   "### Acceptance Gate"
+  ],
+  [
+   1830,
+   "# Outer-loop attempt {{attempt}}"
+  ],
+  [
+   1943,
+   "### A.3 Development Tools and Workspace Operations"
+  ],
+  [
+   2010,
+   "### A.4 Evidence Collection and Representation"
+  ],
+  [
+   2281,
+   "### A.5 Cross-Iteration State Transfer and Evaluation Isolation"
+  ],
+  [
+   2304,
+   "## Appendix B Experimental Protocol"
+  ],
+  [
+   2306,
+   "### B.1 Harness and Model Configurations"
+  ],
+  [
+   2346,
+   "### B.2 Run Configuration and Repetition"
+  ],
+  [
+   2404,
+   "### B.3 Computing Environments"
+  ],
+  [
+   2454,
+   "### B.4 Benchmark Sampling and Evaluated Tasks"
+  ],
+  [
+   2490,
+   "#### B.4.1 GameCraft-Bench"
+  ],
+  [
+   2733,
+   "#### B.4.2 FrontierSWE"
+  ],
+  [
+   2887,
+   "### B.5 Baseline and Budget-Controlled Protocols"
+  ],
+  [
+   2889,
+   "##### Vanilla."
+  ],
+  [
+   2895,
+   "##### Vanilla Continuation."
+  ],
+  [
+   2918,
+   "### B.6 Ablation Protocols"
+  ],
+  [
+   2986,
+   "### B.7 Metrics and Resource Accounting"
+  ],
+  [
+   2988,
+   "##### GameCraft-Bench dimensions."
+  ],
+  [
+   2999,
+   "##### GameCraft-Bench Overall."
+  ],
+  [
+   3009,
+   "##### FrontierSWE reward."
+  ],
+  [
+   3014,
+   "##### Task-level aggregation."
+  ],
+  [
+   3027,
+   "##### Bootstrap uncertainty."
+  ],
+  [
+   3035,
+   "##### Model-interaction volume."
+  ],
+  [
+   3056,
+   "##### Official dominance."
+  ],
+  [
+   3102,
+   "### B.8 Player-Experience Evaluation and PXI Aggregation"
+  ],
+  [
+   3133,
+   "### B.9 Reproducibility Artifacts"
+  ],
+  [
+   3142,
+   "## Appendix C Complete Experimental Results"
+  ],
+  [
+   3144,
+   "### C.1 GameCraft-Bench Per-Task Scores"
+  ],
+  [
+   4417,
+   "### C.2 FrontierSWE Per-Task Rewards"
+  ],
+  [
+   4810,
+   "### C.3 Budget-Controlled Comparison"
+  ],
+  [
+   5514,
+   "### C.4 Ablation Study"
+  ],
+  [
+   5894,
+   "### C.5 Resource Usage"
+  ],
+  [
+   5964,
+   "## Appendix D Qualitative Analysis"
+  ],
+  [
+   6550,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 8,
+  "seeds_or_runs": 2,
+  "swe_bench": 1,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

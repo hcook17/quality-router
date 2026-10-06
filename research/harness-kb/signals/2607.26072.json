@@ -1,0 +1,203 @@
+{
+ "arxiv_id": "2607.26072",
+ "fulltext_chars": 69236,
+ "fulltext_lines": 1692,
+ "authors_block": "LLM-Based Agents in BIM Information Retrieval Conference: KDD 2026 Workshop on Evaluation and Trustworthiness of Agentic AI; August 9, 2026; Jeju, Republic of KoreaCCS: Computing methodologies Natural language processingCCS: Information systems Question answeringCCS: Computing methodologies Knowledge representation and reasoningCCS: Applied computing Computer-aided designConference: KDD 2026 Workshop on Evaluation and Trustworthiness of Agentic AI; August 9-13, 2026; Jeju, Republic of Korea Changyu Du Affiliation: Technical University of Munich, Munich, Germany email: changyu.du@tum.de , Alexander Vosseler Affiliation: Nemetschek Group, Munich, Germany email: avosseler@nemetschek.com , Filippo Mazza Affiliation: Nemetschek Group, Munich, Germany email: fmazza@nemetschek.com and André Borrmann Affiliation: Technical University of Munich, Munich, Germany email: andre.borrmann@tum.de 2026",
+ "vendor_affiliation_hits": [],
+ "n_authors": 4,
+ "comment": "KDD 2026 Workshop on Evaluation and Trustworthiness of Agentic AI",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/langchain-ai/deepagents"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# IFCMemoryBench: Evaluating Long-Term Memory of"
+  ],
+  [
+   54,
+   "###### Abstract."
+  ],
+  [
+   60,
+   "###### Keywords:"
+  ],
+  [
+   64,
+   "## 1. Introduction"
+  ],
+  [
+   86,
+   "## 2. Background and Related Work"
+  ],
+  [
+   88,
+   "### 2.1. Memory in LLM-based agents"
+  ],
+  [
+   119,
+   "### 2.2. LLM-based BIM information retrieval"
+  ],
+  [
+   151,
+   "### 2.3. Agent memory systems and benchmarks"
+  ],
+  [
+   172,
+   "### 2.4. Research gaps"
+  ],
+  [
+   184,
+   "## 3. Methodology"
+  ],
+  [
+   186,
+   "### 3.1. Benchmark design"
+  ],
+  [
+   244,
+   "### 3.2. Dataset construction"
+  ],
+  [
+   331,
+   "### 3.3. Evaluation metrics"
+  ],
+  [
+   390,
+   "### 3.4. Studied memory systems"
+  ],
+  [
+   442,
+   "## 4. Experiments and Results"
+  ],
+  [
+   444,
+   "### 4.1. Benchmark statistics"
+  ],
+  [
+   490,
+   "### 4.2. Experimental setup"
+  ],
+  [
+   507,
+   "### 4.3. Memory system comparison"
+  ],
+  [
+   720,
+   "### 4.4. Effect of ingestion scope"
+  ],
+  [
+   808,
+   "### 4.5. Full-context oracle as a costed upper bound"
+  ],
+  [
+   841,
+   "### 4.6. Effect of domain customisation"
+  ],
+  [
+   872,
+   "### 4.7. Effect of LLMs used in the probe agent"
+  ],
+  [
+   927,
+   "## 5. Discussion"
+  ],
+  [
+   1015,
+   "## 6. Conclusions"
+  ],
+  [
+   1035,
+   "###### Acknowledgements."
+  ],
+  [
+   1040,
+   "## References"
+  ],
+  [
+   1287,
+   "## Appendix A Probe-Agent System Prompt"
+  ],
+  [
+   1311,
+   "## Source Priority"
+  ],
+  [
+   1335,
+   "## The ifcquery CLI"
+  ],
+  [
+   1355,
+   "### Available Subcommands (read-only; all default to ‘--format json‘)"
+  ],
+  [
+   1403,
+   "### Output Format Flag"
+  ],
+  [
+   1417,
+   "## IFC Exploration Strategy"
+  ],
+  [
+   1439,
+   "## Important ifcquery Tips"
+  ],
+  [
+   1459,
+   "## IFC Domain Knowledge"
+  ],
+  [
+   1497,
+   "## Unit Handling"
+  ],
+  [
+   1511,
+   "## Verification"
+  ],
+  [
+   1529,
+   "## Answer Rules"
+  ],
+  [
+   1551,
+   "## Answer Quality"
+  ],
+  [
+   1571,
+   "## Appendix B LLM-as-Judge Prompts"
+  ],
+  [
+   1580,
+   "### B.1. Answer Judge"
+  ],
+  [
+   1650,
+   "### B.2. Memory Judge"
+  ],
+  [
+   1692,
+   "##"
+  ]
+ ],
+ "acknowledgments": "###### Acknowledgements.\n\nThe authors would like to thank Sylvain Hellin and Stefan Fuchs for their valuable\nsuggestions and inspiring discussions.\n\n## References\n\nAnthropic (2025)\nAnthropic\n\nClaude code.\n\nNote: Computer softwarehttps://www.anthropic.com/claude-code\n\nCited by: §1,\n§2.3.\n\nChhikara et al. (2025)\nP. Chhikara, D. Khant, S. Aryan, T. Singh, and D. Yadav\n\nMem0: building production-ready AI agents with scalable long-term memory.\n\narXiv preprint arXiv:2504.19413.\n\nExternal Links: Document",
+ "limitations": "",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 3,
+  "p_value_or_ci": 8,
+  "seeds_or_runs": 3,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

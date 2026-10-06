@@ -1,0 +1,103 @@
+{
+ "arxiv_id": "2608.05141",
+ "fulltext_chars": 144133,
+ "fulltext_lines": 10363,
+ "authors_block": "Emergent language model (LM) applications such as in-context learning (Bertsch et al., 2025), retrieval-augmented generation (Qian et al., 2025; Kang et al., 2025), and agentic tool-use (Merrill et al., 2026; Jimenez et al., 2024) demand long-horizon capabilities (Kwa et al., 2025), exponentially driving up the demand on the context lengths the LMs are expected to support (ref. Figure 1). Prior attempts to extend the context length mainly involve architectural interventions such as sparse attention (Yuan et al., 2025; Han et al., 2024; Beltagy et al., 2020) and linear attention (Hatamizadeh et al., 2026; Dao and Gu, 2024). In isolation, these approaches deteriorate the performance on longer contexts (Lu et al., 2024; Huang, 2024), causing LM developers to turn to orthogonal axes of improvement such as hardware-use improvements (Li et al., 2023a; Liu et al., 2023), inference-time context management (Li et al., 2024c; Zhang et al., 2023b), and better data engineering (Li et al., 2025b). Figure 1: Context lengths of open-weight LMs. The trend is exponential, doubling on average every 5 months. Data Engineering for Context Extension. Data engineering for long-context training (Fu et al., 2024) revolves around engineering long text inputs with a high density of referrals (i.e., dependencies), spanning a range of distances. Existing approaches span the gamut of token-level dependency filtering (Deng et al., 2025; Rathi and Radford, 2026), curating multiple salient documents in cont",
+ "vendor_affiliation_hits": [],
+ "n_authors": 4,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [
+  "https://huggingface.co/blog/smollm3"
+ ],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "#"
+  ],
+  [
+   42,
+   "###### Abstract"
+  ],
+  [
+   49,
+   "## 1 Introduction"
+  ],
+  [
+   76,
+   "## 2 Related Work"
+  ],
+  [
+   84,
+   "## 3 The OctoLong Dataset"
+  ],
+  [
+   291,
+   "## 4 OctoLong-Instruct Models"
+  ],
+  [
+   357,
+   "## 5 Results and Discussion"
+  ],
+  [
+   1042,
+   "## 6 Conclusion"
+  ],
+  [
+   1047,
+   "## Limitations"
+  ],
+  [
+   1053,
+   "## Acknowledgments"
+  ],
+  [
+   1057,
+   "## References"
+  ],
+  [
+   3880,
+   "## Appendix A Architecture & Training Details"
+  ],
+  [
+   4046,
+   "## Appendix B Data Composition & Processing"
+  ],
+  [
+   4050,
+   "### B.1 LCFT Data Mixture"
+  ],
+  [
+   6028,
+   "### B.2 Supervised Fine-Tuning (SFT) Data Mixture"
+  ],
+  [
+   8916,
+   "## Appendix C Detailed Results"
+  ],
+  [
+   10363,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgments\n\nWe gratefully acknowledge support from the hessian.AI Service Center (funded by the German Federal Ministry of Research, Technology, and Space, BMFTR, grant no. 16IS22091) and the hessian.AI Innovation Lab (funded by the Hessian Ministry for Digital Strategy and Innovation, grant no. S-DIW04/0013/003). Additionally, our work is supported by the German Federal Ministry of Education and Research and the Hessian Ministry of Higher Education, Research, Science and the Arts within their joint support of the National Research Center for Applied Cybersecurity ATHENE. We also thank the Gauss Center for Supercomputing e.V. (GCS) for providing computing time on the Supercomputer JUWELS at the Jülich Supercomputing Center supported by GCS through funding by the German Federal Ministry of Research, Technology and Space and the Ministry of Culture and Science of the State of North Rhine-Westphalia.\n\n## References\n\nAggarwal et al. (2025)\nT. Aggarwal, S. Singh, A. Awasthi, A. Kanade, and N. Natarajan\n\nNextCoder: robust adaptation of code lms to diverse code edits.\n\nIn Forty-second International Conference on Machine Learning, ICML\n2025, Vancouver, BC, Canada, July 13-19, 2025, A. Singh, M. Fazel, D. Hsu, S. Lacoste-Julien, F. Berkenkamp, T. Maharaj, K. Wagstaff, and J. Zhu (Eds.),\n\nProceedings of Machine Learning Research, Vol. 267.\n\nExternal Links: Link\n\nCited by: item \n\n 21\n\n .\n\nAkter et al. (2025)",
+ "limitations": "## Limitations\n\nWe simplify our training runs by omitting low-resource language data, limiting model sizes to 14B parameters and restricting context lengths to 128K tokens. Each of these represents a non-trivial departure from the contemporary mode of operation of most frontier LMs. However, there exist important signs that OctoLong should transfer well along these axes. First, prior methods for engineering long contexts also omit multilingual long-context data (Gao et al., 2025c; Fu et al., 2024) owing to its rarity (de Vries, 2023) but generalize well to such settings nonetheless (Hengle et al., 2025; Kim et al., 2025). Secondly, our experiments in Section 5 detail how the OctoLong-Instruct models get increasingly adept at longer contexts with size, following trends described in existing literature (Liu et al., 2024b; Liu et al., 2024c). Thirdly, our analyses in Section 3 demonstrate how OctoLong can source code contexts of millions of tokens without sacrificing dependency density or salience.\n\nFinally, we note that the recursive dependency retrieval in OctoLong is limited to within-language code where the language server backend can readily leverage package manager conventions to locate implementations. Our pipeline likely does not account for important dependencies in complex codebases that contain subroutines compiled in a different language that the calling code interacts with using an application binary interface (ABI) or a foreign function interface (FFI). Handling such cases demands polyglot static analysis and control flow tracking, which is an area of active research (Houdaille et al., 2023; Rask et al., 2021).\n\n## Acknowledgments\n\nWe gratefully acknowledge support from the hessian.AI Service Center (funded by the German Federal Ministry of Research, Technology, and Space, BMFTR, grant no. 16IS22091) and the hessian.AI Innovation Lab (funded by the Hessian Ministry for Digital Strategy and Innovation, grant no. S-DIW04/0013/003). Additionally, our work is supported by the German Federal Ministry of Education and Research and the Hessian Ministry of Higher Education, Research, Science and the Arts within their joint support of the National Research Center for Applied Cybersecurity ATHENE. We also thank the Gauss Center for Supercomputing e.V. (GCS) for providing computing time on the Supercomputer JUWELS at the Jülich Supercomputing Center supported by GCS through funding by the German Federal Ministry of Research, Technology and Space and the Ministry of Culture and Science of the State of North Rhine-Westphalia.\n\n## References\n\nAggarwal et al. (2025)\nT. Aggarwal, S. Singh, A. Awasthi, A. Kanade, and N. Natarajan\n\nNextCoder: robust adaptation of code lms to diverse code edits.\n\nIn Forty-second International Conference on Machine Learning, ICML\n2025, Vancouver, BC, Canada, July 13-19, 2025, A. Singh, M. Fazel, D. Hsu, S. Lacoste-Julien, F. Berkenkamp, T. Maharaj, K. Wagstaff, and J. Zhu (Eds.),\n\nProceedings of Machine Learning Research, Vol. 267.\n\nExternal Links: Link\n\nCited by: item \n\n 21\n\n .\n\nAkter et al. (2025)\nS. N. Akter, S. Prabhumoye, J. Kamalu, S. Satheesh, E. Nyberg, M. Patwary, M. Shoeybi, and B. Catanzaro\n\nMIND: math informed synthetic dialogues for pretraining llms.\n\nIn The Thirteenth International Conference on Learning Representations,\nICLR 2025, Singapore, April 24-28, 2025,\n\nExternal Links: Link",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 4,
+  "seeds_or_runs": 5,
+  "swe_bench": 1,
+  "contamination": 5,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

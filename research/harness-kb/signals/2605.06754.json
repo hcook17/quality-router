@@ -1,0 +1,412 @@
+{
+ "arxiv_id": "2605.06754",
+ "fulltext_chars": 114738,
+ "fulltext_lines": 4067,
+ "authors_block": "Advait Pavuluri Affiliation: Rensselaer Polytechnic Institute Bridget McGinn Affiliation: IBM Software Innovation Labs Ashita Saxena Affiliation: IBM Software Innovation Labs George Safta Affiliation: IBM Software Innovation Labs Srikanth Tamilselvam Affiliation: IBM Software Innovation Labs Raju Pavuluri Affiliation: IBM Software Innovation Labs Michele Merler Affiliation: IBM Software Innovation Labs Baishakhi Ray Affiliation: Columbia University*Equal contribution. ‡Work done at IBM. †Corresponding: {pavuluri@us., rkrsn@}ibm.com Rahul Krishna Affiliation: IBM Software Innovation Labs",
+ "vendor_affiliation_hits": [
+  "IBM"
+ ],
+ "n_authors": 9,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/XAMPPRocky/tokei",
+  "https://github.com/eclipse-ee4j/jakartaee-examples",
+  "https://github.com/spring-ai-community/agent-benchVersion",
+  "https://github.com/stargate/stargateAccessed"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# ScarfBench: A Benchmark for Cross-Framework Application Migration in Enterprise Java"
+  ],
+  [
+   58,
+   "###### Abstract"
+  ],
+  [
+   77,
+   "## 1 Introduction"
+  ],
+  [
+   141,
+   "## 2 Related Work"
+  ],
+  [
+   143,
+   "##### Software engineering benchmarks."
+  ],
+  [
+   320,
+   "## 3 ScarfBench"
+  ],
+  [
+   324,
+   "### 3.1 Task Formulation"
+  ],
+  [
+   347,
+   "### 3.2 Benchmark Curation and Construction"
+  ],
+  [
+   367,
+   "### 3.3 Behavioral test suites"
+  ],
+  [
+   375,
+   "## 4 Evaluation Protocol"
+  ],
+  [
+   403,
+   "## 5 Experimental Results"
+  ],
+  [
+   520,
+   "### 5.1 How well do agents perform on cross-framework migration?"
+  ],
+  [
+   551,
+   "### 5.2 Why do agents fail?"
+  ],
+  [
+   754,
+   "## 6 Limitations"
+  ],
+  [
+   767,
+   "## 7 Conclusion"
+  ],
+  [
+   773,
+   "## References"
+  ],
+  [
+   1332,
+   "## Appendix A Benchmark dataset"
+  ],
+  [
+   1644,
+   "### A.1 Migration scale"
+  ],
+  [
+   1696,
+   "## Appendix B Aggregate Leaderboard Visualization"
+  ],
+  [
+   1726,
+   "## Appendix C Leaderboard Breakdown"
+  ],
+  [
+   1728,
+   "##### Per-direction leaderboard analysis."
+  ],
+  [
+   2420,
+   "## Appendix D Evaluation Cost Estimate"
+  ],
+  [
+   2488,
+   "##### Local execution environment."
+  ],
+  [
+   2499,
+   "## Appendix E Prompt Templates and Agent Configuration"
+  ],
+  [
+   2508,
+   "### E.1 Deduplication Policy"
+  ],
+  [
+   2550,
+   "### E.2 Single-Prompt Baseline"
+  ],
+  [
+   2566,
+   "## Migration Checklist"
+  ],
+  [
+   2580,
+   "### E.3 Skills-Directory Condition"
+  ],
+  [
+   2640,
+   "# Spring to Quarkus Migration"
+  ],
+  [
+   2644,
+   "## Required Workflow"
+  ],
+  [
+   2660,
+   "### E.4 Runtime Configuration"
+  ],
+  [
+   2757,
+   "### E.5 Failure Taxonomy Agent Prompt"
+  ],
+  [
+   2774,
+   "## Investigation Strategy"
+  ],
+  [
+   2786,
+   "## Appendix F Failure-Mode Subcategory Reference"
+  ],
+  [
+   2790,
+   "### F.1 Build Phase"
+  ],
+  [
+   2836,
+   "##### Dependency resolution."
+  ],
+  [
+   2842,
+   "##### Code compilation."
+  ],
+  [
+   2860,
+   "##### Project structure."
+  ],
+  [
+   2868,
+   "##### Maven plugin."
+  ],
+  [
+   2880,
+   "### F.2 Deploy Phase"
+  ],
+  [
+   2968,
+   "##### Resource / artifact."
+  ],
+  [
+   2980,
+   "##### Config / startup."
+  ],
+  [
+   2990,
+   "##### Network / timeout."
+  ],
+  [
+   3000,
+   "##### Container exit."
+  ],
+  [
+   3008,
+   "##### DI / DB / class loading."
+  ],
+  [
+   3032,
+   "### F.3 Test Phase"
+  ],
+  [
+   3086,
+   "##### HTTP 404 / endpoint missing."
+  ],
+  [
+   3100,
+   "##### HTTP 5xx / server error."
+  ],
+  [
+   3106,
+   "##### Assertion / content mismatch."
+  ],
+  [
+   3118,
+   "##### Network / infrastructure."
+  ],
+  [
+   3136,
+   "## Appendix G DayTrader Spring-to-Quarkus Migration Workflow"
+  ],
+  [
+   3140,
+   "##### Provenance note."
+  ],
+  [
+   3144,
+   "### G.1 Source and Target Artifacts"
+  ],
+  [
+   3170,
+   "### G.2 Migration Strategy"
+  ],
+  [
+   3178,
+   "### G.3 Project Scaffolding and Build Migration"
+  ],
+  [
+   3220,
+   "##### Expected agent behavior."
+  ],
+  [
+   3224,
+   "##### Verification."
+  ],
+  [
+   3235,
+   "### G.4 Dependency Mapping"
+  ],
+  [
+   3309,
+   "### G.5 Configuration Migration"
+  ],
+  [
+   3363,
+   "##### Expected agent behavior."
+  ],
+  [
+   3367,
+   "##### Verification."
+  ],
+  [
+   3371,
+   "### G.6 Source Layout and Asset Preservation"
+  ],
+  [
+   3433,
+   "### G.7 Code Transformation Patterns"
+  ],
+  [
+   3435,
+   "#### G.7.1 Dependency Injection and Bean Resolution"
+  ],
+  [
+   3471,
+   "##### Representative transformation."
+  ],
+  [
+   3487,
+   "#### G.7.2 REST and Request Routing"
+  ],
+  [
+   3539,
+   "#### G.7.3 Persistence and Transactions"
+  ],
+  [
+   3581,
+   "##### Representative transformation."
+  ],
+  [
+   3594,
+   "#### G.7.4 Messaging and Asynchronous Processing"
+  ],
+  [
+   3636,
+   "##### Representative transformation."
+  ],
+  [
+   3648,
+   "#### G.7.5 Scheduling, Startup, and Runtime Services"
+  ],
+  [
+   3652,
+   "### G.8 End-to-End Workflow Example"
+  ],
+  [
+   3682,
+   "### G.9 Validation Protocol"
+  ],
+  [
+   3736,
+   "### G.10 Agent-Oriented Migration Checklist"
+  ],
+  [
+   3780,
+   "### G.11 Migration Challenges and Resolutions"
+  ],
+  [
+   3842,
+   "### G.12 Reproducibility Boundaries"
+  ],
+  [
+   3848,
+   "### G.13 Summary"
+  ],
+  [
+   3852,
+   "## Appendix H Oracle Construction: Gherkin-to-Smoke-Test Mapping for DayTrader"
+  ],
+  [
+   3856,
+   "### H.1 Artifacts Used"
+  ],
+  [
+   3878,
+   "### H.2 Feature File Excerpts"
+  ],
+  [
+   3898,
+   "### H.3 Scenario 1: Buy Shares of a Stock"
+  ],
+  [
+   3902,
+   "##### Spring smoke test excerpt."
+  ],
+  [
+   3933,
+   "##### Quarkus smoke test excerpt."
+  ],
+  [
+   3961,
+   "##### Oracle interpretation."
+  ],
+  [
+   3965,
+   "### H.4 Scenario 2: REST Quote Retrieval"
+  ],
+  [
+   3969,
+   "##### Spring smoke test excerpt."
+  ],
+  [
+   3985,
+   "##### Quarkus smoke test excerpt."
+  ],
+  [
+   3998,
+   "##### Oracle interpretation."
+  ],
+  [
+   4002,
+   "### H.5 Traceability Summary"
+  ],
+  [
+   4021,
+   "### H.6 Failure Semantics"
+  ],
+  [
+   4051,
+   "### H.7 Evaluation Use"
+  ],
+  [
+   4055,
+   "### H.8 Reproducibility"
+  ],
+  [
+   4067,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 6 Limitations\n\nEvaluation Protocol. ScarfBench evaluates migrations through a sequential compile–deploy–test pipeline. As a result, candidates that correctly perform much of the source-level migration but fail due to dependency resolution, build configuration, or container startup are recorded at the earliest failing stage rather than evaluated for downstream correctness. We also evaluate each (\\text{agent},\\text{task}) pair once at temperature 0. Larger sampling budgets or iterative repair could improve absolute success rates, so our results should be viewed as a compute-bounded estimate of current capability rather than an upper bound.\n\nOracle Scope. \nThe behavioral oracle checks equivalence only at the observable boundary—HTTP routes, response payloads, UI flows, and persistent state. It does not capture internal issues such as race conditions, resource leaks, or non-functional regressions (e.g., latency or memory). We also do not directly score framework idiomaticity; such issues surface only indirectly through the failure taxonomy introduced in Section 5.2. While the oracles are expert-authored, we do not report formal coverage guarantees, so passing all tests does not ensure absence of defects.\n\nAnnotation. \nThe failure taxonomy is induced and arbitrated by expert developers, but the LLM annotators used at scale are not separately calibrated against human labels (the reported \\kappa=0.72 is between LLM annotators only). The taxonomy is also not exhaustive and may miss failure modes arising in other agents, frameworks, or migration settings.\n\nScope and Contamination. \nScarfBench focuses on enterprise Java migrations, and findings may not generalize to ecosystems such as .NET or Node.js. The benchmark applications are drawn from public repositories, including Eclipse Jakarta EE examples and spring-petclinic, which likely appear in frontier-model training data. We do not perform model-specific decontamination, so reported results may partially reflect memorization in addition to migration capability. Long-term reproducibility will also require ongoing maintenance as framework and tooling versions evolve.\n\n## 7 Conclusion\n\nWe present ScarfBench, a benchmark for behavior-preserving cross-framework refactoring of enterprise Java applications. ScarfBench pairs 34 application families across Spring, Jakarta EE, and Quarkus into 102 expert-written framework variants and 204 directed migration tasks, each verified by a containerized compile-deploy-test harness against application-specific behavioral oracles. Across five state-of-the-art coding agents, the strongest run reached only 15.3\\% aggregate test pass on focused-layer migrations and 12.2\\% on whole applications; just one of the 204 tasks produced a fully behaviorally equivalent target.\n\nOur results show that current agents reliably translate framework APIs at the source level, yet rarely re-express application behavior through the target framework’s runtime model. Failures are asymmetric, concentrating in Jakarta-targeted migrations and at coordination points spanning configuration, dependency wiring and deployment suggesting that progress on repository-level benchmarks does not transfer cleanly to system-level transformations that must execute in a target runtime.\n\n## References\n\nAmin et al. (2026)\nN. Amin, Z. Fei, X. Li, J. Petke, and H. Ye\n\nJMigBench: a benchmark for evaluating LLMs on source code migration (Java 8 to Java 11).\n\nIn Proceedings of the 1st International Workshop on Code Translation, Transformation, and Modernization,\n\nNote: https://arxiv.org/abs/2602.09930\n\nCited by: §1,\n§2.\n\nBadertdinov et al. (2026)\nI. Badertdinov, M. Nekrashevich, A. Shevtsov, and A. Golubev\n\nSWE-rebench v2: language-agnostic swe task collection at scale.\n\nExternal Links: 2602.23866,\nLink",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 1,
+  "p_value_or_ci": 2,
+  "seeds_or_runs": 2,
+  "swe_bench": 13,
+  "contamination": 4,
+  "human_study": 0,
+  "java": 95,
+  "industrial": 28
+ },
+ "fulltext_source": "html"
+}

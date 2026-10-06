@@ -1,0 +1,247 @@
+{
+ "arxiv_id": "2605.26835",
+ "fulltext_chars": 85213,
+ "fulltext_lines": 1088,
+ "authors_block": "Yunbo Long Affiliation: Department of Engineering, University of Cambridge, Cambridge, UK Haolang Zhao Affiliation: Department of Engineering, University of Cambridge, Cambridge, UK Ge Zheng Affiliation: Department of Engineering, University of Cambridge, Cambridge, UK Alexandra Brintrup Email: yl892@cam.ac.uk*Corresponding author. Affiliation: Department of Engineering, University of Cambridge, Cambridge, UK Affiliation: The Alan Turing Institute, London, UK",
+ "vendor_affiliation_hits": [],
+ "n_authors": 4,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/Yunbo-max/Helicase."
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Helicase: Uncertainty-Guided Supply Chain Knowledge Graph Construction with Autonomous Multi-Agent LLMs"
+  ],
+  [
+   42,
+   "###### Abstract"
+  ],
+  [
+   49,
+   "## 1 Introduction"
+  ],
+  [
+   80,
+   "## 2 Related Work"
+  ],
+  [
+   82,
+   "### 2.1 From Classical MAS to Agentic LLMs in Supply Chain Management"
+  ],
+  [
+   86,
+   "### 2.2 Visibility, Complexity, and the Discovery Problem"
+  ],
+  [
+   92,
+   "### 2.3 AI for Uncovering Supply Chain Visibility"
+  ],
+  [
+   98,
+   "### 2.4 Characterizing Supply Chain Queries: Visibility and Hop Complexity"
+  ],
+  [
+   106,
+   "### 2.5 Uncertainty Quantification for Supply Chain"
+  ],
+  [
+   112,
+   "## 3 Helicase Multi-agent System"
+  ],
+  [
+   120,
+   "### 3.1 Query Enrichment and Contextual Refinement"
+  ],
+  [
+   132,
+   "### 3.2 Three-Layer Uncertainty Quantification"
+  ],
+  [
+   150,
+   "#### Action-layer Uncertainty Calculation"
+  ],
+  [
+   166,
+   "#### Trajectory-layer Uncertainty: Cross-Iteration Redundancy"
+  ],
+  [
+   191,
+   "#### Memory-layer Uncertainty and Multiplicative Accumulation"
+  ],
+  [
+   223,
+   "### 3.3 Iterative Execution and Convergence"
+  ],
+  [
+   250,
+   "#### Convergence via Stagnation Detection"
+  ],
+  [
+   260,
+   "## 4 SCQA Dataset"
+  ],
+  [
+   285,
+   "## 5 Experimental Settings"
+  ],
+  [
+   287,
+   "### 5.1 Dataset and Evaluation Scope"
+  ],
+  [
+   291,
+   "### 5.2 Compared Systems"
+  ],
+  [
+   295,
+   "#### Frontier LLMs (zero-shot)."
+  ],
+  [
+   299,
+   "#### Agentic frameworks with web search."
+  ],
+  [
+   303,
+   "### 5.3 Implementation"
+  ],
+  [
+   334,
+   "### 5.4 Hyperparameters"
+  ],
+  [
+   338,
+   "### 5.5 Evaluation Protocol"
+  ],
+  [
+   343,
+   "### 5.6 Quadrant-specific Metrics"
+  ],
+  [
+   347,
+   "#### Q1: Answer Accuracy (Acc.)."
+  ],
+  [
+   351,
+   "#### Q2: Set F1 (Precision, Recall, F1)."
+  ],
+  [
+   355,
+   "#### Q3: Answer Accuracy + Source Discovery Rate (SDR)."
+  ],
+  [
+   359,
+   "#### Q4: Graph F1 (G-F1) + Uncertainty Calibration Error (UCE)."
+  ],
+  [
+   498,
+   "### 5.7 Ablation Study"
+  ],
+  [
+   540,
+   "### 5.8 Computational Cost"
+  ],
+  [
+   579,
+   "## 6 Qualitative Query-Level Results"
+  ],
+  [
+   583,
+   "### 6.1 Representative Query Trace: Tesla Lithium Supply Chain (Q64)"
+  ],
+  [
+   589,
+   "#### Iterative graph construction."
+  ],
+  [
+   623,
+   "#### Query-level findings."
+  ],
+  [
+   627,
+   "#### Baseline comparison."
+  ],
+  [
+   631,
+   "### 6.2 Representative Query Trace: Procter & Gamble Hair Care Formulations (Q17)"
+  ],
+  [
+   635,
+   "#### Iterative graph construction."
+  ],
+  [
+   639,
+   "#### Query-level findings."
+  ],
+  [
+   643,
+   "#### Baseline comparison."
+  ],
+  [
+   647,
+   "## 7 Discussion and Managerial Implications"
+  ],
+  [
+   651,
+   "#### Adaptive, uncertainty-driven discovery for supply chain MAS"
+  ],
+  [
+   655,
+   "#### On-demand visibility for supply chain managers"
+  ],
+  [
+   659,
+   "#### Trustworthy agentic decisions via calibrated uncertainty"
+  ],
+  [
+   663,
+   "#### Empirical substrate for agentic-SCM research"
+  ],
+  [
+   667,
+   "#### Illustrative decision scenario"
+  ],
+  [
+   671,
+   "## 8 Limitations"
+  ],
+  [
+   675,
+   "## 9 Conclusion and Future Work"
+  ],
+  [
+   682,
+   "## Data Availability Statement"
+  ],
+  [
+   686,
+   "## References"
+  ],
+  [
+   1088,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 8 Limitations\n\nOur study has several limitations. First, our “low-visibility” queries target information that exists in public web sources but is difficult to find; truly invisible supply chain information (proprietary contracts, trade-secret product formulations, classified agreements, and informal relationships) cannot be discovered through web search and remains outside the system’s reach. Second, the system requires web access and LLM API calls, making it subject to service availability, rate limits, and the temporal validity of web sources. Third, the LLM-based consensus mechanism assumes that agreement across independent web sources signals factual truth. For supply chain topics where a single erroneous claim is recycled across analyst reports, trade press, and aggregator sites, the multiplicative accumulation update will assign that claim high confidence. The LLM-based consensus scoring mitigates but does not eliminate this failure mode; detecting source dependence (e.g., that two apparently independent pages in fact cite each other) remains an open problem for agentic web-grounded systems and a natural extension of the uncertainty framework presented here. Fourth, the system is vulnerable to adversarial information attacks: coordinated misinformation campaigns, SEO-poisoned content, or knowledge-graph-poisoning attacks that seed false claims across multiple seemingly independent web sources can pass the LLM consensus check and be accumulated as high-confidence facts. Defending against such attacks would require provenance-aware source authentication and cross-modal verification beyond textual consensus, both of which lie outside the current framework. Finally, several complex supply chain analytical problems, such as temporal and longitudinal analysis of how supplier relationships evolve over time, disruption-event reasoning, and cross-organisational data-sharing scenarios, were outside our evaluation scope. These analyses can naturally be carried out on top of the supply chain knowledge graphs generated by Helicase, which already encode entities, relations, and per-fact uncertainty in a structured form amenable to graph-analytic, time-series, and event-based extensions, and we view them as our future work.\n\n## 9 Conclusion and Future Work\n\nWe presented Helicase, an agentic LLM-based multi-agent system for uncertainty-aware supply chain discovery. Helicase moves beyond narrative synthesis to autonomous knowledge graph construction: through a helical process of query enrichment, specialised multi-agent execution, and three-layer uncertainty quantification, it progressively assembles supply chain graphs annotated with calibrated confidence estimates.\nOur evaluation on the SCQA benchmark directly answers the three research questions posed in the Introduction. For RQ1, Helicase successfully answers multi-hop, low-visibility supply chain queries that defeat frontier LLMs and agentic search baselines, achieving 85% Graph F1 on the hardest quadrant, which no baseline matches. For RQ2, the three-layer uncertainty framework delivers calibrated confidence (UCE = 0.25), a capability absent from all baselines tested, and a direct response to the trust and verification concerns raised by recent agentic-SCM research. For RQ3, the ablation study identifies uncertainty-guided planning, multiplicative evidence accumulation, and multi-agent specialisation as the load-bearing architectural components, with dynamic parallel search contributing more modestly.\n\nFor the production research community, this work offers three takeaways. First, agentic LLMs can deliver autonomous supply chain discovery at a quality previously requiring weeks of expert analyst work, addressing the scalability and coordination failures that stalled classical MAS in SCM. Second, explicit uncertainty quantification is not optional: without it, agentic systems produce confidently wrong outputs that are not actionable in managerial decision-making. Third, SCQA prov",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 5,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 5
+ },
+ "fulltext_source": "html"
+}

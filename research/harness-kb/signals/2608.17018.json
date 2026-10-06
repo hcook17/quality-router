@@ -1,0 +1,137 @@
+{
+ "arxiv_id": "2608.17018",
+ "fulltext_chars": 71395,
+ "fulltext_lines": 1835,
+ "authors_block": "Yuanchen Gao1,*, Yifang Tian2, Yiran Li2, Charles Zhang1, Hans-Arno Jacobsen2 ††thanks: *This work was conducted while Yuanchen Gao was an International Visiting Graduate Student (IVGS) at the University of Toronto. Affiliation: 1Hong Kong University of Science and Technology {ygaocv@connect, charlesz@cse}.ust.hk Affiliation: 2University of Toronto yifang.tian@mail.utoronto.ca, one.li@utoronto.ca, jacobsen@eecg.toronto.edu",
+ "vendor_affiliation_hits": [],
+ "n_authors": 5,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/GoogleCloudPlatform/microservices-demo",
+  "https://github.com/SWE-agent/mini-swe-agent",
+  "https://github.com/open-telemetry/opentelemetry-demo"
+ ],
+ "hf_urls": [
+  "https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-InstructAccessed",
+  "https://huggingface.co/deepseek-ai/DeepSeek-V4-FlashAccessed",
+  "https://huggingface.co/deepseek-ai/DeepSeek-V4-ProAccessed"
+ ],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   22,
+   "# ORCA: Observability-Grounded Program Repair for Microservice Incidents"
+  ],
+  [
+   38,
+   "###### Abstract"
+  ],
+  [
+   47,
+   "###### Index Terms:"
+  ],
+  [
+   51,
+   "## I Introduction"
+  ],
+  [
+   159,
+   "## II Related Work"
+  ],
+  [
+   362,
+   "## III Telemetry-Based Fault Localization"
+  ],
+  [
+   484,
+   "## IV Agentic Patch Generation and Verification"
+  ],
+  [
+   626,
+   "## V Evaluation"
+  ],
+  [
+   656,
+   "### V-A Datasets"
+  ],
+  [
+   673,
+   "### V-B Baselines"
+  ],
+  [
+   698,
+   "### V-C Metrics"
+  ],
+  [
+   729,
+   "### V-D RQ1: Cross-baseline comparison"
+  ],
+  [
+   734,
+   "#### V-D1 Synthetic code subset (200 cases)"
+  ],
+  [
+   945,
+   "#### V-D2 Synthetic configuration subset (225 cases)"
+  ],
+  [
+   967,
+   "#### V-D3 Real-incident subset (150 cases)"
+  ],
+  [
+   1027,
+   "### V-E RQ2: Sensitivity to the LLM backbone"
+  ],
+  [
+   1106,
+   "### V-F RQ3: Effect of the Exploration-agent run count N"
+  ],
+  [
+   1122,
+   "### V-G RQ4: Sensitivity to LLM temperature"
+  ],
+  [
+   1144,
+   "### V-H Ablation: contribution of the fault signature and issue context"
+  ],
+  [
+   1160,
+   "### V-I Case study"
+  ],
+  [
+   1203,
+   "## VI Discussion"
+  ],
+  [
+   1247,
+   "## VII Conclusion"
+  ],
+  [
+   1254,
+   "## References"
+  ],
+  [
+   1835,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 1,
+  "swe_bench": 4,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 11,
+  "industrial": 3
+ },
+ "fulltext_source": "html"
+}

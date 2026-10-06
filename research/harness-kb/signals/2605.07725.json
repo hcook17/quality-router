@@ -1,0 +1,339 @@
+{
+ "arxiv_id": "2605.07725",
+ "fulltext_chars": 111073,
+ "fulltext_lines": 2619,
+ "authors_block": "Small Language Model Agents Qiyong Zhong1 Mao Zheng211footnotemark: 1 Mingyang Song211footnotemark: 1 Xin Lin111footnotemark: 1 Jie Sun3 Yiqi Zhao2 Xiaodi Wang2 Houcheng Jiang3 Xiang Wang3 Junfeng Fang433footnotemark: 3 1Zhejiang University 2Large Language Model Department, Tencent 3University of Science and Technology of China 4National University of Singapore {youngzhong,linxin2}@zju.edu.cn ; {moonzheng,nickmysong}@tencent.com {sunjie2019,jianghc}@mail.ustc.edu.cn ; {yiqizhao02,wxd13305645488,xiangwang1223}@gmail.com; fangjf@nus.edu.sg github.com/YoungZ365/SOD huggingface.co/collections/youngzhong/sod ††thanks: Equal contribution.††thanks: This work was done during an internship at Tencent.††thanks: Corresponding authors.",
+ "vendor_affiliation_hits": [
+  "Tencent"
+ ],
+ "n_authors": 8,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   22,
+   "# SOD: Step-wise On-policy Distillation for"
+  ],
+  [
+   51,
+   "###### Abstract"
+  ],
+  [
+   56,
+   "## 1 Introduction"
+  ],
+  [
+   78,
+   "## 2 Related Work"
+  ],
+  [
+   80,
+   "#### Reinforcement Learning for Agents."
+  ],
+  [
+   84,
+   "#### On-policy Distillation."
+  ],
+  [
+   89,
+   "## 3 Preliminaries"
+  ],
+  [
+   91,
+   "### 3.1 Multi-turn Tool-Integrated Reasoning"
+  ],
+  [
+   103,
+   "### 3.2 Group Relative Policy Optimization"
+  ],
+  [
+   122,
+   "### 3.3 On-policy Distillation"
+  ],
+  [
+   132,
+   "## 4 Methodology"
+  ],
+  [
+   138,
+   "### 4.1 Failure of On-policy Distillation under Tool-Induced State Drift"
+  ],
+  [
+   148,
+   "###### Proposition 1 (Discontinuous divergence amplification)."
+  ],
+  [
+   152,
+   "###### Proposition 2 (Gradient SNR degradation)."
+  ],
+  [
+   161,
+   "### 4.2 Student-teacher Divergence and Step-wise Reweighting"
+  ],
+  [
+   186,
+   "### 4.3 Training Objective"
+  ],
+  [
+   208,
+   "## 5 Experiment"
+  ],
+  [
+   210,
+   "### 5.1 Experimental Setup"
+  ],
+  [
+   212,
+   "#### Datasets & Benchmarks."
+  ],
+  [
+   216,
+   "#### Evaluation Setups."
+  ],
+  [
+   221,
+   "#### Baselines & Implementation Details."
+  ],
+  [
+   542,
+   "### 5.2 Overall Performance"
+  ],
+  [
+   708,
+   "### 5.3 Ablation Study"
+  ],
+  [
+   723,
+   "### 5.4 Scalability and Generalization"
+  ],
+  [
+   736,
+   "### 5.5 Dynamic training analysis"
+  ],
+  [
+   750,
+   "### 5.6 Three Distillation Patterns of SOD"
+  ],
+  [
+   763,
+   "## 6 Limitations"
+  ],
+  [
+   767,
+   "## 7 Conclusion"
+  ],
+  [
+   771,
+   "## References"
+  ],
+  [
+   1533,
+   "## Appendix"
+  ],
+  [
+   1535,
+   "## Appendix A Algorithmic Details of SOD"
+  ],
+  [
+   1604,
+   "## Appendix B Experimental Setup"
+  ],
+  [
+   1606,
+   "### B.1 Training Datasets."
+  ],
+  [
+   1624,
+   "# Samples"
+  ],
+  [
+   1661,
+   "### B.2 Benchmarks"
+  ],
+  [
+   1677,
+   "### B.3 Baselines"
+  ],
+  [
+   1712,
+   "### B.4 Implementation Details."
+  ],
+  [
+   1739,
+   "## Appendix C Additional Experiments"
+  ],
+  [
+   1741,
+   "### C.1 Training Cost and Practicality Analysis"
+  ],
+  [
+   1790,
+   "#### SOD vs. OPD: negligible algorithmic overhead."
+  ],
+  [
+   1795,
+   "#### Why GRPO has lower per-step time."
+  ],
+  [
+   1799,
+   "### C.2 Quantitative Analysis of Distillation Pattern Distribution"
+  ],
+  [
+   1820,
+   "#### Key observations."
+  ],
+  [
+   1827,
+   "### C.3 The Performance of Naive On-policy Distillation"
+  ],
+  [
+   1924,
+   "## Appendix D Proofs for Section 4.1"
+  ],
+  [
+   1928,
+   "### D.1 Proof of Proposition 1"
+  ],
+  [
+   1930,
+   "###### Proof."
+  ],
+  [
+   1934,
+   "#### Text-only case (gradual drift)."
+  ],
+  [
+   1944,
+   "#### TIR case (discontinuous drift)."
+  ],
+  [
+   1954,
+   "#### Single-step bound."
+  ],
+  [
+   1970,
+   "#### Cascading errors and super-linear compounding."
+  ],
+  [
+   1985,
+   "### D.2 Proof of Proposition 2"
+  ],
+  [
+   1987,
+   "###### Proof."
+  ],
+  [
+   1991,
+   "#### Step 1: Decomposition of the second moment."
+  ],
+  [
+   1999,
+   "#### Step 2: Restricting to the low-overlap region."
+  ],
+  [
+   2013,
+   "#### Step 3: Applying Jensen’s inequality."
+  ],
+  [
+   2032,
+   "#### Step 4: Bounding the entropy term."
+  ],
+  [
+   2042,
+   "#### Step 5: SNR degradation."
+  ],
+  [
+   2060,
+   "#### Interpretation."
+  ],
+  [
+   2065,
+   "### D.3 Discussion: Failure Cascade and Design Implications"
+  ],
+  [
+   2087,
+   "### D.4 Variance Reduction under Step-wise Reweighting"
+  ],
+  [
+   2091,
+   "###### Proposition 3 (Bounded variance under adaptive reweighting)."
+  ],
+  [
+   2101,
+   "###### Proof."
+  ],
+  [
+   2129,
+   "#### SNR recovery."
+  ],
+  [
+   2134,
+   "#### Stability under recovery."
+  ],
+  [
+   2138,
+   "#### Interpretation."
+  ],
+  [
+   2142,
+   "### D.5 Justification of d_{k} as a Proxy for \\Delta_{k}"
+  ],
+  [
+   2146,
+   "#### Monotonic consistency."
+  ],
+  [
+   2156,
+   "#### Sufficiency of ordering."
+  ],
+  [
+   2160,
+   "## Appendix E Prompt Template"
+  ],
+  [
+   2162,
+   "### E.1 Datasets Prompt Template"
+  ],
+  [
+   2197,
+   "# YOUR CODE HERE"
+  ],
+  [
+   2199,
+   "### E.2 Baseline Prompt Template"
+  ],
+  [
+   2229,
+   "## Appendix F Visualization and Analysis of Token Entropy from The Teacher"
+  ],
+  [
+   2343,
+   "## Appendix G Case Study"
+  ],
+  [
+   2619,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 6 Limitations\n\nOur work has two main limitations. (1) We focus on agentic TIR tasks with a python code interpreter, which provides a clean and reproducible execution environment that isolates tool-induced state drift without confounding factors from complex API configurations. Other agentic settings (e.g., web browsing, API calls) may exhibit different drift patterns and are worth exploring. (2) All experiments use the Qwen3 [28] model family, chosen for its strong and stable performance across scales, open availability at multiple sizes, and wide adoption in recent OPD studies [61, 41, 25, 29] that facilitates fair comparison. Validating on other model families remains valuable. Due to resource constraints, we leave these explorations to future work.\n\n## 7 Conclusion\n\nIn this work, we study on-policy distillation for small language model agents under tool-integrated reasoning. We identify that tool-induced state transitions can rapidly push the student into out-of-distribution regions where teacher supervision becomes unreliable. To address this, we propose SOD, a step-wise on-policy distillation framework that adaptively reweights distillation strength based on student–teacher divergence, preserving informative signals in aligned regions while attenuating misleading guidance under large drift. Extensive experiments across math, science, and code benchmarks demonstrate consistent improvements in both training stability and final performance. Our findings suggest that effective agent distillation requires supervision mechanisms that adapt to evolving state distributions, offering a general principle for robust training in agentic systems.\n\n## References\n\n[1]\nZ. Xi, W. Chen, X. Guo, W. He, Y. Ding, B. Hong, M. Zhang, J. Wang, S. Jin, E. Zhou, et al. (2023)\n\nThe rise and potential of large language model based agents: a survey.\n\narXiv preprint arXiv:2309.07864.\n\nCited by: §1.\n\n[2]\nM. Kang, J. Jeong, S. Lee, J. Cho, and S. J. Hwang (2025)\n\nDistilling llm agent into small models with retrieval and code tools.\n\narXiv preprint arXiv:2505.17612.\n\nCited by: §1.\n\n[3]\nS. Yao, J. Zhao, D. Yu, N. Du, I. Shafran, K. R. Narasimhan, and Y. Cao (2023)\n\nReAct: synergizing reasoning and acting in language models.\n\nIn ICLR,\n\nCited by: §1,\n§2.\n\n[4]\nT. Schick, J. Dwivedi-Yu, R. Dessì, R. Raileanu, M. Lomeli, E. Hambro, L. Zettlemoyer, N. Cancedda, and T. Scialom (2023)",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 2,
+  "seeds_or_runs": 2,
+  "swe_bench": 0,
+  "contamination": 4,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

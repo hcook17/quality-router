@@ -1,0 +1,165 @@
+{
+ "arxiv_id": "2606.04769",
+ "fulltext_chars": 87811,
+ "fulltext_lines": 2109,
+ "authors_block": "Yutao Shi*, Xiaohan Zhang*, Xiangjing Zhang, Xihua Shen Hui Ouyang, Huming Qiu, Mi Zhang, and Min Yang Affiliation: Fudan University, China {yutaoshi24, zhangxj25, shenxh24, yhou23, hmqiu23}@m.fudan.edu.cn {xh_zhang, mi_zhang, m_yang}@fudan.edu.cn",
+ "vendor_affiliation_hits": [],
+ "n_authors": 8,
+ "comment": "Preprint",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Description-Code Inconsistency in Real-world MCP Servers: Measurement, Detection, and Security Implications"
+  ],
+  [
+   32,
+   "###### Abstract"
+  ],
+  [
+   47,
+   "###### Index Terms:"
+  ],
+  [
+   52,
+   "## I Introduction"
+  ],
+  [
+   122,
+   "## II Background"
+  ],
+  [
+   124,
+   "### II-A Tool Selection and Invocation in MCP"
+  ],
+  [
+   145,
+   "### II-B Threat Model"
+  ],
+  [
+   279,
+   "## III Taxonomy of DCI"
+  ],
+  [
+   347,
+   "## IV DCIChecker: Detecting Real-world DCI"
+  ],
+  [
+   355,
+   "### IV-A Overview"
+  ],
+  [
+   389,
+   "### IV-B Stage I: Structure-Aware Tool Semantic Extraction"
+  ],
+  [
+   431,
+   "### IV-C Stage II: DCI Checking with DRA-Prompting"
+  ],
+  [
+   467,
+   "### IV-D Implementation Details"
+  ],
+  [
+   474,
+   "## V Real-world Measurement"
+  ],
+  [
+   493,
+   "### V-A Dataset"
+  ],
+  [
+   509,
+   "# ( D , C ) pairs"
+  ],
+  [
+   754,
+   "### V-B RQ1. DCIChecker Performance"
+  ],
+  [
+   891,
+   "### V-C RQ2. Real-world Landscape of DCI"
+  ],
+  [
+   978,
+   "### V-D RQ3. Practical Consequences of DCI"
+  ],
+  [
+   1184,
+   "## VI Mitigations"
+  ],
+  [
+   1190,
+   "### VI-A Best Practices"
+  ],
+  [
+   1252,
+   "## VII Discussion"
+  ],
+  [
+   1265,
+   "## VIII Related Work"
+  ],
+  [
+   1284,
+   "## IX Conclusion"
+  ],
+  [
+   1288,
+   "## References"
+  ],
+  [
+   1618,
+   "## Ethical Considerations"
+  ],
+  [
+   1626,
+   "## Appendix A Details of Tool Semantic Extraction"
+  ],
+  [
+   1630,
+   "### A-A Implementation of Tool Code Extraction"
+  ],
+  [
+   1743,
+   "### A-B Sensitive API Classification"
+  ],
+  [
+   1829,
+   "## Appendix B The Details of Inconsistency Detection"
+  ],
+  [
+   1831,
+   "### B-A The DRA-prompting Algorithm"
+  ],
+  [
+   1902,
+   "### B-B The Prompts"
+  ],
+  [
+   2109,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "",
+ "ethics_coi": "## Ethical Considerations\n\nOur study analyzes publicly available MCP server repositories and does not involve human subjects or private user data. All tests and analyses were conducted in our local environment on collected repository artifacts; we did not execute third-party MCP tools against live systems, interact with external services, or attempt to exploit deployed servers.\n\nBecause some DCI cases reveal unsafe behaviors, we follow a harm-minimization principle when reporting real-world findings. We present aggregate measurements and representative patterns, include only the evidence needed to substantiate each claim, and avoid step-by-step exploitation procedures, operational payloads, credentials, or other details that would enable abuse. We also avoid attributing malicious intent to individual maintainers, since DCI may arise from ordinary documentation drift or incomplete disclosure.\n\nOur goal is to improve the security of the MCP ecosystem. To this end, we report aggregate findings and developer-facing best practices that can help surface description-code inconsistencies during tool development before deployment or publication.\n\n## Appendix A Details of Tool Semantic Extraction\n\nThe effectiveness of DCIChecker’s consistency auditing depends on the fidelity of the code-bundle. This appendix provides the empirical data and formal taxonomies used for recursive extraction, logic pruning, and sensitive API identification.\n\n### A-A Implementation of Tool Code Extraction\n\nDCIChecker utilizes an inter-procedural analysis to retrieve the implementation context. Starting from the tool entry points, the extraction algorithm recursively traverses function calls within the project root.\n\nEmpirical Rationale for Depth k .\nA common challenge in static analysis for LLMs is the trade-off between semantic completeness and context window limits. We determined the optimal recursion depth k by analyzing the call graphs of 19,200 tools.\n\nAs shown in Table A.1, 84.6% of tools nat",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 2,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 1,
+  "swe_bench": 0,
+  "contamination": 4,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

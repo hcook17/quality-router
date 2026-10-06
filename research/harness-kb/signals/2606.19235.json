@@ -1,0 +1,189 @@
+{
+ "arxiv_id": "2606.19235",
+ "fulltext_chars": 40425,
+ "fulltext_lines": 1255,
+ "authors_block": "Po-Han Cheng† Chia-Mu Yu† Ying-Dar Lin† Yu-Sung Wu† Wei-Bin Lee* Affiliation: †National Yang Ming Chiao Tung University *Hon Hai Research Institute",
+ "vendor_affiliation_hits": [],
+ "n_authors": 5,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# CodeSentinel: A Three-Layer Defense Against Indirect Prompt Injection in Code Contexts"
+  ],
+  [
+   36,
+   "###### Abstract"
+  ],
+  [
+   40,
+   "## 1 Introduction"
+  ],
+  [
+   50,
+   "#### Contributions."
+  ],
+  [
+   66,
+   "## 2 Related Work"
+  ],
+  [
+   74,
+   "## 3 Proposed Method"
+  ],
+  [
+   76,
+   "### 3.1 Problem Formulation"
+  ],
+  [
+   111,
+   "### 3.2 Overview"
+  ],
+  [
+   144,
+   "### 3.3 Layer 1: Syntax-Guided Pre-Filtering"
+  ],
+  [
+   166,
+   "### 3.4 Layer 2: CST-Guided Dynamic Min-K%"
+  ],
+  [
+   228,
+   "### 3.5 Layer 3: CST-Guided Node Perturbation Analysis"
+  ],
+  [
+   260,
+   "### 3.6 Sanitization"
+  ],
+  [
+   390,
+   "## 4 Evaluation"
+  ],
+  [
+   414,
+   "### 4.1 Setup"
+  ],
+  [
+   416,
+   "#### Datasets."
+  ],
+  [
+   420,
+   "#### Models."
+  ],
+  [
+   424,
+   "#### Baselines and metrics."
+  ],
+  [
+   428,
+   "### 4.2 Results"
+  ],
+  [
+   430,
+   "#### RQ1: CodeSentinel outperforms existing defenses."
+  ],
+  [
+   434,
+   "#### RQ2: all three layers are necessary."
+  ],
+  [
+   438,
+   "#### RQ3: CodeSentinel generalizes across surrogate models."
+  ],
+  [
+   442,
+   "#### RQ4: CodeSentinel works in black-box victim settings."
+  ],
+  [
+   446,
+   "#### RQ5: sanitization mostly preserves benign-code utility."
+  ],
+  [
+   450,
+   "## 5 Conclusion"
+  ],
+  [
+   454,
+   "## Limitations"
+  ],
+  [
+   458,
+   "## Ethical Considerations"
+  ],
+  [
+   462,
+   "## References"
+  ],
+  [
+   742,
+   "## Appendix A Notation Table"
+  ],
+  [
+   872,
+   "## Appendix B Related-Work Tables"
+  ],
+  [
+   1093,
+   "## Appendix C Runtime Analysis"
+  ],
+  [
+   1099,
+   "## Appendix D Additional Figures"
+  ],
+  [
+   1109,
+   "## Appendix E Transfer and Tokenizer Robustness"
+  ],
+  [
+   1136,
+   "## Appendix F Leave-One-Attack-Out Evaluation"
+  ],
+  [
+   1204,
+   "## Appendix G Adaptive Attack"
+  ],
+  [
+   1214,
+   "#### Decoy Injection."
+  ],
+  [
+   1227,
+   "#### Copy Trigger."
+  ],
+  [
+   1239,
+   "#### Contextual Attack."
+  ],
+  [
+   1249,
+   "#### Results."
+  ],
+  [
+   1255,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## Limitations\n\nCodeSentinel currently focuses on single-context sanitization and does not fully address repository-scale multi-file reasoning, long-horizon interactive agents, or triggers distributed across many files. Identifier sanitization also requires careful scope-aware renaming, and overly aggressive cleaning may change surface-level code similarity even when compilation is preserved. Future work should extend CodeSentinel to multi-turn coding agents and larger repository contexts.\n\n## Ethical Considerations\n\nThis work studies defenses against indirect prompt injection in code-generation systems. The attack descriptions are limited to high-level categories and are used to evaluate sanitization mechanisms. The goal is to help developers and model providers reduce risks from untrusted code context before it reaches downstream Code LLMs.\n\n## References\n\nAustin et al. (2021)\nJ. Austin, A. Odena, M. Nye, M. Bosma, H. Michalewski, D. Duan, E. Ding, R. Drori, C. Sutton, and H. Kumar\n\nProgram synthesis with large language models.\n\narXiv preprint arXiv:2108.07732.\n\nCited by: §4.2.\n\nChen et al. (2021)\nM. Chen, J. Tworek, H. Jun, Q. Yuan, H. P. d. O. Pinto, J. Kaplan, H. Haris, Y. Burda, N. Bradbury, A. Cassano, et al.\n\nEvaluating large language models trained on code.\n\narXiv preprint arXiv:2107.03374.\n\nCited by: §4.2.\n\nChen et al. (2025a)\nS. Chen, J. Piet, C. Sitawarin, and D. Wagner\n\nStruQ: Defending Against Prompt Injection with Structured Queries.\n\nIn USENIX Security Symposium,\n\nExternal Links: Link\n\nCited by: Table 6,\n§2.",
+ "ethics_coi": "## Ethical Considerations\n\nThis work studies defenses against indirect prompt injection in code-generation systems. The attack descriptions are limited to high-level categories and are used to evaluate sanitization mechanisms. The goal is to help developers and model providers reduce risks from untrusted code context before it reaches downstream Code LLMs.\n\n## References\n\nAustin et al. (2021)\nJ. Austin, A. Odena, M. Nye, M. Bosma, H. Michalewski, D. Duan, E. Ding, R. Drori, C. Sutton, and H. Kumar\n\nProgram synthesis with large language models.\n\narXiv preprint arXiv:2108.07732.\n\nCited by: §4.2.\n\nChen et al. (2021)\nM. Chen, J. Tworek, H. Jun, Q. Yuan, H. P. d. O. Pinto, J. Kaplan, H. Haris, Y. Burda, N. Bradbury, A. Cassano, et al.\n\nEvaluating large language models trained on code.\n\narXiv preprint arXiv:2107.03374.\n\nCited by: §4.2.\n\nChen et al. (2025a)",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 3,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 1
+ },
+ "fulltext_source": "html"
+}

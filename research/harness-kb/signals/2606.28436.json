@@ -1,0 +1,377 @@
+{
+ "arxiv_id": "2606.28436",
+ "fulltext_chars": 56928,
+ "fulltext_lines": 1325,
+ "authors_block": "",
+ "vendor_affiliation_hits": [],
+ "n_authors": 13,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Dockerless: Environment-Free Program Verifier for Coding Agents"
+  ],
+  [
+   22,
+   "###### Abstract"
+  ],
+  [
+   35,
+   "## 1 Introduction"
+  ],
+  [
+   79,
+   "## 2 Methodology"
+  ],
+  [
+   81,
+   "### 2.1 Problem Setting"
+  ],
+  [
+   99,
+   "### 2.2 Architecture of Dockerless"
+  ],
+  [
+   118,
+   "### 2.3 Dockerless Training"
+  ],
+  [
+   139,
+   "### 2.4 Environment-Free Post-training"
+  ],
+  [
+   145,
+   "#### Environment-free RFT."
+  ],
+  [
+   152,
+   "#### Environment-free RL."
+  ],
+  [
+   165,
+   "## 3 Experimental Settings"
+  ],
+  [
+   167,
+   "#### Benchmarks."
+  ],
+  [
+   265,
+   "#### Evaluation protocol."
+  ],
+  [
+   274,
+   "#### Baselines."
+  ],
+  [
+   279,
+   "#### Implementation details."
+  ],
+  [
+   286,
+   "## 4 Results"
+  ],
+  [
+   288,
+   "### 4.1 Main results"
+  ],
+  [
+   290,
+   "#### Fully environment-free post-training reaches strongest open-source performance."
+  ],
+  [
+   295,
+   "#### Env-free SFT matches env-based SFT."
+  ],
+  [
+   300,
+   "#### Env-free RL approaches env-based RL."
+  ],
+  [
+   306,
+   "### 4.2 Verifier evaluation"
+  ],
+  [
+   358,
+   "### 4.3 Effect of the SFT data filter"
+  ],
+  [
+   399,
+   "#### Dockerless achieves effective trajectory filtering."
+  ],
+  [
+   406,
+   "#### Env-free RFT matches env-based trajectory collection."
+  ],
+  [
+   412,
+   "### 4.4 Effect of the number of verification questions"
+  ],
+  [
+   427,
+   "### 4.5 Latency analysis"
+  ],
+  [
+   443,
+   "### 4.6 Case study"
+  ],
+  [
+   451,
+   "## 5 Related Work"
+  ],
+  [
+   453,
+   "### 5.1 Software Engineering Agents"
+  ],
+  [
+   459,
+   "### 5.2 Verifiers for SWE agents"
+  ],
+  [
+   468,
+   "## 6 Conclusion"
+  ],
+  [
+   475,
+   "## References"
+  ],
+  [
+   982,
+   "## Appendix A Frontier-model env-base vs. env-free"
+  ],
+  [
+   984,
+   "#### Setting."
+  ],
+  [
+   993,
+   "#### Removing the environment costs only a few points."
+  ],
+  [
+   998,
+   "#### Implications for the verifier."
+  ],
+  [
+   1004,
+   "## Appendix B Env-free evaluation results"
+  ],
+  [
+   1006,
+   "#### Setting."
+  ],
+  [
+   1056,
+   "#### Ranking is preserved across environments."
+  ],
+  [
+   1061,
+   "#### Dockerless-trained models are more robust to env-free deployment."
+  ],
+  [
+   1067,
+   "## Appendix C Dataset Construction"
+  ],
+  [
+   1069,
+   "### C.1 Agentic verifier training data"
+  ],
+  [
+   1081,
+   "### C.2 Env-free rollout data"
+  ],
+  [
+   1087,
+   "### C.3 Verifier evaluation benchmark"
+  ],
+  [
+   1093,
+   "## Appendix D Training Details"
+  ],
+  [
+   1095,
+   "### D.1 Agentic verifier"
+  ],
+  [
+   1105,
+   "### D.2 Env-free SFT"
+  ],
+  [
+   1112,
+   "### D.3 Env-free RL"
+  ],
+  [
+   1120,
+   "## Appendix E Per-Language Analysis"
+  ],
+  [
+   1136,
+   "## Appendix F Latency distribution"
+  ],
+  [
+   1144,
+   "## Appendix G Prompt Templates"
+  ],
+  [
+   1148,
+   "### G.1 Question generation prompt"
+  ],
+  [
+   1154,
+   "## Role"
+  ],
+  [
+   1158,
+   "## Task"
+  ],
+  [
+   1162,
+   "## Input"
+  ],
+  [
+   1164,
+   "### Issue Description"
+  ],
+  [
+   1168,
+   "### Golden Patch (Correct Solution)"
+  ],
+  [
+   1172,
+   "## Analysis Framework"
+  ],
+  [
+   1176,
+   "## Question Categories"
+  ],
+  [
+   1196,
+   "## Output Format"
+  ],
+  [
+   1200,
+   "## Key Principle"
+  ],
+  [
+   1204,
+   "### G.2 Sub-agent exploration prompt"
+  ],
+  [
+   1212,
+   "## Response Format"
+  ],
+  [
+   1216,
+   "## Rules"
+  ],
+  [
+   1226,
+   "### Issue Description"
+  ],
+  [
+   1230,
+   "### Golden Patch"
+  ],
+  [
+   1234,
+   "### Question"
+  ],
+  [
+   1241,
+   "## Goal"
+  ],
+  [
+   1245,
+   "## Search Strategy (priority order)"
+  ],
+  [
+   1249,
+   "## Final Answer Format"
+  ],
+  [
+   1253,
+   "## Important Notes"
+  ],
+  [
+   1259,
+   "### G.3 Final scoring prompt"
+  ],
+  [
+   1265,
+   "## Role:"
+  ],
+  [
+   1269,
+   "## Task:"
+  ],
+  [
+   1273,
+   "## Issue Description:"
+  ],
+  [
+   1279,
+   "## Golden Patch:"
+  ],
+  [
+   1283,
+   "## Generated Patch:"
+  ],
+  [
+   1287,
+   "## Response Format:"
+  ],
+  [
+   1293,
+   "### G.4 Zero-shot LLM-as-judge prompt"
+  ],
+  [
+   1299,
+   "## Role:"
+  ],
+  [
+   1303,
+   "## Task:"
+  ],
+  [
+   1307,
+   "## Issue Description:"
+  ],
+  [
+   1311,
+   "## Golden Patch:"
+  ],
+  [
+   1315,
+   "## Generated Patch:"
+  ],
+  [
+   1319,
+   "## Response Format:"
+  ],
+  [
+   1325,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 3,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 1,
+  "swe_bench": 31,
+  "contamination": 1,
+  "human_study": 0,
+  "java": 2,
+  "industrial": 1
+ },
+ "fulltext_source": "html"
+}

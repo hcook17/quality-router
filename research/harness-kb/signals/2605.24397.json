@@ -1,0 +1,509 @@
+{
+ "arxiv_id": "2605.24397",
+ "fulltext_chars": 245092,
+ "fulltext_lines": 3877,
+ "authors_block": "Journal: TOSEMCCS: Software and its engineering Software evolutionCCS: Software and its engineering Software libraries and repositoriesCCS: Software and its engineering Software version controlCCS: Software and its engineering Maintaining softwareCCS: General and reference Surveys and overviews Juntao Chen Affiliation: The University of Melbourne, Melbourne, Australia email: juntao.chen@student.unimelb.edu.au , Tingting Bi Note: Corresponding author. Affiliation: The University of Melbourne, Melbourne, Australia email: tingting.bi@unimelb.edu.au , Yanlin Wang Affiliation: Sun Yat-sen University, Guangzhou, China email: wangylin36@mail.sysu.edu.cn and Patanamon Thongtanunam Affiliation: The University of Melbourne, Melbourne, Australia email: patanamon.t@unimelb.edu.au © none",
+ "vendor_affiliation_hits": [],
+ "n_authors": 4,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Breaking Changes in Software Ecosystems: A Systematic Literature Review"
+  ],
+  [
+   55,
+   "###### Abstract."
+  ],
+  [
+   59,
+   "###### Keywords:"
+  ],
+  [
+   63,
+   "## 1. Introduction"
+  ],
+  [
+   121,
+   "## 2. Methodology"
+  ],
+  [
+   127,
+   "### 2.1. Literature Collection"
+  ],
+  [
+   139,
+   "### 2.2. Screening and Filtering"
+  ],
+  [
+   175,
+   "### 2.3. Reference Expansion"
+  ],
+  [
+   181,
+   "### 2.4. Data Analysis and Synthesis"
+  ],
+  [
+   321,
+   "## 3. RQ1: Taxonomy of Breaking Changes"
+  ],
+  [
+   353,
+   "### 3.1. Nature of Breaking Changes (What)"
+  ],
+  [
+   367,
+   "#### 3.1.1. Syntactic Breaking Changes"
+  ],
+  [
+   377,
+   "#### 3.1.2. Behavioral Breaking Changes"
+  ],
+  [
+   557,
+   "### 3.2. Detectability of Breaking Changes (When)"
+  ],
+  [
+   563,
+   "##### Compile-time Breaking Change."
+  ],
+  [
+   567,
+   "##### Link-time Breaking Change."
+  ],
+  [
+   593,
+   "##### Runtime Breaking Change."
+  ],
+  [
+   657,
+   "### 3.3. Scope of Breaking Changes (How Far)"
+  ],
+  [
+   661,
+   "#### 3.3.1. Direct and Transitive Breaking Changes"
+  ],
+  [
+   667,
+   "#### 3.3.2. Widespread and Localized Breaking Changes"
+  ],
+  [
+   719,
+   "### 3.4. Visibility of Breaking Changes (To Whom)"
+  ],
+  [
+   723,
+   "##### Public API Breaking Changes."
+  ],
+  [
+   727,
+   "##### Internal API Breaking Changes."
+  ],
+  [
+   731,
+   "##### Beta/Experimental API Breaking Changes."
+  ],
+  [
+   735,
+   "##### Deprecated API Breaking Changes."
+  ],
+  [
+   795,
+   "## 4. RQ2: Reasons and Impact of Breaking Changes"
+  ],
+  [
+   799,
+   "### 4.1. Reasons behind Breaking Changes"
+  ],
+  [
+   807,
+   "##### Internal Maintenance and Refactoring"
+  ],
+  [
+   811,
+   "##### Defensive Design and Robustness"
+  ],
+  [
+   815,
+   "##### Functional Evolution"
+  ],
+  [
+   821,
+   "##### Ecosystem Integration and Constraints"
+  ],
+  [
+   825,
+   "##### Reactive and Accidental Modifications"
+  ],
+  [
+   831,
+   "##### Cross-Category Observations"
+  ],
+  [
+   981,
+   "### 4.2. Impact on Downstream Consumers"
+  ],
+  [
+   985,
+   "#### 4.2.1. Magnitude of Impact"
+  ],
+  [
+   993,
+   "#### 4.2.2. SemVer Violations"
+  ],
+  [
+   999,
+   "#### 4.2.3. Transitive Propagation"
+  ],
+  [
+   1007,
+   "#### 4.2.4. Technical Manifestation"
+  ],
+  [
+   1017,
+   "# Scikit-Learn version 0.21"
+  ],
+  [
+   1021,
+   "# Client code - relies on default gamma"
+  ],
+  [
+   1029,
+   "# Result: accuracy = 0.05 (gamma=’auto’)"
+  ],
+  [
+   1031,
+   "# Scikit-Learn version 0.22 - Default gamma changed"
+  ],
+  [
+   1033,
+   "# Default gamma changed from ’auto’ to ’scale’"
+  ],
+  [
+   1041,
+   "# Result: accuracy = 0.82 (different gamma strategy)"
+  ],
+  [
+   1043,
+   "# No exception raised, no compilation error, no test failure"
+  ],
+  [
+   1045,
+   "# Accuracy changed by 77 percentage points across versions"
+  ],
+  [
+   1047,
+   "# Client unaware that behavior changed"
+  ],
+  [
+   1053,
+   "#### 4.2.5. Developer Experience and Documentation"
+  ],
+  [
+   1063,
+   "#### 4.2.6. Cross-Dimension Observations"
+  ],
+  [
+   1351,
+   "## 5. RQ3: Detection and Analysis of Breaking Changes"
+  ],
+  [
+   1355,
+   "### 5.1. Traditional Approaches"
+  ],
+  [
+   1359,
+   "#### 5.1.1. Static Analysis Techniques"
+  ],
+  [
+   1363,
+   "##### Bytecode Comparison in Java."
+  ],
+  [
+   1369,
+   "##### Source-Level AST Differencing."
+  ],
+  [
+   1373,
+   "##### Type Inference and Built-in SemVer Checking."
+  ],
+  [
+   1499,
+   "#### 5.1.2. Dynamic Analysis Techniques"
+  ],
+  [
+   1503,
+   "##### Regression Testing and Client Test Execution."
+  ],
+  [
+   1507,
+   "##### Crowd-Sourced Regression Testing."
+  ],
+  [
+   1511,
+   "##### API Interaction Snapshotting."
+  ],
+  [
+   1515,
+   "##### Differential Testing and Automated Test Generation."
+  ],
+  [
+   1597,
+   "#### 5.1.3. Combined Static and Dynamic Analysis"
+  ],
+  [
+   1601,
+   "##### Reachability-Guided Filtering."
+  ],
+  [
+   1605,
+   "##### Blended Analysis and Specialized Detection."
+  ],
+  [
+   1733,
+   "### 5.2. Learning-based Approaches"
+  ],
+  [
+   1737,
+   "##### Association Rule Mining for API Evolution."
+  ],
+  [
+   1741,
+   "##### Similarity-Based API Matching."
+  ],
+  [
+   1745,
+   "##### IR-Based Prioritization and Context-Driven Discovery."
+  ],
+  [
+   1811,
+   "### 5.3. Hybrid Approaches"
+  ],
+  [
+   1815,
+   "##### Ecosystem-Specific Hybrid Tools."
+  ],
+  [
+   1819,
+   "##### Pattern-Based and Domain-Specific Detection."
+  ],
+  [
+   2053,
+   "### 5.4. Comparison & Limitations"
+  ],
+  [
+   2061,
+   "##### The Oracle Problem."
+  ],
+  [
+   2117,
+   "## 6. RQ4: Communication, Prevention, and Recovery Strategies for Breaking Changes"
+  ],
+  [
+   2123,
+   "### 6.1. Practices for Library Maintainers"
+  ],
+  [
+   2127,
+   "#### 6.1.1. Communication and Deprecation Lifecycle"
+  ],
+  [
+   2139,
+   "#### 6.1.2. API Design for Stability"
+  ],
+  [
+   2143,
+   "##### Strict Visibility Control and Hiding Internals."
+  ],
+  [
+   2147,
+   "##### Explicit Unstable API Naming."
+  ],
+  [
+   2151,
+   "##### Additive Evolution and Modularization."
+  ],
+  [
+   2155,
+   "##### Parallel Version Support."
+  ],
+  [
+   2159,
+   "#### 6.1.3. Versioning and Compatibility Contracts"
+  ],
+  [
+   2163,
+   "##### Automated Versioning Enforcement."
+  ],
+  [
+   2167,
+   "##### Code Contracts and Formal Specifications."
+  ],
+  [
+   2171,
+   "##### Ecosystem-Level Coordination."
+  ],
+  [
+   2461,
+   "### 6.2. Strategies for Client Developers"
+  ],
+  [
+   2465,
+   "#### 6.2.1. Dependency Configuration and Version Management"
+  ],
+  [
+   2471,
+   "##### Version Pinning and Lock Files."
+  ],
+  [
+   2475,
+   "##### Version Ranges and Range Narrowing."
+  ],
+  [
+   2479,
+   "##### Dependency Exclusion and Shadowing."
+  ],
+  [
+   2483,
+   "#### 6.2.2. Update Decision-Making"
+  ],
+  [
+   2487,
+   "##### Selective Upgrading and Reactive Maintenance."
+  ],
+  [
+   2491,
+   "##### Incremental and Holistic Updates."
+  ],
+  [
+   2495,
+   "#### 6.2.3. Adaptation and Isolation Techniques"
+  ],
+  [
+   2499,
+   "##### Abstraction Layers and the Tolerant Reader Pattern."
+  ],
+  [
+   2503,
+   "##### Runtime Version Checking."
+  ],
+  [
+   2507,
+   "##### Library Migration."
+  ],
+  [
+   2815,
+   "### 6.3. Automated Tool Support"
+  ],
+  [
+   2819,
+   "#### 6.3.1. Dependency Resolution and Optimization"
+  ],
+  [
+   2823,
+   "##### Dependency Bots."
+  ],
+  [
+   2827,
+   "##### Multi-Objective Dependency Optimization."
+  ],
+  [
+   2831,
+   "#### 6.3.2. Automated Code Repair"
+  ],
+  [
+   2837,
+   "##### Automated Rollback."
+  ],
+  [
+   2841,
+   "##### LLM-Based Automated Program Repair."
+  ],
+  [
+   2845,
+   "##### Output-Oriented Program Synthesis."
+  ],
+  [
+   2849,
+   "##### Inferred Structural Rewrite Rules."
+  ],
+  [
+   2853,
+   "##### Semantic Patches."
+  ],
+  [
+   2857,
+   "#### 6.3.3. Refactoring Replay and Migration Tools"
+  ],
+  [
+   2861,
+   "##### Graph-Based Adaptation and Client Adapter Generation."
+  ],
+  [
+   2865,
+   "#### 6.3.4. Analysis and Verification"
+  ],
+  [
+   2869,
+   "##### Reachability and Confidence Scoring."
+  ],
+  [
+   2873,
+   "##### Predictive Stability Analysis."
+  ],
+  [
+   2877,
+   "##### Social and Community-Based Strategies."
+  ],
+  [
+   3151,
+   "## 7. Challenges and Opportunities"
+  ],
+  [
+   3155,
+   "### 7.1. Challenges"
+  ],
+  [
+   3159,
+   "#### 7.1.1. Behavioral Breaking Change Detection at Scale"
+  ],
+  [
+   3165,
+   "#### 7.1.2. Systematic Failure of Semantic Versioning as a Trust Mechanism"
+  ],
+  [
+   3173,
+   "#### 7.1.3. Transitive Dependency Propagation and Information Asymmetry"
+  ],
+  [
+   3179,
+   "### 7.2. Opportunities"
+  ],
+  [
+   3183,
+   "#### 7.2.1. LLM-Augmented Behavioral Contract Inference and Automated Repair"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "### 5.4. Comparison & Limitations\n\nThe previous sections examine traditional, learning-based, and hybrid approaches individually. This section compares them and discusses their shared limitations. It closes with an in-depth look at the oracle problem that cuts across all detection approaches. Table 13 synthesizes the trade-offs across all approaches.\n\nStatic and dynamic analysis form the two foundational signals, with complementary strengths. Static analysis can scan millions of lines in seconds. It achieves near-perfect recall for syntactic changes in statically-typed ecosystems [S6, S64]. However, it over-approximates, reporting changes that never cause actual failures. It cannot detect behavioral changes. Dynamic analysis achieves higher precision for behavioral issues [S75]. It depends on test quality and coverage, which is inadequate for the majority of transitive dependencies [S71]. Learning-based and hybrid approaches build on these foundations. Learning-based approaches can discover patterns humans miss but require large training datasets and struggle with interpretability. Hybrid approaches substantially reduce candidate callsites by combining static and dynamic signals [S19]. They inherit the limitations of their constituent techniques.\n\nThe main remaining gap is behavioral breaking changes that preserve syntactic interfaces. Static tools cannot detect that a method now throws different exceptions, returns different values, or exhibits altered side effects without executing code. Dynamic tools face the oracle problem. It is difficult to determine whether a test failure represents a breaking change or a test bug. This limitation is rooted in Rice’s theorem and the undecidability of semantic equivalence. Syntactic breaking changes are now reliably detectable. Behavioral changes remain largely undetectable without comprehensive test suites and explicit oracles. This gap matters in practice because behavioral changes are common across ecosystems and routinely occur in non-major releases [S1, S12].\n\n##### The Oracle Problem.\n\nThe most common limitation across all detection approaches is the oracle problem. The problem is determining whether observed behavioral differences are breaking changes or intended improvements. As discussed in Section 4, behavioral breaks split between test errors (exceptions that automated test generators can detect) and test failures (assertion mismatches that produce incorrect results without crashing) [S12]. The latter requires explicit oracles. The challenge is amplified in domains where behavioral changes are pervasive, such as machine learning libraries where default argument changes silently alter outputs [S26]. Without ground-truth labels, automated tools cannot determine whether the new output is correct or broken. Contract-based random testing tools like QuickCheck and Randoop can verify compliance with user-defined contracts. They cannot generate assertion oracles without explicit properties. Addressing the oracle problem requires formal specifications or comprehensive test oracles that most projects lack.\n\nTable 13. Comparison of detection approach trade-offs.\n\nApproach\n\nStrengths\n\nLimitations\n\nBest For\n\nWorst For\n\nStatic Analysis\n\nHigh scalability; Fast (seconds); 95-98% recall for syntactic changes\n\nOver-approximation; Blind to behavioral changes; High false positives\n\nSyntactic breaks in statically-typed ecosystems (Java, C#)\n\nBehavioral changes; Dynamic ecosystems (npm, Python)\n\nDynamic Analysis\n\nHigh precision for behavioral issues; 96% recall on seeded breaks\n\nTest-dependent; Computationally expensive; Under-approximation",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 9,
+  "seeds_or_runs": 1,
+  "swe_bench": 9,
+  "contamination": 0,
+  "human_study": 2,
+  "java": 94,
+  "industrial": 5
+ },
+ "fulltext_source": "html"
+}

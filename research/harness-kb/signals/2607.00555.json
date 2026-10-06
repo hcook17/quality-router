@@ -1,0 +1,202 @@
+{
+ "arxiv_id": "2607.00555",
+ "fulltext_chars": 67450,
+ "fulltext_lines": 1218,
+ "authors_block": "##### Report GitHub Issue Title: Content selection saved. Describe the issue below: Description: arXiv is now an independent nonprofit! Learn more Back to arXiv License: arXiv.org perpetual non-exclusive license arXiv:2607.00555v1 [cs.SE] 01 Jul 2026 # Rise From The Ashes: LLM-based Static Analysis for Deep Learning Framework Bugs Shaoyu Yang Affiliation: State Key Laboratory for Novel Software Technology Nanjing University Nanjing, China shaoyuyoung@gmail.com Chunrong Fang Affiliation: State Key Laboratory for Novel Software Technology Nanjing University Nanjing, China fangchunrong@nju.edu.cn Haifeng Lin Affiliation: State Key Laboratory for Novel Software Technology Nanjing University Nanjing, China linhaifeng0716@163.com Xiang Chen Affiliation: School of Artificial Intelligence and Computer Science Nantong University Nantong, China xchencs@ntu.edu.cn Zhenyu Chen Affiliation: State Key Laboratory for Novel Software Technology Nanjing University Nanjing, China zychen@nju.edu.cn Shaoyu Yang1, Haifeng Lin1, Chunrong Fang1#, Xiang Chen2, Wei Cheng3, Jiawei Liu1, Yiyu Zhang1, Hongyu Liu4, Zhenyu Chen1 Affiliation: 1State Key Laboratory for Novel Software Technology, Nanjing University, China Affiliation: 2School of Artificial Intelligence and Computer Science, Nantong University, China Affiliation: 3College of Computer Science and Technology/College of Software, Nanjing University of Aeronautics and Astronautics, China Affiliation: 4Beijing Academy of Artificial Intelligence, Ch",
+ "vendor_affiliation_hits": [
+  "GitHub"
+ ],
+ "n_authors": 9,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/jax-ml/jax",
+  "https://github.com/pytorch/pytorch"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "#  Rise From The Ashes: LLM-based Static Analysis for Deep Learning Framework Bugs"
+  ],
+  [
+   111,
+   "###### Abstract"
+  ],
+  [
+   122,
+   "###### Index Terms:"
+  ],
+  [
+   125,
+   "## I Introduction"
+  ],
+  [
+   161,
+   "## II Background and Motivation"
+  ],
+  [
+   163,
+   "### II-A Tensor Safety in DL Frameworks"
+  ],
+  [
+   171,
+   "### II-B Motivation Example"
+  ],
+  [
+   183,
+   "## III Phoenix Approach"
+  ],
+  [
+   189,
+   "### III-A Bug Dataset Collection"
+  ],
+  [
+   199,
+   "# Items"
+  ],
+  [
+   292,
+   "### III-B Semantic Bridge IR"
+  ],
+  [
+   367,
+   "### III-C LLM-based Bug Summarization"
+  ],
+  [
+   375,
+   "### III-D LLM-based SBIR Generation"
+  ],
+  [
+   427,
+   "### III-E LLM-based SBIR Analysis"
+  ],
+  [
+   435,
+   "## IV Evaluation"
+  ],
+  [
+   437,
+   "### IV-A Experiment Setup"
+  ],
+  [
+   481,
+   "### IV-B RQ1. Superiority over static methods"
+  ],
+  [
+   486,
+   "# Bugs"
+  ],
+  [
+   487,
+   "# False Alarms (%)"
+  ],
+  [
+   488,
+   "# Alarms"
+  ],
+  [
+   513,
+   "### IV-C RQ2. Orthogonality to dynamic methods"
+  ],
+  [
+   517,
+   "#### IV-C1 Bug overlap analysis"
+  ],
+  [
+   523,
+   "#### IV-C2 Bug type distribution analysis"
+  ],
+  [
+   531,
+   "### IV-D RQ3. Bug study"
+  ],
+  [
+   540,
+   "# Reported"
+  ],
+  [
+   541,
+   "# Confirmed"
+  ],
+  [
+   542,
+   "# Fixed"
+  ],
+  [
+   585,
+   "### IV-E RQ4. Ablation study"
+  ],
+  [
+   592,
+   "# Bugs"
+  ],
+  [
+   593,
+   "# False Alarms (%)"
+  ],
+  [
+   594,
+   "# Alarms"
+  ],
+  [
+   621,
+   "#### IV-E1 Effectiveness of bug knowledge sources"
+  ],
+  [
+   625,
+   "#### IV-E2 Effectiveness of bug summary"
+  ],
+  [
+   629,
+   "#### IV-E3 Effectiveness of ERG"
+  ],
+  [
+   635,
+   "## V Related Work"
+  ],
+  [
+   637,
+   "### V-A DL Framework Testing"
+  ],
+  [
+   647,
+   "### V-B Static Analysis with LLMs"
+  ],
+  [
+   653,
+   "## VI Threats to Validity"
+  ],
+  [
+   659,
+   "## VII Conclusion"
+  ],
+  [
+   663,
+   "## References"
+  ],
+  [
+   1218,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## VI Threats to Validity\n\nInternal validity. The main internal threats come from manual decisions, baseline configuration, and LLM nondeterminism. To reduce manual bias, the first and second authors inspected the collected PRs, CWE types, and reported alarms based on their experience in bug reporting. For baseline and LLM effects, we follow the default settings in their original papers, use the same LLM backend when comparing with fuzzers that use LLMs, and process each bug or weakness item 10 times to generate multiple SBIRs before downstream analysis.\n\nExternal validity. Our evaluation focuses on PyTorch, so the results may not directly generalize to all DL frameworks or software systems. However, PyTorch is a widely used DL framework with Python, C++, and CUDA code, heterogeneous backends, and a large real-world bug history, making it a representative target for studying cross-language tensor-semantic bugs. Our bug knowledge sources may also miss some bug types, so we combine historical PyTorch PRs with CWE rules to cover both framework-specific patterns and broader security-oriented weaknesses.\n\n## VII Conclusion\n\nWe present Phoenix, a static analysis technique using LLMs to detect cross-language bugs in tensor semantics for DL frameworks. Phoenix introduces SBIR to capture how tensor attributes, guards, and runtime states propagate across Python, C++, and CUDA code, and uses LLM agents to construct and analyze these semantic bridges. Our evaluation on PyTorch shows that Phoenix detects 31 real bugs from 36 alarms, including 30 bugs missed by DL fuzzers using LLMs. Among them, 26 bugs have been confirmed and 20 patches have been merged upstream. These results demonstrate that LLM static analysis guided by SBIR is a promising complement to existing DL framework testing techniques.\n\n## References\n\n[1]\nP. Ammann and J. Offutt (2017)\n\nIntroduction to software testing.\n\n Cambridge University Press.\n\nCited by: §I.\n\n[2]\nE. T. Barr, M. Harman, P. McMinn, M. Shahbaz, and S. Yoo (2014)\n\nThe oracle problem in software testing: a survey.\n\nIEEE transactions on software engineering 41 (5), pp. 507–525.\n\nCited by: §IV-C2.\n\n[3]\nT. Boland and P. E. Black (2012)\n\nJuliet 1. 1 c/c++ and java test suite.\n\nComputer 45 (10), pp. 88–90.\n\nCited by: §III-A.\n\n[4]",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 1,
+  "swe_bench": 1,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 2,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

@@ -1,0 +1,186 @@
+{
+ "arxiv_id": "2607.05785",
+ "fulltext_chars": 64261,
+ "fulltext_lines": 1368,
+ "authors_block": "Yongliang Tao1, Hongyu Zhang1, Pengfei Gao2, Minghua Ma2, Zhiyu Fan2, Yu Kang2 Affiliation: Jue Zhang2, Si Qin2, Liqun Li2, Qingwei Lin2, Saravan Rajmohan2 Affiliation: Affiliation: 1Chongqing University, Chongqing, China Affiliation: Affiliation: 2Microsoft Affiliation:",
+ "vendor_affiliation_hits": [],
+ "n_authors": 11,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/FudanSELab/train-ticket.",
+  "https://github.com/GoogleCloudPlatform/microservices-demo.",
+  "https://github.com/chaos-mesh/chaos-meshGitHub",
+  "https://github.com/delimitrou/DeathStarBench.",
+  "https://github.com/dotnet/eShop.",
+  "https://github.com/github/copilot-sdkGitHub",
+  "https://github.com/golevelup/nestjs.",
+  "https://github.com/microservices-demo/microservices-demo.",
+  "https://github.com/open-telemetry/opentelemetry-demo.",
+  "https://github.com/robusta-dev/robusta.",
+  "https://github.com/strapi/strapi.",
+  "https://github.com/vectordotdev/vector."
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Can Large Language Models Generate Observability-Aware Code?"
+  ],
+  [
+   47,
+   "###### Abstract"
+  ],
+  [
+   54,
+   "###### Index Terms:"
+  ],
+  [
+   57,
+   "## I Introduction"
+  ],
+  [
+   116,
+   "## II Background and Motivation"
+  ],
+  [
+   120,
+   "### II-A Agent-Generated Code Creates Knowledge Debt"
+  ],
+  [
+   128,
+   "### II-B From Diagnostic Semantics to Fault Signals"
+  ],
+  [
+   142,
+   "## III Study Design"
+  ],
+  [
+   144,
+   "### III-A Overview"
+  ],
+  [
+   162,
+   "### III-B RQ1 Design: Static Observability Restoration"
+  ],
+  [
+   166,
+   "#### III-B1 Dataset"
+  ],
+  [
+   174,
+   "#### III-B2 Procedure"
+  ],
+  [
+   192,
+   "#### III-B3 Prompting Strategies"
+  ],
+  [
+   202,
+   "#### III-B4 Functional Scope"
+  ],
+  [
+   212,
+   "#### III-B5 Evaluation Metrics"
+  ],
+  [
+   216,
+   "##### Position F1 (Where to instrument)"
+  ],
+  [
+   240,
+   "##### KeyBag F1 (What to capture)"
+  ],
+  [
+   273,
+   "### III-C RQ2 Design: Observability in Agent-Generated Microservice Systems"
+  ],
+  [
+   277,
+   "#### III-C1 Dataset"
+  ],
+  [
+   281,
+   "#### III-C2 Procedure"
+  ],
+  [
+   287,
+   "#### III-C3 Fault Injection"
+  ],
+  [
+   378,
+   "#### III-C4 Evaluation Metrics"
+  ],
+  [
+   409,
+   "### III-D RQ3 Design: Observability-Oriented Guidance"
+  ],
+  [
+   447,
+   "### III-E Implementation and Reproducibility"
+  ],
+  [
+   540,
+   "## IV Study Results"
+  ],
+  [
+   542,
+   "### IV-A RQ1 Results: Static Observability Restoration"
+  ],
+  [
+   601,
+   "### IV-B RQ2 Results: Observability in Agent-Generated Microservice Systems"
+  ],
+  [
+   706,
+   "### IV-C RQ3 Results: Observability-Oriented Guidance"
+  ],
+  [
+   775,
+   "## V Discussion and Threats to Validity"
+  ],
+  [
+   777,
+   "### V-A Discussion"
+  ],
+  [
+   789,
+   "### V-B Threats to Validity"
+  ],
+  [
+   802,
+   "## VI RELATED WORK"
+  ],
+  [
+   817,
+   "## VII Conclusion"
+  ],
+  [
+   823,
+   "## References"
+  ],
+  [
+   1368,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## V Discussion and Threats to Validity\n\n### V-A Discussion\n\nThis study examines the observability of agent-generated microservice systems from two complementary perspectives. At the source-code level, observability restoration evaluates whether coding agents can recover the diagnostic semantics embedded in human-written observability code. The results show that agents are able to restore only part of these observability artifacts, indicating limited capability in encoding fault-relevant diagnostic semantics. At the system level, observability evaluation measures whether the generated systems expose actionable fault signals during failures. Despite producing runnable systems with abundant logging output, the generated systems expose fault signals for only a small fraction of injected faults. Taken together, these findings suggest that current coding agents remain insufficient in generating observability that effectively supports failure diagnosis.\n\nTo investigate whether this limitation can be mitigated during generation, we introduce lightweight observability-oriented skills. Although these skills consistently improve FSR, Position F1, and KeyBag F1, the overall gains remain modest. This suggests that simply augmenting prompts with observability-related guidance is insufficient to substantially improve diagnostic quality. Instead, generating effective observability appears to require deeper reasoning about failure propagation, runtime states, and diagnostic semantics, which current prompt-level interventions do not fully provide.\n\nOverall, our findings indicate that observability should be considered an independent capability of coding agents rather than a by-product of functional code generation. Future research may require integrating failure-aware reasoning or runtime feedback into the generation process, instead of relying solely on prompt engineering.\n\nOne possible explanation is that observability is rarely represented as an independent objective in the training data. In real-world software repositories, logging and other observability-related code are typically developed together with functional code and are gradually refined during software evolution. Consequently, coding agents may learn where observability components are usually inserted, allowing them to reproduce common logging structures, while failing to infer what diagnostic information should be recorded for specific failures.\n\nAnother possible explanation is that current coding agents primarily learn from static source code rather than runtime system behavior. Effective observability depends on understanding how failures manifest during execution and which runtime states provide actionable diagnostic evidence. Without deployment or execution feedback during training, agents may lack sufficient knowledge to reason about failure propagation, resulting in logs that execute correctly but rarely expose informative fault signals.\n\n### V-B Threats to Validity\n\nWe have identified the following major threats to validity.\n\nOracle-based FSR may miss valid fault signals.\nThe definition of Fault Signals Rate (FSR) relies on fault-specific oracles to identify valid fault signals. Although the oracle is constructed based on failure-relevant patterns, it may not capture all possible forms of valid signals. In particular, some logs may contain partial or indirect information that does not satisfy the oracle criteria and is therefore counted as no signal. However, since the same oracle is consistently applied across all evaluated settings, and our goal is to measure the presence of actionable fault signals rather than arbitrary logging outputs, the relative comparisons and overall trends remain stable.\n\nHuman-written observability does not represent an optimal upper bound.\nOur study derives diagnostic semantics (KeyBags) from human-written code. Many of these observability-related signals are introduced or refined after faults have occurred, reflecting practical debugging and ",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 0,
+  "swe_bench": 2,
+  "contamination": 1,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 10
+ },
+ "fulltext_source": "html"
+}

@@ -1,0 +1,113 @@
+{
+ "arxiv_id": "2605.08927",
+ "fulltext_chars": 54281,
+ "fulltext_lines": 2080,
+ "authors_block": "In Coding Agent Compiler Development Martin Rinard Affiliation: National University of Singapore and Massachusetts Institute of Technology Affiliation: Singapore and Cambridge, Massachusetts Email: rinard@csail.mit.edu",
+ "vendor_affiliation_hits": [],
+ "n_authors": 1,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Quantitative Comparison of Credible Compilation and Verification"
+  ],
+  [
+   31,
+   "###### Abstract"
+  ],
+  [
+   52,
+   "## 1 Introduction"
+  ],
+  [
+   139,
+   "## 2 Background and Related Work"
+  ],
+  [
+   200,
+   "## 3 Methodology"
+  ],
+  [
+   373,
+   "## 4 Experimental Results"
+  ],
+  [
+   385,
+   "### 4.1 Engineering Effort"
+  ],
+  [
+   734,
+   "### 4.2 Compile Time Statistics"
+  ],
+  [
+   767,
+   "## 5 Optimization Development"
+  ],
+  [
+   771,
+   "### 5.1 Unreachable Code Elimination (UCE)"
+  ],
+  [
+   802,
+   "### 5.2 Dead Assignment Elimination (DAE)"
+  ],
+  [
+   867,
+   "### 5.3 Constant Propagation/Folding (CP)"
+  ],
+  [
+   929,
+   "## 6 Discussion"
+  ],
+  [
+   1000,
+   "## 7 Ethical Considerations and Broader Impacts"
+  ],
+  [
+   1009,
+   "## 8 Limitations"
+  ],
+  [
+   1029,
+   "## 9 Conclusion"
+  ],
+  [
+   1043,
+   "## References"
+  ],
+  [
+   1481,
+   "## 10 Appendix"
+  ],
+  [
+   2061,
+   "## 11 Initial Prompts"
+  ],
+  [
+   2080,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 8 Limitations\n\nAs coding agents increase in capability, we anticipate that the engineering effort and supervision\nnumbers may change. We do expect, however, that the fundamental engineering effort advantage of credible compilation\nover verification, which is directly tied to the elimination of proof effort,\nwill durably generalize to future verified compiler efforts.\nOur experiments focus on three optimizations (UCE, DAE, and CP). We anticipate that\nfor more complex optimizations such as register allocation and lazy code motion,\nwhich previous research has identified as particularly difficult to\nverify (10; 31),\nthe engineering gap between credible compilation and verification would be larger than for the\noptimizations considered in this paper. Our compile time measurements work with the\nLivermore benchmarks, which focus on computational kernels as opposed to complete\napplications. Our experiments are based on the Axon system. While the Axon TAC language is broadly\nrepresentative of compiler intermediate representations in general, we do not claim that our\nresults will necessarily generalize exactly to other intermediate representations or\ncompiler systems. All experiments were performed under supervision via\nthe Claude interactive interface. A different supervisor, supervision\nstrategy, or coding agent could produce different results.\n\n## 9 Conclusion\n\nCompiler correctness, and software system correctness generally, is a longstanding\ngoal. This paper quantifies, for the first time, the supervisor and\nagent engineering effort required to\nimplement two verification alternatives, checked computations and full verification,\nin the context of verified compiler development.\nThe results quantify the substantial verification overhead that full verification\ncan incur and highlight the benefits and drawbacks (principally certificate generation\nand checking overhead) that working with checked computations can entail in this\ncontext. As the field increasingly moves to agentic development\nefforts and agent produced software, we hope that the presented results can help\nguide future verified software development efforts.\n\n## References\n\nAho et al. (2006)\nA. V. Aho, M. S. Lam, R. Sethi, and J. D. Ullman\n\nCompilers: principles, techniques, and tools.",
+ "ethics_coi": "## 7 Ethical Considerations and Broader Impacts\n\nThe goal of this research is to improve compiler correctness, which we see as\nimproving software reliability and safety. Indeed, we see the research as pointing\ntowards an eventual future in which all compilers (and ideally other systems as well)\ncome with mechanically\nverified correctness guarantees. We therefore see the research as having\nonly positive ethical considerations and broader impacts.\n\n## 8 Limitations\n\nAs coding agents increase in capability, we anticipate that the engineering effort and supervision\nnumbers may change. We do expect, however, that the fundamental engineering effort advantage of credible compilation\nover verification, which is directly tied to the elimination of proof effort,\nwill durably generalize to future verified compiler efforts.\nOur experiments focus on three optimizations (UCE, DAE, and CP). We anticipate that\nfor more complex optimizations such as register allocation and lazy code motion,\nwhich previous research has identified as particularly difficult to\nverify (10; 31),\nthe engineering gap between credible compilation and verification would be larger than for the\noptimizations considered in this paper. Our compile time measurements work with the\nLivermore benchmarks, which focus on computational kernels as opposed to complete\napplications. Our experiments are based on the Axon system. While the Axon TAC language is broadly\nrepresentative of compiler intermediate representations in general, we do not claim that our\nresults will necessarily generalize exactly to other intermediate representations or",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 2,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 1,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

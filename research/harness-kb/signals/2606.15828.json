@@ -1,0 +1,250 @@
+{
+ "arxiv_id": "2606.15828",
+ "fulltext_chars": 54725,
+ "fulltext_lines": 1051,
+ "authors_block": "Hélio Victor F. dos Santos Affiliation: Department of Computer Science Federal University of Minas Gerais Belo Horizonte, Minas Gerais, Brazil helio.santos@dcc.ufmg.br Vitor Costa Affiliation: Department of Computer Science Federal University of Minas Gerais Belo Horizonte, Minas Gerais, Brazil vitorcosta@dcc.ufmg.br João Eduardo Montandon Affiliation: Department of Computer Science Federal University of Minas Gerais Belo Horizonte, Minas Gerais, Brazil joao@dcc.ufmg.br Affiliation: Luciana Lourdes Silva Affiliation: Department of Computing Federal Institute of Minas Gerais Ouro Branco, Minas Gerais, Brazil luciana.lourdes.silva@ifmg.edu.br Marco Tulio Valente Affiliation: Department of Computer Science Federal University of Minas Gerais Belo Horizonte, Minas Gerais, Brazil mtov@dcc.ufmg.br",
+ "vendor_affiliation_hits": [],
+ "n_authors": 5,
+ "comment": "",
+ "journal_ref": "26th IEEE International Conference on Source Code Analysis and Manipulation (SCAM 2026)",
+ "github_urls": [
+  "https://github.com/browser-use/cdp-use.",
+  "https://github.com/google/adk-python",
+  "https://github.com/javascript-obfuscator/javascript-obfuscator",
+  "https://github.com/langchain-ai/langchain",
+  "https://github.com/n8n-io/n8n",
+  "https://github.com/openai/codex",
+  "https://github.com/quickemu-project/quickemu",
+  "https://github.com/vercel/ai"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Configuration Smells in AGENTS.md Files: Common Mistakes in Configuring Coding Agents"
+  ],
+  [
+   74,
+   "###### Abstract"
+  ],
+  [
+   79,
+   "## I Introduction"
+  ],
+  [
+   105,
+   "## II Coding Agents Configuration Files"
+  ],
+  [
+   121,
+   "# AGENTS.md"
+  ],
+  [
+   123,
+   "## Setup commands"
+  ],
+  [
+   131,
+   "## Code style"
+  ],
+  [
+   139,
+   "## Workflow"
+  ],
+  [
+   158,
+   "## III Methods"
+  ],
+  [
+   162,
+   "### III-A Literature Review"
+  ],
+  [
+   200,
+   "### III-B Dataset of Agent Configuration Files"
+  ],
+  [
+   216,
+   "### III-C Pull Requests Analysis"
+  ],
+  [
+   237,
+   "## IV Configuration Smells"
+  ],
+  [
+   272,
+   "### IV-A Context Bloat"
+  ],
+  [
+   281,
+   "### IV-B Skill Leakage"
+  ],
+  [
+   289,
+   "### IV-C Lint Leakage"
+  ],
+  [
+   293,
+   "### IV-D Blind References"
+  ],
+  [
+   297,
+   "### IV-E Init Fossilization"
+  ],
+  [
+   308,
+   "### IV-F Conflicting Instructions"
+  ],
+  [
+   316,
+   "## V Detection Heuristics"
+  ],
+  [
+   320,
+   "### V-A Heuristic based on Lines of Code"
+  ],
+  [
+   324,
+   "### V-B Heuristic based on Language Models"
+  ],
+  [
+   330,
+   "# Context"
+  ],
+  [
+   340,
+   "# Smell: [name]"
+  ],
+  [
+   350,
+   "# Output"
+  ],
+  [
+   356,
+   "# Agents.md file"
+  ],
+  [
+   369,
+   "## Releases & Environment"
+  ],
+  [
+   377,
+   "### V-C Heuristic based on Number of Commits"
+  ],
+  [
+   381,
+   "## VI Configuration Smells in the Wild"
+  ],
+  [
+   433,
+   "### VI-A Context Bloat"
+  ],
+  [
+   444,
+   "### VI-B Skill Leakage"
+  ],
+  [
+   453,
+   "## Adding a new OS to quickget"
+  ],
+  [
+   491,
+   "### VI-C Lint Leakage"
+  ],
+  [
+   501,
+   "### Python Style Guide"
+  ],
+  [
+   526,
+   "### VI-D Blind Reference"
+  ],
+  [
+   532,
+   "## CDP-Use"
+  ],
+  [
+   542,
+   "### Plugin System (v5.0 - Not Yet Available)"
+  ],
+  [
+   552,
+   "### VI-E Init Fossilization"
+  ],
+  [
+   562,
+   "### VI-F Conflicting Instructions"
+  ],
+  [
+   572,
+   "# Component Guidelines"
+  ],
+  [
+   578,
+   "## How to create a new component"
+  ],
+  [
+   636,
+   "## VII Co-Occurrence Analysis"
+  ],
+  [
+   672,
+   "## VIII Threats to Validity"
+  ],
+  [
+   692,
+   "## IX Related Work"
+  ],
+  [
+   696,
+   "### IX-A Context Engineering"
+  ],
+  [
+   700,
+   "### IX-B Agent Configuration Files"
+  ],
+  [
+   705,
+   "### IX-C Configuration Smells"
+  ],
+  [
+   710,
+   "## X Conclusion"
+  ],
+  [
+   714,
+   "## Replication Package"
+  ],
+  [
+   718,
+   "## Acknowledgments"
+  ],
+  [
+   722,
+   "## References"
+  ],
+  [
+   1051,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgments\n\nThis research was supported by FAPEMIG and CNPq.\n\n## References\n\n[1]\nR. Agrawal, H. Mannila, R. Srikant, H. Toivonen, and A. I. Verkamo (1996)\n\nFast discovery of association rules.\n\nAdvances in Knowledge Discovery and Data Mining.\n\nCited by: §VII.\n\n[2]\nA. Almeida, L. Xavier, and M. T. Valente (2026)\n\nUsing Copilot Agent Mode to Automate Library Migration: A Quantitative Assessment.\n\nIn 1st International Workshop on Agentic Engineering,\n\nCited by: §I.\n\n[3]",
+ "limitations": "## VIII Threats to Validity\n\nSome steps of this work may be subject to threats to validity. In this section, we highlight and discuss these threats. \n\nBad Practices Annotations.\nWe manually annotated the sentences from the selected documents, which can introduce some bias in the smells identified further.\nTo mitigate this issue, another author performed a sanity check and reviewed all annotations from the selected documents to confirm whether the content accurately represented a good or bad practice in writing configuration files. \n\nGoogle Search Limitations.\nIn a grey literature review, relevant results might be missed due to the specific combination of search terms.\nTo mitigate this threat, we used keywords to consider both bad and good practices to expand search coverage.\nFurthermore, following the guidelines from other works [8, 34], we conducted preliminary search trials, adding and excluding keywords to refine our search strings. \n\nUse of LLMs for Code Smell Detection.\nIn this work, we rely on LLMs to evaluate each AGENTS.md file and identify the presence of a specific smell.\nLarge Language Models (LLMs) are highly dynamic and frequently updated by their providers.\nAnother key factor is the non-deterministic nature of LLMs, which poses challenges for exact replication.\nConsequently, the performance and results of code smell detection in configuration files may evolve over time.\nTo mitigate this issue, we set the model temperature to 0 and carefully analyzed the responses to ensure the identification of true positive cases.\n\n## IX Related Work\n\nWe organize related work in three subsections: Context Engineering, Configuration Files, and Configuration Smells.\n\n### IX-A Context Engineering\n\nThe effectiveness of LLMs in software engineering depends on the context provided to the model. Prior work has investigated how documentation, source code, retrieved artifacts, and prompt engineering can improve model responses [18, 21]. Other studies have examined how developers formulate prompts and how prompting practices can be systematized for programming tasks [22, 26]. Recent benchmarks have further highlighted the repository-level nature of realistic software engineering tasks. Through SWE-bench, Jimenez et al. [13] show that resolving real-world GitHub issues requires reasoning over repository context, modifying multiple files, and validating changes through tests. Thus, this observation motivates the study of project-level guidance for coding agents.\n\n### IX-B Agent Configuration Files\n\nRecent studies have started investigating configuration files for coding agents. Chatlatanagulchai et al. [4] refer to such files as Agentic Coding Manifests and show that CLAUDE.md files are predominantly action-oriented, commonly including build and run commands, implementation guidance, testing instructions, and architectural information. Santos et al. [25] also analyzes CLAUDE.md files from public projects and identifies recurring sections such as architecture, development guidelines, project overview, and testing.\nTogether, these studies show that configuration files are becoming key artifacts in agentic software development. However, they focus on describing their structure and content. In this paper, we complement this line of work by investigating misconfiguration problems in AGENTS.md and CLAUDE.md files, including excessive context, lint leakage, blind references, outdated files, and conflicting instructions.\n\n### IX-C Configuration Smells\n\nBad smells have long been studied as indicators of design, implementation, and maintenance problems, including their introduction [32], developers’ perceptions [19], and manifestations across different artifacts and paradigms [6, 31].\nMore recently, researchers have extended the smell concept to configuration and infrastructure artifacts. Rosa et al. [23] investigate Dockerfile smells, i.e., violations of Dockerfile best practices that may affect reliability, security, build time, image size, and rep",
+ "ethics_coi": "### IV-F Conflicting Instructions\n\nThis smell occurs when an AGENTS.md file contains instructions\nthat contradict each other, creating ambiguity about the expected behavior of the agent. Such inconsistencies can confuse the model and lead to unstable results. For example, small variations in the prompt can result in different agent behavior, because they are enough to make the agent follow a different inference path than the one followed previously. Anthropic’s documentation explicitly recommends the following: if two rules contradict each other, Claude may pick one arbitrarily. Review your CLAUDE.md files periodically to remove outdated or conflicting instructions.1313\n 13\n\n https://code.claude.com/docs/en/memory\n\n## V Detection Heuristics\n\nWe also propose a set of heuristics to detect the smells described in the previous section.\n\n### V-A Heuristic based on Lines of Code\n\nThis heuristic is used exclusively to detect the Context Bloat smell. Specifically, we decided to use a threshold of 200 lines of code to identify this smell, as also suggested in the Anthropic document mentioned in Section IV-A. In other words, AGENTS.md files with 200 or more lines of code are classified as presenting the Context Bloat smell.\n\n### V-B Heuristic based on Language Models \n\nTo detect the Skill Leakage, Lint Leakage, Blind References, and Conflicting Instructions smells, we decided to use a large language model. We designed a dedicated prompt for each smell, thereby requesting a more specific and objective task from the model. Figure 4 illustrates the baseline template of these prompts.\n\n⬇\n\n# Context\n\nYou are a senior software engineer. I will provide",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 0,
+  "swe_bench": 2,
+  "contamination": 0,
+  "human_study": 1,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

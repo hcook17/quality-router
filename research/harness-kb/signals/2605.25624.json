@@ -1,0 +1,520 @@
+{
+ "arxiv_id": "2605.25624",
+ "fulltext_chars": 218828,
+ "fulltext_lines": 7467,
+ "authors_block": "##### Report GitHub Issue Title: Content selection saved. Describe the issue below: Description: arXiv is now an independent nonprofit! Learn more Back to arXiv \\to \\times License: CC BY 4.0 arXiv:2605.25624v2 [cs.AI] 08 Jun 2026 # CUA-Gym: Scaling Verifiable Training Environments and Tasks for Computer-Use Agents Bowen Wang1,2 Dunjie Lu1,2 Junli Wang3 Tianyi Bai2 Shixuan Liu2 Zhipeng Zhang2 Haiquan Wang2 Hao Hu4 Tianbao Xie1 Shuai Bai2 Dayiheng Liu2 Que Shen2 Junyang Lin2 Tao Yu1 1The University of Hong Kong 2Qwen Team, Alibaba Inc. 3University of California, San Diego 4Tsinghua University ††thanks: Corresponding author.",
+ "vendor_affiliation_hits": [
+  "Alibaba",
+  "GitHub"
+ ],
+ "n_authors": 14,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/sgl-project/sglang",
+  "https://github.com/verl-project/verl",
+  "https://github.com/xlang-ai/CUA-Gym",
+  "https://github.com/xlang-ai/CUA-Gym-Hub"
+ ],
+ "hf_urls": [
+  "https://huggingface.co/collections/Qwen",
+  "https://huggingface.co/datasets/xlangai"
+ ],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   24,
+   "#  CUA-Gym: Scaling Verifiable Training Environments"
+  ],
+  [
+   53,
+   "###### Abstract"
+  ],
+  [
+   91,
+   "## 1 Introduction"
+  ],
+  [
+   204,
+   "## 2 Methods"
+  ],
+  [
+   209,
+   "### 2.1 Data Synthesis"
+  ],
+  [
+   227,
+   "##### Task Generation"
+  ],
+  [
+   240,
+   "##### Adversarial Setup and Reward Co-Generation"
+  ],
+  [
+   282,
+   "### 2.2 Environment Scaling"
+  ],
+  [
+   361,
+   "## 3 Experiments"
+  ],
+  [
+   379,
+   "### 3.1 Experimental Setup"
+  ],
+  [
+   381,
+   "##### Dataset."
+  ],
+  [
+   389,
+   "##### Model."
+  ],
+  [
+   402,
+   "##### Scaffold."
+  ],
+  [
+   421,
+   "##### Algorithm."
+  ],
+  [
+   523,
+   "##### Main Results"
+  ],
+  [
+   547,
+   "## 4 Analysis"
+  ],
+  [
+   632,
+   "### 4.1 Data Scaling"
+  ],
+  [
+   651,
+   "##### Scaling RL data raises the ceiling of RL training."
+  ],
+  [
+   671,
+   "### 4.2 Environment Scaling"
+  ],
+  [
+   693,
+   "##### Distillation pipeline."
+  ],
+  [
+   709,
+   "##### Environment diversity and data volume contribute as"
+  ],
+  [
+   724,
+   "### 4.3 Emergent Multi-Action Tool Calls"
+  ],
+  [
+   763,
+   "## 5 Related Work"
+  ],
+  [
+   765,
+   "##### Data Synthesis and Post-Training for Digital Agents"
+  ],
+  [
+   800,
+   "##### Task and Environment Synthesis for GUI Agents"
+  ],
+  [
+   825,
+   "## 6 Limitations"
+  ],
+  [
+   843,
+   "## 7 Conclusion"
+  ],
+  [
+   865,
+   "## References"
+  ],
+  [
+   1304,
+   "## Appendix Contents"
+  ],
+  [
+   1306,
+   "## Appendix A Data Synthesis Pipeline Details"
+  ],
+  [
+   1308,
+   "### A.1 Pipeline Pseudocode"
+  ],
+  [
+   1390,
+   "### A.2 Task Generation"
+  ],
+  [
+   1392,
+   "#### A.2.1 Feature Taxonomy Tree Construction"
+  ],
+  [
+   1396,
+   "#### A.2.2 Scenario Matrix and Sampling"
+  ],
+  [
+   1406,
+   "#### A.2.3 Three-Pass Generation: Breadth, Gap-fill, Edge Cases"
+  ],
+  [
+   1413,
+   "#### A.2.4 Anti-Repetition Rules"
+  ],
+  [
+   1417,
+   "#### A.2.5 Coverage Guarantees and Quantitative Targets"
+  ],
+  [
+   1439,
+   "#### A.2.6 Worked Example: Taxonomy Tree for LibreOffice Calc Formatting"
+  ],
+  [
+   1577,
+   "### A.3 Adversarial Generator-Discriminator Loop"
+  ],
+  [
+   1579,
+   "#### A.3.1 Five Agreement Conditions (Formal Definition)"
+  ],
+  [
+   1605,
+   "#### A.3.2 Information Barrier: Sandbox and Access Matrix"
+  ],
+  [
+   1655,
+   "#### A.3.3 Forbidden Pattern List for Anti-Hacking Static Scan"
+  ],
+  [
+   1685,
+   "#### A.3.4 Loop Termination, Max Rounds, and Feedback Protocol"
+  ],
+  [
+   1689,
+   "### A.4 Filter Module"
+  ],
+  [
+   1691,
+   "#### A.4.1 LLM Majority Voting: Voters, Rubric, and Aggregation"
+  ],
+  [
+   1695,
+   "##### Severity rubric (per voter)."
+  ],
+  [
+   1713,
+   "##### Aggregation rule."
+  ],
+  [
+   1717,
+   "#### A.4.2 Teacher-Model Rollout Verification with VLM-as-a-Judge"
+  ],
+  [
+   1721,
+   "##### Why two scores."
+  ],
+  [
+   1725,
+   "##### Inclusion criteria."
+  ],
+  [
+   1747,
+   "#### A.4.3 Per-Stage Filter Yield"
+  ],
+  [
+   1751,
+   "### A.5 Domain Skill Files"
+  ],
+  [
+   1753,
+   "#### A.5.1 SKILL.md Standard Structure"
+  ],
+  [
+   1757,
+   "#### A.5.2 Auto-Generation Pipeline for SKILL.md"
+  ],
+  [
+   1761,
+   "#### A.5.3 Example: Excerpt of a Domain SKILL.md"
+  ],
+  [
+   1765,
+   "##### Frontmatter and role."
+  ],
+  [
+   1781,
+   "# LibreOffice Calc – Python Manipulation Guide"
+  ],
+  [
+   1793,
+   "##### Section 0 – GUI startup template."
+  ],
+  [
+   1821,
+   "# Open the initial workbook for the GUI agent."
+  ],
+  [
+   1825,
+   "# Optional multi-app startup, e.g., for cross-app tasks."
+  ],
+  [
+   1827,
+   "# launch_gui(’nautilus \"/home/user\"’, delay_sec=1.0)"
+  ],
+  [
+   1829,
+   "##### Sections 1–5 (abbreviated)."
+  ],
+  [
+   1833,
+   "##### Section 6 – Bitter Lessons."
+  ],
+  [
+   1911,
+   "### A.6 Output Bundle and OSWorld Compatibility"
+  ],
+  [
+   1913,
+   "#### A.6.1 File Layout per Verified Task"
+  ],
+  [
+   1940,
+   "#### A.6.2 config.json Schema and Evaluator Contract"
+  ],
+  [
+   1944,
+   "## Appendix B Mock Web Environment Synthesis"
+  ],
+  [
+   1946,
+   "### B.1 Environment Selection Methodology"
+  ],
+  [
+   1948,
+   "#### B.1.1 Mapping O*NET SOC Major Groups to Web Application Categories"
+  ],
+  [
+   2015,
+   "#### B.1.2 Anthropic Economic Index Weighting"
+  ],
+  [
+   2019,
+   "#### B.1.3 Coverage Cutoff Criteria"
+  ],
+  [
+   2023,
+   "### B.2 Complete List of Synthesized Mocks"
+  ],
+  [
+   2025,
+   "#### B.2.1 Application-by-Application Inventory"
+  ],
+  [
+   2175,
+   "#### B.2.2 Real-World Reference Mapping and Fidelity Notes"
+  ],
+  [
+   2179,
+   "#### B.2.3 Trademark, Trade Dress, and Asset Compliance"
+  ],
+  [
+   2209,
+   "#### B.2.4 Per-Mock LOC and Endpoint Statistics"
+  ],
+  [
+   2307,
+   "### B.3 Unified State API Specification"
+  ],
+  [
+   2309,
+   "#### B.3.1 Endpoint Contracts"
+  ],
+  [
+   2313,
+   "##### POST /post?sid=<sid>"
+  ],
+  [
+   2335,
+   "##### GET /go?sid=<sid>"
+  ],
+  [
+   2339,
+   "##### GET /state?sid=<sid>"
+  ],
+  [
+   2343,
+   "##### POST /upload?sid=<sid>"
+  ],
+  [
+   2347,
+   "#### B.3.2 Session Isolation via sid"
+  ],
+  [
+   2351,
+   "#### B.3.3 State Diff Computation Rules"
+  ],
+  [
+   2355,
+   "#### B.3.4 Integration with reward.py"
+  ],
+  [
+   2387,
+   "### B.4 Multi-Agent Synthesis Pipeline"
+  ],
+  [
+   2389,
+   "#### B.4.1 Plan Agent: Web Research and DESIGN.md"
+  ],
+  [
+   2393,
+   "#### B.4.2 Dev Agent: Implementation Protocol"
+  ],
+  [
+   2397,
+   "#### B.4.3 Web Agent: Playwright Verification against UI Tree"
+  ],
+  [
+   2401,
+   "#### B.4.4 Iterative Convergence Loop"
+  ],
+  [
+   2405,
+   "### B.5 Representative Mock Case Studies"
+  ],
+  [
+   2407,
+   "#### B.5.1 Slack Mock: State Schema and Feature Inventory"
+  ],
+  [
+   2411,
+   "#### B.5.2 Jira Mock: Cross-Entity State Transitions"
+  ],
+  [
+   2415,
+   "#### B.5.3 Salesforce Mock: Form-Heavy Workflow"
+  ],
+  [
+   2419,
+   "## Appendix C Training Details"
+  ],
+  [
+   2421,
+   "### C.1 Agent Scaffold"
+  ],
+  [
+   2423,
+   "#### C.1.1 Observation and Action Space"
+  ],
+  [
+   2427,
+   "##### Screenshot preprocessing."
+  ],
+  [
+   2431,
+   "##### Tool-call schema."
+  ],
+  [
+   2449,
+   "##### Action primitives."
+  ],
+  [
+   2469,
+   "##### Multi-action format."
+  ],
+  [
+   2473,
+   "#### C.1.2 Trajectory Slicing Scheme"
+  ],
+  [
+   2477,
+   "##### Slice construction."
+  ],
+  [
+   2481,
+   "##### Loss masking."
+  ],
+  [
+   2497,
+   "##### Reward attribution."
+  ],
+  [
+   2501,
+   "##### Context overflow."
+  ],
+  [
+   2505,
+   "##### Comparison with alternatives."
+  ],
+  [
+   2509,
+   "#### C.1.3 Inference-Time Configuration"
+  ],
+  [
+   2511,
+   "##### Step and history budgets."
+  ],
+  [
+   2515,
+   "##### Decoding."
+  ],
+  [
+   2519,
+   "##### Failure recovery."
+  ],
+  [
+   2523,
+   "#### C.1.4 System Prompt and Tool Definitions"
+  ],
+  [
+   2533,
+   "# Tools"
+  ],
+  [
+   2565,
+   "# Response format"
+  ],
+  [
+   2589,
+   "### C.2 SFT Warm-up"
+  ],
+  [
+   2591,
+   "#### C.2.1 Teacher Rollout Curation"
+  ],
+  [
+   2595,
+   "#### C.2.2 SFT Hyperparameters"
+  ],
+  [
+   2599,
+   "### C.3 GSPO Training"
+  ],
+  [
+   2601,
+   "#### C.3.1 Hyperparameters"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 6 Limitations\n\nCUA-Gym rewards verify terminal environment states rather than the\nfull process by which an agent reaches them, which keeps reward\nauthoring scalable but cannot distinguish a clean edit from a\ndestructive sequence that recreates the same final state; similarly,\nthe information barrier and forbidden-pattern scan reduce but do not\nformally eliminate residual reward-hacking modes such as overly loose\nsemantic checks or state proxies that correlate with task success.\nCUA-Gym-Hub mock environments broaden training coverage, yet remain\napproximations of real applications: authentication flows, third-party\nintegrations, network latency, rate limits, and rare server-side\nfailure states are outside the current mock surface. Finally, our\nlargest RL runs are reported with single seeds due to their compute\ncost, so we interpret the results as evidence that verified task and\nenvironment scale are valuable in the studied regime, not as a final\ncharacterization of the pipeline’s ceiling or deployment robustness.\n\n## 7 Conclusion\n\nWe present CUA-Gym, an automated pipeline that co-generates task\ninstructions, environment states, and reward functions for RLVR\ntraining of computer-use agents. The pipeline couples a Generator and\na Discriminator under a process-level information barrier, an\niterative loop that enforces tuple consistency at both endpoints, and\na dataset-level filter that catches failures only visible under\nrollout. To broaden the environments accessible to this pipeline, we\nsynthesize CUA-Gym-Hub, a suite of 94 mock web\napplications grounded in O*NET occupational taxonomies and the\nAnthropic Economic Index.\nOn OSWorld-Verified, models trained on CUA-Gym data scale with\ndata volume without saturating in the regime we examine. The\nsame checkpoints also improve on the held-out WebArena browser\nbenchmark.\nWe read these results as evidence that task and reward diversity\nwere a substantive bottleneck for current GUI agents rather than as\nclaims about the pipeline’s ultimate ceiling. We release the full\nsynthesis pipeline, CUA-Gym-Hub environments, and generated data so the\ncommunity can study both task scaling and environment scaling.",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 1,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 1,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 1,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

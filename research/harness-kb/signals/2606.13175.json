@@ -1,0 +1,137 @@
+{
+ "arxiv_id": "2606.13175",
+ "fulltext_chars": 35801,
+ "fulltext_lines": 442,
+ "authors_block": "Coding Agents Supersede Human Inspection Martin Monperrus Affiliation: KTH Royal Institute of Technology Stockholm, Sweden monperrus@kth.se",
+ "vendor_affiliation_hits": [],
+ "n_authors": 1,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# The End of Code Review:"
+  ],
+  [
+   32,
+   "###### Abstract"
+  ],
+  [
+   40,
+   "## I Introduction"
+  ],
+  [
+   75,
+   "## II Background"
+  ],
+  [
+   77,
+   "### II-A Code Review: History and Practice"
+  ],
+  [
+   88,
+   "### II-B Automated Code Review"
+  ],
+  [
+   104,
+   "### II-C Coding Agents"
+  ],
+  [
+   111,
+   "## III Evidence of Agent Capability"
+  ],
+  [
+   115,
+   "### III-A Benchmark Performance"
+  ],
+  [
+   129,
+   "### III-B Review-Specific Capabilities"
+  ],
+  [
+   141,
+   "## IV The End of Code Review: The Argument"
+  ],
+  [
+   143,
+   "### IV-A Claim 1: Every goal of code review can be served by agents at lower cost and higher throughput."
+  ],
+  [
+   165,
+   "### IV-B Claim 2: The naive integration—AI coding with human review—is a dead end."
+  ],
+  [
+   190,
+   "### IV-C Claim 3: The cost-benefit calculation has flipped."
+  ],
+  [
+   203,
+   "## V Implications"
+  ],
+  [
+   205,
+   "### V-A Implications for Software Engineering Practices"
+  ],
+  [
+   232,
+   "### V-B Implications for Tooling"
+  ],
+  [
+   254,
+   "## VI Discussion"
+  ],
+  [
+   256,
+   "### VI-A Counter-argument: Hallucination and false negatives."
+  ],
+  [
+   263,
+   "### VI-B Counter-argument: Security vulnerabilities in agent-generated code."
+  ],
+  [
+   269,
+   "### VI-C Counter-argument: Adversarial inputs and prompt injection."
+  ],
+  [
+   276,
+   "### VI-D Counter-argument: Architectural coherence requires human judgment."
+  ],
+  [
+   285,
+   "### VI-E Counter-argument: Ethical accountability requires human judgment."
+  ],
+  [
+   295,
+   "## VII Conclusion"
+  ],
+  [
+   312,
+   "## References"
+  ],
+  [
+   442,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "",
+ "ethics_coi": "### VI-E Counter-argument: Ethical accountability requires human judgment.\n\nAt the ethical level, code changes can carry consequences for user privacy, algorithmic fairness, and environmental footprint that require values-based judgement rather than correctness verification.\nAgents are calibrated to optimise for technical quality metrics; they are not reliably equipped to detect that a telemetry change violates a user’s reasonable privacy expectation or that a ranking modification amplifies demographic bias [4].\nLegal and organisational accountability frameworks assume a named human decision-maker: an automated approval leaves an accountability gap when a change causes harm.\n\nAgents already flag security-sensitive patterns (PII logging, insecure randomness, over-privileged API calls) and their coverage of compliance properties is growing [24, 25].\nMore fundamentally, mandatory PR review is not the appropriate locus for ethical scrutiny of software: this responsibility belongs in requirements engineering and post-deployment monitoring.\nAgent review can be governed by the same institutional mechanisms as other automated quality gates, with human escalation reserved for changes that agents flag as uncertain or high-risk.\n\n## VII Conclusion\n\nCode review has served software engineering for five decades.\nFrom Fagan’s formal inspections [13] to the pull-request model that now governs millions of daily commits [1], having humans read each other’s code before merge has been treated as a mandatory engineering virtue.\nWe have argued that this assumption no longer holds.\n\nCoding agents have reached a capability level at which every stated goal of code review can be met automatically, faster, and at a scale that human review cannot match.\nThe transition is already underway for routine changes in industry.\nAgents review dependency bumps, refactors, and test additions today, with humans providing oversight only at the margins.\nThe open question is not whether this shift will occur",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 0,
+  "swe_bench": 6,
+  "contamination": 0,
+  "human_study": 1,
+  "java": 0,
+  "industrial": 2
+ },
+ "fulltext_source": "html"
+}

@@ -1,0 +1,171 @@
+{
+ "arxiv_id": "2607.07980",
+ "fulltext_chars": 666291,
+ "fulltext_lines": 23001,
+ "authors_block": "Building Causal Theory from Practitioner Discourse Shyam Agarwal, Courtney Miller, Christian Kästner, and Bogdan Vasilescu Affiliation: Carnegie Mellon University shyamaga@andrew.cmu.edu, courtneymiller@cmu.edu, vasilescu@cmu.edu",
+ "vendor_affiliation_hits": [],
+ "n_authors": 4,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/0xshitcode/no-autopilot",
+  "https://github.com/9wick/codepolicy",
+  "https://github.com/AegisNodejkt/Aegis-Wilwatikta",
+  "https://github.com/ArthurHeitmann/arctic_shift",
+  "https://github.com/BolivarTech/panoptico",
+  "https://github.com/ChuksForge/code-review-agent-public",
+  "https://github.com/DanielPodolsky/ownyourcode",
+  "https://github.com/Dharamraj82/Ai-Power-Code-Review-BACKEND",
+  "https://github.com/HainanZhao/AICodeReview",
+  "https://github.com/HermeticOrmus/code-review-skills",
+  "https://github.com/IkhsanMAlbar/govchain-llm-orchestrator",
+  "https://github.com/Independent-AI-Labs/AMI-CI",
+  "https://github.com/JunMystery/AI-Agent-Standards",
+  "https://github.com/Kenmege/codex-plugin-cc",
+  "https://github.com/KiniunCorp/spec-to-ship"
+ ],
+ "hf_urls": [
+  "https://huggingface.co/papers/2603.15911"
+ ],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# 3100 Opinions on Code Review in an AI World:"
+  ],
+  [
+   30,
+   "###### Abstract"
+  ],
+  [
+   34,
+   "## I Introduction"
+  ],
+  [
+   78,
+   "## II Trends in Code Review after the AI adoption"
+  ],
+  [
+   80,
+   "### II-A Code Review in the Pre-AI Era"
+  ],
+  [
+   87,
+   "### II-B A Motivating Study: Review Trends in Agent-Authored PRs"
+  ],
+  [
+   106,
+   "### II-C Related Work on Theory Building in Software Engineering"
+  ],
+  [
+   115,
+   "## III Building a Theory of Post-AI Code Review"
+  ],
+  [
+   117,
+   "### III-A Methods"
+  ],
+  [
+   138,
+   "#### III-A1 Limitations"
+  ],
+  [
+   142,
+   "## IV Results: The Theory"
+  ],
+  [
+   265,
+   "## V Related Work on Code Review of AI Code"
+  ],
+  [
+   279,
+   "## VI Discussion"
+  ],
+  [
+   302,
+   "## VII Conclusion"
+  ],
+  [
+   310,
+   "## References"
+  ],
+  [
+   668,
+   "## Appendix 1 Motivating Study: Methods and Full Results"
+  ],
+  [
+   809,
+   "## Appendix 2 Theory Building: Corpus Construction"
+  ],
+  [
+   880,
+   "## Appendix 3 Theory Building: Relevance Judge"
+  ],
+  [
+   936,
+   "## Appendix 4 Theory Building: Coding Pipeline"
+  ],
+  [
+   1099,
+   "## Appendix 5 Theory Building: From Codebook to Theory"
+  ],
+  [
+   1262,
+   "## Appendix 6 Supplementary Document Index"
+  ],
+  [
+   8257,
+   "#2 Code review request: feedback on OOP, TDD, and SOLID principles"
+  ],
+  [
+   11435,
+   "# The Ultimate System: Building Perfect Apps with Claude + Dyad (2,000 Prompt’s Method)"
+  ],
+  [
+   13276,
+   "### Stopping Vibe Coding: An Optimized Workflow for Building Reliable Solutions"
+  ],
+  [
+   16118,
+   "# I Built an Autonomous Multi-Agent Security Auditor using Gemini 3 and TypeScript - DEV Community"
+  ],
+  [
+   20059,
+   "# The Pull Request Illusion - Coder Legion"
+  ],
+  [
+   20094,
+   "# ’Codification’ of PEP 8, the Pax Pythonica? — by ince memed — Medium"
+  ],
+  [
+   21340,
+   "#257 - The Future of Code Review: Stop Reviewing Line-by-Line …"
+  ],
+  [
+   22975,
+   "## Appendix References"
+  ],
+  [
+   23001,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "#### III-A1 Limitations\n\nThree threats are specific to this design. First, our sources are written in the age of generative AI, and some may be partly or wholly LLM-generated; we study discourse about review, not verified firsthand practice, and read the corpus as practitioner argument rather than ground truth. Second, LLM coding and filtering can miscode, miss, or hallucinate; we mitigate with three independent coders, a verbatim quote behind every code, a separate relevance judge validated against a stronger model, and an author audit of every relationship, though residual error remains. Third, the move from codebook to theory is author judgment at each structural step (by design, since axial and selective coding are the interpretive core of grounded-theory work [59]), so a different team could have drawn the constructs and relationships differently; we constrain this by grounding every one in coded text and attaching opposing evidence to the contested edges, but the result is a proposed explanatory theory to be tested, not validated. Finally, grey literature over-represents vocal early adopters and carries vendor advocacy and post-incident hindsight, which we counter through the breadth of thousands of independent sources rather than eliminate.\n\n## IV Results: The Theory\n\nFig. 2: An explanatory theory of how coding agents reshape code review: 26 constructs and 67 relationships (64 directed, 3 contested) synthesized from practitioner discourse. The graph reads top to bottom: the drivers AI introduces (top), through the reviewer’s dispositions, the team’s responses, and the five-construct review act that the rest of this section unpacks, down to the outcomes practitioners care about (bottom). A node’s shape encodes its role (rectangle: a driver; ellipse: a review-dynamics construct, i.e., a review-act, reviewer, or team-response construct; hexagon: an outcome), and an edge’s line style encodes the sign of the relationship (solid: increases; dashed: decreases; bold: contested, where the sign is set by a moderator).\n\nWe report the theory not as a list of isolated observations but as a conceptual theory: a vocabulary of constructs and the relationships among them that together explain how code review changes when coding agents author pull requests, and what practitioners believe is at stake [57, 56, 71]. In Gregor’s taxonomy the result is a theory for explaining (Type II), which says how and why rather than what will happen [55]: we make the forces and mechanisms explicit and state them as falsifiable claims, but do not test them or use them for prediction here. Following conventions for reporting qualitative theories in software engineering [60, 71], we present the theory as constructs (the boxes of Figure 2) and relationships (its directed edges, each a force that fosters or hinders its target), and ground every relationship in coded practitioner text.\nThe theory (Fig. 2) comprises 26 constructs linked by 67 relationships (64 directed, 3 contested), distilled from roughly 2,700 practitioner sources and 4,800 codes (cf. Section III-A).\n\nIn our setting, relationships are directed, causal claims in the form of ‘an increase in construct A increases (solid line) or decreases (dashed line) construct B.’ In the following description, we highlight a subset of the relationships as numbered, falsifiable propositions (P1 …) and provide corresponding practitioner quotes – these propositions are the key claims that future work should test and quantify with empirical data, ideally using causal estimands controlling for other constructs in the theory where possible.\n\nConstructs.\nConstructs in the theory (Fig. 2) can be divided roughly into three groups:\n\n• \n\nDrivers: On the one side (top), drivers are properties of agent-authored code that practitioners treat as exogenous (coming from the outside, not easily influenced), such as increasing volume and velocity of code production due to AI, the surface plausibility of AI generated code that re",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 1,
+  "p_value_or_ci": 8,
+  "seeds_or_runs": 0,
+  "swe_bench": 4,
+  "contamination": 0,
+  "human_study": 23,
+  "java": 13,
+  "industrial": 57
+ },
+ "fulltext_source": "html"
+}

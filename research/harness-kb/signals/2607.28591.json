@@ -1,0 +1,249 @@
+{
+ "arxiv_id": "2607.28591",
+ "fulltext_chars": 77261,
+ "fulltext_lines": 2314,
+ "authors_block": "Haomin Qi Xingliang Wang Xuanqi Gao Baihui Sang Xin Zhang Minghua Ma Pengfei Gao Yu Kang Qingwei Lin Saravan Rajmohan Dongmei Zhang Qi Zhang",
+ "vendor_affiliation_hits": [],
+ "n_authors": 12,
+ "comment": "15 pages, 7 figures, and 15 tables, including appendices",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Change2Task: From Repository Changes to Executable Coding Agent Tasks and Environments"
+  ],
+  [
+   46,
+   "###### Abstract"
+  ],
+  [
+   60,
+   "## Introduction"
+  ],
+  [
+   78,
+   "## Related Work"
+  ],
+  [
+   80,
+   "### Coding Agents and Repository Environments"
+  ],
+  [
+   88,
+   "### Executable Repository Infrastructure"
+  ],
+  [
+   94,
+   "### Task Construction for Agents"
+  ],
+  [
+   102,
+   "## Methodology"
+  ],
+  [
+   112,
+   "### Deriving Task Evidence"
+  ],
+  [
+   118,
+   "### Establishing the Modern Task Base"
+  ],
+  [
+   128,
+   "### Constructing the Task State"
+  ],
+  [
+   142,
+   "### Lifecycle and Scope Validation"
+  ],
+  [
+   150,
+   "## Experiments"
+  ],
+  [
+   154,
+   "### Experiment Setup"
+  ],
+  [
+   156,
+   "#### Paired task corpus."
+  ],
+  [
+   160,
+   "#### Tasks and success criteria."
+  ],
+  [
+   186,
+   "#### Construction and evaluation agents."
+  ],
+  [
+   190,
+   "### RQ1: How Reliably Does Change2Task Reconstruct Tasks from Repository History?"
+  ],
+  [
+   229,
+   "### RQ2: How Faithfully Does Change2Task Preserve Historical Changes?"
+  ],
+  [
+   247,
+   "### RQ3: How Consistent Are Agent Outcomes Across the Two Branches?"
+  ],
+  [
+   524,
+   "### RQ4: How Effectively Does Change2Task Reuse Executable Repository Environments?"
+  ],
+  [
+   581,
+   "## Conclusion and Outlook"
+  ],
+  [
+   587,
+   "## References"
+  ],
+  [
+   983,
+   "## Appendix A Limitations"
+  ],
+  [
+   1009,
+   "## Appendix B Corpus and Task Provenance"
+  ],
+  [
+   1011,
+   "### B.1 Eligibility Funnel"
+  ],
+  [
+   1047,
+   "### B.2 Task Provenance"
+  ],
+  [
+   1126,
+   "## Appendix C Construction and Validation Protocol"
+  ],
+  [
+   1128,
+   "### C.1 Modern Base Selection"
+  ],
+  [
+   1145,
+   "### C.2 Code Mapping and Agent Reconstruction"
+  ],
+  [
+   1243,
+   "### C.3 Matched PR Mirror Protocol"
+  ],
+  [
+   1259,
+   "### C.4 Fidelity Gate"
+  ],
+  [
+   1273,
+   "## Appendix D Prompts and Agent Configuration"
+  ],
+  [
+   1275,
+   "### D.1 Agent Execution Protocol"
+  ],
+  [
+   1287,
+   "### D.2 Prompt Templates"
+  ],
+  [
+   1589,
+   "## Appendix E Verified Task Recovery"
+  ],
+  [
+   1591,
+   "### E.1 Recovery by Task Family"
+  ],
+  [
+   1642,
+   "### E.2 Construction Routes"
+  ],
+  [
+   1696,
+   "### E.3 Terminal Rejection Reasons"
+  ],
+  [
+   1771,
+   "## Appendix F Source Change Profile and Semantic Alignment"
+  ],
+  [
+   1773,
+   "### F.1 Source Change Profile Components"
+  ],
+  [
+   1851,
+   "### F.2 Score Distributions"
+  ],
+  [
+   1899,
+   "### F.3 Fidelity by Construction Level"
+  ],
+  [
+   1969,
+   "### F.4 Semantic Alignment Audit"
+  ],
+  [
+   2052,
+   "## Appendix G Paired Agent Outcome Statistics"
+  ],
+  [
+   2054,
+   "### G.1 Paired Agreement Statistics"
+  ],
+  [
+   2110,
+   "## Appendix H Environment Reuse and Cost Accounting"
+  ],
+  [
+   2112,
+   "### H.1 Family-Level Resource Accounting"
+  ],
+  [
+   2187,
+   "### H.2 Monetary Cost Accounting"
+  ],
+  [
+   2232,
+   "### H.3 Complementarity with RepoLaunch"
+  ],
+  [
+   2241,
+   "## Appendix I Additional Analyses and Case Studies"
+  ],
+  [
+   2243,
+   "### I.1 Feature Addition Across Repository Evolution"
+  ],
+  [
+   2281,
+   "### I.2 Bug Fix with a Modernized Implementation"
+  ],
+  [
+   2314,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## Appendix A Limitations\n\nChange2Task reconstructs changes along the lineage of their source repository. This\nsetting requires a traceable source PR, an identifiable behavior, executable\nchecks, and a healthy descendant that still hosts the behavior. Changes whose\nbehavior has disappeared from the maintained code, and changes without a\nstable modern execution path, remain outside the construction-eligible pool.\nThe reported recovery rates characterize changes that satisfy these evidence\nand readiness conditions.\n\nLifecycle qualification depends on executable target and regression checks.\nRepositories with sparse, unstable, or platform-specific checks provide a\nnarrower observable behavior surface and are less likely to reach\nconstruction eligibility. Additional project-specific oracles are required\nfor maintenance obligations expressed primarily through performance,\ndistributed service interactions, user interfaces, or hardware behavior.\n\nThe evaluation covers five task families drawn from public Python and Java\nsoftware corpora and four coding agent configurations. Other maintenance\nfamilies, languages, repository structures, and agent interfaces may exhibit\ndifferent reconstruction and solving behavior. Environment savings also\ndepend on the number of task variants supported by each healthy modern base,\nalong with the compute prices, storage policies, and retention period used by\nan organization. Section H reports the matched accounting boundary used in\nthis study.\n\n## Appendix B Corpus and Task Provenance\n\n### B.1 Eligibility Funnel\n\nThe main paper defines recovery over 1,130 construction-eligible\nchanges. Table 4 reports the preceding data readiness\nstages. A source pull request (PR) enters the eligible set after its evidence,\nexecutable checks, same-repository modern base, behavior alignment, and task\nspecification are complete enough for controlled construction. These stages\nuse automatic or rule-based filters and are completed before construction and\nagent evaluation.\n\nStage\nCases",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 6,
+  "seeds_or_runs": 0,
+  "swe_bench": 23,
+  "contamination": 1,
+  "human_study": 1,
+  "java": 3,
+  "industrial": 1
+ },
+ "fulltext_source": "html"
+}

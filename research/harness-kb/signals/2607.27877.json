@@ -1,0 +1,155 @@
+{
+ "arxiv_id": "2607.27877",
+ "fulltext_chars": 70617,
+ "fulltext_lines": 2090,
+ "authors_block": "Yanyu Ren Yunfeng Bai Xizheng Wang\\corresponding Li Chen\\corresponding Dan Li",
+ "vendor_affiliation_hits": [],
+ "n_authors": 5,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/robinren03/MSEval."
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# An Empirical Study of Coordination Mode as the First-Class Citizen in From-Scratch Multi-Agent Coding"
+  ],
+  [
+   32,
+   "###### Abstract"
+  ],
+  [
+   40,
+   "## Introduction"
+  ],
+  [
+   86,
+   "## Background and Related Work"
+  ],
+  [
+   88,
+   "### Coding Agents"
+  ],
+  [
+   92,
+   "### Multi-Agent Benchmarks"
+  ],
+  [
+   96,
+   "### Motivation for MSEval"
+  ],
+  [
+   202,
+   "## Methodology"
+  ],
+  [
+   204,
+   "### Benchmark Framework Overview"
+  ],
+  [
+   215,
+   "### Multi-Agent Execution via LegoGent"
+  ],
+  [
+   229,
+   "### Automated Evaluation via TAgent"
+  ],
+  [
+   255,
+   "## Evaluation"
+  ],
+  [
+   259,
+   "### Results by Model"
+  ],
+  [
+   517,
+   "### Results by Collaboration Mode"
+  ],
+  [
+   727,
+   "### TAgent Feedback Drives Refinement"
+  ],
+  [
+   735,
+   "### A General Failure Taxonomy"
+  ],
+  [
+   783,
+   "### Key Findings and Insights"
+  ],
+  [
+   791,
+   "## Limitations"
+  ],
+  [
+   799,
+   "## Conclusion"
+  ],
+  [
+   803,
+   "## References"
+  ],
+  [
+   1080,
+   "## Appendix"
+  ],
+  [
+   1082,
+   "## Benchmark Assets"
+  ],
+  [
+   1086,
+   "## The Ten Projects"
+  ],
+  [
+   1277,
+   "## The Ten Collaboration Modes"
+  ],
+  [
+   1619,
+   "## LegoGent Runtime: Bounded Synchronization"
+  ],
+  [
+   1828,
+   "## TAgent Verification Methodology"
+  ],
+  [
+   1886,
+   "## Token and Cost Accounting"
+  ],
+  [
+   2001,
+   "## A Worked Refinement Trace"
+  ],
+  [
+   2078,
+   "## Compute Environment"
+  ],
+  [
+   2090,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## Limitations\n\nRandomness and scale. To mitigate LLM stochasticity we run three parallel trials for the instant-messaging token/time evaluation and rerun other projects only when experts flag a test as abnormal (e.g., API failures). The evaluation scale is nonetheless bounded by the high test budget.\n\nTAgent and the task mix are scoped. TAgent can miss some edge defects, and MSEval centers web apps. On student projects the TAgent score attains a Spearman correlation of 0.87 with TA scores, indicating high agreement. We keep the scope to real-world apps and leave directions such as autoresearch to others (Xiong et al. 2026; Du et al. 2025).\n\nMSEval does not cover the full software lifecycle. Incident response and long-lived maintenance also matter, but MSEval focuses on collaboration topology, iteration, and cost during the coding stage; we leave the rest to future work.\n\n## Conclusion\n\nMSEval proposes a 100 project–collaboration mode benchmark that examines project, model, topology, time, token usage cost, and feedback rounds together. MSEval features an automatic feedback and revision pipeline for requirement documents without API specification details. Evaluations show that modern large language models can build substantial software but remain strongly shaped by orchestration, and reveal that future agents should treat collaboration mode, model choice, and stopping policy as runtime decisions rather than fixed defaults.\n\n## References\n\nAlibaba Cloud (2026)\nAlibaba Cloud\n\nAlibaba cloud model studio: model inference pricing.\n\nNote: https://www.alibabacloud.com/help/en/model-studio/model-pricingAccessed: 2026-07-17\n\nCited by: Evaluation.\n\nAnthropic (2026a)\nAnthropic\n\nClaude api pricing.\n\nNote: https://platform.claude.com/docs/en/about-claude/pricingAccessed: 2026-07-20\n\nCited by: Evaluation.\n\nAnthropic (2026b)\nAnthropic\n\nIntroducing claude opus 4.8.\n\nNote: https://www.anthropic.com/news/claude-opus-4-8Accessed: 2026-07-20\n\nCited by: Results by Model.",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 2,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 0,
+  "swe_bench": 3,
+  "contamination": 1,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 5
+ },
+ "fulltext_source": "html"
+}

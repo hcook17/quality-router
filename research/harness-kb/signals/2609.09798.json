@@ -1,0 +1,293 @@
+{
+ "arxiv_id": "2609.09798",
+ "fulltext_chars": 120049,
+ "fulltext_lines": 2203,
+ "authors_block": "Jinyang Li Affiliation: Adelaide University Affiliation: Adelaide, Australia Email: jinyang.li01@adelaide.edu.au Mingyu Guo Affiliation: Adelaide University Affiliation: Adelaide, Australia Email: mingyu.guo@adelaide.edu.au Hung X. Nguyen Affiliation: Adelaide University Affiliation: Adelaide, Australia Email: hung.nguyen@adelaide.edu.au",
+ "vendor_affiliation_hits": [],
+ "n_authors": 3,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# CS-Guard: Benchmarking LLM Guardrails for Code Generation Security"
+  ],
+  [
+   46,
+   "###### Abstract"
+  ],
+  [
+   50,
+   "## 1 Introduction"
+  ],
+  [
+   76,
+   "## 2 Related work"
+  ],
+  [
+   86,
+   "## 3 The CS-Guard benchmark"
+  ],
+  [
+   90,
+   "### 3.1 Text-to-code evaluation"
+  ],
+  [
+   94,
+   "#### 3.1.1 Level 1 - Base prompt evaluation"
+  ],
+  [
+   98,
+   "#### 3.1.2 Level 2 - Jailbreak attack enhancement"
+  ],
+  [
+   115,
+   "### 3.2 Code-to-code evaluation"
+  ],
+  [
+   119,
+   "### 3.3 Guardrail collection"
+  ],
+  [
+   123,
+   "#### 3.3.1 Define a taxonomy of guardrail"
+  ],
+  [
+   136,
+   "#### 3.3.2 Collection"
+  ],
+  [
+   144,
+   "### 3.4 Evaluation method"
+  ],
+  [
+   158,
+   "### 3.5 Metrics"
+  ],
+  [
+   168,
+   "## 4 Evaluation"
+  ],
+  [
+   178,
+   "### 4.1 Main result for FSA-MT"
+  ],
+  [
+   183,
+   "## 5 Conclusion"
+  ],
+  [
+   187,
+   "## Limitations"
+  ],
+  [
+   192,
+   "## Ethical considerations"
+  ],
+  [
+   196,
+   "## References"
+  ],
+  [
+   1020,
+   "## Appendix A Example Appendix"
+  ],
+  [
+   1022,
+   "### A.1 Recruitment details for the external reviewers"
+  ],
+  [
+   1026,
+   "### A.2 Usage of AI"
+  ],
+  [
+   1030,
+   "### A.3 Domain coverage of dataset"
+  ],
+  [
+   1034,
+   "### A.4 Instruction given to the human reviewer"
+  ],
+  [
+   1193,
+   "### A.5 FSA-MT search"
+  ],
+  [
+   1298,
+   "### A.6 System prompt template"
+  ],
+  [
+   1300,
+   "#### A.6.1 Prompt for building application factory"
+  ],
+  [
+   1304,
+   "# Identity"
+  ],
+  [
+   1308,
+   "# Task"
+  ],
+  [
+   1312,
+   "# Detailed Instructions"
+  ],
+  [
+   1340,
+   "# Output Format"
+  ],
+  [
+   1374,
+   "# Example"
+  ],
+  [
+   1515,
+   "# Reminder"
+  ],
+  [
+   1521,
+   "# Identity"
+  ],
+  [
+   1525,
+   "# Task"
+  ],
+  [
+   1529,
+   "# Steps"
+  ],
+  [
+   1539,
+   "# Notes"
+  ],
+  [
+   1547,
+   "# Output Format"
+  ],
+  [
+   1585,
+   "# Example"
+  ],
+  [
+   1709,
+   "# Reminder"
+  ],
+  [
+   1713,
+   "#### A.6.2 Prompt for LLM labeler"
+  ],
+  [
+   2055,
+   "#### A.6.3 Prompt for creating FSA prompt"
+  ],
+  [
+   2059,
+   "# Identity"
+  ],
+  [
+   2063,
+   "# Setting"
+  ],
+  [
+   2067,
+   "# Instruction"
+  ],
+  [
+   2079,
+   "# Output Format"
+  ],
+  [
+   2083,
+   "# Note"
+  ],
+  [
+   2093,
+   "# Reminder"
+  ],
+  [
+   2099,
+   "# Identity"
+  ],
+  [
+   2103,
+   "# Setting"
+  ],
+  [
+   2107,
+   "# Instruction"
+  ],
+  [
+   2119,
+   "# Note"
+  ],
+  [
+   2125,
+   "# Output Format"
+  ],
+  [
+   2131,
+   "# Identity"
+  ],
+  [
+   2135,
+   "# Setting"
+  ],
+  [
+   2139,
+   "# Instruction"
+  ],
+  [
+   2163,
+   "# Output Format"
+  ],
+  [
+   2167,
+   "# Reminder"
+  ],
+  [
+   2173,
+   "# Identity"
+  ],
+  [
+   2177,
+   "# Setting"
+  ],
+  [
+   2181,
+   "# Instruction"
+  ],
+  [
+   2193,
+   "# Note"
+  ],
+  [
+   2199,
+   "# Output Format"
+  ],
+  [
+   2203,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## Limitations\n\nThere are several limitations of CS-Guard that need to be addressed in the future:\n1) CS-guard only considers English data and does not include multilingual evaluation. Studies exist that reveal the weakness of LLMs to malicious prompts in a multilingual setting Deng et al. (2024), whereas, to our knowledge, no study has examined this aspect for malware generation. A significant amount of budget and experiments needs to be allocated to study this problem appropriately, which itself can be a new paper. Therefore, due to budget and time constraints, we leave this for future studies. 2) CS-Guard does not include a comprehensive evaluation for multi-turn jailbreak. The focus of CS-Guard is to provide the first evaluation of guardrails’ effectiveness in code generation security and to provide a standardized testbed for evaluating them. Although we include an evaluation of the FSA-MT, only 20 samples are used for pilot study purposes. We plan to extend CS-Guard for this aspect in the future. 3) CS-Guard does not evaluate the performance of white-box guardrails beyond LLMs’ alignment training. Due to budget and time constraints, we did not evaluate guardrails requiring additional training or neuron access. However, the community can easily evaluate these guardrails using CS-Guard as the testbed. 4) CS-Guard’s evaluation on internal guardrails is based on quantized LLMs. The empirical results might not generalize to the full-precision versions.\n\n## Ethical considerations\n\nAll malware generation prompts used in this study are collected from public datasets released by the research community. No malware is executed or kept during the experiments. Our FSA dataset is only intended for research use. We are aware that these prompts can be misused to generate malware. For the responsible release of the data, we apply a research-only license (CC BY-NC-SA 4.0) consistent with the previous study Wahed et al. (2025). The base TTP prompts provided by Meta are under the MIT License, and the code-to-code prompts provided by RMCBench Chen et al. (2024) are under the CC BY 4.0 license; their use in this study follows the license terms. All human reviewers in this study are required to follow the institutional ethical guidelines and agree with the license.\n\n## References\n\nAhi and Valizadeh (2025)\nK. Ahi and S. Valizadeh\n\nLarge language models (llms) and generative ai in cybersecurity and privacy: a survey of dual-use risks, ai-generated malware, explainability, and defensive strategies.\n\nIn 2025 Silicon Valley Cybersecurity Conference (SVCC),\n\npp. 1–8.\n\nCited by: §1.\n\nAI (2025)\nM. AIMistralai/devstral-small-2-24b-instruct-2512(Website)\n\nExternal Links: Link\n\nCited by: §3.3.2.\n\nAlbert (2023)\nA. AlbertJailbreakchat(Website)\n\nExternal Links: Link\n\nCited by: §2,\n§3.1.2.\n\nAlibaba (2025)\nAlibabaQwen/qwen3-coder-30b-a3b-instruct(Website)",
+ "ethics_coi": "## Ethical considerations\n\nAll malware generation prompts used in this study are collected from public datasets released by the research community. No malware is executed or kept during the experiments. Our FSA dataset is only intended for research use. We are aware that these prompts can be misused to generate malware. For the responsible release of the data, we apply a research-only license (CC BY-NC-SA 4.0) consistent with the previous study Wahed et al. (2025). The base TTP prompts provided by Meta are under the MIT License, and the code-to-code prompts provided by RMCBench Chen et al. (2024) are under the CC BY 4.0 license; their use in this study follows the license terms. All human reviewers in this study are required to follow the institutional ethical guidelines and agree with the license.\n\n## References\n\nAhi and Valizadeh (2025)\nK. Ahi and S. Valizadeh\n\nLarge language models (llms) and generative ai in cybersecurity and privacy: a survey of dual-use risks, ai-generated malware, explainability, and defensive strategies.\n\nIn 2025 Silicon Valley Cybersecurity Conference (SVCC),\n\npp. 1–8.\n\nCited by: §1.\n\nAI (2025)\nM. AIMistralai/devstral-small-2-24b-instruct-2512(Website)\n\nExternal Links: Link\n\nCited by: §3.3.2.\n\nAlbert (2023)",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 3,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 1,
+  "industrial": 1
+ },
+ "fulltext_source": "html"
+}

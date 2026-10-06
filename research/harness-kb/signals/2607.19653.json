@@ -1,0 +1,217 @@
+{
+ "arxiv_id": "2607.19653",
+ "fulltext_chars": 83214,
+ "fulltext_lines": 1789,
+ "authors_block": "Ryan Deng Affiliation: Massachusetts Institute of Technology, Cambridge, Massachusetts, USA Yuanzhe Liu Affiliation: Rensselaer Polytechnic Institute, Troy, New York, USA Bastian Lipka Affiliation: IBM, Ehningen, Germany Yao Ma Affiliation: Rensselaer Polytechnic Institute, Troy, New York, USA Xuhao Chen Affiliation: Michigan State University, Lansing, Michigan, USA Tim Kaler Jatin Ganhotra Affiliation: IBM, Thomas J. Watson Research Center, Yorktown Heights, New York, USA",
+ "vendor_affiliation_hits": [
+  "IBM"
+ ],
+ "n_authors": 7,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/openai/codex"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# PerfAgent: Profiler-Guided Iterative Refinement for Repository-Level Code Optimization"
+  ],
+  [
+   48,
+   "###### Abstract"
+  ],
+  [
+   53,
+   "###### Index Terms:"
+  ],
+  [
+   58,
+   "## I Introduction"
+  ],
+  [
+   136,
+   "## II Benchmarks Overview"
+  ],
+  [
+   146,
+   "# Repos"
+  ],
+  [
+   147,
+   "# Tasks"
+  ],
+  [
+   184,
+   "## III PerfAgent’s Workflow for Code Optimization"
+  ],
+  [
+   202,
+   "### III-A PerfAgent’s Workflow Overview"
+  ],
+  [
+   212,
+   "### III-B Hitting the Bottlenecks via Curated Profiler Usage"
+  ],
+  [
+   257,
+   "### III-C Objective-Driven Loop Controller"
+  ],
+  [
+   276,
+   "### III-D Selective Validation against Correctness Regressions"
+  ],
+  [
+   287,
+   "## IV Evaluation"
+  ],
+  [
+   295,
+   "### IV-A Experimental Setup"
+  ],
+  [
+   303,
+   "#### IV-A1 Evaluation Metrics"
+  ],
+  [
+   309,
+   "#### IV-A2 Hack Detection"
+  ],
+  [
+   318,
+   "### IV-B RQ1: End-to-End Optimization Performance"
+  ],
+  [
+   438,
+   "### IV-C RQ2: Which Components Drive the Improvement"
+  ],
+  [
+   458,
+   "### IV-D RQ3: Effect of Profiler Feedback"
+  ],
+  [
+   462,
+   "#### IV-D1 Optimization Across Abstraction Boundaries"
+  ],
+  [
+   495,
+   "#### IV-D2 Case Study: Impact of PerfAgent’s Control Loop"
+  ],
+  [
+   537,
+   "### IV-E Additional Analyses"
+  ],
+  [
+   541,
+   "#### IV-E1 Test-Time Scaling"
+  ],
+  [
+   586,
+   "#### IV-E2 Open-Source Models"
+  ],
+  [
+   592,
+   "#### IV-E3 Profiler Instruction in Prompt"
+  ],
+  [
+   644,
+   "#### IV-E4 Reward Hacking"
+  ],
+  [
+   650,
+   "#### IV-E5 Ablation on SWE-fficiency-Lite Budget per Task"
+  ],
+  [
+   658,
+   "# File"
+  ],
+  [
+   662,
+   "# Test"
+  ],
+  [
+   696,
+   "# Submitted"
+  ],
+  [
+   701,
+   "# Submitted"
+  ],
+  [
+   733,
+   "## V Related Work"
+  ],
+  [
+   735,
+   "### V-A LLM Coding Benchmarks"
+  ],
+  [
+   741,
+   "### V-B LLMs for Code Optimization"
+  ],
+  [
+   747,
+   "## VI Threats to Validity"
+  ],
+  [
+   755,
+   "## VII Conclusion and Future Work"
+  ],
+  [
+   763,
+   "## VIII Acknowledgments"
+  ],
+  [
+   774,
+   "## References"
+  ],
+  [
+   1320,
+   "## Appendix A Base PerfAgent Prompt"
+  ],
+  [
+   1606,
+   "## Appendix B Filtering and Selecting Tests"
+  ],
+  [
+   1611,
+   "# of Tasks"
+  ],
+  [
+   1673,
+   "# of Tasks"
+  ],
+  [
+   1742,
+   "## Appendix C Manual Review of Reward Hacking on SWE-fficiency-Lite"
+  ],
+  [
+   1781,
+   "## Appendix D Manual Review of Per-Task Win/Loss Analysis"
+  ],
+  [
+   1789,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## VIII Acknowledgments\n\nThis research was sponsored in-part by the MIT-IBM Watson AI Lab. This research was sponsored in-part by the United\nStates Air Force Research Laboratory and the United States Air Force Artificial\nIntelligence Accelerator and was accomplished under Cooperative Agreement Number\nFA8750-19-2-1000. The views and conclusions contained in this document are\nthose of the authors and should not be interpreted as representing the official\npolicies, either expressed or implied, of the United States Air Force or the\nU.S. Government. The U.S. Government is authorized to reproduce and distribute\nreprints for Government purposes notwithstanding any copyright notation herein.\n\n## References\n\n[1]\nC. E. Jimenez, J. Yang, A. Wettig, S. Yao, K. Pei, O. Press, and K. R. Narasimhan (2024)\n\nSWE-bench: can language models resolve real-world github issues?.\n\nIn The Twelfth International Conference on Learning Representations,\n\nExternal Links: Link\n\nCited by: §I,\n§V-A.",
+ "limitations": "## VI Threats to Validity\n\nConstruct and internal validity.\nPerfAgent and both benchmarks measure performance on the single workload given to the agent, so a patch that is fast there is not guaranteed to be a general optimization. GSO mitigates this with hidden performance tests, whereas SWE-fficiency-Lite times only the provided script and is thus easier to game—the source of the reward hacking we observe. We report hack-adjusted scores from a combined detector (Section IV-A2) and manually reviewed every flagged instance, but an LLM-as-judge detector may still miss subtle exploits or over-flag legitimate fast paths. Because our controller validates with pytest-testmon, which tracks only Python coverage, a native-extension regression can slip between iterations; this deflates rather than inflates our score, since each benchmark’s own correctness suite runs at evaluation time.\n\nExternal and conclusion validity.\nOur findings span two benchmarks, roughly a dozen Python-centric repositories, two models (GPT-5.1 and Kimi-K2), and a single base harness (Mini-SWE-Agent), and may not transfer to other languages, models, or harnesses; although PerfAgent is harness-independent by construction, we have not measured its gains on OpenHands or Codex. Results are also single-run, so small differences fall within noise—the Kimi-K2 GSO gap (Table V) is about two tasks and should not be over-interpreted. We therefore base our headline GPT-5.1 claims on a task-by-task comparison that is statistically significant on both benchmarks (Table III).\n\n## VII Conclusion and Future Work\n\nWe presented PerfAgent, a profiler-guided, verifier-in-the-loop workflow that turns an off-the-shelf coding agent into a repository-level performance optimizer. PerfAgent attacks three failure modes of general-purpose agents on optimization tasks: missing the real bottleneck, stopping at the first passing patch, and under-testing complex changes, with three matching components: a curated profiler summary, an objective-driven loop controller that retains the fastest correct patch, and selective re-validation after every iteration.\n\nPerfAgent can be run on top of\nmore capable single- and multi-agent harnesses such as Codex or Claude Code, which we plan to evaluate. Other directions include extending selective testing to native-extension coverage\n, hardening the profiling and timing template against new classes of reward hacking, and broadening to additional languages, models. More broadly, we view performance engineering as a distinct and demanding axis of agentic software engineering; one that rewards agents able to reason about how code runs, not merely whether it is correct.\n\n## VIII Acknowledgments\n\nThis research was sponsored in-part by the MIT-IBM Watson AI Lab. This research was sponsored in-part by the United\nStates Air Force Research Laboratory and the United States Air Force Artificial\nIntelligence Accelerator and was accomplished under Cooperative Agreement Number\nFA8750-19-2-1000. The views and conclusions contained in this document are\nthose of the authors and should not be interpreted as representing the official\npolicies, either expressed or implied, of the United States Air Force or the\nU.S. Government. The U.S. Government is authorized to reproduce and distribute\nreprints for Government purposes notwithstanding any copyright notation herein.\n\n## References\n\n[1]\nC. E. Jimenez, J. Yang, A. Wettig, S. Yao, K. Pei, O. Press, and K. R. Narasimhan (2024)\n\nSWE-bench: can language models resolve real-world github issues?.\n\nIn The Twelfth International Conference on Learning Representations,\n\nExternal Links: Link\n\nCited by: §I,\n§V-A.",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 4,
+  "p_value_or_ci": 5,
+  "seeds_or_runs": 1,
+  "swe_bench": 9,
+  "contamination": 1,
+  "human_study": 0,
+  "java": 1,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

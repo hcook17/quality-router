@@ -1,0 +1,341 @@
+{
+ "arxiv_id": "2609.08149",
+ "fulltext_chars": 106311,
+ "fulltext_lines": 1656,
+ "authors_block": "Pujun Zheng Affiliation: East China Normal University Affiliation: Shanghai Artificial Intelligence Laboratory Zixin Shang Affiliation: Shanghai Artificial Intelligence Laboratory Shufan Jiang Affiliation: Shanghai Artificial Intelligence Laboratory Wenhui Tian Affiliation: Shanghai Artificial Intelligence Laboratory Dongsheng Zhu Affiliation: Shanghai Artificial Intelligence Laboratory Zerun Ma Affiliation: Shanghai Artificial Intelligence Laboratory Dingbo Yuan Affiliation: Shanghai Artificial Intelligence Laboratory Qi Zhang Affiliation: Shanghai Artificial Intelligence Laboratory Affiliation: Fudan University",
+ "vendor_affiliation_hits": [],
+ "n_authors": 8,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/SWE-agent/mini-swe-agentAccessed",
+  "https://github.com/open-compass/AgentCompass",
+  "https://github.com/scaleapi/SWE-bench_Pro-os"
+ ],
+ "hf_urls": [
+  "https://huggingface.co/blog/security-incident-july-2026Accessed",
+  "https://huggingface.co/datasets/opencompass",
+  "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731Accessed",
+  "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813Accessed",
+  "https://huggingface.co/deepseek-ai/DeepSeek-V4-ProAccessed",
+  "https://huggingface.co/zai-org/GLM-5.2Accessed",
+  "https://huggingface.co/zai-org/GLM-5.3Accessed"
+ ],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   28,
+   "# SWE-Bench Pro Verified: A Reliable Benchmark for Software Engineering Agents"
+  ],
+  [
+   66,
+   "###### Abstract"
+  ],
+  [
+   70,
+   "## 1 Introduction"
+  ],
+  [
+   103,
+   "## 2 Related Work"
+  ],
+  [
+   105,
+   "### 2.1 Repository-Level Coding Benchmarks"
+  ],
+  [
+   109,
+   "### 2.2 Answer Leakage and Reward Hacking"
+  ],
+  [
+   113,
+   "### 2.3 Task Quality Issue and Verification"
+  ],
+  [
+   117,
+   "## 3 Methodology"
+  ],
+  [
+   119,
+   "### 3.1 Problem Definition"
+  ],
+  [
+   125,
+   "#### 3.1.1 Reward Hacking"
+  ],
+  [
+   163,
+   "#### 3.1.2 Task Quality Issues"
+  ],
+  [
+   211,
+   "### 3.2 Anti-Hacking"
+  ],
+  [
+   217,
+   "##### Repository reconstruction."
+  ],
+  [
+   221,
+   "##### Test artifact concealment."
+  ],
+  [
+   225,
+   "##### Metadata filtering and anonymization."
+  ],
+  [
+   229,
+   "##### Network blocking."
+  ],
+  [
+   233,
+   "### 3.3 Task Refinement"
+  ],
+  [
+   239,
+   "##### Issue collection."
+  ],
+  [
+   243,
+   "##### LLM-assisted filtering and planning."
+  ],
+  [
+   247,
+   "##### Expert annotation."
+  ],
+  [
+   251,
+   "## 4 Experiments"
+  ],
+  [
+   253,
+   "### 4.1 Experimental setup"
+  ],
+  [
+   255,
+   "##### Evaluation settings."
+  ],
+  [
+   263,
+   "##### Models and runs."
+  ],
+  [
+   267,
+   "##### Validation protocol."
+  ],
+  [
+   273,
+   "### 4.2 Main results"
+  ],
+  [
+   305,
+   "### 4.3 Anti-hacking validation"
+  ],
+  [
+   309,
+   "##### Evaluation score changes."
+  ],
+  [
+   337,
+   "##### Audit of answer leakage channels."
+  ],
+  [
+   385,
+   "##### Detailed statistics by hacking method."
+  ],
+  [
+   585,
+   "##### Review of possible collateral damage."
+  ],
+  [
+   629,
+   "### 4.4 Task refinement validation"
+  ],
+  [
+   633,
+   "##### Field definitions and observed distribution."
+  ],
+  [
+   681,
+   "##### Instance-level transitions between the Anti-hacking and Verified runs."
+  ],
+  [
+   719,
+   "##### FAIL-to-PASS transitions."
+  ],
+  [
+   749,
+   "##### PASS-to-PASS transitions."
+  ],
+  [
+   767,
+   "##### PASS-to-FAIL transitions."
+  ],
+  [
+   771,
+   "##### FAIL-to-FAIL transitions."
+  ],
+  [
+   775,
+   "## 5 Conclusion"
+  ],
+  [
+   777,
+   "### 5.1 Summary"
+  ],
+  [
+   783,
+   "### 5.2 Limitations"
+  ],
+  [
+   787,
+   "## References"
+  ],
+  [
+   1227,
+   "## Appendix A Problem Type Examples"
+  ],
+  [
+   1229,
+   "### A.1 Anti-Hacking: Leakage Methods and Representative Cases"
+  ],
+  [
+   1231,
+   "#### A.1.1 Exploiting Git history"
+  ],
+  [
+   1251,
+   "#### A.1.2 Exploiting the local file system"
+  ],
+  [
+   1282,
+   "#### A.1.3 Leakage through online repositories"
+  ],
+  [
+   1315,
+   "#### A.1.4 Exploiting task identifiers and metadata"
+  ],
+  [
+   1321,
+   "### A.2 Test Case Refinement: Problem Types and Representative Cases"
+  ],
+  [
+   1325,
+   "#### A.2.1 Misleading task descriptions"
+  ],
+  [
+   1340,
+   "#### A.2.2 Overly narrow tests"
+  ],
+  [
+   1357,
+   "#### A.2.3 Overly broad tests"
+  ],
+  [
+   1372,
+   "#### A.2.4 Other problems"
+  ],
+  [
+   1386,
+   "## Appendix B Anti-hacking transition examples"
+  ],
+  [
+   1390,
+   "### B.1 PASS-to-FAIL examples"
+  ],
+  [
+   1392,
+   "#### B.1.1 The two protocol-mandated hyphens in Ansible multipart encoding"
+  ],
+  [
+   1430,
+   "#### B.1.2 None versus an empty string in the qutebrowser completion model"
+  ],
+  [
+   1464,
+   "## Appendix C Task refinement transition examples"
+  ],
+  [
+   1468,
+   "### C.1 FAIL-to-PASS examples"
+  ],
+  [
+   1470,
+   "#### C.1.1 Defining order semantics: Teleport principals"
+  ],
+  [
+   1483,
+   "#### C.1.2 Fixing an exact constant: Ansible authentication argument"
+  ],
+  [
+   1496,
+   "#### C.1.3 Fixing defaults and return structures: Open Library Google Books import"
+  ],
+  [
+   1515,
+   "#### C.1.4 Clarifying a control-flow boundary: qutebrowser search URLs"
+  ],
+  [
+   1534,
+   "#### C.1.5 Defining an interface: Ansible role summaries"
+  ],
+  [
+   1550,
+   "#### C.1.6 Correcting an overly narrow test: Ansible logging commands"
+  ],
+  [
+   1563,
+   "### C.2 PASS-to-PASS examples"
+  ],
+  [
+   1565,
+   "#### C.2.1 Choosing the tested branch: NodeBB upload errors"
+  ],
+  [
+   1578,
+   "#### C.2.2 Repository code supplements the instructions: Open Library languages"
+  ],
+  [
+   1591,
+   "#### C.2.3 Observationally equivalent implementations: qutebrowser command suggestions"
+  ],
+  [
+   1610,
+   "### C.3 PASS-to-FAIL examples"
+  ],
+  [
+   1614,
+   "#### C.3.1 No final patch: Vuls inactive WordPress packages"
+  ],
+  [
+   1633,
+   "### C.4 FAIL-to-FAIL examples"
+  ],
+  [
+   1637,
+   "#### C.4.1 Cross-file protocol: Ansible collection installation"
+  ],
+  [
+   1656,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "### 5.2 Limitations\n\nSWE-Bench Pro Verified has several limitations. First, the domain blocklist may not cover all self-hosted Git services, private proxies, dynamic domains, third-party source-code mirrors, or direct IP access. More capable models may also attempt to circumvent these controls through nonstandard network routes. Second, since file layouts vary across instances, evaluation-data cleanup may leave small amounts of residual information in some repositories. Third, despite our extensive investigation, the refinement process may not identify every task-quality issue. Given the substantial review cost, we prioritized addressing completely broken instances. Future work will further improve task quality, strengthen anti-hacking safeguards, and evaluate the benchmark on a broader range of models.\n\n## References\n\n[1]\nAnthropic (2026)\n\nClaude mythos preview system card.\n\nNote: https://www.anthropic.com/claude-mythos-preview-system-cardAccessed 2026-09-04\n\nCited by: §1.\n\n[2]\nArtificial Analysis (2026)\n\nCoding agent index methodology.\n\nNote: https://artificialanalysis.ai/methodology/coding-agents-benchmarkingAccessed 2026-08-31\n\nCited by: §2.2.\n\n[3]\nI. Badertdinov, A. Golubev, M. Nekrashevich, A. Shevtsov, S. Karasik, A. Andriushchenko, M. Trofimova, D. Litvintseva, and B. Yangel (2025)\n\nSWE-rebench: an automated pipeline for task collection and decontaminated evaluation of software engineering agents.\n\nIn Advances in Neural Information Processing Systems,\n\nVol. 38.\n\nExternal Links: Document,\n2505.20411,\nLink\n\nCited by: §2.2.\n\n[4]",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 3,
+  "seeds_or_runs": 0,
+  "swe_bench": 60,
+  "contamination": 3,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 1
+ },
+ "fulltext_source": "html"
+}

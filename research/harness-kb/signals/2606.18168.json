@@ -1,0 +1,97 @@
+{
+ "arxiv_id": "2606.18168",
+ "fulltext_chars": 23189,
+ "fulltext_lines": 426,
+ "authors_block": "Dipayan Banik Affiliation: Danovo Energy Solutions Raleigh, North Carolina, USA dbanik@danovoenergy.com Kowshik Chowdhury Affiliation: Kennesaw State University Kennesaw, Georgia, USA kchowdh1@students.kennesaw.edu Shazibul Islam Shamim Affiliation: Kennesaw State University Kennesaw, Georgia, USA mshamim@kennesaw.edu",
+ "vendor_affiliation_hits": [],
+ "n_authors": 3,
+ "comment": "Accepted at the 8th IEEE International Conference on Artificial Intelligence Testing, 2026",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# All Smoke, No Alarm: Oracle Signals in Agent-Authored Test Code"
+  ],
+  [
+   46,
+   "###### Abstract"
+  ],
+  [
+   50,
+   "###### Index Terms:"
+  ],
+  [
+   54,
+   "## I Introduction"
+  ],
+  [
+   77,
+   "## II Methodology"
+  ],
+  [
+   81,
+   "### II-A RQ1: Oracle Signal Classification"
+  ],
+  [
+   142,
+   "### II-B RQ2: Oracle Signals and PR Outcomes"
+  ],
+  [
+   148,
+   "## III Analysis and Findings"
+  ],
+  [
+   150,
+   "### III-A RQ1: Oracle Signals in Test-File Patches"
+  ],
+  [
+   158,
+   "### III-B RQ2: Oracle Strength, Merge Outcomes, and Review Effort"
+  ],
+  [
+   167,
+   "## IV Discussion"
+  ],
+  [
+   176,
+   "## V Threats to Validity"
+  ],
+  [
+   182,
+   "## VI Related Work"
+  ],
+  [
+   186,
+   "## VII Conclusion"
+  ],
+  [
+   190,
+   "## References"
+  ],
+  [
+   426,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## V Threats to Validity\n\nOur regex-based taxonomy classifies syntactic oracle signals in patch diffs, not complete source files; a modified-file patch classified as W1 may belong to a file with existing assertions, which we address by reporting newly created files separately. A patch classified as S1 confirms that an equality check exists, not that it checks the right property. The association between oracle strength and merge outcomes may be confounded by unobserved factors such as developer experience, merge-bot interactions, or CI requirements; we mitigate this through multivariate regression adjusting for agent, PR size, stars, task type, and language. Our dataset covers five agents active between December 2024 and July 2025, with OpenAI Codex contributing 65% of PRs, and filters for repositories with 100+ stars; results may not generalize to smaller repositories or ecosystems with different testing conventions.\n\nAdditionally, our taxonomy does not capture implicit oracles such as crash-on-failure or timeout-based detection, which some testing frameworks use as default verification mechanisms. Our sensitivity analysis shows that reclassifying W4 (mock/interaction) and W5 (snapshot) as strong shifts the overall weak rate by less than one percentage point, indicating that boundary decisions between categories do not materially affect the findings.\n\n## VI Related Work\n\nOur work intersects three areas: the test oracle problem, LLM-based oracle generation, and empirical studies of agent-authored contributions. The oracle problem has a long research history [5]. Coverage correlates only weakly with fault-detection effectiveness [12], and mature test suites exhibit gaps of up to 51 percentage points between executed and checked code [13]. Jain et al. [17] formalized this as the “oracle gap”, showing that high coverage alone does not capture test adequacy. Our study examines whether this distinction between executing code and verifying its behavior holds for agent-authored test code at scale. In the LLM setting, generated oracles frequently encode actual rather than expected behavior [9], fine-tuned generators detect only a fraction of known faults [10], and mutation-guided feedback improves quality but requires curated prompts [11]. These studies evaluate oracle quality in controlled settings; our work shifts the analysis to real-world agent-authored patches. For real-world agent behavior, Haque et al. measured test file presence on the AIDev dataset [14], Milanese et al. compared test quality between agent and human PRs using test-smell detection, and Chowdhury et al. analyzed how code-review agents and feedback signal quality relate to PR outcomes [18, 19, 20].\n\n## VII Conclusion\n\nThis study provides large-scale empirical evidence that test-file presence is an insufficient proxy for verification strength in agent-authored pull requests. By classifying 86,156 cumulative test-file patches across 2,807 repositories, we show that 80.2% contain weak or no explicit oracle signals, with the strong-oracle rate varying from 18% to 67% across agents on newly created files. These findings suggest that coding agents generate test structure far more reliably than they generate oracle logic. Strong oracle signals coincide with larger, more heavily reviewed PRs; once this complexity is controlled, they predict higher merge likelihood, making oracle strength a positive signal masked by confounding rather than a merge disadvantage.\n\n## References\n\n[1]\nH. Li, H. Zhang, and A. E. Hassan (2025)\n\nThe rise of AI teammates in software engineering (SE) 3.0: how autonomous coding agents are reshaping software engineering.\n\narXiv preprint arXiv:2507.15003.\n\nExternal Links: 2507.15003\n\nCited by: §I.\n\n[2]\nC. Reddington (2025)\n\nFrom idea to PR: a guide to GitHub Copilot’s agentic workflows.\n\nNote: https://github.blog/ai-and-ml/github-copilot/from-idea-to-pr-a-guide-to-github-copilots-agentic-workflows/Accessed: 2026-03-30\n\nCited by: §I.\n\n[3]\nM. Watanabe, ",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 8,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 1,
+  "industrial": 3
+ },
+ "fulltext_source": "html"
+}

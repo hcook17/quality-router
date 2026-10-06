@@ -1,0 +1,133 @@
+{
+ "arxiv_id": "2609.03086",
+ "fulltext_chars": 42137,
+ "fulltext_lines": 1697,
+ "authors_block": "Alessandro Schena Affiliation: Constructor Institute of Technology, Schaffhausen, Switzerland E-mail {Alessandro.Schena, Ilgiz.Mustafin, Julia.Kotovich}@constructor.org Ilgiz Mustafin Affiliation: Constructor Institute of Technology, Schaffhausen, Switzerland E-mail {Alessandro.Schena, Ilgiz.Mustafin, Julia.Kotovich}@constructor.org Julia Kotovich Affiliation: Constructor Institute of Technology, Schaffhausen, Switzerland E-mail {Alessandro.Schena, Ilgiz.Mustafin, Julia.Kotovich}@constructor.org Affiliation: Constructor University, Bremen, Germany",
+ "vendor_affiliation_hits": [],
+ "n_authors": 3,
+ "comment": "Submitted and presented at VERIFAI-2026",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Large Language Models and Language Server Protocol: a match made in context"
+  ],
+  [
+   42,
+   "###### Abstract"
+  ],
+  [
+   51,
+   "###### Keywords:"
+  ],
+  [
+   54,
+   "## 1 Introduction"
+  ],
+  [
+   101,
+   "## 2 Background"
+  ],
+  [
+   106,
+   "### 2.1 Eiffel and AutoProof"
+  ],
+  [
+   114,
+   "### 2.2 Large language models for software development"
+  ],
+  [
+   121,
+   "### 2.3 Language server protocol"
+  ],
+  [
+   137,
+   "## 3 Related work"
+  ],
+  [
+   159,
+   "## 4 Design and implementation"
+  ],
+  [
+   219,
+   "### 4.1 Interactive commands"
+  ],
+  [
+   225,
+   "#### Add model-based contracts"
+  ],
+  [
+   428,
+   "#### Fix feature body"
+  ],
+  [
+   614,
+   "### 4.2 Non-interactive commands"
+  ],
+  [
+   620,
+   "#### Feature by feature body correction"
+  ],
+  [
+   893,
+   "#### Class by class correction"
+  ],
+  [
+   1146,
+   "## 5 Evaluation"
+  ],
+  [
+   1164,
+   "### 5.1 Models"
+  ],
+  [
+   1182,
+   "### 5.2 Datasets"
+  ],
+  [
+   1205,
+   "### 5.3 Ablations"
+  ],
+  [
+   1261,
+   "## 6 Results and Discussion"
+  ],
+  [
+   1330,
+   "## 7 Limitations and threats to validity"
+  ],
+  [
+   1338,
+   "## 8 Conclusion and Future work"
+  ],
+  [
+   1357,
+   "## References"
+  ],
+  [
+   1697,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 7 Limitations and threats to validity\n\nThe benchmarks used in our evaluation, described in Section 5,\nare public and available in multiple programming languages, either C and Eiffel or Java-JML and Eiffel.\nIt is possible that those benchmarks leaked in the training data of some LLMs and\nthe models could reproduce the solution they were trained on instead of “fixing”\nthe bug.\n\n## 8 Conclusion and Future work\n\nThis paper presented an approach for using an LSP server as both the\nLLM harness and the integration interface between the editor, verifier\nand LLM at the same time. Implementation of several advanced code editing actions\ncombining LLMs and vormal verification is presented.\n\nThe experiment results discuss trade-offs and\nset a baseline for the possible further improvements\nacross several axes: fix success rate, time, and cost.\n\nFurther analysis of prompt ablations is needed to identify optimal\ninitial prompt and the possible extension of the system\nwith “tool calls” and presenting an MCP (Model Context Protocol) interfaces\nfor the compilar and verifier.\n\nAuthors plan extending the implementation of Eiffel-tools and analysing\nperformance of new code actions.\n\n## References\n\n[1]\nM. S. Patil, G. Ung, and M. Nyberg (2025)\n\nTowards specification-driven llm-based generation of embedded automotive software.\n\nIn Bridging the Gap Between AI and Reality: Second International Conference, AISoLA 2024, Crete, Greece, October 30 – November 3, 2024, Proceedings,\n\nBerlin, Heidelberg, pp. 125–144.\n\nExternal Links: ISBN 978-3-031-75433-3,\nLink,",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 5,
+  "industrial": 1
+ },
+ "fulltext_source": "html"
+}

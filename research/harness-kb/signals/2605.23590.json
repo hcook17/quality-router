@@ -1,0 +1,211 @@
+{
+ "arxiv_id": "2605.23590",
+ "fulltext_chars": 47320,
+ "fulltext_lines": 950,
+ "authors_block": "Jiazheng Kang Affiliation: Qwen Business Unit {kangjiazheng.kjz,yx501135,zhuda.zd,guanj.jianggj}@alibaba-inc.com Bowen Zhang Affiliation: Tsinghua University {zbw23,songzx24,jw-chen24}@mails.tsinghua.edu.cn Zixin Song Affiliation: Tsinghua University {zbw23,songzx24,jw-chen24}@mails.tsinghua.edu.cn Jiangwang Chen Affiliation: Tsinghua University {zbw23,songzx24,jw-chen24}@mails.tsinghua.edu.cn Xiao Yang Affiliation: Qwen Business Unit {kangjiazheng.kjz,yx501135,zhuda.zd,guanj.jianggj}@alibaba-inc.com Da Zhu Affiliation: Qwen Business Unit {kangjiazheng.kjz,yx501135,zhuda.zd,guanj.jianggj}@alibaba-inc.com Guanjun Jiang Affiliation: Qwen Business Unit {kangjiazheng.kjz,yx501135,zhuda.zd,guanj.jianggj}@alibaba-inc.com",
+ "vendor_affiliation_hits": [
+  "Qwen"
+ ],
+ "n_authors": 7,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Co-ReAct: Rubrics as Step-Level Collaborators for ReAct Agents"
+  ],
+  [
+   64,
+   "###### Abstract"
+  ],
+  [
+   68,
+   "## 1 Introduction"
+  ],
+  [
+   94,
+   "## 2 Related Work"
+  ],
+  [
+   96,
+   "### 2.1 ReAct-paradigm enhancements."
+  ],
+  [
+   100,
+   "### 2.2 End-to-end trained search agents."
+  ],
+  [
+   104,
+   "### 2.3 Rubric-based reward and evaluation."
+  ],
+  [
+   108,
+   "## 3 Method"
+  ],
+  [
+   114,
+   "### 3.1 Preference Data Collection"
+  ],
+  [
+   122,
+   "##### Expert ranking via multi-judge consensus."
+  ],
+  [
+   126,
+   "##### Depth-wise expansion."
+  ],
+  [
+   130,
+   "### 3.2 Rubric Generator Training with Listwise GRPO"
+  ],
+  [
+   134,
+   "#### 3.2.1 Rubric Reward Design"
+  ],
+  [
+   136,
+   "##### Rubric-induced ranking."
+  ],
+  [
+   140,
+   "##### Listwise Spearman reward."
+  ],
+  [
+   156,
+   "##### Total reward."
+  ],
+  [
+   166,
+   "#### 3.2.2 GRPO Optimization"
+  ],
+  [
+   183,
+   "### 3.3 Co-ReAct Inference: Inject, Verify, Retry"
+  ],
+  [
+   201,
+   "## 4 Experiments"
+  ],
+  [
+   203,
+   "### 4.1 Experimental Settings"
+  ],
+  [
+   205,
+   "##### Datasets."
+  ],
+  [
+   211,
+   "##### Evaluation Metrics."
+  ],
+  [
+   216,
+   "##### Agent Architecture and Tool Set."
+  ],
+  [
+   220,
+   "##### Compared Methods."
+  ],
+  [
+   412,
+   "##### Implementation Details."
+  ],
+  [
+   492,
+   "### 4.2 Main Results"
+  ],
+  [
+   504,
+   "### 4.3 Ablation Study"
+  ],
+  [
+   514,
+   "### 4.4 Generalization to Commercial Models"
+  ],
+  [
+   522,
+   "### 4.5 Search Behavior"
+  ],
+  [
+   524,
+   "##### Co-ReAct produces more thorough search trajectories."
+  ],
+  [
+   528,
+   "##### Verification is well-calibrated."
+  ],
+  [
+   532,
+   "### 4.6 Plug-in Rubric Portability Study"
+  ],
+  [
+   540,
+   "### 4.7 Case Study"
+  ],
+  [
+   547,
+   "## 5 Conclusion"
+  ],
+  [
+   551,
+   "## Limitations"
+  ],
+  [
+   553,
+   "##### Scope of the method."
+  ],
+  [
+   557,
+   "##### Evaluation scale and judging."
+  ],
+  [
+   561,
+   "## References"
+  ],
+  [
+   922,
+   "## Appendix A Additional Implementation Details"
+  ],
+  [
+   926,
+   "##### Rubric training data."
+  ],
+  [
+   930,
+   "##### Expert consensus judges."
+  ],
+  [
+   934,
+   "##### GRPO hyperparameters."
+  ],
+  [
+   938,
+   "##### Co-ReAct inference."
+  ],
+  [
+   950,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## Limitations\n\n##### Scope of the method.\n\nCo-ReAct is a ReAct-paradigm enhancement: it sits on top of a fixed search policy and improves step-level decision quality through additional inference-time computation, without retraining the underlying agent. Accordingly, we compare against other ReAct enhancements (Self-Refine, Best-of-N, Step-Back, CRITIC) and do not benchmark against end-to-end RL-trained search agents such as Search-R1 or R1-Searcher, which retrain the policy itself and belong to an orthogonal line of work. Our plug-in study only evaluates compositionality within the ReAct-enhancement family; whether the trained rubric can be stacked on top of RL-trained search agents is an open question we leave to future work.\n\n##### Evaluation scale and judging.\n\nOur evaluation relies on LLM-based judges (Gemini for DRB and SQA, and a three-model council during rubric training), which inherit known failure modes of LLM-as-a-judge such as verbosity bias.\n\n## References\n\nAsai et al. (2024)\nA. Asai, E. Chen, K. Chen, J. Luo, X. Qiu, H. Peng, M. Tan, M. Yasunaga, P. Liang, and L. Dong\n\nOpenScholar: synthesizing scientific literature with retrieval-augmented language models.\n\nPreprint at Arxiv https://arxiv. org/abs/2411.14199.\n\nCited by: §4.1,\n§4.1.\n\nBai et al. (2022)\nY. Bai, S. Kadavath, S. Kundu, A. Askell, J. Kernion, A. Jones, A. Chen, A. Goldie, A. Mirhoseini, C. McKinnon, et al.\n\nConstitutional ai: harmlessness from ai feedback.\n\narXiv preprint arXiv:2212.08073.\n\nCited by: §2.3.\n\nBrookhart (2018)\nS. M. Brookhart\n\nAppropriate criteria: key to effective rubrics.\n\nIn Frontiers in education,\n\nVol. 3, pp. 22.",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 2,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

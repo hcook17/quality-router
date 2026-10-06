@@ -1,0 +1,297 @@
+{
+ "arxiv_id": "2609.01861",
+ "fulltext_chars": 74497,
+ "fulltext_lines": 2203,
+ "authors_block": "An Explicit World Model for Agentic Optimization Yuhan Chen Zhihua Tian Mahavir Dabas Charith Peris Rahul Gupta Ming Jin Feiyang Kang Siyuan Zhang Nan Wang Ruoxi Jia",
+ "vendor_affiliation_hits": [],
+ "n_authors": 10,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Belief-Calibrated Optimization:"
+  ],
+  [
+   44,
+   "###### Abstract"
+  ],
+  [
+   76,
+   "## 1 Introduction"
+  ],
+  [
+   130,
+   "## 2 Iterative Agentic Optimization"
+  ],
+  [
+   155,
+   "## 3 Belief-Calibrated Optimization"
+  ],
+  [
+   157,
+   "### 3.1 Overview"
+  ],
+  [
+   191,
+   "#### Instantiation."
+  ],
+  [
+   203,
+   "### 3.2 Belief Construction"
+  ],
+  [
+   236,
+   "### 3.3 Belief Calibration"
+  ],
+  [
+   287,
+   "## 4 Experiments"
+  ],
+  [
+   299,
+   "### 4.1 Experimental Setup"
+  ],
+  [
+   301,
+   "#### Matched comparison."
+  ],
+  [
+   324,
+   "#### Benchmarks and splits."
+  ],
+  [
+   366,
+   "#### Graders."
+  ],
+  [
+   372,
+   "#### Metric and candidate selection."
+  ],
+  [
+   387,
+   "### 4.2 RQ1: Does BCO Improve Optimization and Held-Out Performance?"
+  ],
+  [
+   496,
+   "#### Optimization result."
+  ],
+  [
+   503,
+   "#### Held-out result."
+  ],
+  [
+   510,
+   "### 4.3 RQ2: How Do the Scaffolds Transfer to an Unseen Target Model?"
+  ],
+  [
+   522,
+   "#### Protocol."
+  ],
+  [
+   535,
+   "#### GAIA."
+  ],
+  [
+   543,
+   "#### AppWorld."
+  ],
+  [
+   558,
+   "### 4.4 RQ3: Does the World Model Carry Predictive Information?"
+  ],
+  [
+   597,
+   "#### Protocol."
+  ],
+  [
+   608,
+   "#### Result."
+  ],
+  [
+   621,
+   "### 4.5 Additional Ablation: Persistence Without Calibration"
+  ],
+  [
+   666,
+   "## 5 Related Work"
+  ],
+  [
+   668,
+   "#### LLM-driven optimization of the program around a frozen model."
+  ],
+  [
+   691,
+   "#### Verbal self-reflection and memory."
+  ],
+  [
+   701,
+   "#### POMDPs, Bayes-adaptive RL, and Bayesian optimization."
+  ],
+  [
+   715,
+   "## 6 Conclusion"
+  ],
+  [
+   732,
+   "## 7 Limitations"
+  ],
+  [
+   766,
+   "## References"
+  ],
+  [
+   1206,
+   "## Appendix A The Optimization Loop"
+  ],
+  [
+   1273,
+   "## Appendix B The Protocol, Verbatim"
+  ],
+  [
+   1279,
+   "### B.1 What separates the two methods"
+  ],
+  [
+   1294,
+   "### B.2 The world model"
+  ],
+  [
+   1307,
+   "## Beliefs"
+  ],
+  [
+   1361,
+   "## Experiments"
+  ],
+  [
+   1389,
+   "### B.3 A prediction and its grading"
+  ],
+  [
+   1401,
+   "# iter_016 prediction"
+  ],
+  [
+   1403,
+   "## Mode"
+  ],
+  [
+   1413,
+   "## Candidate"
+  ],
+  [
+   1421,
+   "## Base"
+  ],
+  [
+   1427,
+   "## Failure mode attacked"
+  ],
+  [
+   1431,
+   "## Assumption audit"
+  ],
+  [
+   1443,
+   "## Mechanism -- the behavioral change"
+  ],
+  [
+   1453,
+   "## Behavioral prediction (graded from traces)"
+  ],
+  [
+   1459,
+   "## Aggregate prediction (graded on the subset, de-noised)"
+  ],
+  [
+   1469,
+   "## Anchors (optional, STABLE episodes only -- illustration, not the bet)"
+  ],
+  [
+   1477,
+   "## Falsification"
+  ],
+  [
+   1489,
+   "## iter_015 -> iter_016 distill"
+  ],
+  [
+   1537,
+   "### B.4 Blind-judge configuration"
+  ],
+  [
+   1590,
+   "## Appendix C Initial-Scaffold Stability and Excluded Optimization Diagnostics"
+  ],
+  [
+   1592,
+   "#### Every memory-benchmark candidate we evaluated held-out."
+  ],
+  [
+   1700,
+   "#### Spider2-lite."
+  ],
+  [
+   1749,
+   "#### Terminal-Bench split selection."
+  ],
+  [
+   1761,
+   "## Appendix D Full Target-Swap Results"
+  ],
+  [
+   1844,
+   "## Appendix E Proposer Token Cost"
+  ],
+  [
+   1939,
+   "## Appendix F Persistent Memory Without Calibration"
+  ],
+  [
+   2008,
+   "## Appendix G Per-Run Breakdown of the Offline Ablation"
+  ],
+  [
+   2098,
+   "#### A concrete LongMemEval-s prediction."
+  ],
+  [
+   2112,
+   "## Appendix H Why Belief Fidelity Is Measured Offline"
+  ],
+  [
+   2167,
+   "#### The prediction is optimistic by construction."
+  ],
+  [
+   2177,
+   "#### The positive class shrinks as the run approaches its ceiling."
+  ],
+  [
+   2203,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 7 Limitations\n\n• \n\nThe belief is approximate, and its self-assessment is heuristic. The world\nmodel W_{t} is an LLM’s natural-language summary of evidence, not a\nstatistically calibrated posterior. Our analysis therefore focuses on de-noised,\nsubset-averaged behavior, since single-task pass/fail sits below the evaluation noise floor;\nraising the per-task repeat count would admit stable single-task claims at\nproportionally higher cost.\n\n• \n\nThe environment’s response is treated as fixed within a run, and the scaffold can overfit the target.\nWe freeze the target model and the benchmark for a run, so the response does not\ndrift by design. A target swap or external-tool drift changes the response and would\nrequire detecting the shift and discounting older evidence, which the\ncurrent protocol does not include. The AppWorld transfer result in\n§4.3 also shows that target-dependent resource use can affect\nfull-set performance. Future variants could optimize against multiple targets or score\na candidate’s resource envelope alongside its passrate.\n\n• \n\nThe evaluation covers five screened benchmarks. Four benchmarks share one\nproposer family and one target model, while Terminal-Bench 2.0 uses an independent\nstack. Each matched comparison contains one trajectory per method, so the aggregate\nevidence measures consistency across five benchmarks rather than within-benchmark\nrepetition; the transfer study changes the target at evaluation time. We also screened\ninitial-scaffold behavior before fixing the AppWorld and Terminal-Bench 2.0 train subsets, which\nnarrows the claim to environments with sufficient repeatable failure mass and may\nfavor benchmarks on which score-guided optimization is easier\n(Appendix C).\n\n## References\n\nÅström (1965)\nK. J. Åström\n\nOptimal control of markov processes with incomplete state information.",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 6,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

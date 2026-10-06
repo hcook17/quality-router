@@ -1,0 +1,167 @@
+{
+ "arxiv_id": "2606.13298",
+ "fulltext_chars": 44295,
+ "fulltext_lines": 1125,
+ "authors_block": "Oliver Aleksander Larsen ††thanks: Corresponding author. Affiliation: SDU Software Engineering, University of Southern Denmark, Odense, Denmark E-mail {olar,mtmo}@mmmi.sdu.dk Mahyar T. Moghaddam Affiliation: SDU Software Engineering, University of Southern Denmark, Odense, Denmark E-mail {olar,mtmo}@mmmi.sdu.dk",
+ "vendor_affiliation_hits": [],
+ "n_authors": 2,
+ "comment": "16 pages. Accepted for presentation at the 52nd Euromicro Conference on Software Engineering and Advanced Applications (SEAA) 2026, Krakow, Poland, 2-4 September 2026, and for publication in the Springer LNCS proceedings. This is the author's accepted manuscript",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/Oliver1703dk/seaa2026-replication-package"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Mining Architectural Quality Under Agentic AI Adoption: A Causal Study of Java Repositories"
+  ],
+  [
+   38,
+   "###### Abstract"
+  ],
+  [
+   67,
+   "###### Keywords:"
+  ],
+  [
+   70,
+   "## 1 Introduction"
+  ],
+  [
+   158,
+   "## 2 Background and Related Work"
+  ],
+  [
+   160,
+   "### 2.1 AI Coding Tools and the Detection Problem in Repository Mining"
+  ],
+  [
+   187,
+   "### 2.2 Architectural Erosion and Architectural Smells"
+  ],
+  [
+   230,
+   "### 2.3 Empirical Studies of AI-Assisted Development"
+  ],
+  [
+   261,
+   "### 2.4 Architectural Smell Evolution"
+  ],
+  [
+   283,
+   "## 3 Mining Design and Statistical Model"
+  ],
+  [
+   289,
+   "### 3.1 Study Design"
+  ],
+  [
+   311,
+   "### 3.2 Treatment Detection and Sample Construction"
+  ],
+  [
+   325,
+   "#### Detection patterns."
+  ],
+  [
+   349,
+   "#### Sensitivity to autocomplete contamination."
+  ],
+  [
+   388,
+   "### 3.3 Architectural Smell Extraction"
+  ],
+  [
+   421,
+   "### 3.4 Statistical Model"
+  ],
+  [
+   479,
+   "## 4 Results"
+  ],
+  [
+   481,
+   "### 4.1 Sample and Descriptive Statistics"
+  ],
+  [
+   491,
+   "### 4.2 RQ1: Effect of AI Adoption on Architectural Smell"
+  ],
+  [
+   524,
+   "### 4.3 RQ2: Disaggregated Effects by Smell Type"
+  ],
+  [
+   548,
+   "### 4.4 RQ3: Dynamic Treatment Effects"
+  ],
+  [
+   568,
+   "### 4.5 RQ4: Decomposing the ASD Effect"
+  ],
+  [
+   595,
+   "### 4.6 Exploratory: Treatment Heterogeneity by"
+  ],
+  [
+   606,
+   "### 4.7 Robustness Checks"
+  ],
+  [
+   727,
+   "## 5 Discussion"
+  ],
+  [
+   729,
+   "### 5.1 Code Growth Without Proportional Architectural Degradation"
+  ],
+  [
+   746,
+   "### 5.2 A Methodological Lesson for Density-Normalized Mining Outcomes"
+  ],
+  [
+   763,
+   "### 5.3 Implications"
+  ],
+  [
+   782,
+   "## 6 Threats to Validity"
+  ],
+  [
+   854,
+   "## 7 Conclusion"
+  ],
+  [
+   874,
+   "## Data Availability"
+  ],
+  [
+   882,
+   "## References"
+  ],
+  [
+   1125,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 6 Threats to Validity\n\nInternal Validity.\nDifferential attrition is the most serious concern.\nFrom the matched 90+90, 16/90 treatment (17.8%) and 13/90 control\n(14.4%) were lost (5 controls dropped pre-Arcan for insufficient git\nhistory; 24 repositories, 16 treatment and 8 control, lost during Arcan\nanalysis to JVM memory limits, concentrated among the largest projects). Lee bounds bracket the effect at\n [-9.9\\%,-2.3\\%] : both bounds are negative, but the upper bound’s\n95% CI includes zero ( p=0.239 ). Under worst-case attrition, the\neffect cannot be distinguished from null.\nParallel trends are supported by the event study Wald test\n( p=0.896 ), though this cannot exclude smooth pre-treatment effects\nabsorbed by repository fixed effects.\nEstimator sensitivity: Borusyak and TWFE-SA agree closely\n( -6.7\\% / -6.6\\% ). The Bacon decomposition (Sec. 4.7) confirms 89.1% of\nweight comes from clean comparisons, the bias Borusyak avoids by construction.\nStale observations: 19.3% of consecutive month-pairs share\nidentical commits; aggressive filtering ( N=94 ) attenuates the\neffect to non-significance, though moderate filtering ( N=128 ,\n p=0.027 ) retains it.\nInterference: we assume no spillover between units (SUTVA):\nshared libraries or fork relationships could violate this assumption,\nthough any spillover would attenuate estimates toward zero.\nCo-adoption and selection: the treatment may capture a\nmodernization bundle. Repository fixed effects and matching mitigate\ntime-invariant confounders, but unobserved time-varying changes\ncould confound the estimate.\n\nExternal Validity.\nWe focus on mature Java OSS systems to isolate architectural effects\nwhere structure is already established; findings apply to short-term\neffects under agentic AI usage. The effect may differ in greenfield\nprojects where AI influences architecture from inception, or under\nstrict governance constraining AI-generated changes. Generalization is\nfurther limited by language (Java, an Arcan constraint).\nSurvivorship is a further threat: repositories abandoned before\nsampling are invisible, potentially biasing toward neutrality.\n\nConstruct Validity.",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 67,
+  "seeds_or_runs": 2,
+  "swe_bench": 0,
+  "contamination": 2,
+  "human_study": 1,
+  "java": 11,
+  "industrial": 1
+ },
+ "fulltext_source": "html"
+}

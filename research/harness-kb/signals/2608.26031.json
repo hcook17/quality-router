@@ -1,0 +1,302 @@
+{
+ "arxiv_id": "2608.26031",
+ "fulltext_chars": 99813,
+ "fulltext_lines": 3206,
+ "authors_block": "Kaicheng Wang Liyan Huang Jesse Thomason Weihang Wang Affiliation: University of Southern California Affiliation: {wangkaic, liyanhua, jessetho, weihangw}@usc.edu",
+ "vendor_affiliation_hits": [],
+ "n_authors": 4,
+ "comment": "EMNLP Findings 26",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/CoIR-team/coir",
+  "https://github.com/evalplus/repoqa",
+  "https://github.com/salesforce/CodeT5"
+ ],
+ "hf_urls": [
+  "https://huggingface.co/Kwaipilot/OASIS-code-embedding-1.5B",
+  "https://huggingface.co/datasets/ClarcTeam",
+  "https://huggingface.co/datasets/THUDM",
+  "https://huggingface.co/nomic-ai/nomic-embed-code"
+ ],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   22,
+   "# Vulnerable Code Search: Transferable Attack for Code Language Models"
+  ],
+  [
+   36,
+   "###### Abstract"
+  ],
+  [
+   40,
+   "## 1 Introduction"
+  ],
+  [
+   68,
+   "## 2 Related Work"
+  ],
+  [
+   76,
+   "## 3 Adversarial Attack for Code Search"
+  ],
+  [
+   80,
+   "### 3.1 Threat Model"
+  ],
+  [
+   91,
+   "### 3.2 Gradient-Guided Optimization"
+  ],
+  [
+   132,
+   "### 3.3 Identifier Style Constraints"
+  ],
+  [
+   136,
+   "### 3.4 Query Token Similarity"
+  ],
+  [
+   146,
+   "### 3.5 Attack Transfer"
+  ],
+  [
+   152,
+   "## 4 Experiments and Results"
+  ],
+  [
+   162,
+   "### 4.1 Effectiveness and Transferability"
+  ],
+  [
+   337,
+   "### 4.2 Comparison with Baselines"
+  ],
+  [
+   380,
+   "### 4.3 Application on Code Search Benchmarks"
+  ],
+  [
+   463,
+   "### 4.4 Shared Corpus Attack"
+  ],
+  [
+   531,
+   "### 4.5 Effectiveness on LLMs"
+  ],
+  [
+   619,
+   "### 4.6 Defense via Robust Finetuning"
+  ],
+  [
+   672,
+   "### 4.7 Ablation Studies"
+  ],
+  [
+   725,
+   "## 5 Conclusion & Future Work"
+  ],
+  [
+   731,
+   "## Acknowledgements"
+  ],
+  [
+   735,
+   "## References"
+  ],
+  [
+   1486,
+   "## Appendix A Limitations"
+  ],
+  [
+   1490,
+   "## Appendix B Reproducibility"
+  ],
+  [
+   1524,
+   "## Appendix C Model & Dataset Details"
+  ],
+  [
+   1529,
+   "# Parameters"
+  ],
+  [
+   1535,
+   "# Tokens valid"
+  ],
+  [
+   1572,
+   "# Queries"
+  ],
+  [
+   1574,
+   "# Code Snippets"
+  ],
+  [
+   1604,
+   "### C.1 Model & Dataset License"
+  ],
+  [
+   1659,
+   "## Appendix D Implementation Details"
+  ],
+  [
+   1661,
+   "### D.1 Detailed Constraints"
+  ],
+  [
+   1801,
+   "### D.2 Search Space"
+  ],
+  [
+   1805,
+   "### D.3 Specification"
+  ],
+  [
+   1811,
+   "## Appendix E Supplementary Experimental Results"
+  ],
+  [
+   1813,
+   "### E.1 “Embedding Density” across Models"
+  ],
+  [
+   1878,
+   "### E.2 Details about Metrics"
+  ],
+  [
+   1880,
+   "#### Correlation Metrics"
+  ],
+  [
+   1894,
+   "#### Retrieval Metrics"
+  ],
+  [
+   1908,
+   "### E.3 Distribution of Code Similarity Changes"
+  ],
+  [
+   1927,
+   "### E.4 Query Transferability"
+  ],
+  [
+   2018,
+   "### E.5 Baseline Transferability"
+  ],
+  [
+   2024,
+   "### E.6 Attack on Various Programming Languages"
+  ],
+  [
+   2175,
+   "### E.7 Different Attack Ratio on Benchmark"
+  ],
+  [
+   2352,
+   "### E.8 Application of the Adversarial Attack on Other Benchmarks"
+  ],
+  [
+   2354,
+   "#### Attacking CLARC"
+  ],
+  [
+   2482,
+   "#### Attacking CodeSearchNet"
+  ],
+  [
+   2515,
+   "### E.9 Robust Finetuning"
+  ],
+  [
+   2595,
+   "### E.10 Ablation Studies"
+  ],
+  [
+   2601,
+   "#### Attack Code Selection"
+  ],
+  [
+   2607,
+   "#### Iteration Limit"
+  ],
+  [
+   2638,
+   "#### Choice of \\alpha"
+  ],
+  [
+   2644,
+   "## Appendix F Adversarial Attack Examples"
+  ],
+  [
+   2648,
+   "### F.1 CosQA"
+  ],
+  [
+   2652,
+   "#### Original Code Snippet"
+  ],
+  [
+   2688,
+   "#### Attacked Code Snippet"
+  ],
+  [
+   2724,
+   "#### Attacked Code Snippet (w/o gradient)"
+  ],
+  [
+   2760,
+   "#### Attacked Code Snippet (w/o style preservation)"
+  ],
+  [
+   2796,
+   "#### Attacked Code Snippet (w/o query token similarity)"
+  ],
+  [
+   2832,
+   "### F.2 CLARC"
+  ],
+  [
+   2836,
+   "#### Original Code Snippet"
+  ],
+  [
+   2910,
+   "#### Attacked Code Snippet"
+  ],
+  [
+   2984,
+   "#### Attacked Code Snippet (w/o gradient)"
+  ],
+  [
+   3058,
+   "#### Attacked Code Snippet (w/o style preservation)"
+  ],
+  [
+   3132,
+   "#### Attacked Code Snippet (w/o query token similarity)"
+  ],
+  [
+   3206,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgements\n\nWe thank the anonymous reviewers, ACs, and PCs for their constructive feedback. We also thank Jiaqi Lu for insightful discussions during the early stages of this work. This research was supported in part by the U.S. National Science Foundation (NSF) under grants 2409005 and 2321444. Any opinions, findings, and conclusions in this paper are those of the authors only and do not necessarily reflect the views of our sponsors.\n\n## References\n\nChen et al. (2024)\nJ. Chen, X. Hu, Z. Li, C. Gao, X. Xia, and D. Lo\n\nCode search is all you need? improving code suggestions with code search.\n\nIn Proceedings of the IEEE/ACM 46th International Conference on Software Engineering,\n\nICSE ’24, New York, NY, USA.\n\nExternal Links: ISBN 9798400702174,\nLink,\nDocument\n\nCited by: §2.\n\nChen et al. (2021)\nM. Chen, J. Tworek, H. Jun, Q. Yuan, H. P. de Oliveira Pinto, J. Kaplan, H. Edwards, Y. Burda, N. Joseph, G. Brockman, A. Ray, R. Puri, G. Krueger, M. Petrov, H. Khlaaf, G. Sastry, P. Mishkin, B. Chan, S. Gray, N. Ryder, M. Pavlov, A. Power, L. Kaiser, M. Bavarian, C. Winter, P. Tillet, F. P. Such, D. Cummings, M. Plappert, F. Chantzis, E. Barnes, A. Herbert-Voss, W. H. Guss, A. Nichol, A. Paino, N. Tezak, J. Tang, I. Babuschkin, S. Balaji, S. Jain, W. Saunders, C. Hesse, A. N. Carr, J. Leike, J. Achiam, V. Misra, E. Morikawa, A. Radford, M. Knight, M. Brundage, M. Murati, K. Mayer, P. Welinder, B. McGrew, D. Amodei, S. McCandlish, I. Sutskever, and W. Zaremba\n\nEvaluating large language models trained on code.",
+ "limitations": "## Appendix A Limitations\n\nAlthough we demonstrate that adversarial attacks can transfer across various code embedding models, the underlying causes of this transferability remain unclear. One possible explanation is that these models share overlapping pretraining data. However, because only a limited number of evaluated models have publicly available pretraining details, we cannot draw a definitive conclusion.\n\n## Appendix B Reproducibility\n\nTable 8: Compute resources used to generate 10,000 adversarial examples.\n\nSurrogate Model\n\nTotal Time\n\nGPU Time\n\nCPU Time\n\nGPU Memory\n\nToken Search Space\n\nCodeT5+ (110M)\n8 hours\n \\sim 6.8 hours (85%)\n \\sim 1.2 hours (15%)\n7GB\n15.1k\n\nOASIS (1.5B)\n12 hours\n \\sim 10.6 hours (88%)\n \\sim 1.4 hours (12%)\n26GB\n36.7k\n\nThe experiments described in this paper were conducted on a server equipped with an AMD EPYC Milan 7643 48-core CPU (@2.30GHz), 1TB of RAM, and an NVIDIA L40 Ada 48GB GPU. We used a batch size of 10 (query, code) pairs for attacks on CodeT5+ and 4 pairs for attacks on OASIS. We observed that larger batch sizes did not substantially change the runtime. The time and GPU memory required for the experiments are reported in Table 8.\n\nTo mitigate the risk of potential misuse, we do not publicly release the attack codebase. However, researchers interested in reproducing or extending these results are encouraged to contact the first author to discuss our implementation details.\n\n## Appendix C Model & Dataset Details",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 0,
+  "swe_bench": 1,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 8,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

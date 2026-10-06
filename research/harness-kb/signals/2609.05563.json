@@ -1,0 +1,297 @@
+{
+ "arxiv_id": "2609.05563",
+ "fulltext_chars": 103739,
+ "fulltext_lines": 1665,
+ "authors_block": "Conference: Make sure to enter the correct conference title from your rights confirmation email; June 03–05, 2018; Woodstock, NY Avinash Bhat email: avinash.bhat@mail.mcgill.ca Affiliation: McGill University, Montreal, Canada , Vy Bui email: vy.bui@mail.mcgill.ca Affiliation: McGill University, Montreal, Canada and Jin L.C. Guo email: jguo@cs.mcgill.ca Affiliation: McGill University, Montreal, Canada Figure 1. Overview of dBlocks. The main interface contains a content editor and chat panel on the left, with a block list on the right. Three key features are highlighted: (a) users verify generated code by executing it inline and viewing output directly in the editor; (b) users curate the LLM context by selecting which elements to include through the context manager; (c) users organize tutorials into blocks, each with its own workspace and LLM chat history.",
+ "vendor_affiliation_hits": [],
+ "n_authors": 3,
+ "comment": "27 pages, 8 figures, 5 tables. Under Review at TOSEM Special Issue on Human AI Collaboration in Software Engineering",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Look Before You Prompt, and After: Scaffolding Human-AI Collaboration in Software Tutorial Creation"
+  ],
+  [
+   48,
+   "###### Abstract."
+  ],
+  [
+   52,
+   "###### Keywords:"
+  ],
+  [
+   55,
+   "## 1. Introduction"
+  ],
+  [
+   97,
+   "## 2. Background and Related Work"
+  ],
+  [
+   101,
+   "### 2.1. Creating Software Documentation"
+  ],
+  [
+   107,
+   "### 2.2. Tool Support for Creating Software Tutorials"
+  ],
+  [
+   115,
+   "### 2.3. LLM-Assisted Writing"
+  ],
+  [
+   117,
+   "##### Writing Tasks"
+  ],
+  [
+   123,
+   "##### Writing Interfaces"
+  ],
+  [
+   131,
+   "### 2.4. Human-Centered Design Approaches for Software Engineering"
+  ],
+  [
+   150,
+   "## 3. Formative Study"
+  ],
+  [
+   154,
+   "### 3.1. Study Design"
+  ],
+  [
+   158,
+   "#### 3.1.1. Recruitment"
+  ],
+  [
+   162,
+   "#### 3.1.2. Study Procedure"
+  ],
+  [
+   204,
+   "#### 3.1.3. Analysis"
+  ],
+  [
+   208,
+   "### 3.2. Findings"
+  ],
+  [
+   212,
+   "#### 3.2.1. Writers Assemble and Refine Tutorial Drafts Across Many LLM Responses"
+  ],
+  [
+   216,
+   "##### Challenges Surfaced"
+  ],
+  [
+   222,
+   "#### 3.2.2. Writers Extend and Restrict Context to Shape LLM Outputs"
+  ],
+  [
+   226,
+   "##### Challenges Surfaced"
+  ],
+  [
+   232,
+   "#### 3.2.3. Writers Verify LLM Outputs Using Their Domain Expertise, Authoritative Sources, and Execution"
+  ],
+  [
+   238,
+   "##### Challenges Surfaced"
+  ],
+  [
+   244,
+   "## 4. Designing dBlocks"
+  ],
+  [
+   282,
+   "### 4.1. Preliminary Design"
+  ],
+  [
+   286,
+   "#### 4.1.1. Blocks"
+  ],
+  [
+   290,
+   "#### 4.1.2. Scratchpads"
+  ],
+  [
+   294,
+   "#### 4.1.3. Context Manager"
+  ],
+  [
+   298,
+   "### 4.2. Improving Design through a User Study"
+  ],
+  [
+   302,
+   "#### 4.2.1. Method"
+  ],
+  [
+   368,
+   "#### 4.2.2. Finding 1: Participants bypassed scratchpads and worked directly with the content editor"
+  ],
+  [
+   374,
+   "#### 4.2.3. Finding 2: Participants needed flexibility in manipulating block boundaries"
+  ],
+  [
+   382,
+   "### 4.3. Final Design and Implementation"
+  ],
+  [
+   384,
+   "#### 4.3.1. Overview"
+  ],
+  [
+   388,
+   "#### 4.3.2. Organizing and Restructuring Content with Blocks"
+  ],
+  [
+   394,
+   "#### 4.3.3. Creating and Verifying Content in the Block Workspace"
+  ],
+  [
+   402,
+   "#### 4.3.4. Selecting Context for Prompts with the Context Manager"
+  ],
+  [
+   408,
+   "#### 4.3.5. System Implementation"
+  ],
+  [
+   414,
+   "## 5. Summative User Study"
+  ],
+  [
+   448,
+   "### 5.1. Study Design"
+  ],
+  [
+   452,
+   "#### 5.1.1. Recruitment"
+  ],
+  [
+   456,
+   "#### 5.1.2. Task and Procedure"
+  ],
+  [
+   534,
+   "#### 5.1.3. Analysis"
+  ],
+  [
+   538,
+   "### 5.2. Findings"
+  ],
+  [
+   548,
+   "#### 5.2.1. Inline Execution Reduces Friction in Checking Generated Code Quality"
+  ],
+  [
+   552,
+   "##### Verifying generated code"
+  ],
+  [
+   556,
+   "##### Recovering from errors"
+  ],
+  [
+   562,
+   "#### 5.2.2. Blocks Help Writers Organize LLM Conversations Around Specific Tutorial Sections"
+  ],
+  [
+   566,
+   "##### Locating and accessing conversations tied to specific sections"
+  ],
+  [
+   570,
+   "##### Splitting and reorganizing long LLM outputs"
+  ],
+  [
+   574,
+   "#### 5.2.3. Context Manager Gives Writers Explicit Control Over Prompt Context"
+  ],
+  [
+   578,
+   "##### Excluding irrelevant conversation history"
+  ],
+  [
+   582,
+   "##### Selecting specific portions of reference material"
+  ],
+  [
+   586,
+   "##### Usability concerns with selecting context manually"
+  ],
+  [
+   590,
+   "## 6. Discussion"
+  ],
+  [
+   594,
+   "### 6.1. Creating Software Tutorials in the Age of LLM-Mediated Documentation"
+  ],
+  [
+   600,
+   "### 6.2. Designing LLM-Integrated Tools for SE Workflows"
+  ],
+  [
+   604,
+   "##### Scoping LLM Interactions to Artifact Structure (R1)"
+  ],
+  [
+   608,
+   "##### Making LLM Context a Manipulable Object (R2)"
+  ],
+  [
+   612,
+   "##### Integrating Verification with Generation (R3)"
+  ],
+  [
+   616,
+   "### 6.3. Using Human-Centered Design Methods to Create Tools for SE"
+  ],
+  [
+   620,
+   "### 6.4. Study Limitations"
+  ],
+  [
+   628,
+   "## 7. Conclusion"
+  ],
+  [
+   632,
+   "## Acknowledgement"
+  ],
+  [
+   636,
+   "## References"
+  ],
+  [
+   1665,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgement\n\nWe thank Sophearah Suy-Puth, Yufeng Peng, and Disha Shrivastava for early discussions that helped shape this work, and Sophearah and Yufeng for their contributions to the early prototype. We are also grateful to our study participants for their time and insights. This work was supported by the Natural Sciences and Engineering Research Council of Canada (NSERC).\n\n## References\n\nAbrahão et al. (2025)\nS. Abrahão, J. Grundy, M. Pezzè, M. Storey, and D. A. Tamburri\n\nSoftware Engineering by and for Humans in an AI Era.\n\nACM Transactions on Software Engineering and Methodology 34 (5), pp. 1–46.\n\nExternal Links: Document\n\nCited by: §2.4.\n\nAghajani et al. (2020)\nE. Aghajani, C. Nagy, M. Linares-Vásquez, L. Moreno, G. Bavota, M. Lanza, and D. C. Shepherd\n\nSoftware Documentation: The Practitioners’ Perspective.\n\nIn Proceedings of the ACM/IEEE 42nd International Conference on Software Engineering,\n\nICSE ’20, New York, NY, USA, pp. 590–601.",
+ "limitations": "### 6.4. Study Limitations\n\nIn our user study, we measured confidence based on what the participants self-reported and did not independently evaluate tutorial quality through expert review or reader comprehension. Participants like P5 tied their confidence to sections where they had executed code (“Having run the code [in block] one, I am very confident it’s correct”). However, we acknowledge that code execution only confirms that code runs and does not validate the surrounding prose. We observed that writers appeared to transfer the confidence gained from verified code to the tutorial as a whole. The reported confidence should therefore be read as writers’ perception of their work rather than an indicator of tutorial quality; future work should evaluate quality independently through expert review or reader comprehension studies.\n\nSecond, the control condition let each participant use their preferred LLM tool rather than a fixed system. We made this choice to prioritize ecological validity, so the observed differences reflect how dBlocks compares against participants’ habitual workflows. However, comparing against a fixed baseline could isolate the effect of dBlocks’s features.\n\nFinally, each condition was limited to 15 minutes, and participants were already familiar with their preferred LLM tools but received only a brief tutorial for dBlocks. These constraints affected both conditions differently. For instance, P1 spent the entire control condition on environment setup and never succeeded in executing code; with more time, they might have verified it. In dBlocks, P1 and P10 initially forgot to add content to the context, which can be attributed to their limited familiarity with the interface. The benefits of blocks to scope the content may also become more pronounced as tutorials grow beyond what 15 minutes allows. Overall, the shorter familiarity and 15-minute limit likely disadvantaged dBlocks, which makes the observed confidence difference more notable.\n\n## 7. Conclusion\n\nAs software engineering as a field adopts LLMs, we need the research community to design and develop tools that make interactions with these models and their outputs better. We investigated one such context in this paper, tutorial creation, where the work now extends beyond writing code and explanations to prompting and evaluating what the model produces. By analyzing interviews with 17 technical writers, we identified requirements for this work and, grounded in human-centered design methods, iteratively developed dBlocks around them. Our evaluation found that these features let writers engage more deeply with the creation process and improved their reported confidence in the tutorials produced. Whether these shifts hold in documentation work in practice, across longer projects and organizational constraints, remains to be tested, but our study offers a starting point for such investigation. We also argue that the requirements generalize beyond tutorial creation to other LLM-assisted SE tasks such as programming, and we encourage future work to build on them when designing tools for these tasks.\n\n## Acknowledgement\n\nWe thank Sophearah Suy-Puth, Yufeng Peng, and Disha Shrivastava for early discussions that helped shape this work, and Sophearah and Yufeng for their contributions to the early prototype. We are also grateful to our study participants for their time and insights. This work was supported by the Natural Sciences and Engineering Research Council of Canada (NSERC).\n\n## References\n\nAbrahão et al. (2025)\nS. Abrahão, J. Grundy, M. Pezzè, M. Storey, and D. A. Tamburri\n\nSoftware Engineering by and for Humans in an AI Era.\n\nACM Transactions on Software Engineering and Methodology 34 (5), pp. 1–46.\n\nExternal Links: Document\n\nCited by: §2.4.\n\nAghajani et al. (2020)\nE. Aghajani, C. Nagy, M. Linares-Vásquez, L. Moreno, G. Bavota, M. Lanza, and D. C. Shepherd\n\nSoftware Documentation: The Practitioners’ Perspective.\n\nIn Proceedings of the ACM/IEEE 42nd Inter",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 2,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 6,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 148,
+  "java": 1,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

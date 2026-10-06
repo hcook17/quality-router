@@ -1,0 +1,473 @@
+{
+ "arxiv_id": "2608.12375",
+ "fulltext_chars": 156000,
+ "fulltext_lines": 3533,
+ "authors_block": "Nikos Karayannidis Affiliation: Independent, Athens, Greece email: nkarag@gmail.com",
+ "vendor_affiliation_hits": [],
+ "n_authors": 1,
+ "comment": "Extended version of a work-in-progress paper; the experimental evaluation is in progress and will appear in a later revision. Builds on a companion grain theory paper, arXiv:2601.00995",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Pipeline Denotational Design: Correct-by-Construction Data Pipelines at Zero Cost"
+  ],
+  [
+   28,
+   "###### Abstract."
+  ],
+  [
+   74,
+   "## 1. Introduction"
+  ],
+  [
+   114,
+   "#### Who verifies AI-generated pipelines?"
+  ],
+  [
+   133,
+   "#### From verification to synthesis."
+  ],
+  [
+   161,
+   "#### Three levers on complexity."
+  ],
+  [
+   176,
+   "#### Correctness in three layers, at design time, at zero cost."
+  ],
+  [
+   193,
+   "#### Three concerns, cleanly separated."
+  ],
+  [
+   231,
+   "#### The engineer’s new role: author the spec, check the certificate."
+  ],
+  [
+   260,
+   "#### A production realization."
+  ],
+  [
+   270,
+   "#### Contributions."
+  ],
+  [
+   353,
+   "## 2. Pipeline Denotational Design"
+  ],
+  [
+   362,
+   "### 2.1. The Semantic Function"
+  ],
+  [
+   436,
+   "### 2.2. Four Denotations, One Methodology"
+  ],
+  [
+   489,
+   "### 2.3. The Pipeline Development Life Cycle"
+  ],
+  [
+   581,
+   "### 2.4. Running Example"
+  ],
+  [
+   593,
+   "## 3. Background: Grain Theory and the Grain Homomorphism"
+  ],
+  [
+   609,
+   "### 3.1. Grain: the Irreducible Core of a Type"
+  ],
+  [
+   630,
+   "#### Type-level field-set operations."
+  ],
+  [
+   642,
+   "#### A guaranteed key."
+  ],
+  [
+   652,
+   "#### Compositional, idempotent, universal."
+  ],
+  [
+   670,
+   "### 3.2. Grain Relations and the Grain Lattice"
+  ],
+  [
+   764,
+   "### 3.3. Entity and Entity Key: a Grain Within the Grain"
+  ],
+  [
+   787,
+   "### 3.4. Behavioral Class: Grain Determines Behavior"
+  ],
+  [
+   789,
+   "#### One schema, many behaviors."
+  ],
+  [
+   816,
+   "#### Behavioral class."
+  ],
+  [
+   847,
+   "### 3.5. Why PDD Holds: The Grain Homomorphism"
+  ],
+  [
+   861,
+   "###### Theorem 3.1 (Grain homomorphism (Karayannidis, 2027))."
+  ],
+  [
+   884,
+   "### 3.6. Why PDD Is Computable"
+  ],
+  [
+   916,
+   "###### Theorem 3.2 (PDD Universality)."
+  ],
+  [
+   934,
+   "###### Proof sketch."
+  ],
+  [
+   998,
+   "## 4. The Pipeline Design Algebra"
+  ],
+  [
+   1014,
+   "###### Remark 4.1 (PDA is one instantiation)."
+  ],
+  [
+   1025,
+   "### 4.1. The Data Collection"
+  ],
+  [
+   1057,
+   "### 4.2. Four Morphism Classes"
+  ],
+  [
+   1085,
+   "###### Proposition 4.2 (Declares compose away)."
+  ],
+  [
+   1098,
+   "#### Grain, lens, and key."
+  ],
+  [
+   1125,
+   "### 4.3. Operation Contracts"
+  ],
+  [
+   1187,
+   "### 4.4. Capture: Reading Data"
+  ],
+  [
+   1257,
+   "#### Converter pattern."
+  ],
+  [
+   1265,
+   "#### pick generalizes checkout."
+  ],
+  [
+   1277,
+   "### 4.5. Apply: Writing Data"
+  ],
+  [
+   1297,
+   "#### Apply is pure: no mutable state, no state logic."
+  ],
+  [
+   1351,
+   "### 4.6. Transform: Reshaping Data"
+  ],
+  [
+   1360,
+   "#### Set operations."
+  ],
+  [
+   1366,
+   "#### Joins."
+  ],
+  [
+   1393,
+   "#### Selections."
+  ],
+  [
+   1403,
+   "#### Enrichment, grouping, and structure."
+  ],
+  [
+   1566,
+   "### 4.7. Declare: Re-declaring the Denotation"
+  ],
+  [
+   1631,
+   "#### Worked example: a versioned dimension to its current state."
+  ],
+  [
+   1659,
+   "## 5. Synthesizing Pipelines by Composition"
+  ],
+  [
+   1668,
+   "### 5.1. The Pipeline Type and the CTA Constructor"
+  ],
+  [
+   1692,
+   "### 5.2. Composition Operators"
+  ],
+  [
+   1757,
+   "### 5.3. Well-Typed Composition is Grain-Correct"
+  ],
+  [
+   1764,
+   "###### Theorem 5.1 (Compositional grain correctness)."
+  ],
+  [
+   1780,
+   "### 5.4. Pipeline Patterns"
+  ],
+  [
+   1846,
+   "## 6. Three-Layer Correctness"
+  ],
+  [
+   1895,
+   "### 6.1. Layer 1: Grain Correctness via CalcG (Zero Cost)"
+  ],
+  [
+   1914,
+   "###### Theorem 6.1 (Data-independent grain correctness (Karayannidis, 2027))."
+  ],
+  [
+   1925,
+   "#### Running example."
+  ],
+  [
+   1939,
+   "### 6.2. Layer 2: Behavioral-Class Correctness (Compile Time)"
+  ],
+  [
+   1949,
+   "### 6.3. Sound Re-Graining: From Collection Keys to Type Grain"
+  ],
+  [
+   1963,
+   "###### Theorem 6.2 (Universal Superkey is the Grain)."
+  ],
+  [
+   1977,
+   "###### Proof sketch."
+  ],
+  [
+   1988,
+   "###### Remark 6.3 (The quantifier is enforced, not observed)."
+  ],
+  [
+   1999,
+   "###### Corollary 6.4 (Design-Time Sound Re-Grain)."
+  ],
+  [
+   2013,
+   "###### Proof sketch."
+  ],
+  [
+   2022,
+   "#### Why a key, and what Res is."
+  ],
+  [
+   2037,
+   "#### The postcondition is all that matters."
+  ],
+  [
+   2050,
+   "#### Stricter target classes."
+  ],
+  [
+   2057,
+   "### 6.4. Layer 3: Domain Correctness"
+  ],
+  [
+   2080,
+   "#### Contract-derivable constraints (zero cost)."
+  ],
+  [
+   2093,
+   "#### Data-dependent constraints (specification + generated query)."
+  ],
+  [
+   2171,
+   "#### Collection relations and referential integrity."
+  ],
+  [
+   2196,
+   "### 6.5. From Specifications to Verification Queries"
+  ],
+  [
+   2205,
+   "###### Theorem 6.5 (Compilation correctness)."
+  ],
+  [
+   2233,
+   "###### Theorem 6.6 (Pipeline Correctness)."
+  ],
+  [
+   2253,
+   "###### Proof sketch."
+  ],
+  [
+   2280,
+   "### 6.6. Prevention, Not Detection"
+  ],
+  [
+   2324,
+   "#### Example 1: an over-broad read."
+  ],
+  [
+   2375,
+   "#### Example 2: a missed deletion."
+  ],
+  [
+   2392,
+   "#### Prevention versus the detection lottery."
+  ],
+  [
+   2443,
+   "### 6.7. The Verification Spectrum: Two Realizations of the Checker"
+  ],
+  [
+   2531,
+   "## 7. PDD-Toolchain"
+  ],
+  [
+   2537,
+   "#### Design and verification."
+  ],
+  [
+   2550,
+   "#### EDB — the executable target."
+  ],
+  [
+   2564,
+   "#### Code generation — design to deployment."
+  ],
+  [
+   2577,
+   "#### Deployment context and reproducibility."
+  ],
+  [
+   2592,
+   "## 8. Evaluation Design"
+  ],
+  [
+   2609,
+   "### 8.1. Research Questions"
+  ],
+  [
+   2649,
+   "### 8.2. Case Studies, Arms, and Protocol"
+  ],
+  [
+   2651,
+   "#### Case studies."
+  ],
+  [
+   2660,
+   "#### Three arms, two reference points."
+  ],
+  [
+   2681,
+   "#### Ground truth and protocol."
+  ],
+  [
+   2732,
+   "### 8.3. Planned Analyses"
+  ],
+  [
+   2789,
+   "### 8.4. Threats to Validity"
+  ],
+  [
+   2802,
+   "## 9. Beyond Pipelines: Correct-by-Construction Queries"
+  ],
+  [
+   2858,
+   "## 10. Related Work"
+  ],
+  [
+   2860,
+   "#### A spectrum: tests, types, proofs."
+  ],
+  [
+   2896,
+   "#### Semantic layers and AI-generated queries."
+  ],
+  [
+   2913,
+   "#### Foundations: dependencies, categories, provenance."
+  ],
+  [
+   2934,
+   "#### Our position."
+  ],
+  [
+   2976,
+   "## 11. Conclusion"
+  ],
+  [
+   3015,
+   "## Appendix A Deferred Proofs"
+  ],
+  [
+   3017,
+   "###### Proof of Theorem 6.2."
+  ],
+  [
+   3057,
+   "###### Proof of Theorem 3.2."
+  ],
+  [
+   3100,
+   "###### Proof of Theorem 6.6."
+  ],
+  [
+   3146,
+   "###### Proof of Corollary 6.4."
+  ],
+  [
+   3160,
+   "## References"
+  ],
+  [
+   3533,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "### 8.4. Threats to Validity\n\nThe case studies come from one enterprise domain; we mitigate with breadth across\npatterns, behavioral classes, and paradigms, and argue the patterns are\ndomain-independent. The no-design arm (C) isolates the design’s contribution from the\nLLM’s coding ability. Blind grading, an independently defined seeded-fault catalog,\nand historical-bug cross-checks mitigate author-built bias. Faithfulness is checked\nby differential testing in addition to static tracing. Effort figures are reported\nonly from measured timestamps and LOC; the deployment numbers of\n§7 are clearly labeled as context. A sanitized artifact (designs,\nevidence documents, generated queries, obligation ledgers, and the seeded-fault\ncatalog) accompanies the paper for reproducibility.\n\n## 9. Beyond Pipelines: Correct-by-Construction Queries\n\nNothing in PDD is specific to pipelines. A pipeline is a DAG of grain-bearing\ntransformations; a query is a single one—the one-node case. CalcG verifies\na whole DAG at design time (§6); a fortiori it verifies one\nquery—indeed the fan trap that opened this paper (§1) is a\nquery. So the correctness the method establishes—output grain, behavioral-class-respecting reads, no spurious fan-out—applies unchanged to the queries an analyst, a\nBI tool, or an AI agent issues on top of the data assets a pipeline builds.\n\nThis has become urgent. The AI-enabled data stack now being assembled across the\nindustry—knowledge graphs and ontologies, semantic layers, and\nnatural-language-to-SQL agents—turns a business question into a query\nautomatically. These layers solve a real problem: they tell an agent where to\nlook and how to phrase a query in the organization’s vocabulary. But that is a\ndifferent question from correctness. A semantic layer certifies that a query is\nwell-formed against the model; it does not certify that the query\ncomputes the intended number. An agent navigating an ontology can emit SQL that\nis syntactically valid and semantically plausible yet logically wrong, and—run\nagainst live data—return a confident wrong answer with no error raised. The guarantee\nthe industry is racing to deploy is one of fluency, not correctness.\n\nThe failure modes are the same grain and behavioral-class errors PDD prevents in\npipelines, now on the read path.\n(1) The fan trap. Asked for total revenue alongside total units, an agent joins\na revenue fact (one row per customer per order line) to a units fact (one row per\ncustomer per shipment) on customer id. The grains are incomparable, so the join\ncross-multiplies over the unmatched components: a customer with three order lines and",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 3,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 12
+ },
+ "fulltext_source": "html"
+}

@@ -1,0 +1,291 @@
+{
+ "arxiv_id": "2608.01324",
+ "fulltext_chars": 87536,
+ "fulltext_lines": 2115,
+ "authors_block": "Shaoxiong Yang \\mathrm{1\\mathord{*}\\dagger} Mengyuan Zhang \\mathrm{1\\dagger} Shaojun Lin \\mathrm{2\\mathsection} Chao Li \\mathrm{1} Affiliation: Wei Liu \\mathrm{1} Kun Shao \\mathrm{1\\ddagger} Jian Luan \\mathrm{1\\ddagger}",
+ "vendor_affiliation_hits": [],
+ "n_authors": 7,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/MiniMax-AI/MiniMax-M2Official"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   26,
+   "# G-ReAct: Graph-Guided Deep Search via Structure-State Co-Evolution"
+  ],
+  [
+   42,
+   "###### Abstract"
+  ],
+  [
+   55,
+   "## 1 Introduction"
+  ],
+  [
+   81,
+   "## 2 Related Work"
+  ],
+  [
+   83,
+   "### 2.1 Deep Search Agents"
+  ],
+  [
+   88,
+   "### 2.2 Knowledge Graph-Guided Structured Reasoning"
+  ],
+  [
+   94,
+   "## 3 Methodology"
+  ],
+  [
+   100,
+   "### 3.1 Query Graph Initialization"
+  ],
+  [
+   122,
+   "### 3.2 Graph-guided Reasoning and Acting"
+  ],
+  [
+   126,
+   "#### Limitations of Sequential Reasoning Paradigms."
+  ],
+  [
+   130,
+   "#### Graph-Constrained State-Space Decisions."
+  ],
+  [
+   168,
+   "### 3.3 Evidence-Driven State Evolve"
+  ],
+  [
+   194,
+   "#### Anti-Degeneration Mechanisms and Monotonic State Progress."
+  ],
+  [
+   225,
+   "##### Proposition 1 (Monotonic State Progress)."
+  ],
+  [
+   233,
+   "### 3.4 Iterative Refinement and Termination"
+  ],
+  [
+   249,
+   "## 4 Experiments"
+  ],
+  [
+   251,
+   "### 4.1 Experimental Setup"
+  ],
+  [
+   448,
+   "##### Benchmarks & Metrics."
+  ],
+  [
+   452,
+   "##### Baselines."
+  ],
+  [
+   456,
+   "##### Implementation Details."
+  ],
+  [
+   460,
+   "### 4.2 Main Results"
+  ],
+  [
+   464,
+   "##### (1) Performance: A 30B model establishes a new SOTA on XBench-DS with over 20 \\times fewer parameters."
+  ],
+  [
+   468,
+   "##### (2) Data Efficiency: Graph-structured trajectories enable highly efficient supervision."
+  ],
+  [
+   472,
+   "##### (3) Inference-Time Guidance: Structured guidance improves both effectiveness and search efficiency."
+  ],
+  [
+   476,
+   "##### (4) Paradigm Implication: Structured reasoning alleviates the inherent limitations of linear ReAct at the representation level."
+  ],
+  [
+   510,
+   "### 4.3 Ablation Studies"
+  ],
+  [
+   514,
+   "##### Component Contribution Analysis."
+  ],
+  [
+   518,
+   "##### Design Choice Analysis."
+  ],
+  [
+   579,
+   "## 5 Conclusion"
+  ],
+  [
+   583,
+   "## References"
+  ],
+  [
+   1119,
+   "## Appendix A G-ReAct Algorithm"
+  ],
+  [
+   1209,
+   "## Appendix B Ablation Studies"
+  ],
+  [
+   1213,
+   "### B.1 State-Summarizer Ablation"
+  ],
+  [
+   1240,
+   "## Appendix C Proof of Proposition 1"
+  ],
+  [
+   1242,
+   "##### Proposition 1 (Restated)."
+  ],
+  [
+   1249,
+   "##### Property (a)."
+  ],
+  [
+   1254,
+   "##### Property (b)."
+  ],
+  [
+   1258,
+   "##### Property (c)."
+  ],
+  [
+   1264,
+   "## Appendix D Implementation Details"
+  ],
+  [
+   1266,
+   "### D.1 Training Setup"
+  ],
+  [
+   1270,
+   "### D.2 Training Data Construction Pipeline"
+  ],
+  [
+   1280,
+   "### D.3 Trajectory-Construction Ablation"
+  ],
+  [
+   1332,
+   "### D.4 Computational Budgets"
+  ],
+  [
+   1336,
+   "### D.5 Tool Specifications"
+  ],
+  [
+   1340,
+   "## Appendix E Benchmark Details"
+  ],
+  [
+   1348,
+   "## Appendix F Query Graph Schema"
+  ],
+  [
+   1352,
+   "### F.1 Graph Structure Definition"
+  ],
+  [
+   1358,
+   "### F.2 Relation Ontology (21 Types)"
+  ],
+  [
+   1388,
+   "### F.3 Faithfulness Constraints"
+  ],
+  [
+   1414,
+   "## Appendix G Prompt Templates"
+  ],
+  [
+   1416,
+   "### G.1 System Prompt"
+  ],
+  [
+   1430,
+   "### G.2 G-ReAct Context Template"
+  ],
+  [
+   1500,
+   "### G.3 Query Graph Construction Prompt"
+  ],
+  [
+   1755,
+   "### G.4 State Transition Prompt"
+  ],
+  [
+   1900,
+   "### G.5 Visit Tool Extraction Prompt"
+  ],
+  [
+   1925,
+   "### G.6 Forced Answer Prompt"
+  ],
+  [
+   1936,
+   "## Appendix H Case Study"
+  ],
+  [
+   1944,
+   "### H.1 Question and Query Graph"
+  ],
+  [
+   1961,
+   "##### Query Graph G_{0} ."
+  ],
+  [
+   1995,
+   "### H.2 Graph-Conditioned Exploration"
+  ],
+  [
+   2047,
+   "### H.3 State Update and Final Answer"
+  ],
+  [
+   2049,
+   "##### Evidence-Driven State Update ( \\Psi )."
+  ],
+  [
+   2099,
+   "##### Final Answer."
+  ],
+  [
+   2115,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "#### Limitations of Sequential Reasoning Paradigms.\n\nThe standard ReAct method (Yao et al. 2023) conditions each decision on the flat interaction history H_{t}=\\langle q,(r_{s},a_{s},o_{s})_{s=1}^{t}\\rangle , where r_{s},a_{s},o_{s} are the reasoning trace, tool action, and observation at step s . As the sole state representation, this flat history leaves the structural dependencies and constraint propagation of multi-hop reasoning unmodeled. As the horizon grows, three systematic failures emerge: (i) redundant retrieval: previously answered sub-questions are re-searched due to lack of progress tracking; (ii) constraint loss: multi-hop constraints dissipate in long contexts (Zhu et al. 2026), so satisfying one constraint inadvertently violates another; and (iii) reasoning drift: noise in the flat history progressively drives the agent off its original search objective (Liu et al. 2024).\n\n#### Graph-Constrained State-Space Decisions.\n\nTo address these failures, G-ReAct reformulates reasoning as a graph-constrained state-space decision process in which a fixed query graph G_{0} and an evolving structured state S_{i} jointly guide reasoning, restoring the progress tracking, constraint propagation, and objective anchoring that the flat history loses.\n\nStructured Reasoning State. The structured state at iteration i is\n\n S_{i}=(F_{\\leq i},\\;\\mathcal{C}_{i},\\;\\Sigma_{i}), \n\n(3)\n\nwith components\n\n• \n\n F_{\\leq i}=\\bigcup_{s=1}^{i}F_{s} : the cumulative set of verified facts;\n\n• \n\n \\mathcal{C}_{i} : the node candidate domain, containing candidate entity lists with confidence ratings for each abstract node;\n\n• \n\n \\Sigma_{i} : the global consistency state, recording reasoning progress, constraint satisfaction, and contradiction detection.\n\nThe initial state is S_{0}=(\\emptyset,\\emptyset,\\emptyset) .\n\nGraph-Conditioned Policy. Unlike standard ReAct, which conditions on the entire flat history H_{t} , G-ReAct conditions each decision on the fixed graph G_{0} , the structured state S_{i-1} , and only the local interaction history of the current round:\n\n a_{t}\\sim\\pi_{\\text{G-ReAct}}\\!\\left(\\,\\cdot\\mid G_{0},\\,S_{i-1},\\,H_{t}^{(\\mathrm{local})}\\right), \n\n(4)\n\nwhere H_{t}^{(\\mathrm{local})} denotes the tool interactions within the current exploration round, discarded at round end. Cross-round coherence is thus carried by S_{i-1} rather than a growing textual context, avoiding the noise accumulation and history dilution of flat-history policies.\n\nAdaptive Search Strategy. Beyond the state S_{i-1} , the agent decides where to search next based on the confidence \\gamma of the current best candidate set in \\mathcal{C}_{i} , adopting a three-tier strategy: high (verify remaining constraints to confirm the leading candidate), medium (limited verification, then broaden exploration on failure or contradiction), and low (discard candidates and explore graph-guided new directions), adaptively allocating exploration effort by evidence strength.",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 3,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 7,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

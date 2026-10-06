@@ -1,0 +1,513 @@
+{
+ "arxiv_id": "2607.25431",
+ "fulltext_chars": 228454,
+ "fulltext_lines": 6298,
+ "authors_block": "##### Report GitHub Issue Title: Content selection saved. Describe the issue below: Description: arXiv is now an independent nonprofit! Learn more Back to arXiv License: arXiv.org perpetual non-exclusive license arXiv:2607.25431v2 [cs.SE] 28 Sep 2026 # CodeNib: A Multi-View Data System for Serving Repository Context to Coding Agents Zhongming Yu Affiliation: UC San Diego, La Jolla, California, USA email: zhy025@ucsd.edu , Hengjia Yu Affiliation: UC San Diego, La Jolla, California, USA email: hey015@ucsd.edu , Boqin Yuan Affiliation: UC San Diego, La Jolla, California, USA email: b4yuan@ucsd.edu , Shuting Zhao Affiliation: UC San Diego, La Jolla, California, USA email: shz106@ucsd.edu , Yizhao Chen Affiliation: UC San Diego, La Jolla, California, USA email: yic138@ucsd.edu , Aryan Dokania Affiliation: UC San Diego, La Jolla, California, USA email: adokania@ucsd.edu , Mihir Jagtap Affiliation: UC San Diego, La Jolla, California, USA email: mjagtap@ucsd.edu , Jiayu Chang Affiliation: Stanford University, Stanford, California, USA email: cjy1125@stanford.edu , Yitong Ma Affiliation: UC San Diego, La Jolla, California, USA email: yim030@ucsd.edu , Yash Jayswal Affiliation: UC San Diego, La Jolla, California, USA email: yjayswal@ucsd.edu , Wentao Ni Affiliation: UC San Diego, La Jolla, California, USA email: w2ni@ucsd.edu , Hejia Zhang Affiliation: UC San Diego, La Jolla, California, USA email: hez024@ucsd.edu , Zhaoling Chen Affiliation: UC Riverside, Riverside, California, USA em",
+ "vendor_affiliation_hits": [
+  "GitHub"
+ ],
+ "n_authors": 15,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/sourcegraph/zoektAccessed"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "#  CodeNib: A Multi-View Data System for Serving Repository Context to"
+  ],
+  [
+   127,
+   "###### Abstract."
+  ],
+  [
+   158,
+   "## 1. Introduction"
+  ],
+  [
+   352,
+   "## 2. Background and Positioning"
+  ],
+  [
+   376,
+   "### 2.1. Data-Management Foundations"
+  ],
+  [
+   390,
+   "### 2.2. Materialized Code Intelligence"
+  ],
+  [
+   415,
+   "### 2.3. Repository Retrieval and Structural Context"
+  ],
+  [
+   453,
+   "### 2.4. Agent Interfaces and Context"
+  ],
+  [
+   483,
+   "## 3. System Overview"
+  ],
+  [
+   496,
+   "### 3.1. Repository View Compiler"
+  ],
+  [
+   516,
+   "### 3.2. Query Planning and Retrieval"
+  ],
+  [
+   521,
+   "#### Ranked retrieval."
+  ],
+  [
+   527,
+   "#### Symbol navigation."
+  ],
+  [
+   537,
+   "### 3.3. Agent Runtime"
+  ],
+  [
+   553,
+   "### 3.4. Boundaries"
+  ],
+  [
+   568,
+   "#### From dataflow to measurements."
+  ],
+  [
+   584,
+   "## 4. Repository Views and Request Semantics"
+  ],
+  [
+   591,
+   "### 4.1. Views and Source Addresses"
+  ],
+  [
+   629,
+   "### 4.2. Four Operation Classes"
+  ],
+  [
+   631,
+   "#### Ranked retrieval."
+  ],
+  [
+   655,
+   "#### Symbol navigation."
+  ],
+  [
+   675,
+   "#### Structural-view maintenance."
+  ],
+  [
+   710,
+   "#### Context delivery."
+  ],
+  [
+   724,
+   "### 4.3. Metrics and Cost Accounting"
+  ],
+  [
+   776,
+   "## 5. Materialized Repository Views"
+  ],
+  [
+   783,
+   "### 5.1. Source Units"
+  ],
+  [
+   798,
+   "### 5.2. Structural View"
+  ],
+  [
+   819,
+   "### 5.3. Dense and Lexical Views"
+  ],
+  [
+   838,
+   "### 5.4. Manifest Linking"
+  ],
+  [
+   852,
+   "## 6. View Construction and Freshness"
+  ],
+  [
+   875,
+   "### 6.1. Language Backend Selection"
+  ],
+  [
+   902,
+   "### 6.2. Initial-Materialization Pipeline"
+  ],
+  [
+   924,
+   "### 6.3. Static Symbol Serving"
+  ],
+  [
+   943,
+   "### 6.4. Delta Maintenance and Freshness"
+  ],
+  [
+   998,
+   "## 7. Query and Context Runtime"
+  ],
+  [
+   1000,
+   "### 7.1. Agent Loop and View Loading"
+  ],
+  [
+   1150,
+   "### 7.2. Ranked Query Plans"
+  ],
+  [
+   1181,
+   "#### Dense search."
+  ],
+  [
+   1187,
+   "#### Pointwise reranking."
+  ],
+  [
+   1197,
+   "#### Graph expansion and experimental fusion."
+  ],
+  [
+   1216,
+   "### 7.3. Static and Live Navigation"
+  ],
+  [
+   1232,
+   "### 7.4. Context Policies"
+  ],
+  [
+   1263,
+   "#### Real-repair policies."
+  ],
+  [
+   1288,
+   "## 8. Implementation"
+  ],
+  [
+   1295,
+   "### 8.1. Repository View Compiler and Runtime"
+  ],
+  [
+   1316,
+   "### 8.2. Tool and Serving Adapters"
+  ],
+  [
+   1336,
+   "### 8.3. Runtime Entry Points and Observability"
+  ],
+  [
+   1354,
+   "## 9. Evaluation"
+  ],
+  [
+   1432,
+   "### 9.1. Experimental Setup"
+  ],
+  [
+   1514,
+   "#### Workloads."
+  ],
+  [
+   1584,
+   "#### Ground truth."
+  ],
+  [
+   1593,
+   "#### Metrics and inference."
+  ],
+  [
+   1633,
+   "#### Execution environment and models."
+  ],
+  [
+   1649,
+   "#### AI-assisted research."
+  ],
+  [
+   1657,
+   "### 9.2. Q1: Retrieval-Plan Tradeoffs"
+  ],
+  [
+   1659,
+   "#### Dense retrieval and reranking."
+  ],
+  [
+   1679,
+   "#### Graph expansion."
+  ],
+  [
+   1715,
+   "### 9.3. Q2: Index Construction and Search"
+  ],
+  [
+   1721,
+   "#### Build-time scaling."
+  ],
+  [
+   1741,
+   "#### Index-family ablation."
+  ],
+  [
+   1774,
+   "### 9.4. Q3: Static versus Live Symbol Compatibility and Latency"
+  ],
+  [
+   1852,
+   "#### Compatibility by capability and backend."
+  ],
+  [
+   1882,
+   "#### Operational cost."
+  ],
+  [
+   1902,
+   "### 9.5. Q4: Incremental View Maintenance"
+  ],
+  [
+   2001,
+   "#### The comparison admits graph repair per repository, not per language."
+  ],
+  [
+   2024,
+   "#### Vector reuse passes on both cohorts, with inventory and replay checked together."
+  ],
+  [
+   2034,
+   "#### Reference stability."
+  ],
+  [
+   2052,
+   "### 9.6. Cross-Stage Lifecycle Accounting"
+  ],
+  [
+   2076,
+   "### 9.7. Q5: Agent Context Delivery"
+  ],
+  [
+   2110,
+   "### 9.8. Q6: Manifest-Backed Provider Substitution"
+  ],
+  [
+   2249,
+   "#### Execution completion."
+  ],
+  [
+   2260,
+   "#### Serving cost."
+  ],
+  [
+   2270,
+   "#### Why the agent finishes more often."
+  ],
+  [
+   2286,
+   "#### Localization."
+  ],
+  [
+   2297,
+   "### 9.9. Q7: Context Delivery and Retention on Real Repairs"
+  ],
+  [
+   2336,
+   "#### Resolution and retention."
+  ],
+  [
+   2374,
+   "#### Outcome and usage observability."
+  ],
+  [
+   2389,
+   "## 10. Discussion"
+  ],
+  [
+   2391,
+   "### 10.1. Findings"
+  ],
+  [
+   2397,
+   "#### F1: Retiring delivered candidates converts budget into completed"
+  ],
+  [
+   2414,
+   "#### F2: Substituting the repository provider lets the agent finish more"
+  ],
+  [
+   2426,
+   "#### F3: Every view has a cheap ready point, and static definitions can"
+  ],
+  [
+   2439,
+   "#### F4: The offline comparisons catch what execution status cannot,"
+  ],
+  [
+   2452,
+   "#### F5: Content-addressed vector reuse is the dependable incremental"
+  ],
+  [
+   2460,
+   "### 10.2. Threats to Validity"
+  ],
+  [
+   2462,
+   "#### Construct validity."
+  ],
+  [
+   2474,
+   "#### Internal validity."
+  ],
+  [
+   2494,
+   "#### External validity."
+  ],
+  [
+   2503,
+   "### 10.3. Future Directions"
+  ],
+  [
+   2512,
+   "## 11. Conclusion"
+  ],
+  [
+   2524,
+   "## References"
+  ],
+  [
+   3468,
+   "## Appendix A Dataset Construction and Ground Truth"
+  ],
+  [
+   3470,
+   "#### Frozen dataset identities."
+  ],
+  [
+   3481,
+   "#### Upstream provenance and task boundary."
+  ],
+  [
+   3536,
+   "#### Base repository and instance sampling."
+  ],
+  [
+   3560,
+   "#### Coordinates and evaluation targets."
+  ],
+  [
+   3571,
+   "#### Synthesis construction."
+  ],
+  [
+   3597,
+   "## Appendix B Metric Definitions and Worked Examples"
+  ],
+  [
+   3604,
+   "#### Patch-target coverage and all-file success."
+  ],
+  [
+   3620,
+   "#### Physical-index fidelity."
+  ],
+  [
+   3631,
+   "#### Navigation compatibility."
+  ],
+  [
+   3643,
+   "#### Maintenance output checks."
+  ],
+  [
+   3655,
+   "#### Committed-answer localization."
+  ],
+  [
+   3674,
+   "#### Trajectory-token accounting."
+  ],
+  [
+   3701,
+   "## Appendix C Multilingual Source Units"
+  ],
+  [
+   3703,
+   "#### Levels."
+  ],
+  [
+   3769,
+   "#### Repository and document filters."
+  ],
+  [
+   3792,
+   "## Appendix D Parsing and Semantic-Navigation Backends"
+  ],
+  [
+   3794,
+   "#### Separation of responsibilities."
+  ],
+  [
+   3870,
+   "#### SCIP lowering and persistence."
+  ],
+  [
+   3889,
+   "#### Project preparation and capability checks."
+  ],
+  [
+   3902,
+   "#### Live-LSP replay boundary."
+  ],
+  [
+   3918,
+   "## Appendix E Retrieval Models and Frozen Parameters"
+  ],
+  [
+   3920,
+   "#### Embedding stack."
+  ],
+  [
+   4019,
+   "#### Pointwise reranking."
+  ],
+  [
+   4067,
+   "## Appendix F Incremental-Maintenance Protocol"
+  ],
+  [
+   4069,
+   "#### Update sequences and execution."
+  ],
+  [
+   4087,
+   "#### Repair mechanics."
+  ],
+  [
+   4101,
+   "#### Offline output comparison."
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "### 10.2. Threats to Validity\n\n#### Construct validity.\n\nRetrieval targets are pre-patch files and callables intersected by developer\npatches, so they omit context read without editing, and added-only units are\nunretrievable. Q6 measures localization, and Q7’s official tests cannot\nestablish correctness beyond their coverage. Navigation compares source\nlocations only, ready-state RSS is not peak memory, and maintenance compares\ndeclared facts and sampled navigation outputs, so neither proves general\nequivalence. Token counts exclude cache discounts and are lower bounds where\ncounters are missing, nested clocks do not give an end-to-end latency, and\nQ1 leaves the route selector unmeasured.\n\n#### Internal validity.\n\nTwo analyses of the repair study were written after we saw its outcomes, the\ncomplete-pair estimate and the missing-outcome sensitivity; the population,\nordering, and contrasts were frozen beforehand. Haiku is reached through a\nhosted alias that can change between execution dates, and missing usage\ncounters rule out any token-saving claim. Because the USD 1 stop rule binds,\na non-submission is an outcome of this bounded deployment, the USD 2\nfollow-up covers only non-Django tasks, and view construction would enter an\nend-to-end cost. Only the compact and eager arms hold candidate bytes fixed. Q6 and its length-matched control reuse one cohort\nand its indexes after a first execution exposed two interface defects of\nours, so they correct the interface but are not independent replications;\nan earlier ten-task study estimated a 17.5-point localization deficit with an\ninterval spanning zero.\nThe navigation audit reassigned 311 of 487 observed mismatches to our\ndecoder, and the residual case study is AI-assisted rather than\nhuman-annotated; rebuilding the Q6 graphs with the\ncorrected decoder reproduces their facts exactly. Timing shares the host\nwith other work and is descriptive.\n\n#### External validity.\n\nRetrieval and navigation cover 100 snapshots in five language groups, each\nmaintenance cohort eight repositories. The repair primary covers 200 Python\ntasks from 11 repositories, 92 of them Django, with one model and unknown\nbenchmark exposure; provider substitution covers 30 tasks and one model. The",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 31,
+  "seeds_or_runs": 5,
+  "swe_bench": 16,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 2
+ },
+ "fulltext_source": "html"
+}

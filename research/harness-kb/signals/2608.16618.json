@@ -1,0 +1,81 @@
+{
+ "arxiv_id": "2608.16618",
+ "fulltext_chars": 31066,
+ "fulltext_lines": 350,
+ "authors_block": "Tassio Sirqueira Affiliation: Department of Computer Science, Institute of Mathematics and Statistics, Rio de Janeiro State University, Rio de Janeiro, Brazil Jessica Faciroli Affiliation: Faculty of Economics, Rio de Janeiro State University, Rio de Janeiro, Brazil 2026",
+ "vendor_affiliation_hits": [],
+ "n_authors": 2,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   29,
+   "# The Specification Paradox: Rethinking Requirements Engineering in the Age of AI"
+  ],
+  [
+   41,
+   "###### Abstract"
+  ],
+  [
+   63,
+   "## The Illusion of Automation (or “The New Silver Bullet?”)"
+  ],
+  [
+   75,
+   "## From Code-Centered Development to Specification-Driven Development"
+  ],
+  [
+   93,
+   "## Rethinking Requirements Engineering"
+  ],
+  [
+   112,
+   "## Recent Empirical Evidence"
+  ],
+  [
+   128,
+   "### Risks and Limitations"
+  ],
+  [
+   148,
+   "### Practical Implications for Software Engineers"
+  ],
+  [
+   164,
+   "## Conclusion"
+  ],
+  [
+   176,
+   "## ACKNOWLEDGMENTS"
+  ],
+  [
+   181,
+   "## References"
+  ],
+  [
+   350,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## ACKNOWLEDGMENTS\n\nThis work was supported by the Brazilian funding agencies Coordenação de Aperfeiçoamento de Pessoal de Nível Superior (CAPES - Brazil) and\nFundação Carlos Chagas Filho de Amparo à Pesquisa do Estado do Rio de Janeiro (FAPERJ - Brazil). The Article Processing Charge (APC) for the publication of this research was funded by the Coordenação de Aperfeiçoamento de Pessoal de Nível Superior - Brasil (CAPES) (ROR identifier: 00x0ma614). The authors used ChatGPT to assist with linguistic and grammatical review, as well as image enhancement. The authors are responsible for the entire content of the article.\n\n## References\n\n[1]\nD. M. Berry (2002)\n\nRequirements engineering: the wish list.\n\nIEEE Software 19 (4), pp. 58–63.\n\nCited by: The Specification Paradox: Rethinking Requirements Engineering in the Age of AI.\n\n[2]\nD. M. Berry (2026)\n\n The True Cost of AI Assistance to Programming of Software .\n\nIEEE Software 43 (02), pp. 130–135.\n\nExternal Links: ISSN 1937-4194,\nDocument,",
+ "limitations": "### Risks and Limitations\n\nRecent advances in generative artificial intelligence do not eliminate longstanding Software Engineering challenges; instead, they introduce new ways in which specification deficiencies can affect software quality.\n\nOne such risk is what we refer to as Specification Overfitting. Analogous to overfitting in Machine Learning, this phenomenon occurs when an AI-generated implementation closely satisfies the explicit specification but fails to address the broader problem, business needs, user expectations, or scenarios omitted during requirements elicitation. The resulting software may therefore be correct with respect to the specification while remaining incorrect with respect to the problem it is intended to solve.\n\nThis risk is amplified by the dependence of LLMs on the information provided to them. Omissions, ambiguities, and inconsistencies in specifications can be directly translated into software behavior rather than remaining merely documentation problems.\n\nA related concern is automation bias. Because AI-generated code is often fluent, readable, and apparently well structured, developers may overestimate its correctness and reduce critical scrutiny. Such plausibility can make semantic defects particularly difficult to identify, reinforcing the need for systematic human validation.\n\nAutomation may also amplify ambiguity propagation. In highly automated environments, a single interpretation of an ambiguous requirement can be rapidly materialized across code, tests, and documentation, propagating the same incorrect assumption through multiple software artifacts.\n\nA further risk is what we refer to as Specification Debt. Inspired by the concept of Technical Debt [8], Specification Debt represents the accumulation of incomplete, inconsistent, redundant, poorly traceable, or insufficiently contextualized specifications whose deficiencies increase the cost and difficulty of generating, maintaining, and evolving software.\n\nUnlike traditional technical debt, which typically becomes visible during implementation or maintenance, Specification Debt can affect the development process before code generation begins. When specifications become primary inputs to AI systems, their deficiencies may be systematically reproduced across generated artifacts and successive software versions. Low-quality specifications therefore cease to affect only communication among stakeholders and directly influence the behavior and evolution of generated software.\n\nThis shift also increases the importance of traceability and explainability. It is no longer sufficient to link requirements to source code and test cases; engineers may also need to determine which specification elements and contextual information influenced particular generated decisions and what evidence supports the resulting behavior.\n\nFinally, automation creates an organizational risk: the ease of generating code may encourage reduced investment in requirements elicitation, modeling, and validation. Yet greater automation increases, rather than reduces, the importance of mature Requirements Engineering and quality-assurance practices. The central challenge is therefore not simply whether AI can generate software, but whether organizations can produce and maintain specifications robust enough to guide that generation reliably.\n\n### Practical Implications for Software Engineers\n\nThe increasing incorporation of artificial intelligence into software development redefines, rather than reduces, the role of skilled software engineers. As implementation becomes increasingly automated, professional expertise shifts toward problem understanding, domain modeling, requirements definition, architectural reasoning, and validation of AI-generated solutions. Specifications consequently become living engineering artifacts that are continuously refined throughout the software lifecycle.\n\nA first implication is the need to invest in specification quality. Requirements should be clear",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

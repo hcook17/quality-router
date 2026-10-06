@@ -1,0 +1,209 @@
+{
+ "arxiv_id": "2605.17535",
+ "fulltext_chars": 49878,
+ "fulltext_lines": 1042,
+ "authors_block": "Sheikh Nazib Ahmed Affiliation: University of Texas at Arlington Arlington, TX, USA sxa5256@mavs.uta.edu Marnim Galib Affiliation: University of Texas at Arlington Arlington, TX, USA marnim.galib@uta.edu",
+ "vendor_affiliation_hits": [],
+ "n_authors": 2,
+ "comment": "10 pages, 8 tables, 1 figure",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# AgentModernize: Preserving Business Logic in Legacy Modernization with Multi-Agent LLMs and Behavioral Specification Graphs"
+  ],
+  [
+   38,
+   "###### Abstract"
+  ],
+  [
+   46,
+   "###### Index Terms:"
+  ],
+  [
+   49,
+   "## I Introduction"
+  ],
+  [
+   79,
+   "### I-A Contributions"
+  ],
+  [
+   99,
+   "## II Related Work"
+  ],
+  [
+   101,
+   "### II-A Legacy System Modernization"
+  ],
+  [
+   111,
+   "### II-B LLMs for Software Engineering"
+  ],
+  [
+   117,
+   "### II-C Multi-Agent LLM Systems"
+  ],
+  [
+   123,
+   "### II-D Behavioral Equivalence"
+  ],
+  [
+   129,
+   "## III The AgentModernize Framework"
+  ],
+  [
+   131,
+   "### III-A Overview"
+  ],
+  [
+   143,
+   "### III-B Legacy Artifact Bundle"
+  ],
+  [
+   163,
+   "### III-C Agent 1: Legacy Analyzer"
+  ],
+  [
+   175,
+   "### III-D Agent 2: Specification Generator"
+  ],
+  [
+   243,
+   "### III-E Agent 3: Modernization Transformer"
+  ],
+  [
+   257,
+   "### III-F Agent 4: Equivalence Validator"
+  ],
+  [
+   271,
+   "### III-G Orchestration and State Management"
+  ],
+  [
+   299,
+   "## IV Evaluation Design"
+  ],
+  [
+   301,
+   "### IV-A Research Questions"
+  ],
+  [
+   329,
+   "### IV-B Benchmark: LegacyModernize-8"
+  ],
+  [
+   402,
+   "### IV-C Metrics"
+  ],
+  [
+   410,
+   "### IV-D Baselines"
+  ],
+  [
+   418,
+   "### IV-E Implementation Details"
+  ],
+  [
+   468,
+   "## V Results"
+  ],
+  [
+   470,
+   "### V-A RQ1: Behavioral Equivalence"
+  ],
+  [
+   540,
+   "### V-B RQ2: Business Rule Preservation"
+  ],
+  [
+   620,
+   "### V-C RQ3: Residual Behavioral Failures"
+  ],
+  [
+   691,
+   "### V-D RQ4: Ablation Study"
+  ],
+  [
+   723,
+   "### V-E RQ5: BSG Quality"
+  ],
+  [
+   807,
+   "### V-F Qualitative Analysis"
+  ],
+  [
+   819,
+   "### V-G RQ6: Model Comparison"
+  ],
+  [
+   884,
+   "### V-H RQ6b: Frontier Model Study"
+  ],
+  [
+   888,
+   "## VI Discussion"
+  ],
+  [
+   890,
+   "### VI-A BSGs as a Trust Boundary"
+  ],
+  [
+   894,
+   "### VI-B Why the Feedback Loop Is Decisive"
+  ],
+  [
+   898,
+   "### VI-C The Implicit Rule Problem"
+  ],
+  [
+   902,
+   "### VI-D Statistical Power"
+  ],
+  [
+   906,
+   "### VI-E Comparison Scope"
+  ],
+  [
+   910,
+   "### VI-F Limitations"
+  ],
+  [
+   914,
+   "## VII Threats to Validity"
+  ],
+  [
+   930,
+   "## VIII Conclusion"
+  ],
+  [
+   936,
+   "## References"
+  ],
+  [
+   1042,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "### VI-F Limitations\n\nWe evaluated on 100–310 line scenarios; real legacy systems are orders of magnitude larger and would require hierarchical BSGs and incremental validation. The pipeline’s benefit is inversely correlated with model capability: AM outperforms SP-LLM only with GPT-4o-mini (23.0% vs. 12.4%); with GPT-4o and codex, SP-LLM wins because stronger models produce initial code good enough that feedback introduces regressions.\n\n## VII Threats to Validity\n\nInternal validity. All eight scenarios are synthetic and authored by a single annotator. They reflect realistic complexity but lack the messiness of production code.\n\nExternal validity. Seven telecom and one banking scenario in COBOL/PL-SQL. Healthcare, government, and other domains remain untested.\n\nConstruct validity. Test-based verification covers tested paths only; untested edge cases may harbor regressions.\n\nReliability. We use temperature 0.0 for generation and 3 trials. Of 32 cells, 20 yield \\sigma=0.0 ; the largest is 48.1 (AM-NoFB on S5). Five cells report 0% BER due to non-executable code (prose output or Pydantic v1/v2 incompatibility). GPT-5.3-codex has restricted availability; results may not transfer to other model families.\n\nSelection bias. The primary annotator designed scenarios and gold-standard rules. S8 (banking, authored after pipeline freeze) acts as a held-out probe but does not eliminate authoring bias; an independent benchmark would strengthen validity.\n\nLLM-as-evaluator. Gold-standard tests are synthesized by GPT-4o-mini from each method’s own code and the specification, then executed deterministically by pytest. BER depends on the test-generation prompt but not on any pipeline artifact.\n\nArtifact availability. Framework implementation, benchmark scenarios, BSG schemas, evaluation scripts, and prompts are available at [anonymized for double-blind review]. AI tools (GPT-4o) were used only for grammar editing during manuscript preparation; all research content was produced by the authors.\n\n## VIII Conclusion\n\nWe started by treating legacy modernization as a translation problem, and it did not work. AgentModernize reframes it as behavioral preservation, decomposing the task into extraction, specification, code generation, and validation, linked by Behavioral Specification Graphs.\n\nWith GPT-4o-mini, BSG-guided generation (23.9%) nearly doubles the best baseline (SP-LLM, 12.4%). With stronger models, SP-LLM wins—the pipeline’s benefit is inversely correlated with model capability. The BSG captures 92.3% of gold-standard rules at 90.2% precision; code generation, not extraction, is the bottleneck. Even when SP-LLM beats the pipeline on BER, only the pipeline produces inspectable artifacts that regulated industries require. Future work: regression-aware feedback, per-scenario model selection, and human trust studies of BSG-inspectable modernization.\n\n## References\n\n[1]\n\nS. Comella-Dorda, K. Wallnau, R. Seacord, and J. Robert, “A survey of legacy system modernization approaches,” Software Engineering Institute, Carnegie Mellon University, Tech. Rep. CMU/SEI-2000-TN-003, 2000.\n\n[2]\n\nH. P. Breivold, I. Crnkovic, and M. Larsson, “A systematic review of software architecture evolution research,” Information and Software Technology, vol. 54, no. 1, pp. 16–40, 2012. doi:10.1016/j.infsof.2011.08.002\n\n[3]\n\nR. Kazman, S. G. Woods, and S. J. Carrière, “Requirements for integrating software architecture and reengineering models: CORUM II,” in Proc. Working Conference on Reverse Engineering (WCRE), 1998. doi:10.1109/WCRE.1998.723185",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 1,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 3,
+  "industrial": 3
+ },
+ "fulltext_source": "html"
+}

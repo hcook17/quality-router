@@ -1,0 +1,267 @@
+{
+ "arxiv_id": "2610.02932",
+ "fulltext_chars": 107267,
+ "fulltext_lines": 4818,
+ "authors_block": "Measuring Payback and Making Compilation Decisions for Token Efficiency Yulong Ming Jie Xu Zihan Wu Xiaohua Jia Affiliation: City University of Hong Kong Email: myl.7@my.cityu.edu.hk",
+ "vendor_affiliation_hits": [],
+ "n_authors": 4,
+ "comment": "27 pages, 3 figures",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/myl7/computer-use."
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# When to Compile a Computer-Use Agent?"
+  ],
+  [
+   36,
+   "###### Abstract"
+  ],
+  [
+   50,
+   "## 1 Introduction"
+  ],
+  [
+   129,
+   "## 2 Problem Formulation"
+  ],
+  [
+   157,
+   "#### Objective."
+  ],
+  [
+   184,
+   "## 3 Measurement"
+  ],
+  [
+   210,
+   "### 3.1 Serving cost"
+  ],
+  [
+   228,
+   "### 3.2 Compilation cost"
+  ],
+  [
+   318,
+   "## 4 Online Algorithm"
+  ],
+  [
+   329,
+   "### 4.1 Cost-aware compilation proposal"
+  ],
+  [
+   364,
+   "### 4.2 Budget checks"
+  ],
+  [
+   394,
+   "### 4.3 Cost guarantee"
+  ],
+  [
+   396,
+   "###### Theorem 4.1 (Cost bound relative to agent execution)."
+  ],
+  [
+   408,
+   "###### Proof."
+  ],
+  [
+   427,
+   "## 5 Online Evaluation"
+  ],
+  [
+   454,
+   "### 5.1 Savings"
+  ],
+  [
+   558,
+   "### 5.2 Component effects"
+  ],
+  [
+   623,
+   "#### Cost assumptions."
+  ],
+  [
+   634,
+   "## 6 Related Work"
+  ],
+  [
+   647,
+   "## 7 Limitations"
+  ],
+  [
+   658,
+   "## 8 Conclusion"
+  ],
+  [
+   666,
+   "### AI use statement"
+  ],
+  [
+   674,
+   "### Ethics statement"
+  ],
+  [
+   681,
+   "### Reproducibility statement"
+  ],
+  [
+   690,
+   "## References"
+  ],
+  [
+   959,
+   "## Appendix A Measurement details"
+  ],
+  [
+   961,
+   "### A.1 Task families"
+  ],
+  [
+   980,
+   "### A.2 Cost accounting"
+  ],
+  [
+   1008,
+   "### A.3 Compilation"
+  ],
+  [
+   1059,
+   "### A.4 Serving profiles"
+  ],
+  [
+   1174,
+   "### A.5 Repeated compilation"
+  ],
+  [
+   1247,
+   "### A.6 Given and extracted parameters"
+  ],
+  [
+   1260,
+   "### A.7 Program failures under GUI changes"
+  ],
+  [
+   1280,
+   "### A.8 Measurement confidence intervals"
+  ],
+  [
+   1773,
+   "## Appendix B Online algorithm details"
+  ],
+  [
+   1872,
+   "### B.1 Compilation spend"
+  ],
+  [
+   1885,
+   "### B.2 Program lifetime"
+  ],
+  [
+   1903,
+   "### B.3 Cost of reserving for failure"
+  ],
+  [
+   1920,
+   "## Appendix C Online evaluation details"
+  ],
+  [
+   1922,
+   "### C.1 Cost profiles"
+  ],
+  [
+   1939,
+   "### C.2 Synthetic task streams"
+  ],
+  [
+   1958,
+   "### C.3 Recorded arrival orders"
+  ],
+  [
+   1977,
+   "#### Confidence intervals."
+  ],
+  [
+   1998,
+   "### C.4 Comparison rules"
+  ],
+  [
+   2004,
+   "#### ReAct."
+  ],
+  [
+   2008,
+   "#### AutoRPA (one build)."
+  ],
+  [
+   2016,
+   "#### ToolPro (cost adaptation)."
+  ],
+  [
+   2024,
+   "#### Cost-aware timing controls."
+  ],
+  [
+   2034,
+   "#### The same budget with other proposals."
+  ],
+  [
+   2049,
+   "### C.5 Cost-profile sensitivity"
+  ],
+  [
+   2370,
+   "### C.6 Alternative compilation proposals"
+  ],
+  [
+   2383,
+   "### C.7 Complete cost comparisons"
+  ],
+  [
+   4038,
+   "### C.8 Component costs"
+  ],
+  [
+   4567,
+   "## Appendix D Live GUI execution"
+  ],
+  [
+   4574,
+   "### D.1 Paired task execution"
+  ],
+  [
+   4781,
+   "### D.2 Reservations"
+  ],
+  [
+   4803,
+   "### D.3 Cost bounds with unconfirmed costs"
+  ],
+  [
+   4818,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 7 Limitations\n\nThe measurements cover seven parameterized task families and three model profiles.\nThe online simulations use given family labels, fixed cost profiles, and reported failure causes.\nTheir savings depend on how costs and compilation outcomes are assigned to arriving task families.\nHistorical mean costs do not provide the action bounds required for the cost guarantee.\nThe live study tests fallback and call reservations for a fixed program, without evaluating the full online compilation algorithm.\nSilent program failures and recovery from partially changed interfaces require further evaluation.\nWe measure model-token cost and exclude latency, device use, and program-maintenance effort.\nModel and provider updates can change the measured costs.\n\n## 8 Conclusion\n\nPACE measures successful and failed compilation costs and per-use savings, then uses these profiles to make cost-aware compilation proposals.\nExecution and compilation checks use the budget from observed arrivals to enforce K_{t}\\leq(1+\\epsilon)A_{t} under valid action-cost bounds.\nFor successful compilation attempts, estimated payback counts excluding source agent runs are 2 – 16 uses.\nIn simulations using recorded task arrivals, PACE saves 17.3\\% relative to ReAct, 24.9\\% relative to the AutoRPA adaptation, and 17.3\\% relative to the ToolPro adaptation ( \\epsilon=0.25 ).\nAblations separate the effects of the savings test, failed-attempt cost, and the cost budget.\n\n### AI use statement\n\nWe used AI tools for finding relevant literature, drafting and revising text, and implementing the measurement and evaluation methods.\nThe tools also helped plan experiments, combine and interpret recorded results, develop and check mathematical arguments, and prepare tables and figures.\nAI-generated programs are also part of the compilation method evaluated in Section 3.\nWe have reviewed all AI-assisted work.\nWe take responsibility for the final content of this paper.\n\n### Ethics statement\n\nThe study uses benchmark applications, an Android emulator, desktop applications in a Linux container, and locally hosted web applications.\nThe arrival experiments use public event logs.\nThe study does not involve recruiting human participants or executing generated actions on users’ personal accounts.\nOur cost bound does not ensure task correctness, so applying the method to actions with important real-world effects would require checks appropriate to those actions.\n\n### Reproducibility statement\n\nThe code and saved records are at https://github.com/myl7/computer-use.\nAppendix A describes the task families, recorded model identifiers, cost calculations, and verification procedures.\nSection 4.3 states and proves the cost bound, and Appendix B gives the complete execution order and reference calculations.\nAppendix C specifies the experimental grids, arrival logs, estimates of missing costs, paired outcomes, and confidence interval calculation.",
+ "ethics_coi": "### Ethics statement\n\nThe study uses benchmark applications, an Android emulator, desktop applications in a Linux container, and locally hosted web applications.\nThe arrival experiments use public event logs.\nThe study does not involve recruiting human participants or executing generated actions on users’ personal accounts.\nOur cost bound does not ensure task correctness, so applying the method to actions with important real-world effects would require checks appropriate to those actions.\n\n### Reproducibility statement\n\nThe code and saved records are at https://github.com/myl7/computer-use.\nAppendix A describes the task families, recorded model identifiers, cost calculations, and verification procedures.\nSection 4.3 states and proves the cost bound, and Appendix B gives the complete execution order and reference calculations.\nAppendix C specifies the experimental grids, arrival logs, estimates of missing costs, paired outcomes, and confidence interval calculation.\nAppendix D describes the live GUI study and its charge records.\nThe released files include scripts for reading measurements, running experiments, and creating tables, along with paired results and lists of the inputs used.\n\n## References\n\nChen et al. (2026a)\nM. Chen, X. Hu, Z. Yu, and Y. Yin\n\nAutoRPA: efficient GUI automation through LLM-driven code synthesis from interactions.\n\narXiv preprint arXiv:2605.21082.",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 38,
+  "seeds_or_runs": 3,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 2,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

@@ -1,0 +1,103 @@
+{
+ "arxiv_id": "2607.18057",
+ "fulltext_chars": 35909,
+ "fulltext_lines": 836,
+ "authors_block": "Atish Kumar Dipongkor Affiliation: University of Central Florida Orlando, FL, USA atish.kumardipongkor@ucf.edu Talank Baral Affiliation: George Mason University Fairfax, VA, USA tbaral@gmu.edu Wing Lam Affiliation: George Mason University Fairfax, VA, USA winglam@gmu.edu Kevin Moran Affiliation: University of Central Florida Orlando, FL, USA kpmoran@ucf.edu",
+ "vendor_affiliation_hits": [],
+ "n_authors": 4,
+ "comment": "12 pages, to appear 42nd International Conference on Software Maintenance and Evolution",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/SageSELab/Agentic-Pull-Request-Test-Coverage"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Test Coverage Analysis of Agentic Pull Requests"
+  ],
+  [
+   54,
+   "###### Abstract"
+  ],
+  [
+   62,
+   "###### Index Terms:"
+  ],
+  [
+   65,
+   "## I Introduction"
+  ],
+  [
+   128,
+   "## II Dataset"
+  ],
+  [
+   135,
+   "## III Methodology"
+  ],
+  [
+   137,
+   "### III-A Artifact Generation"
+  ],
+  [
+   151,
+   "### III-B RQ1: Classifying Test Behavior"
+  ],
+  [
+   160,
+   "### III-C RQ2: Measuring Diff Coverage and Analysis"
+  ],
+  [
+   180,
+   "## IV Results"
+  ],
+  [
+   184,
+   "### IV-A RQ1 Results: Test Inclusion in Agentic PRs"
+  ],
+  [
+   201,
+   "### IV-B RQ2 Results: Test Coverage in Agentic PRs"
+  ],
+  [
+   482,
+   "## V Discussion and Future Direction"
+  ],
+  [
+   496,
+   "## VI Related Work, Limitations"
+  ],
+  [
+   509,
+   "## VII Conclusions"
+  ],
+  [
+   514,
+   "## References"
+  ],
+  [
+   836,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## VI Related Work, Limitations\n\nRelated work. One existing body of work evaluates LLMs as test generators under controlled conditions. Pizzorno and Berger [11] and Ryan et al. [12] used coverage-guided prompting to drive LLM-generated tests toward higher branch and line coverage; Meta’s TestGen-LLM [13] reported code coverage gains from augmenting existing tests with LLM-written tests; El Haji et al. [10] evaluated Copilot for Python test generation; and Mastropaolo et al. [9] studied the robustness of Copilot’s code generation more broadly.\nThese studies established that LLMs can produce useful tests when explicitly asked, but they evaluated models in a test-generation role rather than observing what agents do when given autonomy over a PR.\nWatanabe et al. [15] analyzed 567 agentic PRs and reported that 45.1% of merged PRs required human revisions, but do not measure test coverage. Coverage-based benchmarks such as SWE-bench [7] evaluate whether agents pass curated tests, treating the tests as fixed and externally provided, but none measure whether existing tests or tests an agent adds actually exercise the code that the agent introduced.\n\nLimitations. Our coverage analysis is limited to merged PRs\nfrom repositories that could be built and instrumented, which may introduce sampling bias. To assess this threat, we compared lines of code (LOC), number of commits, age, stars, and forks between the analyzed repositories and the entire set of projects (median of analyzed vs. entire set). The 10 analyzed Java repositories are substantially smaller (29K vs. 102K LOC), less starred (437 vs. 745), and less forked (116 vs. 254) than the entire set of Java projects.\nThat being said, the analyzed projects are comparable in number of commits (2271 vs. 3983 commits) and median age (4178 vs. 3785 days).\nOur Java coverage results may thus primarily reflect the testing practices of smaller projects.\nIn contrast, the 34 analyzed Python repositories show no substantial differences from the entire set of Python projects on any metric (31K vs. 25K LOC, 1202 vs. 872 commits, 1065 vs. 1268 days, 676 vs. 734 stars, 120 vs. 141 forks).\nFull statistics and distribution plots are in our replication package.\n\n## VII Conclusions\n\nIn this paper, we performed a cross-language study of how well tested agentic PRs are in the wild, which our results show are often poorly tested.\nOver half of code under test-changing PRs include no test changes; existing tests cover only 61.5% of agents’ changed lines in Java and 27.0% in Python; agent-written tests improve coverage, but only in a minority of PRs; and error-handling constructs are often missed. Our findings spur new research to better help test agent generated code.\n\n## References\n\n[1]\nH. Li, H. Zhang, and A. E. Hassan (2025)\n\nThe rise of AI teammates in software engineering (SE) 3.0: how autonomous coding agents are reshaping software engineering.\n\narXiv preprint arXiv:2507.15003.\n\nExternal Links: Link,\nDocument\n\nCited by: §I,\n§I,\n§II.\n\n[2]\nG. Fraser and A. Arcuri (2011)\n\nEvoSuite: automatic test suite generation for object-oriented software.\n\nIn European Software Engineering Conference and Symposium on the Foundations of Software Engineering,",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 11,
+  "seeds_or_runs": 0,
+  "swe_bench": 4,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 61,
+  "industrial": 1
+ },
+ "fulltext_source": "html"
+}

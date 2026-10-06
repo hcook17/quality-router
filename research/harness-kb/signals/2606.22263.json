@@ -1,0 +1,207 @@
+{
+ "arxiv_id": "2606.22263",
+ "fulltext_chars": 112670,
+ "fulltext_lines": 2979,
+ "authors_block": "For Repository-Scale Codebases Yiwei Hou, Hao Wang, Muxi Lyu, Marius Momeu, Eric Nguyen, Taige Yang, Koushik Sen, Dawn Song, David Wagner Affiliation: University of California, Berkeley",
+ "vendor_affiliation_hits": [],
+ "n_authors": 9,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/m1-llie/Revelio."
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Revelio: Cost-Efficient Agentic Memory Safety Vulnerability Detection"
+  ],
+  [
+   38,
+   "###### Abstract"
+  ],
+  [
+   50,
+   "## I Introduction"
+  ],
+  [
+   125,
+   "## II Background"
+  ],
+  [
+   135,
+   "## III Design of Revelio"
+  ],
+  [
+   162,
+   "### III-A Overall Workflow"
+  ],
+  [
+   171,
+   "#### III-A1 Hypothesis Generation"
+  ],
+  [
+   182,
+   "#### III-A2 Hypothesis Confirmation"
+  ],
+  [
+   191,
+   "### III-B Vulnerability Hypothesis Generation"
+  ],
+  [
+   200,
+   "#### III-B1 Initial Hypothesis Proposal"
+  ],
+  [
+   223,
+   "#### III-B2 Hypothesis Triage and Filtering"
+  ],
+  [
+   337,
+   "### III-C Hypothesis Confirmation by PoV Construction"
+  ],
+  [
+   343,
+   "#### III-C1 Iterative PoV Construction"
+  ],
+  [
+   399,
+   "#### III-C2 Sanitizer-Backed Confirmation"
+  ],
+  [
+   419,
+   "## IV Implementation"
+  ],
+  [
+   439,
+   "## V Evaluation"
+  ],
+  [
+   483,
+   "### V-A Real-World Zero-day Vulnerability Detection"
+  ],
+  [
+   973,
+   "### V-B Detection Effectiveness and Cost Efficiency"
+  ],
+  [
+   1089,
+   "#### V-B1 Large-Scale Benchmark Evaluation"
+  ],
+  [
+   1166,
+   "#### V-B2 Recent-CVE Evaluation"
+  ],
+  [
+   1180,
+   "### V-C Harness Enforcement vs. Prompting"
+  ],
+  [
+   1204,
+   "## VI Discussion and Limitations"
+  ],
+  [
+   1261,
+   "## VII Related Work"
+  ],
+  [
+   1314,
+   "## VIII Conclusion"
+  ],
+  [
+   1321,
+   "## Acknowledgments"
+  ],
+  [
+   1328,
+   "## References"
+  ],
+  [
+   2014,
+   "## Appendix A Prompts for LLM Calls"
+  ],
+  [
+   2016,
+   "### A-A Revelio Hypothesis Generation stage"
+  ],
+  [
+   2077,
+   "### A-B Revelio Hypothesis Confirmation stage"
+  ],
+  [
+   2108,
+   "### A-C Comparison Evaluation: General Coding Agent Baselines"
+  ],
+  [
+   2122,
+   "### A-D Comparison Evaluation: Agent Harness vs. Prompting Tier Ladders"
+  ],
+  [
+   2124,
+   "#### A-D1 T1 – Bare Prompt"
+  ],
+  [
+   2130,
+   "#### A-D2 T2 – Pipeline-Described Prompt"
+  ],
+  [
+   2139,
+   "#### A-D3 T2.5 – Structured-Handoff Prompt"
+  ],
+  [
+   2164,
+   "## Appendix B Benchmark Sample Manifest"
+  ],
+  [
+   2166,
+   "### B-A Arvo Codebases from CyberGym"
+  ],
+  [
+   2415,
+   "### B-B Fresh Post-Cutoff CVE Set"
+  ],
+  [
+   2583,
+   "## Appendix C Experimental Results: Raw Data Values"
+  ],
+  [
+   2585,
+   "### C-A Pilot Sweep Across Agent and Model Settings"
+  ],
+  [
+   2717,
+   "### C-B Ablation Study"
+  ],
+  [
+   2860,
+   "### C-C Clarification on Model Versions"
+  ],
+  [
+   2865,
+   "## Appendix D LLMs API Token Cost Calculation"
+  ],
+  [
+   2979,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgments\n\nThis research was supported by the Noyce Foundation and gifts from Accenture, Amazon, AMD, Anyscale, Broadcom, Google, IBM, Intel, Intesa Sanpaolo, Lambda, Lightspeed, Mibura, NVIDIA, Samsung SDS, SAP, by the U.S. Department of Energy, and the Defense Advanced Research Projects Agency (DARPA) under Agreement No. HR00112590134.\nHao Wang is grateful for the support from Amazon AI Fellowship.\nAny opinions, findings, and conclusions expressed in this material are those of the authors and do not necessarily reflect the views of the sponsors.\nWe would also like to thank Yu-Lin Uriah Tsai and Yibo Peng for their insightful feedback.\n\n## References\n\n[1]\nOpenAI (2025)\n\nIntroducing aardvark: openai’s agentic security researcher..\n\n OpenAI.\n\nNote: https://openai.com/index/introducing-aardvark/(Online; accessed on June 8, 2026)\n\nCited by: §I,\n§VII.\n\n[2]\nAnthropic (2026)\n\nClaude security..",
+ "limitations": "## VI Discussion and Limitations\n\nKey Findings.\nFirst, repository-scale memory safety vulnerability detection benefits from separating code review from executable confirmation.\nThe Hypothesis Generation Stage can afford to be noisy because incorrect candidates are filtered by the Hypothesis Confirmation stage.\nSecond, the most cost-effective configuration is asymmetric: cheaper models are sufficient for hypothesis generation, while stronger models are more valuable when constructing and debugging concrete PoVs.\nThis makes our method ready for scaling up to large-scale codebases at a reasonable cost.\nThird, AI agents are most effective when there is a way to verify their claims; we require the agent to provide a proof of the vulnerability (the PoV) and verify the proof with existing sanitizers.\nThis design explains why Revelio can maintain zero false positives while still finding substantially more vulnerabilities than general-purpose AI coding agents.\n\nGeneralizability and Scope.\nOur results should be interpreted within the scope of sanitizer-observable memory safety vulnerabilities in C/C++ codebases.\nDetecting other kinds of vulnerabilities, such as business-logic flaws, race conditions without deterministic memory corruption, etc., is harder, because of the lack of reliable sanitizers.\nWe assume that the codebase comes with one or more executable test harnesses (such as are typically used for fuzzing) and can be built and compiled.\n\nWe view Revelio as complementary to fuzzing and static analysis.\nFuzzers efficiently explore the input space, and static analyzers are good at finding errors that might be hard to exercise through testing.\nRevelio adds a different capability: model-guided reasoning about input formats, branch conditions, and API interactions, followed by concrete execution.\nThe zero-day results on long-running OSS-Fuzz projects suggest that Revelio can expose vulnerabilities missed by continuous fuzzing.\n\nTriage Under Maintainers’ Threat Models.\nConfirmed PoVs go a long way to avoid unhelpful vulnerability reports, but we discovered there is still need for additional triage.\nThe severity of a bug may depend on whether the affected API is exposed across a trust boundary, whether the crash is only a denial-of-service condition, whether it relies on uncommon configuration settings, and other factors.\nWe have not yet attempted to automate this triage process, but we see opportunities to supplement Revelio’s PoV verification with AI-powered triage.\n\nThis distinction mattered in our zero-day study.\nOur first prototype surfaced many NULL-pointer dereferences, memory leaks, out-of-memory conditions, and similar low-priority failures; we now filter these out unless there is evidence of an attacker-controlled path and plausible security impact.\nThis triage improves report quality and aligns disclosure with maintainer expectations.\nIt also clarifies the interpretation of our false-positive metric: a confirmed PoV is reproducible evidence of a bug, but responsible reporting still requires human review of impact and project-specific threat model.\n\nImplications for AI Safety.\nOur research suggests that safety of LLMs is more challenging than we previously appreciated.\nBefore beginning this work, we expected that there is a clear line between ethical tasks for an AI to help with (e.g., tasks that would help a system defender, such as finding or fixing vulnerabilities) vs unethical tasks (e.g., tasks that would help an attacker, such as developing weaponized exploits), and that safety efforts should ensure that models are useful for ethical tasks but not for unethical tasks.\nHowever this research suggests that the line is blurrier than we previously appreciated.\nOur work suggests that the ability to develop PoVs is very helpful for defenders: it helps them find vulnerabilities in their code, focus their effort on real vulnerabilities, and avoid wasting time on hallucinations.\nUnfortunately, it might be challenging for a model t",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 3,
+  "human_study": 1,
+  "java": 0,
+  "industrial": 2
+ },
+ "fulltext_source": "html"
+}

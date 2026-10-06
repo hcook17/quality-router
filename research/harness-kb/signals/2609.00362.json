@@ -1,0 +1,164 @@
+{
+ "arxiv_id": "2609.00362",
+ "fulltext_chars": 61632,
+ "fulltext_lines": 1169,
+ "authors_block": "Louis Lalonde, Wassim Keddache, Thomas Perron Touchette, Leuson Da Silva, and Foutse Khomh Affiliation: Polytechnique Montréal, Montréal, Canada {louis.lalonde, wassim.keddache, thomas.perron-touchette, leuson-mario-pedro.da-silva, foutse.khomh}@polymtl.ca",
+ "vendor_affiliation_hits": [],
+ "n_authors": 5,
+ "comment": "10 pages, 2 figures, 5 tables",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/LouisLalonde/FeedbackEval",
+  "https://github.com/leusonmario/LOG6306-EmpiricalStudy"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Revisiting Feedback-Driven LLM Code Repair: A Replication and Exploratory Java Extension"
+  ],
+  [
+   30,
+   "###### Abstract"
+  ],
+  [
+   43,
+   "###### Index Terms:"
+  ],
+  [
+   46,
+   "## I Introduction"
+  ],
+  [
+   87,
+   "## II Replication Study"
+  ],
+  [
+   95,
+   "### II-A FeedbackEval: Original Study"
+  ],
+  [
+   110,
+   "### II-B Study Design"
+  ],
+  [
+   135,
+   "### II-C Results"
+  ],
+  [
+   141,
+   "#### RQ1: Single-Iteration Repair Performance"
+  ],
+  [
+   192,
+   "#### RQ2: Feedback Effectiveness Across Datasets"
+  ],
+  [
+   246,
+   "#### RQ4: Impact of Prompting Techniques"
+  ],
+  [
+   304,
+   "## III Extension Study"
+  ],
+  [
+   312,
+   "### III-A RQ1: How do feedback types affect LLM-based repair effectiveness in a Java setting?"
+  ],
+  [
+   314,
+   "#### III-A1 Motivation"
+  ],
+  [
+   322,
+   "#### III-A2 Approach"
+  ],
+  [
+   385,
+   "#### III-A3 Results"
+  ],
+  [
+   440,
+   "### III-B RQ2: How cost-efficient are different prompting techniques when applied to feedback-driven code repair on Java tasks?"
+  ],
+  [
+   442,
+   "#### III-B1 Motivation"
+  ],
+  [
+   451,
+   "#### III-B2 Approach"
+  ],
+  [
+   476,
+   "#### III-B3 Results"
+  ],
+  [
+   544,
+   "## IV Discussion"
+  ],
+  [
+   548,
+   "### IV-A Feedback Patterns and Prompting Trade-offs"
+  ],
+  [
+   561,
+   "### IV-B Implications for Multilingual Repair Evaluation"
+  ],
+  [
+   577,
+   "### IV-C Replication Challenges of LLM-based Studies"
+  ],
+  [
+   603,
+   "## V Related Work"
+  ],
+  [
+   635,
+   "## VI Threats to Validity"
+  ],
+  [
+   681,
+   "## VII Conclusion"
+  ],
+  [
+   699,
+   "## Replication Package and Artifacts"
+  ],
+  [
+   705,
+   "## AI-Assisted Content Disclosure"
+  ],
+  [
+   709,
+   "## Acknowledgments"
+  ],
+  [
+   713,
+   "## References"
+  ],
+  [
+   1169,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgments\n\nThis work was partially supported by the Natural Sciences and Engineering Research Council of Canada, the Canadian Institute for Advanced Research, and the Canada Research Chairs Program.\n\n## References\n\n[1]\nD. Dai, M. Liu, A. Li, J. Cao, Y. Wang, C. Wang, X. Peng, and Z. Zheng (2025)\n\nFeedbackEval: a benchmark for evaluating large language models in feedback-driven code repair tasks.\n\narXiv preprint arXiv:2504.06939.\n\nCited by: §I,\n§I,\n§II-A,\n§II,\n2nd item,\n§III-A2,\n§III-B2,\n§III,\n§VII,\nAbstract.\n\n[2]",
+ "limitations": "## VI Threats to Validity\n\nInternal Validity.\nJava mutations were generated exclusively using GPT-4o-mini, whereas the original FeedbackEval Python dataset combines rule-based mutation operators, LLM-generated errors, and incorrect LLM-generated solutions.\nThis difference may introduce a confound, as LLM-generated Java mutations may reflect error patterns closer to the model’s training distribution, potentially making them easier for the repair model to fix.\nIn contrast, rule-based mutations used in the Python dataset were designed to systematically stress repair capabilities.\nConsequently, the Java repair rates observed in our experiments may partially reflect mutation difficulty and benchmark-construction choices rather than language-intrinsic effects.\nThe Java experiments rely on JUnit 4.13.2 for test execution, which typically produces concise assertion failure messages.\nIn contrast, the Python benchmark relies on pytest, whose failure output often includes richer diagnostic information.\nThis difference may reduce the usefulness of test feedback in Java and partially explain why structured test feedback does not provide a clear advantage over simpler feedback in our Java setting.\n\nConstruct Validity.\nRegarding the translation of test cases, the use of GPT-4o-mini might alter test semantics or introduce inconsistencies, potentially biasing our results.\nTo mitigate this threat, we manually inspected all 50 translated JUnit tests and found no semantic inconsistencies with the original assertion scripts.\nWe also validated that the reference implementations pass the translated tests and that the injected mutations fail them.\nRepair success is defined as code that compiles and passes the associated test suite.\nThis binary definition does not capture other important aspects of software quality, such as readability, maintainability, or the introduction of subtle semantic bugs not covered by the tests.\nHuman feedback is simulated using an LLM rather than being collected from human developers.\nAlthough this allows controlled experiments, simulated feedback may not reflect the priorities, expertise, or contextual knowledge of real developers.\n\nUnlike the original study, our extension relies exclusively on LLM-generated mutations.\nWhile this design choice enables controlled and consistent mutation generation across tasks, it may introduce bias toward errors that are more representative of the LLM’s training distribution.\nAs a result, these mutations may be easier for the same or similar models to repair, potentially inflating Repair@1 scores.\nTo partially mitigate this limitation, our dataset includes a diverse distribution of 13 logical mutation types, covering a range of common error patterns, such as incorrect conditions, off-by-one errors, and wrong return values.\nNevertheless, the mutations remain LLM-generated and may not fully reflect the characteristics of real-world or tool-generated bugs.\n\nExternal Validity.\nOur replication evaluates a subset of the models considered in the original study.\nWhile the evaluated models are strong proprietary LLMs, this choice may limit the generalizability of our findings to other LLMs with different capabilities, architectures, or training data.\nAs prior work suggests that LLM behavior can vary across models, the observed feedback effectiveness patterns may not fully transfer to all model families.\nRegarding our extension, our evaluation uses a single model (GPT-4o-mini) on 50 unique CoderEval tasks, resulting in 100 mutated repair instances.\nOverall, we prioritize controlled experimental conditions over scale, enabling focused analysis of feedback modalities across mutation categories.\n\nAlthough this setup enables controlled analysis within the Java setting, the results may not generalize to other LLMs, larger datasets, or real-world bugs involving multiple files and complex software architectures.\nAdditionally, our single-iteration repair setup does not capture iterative debugging workflows ",
+ "ethics_coi": "## AI-Assisted Content Disclosure\n\nLLMs were used to assist the authors with grammar revision and to support some scripts used in this study. All outputs were reviewed and validated by the authors, who are fully responsible for the content presented in this study.\n\n## Acknowledgments\n\nThis work was partially supported by the Natural Sciences and Engineering Research Council of Canada, the Canadian Institute for Advanced Research, and the Canada Research Chairs Program.\n\n## References\n\n[1]\nD. Dai, M. Liu, A. Li, J. Cao, Y. Wang, C. Wang, X. Peng, and Z. Zheng (2025)\n\nFeedbackEval: a benchmark for evaluating large language models in feedback-driven code repair tasks.\n\narXiv preprint arXiv:2504.06939.\n\nCited by: §I,\n§I,\n§II-A,\n§II,\n2nd item,\n§III-A2,\n§III-B2,\n§III,",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 15,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 63,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

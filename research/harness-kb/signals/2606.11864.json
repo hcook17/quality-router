@@ -1,0 +1,289 @@
+{
+ "arxiv_id": "2606.11864",
+ "fulltext_chars": 103534,
+ "fulltext_lines": 5172,
+ "authors_block": "Fuwei Zhang1 Yanzhao Zhang Mingxin Li Dingkun Long Affiliation: Lexiang Hu2 Pengjun Xie Zhao Zhang3 Fuzhen Zhuang1 Affiliation: 1Institute of Artificial Intelligence, Beihang University Affiliation: 2State Key Lab of General AI, School of Intelligence Science and Technology, Peking University Affiliation: 3SKLCCSE, School of Computer Science and Engineering, Beihang University, China",
+ "vendor_affiliation_hits": [],
+ "n_authors": 8,
+ "comment": "Accepted By EMNLP 2026 Main",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# CORE-Bench: A Comprehensive Benchmark for Code Retrieval in the Era of Agentic Coding"
+  ],
+  [
+   44,
+   "###### Abstract"
+  ],
+  [
+   51,
+   "## 1 Introduction"
+  ],
+  [
+   72,
+   "## 2 Related Work"
+  ],
+  [
+   74,
+   "### 2.1 Code Search Benchmarks"
+  ],
+  [
+   90,
+   "#Repos"
+  ],
+  [
+   91,
+   "#Queries"
+  ],
+  [
+   92,
+   "#Corpus"
+  ],
+  [
+   93,
+   "#Qrels"
+  ],
+  [
+   162,
+   "### 2.2 Code Search Models"
+  ],
+  [
+   170,
+   "## 3 Benchmark"
+  ],
+  [
+   174,
+   "### 3.1 Overview of CORE-Bench"
+  ],
+  [
+   213,
+   "### 3.2 Benchmark Construction"
+  ],
+  [
+   215,
+   "#### 3.2.1 LEVEL-1: Code Understanding"
+  ],
+  [
+   219,
+   "#### 3.2.2 LEVEL-2: Issue-to-Edit Localization"
+  ],
+  [
+   225,
+   "#### 3.2.3 LEVEL-3: Broader Context Retrieval"
+  ],
+  [
+   238,
+   "### 3.3 Rewrite Version of CORE-Bench"
+  ],
+  [
+   242,
+   "### 3.4 Training Data Construction"
+  ],
+  [
+   251,
+   "#Param"
+  ],
+  [
+   408,
+   "## 4 Experiments and Evaluation"
+  ],
+  [
+   410,
+   "### 4.1 Experimental Setup"
+  ],
+  [
+   412,
+   "##### Baselines."
+  ],
+  [
+   416,
+   "##### Evaluation Details."
+  ],
+  [
+   420,
+   "### 4.2 Evaluation of Retrieval Models"
+  ],
+  [
+   927,
+   "### 4.3 In-domain SFT Performance"
+  ],
+  [
+   931,
+   "### 4.4 Cross-level Correlation Analysis"
+  ],
+  [
+   935,
+   "### 4.5 Performance on Different Languages"
+  ],
+  [
+   940,
+   "### 4.6 Performance across Difficulty Levels"
+  ],
+  [
+   991,
+   "### 4.7 Qualitative Case Studies"
+  ],
+  [
+   997,
+   "## 5 Conclusion"
+  ],
+  [
+   1001,
+   "## Limitations"
+  ],
+  [
+   1005,
+   "## References"
+  ],
+  [
+   1541,
+   "## Appendix A Detailed Dataset Statistics"
+  ],
+  [
+   1547,
+   "##### LEVEL-1."
+  ],
+  [
+   1556,
+   "##### LEVEL-2."
+  ],
+  [
+   1565,
+   "##### LEVEL-3."
+  ],
+  [
+   1586,
+   "#Repos"
+  ],
+  [
+   1587,
+   "#Queries"
+  ],
+  [
+   1588,
+   "#Corpus"
+  ],
+  [
+   1589,
+   "#Qrels"
+  ],
+  [
+   1841,
+   "## Appendix B SFT Training Details"
+  ],
+  [
+   1858,
+   "# Repos"
+  ],
+  [
+   1861,
+   "# Queries"
+  ],
+  [
+   1864,
+   "# Qrels"
+  ],
+  [
+   1867,
+   "# Corpus"
+  ],
+  [
+   1899,
+   "## Appendix C Details of All Baselines"
+  ],
+  [
+   1911,
+   "##### Lexical baseline."
+  ],
+  [
+   1919,
+   "##### General embedding models."
+  ],
+  [
+   1980,
+   "##### Code-oriented models."
+  ],
+  [
+   2013,
+   "## Appendix D Evaluation Metrics"
+  ],
+  [
+   2018,
+   "##### NDCG@10."
+  ],
+  [
+   2031,
+   "##### Recall@100."
+  ],
+  [
+   2043,
+   "## Appendix E LEVEL-3 Annotation Pipeline"
+  ],
+  [
+   2052,
+   "##### Notation."
+  ],
+  [
+   2149,
+   "## Appendix F Case Studies"
+  ],
+  [
+   2156,
+   "### F.1 Level-2 and Level-3 Target Expansion"
+  ],
+  [
+   2167,
+   "### F.2 Level-3 Annotation Quality"
+  ],
+  [
+   2196,
+   "### F.3 Filtered Raw Queries"
+  ],
+  [
+   2210,
+   "### F.4 Agentic Coding Query Types"
+  ],
+  [
+   2221,
+   "### F.5 Original Query and Rewrite Contrast"
+  ],
+  [
+   2502,
+   "## Appendix G Detailed CORE-Bench Results"
+  ],
+  [
+   5138,
+   "## Appendix H Prompt Templates"
+  ],
+  [
+   5152,
+   "## Appendix I Usage of AI Assistant"
+  ],
+  [
+   5172,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## Limitations\n\nCORE-Bench is mainly built from SWE-bench-series and SWE-bench-style software-change data. It may therefore not fully capture retrieval on newly created or rapidly evolving repositories, and it does not yet include freshness-oriented metrics for such settings. Its diversity is also uneven: popular ecosystems contribute more examples, while long-tail languages and uncommon project structures remain underrepresented.\n\n## References\n\nAkram et al. (2026)\nM. K. Akram, S. Sturua, N. Havriushenko, Q. Herreros, M. Günther, M. Werk, and H. Xiao\n\nJina-embeddings-v5-text: task-targeted embedding distillation.\n\narXiv preprint arXiv:2602.15547.\n\nCited by: 5th item,\n§2.2.\n\nAnthropic (2026)\nAnthropic\n\nClaude Sonnet 4.6.\n\nNote: Accessed: 2026-05-24\n\nExternal Links: Link\n\nCited by: §3.2.3.\n\nAustin et al. (2021)\nJ. Austin, A. Odena, M. Nye, M. Bosma, H. Michalewski, D. Dohan, E. Jiang, C. Cai, M. Terry, Q. Le, et al.\n\nProgram synthesis with large language models.\n\narXiv preprint arXiv:2108.07732.\n\nCited by: §2.1.\n\nChen et al. (2024)\nJ. Chen, S. Xiao, P. Zhang, K. Luo, D. Lian, and Z. Liu\n\nM3-embedding: multi-linguality, multi-functionality, multi-granularity text embeddings through self-knowledge distillation.",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 0,
+  "swe_bench": 51,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 6,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

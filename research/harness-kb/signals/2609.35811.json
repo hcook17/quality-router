@@ -1,0 +1,217 @@
+{
+ "arxiv_id": "2609.35811",
+ "fulltext_chars": 55305,
+ "fulltext_lines": 1314,
+ "authors_block": "Conference: International Conference on Multimedia Retrieval; June 16–19, 2026; Amsterdam, NetherlandsInternational Conference on Multimedia Retrieval (ICMR ’26), June 16–19, 2026, Amsterdam, NetherlandsDOI: 10.1145/3805622.3810632ISBN: 979-8-4007-2617-0/2026/06CCS: Retrieval models and rankingCCS: Multimedia and multimodal retrievalCCS: Intelligent agents Zongze Wu email: wuzz@bupt.edu.cn Affiliation: Beijing University of Posts and Telecommunications, Beijing, China , Yani Guo email: gyn@bupt.edu.cn Affiliation: Beijing University of Posts and Telecommunications, Beijing, China and Runnan Li Note: Corresponding author email: runnan.li@bupt.edu.cn Affiliation: Beijing University of Posts and Telecommunications, Beijing, China © cc",
+ "vendor_affiliation_hits": [],
+ "n_authors": 3,
+ "comment": "10 pages, 3 figures, 3 tables. Published in ICMR 2026",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Lookahead-R: Budget-Aware Tool Retrieval via Execution-Centric Planning"
+  ],
+  [
+   48,
+   "###### Abstract."
+  ],
+  [
+   69,
+   "###### Keywords:"
+  ],
+  [
+   76,
+   "## 1. Introduction"
+  ],
+  [
+   100,
+   "## 2. Related Work"
+  ],
+  [
+   102,
+   "### 2.1. LLMs for Multi-modal Retrieval"
+  ],
+  [
+   106,
+   "### 2.2. Structured Tool Retrieval"
+  ],
+  [
+   112,
+   "### 2.3. Model-Based Planning and World Models"
+  ],
+  [
+   118,
+   "### 2.4. Cost-Aware Inference and Data Synthesis"
+  ],
+  [
+   124,
+   "## 3. Method"
+  ],
+  [
+   130,
+   "### 3.1. Problem Formulation"
+  ],
+  [
+   164,
+   "### 3.2. World Model with Critical Judging"
+  ],
+  [
+   168,
+   "##### Input Representation."
+  ],
+  [
+   172,
+   "##### Probabilistic Formulation."
+  ],
+  [
+   194,
+   "##### Robust Training Objective."
+  ],
+  [
+   204,
+   "##### Critical Judge Alignment."
+  ],
+  [
+   208,
+   "##### Implementation Details."
+  ],
+  [
+   324,
+   "### 3.3. Uncertainty-Guided MCTS Planning"
+  ],
+  [
+   328,
+   "##### Decision Tree Formulation."
+  ],
+  [
+   332,
+   "##### Multi-Objective Selection Strategy (CSU-UCB)."
+  ],
+  [
+   342,
+   "##### Virtual Lookahead Simulation."
+  ],
+  [
+   347,
+   "##### Anytime Termination & Scalability."
+  ],
+  [
+   351,
+   "### 3.4. Student-Teacher Data Synthesis"
+  ],
+  [
+   355,
+   "##### Hybrid Candidate Generation."
+  ],
+  [
+   365,
+   "##### Student Planner with Parameter Hallucination."
+  ],
+  [
+   375,
+   "##### Teacher Simulation and Execution Feedback."
+  ],
+  [
+   385,
+   "##### Contrastive Negative Sampling and Cost Augmentation."
+  ],
+  [
+   389,
+   "##### Quality Control and Filtering."
+  ],
+  [
+   393,
+   "##### Reproducibility and Ethical Considerations."
+  ],
+  [
+   471,
+   "## 4. Experiments"
+  ],
+  [
+   473,
+   "### 4.1. Experimental Setup"
+  ],
+  [
+   475,
+   "#### 4.1.1. Model Configuration"
+  ],
+  [
+   481,
+   "#### Dataset"
+  ],
+  [
+   489,
+   "#### Baselines"
+  ],
+  [
+   521,
+   "#### Settings"
+  ],
+  [
+   527,
+   "#### Metrics"
+  ],
+  [
+   674,
+   "### 4.2. Main Results"
+  ],
+  [
+   678,
+   "##### Superior Ranking Capability."
+  ],
+  [
+   682,
+   "##### Higher Success and Win Rates."
+  ],
+  [
+   686,
+   "### 4.3. Anytime Planning Characteristics"
+  ],
+  [
+   704,
+   "### 4.4. Mechanism-Level Ablation Studies"
+  ],
+  [
+   763,
+   "### 4.5. Case Study"
+  ],
+  [
+   805,
+   "## 5. Conclusion"
+  ],
+  [
+   809,
+   "###### Acknowledgements."
+  ],
+  [
+   813,
+   "## References"
+  ],
+  [
+   1314,
+   "##"
+  ]
+ ],
+ "acknowledgments": "###### Acknowledgements.\n\nThis research was partially supported by the 2024 Scientific Research Fund of Beijing University of Posts and Telecommunications Grant Number 510224070 and the 2024 Undergraduate Education and Teaching Reform Project of Beijing University of Posts and Telecommunications Grant Number 2024YB26.\n\n## References\n\nChen et al. (2024a)\nL. Chen, M. Zaharia, and J. Zou\n\nFrugalGPT: how to use large language models while reducing cost and improving performance.\n\nIn Advances in Neural Information Processing Systems (NeurIPS),\n\nVol. 36.\n\nCited by: §2.4.\n\nChen et al. (2025)\nX. Chen et al.\n\nAgent planning with world knowledge model.\n\nIn Proceedings of the International Conference on Learning Representations (ICLR),\n\nCited by: §2.3.",
+ "limitations": "",
+ "ethics_coi": "##### Reproducibility and Ethical Considerations.\n\nAll parameters are synthetically generated and executed in sandboxed environments, ensuring no real user data is involved. The mining pipeline is deterministic given random seeds, enabling reproducibility.\n\nAlgorithm 2 Student-Teacher Data Mining Protocol\n\n 1:\n\n Query set \\mathcal{Q} , tool repository \\mathcal{T} , Student \\mathcal{M}_{S} , Teacher \\mathcal{M}_{T} \n\n 2:\n\n Execution trace dataset \\mathcal{D} \n\n 3:\n\n \\mathcal{D}\\leftarrow\\emptyset \n\n 4:\n\n for all q\\in\\mathcal{Q} do\n\n 5:\n\n    \\mathcal{C}_{q}\\leftarrow\\text{HybridRetrieve}(q,\\mathcal{T})",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 1,
+  "swe_bench": 0,
+  "contamination": 1,
+  "human_study": 2,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

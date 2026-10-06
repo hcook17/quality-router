@@ -1,0 +1,139 @@
+{
+ "arxiv_id": "2608.17694",
+ "fulltext_chars": 40597,
+ "fulltext_lines": 539,
+ "authors_block": "Conference: 40th Brazilian Symposium on Software Engineering; 2026; São Paulo, SP, Brazil Lucas Daniel Costa da Silva Affiliation: Universidade Federal de Pernambuco (UFPE), Recife, Brasil email: ldcs@cin.ufpe.br and Kiev Gama Affiliation: Universidade Federal de Pernambuco (UFPE), Recife, Brasil email: kiev@cin.ufpe.br © none",
+ "vendor_affiliation_hits": [],
+ "n_authors": 2,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/ldcss/GADR."
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# GADR: Gathering Architecture Decision Records from Meeting Transcriptions"
+  ],
+  [
+   39,
+   "###### Abstract."
+  ],
+  [
+   43,
+   "###### Keywords:"
+  ],
+  [
+   46,
+   "## 1. Introduction"
+  ],
+  [
+   54,
+   "## 2. Background And Related Work"
+  ],
+  [
+   56,
+   "### 2.1. Difficulties In Identifying Design Decisions"
+  ],
+  [
+   64,
+   "### 2.2. Knowledge Extraction Process From Text"
+  ],
+  [
+   70,
+   "## 3. Proposed Approach"
+  ],
+  [
+   74,
+   "### 3.1. Graph-State Formalization"
+  ],
+  [
+   96,
+   "### 3.2. Nodes Specification"
+  ],
+  [
+   138,
+   "## 4. Methodology And Setup"
+  ],
+  [
+   142,
+   "### 4.1. Engineering Research"
+  ],
+  [
+   161,
+   "### 4.2. Study Context And Participants"
+  ],
+  [
+   219,
+   "### 4.3. Evaluation Procedure"
+  ],
+  [
+   231,
+   "### 4.4. Evaluation Strategy"
+  ],
+  [
+   237,
+   "## 5. Results"
+  ],
+  [
+   273,
+   "### 5.1. Agentic Versus Prompt-Based Generation"
+  ],
+  [
+   285,
+   "### 5.2. Participant Evaluation Through Forms"
+  ],
+  [
+   289,
+   "### 5.3. Senior Developers Evaluation"
+  ],
+  [
+   295,
+   "## 6. Discussion"
+  ],
+  [
+   309,
+   "## 7. Threats To Validity"
+  ],
+  [
+   314,
+   "## 8. Conclusion"
+  ],
+  [
+   320,
+   "## Artifact Availability"
+  ],
+  [
+   326,
+   "###### Acknowledgements."
+  ],
+  [
+   330,
+   "## References"
+  ],
+  [
+   539,
+   "##"
+  ]
+ ],
+ "acknowledgments": "###### Acknowledgements.\n\nFor partially supporting this work, we would like to thank INES.IA (National Institute of Science and Technology for Software Engineering Based on and for Artificial Intelligence) www.ines.org.br, CNPq grant 408817/2024-0.\n\n## References\n\nBass et al. (2003)\nL. Bass, P. Clements, and R. Kazman\n\nSoftware architecture in practice.\n\n2nd edition, Addison-Wesley.\n\nCited by: §1.\n\nBorowa et al. (2023)\nK. Borowa, R. Lewanczyk, K. Stpiczyńska, P. Stradomski, and A. Zalewski\n\nWhat rationales drive architectural decisions? an empirical inquiry.\n\nIn Software Architecture,\n\npp. 303–318.\n\nExternal Links: ISBN 978-3-031-42592-9",
+ "limitations": "## 7. Threats To Validity\n\nThreats arise from the use of LLM-based and RAG-based generation. Although the agentic workflow improved structure and stability when compared with single-pass prompting, it sometimes transformed tentative discussions into accepted decisions, omitted fine-grained concerns, or introduced unsupported details from retrieved external context. In addition, verbose ADRs may be useful as learning artifacts for novice architects, but verbosity can also obscure which information was actually discussed in the meeting and increase the review effort. Therefore, the generated ADRs should be interpreted as reviewable drafts rather than authoritative documentation, and unsupported additions should be treated as potential hallucinations instead of automatic improvements.\nThis study is also subject to threats related to its exploratory and mostly educational setting. The evaluation was conducted with five student groups and a limited number of transcripts, which restricts the generalization of the findings to industrial contexts. Moreover, students evaluated ADRs from projects in which they participated, so their perception may include implicit knowledge not fully present in the transcripts. This is especially relevant for the reported pedagogical gain: students perceived the ADRs as useful for remembering decisions and learning architectural documentation, but this benefit may also be influenced by their prior involvement in the projects and by the explanatory richness of the generated texts.\n\n## 8. Conclusion\n\nThis paper presented an agentic approach for extracting architectural decisions from meeting transcriptions and generating ADR drafts. Building on the role of architectural decisions in software architecture (Jansen and Bosch, 2005) and on ADRs as lightweight documentation artifacts (Nygard, 2011; Nogueira et al., 2026), the approach addresses a known adoption barrier: the effort required to capture architectural knowledge in practice (Buchgeher et al., 2023). The preliminary evaluation indicates that, compared with zero-shot and few-shot prompting, the agentic workflow produced more stable and structured ADRs, captured most expert-identified decisions, and supported students in remembering and learning from their own architectural discussions.\n\nAt the same time, the results reinforce that LLM-based ADR generation should remain human-in-the-loop. Although prior work shows the promise of LLMs and RAG for architectural decision generation (Dhar et al., 2024; Dhar et al., 2025), this study suggests that if any recorded meeting can become a reviewable ADR draft, then the primary adoption barrier for AKM shifts in nature: from the effort required to write documentation to the lighter effort of reviewing it. We believe this shift is worth pursuing, and present GADR as a concrete first step.\n\n## Artifact Availability\n\nThe research artifacts supporting this study are archived on Zenodo at\nhttps://doi.org/10.5281/zenodo.21501559. The project repository is also\navailable at https://github.com/ldcss/GADR.\n\n###### Acknowledgements.\n\nFor partially supporting this work, we would like to thank INES.IA (National Institute of Science and Technology for Software Engineering Based on and for Artificial Intelligence) www.ines.org.br, CNPq grant 408817/2024-0.\n\n## References\n\nBass et al. (2003)\nL. Bass, P. Clements, and R. Kazman\n\nSoftware architecture in practice.\n\n2nd edition, Addison-Wesley.\n\nCited by: §1.\n\nBorowa et al. (2023)\nK. Borowa, R. Lewanczyk, K. Stpiczyńska, P. Stradomski, and A. Zalewski\n\nWhat rationales drive architectural decisions? an empirical inquiry.\n\nIn Software Architecture,\n\npp. 303–318.",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 2,
+  "human_study": 8,
+  "java": 0,
+  "industrial": 3
+ },
+ "fulltext_source": "html"
+}

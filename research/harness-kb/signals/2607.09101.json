@@ -1,0 +1,187 @@
+{
+ "arxiv_id": "2607.09101",
+ "fulltext_chars": 77548,
+ "fulltext_lines": 1422,
+ "authors_block": "Quanjun Zhang Ye Shang Siqi Gu Jianyi Zhou Chunrong Fang Zhenyu Chen Liang Xiao ††thanks: Quanjun Zhang and Liang Xiao are with Nanjing University of Science and Technology, China. E-mail: quanjunzhang@njust.edu.cn; xiaoliang@mail.njust.edu.cn.††thanks: Ye Shang, Siqi Gu, Chunrong Fang, and Zhenyu Chen are with Nanjing University, China. E-mail: {yeshang, siqi.gu}@smail.nju.edu.cn; {fangchunrong, zychen}@nju.edu.cn.††thanks: Jianyi Zhou is with Huawei Cloud Computing Technologies Co., Ltd. E-mail: zhoujianyi2@huawei.com.",
+ "vendor_affiliation_hits": [
+  "Huawei"
+ ],
+ "n_authors": 7,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Multi-Agent LLM Collaboration for Unit Test Generation via Human-Testing-Inspired Workflows"
+  ],
+  [
+   37,
+   "###### Abstract"
+  ],
+  [
+   52,
+   "###### Index Terms:"
+  ],
+  [
+   55,
+   "## I Introduction"
+  ],
+  [
+   134,
+   "## II Background and Related Work"
+  ],
+  [
+   136,
+   "### II-A Unit Test Generation"
+  ],
+  [
+   154,
+   "### II-B LLM-based Agents"
+  ],
+  [
+   171,
+   "## III Methodology"
+  ],
+  [
+   175,
+   "### III-A Overview"
+  ],
+  [
+   191,
+   "### III-B Knowledge Graph Construction"
+  ],
+  [
+   233,
+   "### III-C Graph-based Toolkit Building"
+  ],
+  [
+   333,
+   "### III-D Multi-Agent Framework"
+  ],
+  [
+   338,
+   "#### III-D1 Requirement Planner Agent"
+  ],
+  [
+   351,
+   "#### III-D2 Test Generator Agent"
+  ],
+  [
+   386,
+   "#### III-D3 Test Reviewer Agent"
+  ],
+  [
+   404,
+   "### III-E Implementation"
+  ],
+  [
+   412,
+   "## IV Experiments and Results"
+  ],
+  [
+   414,
+   "### IV-A Experiment Setup"
+  ],
+  [
+   416,
+   "#### IV-A1 Research Questions"
+  ],
+  [
+   444,
+   "#Modules"
+  ],
+  [
+   445,
+   "#Methods"
+  ],
+  [
+   537,
+   "#### IV-A2 Dataset"
+  ],
+  [
+   549,
+   "#### IV-A3 Baselines"
+  ],
+  [
+   560,
+   "#### IV-A4 Metric"
+  ],
+  [
+   574,
+   "#### IV-A5 Configuration Setting"
+  ],
+  [
+   586,
+   "### IV-B RQ1: Effectiveness Comparison"
+  ],
+  [
+   723,
+   "### IV-C RQ2: Ablation Study"
+  ],
+  [
+   831,
+   "### IV-D RQ3: Model Adaptability of TestAgent"
+  ],
+  [
+   888,
+   "### IV-E RQ4: Industrial Project Performance"
+  ],
+  [
+   927,
+   "### IV-F RQ5: Readability and Usability Evaluation"
+  ],
+  [
+   981,
+   "### IV-G RQ6: Language Generalizability"
+  ],
+  [
+   1096,
+   "## V Discussion"
+  ],
+  [
+   1098,
+   "### V-A Cost-Effectiveness Analysis"
+  ],
+  [
+   1161,
+   "### V-B Bug Detection via Non-regression Tests"
+  ],
+  [
+   1183,
+   "### V-C Threats to Validity"
+  ],
+  [
+   1201,
+   "## VI Conclusion"
+  ],
+  [
+   1208,
+   "## References"
+  ],
+  [
+   1422,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "### V-C Threats to Validity\n\nData Leakage.\nSince LLMs are pre-trained on extensive public data, our benchmarks may overlap with their training corpus.\nTo mitigate this risk, we evaluate TestAgent on a private industrial dataset (UTXXX) containing unseen methods.\nConsistent performance across public and internal datasets suggests improvements stem from our advanced framework rather than memorization.\n\nMulti-Language Support.\nOur approach is primarily evaluated using Java, raising concerns about its applicability to other languages. To address this, we re-implement our workflow in Python and conduct comparative evaluations against two SOTA Python-specific test generation methods (CodaMosa and CoverUp). The consistent line and branch coverage results indicate that TestAgent generalizes effectively across programming languages.\n\nLLMs Selection.\nOur primary evaluations use GPT-4o, which potentially introduces model-specific biases and limits generalizability. To address this, we conduct parallel experiments with alternative LLMs (i.e., DeepSeek-V3 and Qwen3-30B) under identical conditions.\nResults show consistent relative performance trends across black-box and open-source models, indicating that TestAgent generalizes well beyond a single LLM.\n\nNon-determinism of LLMs.\nOur results are obtained from a single run of each approach due to the substantial monetary and time costs, and the inherent randomness of LLMs may introduce variance in individual metrics.\nThe consistent trends across six projects, three LLMs, two languages, and an industrial dataset mitigate this threat.\n\n## VI Conclusion\n\nThis paper presents TestAgent, a novel multi-agent framework for LLM-based unit test generation, which emulates human testing practices with three collaborative agents: a requirement planner, a test generator, and a reviewer agent.\nWe further equip the agents with external tool APIs and a repository-level knowledge graph, enabling agents to interact with the codebase in a fine-grained and adaptive manner.\nExtensive experiments on both Java and Python projects demonstrate that TestAgent outperforms state-of-the-art LLM-based approaches across various dimensions and achieves substantially higher mutation scores than search-based tools.\nMoreover, TestAgent exhibits strong extensibility across different LLM backbones and practical applicability in industrial scenarios.\n\n## References\n\n[1]\n\nP. Runeson, “A survey of unit testing practices,” IEEE Softw., vol. 23, no. 4, pp. 22–29, 2006.\n\n[2]\n\nM. Olan, “Unit testing: test early, test often,” J. Comput. Sci. Coll., vol. 19, no. 2, pp. 319–328, 2003.\n\n[3]\n\nH. Zhu, P. A. V. Hall, and J. H. R. May, “Software unit test coverage and adequacy,” ACM Comput. Surv., vol. 29, no. 4, pp. 366–427, 1997.\n\n[4]",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 3,
+  "seeds_or_runs": 0,
+  "swe_bench": 2,
+  "contamination": 3,
+  "human_study": 7,
+  "java": 19,
+  "industrial": 20
+ },
+ "fulltext_source": "html"
+}

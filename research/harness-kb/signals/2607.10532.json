@@ -1,0 +1,219 @@
+{
+ "arxiv_id": "2607.10532",
+ "fulltext_chars": 76108,
+ "fulltext_lines": 1703,
+ "authors_block": "Conference: Proceedings of the 32nd ACM SIGKDD Conference on Knowledge Discovery and Data Mining V.2; August 09–13, 2026; Jeju Island, Republic of KoreaProceedings of the 32nd ACM SIGKDD Conference on Knowledge Discovery and Data Mining V.2 (KDD ’26), August 09–13, 2026, Jeju Island, Republic of KoreaDOI: 10.1145/3770855.3817732ISBN: 979-8-4007-2259-2/2026/08CCS: Information systems DeduplicationCCS: Theory of computation Data integrationCCS: Information systems Information retrieval Yunpeng Hong email: hongyp@mail.hfut.edu.cn Affiliation: Key Laboratory of Knowledge Engineering with Big Data (the Ministry of Education of China), Hefei University of Technology, Hefei, Anhui, China , Chenyang Bu email: chenyangbu@hfut.edu.cn Affiliation: Key Laboratory of Knowledge Engineering with Big Data (the Ministry of Education of China), Hefei University of Technology, Hefei, Anhui, China , Di Wu email: wudi.cigit@gmail.com Affiliation: College of Computer and Information Science, Southwest University, Chongqing, China , Yi He email: yihe@wm.edu Affiliation: Department of Data Science, College of William and Mary, Williamsburg, VA, USA and Xindong Wu Note: Corresponding authors. email: xwu@hfut.edu.cn Affiliation: Key Laboratory of Knowledge Engineering with Big Data (the Ministry of Education of China), Hefei University of Technology, Hefei, Anhui, China © cc",
+ "vendor_affiliation_hits": [],
+ "n_authors": 5,
+ "comment": "Accepted by KDD 2026",
+ "journal_ref": "SIGKDD 2026",
+ "github_urls": [
+  "https://github.com/DMiC-Lab-HFUT/PTFEA."
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   22,
+   "# Implicit Fine-tuning via Context Engineering: A Curriculum Learning Framework for Multimodal Entity Alignment"
+  ],
+  [
+   64,
+   "###### Abstract."
+  ],
+  [
+   68,
+   "###### Keywords:"
+  ],
+  [
+   74,
+   "## 1. Introduction"
+  ],
+  [
+   110,
+   "## 2. Related Work"
+  ],
+  [
+   115,
+   "### 2.1. KRL-based MMEA"
+  ],
+  [
+   123,
+   "### 2.2. LLM-based MMEA"
+  ],
+  [
+   132,
+   "## 3. Theoretical Analysis"
+  ],
+  [
+   134,
+   "### 3.1. Preliminary"
+  ],
+  [
+   186,
+   "### 3.2. Context Engineering as Fine-Tuning in MMEA"
+  ],
+  [
+   191,
+   "###### Theorem 1."
+  ],
+  [
+   204,
+   "#### 3.2.1. Fine-tuning setup"
+  ],
+  [
+   225,
+   "###### Remark 1."
+  ],
+  [
+   232,
+   "#### 3.2.2. CE Form of Curriculum Learning-based Fine-Tuning"
+  ],
+  [
+   236,
+   "###### Remark 2."
+  ],
+  [
+   256,
+   "## 4. Method"
+  ],
+  [
+   258,
+   "### 4.1. Overview"
+  ],
+  [
+   262,
+   "### 4.2. Candidate Entity List Generation"
+  ],
+  [
+   276,
+   "### 4.3. Curriculum-Guided Progressive Inference"
+  ],
+  [
+   280,
+   "#### 4.3.1. Stage I: Simple Entity Selection"
+  ],
+  [
+   308,
+   "#### 4.3.2. Stage II: Ambiguous Entity Selection"
+  ],
+  [
+   326,
+   "#### 4.3.3. Stage III: Complex Entity Selection"
+  ],
+  [
+   337,
+   "## 5. Experiments"
+  ],
+  [
+   339,
+   "### 5.1. Experimental Setup"
+  ],
+  [
+   341,
+   "#### 5.1.1. Datasets"
+  ],
+  [
+   347,
+   "#### 5.1.2. Baselines"
+  ],
+  [
+   438,
+   "#### 5.1.3. Implementation Details"
+  ],
+  [
+   637,
+   "### 5.2. Main Experiment Results"
+  ],
+  [
+   641,
+   "#### 5.2.1. Main Results"
+  ],
+  [
+   653,
+   "#### 5.2.2. Prompting \\approx Fine-tuning"
+  ],
+  [
+   661,
+   "#### 5.2.3. Discussion of baseline performance"
+  ],
+  [
+   665,
+   "### 5.3. Ablation Study"
+  ],
+  [
+   669,
+   "#### 5.3.1. The Importance of Progressive Inference"
+  ],
+  [
+   735,
+   "#### 5.3.2. Resource Consumption"
+  ],
+  [
+   745,
+   "#### 5.3.3. Robustness Analysis"
+  ],
+  [
+   749,
+   "### 5.4. Effects of Different LLMs"
+  ],
+  [
+   759,
+   "## 6. Conclusion"
+  ],
+  [
+   764,
+   "## 7. Acknowledgements"
+  ],
+  [
+   770,
+   "## References"
+  ],
+  [
+   1471,
+   "## Appendix A Complementary Theoretical Analysis"
+  ],
+  [
+   1473,
+   "### A.1. Proof of Theorem 1"
+  ],
+  [
+   1475,
+   "#### A.1.1. Forward Propagation Process of the Dual Model"
+  ],
+  [
+   1588,
+   "#### A.1.2. ICL Process with One Attention Layer"
+  ],
+  [
+   1618,
+   "#### A.1.3. More Discussion on Loss"
+  ],
+  [
+   1632,
+   "## Appendix B Supplementary Notes on Experiments"
+  ],
+  [
+   1703,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## 7. Acknowledgements\n\nThis work was supported by the National Natural Science Foundation of China (Grant No. 62120106008), Anhui Provincial Science and Technology Fortification Plan (Grant No. 202423k09020015), the Hefei Key Generic Technology Research and Development Program (No. 2024SGJ010), the Youth Talent Support Program of the Anhui Association for Science and Technology (Grant No. RCTJ202420), New Chongqing Youth Innovation Talent Project under Grant CSTB2024NSCQ-QCXMX0035, and the Open Project of Key Laboratory of Knowledge Engineering with Big Data (the Ministry of Education of China), under grant number BigKEOpen2025-03. The computation was completed on the HPC Platform of Hefei University of Technology.\nThe authors would also like to acknowledge partial support from the Hefei AI Computing Center (Project Team).\nY. He was not supported by any of these funds.\n\n## References\n\nAgarwal et al. (2022)\nC. Agarwal, D. D’souza, and S. Hooker\n\nEstimating example difficulty using variance of gradients.\n\nIn Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition,\n\npp. 10368–10378.\n\nCited by: §1.\n\nBengio et al. (2009)\nY. Bengio, J. Louradour, R. Collobert, and J. Weston\n\nCurriculum learning.\n\nIn Proceedings of International Conference on Machine Learning,",
+ "limitations": "",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 2,
+  "seeds_or_runs": 1,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

@@ -1,0 +1,308 @@
+{
+ "arxiv_id": "2609.33762",
+ "fulltext_chars": 80985,
+ "fulltext_lines": 1524,
+ "authors_block": "Offloading Work for Concurrent Agents? Kunming Shao Affiliation: The Hong Kong University of Science and Technology Jierun Chen Affiliation: Huawei Technologies Ltd. Jiangnan Yu Affiliation: The Hong Kong University of Science and Technology Xiao-Hui Li Affiliation: Huawei Technologies Ltd. Chaofan Tao Affiliation: The University of Hong Kong Yanli Wang Huanxin Lin Kwang-Ting Cheng Chi Ying Tsui Haoli Bai Affiliation: The Hong Kong University of Science and Technology Affiliation: Huawei Technologies Ltd. Affiliation: Sun Yat-sen University†Corresponding author",
+ "vendor_affiliation_hits": [
+  "Huawei"
+ ],
+ "n_authors": 10,
+ "comment": "25 pages, 8 figures, 13 tables. Code: https://github.com/KunmingSHAO/efficientagent_release",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/KunmingSHAO/efficientagent_release."
+ ],
+ "hf_urls": [
+  "https://huggingface.co/Qwen/Qwen2.5-Coder-32B-Instruct",
+  "https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct"
+ ],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# EfficientAgent: What Makes KV Cache"
+  ],
+  [
+   52,
+   "###### Abstract"
+  ],
+  [
+   56,
+   "## 1 Introduction"
+  ],
+  [
+   74,
+   "## 2 Agent Workflows and the Reuse Boundary"
+  ],
+  [
+   76,
+   "#### A closed-loop workload."
+  ],
+  [
+   80,
+   "#### Exact-prefix reuse."
+  ],
+  [
+   84,
+   "#### KV footprint and hardware balance."
+  ],
+  [
+   94,
+   "## 3 From Offload Cost to Reuse Working Sets"
+  ],
+  [
+   96,
+   "### 3.1 Valuing a recoverable prefix"
+  ],
+  [
+   120,
+   "### 3.2 Predicting survival across agent turns"
+  ],
+  [
+   140,
+   "## 4 Working-Set-Aware Admission Scheduling"
+  ],
+  [
+   144,
+   "#### Load control for the host tier."
+  ],
+  [
+   148,
+   "#### Pressure signal and write rule."
+  ],
+  [
+   158,
+   "#### Which writes a tier can decline."
+  ],
+  [
+   162,
+   "###### Proposition 1."
+  ],
+  [
+   168,
+   "## 5 Evaluation"
+  ],
+  [
+   170,
+   "### 5.1 Experimental setup"
+  ],
+  [
+   174,
+   "#### Dependency-preserving replay."
+  ],
+  [
+   178,
+   "#### Measurements."
+  ],
+  [
+   182,
+   "### 5.2 Host capacity determines useful recovery"
+  ],
+  [
+   190,
+   "### 5.3 Concurrency changes the working set"
+  ],
+  [
+   194,
+   "### 5.4 Stack-distance predictions locate the capacity transition"
+  ],
+  [
+   198,
+   "### 5.5 Write admission reverses across the capacity transition"
+  ],
+  [
+   240,
+   "### 5.6 Makespan follows computed prefill across interventions"
+  ],
+  [
+   246,
+   "### 5.7 Hardware ratio and capacity set offload outcomes across deployments"
+  ],
+  [
+   250,
+   "## 6 Related Work"
+  ],
+  [
+   252,
+   "#### KV reuse and tiered storage."
+  ],
+  [
+   256,
+   "#### Agent- and multi-turn-aware serving."
+  ],
+  [
+   260,
+   "#### Cache admission and working-set analysis."
+  ],
+  [
+   264,
+   "#### Context and representation changes."
+  ],
+  [
+   268,
+   "#### Implications for agent design and training."
+  ],
+  [
+   272,
+   "## 7 Conclusion"
+  ],
+  [
+   276,
+   "## AI Use Statement"
+  ],
+  [
+   280,
+   "## Ethics Statement"
+  ],
+  [
+   284,
+   "## Reproducibility Statement"
+  ],
+  [
+   288,
+   "## References"
+  ],
+  [
+   753,
+   "## Appendix A Experimental Configuration"
+  ],
+  [
+   755,
+   "#### Agent execution."
+  ],
+  [
+   759,
+   "#### Serving stack and memory budgets."
+  ],
+  [
+   837,
+   "#### Timing boundary."
+  ],
+  [
+   841,
+   "## Appendix B Replay Construction and Complete Measurements"
+  ],
+  [
+   843,
+   "#### Workload construction."
+  ],
+  [
+   849,
+   "#### Repeated-prefix profile."
+  ],
+  [
+   853,
+   "#### Baselines and policy variants."
+  ],
+  [
+   857,
+   "#### Counters and repeated runs."
+  ],
+  [
+   1029,
+   "#### Capacity and concurrency."
+  ],
+  [
+   1033,
+   "## Appendix C Offload Cost and Prefix-Survival Model"
+  ],
+  [
+   1035,
+   "#### Hardware cost."
+  ],
+  [
+   1055,
+   "#### Prefix coverage from a reference stream."
+  ],
+  [
+   1093,
+   "#### Changing the active pool."
+  ],
+  [
+   1123,
+   "#### Working-set scale."
+  ],
+  [
+   1127,
+   "#### Tensor-parallel footprint."
+  ],
+  [
+   1176,
+   "## Appendix D Runtime Admission Details"
+  ],
+  [
+   1225,
+   "#### Parameter sensitivity."
+  ],
+  [
+   1231,
+   "#### Recency order of the host tier."
+  ],
+  [
+   1235,
+   "#### Reference model."
+  ],
+  [
+   1239,
+   "###### Lemma 1."
+  ],
+  [
+   1243,
+   "###### Proof."
+  ],
+  [
+   1248,
+   "###### Proof of Proposition 1."
+  ],
+  [
+   1257,
+   "#### Relation to the backlogged-pool model (Equation 5)."
+  ],
+  [
+   1261,
+   "#### Reuse distance of declined chunks."
+  ],
+  [
+   1267,
+   "## Appendix E Hardware Deployment Results"
+  ],
+  [
+   1331,
+   "#### Prefix caching."
+  ],
+  [
+   1354,
+   "#### Hit rates by GPU KV usage."
+  ],
+  [
+   1456,
+   "## Appendix F Deployment Guide"
+  ],
+  [
+   1492,
+   "## Appendix G Context Folding and Prefix Identity"
+  ],
+  [
+   1524,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "",
+ "ethics_coi": "## Ethics Statement\n\nThe experiments use existing software-maintenance benchmarks and do not release new models. More efficient coding agents can lower the cost of software development, while generated patches still require testing and security review. We report runtime and computation rather than measured energy consumption.\n\n## Reproducibility Statement\n\nAppendix A specifies the model, software, hardware, and replay protocol, and Appendix B lists every completed run. The write-admission connector, the dependency-preserving replay framework, and the analysis tools, including the stack-distance capacity model, are available at https://github.com/KunmingSHAO/efficientagent_release.\n\n## References\n\nAbhyankar et al. (2024)\nR. Abhyankar, Z. He, V. Srivatsa, H. Zhang, and Y. Zhang\n\nInferCept: efficient intercept support for augmented large language model inference.\n\nIn Proceedings of the 41st International Conference on Machine Learning,\n\nProceedings of Machine Learning Research, Vol. 235, pp. 81–95.\n\nCited by: §6.\n\nBerger et al. (2017)\nD. S. Berger, R. K. Sitaraman, and M. Harchol-Balter\n\nAdaptSize: orchestrating the hot object memory cache in a content delivery network.",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 2,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 0,
+  "swe_bench": 11,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 1
+ },
+ "fulltext_source": "html"
+}

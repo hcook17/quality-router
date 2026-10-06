@@ -1,0 +1,659 @@
+{
+  "window": {
+    "from": "202605010000",
+    "to": "202610062359"
+  },
+  "categories": [
+    "cs.SE",
+    "cs.AI",
+    "cs.CL",
+    "cs.LG",
+    "cs.CR",
+    "cs.MA",
+    "cs.IR",
+    "cs.DB",
+    "cs.HC",
+    "cs.PL",
+    "cs.CY"
+  ],
+  "clusters": {
+    "C01": "Harness anatomy and loop design",
+    "C02": "Context, memory and instructions",
+    "C03": "Tools, MCP and code intelligence",
+    "C04": "Orchestration and multi-agent",
+    "C05": "Specs, planning and requirements",
+    "C06": "Verification, testing and sensors",
+    "C07": "Multi-repo, contracts and evolution",
+    "C08": "Safety, security and governance",
+    "C09": "Evaluation, benchmarks and measurement",
+    "C10": "Cost, routing and training",
+    "C11": "Domain: Java, data pipelines, healthcare, content"
+  },
+  "topics": [
+    {
+      "id": "T01",
+      "cluster": "C01",
+      "name": "Agent harness engineering",
+      "phrases": [
+        "agent harness",
+        "harness engineering",
+        "agent scaffold"
+      ]
+    },
+    {
+      "id": "T02",
+      "cluster": "C01",
+      "name": "Coding agent architecture",
+      "phrases": [
+        "coding agent",
+        "software engineering agent",
+        "SWE agent"
+      ]
+    },
+    {
+      "id": "T03",
+      "cluster": "C01",
+      "name": "Agent loop and control flow",
+      "phrases": [
+        "agent loop",
+        "ReAct",
+        "plan-and-execute"
+      ]
+    },
+    {
+      "id": "T04",
+      "cluster": "C01",
+      "name": "Self-improving / meta-harness",
+      "phrases": [
+        "meta-harness",
+        "self-improving agent",
+        "automated harness"
+      ]
+    },
+    {
+      "id": "T05",
+      "cluster": "C01",
+      "name": "Long-horizon autonomous coding",
+      "phrases": [
+        "long-horizon",
+        "autonomous software development",
+        "end-to-end software generation"
+      ]
+    },
+    {
+      "id": "T06",
+      "cluster": "C02",
+      "name": "Repository instruction files (AGENTS.md)",
+      "phrases": [
+        "AGENTS.md",
+        "CLAUDE.md",
+        "cursor rules",
+        "context files"
+      ]
+    },
+    {
+      "id": "T07",
+      "cluster": "C02",
+      "name": "Context engineering",
+      "phrases": [
+        "context engineering",
+        "context window management",
+        "context rot"
+      ]
+    },
+    {
+      "id": "T08",
+      "cluster": "C02",
+      "name": "Context compaction and summarization",
+      "phrases": [
+        "context compaction",
+        "context compression",
+        "trajectory compression"
+      ]
+    },
+    {
+      "id": "T09",
+      "cluster": "C02",
+      "name": "Agent memory",
+      "phrases": [
+        "agent memory",
+        "long-term memory",
+        "episodic memory agent"
+      ]
+    },
+    {
+      "id": "T10",
+      "cluster": "C02",
+      "name": "Skills and procedural knowledge",
+      "phrases": [
+        "agent skills",
+        "SKILL.md",
+        "skill library"
+      ]
+    },
+    {
+      "id": "T11",
+      "cluster": "C02",
+      "name": "Repository-level code retrieval",
+      "phrases": [
+        "repository-level",
+        "code retrieval",
+        "code search agent"
+      ]
+    },
+    {
+      "id": "T12",
+      "cluster": "C03",
+      "name": "Model Context Protocol",
+      "phrases": [
+        "Model Context Protocol",
+        "MCP server",
+        "MCP tools"
+      ]
+    },
+    {
+      "id": "T13",
+      "cluster": "C03",
+      "name": "Tool selection and catalog scale",
+      "phrases": [
+        "tool selection",
+        "tool retrieval",
+        "large tool sets"
+      ]
+    },
+    {
+      "id": "T14",
+      "cluster": "C03",
+      "name": "LSP and semantic code tools",
+      "phrases": [
+        "language server",
+        "static analysis tools agent",
+        "semantic code navigation"
+      ]
+    },
+    {
+      "id": "T15",
+      "cluster": "C03",
+      "name": "Code graphs and knowledge graphs",
+      "phrases": [
+        "code graph",
+        "code knowledge graph",
+        "repository graph"
+      ]
+    },
+    {
+      "id": "T16",
+      "cluster": "C03",
+      "name": "CLI vs tool-calling vs CodeAct",
+      "phrases": [
+        "CodeAct",
+        "code as action",
+        "command-line interface agent"
+      ]
+    },
+    {
+      "id": "T17",
+      "cluster": "C04",
+      "name": "Multi-agent software engineering",
+      "phrases": [
+        "multi-agent software",
+        "multi-agent coding",
+        "agent collaboration software"
+      ]
+    },
+    {
+      "id": "T18",
+      "cluster": "C04",
+      "name": "Subagents and delegation",
+      "phrases": [
+        "subagent",
+        "sub-agent",
+        "agent delegation"
+      ]
+    },
+    {
+      "id": "T19",
+      "cluster": "C04",
+      "name": "Orchestrator-worker and planners",
+      "phrases": [
+        "orchestrator agent",
+        "planner executor",
+        "hierarchical agent"
+      ]
+    },
+    {
+      "id": "T20",
+      "cluster": "C04",
+      "name": "Parallel agents and merge conflicts",
+      "phrases": [
+        "parallel agents",
+        "concurrent agents",
+        "agent merge conflict"
+      ]
+    },
+    {
+      "id": "T21",
+      "cluster": "C04",
+      "name": "Agent communication protocols",
+      "phrases": [
+        "agent-to-agent protocol",
+        "Agent Client Protocol",
+        "A2A protocol"
+      ]
+    },
+    {
+      "id": "T22",
+      "cluster": "C05",
+      "name": "Spec-driven development",
+      "phrases": [
+        "spec-driven",
+        "specification-driven",
+        "specification first"
+      ]
+    },
+    {
+      "id": "T23",
+      "cluster": "C05",
+      "name": "Requirements engineering with LLMs",
+      "phrases": [
+        "requirements engineering",
+        "user stories LLM",
+        "acceptance criteria"
+      ]
+    },
+    {
+      "id": "T24",
+      "cluster": "C05",
+      "name": "Formal specs and verification-aware generation",
+      "phrases": [
+        "formal specification",
+        "verified code generation",
+        "specification synthesis"
+      ]
+    },
+    {
+      "id": "T25",
+      "cluster": "C05",
+      "name": "Agent planning for software tasks",
+      "phrases": [
+        "task decomposition",
+        "planning software engineering",
+        "implementation plan"
+      ]
+    },
+    {
+      "id": "T26",
+      "cluster": "C05",
+      "name": "Design docs and architecture by agents",
+      "phrases": [
+        "software architecture LLM",
+        "design decisions agent",
+        "architecture documentation"
+      ]
+    },
+    {
+      "id": "T27",
+      "cluster": "C06",
+      "name": "Test generation by agents",
+      "phrases": [
+        "test generation",
+        "unit test generation",
+        "test synthesis"
+      ]
+    },
+    {
+      "id": "T28",
+      "cluster": "C06",
+      "name": "Test-driven development with agents",
+      "phrases": [
+        "test-driven development",
+        "TDD",
+        "tests first"
+      ]
+    },
+    {
+      "id": "T29",
+      "cluster": "C06",
+      "name": "Verifier and feedback loops",
+      "phrases": [
+        "verifier",
+        "execution feedback",
+        "self-verification"
+      ]
+    },
+    {
+      "id": "T30",
+      "cluster": "C06",
+      "name": "Static analysis feedback to agents",
+      "phrases": [
+        "static analysis",
+        "linter feedback",
+        "compiler feedback"
+      ]
+    },
+    {
+      "id": "T31",
+      "cluster": "C06",
+      "name": "AI code review",
+      "phrases": [
+        "code review",
+        "pull request review",
+        "automated review"
+      ]
+    },
+    {
+      "id": "T32",
+      "cluster": "C06",
+      "name": "LLM-as-judge reliability",
+      "phrases": [
+        "LLM-as-a-judge",
+        "LLM judge",
+        "judge reliability"
+      ]
+    },
+    {
+      "id": "T33",
+      "cluster": "C07",
+      "name": "Multi-repository and cross-repo changes",
+      "phrases": [
+        "multi-repository",
+        "cross-repository",
+        "polyrepo",
+        "microservices"
+      ]
+    },
+    {
+      "id": "T34",
+      "cluster": "C07",
+      "name": "API contracts and breaking changes",
+      "phrases": [
+        "breaking change",
+        "API evolution",
+        "API contract"
+      ]
+    },
+    {
+      "id": "T35",
+      "cluster": "C07",
+      "name": "Code migration and refactoring at scale",
+      "phrases": [
+        "code migration",
+        "large-scale refactoring",
+        "library migration",
+        "framework migration",
+        "legacy modernization"
+      ]
+    },
+    {
+      "id": "T36",
+      "cluster": "C07",
+      "name": "Dependency and build repair",
+      "phrases": [
+        "build repair",
+        "dependency update",
+        "compilation error repair"
+      ]
+    },
+    {
+      "id": "T37",
+      "cluster": "C07",
+      "name": "Issue-to-PR autonomy in industry",
+      "phrases": [
+        "pull request agent",
+        "agentic pull requests",
+        "agent-authored",
+        "AI-authored pull requests",
+        "issue resolution industrial"
+      ]
+    },
+    {
+      "id": "T38",
+      "cluster": "C08",
+      "name": "Agent sandboxing and isolation",
+      "phrases": [
+        "sandbox",
+        "agent isolation",
+        "container isolation agent"
+      ]
+    },
+    {
+      "id": "T39",
+      "cluster": "C08",
+      "name": "Prompt injection in coding agents",
+      "phrases": [
+        "prompt injection",
+        "indirect prompt injection",
+        "tool poisoning"
+      ]
+    },
+    {
+      "id": "T40",
+      "cluster": "C08",
+      "name": "Security of agent-generated code",
+      "phrases": [
+        "vulnerabilities generated code",
+        "secure code generation",
+        "insecure code agent"
+      ]
+    },
+    {
+      "id": "T41",
+      "cluster": "C08",
+      "name": "Permissions, policy and guardrails",
+      "phrases": [
+        "guardrails",
+        "permission system agent",
+        "policy enforcement agent"
+      ]
+    },
+    {
+      "id": "T42",
+      "cluster": "C08",
+      "name": "Supply chain: skills, plugins, MCP",
+      "phrases": [
+        "supply chain",
+        "malicious MCP",
+        "skill marketplace"
+      ]
+    },
+    {
+      "id": "T43",
+      "cluster": "C08",
+      "name": "Agent observability and audit",
+      "phrases": [
+        "observability",
+        "agent tracing",
+        "audit trail agent"
+      ]
+    },
+    {
+      "id": "T44",
+      "cluster": "C09",
+      "name": "SWE benchmark validity and contamination",
+      "phrases": [
+        "SWE-bench",
+        "benchmark contamination",
+        "data contamination code"
+      ]
+    },
+    {
+      "id": "T45",
+      "cluster": "C09",
+      "name": "Agent evaluation methodology",
+      "phrases": [
+        "agent evaluation",
+        "evaluating agents",
+        "agentic benchmark"
+      ]
+    },
+    {
+      "id": "T46",
+      "cluster": "C09",
+      "name": "Developer productivity field studies",
+      "phrases": [
+        "developer productivity",
+        "randomized controlled trial",
+        "field study",
+        "productivity developers"
+      ]
+    },
+    {
+      "id": "T47",
+      "cluster": "C09",
+      "name": "Adoption and human-AI collaboration in teams",
+      "phrases": [
+        "software teams",
+        "developer experience",
+        "human-AI collaboration",
+        "AI adoption"
+      ]
+    },
+    {
+      "id": "T48",
+      "cluster": "C09",
+      "name": "Maintainability of agent-written code",
+      "phrases": [
+        "technical debt",
+        "code quality agent",
+        "maintainability generated code"
+      ]
+    },
+    {
+      "id": "T49",
+      "cluster": "C10",
+      "name": "Model routing and cascades",
+      "phrases": [
+        "model routing",
+        "LLM router",
+        "model cascade"
+      ]
+    },
+    {
+      "id": "T50",
+      "cluster": "C10",
+      "name": "Token cost and efficiency of agents",
+      "phrases": [
+        "token efficiency",
+        "cost-efficient agent",
+        "inference cost agent"
+      ]
+    },
+    {
+      "id": "T51",
+      "cluster": "C10",
+      "name": "RL training of software agents",
+      "phrases": [
+        "reinforcement learning software engineering",
+        "agentic RL",
+        "SWE-RL"
+      ]
+    },
+    {
+      "id": "T52",
+      "cluster": "C10",
+      "name": "Small models and distillation for agents",
+      "phrases": [
+        "small language model agent",
+        "distillation agent",
+        "on-policy distillation"
+      ]
+    },
+    {
+      "id": "T53",
+      "cluster": "C11",
+      "name": "Java and JVM with LLMs",
+      "phrases": [
+        "Java",
+        "Spring Boot",
+        "JVM"
+      ]
+    },
+    {
+      "id": "T54",
+      "cluster": "C11",
+      "name": "Data pipelines and ETL agents",
+      "phrases": [
+        "data pipeline",
+        "ETL",
+        "data engineering agent"
+      ]
+    },
+    {
+      "id": "T55",
+      "cluster": "C11",
+      "name": "Schema evolution and data contracts",
+      "phrases": [
+        "schema evolution",
+        "data contract",
+        "schema migration"
+      ]
+    },
+    {
+      "id": "T56",
+      "cluster": "C11",
+      "name": "Healthcare software and compliance with LLMs",
+      "phrases": [
+        "HIPAA",
+        "healthcare software",
+        "medical software compliance"
+      ]
+    },
+    {
+      "id": "T57",
+      "cluster": "C11",
+      "name": "Educational content generation and quality",
+      "phrases": [
+        "educational content generation",
+        "medical education LLM",
+        "learning content"
+      ]
+    },
+    {
+      "id": "T58",
+      "cluster": "C11",
+      "name": "Accessibility conformance with LLMs",
+      "phrases": [
+        "accessibility",
+        "WCAG",
+        "web accessibility"
+      ]
+    }
+  ],
+  "patterns": {
+    "P01": "Hierarchical repo instruction files (AGENTS.md/CLAUDE.md)",
+    "P02": "Progressive disclosure / skills loaded on demand",
+    "P03": "Deferred tool loading / small tool catalog",
+    "P04": "MCP as integration layer",
+    "P05": "Lexical/deterministic code retrieval (grep, AST, LSP)",
+    "P06": "Embedding/RAG retrieval over code",
+    "P07": "Code/knowledge graph context",
+    "P08": "Context compaction / summarization",
+    "P09": "Persistent agent memory",
+    "P10": "Single-agent linear loop",
+    "P11": "Multi-agent / role-based teams",
+    "P12": "Subagents for isolated exploration",
+    "P13": "Planner-executor / hierarchical orchestration",
+    "P14": "Spec-driven / spec-first development",
+    "P15": "Test-first / TDD with agents",
+    "P16": "Execution-based verifier loop (tests/compile)",
+    "P17": "Static analysis / linter feedback in loop",
+    "P18": "LLM-as-judge / AI reviewer",
+    "P19": "Human approval gates",
+    "P20": "OS/container sandboxing",
+    "P21": "Policy-as-code permissions / guardrails",
+    "P22": "Prompt-injection defenses",
+    "P23": "Model routing / cascades",
+    "P24": "Token/cost budgets and caps",
+    "P25": "RL / fine-tuning of agent models",
+    "P26": "Self-improving / searched harness",
+    "P27": "Cross-repo coordination / contracts",
+    "P28": "Deterministic codemods / recipe-based migration",
+    "P29": "Parallel agents with isolated worktrees",
+    "P30": "Observability / tracing / audit",
+    "P31": "Benchmark-based evaluation (SWE-bench family)",
+    "P32": "Field/industrial evaluation",
+    "P33": "CodeAct / code-as-action / CLI-first tools",
+    "P34": "Structured requirements / acceptance criteria",
+    "P35": "Formal methods / verified generation"
+  }
+}

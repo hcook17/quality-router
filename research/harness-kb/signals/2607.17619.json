@@ -1,0 +1,204 @@
+{
+ "arxiv_id": "2607.17619",
+ "fulltext_chars": 93898,
+ "fulltext_lines": 2593,
+ "authors_block": "CCS: Software and its engineering Automatic programmingCCS: Security and privacy Software security engineering Yuchen Chen email: yuc.chen@smail.nju.edu.cn Affiliation: State Key Laboratory of Novel Software Technology, Nanjing University, Nanjing, China , Wei Cheng email: chengweii@nuaa.edu.cn Affiliation: Nanjing University of Aeronautics and Astronautics, Nanjing, China , Yuan Xiao email: yuan.xiao@smail.nju.edu.cn Affiliation: State Key Laboratory of Novel Software Technology, Nanjing University, Nanjing, China , Zhou Yang email: zy25@ualberta.ca Affiliation: CIFAR AI Chair, Amii, University of Alberta, Edmonton, Canada , Weifeng Sun email: wfsun@smu.edu.sg Affiliation: Singapore Management University, Singapore, Singapore , Chunrong Fang Note: Chunrong Fang is the corresponding author. email: fangchunrong@nju.edu.cn Affiliation: State Key Laboratory of Novel Software Technology, Nanjing University, Nanjing, China , Xiang Chen email: xchencs@ntu.edu.cn Affiliation: Nantong University, Nantong, China , Baowen Xu email: bwxu@nju.edu.cn Affiliation: State Key Laboratory of Novel Software Technology, Nanjing University, Nanjing, China , David Lo email: davidlo@smu.edu.sg Affiliation: Singapore Management University, Singapore, Singapore and Zhenyu Chen email: zychen@nju.edu.cn Affiliation: State Key Laboratory of Novel Software Technology, Nanjing University, Nanjing, China",
+ "vendor_affiliation_hits": [],
+ "n_authors": 10,
+ "comment": "Accepted to the 35th ACM SIGSOFT International Symposium on Software Testing and Analysis (ISSTA 2026)",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/calibrain/shelfmark",
+  "https://github.com/filestack/filestack-python"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Insecure Coding Preferences in Long-Term Memory: Security Risks for LLM-based Code Generation"
+  ],
+  [
+   95,
+   "###### Abstract."
+  ],
+  [
+   107,
+   "###### Keywords:"
+  ],
+  [
+   110,
+   "## 1. Introduction"
+  ],
+  [
+   165,
+   "## 2. Background and Related Work"
+  ],
+  [
+   167,
+   "### 2.1. Large Language Model-based Code Generation"
+  ],
+  [
+   177,
+   "### 2.2. Memory in Large Language Models"
+  ],
+  [
+   195,
+   "## 3. Research Motivation"
+  ],
+  [
+   207,
+   "## 4. Threat Model"
+  ],
+  [
+   216,
+   "## 5. Study Design"
+  ],
+  [
+   218,
+   "### 5.1. Research Questions"
+  ],
+  [
+   238,
+   "### 5.2. Subject LLMs and Datasets"
+  ],
+  [
+   259,
+   "### 5.3. Experimental Pipeline"
+  ],
+  [
+   283,
+   "### 5.4. Evaluation Metrics"
+  ],
+  [
+   294,
+   "## 6. Results and Findings"
+  ],
+  [
+   296,
+   "### 6.1. RQ1: How do insecure preference memories influence code generation?"
+  ],
+  [
+   300,
+   "#### 6.1.1. RQ1.1: How do memories influence the functional correctness and security of generated code?"
+  ],
+  [
+   1257,
+   "#### 6.1.2. RQ1.2: How do memories influence vulnerability-type coverage?"
+  ],
+  [
+   1275,
+   "### 6.2. RQ2: How do insecure preference memories influence safety-aligned behaviors during code generation?"
+  ],
+  [
+   1279,
+   "#### 6.2.1. RQ2.1: Does the LLM provide security warnings and reference memory in its outputs?"
+  ],
+  [
+   1416,
+   "#### 6.2.2. RQ2.2: How does the effect of long-term memories on safety-aligned behavior compare with the effects of user and system prompts?"
+  ],
+  [
+   1429,
+   "### 6.3. RQ3: How persistent and how broad is the impact of insecure preference memories?"
+  ],
+  [
+   1433,
+   "#### 6.3.1. RQ3.1: How persistent is the impact of insecure preference memories?"
+  ],
+  [
+   1482,
+   "#### 6.3.2. RQ3.2: How broad is the impact of insecure preference memories?"
+  ],
+  [
+   1490,
+   "### Instruction:"
+  ],
+  [
+   1492,
+   "### Input:"
+  ],
+  [
+   1494,
+   "### Response:"
+  ],
+  [
+   1648,
+   "### 6.4. RQ4: How can we mitigate the security risks from insecure preference memories?"
+  ],
+  [
+   1820,
+   "## 7. Discussion and Implications"
+  ],
+  [
+   1822,
+   "### 7.1. Difficulty of Overwriting Insecure Memories"
+  ],
+  [
+   1826,
+   "### 7.2. Divergent Safety-Aligned Behaviors between ChatGPT and Gemini"
+  ],
+  [
+   1832,
+   "### 7.3. Effects of Memory Bank Size"
+  ],
+  [
+   1908,
+   "#1"
+  ],
+  [
+   1909,
+   "#5"
+  ],
+  [
+   1910,
+   "#10"
+  ],
+  [
+   1911,
+   "#15"
+  ],
+  [
+   1975,
+   "### 7.4. Implications"
+  ],
+  [
+   1990,
+   "## 8. Threats to Validity"
+  ],
+  [
+   2000,
+   "## 9. Conclusion and Future Work"
+  ],
+  [
+   2011,
+   "## Data Availability"
+  ],
+  [
+   2015,
+   "## References"
+  ],
+  [
+   2593,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 8. Threats to Validity\n\nThreats to External Validity.\nOne potential threat arises from the inherent randomness of LLMs, which often produce different responses to the same input across multiple requests, potentially leading to misleading conclusions. To mitigate this threat, since these services do not support setting the temperature to 0, we generate three independent outputs for each identical input. In addition, for the calculation of Pass@ k and Vul@ k , we employ an unbiased estimator to mitigate systematic bias introduced by random sampling, thereby enhancing the robustness of our results.\n\nThreats to Internal Validity.\nOne potential threat is that the evaluation of safety warnings and memory references in LLM outputs relies on human assessment, which may introduce subjectivity and affect labeling consistency. To mitigate this threat, we calculate inter-rater agreement using Cohen’s kappa and resolve disagreements through discussion, thereby ensuring the consistency of the final labels.\nAnother potential threat lies in the sensitivity of LLMs to prompt templates, which may affect the reliability of the results. To mitigate this threat, we refer to and follow best practices summarized in related studies to standardize the design and use of prompts.\nFinally, our results may be influenced by bugs in our automation scripts. To address this threat, we thoroughly test the scripts and perform spot checks on the results to ensure correctness. Moreover, we make our experimental artifacts publicly available (Yuchen Chen and others, 2025) to facilitate community review and replication.\n\n## 9. Conclusion and Future Work\n\nThis paper presents the first systematic study of the security risks introduced by long-term memory in LLM-based code generation, evaluated on four LLMs and five programming languages using the SALLM and CWEval benchmarks.\nInsecure preferences stored as long-term memory consistently increase vulnerability rates across all evaluated models and languages, while the impact on functional correctness is mixed.\nVulnerability-type coverage also expands, with newly surfaced weaknesses concentrated in cryptography and TLS configuration.\nBeyond code vulnerabilities, insecure memories weaken safety-aligned behavior more covertly than equivalent prompt-level instructions.\nInsecure memories also resist overwriting and generalize across prompt phrasings.\nWe further evaluate three mitigation strategies: explicit security requirements reduce vulnerability rates by 19.7%-33.6% but may degrade functional correctness; memory-level safety filtering achieves 100% detection without functional correctness degradation.\n\nIn future work, we plan to extend our evaluation to a broader set of coding tasks and investigate how memory time decay and retrieval priority evolve as memory banks grow over time. We also plan to explore secure governance mechanisms across the long-term memory lifecycle and develop more effective mitigation strategies.\n\n## Data Availability\n\nOur source code and experimental data are available at (Yuchen Chen and others, 2025).\n\n## References\n\nAlibaba Cloud (2026)\nAlibaba Cloud\n\nQwen.\n\nNote: site: https://chat.qwen.aiAccessed: 2026-04\n\nCited by: §1,\n§5.2.\n\nBai et al. (2022)\nY. Bai, S. Kadavath, S. Kundu, A. Askell, J. Kernion, A. Jones, A. Chen, A. Goldie, A. Mirhoseini, C. McKinnon, et al.",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 28,
+  "swe_bench": 0,
+  "contamination": 2,
+  "human_study": 1,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

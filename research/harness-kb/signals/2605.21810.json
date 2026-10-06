@@ -1,0 +1,155 @@
+{
+ "arxiv_id": "2605.21810",
+ "fulltext_chars": 58215,
+ "fulltext_lines": 1407,
+ "authors_block": "Zijian Du Affiliation: NVIDIA, Santa Clara, CA, USA email: ldu@nvidia.com and Nathaniel Pinckney Affiliation: NVIDIA, Santa Clara, CA, USA email: npinckney@nvidia.com © none",
+ "vendor_affiliation_hits": [
+  "NVIDIA"
+ ],
+ "n_authors": 2,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Trace2Skill: Verifier-Guided Skill Evolution for Long-Context EDA Agents"
+  ],
+  [
+   37,
+   "###### Abstract."
+  ],
+  [
+   41,
+   "###### Keywords:"
+  ],
+  [
+   85,
+   "## 1. Introduction"
+  ],
+  [
+   111,
+   "## 2. Method"
+  ],
+  [
+   115,
+   "### 2.1. Execution and Feedback"
+  ],
+  [
+   119,
+   "### 2.2. Metrics"
+  ],
+  [
+   190,
+   "#### 2.2.1. PassRate: final correctness"
+  ],
+  [
+   259,
+   "#### 2.2.4. AgentVarianceQ: repeat stability"
+  ],
+  [
+   300,
+   "### 2.3. Skill Evolution and Traceability"
+  ],
+  [
+   304,
+   "## 3. Experimental Setup"
+  ],
+  [
+   308,
+   "### 3.1. Configurations"
+  ],
+  [
+   316,
+   "### 3.2. AgentQ and Pass/Fail Correlation"
+  ],
+  [
+   326,
+   "## 4. Results and Analysis"
+  ],
+  [
+   328,
+   "### 4.1. Baseline Agent Comparison"
+  ],
+  [
+   374,
+   "### 4.2. Final Evaluation on Hard Tasks"
+  ],
+  [
+   422,
+   "### 4.3. Quality Metrics"
+  ],
+  [
+   440,
+   "### 4.4. Task-Level Pass Rates"
+  ],
+  [
+   444,
+   "### 4.5. Limitations"
+  ],
+  [
+   458,
+   "## 5. Conclusion"
+  ],
+  [
+   462,
+   "## Acknowledgments"
+  ],
+  [
+   466,
+   "## References"
+  ],
+  [
+   624,
+   "## Appendix A Artifact Appendix"
+  ],
+  [
+   628,
+   "### A1. Task Set and Baseline Outcomes"
+  ],
+  [
+   921,
+   "### A2. Grounded Trace2Skill Generation Examples"
+  ],
+  [
+   1011,
+   "### A3. Abbreviated Raw EA Generation Trace"
+  ],
+  [
+   1066,
+   "### A4. Execution Contracts, Safety, and Telemetry"
+  ],
+  [
+   1263,
+   "### A5. Repository Component Map"
+  ],
+  [
+   1396,
+   "### A6. NeMo Gym Rollout Sequence"
+  ],
+  [
+   1407,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgments\n\nWe thank Joshua Mabry, Arti Jain, and Mark Ho for helpful discussions and feedback.\n\n## References\n\nBatten et al. (2024)\nC. Batten, N. Pinckney, M. Liu, H. Ren, and B. Khailany\n\nPyHDL-Eval: an LLM evaluation framework for hardware design using python-embedded DSLs.\n\nIn ACM/IEEE Symposium on Machine Learning for CAD,\n\nCited by: §1.\n\nDeng et al. (2025a)\nC. Deng, Y. Bai, and H. Ren\n\nChipAlign: instruction alignment in large language models for chip design via geodesic interpolation.\n\nIn ACM/IEEE Design Automation Conference,\n\nCited by: §1.\n\nDeng et al. (2025b)",
+ "limitations": "### 4.5. Limitations\n\n• \n\nAgent. Long-horizon agents can take different search, edit, and validation paths under the same skill, so mean metrics need not improve monotonically even when the best survivor skill improves. Future work should better characterize how skill text and dense feedback shape rollout variance and task success.\n\n• \n\nCompute. Trace2Skill is compute-intensive. A 30-turn horizon gives the agent room to recover, but it also increases rollout variance, verifier traffic, wall-clock time, and token cost. Reducing the required turn budget through better verifier scheduling, earlier stopping, and stronger procedural guidance is therefore a central systems direction.\n\n• \n\nBenchmark. The OSS CVDP subset studied here is valuable, but it remains concentrated on Verilog-related coding tasks. Broader progress will require the EDA community to contribute open, executable, long-context benchmarks beyond RTL coding so that agentic methods can be compared on synthesis, timing, power, formal verification, and full-flow engineering tasks for the benefit of the wider ecosystem.\n\n## 5. Conclusion\n\nTrace2Skill turns execution traces into test-time optimization signal for hardware agents by evolving the natural-language skill injected into a fixed CVDP agent. On eight tasks that failed the seed CVDP agent, including tasks that also failed Claude Code and Codex, the full Trace2Skill configuration with dense verifier feedback solves 6/8 tasks and reaches a 33.6% hidden-verifier pass rate, compared with 0/8 for the seed agent, 2/8 for dense feedback alone, and 3/8 for sparse skill evolution. The evidence points to skill-agent coadaptation: dense verifier observations sharpen rollout behavior, and the resulting traces give the oracle and mutator better lessons for the next generation. Because the loop requires only tool traces, inspectable skill text, and reliable rewards, it complements RTL-specialized model training and can extend to other verifiable EDA and engineering tasks.\n\n## Acknowledgments\n\nWe thank Joshua Mabry, Arti Jain, and Mark Ho for helpful discussions and feedback.\n\n## References\n\nBatten et al. (2024)\nC. Batten, N. Pinckney, M. Liu, H. Ren, and B. Khailany\n\nPyHDL-Eval: an LLM evaluation framework for hardware design using python-embedded DSLs.\n\nIn ACM/IEEE Symposium on Machine Learning for CAD,\n\nCited by: §1.\n\nDeng et al. (2025a)\nC. Deng, Y. Bai, and H. Ren\n\nChipAlign: instruction alignment in large language models for chip design via geodesic interpolation.\n\nIn ACM/IEEE Design Automation Conference,",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 4,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

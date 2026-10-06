@@ -1,0 +1,337 @@
+{
+ "arxiv_id": "2605.16352",
+ "fulltext_chars": 79923,
+ "fulltext_lines": 1846,
+ "authors_block": "Yuntong Hu Affiliation: Emory University Tongli Su Affiliation: Emory University Liang Zhao Affiliation: Emory University Affiliation: CausalDynamics.com Bowen Zhu Affiliation: CausalDynamics.com Hasibul Haque Affiliation: CausalDynamics.com",
+ "vendor_affiliation_hits": [],
+ "n_authors": 5,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# LARGER: Lexically Anchored Repository Graph Exploration and Retrieval"
+  ],
+  [
+   44,
+   "###### Abstract"
+  ],
+  [
+   50,
+   "## 1 Introduction"
+  ],
+  [
+   72,
+   "## 2 Related Work"
+  ],
+  [
+   74,
+   "#### CLI Coding Agents."
+  ],
+  [
+   78,
+   "#### Repository-Level Code Localization."
+  ],
+  [
+   82,
+   "#### Graph Retrieval for Code."
+  ],
+  [
+   86,
+   "## 3 Problem Formulation"
+  ],
+  [
+   88,
+   "#### Repository Graph."
+  ],
+  [
+   112,
+   "#### Coding Agent."
+  ],
+  [
+   119,
+   "#### Code Localization."
+  ],
+  [
+   161,
+   "## 4 LARGER: Lexically Anchored Repository Graph Exploration and Retrieval"
+  ],
+  [
+   167,
+   "### 4.1 Active-Set Loop"
+  ],
+  [
+   217,
+   "### 4.2 Per-Step Local Solver"
+  ],
+  [
+   235,
+   "#### Lexical seed identification to address Question (i)"
+  ],
+  [
+   245,
+   "#### Graph-conditioned local retrieval to address Question (ii)."
+  ],
+  [
+   268,
+   "### 4.3 Theoretical Analysis"
+  ],
+  [
+   273,
+   "###### Theorem 1 (Recall dominance)."
+  ],
+  [
+   281,
+   "###### Theorem 2 (Quantitative discovery advantage)."
+  ],
+  [
+   293,
+   "###### Proposition 1 (Step-count dominance)."
+  ],
+  [
+   303,
+   "###### Corollary 1 (Conditional token-cost dominance)."
+  ],
+  [
+   369,
+   "### 4.4 Commit-Aware Maintenance and Full Algorithm"
+  ],
+  [
+   381,
+   "## 5 Experiments"
+  ],
+  [
+   385,
+   "### 5.1 Experimental Setup"
+  ],
+  [
+   399,
+   "### 5.2 Main Observations"
+  ],
+  [
+   576,
+   "#### Best Acc@5 and Recall@5 on both benchmarks."
+  ],
+  [
+   588,
+   "#### Toggling LARGER on/off lifts recall and lowers runtime."
+  ],
+  [
+   592,
+   "#### Integration matters more than raw graph access."
+  ],
+  [
+   596,
+   "#### Localization gains transfer to downstream SWE-Atlas tasks."
+  ],
+  [
+   648,
+   "#### LARGER beats Codex on accuracy, runtime, and tokens."
+  ],
+  [
+   652,
+   "### 5.3 Ablation Study"
+  ],
+  [
+   660,
+   "## 6 Conclusion"
+  ],
+  [
+   664,
+   "## References"
+  ],
+  [
+   969,
+   "## Appendix A Theoretical Analysis of LARGER"
+  ],
+  [
+   973,
+   "### A.1 Monotone Context Augmentation"
+  ],
+  [
+   975,
+   "###### Lemma 1 (Monotone context augmentation)."
+  ],
+  [
+   979,
+   "###### Proof."
+  ],
+  [
+   984,
+   "### A.2 Proof of Theorem 1 (Recall Dominance)"
+  ],
+  [
+   986,
+   "###### Proof of Theorem 1."
+  ],
+  [
+   991,
+   "### A.3 Bounded Per-Step Augmentation"
+  ],
+  [
+   993,
+   "###### Lemma 2 (Bounded per-step augmentation)."
+  ],
+  [
+   1005,
+   "###### Proof."
+  ],
+  [
+   1012,
+   "### A.4 Reachability Assumption"
+  ],
+  [
+   1014,
+   "###### Assumption 1 ( (K,\\theta) -reachability)."
+  ],
+  [
+   1020,
+   "### A.5 Proof of Proposition 1 (Step-Count Dominance)"
+  ],
+  [
+   1022,
+   "###### Proof of Proposition 1."
+  ],
+  [
+   1027,
+   "#### Remark on the fixed-stream assumption."
+  ],
+  [
+   1031,
+   "### A.6 Proof of Corollary 1 (Conditional Token-Cost Dominance)"
+  ],
+  [
+   1033,
+   "###### Proof of Corollary 1."
+  ],
+  [
+   1040,
+   "### A.7 Proof of Theorem 2 (Quantitative Discovery Advantage)"
+  ],
+  [
+   1042,
+   "###### Proof of Theorem 2."
+  ],
+  [
+   1047,
+   "### A.8 Discussion: Efficiency Comes from Fewer Interactions, Not Cheaper Steps"
+  ],
+  [
+   1051,
+   "## Appendix B Full Experimental Results"
+  ],
+  [
+   1315,
+   "### B.1 Efficiency Tables and Cost Decomposition"
+  ],
+  [
+   1319,
+   "#### Comparison against cheaper baselines and the alternative graph design."
+  ],
+  [
+   1473,
+   "#### Token decomposition."
+  ],
+  [
+   1552,
+   "#### Cost decomposition."
+  ],
+  [
+   1603,
+   "## Appendix C Dataset Details"
+  ],
+  [
+   1642,
+   "#### LocBench."
+  ],
+  [
+   1646,
+   "#### MuLocBench."
+  ],
+  [
+   1650,
+   "#### SWE-Atlas Test Writing."
+  ],
+  [
+   1654,
+   "#### SWE-Atlas Codebase QA."
+  ],
+  [
+   1658,
+   "## Appendix D Additional Empirical Analyses"
+  ],
+  [
+   1662,
+   "### D.1 Commit-Aware Alignment Cost"
+  ],
+  [
+   1674,
+   "#### Empirical validation."
+  ],
+  [
+   1686,
+   "### D.2 Hyperparameter Sensitivity"
+  ],
+  [
+   1694,
+   "## Appendix E Implementation Details"
+  ],
+  [
+   1696,
+   "### E.1 Graph Construction"
+  ],
+  [
+   1700,
+   "#### Edge confidence."
+  ],
+  [
+   1704,
+   "#### Community partitioning."
+  ],
+  [
+   1708,
+   "### E.2 Edge Confidence Hierarchy"
+  ],
+  [
+   1742,
+   "### E.3 Sidecar Graph Storage"
+  ],
+  [
+   1764,
+   "### E.4 Prompts"
+  ],
+  [
+   1824,
+   "#### Graph evidence format."
+  ],
+  [
+   1842,
+   "#### Downstream task evaluation."
+  ],
+  [
+   1846,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 1,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

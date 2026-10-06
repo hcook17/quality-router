@@ -1,0 +1,91 @@
+{
+ "arxiv_id": "2605.22534",
+ "fulltext_chars": 26023,
+ "fulltext_lines": 548,
+ "authors_block": "An Empirical Study Conference: 23rd International Conference on Mining Software Repositories; April 13–14, 2026; Rio de Janeiro, Brazil23rd International Conference on Mining Software Repositories (MSR ’26), April 13–14, 2026, Rio de Janeiro, BrazilDOI: 10.1145/3793302.3793575ISBN: 979-8-4007-2474-9/2026/04CCS: Software and its engineering Collaboration in software developmentCCS: Software and its engineering Software configuration management and version control systemsCCS: Software and its engineering Software development techniques Sien Reeve O. Peralta Affiliation: Waseda University, Tokyo, Japan , Fumika Hoshi Affiliation: Waseda University, Tokyo, Japan , Hironori Washizaki Affiliation: Waseda University, Tokyo, Japan , Naoyasu Ubayashi Affiliation: Waseda University, Tokyo, Japan , Inase Kondo Affiliation: The University of Osaka, Osaka, Japan , Yoshiki Higo Affiliation: The University of Osaka, Osaka, Japan , Hiroki Mukai Affiliation: Ritsumeikan University, Osaka, Japan , Norihiro Yoshida Affiliation: Ritsumeikan University, Osaka, Japan , Kazuki Kusama Affiliation: Kyushu University, Fukuoka, Japan , Hidetake Tanaka Affiliation: Nara Institute of Science and Technology, Nara, Japan and Youmei Fan Affiliation: Nara Institute of Science and Technology, Nara, Japan © cc",
+ "vendor_affiliation_hits": [],
+ "n_authors": 11,
+ "comment": "Accepted for publication in 23rd international conference on Mining Software Repositories (MSR 2026) : 5 pages, 3 tables, 1 figure",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/cn-eveer/Agentic-PRs-AnalysisAccessed"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Why Are Agentic Pull Requests Merged or Rejected?"
+  ],
+  [
+   82,
+   "###### Abstract."
+  ],
+  [
+   86,
+   "###### Keywords:"
+  ],
+  [
+   91,
+   "## 1. Introduction"
+  ],
+  [
+   124,
+   "## 2. Motivation"
+  ],
+  [
+   132,
+   "## 3. Data Collection"
+  ],
+  [
+   186,
+   "## 4. Methodology"
+  ],
+  [
+   194,
+   "## 5. RQ1: What drives the rejection of Agentic-PRs?"
+  ],
+  [
+   254,
+   "## 6. RQ2: How does human involvement shape successful Agentic-PRs?"
+  ],
+  [
+   323,
+   "## 7. Discussion"
+  ],
+  [
+   334,
+   "## 8. Threats to Validity"
+  ],
+  [
+   346,
+   "## 9. Conclusion and Future Work"
+  ],
+  [
+   352,
+   "## References"
+  ],
+  [
+   548,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 8. Threats to Validity\n\nConstruct Validity.\nOur results depend on operational definitions of agentic failure, non-agentic outcome, and feedback loop. Although these constructs were refined through pilot coding, ambiguity remains when reviewer intent is implicit or PR artifacts are sparse. Some decision rationale may be unobservable (e.g., silent closures), leading to an unknown category that may hide unrecorded factors.\nWe also lack explicit effort metrics (e.g., review duration, comment volume). Although 15.4% of merges involved human intervention, the associated cost remains unquantified.\n\nInternal Validity.\nManual coding may introduce subjectivity. We mitigated this through independent dual annotation and high inter-rater agreement (Cohen’s \\kappa ), though subtle or multi-causal cases may still be misclassified. Stratified sampling reduces bias, but unobserved contextual factors cannot be fully controlled.\n\nExternal Validity.\nOur study focuses on high-star open-source repositories and five widely used coding agents. While this improves data quality, findings may not generalize to smaller projects, proprietary settings, or future agent systems, where workflows and review practices may differ.\n\n## 9. Conclusion and Future Work\n\nThis study examined decision formation in Agentic Pull Requests by analyzing interaction artifacts from 11,048 closed PRs, including 717 manually inspected cases drawn from 9,799 human-reviewed submissions. We show that PR outcomes alone are unreliable indicators of agent performance: 33.1% of rejected PRs lacked observable decision rationale, while only 35.7% reflected clear agentic failures. Among merged PRs, 15.4% required explicit reviewer involvement through feedback loops or direct human commits. We further observed systematic differences across agents, with Copilot and Devin more often embedded in workflow-heavy repositories and Codex and Cursor more frequently merged without interaction, indicating that observed outcomes reflect deployment context as much as agent-generated code.\n\nThese findings motivate evaluation approaches that move beyond outcome-based metrics and incorporate interaction-level evidence such as review comments, CI signals, commit histories, and authorship changes, while accounting for uncertainty when signals are absent. Future work should leverage manually curated ground truth to automate detection of workflow-driven closures, reviewer intervention, and feedback loops at scale, and develop interaction-aware benchmarks that better reflect agent effectiveness in real-world software development.\n\n## References\n\n[1]\n (2026)\n\nAgentic-prs-analysis: replication package for decision-oriented analysis of agentic pull requests.\n\nNote: https://github.com/cn-eveer/Agentic-PRs-AnalysisAccessed: 2026-01-25\n\nCited by: §4,\n§5,\n§6.\n\nAlami and Ernst (2025)\nA. Alami and N. A. Ernst\n\nHuman and machine: how software engineers perceive and engage with ai-assisted code reviews compared to their peers.\n\nExternal Links: 2501.02092,\nLink\n\nCited by: §1.",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

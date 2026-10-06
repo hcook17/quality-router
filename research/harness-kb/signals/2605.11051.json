@@ -1,0 +1,93 @@
+{
+ "arxiv_id": "2605.11051",
+ "fulltext_chars": 29427,
+ "fulltext_lines": 636,
+ "authors_block": "for Software Engineering Agents {jbabstract} LLM-based Software Engineering agents face a critical bottleneck: context length limitations cause failures on complex, long-horizon tasks. One promising solution is to encode context as continuous embeddings rather than discrete tokens, enabling denser information storage. We apply the recently proposed In-Context Autoencoder for this purpose. While the method performs well on single-shot common-knowledge and code-understanding tasks, our experiments demonstrate that it fails on multi-step agentic coding tasks. In this paper, we explore this phenomenon and discuss possible factors contributing to this failure. ## 1 Introduction Software Engineering (SE) is increasingly automated by Large Language Model (LLM)-based agents that write and fix code (Yang et al., 2024; Jimenez et al., 2023). These agents interact with a development environment over multiple turns to perform complex tasks, such as feature implementation or bug fixing. At each step, the agent takes observations from the environment (e.g., output of a previous command, or input from the user), prompts an LLM to reason about the next action given the history of previous actions and observations, and then executes this action. Different LLM-based agents vary in architectures, but the described framework, called ReAct (Yao et al., 2022), is one of the bases on which many are built. However, the effectiveness of such agents is limited by the amount of information they can pro",
+ "vendor_affiliation_hits": [],
+ "n_authors": 6,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/AnonForConference/paper1-code-0126."
+ ],
+ "hf_urls": [
+  "https://huggingface.co/AnonForConference/paper1-model-0126."
+ ],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   33,
+   "# On Problems of Implicit Context Compression"
+  ],
+  [
+   45,
+   "## 1 Introduction"
+  ],
+  [
+   75,
+   "## 2 Method"
+  ],
+  [
+   114,
+   "## 3 Experiments"
+  ],
+  [
+   211,
+   "## 4 Discussion"
+  ],
+  [
+   233,
+   "## 5 Conclusion"
+  ],
+  [
+   243,
+   "## LLM Usage Statement"
+  ],
+  [
+   248,
+   "## Reproducibility Statement"
+  ],
+  [
+   254,
+   "## References"
+  ],
+  [
+   505,
+   "## Appendix A Training Hyperparameters"
+  ],
+  [
+   570,
+   "## Appendix B Detailed Multi-Run Experiment Results"
+  ],
+  [
+   583,
+   "## Appendix C Trajectory Length Comparison"
+  ],
+  [
+   591,
+   "## Appendix D ICAE Training and Inference Details"
+  ],
+  [
+   636,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 8,
+  "seeds_or_runs": 5,
+  "swe_bench": 15,
+  "contamination": 1,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

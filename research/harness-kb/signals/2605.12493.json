@@ -1,0 +1,342 @@
+{
+ "arxiv_id": "2605.12493",
+ "fulltext_chars": 114166,
+ "fulltext_lines": 1871,
+ "authors_block": "Di Wu ††thanks: Correspondence to {diwu,kwchang}@cs.ucla.edu. Zixiang Ji Asmi Kawatkar Bryan Kwan Affiliation: Jia-Chen Gu Nanyun Peng Kai-Wei Chang Affiliation: University of California, Los Angeles Affiliation: https://xiaowu0162.github.io/longmemeval-v2/",
+ "vendor_affiliation_hits": [],
+ "n_authors": 7,
+ "comment": "Work in Progress",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/ServiceNow/AgentLab.",
+  "https://github.com/gkamradt/LLMTest_NeedleInAHaystack",
+  "https://github.com/openai/codex",
+  "https://github.com/openai/codex."
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# LongMemEval-V2: Evaluating Long-Term Agent Memory Toward Experienced Colleagues"
+  ],
+  [
+   41,
+   "###### Abstract"
+  ],
+  [
+   45,
+   "## 1 Introduction"
+  ],
+  [
+   67,
+   "# Sess."
+  ],
+  [
+   69,
+   "# Tok."
+  ],
+  [
+   73,
+   "# Q"
+  ],
+  [
+   281,
+   "## 2 Related Work"
+  ],
+  [
+   283,
+   "#### Long-Context and Memory Evaluation"
+  ],
+  [
+   287,
+   "#### Memory Systems for Agents"
+  ],
+  [
+   291,
+   "#### Agents as Memory Controllers"
+  ],
+  [
+   295,
+   "## 3 LongMemEval-V2"
+  ],
+  [
+   297,
+   "### 3.1 Core Memory Ability Definition"
+  ],
+  [
+   321,
+   "### 3.2 Annotation"
+  ],
+  [
+   325,
+   "#### Trajectory Collection"
+  ],
+  [
+   334,
+   "#### Question Annotation"
+  ],
+  [
+   341,
+   "#### Answer Trajectory Labeling"
+  ],
+  [
+   347,
+   "#### Haystack Creation"
+  ],
+  [
+   353,
+   "### 3.3 Evaluation Formulation"
+  ],
+  [
+   370,
+   "### 3.4 Pilot Studies"
+  ],
+  [
+   445,
+   "## 4 AgentRunbook"
+  ],
+  [
+   451,
+   "### 4.1 AgentRunbook-R"
+  ],
+  [
+   457,
+   "### 4.2 AgentRunbook-C"
+  ],
+  [
+   463,
+   "## 5 Experiments"
+  ],
+  [
+   467,
+   "### 5.1 Main Results"
+  ],
+  [
+   664,
+   "### 5.2 Accuracy and Latency Trade-off"
+  ],
+  [
+   670,
+   "## 6 Conclusion"
+  ],
+  [
+   674,
+   "## References"
+  ],
+  [
+   1244,
+   "## Appendix A LongMemEval-V2: Further Benchmark Construction Details"
+  ],
+  [
+   1246,
+   "### A.1 Trajectory Collection"
+  ],
+  [
+   1248,
+   "#### Domain and task selection."
+  ],
+  [
+   1252,
+   "#### AgentLab harness and action space."
+  ],
+  [
+   1278,
+   "#### Trajectory collection agents."
+  ],
+  [
+   1282,
+   "#### Rejection sampling and trajectory filtering."
+  ],
+  [
+   1288,
+   "#### Final trajectory artifact and goal sanitization."
+  ],
+  [
+   1324,
+   "### A.2 Question Annotation"
+  ],
+  [
+   1337,
+   "### A.3 Answer Trajectory Labeling"
+  ],
+  [
+   1347,
+   "### A.4 Haystack Creation"
+  ],
+  [
+   1351,
+   "#### Minimal answer core."
+  ],
+  [
+   1355,
+   "#### Small haystack."
+  ],
+  [
+   1359,
+   "#### Medium haystack."
+  ],
+  [
+   1363,
+   "### A.5 Evaluation"
+  ],
+  [
+   1369,
+   "#### Experimental Details"
+  ],
+  [
+   1389,
+   "### Memory context:"
+  ],
+  [
+   1393,
+   "### Question to answer:"
+  ],
+  [
+   1427,
+   "## Appendix B LongMemEval-V2: Pilot Studies"
+  ],
+  [
+   1431,
+   "### B.1 Can Frontier Models Answer Without Trajectory History?"
+  ],
+  [
+   1493,
+   "### B.2 Can Models Reliably Answer with Oracle Trajectory Access?"
+  ],
+  [
+   1517,
+   "# Memory context:"
+  ],
+  [
+   1519,
+   "## Procedure and Hint Notes Learned from Previous Tasks in the Environment"
+  ],
+  [
+   1523,
+   "## Oracle Trajectories and Relevant State Slices from Previous Tasks in the Environment"
+  ],
+  [
+   1527,
+   "# Question to answer:"
+  ],
+  [
+   1559,
+   "## Appendix C Implementation Details"
+  ],
+  [
+   1561,
+   "### C.1 Baselines"
+  ],
+  [
+   1565,
+   "#### Slice+Note RAG"
+  ],
+  [
+   1569,
+   "#### Codex Agent"
+  ],
+  [
+   1576,
+   "### C.2 AgentRunbook-R"
+  ],
+  [
+   1586,
+   "#### Prompt templates."
+  ],
+  [
+   1590,
+   "#### Experimental Details"
+  ],
+  [
+   1618,
+   "### C.3 AgentRunbook-C"
+  ],
+  [
+   1636,
+   "#### Sandbox"
+  ],
+  [
+   1640,
+   "#### Experimental Details"
+  ],
+  [
+   1721,
+   "## Appendix D Further Analyses"
+  ],
+  [
+   1725,
+   "### D.1 Error Analyses"
+  ],
+  [
+   1733,
+   "### D.2 Tool Calling Behavior"
+  ],
+  [
+   1744,
+   "### D.3 Qualitative Examples"
+  ],
+  [
+   1837,
+   "## Appendix E Limitations and Ethics Statements"
+  ],
+  [
+   1839,
+   "### E.1 Limitations"
+  ],
+  [
+   1841,
+   "#### Benchmark scope and formulation."
+  ],
+  [
+   1845,
+   "#### Methodological scope."
+  ],
+  [
+   1849,
+   "### E.2 Ethics Statements"
+  ],
+  [
+   1851,
+   "#### Human annotators."
+  ],
+  [
+   1855,
+   "#### Dataset privacy, bias, and safeguards for reuse."
+  ],
+  [
+   1859,
+   "#### Dataset and artifact licensing."
+  ],
+  [
+   1863,
+   "#### Broader societal impacts."
+  ],
+  [
+   1867,
+   "### E.3 LLM and Agent Use"
+  ],
+  [
+   1871,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## Appendix E Limitations and Ethics Statements\n\n### E.1 Limitations\n\n#### Benchmark scope and formulation.\n\nLME-V2 focuses on web agents operating in customized browser environments. Browser use is a broad and practically important domain, but it does not cover the full space of digital agents, such as coding agents, computer-use agents, or domain-specific enterprise agents, which may involve different memory requirements and risk profiles. In addition, for reproducibility and controlled comparison, LME-V2 evaluates memory over pre-collected trajectory histories rather than online learning during live task execution. This design makes the benchmark easier to distribute and reproduce, but it may not fully capture distribution shifts caused by an agent’s own evolving behavior. Finally, our context gathering formulation evaluates whether a memory module can return useful evidence for a fixed reader model, rather than directly measuring end-to-end task success. This is an intentional design choice to isolate memory quality, but downstream agent correctness may also depend on planning, tool use, and action execution.\n\n#### Methodological scope.\n\nAgentRunbook explores practical memory designs built around retrieval, file organization, and agent-native evidence inspection, rather than proposing new model architectures or training procedures. While this keeps the methods simple and easy to analyze, their performance depends on the quality of trajectory representations, retrieval models, prompts, and coding agent behavior. AgentRunbook-C significantly improves over an off-the-shelf Codex harness in our experiments, but we do not build a fully customized coding agent harness from scratch. Future work could study tighter integration between memory, planning, and execution, as well as learned memory controllers that adapt their storage and retrieval strategies across environments.\n\n### E.2 Ethics Statements\n\n#### Human annotators.\n\nThe benchmark was constructed by four student authors, consisting of one graduate student and three undergraduate students. The graduate student was compensated through wage support, and the undergraduate students received research credits; all annotators are also credited through authorship. The annotation process included regular weekly annotation sessions, question-review discussions, and trajectory-label verification meetings with the project lead. Annotators were briefed on the research goals and downstream use of their annotations, and they provided consent for their annotation work to be used in the benchmark. Under the institution’s research policy, this work was determined to be exempt from IRB approval.\n\n#### Dataset privacy, bias, and safeguards for reuse.\n\nLME-V2 is built from sandboxed web-agent environments derived from WebArena, WorkArena, and WorkArena++, rather than from real user browsing histories. The environments use synthetic tasks, names, records, and personal information, so the risk of exposing real private user data is minimal. We manually inspected the curated LME-V2 questions and did not identify additional information leakage beyond the intended synthetic environment content. We also rely on the upstream benchmark creators’ sanitization of their released environments and assets. Since the benchmark primarily covers synthetic professional workflows and controlled web environments, it is not intended to represent real demographic populations and is unlikely to directly propagate or amplify demographic bias. Nevertheless, released artifacts will be documented with intended-use guidance, and users should not treat LME-V2 as evidence that memory systems are safe for deployment on real user histories or sensitive enterprise data without additional privacy review, access control, and data minimization safeguards.\n\n#### Dataset and artifact licensing.\n\nWe respect the intended use and license terms of the upstream artifacts used in this work. WebArena, AgentLab, and the Codex GitHub reposit",
+ "ethics_coi": "## Appendix E Limitations and Ethics Statements\n\n### E.1 Limitations\n\n#### Benchmark scope and formulation.\n\nLME-V2 focuses on web agents operating in customized browser environments. Browser use is a broad and practically important domain, but it does not cover the full space of digital agents, such as coding agents, computer-use agents, or domain-specific enterprise agents, which may involve different memory requirements and risk profiles. In addition, for reproducibility and controlled comparison, LME-V2 evaluates memory over pre-collected trajectory histories rather than online learning during live task execution. This design makes the benchmark easier to distribute and reproduce, but it may not fully capture distribution shifts caused by an agent’s own evolving behavior. Finally, our context gathering formulation evaluates whether a memory module can return useful evidence for a fixed reader model, rather than directly measuring end-to-end task success. This is an intentional design choice to isolate memory quality, but downstream agent correctness may also depend on planning, tool use, and action execution.\n\n#### Methodological scope.\n\nAgentRunbook explores practical memory designs built around retrieval, file organization, and agent-native evidence inspection, rather than proposing new model architectures or training procedures. While this keeps the methods simple and easy to analyze, their performance depends on the quality of trajectory representations, retrieval models, prompts, and coding agent behavior. AgentRunbook-C significantly improves over an off-the-shelf Codex harness in our experiments, but we do not build a fully customized coding agent harness from scratch. Future work could study tighter integration between memory, planning, and execution, as well as learned memory controllers that adapt their storage and retrieval strategies across environments.\n\n### E.2 Ethics Statements\n\n#### Human annotators.\n\nThe benchmark was constructed by four student",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 2,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 4,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 3
+ },
+ "fulltext_source": "html"
+}

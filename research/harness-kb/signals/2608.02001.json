@@ -1,0 +1,153 @@
+{
+ "arxiv_id": "2608.02001",
+ "fulltext_chars": 40158,
+ "fulltext_lines": 1031,
+ "authors_block": "Kexing Ji1 Jiachen Liu1 Enze Hu1 Cuiyun Gao2 Keke Lian1 Affiliation: Yongheng Liu3, Lei Zhang3, Tian Dong4, Hao Chen4, Wang Bin5",
+ "vendor_affiliation_hits": [],
+ "n_authors": 10,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/All-Hands-AI/OpenHands",
+  "https://github.com/advisories/GHSA-w7xj-8fx7-wfchGHSA-w7xj-8fx7-wfch",
+  "https://github.com/open-webui/open-webuiGitHub"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# VulnGym: Benchmarking Coding Agents for Repository-Level Vulnerability Detection"
+  ],
+  [
+   38,
+   "###### Abstract"
+  ],
+  [
+   68,
+   "## Introduction"
+  ],
+  [
+   112,
+   "## Related Work"
+  ],
+  [
+   178,
+   "## VulnGym"
+  ],
+  [
+   182,
+   "### Benchmark Construction"
+  ],
+  [
+   186,
+   "##### Phase I: Dataset Construction."
+  ],
+  [
+   199,
+   "##### Phase II: Manual Verification."
+  ],
+  [
+   211,
+   "##### Phase III: Entry Refinement."
+  ],
+  [
+   226,
+   "### Evaluation Framework"
+  ],
+  [
+   237,
+   "##### End-to-End Vulnerability Detection."
+  ],
+  [
+   242,
+   "##### Oracle-Conditioned Tasks."
+  ],
+  [
+   258,
+   "### Evaluation Metrics"
+  ],
+  [
+   268,
+   "##### End-to-End Vulnerability Detection."
+  ],
+  [
+   303,
+   "##### EP Identification and CO Localization."
+  ],
+  [
+   338,
+   "##### Trace Construction."
+  ],
+  [
+   362,
+   "## Experiment"
+  ],
+  [
+   364,
+   "### Experimental Setup"
+  ],
+  [
+   366,
+   "#### LLM Selection"
+  ],
+  [
+   430,
+   "#### Agentic Scaffolds"
+  ],
+  [
+   435,
+   "### Model Scaling across Difficulty Levels"
+  ],
+  [
+   450,
+   "### Frontier Coding Agents on Hard Cases"
+  ],
+  [
+   477,
+   "### Oracle-Conditioned Capability Analysis"
+  ],
+  [
+   614,
+   "## Discussion"
+  ],
+  [
+   616,
+   "### Practical Efficiency Analysis"
+  ],
+  [
+   640,
+   "### Agent Trajectory Analysis"
+  ],
+  [
+   652,
+   "## Conclusion"
+  ],
+  [
+   663,
+   "## References"
+  ],
+  [
+   1031,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 3,
+  "human_study": 0,
+  "java": 4,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

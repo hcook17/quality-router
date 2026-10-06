@@ -1,0 +1,158 @@
+{
+ "arxiv_id": "2607.22642",
+ "fulltext_chars": 45908,
+ "fulltext_lines": 837,
+ "authors_block": "CCS: Information systems Data analyticsCCS: Computing methodologies Natural language processingCCS: Computing methodologies Reinforcement learningCCS: Human-centered computing Interactive systems and tools Aakash Kolekar Note: Both authors contributed equally to this research. Affiliation: Amazon Advertising Foundations, Palo Alto, CA, USA email: aakashvv@amazon.com , Sahika Genc Affiliation: Amazon Web Services Agentic AI, Seattle, WA, USA email: sahika@amazon.com , Shahriar Shariat Affiliation: Amazon Advertising Foundations, Palo Alto, CA, USA email: sshariat@amazon.com , Bunyamin Sisman Affiliation: Amazon Advertising Foundations, Seattle, WA, USA email: bunyamis@amazon.com , Tibor Mezi Affiliation: Amazon Advertising Foundations, Seattle, WA, USA email: meztibor@amazon.com , Barbara Poblete Affiliation: Amazon Advertising Foundations, Seattle, WA, USA email: bpoblete@amazon.com , Shree Vandana Kachroo Affiliation: Amazon Advertising Foundations, Seattle, WA, USA email: kacshree@amazon.com , Calvin Chi Affiliation: Amazon Advertising Foundations, Seattle, WA, USA email: cachi@amazon.com , Parth Parmar Affiliation: Amazon Advertising Foundations, New York, NY, USA email: pkparmar@amazon.com , Ari Singer Affiliation: Amazon Advertising Foundations, New York, NY, USA email: arising@amazon.com , Prayaas Jain Affiliation: Amazon Advertising Foundations, New York, NY, USA email: jainpray@amazon.com , Cindy Barker Affiliation: Amazon Advertising Foundations, San Diego, CA, USA e",
+ "vendor_affiliation_hits": [
+  "Amazon"
+ ],
+ "n_authors": 13,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/THUDM/slime.",
+  "https://github.com/verl-project/verl."
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# CRAFT: Learn the Schema, Execute the Plan"
+  ],
+  [
+   116,
+   "###### Abstract."
+  ],
+  [
+   120,
+   "###### Keywords:"
+  ],
+  [
+   123,
+   "## 1. Introduction"
+  ],
+  [
+   131,
+   "#### Applied contributions."
+  ],
+  [
+   151,
+   "## 2. Deployment Context and Requirements"
+  ],
+  [
+   204,
+   "## 3. Enterprise-Grounded Trajectory Distillation"
+  ],
+  [
+   208,
+   "### 3.1. Coverage and Trajectory Format"
+  ],
+  [
+   234,
+   "### 3.2. Tri-Gate Rejection Filter"
+  ],
+  [
+   238,
+   "## 4. Post-Training System"
+  ],
+  [
+   240,
+   "### 4.1. PLAN SFT with Schema Stripping"
+  ],
+  [
+   250,
+   "### 4.2. Execution-Shaped GRPO"
+  ],
+  [
+   298,
+   "## 5. Evaluation"
+  ],
+  [
+   302,
+   "#### Evaluation layers."
+  ],
+  [
+   308,
+   "### 5.1. Evaluation Tasks and Metric Construction"
+  ],
+  [
+   324,
+   "### 5.2. Training-Stage Ablation"
+  ],
+  [
+   438,
+   "### 5.3. Planned Rollout, Release Gates, and Reproducibility"
+  ],
+  [
+   446,
+   "## 6. Design Tradeoffs and Lessons Learned"
+  ],
+  [
+   460,
+   "## 7. Related Work"
+  ],
+  [
+   474,
+   "## 8. Operational Safeguards for Planned Rollout"
+  ],
+  [
+   478,
+   "## 9. Limitations"
+  ],
+  [
+   490,
+   "## 10. Conclusion"
+  ],
+  [
+   494,
+   "## Appendix A Baseline Comparison"
+  ],
+  [
+   515,
+   "## Appendix B Failure-Mode Taxonomy"
+  ],
+  [
+   557,
+   "## Appendix C Judge-Based Signal Safeguards"
+  ],
+  [
+   561,
+   "## Appendix D VERL/SLIME Training-Gym Extensions"
+  ],
+  [
+   565,
+   "## Appendix E GSM8K Contamination Audit"
+  ],
+  [
+   569,
+   "## References"
+  ],
+  [
+   833,
+   "## GenAI Usage Disclosure"
+  ],
+  [
+   837,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 9. Limitations\n\nSchema-novel entities. CRAFT targets stable enterprise schemas. Queries that require genuinely new abstract entities or workflows not represented in training may require a fine-tuning refresh or retrieval augmentation.\n\nLong-horizon analytical chains. Interaction quality may degrade as conversations accumulate constraints, results, and pivots. Extending the system with durable interaction memory is a promising direction.\n\nReward-shaping coverage. The current R_{\\text{process}} emphasizes tool-call structure, code quality, and avoidance of obvious query anti-patterns. It does not yet fully optimize low-level memory footprint, physical query planning, or infrastructure-aware runtime cost; future work should incorporate richer execution telemetry and normalized cost signals.\n\nJudge-based signals. LLM-judge feedback may be vulnerable to reward hacking or stylistic over-optimization. Execution outcomes remain the primary grounding signal, while judge-based terms are used only for dimensions such as business alignment and plan consistency. Appendix C describes the safeguards intended for rollout evaluation.\n\nThese limitations bound CRAFT’s claim: it is a post-training recipe for coding agents operating over stable proprietary schemas in a planned-rollout setting, not a replacement for retrieval or in-context tool grounding in arbitrary open-world domains.\n\n## 10. Conclusion\n\nWe presented CRAFT, a production-oriented post-training recipe evaluated for planned rollout in advertising analytics. By combining enterprise-grounded trajectory distillation, schema-stripped PLAN SFT, and execution-shaped RL, CRAFT reduces reliance on prompt-time schema injection while improving coding-agent quality, consistency, and multi-turn interaction behavior. Evaluation through beta APIs within a controlled enterprise environment provides realistic pre-deployment evidence under confidentiality constraints.\n\n## Appendix A Baseline Comparison\n\nTable 9 compares CRAFT against the strongest schema-stuffed baseline. We retain the confidentiality-safe reporting convention used throughout the paper.\n\nTable 9. Comparison against the strongest schema-stuffed baseline.\n\nMethod\nExec. Acc.\nPass@1\nInput Tok.\n\nSchema-stuffed baseline\n0.0 pp\n0.0 pp\n1.00x\n\nCRAFT\n+7.1 pp\n+6.2 pp\n0.11x\n\n## Appendix B Failure-Mode Taxonomy\n\nTable 10 groups diagnostic priorities observed during repeated-run and multi-turn analysis. The ordering motivates the consistency and interaction-focused metrics in the main evaluation without disclosing absolute evaluation-set counts.",
+ "ethics_coi": "## GenAI Usage Disclosure\n\nThe authors used generative AI tools to assist with language editing and LaTeX formatting. All technical claims, evaluation results, citations, and conclusions were contributed, reviewed and verified by the authors.\n\n##",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 3,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 1,
+  "swe_bench": 0,
+  "contamination": 2,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 24
+ },
+ "fulltext_source": "html"
+}

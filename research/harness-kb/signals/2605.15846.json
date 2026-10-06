@@ -1,0 +1,365 @@
+{
+ "arxiv_id": "2605.15846",
+ "fulltext_chars": 78086,
+ "fulltext_lines": 2073,
+ "authors_block": "Xinbo Xu Ruihan Yang Haiyang Shen Wendong Xu Bofei Gao Ruoyu Wu Kean Shi Weichu Xie Xuanzhong Chen Ming Wu Jason Zeng Michael Heinrich Elvis Zhang Liang Chen Kuan Li Baobao Chang UniPat AI Peking University Fudan University The University of Hong Kong Tsinghua University 0G Labs Pipeline Lab",
+ "vendor_affiliation_hits": [],
+ "n_authors": 16,
+ "comment": "30 pages, 15 figures",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# RoadmapBench: Evaluating Long-Horizon Agentic Software Development Across Version Upgrades"
+  ],
+  [
+   58,
+   "###### Abstract"
+  ],
+  [
+   69,
+   "## 1 Introduction"
+  ],
+  [
+   74,
+   "#Tasks"
+  ],
+  [
+   163,
+   "## 2 Related Work"
+  ],
+  [
+   165,
+   "##### Coding Agents."
+  ],
+  [
+   172,
+   "##### Coding Benchmarks for Agents."
+  ],
+  [
+   176,
+   "## 3 RoadmapBench"
+  ],
+  [
+   180,
+   "### 3.1 Task Definition"
+  ],
+  [
+   194,
+   "### 3.2 Dataset Statistics"
+  ],
+  [
+   205,
+   "### 3.3 Data Construction Pipeline"
+  ],
+  [
+   212,
+   "##### Stage 1: Repository Mining."
+  ],
+  [
+   217,
+   "##### Stage 2: Task Construction."
+  ],
+  [
+   224,
+   "##### Stage 3: Static Validation."
+  ],
+  [
+   229,
+   "##### Stage 4: Rollout-based quality control."
+  ],
+  [
+   234,
+   "## 4 Experiments"
+  ],
+  [
+   540,
+   "### 4.1 Evaluation Setup"
+  ],
+  [
+   542,
+   "##### Models."
+  ],
+  [
+   547,
+   "##### Agent scaffold."
+  ],
+  [
+   557,
+   "##### Inference configuration."
+  ],
+  [
+   563,
+   "##### Metrics."
+  ],
+  [
+   575,
+   "### 4.2 Main Results"
+  ],
+  [
+   580,
+   "##### Overall performance."
+  ],
+  [
+   590,
+   "##### Domain difficulty."
+  ],
+  [
+   603,
+   "## 5 Analysis"
+  ],
+  [
+   607,
+   "### 5.1 Step Efficiency and Compute Scaling"
+  ],
+  [
+   625,
+   "### 5.2 Tool Composition and Usage Distribution"
+  ],
+  [
+   650,
+   "### 5.3 Task Complexity and Performance"
+  ],
+  [
+   660,
+   "### 5.4 Scaffold Sensitivity"
+  ],
+  [
+   665,
+   "##### Top models are scaffold-robust."
+  ],
+  [
+   670,
+   "##### OpenHands yields higher performance for most models."
+  ],
+  [
+   676,
+   "##### Two models perform better on Terminus 2."
+  ],
+  [
+   681,
+   "### 5.5 Target-Level Analysis"
+  ],
+  [
+   692,
+   "### 5.6 Failure Mode Analysis"
+  ],
+  [
+   712,
+   "## 6 Conclusion"
+  ],
+  [
+   722,
+   "## References"
+  ],
+  [
+   1073,
+   "## Appendix A Limitations"
+  ],
+  [
+   1080,
+   "## Appendix B Ethics Statement"
+  ],
+  [
+   1088,
+   "## Appendix C Broader Impacts"
+  ],
+  [
+   1096,
+   "## Appendix D Human Evaluation"
+  ],
+  [
+   1102,
+   "## Appendix E Task Details"
+  ],
+  [
+   1106,
+   "### E.1 Repository and Language Coverage"
+  ],
+  [
+   1251,
+   "### E.2 Task Complexity Distribution"
+  ],
+  [
+   1269,
+   "### E.3 Temporal Span and Repository Scale"
+  ],
+  [
+   1284,
+   "## Appendix F Task Example"
+  ],
+  [
+   1421,
+   "## Appendix G Construction Pipeline Details"
+  ],
+  [
+   1423,
+   "### G.1 Repository Selection Criteria"
+  ],
+  [
+   1427,
+   "##### Definition of high-quality release documentation."
+  ],
+  [
+   1460,
+   "##### Expert review and version-pair selection."
+  ],
+  [
+   1465,
+   "### G.2 Static Review Details"
+  ],
+  [
+   1469,
+   "##### Compliance review (20 items)."
+  ],
+  [
+   1497,
+   "##### Per-target correctness review."
+  ],
+  [
+   1520,
+   "### G.3 Quality Control Protocol"
+  ],
+  [
+   1522,
+   "#### G.3.1 Attribution Classification"
+  ],
+  [
+   1530,
+   "#### G.3.2 Inter-Annotator Agreement"
+  ],
+  [
+   1534,
+   "#### G.3.3 Iterative QC Impact"
+  ],
+  [
+   1578,
+   "## Appendix H Error Classification Details"
+  ],
+  [
+   1582,
+   "### H.1 Classification Methodology"
+  ],
+  [
+   1605,
+   "##### Validation."
+  ],
+  [
+   1611,
+   "##### Coverage and cost."
+  ],
+  [
+   1616,
+   "### H.2 Error Taxonomy"
+  ],
+  [
+   1730,
+   "### H.3 Per-Model Error Distribution"
+  ],
+  [
+   1865,
+   "### H.4 Per-Model Analysis"
+  ],
+  [
+   1867,
+   "##### Claude-Opus-4.7 (pass 70%)."
+  ],
+  [
+   1871,
+   "##### Claude-Opus-4.6 (pass 64%)."
+  ],
+  [
+   1877,
+   "##### GPT-5.4 (pass 55%)."
+  ],
+  [
+   1883,
+   "##### DeepSeek-V4-Pro (pass 51%)."
+  ],
+  [
+   1889,
+   "##### GLM-5.1 (pass 51%)."
+  ],
+  [
+   1894,
+   "##### Kimi-K2.6 (pass 46%)."
+  ],
+  [
+   1900,
+   "##### Gemini-3.1-Pro (pass 45%)."
+  ],
+  [
+   1906,
+   "##### Qwen3.6-Plus (pass 42%)."
+  ],
+  [
+   1911,
+   "##### Kimi-K2.5 (pass 38%)."
+  ],
+  [
+   1916,
+   "##### MiniMax-M2.7 (pass 36%)."
+  ],
+  [
+   1921,
+   "##### Mimo-V2.5-Pro (pass 36%)."
+  ],
+  [
+   1927,
+   "##### Qwen3.5-397B (pass 35%)."
+  ],
+  [
+   1933,
+   "##### Seed-2.0-Pro (pass 17%)."
+  ],
+  [
+   1939,
+   "### H.5 Representative Case Studies"
+  ],
+  [
+   1944,
+   "#### Case 1: Implementation Error (Code Defect)"
+  ],
+  [
+   1966,
+   "#### Case 2: Build Error (Circular Import)"
+  ],
+  [
+   1991,
+   "#### Case 3: Missing Implementation (Not Implemented)"
+  ],
+  [
+   2017,
+   "#### Case 4: Interface Mismatch (Wrong Export Path)"
+  ],
+  [
+   2043,
+   "#### Case 5: Agent Failure (Infinite Loop Until Budget Exhaustion)"
+  ],
+  [
+   2073,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## Appendix A Limitations\n\nWe acknowledge several limitations of this work.\nOur evaluation employs two agent scaffolds (OpenHands and Terminus 2). Agent performance is sensitive to scaffold design choices, and results under other frameworks may differ.\nEvaluation relies on test suites that verify behavioral correctness but do not assess code quality, maintainability, or adherence to idiomatic patterns. Future work could incorporate multi-dimensional metrics for a more holistic assessment.\nAlthough ROADMAPBENCH spans five programming languages and multiple software domains, it still covers only a limited subset of real-world development ecosystems. Future extensions could incorporate additional languages, frameworks, and application settings.\n\n## Appendix B Ethics Statement\n\nThis research conforms to the Code of Ethics.\nAll benchmark tasks are derived from publicly available open-source repositories.\nNo private or proprietary code is included.\nRepository identities and version numbers are anonymized in the task instructions to prevent information leakage during evaluation, and no personally identifiable information is collected or used.\nHuman annotators involved in quality control are co-authors of this work and participated voluntarily.\n\n## Appendix C Broader Impacts\n\nRoadmapBench is designed to measure and advance the capability of coding agents on realistic software engineering tasks.\nOn the positive side, improved coding agents can increase developer productivity, lower barriers to software development, and accelerate open-source contributions.\nOn the negative side, more capable coding agents could potentially be misused to generate malicious code or exploit vulnerabilities at scale.\nHowever, our benchmark evaluates agents on constructive software development tasks (implementing features from public roadmaps) rather than adversarial capabilities. We do not release any model weights or fine-tuning recipes.\nWe believe the diagnostic value of understanding where current agents fail outweighs the marginal risk, as the benchmark primarily reveals limitations rather than enabling new harmful capabilities.\n\n## Appendix D Human Evaluation\n\nWe conduct human evaluation as part of the task construction and quality-control pipeline.\nAll annotators are Ph.D. students with computer science backgrounds and relevant experience in software engineering.\nThey participated in constructing coding tasks, reviewing generated instructions, and repairing task-side defects identified during validation. The annotators were compensated above the local minimum hourly wage.\n\n## Appendix E Task Details\n\nThis appendix provides detailed statistics that supplement the dataset overview in Section 3.2.\n\n### E.1 Repository and Language Coverage\n\nTable 3 summarizes the repository coverage of our benchmark across five programming languages and diverse software domains.\n\nTable 3: Repository coverage by language, domain, task count, and median oracle-patch complexity.\n\nLanguage",
+ "ethics_coi": "## Appendix B Ethics Statement\n\nThis research conforms to the Code of Ethics.\nAll benchmark tasks are derived from publicly available open-source repositories.\nNo private or proprietary code is included.\nRepository identities and version numbers are anonymized in the task instructions to prevent information leakage during evaluation, and no personally identifiable information is collected or used.\nHuman annotators involved in quality control are co-authors of this work and participated voluntarily.\n\n## Appendix C Broader Impacts\n\nRoadmapBench is designed to measure and advance the capability of coding agents on realistic software engineering tasks.\nOn the positive side, improved coding agents can increase developer productivity, lower barriers to software development, and accelerate open-source contributions.\nOn the negative side, more capable coding agents could potentially be misused to generate malicious code or exploit vulnerabilities at scale.\nHowever, our benchmark evaluates agents on constructive software development tasks (implementing features from public roadmaps) rather than adversarial capabilities. We do not release any model weights or fine-tuning recipes.\nWe believe the diagnostic value of understanding where current agents fail outweighs the marginal risk, as the benchmark primarily reveals limitations rather than enabling new harmful capabilities.\n\n## Appendix D Human Evaluation\n\nWe conduct human evaluation as part of the task construction and quality-control pipeline.\nAll annotators are Ph.D. students with computer science backgrounds and relevant experience in software engineering.\nThey participated in constructing coding tasks, reviewing generated instructions, and repairing task-side defects identified during validation. The annotators were compensated above the local minimum hourly wage.\n\n## Appendix E Task Details\n\nThis appendix provides detailed statistics that supplement the dataset overview in Section 3.2.",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 0,
+  "swe_bench": 9,
+  "contamination": 2,
+  "human_study": 0,
+  "java": 1,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

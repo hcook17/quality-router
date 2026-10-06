@@ -1,0 +1,193 @@
+{
+ "arxiv_id": "2607.28271",
+ "fulltext_chars": 59862,
+ "fulltext_lines": 1224,
+ "authors_block": "Andras Ferenczi, Jordan Docherty, Mariya Bessonov, Matthew Findlay, and Krishna Lingamneni Affiliation: American Express {Andras.L.Ferenczi1, Jordan.Docherty, Mariya.Bessonov, Matthew.Findlay}@aexp.com krishna.k.lingamneni@aexp.com",
+ "vendor_affiliation_hits": [],
+ "n_authors": 5,
+ "comment": "11 pages, 6 figures",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Agentic Method for Deterministic Validation of Legacy Code Migration"
+  ],
+  [
+   32,
+   "###### Abstract"
+  ],
+  [
+   36,
+   "###### Index Terms:"
+  ],
+  [
+   41,
+   "## I Introduction"
+  ],
+  [
+   62,
+   "### I-A The Locksmith metaphor"
+  ],
+  [
+   105,
+   "### I-B Migration and harness setup"
+  ],
+  [
+   131,
+   "### I-C Contributions"
+  ],
+  [
+   148,
+   "### I-D Scope and assumptions"
+  ],
+  [
+   156,
+   "## II Related Work"
+  ],
+  [
+   162,
+   "#### 1. Test-suite amplification and harness testability."
+  ],
+  [
+   185,
+   "#### 2. Search-based input generation, fuzzing, and symbolic execution."
+  ],
+  [
+   206,
+   "#### 3. Differential and metamorphic test oracles."
+  ],
+  [
+   216,
+   "#### 4. Program repair and agentic LLM software engineering."
+  ],
+  [
+   229,
+   "#### Legacy and mainframe modernization"
+  ],
+  [
+   243,
+   "#### Position"
+  ],
+  [
+   253,
+   "## III Method"
+  ],
+  [
+   255,
+   "### III-A Pipeline overview"
+  ],
+  [
+   288,
+   "### III-B Four components: Migrator, Analyzer, Runner, and Authoring"
+  ],
+  [
+   294,
+   "#### Deterministic Migrator"
+  ],
+  [
+   298,
+   "#### Deterministic Analyzer"
+  ],
+  [
+   304,
+   "#### Deterministic Runner"
+  ],
+  [
+   311,
+   "#### Agentic Authoring"
+  ],
+  [
+   359,
+   "### III-C Witness Search: input-space Witness Search"
+  ],
+  [
+   442,
+   "### III-D Mutation: parity-preserving harness mutation via skills"
+  ],
+  [
+   450,
+   "#### Sibling gates within one Locked Paragraph"
+  ],
+  [
+   454,
+   "### III-E The recursion"
+  ],
+  [
+   493,
+   "### III-F The Parity Gate"
+  ],
+  [
+   529,
+   "### III-G Authoring Layer intervention points"
+  ],
+  [
+   536,
+   "## IV Experimental Results"
+  ],
+  [
+   627,
+   "### IV-A A production-shape run"
+  ],
+  [
+   648,
+   "## V Threats to Validity"
+  ],
+  [
+   653,
+   "#### External validity: case-study scope"
+  ],
+  [
+   659,
+   "#### Construct validity: branch coverage as a proxy"
+  ],
+  [
+   675,
+   "#### Internal validity: parity preserves bugs"
+  ],
+  [
+   690,
+   "#### Overfitting to harness structure"
+  ],
+  [
+   700,
+   "#### Generated Java quality and oracle completeness"
+  ],
+  [
+   718,
+   "## VI Future Work"
+  ],
+  [
+   759,
+   "## VII Conclusion"
+  ],
+  [
+   785,
+   "## References"
+  ],
+  [
+   1224,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## V Threats to Validity\n\nWe discuss five threats to validity, in order of severity from the perspective of generalizing these claims to\nother COBOL migrations.\n\n#### External validity: case-study scope\n\nThe experiment is conducted on three programs: two open-source batch COBOL programs and one production-shaped run.\n\nThe detailed case allows us to demonstrate that the Mutation phase reaches paragraphs and transitions that input-space search alone cannot: 8 of the 24 covered paragraphs and 19 of the 37 covered transitions. This should be treated as evidence from these cases, not as a general claim about all COBOL systems. To make this claim stronger, we would need to replicate the experiment across additional program families, including IMS, database-heavy SQL, and CICS systems.\n\n#### Construct validity: branch coverage as a proxy\n\nWe use branch coverage of the instrumented mock as the primary\nquantitative measure. Branch coverage is a well-known but imperfect\nproxy for fault-detection effectiveness: a high-coverage test suite\nneed not detect all classes of fault, and a small set of well-chosen\nmutation-tested cases can find faults a higher-coverage suite misses,\na tension long documented in the fuzzing-and-coverage\nliterature [16].\nWe mitigate this by anchoring acceptance on cross-language parity\nrather than coverage alone: a test case that adds a branch but\ndiverges between COBOL and Java is not accepted,\nbut we do not claim that the resulting suite is sufficient on its\nown for migration sign-off. It is a quantitatively comparable\nyardstick against the bare-baseline starting point, no more.\n\n#### Internal validity: parity preserves bugs\n\nAnchoring on the legacy COBOL as the operational reference\nmeans the loop validates whether the migrated Java reproduces the\nlegacy implementation’s behavior, including its bugs. In a 1:1\nmigration context this is the desired property, because maintainers will\nown the Java code post-migration and any behavioral drift would\nsurface as a regression they would have to investigate, but it\nis genuinely a different claim from “the program is correct.” The\noperational reference is the truth of compatibility, not the\ntruth of semantics. If the eventual goal is correctness\nverification rather than compatibility migration, the Parity Gate\nalone is insufficient and an external specification oracle must be",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 1,
+  "swe_bench": 1,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 52,
+  "industrial": 4
+ },
+ "fulltext_source": "html"
+}

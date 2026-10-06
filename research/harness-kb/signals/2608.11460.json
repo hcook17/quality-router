@@ -1,0 +1,185 @@
+{
+ "arxiv_id": "2608.11460",
+ "fulltext_chars": 86047,
+ "fulltext_lines": 1416,
+ "authors_block": "Hunter McNichols Affiliation: University of Massachusetts Amherst Email: wmcnichols@umass.edu Kai Du Affiliation: OpenRefinery.ai Email: kai@openrefinery.ai Andrew Lan Affiliation: University of Massachusetts Amherst Email: andrewlan@cs.umass.edu",
+ "vendor_affiliation_hits": [],
+ "n_authors": 3,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Principal Trait Analysis: Towards Deriving “Skills” in Human-AI Collaboration"
+  ],
+  [
+   40,
+   "###### Abstract"
+  ],
+  [
+   53,
+   "## 1 Introduction"
+  ],
+  [
+   63,
+   "### 1.1 Contributions"
+  ],
+  [
+   67,
+   "## 2 Related Work"
+  ],
+  [
+   69,
+   "### 2.1 Topic Modeling and Clustering with LLMs"
+  ],
+  [
+   73,
+   "### 2.2 Outcome Prediction with LLM Judged Features"
+  ],
+  [
+   77,
+   "### 2.3 Tutoring Dialogues and LLMs in Education"
+  ],
+  [
+   83,
+   "## 3 Methodology"
+  ],
+  [
+   90,
+   "#### Notation."
+  ],
+  [
+   96,
+   "#### Stage 1: Behavior observations."
+  ],
+  [
+   100,
+   "#### Stage 2: Trait derivation by clustering."
+  ],
+  [
+   104,
+   "#### Stage 3: Trait scoring."
+  ],
+  [
+   167,
+   "#### Stage 4: Principal trait selection."
+  ],
+  [
+   188,
+   "## 4 Experimental Setup"
+  ],
+  [
+   192,
+   "### 4.1 Datasets"
+  ],
+  [
+   198,
+   "### 4.2 Metrics"
+  ],
+  [
+   202,
+   "#### Shared Regression Setup"
+  ],
+  [
+   206,
+   "#### StudyChat: Explanatory Exam Regression"
+  ],
+  [
+   210,
+   "#### SWE-Chat: Predictive Difficulty-Aligned Regression"
+  ],
+  [
+   215,
+   "### 4.3 Experimental Details"
+  ],
+  [
+   217,
+   "#### Extraction Lenses."
+  ],
+  [
+   289,
+   "#### PTA Hyperparameters."
+  ],
+  [
+   293,
+   "#### Language Models."
+  ],
+  [
+   297,
+   "#### Baselines."
+  ],
+  [
+   302,
+   "## 5 Results and Analysis"
+  ],
+  [
+   406,
+   "### 5.1 PTA Traits Validity"
+  ],
+  [
+   413,
+   "### 5.2 Significant Traits"
+  ],
+  [
+   426,
+   "### 5.3 Temporal Analysis"
+  ],
+  [
+   430,
+   "## 6 Conclusions"
+  ],
+  [
+   436,
+   "## References"
+  ],
+  [
+   888,
+   "## Appendix A Significant Traits with Definitions"
+  ],
+  [
+   1054,
+   "## Appendix B Bloom’s Taxonomy Baseline Dimensions"
+  ],
+  [
+   1100,
+   "## Appendix C Observation-Extraction Prompts"
+  ],
+  [
+   1104,
+   "### C.1 StudyChat"
+  ],
+  [
+   1242,
+   "### C.2 SWE-Chat"
+  ],
+  [
+   1363,
+   "### C.3 Trait-Scoring (Rating) Prompts"
+  ],
+  [
+   1416,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 2,
+  "llm_as_judge": 3,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

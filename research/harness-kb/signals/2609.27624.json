@@ -1,0 +1,193 @@
+{
+ "arxiv_id": "2609.27624",
+ "fulltext_chars": 39995,
+ "fulltext_lines": 906,
+ "authors_block": "Adithyan Arun Kumar Affiliation: Independent Security Researcher Email: adioffsec@gmail.com September 2026",
+ "vendor_affiliation_hits": [],
+ "n_authors": 1,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/SolaceLabs/solace-agent-mesh",
+  "https://github.com/UiPath/uipath-langchain-python",
+  "https://github.com/a2aproject/A2A",
+  "https://github.com/a2aproject/a2a-samples",
+  "https://github.com/adithyan-ak/agent-name-collision-attacks",
+  "https://github.com/agno-agi/agno",
+  "https://github.com/google/adk-go",
+  "https://github.com/google/adk-java",
+  "https://github.com/google/adk-js",
+  "https://github.com/google/adk-python",
+  "https://github.com/i-am-bee/beeai-framework",
+  "https://github.com/microsoft/agent-framework",
+  "https://github.com/microsoft/semantic-kernel",
+  "https://github.com/mozilla-ai/any-agent",
+  "https://github.com/openai/openai-agents-python"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Agent Name Collision Attacks in Multi-Agent Systems"
+  ],
+  [
+   30,
+   "###### Abstract"
+  ],
+  [
+   36,
+   "## 1  Introduction"
+  ],
+  [
+   66,
+   "## 2  System and Threat Model"
+  ],
+  [
+   68,
+   "### 2.1  Identity layers"
+  ],
+  [
+   100,
+   "### 2.2  Attacker capabilities and necessary conditions"
+  ],
+  [
+   126,
+   "### 2.3  Security outcomes"
+  ],
+  [
+   148,
+   "## 3  Methodology"
+  ],
+  [
+   150,
+   "### 3.1  Inclusion criteria"
+  ],
+  [
+   180,
+   "### 3.2  Controlled experiments"
+  ],
+  [
+   188,
+   "### 3.3  Tests for stronger consequences"
+  ],
+  [
+   210,
+   "### 3.4  Evidence integrity and safety"
+  ],
+  [
+   214,
+   "## 4  Cross-Implementation Results"
+  ],
+  [
+   216,
+   "### 4.1  Protocol boundary"
+  ],
+  [
+   220,
+   "### 4.2  Affected paths"
+  ],
+  [
+   292,
+   "### 4.3  Four implementation forms"
+  ],
+  [
+   314,
+   "### 4.4  Google ADK reachability boundary"
+  ],
+  [
+   320,
+   "## 5  Impact and Authority Boundary"
+  ],
+  [
+   322,
+   "### 5.1  What follows from wrong-peer dispatch"
+  ],
+  [
+   327,
+   "### 5.2  Credentials and delegated context"
+  ],
+  [
+   334,
+   "### 5.3  Tools and execution"
+  ],
+  [
+   382,
+   "### 5.4  Severity"
+  ],
+  [
+   386,
+   "## 6  Ecosystem Propagation and Counterexamples"
+  ],
+  [
+   388,
+   "### 6.1  Reference-code propagation"
+  ],
+  [
+   393,
+   "### 6.2  Negative controls"
+  ],
+  [
+   433,
+   "## 7  Protocol, Implementation, and Deployment Responsibility"
+  ],
+  [
+   472,
+   "## 8  Defenses"
+  ],
+  [
+   532,
+   "## 9  Limitations and Ethical Scope"
+  ],
+  [
+   548,
+   "## 10  Directly Related Work"
+  ],
+  [
+   560,
+   "## 11  Conclusion"
+  ],
+  [
+   569,
+   "## Appendix A Reproducibility Record"
+  ],
+  [
+   632,
+   "### A.1  Evidence integrity"
+  ],
+  [
+   636,
+   "### A.2  Reproduction safety"
+  ],
+  [
+   640,
+   "## Generative AI Usage"
+  ],
+  [
+   652,
+   "## References"
+  ],
+  [
+   906,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 9  Limitations and Ethical Scope\n\nThe attack model begins after B is admitted or compromised. We did not establish a universal enrollment bypass. Actual exploitability depends on registry permissions, discovery topology, configuration ownership, and broker ACLs, as well as the name collision itself.\n\nGoogle ADK requires special caution. The focused tests manually supplied duplicate local names, while the Agent Registry helpers provide the source-established card-to-name path. This study did not test a Google Cloud project or prove that a low-privilege agent can create or refresh the needed registry record. That missing admission edge prevents an end-to-end remote-exploit claim for Google ADK.\n\nSolace final delivery was not exercised in a production broker topology. The source and focused test establish registry replacement, route derivation, and publication of caller configuration to the collided route. Exclusive versus non-exclusive queues, bind order, and ACLs determine whether B receives the message.\n\nThe authority study used synthetic credentials and harmless action counters. It did not demonstrate production secrets, business actions, or one universal severity. Scripted-model tests prove that B’s output can reach another decision point; they do not estimate whether a real model, prompt, approval rule, or guardrail would invoke a privileged tool.\n\nThe seven-target corpus was purposive. Package popularity and repository search were used to find and contextualize implementations, not to estimate a population rate. The 83-repository exact-pattern snapshot cannot be converted into vulnerable products, exposed installations, or independent codebases.\n\nThe prior-art review covered public, indexed material available by 9 September 2026. Private reports, renamed issues, and unindexed content may exist. We found no earlier public description of the complete mechanism within those bounds; this is not a claim of novelty or priority.\n\nAll runtime traffic was confined to in-process doubles or study-controlled loopback peers. No third-party endpoint or account was probed. Results report exact pinned revisions rather than present-tense vulnerability status.\n\n## 10  Directly Related Work\n\nThe closest protocol work is A2A issue 1014, which states that agent_card.name is not guaranteed unique and is vulnerable to branding changes, and proposes a persistent identifier[11]. That work identifies the missing primitive. It does not document the complete path from duplicate display name through a fail-open host resolver to deterministic wrong-peer dispatch.\n\nLevelBlue’s Agent-in-the-Middle experiment shows that a compromised peer can exaggerate Agent Card capabilities so a model selects it for tasks[22]. The attacker capability and confidentiality consequence are adjacent, but the mechanism is model-mediated description steering. The collision studied here instead corrupts a deterministic local identity binding after peers are admitted and can be tested without model choice.\n\nPalo Alto Networks’ A2A security guidance discusses agent impersonation and Agent Card shadowing, including similar names, capabilities, identities, and endpoints[17]. That establishes broad shadowing and impersonation as prior art. The contribution here is narrower: cross-implementation evidence for exact or normalized name collision entering an authority-bearing resolver and reaching the wrong transport, tool, or broker route.\n\nCWE-706 provides the closest general software-weakness category: a name or reference resolves to a resource outside the intended control sphere[14]. Agent-name collision applies that pattern to multi-agent discovery, where a remote presentation field displaces an enrolled principal at dispatch.\n\nThese works rule out broad novelty claims about malicious Agent Cards, agent impersonation, name collisions, or task capture. The bounded search found no earlier public description of the complete chain from duplicate name, through fail-open resolution, t",
+ "ethics_coi": "## 9  Limitations and Ethical Scope\n\nThe attack model begins after B is admitted or compromised. We did not establish a universal enrollment bypass. Actual exploitability depends on registry permissions, discovery topology, configuration ownership, and broker ACLs, as well as the name collision itself.\n\nGoogle ADK requires special caution. The focused tests manually supplied duplicate local names, while the Agent Registry helpers provide the source-established card-to-name path. This study did not test a Google Cloud project or prove that a low-privilege agent can create or refresh the needed registry record. That missing admission edge prevents an end-to-end remote-exploit claim for Google ADK.\n\nSolace final delivery was not exercised in a production broker topology. The source and focused test establish registry replacement, route derivation, and publication of caller configuration to the collided route. Exclusive versus non-exclusive queues, bind order, and ACLs determine whether B receives the message.\n\nThe authority study used synthetic credentials and harmless action counters. It did not demonstrate production secrets, business actions, or one universal severity. Scripted-model tests prove that B’s output can reach another decision point; they do not estimate whether a real model, prompt, approval rule, or guardrail would invoke a privileged tool.\n\nThe seven-target corpus was purposive. Package popularity and repository search were used to find and contextualize implementations, not to estimate a population rate. The 83-repository exact-pattern snapshot cannot be converted into vulnerable products, exposed installations, or independent codebases.\n\nThe prior-art review covered public, indexed material available by 9 September 2026. Private reports, renamed issues, and unindexed content may exist. We found no earlier public description of the complete mechanism within those bounds; this is not a claim of novelty or priority.\n\nAll runtime traffic was confined to ",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 3,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

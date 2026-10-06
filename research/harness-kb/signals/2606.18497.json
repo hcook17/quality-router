@@ -1,0 +1,217 @@
+{
+ "arxiv_id": "2606.18497",
+ "fulltext_chars": 67009,
+ "fulltext_lines": 1265,
+ "authors_block": "Chandranil Chakraborttii, Jackeline García Alvarado, Sitora Abdulofizova, and Shivanshu Dwivedi Affiliation: Trinity College, USA",
+ "vendor_affiliation_hits": [],
+ "n_authors": 4,
+ "comment": "13 pages, 5 figures, 12 tables. Prepared for submission",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Ghost Vectors: Soft-Deleted Embeddings Remain Reconstructible in HNSW Vector Databases"
+  ],
+  [
+   26,
+   "###### Abstract"
+  ],
+  [
+   30,
+   "###### Index Terms:"
+  ],
+  [
+   33,
+   "## I Introduction"
+  ],
+  [
+   49,
+   "## II Background"
+  ],
+  [
+   63,
+   "## III Threat Model"
+  ],
+  [
+   65,
+   "### III-A System and Adversary Model"
+  ],
+  [
+   76,
+   "### III-B Formal Security Analysis"
+  ],
+  [
+   84,
+   "###### Theorem 1 (Soft-Delete Risk)."
+  ],
+  [
+   88,
+   "###### Theorem 2 (Epoch Rotation Security)."
+  ],
+  [
+   93,
+   "###### Proof."
+  ],
+  [
+   104,
+   "## IV Ghost Vector Attack Setup"
+  ],
+  [
+   106,
+   "### IV-A Threat Environment and Setup"
+  ],
+  [
+   110,
+   "### IV-B Evaluated Systems"
+  ],
+  [
+   114,
+   "### IV-C Datasets"
+  ],
+  [
+   116,
+   "#### IV-C1 Text Datasets:"
+  ],
+  [
+   124,
+   "#### IV-C2 Multimodal Datasets:"
+  ],
+  [
+   128,
+   "### IV-D Inversion Model & Evaluation Metrics"
+  ],
+  [
+   133,
+   "## V Empirical Findings"
+  ],
+  [
+   135,
+   "### V-A Storage-Layer Persistence"
+  ],
+  [
+   145,
+   "### V-B Reconstruction Results (Text)"
+  ],
+  [
+   147,
+   "#### V-B1 Baseline Extraction (BLP and Wikipedia)"
+  ],
+  [
+   312,
+   "#### V-B2 Clinical Extraction on Structured Data"
+  ],
+  [
+   363,
+   "#### V-B3 The Corrector Bottleneck"
+  ],
+  [
+   501,
+   "### V-C Secondary Risks"
+  ],
+  [
+   503,
+   "#### V-C1 Persistence under quantization"
+  ],
+  [
+   507,
+   "#### V-C2 Cross-Modality Persistence"
+  ],
+  [
+   554,
+   "### V-D Structural Persistence and Side Channels"
+  ],
+  [
+   558,
+   "#### V-D1 Ghost Traversal Cost"
+  ],
+  [
+   562,
+   "#### V-D2 Result-Set Drift"
+  ],
+  [
+   566,
+   "#### V-D3 API-Layer Side Channel"
+  ],
+  [
+   570,
+   "#### V-D4 Defense Requirements"
+  ],
+  [
+   574,
+   "#### V-D5 Adversary Cost"
+  ],
+  [
+   616,
+   "## VI Epoch Key Rotation Defense"
+  ],
+  [
+   618,
+   "### VI-A Formal Specification"
+  ],
+  [
+   620,
+   "###### Definition 1 (Primitive)."
+  ],
+  [
+   638,
+   "### VI-B Failure of Prior Defenses"
+  ],
+  [
+   728,
+   "### VI-C Evaluation"
+  ],
+  [
+   900,
+   "### VI-D Why Differential Privacy Fails"
+  ],
+  [
+   909,
+   "## VII Discussion"
+  ],
+  [
+   921,
+   "## VIII Limitations and Future Work"
+  ],
+  [
+   931,
+   "## IX Related Work"
+  ],
+  [
+   939,
+   "## X Conclusion"
+  ],
+  [
+   943,
+   "## XI Acknowledgment"
+  ],
+  [
+   947,
+   "## References"
+  ],
+  [
+   1265,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## XI Acknowledgment\n\nThe authors take full responsibility for the technical content of this paper. AI-assisted writing tools were used only for limited language editing in accordance with conference policy.\n\n## References\n\n[1]\n\n“Regulation (eu) 2016/679 of the european parliament and of the council\n(general data protection regulation),” 2016.\n\nArticle 17: Right to erasure.\n\n[2]\n\nE. D. P. Board, “Guidelines 05/2019 on the right to erasure,” 2019.\n\n[3]\n\nE. M. Villaronga, P. Kieseberg, and T. Peyr, “Humans forget, machines\nremember: Artificial intelligence and the right to be forgotten,” Computer Law & Security Review, vol. 34, no. 2, pp. 304–313, 2018.\n\n[4]\n\nE. Politou, E. Alepis, and C. Patsakis, “Forgetting personal data and revoking",
+ "limitations": "## VIII Limitations and Future Work\n\nCorrector Generalization and Scale: \nTwo main factors limit the current work. First, the clinical evaluation uses synthetic records, and validation on raw MIMIC-III clinical notes showed a ROUGE-L score of 0.009. Because the gtr-t5-base corrector was trained on Wikipedia-style text, it does not generalize well to clinical terminology. We argue that the bottleneck is due to the corrector rather than the storage. On disk, the soft-deleted MIMIC-III vectors remain physically retrievable. Near-term extensions include clinical corrector training. Initial fine-tuning on N=43{,}324 MTSamples pairs improves MIMIC-III ROUGE-L from 0.009 to 0.052 (5.9 \\times ). Additional domain-specific training on MIMIC-III or i2b2 may improve recovery further. Second, our experiments span 10^{3} to 10^{5} records, which is smaller than production deployments that typically handle between 10^{7} and 10^{1}0 records. Computational constraints prevented larger trials, although the geometric properties of HNSW suggest that the attack should remain feasible at larger scales. Future research should evaluate additional cloud-hosted vector databases, including Pinecone and Qdrant, to determine whether comparable persistence behavior appears under their storage designs.\n\nMultimodal ghost vectors also raise intellectual-property risks. Source code embeddings (e.g., CodeBERT, GraphCodeBERT) may introduce analogous ghost vector IP theft. Soft-deleted proprietary function logic remains as semantic ghost embeddings in any HNSW-backed code search or copilot system, extending the privacy threat beyond personal data (GDPR) to IP protection. Some Multimodal RAG systems in production may use a shared HNSW index to combine text, image, and code embeddings. In a single storage breach, a ghost vector adversary could also recover deleted text PII, biometric identity, and proprietary code, further compounding the threat. Epoch key rotation extends naturally to this case since AES-256-CTR is modality-blind.\n\nHardware Isolation and Computational Storage:\nOur evaluation of epoch key rotation is implemented as a software prototype. This creates a trust dependency on the host OS. In the event of a breach, a root-level adversary with access to the host CPU can potentially extract active AES-256 epoch keys from RAM before rotation. Mitigating this dependency requires shifting the cryptographic boundary to hardware via Computational Storage Drives (CSDs) with embedded ARM cores or FPGAs, such as the Samsung SmartSSD [34]. By offloading the index to the drive, the host OS never sees the raw float32 vectors or the epoch keys, because HNSW traversal and AES decryption are executed directly on the drive controller. A hardware-assisted design thus could move key invalidation closer to the storage device. This creates a path towards stronger isolation for vector-database deployments and ensures cryptographic erasure even when the host kernel is fully compromised. One limitation that no corrector advance can address is forward secrecy. Similar to TLS sessions recorded before a key rotation, vectors extracted before epoch rotation remain invertible. This represents a fundamental design limitation, rather than a flaw in the current implementation.\n\n## IX Related Work\n\nPrior research showed that dense embeddings can leak semantic information [35]. Follow-up works developed both zero-shot [26, 27] and iterative [5, 28] inversion methods. Zhuang et al. [28] presented a detailed study of inversion risks and query-layer defenses, including embedding transformations [36]. Most earlier studies assume an adversary at the API layer targeting live embeddings. When this threat model is extended to the storage layer, the semantic vulnerability can remain even after data is logically removed, and query-side transformations remain reversible via T^{\\top} .\n\nTo avoid the severe I/O penalties of graph restructuring [37], vector databases such as ChromaDB [8], FAISS [9, ",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 10,
+  "seeds_or_runs": 2,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 2
+ },
+ "fulltext_source": "html"
+}

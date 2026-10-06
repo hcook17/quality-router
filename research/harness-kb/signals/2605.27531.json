@@ -1,0 +1,161 @@
+{
+ "arxiv_id": "2605.27531",
+ "fulltext_chars": 82005,
+ "fulltext_lines": 1971,
+ "authors_block": "Tarun Suresh David Korczynski Julien Vanegue Affiliation: Bloomberg, NY, USA Email: {tsuresh10,dkorczynski,jvanegue}@bloomberg.net",
+ "vendor_affiliation_hits": [],
+ "n_authors": 3,
+ "comment": "9 pages, 3 appendices",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Agentic Separation Logic Specification Synthesis"
+  ],
+  [
+   32,
+   "###### Abstract"
+  ],
+  [
+   36,
+   "## 1 Introduction"
+  ],
+  [
+   67,
+   "## 2 Background"
+  ],
+  [
+   71,
+   "### Program Verification."
+  ],
+  [
+   75,
+   "### Software Specification."
+  ],
+  [
+   115,
+   "### Separation Logic."
+  ],
+  [
+   140,
+   "### Specification Inference."
+  ],
+  [
+   144,
+   "### Fuzz Testing."
+  ],
+  [
+   148,
+   "## 3 Spec-Agent Design"
+  ],
+  [
+   154,
+   "### Code Mining."
+  ],
+  [
+   158,
+   "### Fuzz Harness Generation."
+  ],
+  [
+   162,
+   "### Specification Language Selection."
+  ],
+  [
+   166,
+   "### Specification Generation."
+  ],
+  [
+   170,
+   "### Specification Fuzz Testing."
+  ],
+  [
+   174,
+   "### Specification Refinement."
+  ],
+  [
+   180,
+   "## 4 Evaluation"
+  ],
+  [
+   182,
+   "### Experimental Setup."
+  ],
+  [
+   188,
+   "### Accuracy."
+  ],
+  [
+   429,
+   "### Qualitative Analysis."
+  ],
+  [
+   433,
+   "### Impact of Fuzzing on Contract Quality."
+  ],
+  [
+   462,
+   "## 5 Related Work"
+  ],
+  [
+   562,
+   "## 6 Limitations"
+  ],
+  [
+   564,
+   "### Fuzz Testing vs. Full Verification."
+  ],
+  [
+   568,
+   "### Strongest Specifications."
+  ],
+  [
+   572,
+   "## 7 Conclusion"
+  ],
+  [
+   576,
+   "## References"
+  ],
+  [
+   997,
+   "## Appendix A Additional Repository and Fuzzing Statistics"
+  ],
+  [
+   1013,
+   "## Appendix B Cost Breakdown on BDE"
+  ],
+  [
+   1061,
+   "## Appendix C End-to-End Inferred Code Contracts on Large C++ Projects"
+  ],
+  [
+   1167,
+   "## Appendix D Case Study"
+  ],
+  [
+   1971,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 6 Limitations\n\n### Fuzz Testing vs. Full Verification.\n\nWhile our specifications are broadly fuzz-tested with high execution coverage and thousands of test inputs per specification (generalizing from narrow functional tests), Spec-Agent does not employ full C++ verification using a logic prover. The most mature code contract tools do not support C++, and fuzz testing constitutes a strong, scalable alternative that supersedes functional testing, the typical approach used to validate inferred specifications in prior work. Implementing a solver for full C++ program verification is out of scope for this paper.\n\n### Strongest Specifications.\n\nOur method produced no incorrect specifications under our fuzzing and expert validation regime, with fuzz testing shown to be a cost-effective proxy to full verification in practice. While we instruct the LLM to select logical operators based on the program’s syntactic structure, LLMs are not always capable of generating the strongest possible specification capturing the most general behavior of the program (without contingent implementation details). As a result, some inferred contracts may represent only a subset of all possible program behaviors. This subset satisfies all functional tests and fuzz tests employed by Spec-Agent for validation and therefore constitutes a useful approximation. To our knowledge, no existing algorithm can decide whether a given specification for a function is the strongest possible one.\n\n## 7 Conclusion\n\nSpec-Agent is a new tool for agentic code specification synthesis, tested at scale on millions of lines of C++ code. Spec-Agent synthesizes code contracts in a variety of expressive specification languages for memory-intensive code with loops and conditional reasoning, providing higher accuracy than frontier models at a fraction of the cost. Spec-Agent employs fuzz testing to validate candidate contracts, providing broad code coverage for the synthesized specifications. Automated specification synthesis is key to generating formal code documentation, translating legacy code to modern programming languages, and identifying security vulnerabilities. We expect such capability to become essential as agentic software vulnerability discovery pipelines scale, making automated specification synthesis a necessary countermeasure.\n\n## References\n\n[1]\nAnthropic (2024)\n\nClaude code: command line tool for agentic coding.\n\nExternal Links: Link\n\nCited by: §4.\n\n[2]\nBDE\n\nHttps://github.com/bloomberg/bde.\n\nCited by: Appendix D,\n§4.\n\n[3]\nBlazingMQ\n\nA modern, high-performance message queue..\n\nCited by: Appendix D,\n§4.",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 0,
+  "swe_bench": 1,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 2,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

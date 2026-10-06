@@ -1,0 +1,251 @@
+{
+ "arxiv_id": "2605.15569",
+ "fulltext_chars": 107742,
+ "fulltext_lines": 2201,
+ "authors_block": "Penghui Li Affiliation: Columbia University pl2689@columbia.edu Affiliation: Hong Yau Chong Affiliation: Columbia University hc3661@columbia.edu Affiliation: Yinzhi Cao Affiliation: Johns Hopkins University yinzhi.cao@jhu.edu Affiliation: Junfeng Yang Affiliation: Columbia University junfeng@cs.columbia.edu Affiliation:",
+ "vendor_affiliation_hits": [],
+ "n_authors": 4,
+ "comment": "In Proceedings of the 47th IEEE Symposium on Security and Privacy (S&P)",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/columbia/neo."
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Detecting Privilege Escalation in Polyglot Microservices via Agentic Program Analysis"
+  ],
+  [
+   54,
+   "###### Abstract"
+  ],
+  [
+   63,
+   "## I Introduction"
+  ],
+  [
+   154,
+   "## II Background"
+  ],
+  [
+   156,
+   "### II-A Microservice Architecture"
+  ],
+  [
+   164,
+   "### II-B Permission Control and Privilege Escalation"
+  ],
+  [
+   172,
+   "### II-C LLM-based Code Agents"
+  ],
+  [
+   183,
+   "## III Motivation"
+  ],
+  [
+   185,
+   "### III-A Motivating Example"
+  ],
+  [
+   199,
+   "### III-B Challenges"
+  ],
+  [
+   253,
+   "## IV Design"
+  ],
+  [
+   272,
+   "### IV-A Code Search Engine"
+  ],
+  [
+   291,
+   "#### IV-A1 Code Search Primitives"
+  ],
+  [
+   341,
+   "#### IV-A2 Property Functions"
+  ],
+  [
+   364,
+   "### IV-B Finding Privileged Operations"
+  ],
+  [
+   379,
+   "### IV-C Identifying Cross-service Flows"
+  ],
+  [
+   492,
+   "### IV-D Validating Flows"
+  ],
+  [
+   530,
+   "## V Implementation"
+  ],
+  [
+   577,
+   "## VI Evaluation"
+  ],
+  [
+   612,
+   "# Stars denotes the number of GitHub stars."
+  ],
+  [
+   615,
+   "# Stars"
+  ],
+  [
+   616,
+   "# LoC"
+  ],
+  [
+   724,
+   "### VI-A Experimental Setup"
+  ],
+  [
+   758,
+   "# Stars"
+  ],
+  [
+   759,
+   "# LoC"
+  ],
+  [
+   761,
+   "# Vuls."
+  ],
+  [
+   787,
+   "### VI-B Effectiveness"
+  ],
+  [
+   865,
+   "### VI-C Ablation Study"
+  ],
+  [
+   870,
+   "#### VI-C1 Detection Effectiveness"
+  ],
+  [
+   947,
+   "#### VI-C2 Code Search Primitives"
+  ],
+  [
+   965,
+   "#### VI-C3 Validation Strategies"
+  ],
+  [
+   985,
+   "#### VI-C4 LLM Variations"
+  ],
+  [
+   1041,
+   "### VI-D Comparison"
+  ],
+  [
+   1049,
+   "#### VI-D1 Baselines"
+  ],
+  [
+   1115,
+   "#### VI-D2 MScan Comparison"
+  ],
+  [
+   1125,
+   "#### VI-D3 CodeQL Comparison"
+  ],
+  [
+   1132,
+   "#### VI-D4 EnIGMA Comparison"
+  ],
+  [
+   1152,
+   "### VI-E Efficiency and Cost"
+  ],
+  [
+   1163,
+   "### VI-F Extensibility"
+  ],
+  [
+   1209,
+   "### VI-G Case Study"
+  ],
+  [
+   1224,
+   "### VI-H Responsible Disclosure"
+  ],
+  [
+   1231,
+   "## VII Discussion"
+  ],
+  [
+   1253,
+   "## VIII Related Work"
+  ],
+  [
+   1290,
+   "## IX Conclusion"
+  ],
+  [
+   1299,
+   "## Ethics Considerations"
+  ],
+  [
+   1319,
+   "## LLM Usage Considerations"
+  ],
+  [
+   1327,
+   "## Acknowledgments"
+  ],
+  [
+   1334,
+   "## References"
+  ],
+  [
+   2149,
+   "## Appendix A Meta-Review"
+  ],
+  [
+   2155,
+   "### A-A Summary"
+  ],
+  [
+   2159,
+   "### A-B Scientific Contributions"
+  ],
+  [
+   2177,
+   "### A-C Reasons for Acceptance"
+  ],
+  [
+   2191,
+   "### A-D Noteworthy Concerns"
+  ],
+  [
+   2201,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgments\n\nThe authors would like to thank the anonymous reviewers and shepherd for their constructive comments.\nWe also thank Andrew Johnston for the valuable discussions.\nThis work was supported in part by the National Science Foundation (NSF) under grants CNS-21-54404 and CNS-20-46361, Gifts from Google, the Columbia Research Stabilization Fund, and the Columbia OPA Academic Conference Travel Grant.\nThe views and conclusions contained herein are those of the authors and should not be interpreted as necessarily representing the official policies or endorsements, either expressed or implied, of the funding agencies.\n\n## References\n\n[1]\nC. Richardson (2025)\n\nMicroservice architecture.\n\nNote: https://microservices.io/\n\nCited by: §I.\n\n[2]\nS. Newman (2019)\n\nMonolith to microservices: evolutionary patterns to transform your monolith.\n\n O’Reilly Media.",
+ "limitations": "",
+ "ethics_coi": "### VI-H Responsible Disclosure\n\nWe follow standard responsible disclosure practices to protect users and developers from potential harm.\nFor each discovered vulnerability, we notified the corresponding developers or project maintainers.\nAs of this submission, 18 out of 42 new vulnerabilities from §VI-B and §VI-F have been acknowledged by developers, and 8 have been patched.\nWe continue to monitor the status of the remaining reports and communicate with developers to ensure timely fixes.\n\n## VII Discussion\n\nLimitations.\n\nWe acknowledge a few limitations of Neo’s current implementation.\nFirst, Neo’s code search primitives are built on CodeQL and inherit its limitations in handling dynamic language features (e.g., dynamic function calls and reflection) and pointer aliases.\nWhile Neo supports multiple programming languages, its effectiveness is also restricted by CodeQL’s language support and the quality of language-specific models.\nOne can also prototype the idea of code search primitives using other analysis backends such as Joern [31].\nSecond, Neo’s code analysis component focuses on source code and cannot directly process configuration files (e.g., YAML, JSON, XML) that may contain relevant security settings such as access control policies or service routing rules.\nTherefore, Neo relies on LLMs to interpret configuration content when retrieved as context, rather than performing structured semantic analysis.\nVulnerabilities stemming from such misconfigurations may be missed if the relevant configuration files are not retrieved into context.\nFurthermore, many misconfigurations often depend on real-world deployment environments, which are typically inaccessible in a third-party red-teaming scenario.\nGiven these constraints, privilege escalation via misconfiguration is out of scope for Neo.\nInterested readers may refer to dedicated tools like ConfigX [67] for detecting them.\n\nFuture Work.\n\nBeyond addressing the aforementioned limitations, several promising directions c",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 1,
+  "human_study": 0,
+  "java": 41,
+  "industrial": 2
+ },
+ "fulltext_source": "html"
+}

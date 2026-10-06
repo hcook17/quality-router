@@ -1,0 +1,208 @@
+{
+ "arxiv_id": "2608.17528",
+ "fulltext_chars": 62893,
+ "fulltext_lines": 1643,
+ "authors_block": "##### Report GitHub Issue Title: Content selection saved. Describe the issue below: Description: arXiv is now an independent nonprofit! Learn more Back to arXiv License: arXiv.org perpetual non-exclusive license arXiv:2608.17528v1 [cs.AI] 18 Aug 2026 August, 2026 Agent Lightning v1.0: Towards Harnessed Agentic RL Zhiyuan He1,∗,‡ Siwei Zhang2,∗ Zhiwen Zhou3,∗ Yuqing Yang1,‡ Yu Kang1 Yuge Zhang1 Luna K. Qiu1 Tin Yan Tsui4 Jiahang Xu1 Chong Luo1 1Microsoft 2Fudan University 3Zhejiang University 4University of Edinburgh Figure 1: The overall framework of Agent Lightning v1.0. Project Page: github.com/microsoft/agent-lightning Correspondence: {zhiyuhe, yuqyang}@microsoft.com ∗Equal contribution. ‡Corresponding authors.",
+ "vendor_affiliation_hits": [
+  "GitHub"
+ ],
+ "n_authors": 10,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/NousResearch/hermes-agentAccessed",
+  "https://github.com/OpenHands/OpenHandsAccessed",
+  "https://github.com/SWE-agent/mini-swe-agentAccessed",
+  "https://github.com/THUDM/slimeAccessed",
+  "https://github.com/anomalyco/opencodeAccessed",
+  "https://github.com/openai/codexAccessed",
+  "https://github.com/openclaw/openclawAccessed",
+  "https://github.com/verl-project/uni-agentAccessed"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   44,
+   "###### Abstract"
+  ],
+  [
+   82,
+   "## Introduction"
+  ],
+  [
+   227,
+   "## Challenges"
+  ],
+  [
+   296,
+   "### Retokenization and Sample Merging"
+  ],
+  [
+   298,
+   "##### Why Token-Prefix Continuity Breaks."
+  ],
+  [
+   409,
+   "##### Mitigating Broken Token-Prefix Continuity."
+  ],
+  [
+   477,
+   "### Advantage Calculation"
+  ],
+  [
+   524,
+   "### Loss Normalization"
+  ],
+  [
+   593,
+   "### Training Backend Complexity"
+  ],
+  [
+   627,
+   "## System Design"
+  ],
+  [
+   682,
+   "### Collocated Async RL"
+  ],
+  [
+   715,
+   "### Network Issues"
+  ],
+  [
+   725,
+   "##### Idempotent API Gateway endpoints."
+  ],
+  [
+   733,
+   "##### Deduplication of repeated LLM API calls."
+  ],
+  [
+   744,
+   "### Kubernetes Integration"
+  ],
+  [
+   762,
+   "### Monitoring"
+  ],
+  [
+   774,
+   "## Experiments"
+  ],
+  [
+   790,
+   "### Search Agent"
+  ],
+  [
+   811,
+   "### General Instruction-Following Agent"
+  ],
+  [
+   831,
+   "### Coding Agent"
+  ],
+  [
+   841,
+   "#### Dataset Preprocessing and Filtering"
+  ],
+  [
+   883,
+   "#### Preventing Reward Hacking"
+  ],
+  [
+   914,
+   "#### Training Dynamics"
+  ],
+  [
+   967,
+   "## Related Work"
+  ],
+  [
+   996,
+   "## Conclusion"
+  ],
+  [
+   1011,
+   "## References"
+  ],
+  [
+   1440,
+   "## Appendix A Detailed System Design"
+  ],
+  [
+   1446,
+   "### API Gateway"
+  ],
+  [
+   1455,
+   "##### Rollout."
+  ],
+  [
+   1466,
+   "##### Model."
+  ],
+  [
+   1472,
+   "##### Event."
+  ],
+  [
+   1545,
+   "##### Rollout API."
+  ],
+  [
+   1551,
+   "##### Proxy API."
+  ],
+  [
+   1566,
+   "### Rollout Controller"
+  ],
+  [
+   1579,
+   "##### K8s Reconciler."
+  ],
+  [
+   1587,
+   "##### Local Reconciler."
+  ],
+  [
+   1593,
+   "##### State Consistency."
+  ],
+  [
+   1601,
+   "### Customized Trainer"
+  ],
+  [
+   1609,
+   "##### Dedicated Sample Adapter."
+  ],
+  [
+   1635,
+   "##### Trajectory Monitoring."
+  ],
+  [
+   1643,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 0,
+  "swe_bench": 5,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

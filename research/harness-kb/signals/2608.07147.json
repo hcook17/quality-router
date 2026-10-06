@@ -1,0 +1,239 @@
+{
+ "arxiv_id": "2608.07147",
+ "fulltext_chars": 66119,
+ "fulltext_lines": 1688,
+ "authors_block": "Coding Agent Training Xucong Wang\\frontsup1, Zhe Zhao\\frontsup1,2, Liheng Yu\\frontsup1, Di Wu\\frontsup1, Xiaofeng Cao\\frontsup4, Pengkun Wang\\frontsup1,3\\corrauthor Affiliation: \\affilsup 1University of Science and Technology of China (USTC) \\affilsup2Stanford University\\affilsup 3Suzhou Institute for Advanced Research, USTC \\affilsup4Tongji University",
+ "vendor_affiliation_hits": [],
+ "n_authors": 6,
+ "comment": "16 pages, 6 figures, work in progress",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/xuc865/verl-code"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   25,
+   "# DiDPO: Diff-in-Diff Policy Optimization for"
+  ],
+  [
+   37,
+   "###### Abstract"
+  ],
+  [
+   41,
+   "## 1 Introduction"
+  ],
+  [
+   67,
+   "## 2 Related Work"
+  ],
+  [
+   69,
+   "### 2.1 Agentic Reinforcement Learning"
+  ],
+  [
+   75,
+   "### 2.2 Code Generation and Coding Agents"
+  ],
+  [
+   81,
+   "## 3 Problem Setting"
+  ],
+  [
+   83,
+   "### 3.1 Coding as Markov Decision Process"
+  ],
+  [
+   95,
+   "### 3.2 Trajectory / State-Level Advantage"
+  ],
+  [
+   117,
+   "## 4 Methodology"
+  ],
+  [
+   123,
+   "### 4.1 Diffs are Divisible"
+  ],
+  [
+   141,
+   "### 4.2 Dynamic Sub-Diff Anchors"
+  ],
+  [
+   179,
+   "### 4.3 Diff Advantage Calculation"
+  ],
+  [
+   195,
+   "### 4.4 Diff-In-Diff Policy Optimization"
+  ],
+  [
+   211,
+   "### 4.5 Theoretical Foundations"
+  ],
+  [
+   227,
+   "###### Theorem 4.1"
+  ],
+  [
+   233,
+   "###### Theorem 4.2"
+  ],
+  [
+   260,
+   "# Samples"
+  ],
+  [
+   532,
+   "## 5 Experiments"
+  ],
+  [
+   534,
+   "### 5.1 Experimental Setup"
+  ],
+  [
+   536,
+   "#### Benchmarks."
+  ],
+  [
+   540,
+   "#### Training Pipeline."
+  ],
+  [
+   571,
+   "# Samples"
+  ],
+  [
+   891,
+   "### 5.2 Main Results"
+  ],
+  [
+   901,
+   "### 5.3 Analysis"
+  ],
+  [
+   957,
+   "## 6 Conclusion"
+  ],
+  [
+   961,
+   "## References"
+  ],
+  [
+   1459,
+   "## Appendix A Proofs for Theoretical Foundations"
+  ],
+  [
+   1461,
+   "### A.1 Proof of Theorem 1"
+  ],
+  [
+   1463,
+   "###### Proof A.1"
+  ],
+  [
+   1483,
+   "### A.2 Proof of Theorem 2"
+  ],
+  [
+   1485,
+   "###### Proof A.2"
+  ],
+  [
+   1507,
+   "## Appendix B Greedy Selection for Anchors"
+  ],
+  [
+   1563,
+   "## Appendix C Evaluation Benchmarks"
+  ],
+  [
+   1567,
+   "#### APPS."
+  ],
+  [
+   1571,
+   "#### HumanEval."
+  ],
+  [
+   1575,
+   "#### MBPP."
+  ],
+  [
+   1579,
+   "#### LiveCodeBench."
+  ],
+  [
+   1583,
+   "#### LeetCode."
+  ],
+  [
+   1587,
+   "#### USACO."
+  ],
+  [
+   1591,
+   "#### OJBench."
+  ],
+  [
+   1595,
+   "#### ICPC."
+  ],
+  [
+   1648,
+   "## Appendix D Baselines"
+  ],
+  [
+   1652,
+   "#### Large model references."
+  ],
+  [
+   1656,
+   "#### Base backbones and SFT."
+  ],
+  [
+   1660,
+   "#### Code-reasoning baselines."
+  ],
+  [
+   1664,
+   "#### Coding and agentic RL baselines."
+  ],
+  [
+   1668,
+   "#### Controlled comparison."
+  ],
+  [
+   1672,
+   "## Appendix E Hyperparameter Settings"
+  ],
+  [
+   1682,
+   "## Appendix F Evolution of Group Mass Distributions"
+  ],
+  [
+   1688,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 2,
+  "seeds_or_runs": 0,
+  "swe_bench": 1,
+  "contamination": 5,
+  "human_study": 7,
+  "java": 1,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

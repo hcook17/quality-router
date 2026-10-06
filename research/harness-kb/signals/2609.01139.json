@@ -1,0 +1,167 @@
+{
+ "arxiv_id": "2609.01139",
+ "fulltext_chars": 46945,
+ "fulltext_lines": 2388,
+ "authors_block": "Sebastian Steindl Affiliation: Amazon, Barcelona, Spain Nikos Voskarides Affiliation: Amazon, Barcelona, Spain Alberto Gasparin Affiliation: Amazon, Berlin, Germany{sebstei,nvvoskar,marchegg}@amazon.es, albgas@amazon.de Diego Marcheggiani Affiliation: Amazon, Barcelona, Spain",
+ "vendor_affiliation_hits": [
+  "Amazon"
+ ],
+ "n_authors": 4,
+ "comment": "Accepted to EMNLP 2026",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Does task decomposition improve automatic NLG evaluation?"
+  ],
+  [
+   38,
+   "###### Abstract"
+  ],
+  [
+   47,
+   "## 1 Introduction"
+  ],
+  [
+   65,
+   "## 2 Problem Statement"
+  ],
+  [
+   73,
+   "## 3 Decomposition-based LLMaJ"
+  ],
+  [
+   81,
+   "### 3.1 Existing approaches"
+  ],
+  [
+   89,
+   "#### HD-Eval Liu et al. (2024b)"
+  ],
+  [
+   101,
+   "#### CheckEval Lee et al. (2025)"
+  ],
+  [
+   108,
+   "### 3.2 Proposed Extensions"
+  ],
+  [
+   118,
+   "## 4 Direct Prediction LLMaJ"
+  ],
+  [
+   131,
+   "## 5 Experimental Setup"
+  ],
+  [
+   133,
+   "#### Datasets"
+  ],
+  [
+   138,
+   "#### Metrics"
+  ],
+  [
+   153,
+   "#### Implementation Details"
+  ],
+  [
+   304,
+   "## 6 Results and Discussion"
+  ],
+  [
+   306,
+   "### 6.1 Decomposition VS Direct Prediction"
+  ],
+  [
+   322,
+   "### 6.2 How far is Direct Prediction LLMaJ from human-level performance"
+  ],
+  [
+   332,
+   "## 7 Conclusion"
+  ],
+  [
+   340,
+   "## Limitations"
+  ],
+  [
+   348,
+   "## References"
+  ],
+  [
+   696,
+   "## Appendix A Results on Seahorse"
+  ],
+  [
+   782,
+   "## Appendix B Further Qualitative Examples"
+  ],
+  [
+   788,
+   "## Appendix C L1-agnostic Decomposition"
+  ],
+  [
+   842,
+   "## Appendix D Implementation Details"
+  ],
+  [
+   844,
+   "### D.1 ICL and AOI decomposition"
+  ],
+  [
+   861,
+   "### D.2 Vertical or horizontal aggregation"
+  ],
+  [
+   961,
+   "### D.3 Floats, Ties, and Rounding"
+  ],
+  [
+   1082,
+   "### D.4 Regressor Implementation Details"
+  ],
+  [
+   1104,
+   "## Appendix E Results with other Models"
+  ],
+  [
+   1291,
+   "## Appendix F Per-criterion results"
+  ],
+  [
+   2370,
+   "## Appendix G Prompts"
+  ],
+  [
+   2384,
+   "## Appendix H AI Assistant Usage"
+  ],
+  [
+   2388,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## Limitations\n\nFirst, the number of NLG tasks and datasets that we consider is limited, but is consistent with the prior work we base our study upon and diverse enough to support our conclusions.\nWhile we find no compelling evidence that decomposition is beneficial for typical NLG tasks, this finding does not necessarily extend to complicated, multi-step reasoning tasks.\nFurther, studying LLMaJ from the perspective of bias, fine-tuning, and human-LLM-collaboration Gao et al. (2025) is out of the scope for our work.\nMoreover, our replication of the CheckEval results using their published code but replacing the LLM with Claude-4 to be consistent with the rest of the methods led to much worse performance than reported by Lee et al. (2025). We want to stress that our findings remain true, even when comparing to the better, originally reported performance.\nLastly, a general limitation of our study is that we cannot determine whether the evaluated LLMs were exposed to our benchmark datasets during pre-training.\n\n## References\n\nAgarwal et al. (2025)\nS. Agarwal, L. Ahmad, J. Ai, S. Altman, A. Applebaum, E. Arbus, R. K. Arora, Y. Bai, B. Baker, H. Bao, et al.\n\nGpt-oss-120b & gpt-oss-20b model card.\n\narXiv preprint arXiv:2508.10925.\n\nCited by: Appendix E,\n§5.\n\nAnthropic (2025)\nAnthropic\n\nIntroducing Claude 4 — anthropic.com.\n\nNote: https://www.anthropic.com/news/claude-4[Accessed 15-12-2025]\n\nCited by: §5.\n\nBrown et al. (2020)\nT. Brown, B. Mann, N. Ryder, M. Subbiah, J. D. Kaplan, P. Dhariwal, A. Neelakantan, P. Shyam, G. Sastry, A. Askell, et al.\n\nLanguage models are few-shot learners.\n\nAdvances in neural information processing systems 33, pp. 1877–1901.\n\nCited by: §D.1,\n§1,\n§3.2,\n§4.",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 4,
+  "p_value_or_ci": 13,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

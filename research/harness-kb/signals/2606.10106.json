@@ -1,0 +1,132 @@
+{
+ "arxiv_id": "2606.10106",
+ "fulltext_chars": 68583,
+ "fulltext_lines": 1199,
+ "authors_block": "Sanderson Oliveira de Macedo Affiliation: Federal Institute of Goiás Email: sanderson.macedo@ifg.edu.br August 24, 2026",
+ "vendor_affiliation_hits": [],
+ "n_authors": 1,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/agno-agi/agno",
+  "https://github.com/cline/cline.",
+  "https://github.com/features/copilot",
+  "https://github.com/openai/codex."
+ ],
+ "hf_urls": [
+  "https://huggingface.co/blog/agent-glossary."
+ ],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# What makes a harness a harness: necessary and sufficient conditions for an agent harness"
+  ],
+  [
+   30,
+   "###### Abstract"
+  ],
+  [
+   36,
+   "## 1 Introduction"
+  ],
+  [
+   60,
+   "## 2 Related Work"
+  ],
+  [
+   64,
+   "## 3 Genealogy of the Term (RQ1)"
+  ],
+  [
+   68,
+   "### From armor to tack"
+  ],
+  [
+   82,
+   "### The classic test harness"
+  ],
+  [
+   89,
+   "### The machine-learning evaluation harness"
+  ],
+  [
+   93,
+   "### The agent harness"
+  ],
+  [
+   119,
+   "## 4 Constitutive Definition (RQ2)"
+  ],
+  [
+   129,
+   "### Anatomy"
+  ],
+  [
+   139,
+   "### The inclusion and exclusion test"
+  ],
+  [
+   179,
+   "## 5 Boundary Delimitation (RQ3)"
+  ],
+  [
+   256,
+   "## 6 Application to Real Harnesses (RQ4)"
+  ],
+  [
+   351,
+   "## 7 Design Axes and Research Agenda (RQ5)"
+  ],
+  [
+   357,
+   "### Axis 1: autonomy versus control"
+  ],
+  [
+   361,
+   "### Axis 2: broad versus curated context"
+  ],
+  [
+   365,
+   "### Axis 3: generalist versus specialized"
+  ],
+  [
+   369,
+   "### Axis 4: open permission versus containment"
+  ],
+  [
+   375,
+   "## 8 Conclusion"
+  ],
+  [
+   383,
+   "## Declaration on the Use of Generative AI"
+  ],
+  [
+   387,
+   "## References"
+  ],
+  [
+   1199,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 5 Boundary Delimitation (RQ3)\n\nA definition only discriminates if it separates the concept from its neighbors. Five concepts are routinely confused with the agent harness: agent framework, agent SDK, IDE plugin, eval harness, and orchestrator. We confront the harness with each one, always through the case that separates them, and we anchor that case in the inclusion and exclusion test of Section 4.\n\nAn agent framework differs from a harness by operating above it. An agent framework, such as AutoGen, CAMEL, AgentVerse, or the more widely adopted production frameworks CrewAI, LangGraph, Google’s Agent Development Kit, and Agno,66\n 6\n\n Official sources for the production frameworks, cited here as grey literature: CrewAI (https://crewai.com); LangGraph (https://www.langchain.com/langgraph); Google’s Agent Development Kit (https://adk.dev); Agno (https://github.com/agno-agi/agno). offers abstractions to compose agents: roles, conversation protocols, collaboration patterns [52, 21, 9, 16]. The harness is the layer below: it makes an individual agent act reliably on the environment. A framework can use a harness beneath each agent it coordinates. A harness needs no framework at all, since a single agent already instantiates it. The confusion arises because many frameworks embed a minimal harness. Two cases separate them: a system that merely routes messages between personas, without a loop of action on an external environment, fails T2 and is a framework, not a harness, whereas a single agent that edits files and verifies the result, without any role composition, is a harness, not a framework.\n\nAn agent SDK separates itself from a harness by being raw material, not a finished product. An SDK delivers the building blocks, function calling, tool definitions, loop primitives, but does not impose a running agent. It is raw material [34, 37]. The harness is the product assembled from that material: it builds and runs the loop. A library that exposes the tool-calling primitive but leaves the developer to assemble the loop and the control fails T1, because there is no loop at runtime until someone writes it; it is an SDK. When that same library already delivers the closed loop, with context and verification, it has crossed the boundary and become a harness.\n\nAn IDE plugin is distinguished from a harness by closing no loop and not acting on the repository. An autocomplete plugin generates snippets from the cursor. It suggests code in the editor without maintaining task state, without acting on the repository, and without verifying the result [8]. It lacks the loop (T1) and the control (T4). The harness, even when it lives inside an editor, maintains the agent loop and acts on the environment. Completing the line where the cursor sits is a plugin; taking a task, planning, editing multiple files, running tests, and checking is a harness, even though both live in the same IDE.\n\nThe eval harness is the most direct name collision with the agent harness, and the easiest one to slip on. The eval harness, such as the one in SWE-bench, runs an agent against a set of tasks and measures the result after each task has ended [19, 26, 57]. One might object that it too has a loop, since it runs many tasks in sequence. The objection conflates two distinct loops. The eval harness’s outer loop iterates over tasks and collects scores. The loop of T1 is the inner loop of reasoning, action, and observation that conducts a single task. The eval harness does not close that inner loop: it outsources it to the system under test, observes the outcome, and assigns a grade. From the point of view of a single task, it fails T1, because it does not decide the next step from the observation of the previous one, it only records what the system under test decided. The temporal clause seals the distinction: the eval harness acts after the fact, the agent harness during the fact. One judges the race, the other is the vehicle that runs it.\n\nAn orchestrator separates itself ",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 3,
+  "seeds_or_runs": 0,
+  "swe_bench": 7,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

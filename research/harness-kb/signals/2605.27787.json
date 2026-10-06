@@ -1,0 +1,435 @@
+{
+ "arxiv_id": "2605.27787",
+ "fulltext_chars": 104706,
+ "fulltext_lines": 2609,
+ "authors_block": "for Energy-Efficient Multi-Agent Software Engineering Systems Seunghyuk Cho Affiliation: Graduate School of Artificial Intelligence, POSTECH Email: shhj1998@postech.ac.kr Sunghyun Choi Affiliation: Graduate School of Artificial Intelligence, POSTECH Email: sunghyunchoi@postech.ac.kr Jaeseung Heo Affiliation: Graduate School of Artificial Intelligence, POSTECH Email: jsheo12304@postech.ac.kr Youngbin Choi Affiliation: Graduate School of Artificial Intelligence, POSTECH Email: choi.youngbin@postech.ac.kr Saemi Moon Affiliation: Department of Computer Science and Engineering, POSTECH Email: saemi@postech.ac.kr MoonJeong Park Affiliation: Graduate School of Artificial Intelligence, POSTECH Email: mjeongp@postech.ac.kr Dongwoo Kim Affiliation: Graduate School of Artificial Intelligence, POSTECH Affiliation: Department of Computer Science and Engineering, POSTECH Email: dongwoo.kim@postech.ac.kr",
+ "vendor_affiliation_hits": [],
+ "n_authors": 7,
+ "comment": "2026 EMNLP Main Conference",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/ml-postech/Librarian."
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   28,
+   "# Long Live the Librarian! A Persistent Search Sub-Agent"
+  ],
+  [
+   76,
+   "###### Abstract"
+  ],
+  [
+   88,
+   "## 1 Introduction"
+  ],
+  [
+   169,
+   "## 2 Related Work"
+  ],
+  [
+   171,
+   "### 2.1 Energy footprint of LLM inference"
+  ],
+  [
+   180,
+   "### 2.2 Multi-agent software engineering systems"
+  ],
+  [
+   184,
+   "### 2.3 Context management of LLMs"
+  ],
+  [
+   188,
+   "## 3 An Energy Profile of SWE Agents"
+  ],
+  [
+   197,
+   "### 3.1 Measuring per-turn energy and tokens"
+  ],
+  [
+   217,
+   "### 3.2 Token-level energy attribution"
+  ],
+  [
+   285,
+   "### 3.3 Sources of excess MAS output"
+  ],
+  [
+   301,
+   "##### Bounding duplicate output."
+  ],
+  [
+   362,
+   "## 4 Method: The Librarian Sub-Agent"
+  ],
+  [
+   364,
+   "### 4.1 Overview"
+  ],
+  [
+   393,
+   "### 4.2 Anatomy of an invocation"
+  ],
+  [
+   398,
+   "##### Context assembly."
+  ],
+  [
+   410,
+   "##### Scoped search."
+  ],
+  [
+   421,
+   "##### Pointer-only submission."
+  ],
+  [
+   432,
+   "### 4.3 Integration into an existing MAS"
+  ],
+  [
+   441,
+   "##### Tool swap and plan rewrite."
+  ],
+  [
+   452,
+   "##### Tool-selection policy."
+  ],
+  [
+   461,
+   "## 5 Experiments"
+  ],
+  [
+   465,
+   "### 5.1 Experimental setup"
+  ],
+  [
+   469,
+   "#### 5.1.1 Benchmark"
+  ],
+  [
+   474,
+   "#### 5.1.2 Implementation details"
+  ],
+  [
+   478,
+   "##### LLM serving."
+  ],
+  [
+   482,
+   "##### Agent interface."
+  ],
+  [
+   487,
+   "#### 5.1.3 Baselines"
+  ],
+  [
+   491,
+   "##### Multi-agent systems."
+  ],
+  [
+   499,
+   "##### Token-efficiency methods."
+  ],
+  [
+   505,
+   "### 5.2 Results and analysis"
+  ],
+  [
+   509,
+   "##### Results."
+  ],
+  [
+   633,
+   "##### Results across a wider set of repositories."
+  ],
+  [
+   667,
+   "##### Energy reduction across task difficulty."
+  ],
+  [
+   815,
+   "##### Energy reduction at the lookup role."
+  ],
+  [
+   894,
+   "##### History reuse across invocations."
+  ],
+  [
+   900,
+   "### 5.3 Ablation of the Librarian’s components"
+  ],
+  [
+   905,
+   "##### Leave-one-out ablation."
+  ],
+  [
+   964,
+   "##### Transfer to a non-navigation role."
+  ],
+  [
+   971,
+   "### 5.4 Comparison with retrieval baselines"
+  ],
+  [
+   1070,
+   "## 6 Conclusion"
+  ],
+  [
+   1074,
+   "## Limitations"
+  ],
+  [
+   1082,
+   "## Acknowledgments"
+  ],
+  [
+   1086,
+   "## References"
+  ],
+  [
+   1528,
+   "## Appendix A Per-Token Energy Regression: Implementation Details"
+  ],
+  [
+   1532,
+   "### A.1 Formalism of per-turn statistics"
+  ],
+  [
+   1536,
+   "##### Token counts."
+  ],
+  [
+   1540,
+   "##### GPU energy."
+  ],
+  [
+   1555,
+   "### A.2 Linear regression over token categories"
+  ],
+  [
+   1559,
+   "#### A.2.1 Setup"
+  ],
+  [
+   1563,
+   "#### A.2.2 Regression model"
+  ],
+  [
+   1583,
+   "#### A.2.3 Reliability diagnostics"
+  ],
+  [
+   1587,
+   "##### Overall R^{2} ."
+  ],
+  [
+   1593,
+   "##### Variance-inflation factor."
+  ],
+  [
+   1601,
+   "##### Partial R^{2} ."
+  ],
+  [
+   1663,
+   "## Appendix B Librarian Implementation Details"
+  ],
+  [
+   1667,
+   "### B.1 History pruning"
+  ],
+  [
+   1671,
+   "##### Detecting file reads."
+  ],
+  [
+   1675,
+   "##### Counting new content."
+  ],
+  [
+   1679,
+   "##### Pruning rule."
+  ],
+  [
+   1683,
+   "### B.2 Freshness report"
+  ],
+  [
+   1687,
+   "##### Modified ranges."
+  ],
+  [
+   1691,
+   "##### Selecting which files to surface."
+  ],
+  [
+   1695,
+   "##### Contents."
+  ],
+  [
+   1705,
+   "### B.3 Pointer-only submission"
+  ],
+  [
+   1709,
+   "##### Submit call."
+  ],
+  [
+   1717,
+   "##### Transformation into the orchestrator message."
+  ],
+  [
+   1789,
+   "### B.4 Librarian system prompt"
+  ],
+  [
+   1919,
+   "### B.5 Tool-selection policy"
+  ],
+  [
+   1923,
+   "##### Orchestrators with direct file access."
+  ],
+  [
+   1947,
+   "##### Orchestrators that act by delegation."
+  ],
+  [
+   1969,
+   "### B.6 Plan rewriting guideline"
+  ],
+  [
+   1975,
+   "# Plan / Planner Prompt Rewriter (-> +librarian variant)"
+  ],
+  [
+   1983,
+   "## INPUT FORMAT"
+  ],
+  [
+   2013,
+   "## RULES"
+  ],
+  [
+   2015,
+   "### 1. Replace the named sub-agent with the Librarian"
+  ],
+  [
+   2019,
+   "### 2. Rewrite code/file-location steps to use the Librarian"
+  ],
+  [
+   2027,
+   "### 3. Redirect responsibilities that go beyond file/code lookup"
+  ],
+  [
+   2033,
+   "## BREVITY"
+  ],
+  [
+   2039,
+   "## OUTPUT"
+  ],
+  [
+   2043,
+   "### B.7 Per-MAS plan rewrites"
+  ],
+  [
+   2047,
+   "##### BOAD baseline."
+  ],
+  [
+   2065,
+   "##### BOAD + Librarian."
+  ],
+  [
+   2083,
+   "##### HyperAgent baseline."
+  ],
+  [
+   2099,
+   "##### HyperAgent + Librarian."
+  ],
+  [
+   2115,
+   "### B.8 Implementation of the lookup-only scope ablation"
+  ],
+  [
+   2119,
+   "##### The counterfactual is the navigator the scope replaced."
+  ],
+  [
+   2123,
+   "##### The other three mechanisms are held fixed."
+  ],
+  [
+   2127,
+   "##### The orchestrator side is ablated as well."
+  ],
+  [
+   2131,
+   "## Appendix C Experiment Details"
+  ],
+  [
+   2135,
+   "### C.1 Serving and scaffold configuration"
+  ],
+  [
+   2180,
+   "### C.2 Caveman prompting directive"
+  ],
+  [
+   2214,
+   "## Appendix D Full Per-Role Breakdown"
+  ],
+  [
+   2348,
+   "### D.1 Tightness of the duplicate-output bound"
+  ],
+  [
+   2354,
+   "## Appendix E Pass Rate across Task Difficulty"
+  ],
+  [
+   2497,
+   "## Appendix F Librarian Invocation Frequency"
+  ],
+  [
+   2507,
+   "## Appendix G Paired Significance Tests"
+  ],
+  [
+   2511,
+   "##### Output tokens and energy."
+  ],
+  [
+   2515,
+   "##### Pass rate."
+  ],
+  [
+   2609,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgments\n\nThis work was supported by the National Research Foundation of Korea (NRF) grant funded by the Korea government (MSIT) (RS-2024-00337955); by the Institute of Information & Communications Technology Planning & Evaluation (IITP) grants funded by the Korea government (MSIT) (RS-2024-00457882, Artificial Intelligence Research Hub Project; RS-2019-II191906, Artificial Intelligence Graduate School Program (POSTECH)); and by IITP under the Leading Generative AI Human Resources Development (IITP-2026-RS-2026-25546560) grant funded by the Korea government (MSIT).\n\n## References\n\nBrussee (2026)\n\nJulius Brussee. 2026.\n\ncaveman.\n\nChevalier et al. (2023)\n\nAlexis Chevalier, Alexander Wettig, Anirudh Ajith, and Danqi Chen. 2023.\n\nAdapting language\nmodels to compress contexts.\n\nIn The 2023 Conference on Empirical Methods in Natural Language\nProcessing.\n\nde Vries (2023)\n\nAlex de Vries. 2023.",
+ "limitations": "## Limitations\n\nIn this work, we propose a sub-agent which reduces the energy of the existing multi-agent SWE systems.\nWe acknowledge two limitations of our current study.\nFirst, the solution is limited to code navigation.\nThe executor sub-agent in HyperAgent, which reproduces the issue and runs tests, also produces duplicate outputs across invocations. Extending the Librarian’s core design to such execution-oriented roles is a promising next step toward system-wide energy reduction.\nSecond, the scale of the open LLMs we evaluate is limited. Our experiments cover backbones in the active-parameter range of roughly 3B to 27B, and it remains open whether the observed reductions in output tokens and energy carry over to substantially larger open models over 500B inference parameters.\n\n## Acknowledgments\n\nThis work was supported by the National Research Foundation of Korea (NRF) grant funded by the Korea government (MSIT) (RS-2024-00337955); by the Institute of Information & Communications Technology Planning & Evaluation (IITP) grants funded by the Korea government (MSIT) (RS-2024-00457882, Artificial Intelligence Research Hub Project; RS-2019-II191906, Artificial Intelligence Graduate School Program (POSTECH)); and by IITP under the Leading Generative AI Human Resources Development (IITP-2026-RS-2026-25546560) grant funded by the Korea government (MSIT).\n\n## References\n\nBrussee (2026)\n\nJulius Brussee. 2026.\n\ncaveman.\n\nChevalier et al. (2023)\n\nAlexis Chevalier, Alexander Wettig, Anirudh Ajith, and Danqi Chen. 2023.\n\nAdapting language\nmodels to compress contexts.\n\nIn The 2023 Conference on Empirical Methods in Natural Language\nProcessing.\n\nde Vries (2023)\n\nAlex de Vries. 2023.\n\nThe growing\nenergy footprint of artificial intelligence.\n\nJoule, 7(10):2191–2194.\n\nFernandez et al. (2025)",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 6,
+  "seeds_or_runs": 0,
+  "swe_bench": 24,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

@@ -1,0 +1,267 @@
+{
+ "arxiv_id": "2608.16742",
+ "fulltext_chars": 100205,
+ "fulltext_lines": 2187,
+ "authors_block": "Hongyue Yu Affiliation: National College for Excellent Engineers, Beihang University Email: Natt1e@buaa.edu.cn Kefan Li Affiliation: School of Computer Science and Engineering, Beihang University Email: kefanli@buaa.edu.cn Jiakun Li Affiliation: School of Computer Science and Engineering, Beihang University Email: yuan21@buaa.edu.cn Hongzheng Chai Affiliation: School of Computer Science and Engineering, Beihang University Yuan Yuan ††thanks: Corresponding authors. Affiliation: School of Computer Science and Engineering, Beihang University Affiliation: Qingdao Research Institute and Hangzhou Innovation Institute, Beihang University Rui He Affiliation: School of Software, Beihang University Junyi Wei Affiliation: School of Software, Beihang University",
+ "vendor_affiliation_hits": [],
+ "n_authors": 7,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/mutpy/mutpyAccessed"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# TDD-Agent: Test-Driven Reasoning for Code Generation"
+  ],
+  [
+   58,
+   "###### Abstract"
+  ],
+  [
+   65,
+   "## 1 Introduction"
+  ],
+  [
+   107,
+   "## 2 Methodology"
+  ],
+  [
+   109,
+   "### 2.1 Overall Framework"
+  ],
+  [
+   114,
+   "#### Phase 1: Test-First Specification Setup"
+  ],
+  [
+   125,
+   "#### Phase 2: Dual-Track Test-Code Co-Refinement"
+  ],
+  [
+   151,
+   "### 2.2 Tool Box"
+  ],
+  [
+   165,
+   "## 3 Experiments"
+  ],
+  [
+   172,
+   "### 3.1 Function-Level Study"
+  ],
+  [
+   226,
+   "### 3.2 Repository-Level Experimental Setup"
+  ],
+  [
+   239,
+   "### 3.3 Repository-Level Baselines"
+  ],
+  [
+   253,
+   "### 3.4 Repository-Level Main Results"
+  ],
+  [
+   358,
+   "## 4 Analysis"
+  ],
+  [
+   360,
+   "### 4.1 Early Termination"
+  ],
+  [
+   371,
+   "### 4.2 Improvement Across Iterations"
+  ],
+  [
+   383,
+   "### 4.3 Quality of Generated Tests"
+  ],
+  [
+   417,
+   "### 4.4 Ablation Study"
+  ],
+  [
+   470,
+   "### 4.5 Failure Case Analysis"
+  ],
+  [
+   478,
+   "## 5 Related Work"
+  ],
+  [
+   494,
+   "## 6 Conclusion and Future Work"
+  ],
+  [
+   500,
+   "## Limitations"
+  ],
+  [
+   517,
+   "## References"
+  ],
+  [
+   947,
+   "## Appendix A Generation Parameter Settings"
+  ],
+  [
+   993,
+   "## Appendix B Detailed settings of LiveCodeBench"
+  ],
+  [
+   1373,
+   "## Appendix C Detailed information on RepoEval"
+  ],
+  [
+   1432,
+   "## Appendix D Tool Implementation Details"
+  ],
+  [
+   1437,
+   "#### Context Inspection."
+  ],
+  [
+   1446,
+   "#### Artifact Submission and Test Runner."
+  ],
+  [
+   1452,
+   "## Appendix E All Prompts Used in Experiments"
+  ],
+  [
+   1460,
+   "# System"
+  ],
+  [
+   1464,
+   "# User"
+  ],
+  [
+   1466,
+   "# Problem Description:"
+  ],
+  [
+   1492,
+   "# System"
+  ],
+  [
+   1496,
+   "# User"
+  ],
+  [
+   1498,
+   "# Problem Description:"
+  ],
+  [
+   1518,
+   "# System"
+  ],
+  [
+   1545,
+   "# User"
+  ],
+  [
+   1547,
+   "# Task Instructions"
+  ],
+  [
+   1549,
+   "## Workflow"
+  ],
+  [
+   1579,
+   "# Execution Succeeds Prompt"
+  ],
+  [
+   1603,
+   "# Execution Fails Prompt"
+  ],
+  [
+   1617,
+   "# System"
+  ],
+  [
+   1640,
+   "# User"
+  ],
+  [
+   1642,
+   "# Task Instructions"
+  ],
+  [
+   1644,
+   "## Workflow"
+  ],
+  [
+   1660,
+   "# System"
+  ],
+  [
+   1683,
+   "# User"
+  ],
+  [
+   1685,
+   "# Task Instructions"
+  ],
+  [
+   1687,
+   "## Workflow"
+  ],
+  [
+   1705,
+   "# System"
+  ],
+  [
+   1732,
+   "# User"
+  ],
+  [
+   1734,
+   "# Task Instructions"
+  ],
+  [
+   1736,
+   "## Workflow"
+  ],
+  [
+   1766,
+   "# Execution Succeeds Prompt"
+  ],
+  [
+   1786,
+   "# Execution Fails Prompt"
+  ],
+  [
+   1796,
+   "## Appendix F Case Study"
+  ],
+  [
+   2187,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## Limitations\n\nScope of Evaluation Languages.\nOur experimental validation is currently confined to Python. To adapt our framework to other languages, one only needs to replace the environment-specific components (e.g., JUnit for Java, Jest for JavaScript), while the high-level reasoning and iteration logic remain unchanged.\n\nLimited Repository Understanding.\nTDD-Agent currently relies on a lightweight tool set. While these tools are sufficient to support iterative refinement, they provide limited semantic access to repository-level information.\nThis limitation is reflected in our failure analysis: most failures are matched failures. Such cases suggest that the dominant bottleneck is incomplete understanding of tasks and repositories. Future work could integrate stronger semantic code search, dependency-aware navigation, call-graph analysis and more informative repository-level context construction to improve the quality of generated tests and reduce false-positive verification.\n\nReliability of Execution Feedback.\nOur framework assumes that the test execution provides reliable feedback. In practice, flaky tests or nondeterministic behavior may introduce noisy signals.\nSuch unreliable feedback can mislead the agent into modifying correct implementations or discarding valid tests, thereby degrading the effectiveness of iterative refinement.\nFuture work could improve robustness by incorporating repeated test execution and flaky-test detection.\n\nComputational Overhead.\nThe iterative nature of TDD-Agent inherently incurs higher token consumption and latency.\n\n## References\n\nAnthropic (2024)\nAnthropic\n\nThe claude 3 model family: opus, sonnet, haiku.\n\nAnthropic Technical Report.\n\nExternal Links: Link\n\nCited by: §1.\n\nAustin et al. (2021)\nJ. Austin, A. Odena, M. I. Nye, M. Bosma, H. Michalewski, D. Dohan, E. Jiang, C. J. Cai, M. Terry, Q. V. Le, and C. Sutton\n\nProgram synthesis with large language models.\n\nCoRR abs/2108.07732.\n\nExternal Links: Link,\n2108.07732",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 6,
+  "seeds_or_runs": 2,
+  "swe_bench": 1,
+  "contamination": 1,
+  "human_study": 1,
+  "java": 1,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

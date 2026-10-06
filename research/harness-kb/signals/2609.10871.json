@@ -1,0 +1,152 @@
+{
+ "arxiv_id": "2609.10871",
+ "fulltext_chars": 69260,
+ "fulltext_lines": 1566,
+ "authors_block": "The emergence of autonomous AI agents, systems capable of planning, reasoning, and executing multi-step tasks with minimal human oversight, has created a pressing need for standardized inter-agent communication. While individual agents have grown increasingly capable through frameworks such as LangChain [1], AutoGen [2], and CrewAI [3], their ability to collaborate across organizational and vendor boundaries has remained fundamentally ad hoc: each integration requires bespoke connectors, proprietary message formats, and manually negotiated trust assumptions. The Agent2Agent (A2A) protocol, introduced by Google in April 2025, directly targets this gap by defining an open, HTTP-based standard for agent discovery, authentication, task delegation, and result exchange [4]. Within months of its release, A2A attracted endorsement from over 50 technology partners, including Salesforce, SAP, ServiceNow, MongoDB, and LangChain, and in June 2025, governance was transferred to the Linux Foundation as an open-source project [5, 6, 7]. A2A is explicitly designed to complement, rather than replace, the Model Context Protocol (MCP), which Anthropic released in November 2024 to standardize the interface between an agent and its local tools [8]. Where MCP governs the vertical relationship between an agent and its data sources, APIs, and function calls, A2A governs the horizontal relationship between autonomous peers. In a typical production deployment, an orchestrator agent uses MCP to query i",
+ "vendor_affiliation_hits": [
+  "Anthropic",
+  "Google",
+  "SAP",
+  "Salesforce"
+ ],
+ "n_authors": 4,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/arlotfi79/A2ABreak"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "#"
+  ],
+  [
+   37,
+   "###### Abstract"
+  ],
+  [
+   50,
+   "## I Introduction"
+  ],
+  [
+   129,
+   "## II Background"
+  ],
+  [
+   133,
+   "### II-A Agent2Agent Protocol (A2A)"
+  ],
+  [
+   174,
+   "### II-B Model Context Protocol (MCP)"
+  ],
+  [
+   178,
+   "### II-C MCP vs. A2A"
+  ],
+  [
+   193,
+   "## III Overview"
+  ],
+  [
+   199,
+   "### III-A Scope"
+  ],
+  [
+   209,
+   "### III-B Threat Model"
+  ],
+  [
+   222,
+   "### III-C Problem Statement"
+  ],
+  [
+   254,
+   "### III-D Challenges"
+  ],
+  [
+   293,
+   "### III-E Our Solution Approaches"
+  ],
+  [
+   347,
+   "## IV Design of A2ABreak"
+  ],
+  [
+   359,
+   "### IV-A Stage A: Specification Formalization"
+  ],
+  [
+   411,
+   "### IV-B Stage B: FSM Construction"
+  ],
+  [
+   464,
+   "### IV-C Stage C: Security Analysis"
+  ],
+  [
+   507,
+   "## V Evaluation"
+  ],
+  [
+   701,
+   "## VI Security Analysis"
+  ],
+  [
+   713,
+   "#"
+  ],
+  [
+   969,
+   "## VII Related Work"
+  ],
+  [
+   973,
+   "### VII-A Security of Agentic Systems"
+  ],
+  [
+   995,
+   "### VII-B Protocol Analysis and Security Verification"
+  ],
+  [
+   1025,
+   "## VIII Conclusion and Future Work"
+  ],
+  [
+   1056,
+   "## Acknowledgments"
+  ],
+  [
+   1060,
+   "## References"
+  ],
+  [
+   1555,
+   "## Appendix A A2A FSM"
+  ],
+  [
+   1566,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgments\n\nThe work reported in this paper has been supported by NSF under grants 2229876, National Artificial Intelligence Research Resource Pilot award 250336, the University of Texas System Rising STARs Award (No. 40071109), and the startup funding from the University of Texas at Dallas.\n\n## References\n\n[1]\n (2026)\n\nLangChain: powering the agent development lifecycle.\n\nExternal Links: Link\n\nCited by: §I.\n\n[2]\n (2026)\n\nAutoGen: a framework for building ai agents and applications.\n\nExternal Links: Link\n\nCited by: §I.\n\n[3]",
+ "limitations": "",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 1,
+  "swe_bench": 0,
+  "contamination": 1,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 5
+ },
+ "fulltext_source": "html"
+}

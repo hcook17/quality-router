@@ -1,0 +1,277 @@
+{
+ "arxiv_id": "2608.30497",
+ "fulltext_chars": 130467,
+ "fulltext_lines": 2715,
+ "authors_block": "DOI: XXXXXXX.XXXXXXXJournal: JACMVolume: 3741118CCS: Software and its engineering Software evolutionCCS: Software and its engineering Software libraries and repositories Kai Gao Affiliation: University of Science and Technology Beijing, Beijing, China email: kai.gao@ustb.edu.cn , Yu Sun Affiliation: University of Science and Technology Beijing, Beijing, China email: yusun@xs.ustb.edu.cn and Chang-ai Sun Affiliation: University of Science and Technology Beijing, Beijing, China email: casun@ustb.edu.cn Received 5 June 2009",
+ "vendor_affiliation_hits": [],
+ "n_authors": 3,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/ROCK-SE/Bridge.",
+  "https://github.com/jpmml/jpmml-evaluator",
+  "https://github.com/yaml/pyyaml"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Bridge: Automatically Mining Ecosystem-Scale API Update Mappings and Client Update Instances"
+  ],
+  [
+   46,
+   "###### Abstract."
+  ],
+  [
+   64,
+   "###### Keywords:"
+  ],
+  [
+   67,
+   "## 1. Introduction"
+  ],
+  [
+   137,
+   "## 2. Background and Related Work"
+  ],
+  [
+   141,
+   "### 2.1. Terminology"
+  ],
+  [
+   175,
+   "### 2.2. Library Evolution Datasets"
+  ],
+  [
+   212,
+   "# API Update Mappings"
+  ],
+  [
+   218,
+   "# Third-party Libraries"
+  ],
+  [
+   310,
+   "### 2.3. Mining API Update Mappings and Client Update Instances"
+  ],
+  [
+   330,
+   "### 2.4. World of Code"
+  ],
+  [
+   341,
+   "## 3. The Bridge Framework"
+  ],
+  [
+   345,
+   "### 3.1. Overview"
+  ],
+  [
+   366,
+   "### 3.2. Phase 1: Update Commit Collection"
+  ],
+  [
+   395,
+   "# Commits"
+  ],
+  [
+   396,
+   "# Blobs"
+  ],
+  [
+   397,
+   "# Libraries"
+  ],
+  [
+   398,
+   "# Versions"
+  ],
+  [
+   400,
+   "# CU"
+  ],
+  [
+   401,
+   "# VB"
+  ],
+  [
+   402,
+   "# Update"
+  ],
+  [
+   403,
+   "# CFG"
+  ],
+  [
+   404,
+   "# Source"
+  ],
+  [
+   564,
+   "### 3.3. Phase 2: API Call Metadata Extraction"
+  ],
+  [
+   743,
+   "### 3.4. Phase 3: Candidate Update Instance Mining"
+  ],
+  [
+   841,
+   "# Records"
+  ],
+  [
+   842,
+   "# Commits"
+  ],
+  [
+   843,
+   "# Blobs"
+  ],
+  [
+   844,
+   "# Libraries"
+  ],
+  [
+   845,
+   "# Versions"
+  ],
+  [
+   846,
+   "# API FQNs"
+  ],
+  [
+   893,
+   "### 3.5. Phase 4: Mapping Resolution and Validation"
+  ],
+  [
+   1003,
+   "## 4. Evaluation"
+  ],
+  [
+   1032,
+   "### 4.1. Ground Truth Dataset"
+  ],
+  [
+   1058,
+   "### 4.2. Mining Effectiveness (RQ1)"
+  ],
+  [
+   1060,
+   "#### 4.2.1. Approach"
+  ],
+  [
+   1068,
+   "#### 4.2.2. Results"
+  ],
+  [
+   1152,
+   "### 4.3. Design Analysis (RQ2)"
+  ],
+  [
+   1154,
+   "#### 4.3.1. Approach"
+  ],
+  [
+   1175,
+   "#### 4.3.2. Results"
+  ],
+  [
+   1247,
+   "### 4.4. Dataset Characteristics (RQ3)"
+  ],
+  [
+   1249,
+   "#### 4.4.1. Approach"
+  ],
+  [
+   1257,
+   "#### 4.4.2. Results"
+  ],
+  [
+   1271,
+   "# Libraries"
+  ],
+  [
+   1272,
+   "# Releases"
+  ],
+  [
+   1273,
+   "# Version Transitions"
+  ],
+  [
+   1274,
+   "# Mappings"
+  ],
+  [
+   1275,
+   "# Pairs"
+  ],
+  [
+   1276,
+   "# Instances"
+  ],
+  [
+   1277,
+   "# Commits"
+  ],
+  [
+   1333,
+   "### 4.5. Dataset Utility (RQ4)"
+  ],
+  [
+   1335,
+   "#### 4.5.1. Approach"
+  ],
+  [
+   1404,
+   "#### 4.5.2. Results"
+  ],
+  [
+   1492,
+   "## 5. Discussion"
+  ],
+  [
+   1494,
+   "### 5.1. Implications"
+  ],
+  [
+   1518,
+   "### 5.2. Threats to Validity"
+  ],
+  [
+   1566,
+   "## 6. Conclusion"
+  ],
+  [
+   1580,
+   "###### Acknowledgements."
+  ],
+  [
+   1584,
+   "## References"
+  ],
+  [
+   2715,
+   "##"
+  ]
+ ],
+ "acknowledgments": "###### Acknowledgements.\n\nThis work is supported by the National Natural Science Foundation of China (62502030, 92582119, 62272037), China Postdoctoral Science Foundation (2025M781455), and Fundamental Research Funds for the Central Universities (No. FRF-TP-25-030).\n\n## References\n\nAlfadel et al. (2023)\nM. Alfadel, D. E. Costa, and E. Shihab\n\nEmpirical analysis of security vulnerabilities in python packages.\n\nEmpirical Software Engineering 28 (3), pp. 59.\n\nExternal Links: ISSN 1573-7616,\nDocument,\nLink\n\nCited by: §2.2.\n\nAlmeida et al. (2024)\nA. Almeida, L. Xavier, and M. T. Valente\n\nAutomatic library migration using large language models: first results.\n\nIn Proceedings of the 18th ACM/IEEE International Symposium on Empirical Software Engineering and Measurement,",
+ "limitations": "### 5.2. Threats to Validity\n\nInternal Validity.\nFirst, the ground truth dataset is sampled from API call change records produced in Phase 3 and therefore evaluates candidate matching and library-side validation rather than the end-to-end recall of the complete Bridge pipeline.\nDependencies or API calls missed in earlier phases, as well as changes excluded during API call change detection, cannot enter the ground truth dataset.\nTherefore, the RQ1 recall should not be interpreted as the fraction of all client update instances in the studied ecosystems recovered by Bridge.\n\nSecond, the collection and extraction process makes several assumptions to enable ecosystem-scale mining.\nBridge assumes that dependency updates and their associated code adaptations occur within the same commit, although some co-occurring code changes may be unrelated to the dependency update.\nWe mitigate this threat by restricting candidate API call changes to the updated library and validating the resulting candidates against the involved library versions.\nPhase 3 also uses the latest library artifact to identify import prefixes, assuming that these prefixes remain sufficiently stable across releases.\nChanges in import prefixes may cause API calls from earlier versions to be missed, reducing the coverage of candidate update instance mining.\nMoreover, the lightweight and conservative static analysis used to process millions of dependency configuration and code blobs may miss dependencies or API calls.\nAccordingly, the dataset characterized in RQ3 represents the library updates captured by Bridge rather than an exhaustive census of API updates in the Java and Python ecosystems.\n\nThird, candidate matching and library-side validation can introduce false positives and false negatives.\nSimilarity-based matching may miss replacements with low similarity or pair similar but unrelated API calls.\nAlthough Phase 4 substantially improves precision, removal or deprecation of a legacy API does not establish that the paired replacement API is the intended replacement.\nConversely, API signature resolution failures and unrecognized deprecation mechanisms can discard genuine update instances.\nThe RQ1 error analysis characterizes these cases, and the evaluation shows precision above 90% for both languages.\nNevertheless, applications requiring manually verified replacement relations should account for the remaining errors in the automatically mined dataset.\n\nFinally, manual annotation in the ground truth onstruction and the reference replacements used in RQ4 may contain uncertainty.\nTo reduce annotation errors, two authors independently annotated all possible API call pairs using external evidence, resolved disagreements through discussion, and achieved a Cohen’s \\kappa of 0.92.\nFor RQ4, the reference mappings are automatically mined by Bridge and therefore have high but imperfect precision.\nTo increase the reliability of the reference replacements, we retain a replacement only when it accounts for a strict majority of the client update instances for the same library, version transition, and legacy API.\nBesides, the same legacy API may have multiple valid replacements for a version transition.\nSince each RQ4 example uses only one reference replacement, exact-match accuracy may treat other valid replacements as incorrect.\nRQ4 should therefore be interpreted as evaluating recommendation against the replacement relations captured by the dataset rather than all potentially valid replacements.\n\nExternal Validity.\nFirst, the current implementation of Bridge covers only a subset of dependency updates.\nIt targets pinned dependency updates declared through Maven POM files and four common Python dependency files and requires the dependency version change and associated code changes to occur in the same commit.\nConsequently, the resulting dataset does not cover updates expressed through unsupported dependency configuration files, unpinned version constraints, or client adaptations distr",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 125,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

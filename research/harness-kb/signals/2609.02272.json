@@ -1,0 +1,197 @@
+{
+ "arxiv_id": "2609.02272",
+ "fulltext_chars": 89910,
+ "fulltext_lines": 2329,
+ "authors_block": "Yunhao LiuNTU Singapore Hong Phuc PhamNTU Singapore Jaehong YoonNTU Singapore",
+ "vendor_affiliation_hits": [],
+ "n_authors": 3,
+ "comment": "9 pages",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# PaperCompiler: Faithful Paper-to-Code Generation via Repository-Level Specification Compilation"
+  ],
+  [
+   28,
+   "###### Abstract"
+  ],
+  [
+   38,
+   "## 1 Introduction"
+  ],
+  [
+   54,
+   "## 2 Related Work"
+  ],
+  [
+   56,
+   "#### Paper-to-Code Workflows"
+  ],
+  [
+   60,
+   "#### Repository-Level Generation and Context Consistency"
+  ],
+  [
+   64,
+   "#### Evaluation of Paper-to-Code Fidelity"
+  ],
+  [
+   72,
+   "## 3 Paper-to-Repository Generation via Specification Compilation"
+  ],
+  [
+   105,
+   "### 3.1 Paper Grounding: Blueprint Construction and Reference Extraction"
+  ],
+  [
+   121,
+   "### 3.2 Specification Compilation: From Reconciled Requirements to File-Level Contracts"
+  ],
+  [
+   125,
+   "#### Requirement Reconciliation."
+  ],
+  [
+   137,
+   "#### Ownership-Guided Architecture Synthesis."
+  ],
+  [
+   157,
+   "#### File-Level Contracting."
+  ],
+  [
+   173,
+   "### 3.3 Constraint-Guided Repository Generation"
+  ],
+  [
+   181,
+   "## 4 Experiments"
+  ],
+  [
+   183,
+   "#### Benchmark, baselines, and backbone."
+  ],
+  [
+   190,
+   "### 4.1 Main Results"
+  ],
+  [
+   358,
+   "### 4.2 Comparison with End-to-End Paper-to-Code Systems"
+  ],
+  [
+   404,
+   "### 4.3 Semantic and Context-Consistency Failure Analysis"
+  ],
+  [
+   447,
+   "### 4.4 Ablation Study and Qualitative Analysis"
+  ],
+  [
+   449,
+   "#### Setup."
+  ],
+  [
+   493,
+   "## 5 Conclusion"
+  ],
+  [
+   497,
+   "### AI use statement"
+  ],
+  [
+   501,
+   "## References"
+  ],
+  [
+   693,
+   "## Appendix A Limitations"
+  ],
+  [
+   699,
+   "## Appendix B Extended Experimental Details"
+  ],
+  [
+   703,
+   "## Appendix C PaperCompiler Algorithm Overview"
+  ],
+  [
+   793,
+   "## Appendix D Additional Qualitative Case Details"
+  ],
+  [
+   953,
+   "### D.1 Universal Neural Functionals: algorithmic basis-construction collapse."
+  ],
+  [
+   961,
+   "### D.2 iTransformer: repository-structure diagnostic."
+  ],
+  [
+   971,
+   "### D.3 INTL: Training-Pipeline Preservation"
+  ],
+  [
+   981,
+   "### D.4 SEABO: A Failure-Oriented Diagnostic Case"
+  ],
+  [
+   993,
+   "## Appendix E Stage Prompt Excerpts"
+  ],
+  [
+   1303,
+   "## Appendix F Example PaperCompiler Output on iTransformer"
+  ],
+  [
+   1307,
+   "### F.1 Traceability Slice"
+  ],
+  [
+   1381,
+   "### F.2 Selected Blueprint Construction and Reference Extraction Outputs"
+  ],
+  [
+   1583,
+   "### F.3 Selected Reconciled Contracts"
+  ],
+  [
+   1715,
+   "### F.4 Selected Architecture Output"
+  ],
+  [
+   1865,
+   "### F.5 Per-File Contract for src/transformer_block.py"
+  ],
+  [
+   2129,
+   "### F.6 Generated Code Excerpt"
+  ],
+  [
+   2329,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## Appendix A Limitations\n\nPaperCompiler currently relies primarily on text-parsed paper content, limiting its ability to recover implementation-critical information conveyed through architecture diagrams, complex figures, visual examples, or other non-textual forms. When such details are absent from the parsed content, the system may still rely on the underlying LLM’s parametric knowledge to resolve implicit implementation gaps. This can be challenging for papers that depend on specialized external tools, proprietary APIs, simulators, undocumented benchmark conventions, or auxiliary resources unavailable to the model. Future work could incorporate multimodal document understanding, targeted retrieval, and executable tool interaction to address these cases.\n\nOur evaluation focuses on repository-level method fidelity under controlled paper-to-code protocols and does not establish full reproduction of reported experimental results or executability across all generated repositories, generation seeds, and model families. Moreover, PaperCompiler’s requirements and file-level specifications serve as generation-time guidance rather than formal correctness guarantees. Integrating automated validation, execution-based testing, and independent or human verification would provide stronger guarantees in future work.\n\n## Appendix B Extended Experimental Details\n\nFor Table 2 and Figure 5, we evaluate PaperCoder, AutoP2C, AutoReproduce, and PaperCompiler on a randomly sampled ten-paper subset of Paper2CodeBench: INTL, AutoVP, TransformerCompression, RECOMBINER, CAML, CARE, GGS, SEABO, iTransformer, and SparseFormer.\n\n## Appendix C PaperCompiler Algorithm Overview\n\nAlgorithm 1 summarizes the end-to-end repository synthesis procedure of PaperCompiler. The algorithm follows the three conceptual phases introduced in Section 3: Paper Grounding, Specification Compilation, and Constraint-Guided Repository Generation. In Paper Grounding, T denotes Blueprint Construction, which extracts the implementation blueprint B , while \\mathrm{ExtractReferences} preserves requested source materials in the reference registry Q . During Specification Compilation, R performs Requirement Reconciliation to construct K , and A performs Ownership-Guided Architecture Synthesis to construct the repository graph G . \\mathrm{Slice} then extracts the context relevant to each file, and \\mathrm{FileSpec} performs File-Level Contracting to produce S_{i} . Finally, files are generated in the topological order induced by G , so that each generation step can follow its local specification while respecting already committed interfaces and cross-file compatibility constraints.\n\nAlgorithm 1 PaperCompiler repository synthesis\n\n 1:\n\n paper \\mathcal{P} \n\n 2:\n\n generated repository \\mathcal{C} \n\n 3:\n\n Paper Grounding\n\n 4:\n\n B\\leftarrow T(\\mathcal{P}) \\triangleright construct implementation blueprint\n\n 5:\n\n Q\\leftarrow\\mathrm{ExtractReferences}(B,\\mathcal{P}) \\triangleright preserve requested source evidence\n\n 6:\n\n Specification Compilation",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 1,
+  "swe_bench": 1,
+  "contamination": 1,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

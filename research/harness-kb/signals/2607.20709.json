@@ -1,0 +1,334 @@
+{
+ "arxiv_id": "2607.20709",
+ "fulltext_chars": 152728,
+ "fulltext_lines": 3184,
+ "authors_block": "With the increasing interest in AI agents, there has been a proliferation of agent development kits, each with its own developer-facing and model-facing abstractions [14, 31, 5, 6, 8]. These systems expose useful primitives – tools, memory, workflows, handoffs, traces, and code execution – but they often split agent source code across prompt templates, schemas, callbacks, configuration files, and orchestration code. Consequently, learning a new agent framework often means learning a new programming model for capabilities that already have mature equivalents in ordinary programming languages: typed interfaces, variable scoping, control flow, asynchronous execution, and object state. These abstractions are not only familiar to developers, but also broadly represented in model training data. NVIDIA Object-Oriented Agents (NOOA) is inspired by PyTorch [45], which showed that a powerful runtime can still present users with a simple Python programming model. NOOA applies the same concept to agents: where Python already has the right abstraction, NOOA uses it. Agent actions, helper logic, and harness extension points are ordinary Python programs, familiar to developers, close to the distribution of code that LLMs were trained on, and thus directly understandable by coding agents. Where agent-specific concepts do not already have a standard Python form – for example context construction, event history, and model-visible state – NOOA exposes them as simple Pythonic APIs. This design p",
+ "vendor_affiliation_hits": [
+  "NVIDIA"
+ ],
+ "n_authors": 15,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/anomalyco/opencode",
+  "https://github.com/earendil-works/pi"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "#"
+  ],
+  [
+   32,
+   "###### Abstract"
+  ],
+  [
+   43,
+   "## 1 Introduction"
+  ],
+  [
+   57,
+   "# Return type: validated by the runtime before triage() returns."
+  ],
+  [
+   59,
+   "# Descriptions and constraints are model-visible."
+  ],
+  [
+   69,
+   "# The Agent is a Python object."
+  ],
+  [
+   119,
+   "## 2 Design Principles"
+  ],
+  [
+   152,
+   "## 3 Agent Loop"
+  ],
+  [
+   156,
+   "### 3.1 Agents and Strategies"
+  ],
+  [
+   202,
+   "### 3.2 Context"
+  ],
+  [
+   232,
+   "# Static context blocks are simple key/value pairs."
+  ],
+  [
+   236,
+   "# Dynamic context blocks accept Python expressions evaluated every turn."
+  ],
+  [
+   240,
+   "# Event history: query or compact the execution trace."
+  ],
+  [
+   270,
+   "### 3.3 Calling the LLM"
+  ],
+  [
+   274,
+   "### 3.4 Executing Python"
+  ],
+  [
+   284,
+   "### 3.5 Updating Events and State"
+  ],
+  [
+   290,
+   "### 3.6 Validating the Return"
+  ],
+  [
+   294,
+   "### 3.7 Long-Term Memory: the Agent Curates Its Own State"
+  ],
+  [
+   308,
+   "## 4 Evaluation"
+  ],
+  [
+   312,
+   "### 4.1 Capability Tests: Do Models Understand the NOOA Interface?"
+  ],
+  [
+   438,
+   "### Experimental Results on Agentic Benchmarks"
+  ],
+  [
+   442,
+   "### 4.2 Software Engineering and Terminal Interaction"
+  ],
+  [
+   459,
+   "#### Effect of reasoning effort."
+  ],
+  [
+   463,
+   "#### Validated termination."
+  ],
+  [
+   467,
+   "#### Interaction and context efficiency."
+  ],
+  [
+   471,
+   "#### Comparison with specialized systems."
+  ],
+  [
+   546,
+   "### 4.3 Securing Software on CyberGym L1"
+  ],
+  [
+   609,
+   "### 4.4 Advancing the score–cost Pareto frontier on ARC-AGI-3"
+  ],
+  [
+   686,
+   "## 5 Comparison to other harness libraries"
+  ],
+  [
+   919,
+   "## 6 Related Work"
+  ],
+  [
+   957,
+   "## 7 Conclusion"
+  ],
+  [
+   1003,
+   "## References"
+  ],
+  [
+   1604,
+   "## Appendix A Appendix: Harness comparison details"
+  ],
+  [
+   1608,
+   "### A.1 LangGraph / LangChain"
+  ],
+  [
+   1644,
+   "### A.2 LangChain Deep Agents"
+  ],
+  [
+   1678,
+   "### A.3 Microsoft Agent Framework"
+  ],
+  [
+   1712,
+   "### A.4 OpenAI Agents SDK"
+  ],
+  [
+   1744,
+   "### A.5 Google ADK"
+  ],
+  [
+   1780,
+   "### A.6 PydanticAI"
+  ],
+  [
+   1814,
+   "### A.7 smolagents"
+  ],
+  [
+   1846,
+   "### A.8 Claude Agent SDK"
+  ],
+  [
+   1878,
+   "### A.9 OpenAI Codex"
+  ],
+  [
+   1912,
+   "### A.10 OpenHands"
+  ],
+  [
+   1950,
+   "### A.11 PI"
+  ],
+  [
+   1984,
+   "### A.12 Hermes"
+  ],
+  [
+   2016,
+   "### A.13 OpenCode"
+  ],
+  [
+   2046,
+   "### A.14 OpenClaw"
+  ],
+  [
+   2078,
+   "### A.15 NOOA"
+  ],
+  [
+   2108,
+   "## Appendix B Appendix: A stress test up close"
+  ],
+  [
+   2146,
+   "## Context blocks"
+  ],
+  [
+   2154,
+   "## Truncation"
+  ],
+  [
+   2184,
+   "## Strategy"
+  ],
+  [
+   2194,
+   "## When to use which tool"
+  ],
+  [
+   2202,
+   "## Returning computed results"
+  ],
+  [
+   2206,
+   "## Helpers"
+  ],
+  [
+   2220,
+   "## Fan-out generation"
+  ],
+  [
+   2242,
+   "## Restrictions (will throw)"
+  ],
+  [
+   2254,
+   "## Execution Context"
+  ],
+  [
+   2416,
+   "### B.1 Nemotron 3 Ultra — passed"
+  ],
+  [
+   2434,
+   "# Process all texts in parallel"
+  ],
+  [
+   2444,
+   "### B.2 Claude Opus 4.8 — failed"
+  ],
+  [
+   2694,
+   "### B.3 GPT-5.5 — passed"
+  ],
+  [
+   2924,
+   "### B.4 GPT-5.4 Mini — failed"
+  ],
+  [
+   2964,
+   "### B.5 What the four runs show"
+  ],
+  [
+   2968,
+   "## Appendix C Appendix: Memory-System Details"
+  ],
+  [
+   2970,
+   "### C.1 Design decisions"
+  ],
+  [
+   2974,
+   "### C.2 Memory across today’s harnesses"
+  ],
+  [
+   3100,
+   "## Appendix D Appendix: ARC-AGI-3 Example Details"
+  ],
+  [
+   3102,
+   "### D.1 From DreamTeam to one agent and one skill"
+  ],
+  [
+   3156,
+   "### D.2 Containment and red-team audit"
+  ],
+  [
+   3162,
+   "### D.3 World-model usage evidence and failure modes"
+  ],
+  [
+   3168,
+   "### D.4 Memory-system usage during play"
+  ],
+  [
+   3180,
+   "### D.5 Reproduction"
+  ],
+  [
+   3184,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 2,
+  "seeds_or_runs": 0,
+  "swe_bench": 13,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

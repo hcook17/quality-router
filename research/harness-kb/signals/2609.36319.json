@@ -1,0 +1,333 @@
+{
+ "arxiv_id": "2609.36319",
+ "fulltext_chars": 84027,
+ "fulltext_lines": 2132,
+ "authors_block": "Ziyang Yu Affiliation: Causal Dynamics Lab Affiliation: Emory University Liang Zhao ††thanks: Corresponding author. Affiliation: Causal Dynamics Lab Affiliation: Emory University Bowen Zhu Affiliation: Causal Dynamics Lab Hasibul Haque Affiliation: Causal Dynamics Lab",
+ "vendor_affiliation_hits": [],
+ "n_authors": 4,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   22,
+   "# StateTape: Action-Conditioned Evidence Lifecycle Modeling for Long-Horizon Coding Agents"
+  ],
+  [
+   44,
+   "###### Abstract"
+  ],
+  [
+   66,
+   "## 1 Introduction"
+  ],
+  [
+   156,
+   "## 2 Related Work"
+  ],
+  [
+   158,
+   "##### Context management for coding agents."
+  ],
+  [
+   179,
+   "##### Repository structure for retrieval and localization."
+  ],
+  [
+   194,
+   "## 3 Method"
+  ],
+  [
+   212,
+   "### 3.1 Motivation: The Held Context Is Far from the Needed Context"
+  ],
+  [
+   225,
+   "#### 3.1.1 TraceBench"
+  ],
+  [
+   246,
+   "#### 3.1.2 Observations"
+  ],
+  [
+   248,
+   "##### Most of what the agent holds is not needed, and the share grows with edits."
+  ],
+  [
+   257,
+   "##### Stale records are a majority of the held context."
+  ],
+  [
+   263,
+   "##### Most of what the edit needs is not held."
+  ],
+  [
+   276,
+   "### 3.2 Problem Formulation"
+  ],
+  [
+   278,
+   "##### Setting and goal."
+  ],
+  [
+   289,
+   "##### Setup."
+  ],
+  [
+   319,
+   "##### Staleness is action-conditioned and monotone."
+  ],
+  [
+   338,
+   "##### Optimization objective."
+  ],
+  [
+   353,
+   "##### From objectives to scoring surrogates."
+  ],
+  [
+   384,
+   "##### Technical requirements."
+  ],
+  [
+   400,
+   "### 3.3 StateTape"
+  ],
+  [
+   408,
+   "#### 3.3.1 A Symbol-Level Code Graph"
+  ],
+  [
+   434,
+   "#### 3.3.2 The Tape: Action-Conditioned Staleness Checker"
+  ],
+  [
+   487,
+   "#### 3.3.3 The Manager"
+  ],
+  [
+   530,
+   "### 3.4 Theoretical Analysis"
+  ],
+  [
+   532,
+   "##### Soundness."
+  ],
+  [
+   537,
+   "###### Theorem 1."
+  ],
+  [
+   548,
+   "##### Cost."
+  ],
+  [
+   553,
+   "###### Theorem 2."
+  ],
+  [
+   568,
+   "## 4 Experiments"
+  ],
+  [
+   570,
+   "### 4.1 Experimental Setup"
+  ],
+  [
+   572,
+   "##### Models and Datasets."
+  ],
+  [
+   585,
+   "### 4.2 Main Results"
+  ],
+  [
+   587,
+   "##### StateTape improves resolve rate for every main agent."
+  ],
+  [
+   593,
+   "##### StateTape has little computational overhead."
+  ],
+  [
+   789,
+   "##### StateTape evicts and retrieves more selectively than other methods."
+  ],
+  [
+   795,
+   "### 4.3 Ablation Studies"
+  ],
+  [
+   1075,
+   "## 5 Conclusion"
+  ],
+  [
+   1079,
+   "## AI use statement"
+  ],
+  [
+   1093,
+   "## References"
+  ],
+  [
+   1502,
+   "## Appendix A Proofs for Section 3.4"
+  ],
+  [
+   1504,
+   "##### Notation."
+  ],
+  [
+   1519,
+   "###### Assumption 1 (Symbol locality)."
+  ],
+  [
+   1542,
+   "##### Theorem 1(a)."
+  ],
+  [
+   1561,
+   "##### Theorem 1(b)."
+  ],
+  [
+   1576,
+   "##### Theorem 2(a)."
+  ],
+  [
+   1589,
+   "##### Theorem 2(b)."
+  ],
+  [
+   1604,
+   "##### Theorem 2(c)."
+  ],
+  [
+   1617,
+   "## Appendix B Method Details"
+  ],
+  [
+   1619,
+   "##### Maintaining the code graph."
+  ],
+  [
+   1629,
+   "##### Drift windows."
+  ],
+  [
+   1639,
+   "##### Maintenance actions."
+  ],
+  [
+   1712,
+   "##### The per-write procedure."
+  ],
+  [
+   1723,
+   "##### The manager’s evidence."
+  ],
+  [
+   1734,
+   "##### Retrieval labels."
+  ],
+  [
+   1741,
+   "## Appendix C Worked Examples"
+  ],
+  [
+   1764,
+   "##### Example 1: a body edit."
+  ],
+  [
+   1776,
+   "##### Example 2: caller drift."
+  ],
+  [
+   1792,
+   "##### Example 3: the manager after the import change."
+  ],
+  [
+   1805,
+   "## Appendix D Implementation Details"
+  ],
+  [
+   1807,
+   "##### Baselines."
+  ],
+  [
+   1818,
+   "##### Execution environment."
+  ],
+  [
+   1824,
+   "##### Evaluating a window without keeping the graphs."
+  ],
+  [
+   1842,
+   "## Appendix E TraceBench Annotation and Scoring"
+  ],
+  [
+   1844,
+   "##### Reading Table 5."
+  ],
+  [
+   1916,
+   "##### Source trajectories and decision points."
+  ],
+  [
+   1933,
+   "##### Gold regions."
+  ],
+  [
+   1945,
+   "##### The held context C_{t} ."
+  ],
+  [
+   1953,
+   "##### Outstanding hunks."
+  ],
+  [
+   1960,
+   "##### Annotation protocol."
+  ],
+  [
+   1971,
+   "##### Scoring."
+  ],
+  [
+   1985,
+   "##### Provenance and limitations."
+  ],
+  [
+   1995,
+   "## Appendix F Benchmark Comparison"
+  ],
+  [
+   2074,
+   "## Appendix G Manager Skills"
+  ],
+  [
+   2132,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "##### Provenance and limitations.\n\nThe labels are silver: deterministic rules plus an oracle model, with a human review queue built\nand a verification server in place but not yet filled, so scoring a detector measures agreement\nwith the judge rather than with a person. The labeled set is one agent on one suite, and although\nthe pipeline is harness-agnostic downstream of the parser, we do not claim the base rates transfer\nto a different scaffold. G_{t} is defined relative to the reference patch, so a correct solution\nthe reference did not take is scored as not needed; this bounds O2’s ceiling rather than distorting\nthe ranking of policies against each other.\n\n## Appendix F Benchmark Comparison\n\nStandard evaluation scores a run once, when it ends, while the gap between C_{t} and G_{t} moves at\nevery write. A pass rate can say that a maintenance policy helped without saying which tokens it\nshould have dropped at step 40, or which region of the repository it should have pulled in before\nthe edit at step 41. Three families of benchmark bear on the gap. SWE-bench (Jimenez et al., 2024) and its descendants\n(Deng et al., 2025; Le et al., 2025; Orlanski et al., 2026; Desai et al., 2026) pair a repository issue with\nheld-out tests and score a run by whether its terminal patch passes. Long-context and memory\nbenchmarks (Maharana et al., 2024; Qiu et al., 2025) measure whether a model can find and use\ninformation placed inside a large given window. Localization benchmarks\n(Li et al., 2026a; Zhang et al., 2026; Chen et al., 2025) annotate the code an agent should have\nfound for a task, which is an instantiation of G_{t} and therefore of the right region.\n\nNone of them supervises how an agent maintains its context over a long horizon. First,\noutcome-only supervision is too coarse: an instance yields one bit, and that bit is produced by the\nagent’s model, so a correct eviction the model then ignores and an incorrect one it happens to\nsurvive are indistinguishable at the metric, and the effect of a maintenance policy reaches the\nscore only through a capability the policy does not control. Our own runs (§4)\nshow how loose the coupling is: StateTape rewrites the context at nearly every write, and the\nresolve rate moves by a few points, but that one bit per instance never says which of those\nrewrites was the right one. Second, the evidence in\nlong-context benchmarks is static with respect to the model: the distractors were placed by the\nbenchmark, not caused by the model, and nothing the model does falsifies what it was shown, whereas\na coding agent’s own writes falsify what it read and are the only source of its staleness\n(§3.2). Third, localization labels are attached to a task rather than to a step,\nso a policy that acts at every write has no per-write target and the gold context cannot move as the\nrepository does; and none of these datasets annotates C_{t}\\setminus G_{t} , so the left region, the\none that carries the token cost, is unmeasured. Their selection criteria also run the other way:\nLoc-Bench excludes issues whose patch touches more than five files or ten functions, which is the\nright filter for one-shot localization and removes exactly the write-dense instances in which stale",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 1,
+  "swe_bench": 14,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}
