@@ -35,6 +35,8 @@ DEFAULT_POLICY: dict[str, Any] = {
         {"pattern": r"\b(psql|mysql|sqlcmd)\b.*\b(drop|truncate|delete\s+from)\b",
          "reason": "destructive SQL against a live database"},
         {"pattern": r"\bGITNEXUS_HOOKS=0\b", "reason": "use the gitnexus off-marker instead"},
+        {"pattern": r"\bqr\s+spec\s+lock\b",
+         "reason": "locking acceptance tests is the human approval step"},
     ],
     "deny_paths": [
         "**/.env", "**/.env.*", "**/*.pem", "**/*.key", "**/*.p12", "**/*.jks",
@@ -51,6 +53,12 @@ DEFAULT_POLICY: dict[str, Any] = {
 SHELL_TOOLS = ("Bash", "Shell", "run_terminal_cmd", "shell")
 FILE_TOOLS = ("Read", "Write", "Edit", "MultiEdit", "NotebookEdit", "Delete", "read_file",
               "edit_file", "delete_file")
+READ_TOOLS = ("Read", "read_file")
+_SHELL_WRITE = re.compile(
+    r"(?:^|[;&|(]|\s)(?:rm|mv|cp|tee|truncate|dd|install|ln|chmod|patch|"
+    r"sed\s+(?:-\w+\s+)*-i|perl\s+-\w*i|git\s+(?:rm|mv|checkout|restore|apply|stash))\b|>"
+)
+_SPEC_LOCK_COMMAND = re.compile(r"\bqr\s+spec\s+lock\b")
 _URL = re.compile(r"\b(?:https?|ftp|ssh|git)://(?:[^@/\s]+@)?([A-Za-z0-9.-]+)")
 _SCP_LIKE = re.compile(r"(?:^|\s)[\w.-]+@([A-Za-z0-9.-]+):")
 _NETWORK_TOOLS = ("curl", "wget", "nc", "ncat", "scp", "rsync", "ssh", "ftp", "telnet")
@@ -171,6 +179,7 @@ class HookEvent:
     kind: str
     value: str
     cwd: str = ""
+    access: str = "read"
 
 
 def _payload_cwd(payload: dict[str, Any]) -> str:
@@ -195,9 +204,10 @@ def parse_hook_event(payload: dict[str, Any]) -> HookEvent | None:
         if tool in SHELL_TOOLS and "command" in raw:
             return HookEvent("command", str(raw["command"]), cwd)
         if tool in FILE_TOOLS:
+            access = "read" if tool in READ_TOOLS else "write"
             for key in ("file_path", "path", "target_file", "notebook_path"):
                 if key in raw:
-                    return HookEvent("path", str(raw[key]), cwd)
+                    return HookEvent("path", str(raw[key]), cwd, access)
         return None
     if "command" in payload and "mcp_server_name" not in payload:
         return HookEvent("command", str(payload["command"]), _payload_cwd(payload))
@@ -206,9 +216,43 @@ def parse_hook_event(payload: dict[str, Any]) -> HookEvent | None:
     return None
 
 
-def decide(event: HookEvent | None, policy: Policy, root: Path) -> Decision:
+def _absolute(value: str, cwd: Path) -> Path:
+    path = Path(value).expanduser()
+    return (path if path.is_absolute() else cwd / path).resolve()
+
+
+def check_locked(event: HookEvent, locked: set[Path], root: Path) -> Decision:
+    """Writes to approved acceptance tests/specs/lock are denied; reads stay allowed."""
+    cwd = Path(event.cwd) if event.cwd else root
+    reason = "approved acceptance file (qr spec lock); fix the code, not the test"
+    if event.kind == "path":
+        if event.access == "write" and _absolute(event.value, cwd) in locked:
+            return Decision(False, f"{event.value}: {reason}", "acceptance_lock")
+        return Decision(True)
+    if _SPEC_LOCK_COMMAND.search(event.value):
+        return Decision(False, "`qr spec lock` is the human approval step, not an agent action",
+                        "acceptance_lock")
+    if not _SHELL_WRITE.search(event.value):
+        return Decision(True)
+    try:
+        tokens = shlex.split(event.value, posix=True)
+    except ValueError:
+        tokens = event.value.split()
+    for token in tokens:
+        for part in re.split(r"[<>|;&]+", token):
+            if part and not part.startswith("-") and _absolute(part, cwd) in locked:
+                return Decision(False, f"{part}: {reason}", "acceptance_lock")
+    return Decision(True)
+
+
+def decide(event: HookEvent | None, policy: Policy, root: Path,
+           locked: set[Path] | None = None) -> Decision:
     if event is None:
         return Decision(True)
+    if locked:
+        decision = check_locked(event, locked, root)
+        if not decision.allow:
+            return decision
     if event.kind == "command":
         return policy.check_command(event.value, root)
     return policy.check_path(event.value, root)
