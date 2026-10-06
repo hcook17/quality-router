@@ -1,4 +1,4 @@
-"""Breaking-change detection for JSON Schema, Avro and OpenAPI (JSON) contracts.
+"""Breaking-change detection for JSON Schema, Avro and OpenAPI (JSON or generated YAML).
 
 The research has no direct evidence for cross-repo agent coordination (P27);
 the closest evidence says verify deterministically and never trust a version
@@ -21,6 +21,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+from quality_router.harness import yamlsubset
 from quality_router.harness.report import GateResult, Level
 
 Json = Any
@@ -53,8 +54,11 @@ def read_contract(spec: str, cwd: Path) -> Json:
             raise ContractError(f"contract not found: {spec}")
         text, name = path.read_text(encoding="utf-8"), path.name
     if name.endswith((".yaml", ".yml")):
-        raise ContractError(f"{spec}: YAML is not supported (stdlib only); export JSON "
-                            "(e.g. springdoc /v3/api-docs) and diff that")
+        try:
+            return yamlsubset.loads(text)
+        except yamlsubset.YamlSubsetError as exc:
+            raise ContractError(f"{spec}: {exc} (generated-OpenAPI YAML subset only; "
+                                "otherwise export JSON, e.g. springdoc /v3/api-docs)") from exc
     try:
         return json.loads(text)
     except json.JSONDecodeError as exc:
