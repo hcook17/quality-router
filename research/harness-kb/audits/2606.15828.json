@@ -1,0 +1,18 @@
+{"arxiv_id": "2606.15828",
+ "blind_scores": {"rigor": 2, "reproducibility": 3, "generalizability": 2, "relevance": 3, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "agree",
+ "claims_disputed": [
+  {"claim": "Configuration smells are widespread: 91 of 100 files have at least one smell.", "proposed_strength": "weak", "reason": "The 91/100 figure rests on two unvalidated threshold heuristics (>=200 lines; 'only a single commit' = Init Fossilization, §V-C) plus LLM detectors with one-author confirmation and no recall. The paper's '207 instances' (§I) equals 42+35+62+16+24+28 from Table II, i.e. it sums raw detector hits including the 24 false positives, so prevalence totals are inflated; it is not stated whether the 91-file count uses confirmed or raw hits."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P01", "from": "mixed", "to": "neutral", "reason": "The paper measures how often authors write config files badly, not whether instruction files help or hurt agents; there is no outcome evidence in either direction, so 'mixed' overstates it."}
+ ],
+ "missed_issues": [
+  "Factual error in review standards: journal_ref in metadata is 'SCAM 2026' (26th IEEE SCAM), so it is peer-reviewed, not 'arXiv preprint, no venue listed'.",
+  "§I headline total of 207 smell instances includes detector false positives (sum of raw Table II instances).",
+  "§I misstates association-rule confidence as a causal increase ('increase the likelihood of Context Bloat by 83%'); confidence 0.83 and lift 1.81 are co-occurrence on ~91 files with support as low as 0.06 (≈5–6 files).",
+  "Init Fossilization heuristic (single commit) is unvalidated and would flag a carefully curated file committed once.",
+  "Co-occurrence analysis (§VII) does not state whether false positives were removed before Apriori."
+ ],
+ "note": "First review is accurate and appropriately skeptical on claims; it errs on venue (paper is SCAM 2026) and slightly overrates relevance — it is a useful lint checklist for portable rule stamps but provides no evidence of impact on agent outcomes."}

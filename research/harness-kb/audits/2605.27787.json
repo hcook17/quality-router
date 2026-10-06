@@ -1,0 +1,20 @@
+{"arxiv_id": "2605.27787",
+ "blind_scores": {"rigor": 4, "reproducibility": 4, "generalizability": 2, "relevance": 3, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "Librarian reduces per-episode GPU energy of existing MAS by 11-30% while preserving pass rate.", "proposed_strength": "moderate", "reason": "Energy deltas are real on 500 paired tasks (Table 15), but each configuration is a single run on one model family (Qwen3.6) and Python-only tasks; 'preserving' holds at a 3.5-pt non-inferiority margin (8/8) but only 5/8 at 2 pt, and the HyperAgent+Caveman→+Librarian comparison on 35B-A3B is not significant (energy p=0.150). The 30% upper end comes from a 100-task SWE-Bench-Live sample where HyperAgent pass drops 23→21."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P09", "from": "supports", "to": "mixed", "reason": "The 'persistent history' is within-episode only, not cross-session memory; Table 8 shows removing it raises energy but pass rate is higher without it (HyperAgent 71.0 vs 68.0 full), so the evidence is cost-only."},
+  {"id": "P24", "from": "supports", "to": "neutral", "reason": "No token/cost budget or cap is implemented or tested; the paper measures per-token energy coefficients (Table 2), which informs but does not evaluate budgets."},
+  {"id": "P08", "from": "supports", "to": "mixed", "reason": "The only compaction-style baseline tested (LastNObservation truncation) increased energy and lowered pass in every setting (Table 4); pointer-only returns are an output-format change rather than evidence that context compaction works."}
+ ],
+ "missed_issues": [
+  "Table 8 leave-one-out: removing three of four mechanisms yields equal or higher pass rate than the full Librarian (HyperAgent 68.0 full vs 71/71/72/69), which the review called 'within noise' but which also undercuts any quality benefit claim.",
+  "Table 9 BOAD/35B-A3B: sparse retrieval as well as dense retrieval beats Librarian on energy (12.93 and 12.42 vs 13.61 kJ); the review mentioned only dense.",
+  "single_model: both backbones are from one Qwen3.6 family; no closed/frontier model as used by commercial agent hosts.",
+  "The review's metric_mismatch detail ('input tokens dominate billing, cached tokens discounted') and applicability remark about commercial API pricing are not from the paper text.",
+  "Relevance 4 is generous: evidence is Python SWE-bench on self-hosted GPUs; the multi-repo application is an extrapolation by the reviewer, not tested (all tasks are single-repo)."
+ ],
+ "note": "Careful, statistically tested energy study whose design idea (lookup-only persistent sub-agent returning pointers) is plausible for the team, but evidence is single-run, single-model-family, Python, single-repo; several pattern 'supports' stances overreach."}

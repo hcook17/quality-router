@@ -2,7 +2,7 @@
 
 Regenerate with `python3 etl.py load && python3 etl.py report`.
 
-Harvested unique papers: 5585. Reviews by gate status: {'admitted': 7, 'caveated': 150, 'rejected': 71}.
+Harvested unique papers: 5585. Reviews by gate status: {'caveated': 154, 'rejected': 74}.
 
 ## Pattern evidence matrix
 
@@ -10,41 +10,41 @@ Weighted score = sum of review weights (rigor x reproducibility x COI discount; 
 
 | Pattern | Supports | Contradicts | Mixed | Introduces | Weighted support | Weighted contra | Vendor-authored share |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| P01 Hierarchical repo instruction files (AGENTS.md/CLAUDE.md) | 0 | 2 | 5 | 2 | 0.00 | 1.00 | 0% |
-| P02 Progressive disclosure / skills loaded on demand | 6 | 1 | 8 | 7 | 2.25 | 0.24 | 19% |
-| P03 Deferred tool loading / small tool catalog | 4 | 0 | 0 | 2 | 1.62 | 0.00 | 12% |
-| P04 MCP as integration layer | 4 | 1 | 3 | 2 | 1.03 | 0.20 | 17% |
-| P05 Lexical/deterministic code retrieval (grep, AST, LSP) | 13 | 0 | 8 | 2 | 4.32 | 0.00 | 8% |
-| P06 Embedding/RAG retrieval over code | 4 | 3 | 8 | 2 | 1.60 | 0.37 | 15% |
-| P07 Code/knowledge graph context | 8 | 1 | 0 | 6 | 2.33 | 0.24 | 7% |
-| P08 Context compaction / summarization | 10 | 5 | 6 | 2 | 2.37 | 1.32 | 7% |
-| P09 Persistent agent memory | 5 | 1 | 2 | 5 | 1.77 | 0.30 | 17% |
-| P10 Single-agent linear loop | 4 | 2 | 1 | 0 | 0.98 | 0.75 | 0% |
-| P11 Multi-agent / role-based teams | 4 | 2 | 7 | 12 | 1.53 | 0.58 | 18% |
-| P12 Subagents for isolated exploration | 5 | 1 | 4 | 2 | 1.58 | 0.21 | 13% |
-| P13 Planner-executor / hierarchical orchestration | 6 | 1 | 8 | 5 | 2.04 | 0.24 | 8% |
-| P14 Spec-driven / spec-first development | 6 | 0 | 5 | 10 | 1.84 | 0.00 | 13% |
-| P15 Test-first / TDD with agents | 3 | 2 | 4 | 1 | 0.86 | 0.66 | 6% |
-| P16 Execution-based verifier loop (tests/compile) | 35 | 2 | 13 | 7 | 9.04 | 0.42 | 15% |
-| P17 Static analysis / linter feedback in loop | 11 | 1 | 2 | 6 | 4.82 | 0.24 | 12% |
-| P18 LLM-as-judge / AI reviewer | 6 | 7 | 22 | 9 | 1.66 | 1.64 | 11% |
-| P19 Human approval gates | 5 | 2 | 4 | 7 | 1.13 | 0.53 | 11% |
-| P20 OS/container sandboxing | 5 | 0 | 0 | 2 | 1.41 | 0.00 | 14% |
-| P21 Policy-as-code permissions / guardrails | 9 | 2 | 2 | 10 | 4.00 | 0.27 | 11% |
-| P22 Prompt-injection defenses | 2 | 1 | 2 | 1 | 0.16 | 0.33 | 0% |
-| P23 Model routing / cascades | 8 | 1 | 1 | 4 | 2.56 | 0.29 | 8% |
-| P24 Token/cost budgets and caps | 23 | 1 | 3 | 3 | 6.84 | 0.16 | 11% |
-| P25 RL / fine-tuning of agent models | 17 | 1 | 1 | 3 | 2.55 | 0.33 | 10% |
+| P01 Hierarchical repo instruction files (AGENTS.md/CLAUDE.md) | 0 | 0 | 3 | 2 | 0.00 | 0.00 | 0% |
+| P02 Progressive disclosure / skills loaded on demand | 4 | 1 | 9 | 7 | 1.55 | 0.24 | 19% |
+| P03 Deferred tool loading / small tool catalog | 3 | 0 | 0 | 2 | 1.29 | 0.00 | 12% |
+| P04 MCP as integration layer | 2 | 1 | 4 | 3 | 0.68 | 0.20 | 17% |
+| P05 Lexical/deterministic code retrieval (grep, AST, LSP) | 10 | 0 | 8 | 2 | 2.79 | 0.00 | 8% |
+| P06 Embedding/RAG retrieval over code | 4 | 3 | 8 | 2 | 1.54 | 0.37 | 15% |
+| P07 Code/knowledge graph context | 7 | 1 | 1 | 6 | 1.61 | 0.24 | 7% |
+| P08 Context compaction / summarization | 7 | 3 | 10 | 2 | 1.09 | 0.65 | 7% |
+| P09 Persistent agent memory | 3 | 1 | 3 | 6 | 0.99 | 0.30 | 17% |
+| P10 Single-agent linear loop | 3 | 0 | 2 | 0 | 0.76 | 0.00 | 0% |
+| P11 Multi-agent / role-based teams | 1 | 2 | 9 | 13 | 0.83 | 0.58 | 18% |
+| P12 Subagents for isolated exploration | 3 | 0 | 6 | 2 | 0.86 | 0.00 | 13% |
+| P13 Planner-executor / hierarchical orchestration | 5 | 0 | 8 | 6 | 1.67 | 0.00 | 8% |
+| P14 Spec-driven / spec-first development | 2 | 0 | 7 | 12 | 1.46 | 0.00 | 16% |
+| P15 Test-first / TDD with agents | 2 | 0 | 5 | 1 | 0.58 | 0.00 | 6% |
+| P16 Execution-based verifier loop (tests/compile) | 30 | 2 | 14 | 8 | 7.32 | 0.42 | 16% |
+| P17 Static analysis / linter feedback in loop | 7 | 1 | 3 | 6 | 3.20 | 0.24 | 12% |
+| P18 LLM-as-judge / AI reviewer | 5 | 5 | 23 | 9 | 1.48 | 0.66 | 13% |
+| P19 Human approval gates | 4 | 0 | 6 | 8 | 0.89 | 0.00 | 14% |
+| P20 OS/container sandboxing | 4 | 0 | 1 | 2 | 1.08 | 0.00 | 14% |
+| P21 Policy-as-code permissions / guardrails | 7 | 2 | 3 | 10 | 2.97 | 0.27 | 11% |
+| P22 Prompt-injection defenses | 2 | 0 | 3 | 1 | 0.16 | 0.00 | 0% |
+| P23 Model routing / cascades | 7 | 1 | 1 | 4 | 1.93 | 0.29 | 8% |
+| P24 Token/cost budgets and caps | 12 | 0 | 4 | 3 | 2.75 | 0.00 | 12% |
+| P25 RL / fine-tuning of agent models | 17 | 0 | 2 | 3 | 2.55 | 0.00 | 10% |
 | P26 Self-improving / searched harness | 2 | 3 | 2 | 4 | 0.67 | 0.41 | 15% |
-| P27 Cross-repo coordination / contracts | 6 | 0 | 0 | 3 | 2.13 | 0.00 | 7% |
-| P28 Deterministic codemods / recipe-based migration | 5 | 0 | 2 | 1 | 1.55 | 0.00 | 25% |
-| P29 Parallel agents with isolated worktrees | 3 | 0 | 2 | 3 | 0.66 | 0.00 | 27% |
-| P30 Observability / tracing / audit | 11 | 0 | 0 | 18 | 3.98 | 0.00 | 22% |
-| P31 Benchmark-based evaluation (SWE-bench family) | 1 | 1 | 5 | 16 | 5.14 | 0.33 | 10% |
-| P32 Field/industrial evaluation | 9 | 0 | 1 | 1 | 3.17 | 0.00 | 7% |
-| P33 CodeAct / code-as-action / CLI-first tools | 8 | 2 | 2 | 1 | 1.76 | 0.54 | 20% |
-| P34 Structured requirements / acceptance criteria | 15 | 0 | 5 | 10 | 4.25 | 0.00 | 9% |
-| P35 Formal methods / verified generation | 8 | 0 | 1 | 3 | 1.79 | 0.00 | 7% |
+| P27 Cross-repo coordination / contracts | 0 | 0 | 3 | 4 | 0.45 | 0.00 | 7% |
+| P28 Deterministic codemods / recipe-based migration | 3 | 0 | 2 | 1 | 0.51 | 0.00 | 25% |
+| P29 Parallel agents with isolated worktrees | 3 | 0 | 2 | 3 | 0.57 | 0.00 | 27% |
+| P30 Observability / tracing / audit | 9 | 0 | 0 | 18 | 2.98 | 0.00 | 22% |
+| P31 Benchmark-based evaluation (SWE-bench family) | 1 | 0 | 5 | 16 | 4.87 | 0.00 | 10% |
+| P32 Field/industrial evaluation | 8 | 0 | 1 | 1 | 2.13 | 0.00 | 14% |
+| P33 CodeAct / code-as-action / CLI-first tools | 6 | 2 | 3 | 2 | 1.36 | 0.54 | 20% |
+| P34 Structured requirements / acceptance criteria | 7 | 0 | 6 | 13 | 2.67 | 0.00 | 11% |
+| P35 Formal methods / verified generation | 8 | 0 | 1 | 3 | 1.67 | 0.00 | 7% |
 
 ## Bias frequency
 
@@ -56,6 +56,7 @@ Weighted score = sum of review weights (rigor x reproducibility x COI discount; 
 | metric_mismatch | 99 |
 | closed_artifacts | 74 |
 | hype_language | 63 |
+| other:audit_missed | 59 |
 | single_model | 56 |
 | contamination_risk | 55 |
 | strawman_baseline | 52 |
@@ -74,29 +75,28 @@ Weighted score = sum of review weights (rigor x reproducibility x COI discount; 
 | other:no_evaluation | 5 |
 | other:no_limitations_section | 4 |
 | other:abstract_body_mismatch | 4 |
-| other:single_harness | 2 |
 
 ## COI severity
 
 | Severity | Papers | Mean rigor |
 | --- | --- | --- |
-| high | 8 | 1.75 |
-| low | 82 | 2.45 |
-| medium | 15 | 1.80 |
-| none | 123 | 2.47 |
+| high | 9 | 1.67 |
+| low | 84 | 2.38 |
+| medium | 15 | 1.87 |
+| none | 120 | 2.37 |
 
 ## Contribution types
 
 | Type | Papers | Mean rigor | Rejected |
 | --- | --- | --- | --- |
-| empirical | 87 | 2.69 | 20 |
-| system | 68 | 2.29 | 22 |
-| benchmark | 27 | 2.85 | 2 |
+| empirical | 87 | 2.60 | 21 |
+| system | 68 | 2.24 | 24 |
+| benchmark | 27 | 2.74 | 2 |
 | position | 14 | 0.93 | 13 |
 | tool | 10 | 2.00 | 4 |
-| survey | 9 | 1.89 | 4 |
-| theory | 7 | 2.00 | 4 |
-| dataset | 5 | 2.40 | 2 |
+| survey | 9 | 1.67 | 4 |
+| theory | 7 | 1.86 | 4 |
+| dataset | 5 | 2.20 | 2 |
 | replication | 1 | 3.00 | 0 |
 
 ## Topic coverage
@@ -119,7 +119,7 @@ Weighted score = sum of review weights (rigor x reproducibility x COI discount; 
 | T14 LSP and semantic code tools | 5 | 4 | 4 |
 | T15 Code graphs and knowledge graphs | 18 | 4 | 4 |
 | T16 CLI vs tool-calling vs CodeAct | 13 | 4 | 3 |
-| T17 Multi-agent software engineering | 27 | 4 | 4 |
+| T17 Multi-agent software engineering | 27 | 4 | 3 |
 | T18 Subagents and delegation | 144 | 4 | 3 |
 | T19 Orchestrator-worker and planners | 70 | 4 | 0 |
 | T20 Parallel agents and merge conflicts | 20 | 4 | 2 |
@@ -137,7 +137,7 @@ Weighted score = sum of review weights (rigor x reproducibility x COI discount; 
 | T32 LLM-as-judge reliability | 200 | 4 | 3 |
 | T33 Multi-repository and cross-repo changes | 59 | 5 | 3 |
 | T34 API contracts and breaking changes | 10 | 4 | 4 |
-| T35 Code migration and refactoring at scale | 7 | 4 | 2 |
+| T35 Code migration and refactoring at scale | 7 | 4 | 1 |
 | T36 Dependency and build repair | 7 | 4 | 4 |
 | T37 Issue-to-PR autonomy in industry | 49 | 4 | 4 |
 | T38 Agent sandboxing and isolation | 165 | 4 | 2 |
@@ -157,7 +157,7 @@ Weighted score = sum of review weights (rigor x reproducibility x COI discount; 
 | T52 Small models and distillation for agents | 56 | 4 | 1 |
 | T53 Java and JVM with LLMs | 126 | 4 | 4 |
 | T54 Data pipelines and ETL agents | 73 | 4 | 1 |
-| T55 Schema evolution and data contracts | 5 | 4 | 2 |
+| T55 Schema evolution and data contracts | 5 | 4 | 1 |
 | T56 Healthcare software and compliance with LLMs | 7 | 4 | 2 |
 | T57 Educational content generation and quality | 2 | 2 | 0 |
 | T58 Accessibility conformance with LLMs | 45 | 4 | 2 |
@@ -166,46 +166,46 @@ Weighted score = sum of review weights (rigor x reproducibility x COI discount; 
 
 | arXiv | Title | Type | Rigor | COI | Weight |
 | --- | --- | --- | --- | --- | --- |
-| [2606.13298](https://arxiv.org/abs/2606.13298) | Mining Architectural Quality Under Agentic AI Adoption: A Causal Study of Java Repositorie | empirical | 4 | none | 0.8 |
-| [2605.27787](https://arxiv.org/abs/2605.27787) | Long Live the Librarian! A Persistent Search Sub-Agent for Energy-Efficient Multi-Agent So | empirical | 4 | none | 0.736 |
-| [2605.26156](https://arxiv.org/abs/2605.26156) | Turning Bias into Bugs: Bandit-Guided Style Manipulation Attacks on LLM Judges | empirical | 4 | none | 0.736 |
-| [2608.30497](https://arxiv.org/abs/2608.30497) | Bridge: Automatically Mining Ecosystem-Scale API Update Mappings and Client Update Instanc | dataset | 4 | none | 0.736 |
-| [2608.23550](https://arxiv.org/abs/2608.23550) | When "Do Not" Is Not Deny: Security Rules in CLAUDE.md vs Built-In Controls | empirical | 4 | none | 0.672 |
-| [2605.15569](https://arxiv.org/abs/2605.15569) | Detecting Privilege Escalation in Polyglot Microservices via Agentic Program Analysis | system | 4 | low | 0.648 |
-| [2606.22263](https://arxiv.org/abs/2606.22263) | Revelio: Cost-Efficient Agentic Memory Safety Vulnerability Detection For Repository-Scale | system | 3 | low | 0.486 |
-| [2605.06445](https://arxiv.org/abs/2605.06445) | Constraint Decay: The Fragility of LLM Agents in Backend Code Generation | empirical | 4 | none | 0.442 |
-| [2605.17242](https://arxiv.org/abs/2605.17242) | From Runnable to Shippable: Multi-Agent Test-Driven Development for Generating Full-Stack  | empirical | 4 | none | 0.442 |
+| [2606.13298](https://arxiv.org/abs/2606.13298) | Mining Architectural Quality Under Agentic AI Adoption: A Causal Study of Java Repositorie | empirical | 4 | none | 0.48 |
+| [2605.27787](https://arxiv.org/abs/2605.27787) | Long Live the Librarian! A Persistent Search Sub-Agent for Energy-Efficient Multi-Agent So | empirical | 4 | none | 0.442 |
 | [2608.25939](https://arxiv.org/abs/2608.25939) | XREPOTEST: Benchmarking Multilingual Repository-Level Unit Test Generation for Large Langu | benchmark | 4 | none | 0.442 |
 | [2608.06848](https://arxiv.org/abs/2608.06848) | Understanding and Improving Model Editing for Secure Code Generation | empirical | 4 | none | 0.442 |
-| [2606.12344](https://arxiv.org/abs/2606.12344) | Claw-SWE-Bench: A Benchmark for Evaluating OpenClaw-style Agent Harnesses on Coding Tasks | benchmark | 4 | low | 0.389 |
 | [2609.33762](https://arxiv.org/abs/2609.33762) | EfficientAgent: What Makes KV Cache Offloading Work for Concurrent Agents? | system | 4 | low | 0.389 |
-| [2607.25431](https://arxiv.org/abs/2607.25431) | CodeNib: A Multi-View Data System for Serving Repository Context to Coding Agents | system | 4 | none | 0.365 |
 | [2607.02825](https://arxiv.org/abs/2607.02825) | JavaVulBench: A Java Vulnerability Benchmark with Realistic Splits, a Unified Multi-Backen | benchmark | 3 | none | 0.36 |
+| [2605.06445](https://arxiv.org/abs/2605.06445) | Constraint Decay: The Fragility of LLM Agents in Backend Code Generation | empirical | 3 | none | 0.331 |
 | [2606.24446](https://arxiv.org/abs/2606.24446) | Agentic Generation of AST Transformation Rules for Fixing Breaking Updates | empirical | 3 | none | 0.331 |
 | [2607.03691](https://arxiv.org/abs/2607.03691) | Don't Blame the Large Language Model: How Agent Harness Evolution Shapes Coding Agent Qual | empirical | 3 | none | 0.331 |
 | [2607.18057](https://arxiv.org/abs/2607.18057) | Test Coverage Analysis of Agentic Pull Requests | empirical | 3 | none | 0.331 |
 | [2608.09072](https://arxiv.org/abs/2608.09072) | A Unified Issue Resolution Benchmark for Requirement Clarification, Planning, and Code Gen | benchmark | 3 | none | 0.331 |
+| [2605.17242](https://arxiv.org/abs/2605.17242) | From Runnable to Shippable: Multi-Agent Test-Driven Development for Generating Full-Stack  | empirical | 3 | none | 0.331 |
 | [2606.18168](https://arxiv.org/abs/2606.18168) | All Smoke, No Alarm: Oracle Signals in Agent-Authored Test Code | empirical | 3 | none | 0.331 |
-| [2607.22585](https://arxiv.org/abs/2607.22585) | The Scaffold Effect in Coding Agents: Harness Choice as a Hidden Variable in Coding-Agent  | empirical | 3 | none | 0.331 |
-| [2607.27250](https://arxiv.org/abs/2607.27250) | Do Context Files Help Coding Agents? A Two-Agent Ablation Study on Real Repositories | empirical | 3 | none | 0.331 |
 | [2608.08453](https://arxiv.org/abs/2608.08453) | What Keeps Agent Skills from Being Reusable? Evidence from 138K SKILL.md Files | empirical | 3 | none | 0.331 |
-| [2606.01629](https://arxiv.org/abs/2606.01629) | Benchmarking LLM-as-a-Judge for Long-Form Output Evaluation | benchmark | 3 | none | 0.331 |
-| [2606.25195](https://arxiv.org/abs/2606.25195) | SoK: AI Secure Code Generation: Progress, Pitfalls, and Paths Forward | survey | 3 | none | 0.331 |
-| [2606.31174](https://arxiv.org/abs/2606.31174) | ClawArena-Team: Benchmarking Subagent Orchestration and Dynamic Workflows in Language-Mode | benchmark | 3 | none | 0.331 |
-| [2606.31767](https://arxiv.org/abs/2606.31767) | JETO-Bench: A Reproducible Benchmark for Execution Time Improvement Patches in Java | benchmark | 3 | none | 0.331 |
-| [2607.07980](https://arxiv.org/abs/2607.07980) | 3100 Opinions on Code Review in an AI World: Building Causal Theory from Practitioner Disc | theory | 3 | none | 0.331 |
-| [2607.26375](https://arxiv.org/abs/2607.26375) | (Im)Paired Programming: Coding Agents Improve Productivity but Harm Understanding | empirical | 3 | none | 0.331 |
-| [2608.06477](https://arxiv.org/abs/2608.06477) | StepJack: Benchmarking Computer-Use Agent Safety Against Multi-Step Indirect Prompt Inject | benchmark | 3 | none | 0.331 |
-| [2608.09802](https://arxiv.org/abs/2608.09802) | SWE-Bench ProMax: Benchmarking Agents on Large-Scale Multilingual Code Refactoring | benchmark | 3 | none | 0.331 |
-| [2608.25457](https://arxiv.org/abs/2608.25457) | MACGen: Toward Functionally Correct and Secure Code Generation via Multi-Agent Collaborati | system | 3 | none | 0.331 |
 | [2609.00362](https://arxiv.org/abs/2609.00362) | Revisiting Feedback-Driven LLM Code Repair: A Replication and Exploratory Java Extension | replication | 3 | none | 0.331 |
-| [2609.08318](https://arxiv.org/abs/2609.08318) | AttnCompress: Dynamic Attention-Guided Trajectory Compression for Software Engineering Age | system | 3 | none | 0.331 |
 | [2609.22222](https://arxiv.org/abs/2609.22222) | Can Coding Agents Reproduce Official Statistics? Metadata, Retry Budget and the Limits of  | empirical | 3 | none | 0.331 |
+| [2605.26156](https://arxiv.org/abs/2605.26156) | Turning Bias into Bugs: Bandit-Guided Style Manipulation Attacks on LLM Judges | empirical | 3 | none | 0.331 |
 | [2605.29737](https://arxiv.org/abs/2605.29737) | Minimal Prompt Perturbations Lead to Code Vulnerabilities: Prompt Fragility and Hidden-Sta | empirical | 3 | none | 0.331 |
+| [2606.01629](https://arxiv.org/abs/2606.01629) | Benchmarking LLM-as-a-Judge for Long-Form Output Evaluation | benchmark | 3 | none | 0.331 |
 | [2606.08500](https://arxiv.org/abs/2606.08500) | Projecting the Emerging Mindset of SWE Agent by Launching a Wild Code Understanding Journe | empirical | 3 | none | 0.331 |
 | [2606.21926](https://arxiv.org/abs/2606.21926) | A11YRepair: Bridging Web Accessibility Barriers via Knowledge-Enhanced Divide-and-Conquer  | system | 3 | none | 0.331 |
+| [2606.31767](https://arxiv.org/abs/2606.31767) | JETO-Bench: A Reproducible Benchmark for Execution Time Improvement Patches in Java | benchmark | 3 | none | 0.331 |
 | [2607.21832](https://arxiv.org/abs/2607.21832) | How Do AI Coding Agents Contribute to Software Development? an Empirical Study of Agentic  | empirical | 3 | none | 0.331 |
+| [2607.26375](https://arxiv.org/abs/2607.26375) | (Im)Paired Programming: Coding Agents Improve Productivity but Harm Understanding | empirical | 3 | none | 0.331 |
+| [2608.06477](https://arxiv.org/abs/2608.06477) | StepJack: Benchmarking Computer-Use Agent Safety Against Multi-Step Indirect Prompt Inject | benchmark | 3 | none | 0.331 |
 | [2608.19799](https://arxiv.org/abs/2608.19799) | SWE-bench Science: Can Coding Agents Resolve Engineering Tasks in Science? | benchmark | 3 | none | 0.331 |
+| [2608.30497](https://arxiv.org/abs/2608.30497) | Bridge: Automatically Mining Ecosystem-Scale API Update Mappings and Client Update Instanc | dataset | 3 | none | 0.331 |
+| [2609.08318](https://arxiv.org/abs/2609.08318) | AttnCompress: Dynamic Attention-Guided Trajectory Compression for Software Engineering Age | system | 3 | none | 0.331 |
+| [2609.27624](https://arxiv.org/abs/2609.27624) | Agent Name Collision Attacks in Multi-Agent Systems | empirical | 3 | none | 0.331 |
+| [2610.02932](https://arxiv.org/abs/2610.02932) | When to Compile a Computer-Use Agent? Measuring Payback and Making Compilation Decisions f | system | 3 | none | 0.331 |
+| [2607.25718](https://arxiv.org/abs/2607.25718) | Tools Are Not Islands: Set-Level Tool Retrieval for LLM Agents via Query-Conditioned Hyper | empirical | 3 | none | 0.331 |
+| [2607.25431](https://arxiv.org/abs/2607.25431) | CodeNib: A Multi-View Data System for Serving Repository Context to Coding Agents | system | 4 | none | 0.326 |
+| [2607.28591](https://arxiv.org/abs/2607.28591) | Change2Task: From Repository Changes to Executable Coding Agent Tasks and Environments | system | 4 | low | 0.321 |
+| [2605.22534](https://arxiv.org/abs/2605.22534) | Why Are Agentic Pull Requests Merged or Rejected? An Empirical Study | empirical | 3 | none | 0.302 |
+| [2606.14796](https://arxiv.org/abs/2606.14796) | Faster Code, Deeper Debt? A Multivocal Literature Review on Technical Debt and Its Early S | survey | 3 | none | 0.302 |
+| [2607.01456](https://arxiv.org/abs/2607.01456) | From Anatomy to Smells: An Empirical Study of SKILL.md in Agent Skills | empirical | 3 | none | 0.302 |
+| [2607.17619](https://arxiv.org/abs/2607.17619) | Insecure Coding Preferences in Long-Term Memory: Security Risks for LLM-based Code Generat | empirical | 3 | none | 0.302 |
+| [2608.16742](https://arxiv.org/abs/2608.16742) | TDD-Agent: Test-Driven Reasoning for Code Generation | system | 3 | none | 0.302 |
+| [2608.20167](https://arxiv.org/abs/2608.20167) | BreakGuard: Towards Detecting Dependency Breaking Changes with LLM-Generated Tests | empirical | 3 | none | 0.302 |
+| [2608.25457](https://arxiv.org/abs/2608.25457) | MACGen: Toward Functionally Correct and Secure Code Generation via Multi-Agent Collaborati | system | 3 | none | 0.302 |
 
 ## Rejected
 
@@ -216,10 +216,12 @@ Weighted score = sum of review weights (rigor x reproducibility x COI discount; 
 | [2605.04902](https://arxiv.org/abs/2605.04902) | AegisTS: A Hierarchical Agentic AI System with Reinforcement Learning for Multiv | off-topic: RL-based time-series data cleaning. 'Agentic' refers to RL policies, not LLM coding agents. The headline numbers are best cases on synthetic corrupti |
 | [2605.05584](https://arxiv.org/abs/2605.05584) | Operationalizing Ethics for AI Agents: How Developers Encode Values into Reposit | Position/vision paper with no evaluation: six cherry-picked excerpts and no test of whether agents follow the encoded values. It is useful only as a pointer to  |
 | [2605.11868](https://arxiv.org/abs/2605.11868) | IPI-proxy: An Intercepting Proxy for Red-Teaming Web-Browsing AI Agents Against  | Design description of a red-teaming tool with no empirical evaluation; usable as a pointer to an artifact but provides no evidence for the knowledge base. |
+| [2605.12280](https://arxiv.org/abs/2605.12280) | Iterative Audit Convergence in LLM-Managed Multi-Agent Systems: A Case Study in  | [audit tightened admit_with_caveats->reject] Unusually candid about threats and peer reviewed, but evidence is one system with no control, an author-seeded toy  |
 | [2605.12652](https://arxiv.org/abs/2605.12652) | Multi-Rollout On-Policy Distillation via Peer Successes and Failures | off-topic: model post-training/distillation method for small open models; no bearing on agent harness design, and evaluation lacks seeds with config apparently  |
 | [2605.12718](https://arxiv.org/abs/2605.12718) | CHAL: Council of Hierarchical Agentic Language | off-topic: multi-agent debate on philosophical/defeasible questions, not software engineering or coding-agent harnesses; evaluation uses only internal metrics w |
 | [2605.15721](https://arxiv.org/abs/2605.15721) | Contexting as Recommendation: Evolutionary Collaborative Filtering for Context E | off-topic: per-instance prompt/context optimization evaluated only on NLP QA and fact-verification datasets with one model; no coding, agent, or harness evaluat |
 | [2605.16821](https://arxiv.org/abs/2605.16821) | Multi-Paradigm Agent Interaction in Practice:A Systematic Analysis of Generator- | No real evaluation: one cherry-picked case study and five scenarios scored by the system's own LLM evaluator; headline abstract numbers are absent from or contr |
+| [2605.17535](https://arxiv.org/abs/2605.17535) | AgentModernize: Preserving Business Logic in Legacy Modernization with Multi-Age | [audit tightened admit_with_caveats->reject] Candid paper whose most useful findings are negative (structured multi-agent pipeline loses to a single prompt on s |
 | [2605.17548](https://arxiv.org/abs/2605.17548) | Rethinking Code Review in the Age of AI: A Vision for Agentic Code Review | A position paper with no implementation or evaluation, so none of its framework claims has evidence. It is a useful literature map of code-review challenges (§3 |
 | [2605.19638](https://arxiv.org/abs/2605.19638) | The Accessibility Capability Boundary: Operational Limits and Expansion Potentia | Off-topic: an accessibility HCI position paper about LLM-generated single-file HTML tools, not about agent harnesses or software engineering with agents. Its em |
 | [2605.25624](https://arxiv.org/abs/2605.25624) | CUA-Gym: Scaling Verifiable Training Environments and Tasks for Computer-Use Age | off-topic: RL training-data generation for GUI computer-use models. A substantial, plausibly sound dataset paper, but it informs model training, not harness des |
@@ -230,6 +232,7 @@ Weighted score = sum of review weights (rigor x reproducibility x COI discount; 
 | [2605.29140](https://arxiv.org/abs/2605.29140) | S3C2 Summit 2025-07: Government Secure Supply Chain Summit | Anecdotal, unattributed practitioner discussion summary with no systematic qualitative method and internal inconsistencies; LLM content (§7) is generic (halluci |
 | [2605.29226](https://arxiv.org/abs/2605.29226) | S3C2 Summit 2025-09: Industry Secure Supply Chain Summit | Practitioner-opinion summary with no systematic method; useful as an idea list (MCP default-deny, agent identities, tiered agent permissions) but provides no ev |
 | [2606.01592](https://arxiv.org/abs/2606.01592) | Question Type, Cognitive Load, and CEFR Alignment: Evaluating LLM-Generated EFL  | off-topic: EFL grammar-drill learner analytics, not LLM agents or software engineering. Its headline claim that LLM-generated content is pedagogically viable is |
+| [2606.03115](https://arxiv.org/abs/2606.03115) | SPOQ: Specialist Orchestrated Queuing for Multi-Agent Software Engineering | [audit tightened admit_with_caveats->reject] Useful, concrete design (dependency-wave dispatch, pre/post gates, human planning review, failure-mode catalogue in |
 | [2606.03394](https://arxiv.org/abs/2606.03394) | Human-AI Collaboration and the Transformation of Software Engineering Work | Position-style synthesis with a 12-source hand-curated corpus, no search protocol, single author coding, and no empirical validation of the framework or proposi |
 | [2606.05720](https://arxiv.org/abs/2606.05720) | Microskill Architecture: A Modular Skill-Driven Framework for AI-Native Code Gen | Evidence is a single unreplicated 15-feature case study with one model, a full-dump strawman baseline, no variance or ablations, a circular violations metric, u |
 | [2606.07866](https://arxiv.org/abs/2606.07866) | Overcoming the Regulatory Bottleneck via Agent-to-Agent Protocols: A Nuclear Cas | off-topic: nuclear regulatory inter-organizational agent protocol, not software engineering or coding-agent harnesses; additionally, the quantitative claims are |
@@ -287,3 +290,13 @@ Weighted score = sum of review weights (rigor x reproducibility x COI discount; 
 
 | Agreement | Papers |
 | --- | --- |
+| minor_disagreement | 50 |
+| agree | 5 |
+| major_disagreement | 4 |
+
+Major disagreements (merged conservatively):
+
+- [2605.12280](https://arxiv.org/abs/2605.12280) Iterative Audit Convergence in LLM-Managed Multi-Agent Systems: A Case Study in  — blind verdict `reject`, final `rejected`
+- [2605.17535](https://arxiv.org/abs/2605.17535) AgentModernize: Preserving Business Logic in Legacy Modernization with Multi-Age — blind verdict `reject`, final `rejected`
+- [2606.03115](https://arxiv.org/abs/2606.03115) SPOQ: Specialist Orchestrated Queuing for Multi-Agent Software Engineering — blind verdict `reject`, final `rejected`
+- [2607.22585](https://arxiv.org/abs/2607.22585) The Scaffold Effect in Coding Agents: Harness Choice as a Hidden Variable in Cod — blind verdict `admit_with_caveats`, final `caveated`

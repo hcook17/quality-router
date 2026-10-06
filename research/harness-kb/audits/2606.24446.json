@@ -1,0 +1,19 @@
+{"arxiv_id": "2606.24446",
+ "blind_scores": {"rigor": 3, "reproducibility": 4, "generalizability": 3, "relevance": 4, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "AST engine choice is a first-order determinant: JavaParser beats Spoon.", "proposed_strength": "moderate", "reason": "The review's evidence line ('JavaParser higher CRR for all four models') is false per Table I. Gemini-3.1-Pro gets 65.6% on Spoon vs 53.5% on JavaParser (p=0.04, §V-A), and the paper contradicts itself between line 'JavaParser yields a higher CRR than Spoon for all four models' and the next paragraph. The Fix Rate advantage holds for 3 of 4 models, but these are single runs, and Fisher tests across many pairs have no multiple-comparison correction (acknowledged in §VI)."},
+  {"claim": "Generated transformations transfer across projects: 33.3% cross-project fix rate overall, ≥80% when clients use the API uniformly.", "proposed_strength": "weak", "reason": "Three problems. First, the '≥80% when uniform' subgroup is defined after the fact from outcomes; BU03/BU04 share the same library and seed project, so they are not independent. Second, 'Fixed' in Table III means mvn test-compile; full mvn test passing is only marked per row (∗), not counted. Third, 7 of 16 transformations transfer to nothing, 72/86 failures find no call sites, and the pooled 33.3% is dominated by BU12/BU13 (55 of 129 targets from one seed, allure-maven)."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P27", "from": "supports", "to": "mixed", "reason": "Transfer is between unrelated open-source clients of a public library, not coordinated changes across a team's own repositories. Even then, 7/16 transformations transfer to no client and the mechanism fails whenever usage differs from the single seed. The evidence shows partial transfer, not a working cross-repo coordination pattern."}
+ ],
+ "missed_issues": [
+  "There is a factual error in the review's claim evidence: Gemini-3.1-Pro is the exception where Spoon beats JavaParser on CRR. The review's applicability advice to 'prefer JavaParser' is still reasonable on Fix Rate, but the claim as recorded is wrong.",
+  "Model and scaffold are confounded for the winning configuration (Gemini-3.1-Pro runs only under GeminiCLI, the others under OpenCode, §III-E). The paper's RQ2 takeaway that 'model selection' is the primary lever cannot separate model from scaffold.",
+  "Cost spans $60 (Qwen3-30B) to $2,600 (Gemini-3.1-Pro, §III-E). The best Fix Rate comes from the most expensive configuration, but no cost-per-fix is reported. That matters for the team's budget decision.",
+  "The RQ3 transfer study uses only the best configuration and discards 50 of 66 transformations for lack of reproducible targets (§V-C), which is a selection step on top of an already conditional metric.",
+  "Relevance 5 is slightly high. The paper addresses breaking dependency updates in public Maven projects, not ingestion or delivery pipelines or spec-driven work. It is directly useful for one recurring multi-repo task (shared-library bumps), so 4 is more accurate."
+ ],
+ "note": "A relevant Java/Maven study with released artifacts, and the review correctly caught the abstract's merged-configuration headline. However, the review misstates the engine result, and the cross-project transfer claim is post-hoc and weaker than graded."}

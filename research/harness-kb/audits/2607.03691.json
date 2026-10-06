@@ -1,0 +1,21 @@
+{"arxiv_id": "2607.03691",
+ "blind_scores": {"rigor": 3, "reproducibility": 4, "generalizability": 2, "relevance": 4, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "Holding the model fixed, harness releases change agent quality; resolve rate fluctuates (23%-39%) with no significant trend", "proposed_strength": "weak", "reason": "The cost half is supported elsewhere (Finding 6), but the effectiveness half is not. Resolve rates lie in a 16-point band on 50 tasks (8 tasks). 12.3% of task executions disagree between two runs of the same release (Finding 4), so the per-release swings are not separated from noise. No per-release CI or test of 'release differs from release' is reported, so the review's own caveats argue for weak, not moderate."},
+  {"claim": "Agent harnesses release 13-28x more often than traditional OSS projects", "proposed_strength": "moderate", "reason": "The release count is fine. However, the comparison set is only two hand-picked baselines (VS Code, GitHub CLI), and the paper's own Table 4 shows VS Code at 47.9 commits/day versus 13-34 for the harnesses. The broader 'development intensity far exceeds traditional OSS' framing in §1 is therefore contradicted by the paper's own data and should not be carried forward."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P03", "from": "supports", "to": "neutral", "reason": "No tool catalog was manipulated. Finding 8 attributes only ~8% initial prompt-payload growth to system prompt and tool schemas, and token growth tracks turn count (rho=0.941). This is not evidence that a small or deferred tool catalog works."},
+  {"id": "P24", "from": "supports", "to": "neutral", "reason": "No budgets or caps were tested. The only cap present is the fixed 600 s timeout (§3.3), and its effect is not analysed. 'Failed tasks use 2.7x tokens' is descriptive and does not show that capping preserves resolve rate."},
+  {"id": "P08", "from": "contradicts", "to": "mixed", "reason": "Finding 15 is a single correlation (rho=-0.346, partial -0.392, n=35) among many factors tested on one project. It is not an intervention on compaction, and the paper bundles 'context window logic' with compaction."}
+ ],
+ "missed_issues": [
+  "Section 9's threats discussion never names the fixed 600 s per-task timeout (§3.3) as a confound. Later releases need 18% more turns, so timeouts may convert to failures and inflate the 'failed tasks cost more' finding. The review flags the timeout only for Finding 8.",
+  "§9 claims that 87.7% run agreement 'confirms that observed quality variations are attributable to agent harness changes rather than model non-determinism'. That is a non sequitur, because the 12.3% flip rate is of the same order as the inter-release resolve-rate spread.",
+  "'Default sampling parameters of the Qwen Code CLI' are used per release (§3.3), so any change in harness defaults is folded into 'harness effect'. Prompt, tool and sampling changes are not separated.",
+  "The release-tier labels (z=±0.75σ on a noisy 50-task resolve rate) feed the Mann-Whitney comparisons in RQ2, so noise in RQ1 propagates into the 'Good vs Bad release' factor analysis.",
+  "'Hyper-churn' is a coined label (mild novelty_inflation), and the RQ0 baseline selection (two projects) is a strawman-style comparison set."
+ ],
+ "note": "The review is careful: it already caught the 52%/131% vs 139%/182% inconsistency and the noise problem. But it still grades effectiveness claims moderate, and it awards three 'supports' or 'contradicts' pattern stances (P03, P24, P08) on descriptive or correlational evidence alone. Relevance of 5 is slightly high for a Python-only, single-model probe, though the version-pinning and regression-tracking lesson does transfer to mixed hosts."}

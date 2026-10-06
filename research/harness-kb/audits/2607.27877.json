@@ -1,0 +1,18 @@
+{"arxiv_id": "2607.27877",
+ "blind_scores": {"rigor": 2, "reproducibility": 3, "generalizability": 2, "relevance": 3, "coi_risk": 1},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "agree",
+ "claims_disputed": [
+  {"claim": "TAgent feedback drives refinement: 82.0% of 600 adjacent round transitions improve and 94.7% of runs finish R3 above R1.", "proposed_strength": "weak", "reason": "The same TAgent rubric is both the feedback given to agents and the score; improvement on it is partly teaching-to-the-grader. There is no bare-retry or generic-feedback ablation to separate 'feedback content' from 'another round of time' (each round also gets up to 90 more minutes)."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P15", "from": "supports", "to": "mixed", "reason": "QA-first ties with rotation (83.3) on the 10-project mean from essentially single runs with no variance. The paper itself says QA-first works by turning requirements into acceptance targets 'matching TAgent validation', so the advantage is confounded with alignment to the grader's rubric."},
+  {"id": "P34", "from": "supports", "to": "neutral", "reason": "Rubric-compiled requirements are the evaluation instrument and the shared feedback for every mode, not a manipulated variable; nothing compares agents with and without structured acceptance criteria."}
+ ],
+ "missed_issues": [
+  "Selective reruns: non-IM projects are rerun 'only when experts flag a test as abnormal' (Limitations), an unblinded, outcome-dependent rerun policy.",
+  "Goodhart/benchmark_overfit: the grader's rubric feeds back into the agents each round, so final scores measure convergence to the grader as much as functional quality.",
+  "The contamination claim ('not sensitive to data contamination') is an assertion; the projects come from a capstone corpus 'since 2018', and the generated code is 'typically 2000+ lines of Python'.",
+  "Abstract says 'heavy managerial oversight degrades performance', yet the appendix lists PM oversight as the best mode on the crowdsourcing project (P02, 80.9)."
+ ],
+ "note": "The first review is accurate and appropriately skeptical (single runs, abstract–body mismatches, self-built grader). I only downgrade the QA-first/TDD and structured-requirements stances, which are confounded by the grader being the feedback source."}

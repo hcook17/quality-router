@@ -1,0 +1,20 @@
+{"arxiv_id": "2606.31767",
+ "blind_scores": {"rigor": 3, "reproducibility": 4, "generalizability": 3, "relevance": 2, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "Open-source Java projects largely lack tests that demonstrate execution-time improvements (JMH in only 14/91).", "proposed_strength": "moderate", "reason": "The 14/91 JMH count (§6.1) is a direct count, but the 'lack of tests' inference rests on JUnit test-class wall-clock timing restricted to modified modules (§3.3, §5.1). Failing to reach significance with noisy class-level timings does not show that no demonstrating test exists. The authors also note that test order affects timing (§6.3.2)."},
+  {"claim": "The pipeline produces reproducible benchmarks with statistical evidence of execution-time improvement.", "proposed_strength": "weak", "reason": "I agree it is weak, but the review's methodology field misstates the default threshold. §3.5 says the default counts 5% improvement at p-value 10% as significant; p=0.05 with 10% improvement is the 'conservative' config. It is not p=0.01. Even under that permissive default only 19/102 ETIPs qualify (8 under the conservative config), and 6 of the 19 also show a significant regression."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P20", "from": "supports", "to": "mixed", "reason": "Docker images do serve as the OpenHands sandbox, but the paper presents them as a reproducibility vehicle, not as evidence about sandboxing. Only 102 of 660 identified ETIPs became executable images, and the authors report that timing stays environment-sensitive (§6.3.2)."}
+ ],
+ "missed_issues": [
+  "The default significance threshold is p<0.1 with a 5% minimum (§3.5), which is permissive for 'statistical evidence'. The review's methodology field records it wrongly as p=0.01.",
+  "The review never challenges the claim that 14.3% 'aligns with prior work'. The paper's own related work cites OpenHands at 4.9% on GSO and 3% on PerfBench (§7.1), so 14.3% is roughly 3-5x higher. That points to contamination or easier tasks rather than alignment.",
+  "The soundness check is circular: correct patches 'pass tests' (§4.4), but the review itself notes that most incorrect patches pass too, so test passing cannot confirm harness soundness.",
+  "The authors manually classified generated patches into exact, semantic-equivalent, correct-location and wrong-location buckets with no second rater (§4.4). The self_evaluation bias in the review only names the issue labeling.",
+  "Model naming is inconsistent: §4.4 says 'mimo-pro-mini', while elsewhere the model is Mimo-pro-2.5.",
+  "OpenHands has a 100-iteration budget, but the paper reports no token or $ cost for the agent runs. Cost is reported only for the $5.33 filter (missing_cost_reporting)."
+ ],
+ "note": "The first review is accurate in substance and catches the recall issue hidden behind '95% accuracy'. It misreports the default p-value, and its relevance score of 3 is generous: this is a Java performance-patch benchmark, not ingestion, multi-repo or spec work."}

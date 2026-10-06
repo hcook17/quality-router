@@ -1,0 +1,18 @@
+{"arxiv_id": "2607.07980",
+ "blind_scores": {"rigor": 2, "reproducibility": 4, "generalizability": 2, "relevance": 3, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "LLM-assisted grey-literature theory building is a scalable template (~US$0.35 per document)", "proposed_strength": "weak", "reason": "Only the open-coding stage scaled. §VI says automating theory construction 'proved ineffective' (15,029 shallow causal statements discarded), and the theory was then built by hand. The authors cannot say where saturation set in. No human-vs-LLM agreement is reported for the 4,838 open codes; the only validation is LLM-vs-LLM kappa=0.75 on the relevance filter (Appendix 3). The $0.35 figure is the authors' own cost and excludes the manual effort they describe as the 'central work'."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P18", "from": "mixed", "to": "neutral", "reason": "'Mixed' implies evidence on both sides. Here both sides are practitioner opinion, and the pro side includes a vendor marketing figure (CodeRabbit '82% of planted bugs', G2836, §IV). The authors state that 'we confirm none of these relationships' (§VI). That is discourse, not evidence that AI reviewers work or fail."}
+ ],
+ "missed_issues": [
+  "Corpus construction deliberately queried 'agent vendors' and 'AI review-tool vendors' as institutional domains (§III-A). Vendor advocacy is therefore built into the sampling frame, not just an incidental limitation, and vendor numbers are then used as grounding quotes for propositions.",
+  "431 of the 3,100 sampled documents (about 14%) produced no codes. The codebook is grounded in 2,669 documents (§III-A), and the paper does not analyse whether the drop-out is non-random.",
+  "The paper reports no check that the LLM-extracted 'verbatim' quotes actually appear in the source documents. Hallucination of quotes is acknowledged as possible, but no audit rate is reported.",
+  "Rigor 3 is too high for an untested qualitative theory whose open coding was done entirely by Gemini 2.5 Flash without human inter-coder reliability. Under the rubric this sits nearer 2.",
+  "There is no detection of LLM-generated source documents, although the authors concede some sources may be 'partly or wholly LLM-generated' (§III-A1)."
+ ],
+ "note": "I agree with the verdict: this is a usable hypothesis catalogue and the review frames it so. The first review is slightly lenient on rigor and on the methodological claim, and its P18 'mixed' stance treats opinion as evidence. Nothing here should be cited as support for any pattern."}

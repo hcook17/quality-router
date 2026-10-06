@@ -1,0 +1,18 @@
+{"arxiv_id": "2609.02272",
+ "blind_scores": {"rigor": 2, "reproducibility": 1, "generalizability": 1, "relevance": 2, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "PaperCompiler improves reference-based fidelity by 13.8% (3.647 -> 4.152) over PaperCoder, plus smaller reference-free (4.562 -> 4.777) and P2C-Ex (4.535 -> 4.728) gains.", "proposed_strength": "weak", "reason": "Numbers verified in Table 1, but every score is a single-backbone o3-mini-high judgment with no human validation and no execution (Appendix A). Reference-free and P2C-Ex scores sit at the ceiling (4.5–4.8 of 5). There is one generation per paper, no significance test, and ties are excluded from the Fig. 4 win ratios. The paper's own ablation shows that reference-free judging rewards 'surface-complete repositories' (§4.4). A judge-only, ceiling-compressed signal does not justify 'moderate'."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P14", "from": "supports", "to": "mixed", "reason": "The only evidence is LLM-judged fidelity. In the ablation, removing file-level Contracting or Context Slicing scores higher than the full system on two of three protocols (Table 4: 4.65/4.54 and 4.72/4.74 vs 4.57/4.42). API/schema mismatches rose from 2.3% to 4.0% (Table 3). That is mixed evidence for compiled per-file specs, not support."}
+ ],
+ "missed_issues": [
+  "Table 1 mixes judges: the ChatDev/MetaGPT rows are copied from the PaperCoder paper (caption), not re-run under the o3-mini-high evaluator, yet they are presented alongside the controlled reruns.",
+  "The 'manual' failure labelling in §4.3 gives no annotator count, agreement statistic, or blinding to which system produced each critique, and the severity labels come from the LLM evaluator.",
+  "Ceiling effects on reference-free/P2C-Ex judging (4.5–4.8 of 5) compress differences; relative '% gains' on a bounded 1–5 Likert scale are misleading.",
+  "Reproducibility is overstated at 2: no code, no generated repositories, and only prompt excerpts (Appendix E). Per the rubric, this is closer to 1.",
+  "Relevance is overstated at 3: the domain is research-paper-to-Python-ML-repo generation in a single repository, and the transfer to a Java multi-repo ingestion team is an analogy the review constructs, not evidence in the paper."
+ ],
+ "note": "The review's facts are right and it flags the judge and ablation problems. However, it still grades the headline claim moderate and tags P14/P34 'supports' on judge-only, ceiling-compressed scores. Admit only as a design idea, not as evidence for SDD."}

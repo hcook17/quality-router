@@ -1,0 +1,19 @@
+{
+  "arxiv_id": "2609.38345",
+  "blind_scores": {"rigor": 2, "reproducibility": 3, "generalizability": 2, "relevance": 3, "coi_risk": 1},
+  "blind_verdict": "admit_with_caveats",
+  "blind_coi_severity": "low",
+  "agreement": "minor_disagreement",
+  "claims_disputed": [
+    {"claim": "Changing a single configuration dimension moves Adherence from 47.2% to as high as 97.2%.", "proposed_strength": "moderate", "reason": "The CIs are real, but construct validity is thin. A Team run counts as 'adherent' when every teammate 'spent tokens and produced at least one model output' (B.1.1 Metrics), so a read-only or no-edit Adopter is adherent almost by construction. The abstract's 'changing any single dimension shifts Adherence' is contradicted by B1 (0.5M/role stated budget), which stays at exactly 47.2% [30.4, 64.5], the reference value (Table 10, 9:9 discordant). Table 3 also prints the reference row's budget as '0.5M / role' while §4.2 and Table 7 say the reference has 2M. Each configuration is a single run on 36 tasks."}
+  ],
+  "pattern_stance_changes": [
+    {"id": "P24", "from": "supports", "to": "mixed", "reason": "The budget ablation shows that a tight cap (0.5M/role) cuts Pass@1 to 44.4% (0:11 vs Single, p=0.001), and that stating a 2M budget changes Pass@1 by 0.0 ITT (Table 4). This is evidence that caps can hurt or do nothing, not that per-role budgets work. Pre-call enforcement is a mechanism, not an outcome."}
+  ],
+  "missed_issues": [
+    "On DeepSWE, the authors' own single agent, OpenCollab (Base), scores 55.75%, below mini-swe-agent's 61.95% (Table 2). The Duo 'SOTA' on the one benchmark with a clear margin therefore comes entirely from best-of-two plus a selector, not from a stronger base harness. The paper cites repeated-sampling work ('Large language monkeys') but does not run that baseline.",
+    "Leakage handling is asymmetric. On Terminal-Bench, 'most affected tasks were run again' in a fresh session with a content filter, and leaked passes were 'withdrawn or replaced' (B.1.2). Rerunning only the affected tasks, with an extra filter, gives the affected harnesses a second draw, and it is not stated which harness's tasks were rerun.",
+    "Claude Code's 12.50% cache-hit rate on SWE-bench Pro (vs 84-90% for the others, Table 2) and its 77.90M tokens on DeepSWE suggest it was misconfigured or degraded with GPT-5.6-Luna. Together with the 8 DeepSWE runs stopped by hand and scored as failures (about 7 points on 113 tasks), the Claude Code baseline is not a fair representative of that host."
+  ],
+  "note": "The review is careful and right about the weak SOTA claim and the CACE caveats. It is somewhat lenient in rating Adherence 'strong' given a minimal participation-based definition, an internal budget-label inconsistency, and a counterexample to 'any single dimension'. It also missed that the base harness loses to mini-swe-agent on DeepSWE."
+}

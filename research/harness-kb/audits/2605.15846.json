@@ -1,0 +1,19 @@
+{"arxiv_id": "2605.15846",
+ "blind_scores": {"rigor": 3, "reproducibility": 2, "generalizability": 3, "relevance": 2, "coi_risk": 1},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "Task quality is assured by static validation and rollout-based QC.", "proposed_strength": "weak", "reason": "45 of 115 tasks (39%) still had task-side defects after static validation and were found only through rollouts by three model tiers, so defects those models did not trigger can remain. The review's reading that '~1/3 of initial failures were task defects' is an arithmetic error: Claude-Opus-4.6 went from 19.1% to 30.4% resolved, i.e. 11.3 pp out of 80.9 pp of failures, about 14%. QC gains are also uneven (+11.2 pp for Opus-4.6, +3.0 GLM-5.1, +1.0 Kimi-K2.5), which suggests the repairs favour the strongest QC model."},
+  {"claim": "Top models are scaffold-robust; mid/low-tier models swing 3–10 pp between OpenHands and Terminus 2.", "proposed_strength": "weak", "reason": "I agree with weak and add stronger evidence. The paper's own Terminus numbers for the same models differ between Table 4 'After' (Opus-4.6 30.4, GLM-5.1 20.4, Kimi-K2.5 7.1) and Table 2 (31.3, 20.9, 7.8). Run-to-run noise of about 1 pp is therefore as large as the 0.9 pp 'robustness' gap."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P34", "from": "supports", "to": "neutral", "reason": "Every task uses structured roadmap instructions; no condition varies or removes their structure. Partial credit showing agents stall at integration is a capability finding, not evidence that structured acceptance criteria help."}
+ ],
+ "missed_issues": [
+  "Internal inconsistency on Java: App. G.1 (line 1425) lists the five target languages as Python, TypeScript, Go, Rust, Java, but Table 3 contains C++ (Glaze, thread-pool) and no Java repository. The review notes there is no Java but misses that the paper contradicts itself, which bears on how carefully the dataset was described.",
+  "QC uses rollouts from the same models that are then ranked (Opus-4.6, GLM-5.1 and Kimi-K2.5 appear in Table 4 and on the leaderboard). This is self-referential benchmark construction (benchmark_overfit), beyond the selection_bias label the review used.",
+  "Unequal reasoning effort (xhigh for Opus-4.7, high for four models, default for the rest) is a fairness confound in the configuration, not a metric_mismatch. It favours the top-ranked model directly.",
+  "Sloppy citations, e.g. Kimi-K2.6 attributed to 'MiniMax (2026a)'. Tool-call counts for Opus-4.7 are given as both 101 and 102 in §5.2.",
+  "Relevance is generous at 3: single-repo OSS version upgrades, no Java, no cross-repo contracts. The useful takeaway (per-target acceptance tests; integration is where agents fail) is indirect."
+ ],
+ "note": "Review is careful and its verdict is right. It contains one arithmetic overreach on the QC table, a P34 'supports' stance without an ablation behind it, and misses that Table 4 versus Table 2 shows run-to-run noise as large as the scaffold-robustness claim."}

@@ -1,0 +1,18 @@
+{
+  "arxiv_id": "2608.20167",
+  "blind_scores": {"rigor": 3, "reproducibility": 4, "generalizability": 3, "relevance": 3, "coi_risk": 0},
+  "blind_verdict": "admit_with_caveats",
+  "blind_coi_severity": "none",
+  "agreement": "minor_disagreement",
+  "claims_disputed": [],
+  "pattern_stance_changes": [
+    {"id": "P27", "from": "supports", "to": "mixed", "reason": "The study covers third-party OSS library upgrades in single client repos (31 clients, 25 libraries), not coordinating a team's own repos. The 27/89 detections are all on instances that the client's own test suite already caught (Table I keeps only the 188 'test failure' instances), so the paper never shows the generated tests adding contract-break detection beyond existing tests. 70% of breaks are missed, and behavioural breaks are almost never caught (25 value-assertion tests, 0.7%). The evidence is mixed at best and does not support the pattern."}
+  ],
+  "missed_issues": [
+    "Table IX's header reads 'USD/detection' while the values are mean/median cost per BUMP instance. If $0.90 is the mean per instance over 89 instances, the implied cost per detected break for GPT-4o/class is about 89*0.90/27, roughly $3, which is not the '$0.90 per detected breaking change' in the abstract. The review flagged the unit inconsistency but did not note that the abstract understates per-detection cost.",
+    "Inference for Qwen3-Coder and GPT-OSS ran through 'Ollama Cloud' (Table III), and temperature=0 is presented as steering toward determinism. Hosted inference at temperature 0 is not guaranteed to be deterministic, and only one sample was drawn, so model-to-model gaps (e.g., 27 vs 20 detections) have no uncertainty estimate.",
+    "The configuration that compiles best (Qwen3/class, 33.5% compile) differs from the one that detects best (GPT-4o/class). Overall valid-test yield is low (e.g., GPT-4o/minimal has 418 of 5,790 focal methods valid, 7.2%), so most of the generation spend produces unusable tests.",
+    "Self-benchmark lineage: co-author Baudry also co-authored BUMP (ref, SANER 2024) and the BYAM breaking-update repair work. This is a low-level COI, since the paper evaluates no product, but it is worth recording explicitly."
+  ],
+  "note": "The first review is accurate and appropriately adversarial on the claims, so no claim strengths are disputed. The only real change is P27: it should not be 'supports' when the paper's own filtering means it never shows value beyond the client's existing tests. Relevance 4 is generous because the work is about OSS dependency upgrades, not the team's cross-repo contracts, but it is defensible for a Java/Maven team."
+}

@@ -1,0 +1,21 @@
+{"arxiv_id": "2607.22585",
+ "blind_scores": {"rigor": 2, "reproducibility": 3, "generalizability": 2, "relevance": 3, "coi_risk": 1},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "major_disagreement",
+ "claims_disputed": [
+  {"claim": "Harness choice induces up to 40x difference in tokens per solved task", "proposed_strength": "weak", "reason": "Beyond the cached-token asymmetry the review notes (§3.5: OpenCode/OpenHands totals include cached tokens, Goose uses a total-only field), the Goose figures are internally implausible. Table 3/4 give Goose-Qwen 28,142 tok/solve × 23 solved ≈ 647K tokens over 50 trials, about 13K per trial at ~18 turns, or well under 1K tokens per turn. Yet all harnesses got a 'largely identical' system prompt with a shared four-skill playbook (§3.4), and Goose does 'eager file-tree pre-injection' (§3.3). Re-sending that history each turn should cost far more than 1K tokens per turn, so Goose is very likely under-counted. §6 dismisses this ('robust ... anchored in totals') without checking that the totals measure the same thing. This is my inference from the paper's own numbers, but it is enough to make the 40x unreliable as a cost estimate."},
+  {"claim": "Failure fingerprints are harness properties that replicate across models", "proposed_strength": "weak", "reason": "Appendix A defines VERIFY as finish_called=true and MAX_TURNS as hit_turn_budget. Both are harness-exposed signals: OpenCode cannot produce MAX_TURNS by construction, and 'zero VERIFY' for Goose and OpenCode can simply reflect whether the harness emits a finish call. The 'fingerprints' therefore partly measure the classifier's inputs rather than agent behaviour, and the §5.2 interpretations ('Goose ... honest I cannot do this', 'OpenCode positive verdicts can be trusted') are unsupported."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P24", "from": "supports", "to": "neutral", "reason": "No budget condition was varied. Turn caps differ by harness as a confound, and the only budget analysis is a post-hoc count of OpenCode trials under 40 turns. Selecting harness-model pairs 'under budgets' is a recommendation, not a tested result."},
+  {"id": "P30", "from": "supports", "to": "neutral", "reason": "Trial logs are used as the authors' analysis data. Nothing shows that tracing or observability changes outcomes or catches regressions."}
+ ],
+ "missed_issues": [
+  "VERIFY and MAX_TURNS are defined by harness-specific signals (finish_called, turn cap) in Appendix A, which makes cross-harness failure comparisons structurally biased.",
+  "The Goose token totals imply under 1K tokens per turn despite a shared system prompt and playbook, pointing to a likely accounting artifact behind the 40x headline.",
+  "The review states the classifier was 'not validated against human labels'. The paper does say 'A 20% random sample was manually reviewed for consistency' (Appendix A), though no agreement statistic is given. The minor issue is that the review misstates this; the real issue is that the rules themselves are harness-dependent.",
+  "Table 6 labels the Qwen-vs-MiniMax swap a 'model upgrade' when it is a model swap, which feeds the 'harness matters more than model' framing (mild hype_language).",
+  "Task categories were assigned by GPT-4o-mini without validation (§3.1). This is minor because they are only used for stratification and the per-category breakdown.",
+  "Sentient Labs is an AI company. The rubric scores vendor affiliation alone as low, not none, even though it ships none of the evaluated harnesses."
+ ],
+ "note": "The pass-rate result (0-8 pp, CIs mostly include zero) is the paper's only solid finding. The review is more lenient than the evidence allows: it rates the 40x cost claim and the failure fingerprints moderate, but both rest on non-comparable, harness-defined measurements. For the team, 'harness changes cost' is plausible, but the magnitude should not be cited from this paper."}

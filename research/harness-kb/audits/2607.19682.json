@@ -1,0 +1,20 @@
+{"arxiv_id": "2607.19682",
+ "blind_scores": {"rigor": 3, "reproducibility": 2, "generalizability": 3, "relevance": 3, "coi_risk": 2},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "CATGen substantially raises compilation success on industrial Java code (91.83% avg vs 67.11% for best LLM baseline RATester, 75.80% EvoSuite)", "proposed_strength": "weak", "reason": "Numbers verified (lines 842, 562, 574), but CSR is partly produced by the repair stage itself: rule (4) 'Invalid Reference Resolution ... removes or rewrites references that cannot be bound' and rule (8) 'Fallback Assertion Mechanism, which introduces default assertions' (§3.4, lines 317, 321). Deleting unbindable code and inserting default assertions mechanically raises CSR/PR without implying behaviour-valid tests; mutation score is only reported on Defects4J, not on the industrial set. The EvoSuite comparison is also tilted: budget exhaustion without output is counted as compilation failure (line 843)."},
+  {"claim": "Deterministic static repair beats iterative LLM repair and cuts time/tokens by 51–69% / 67–84%", "proposed_strength": "moderate", "reason": "Cost numbers verified (line 1007, 1010), single model. Quality half is thinner than stated: Table 7 swap gives ChatTester only +1.75 CovL / +1.25 PR over its own LLM repair (48.20→49.95, 51.57→52.82), so the 'beats' gain is mostly on CSR, which is the metric the deletion/fallback rules can inflate. Keep moderate for cost, weak for quality."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P28", "from": "supports", "to": "neutral", "reason": "P28 is deterministic codemods/recipe-based migration. CATGen's templated test skeletons are deterministic scaffolding for new tests, not codemods or migrations; the ablation evidence (Table 3) does not speak to migration recipes."},
+  {"id": "P24", "from": "supports", "to": "neutral", "reason": "The paper reports time and token cost but implements no budget or cap; cost reduction comes from removing LLM rounds, which is evidence about P16/P17 design, not about token budgets/caps."}
+ ],
+ "missed_issues": [
+  "metric_mismatch: repair rules that delete unresolvable references and add fallback assertions (§3.4 rules 4 and 8) can inflate CSR and pass rate; no industrial mutation score to show behaviour-valid tests.",
+  "benchmark_overfit / no held-out split: repair rules derived from 'empirical observations of industrial developer repair workflows' at the same partner whose projects form the benchmark (§3.4, §4.1); no separation between rule derivation and evaluation projects.",
+  "strawman-ish EvoSuite handling: EvoSuite runs that exhaust the 300 s budget without output are counted as compilation failures (§4.2).",
+  "Reported improvement ranges in the abstract/intro mix absolute and relative differences (e.g. time −51.27%..−69.00% is relative, CSR 24.72% is absolute pp) without saying so.",
+  "Zero temperature yet 'five independent runs' — variance across runs is not shown, so the repetition adds little; p-values unadjusted across many pairwise comparisons."
+ ],
+ "note": "Solid Java industrial evaluation with many baselines, but the headline compile/pass gains partly come from repair rules that delete code and add default assertions, and rules were tuned on the same partner's code. Relevance is indirect for an ingestion/delivery team (unit-test generation only; nothing on multi-repo or spec-driven), so 3 rather than 4."}

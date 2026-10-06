@@ -1,0 +1,19 @@
+{
+  "arxiv_id": "2609.32459",
+  "blind_scores": {"rigor": 3, "reproducibility": 1, "generalizability": 3, "relevance": 3, "coi_risk": 0},
+  "blind_verdict": "admit_with_caveats",
+  "blind_coi_severity": "none",
+  "agreement": "minor_disagreement",
+  "claims_disputed": [
+    {"claim": "Tool registry and task-specific subagents give the most stable component gains; context compression and general subagents hurt.", "proposed_strength": "weak", "reason": "The review already notes the benchmark tailoring, but it grades the claim 'moderate' anyway. The 'task-specific' subagents (behavior analysis, differential testing, submission review) are built for ProgramBench's reference-executable reconstruction setting and evaluated only there. ProgramBench's step limit was cut from 1,000 to 300 (§4.4), while subagents get up to 50 rounds with fresh history and raise tool calls by 115.76% / 73.10% (Table 7). The paper does not say whether subagent steps count against the parent's 300-step cap, so part of the 'subagent' gain may be extra step budget. Single run, two models."}
+  ],
+  "pattern_stance_changes": [
+    {"id": "P08", "from": "contradicts", "to": "mixed", "reason": "One compression implementation (LLM summary at a 350K budget, keeping the last 20 messages) on one task type (from-scratch repository generation), single run. It lowered scores by 4.86 / 3.85 pp but cut prompt tokens by 54-77% (Table 7). That is a cost-quality trade-off for one configuration, not evidence that compaction fails in general. The paper itself frames it as task-dependent."}
+  ],
+  "missed_issues": [
+    "Relevance 5 is too high. All runs are single-repo benchmark tasks with open-weight models only. Java is one of five ProgramBench languages with no per-language breakdown, and the component winners are tailored to ProgramBench. It informs harness choices indirectly, not as a direct decision for a multi-repo Java ingestion team.",
+    "The step-budget reduction (ProgramBench 1,000 -> 300 steps) is a cost control that interacts with every component comparison. Mechanisms that add steps or shift work off the parent loop, such as subagents, benefit from a tight parent cap, and this confound is not discussed.",
+    "Claude Code and OpenCode are run with Qwen/DeepSeek models in non-thinking mode (Table 6), which is not the hosts' native configuration. The 'NanoHarness recovers most of the gap to product harnesses' comparison is against product harnesses in an atypical setup, and the 1-2 pp gaps have no variance estimate."
+  ],
+  "note": "The first review is thorough and correctly flags benchmark overfit, closed artifacts and the absence of variance. Its grades were nonetheless somewhat generous (moderate for the component ranking, relevance 5, a categorical 'contradicts' for compaction from a single implementation), and it missed the 300-step cap as a confound."
+}

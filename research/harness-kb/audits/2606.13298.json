@@ -1,0 +1,16 @@
+{"arxiv_id": "2606.13298",
+ "blind_scores": {"rigor": 4, "reproducibility": 5, "generalizability": 3, "relevance": 3, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "Adoption lowers architectural smell density by 6.7%", "proposed_strength": "moderate", "reason": "The point estimate is statistically solid (Table 1, p=0.004), but the paper itself (§4.5, §5.2) says the decline is a denominator artefact, the pessimistic Lee bound is -2.3% with CI including zero (Table 2, p=0.239), and aggressive stale filtering (N=94) gives p=0.223. Observational DiD with a proxy treatment and acknowledged 'modernization bundle' confounding (§6) does not earn 'strong' for a causal claim."},
+  {"claim": "The density decline is a denominator effect: smell counts unchanged, code grows", "proposed_strength": "moderate", "reason": "LOC growth is significant (+12.8%, p=0.0027), but 'unchanged' smell counts rests on a non-significant result with a wide CI (Table 2: [-0.0845, 0.1061], i.e. roughly -8% to +11%); no equivalence test is reported, so absence of increase is not demonstrated, only not detected."}
+ ],
+ "pattern_stance_changes": [],
+ "missed_issues": [
+  "Robustness checks are described as 'Pre-registered' (§3.4) but no registration ID/link appears anywhere in the text; the review recorded preregistration 'none' without flagging this unverifiable claim.",
+  "other:time_varying_confounding — authors concede (§6) treatment may capture a 'modernization bundle'; the review did not list this as a bias even though it is the main threat to the causal reading.",
+  "Outcome tool is Arcan 2 'trial edition' (closed commercial tool, precision cited 70–100%), so the outcome measurement is not fully reproducible from the replication package alone.",
+  "Relevance 4 is generous: the paper informs metric-design/monitoring, not a harness, multi-repo, or spec-driven decision; treatment is mixed config-file presence, not any specific harness practice."
+ ],
+ "note": "Sound, peer-reviewed, fully replicable Java mining study; admit but caveat that the headline effect is a non-causal-safe ratio artefact and the 'no degradation' reading is a non-significant null over six months."}

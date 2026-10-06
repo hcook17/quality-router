@@ -1,0 +1,20 @@
+{"arxiv_id": "2610.02952",
+ "blind_scores": {"rigor": 3, "reproducibility": 1, "generalizability": 1, "relevance": 3, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "Fresh random audits after candidate commitment control false acceptance across rounds.", "proposed_strength": "moderate", "reason": "The proofs (Thms 4.10-4.15) are conditional on Assumption 4.2 (independent sampling after commitment). Empirically the audit never ran as a gate: §6 says 'no acceptance rule acts during the four rounds'. The 0.074 expected-false-acceptance figure is computed after the fact from recorded failure counts, assuming the audit would not have changed development. Strong as a mathematical statement, but only moderate as evidence that the rule works in practice."},
+  {"claim": "The study cannot attribute the advantage to regeneration, trace count, or counterexample history alone.", "proposed_strength": "moderate", "reason": "This is a null result from post hoc, exploratory conditions with 30 blocks and no power analysis. The paper supports 'not attributable with this power', not that the features are interchangeable. The Blind rerun differs from the original Dynamic blind by +0.029, which shows run-to-run drift at API-default temperature."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P34", "from": "supports", "to": "introduces", "reason": "The protocol requires a 2,072-word spec, but no condition removes or weakens the spec. Nothing shows the structured contract caused the gains; dependence is asserted, not tested."}
+ ],
+ "missed_issues": [
+  "The P16 'supports' stance holds, but the review note overstates the effect by crediting the loop with the drop from 0.548 to about 0.27. Public only, with no development tests, also falls to 0.342. The fair loop effect is Dynamic informed minus Public only, -0.067 (p=0.0007), and Static LLM minus Public only is +0.064 (n.s.). The feedback loop helps only with regenerated or distribution-matched tests.",
+  "missing_cost_reporting: no token or dollar cost per policy, although the paper says generation and re-execution cost belong to the policy specification (line 258). The dynamic policies request 50% more traces than Static LLM.",
+  "The Static LLM baseline is partly degraded: in 4 of 30 blocks its generator produced no valid trace, and the mean difference rests on 3 blocks where Static LLM broke its module. That is close to a strawman_baseline in the mean, although the median and sign test partly mitigate it.",
+  "A harness defect: the trajectories selected counterexamples using Python equality, where a boolean equals an integer, while scoring uses JSON equality. The author discloses it, but it shows the oracle the feedback loop used differs from the one the scoring used.",
+  "no_variance_reported across reruns: one trajectory per block at API-default temperature and seed. The only rerun (Blind rerun) moved the mean by 0.029.",
+  "Relevance is overrated at 4. One Python key-value-store task with a no-tool coder does not directly inform a Java multi-repo harness decision; the transferable lesson (separate the acceptance audit from development feedback; property-based tests are a strong baseline) is indirect."
+ ],
+ "note": "First review is accurate and appropriately skeptical overall. It overrates the practical strength of the audit claim and the P34 support, and gives relevance one point too high for a single-task Python study."}

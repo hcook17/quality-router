@@ -1,0 +1,18 @@
+{"arxiv_id": "2608.30497",
+ "blind_scores": {"rigor": 3, "reproducibility": 4, "generalizability": 3, "relevance": 2, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "Bridge mines client update instances with high precision: Java 91.6% P / 88.7% R, Python 90.1% P / 64.0% R.", "proposed_strength": "moderate", "reason": "The RQ1 thresholds (0.45 Java, 0.35 Python) are selected from a threshold sweep over the same ground truth (§4.3.2 'motivates the selected thresholds'), so the headline P/R are in-sample; only the weight-sensitivity analysis uses held-out folds (Java mean F1 89.9%, SD 5.5). The ground truth is drawn from Bridge's own Phase-3 output and labelled by the first two authors, there are no CIs, and no prior mining tool is run on the same ground truth."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P28", "from": "supports", "to": "neutral", "reason": "No recipe-based or codemod migration is built or evaluated; OpenRewrite/Moderne are only cited as a possible use (§5.1). Low zero-shot LLM accuracy does not itself show that deterministic recipes work."},
+  {"id": "P05", "from": "supports", "to": "neutral", "reason": "The +40pp precision is for a dataset-mining validation step, not lexical/deterministic retrieval feeding an agent; it does not test the retrieval pattern P05 describes."}
+ ],
+ "missed_issues": [
+  "Not peer reviewed: the arXiv comment and journal_ref are empty, and the JACM template metadata is placeholder ('Received 5 June 2009', DOI XXXXXXX), so 'admit' without caveats overstates its standing.",
+  "other:in_sample_threshold_tuning: the operating thresholds are tuned on the evaluation ground truth (see disputed claim).",
+  "RQ4 is circular: the reference replacements are mined by Bridge itself (~90% precision), so LLM 'errors' include Bridge errors, and an exact match against a single reference undercounts valid alternatives (the authors acknowledge this).",
+  "The LLM probe disables thinking and caps output at 128 tokens with one prompt; the review's applicability statement ('even GPT-5.4 got the exact Java signature right only 27.5%') is reported without this setup caveat, even though the caveat matters for agent-harness decisions."
+ ],
+ "note": "A useful Java/Maven-relevant dataset with candid threats, but the precision/recall headline is in-sample and self-annotated, and the paper is not peer reviewed; pattern stances on P28/P05 were inferred from discussion, not evidence."}

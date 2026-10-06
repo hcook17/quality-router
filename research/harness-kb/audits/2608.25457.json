@@ -1,0 +1,20 @@
+{"arxiv_id": "2608.25457",
+ "blind_scores": {"rigor": 3, "reproducibility": 3, "generalizability": 2, "relevance": 2, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "MACGen improves F&S@1 over direct prompting by 19.61pp on CWEval on average across six LLMs, reaching up to 70.59%.", "proposed_strength": "moderate", "reason": "Strength is acceptable, but the review's supporting statement 'Table 7 (k=3, temp 0.5) preserves the ranking for GPT-4o' is wrong at k=1: Table 7 shows RESCUE F&S@1 69.18 vs MACGen 66.95 and Direct Func@1 80.67 vs MACGen 77.87. Under sampling, MACGen's pass@1 lead over RESCUE disappears; only k=3 favours it. This is direct evidence the temp-0 single-run ranking is fragile."},
+  {"claim": "Each agent and each Security Advisor component contributes.", "proposed_strength": "weak", "reason": "Tables 4-5 are single runs on 119 CWEval tasks (one task = 0.84 pp), mostly GPT-4o only; several steps differ by 0-2.5 pp (e.g. adding Reviewer to Security Advisor: 66.39 -> 66.39). 'Necessary' is not established."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P11", "from": "supports", "to": "mixed", "reason": "Gains are against single-pass Direct and RAG baselines with far less compute; there is no budget-matched single-agent baseline (e.g. one model with plan + self-refine for M=2). Against the only other multi-agent system (INDICT) margins are 0.76-3.57 pp single-run, INDICT wins Func@1 on GPT-5.1, and RESCUE (single-pass RAG) beats MACGen at pass@1 under temp 0.5 (Table 7)."},
+  {"id": "P08", "from": "supports", "to": "neutral", "reason": "Artifact-only handoff is stage isolation (closer to P11/P12), not compaction/summarization of a grown context. The MACGen-Shared comparison is relevant evidence for isolation, but tagging it as P08 support misattributes it."}
+ ],
+ "missed_issues": [
+  "strawman_baseline: SecGuide collapses Func@1 by 34-50 pp on CWEval and to 10.97% on BaxBench GPT-4o, suggesting a misconfigured or non-transferred baseline that inflates 'MACGen beats all baselines'.",
+  "No compute-matched single-agent baseline; MACGen uses ~5x RESCUE's tokens (220,916 vs 43,641), so part of the gain may be compute, not role specialization.",
+  "Generalizability overrated at 3: function-level completions (CWEval) and generated single-scenario backends (BaxBench), no Java, no real repository or multi-repo setting.",
+  "Relevance overrated at 3 for the reference team: secure function/backend generation with no Java and no ingestion/multi-repo/SDD evidence; the artifact-handoff idea is the only transferable element.",
+  "Reproducibility: the paper both says artifacts 'are available' (§1 footnote) and 'we plan to release' (Ethics); the review noted it but still scored 4."
+ ],
+ "note": "Admissible as a secure-codegen design data point, but the first review misread Table 7 as confirming robustness when it actually shows MACGen losing at pass@1 under sampling, and gave P11/P08 'supports' stances the evidence does not carry."}

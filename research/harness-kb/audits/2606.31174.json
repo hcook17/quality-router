@@ -1,0 +1,20 @@
+{"arxiv_id": "2606.31174",
+ "blind_scores": {"rigor": 2, "reproducibility": 4, "generalizability": 2, "relevance": 2, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "The management bottleneck is privilege granting: no model exceeds 50% workspace-permission precision.", "proposed_strength": "weak", "reason": "WPP is 'accessed files divided by granted files' (§3.5), and the numerator is set by what the fixed Gemma worker chooses to read, not by the manager. A cautious or lazy worker lowers WPP for every manager. The 'not perception' half rests on ROC and MCA being near-saturated by design (App. E: 'clear-cut decisions'). Both halves are artifacts of the metric construction, measured in one run per model with no variance."},
+  {"claim": "Cost and management quality are decoupled: cost spans >100x while SMS spans <4x; cheap open models are on the Pareto frontier.", "proposed_strength": "weak", "reason": "Cost counts only main-agent tokens. Subagent work runs on a free local pool, and self-hosted managers are priced at imputed OpenRouter rates (§4.1, App. A). fable-5's cost is an 'upper estimate' (App. D), and deepseek's $1.7 depends on a cache-read discount. With a single run and n=12, the frontier composition is not stable evidence."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P21", "from": "supports", "to": "neutral", "reason": "No policy-as-code or external permission layer is implemented or tested. The paper shows that LLM managers over-grant, which motivates enforcement, but it provides no evidence that enforcement works."},
+  {"id": "P23", "from": "supports", "to": "neutral", "reason": "No routing or cascade is evaluated. A cross-model leaderboard with main-agent-only cost is not evidence for model-routing patterns."}
+ ],
+ "missed_issues": [
+  "The top-ranked entry is not one model. Beyond the 124 opus-4-8 fallbacks, the security_pcap_triage scenario's fable-5 entry was 'recovered by running opus-4-8 directly' (App. D), so one scenario's score belongs to a different model.",
+  "gemma-4-31b is both the worker pool (llm/vlm keys) and one of the evaluated managers. The paper does not discuss whether same-model manager–worker pairing helps or hurts.",
+  "The model(s) used for the baseline acceptance run, and for the LLM controller that authored the scenarios, are not identified (App. G). Difficulty and check loosening were calibrated against an unnamed harness and model, so a bias toward or against particular model families cannot be ruled out.",
+  "The SMS composite weights four sub-metrics equally without justification and multiplies them by TCR. No sensitivity analysis on the weights is reported, unlike the full-pass and per-scenario TCR variants, which were computed and then dropped (App. E).",
+  "Rigor 3 is lenient for a single-run, synthetic, 41-scenario benchmark with an unvalidated composite metric. Relevance 3 is generous because the tasks are not software engineering; the useful lesson (do not let the orchestrator scope permissions) is a design inference, not a tested result."
+ ],
+ "note": "A carefully engineered, independent benchmark with no LLM judge. Its headline findings are largely shaped by how the metrics are defined, a single run, and a free worker pool, and two 'supports' stances are assertion rather than evidence."}

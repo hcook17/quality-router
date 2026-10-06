@@ -1,0 +1,19 @@
+{"arxiv_id": "2607.26375",
+ "blind_scores": {"rigor": 3, "reproducibility": 4, "generalizability": 1, "relevance": 2, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "Agents improve initial task completion but harm users' comprehension of their own code.", "proposed_strength": "moderate", "reason": "I keep the grade but narrow the scope. Appendix A.9.2 / Table 7 shows the deficit holds for recall of names, identifying code snippets, and function purpose. The one question type about behaviour ('how a change in the code would impact the website') shows no stark difference. Questions are answered without seeing the code (§3.3), so the result mostly shows that users do not remember code they did not write, not that they cannot reason about system behaviour. The headline 'p<0.002, d>0.80' appears only in the Fig. 1 caption, with no named test or per-group n."},
+  {"claim": "Low-effort prompting (copy+paste criteria) and auto-accepted edits are linked with lower comprehension.", "proposed_strength": "weak", "reason": "I agree with weak. Note also that the auto-accept cell has 6 users with the lowest background score (0.603 vs 0.714 for per-file reviewers, Table 2), so background ability is not separated from interaction style, and no significance test is reported for these cells."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P19", "from": "contradicts", "to": "mixed", "reason": "The 'gate' here is a student accepting their own agent's diffs in a 50-minute toy task, not a team approval gate. Table 2 also shows per-file reviewers had the highest agent-arm comprehension (0.777, n=7), which points toward engaged approval helping. The evidence is small, correlational, and runs in both directions."},
+  {"id": "P34", "from": "mixed", "to": "neutral", "reason": "The study does not test whether structured acceptance criteria improve agent output; copying criteria still completed the task. The finding concerns human memory of agent-written code, in a correlational subgroup (25 vs 9 users)."}
+ ],
+ "missed_issues": [
+  "Construct issue: 'comprehension' is predominantly closed-book recall of one's own code. Behavioural-reasoning questions show no group difference (Appendix A.9.2), which weakens the 'harms understanding' framing.",
+  "Question difficulty may differ by arm because agent users' code is longer and more complex (Appendix A.11, Table 5). The authors control for initial accuracy, not for code length or complexity, when comparing groups.",
+  "In the extension task, agent-arm users switch to an unfamiliar chatbot after a 5-minute warm-up (§3.4), while chatbot users keep the tool they practised with. This tool-familiarity asymmetry is not discussed.",
+  "The LLM judge (Gemini-3.1 Pro) was selected as the best-kappa model among five candidates on a 20-submission validation set (Appendix A.2). The near-perfect 0.96 kappa is therefore optimistically biased by selection."
+ ],
+ "note": "The review is careful and its verdict stands. It over-reads the finding as general 'understanding' harm and as evidence against approval gates and acceptance criteria. For a backend Java team the transferable point is narrow: reviewers of agent-written code retain little of it, so durable knowledge should be in specs and docs, not reviewers' memory."}

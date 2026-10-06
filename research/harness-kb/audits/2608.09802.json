@@ -1,0 +1,20 @@
+{"arxiv_id": "2608.09802",
+ "blind_scores": {"rigor": 2, "reproducibility": 3, "generalizability": 4, "relevance": 3, "coi_risk": 1},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "Best model achieves only 41.2% resolve rate; benchmark is unsaturated.", "proposed_strength": "moderate", "reason": "The 41.2% figure is in Table 3, but it is one Pass@1 run with a 300-step/$10 cap; 'best' is 2.4 pp above Sonnet 4.6 (38.8%) on n=170 with no variance, and the contrast with '75%+ on SWE-bench Verified' compares different task distributions. Unsaturated yes; ranking and headroom size not strongly established."},
+  {"claim": "Dominant failure mode is incomplete cross-file propagation: agents modify fewer files than the gold patch.", "proposed_strength": "weak", "reason": "Only Figure 5 CDFs for two models; the text does not say whether the CDF is restricted to failed runs, gold patches include docs/config/test-fixture files, and the statement that agents 'correctly locate and edit the core files' rests on unquantified manual inspection. 'Dominant' is never measured against other failure categories."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P34", "from": "supports", "to": "introduces", "reason": "Rewritten precise specifications are a curation step; there is no ablation of rewritten vs original commit-message descriptions, so no evidence that structured requirements change agent outcomes. The review note itself says 'argued (not ablated)'."}
+ ],
+ "missed_issues": [
+  "COI severity 'none' is not verifiable: the extracted text and metadata contain no author affiliations, while the paper's headline cost finding favours open-weight models (GLM-5, Qwen3.5, Kimi-K2.5); should be recorded as low/unknown rather than none.",
+  "Reproducibility 4 is too generous given the review's own note that agent trajectories/evaluation scripts are not stated as released; only the HF dataset URL is given.",
+  "Rigor 3 is generous for a single run per configuration, no limitations section, no inter-rater statistics for curation, and no contamination analysis.",
+  "Problem statements were written by experts (with LLM assistance) who had the gold patch, and are designed to be 'necessary and sufficient' for it; this risks solution leakage and makes tasks more spec-rich than real refactor requests, which the conclusion's 'eliminate answer leakage' asserts without a check.",
+  "Scaffold comparison (P33) is confounded: mini-swe-agent and OpenHands differ in tooling and runtime simultaneously, and Gemini-3-Pro moves the opposite way; the paper's 'richer runtime tooling is particularly beneficial' is a single-run inference.",
+  "hype_language: 'rigorous', 'ProMax', 'fundamentally different scale' with curation quality unmeasured."
+ ],
+ "note": "Agree it is admissible as a multilingual large-patch benchmark with a small Java slice, but the first review was too lenient on rigor/reproducibility/COI and graded the failure-mode and 'best model' claims above what one run and two CDFs support."}

@@ -1,0 +1,18 @@
+{"arxiv_id": "2607.27250",
+ "blind_scores": {"rigor": 2, "reproducibility": 4, "generalizability": 2, "relevance": 4, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "Context-injection strategy does not measurably change correctness on either agent.", "proposed_strength": "weak", "reason": "The sentence is literally true but carries little information. The author's power analysis (§4.5) says a 30pp effect is detected only 57% of the time at n=17. The omnibus p=1.00 is 'close to mechanical' (§4.1), and the 'dynamic-range' rescue rests on 4 Codex-borderline tasks. As evidence of absence of an effect it is weak, not moderate."},
+  {"claim": "Borderline difficulty is agent-specific (Spearman rho=0.75), explaining prior contradictory results.", "proposed_strength": "weak", "reason": "rho=0.75 shows difficulty largely transfers across agents. 'Borderline' status is assigned from 3 repeats per strategy (e.g. 1/3 vs 0/3), which is itself noise-sensitive, so 6/15 'agent-specific borderline' tasks may partly be sampling noise. The paper does not test the reconciliation against the prior papers' tasks (§4.3, §5.3), yet the Conclusion upgrades 'candidate explanation' to 'explains prior contradictions'."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P01", "from": "contradicts", "to": "mixed", "reason": "An underpowered null (MDE >30pp, 15-17 tasks, 3 Python repos) is not evidence that AGENTS.md fails, and the paper itself reports a dose-ordered process benefit on opshin (fewer blind full-suite runs, ~24% shorter duration; Table 2). Because this paper is load-bearing for P01, recording 'contradicts' would turn absence of evidence into evidence of absence."}
+ ],
+ "missed_issues": [
+  "The 'pre-registered' manipulation-validity probe (§5.2) is described as motivated by the failure triage, and it re-runs two tasks already known to fail. Selecting confirmed failures and showing they still fail is close to circular, and no registry or timestamp is given, so the 'pre-registered' label is unverifiable.",
+  "The task prompt is the merged PR description (§3.2). PR descriptions often already state the implementation approach, which could make repository context redundant and bias toward a null. This is not discussed.",
+  "The failure-mode triage ('skill, not knowledge') is the single author's judgement on 4 near-miss tasks, with no second rater (§5.1). This is self_evaluation of the mechanism claim.",
+  "Removing AGENTS.md from the workspace in all arms means the 'natural' condition the team would actually use (file present, read on demand) was never tested (Limitation 4). The inference 'if guaranteed presence does not help, natural discovery cannot either' is asserted, not shown."
+ ],
+ "note": "The review is careful and already flags the overclaimed equivalence bound. Its main error is the P01 'contradicts' stance, which over-reads an underpowered null; for the team this paper should count as 'no detectable large effect on Python tasks', not as evidence against AGENTS.md."}

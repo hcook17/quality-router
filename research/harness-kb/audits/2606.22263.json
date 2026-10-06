@@ -1,0 +1,19 @@
+{"arxiv_id": "2606.22263",
+ "blind_scores": {"rigor": 3, "reproducibility": 4, "generalizability": 2, "relevance": 2, "coi_risk": 1},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "Revelio finds 19 previously unknown memory-safety vulnerabilities (7 CVEs) in 7 OSS-Fuzz projects for ~$300 total, ~1 hour per project.", "proposed_strength": "moderate", "reason": "Table III says 'CVE ID assigned / requested: 7', so not all 7 are assigned CVEs; the 19 are 'manually validated' by the authors (§V-A). §VI says the triage filter (dropping NULL-deref, leaks, OOM) was introduced after the first prototype surfaced many low-priority bugs, so what counts as a vulnerability was tuned on this same hunt."},
+  {"claim": "Gains come from programmatic harness enforcement, not prompting.", "proposed_strength": "weak", "reason": "§V-C never states the sample size for Table IX; recall moving in 20-point steps and only 6–14 vulnerabilities found imply about 10 cases, with a single run. T2.5→T3 changes several things at once (per-file scanning, a hard stage break, sanitizer-grounded verification). T2.5→T3 is +3 vulnerabilities (11→14). That does not isolate 'enforcement'."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P10", "from": "contradicts", "to": "mixed", "reason": "The comparison with Claude Code, Codex and Sorcar is confounded by different models, Claude Code refusals that forced an Opus 4.6 fallback (App. C-C), and an FP definition that penalizes unverifiable claims. It is not a controlled test of single-loop versus staged agents. The controlled ladder (Table IX) has about 10 cases."}
+ ],
+ "missed_issues": [
+  "metric_mismatch: the 0% FP rate holds by construction, because Revelio reports only sanitizer-confirmed PoVs, while baselines are scored as FPs whenever their PoV cannot be reproduced by the authors' rerun. This is an acceptance-criterion difference, not detection precision.",
+  "'Vulnerabilities Found' (175) counts any sanitizer-confirmed crash beyond the 100 known bugs. In the zero-day study the authors say such crashes include low-priority NULL-deref/leak/OOM failures they later filtered, so 175 vs 55 may not compare like with like.",
+  "missing_cost_reporting nuance: 'similar cost' hides that Revelio uses the most tokens per vulnerability (19.2M vs 5.0–18.0M) and costs more per vulnerability than Codex ($8.96) and Sorcar ($6.27) (Table VIII).",
+  "other:config_selection_overlap: the baseline models and Revelio hyperparameters (top-K, PoV trials, routing) are chosen on a 10-case pilot. The paper does not state whether those cases are excluded from the 100-case evaluation.",
+  "Not peer reviewed (no venue in the comment or journal_ref)."
+ ],
+ "note": "Useful evidence that a deterministic execution oracle gates out hallucinated findings, but the domain is C/C++ memory safety. The prompt-vs-harness claim rests on roughly 10 single-run cases, and the zero-FP headline holds by construction, so admit only with caveats and low relevance for a Java content team."}

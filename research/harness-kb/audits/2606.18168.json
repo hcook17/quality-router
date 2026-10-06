@@ -1,0 +1,19 @@
+{"arxiv_id": "2606.18168",
+ "blind_scores": {"rigor": 3, "reproducibility": 4, "generalizability": 3, "relevance": 3, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "On newly created test files, strong-oracle rates range from 18% (OpenAI Codex) to 67% (Claude Code).", "proposed_strength": "weak", "reason": "The cross-agent chi-square (χ²=2497.3) is unadjusted. Agents are not randomised across repositories or tasks; Codex is 65% of PRs. The per-agent spread therefore mixes agent behaviour with repository testing conventions, language and task type, and the paper's own multivariate model is applied only to merge outcomes, not to oracle strength. It is fine as a descriptive range, but too weak to rank agents or hosts."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P15", "from": "contradicts", "to": "neutral", "reason": "The paper does not study test-first or TDD workflows. It classifies tests that agents wrote alongside (or after) production code in PRs. The 18.2% strong-oracle figure for feature work says nothing about whether test-first prompting helps or hurts."},
+  {"id": "P32", "from": "supports", "to": "neutral", "reason": "The paper is itself a field study. That makes it field evidence, but it is not evidence that field or industrial evaluation as a harness practice 'works'."}
+ ],
+ "missed_issues": [
+  "Selective reporting in RQ2: §II-B defines three PR groups (all_weak, has_strong, has_multi_strong), but only the S3 odds ratio is reported. There is no coefficient table, CI or result for has_strong.",
+  "Classifier error (13.3% disagreement with human labels on 384 patches) is of the same order as several reported differences. No per-category confusion is given, so W1 versus S-tier misclassification rates are unknown.",
+  "§IV attributes weak oracles to agents' 'code completion objectives' and training. That is speculative causal language unsupported by the observational data.",
+  "The 'survivorship' bias label is misapplied: diff-only W1 inflation is a measurement artifact (metric_mismatch), not survivorship. Selection into AIDev-pop (100+ stars, agent-identifiable PRs) is the actual selection issue.",
+  "Relevance 4 is slightly high. No Java-specific results are reported, and the recommended oracle-aware CI gate is never evaluated, so the team gets a plausible gate idea, not evidence that it works."
+ ],
+ "note": "A solid, independent mining study whose new-file finding (agent tests often lack value assertions) is credible and actionable. Its per-agent ranking and merge-odds claims are thin, and the P15 'contradicts' stance is not backed by the paper."}

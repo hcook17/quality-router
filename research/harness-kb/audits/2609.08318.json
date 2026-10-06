@@ -1,0 +1,17 @@
+{"arxiv_id": "2609.08318",
+ "blind_scores": {"rigor": 3, "reproducibility": 4, "generalizability": 3, "relevance": 2, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "agree",
+ "claims_disputed": [
+  {"claim": "Token consumption falls 21.6% and total cost 33.6%.", "proposed_strength": "weak", "reason": "Beyond the AgentDiet framing the review flags, the cost advantage over no compression is not robust: for Qwen3-Coder-30B AttnCompress is slightly more expensive than Original in Table 1 ($0.0551 vs $0.0546) and in the 5-run Table 2 ($0.0566 vs $0.0563). The -20.2% vs Original is carried by the Gemini/Qwen-235B single runs. Compression cost is priced at Qwen API rates although the method needs proxy attention weights (run on 8x A100)."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P24", "from": "supports", "to": "neutral", "reason": "The paper reports costs and tokens thoroughly but does not evaluate a budget or cap mechanism; cost reporting is not evidence that token budgets/caps work."}
+ ],
+ "missed_issues": [
+  "Internal inconsistency on latency: §5.1 says proxy compression takes 66.6 s of 366.7 s end-to-end, but Table 6 lists Ana Time 530.87 s for the default Qwen3-4B proxy with Qwen3-Coder-30B, and the text's claim that 4B has 'substantially lower analysis time than the 8B proxy' (384.1 s) contradicts Table 6.",
+  "In Table 2 (the only repeated-run evidence) AttnCompress is below uncompressed Original on pass rate (43.70 vs 44.10) and equal on cost, i.e. for that model there is no measured trade-off benefit at all.",
+  "Proxy-model variation (Table 6: 43.5-46.5% on Qwen3-Coder) is as large as the method-vs-baseline gaps, so the 'default' choice of Qwen3-4B is not clearly better than alternatives, and 8B beats it.",
+  "Relevance should be lower (2): the mechanism requires attention access to an open-weight proxy inside the agent loop, which the review itself notes commercial mixed hosts do not expose."
+ ],
+ "note": "First review is careful and correctly downgrades the headline; I add that the cost saving vs full context disappears for Qwen3-Coder and that the latency numbers are internally inconsistent."}

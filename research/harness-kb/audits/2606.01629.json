@@ -1,0 +1,18 @@
+{"arxiv_id": "2606.01629",
+ "blind_scores": {"rigor": 3, "reproducibility": 4, "generalizability": 3, "relevance": 2, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "Stronger general models are not necessarily better long-form judges (GPT-5.2 and GPT-4o-mini lower than Qwen3-Max/DeepSeek-V4-Flash/GLM-5.1); Qwen3-32B thinking mode lowers average (0.5762 -> 0.5253).", "proposed_strength": "weak", "reason": "App. B says context-window overflows and safety-policy refusals are 'treat[ed] as incorrect when computing accuracy', and that they are 'concentrated in a few model–setting–dataset groups'. Those groups are not broken out in the text, so a lower model ranking may reflect context limits or refusals rather than judging ability. GPT-5.2's reasoning configuration is unstated, and each configuration is a single run at temperature 0."},
+  {"claim": "Long-form LLM judging is far from solved: overall mean accuracy 0.5639, best 0.6744, only 12 of 32 configurations exceed 0.60.", "proposed_strength": "moderate", "reason": "Keep moderate, with one added confound beyond the review's ceiling and ties point: invalid outputs (overflow and refusals) are scored as wrong, which mixes infrastructure limits into 'reliability'. MA's 180 'instances' are 90 comparisons evaluated in both orders, so effective n is smaller than Table 2 suggests."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P34", "from": "mixed", "to": "neutral", "reason": "The rubrics here are evaluation rubrics handed to a judge model, not structured requirements or acceptance criteria that guide generation. Mapping them to P34 stretches the evidence beyond what the paper tests."}
+ ],
+ "missed_issues": [
+  "Scoring overflow and refusal failures as incorrect (App. B) confounds judge capability with context-window size and safety policy. The model-ranking and 'only slightly above random' framing both depend on it.",
+  "The position-bias inconsistency rates are very high for several top-ranked judges (DeepSeek-V4-Flash 62.0% on WP-Bench, Table 4). Pairwise accuracy is averaged over both orders, which can hide near-coin-flip behaviour rather than fix it.",
+  "MA pairs are 90 comparisons duplicated by order swap. That is a small sample for the medical-domain conclusion (0.4983) which the review's applicability text leans on for healthcare content routing.",
+  "Relevance is somewhat overstated for a coding-harness decision. All outputs are natural-language documents (no code, specs or diffs), so transfer to judging specs or PRs is an extrapolation, though the healthcare-content angle is legitimate."
+ ],
+ "note": "A sound academic, peer-reviewed meta-evaluation that rightly sets P18 to 'contradicts' for long-form judging. Its model-ranking claims are weaker than reported because failures count as wrong answers and there is no human ceiling."}

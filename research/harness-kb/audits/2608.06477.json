@@ -1,0 +1,18 @@
+{"arxiv_id": "2608.06477",
+ "blind_scores": {"rigor": 3, "reproducibility": 4, "generalizability": 2, "relevance": 2, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "Multi-step decomposition raises ASR on three of six CUAs, by up to 31.2 points (GPT-5.4-mini 41.7% to 72.9%).", "proposed_strength": "moderate", "reason": "The strength is fine, because the GPT gain is 30 of 96 examples (Appendix A). But the review's evidence is wrong. It cites 'Qwen 29.2 to 34.4 (k=3, N)', yet 34.4 is Qwen's Union(2,3) value. Qwen's fixed-depth k=3 Urgent=N ASR is 17.7, which is lower than single-step (§7.2). The three CUAs that rise are GPT-5.4-mini, Kimi-K2.5 and Claude-Haiku-4.5, not Qwen."},
+  {"claim": "Defenses lose more ground to multi-step attacks: PID flags 56.2% of single-step attacks but at most 22.9% of any sub-step, 29.2%/37.5% overall at k=2/3; DSP ASR still rises with depth (Kimi 33.3 to 64.6, GPT 15.6 to 36.5).", "proposed_strength": "weak", "reason": "The PID half is plausible. The DSP half is undermined by Table 4 itself: Kimi's k=3 ASR is 64.6 with the defensive prompt versus 58.3 without it. A defense 'raising' ASR by 6 points on a single run shows run-to-run noise of the same order as several reported effects. DSP is tested on only two CUAs, and DSP still roughly halves GPT-5.4-mini ASR at k=3 (72.9 to 36.5)."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P22", "from": "contradicts", "to": "mixed", "reason": "Both defenses still reduce attacks. DSP cuts GPT-5.4-mini k=3 ASR from 72.9 to 36.5, and PID catches 29.2-37.5% of multi-step chains overall (Table 4). The evidence shows per-input defenses are weaker against distributed payloads, not that they fail, and only one DSP text and one detector (PromptArmor with GPT-4o) were tested."}
+ ],
+ "missed_issues": [
+  "The action budget scales as 15·k (§7.1), so multi-step attacks run with 2-3x more actions than single-step. The fixed-depth comparison therefore confounds decomposition with a larger action budget.",
+  "Urgent=N was adopted as 'the default' after observing that the urgency cue lowered ASR (§7.2), and EvoCUA-32B was excluded from averages after seeing its results. Both choices are attacker-favourable and post hoc. The review flags the first but not the exclusion; including EvoCUA, the six-model average moves only from about 28.1 to 31.1 (computed from Table 1).",
+  "The Kimi DSP anomaly (Table 4) is direct evidence of single-run noise of about 6 points, which bears on the Haiku +6.3 'modest' gain and the +5.6 average.",
+  "Goal-faithfulness is 'sufficient but not necessary' (Appendix F), so an ASR success at k>1 may not require following the injected chain at all. The per-step compliance figures do not establish that decomposition caused the success."
+ ],
+ "note": "The review is broadly right and correctly calls the average effect weak. It misattributes the Qwen figure, misses the 15·k action-budget confound and the DSP anomaly that exposes single-run noise, and overstates P22 as 'contradicts'. Relevance to a Java ingestion team is low: this concerns GUI computer-use agents, and the transferable lesson is a threat model rather than evidence."}
