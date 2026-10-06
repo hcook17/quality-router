@@ -34,6 +34,9 @@ The two package rows were checked against the published jars
 | `qr gate test-oracles` | Judges Spring web and reactive tests per chain. A status, content-type or `exists()` check on its own is weak. Asserting a body, value, header value, view or redirect is strong. Covers MockMvc `andExpect`/`andExpectAll`, WebTestClient/RestTestClient `expect*`, MockMvcTester AssertJ chains, Reactor `StepVerifier` and BDDMockito `then(x).should()`. |
 | | Before this change, a MockMvc `jsonPath(...).value(...)` test scored "no assertion" and failed the gate. A status-only WebTestClient test and a `verifyComplete()`-only StepVerifier test both passed as strong, because `expect*`/`verify*` matched the custom-helper rule. |
 | `qr gate diff-coverage` / `test-oracles` | Gradle test suites (`src/integrationTest/`, `src/functionalTest/`, …) and `src/testFixtures/` count as test code. |
+| | REST Assured / RestAssuredMockMvc is judged after `.then()`: `statusCode`/`contentType` alone is weak; `body(path, matcher)` with a value matcher, or `expect(openApi().isValid(spec))` (swagger-request-validator), is strong. JUnit 4 `thrown.expect(X.class)` is an exception oracle. `assertTrue`/`assertFalse` on one boolean call of the code under test (`assertTrue(router.isBookOrganized())`) is strong, like AssertJ `isEmpty()`/`contains()`. Comparisons (`size() > 0`), bare variables and `!= null` stay weak. |
+| `qr contracts diff` / `check` | Reads generated-OpenAPI YAML (springdoc, swagger-core, SnakeYAML output) with a strict stdlib loader. Anchors, tags, block scalars, flow collections and multi-document files fail with a line number instead of diffing wrongly. |
+| `qr spec scaffold` | `--indent N` matches the repo formatter. The next-step hint says to format before `qr spec lock`, because reformatting after the lock fails `qr gate acceptance`. |
 | `qr init --ci` | New `github-gradle` template next to `github-maven`. The JDK comes from `--ci-java`, else the build file, else 17. The Maven feedback step also reads Failsafe reports. Feedback uses `--sources .` so multi-module builds resolve. The header says which JaCoCo release supports the chosen JDK. |
 
 ## Binding acceptance tests in a Spring repo
@@ -91,7 +94,7 @@ Central and were checked against the published SHA-1.
 | Text block at release 11 without detection | `javac` rejects it, which is the failure the detection prevents |
 | CI templates | both render to valid YAML |
 | Four-repo demo | unchanged: the agent's PR fails 5 of 7 gates, the review fix passes 7 of 7 |
-| Unit tests | 294 pass, 99% coverage, ruff clean |
+| Unit tests | 371 pass, 99% coverage, ruff clean |
 
 Not verified here: a full Spring application context at runtime (the
 checks above compile against the annotation and test jars only), and the
@@ -120,6 +123,59 @@ engineering judgment.
 - **[J]** Upgrade provider repos before consumer repos, as in phase 3.
   The content contract is the seam, not the Boot version.
 
+## Field check: a production Boot 2.7 service
+
+One team service was inspected statically. It was not built, and none of its
+code or names are in this repository. Profile: Boot 2.7.18 with Spring Cloud
+2021.0.x, a Gradle 8.10 toolchain on Java 17, a single module, Error Prone with
+`-Werror` on main and test compiles, and JaCoCo XML. It has 420 main and 176
+test files (1,639 test methods). 174 of the test files are JUnit 4 run through
+the vintage engine, and none use Jupiter. Controller tests use
+RestAssuredMockMvc with swagger-request-validator against a committed
+springdoc YAML spec (325 paths, 116 schemas). Integration tests share
+`src/test` and are split out by package `exclude`/`include` in a second
+`Test` task.
+
+| Gate | Before | After |
+|---|---|---|
+| `--java-release` detection | 17 from `JavaLanguageVersion.of(17)` | unchanged |
+| `test-oracles` (1,639 tests) | 267 none, 147 weak, 25 mock-only. The gate could not see REST Assured, `ExpectedException` or OpenAPI validation, so 266 of the "none" verdicts (16% of the suite) were tests that do assert | 1 none, 143 weak, 18 mock-only |
+| `contracts diff` on the spec | refused (YAML) | parses identically to PyYAML. Removing one schema property reports `property_removed` on every response that embeds it |
+| scaffolded Jupiter test, `--indent 2` | not tried | compiles with `javac -Xlint:all -Werror --release 17` and passes on JUnit 5.8.2 (Error Prone itself was not run) |
+
+What the 143 weak tests are: 108 assert only the HTTP status through REST
+Assured. A typical one is an update endpoint that asserts 200 and never checks
+what was stored. The rest are `assertNotNull`, `size() > 0` or `assertNull`
+on their own. These are the tests worth strengthening first.
+
+Judgment call **[J]**: 106 tests are strong only because of
+`openApi().isValid(spec)`, which checks that the response matches the
+published contract but not its values. That is counted as strong because the
+check fails on a wrong shape, a missing required field or an undeclared
+status. A team that wants value oracles on every endpoint can wrap the
+validator in a helper and leave it out of `--assert-helper`.
+
+Steer for repos like this one:
+
+- **[J]** Scaffolded acceptance tests are Jupiter and run next to the JUnit 4
+  suite unchanged, because `spring-boot-starter-test` 2.7 brings Jupiter and
+  the build already calls `useJUnitPlatform()`. Do not migrate the JUnit 4
+  suite as part of SDD adoption. Lock new acceptance tests, then migrate
+  with a deterministic recipe as a separate change (see the upgrade steer
+  below).
+- **[J]** Pass `--indent 2` (or whatever the house formatter uses). Format
+  the file before `qr spec lock`; an IDE reformat after the lock fails the
+  acceptance gate by design.
+- **[J]** Point `qr contracts check` at the committed springdoc YAML. It is
+  the delivery seam other repos read. It is also generated from a running
+  app (`generateOpenApiDocs`), so CI should regenerate it and fail if the
+  committed file differs. Otherwise a contract change can merge without
+  showing up in the diff.
+- **[J]** The stamped `github-gradle` workflow assumes a public dependency
+  graph. In a repo that resolves from a private registry, add the `qr`
+  steps to the existing build workflow after the test step, rather than
+  running a second build.
+
 ## Known limits
 
 - The oracle rules are lexical. A custom `ResultMatcher` or a helper that
@@ -130,3 +186,9 @@ engineering judgment.
   plugins. In those cases it says so and defaults to 17; pass the flag.
 - JUnit 4-only Boot 2.7 modules (vintage engine with no Jupiter on the test
   classpath) need `junit-jupiter` added before scaffolded tests run.
+- `contracts diff` reports a changed shared schema once per operation that
+  embeds it. That is accurate, since each endpoint's readers break, but it
+  is noisy: one removed field produced about 100 findings on the field-check
+  spec.
+- The YAML loader covers generator output only. A hand-written spec with
+  anchors or flow style must be exported to JSON first.
