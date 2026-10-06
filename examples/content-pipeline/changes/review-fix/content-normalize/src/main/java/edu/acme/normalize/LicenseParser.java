@@ -6,6 +6,9 @@ final class LicenseParser {
     }
 
     static String parse(String manifest) {
+        if (manifest == null) {
+            throw new IllegalArgumentException("manifest missing");
+        }
         for (String entry : manifest.split(";")) {
             String[] pair = entry.strip().split("=", 2);
             if (pair.length == 2 && pair[0].equals("license") && !pair[1].isBlank()) {

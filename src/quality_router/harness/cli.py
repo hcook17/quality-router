@@ -439,7 +439,8 @@ def cmd_spec_trace(args: Namespace) -> int:
 
 
 def _specs_or_usage(patterns: list[str], example: str) -> list[Path] | int:
-    specs = _expand(patterns, Path.cwd())
+    cwd = Path.cwd()
+    specs = [p.relative_to(cwd) if p.is_relative_to(cwd) else p for p in _expand(patterns, cwd)]
     missing = [str(p) for p in specs if not p.is_file()]
     if not specs or missing:
         return _usage(f"spec not found: {missing or patterns}", example)
