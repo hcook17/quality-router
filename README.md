@@ -54,6 +54,20 @@ qr feedback junit --reports 'target/surefire-reports/*.xml' --sources src/test/j
 
 The steer for each stage, the evidence and the pilot plan are in `docs/design/phase-4-acceptance-first-sdd.md`.
 
+## Spring Boot 2.7–4.x (phase 5)
+
+The same commands work on Boot 2.7 repos (Java 8/11, JUnit 5.8, `javax`) and on Boot 3.x/4.x repos (Java 17+, JUnit 5.9–6, `jakarta`), with Maven or Gradle.
+
+```text
+qr spec scaffold ... --spring-boot-test --field '@Autowired ContentNormalizer normalizer' \
+  --bind '*=normalizer.normalize(raw(manifest)).licenseId()'   # Java release read from pom.xml/build.gradle
+qr spec scaffold ... --java-release 11                          # force @CsvSource(value = {...}) instead of a text block
+qr gate test-oracles --base origin/main                         # status-only MockMvc/WebTestClient checks are weak
+qr init --ci github-gradle --ci-java 21
+```
+
+Version table, binding layers (plain object, bean, MockMvc), verification and upgrade steer: `docs/design/phase-5-spring-boot-2.7-4.x.md`.
+
 ## Layout
 
 | Path | Role |

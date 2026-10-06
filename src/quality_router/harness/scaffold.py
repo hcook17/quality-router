@@ -1,4 +1,4 @@
-"""Generate JUnit 5 acceptance tests from a spec's example tables.
+"""Generate JUnit Jupiter (5.8+ / 6) acceptance tests from a spec's example tables.
 
 The rows come from the spec, not from the agent that writes the code
 (P15: self-consistent wrong tests; 2605.17242: tests derived from the
