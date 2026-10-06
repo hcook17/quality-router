@@ -34,7 +34,7 @@ The two package rows were checked against the published jars
 | `qr gate test-oracles` | Judges Spring web and reactive tests per chain. A status, content-type or `exists()` check on its own is weak. Asserting a body, value, header value, view or redirect is strong. Covers MockMvc `andExpect`/`andExpectAll`, WebTestClient/RestTestClient `expect*`, MockMvcTester AssertJ chains, Reactor `StepVerifier` and BDDMockito `then(x).should()`. |
 | | Before this change, a MockMvc `jsonPath(...).value(...)` test scored "no assertion" and failed the gate. A status-only WebTestClient test and a `verifyComplete()`-only StepVerifier test both passed as strong, because `expect*`/`verify*` matched the custom-helper rule. |
 | `qr gate diff-coverage` / `test-oracles` | Gradle test suites (`src/integrationTest/`, `src/functionalTest/`, …) and `src/testFixtures/` count as test code. |
-| | REST Assured / RestAssuredMockMvc is judged after `.then()`: `statusCode`/`contentType` alone is weak; `body(path, matcher)` with a value matcher, or `expect(openApi().isValid(spec))` (swagger-request-validator), is strong. JUnit 4 `thrown.expect(X.class)` is an exception oracle. `assertTrue`/`assertFalse` on one boolean call of the code under test (`assertTrue(router.isBookOrganized())`) is strong, like AssertJ `isEmpty()`/`contains()`. Comparisons (`size() > 0`), bare variables and `!= null` stay weak. |
+| | REST Assured / RestAssuredMockMvc is judged after `.then()`: `statusCode`/`contentType` alone is weak; `body(path, matcher)` with a value matcher, a Spring `ResultMatcher` value check passed to `expect(...)`/`assertThat(...)`, or `expect(openApi().isValid(spec))` (swagger-request-validator), is strong. JUnit 4 `thrown.expect(X.class)` is an exception oracle. `assertTrue`/`assertFalse` on one boolean call of the code under test (`assertTrue(router.isBookOrganized())`) is strong, like AssertJ `isEmpty()`/`contains()`. Comparisons (`size() > 0`), bare variables and `!= null` stay weak. |
 | `qr contracts diff` / `check` | Reads generated-OpenAPI YAML (springdoc, swagger-core, SnakeYAML output) with a strict stdlib loader. Anchors, tags, block scalars, flow collections and multi-document files fail with a line number instead of diffing wrongly. |
 | `qr spec scaffold` | `--indent N` matches the repo formatter. The next-step hint says to format before `qr spec lock`, because reformatting after the lock fails `qr gate acceptance`. |
 | `qr init --ci` | New `github-gradle` template next to `github-maven`. The JDK comes from `--ci-java`, else the build file, else 17. The Maven feedback step also reads Failsafe reports. Feedback uses `--sources .` so multi-module builds resolve. The header says which JaCoCo release supports the chosen JDK. |
@@ -94,7 +94,7 @@ Central and were checked against the published SHA-1.
 | Text block at release 11 without detection | `javac` rejects it, which is the failure the detection prevents |
 | CI templates | both render to valid YAML |
 | Four-repo demo | unchanged: the agent's PR fails 5 of 7 gates, the review fix passes 7 of 7 |
-| Unit tests | 371 pass, 99% coverage, ruff clean |
+| Unit tests | 376 pass, 99% coverage, ruff clean |
 
 Not verified here: a full Spring application context at runtime (the
 checks above compile against the annotation and test jars only), and the
@@ -116,6 +116,12 @@ engineering judgment.
   codemod) once. Verify it in one seed repo, then apply it in the others
   (2606.24446). The evidence is thin: 3 papers, about 40% end-to-end
   success.
+- **[J]** Treat OpenRewrite as a licensing decision before it is a
+  tooling one. As of 2026-10 the docs list `JUnit4to5Migration` under the
+  Moderne Source Available License, served from an authenticated
+  repository (`research/harness-kb/docs-checks.md`). If that is not
+  approved, have the agent write a JavaParser codemod instead and verify
+  it the same way.
 - **[J]** Lock the acceptance tests before the upgrade, then run the
   upgrade as the "implementation". `qr gate acceptance` then shows the
   upgrade did not rewrite the oracle. Regenerate with `--java-release 17`
@@ -180,6 +186,8 @@ Steer for repos like this one:
 
 - The oracle rules are lexical. A custom `ResultMatcher` or a helper that
   wraps `andExpect` counts as weak unless it is passed to `--assert-helper`.
+  So does a REST Assured `then().spec(sharedSpec)`, because the spec's
+  `expectBody(...)` is defined elsewhere.
 - `--java-release` detection reads literal values, `${property}`
   indirection in the same pom, and common Gradle forms. It does not follow
   parent poms outside the repository, version catalogs or convention
