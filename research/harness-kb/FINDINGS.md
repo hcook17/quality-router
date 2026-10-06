@@ -303,6 +303,14 @@ the research is marked **[J]**.
 - **Reviewers are LLMs.** Every review is one LLM pass, and only 26%
   were blind-audited. Auditors were stricter than reviewers, so
   unaudited papers may be scored slightly too high.
+- **Weight ignores relevance.** The evidence weight uses rigor,
+  reproducibility and COI only, so a Java benchmark and an off-domain
+  training paper can carry the same weight. Read the pattern matrix
+  alongside each paper's relevance score in `kb_evidence.md`.
+  Auditors also found that first-pass "supports" stances were often
+  based on a paper's recommendations rather than measured effects.
+  Where an audit exists, the merge downgraded those stances. Where no
+  audit exists, support counts are probably slightly inflated.
 - **Extraction losses.** HTML-to-text conversion dropped some tables.
   One paper (2608.23552) had 8 unverifiable numbers and was rejected
   for other reasons. 1.1% of cited numbers could not be found in the
