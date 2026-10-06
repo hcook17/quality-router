@@ -13,6 +13,7 @@ from pathlib import Path
 
 from quality_router.harness import (
     acceptance,
+    api_compat,
     contracts,
     coverage_gate,
     evalkit,
@@ -38,6 +39,9 @@ GATE_EPILOG = textwrap.dedent(
       qr gate test-oracles --base origin/main
       qr gate test-oracles --paths src/test/java/com/acme/IngestTest.java --json
       qr gate acceptance --base origin/main
+      qr gate api-compat --report '**/target/japicmp/*.xml'
+      qr gate api-compat --report build/japicmp.xml --level binary --ignore 'com.acme.internal.*'
+      qr gate api-compat --report target/japicmp/japicmp.xml --allow-major-bump --strict
 
     Exit 0 pass, 1 gate failed, 2 usage error. Reads reports; never runs Maven/Gradle.
     """
@@ -189,6 +193,21 @@ def _gate(subparsers) -> None:
                           "the lock commit (needs history: fetch-depth: 0).")
     _common(acc)
     acc.set_defaults(handler=cmd_gate_acceptance)
+
+    api = _sub(gates, "api-compat",
+               "Binary/source breaks in japicmp XML reports (shared Java libraries).",
+               GATE_EPILOG)
+    api.add_argument("--report", action="append", required=True,
+                     help="japicmp XML report path or glob; repeat per module.")
+    api.add_argument("--cwd", default=".", help="Root that report paths are relative to.")
+    api.add_argument("--level", choices=api_compat.LEVELS, default="both",
+                     help="Which incompatibility fails the gate (default: both).")
+    api.add_argument("--ignore", action="append", default=[], metavar="GLOB",
+                     help="Class name glob whose breaks are info only (repeatable).")
+    api.add_argument("--allow-major-bump", action="store_true",
+                     help="Breaks are warnings when newVersion has a greater major version.")
+    _common(api)
+    api.set_defaults(handler=cmd_api_compat)
 
 
 def _lint(subparsers) -> None:
@@ -423,6 +442,22 @@ def cmd_diff_coverage(args: Namespace) -> int:
     result = coverage_gate.run_diff_coverage(changed, reports, cwd, args.min, args.catch_min,
                                              args.include_tests)
     result.summary["reports"] = len(reports)
+    return _emit(result, args)
+
+
+def cmd_api_compat(args: Namespace) -> int:
+    cwd = Path(args.cwd)
+    paths = _expand(args.report, cwd)
+    missing = [str(p) for p in paths if not p.is_file()]
+    if not paths or missing:
+        return _usage(f"japicmp report not found: {missing or args.report}",
+                      "mvn -B verify  # with japicmp-maven-plugin, or japicmp --xml-file <path>")
+    try:
+        reports = [api_compat.parse_japicmp(p) for p in paths]
+    except api_compat.ApiCompatError as exc:
+        return _usage(str(exc), "qr gate api-compat --report target/japicmp/japicmp.xml")
+    result = api_compat.run_api_compat(reports, cwd, args.level, tuple(args.ignore),
+                                       args.allow_major_bump, args.strict)
     return _emit(result, args)
 
 
