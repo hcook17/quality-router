@@ -152,6 +152,14 @@ harness for that team is host-agnostic; `qr` stays Job B inside it.
   embed code).
 - Still refused here: a cross-repo MCP aggregator, a `qr` multi-repo
   orchestrator, worktree sync across repos.
+- **Evidence base:** `research/harness-kb/` holds data, not a memo. It
+  covers 228 adversarially reviewed arXiv papers from 2026-05 to
+  2026-10. Its synthesis is in `FINDINGS.md`, regenerated from the KB.
+  The KB finds that deterministic sensors are supported and that
+  instruction-file prose and spec-driven development as a methodology
+  are not. It finds no studies of a team coordinating changes across
+  its own repos (P27). Diff-coverage and assertion-strength gates
+  belong in repo CI, not in `qr`.
 
 ## Build sequence
 
