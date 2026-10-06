@@ -19,6 +19,24 @@ qr init --graph gortex
 
 Phase 1 is `--help`, `status`, and `install` (wraps `$LOCAL_QUALITY_ROOT` `install.ps1` / `install.sh`). Phase 2 `qr init` is implemented (portable first; optional `--host` / `--graph gortex`). Specs: `docs/design/phase-1-cli.md`, `docs/design/phase-2-init.md`. Architecture lock (one file): `docs/research/architecture-decisions.md`. Do not `irm | iex`. Flags > env > defaults. Default init is portable; do not imply `--host cursor`.
 
+## Harness gates (phase 3)
+
+Deterministic gates for agent-written changes, derived from the arXiv KB in `research/harness-kb/` (`FINDINGS.md`). Your build writes the artifacts; `qr` reads them and exits 0 (pass), 1 (fail) or 2 (usage). It never runs Maven/Gradle and never writes to another repo.
+
+```text
+qr init --policy --host claude-code --ci github-maven   # policy.json, hook wiring, CI workflow
+qr gate diff-coverage --base origin/main --jacoco '**/target/site/jacoco/jacoco.xml' --catch-min 1.0
+qr gate test-oracles --base origin/main
+qr lint instructions
+qr spec trace --spec ../coordination/specs/item-v2.md --tests . --tests ../content-delivery
+qr contracts diff --old git:origin/main:contracts/item.schema.json --new contracts/item.schema.json
+qr contracts check --manifest ../coordination/contracts.json --checkouts ..
+qr eval prepare --repo . --base 3f2a9c1 --task-id ING-142 --hidden src/test/java/.../Ing142Test.java --out /tmp/ING-142
+qr eval report --runs runs.jsonl --baseline 'claude-code@2.1.0/sonnet-5'
+```
+
+Spec and evidence map: `docs/design/phase-3-harness.md`. Four-repo demo (ingest → normalize → store → delivery): `examples/content-pipeline/run-demo.sh --qr "uv run qr"`.
+
 ## Layout
 
 | Path | Role |
@@ -27,6 +45,10 @@ Phase 1 is `--help`, `status`, and `install` (wraps `$LOCAL_QUALITY_ROOT` `insta
 | `AGENTS.md` | Invariants for agents in this tree |
 | `docs/design/phase-1-cli.md` | Spec SoT for Phase 1 |
 | `docs/design/phase-2-init.md` | Spec SoT for `qr init` |
+| `docs/design/phase-3-harness.md` | Spec SoT for the harness gates |
 | `docs/research/architecture-decisions.md` | C4 + three-job lock |
+| `src/quality_router/harness/` | Gate, lint, spec, contracts, policy, eval commands |
+| `examples/content-pipeline/` | Four-repo Java fixture + `run-demo.sh` |
+| `research/harness-kb/` | Reviewed arXiv KB (May–Oct 2026) and `FINDINGS.md` |
 
 Ollama is an optional model backend a host may **opt** at (`:11434`). Hermes (or any other agent runtime) may be the director on your machine; `qr` does not start the Ollama daemon, write LLM base URLs, or `hermes mcp serve`. Neither sits between the host and constituent MCPs.

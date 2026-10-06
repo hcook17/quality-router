@@ -158,15 +158,23 @@ harness for that team is host-agnostic; `qr` stays Job B inside it.
   The KB finds that deterministic sensors are supported and that
   instruction-file prose and spec-driven development as a methodology
   are not. It finds no studies of a team coordinating changes across
-  its own repos (P27). Diff-coverage and assertion-strength gates
-  belong in repo CI, not in `qr`.
+  its own repos (P27).
+- **Harness gates (phase 3):** `qr` ships the supported findings as
+  deterministic predicates over build artifacts: diff coverage,
+  assertion strength, instruction lint, spec trace, contract diff and
+  manifest check, policy hooks, eval kit. Repo CI builds and calls them;
+  `qr` still never runs Maven/Gradle. Spec:
+  `docs/design/phase-3-harness.md`.
 
 ## Build sequence
 
 1. Phase 1 CLI — **done** (`help` / `status` / `install`).
 2. Phase 2 `qr init` — **done** (portable stamps, `--host` adapters,
    `--graph gortex`). Spec: `docs/design/phase-2-init.md`.
-3. Next: `--json` on report commands, then `enable` / `disable`.
+3. Phase 3 harness gates — **done** (`gate`, `lint`, `spec`,
+   `contracts`, `policy`, `eval`; `init --policy` / `--ci`). Spec:
+   `docs/design/phase-3-harness.md`.
+4. Next: `--json` on `status`, then `enable` / `disable`.
 
 Do not reopen Go, Wasmtime, docs MCP, RL trainer, or script intercept
 to start those.
