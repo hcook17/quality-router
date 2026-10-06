@@ -1,0 +1,20 @@
+{
+  "arxiv_id": "2608.13331",
+  "contributions": [
+    {"kind": "test_practice",
+     "statement": "When an LLM judge scores agent runs, generate a rubric per task (hidden from the agent) and average at least three judge samples. Do not treat the judge as a human proxy: rubric-judge agreement with experts was τ≈0.19, below expert-expert agreement of 0.30.",
+     "evidence": "Figure 3: three rubric-judge samples reach the noise share of eight baseline-judge samples (16 GRPO groups); disputed-pair test p=0.109.",
+     "strength": "moderate", "novelty": "refines", "relative_to": ["P18", "Rubric-based reward (Gunjal et al., 2025)"], "transfers": "indirect"},
+    {"kind": "design_pattern",
+     "statement": "A director model can drive an unmodified coding CLI through a non-interactive wrapper with per-call deadlines, partial transcripts on timeout, and resumable sessions. A director trained against a cheap coding model benefited when a stronger one was swapped in.",
+     "evidence": "§3.4 CAT wrapper; Appendix A.2 tool swap (four rollouts per task); Appendix B.2 no-tool ablation collapsed (single run).",
+     "strength": "moderate", "novelty": "refines", "relative_to": ["Su et al. (2025)", "Nielsen et al. (2026)", "P13"], "transfers": "no"},
+    {"kind": "nuance",
+     "statement": "Automated prompt optimisation of a frontier coding agent did not reach the gain from post-training the director.",
+     "evidence": "Figure 5 left: 24 generations of Claude-driven prompt rewriting on Codex.",
+     "strength": "weak", "novelty": "new", "relative_to": [], "transfers": "no"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "Only the judge-noise practice transfers: averaging several samples of a per-task rubric judge cuts noise, and its weak human agreement is quantified. That helps any team scoring agent runs with an LLM. The CAT pattern and the prompt-vs-training result require RL post-training, which this team will not do."
+}

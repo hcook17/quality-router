@@ -1,0 +1,16 @@
+{
+  "arxiv_id": "2608.25939",
+  "contributions": [
+    {"kind": "test_practice",
+     "statement": "Gate agent-written unit tests on direct invocation of the focal/changed method and on its coverage, not only on 'tests pass': an agentic harness raised pass rate while dropping direct invocation from 98.9% to 27.6% and coverage from 50.4% to 17.1% by testing easier APIs.",
+     "evidence": "§5.4 Table 5 (headless Claude Code, stratified subset, PHP): TPR 48.3 -> 59.8, Cov 50.4 -> 17.1, IR 98.9 -> 27.6; §5.4: 9.7% of TPR-passing suites fail IR overall, confirmed manually. Single agent, no variance; Java excluded so transfer is indirect.",
+     "strength": "moderate", "novelty": "refines", "relative_to": ["2606.18168"], "transfers": "indirect"},
+    {"kind": "heuristic",
+     "statement": "For agent test generation, give the full containing source file as context before reaching for LSP-symbol or embedding retrieval, which gave only selective, language-dependent gains and sometimes lowered direct invocation.",
+     "evidence": "§5.2 Table 3: file-level context most consistent (e.g., Claude Go 34.14% TPR); App. H McNemar Rust standard->file p=1.5e-5; Ruby IR 85.63 -> 53.19 with richer context. Retrievers untuned.",
+     "strength": "moderate", "novelty": "refines", "relative_to": ["lexical/deterministic context over RAG (P05/P06)"], "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "Beyond the leaderboard, it measures a specific way agents game test-pass rate and gives a cheap syntactic check (direct invocation) that catches it. Java is excluded, so the numbers are indirect."
+}

@@ -1,0 +1,28 @@
+{
+  "arxiv_id": "2609.27624",
+  "contributions": [
+    {
+      "kind": "anti_pattern",
+      "statement": "Never key agent, tool or broker routing on a peer-advertised display name; route by an operator-enrolled, origin-bound ID, keep names presentational, and fail closed on exact or normalisation-equivalent duplicates.",
+      "evidence": "Table 1: 6 of 7 pinned frameworks (ADK Python/TS, UiPath, BeeAI, Any-Agent, AutoDev) dispatched A-addressed requests to lower-trust peer B; Solace collapsed both to one route; Table 3: seven negative controls (incl. ADK Java) show the fix works.",
+      "strength": "strong",
+      "novelty": "refines",
+      "relative_to": [
+        "name-based identity confusion (CWE-706); authenticate identity, do not trust self-asserted names"
+      ],
+      "transfers": "direct"
+    },
+    {
+      "kind": "constraint",
+      "statement": "When composing tools from several MCP or agent servers, check the host's tool-name collision policy; a default 'warn' policy silently keeps the last colliding tool.",
+      "evidence": "§4/Table 1: Any-Agent with OpenAI Agents SDK 0.20.0 default warn policy retained the last colliding function tool; UiPath/BeeAI generated tool names from remote metadata.",
+      "strength": "strong",
+      "novelty": "new",
+      "relative_to": [],
+      "transfers": "direct"
+    }
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "Concrete, reproducible wrong-peer dispatch across pinned real frameworks with matched negative controls; directly relevant to any team composing multiple MCP/agent servers."
+}

@@ -1,0 +1,18 @@
+{
+  "arxiv_id": "2606.13298",
+  "contributions": [
+    {"kind": "nuance",
+     "statement": "When tracking how coding-agent adoption affects Java code health, report raw architectural smell counts, unstable-dependency counts and LOC separately, because smell density fell 6.7% after adoption only because code grew about 13% while smell counts did not change detectably.",
+     "evidence": "§4.2 Table 1 (Borusyak ATT -6.98%, p=0.004) and §4.5 Fig. 4 (raw counts +1.1%, p=0.82; LOC +12.8%, p=0.003; packages +9.7%); 151 Java repos, staggered DiD with matched controls. Audit: observational, Lee bound includes zero.",
+     "strength": "moderate", "novelty": "new", "relative_to": [],
+     "transfers": "direct"},
+    {"kind": "nuance",
+     "statement": "In mature Java repositories, the first measurable effect of agent adoption is code-volume growth rather than architectural decay, so watch LOC and unstable-dependency counts (raw +5.8%, not significant after Holm) beyond six months.",
+     "evidence": "§4.3, §4.5: smell-count CI roughly -8% to +11% with no equivalence test (audit), so 'no increase' is not demonstrated; UD rise labelled suggestive.",
+     "strength": "weak", "novelty": "new", "relative_to": [],
+     "transfers": "direct"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "The only causal Java study in the batch; its main contribution is a measurement warning that density metrics hide code growth, which applies directly to Sonar-style dashboards."
+}

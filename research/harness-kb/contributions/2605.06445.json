@@ -1,0 +1,20 @@
+{
+  "arxiv_id": "2605.06445",
+  "contributions": [
+    {"kind": "nuance",
+     "statement": "Do not assume a more detailed spec raises agent success: when an OpenAPI-contract task also prescribes layered architecture, a specific database engine and an ORM, expect behavioral pass rate to fall sharply (about 27 pp on average from L0 to L3 here), so constrained backend tasks need extra review and integration-test budget rather than more spec prose.",
+     "evidence": "§5.1 Table 2 and App. D: assertion pass rate drops ~27 pp from L0 (framework only) to L3 (arch+DB+ORM) across 8 models x 2 scaffolds x 3 trials; static verifiers have <=0.5% false rejects. Audit: the DB constraint also adds persistence work, so part of the decay is task-size growth, and some subset cells are non-monotonic.",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["P34 structured requirements/clarified specs improve agent output (2609.08149, 2609.22222)"],
+     "transfers": "indirect"},
+    {"kind": "test_practice",
+     "statement": "Concentrate verification of agent-written backend code on the data layer: run behavioral tests against the real database engine (e.g. Testcontainers), because incorrect query composition and ORM runtime misuse were the leading root cause of logic failures for every model studied (36.5-60.9%, ~48% on average).",
+     "evidence": "§5.3 Table 4, App. B: failure taxonomy over 4 Mini-SWE-Agent configurations; GPT-5.2 judge validated on 50 labels (kappa 0.975) from one model by a single author.",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["integration tests against a real database rather than mocks"],
+     "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "A controlled constraint-layering design gives a measured counter-nuance to 'more precise specs help' and names the data layer as where agents break. Python/Node only and one contaminated contract, so both transfer indirectly to Spring/JPA."
+}

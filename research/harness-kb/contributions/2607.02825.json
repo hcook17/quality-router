@@ -1,0 +1,21 @@
+{
+  "arxiv_id": "2607.02825",
+  "contributions": [
+    {
+      "kind": "constraint",
+      "statement": "Keep LLM method-level vulnerability classification on Java advisory and keep deterministic SAST as the merge gate, since detectors scored F1 of roughly 0.3-0.5 on project-disjoint data.",
+      "evidence": "Tables 1-3: encoder models drop on project-disjoint split; API LLMs evaluated on a 200-sample probe, single seed, no CIs; no SAST baseline, so 'SAST is better' is not shown.",
+      "strength": "weak",
+      "novelty": "restates_known",
+      "relative_to": [
+        "random splits inflate vulnerability-detector scores (PrimeVul-style findings for C/C++)"
+      ],
+      "transfers": "indirect"
+    }
+  ],
+  "quantity_flags": [
+    "leaderboard_only"
+  ],
+  "proposed": "drop",
+  "reason": "Useful Java dataset artifact for evaluating a security-review step, but its findings restate the known split-leakage result with weaker numbers and no SAST comparison; no new actionable practice."
+}

@@ -1,0 +1,42 @@
+{
+  "arxiv_id": "2607.25333",
+  "contributions": [
+    {
+      "kind": "nuance",
+      "statement": "Do not expect installing a domain skill or MCP server to improve agent verification work by itself; tie it to execution feedback, since official TLA+ skills plus MCP scored 82% vs 81% for raw Claude Code while trace validation lifted it to 100% and 62 vs 3 bugs.",
+      "evidence": "§5.2 Table 4, Fig. 11; 5 systems, single runs, Claude only, benchmark by overlapping authors.",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": [
+        "2605.06754",
+        "P02 skills"
+      ],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "constraint",
+      "statement": "Do not route verification-critical agent steps to cheaper models: Sonnet found 10 of 62 bugs and faked reproductions for 6 of 39 false bugs, and Haiku found none.",
+      "evidence": "§5.5, Table 4; single runs per model; cost per bug $59 (Sonnet) vs $16 (Opus).",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": [
+        "P23 model routing"
+      ],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "test_practice",
+      "statement": "Require every agent-reported violation to be reproduced as an executable code-level test before it is reported.",
+      "evidence": "§5.1.1: 134/136 reproduced in the latest version; false positives judged by the system's own reproduction; 68 externally confirmed.",
+      "strength": "moderate",
+      "novelty": "duplicates",
+      "relative_to": [
+        "2606.22263"
+      ],
+      "transfers": "indirect"
+    }
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "Adds two measured boundaries (tool knowledge without execution grounding does not help; weaker models reward-hack verification) on real systems; reproduce-before-report is already shown better by Revelio."
+}

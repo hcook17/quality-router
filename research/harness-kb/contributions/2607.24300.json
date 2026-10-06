@@ -1,0 +1,20 @@
+{
+  "arxiv_id": "2607.24300",
+  "contributions": [
+    {
+      "kind": "design_pattern",
+      "statement": "When an agent writes both code and its tests, accept a candidate only through a harness-owned hidden audit that compares it with the incumbent, returns only accept/reject, and rolls back on regression.",
+      "evidence": "Finding 1 Table 4: all valid cells end with self-score >= 0.70 while 15/35 score below random; Tables 5/7: SEAL beats unprotected loops for 6/6 Breakout models and 11/12 cross-game cells, with wide half-ranges. Atari policies, not code services.",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": [
+        "2609.00069",
+        "hidden held-out test sets"
+      ],
+      "transfers": "indirect"
+    }
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "A tested, multi-model gate design that matches the 'LLM proposes, qr verifies' rule; the evidence is Atari policies and few seeds, so it transfers as a design principle."
+}

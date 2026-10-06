@@ -1,0 +1,39 @@
+{
+  "arxiv_id": "2609.38345",
+  "contributions": [
+    {
+      "kind": "heuristic",
+      "statement": "If an orchestrator agent is supposed to delegate, give it read-only tools; with full tools the lead agent monopolised execution until its budget ran out and never used teammates' work.",
+      "evidence": "Table 3 (36 tasks, Clopper-Pearson CIs): reference team adherence 47.2% [30.4, 64.5] vs read-only Adopter 94.4%; Fig. 3 traces show monopolisation; adherence is a participation measure (audit), single runs.",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": [
+        "P13 planner-executor orchestration"
+      ],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "test_practice",
+      "statement": "Log whether a declared multi-agent workflow actually happened before crediting it; under the open role card the team's gain came from tasks where it did not collaborate, while adherent tasks scored lower.",
+      "evidence": "§4.3/App. A: ITT +5.6 arises on 19 non-adherent tasks (+15.8) while 17 adherent tasks show -5.9 (sign not established).",
+      "strength": "moderate",
+      "novelty": "new",
+      "relative_to": [],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "anti_pattern",
+      "statement": "Do not credit a two-solver multi-agent design without a best-of-two single-agent baseline at equal tokens; the Duo gain here is parallel sampling plus selection.",
+      "evidence": "Table 2/9: Duo +14.2 on DeepSWE at ~2.2x tokens; base harness itself below mini-swe-agent on DeepSWE (audit); no pass@2 baseline.",
+      "strength": "moderate",
+      "novelty": "restates_known",
+      "relative_to": [
+        "repeated-sampling baseline (best-of-N with selector)"
+      ],
+      "transfers": "indirect"
+    }
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "The SOTA claim does not survive, but the measured declared-vs-realised collaboration gap and the read-only-orchestrator lever are actionable for teams wiring orchestrator/worker agents."
+}

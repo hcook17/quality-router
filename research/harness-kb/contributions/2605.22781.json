@@ -1,0 +1,14 @@
+{
+  "arxiv_id": "2605.22781",
+  "contributions": [
+    {"kind": "constraint",
+     "statement": "MicroVM delta checkpoint/restore can make sandbox state management ~1-2% of agent wall time (10.8 ms checkpoint, 1.9 ms restore) versus 23-48% for diff-based snapshots, which matters only for tree-search or RL fan-out.",
+     "evidence": "§6.2.1 Table 2, Fig. 6: replayed SWE-bench MCTS trajectories; agent-level benefit not measured; Python-only, no JVM processes.",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["container snapshots / git worktrees for agent rollback"],
+     "transfers": "no"}
+  ],
+  "quantity_flags": [],
+  "proposed": "drop",
+  "reason": "Credible sandbox latency engineering for MCTS and RL rollout fan-out. A human-paced Java team running interactive agents does not have that workload, and JVM checkpointing is untested."
+}

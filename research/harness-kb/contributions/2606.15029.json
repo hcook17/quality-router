@@ -1,0 +1,13 @@
+{
+  "arxiv_id": "2606.15029",
+  "contributions": [
+    {"kind": "heuristic",
+     "statement": "When validating an LLM judge against a small expert-labelled audit set, choose the subset whose judge-versus-other-models agreement best matches the full population instead of sampling at random; expect modest gains concentrated at very small budgets.",
+     "evidence": "§4.1.1 Fig. 2: 18.7% average reduction in reliability-estimation error; but §4.2 Table 1 per-trial micro win-rate is 0.538 (macro 0.838) and App. H shows contexts worse than random; text-quality datasets, not code review.",
+     "strength": "weak", "novelty": "new", "relative_to": [],
+     "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "hypothesis_only",
+  "reason": "A clever sampling trick whose per-trial advantage over random is close to a coin flip; it is worth trying when expert labels for content review are scarce, but it is not a gate."
+}

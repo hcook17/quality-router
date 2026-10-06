@@ -1,0 +1,20 @@
+{
+  "arxiv_id": "2608.23740",
+  "contributions": [
+    {"kind": "heuristic",
+     "statement": "Cap concurrent agents on one shared codebase at two; quality fell at three and four agents while coordination message traffic grew super-linearly.",
+     "evidence": "§4 N-sweep (Sonnet T4, budget-fair pool): LLM-judge quality 0.544/0.669/0.553/0.489 for x1-x4, but mean tests passing peaks at x3 (Fig. 5); same-family judge, short TypeScript greenfield tasks.",
+     "strength": "weak", "novelty": "refines", "relative_to": ["P11 multi-agent teams have diminishing returns (2609.38345)"], "transfers": "indirect"},
+    {"kind": "design_pattern",
+     "statement": "Coordinate concurrent agents through structured claim/release state that a service checks, not free-text chat.",
+     "evidence": "§4.6 T5: MCP-chat n=2 (1 failure) vs CRDT-state n=7 (7/7 succeed).",
+     "strength": "weak", "novelty": "refines", "relative_to": ["advisory file locks / explicit ownership"], "transfers": "indirect"},
+    {"kind": "anti_pattern",
+     "statement": "Never merge parallel agents' work by last-writer-wins file union; it silently clobbered shared entry points so every merged snapshot passed zero capabilities.",
+     "evidence": "§4.2, App. B.18: parallel-merge overwrote server.ts; 0 capabilities in oracle replay.",
+     "strength": "weak", "novelty": "restates_known", "relative_to": ["merge via git with conflict detection, isolated worktrees + PR"], "transfers": "direct"}
+  ],
+  "quantity_flags": [],
+  "proposed": "hypothesis_only",
+  "reason": "After the audit every claim is weak (abandonment construct favours two agents, compute unmatched, same-family judge). The N=2 ceiling and structured-claims ideas survive only as hypotheses."
+}

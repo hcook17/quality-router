@@ -1,0 +1,207 @@
+{
+ "arxiv_id": "2607.15593",
+ "fulltext_chars": 97910,
+ "fulltext_lines": 2012,
+ "authors_block": "Mingxin Li†‡*, Enge Song‡*, Yueshang Zuo‡*, Xiaodong Liu‡, Rong Wen§‡, Qiang Fu¶, Gianni Antichi \\circ , Jian He‡, Jing Tie‡, Zhou Shao‡, Xiaobo Xue‡, Xiong Xiao‡, Luyao Zhong‡, Shaokai Zhang‡, Jiangu Zhao‡, Jianyuan Lu‡, Shize Zhang‡, Xiaoqing Sun‡, Changgang Zheng‡, Zihao Fan‡, Haonan Li‡, Tian Pan‡, Xiaomin Wu‡, Yang Song‡, Xing Li \\star ‡, Biao Lyu‡, Meng Li†, Haipeng Dai🖂†, Guihai Chen†, Shunmin Zhu🖂‡ Affiliation: †Nanjing University ‡Alibaba Cloud §Fudan University ¶RMIT University \\circ Politecnico di Milano \\star Zhejiang University © none",
+ "vendor_affiliation_hits": [
+  "Alibaba"
+ ],
+ "n_authors": 30,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   22,
+   "# Scalable LLM Agent Tool Access in the Cloud"
+  ],
+  [
+   61,
+   "###### Abstract."
+  ],
+  [
+   78,
+   "## 1. Introduction"
+  ],
+  [
+   130,
+   "## 2. Background and Motivation"
+  ],
+  [
+   132,
+   "### 2.1. Tool-Using LLM Agents"
+  ],
+  [
+   136,
+   "### 2.2. The Rise of Model Context Protocol"
+  ],
+  [
+   167,
+   "### 2.3. Challenges of Deploying MCP"
+  ],
+  [
+   307,
+   "### 2.4. Design Goals"
+  ],
+  [
+   323,
+   "## 3. System Design"
+  ],
+  [
+   341,
+   "### 3.1. Protocol Adaptation for Heterogeneity"
+  ],
+  [
+   356,
+   "### 3.2. Function Offloading"
+  ],
+  [
+   368,
+   "### 3.3. Intent-Driven Tool Recommendation"
+  ],
+  [
+   381,
+   "### 3.4. Session-Aware Load Balancing"
+  ],
+  [
+   394,
+   "## 4. Implementation"
+  ],
+  [
+   399,
+   "### 4.1. Cross-Layer Protocol Translation"
+  ],
+  [
+   418,
+   "### 4.2. Authentication and Tool Access Control"
+  ],
+  [
+   437,
+   "### 4.3. Hybrid Tool Recommendation"
+  ],
+  [
+   460,
+   "### 4.4. Stateful Request Routing"
+  ],
+  [
+   520,
+   "## 5. Deployment"
+  ],
+  [
+   527,
+   "## 6. Evaluation"
+  ],
+  [
+   531,
+   "### 6.1. Evaluation Setup"
+  ],
+  [
+   557,
+   "### 6.2. Agent Tool Selection Performance"
+  ],
+  [
+   641,
+   "### 6.3. Hybrid Tool Recommendation"
+  ],
+  [
+   672,
+   "### 6.4. Gateway Overhead and Scalability"
+  ],
+  [
+   731,
+   "## 7. Lessons Learned from Deployments"
+  ],
+  [
+   883,
+   "## 8. Related Work"
+  ],
+  [
+   904,
+   "## 9. Conclusion"
+  ],
+  [
+   914,
+   "## References"
+  ],
+  [
+   1613,
+   "## Appendix"
+  ],
+  [
+   1615,
+   "## Appendix A Additional Lessons"
+  ],
+  [
+   1639,
+   "## Appendix B API Services Analysis"
+  ],
+  [
+   1645,
+   "## Appendix C MCP Interaction Workflow"
+  ],
+  [
+   1661,
+   "## Appendix D Request Routing Pipeline Details"
+  ],
+  [
+   1703,
+   "## Appendix E Choosing Retrieval Candidate Count k"
+  ],
+  [
+   1724,
+   "## Appendix F Handling Long-Lived Connection"
+  ],
+  [
+   1764,
+   "## Appendix G Query Skewness Analysis"
+  ],
+  [
+   1781,
+   "## Appendix H Tool Recommendation recall"
+  ],
+  [
+   1793,
+   "## Appendix I Knowledge Cache: Chain Topology"
+  ],
+  [
+   1905,
+   "### I.1. Diamond DAG: AssociateRouteTable"
+  ],
+  [
+   1926,
+   "### I.2. Fork-Join DAG: AssociateHaVip"
+  ],
+  [
+   1948,
+   "### I.3. Linear Chain: CreateSslVpnClientCert"
+  ],
+  [
+   1966,
+   "### I.4. Complex Chain: DeleteAutoProvisioningGroup"
+  ],
+  [
+   2012,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 2,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 1,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 10
+ },
+ "fulltext_source": "html"
+}

@@ -1,10 +1,12 @@
 """Team-owned agent regression evaluation: leak-free task workspaces + per-host reports.
 
-Evidence: 2607.03691 (35 releases of one harness, model fixed: 52-131% token
-swings functional CI missed; 12.3% run-to-run flips), 2606.12344 / 2607.22585
-(harness choice moves resolve rate up to ~24 pp and tokens up to ~40x),
+Evidence: 2607.03691 (35 releases of one harness, model fixed: token use rose
+~70% with no resolve gain and functional CI missed it; 12.3% run-to-run flips,
+so small probes detect cost regressions, not effectiveness changes),
+2606.12344 (mature harnesses within ~2 pp; one weak harness lost up to 24 pp),
 2609.08149 / 2606.12344 (future git objects, visible tests and code-host
-egress inflate scores). The unit of evaluation is host + host version + model.
+egress inflate scores), 2607.08964 (grade with weighted sub-checks, not
+binary pass). The unit of evaluation is host + host version + model.
 
 `qr eval` never launches an agent. The host runs the task in the prepared
 workspace; CI applies the hidden tests and appends one JSON line per run.

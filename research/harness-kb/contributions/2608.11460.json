@@ -1,0 +1,12 @@
+{
+  "arxiv_id": "2608.11460",
+  "contributions": [
+    {"kind": "nuance",
+     "statement": "In coding-agent session logs, staged incremental direction correlated weakly positively with success while upfront acceptance criteria correlated weakly negatively.",
+     "evidence": "§5.2 Table 2: coefficients +0.013 to +0.025 and -0.017 to -0.027; correlational, confounded by task difficulty, scored by an unvalidated Qwen3-4B judge; authors call signs 'sometimes contradictory'.",
+     "strength": "weak", "novelty": "new", "relative_to": [], "transfers": "indirect"}
+  ],
+  "quantity_flags": ["numbers_without_mechanism"],
+  "proposed": "drop",
+  "reason": "A trait-mining method with tiny, confounded correlations and its own admission that traits are not stable skills; nothing should change a spec-driven rollout on this evidence."
+}

@@ -1,0 +1,19 @@
+{
+  "arxiv_id": "2606.04769",
+  "contributions": [
+    {"kind": "test_practice",
+     "statement": "Treat every MCP tool description as a contract and check it against the implementing code in CI (or generate it from code), because about 10% of tools and 35% of servers in a 19,200-tool scan had descriptions that overclaimed, omitted, or hid side effects.",
+     "evidence": "§V-C Table V: 1,907/19,200 tools, 775/2,214 servers; detector precision ~96% on a 400-pair human-labelled set (§V-B), but the set is sampled from the detector's own output and includes toy servers, so prevalence may be inflated. Extractor is Python-only.",
+     "strength": "moderate", "novelty": "new", "relative_to": [],
+     "transfers": "indirect"},
+    {"kind": "heuristic",
+     "statement": "When an LLM checks description-versus-code consistency, ask both directions (does the code do what the description says; does the description cover what the code does) and arbitrate disagreements, because the one-direction prompt alone missed about half of inconsistencies.",
+     "evidence": "§V-B Table IV ablation: direct-only recall 47.21% on D_real, reverse-only precision 78.80%, Direct-Reverse-Arbitration F1 96.73%. Single model (Claude Sonnet 4.5), temperature 0.",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["order-swap debiasing for LLM judges"],
+     "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "Only KB paper that measures description-code drift in MCP tools; the bidirectional prompt ablation is a cheap reusable trick. Java servers need their own extractor."
+}

@@ -1,0 +1,14 @@
+{
+  "arxiv_id": "2605.08013",
+  "contributions": [
+    {"kind": "heuristic",
+     "statement": "Pre-select a token-budgeted, directory-preserving slice of the file tree (name match to task tokens, depth and extension priors) for the agent's first turn.",
+     "evidence": "§3.2 Table 1: sigma-Reveal gains are small and inconsistent, single Qwen3-14B run, 6-step shell tasks with a 10 s sandbox, largest gains on the authors' own ShellOps dataset.",
+     "strength": "weak", "novelty": "restates_known",
+     "relative_to": ["repository map / file-tree preview in the initial context (e.g. Aider repo map)"],
+     "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "drop",
+  "reason": "The main contribution is an RL credit-assignment method for a self-trained 14B policy, which the team will not train. The one harness-side idea is a known repo-map heuristic with weak, noisy evidence."
+}

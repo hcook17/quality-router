@@ -1,0 +1,20 @@
+{
+  "arxiv_id": "2605.15569",
+  "contributions": [
+    {"kind": "design_pattern",
+     "statement": "For cross-service flow or authorization review in Java microservices, expose a few typed, compiler-grade static-analysis queries (call graph, data flow, entry-point and sink lookup, e.g. via CodeQL) as agent tools and reserve the LLM for semantic judgments such as which operation is privileged and whether the authZ check is adequate.",
+     "evidence": "§VI-C/D, Tables V and VII: removing the query primitives drops recall to 4.8%; Neo reaches 81% precision / 85% recall on a ground-truth set and beats a bash-based agent (EnIGMA). Audit: ablation recall is computed over vulnerabilities Neo itself found (near-circular), and EnIGMA was run with Neo's prompts.",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["P05 deterministic retrieval (2607.00555, 2607.19682)"],
+     "transfers": "direct"},
+    {"kind": "heuristic",
+     "statement": "Link services across repos by matching channel identifiers (REST route templates, gRPC methods, Kafka/RabbitMQ topic names) so an agent can follow a flow from producer to consumer.",
+     "evidence": "§IV inter-service channel queries over REST/gRPC/Kafka/RabbitMQ/Dubbo in 25 apps; audit notes Q_inter is never ablated and the services sit in one repository.",
+     "strength": "weak", "novelty": "new",
+     "relative_to": [],
+     "transfers": "direct"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "Peer-reviewed, Java-heavy polyglot evidence for 'deterministic analysis retrieves, LLM judges semantics', with an ablation (if partly circular). The cross-service channel linking is a useful, untested idea for multi-repo work."
+}

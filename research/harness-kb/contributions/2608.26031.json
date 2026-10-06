@@ -1,0 +1,12 @@
+{
+  "arxiv_id": "2608.26031",
+  "contributions": [
+    {"kind": "constraint",
+     "statement": "Treat any embedding index of code that agents retrieve from as poisonable: behaviour- and AST-preserving identifier renaming makes irrelevant snippets outrank relevant code in commercial code embedders and in LLM repository retrieval, so index only reviewed branches and record retrieved-snippet provenance.",
+     "evidence": "Table 1 transfer from small surrogates to Nomic/Voyage-code-3 with correlated ΔSim; Table 5 RepoQA: GPT-5.4-mini Python 96 -> 81, C++ 92 -> 70, similar drops incl. Java with two adversarial candidates; shared-corpus setting (Table 4) much milder (MRR -12 to -38). The provenance/reviewed-branch mitigation is not tested; the only defense studied is robust finetuning.",
+     "strength": "moderate", "novelty": "refines", "relative_to": ["RAG corpus poisoning", "adversarial identifier-renaming attacks on code models"], "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "Shows the poisoning transfers to closed commercial embedders and LLM retrieval including Java; a real constraint for any RAG layer, though the headline 77% drop is the most favourable threat model."
+}

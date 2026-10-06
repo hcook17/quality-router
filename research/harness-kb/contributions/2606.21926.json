@@ -1,0 +1,20 @@
+{
+  "arxiv_id": "2606.21926",
+  "contributions": [
+    {"kind": "nuance",
+     "statement": "Load domain standards text (WCAG here; content standards or spec clauses for the team) only when a finding needs it, because always-on injection scored 58.7% resolved with 498 side-effect violations versus 78.2% and 172 for selective loading, and did worse than giving no guidance at all.",
+     "evidence": "§6.2 Table 4 knowledge-integration ablation on A11YBench-Lite: selective 78.15%/172, always-on 58.74%/498 at higher cost ($75.79 vs $59.43), none ~74.9% (selective +3.21 pts). Single model (o4-mini), single run.",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["progressive disclosure (P02)", "2608.19799"],
+     "transfers": "indirect"},
+    {"kind": "design_pattern",
+     "statement": "Group related checker findings into fine-grained, homogeneous batches (same component and situation) before handing them to the agent, instead of one call per finding or one coarse batch, because finer grouping consistently raised resolve rate and reduced side effects.",
+     "evidence": "§6.2 Table 4 grouping-granularity and LLM-refining ablations (component < criterion < situation level); refining merged 172 over-fragmented groups. Single run; front-end accessibility, not Java.",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["divide-and-conquer task decomposition"],
+     "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "The ablation shows that indiscriminate domain context does worse than no context, the clearest such measurement for P02 in this batch. Finding batching is a reusable pattern for Sonar/static-analysis fix loops."
+}

@@ -1,0 +1,22 @@
+{
+  "arxiv_id": "2607.01456",
+  "contributions": [
+    {
+      "kind": "heuristic",
+      "statement": "Lint shared SKILL.md files with deterministic checks (size, naming, delegation of detail to reference files, presence of a validation step) and do not gate on LLM-judged smell checks.",
+      "evidence": "§III-C, Table IV: 99% of 238 files have a smell, but 21/26 smells come from one quantized LLM judge with only aggregate F1 0.78, and §V concedes impact on agents is untested.",
+      "strength": "moderate",
+      "novelty": "duplicates",
+      "relative_to": [
+        "2608.08453"
+      ],
+      "transfers": "direct"
+    }
+  ],
+  "quantity_flags": [
+    "numbers_without_mechanism",
+    "survey_restatement"
+  ],
+  "proposed": "drop",
+  "reason": "Smells are inversions of grey-literature advice with no measured effect on agents, and 2608.08453 covers SKILL.md quality with a corpus 580x larger and deterministic detectors. Nothing here is not shown better elsewhere."
+}

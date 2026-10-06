@@ -1,0 +1,33 @@
+{
+  "arxiv_id": "2609.15096",
+  "contributions": [
+    {
+      "kind": "constraint",
+      "statement": "Treat agent-run analysis sessions as non-reproducible unless kernel state, dependencies and lineage are captured outside the agent; an append-only action ledger alone did not make runs replayable.",
+      "evidence": "§5 limitations: kernel state lost on restart, recovery replays eligible cells only, limited lineage coverage, for every evaluated system.",
+      "strength": "strong",
+      "novelty": "restates_known",
+      "relative_to": [
+        "pin environments and record provenance for reproducible computation"
+      ],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "design_pattern",
+      "statement": "Use persistent code kernels plus an append-only action ledger as the action substrate for long computational workflows.",
+      "evidence": "Table 3 system-level 7.83 vs 5.79-6.36, but authors state no component is causally isolated (§4.2, §5); models, prompts and 604 Skills unmatched; authors' own evaluator.",
+      "strength": "weak",
+      "novelty": "duplicates",
+      "relative_to": [
+        "2606.00579"
+      ],
+      "transfers": "indirect"
+    }
+  ],
+  "quantity_flags": [
+    "system_description_only",
+    "numbers_without_mechanism"
+  ],
+  "proposed": "drop",
+  "reason": "A science-agent system tour scored on the authors' benchmark with unmatched baselines and no ablation; the only firm statement (reproducibility is weak) is known practice."
+}

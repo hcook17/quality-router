@@ -1,0 +1,30 @@
+{
+  "arxiv_id": "2607.19653",
+  "contributions": [
+    {
+      "kind": "design_pattern",
+      "statement": "Have the harness run the profiler and inject a curated hotspot summary after each passing patch, keeping the fastest verified patch, instead of instructing the agent to profile; prompting-only scored 16.7% vs 39.2% hack-adjusted on GSO.",
+      "evidence": "Table VII (A_P vs PerfAgent: GSO 16.7 vs 39.2; SWE-fficiency-Lite 44 vs 74) and Table II ablation (tests alone 20.6, +profiler 34.4, both 39.2). Single run, Python only, no code release.",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": [
+        "harness-run deterministic tool feedback (P05/P16)"
+      ],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "anti_pattern",
+      "statement": "Any performance gate on agent patches needs a reward-hacking check (e.g. caching inside the timed loop), because 18 of the loop-only variant's high-scoring patches were hacks.",
+      "evidence": "§IV-E4; LLM-judge hack detector plus manual review of flagged cases.",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": [
+        "reward hacking of execution-based verifiers"
+      ],
+      "transfers": "indirect"
+    }
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "The harness-run vs agent-prompted profiler comparison is a clean, transferable result about who should run deterministic tools; it needs Java re-validation (JFR/async-profiler)."
+}

@@ -1,0 +1,14 @@
+{
+  "arxiv_id": "2605.21810",
+  "contributions": [
+    {"kind": "nuance",
+     "statement": "A budgeted, sanitized verifier-feedback tool (at most 3 calls after edit+compile) added value mainly when coupled with evolving the skill file, at a matched evolution budget.",
+     "evidence": "§4.2-4.3: C3 vs C4 at matched EA budget (3 to 6 of 8 tasks with at least one pass), 640 rollouts per configuration, skills tuned and scored on the same 8 Verilog tasks.",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["P26 self-improving / searched harness"],
+     "transfers": "no"}
+  ],
+  "quantity_flags": [],
+  "proposed": "drop",
+  "reason": "Test-time search over a skill file on the evaluation tasks themselves, with 20x baseline compute and no held-out split. A Java team writing shared skills cannot act on it."
+}

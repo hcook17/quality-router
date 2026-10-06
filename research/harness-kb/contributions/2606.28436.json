@@ -1,0 +1,19 @@
+{
+  "arxiv_id": "2606.28436",
+  "contributions": [
+    {"kind": "nuance",
+     "statement": "An env-free (no test execution) verifier used to filter SFT data matches env-based filtering for Python, Go, JavaScript and Java (within 2.5 points) but loses 7-13 points on compile-heavy Rust and C.",
+     "evidence": "App. E Fig. 9 per-language breakdown; single training run each.",
+     "strength": "moderate", "novelty": "new", "relative_to": [],
+     "transfers": "no"},
+    {"kind": "heuristic",
+     "statement": "When reviewing an agent patch against a reference (in SDD, possibly the spec's acceptance criteria), generate 2-4 targeted verification questions and answer each with a read-only grep subagent; this added only about 3 AUC points and requires a reference.",
+     "evidence": "§4.4 Fig. 5: K=0 78.3 to K=4 81.0 AUC, plateau beyond 4; requires the gold patch; spec-as-reference untested.",
+     "strength": "weak", "novelty": "refines",
+     "relative_to": ["subagents for isolated exploration (P12)"],
+     "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "hypothesis_only",
+  "reason": "The core contribution is a training-time reward for model builders, which does not transfer to this team; the per-language result does not support a Java-specific compile-in-loop claim. Only a weak review-question idea remains as a hypothesis."
+}

@@ -1,0 +1,19 @@
+{
+  "arxiv_id": "2609.38885",
+  "contributions": [
+    {
+      "kind": "nuance",
+      "statement": "Gate efficiency rewards on reaching a resolve-rate threshold when RL-training coding agents.",
+      "evidence": "Tables 1-3: resolve 37.4 -> 42.2; token saving 39.8% vs GRPO but ~5% vs base model; Qwen only.",
+      "strength": "moderate",
+      "novelty": "new",
+      "relative_to": [],
+      "transfers": "no"
+    }
+  ],
+  "quantity_flags": [
+    "leaderboard_only"
+  ],
+  "proposed": "drop",
+  "reason": "An RL training recipe for small Qwen models; nothing for a team using hosted agents, and the token saving is mostly relative to a GRPO baseline that inflates tokens."
+}

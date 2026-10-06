@@ -1,0 +1,16 @@
+{
+  "arxiv_id": "2608.22751",
+  "contributions": [
+    {"kind": "nuance",
+     "statement": "Have humans, not LLM annotators, set risk levels for agent tools that touch health or learner data; LLM risk labels agreed with a human auditor only at κ=0.36, and the human rated health/financial access as riskier.",
+     "evidence": "§4.2 Table 1: 150-tool human audit, 60.0% exact agreement, quadratic κ=0.362; Krippendorff α 0.523 across LLM annotators.",
+     "strength": "weak", "novelty": "refines", "relative_to": ["validate LLM labels against humans before use (2606.15029)"], "transfers": "indirect"},
+    {"kind": "design_pattern",
+     "statement": "Attach risk metadata to each tool and filter tool exposure per task before the agent sees the catalog.",
+     "evidence": "Table 2: rule-filtered variant lowers RVR@5 0.176 -> 0.073 on UltraTool, but the filter consumes the same LLM labels used to score it, and no agent is ever run (§5.7).",
+     "strength": "weak", "novelty": "restates_known", "relative_to": ["least privilege", "small curated tool catalog (P03)"], "transfers": "indirect"}
+  ],
+  "quantity_flags": ["numbers_without_mechanism"],
+  "proposed": "hypothesis_only",
+  "reason": "The learned reranker is irrelevant to a team with a small curated tool set, and the safety metric is circular. Only the weak label-disagreement observation is worth keeping as a hypothesis."
+}

@@ -1,0 +1,26 @@
+{
+  "arxiv_id": "2606.12344",
+  "contributions": [
+    {"kind": "test_practice",
+     "statement": "When building internal agent eval tasks from your own repositories' history, strip future commits and the reference fix from the task image (single-commit snapshot, no reachable refs), because leaked future history inflated non-Python SWE-bench-Multilingual scores by up to 8 pp.",
+     "evidence": "§6.5 Fig. 5: after cleanup Pass@1 is never higher for 8 models on 300 instances; Opus 4.7 -8.0 pp, Kimi 2.6 -5.0 pp. 2609.08149 later shows similar leakage with weaker (moderate) evidence.",
+     "strength": "strong", "novelty": "refines",
+     "relative_to": ["known SWE-bench git-history leakage (2025)", "2609.08149"],
+     "transfers": "direct"},
+    {"kind": "design_pattern",
+     "statement": "In a host-neutral agent evaluation runner, export the patch from repository state (git diff after the run) instead of having the model write diff text, which raised one harness from 19.3% to 71.2% resolved with apply failures under 1.5%.",
+     "evidence": "§6.1 Table 1: OpenClaw + GLM 5.1 bare vs full adapter. Audit: one harness, one model, and the bare baseline is close to a strawman, so moderate.",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["edit-format sensitivity (Aider edit formats)"],
+     "transfers": "direct"},
+    {"kind": "nuance",
+     "statement": "With the model fixed, mature general harnesses landed within about 2 pp of each other while a single weak harness lost up to 24 pp, so evaluate the hosts your engineers use on your own tasks to screen out outliers rather than to rank the top ones.",
+     "evidence": "§6.2 Table 2: Hermes 73.1 vs OpenClaw 71.2 (GLM 5.1), 81.7 vs 79.8 (DeepSeek-V4.1-Flash); GenericAgent 38.5 vs Hermes 62.8 on Qwen 3.6-flash. 3-run means, no SD; Claude Code, Codex and Cursor absent; authors' COI (TokenRhythm) flagged by audit.",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["harness matters with model fixed (SWE-agent ACI)", "2609.32459"],
+     "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "The contamination finding and the patch-export protocol are concrete practices for any team building its own agent evals; the harness ranking itself adds little because the commercial hosts are missing."
+}

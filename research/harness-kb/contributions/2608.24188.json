@@ -1,0 +1,16 @@
+{
+  "arxiv_id": "2608.24188",
+  "contributions": [
+    {"kind": "nuance",
+     "statement": "If you compress agent context, keep it extractive and keep a byte-exact read-original path for files the agent will edit: even 96%-extractive compression kept solve rate within noise but tripled patch-apply failures.",
+     "evidence": "§3.1: 96.0% of emitted identifiers appear in input; §6.2: 109/300 vs 122/300 resolved (McNemar p=0.079), apply failures 16 vs 5. Single-shot with oracle file context, no agent loop, vendor self-evaluation.",
+     "strength": "moderate", "novelty": "refines", "relative_to": ["2605.11051"], "transfers": "indirect"},
+    {"kind": "heuristic",
+     "statement": "Do the cost arithmetic before inserting a paid model as a context compressor: a frontier compressor (gpt-5) was net-negative at list prices (+$6.30 per 1M tokens), and a small compressor pays off only below a break-even self-hosting cost.",
+     "evidence": "§6.3 Table 10: gpt-5 +$6.30/M vs raw, gpt-4.1-mini -$0.29/M, Paritok-4B wins only if self-host cost < $2.23/M (unmeasured); uncached pricing.",
+     "strength": "moderate", "novelty": "refines", "relative_to": ["token/cost budgets (P24)", "context compaction (P08)"], "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "Two concrete, measured cautions for any compression step (apply-failure cost of non-verbatim context; compressor cost can exceed savings). The adapter itself is Python-tuned and untested in a multi-turn agent loop, and qr must not sit in that path."
+}

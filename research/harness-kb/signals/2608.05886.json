@@ -1,0 +1,346 @@
+{
+ "arxiv_id": "2608.05886",
+ "fulltext_chars": 60141,
+ "fulltext_lines": 1853,
+ "authors_block": "Wuya Chen Email: chenwuya@corp.netease.com Affiliation: Netease Guangzhou AI Lab Yihao Yang Email: 13590078189@163.com Affiliation: Independent Researcher Yang Cao Email: yihao786@gmail.com Affiliation: Independent Researcher Yue Lin Email: cy1835208239@gmail.com Affiliation: Netease Guangzhou AI Lab Email: gzlinyue@corp.netease.com",
+ "vendor_affiliation_hits": [],
+ "n_authors": 4,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/aorwall/moatless-tools",
+  "https://github.com/modelscope/ms-swift"
+ ],
+ "hf_urls": [
+  "https://huggingface.co/jinaai/jina-code-embeddings-1.5b"
+ ],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   40,
+   "# CodeGrep: An RL-Trained Retrieval Agent for LLM Coding Agents"
+  ],
+  [
+   68,
+   "###### Abstract"
+  ],
+  [
+   98,
+   "## 1 Introduction"
+  ],
+  [
+   150,
+   "#### Contributions."
+  ],
+  [
+   182,
+   "## 2 Related Work"
+  ],
+  [
+   184,
+   "#### Code retrieval for SWE-Bench-style agents."
+  ],
+  [
+   196,
+   "#### Agent-style search and tool use."
+  ],
+  [
+   206,
+   "#### Reinforcement learning for tool policies."
+  ],
+  [
+   217,
+   "#### Trajectory mining as supervision."
+  ],
+  [
+   228,
+   "## 3 Method"
+  ],
+  [
+   230,
+   "### 3.1 System Overview"
+  ],
+  [
+   251,
+   "### 3.2 CodeGrep: The Retrieval Model"
+  ],
+  [
+   271,
+   "### 3.3 RL Environment: A Lightweight Multi-turn Tool Sandbox"
+  ],
+  [
+   299,
+   "### 3.4 Training Data: CATM (Code Agent Trajectory Mining)"
+  ],
+  [
+   301,
+   "#### Ground-truth problem and fix."
+  ],
+  [
+   317,
+   "#### Three-stage pipeline."
+  ],
+  [
+   349,
+   "#### Ground truth structure."
+  ],
+  [
+   366,
+   "### 3.5 Reward Design and Three Iterations"
+  ],
+  [
+   372,
+   "#### Component scores."
+  ],
+  [
+   402,
+   "#### Iteration v_{1} : reward-layer efficiency scaling."
+  ],
+  [
+   422,
+   "#### Iteration v_{2} : move scaling to the advantage layer."
+  ],
+  [
+   449,
+   "#### Iteration v_{3} : remove line-range from the base reward."
+  ],
+  [
+   501,
+   "### 3.6 Training Recipe"
+  ],
+  [
+   511,
+   "#### Training dynamics."
+  ],
+  [
+   532,
+   "## 4 Experiments"
+  ],
+  [
+   534,
+   "### 4.1 Setup"
+  ],
+  [
+   554,
+   "### 4.2 Retrieval evaluation"
+  ],
+  [
+   647,
+   "### 4.3 Downstream evaluation"
+  ],
+  [
+   720,
+   "## 5 Analysis"
+  ],
+  [
+   730,
+   "### 5.1 From retrieval quality to downstream utility: a precision threshold"
+  ],
+  [
+   785,
+   "### 5.2 Reward iterations: three failure modes, three regimes"
+  ],
+  [
+   793,
+   "#### v_{1}\\to v_{2} : reward-layer scaling destabilises training"
+  ],
+  [
+   810,
+   "#### v_{2}\\to v_{3} : fixing drift exposes length exploitation."
+  ],
+  [
+   824,
+   "#### v_{3} closes the loop."
+  ],
+  [
+   834,
+   "### 5.3 Pooled vs. paired-instance efficiency"
+  ],
+  [
+   845,
+   "## 6 Case Study: Where the Token Savings Come From"
+  ],
+  [
+   851,
+   "#### The issue: django-15278."
+  ],
+  [
+   860,
+   "#### Baseline: 74 actions, 3.2 M tokens, no patch."
+  ],
+  [
+   877,
+   "#### Injection: 15 actions, 307 K tokens, patch passes."
+  ],
+  [
+   895,
+   "## 7 Limitations and Future Work"
+  ],
+  [
+   902,
+   "## 8 Conclusion"
+  ],
+  [
+   915,
+   "## References"
+  ],
+  [
+   1160,
+   "## Appendix A Infrastructure Details"
+  ],
+  [
+   1165,
+   "### A.1 RL Environment Implementation"
+  ],
+  [
+   1186,
+   "#### Layer 2 engineering."
+  ],
+  [
+   1202,
+   "#### Layer 3 engineering."
+  ],
+  [
+   1216,
+   "#### Rollout scheduler."
+  ],
+  [
+   1224,
+   "### A.2 CATM Pipeline Implementation"
+  ],
+  [
+   1276,
+   "#### Stage 1."
+  ],
+  [
+   1289,
+   "#### Stage 2."
+  ],
+  [
+   1300,
+   "#### Stage 3."
+  ],
+  [
+   1308,
+   "### A.3 Key Engineering Numbers"
+  ],
+  [
+   1363,
+   "### A.4 Training Configuration"
+  ],
+  [
+   1368,
+   "#### Parameter-efficient fine-tuning."
+  ],
+  [
+   1377,
+   "#### Optimization."
+  ],
+  [
+   1390,
+   "## Appendix B Reward Design Details"
+  ],
+  [
+   1392,
+   "#### Edge cases for F_{\\beta}^{\\text{file}} and"
+  ],
+  [
+   1400,
+   "#### Line-range matching algorithm."
+  ],
+  [
+   1419,
+   "#### On merge mode and the “no CATM recall bonus” choice."
+  ],
+  [
+   1430,
+   "#### Contrast with concurrent work."
+  ],
+  [
+   1505,
+   "## Appendix C Positioning: Agent RL vs Traditional RLHF"
+  ],
+  [
+   1565,
+   "## Appendix D Training Stability Diagnostics"
+  ],
+  [
+   1617,
+   "## Appendix E BM25 Baseline Configuration"
+  ],
+  [
+   1624,
+   "#### Corpus."
+  ],
+  [
+   1634,
+   "#### Tokenization."
+  ],
+  [
+   1643,
+   "#### BM25 parameters."
+  ],
+  [
+   1649,
+   "#### Path signal."
+  ],
+  [
+   1664,
+   "#### Top- K selection."
+  ],
+  [
+   1678,
+   "#### Test-directory scope."
+  ],
+  [
+   1691,
+   "#### Retrieval."
+  ],
+  [
+   1700,
+   "#### Downstream injection."
+  ],
+  [
+   1710,
+   "#### Scoring."
+  ],
+  [
+   1718,
+   "#### Runtime."
+  ],
+  [
+   1727,
+   "## Appendix F Case Study: Action-Level Trajectory"
+  ],
+  [
+   1743,
+   "#"
+  ],
+  [
+   1748,
+   "#"
+  ],
+  [
+   1853,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 7 Limitations and Future Work\n\nCodeGrep’s contribution is concentrated on rollout cost, not\nresolve rate; a natural next step is end-to-end co-training against\na downstream resolve-rate signal, testing whether retrieval can be\nmade to buy both efficiency and effectiveness.\n\n## 8 Conclusion\n\nWe introduced CodeGrep, an open 14 B RL-trained agent-style code\nretriever. Injected into a frozen OpenHands downstream agent, it\nlifts SWE-Bench Verified resolve rate by +1.2 pp and cuts 15\\% \nof rounds and 19\\% of tokens on resolved instances. Our study\nsurfaces a precision threshold governing when retrieval\nhelps downstream, and—in our training setting—identifies the\nadvantage layer, not the reward layer, as the appropriate site for\nefficiency signals in GRPO-style multi-turn training. All artifacts\n(model, training pipeline, RL environment, evaluation harnesses)\nwill be released.\n\n## References\n\nAnthropic (2025)\nAnthropic\n\nClaude Code: anthropic’s official CLI for Claude.\n\nNote: https://www.anthropic.com/claude-codeAnthropic product page and documentation.\n\nCited by: §1.\n\nFeng et al. (2020)\nZ. Feng, D. Guo, D. Tang, N. Duan, X. Feng, M. Gong, L. Shou, B. Qin, T. Liu, D. Jiang, and M. Zhou\n\nCodeBERT: a pre-trained model for programming and natural languages.\n\nFindings of EMNLP.\n\nCited by: §1,\n§2.",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 0,
+  "swe_bench": 24,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

@@ -1,0 +1,30 @@
+{
+  "arxiv_id": "2610.05300",
+  "contributions": [
+    {
+      "kind": "heuristic",
+      "statement": "When an LLM revises harness prompts or modules, feed it validation traces rather than scores alone.",
+      "evidence": "Table 5 (text tasks, single run): refresh without traces 53.80 vs full 56.33; no pool refresh 51.20.",
+      "strength": "weak",
+      "novelty": "refines",
+      "relative_to": [
+        "P26 searched harness; P30 trace observability"
+      ],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "constraint",
+      "statement": "Searched harness configurations can cut test-time cost substantially versus Meta-Harness.",
+      "evidence": "Table 6: test-only $3.55 -> $1.98 (44%), dominated by ScienceWorld; Text only 2.8%.",
+      "strength": "strong",
+      "novelty": "new",
+      "relative_to": [],
+      "transfers": "no"
+    }
+  ],
+  "quantity_flags": [
+    "leaderboard_only"
+  ],
+  "proposed": "hypothesis_only",
+  "reason": "Bandit harness search on non-SE benchmarks with single search runs; the only portable idea, trace-driven revision, rests on a 2.5-point single-run ablation."
+}

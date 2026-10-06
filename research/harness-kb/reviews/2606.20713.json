@@ -1,0 +1,32 @@
+{
+  "arxiv_id": "2606.20713",
+  "contribution_type": "system",
+  "summary": "FairTutor is a work-in-progress tutoring cascade. A cheap model (Qwen3-8B) drafts an answer, a cheap evaluator scores it on a seven-part pedagogy rubric, a critic rewrites borderline answers, and only failures go to GPT-5. On 50 synthetic single-turn student queries judged by GPT-5, it reports 97.1% of premium quality at 28.4% of premium token cost. Its margin over a plain generic cascade is not statistically resolved.",
+  "claims": [
+    {"claim": "FairTutor achieves 97.1% of premium pedagogical quality while reducing serving cost by 71.6%", "evidence": "Tables 1-2: quality 4.760 vs 4.874 (premium), cost 28.4% of premium. Cost is a token-weighted proxy with assumed 100x/75x price ratios and excludes evaluator calls. Quality is judged by GPT-5, which is also the premium tutor. n=50, single sample per system.", "strength": "weak", "location": "§4.3, Tables 1-2"},
+    {"claim": "FairTutor beats the generic cascade router", "evidence": "Appendix B: paired bootstrap gain over generic cascade +0.065, 95% CI [-0.040, +0.168], which spans zero. The author concedes this is not resolved at n=50.", "strength": "unsupported", "location": "Appendix B"},
+    {"claim": "FairTutor substantially closes the access-tier gap relative to the low-cost-only baseline", "evidence": "Appendix B: per-query gain over low-cost-only +0.360, 95% CI [+0.203, +0.533]; ranking preserved under an independent DeepSeek-V4 judge (r=0.53 with GPT-5). Any cascade that escalates 18% of queries to the premium model would be expected to beat low-cost-only.", "strength": "moderate", "location": "Appendix B, Table 4"},
+    {"claim": "Sweeping the escalation threshold τ traces a smooth cost-quality Pareto frontier", "evidence": "Appendix C, Table 5: offline replay over fixed, single-sample generations; τ=4.5 gives 100% within-0.5 parity at 33.9% cost; escalation climbs steeply beyond τ≈4.6. Same 50 queries and same judge.", "strength": "weak", "location": "Appendix C, Table 5"}
+  ],
+  "patterns": [
+    {"id": "P23", "stance": "introduces", "note": "Cheap-first cascade with an evaluator threshold and a rewrite band before escalation. Evidence is 50 synthetic queries and an LLM judge; no margin over a generic cascade."},
+    {"id": "P18", "stance": "mixed", "note": "A cheap LLM evaluator gates escalation; final scoring by GPT-5 (also the premium tutor) agrees with DeepSeek-V4 only at r=0.53."},
+    {"id": "P11", "stance": "neutral", "note": "Six-role pipeline (analyzer, planner, tutor, evaluator, critic, escalation controller); roles are not ablated individually."}
+  ],
+  "methodology": {"sample": "50 synthetic single-turn K-12 tutoring queries (TutorAccessEval WIP); 250 responses", "baselines": "Low-cost-only, premium-only, naive difficulty router, generic cascade — all author-built; no RouteLLM/FrugalGPT", "models": "Qwen3-8B (cheap), GPT-5 (premium and evaluator); DeepSeek-V4 re-judge", "variance": "SE of mean; paired bootstrap CIs; single generation sample per stage", "ablations": "Threshold sweep via offline replay; no per-component ablation (planner, critic)", "contamination_controls": "None", "languages": "English (plus one French translation item); no code"},
+  "standards": {"peer_review": "Workshop (AI for Education Day at SIGKDD 2026), self-described WIP", "limitations_section": true, "artifacts": "Code under MIT at github.com/qyxu1994/fairtutor-router; dataset described in Appendix D", "preregistration": "n/a"},
+  "biases": [
+    {"type": "small_sample", "detail": "50 queries; the headline comparison against the strongest baseline has a CI spanning zero."},
+    {"type": "llm_judge_unvalidated", "detail": "GPT-5 judges its own premium answers; the second judge correlates at r=0.53; no educator annotation."},
+    {"type": "strawman_baseline", "detail": "All baselines are author-built; published routers are deferred to future work."},
+    {"type": "missing_cost_reporting", "detail": "Cost excludes evaluator calls and is a token proxy with assumed price ratios."},
+    {"type": "toy_tasks", "detail": "Synthetic single-turn queries; no student learning outcome measured."},
+    {"type": "self_evaluation", "detail": "Author designs the rubric, benchmark, system, and baselines."}
+  ],
+  "coi": {"affiliations": "Single independent researcher (Shanghai)", "vendor_products_evaluated": "Qwen3-8B, GPT-5, DeepSeek-V4 used as components, not promoted", "funding": "Not stated", "severity": "none", "detail": "No vendor affiliation; the paper is not a product announcement."},
+  "scores": {"rigor": 2, "reproducibility": 3, "generalizability": 1, "relevance": 1, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Honest WIP with code release and its own bootstrap showing the key comparison is unresolved. Only the trivial claim (a cascade beats cheap-only) is supported; the 97.1%/71.6% headline rests on one GPT-5-judged run over 50 synthetic queries.",
+  "applicability": "Not a coding-agent paper. For a healthcare-education content team it is at most a sketch for a learner-facing product: a cheap-first answer path with a rubric gate and escalation. It gives no evidence for any coding-harness decision.",
+  "conflicts_with": []
+}

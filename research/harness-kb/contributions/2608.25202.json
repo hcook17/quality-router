@@ -1,0 +1,12 @@
+{
+  "arxiv_id": "2608.25202",
+  "contributions": [
+    {"kind": "nuance",
+     "statement": "In public spec-driven repos, 81% of PRs that touch a spec also touch code, so spec and implementation usually move together in one PR.",
+     "evidence": "Table I: 81.2% of 5,992 spec-touching PRs (581 repos, >=10 stars) also modify code; authors call co-change a heuristic, and the sample excludes code-only PRs that skip the spec, so spec drift is not measured.",
+     "strength": "moderate", "novelty": "restates_known", "relative_to": ["SDD prescription that spec and code change in the same PR", "doc/code co-evolution studies"], "transfers": "indirect"}
+  ],
+  "quantity_flags": ["system_description_only"],
+  "proposed": "drop",
+  "reason": "A dataset description with no outcome measure; it cannot say whether SDD improves anything, and the one behavioural statistic is a heuristic restating SDD's own prescription. Useful as reference templates, not as evidence."
+}

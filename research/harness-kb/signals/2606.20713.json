@@ -1,0 +1,187 @@
+{
+ "arxiv_id": "2606.20713",
+ "fulltext_chars": 45291,
+ "fulltext_lines": 795,
+ "authors_block": "Qingyang Xu",
+ "vendor_affiliation_hits": [],
+ "n_authors": 1,
+ "comment": "AI for Education Day at SIGKDD 2026, 14 pages, 2 figures",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/qyxu1994/fairtutor-router."
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# FairTutor: Equity-Aware Pedagogical LLM Routing for Budget-Constrained AI Tutoring"
+  ],
+  [
+   24,
+   "###### Abstract"
+  ],
+  [
+   28,
+   "###### keywords"
+  ],
+  [
+   34,
+   "## 1 Introduction"
+  ],
+  [
+   63,
+   "## 2 Problem Formulation"
+  ],
+  [
+   81,
+   "## 3 FairTutor Architecture"
+  ],
+  [
+   83,
+   "### 3.1 System overview"
+  ],
+  [
+   89,
+   "### 3.2 Query analysis and pedagogical planning"
+  ],
+  [
+   93,
+   "### 3.3 Evaluator-guided routing"
+  ],
+  [
+   103,
+   "### 3.4 Cascade policy via pedagogical rubric"
+  ],
+  [
+   183,
+   "## 4 Preliminary Experimental Evaluation"
+  ],
+  [
+   185,
+   "### 4.1 Benchmark and implementation status"
+  ],
+  [
+   193,
+   "### 4.2 Model routing system variants"
+  ],
+  [
+   217,
+   "### 4.3 Main results"
+  ],
+  [
+   307,
+   "### 4.4 Threshold sensitivity analysis"
+  ],
+  [
+   311,
+   "## 5 Discussion, Ethical Considerations, and Future Work"
+  ],
+  [
+   317,
+   "## Declaration on Generative AI"
+  ],
+  [
+   321,
+   "## Code Availability"
+  ],
+  [
+   325,
+   "## Acknowledgements"
+  ],
+  [
+   329,
+   "## References"
+  ],
+  [
+   499,
+   "## Appendix A Pedagogical Evaluation Rubric"
+  ],
+  [
+   527,
+   "## Appendix B Robustness Check: Independent DeepSeek-V4 Evaluator"
+  ],
+  [
+   579,
+   "## Appendix C Routing-Threshold Sensitivity Analysis"
+  ],
+  [
+   655,
+   "## Appendix D TutorAccessEval Query Dataset"
+  ],
+  [
+   659,
+   "### D.1 Example TutorAccessEval Item"
+  ],
+  [
+   683,
+   "### D.2 Dataset composition"
+  ],
+  [
+   741,
+   "### D.3 Important dataset features"
+  ],
+  [
+   749,
+   "### D.4 Limitations"
+  ],
+  [
+   755,
+   "### D.5 Future work"
+  ],
+  [
+   761,
+   "## Appendix E Related Work"
+  ],
+  [
+   763,
+   "### E.1 Large language models for education"
+  ],
+  [
+   767,
+   "### E.2 Cost-aware LLM routing and cascading"
+  ],
+  [
+   771,
+   "### E.3 Access-Tier Quality Gap and the AI Education Divide"
+  ],
+  [
+   775,
+   "## Appendix F Qualitative Evaluation Results"
+  ],
+  [
+   777,
+   "### F.1 Naive-router parity anomaly"
+  ],
+  [
+   781,
+   "### F.2 Failure mode analysis"
+  ],
+  [
+   785,
+   "### F.3 Case studies"
+  ],
+  [
+   795,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgements\n\nThe author thanks Xiaotong Chen and Jiangbo Wan for insightful discussions.\n\n## References\n\n(1)\n\nS. Wang, T. Xu, H. Li, C. Zhang, J. Liang, J. Tang, P. S. Yu, and Q. Wen.\n\nLarge language models for education: A survey and outlook.\n\nIEEE Signal Processing Magazine, 42(6):51–63, 2025.\n\narXiv:2403.18105.\n\ndoi:10.1109/MSP.2025.3594309.\n\n(2)\n\nZ. Chu, S. Wang, J. Xie, T. Zhu, Y. Yan, J. Ye, A. Zhong, X. Hu, J. Liang, P. S. Yu, and Q. Wen.\n\nLLM agents for education: Advances and applications.\n\nIn Findings of the Association for Computational Linguistics: EMNLP 2025, pages 13782–13810, 2025.",
+ "limitations": "### D.4 Limitations\n\nTutorAccessEval is intended as a preliminary diagnostic benchmark, not a validated measure of student learning. It has several limitations. First, the dataset is small: 50 queries are sufficient for a WIP demonstration but not enough to establish robust subject-level conclusions. Second, the queries are synthetic or manually curated rather than collected from real tutoring sessions. As a result, they may not fully capture the ambiguity, emotional context, multilingual phrasing, or persistence patterns found in authentic student interactions. Third, the dataset focuses on single-turn tutoring. Many important tutoring behaviors, such as adaptive hinting, misconception tracking, and gradual fading of support, require multi-turn evaluation.\n\nFourth, the benchmark currently lacks demographic, accessibility, and socioeconomic context. This is a limitation for an equity-focused paper: the current access-tier AI Education Advantage Gap measures quality differences across access tiers, not across real learner populations. Fifth, the dataset does not include human teacher annotations or student learning-gain measurements. The expected pedagogy field provides a useful rubric target, but it should eventually be validated by educators. Finally, the subject distribution is broad but shallow; each domain has only a small number of examples, and some important educational settings, such as multilingual learners, special education, early literacy, and culturally grounded instruction, are underrepresented.\n\n### D.5 Future work\n\nFuture versions of TutorAccessEval should expand in four directions. First, the dataset should scale to hundreds or thousands of queries with balanced coverage across subjects, grade levels, difficulty levels, and tutoring risks. Second, it should include multi-turn tutoring trajectories so that systems can be evaluated on hint progression, student uptake, recovery from misunderstanding, and when to stop scaffolding. Third, future data collection should involve teachers, students, and caregivers to produce more authentic query distributions and human-validated pedagogy labels. Fourth, the benchmark should add equity-relevant slices, such as low-literacy prompts, multilingual learners, low-resource curricula, accessibility needs, and different levels of prior knowledge.\n\nA stronger future benchmark would also include paired evaluation targets: one target for correctness and another for pedagogical appropriateness. This would allow researchers to distinguish systems that know the answer from systems that teach well. Finally, future releases should include richer metadata for cost and deployment constraints, enabling more direct evaluation of cost-aware and equity-aware routing policies in realistic educational settings.\n\n## Appendix E Related Work\n\n### E.1 Large language models for education\n\nLLMs are increasingly used for educational tasks such as generating explanations, giving formative feedback, supporting writing revision, and answering student questions [6, 7, 1, 2]. Prior work emphasizes both the promise and risk of LLMs in learning contexts: they can personalize instruction and expand access, but they can also hallucinate, over-scaffold, provide direct answers, or widen existing inequities [6, 8]. These concerns motivate evaluation criteria beyond correctness, including scaffolding, age appropriateness, learner agency, and fairness.\n\n### E.2 Cost-aware LLM routing and cascading\n\nLLM routing systems select among multiple models or tools to optimize performance under constraints. FrugalGPT proposes prompt adaptation, LLM approximation, and LLM cascading to reduce cost while preserving accuracy [3]. RouteLLM learns routers from preference data to select between stronger and weaker models [4]. Other routing and cascading frameworks analyze when sequential escalation or direct model selection is most effective [5]. Our work builds on this literature but changes the objective: instead of optimizing g",
+ "ethics_coi": "## 5 Discussion, Ethical Considerations, and Future Work\n\nWe introduced FairTutor, an access-tier equity-aware model routing framework for budget-constrained AI tutoring. FairTutor preserves pedagogical quality and lowers serving cost through evaluator-guided response refinement and selective escalation to premium models. Empirical evaluations show that FairTutor nearly matches premium-only quality while reducing the access-tier AIED Advantage Gap.\n\nThis WIP has several limitations to be addressed in future work. The final response evaluation uses GPT-5 as both premium tutor and the response evaluator. Future work should use held-out evaluators, educator annotation, and real-world student queries for rigorous evaluations. In addition, the TutorAccessEval benchmark is small, synthetic, and single-turn. Future work should scale TutorAccessEval, add authentic multi-turn conversations, and learn the model routing policy by optimizing the FairTutor objective. Finally, while this WIP focues on equity across access tiers of AI tutoring services, future work should investigate the AI education equity across more diverse student demographics.\n\n## Declaration on Generative AI\n\nDuring the preparation of this work, the author used ChatGPT for brainstorming, paper drafting and editing, and code scaffolding, and used Claude Code for code implementation. The author reviewed and edited the entire content and takes full responsibility for the publication’s content.\n\n## Code Availability\n\nThe source code is available under MIT License at https://github.com/qyxu1994/fairtutor-router.\n\n## Acknowledgements\n\nThe author thanks Xiaotong Chen and Jiangbo Wan for insightful discussions.\n\n## References\n\n(1)\n\nS. Wang, T. Xu, H. Li, C. Zhang, J. Liang, J. Tang, P. S. Yu, and Q. Wen.\n\nLarge language models for education: A survey and outlook.",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 8,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 1,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

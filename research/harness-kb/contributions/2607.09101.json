@@ -1,0 +1,30 @@
+{
+  "arxiv_id": "2607.09101",
+  "contributions": [
+    {
+      "kind": "heuristic",
+      "statement": "Give a Java test-generation agent static-analysis dependency context (classes, constructors, call graph) through tool calls rather than having it infer project structure.",
+      "evidence": "Table IV: removing the knowledge graph drops line coverage 92.3 to 75.7 and mutation 83.7 to 66.1; audit notes the paper never says what context the ablated variant gets, so this may just be 'remove all repo context'.",
+      "strength": "moderate",
+      "novelty": "duplicates",
+      "relative_to": [
+        "2607.19682"
+      ],
+      "transfers": "direct"
+    },
+    {
+      "kind": "nuance",
+      "statement": "Expect agent-generated Java unit tests to score far lower on mutation on private code than on Defects4J (55% vs 84% here) and re-measure on the team's own repositories before trusting published numbers.",
+      "evidence": "Table VI: UTXXX industrial set 55.38% mutation vs 83.69% public, but the model also changed (Qwen3-30B vs GPT-4o), so leakage and model effects are confounded.",
+      "strength": "weak",
+      "novelty": "refines",
+      "relative_to": [
+        "2606.18168"
+      ],
+      "transfers": "direct"
+    }
+  ],
+  "quantity_flags": [],
+  "proposed": "hypothesis_only",
+  "reason": "The context-retrieval lesson is shown with closed data and a cleaner industrial design in CATGen; the public-vs-private gap is confounded by a model switch. Nothing qualifies as new and strong."
+}

@@ -1,0 +1,20 @@
+{
+  "arxiv_id": "2608.08453",
+  "contributions": [
+    {"kind": "heuristic",
+     "statement": "Before sharing an AI-generated SKILL.md across agent hosts, lint it for hard-coded model names, platform-specific paths, credentials and destructive commands; AI-marked skills had about twice the safety (18.9% vs 8.2%) and three times the portability (12.8% vs 4.6%) defect rates of other skills.",
+     "evidence": "§4.4 Figs. 3-4 over 138K skills: AI-marked 3.23 vs 2.34 defects (Cliff's delta 0.28); R5/R6 rates as stated. Correlational, self-disclosed AI marker, detectors not precision-audited on real skills.",
+     "strength": "moderate", "novelty": "refines", "relative_to": ["2607.01456 skill smells are near-universal"], "transfers": "direct"},
+    {"kind": "nuance",
+     "statement": "Most public skills violate the skill spec or best practices (91.8%).",
+     "evidence": "§4.2 Fig. 2; bundles cosmetic defects.",
+     "strength": "moderate", "novelty": "duplicates", "relative_to": ["2607.01456"], "transfers": "indirect"},
+    {"kind": "heuristic",
+     "statement": "Require a 'Use when ...' trigger in every skill description so on-demand loading can route to it.",
+     "evidence": "§4.3 Table 1 BM25 proxy, 2-6 point differences, near-tautological per audit; production hosts use LLM selectors.",
+     "strength": "weak", "novelty": "restates_known", "relative_to": ["vendor skill authoring guidance (description states when to use)"], "transfers": "direct"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "Prevalence duplicates 2607.01456, but the AI-authored portability/safety gap is a specific lint target for a mixed-host team sharing skills; no evidence that fixing defects improves task success."
+}

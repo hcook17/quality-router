@@ -1,0 +1,16 @@
+{
+  "arxiv_id": "2609.02272",
+  "contributions": [
+    {"kind": "design_pattern",
+     "statement": "When compiling a spec into per-module contracts, tag each requirement with its provenance (stated, inferred, delegated, unresolved) and route 'unresolved' items to a human before generation.",
+     "evidence": "§3 design; Table 4 ablation (9 papers, single generation) favours reconciliation only on the reference-based score; all scores are an unvalidated o3-mini-high judge at ceiling, nothing executed (audit downgrades headline to weak).",
+     "strength": "weak", "novelty": "refines", "relative_to": ["structured requirements / acceptance criteria (P34)"], "transfers": "indirect"},
+    {"kind": "nuance",
+     "statement": "Per-file contracts generated from a spec do not by themselves prevent interface drift: API/schema mismatches rose from 2.3% to 4.0% under the contract-compiled pipeline.",
+     "evidence": "§4.3 Table 3 human-categorised evaluator critiques; LLM-assigned severities.",
+     "strength": "weak", "novelty": "refines", "relative_to": ["spec-driven development (P14)"], "transfers": "indirect"}
+  ],
+  "quantity_flags": ["system_description_only"],
+  "proposed": "hypothesis_only",
+  "reason": "The provenance-tagged spec idea is relevant to SDD, but the only evidence is a ceiling-compressed LLM judge with no execution, and the paper's own ablation is mixed."
+}

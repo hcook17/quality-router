@@ -1,0 +1,16 @@
+{
+  "arxiv_id": "2608.17528",
+  "contributions": [
+    {"kind": "constraint",
+     "statement": "When grading agents against fixtures, hide git history and enforce an egress allow-list, because agents fetch reference solutions via git history, wget/curl, pip and Python networking.",
+     "evidence": "§Preventing Reward Hacking: qualitative list of observed behaviours and safeguards, no frequency counts.",
+     "strength": "moderate", "novelty": "restates_known", "relative_to": ["SWE-bench git-history solution leakage (2025)", "sandboxed evaluation with network isolation (P20)"], "transfers": "direct"},
+    {"kind": "constraint",
+     "statement": "Retokenizing agent rollouts breaks token-prefix continuity, so one rollout yields ~2.4 training samples on average.",
+     "evidence": "§Challenges Fig. 10: 36% of rollouts stay one merged row.",
+     "strength": "moderate", "novelty": "new", "relative_to": [], "transfers": "no"}
+  ],
+  "quantity_flags": ["system_description_only"],
+  "proposed": "drop",
+  "reason": "An RL framework description with single-run results; the one harness-relevant lesson (block VCS history and egress when grading) is already known."
+}

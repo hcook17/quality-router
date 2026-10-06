@@ -1,0 +1,16 @@
+{
+  "arxiv_id": "2607.27877",
+  "contributions": [
+    {"kind": "anti_pattern",
+     "statement": "Avoid splitting parallel agents by technical layer when requirements span the layer boundary; layer-specialist teams scored best when the API contract was clean (96.3) and worst in the grid when one requirement crossed layers (57.2), while vertical feature ownership was the most balanced.",
+     "evidence": "App. mode descriptions and Table 3: layer specialists P07 96.3 vs P01 57.2; feature squad only mode topping hardest project P09 (75.1). Mostly single runs, no single-agent baseline, grader is also the feedback source.",
+     "strength": "weak", "novelty": "refines", "relative_to": ["Conway's law / contract-first API design (known)"], "transfers": "indirect"},
+    {"kind": "test_practice",
+     "statement": "Report acceptance failures with explicit prerequisite links and skip dependents of a failed prerequisite, so repair targets the root cause; one broken auth or setup step auto-skipped up to 14 downstream checks and cascades appeared in 39% of runs.",
+     "evidence": "§A Table 4: auth/permission 11.9% + prerequisite cascades 11.0% of 1,440 failing checks; labelling procedure and agreement not described.",
+     "strength": "moderate", "novelty": "restates_known", "relative_to": ["dependency-aware test reporting / fail-fast on setup fixtures (known test practice)"], "transfers": "indirect"}
+  ],
+  "quantity_flags": ["numbers_without_mechanism"],
+  "proposed": "hypothesis_only",
+  "reason": "Topology effects are single-run and graded by the same agent that feeds back, so the vertical-ownership lesson is a hypothesis; the prerequisite-cascade practice is known test hygiene."
+}

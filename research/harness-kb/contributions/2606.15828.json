@@ -1,0 +1,14 @@
+{
+  "arxiv_id": "2606.15828",
+  "contributions": [
+    {"kind": "heuristic",
+     "statement": "Lint AGENTS.md/CLAUDE.md for style rules already enforced by Checkstyle/Spotless/Sonar (present in most popular config files) and for referenced docs with no note on when to read them, and delete or annotate them; whether this improves agent outcomes is unmeasured.",
+     "evidence": "§VI Table II: Lint Leakage 58 confirmed of 100 top-starred repos (93% precision, single author, no recall); Blind References and Context Bloat use unvalidated heuristics; harm asserted from grey literature only (§I, §IV).",
+     "strength": "weak", "novelty": "refines",
+     "relative_to": ["vendor AGENTS.md/CLAUDE.md authoring guidance", "progressive disclosure (P02)"],
+     "transfers": "direct"}
+  ],
+  "quantity_flags": ["survey_restatement"],
+  "proposed": "hypothesis_only",
+  "reason": "The smell catalogue is distilled from 14 grey-literature documents and only its prevalence is measured; the deterministic lint it implies is cheap, but there is no evidence that it helps."
+}

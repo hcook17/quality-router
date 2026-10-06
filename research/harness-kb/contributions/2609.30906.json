@@ -1,0 +1,21 @@
+{
+  "arxiv_id": "2609.30906",
+  "contributions": [
+    {
+      "kind": "nuance",
+      "statement": "For very large tool catalogs, iterative search over the catalog beats a single top-k retrieval pass.",
+      "evidence": "Table 1: trained multi-turn search F1 0.513 vs single-round RAG 0.194 (Qwen2.5-7B); 1.3-1.7pp over GDPO with one seed.",
+      "strength": "moderate",
+      "novelty": "restates_known",
+      "relative_to": [
+        "iterative retrieval / deferred tool loading (P03)"
+      ],
+      "transfers": "no"
+    }
+  ],
+  "quantity_flags": [
+    "leaderboard_only"
+  ],
+  "proposed": "drop",
+  "reason": "RL training recipe for small tool-selection models; a team using hosted agents cannot act on it, and margins over the strongest baseline are noise-level."
+}

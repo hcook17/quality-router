@@ -1,0 +1,20 @@
+{
+  "arxiv_id": "2607.18057",
+  "contributions": [
+    {
+      "kind": "test_practice",
+      "statement": "Gate agent PRs on diff coverage of the changed lines (e.g. JaCoCo plus a diff-coverage check), not on the suite passing, because existing tests executed only 61.5% of agent-changed Java lines and 27.0% of Python lines, and half of code-changing agent PRs added no tests.",
+      "evidence": "§IV-A/B, Fig. 2: 213 Java / 1,664 Python merged buildable PRs; 64.8% of Python PRs had no changed line executed. Java subset is 10 smaller-than-average repos; no human baseline; Codex-dominated.",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": [
+        "patch/diff coverage gates",
+        "2606.18168"
+      ],
+      "transfers": "direct"
+    }
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "Adds Java magnitudes showing that a green suite often never runs the agent's change, which justifies a diff-coverage gate in each repo's CI. The 86% try/catch figure rests on 43 Java lines and is excluded."
+}

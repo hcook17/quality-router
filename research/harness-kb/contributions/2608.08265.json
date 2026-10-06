@@ -1,0 +1,20 @@
+{
+  "arxiv_id": "2608.08265",
+  "contributions": [
+    {"kind": "test_practice",
+     "statement": "Before adopting a model router or cascade, report three numbers on a held-out split: the oracle gap with a selection-valid lower bound, the router's held-out gain over the best single model, and a simultaneous interval over every router variant tried. If the gain's lower bound is zero, keep the single best model.",
+     "evidence": "§4 Theorems 4 and 6; §7.1 Tables 1-2: oracle gaps certified positive on all four tasks while the best-of-11 router gain has lower limit .000 on all four.",
+     "strength": "moderate", "novelty": "new", "relative_to": [], "transfers": "indirect"},
+    {"kind": "nuance",
+     "statement": "A large oracle gap across a model pool does not mean a pre-answer router can capture it: in a 0.5-7B pool the best K-way router recovered 7.5-14.4% of the gap. Treat oracle-gap numbers in routing papers as an upper bound, not a deployable gain.",
+     "evidence": "§7.2, Table 3; Appendix J shows complementary coverage does not convert into router gain.",
+     "strength": "moderate", "novelty": "refines", "relative_to": ["2606.22902", "2605.30898", "P23"], "transfers": "indirect"},
+    {"kind": "anti_pattern",
+     "statement": "Do not pick the best fixed model and evaluate a router against it on the same sample: the plug-in comparison is biased in a known direction.",
+     "evidence": "Proposition 3 and Corollary 5; the pilot certified positive per-query opportunity on all three tasks under split selection but only HellaSwag survived selection-valid inference.",
+     "strength": "moderate", "novelty": "refines", "relative_to": ["Standard post-selection inference (winner's curse)"], "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "The selection-valid evaluation protocol is new to the KB and applies to any team comparing routers, cascades or harness variants on a small task set. The empirical result comes from small open models on single-turn benchmarks, so transfer to coding-agent routing is indirect and strength stays moderate."
+}

@@ -1,0 +1,28 @@
+{
+  "arxiv_id": "2606.31767",
+  "contributions": [
+    {
+      "kind": "test_practice",
+      "statement": "When an agent is asked to fix a Java performance issue, require a JMH benchmark or a warmed, repeated-timing detector test with a statistical threshold as the acceptance oracle, because existing JUnit suites showed a significant speedup for only 19 of 102 real performance patches (8 under a conservative threshold) and wrong patches still pass them.",
+      "evidence": "§5.1 and §6.1: 19/102 ETIPs have any test class with significant improvement (6 of them also show a regression); JMH present in only 14/91 projects; §5.2 notes incorrect patches pass existing tests. Audit grades the 'tests lack' inference moderate (class-level timing is noisy).",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": [
+        "functional tests do not verify non-functional properties (2608.26391)"
+      ],
+      "transfers": "direct"
+    },
+    {
+      "kind": "constraint",
+      "statement": "Expect an off-the-shelf agent (OpenHands with GPT-5-mini) to correctly fix only about 1 in 7 real Maven performance issues, with multi-module changes the weakest case, so performance work should not be delegated without a human-owned benchmark.",
+      "evidence": "§5.2 Table 3: 13/91 correct (judged by similarity to ground truth, one author, one run); 36-62% of runs emit no patch; 2 multi-module successes. Audit: 14.3% is 3-5x higher than OpenHands on GSO/PerfBench, suggesting contamination or easier tasks.",
+      "strength": "weak",
+      "novelty": "new",
+      "relative_to": [],
+      "transfers": "direct"
+    }
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "The Java-specific finding that existing JUnit suites almost never demonstrate a speedup gives a concrete acceptance-oracle rule for performance specs. The fix-rate number is weak (manual similarity judging, contamination risk)."
+}

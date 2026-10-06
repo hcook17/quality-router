@@ -1,0 +1,20 @@
+{
+  "arxiv_id": "2605.11051",
+  "contributions": [
+    {"kind": "test_practice",
+     "statement": "Accept a context-compression or compaction option only after testing it on end-to-end multi-step agent runs on your own repos, not on single-shot retention: ICAE matched or beat the base model on SQuAD and RepoQA yet resolved 7 vs 19 of 500 SWE-bench Verified issues.",
+     "evidence": "§3 Table 1 and App. B: single-shot vs agentic results on Qwen3-8B, 5 runs on SWE-bench Verified. SFT baseline confounded (full FT vs LoRA), p-values inconsistent across sections.",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["P08 compaction evaluated on single-shot retention (2608.24188)"],
+     "transfers": "indirect"},
+    {"kind": "anti_pattern",
+     "statement": "Do not let compaction paraphrase exact identifiers, file paths or URLs that exact-match edit tools depend on.",
+     "evidence": "§4: hallucinated paths/URLs after compression offered as the mechanism; untested hypothesis.",
+     "strength": "weak", "novelty": "duplicates",
+     "relative_to": ["2608.24188 (96% identifier fidelity, apply failures triple)", "2607.17937 (compaction lost an exact contract)"],
+     "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "The replicated negative result supplies the 'single-shot retention does not predict agent success' condition for evaluating compaction. Its mechanism story is untested and already shown elsewhere."
+}

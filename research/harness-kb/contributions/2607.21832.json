@@ -1,0 +1,21 @@
+{
+  "arxiv_id": "2607.21832",
+  "contributions": [
+    {
+      "kind": "heuristic",
+      "statement": "Start agent rollout on declarative, additive, well-scoped tasks (docs, config, tests) before context-heavy ones such as template or function implementation.",
+      "evidence": "§4.2: BERTopic categories with descriptive merge ratios, no statistical tests or repo controls; merge rate is a contested proxy (2605.22534); Python only.",
+      "strength": "moderate",
+      "novelty": "restates_known",
+      "relative_to": [
+        "agents succeed on narrow, well-specified tasks"
+      ],
+      "transfers": "indirect"
+    }
+  ],
+  "quantity_flags": [
+    "numbers_without_mechanism"
+  ],
+  "proposed": "drop",
+  "reason": "Descriptive merge-rate differences on Python repos with a proxy the KB already shows is misleading; the defect-proneness claim is weak and right-censored. Nothing actionable beyond common practice."
+}

@@ -1,0 +1,12 @@
+{
+  "arxiv_id": "2608.26391",
+  "contributions": [
+    {"kind": "test_practice",
+     "statement": "Add a sustained-load soak stage with memory and latency trend tests before releasing agent-generated services, because functional tests do not reveal resource accumulation.",
+     "evidence": "§V-A Table I: significant memory upward trend in 11/12 app-environment cells over single 48 h JMeter runs (OS-level RAM); §V-D: human-written comparison apps aged comparably or worse, so nothing is specific to agent-generated code.",
+     "strength": "weak", "novelty": "restates_known", "relative_to": ["soak/endurance testing for long-running services"], "transfers": "indirect"}
+  ],
+  "quantity_flags": ["numbers_without_mechanism"],
+  "proposed": "drop",
+  "reason": "Twelve single-run, fully confounded cells and an exploratory human baseline that ages just as much; the takeaway is ordinary soak testing, with no agent-specific finding."
+}

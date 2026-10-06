@@ -1,0 +1,18 @@
+{
+ "arxiv_id": "2606.14066",
+ "contribution_type": "system",
+ "summary": "FastContext: training an efficient repository explorer for coding agents. The current arXiv version (v4) is a withdrawal notice: 'The current article involves some product IP issues and needs to be withdrawn and re-approved.' No full text is available for any version.",
+ "claims": [
+  {"claim": "A trained repository explorer reduces the context a coding agent must read.", "evidence": "Withdrawn; the text cannot be checked.", "strength": "unsupported", "location": "arXiv comment, v4"}
+ ],
+ "patterns": [{"id": "P05", "stance": "neutral", "note": "Cited by the architecture lock for retrieval-before-reasoning; withdrawn, so it supports nothing."}],
+ "methodology": {"sample": "unavailable", "baselines": "unavailable", "models": "unavailable", "variance": "unavailable", "ablations": "unavailable", "contamination_controls": "unavailable", "languages": "unavailable"},
+ "standards": {"peer_review": "none", "limitations_section": false, "artifacts": "none (withdrawn)", "preregistration": "n/a"},
+ "biases": [{"type": "closed_artifacts", "detail": "Withdrawn for product IP reasons."}],
+ "coi": {"affiliations": "unknown (withdrawn)", "vendor_products_evaluated": "unknown", "funding": "unknown", "severity": "medium", "detail": "Withdrawal cites product IP, which suggests a commercial owner."},
+ "scores": {"rigor": 0, "reproducibility": 0, "generalizability": 0, "relevance": 2, "coi_risk": 2},
+ "verdict": "reject",
+ "verdict_reason": "Withdrawn by the authors (v4). Nothing can be verified.",
+ "applicability": "None. Remove it from the architecture lock's citations.",
+ "conflicts_with": []
+}

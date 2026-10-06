@@ -1,0 +1,36 @@
+{
+  "arxiv_id": "2608.05886",
+  "contribution_type": "empirical",
+  "summary": "CodeGrep is a 14B model trained with GRPO to run multi-turn grep/glob/read calls and return a few candidate files. Its training labels are mined from 67K public OpenHands trajectories. The candidates are injected into the prompt of a frozen OpenHands agent running Qwen3-30B-A3B. On SWE-Bench Verified the resolve rate moves from 25.8% to 27.0% (single run), with 15% fewer rounds and 19% fewer tokens on resolved issues. Injecting BM25 candidates instead made the agent slower and slightly worse.",
+  "claims": [
+    {"claim": "CodeGrep lifts SWE-Bench Verified resolve rate by +1.2 pp (25.8%→27.0%), 'small but reproducibly positive'", "evidence": "Table 3: 129→135 of 500 resolved, a single temperature-0 run per configuration; no seeds or CIs. 'Reproducibly' rests on v1 and v3 both hitting 27.0%, which are different models.", "strength": "weak", "location": "§4.3, Table 3"},
+    {"claim": "CodeGrep cuts rounds 15% and tokens 19% on resolved instances", "evidence": "Table 3 pooled over each config's own resolved set; §5.3 paired restriction to 96 jointly resolved instances shrinks this to −9% rounds and −15% tokens. Authors report the selection effect themselves.", "strength": "moderate", "location": "§4.3, §5.3"},
+    {"claim": "Downstream utility follows a precision threshold: low-precision injection hurts, mid is neutral, high buys efficiency", "evidence": "Tables 2-3: BM25 precision 0.375 → −0.6 pp and +21% tokens (+38.6% on 94 paired instances); Jina 0.445 → neutral; CodeGrep 0.677 → −19% tokens. Three retrievers, one downstream agent, one run each. 'Threshold' is a three-point monotone trend, not a located threshold.", "strength": "moderate", "location": "§5.1"},
+    {"claim": "Applying the efficiency signal at the GRPO advantage layer rather than the reward layer cuts KL drift to one-third", "evidence": "§5.2, Fig. 2b: KL ~0.31 vs ~0.09 across one training run each; v2 then shows length exploitation.", "strength": "weak", "location": "§3.5, §5.2"}
+  ],
+  "patterns": [
+    {"id": "P05", "stance": "mixed", "note": "A learned agent issuing grep/glob/read beats BM25 and a dense retriever on file precision; injecting BM25 candidates hurts the downstream agent. Lexical tools work when an agent drives them, while lexical ranking used as a one-shot hint does not."},
+    {"id": "P06", "stance": "neutral", "note": "Jina-1.5B dense retrieval injection is roughly neutral downstream."},
+    {"id": "P12", "stance": "supports", "note": "A separate exploration model whose only output is a short file list compresses the downstream agent's exploration; the effect is on cost, not on resolve rate."},
+    {"id": "P25", "stance": "introduces", "note": "GRPO reward-design iterations for a retrieval agent; single run per variant."},
+    {"id": "P31", "stance": "neutral", "note": "SWE-Bench Verified, Python only."}
+  ],
+  "methodology": {"sample": "SWE-Bench Verified 500; internal retrieval set from held-out swe-rebench instances (size not stated) with CATM labels audited by the authors' engineers", "baselines": "No retrieval, BM25 top-2, Jina-1.5B top-2; no comparison to Agentless/Moatless localization or SWE-grep", "models": "CodeGrep 14B retriever; Qwen3-30B-A3B-Instruct downstream (OpenHands)", "variance": "None; single run per configuration (baseline matches public 25.2±0.7)", "ablations": "Three reward iterations v1/v2/v3", "contamination_controls": "Training labels from public OpenHands trajectories that may cover SWE-bench-like repos; no overlap check reported", "languages": "Python"},
+  "standards": {"peer_review": "None stated", "limitations_section": true, "artifacts": "Model, pipeline, environment and harnesses 'will be released'; not yet", "preregistration": "n/a"},
+  "biases": [
+    {"type": "no_variance_reported", "detail": "+1.2 pp = 6 instances out of 500 on one run; the baseline's own published std is 0.7 pp."},
+    {"type": "single_language_python", "detail": "SWE-Bench Verified only."},
+    {"type": "single_model", "detail": "One downstream agent (Qwen3-30B-A3B); whether the threshold transfers is stated as open."},
+    {"type": "contamination_risk", "detail": "CATM mines OpenHands trajectories on public GitHub repos; overlap with SWE-Bench Verified repos is not checked."},
+    {"type": "closed_artifacts", "detail": "Release promised, not yet available."},
+    {"type": "hype_language", "detail": "'Reproducibly positive' for a single-run 1.2 pp delta."}
+  ],
+  "coi": {"affiliations": "NetEase Guangzhou AI Lab; independent researchers", "vendor_products_evaluated": "None of NetEase's products; Qwen and Jina models used", "funding": "Not stated", "severity": "low", "detail": "Industry lab, but no own product is evaluated favorably."},
+  "scores": {"rigor": 3, "reproducibility": 2, "generalizability": 1, "relevance": 2, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Honest about the efficiency-over-effectiveness result and the pooled-vs-paired selection effect. The resolve lift is within noise, and there is one downstream agent, one language and no variance.",
+  "applicability": "The transferable point for a Java team is not the trained model, which is Python-only, unreleased, and paired with a weak downstream agent. It is the injection caution: pre-seeding an agent's prompt with low-precision candidate files (BM25-grade) costs tokens and can lower success. Any code-graph or index tool that pushes candidates into context should be precision-checked. It does not show a small explorer serving a frontier solver: the solver is a 30B-A3B model at 25.8%.",
+  "conflicts_with": [
+    {"arxiv_id": "2607.25431", "detail": "That paper finds eager dense candidates beat eager BM25 on repair; CodeGrep agrees on ordering but finds dense injection only neutral downstream, with gains appearing only at higher precision."}
+  ]
+}

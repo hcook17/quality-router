@@ -1,0 +1,201 @@
+{
+ "arxiv_id": "2607.07405",
+ "fulltext_chars": 39054,
+ "fulltext_lines": 1130,
+ "authors_block": "Conference: KDD Workshop on Evaluation and Trustworthiness of Agentic AI; August 2026; Jeju, Republic of KoreaKDD Workshop on Evaluation and Trustworthiness of Agentic AI (KDD-ETAAI ’26), August 2026, Jeju, Republic of KoreaCCS: Computing methodologies Artificial intelligenceCCS: Software and its engineering Software safetyCCS: Security and privacy Formal methods and theory of security Vikas Reddy Affiliation: Independent Researcher , Sumanth Reddy Challaram Affiliation: Indian Institute of Technology Kharagpur, Kharagpur, India and Abhishek Basu Affiliation: Massachusetts Institute of Technology, Cambridge, USA 2026",
+ "vendor_affiliation_hits": [],
+ "n_authors": 3,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Reason Less, Verify More: Deterministic Gates Recover a Silent Policy-Violation Failure Mode in Tool-Using LLM Agents"
+  ],
+  [
+   40,
+   "###### Abstract."
+  ],
+  [
+   80,
+   "###### Keywords:"
+  ],
+  [
+   85,
+   "## 1. Introduction"
+  ],
+  [
+   87,
+   "### 1.1. A trust problem, not only a capability"
+  ],
+  [
+   122,
+   "### 1.2. A reliability gap, not measurement"
+  ],
+  [
+   149,
+   "### 1.3. Deterministic pre-execution"
+  ],
+  [
+   173,
+   "### 1.4. Scope of the claim"
+  ],
+  [
+   192,
+   "### 1.5. Contributions"
+  ],
+  [
+   225,
+   "## 2. Background and Related Work"
+  ],
+  [
+   227,
+   "### 2.1. Runtime enforcement for agentic"
+  ],
+  [
+   259,
+   "### 2.2. Gates are not reflection, output rails, or"
+  ],
+  [
+   283,
+   "### 2.3. Benchmark requirements for this failure"
+  ],
+  [
+   322,
+   "## 3. The Error Class and Gate"
+  ],
+  [
+   325,
+   "### 3.1. Silent policy violations on permissive"
+  ],
+  [
+   351,
+   "### 3.2. Gate definition"
+  ],
+  [
+   371,
+   "### 3.3. The four-gate suite"
+  ],
+  [
+   422,
+   "### 3.4. Firing-share"
+  ],
+  [
+   441,
+   "## 4. Experimental Setup"
+  ],
+  [
+   443,
+   "### 4.1. Harness"
+  ],
+  [
+   471,
+   "### 4.2. Conditions"
+  ],
+  [
+   489,
+   "### 4.3. Metrics and statistics"
+  ],
+  [
+   504,
+   "### 4.4. Leaderboard"
+  ],
+  [
+   513,
+   "## 5. Results"
+  ],
+  [
+   515,
+   "### 5.1. Aggregate lift and replication on the budget"
+  ],
+  [
+   556,
+   "### 5.2. The lift concentrates where gates"
+  ],
+  [
+   602,
+   "### 5.3. Suggestive frontier-model"
+  ],
+  [
+   648,
+   "### 5.4. Gates improve reliability under"
+  ],
+  [
+   712,
+   "### 5.5. Gate precision and load-bearing"
+  ],
+  [
+   813,
+   "### 5.6. Canonical deceptive task"
+  ],
+  [
+   828,
+   "### 5.7. Firing is necessary but not"
+  ],
+  [
+   842,
+   "### 5.8. Regressions"
+  ],
+  [
+   857,
+   "## 6. Boundary and Scarcity"
+  ],
+  [
+   859,
+   "### 6.1. Negative control: self-enforcing retail"
+  ],
+  [
+   878,
+   "### 6.2. Negative control: BFCL"
+  ],
+  [
+   890,
+   "### 6.3. Subset inflation"
+  ],
+  [
+   907,
+   "### 6.4. Why a second positive domain is"
+  ],
+  [
+   929,
+   "## 7. Limitations"
+  ],
+  [
+   942,
+   "## 8. Discussion"
+  ],
+  [
+   968,
+   "## 9. Conclusion"
+  ],
+  [
+   993,
+   "## References"
+  ],
+  [
+   1130,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 7. Limitations\n\nWe collect the main limitations, several of which are discussed in context above.\n(1) One positive domain. The headline result is a single domain ( \\tau^{2} -bench airline); the generality of the failure class remains a conjecture supported by one strong instance and two negative controls.\n(2) Suggestive frontier evidence. The frontier arm is unreplicated (n=5, lower confidence bound near zero) and is not the paper’s statistical anchor.\n(3) Uneven gate quality. One gate carries most of the lift and one has poor precision, so gates require per-policy and per-model auditing.\n(4) No recovery guarantee. A gate blocks a proposed violating write but does not ensure the agent recovers; post-rejection behavior is model-dependent.\n(5) Not leaderboard-comparable. All reported numbers are within-harness comparisons under a specific user simulator and reasoning configuration.\n(6) State-decidability. The method applies only when policy rules can be decided from current state and arguments; policies requiring ambiguity resolution, legal interpretation, or human judgment need richer mechanisms.\n(7) Untested baselines. We do not test whether forcefully prompting the gated rules, or adding a reflection step, recovers the lift; for the deceptive cases at least (Section 5.6, where the user asserts a false timestamp) prompting cannot help, because the model is misled about state rather than ignorant of the rule, but the non-deceptive failures remain open.\n(8) Task overfitting. Gates were written from the policy and evaluated on the same task set, and the replication is over seeds, not tasks; a held-out-task evaluation with frozen gates is the cleaner test, though the dominant gate’s 100% precision over 161 fires is partial evidence against task-fitting.\n(9) Rejection-message confound. The structured reason a gate returns is itself a signal the agent re-plans on, so part of the recovery may come from that feedback rather than the block alone; the deterministic guarantee over the blocked write is unaffected, but isolating informative from generic rejection is future work.\n\n## 8. Discussion\n\nThe main lesson is that policy enforcement and task success are not\nalways in tension. In a policy-permissive environment, a forbidden write\ncan silently corrupt state and make the task fail. Blocking that write\ncan therefore improve final-state task success, not only safety.\n\nThe second lesson is that evaluation should distinguish loud errors from\nsilent wrong states. A benchmark that reports only pass/fail may hide\nthe operationally important difference between a tool call that fails\nloudly and one that succeeds while violating policy. The latter is more\ndangerous because the agent receives no corrective signal and the\ntranscript may appear successful.\n\nThe third lesson is that deterministic structure around LLM agents\nremains valuable even as models improve. A stronger model may reduce the\nfrequency of violations, but a deterministic gate changes the system\nproperty: the known forbidden transition is blocked whenever the gate\nfires. This is a different kind of guarantee from probabilistic model\nimprovement.\n\nAt the same time, the evidence supports a bounded claim: gates help only\nwhere the policy is state-decidable, the tool is permissive, and the task\ndistribution exercises the violation, and are redundant or insufficient\notherwise.\n\n## 9. Conclusion",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 1,
+  "p_value_or_ci": 15,
+  "seeds_or_runs": 4,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 1
+ },
+ "fulltext_source": "html"
+}

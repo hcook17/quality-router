@@ -1,0 +1,361 @@
+{
+ "arxiv_id": "2608.08265",
+ "fulltext_chars": 82394,
+ "fulltext_lines": 2813,
+ "authors_block": "Selection-Valid Diagnostics for Multi-LLM Routing Ibne Farabi Shihab ††thanks: Corresponding author: ishihab@iastate.edu Affiliation: Department of Computer Science, Iowa State University Email: ishihab@iastate.edu Abu Sa-Adat Mohamed Moon-Im Al Ahsan Affiliation: Department of Computer Science & Engineering, BRAC University Email: abu.sa.adat.mohamed.moon.im.al.ahsan@g.bracu.ac.bd Md Najmus Swaqeeb Affiliation: Department of Computer Science & Engineering, BRAC University Email: md.najmus.swaqeeb@g.bracu.ac.bd",
+ "vendor_affiliation_hits": [],
+ "n_authors": 3,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Opportunity Is Not Realizability:"
+  ],
+  [
+   42,
+   "###### Abstract"
+  ],
+  [
+   62,
+   "## 1 Introduction"
+  ],
+  [
+   123,
+   "## 2 Related Work"
+  ],
+  [
+   125,
+   "### 2.1 External LLM routing"
+  ],
+  [
+   144,
+   "### 2.2 Negative results and routing signals"
+  ],
+  [
+   157,
+   "### 2.3 Selective prediction and valid evaluation"
+  ],
+  [
+   168,
+   "## 3 Setup and Estimands"
+  ],
+  [
+   181,
+   "### 3.1 Outcome-oracle opportunity"
+  ],
+  [
+   192,
+   "###### Proposition 1 (Complementary-correctness identity)."
+  ],
+  [
+   204,
+   "### 3.2 Signal-restricted opportunity"
+  ],
+  [
+   221,
+   "###### Theorem 2 (Signal-information sandwich)."
+  ],
+  [
+   243,
+   "### 3.3 Learned-router gain"
+  ],
+  [
+   255,
+   "### 3.4 The opportunity ladder"
+  ],
+  [
+   280,
+   "#### Cost-aware extension."
+  ],
+  [
+   285,
+   "## 4 Selection-Valid Inference"
+  ],
+  [
+   296,
+   "###### Proposition 3 (Direction of plug-in selection bias)."
+  ],
+  [
+   308,
+   "###### Theorem 4 (Exact interval after best-model selection)."
+  ],
+  [
+   331,
+   "###### Corollary 5 (Independent baseline selection)."
+  ],
+  [
+   344,
+   "###### Theorem 6 (Post-selection inference for a router family)."
+  ],
+  [
+   376,
+   "###### Theorem 7 (Exact certificate for a finite signal)."
+  ],
+  [
+   413,
+   "## 5 Constructing Complementary Model Pools"
+  ],
+  [
+   423,
+   "###### Theorem 8 (Submodular complementary coverage)."
+  ],
+  [
+   440,
+   "## 6 Confirmatory Experimental Design"
+  ],
+  [
+   467,
+   "## 7 Confirmatory Results"
+  ],
+  [
+   480,
+   "### 7.1 Confirmatory selection-valid opportunity"
+  ],
+  [
+   588,
+   "### 7.2 The routing plateau"
+  ],
+  [
+   649,
+   "## 8 Discussion"
+  ],
+  [
+   668,
+   "## 9 Limitations"
+  ],
+  [
+   698,
+   "## 10 Ethical Considerations"
+  ],
+  [
+   713,
+   "## References"
+  ],
+  [
+   1196,
+   "## Appendix A Extended Related Work"
+  ],
+  [
+   1230,
+   "## Appendix B Full Prompt-Router Results"
+  ],
+  [
+   1386,
+   "## Appendix C Cost-Aware Estimand Extension"
+  ],
+  [
+   1407,
+   "## Appendix D Confirmatory Design Details"
+  ],
+  [
+   1409,
+   "### D.1 Research questions"
+  ],
+  [
+   1437,
+   "### D.2 Datasets and splits"
+  ],
+  [
+   1509,
+   "#### Sampling."
+  ],
+  [
+   1518,
+   "### D.3 Model pool"
+  ],
+  [
+   1608,
+   "### D.4 Generation, scoring, and parsing"
+  ],
+  [
+   1638,
+   "### D.5 Router families"
+  ],
+  [
+   1717,
+   "### D.6 Confidence and rescue-set audit"
+  ],
+  [
+   1736,
+   "### D.7 Pool construction"
+  ],
+  [
+   1746,
+   "### D.8 Latency and monetary cost"
+  ],
+  [
+   1761,
+   "### D.9 Statistical analysis"
+  ],
+  [
+   1781,
+   "## Appendix E Pilot Analysis"
+  ],
+  [
+   1787,
+   "### E.1 Outcome opportunity"
+  ],
+  [
+   1800,
+   "#### Split-selected opportunity."
+  ],
+  [
+   1815,
+   "### E.2 Per-model outcomes and diversity"
+  ],
+  [
+   1823,
+   "### E.3 Exploratory router probes"
+  ],
+  [
+   1835,
+   "## Appendix F Provenance and Router Scope"
+  ],
+  [
+   1837,
+   "#### One canonical source."
+  ],
+  [
+   1849,
+   "#### Router scope."
+  ],
+  [
+   1863,
+   "## Appendix G Post-Inference Selectors"
+  ],
+  [
+   1919,
+   "## Appendix H Cost-Aware Routing Results"
+  ],
+  [
+   1973,
+   "## Appendix I Confidence Mechanism"
+  ],
+  [
+   1990,
+   "## Appendix J Pool-Selection and Cost Results"
+  ],
+  [
+   2154,
+   "## Appendix K Pilot Tables"
+  ],
+  [
+   2272,
+   "## Appendix L Proofs of the Main Results"
+  ],
+  [
+   2277,
+   "###### Proof."
+  ],
+  [
+   2289,
+   "###### Proof."
+  ],
+  [
+   2306,
+   "###### Proof."
+  ],
+  [
+   2315,
+   "###### Proof."
+  ],
+  [
+   2333,
+   "###### Proof."
+  ],
+  [
+   2342,
+   "###### Proof."
+  ],
+  [
+   2366,
+   "###### Proof."
+  ],
+  [
+   2381,
+   "###### Proof."
+  ],
+  [
+   2404,
+   "## Appendix M Proof Details and Extensions"
+  ],
+  [
+   2406,
+   "### M.1 A Hoeffding alternative"
+  ],
+  [
+   2429,
+   "### M.2 Finite discrete signals"
+  ],
+  [
+   2440,
+   "### M.3 Weighted pool budgets"
+  ],
+  [
+   2449,
+   "## Appendix N Prompt Templates"
+  ],
+  [
+   2451,
+   "### N.1 ARC-Challenge"
+  ],
+  [
+   2467,
+   "### N.2 HellaSwag"
+  ],
+  [
+   2484,
+   "### N.3 GSM8K"
+  ],
+  [
+   2493,
+   "### N.4 MMLU"
+  ],
+  [
+   2511,
+   "### N.5 Code generation"
+  ],
+  [
+   2520,
+   "### N.6 Factual question answering"
+  ],
+  [
+   2529,
+   "## Appendix O Paired Router Contrasts"
+  ],
+  [
+   2789,
+   "## Appendix P Pilot Integer Counts"
+  ],
+  [
+   2799,
+   "## Appendix Q Pairwise Routing Appendix"
+  ],
+  [
+   2813,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 9 Limitations\n\nThe outcome oracle requires running every candidate and obtaining a correctness\nlabel, which can be expensive and impossible for open-ended tasks without a\nreliable evaluator. The binary-reward theory extends to bounded utilities, but\nthe exact Clopper–Pearson interval is specific to Bernoulli outcomes.\n\nThe signal-restricted Bayes value is a population quantity and is generally\nnot identified from finite data without assumptions on the signal space.\nCross-fitted neural probes are lower bounds on what their classes realize, not\nupper bounds on all measurable policies.\n\nThe submodular theorem assumes a fixed anchor and optimizes complementary\ncoverage, not router learnability. A model can cover many anchor failures yet\nbe difficult to select from observable signals. Costs also require a\nknapsack-style extension when candidates have heterogeneous calibration or\nserving costs.\n\nTwo scope limits bound the evidence. First, the common-outcome comparison uses\nuniform K -way adaptations of published router mechanisms, while binary,\nsequential, and online methods are evaluated in their corresponding settings.\nThe contribution is therefore the inferential layer rather than a routing\nleaderboard or a claim of superiority over authors’ released systems. Second,\nthe live-inference pool contains eight checkpoints ( 0.5 – 7 B), and the primary\ncertificate tables use four multiple-choice and arithmetic datasets at\n 200 – 300 items each. Per-dataset intervals remain wide, so the firm claims\nare the certificate-level statements. The artifact records the resolved model\nrevision for every checkpoint and the independent cross-check described in\nAppendix D.\n\n## 10 Ethical Considerations\n\nRouting may assign different users or topics to systems of unequal reliability.\nAggregate utility can conceal subgroup losses, so the confirmatory artifact\nreports performance and routing frequency across predeclared task strata and\nchecks whether cost optimization disproportionately sends any stratum to a\nweaker model. High-stakes deployment requires domain-specific validation and\nmust not rely on an outcome oracle as if it were an implementable policy.\n\nThe study uses public benchmark data and locally evaluated models. It stores",
+ "ethics_coi": "## 10 Ethical Considerations\n\nRouting may assign different users or topics to systems of unequal reliability.\nAggregate utility can conceal subgroup losses, so the confirmatory artifact\nreports performance and routing frequency across predeclared task strata and\nchecks whether cost optimization disproportionately sends any stratum to a\nweaker model. High-stakes deployment requires domain-specific validation and\nmust not rely on an outcome oracle as if it were an implementable policy.\n\nThe study uses public benchmark data and locally evaluated models. It stores\nno user data. Model and dataset licenses, energy use, and hosted-model pricing\nare documented in the artifact. Raw generations may contain benchmark\nartifacts or harmful content and should be distributed according to the\noriginal licenses.\n\n## References\n\nChen et al. (2024a)\nL. Chen, M. Zaharia, and J. Zou\n\nFrugalGPT: how to use large language models while reducing cost and improving performance.\n\nTransactions on Machine Learning Research.\n\nExternal Links: Link",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 10,
+  "seeds_or_runs": 5,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

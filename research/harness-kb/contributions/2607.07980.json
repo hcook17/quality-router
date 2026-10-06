@@ -1,0 +1,33 @@
+{
+  "arxiv_id": "2607.07980",
+  "contributions": [
+    {
+      "kind": "nuance",
+      "statement": "When measuring review of agent-authored PRs across hosts, count the developer who invoked the agent as the author, not as an independent reviewer, because with that definition 40.1% of agent PRs vs 21.5% of human PRs get no independent review, and trend directions flip under other defensible definitions.",
+      "evidence": "§II-B, §IV text near Fig. 1 and Appendix 1: paired Wilcoxon on per-project author-only share, k=1,553, p<0.001, r=0.42; authors show direction flips across operationalizations.",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": [
+        "2605.22534"
+      ],
+      "transfers": "direct"
+    },
+    {
+      "kind": "heuristic",
+      "statement": "Tier human approval of agent PRs by risk (contract/schema changes) rather than applying a blanket review gate.",
+      "evidence": "Proposition P17 from practitioner quotes; untested, and the authors state they confirm none of the relationships.",
+      "strength": "weak",
+      "novelty": "restates_known",
+      "relative_to": [
+        "risk-based review / change advisory tiers"
+      ],
+      "transfers": "direct"
+    }
+  ],
+  "quantity_flags": [
+    "position_without_evidence",
+    "survey_restatement"
+  ],
+  "proposed": "keep",
+  "reason": "The theory is untested practitioner opinion, but the motivating mining result gives a concrete, measured rule for defining review independence in agent-PR metrics."
+}

@@ -1,0 +1,24 @@
+{
+  "arxiv_id": "2607.15593",
+  "contributions": [
+    {"kind": "constraint",
+     "statement": "If MCP servers run as replicas behind a gateway, stateful sessions make session-affinity routing the dominant per-request cost (≈75% of latency, 3x CPU), and tail latency grows ~8x at four gateway instances from session-store misses. Prefer stateless MCP servers (stateless Streamable HTTP) for anything replicated.",
+     "evidence": "§6.4, Fig. 14: single instance 4.59 ms mean (session mgmt 3.45 ms), 85% vs 27% CPU; 4 instances P99 55.6 ms vs stateless ≤3.3 ms flat.",
+     "strength": "moderate", "novelty": "refines", "relative_to": ["2606.30317 (Stateful Session Server liabilities, asserted)"], "transfers": "indirect"},
+    {"kind": "heuristic",
+     "statement": "If tool retrieval is ever needed over a catalog whose tool names encode domain identifiers, fuse BM25 with dense retrieval (RRF) rather than dense-only, and return ~15 candidates.",
+     "evidence": "§6.3: Recall@15 98.2% hybrid vs 83.1% dense vs 67.7% BM25 at 3,616 tools; sharp gain from top-10 to top-15 (Fig. 12); ToolBench gain small (97.5 vs 95.5).",
+     "strength": "moderate", "novelty": "refines", "relative_to": ["RAG-MCP (Gan & Sun 2025)", "2606.18051", "hybrid sparse+dense retrieval (pre-2026 IR practice)"], "transfers": "indirect"},
+    {"kind": "constraint",
+     "statement": "At ~15 tools, inlining every schema still gives ~92% single-tool selection; degradation becomes material only at hundreds of tools, so retrieval or gateway infrastructure is unwarranted for a small catalog.",
+     "evidence": "§6.2, Fig. 9(d): ToolBench naive 92.4% at N=15 → 78.2% at N=640; Qwen3.6-plus only, single run.",
+     "strength": "moderate", "novelty": "refines", "relative_to": ["2606.30317"], "transfers": "direct"},
+    {"kind": "design_pattern",
+     "statement": "Precompute prerequisite tool chains from schema dependencies so retrieval returns executable chains, not just the target tool.",
+     "evidence": "§7 Lesson 3, Table 5: 100% completeness vs 56-73% iterative discovery, but completeness is near-tautological for a cache built from the same dependency graph.",
+     "strength": "weak", "novelty": "new", "relative_to": [], "transfers": "no"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "Beyond the system tour, two measured points matter to a small-catalog team. Expose-all is still fine at 15 tools, and stateful MCP replication carries a large routing tax. The hybrid-retrieval heuristic matters only at scale. Vendor self-evaluation on proprietary data caps everything at moderate."
+}

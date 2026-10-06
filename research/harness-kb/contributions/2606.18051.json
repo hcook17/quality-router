@@ -1,0 +1,16 @@
+{
+  "arxiv_id": "2606.18051",
+  "contributions": [
+    {"kind": "nuance",
+     "statement": "If tools are retrieved per sub-task from a large catalog, the main failure is the planner splitting the task into the wrong number of steps (larger models over-split more). Feeding the retrieved candidate names back into one re-planning pass fixes step count, but top-1 tool choice stays near 40%, so expose the top ~10 candidates rather than a single pick.",
+     "evidence": "§7.5-7.6, Table 2: SAD DA 51.0→67.7% (n=300, p<1e-6); 14B over-decomposes (4.72 vs 2.94 GT steps); oracle step count gives CatR@1 39.8% vs CatR@10 79.1%; on DA-matched queries SAD adds nothing (p=0.97).",
+     "strength": "moderate", "novelty": "refines", "relative_to": ["2607.25718", "2609.30906", "P03 deferred tool loading"], "transfers": "indirect"},
+    {"kind": "constraint",
+     "statement": "Listing ~100 tool names in the prompt gives worse top-1 tool-category choice than per-step retrieval, even for a much larger model.",
+     "evidence": "§7.3, Table 2: qwen-max with 100 names CatR@1 21.1% vs 37.0% for 7B + SAD; 50 queries, single run, names only, mixed sample sizes.",
+     "strength": "weak", "novelty": "duplicates", "relative_to": ["2607.25718", "2609.30906"], "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "One qualifying nuance survives: the step-granularity bottleneck and the top-1 ceiling, backed by a significance-tested oracle control. It applies only to catalogs of hundreds to thousands of tools, so for a ≤15-tool Java host it transfers indirectly. The expose-all claim is weak and duplicates stronger KB tool-retrieval papers."
+}

@@ -1,0 +1,16 @@
+{
+  "arxiv_id": "2608.25457",
+  "contributions": [
+    {"kind": "design_pattern",
+     "statement": "Hand off between agent stages (plan, security guidance, code, review) through structured artifact files only, not the accumulated upstream transcript; giving each stage the full upstream reasoning lowered joint functional+secure pass rate.",
+     "evidence": "§5.4 Fig. 5, App. I: MACGen vs MACGen-Shared (identical pipeline, full upstream context and scratchpads): +20.17% F&S@1 on CWEval (GPT-4o-mini), +8.67% on BaxBench (GPT-4o). Single temperature-0 runs, no variance.",
+     "strength": "moderate", "novelty": "refines", "relative_to": ["subagent context isolation (P12)", "2607.02807"], "transfers": "indirect"},
+    {"kind": "design_pattern",
+     "statement": "Add a pre-coding security-advisor step that infers task-specific CWEs and retrieves matching CERT/OWASP guidance.",
+     "evidence": "Tables 4-5 component ablations; audit: single runs on 119 tasks, several steps differ by 0-2.5 pp, so contribution is not established. Under sampling (Table 7) single-pass RAG RESCUE beats MACGen at pass@1.",
+     "strength": "weak", "novelty": "refines", "relative_to": ["retrieval of secure-coding guidelines (P06)"], "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "The controlled artifact-only vs shared-context ablation is the one finding that survives; the multi-agent pipeline's lead over INDICT/RESCUE is within noise and reverses under sampling."
+}

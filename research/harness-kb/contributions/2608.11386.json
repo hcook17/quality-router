@@ -1,0 +1,16 @@
+{
+  "arxiv_id": "2608.11386",
+  "contributions": [
+    {"kind": "nuance",
+     "statement": "If you expose a code-execution (CodeAct) action to cut steps and tokens, measure repeated-run consistency too: Python CodeAct lowered pass^k for every actor while structured atomic view/edit/search tools were the only setup that raised it.",
+     "evidence": "§3.2 Table 2 (65 SWE-bench Live instances, 10 rollouts, 3 actors): Atomic improves pass^5/7/9 for all actors (small absolute gains, e.g. Sonnet +0.017-0.031); Python lowers pass^k for all (audit). Table 8 step reductions ~28-40%. No CIs; Python repos only.",
+     "strength": "moderate", "novelty": "refines", "relative_to": ["CodeAct code-as-action (Wang et al. 2024)", "SWE-agent agent-computer interface (Yang et al. 2024)"], "transfers": "indirect"},
+    {"kind": "nuance",
+     "statement": "Leave scratchpad and hypothesis-tracking 'think' tools out of the agent's tool catalog; they produced mixed or negative changes and actors mostly restated existing reasoning in them.",
+     "evidence": "§3.5 Table 2 deltas for Scratchpad/HypoTrack; Appendix C qualitative trajectory analysis. Scoped to lightweight scaffolds.",
+     "strength": "moderate", "novelty": "refines", "relative_to": ["vendor 'think tool' guidance (2025)", "small tool catalog (P03)"], "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "A controlled, capability-matched tool-interface study whose consistency and scratchpad results are specific enough to shape which MCP/CLI tools the team exposes; magnitudes are small and Python-only."
+}

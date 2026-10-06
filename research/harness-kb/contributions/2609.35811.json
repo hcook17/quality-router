@@ -1,0 +1,22 @@
+{
+  "arxiv_id": "2609.35811",
+  "contributions": [
+    {
+      "kind": "heuristic",
+      "statement": "Include latency/cost predictions when ranking candidate tools for an agent.",
+      "evidence": "Table 2 ablation on I1 only: shuffled cost labels raise latency 680 -> 1,120 ms; single run; headline 'consistently outperforms' contradicted by Table 1.",
+      "strength": "weak",
+      "novelty": "restates_known",
+      "relative_to": [
+        "cost-aware tool selection (P24)"
+      ],
+      "transfers": "no"
+    }
+  ],
+  "quantity_flags": [
+    "leaderboard_only",
+    "numbers_without_mechanism"
+  ],
+  "proposed": "drop",
+  "reason": "A ToolBench ranking result with internally inconsistent metrics and a claim contradicted by its own table; nothing actionable for the team."
+}

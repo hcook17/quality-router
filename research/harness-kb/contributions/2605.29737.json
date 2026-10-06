@@ -1,0 +1,14 @@
+{
+  "arxiv_id": "2605.29737",
+  "contributions": [
+    {"kind": "test_practice",
+     "statement": "Re-run security tests and SAST on regenerated code after any spec or prompt edit, including typo-level ones, and never treat spec wording as a security control: single-character mutations, most damaging in the docstring/spec part of the prompt, flipped generated code between secure and vulnerable more often than they fixed it.",
+     "evidence": "§4.2 Figs. 1-2, 5 and App. A (mutation flips across 3 open code LLMs, 5 languages, multiple-testing correction); §4.3 (mid-prompt/spec mutations most harmful). Single-function CWEval tasks, open models only, no Java, no agent loop.",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["prompts are not a security control / LLM output nondeterminism", "P14 spec wording precision (2609.22222)"],
+     "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "A well-controlled fragility result that turns into a concrete gate trigger for spec-driven teams: spec edits re-trigger security checks. Hidden-state probes are not actionable with hosted models and are not used."
+}

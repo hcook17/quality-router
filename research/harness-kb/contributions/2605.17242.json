@@ -1,0 +1,26 @@
+{
+  "arxiv_id": "2605.17242",
+  "contributions": [
+    {"kind": "test_practice",
+     "statement": "In an agent acceptance-test repair loop, re-run the full acceptance suite every round and keep the best checkpoint rather than the last one: broad whole-project repairs regressed previously passing features (MiniMax peaked at round 3 and then regressed in 14 of 20 apps).",
+     "evidence": "§5.3.2 Table 8: per-round loop-internal tester accuracy and regression counts across Whole-Project repair attempts (K=5). 20 small greenfield web apps, single run per cell.",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["2607.19653 best-patch retention in verifier loops"],
+     "transfers": "indirect"},
+    {"kind": "heuristic",
+     "statement": "Prefer one whole-project test-and-repair pass per round over per-feature incremental or fully agent-driven TDD when cost matters: it delivered 65% of the agentic gain at ~2.7x fewer additional tokens, because 96% of tokens are re-read context; switch to bounded per-feature loops when the feedback model is weak.",
+     "evidence": "§5.4 Table 9 (4.97-10.33 pp per million extra tokens, best in 4 of 5 configurations) and §5.3.1. Confound: the loop sees acceptance tests converted from the same tests the oracle scores.",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["P15 test-first / TDD with agents (2608.16742)"],
+     "transfers": "indirect"},
+    {"kind": "nuance",
+     "statement": "A TDD loop helps only if the failure-interpreting verifier is reliable: with Qwen3.5 judging its own tests, 56% of executions were labelled failures, 49% of features were abandoned and accuracy fell below no-TDD.",
+     "evidence": "§5.2.2 Tables 6-7. Audit: the 'stronger tester' swapped in is also the final oracle model, and two of three recovered gains are p=.056/.092.",
+     "strength": "weak", "novelty": "refines",
+     "relative_to": ["P16 execution-based verifier loops (2608.16742 self-contradiction failure mode)"],
+     "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "The headline +15-24 pp is inflated because the loop sees the oracle's tests. The checkpoint and loop-granularity findings come from per-round traces and are actionable for a spec-to-acceptance-test rollout."
+}

@@ -1,0 +1,20 @@
+{
+  "arxiv_id": "2606.01629",
+  "contributions": [
+    {"kind": "constraint",
+     "statement": "Do not let an LLM judge be the sole gate on long natural-language artifacts (specs, design docs, healthcare-education content summaries): across 32 judge/setting combinations mean agreement with human labels was 0.56 and the best was 0.67.",
+     "evidence": "§5.1 Table 3: mean accuracy 0.5639, best 0.6744 (Qwen3-Max + reference), 12/32 configs above 0.60; clinical meta-analysis set ~0.50. Audit: overflow/refusals scored as wrong and no human ceiling, so the gap is somewhat overstated; outputs are documents, not code.",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["known LLM-as-judge biases (position/length)", "2605.26156"],
+     "transfers": "indirect"},
+    {"kind": "nuance",
+     "statement": "If a long-form judge is used, anchor it with a golden reference output rather than stacking a rubric on top: references raised mean pairwise accuracy from 0.533 to 0.587 while reference+rubric was no better (0.579), and rubrics helped rank correlation instead, so pick the anchor by validating on your own labelled samples.",
+     "evidence": "§5.1 Table 3 (Vanilla 0.5334, Reference 0.5866, Ref+Rubric 0.5786; Verify 0.549->0.817; rubric hurts SurGE-Content and MA) and App. E Tables 5-6 (rubric gives best Spearman/Kendall). Single temperature-0 run, no CIs.",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["reference-guided judging (MT-Bench, Zheng et al. 2023)", "2609.01139"],
+     "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "Adds a measured ceiling for long-document judging and shows that reference anchoring and rubrics are not additive and help different metrics. Code, specs and diffs are not tested, so transfer is indirect."
+}

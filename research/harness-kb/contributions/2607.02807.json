@@ -1,0 +1,21 @@
+{
+  "arxiv_id": "2607.02807",
+  "contributions": [
+    {
+      "kind": "design_pattern",
+      "statement": "Run each parallel search agent on its own git branch and pass only short attempt summaries to the orchestrator.",
+      "evidence": "§3.4 Table 2: orchestrator-guided scaling beats fixed scaling on 4/5 tasks, single runs, Minimax only; Table 1 win counts are internally inconsistent and baselines weakened.",
+      "strength": "weak",
+      "novelty": "duplicates",
+      "relative_to": [
+        "2609.38345"
+      ],
+      "transfers": "indirect"
+    }
+  ],
+  "quantity_flags": [
+    "numbers_without_mechanism"
+  ],
+  "proposed": "drop",
+  "reason": "Branch-per-agent isolation is already shown with a paired significance test in 2609.38345 and is an AGENTS.md rule here; the rest is single-run optimisation scores on scalar-evaluated toy tasks with inconsistent win counts."
+}

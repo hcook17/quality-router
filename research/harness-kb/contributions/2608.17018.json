@@ -1,0 +1,20 @@
+{
+  "arxiv_id": "2608.17018",
+  "contributions": [
+    {"kind": "test_practice",
+     "statement": "Do not accept 'the error signature went away on replay' as proof an incident patch is correct; 14 of 45 telemetry-replay mitigations reduced the fault signature without addressing the fault.",
+     "evidence": "§VI manual inspection (by the authors): 31/45 replay mitigations confirmed fault-addressing; authors call replay a diagnostic signal, not a correctness oracle.",
+     "strength": "moderate", "novelty": "new", "relative_to": [], "transfers": "direct"},
+    {"kind": "constraint",
+     "statement": "Telemetry-grounded repair helps on configuration and deployment faults but not on Java value faults that change returned data without changing logs, traces or metrics; there, rely on tests, and expect correct localization (94/100) to still yield few compiling patches (32/100).",
+     "evidence": "§V-D1 'Limited telemetry signal in TT-Java' and Table II: config subset 213/225 valid patches vs TT-Java 32/100 valid-and-compiling, 30 passing tests (next best 17). Synthetic injected faults.",
+     "strength": "moderate", "novelty": "new", "relative_to": [], "transfers": "direct"},
+    {"kind": "design_pattern",
+     "statement": "Put deterministic localization in front of a bounded single-call LLM edit with an exploration fallback; it produced more valid patches than an open-ended shell agent at ~26k vs ~640k mean tokens per case.",
+     "evidence": "§V-D3 Fig. 3 (113 vs 74 valid patches), Table III backbone robustness; but 94/150 'real' cases are mutations of 9 seeds.",
+     "strength": "moderate", "novelty": "restates_known", "relative_to": ["Agentless localize-then-repair pipeline (Xia et al. 2024)"], "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "The pipeline restates Agentless, but its own failure analysis yields two concrete limits for Java services: replay mitigation is not a correctness oracle, and telemetry carries no signal for value faults."
+}

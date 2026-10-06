@@ -1,0 +1,20 @@
+{
+  "arxiv_id": "2607.27250",
+  "contributions": [
+    {"kind": "nuance",
+     "statement": "Write AGENTS.md as operational warnings that change agent process (e.g. 'the full suite is slow; run the module's tests') rather than as general repository knowledge; the only effect observed was fewer blind full-suite runs and ~24% shorter runs on the repo whose file carried such a warning.",
+     "evidence": "§4.2 Table 2 (opshin, Claude only): blind full-suite runs 3.67 -> 2.44 -> 1.67, p=0.25 n=4 tasks; firebase shows the opposite direction. Exploratory.",
+     "strength": "weak", "novelty": "refines", "relative_to": ["Lulla et al. 2026: AGENTS.md improves efficiency, not correctness"], "transfers": "direct"},
+    {"kind": "nuance",
+     "statement": "Do not expect a repo context file to raise task pass rates; with Good/Excellent AGENTS.md files neither always-on nor on-demand delivery changed correctness on two agents, though the study can only exclude effects above ~30pp.",
+     "evidence": "§4.1 Table 1 (Claude 53-56%, Codex 53-59%); §4.5 power analysis MDE >30pp; audit downgrades to weak.",
+     "strength": "weak", "novelty": "restates_known", "relative_to": ["Gloaguen et al. 2026: no significant effect of context files on task completion"], "transfers": "direct"},
+    {"kind": "test_practice",
+     "statement": "When piloting a harness change on several agent hosts, screen tasks per host for borderline difficulty, because a task set informative for one agent can be at floor or ceiling for another.",
+     "evidence": "§4.3 Table 3: rho=0.75 difficulty agreement, 6/15 tasks borderline for exactly one agent; audit notes borderline labels from 3 repeats are noise-sensitive.",
+     "strength": "weak", "novelty": "refines", "relative_to": ["harness/model choice changes results (2609.32459)"], "transfers": "direct"}
+  ],
+  "quantity_flags": [],
+  "proposed": "hypothesis_only",
+  "reason": "The correctness null restates Gloaguen et al. and is underpowered; the operational-warning effect is the one actionable idea but rests on 4 tasks on one repo."
+}

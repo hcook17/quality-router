@@ -1,0 +1,24 @@
+{
+  "arxiv_id": "2606.30317",
+  "contributions": [
+    {"kind": "heuristic",
+     "statement": "Budget the tools visible in one agent context by model class: about 10 for Haiku-class models and about 20 for Sonnet-class. Above that, expose a per-task subset rather than the merged catalog, and re-measure on your own tools before treating the number as a limit.",
+     "evidence": "§VI-C, Fig. 2: production telemetry, N=200 turns per bucket, human-confirmed ground truth; Haiku 91%@10 vs 87%@15 (±4 pp, overlapping), Sonnet ≥90% to 20 and below at 30; model and tool count confounded by tenant; raw logs unreleased.",
+     "strength": "weak", "novelty": "refines", "relative_to": ["P03 deferred tool loading / small tool catalog", "Gan & Sun (>90% up to ~30 tools, pre-2026)"], "transfers": "direct"},
+    {"kind": "anti_pattern",
+     "statement": "A static-merge MCP aggregator that surfaces the union of upstream tools raises the visible tool count past the selection budget; if aggregation is needed, scope tools per request.",
+     "evidence": "§IV-D, §VI-C: argued from the tool-count curve; no aggregator was evaluated.",
+     "strength": "weak", "novelty": "refines", "relative_to": ["P03 deferred tool loading / small tool catalog", "2606.18051"], "transfers": "direct"},
+    {"kind": "constraint",
+     "statement": "In-host MCP transport overhead is under 0.5 ms (stdio 0.01 ms, loopback HTTP 0.39 ms p50); latency decisions hinge on co-location and extra network hops, not transport encoding.",
+     "evidence": "Table III measured rows (N=100 echo calls); hop costs are modeled.",
+     "strength": "moderate", "novelty": "restates_known", "relative_to": ["network RTT dominates local IPC overhead (standard systems knowledge)"], "transfers": "indirect"},
+    {"kind": "anti_pattern",
+     "statement": "Avoid God tools (do_anything(action, params)) and name-only tool descriptions; give each operation its own named tool with a description of what, when and returns.",
+     "evidence": "§V: practitioner observation, no measurement.",
+     "strength": "unsupported", "novelty": "restates_known", "relative_to": ["Anthropic and OpenAI tool-use documentation guidance"], "transfers": "direct"}
+  ],
+  "quantity_flags": ["position_without_evidence"],
+  "proposed": "hypothesis_only",
+  "reason": "The tool budget is the one actionable number, and it is new at the small-catalog scale. But it comes from confounded, unauditable telemetry with overlapping CIs at the threshold, so it stands as a hypothesis to re-measure, not a gate. The patterns and anti-patterns are renamed GoF/EIP structures or vendor guidance."
+}

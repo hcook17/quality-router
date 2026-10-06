@@ -1,0 +1,12 @@
+{
+  "arxiv_id": "2609.05563",
+  "contributions": [
+    {"kind": "nuance",
+     "statement": "Put one-click execution of code snippets inside the content-authoring step itself; when it was inline, 15/16 writers ran their generated code versus 3/14 who verified it with their usual LLM tools.",
+     "evidence": "§5.2.1 Table 5 screen-recording counts, Fig. 8; n=16 within-subjects, 15-minute Python tutorial, heterogeneous control setups so the tool and the one-click affordance are confounded; no tutorial quality rating.",
+     "strength": "weak", "novelty": "refines", "relative_to": ["shift-left verification / reduce friction for checks"], "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "hypothesis_only",
+  "reason": "Human tutorial authoring, not coding agents; the behavioural count is concrete but confounded, so it is at most a hypothesis for LLM-drafted educational content."
+}

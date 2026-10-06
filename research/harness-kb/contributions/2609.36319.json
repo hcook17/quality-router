@@ -1,0 +1,32 @@
+{
+  "arxiv_id": "2609.36319",
+  "contributions": [
+    {
+      "kind": "nuance",
+      "statement": "After each agent write, drop held copies of the symbols that write changed; in Claude Code trajectories most held context was unneeded and mostly stale, while over half of the needed context was missing.",
+      "evidence": "Table 5/§3.1.2: 73.4% of held tokens unneeded, 72.3% of those stale, 58.5% of gold tokens missing; silver labels (rules + gpt-5.4 oracle), human review queue not yet filled; one agent, 48 instances.",
+      "strength": "weak",
+      "novelty": "refines",
+      "relative_to": [
+        "P08 context compaction (adds write-conditioned staleness)"
+      ],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "design_pattern",
+      "statement": "Use a small model as a side-car context manager for the main agent.",
+      "evidence": "Table 4: manager overhead 0.8-4.7% of main-agent tokens; end-to-end margins often one task or <1pt, single runs.",
+      "strength": "moderate",
+      "novelty": "duplicates",
+      "relative_to": [
+        "2608.24188"
+      ],
+      "transfers": "indirect"
+    }
+  ],
+  "quantity_flags": [
+    "self_declared_incomplete"
+  ],
+  "proposed": "hypothesis_only",
+  "reason": "Write-conditioned staleness is a plausible, new framing, but its evidence rests on silver labels the authors say are not yet human-reviewed, and end-to-end wins are within noise."
+}

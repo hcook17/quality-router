@@ -1,0 +1,29 @@
+{
+  "arxiv_id": "2607.22585",
+  "contributions": [
+    {
+      "kind": "nuance",
+      "statement": "Do not switch agent hosts on pass-rate differences from a single-trial 50-task run: within-model harness gaps of 0-8 pp had paired bootstrap CIs as wide as [-18, 0] pp.",
+      "evidence": "§4.1 Table 2; n=50, one trial per cell, two models. The CIs show the study cannot exclude sizeable differences either, so 'harness barely matters for pass rate' is not established.",
+      "strength": "weak",
+      "novelty": "refines",
+      "relative_to": [
+        "benchmark sampling noise / report CIs",
+        "2607.03691"
+      ],
+      "transfers": "direct"
+    },
+    {
+      "kind": "test_practice",
+      "statement": "Normalize token accounting (cached vs uncached, totals vs per-call) before comparing host cost, because cross-harness token gaps of ~40x here partly reflect different counting fields.",
+      "evidence": "§3.5, §6: OpenCode/OpenHands totals include cached tokens via ATIF while Goose reports a total-only field; audit computes Goose at under 1K tokens/turn, implausible given the shared prompt.",
+      "strength": "weak",
+      "novelty": "new",
+      "relative_to": [],
+      "transfers": "direct"
+    }
+  ],
+  "quantity_flags": [],
+  "proposed": "hypothesis_only",
+  "reason": "The headline cost and failure-fingerprint claims are weakened by non-comparable, harness-defined measurements; what remains is a caution about noise and token accounting in host comparisons."
+}

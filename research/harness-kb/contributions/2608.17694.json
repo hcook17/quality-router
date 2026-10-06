@@ -1,0 +1,12 @@
+{
+  "arxiv_id": "2608.17694",
+  "contributions": [
+    {"kind": "anti_pattern",
+     "statement": "When agents draft ADRs or specs from meeting transcripts, ground retrieval only in the team's own decision records and require a transcript citation per claim; retrieval over other projects' ADRs inserted invented figures and tentative discussions were promoted to accepted decisions.",
+     "evidence": "§5.1, §5.3, §7: traced examples ('500 concurrent connections and 5000+ DAU' from an unrelated ADR, '93% industry adoption'); 5 transcripts, not quantified.",
+     "strength": "weak", "novelty": "refines", "relative_to": ["irrelevant retrieved context harms faithfulness (known RAG failure)"], "transfers": "direct"}
+  ],
+  "quantity_flags": ["system_description_only"],
+  "proposed": "hypothesis_only",
+  "reason": "A feasibility study on five student-heavy transcripts; the RAG-contamination failure is relevant to drafting specs during an SDD rollout but is shown by anecdote, not rate."
+}

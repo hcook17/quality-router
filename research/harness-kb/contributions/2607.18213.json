@@ -1,0 +1,16 @@
+{
+  "arxiv_id": "2607.18213",
+  "contributions": [
+    {"kind": "nuance",
+     "statement": "Evaluate any tool-output pruning or context-trimming feature on end-to-end input tokens, API calls and resolve rate per backbone. On patch-generation tasks the same pruners that cut tokens on read-only QA raised input tokens and calls for one backbone and lost resolves on the other.",
+     "evidence": "Table 2: MiMo-V2-Flash all pruners +2.4 to +4.2 pp resolve but +6.6 to +14.9% input tokens and more API calls; Qwen3-Coder-Next all pruners lose 1.2-10.6 pp. Single runs.",
+     "strength": "weak", "novelty": "refines", "relative_to": ["2609.08318", "2608.24188", "P08 context compaction"], "transfers": "indirect"},
+    {"kind": "design_pattern",
+     "statement": "Read keep/prune decisions for tool output from the agent backbone's own hidden states with a small trained head instead of a separate pruner model.",
+     "evidence": "§2-3, Table 1: probe AUC 0.83; head saves 14-39% tokens on read-only benchmarks with judge-score parity; requires open-weight self-served backbone.",
+     "strength": "moderate", "novelty": "new", "relative_to": [], "transfers": "no"}
+  ],
+  "quantity_flags": ["numbers_without_mechanism"],
+  "proposed": "hypothesis_only",
+  "reason": "The method is new but cannot be used with hosted models, so it does not transfer. The one transferable point (pruning effects flip by backbone and task type) rests on single runs. It does not show 'small explorer, frontier solves': no small model is involved."
+}

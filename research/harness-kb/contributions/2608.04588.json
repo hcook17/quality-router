@@ -1,0 +1,16 @@
+{
+  "arxiv_id": "2608.04588",
+  "contributions": [
+    {"kind": "nuance",
+     "statement": "An RL-trained orchestrator rewarded only for task success inflates executor tokens by 24-82% at near-equal accuracy; cost must be an explicit, separately normalized reward.",
+     "evidence": "Table 2: w/o cost reward −0.7 to −1.9 points, tokens 6.2→11.3K (math), 3.3→5.7K (embodied), 10.4→12.9K (research).",
+     "strength": "moderate", "novelty": "restates_known", "relative_to": ["cost-aware RL rewards for agents (e.g. MasRouter, DAAO)"], "transfers": "no"},
+    {"kind": "design_pattern",
+     "statement": "Plan in milestones: propose one verifiable intermediate goal, plan its subtasks as a DAG, run independent subtasks in parallel, then replan.",
+     "evidence": "Table 1 margins 0.7-3.8 points over re-implemented baselines; 16.7-40.4% parallel calls; no coding tasks.",
+     "strength": "weak", "novelty": "restates_known", "relative_to": ["hierarchical planner-executor (P13)", "LLMCompiler DAG planning (Kim et al., 2024)"], "transfers": "indirect"}
+  ],
+  "quantity_flags": ["self_declared_incomplete", "renamed_known_idea"],
+  "proposed": "drop",
+  "reason": "Self-declared WIP whose transferable ideas (milestone planning, cost-aware rewards) are known. The novel part is RL training machinery, which a Java team on hosted agents cannot use. The cost-profile routing it is cited for is tested on two copies of the same 7B model."
+}

@@ -1,0 +1,16 @@
+{
+  "arxiv_id": "2608.05141",
+  "contributions": [
+    {"kind": "design_pattern",
+     "statement": "Mid-training on contexts built by recursively resolving a file's calls (AST + language server + installed packages) adds ~3 points on long-context code QA for an 8B model.",
+     "evidence": "§5 Table 3 ablation on 8B only, single run per variant; control corpus differs in several categories.",
+     "strength": "moderate", "novelty": "new", "relative_to": [], "transfers": "no"},
+    {"kind": "heuristic",
+     "statement": "Build cross-repo agent context by deterministic dependency traversal (language server plus build metadata) rather than embedding search.",
+     "evidence": "Reviewer extrapolation only; the paper tests the traversal as training data, never as inference-time retrieval, and only for Python.",
+     "strength": "unsupported", "novelty": "refines", "relative_to": ["lexical/deterministic code retrieval (P05)"], "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "drop",
+  "reason": "A training-data recipe for model builders; the team will not mid-train, and the only harness idea is not tested by the paper."
+}

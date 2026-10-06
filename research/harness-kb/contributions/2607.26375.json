@@ -1,0 +1,16 @@
+{
+  "arxiv_id": "2607.26375",
+  "contributions": [
+    {"kind": "nuance",
+     "statement": "Do not treat a developer's approval of agent-applied edits as knowledge transfer: agent users recalled markedly less of their own code than chatbot-snippet users even after controlling for task accuracy, so require an owner walkthrough or explanation for agent-written code they must maintain.",
+     "evidence": "§4.1/§4.3 Figs. 1, 4, 6: comprehension much lower for agent group (p<0.002, d>0.80) with regression controlling for initial accuracy; audit narrows it to recall of names/snippets/purpose (App. A.9.2), with no difference on behavioural questions. 54 students, toy HTML/JS game.",
+     "strength": "moderate", "novelty": "refines", "relative_to": ["AI assistance reduces skill formation / code comprehension (known pre-2026 user studies)"], "transfers": "indirect"},
+    {"kind": "anti_pattern",
+     "statement": "Pasting acceptance criteria verbatim into the agent and auto-accepting its edits was associated with the lowest comprehension; translating criteria into concrete technical instructions and reviewing per file was associated with more.",
+     "evidence": "§5.1 prompt-strategy table (copy criteria 0.654 vs translated 0.743) and Table 2 (auto-accept vs per-file review); correlational, cells of 5-25 users, background ability confounded (audit).",
+     "strength": "weak", "novelty": "new", "relative_to": [], "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "The agent-vs-snippet comprehension gap is a controlled, moderate result that refines the known deskilling finding to agentic editing; the spec-pasting result is only a hypothesis."
+}

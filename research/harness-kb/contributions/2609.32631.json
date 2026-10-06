@@ -1,0 +1,21 @@
+{
+  "arxiv_id": "2609.32631",
+  "contributions": [
+    {
+      "kind": "nuance",
+      "statement": "Fail-to-pass/pass-to-pass test state after each edit is the most useful intermediate signal for training coding agents.",
+      "evidence": "Table 4 ablation: w/o verification 60.7 vs full 63.8 Verified; single training run, 1-3pp deltas.",
+      "strength": "moderate",
+      "novelty": "restates_known",
+      "relative_to": [
+        "execution-based verification signal (P16)"
+      ],
+      "transfers": "no"
+    }
+  ],
+  "quantity_flags": [
+    "leaderboard_only"
+  ],
+  "proposed": "drop",
+  "reason": "RL process-reward recipe for a 9B model; nothing for a team that does not train models, and the transferable idea (tests are the best signal) is known."
+}

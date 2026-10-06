@@ -1,0 +1,20 @@
+{
+  "arxiv_id": "2606.00579",
+  "contributions": [
+    {"kind": "design_pattern",
+     "statement": "For ingesting lecture video, audio or scanned material, have a sandboxed text+image coding agent write extraction code (ffmpeg keyframes, ASR transcripts, OCR, timestamps) and reason over those artifacts rather than feeding raw media to a native multimodal model; Codex with GPT-5.4 reached 75.0% vs 66.1% for Gemini 3.1 Pro on OmniGAIA while using far fewer input tokens.",
+     "evidence": "§2.1 Table 1 and Fig. 3 (token usage); text-only ablation shows many items are solvable via OCR/transcripts, and vision-centric benchmarks drop sharply. Single pass@1 runs with web access.",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["P33 CodeAct / code-as-action"],
+     "transfers": "indirect"},
+    {"kind": "nuance",
+     "statement": "Skills distilled from the agent's own execution traces beat human-written and binary-feedback self-iterated skills.",
+     "evidence": "§2.3 Fig. 7, App. H.2: 61.4% to 76.7% on OmniGAIA in the best setting; one model, single run, skills likely mined on the evaluation benchmark.",
+     "strength": "weak", "novelty": "refines",
+     "relative_to": ["P02 skills / P26 self-improving harness (2605.21810)"],
+     "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "Out of the SE domain, but it gives a direct design choice for multimedia content ingestion: extract with code, then reason over text. The skill-distillation result lacks a held-out split."
+}

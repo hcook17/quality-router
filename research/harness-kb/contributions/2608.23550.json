@@ -1,0 +1,16 @@
+{
+  "arxiv_id": "2608.23550",
+  "contributions": [
+    {"kind": "constraint",
+     "statement": "Treat security rules written in AGENTS.md/CLAUDE.md as unenforced: only about 4-16% of them have a matching built-in host control, so inventory them and compile the expressible subset into permission deny/ask and sandbox egress rules, and move the rest into hooks or CI checks.",
+     "evidence": "§IV-A Table I: strict adjudicated 4.4% [2.6, 6.7], loose 14.3%, classifier 16.6% over 870 security segments in 481 repos. Audit: the range is definitional (strict standard needs action+target+condition+approver) and the second annotator was added post hoc, so moderate. Claude Code only; no agent behaviour measured.",
+     "strength": "moderate", "novelty": "refines", "relative_to": ["prompt instructions are advisory; enforce with policy-as-code"], "transfers": "direct"},
+    {"kind": "test_practice",
+     "statement": "Before using an LLM classifier to audit policy coverage, validate it against blind human labels; here it reported matches at precision 0.35 (recall 1.0), crediting any blockable command or path as enforced.",
+     "evidence": "§IV-B Table II and error analysis: classifier precision 0.350, recall 1.000 on match vs adjudicated reference.",
+     "strength": "moderate", "novelty": "duplicates", "relative_to": ["2606.15029"], "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "The only KB paper that quantifies how little instruction-file security prose is backed by a deterministic host control; directly supports the qr invariant that the CLI, not prose, owns enforcement."
+}

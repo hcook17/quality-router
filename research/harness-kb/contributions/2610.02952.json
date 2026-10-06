@@ -1,0 +1,31 @@
+{
+  "arxiv_id": "2610.02952",
+  "contributions": [
+    {
+      "kind": "test_practice",
+      "statement": "Accept agent-written code on a fresh random sample of cases drawn after the candidate is committed (hashed), never on cases the agent saw; at 500 cases and 5% tolerance a zero-failure audit needs 54 cases versus 475 known tests.",
+      "evidence": "§4 Theorems 4.10-4.15, Table 2 exact audit sizes; applied post hoc to 600 recorded candidates (83-case audit -> 0.074 expected false acceptances); the audit never gated live development (audit).",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": [
+        "2607.24300",
+        "holdout/reusable-holdout practice"
+      ],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "test_practice",
+      "statement": "Before building an LLM adversarial tester, compare it against property-based tests drawn from a production-like input generator (e.g. jqwik for Java); here they were statistically indistinguishable, and one-shot LLM-written tests were no better than the public example alone.",
+      "evidence": "Table 6: Dynamic informed - Static property -0.024 (CI -0.097 to +0.043); Static LLM - Public only +0.064 n.s.; 30 blocks, one toy task, gpt-4.1-mini, no-tool coder.",
+      "strength": "weak",
+      "novelty": "refines",
+      "relative_to": [
+        "P15 test-first with agents; 2608.16742"
+      ],
+      "transfers": "indirect"
+    }
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "The audit-sizing result gives a concrete, checkable acceptance rule that separates development feedback from acceptance; the empirical part is a single toy task and only supports a hypothesis."
+}

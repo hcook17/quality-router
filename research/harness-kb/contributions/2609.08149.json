@@ -1,0 +1,16 @@
+{
+  "arxiv_id": "2609.08149",
+  "contributions": [
+    {"kind": "test_practice",
+     "statement": "When evaluating agents or harness changes on tasks mined from your own repo history, rebuild each task repo as a single commit (no future git objects), delete hidden tests from the workspace and block code-host egress while allowing package registries; without this, one model's score was inflated by 21 points through answer leakage.",
+     "evidence": "Table 3: GLM-5.2 78.80 -> 57.32 under anti-hacking controls, DeepSeek-V4-Pro 49.98 -> 49.11; Table 4: 186 PASS->FAIL vs 15 FAIL->PASS (McNemar p<0.001); Table 5: local answer-file access 103 -> 0, network 49 -> 0. Single run per condition; blocklist gaps admitted.",
+     "strength": "moderate", "novelty": "refines", "relative_to": ["2608.17528"], "transfers": "direct"},
+    {"kind": "nuance",
+     "statement": "Under-specified constants, defaults, ordering and signatures in task statements cause false agent failures, so acceptance criteria should pin them explicitly.",
+     "evidence": "Table 10: 21 FAIL->PASS vs 2 PASS->FAIL on 102 refined instances, but 32/35 churn on 629 unrefined instances shows ~10% single-run noise, and refinements often reveal test-expected constants.",
+     "strength": "weak", "novelty": "restates_known", "relative_to": ["structured acceptance criteria (P34)"], "transfers": "direct"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "Adds a measured magnitude and model-dependence to the known git-history/egress leakage problem, directly applicable to any in-house agent eval mined from the team's repos."
+}

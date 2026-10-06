@@ -1,0 +1,12 @@
+{
+  "arxiv_id": "2609.01139",
+  "contributions": [
+    {"kind": "heuristic",
+     "statement": "When building an LLM judge for content quality, use a direct rubric prompt with a few examples and spend the effort on a small human-labelled calibration set per criterion rather than checklist decomposition; decomposition gave no consistent gain and HD-Eval's reported gains came from its human-label-trained aggregator.",
+     "evidence": "§6.1 Table 1 (Claude-4): TopicalChat rho direct 0.70-0.72 vs HD-Eval 0.56-0.58; SummEval the authors' own decomposition wins slightly. Appendix C Table 3: L1-agnostic HD-Eval (25 generic criteria + human-label regressor) matches standard HD-Eval. Single run, no significance tests; NLG summarization/dialogue, not code.",
+     "strength": "moderate", "novelty": "refines", "relative_to": ["2606.15029", "validate LLM judges against human labels (P18)"], "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "A clean negative result with an ablation that locates the gain in human labels, not pipeline complexity; useful if the team grades educational content with an LLM judge, irrelevant to code."
+}

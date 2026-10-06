@@ -1,0 +1,511 @@
+{
+ "arxiv_id": "2608.13331",
+ "fulltext_chars": 166890,
+ "fulltext_lines": 3553,
+ "authors_block": "Damon Falck*,1, Samer Sabri*,1, Anja Surina1, Thom Foster1, Anya Sims1, Sam Devlin1, Dylan Rogers1, Tantum Collins1, Kaloyan Aleksiev§,1, Louis Kirsch†,1, Edward Hughes†,1 14th August 2026",
+ "vendor_affiliation_hits": [],
+ "n_authors": 11,
+ "comment": "47 pages, 12 figures",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [
+  "https://huggingface.co/Qwen/Qwen3.6-27B"
+ ],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   24,
+   "# Training AI Scientists to Replicate Research"
+  ],
+  [
+   32,
+   "###### Abstract"
+  ],
+  [
+   42,
+   "## 1 Introduction"
+  ],
+  [
+   91,
+   "## 2 Related work"
+  ],
+  [
+   101,
+   "##### Rewards for AI Scientists."
+  ],
+  [
+   124,
+   "##### Replication tasks for AI Scientists."
+  ],
+  [
+   138,
+   "##### Training AI Scientists."
+  ],
+  [
+   155,
+   "## 3 Methods"
+  ],
+  [
+   157,
+   "### 3.1 Task space"
+  ],
+  [
+   167,
+   "### 3.2 Reward function"
+  ],
+  [
+   175,
+   "##### Judge rubric generation."
+  ],
+  [
+   192,
+   "##### Coding agent as a judge."
+  ],
+  [
+   201,
+   "### 3.3 Human studies"
+  ],
+  [
+   210,
+   "### 3.4 Simple harness"
+  ],
+  [
+   215,
+   "##### Affordances and context."
+  ],
+  [
+   224,
+   "##### Coding agent as a tool (CAT)."
+  ],
+  [
+   234,
+   "### 3.5 Post-training recipe"
+  ],
+  [
+   248,
+   "##### Long-horizon stability."
+  ],
+  [
+   257,
+   "## 4 Results"
+  ],
+  [
+   268,
+   "### 4.1 Rubric judge reliably captures human taste"
+  ],
+  [
+   274,
+   "### 4.2 Replica tasks are challenging for frontier agents"
+  ],
+  [
+   281,
+   "### 4.3 Faraday replicates better than Claude and Codex"
+  ],
+  [
+   299,
+   "### 4.4 Faraday is qualitatively a more rigorous scientist"
+  ],
+  [
+   363,
+   "## 5 Discussion"
+  ],
+  [
+   365,
+   "##### Towards innovation."
+  ],
+  [
+   383,
+   "##### Coding agent as a tool (CAT)."
+  ],
+  [
+   399,
+   "##### Beyond verifiable rewards."
+  ],
+  [
+   403,
+   "##### Generalisation."
+  ],
+  [
+   413,
+   "##### Community engagement."
+  ],
+  [
+   424,
+   "##### Conclusion."
+  ],
+  [
+   431,
+   "## Ethics statement"
+  ],
+  [
+   433,
+   "##### Awareness of limitations."
+  ],
+  [
+   437,
+   "##### Human studies."
+  ],
+  [
+   441,
+   "##### Conflict of interest."
+  ],
+  [
+   445,
+   "##### Technical safety."
+  ],
+  [
+   449,
+   "## Acknowledgements"
+  ],
+  [
+   454,
+   "## References"
+  ],
+  [
+   2179,
+   "## Appendix"
+  ],
+  [
+   2181,
+   "## Appendix A Generalisation"
+  ],
+  [
+   2183,
+   "### A.1 Full-scale replication"
+  ],
+  [
+   2197,
+   "### A.2 Stronger coding agent tool"
+  ],
+  [
+   2206,
+   "## Appendix B Ablations"
+  ],
+  [
+   2208,
+   "### B.1 Turn-level credit assignment"
+  ],
+  [
+   2215,
+   "### B.2 Coding agent as a tool"
+  ],
+  [
+   2219,
+   "## Appendix C Analyses"
+  ],
+  [
+   2221,
+   "### C.1 Credit assignment distribution"
+  ],
+  [
+   2229,
+   "### C.2 Scores by rubric dimension"
+  ],
+  [
+   2236,
+   "### C.3 Within-rollout behaviour"
+  ],
+  [
+   2241,
+   "## Appendix D Supplementary methods"
+  ],
+  [
+   2243,
+   "### D.1 Task space"
+  ],
+  [
+   2247,
+   "### D.2 Post-training"
+  ],
+  [
+   2288,
+   "## Appendix E Supplementary discussion"
+  ],
+  [
+   2304,
+   "## Appendix F Human studies"
+  ],
+  [
+   2424,
+   "### F.1 Judge comparison"
+  ],
+  [
+   2426,
+   "##### Methods."
+  ],
+  [
+   2438,
+   "##### Results."
+  ],
+  [
+   2442,
+   "### F.2 Agent comparison"
+  ],
+  [
+   2444,
+   "##### Methods."
+  ],
+  [
+   2453,
+   "##### Results."
+  ],
+  [
+   2701,
+   "### F.3 “Innovation” tasks"
+  ],
+  [
+   2866,
+   "## Appendix G Prompts"
+  ],
+  [
+   2868,
+   "### G.1 Faraday system prompt"
+  ],
+  [
+   2873,
+   "# Role"
+  ],
+  [
+   2891,
+   "# Coding Agent"
+  ],
+  [
+   2931,
+   "# Workflow"
+  ],
+  [
+   2941,
+   "# Authenticity"
+  ],
+  [
+   2945,
+   "# Finishing"
+  ],
+  [
+   2949,
+   "# Rules"
+  ],
+  [
+   2961,
+   "## Hardware"
+  ],
+  [
+   2993,
+   "## apply_patch format"
+  ],
+  [
+   3029,
+   "## Tool guidelines"
+  ],
+  [
+   3039,
+   "## Runtime Paths"
+  ],
+  [
+   3051,
+   "### G.2 Claude and Codex system prompt"
+  ],
+  [
+   3060,
+   "### G.3 Task prompt"
+  ],
+  [
+   3063,
+   "# Plot Replication Task"
+  ],
+  [
+   3065,
+   "## Objective"
+  ],
+  [
+   3079,
+   "## Reading the paper"
+  ],
+  [
+   3099,
+   "## Time budget"
+  ],
+  [
+   3121,
+   "## Available compute"
+  ],
+  [
+   3187,
+   "## Rules"
+  ],
+  [
+   3221,
+   "## What is a good replication?"
+  ],
+  [
+   3233,
+   "## Output"
+  ],
+  [
+   3269,
+   "### G.4 Human prompt"
+  ],
+  [
+   3272,
+   "# Rater guide - what we’re looking for"
+  ],
+  [
+   3302,
+   "## What you must look at"
+  ],
+  [
+   3322,
+   "## How to rank"
+  ],
+  [
+   3336,
+   "## A note on bugs"
+  ],
+  [
+   3344,
+   "### G.5 Optimised Codex prompt"
+  ],
+  [
+   3347,
+   "# Approach: Replicate the target figure"
+  ],
+  [
+   3351,
+   "## 1. Read the goal first — restate the spec in writing"
+  ],
+  [
+   3355,
+   "## 2. Implement and TRAIN the real mechanism — never a proxy, oracle, or tuned prior"
+  ],
+  [
+   3369,
+   "## 3. Reproduce the DIFFERENCE — direction AND magnitude, honestly"
+  ],
+  [
+   3373,
+   "## 4. Use the full budget on the right things"
+  ],
+  [
+   3377,
+   "## 5. Integrity"
+  ],
+  [
+   3381,
+   "## 6. Figure honesty + write-up self-consistency (cheap points lost here)"
+  ],
+  [
+   3391,
+   "### G.6 Example rubrics"
+  ],
+  [
+   3396,
+   "#### How do language models learn facts? (Zucchet et al., 2025), Figure 5"
+  ],
+  [
+   3399,
+   "# Rubric: How do language models learn facts? — Figure 5"
+  ],
+  [
+   3403,
+   "## 1. Visual fidelity"
+  ],
+  [
+   3413,
+   "## 2. Claim reproduction"
+  ],
+  [
+   3423,
+   "## 3. Implementation fidelity"
+  ],
+  [
+   3433,
+   "## 4. Experimental effort"
+  ],
+  [
+   3441,
+   "#### Additive logistic regression: a statistical view of boosting (Friedman et al., 2000), Figure 5"
+  ],
+  [
+   3444,
+   "# Rubric: Additive Logistic Regression (Friedman, Hastie & Tibshirani) — Figure 5"
+  ],
+  [
+   3448,
+   "## 1. Visual fidelity"
+  ],
+  [
+   3458,
+   "## 2. Claim reproduction"
+  ],
+  [
+   3468,
+   "## 3. Implementation fidelity"
+  ],
+  [
+   3478,
+   "## 4. Experimental effort"
+  ],
+  [
+   3486,
+   "#### Learning precise timing with LSTM recurrent networks (Gers et al., 2002), Figure 4"
+  ],
+  [
+   3489,
+   "# Rubric: Learning Precise Timing with LSTM Recurrent Networks — Figure 4"
+  ],
+  [
+   3493,
+   "## 1. Visual fidelity"
+  ],
+  [
+   3503,
+   "## 2. Claim reproduction"
+  ],
+  [
+   3513,
+   "## 3. Implementation fidelity"
+  ],
+  [
+   3523,
+   "## 4. Experimental effort"
+  ],
+  [
+   3531,
+   "## Appendix H Infrastructure"
+  ],
+  [
+   3533,
+   "##### Cluster."
+  ],
+  [
+   3540,
+   "##### Training stack."
+  ],
+  [
+   3547,
+   "##### Task containers."
+  ],
+  [
+   3553,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgements\n\nWe thank Shi Dong, Alex Goldie, Matt Henderson, Akarsh Kumar, Chris Lu, Clare Lyle, and Jimmy Secretan for valuable comments on an early version of this manuscript.\nWe thank Sergio Gomez, José Miguel Hernández-Lobato, Chris Lu, and Matthias Rupp for providing feedback on the quality of replication of their papers.\n\n## References\n\nAbramson et al. (2024)\nJ. Abramson, J. Adler, J. Dunger, R. Evans, T. Green, A. Pritzel, O. Ronneberger, L. Willmore, A. J. Ballard, J. Bambrick, et al.\n\nAccurate structure prediction of biomolecular interactions with AlphaFold 3.\n\nNature 630, pp. 493–500.\n\nCited by: Table F.2.\n\nAhmadian et al. (2024)\nA. Ahmadian, C. Cremer, M. Gallé, M. Fadaee, J. Kreutzer, O. Pietquin, A. Üstün, and S. Hooker\n\nBack to basics: revisiting REINFORCE-style optimization for learning from human feedback in LLMs.\n\nIn Proceedings of the 62nd Annual Meeting of the Association for Computational Linguistics,\n\nCited by: §D.2.",
+ "limitations": "##### Awareness of limitations.\n\nPaper replication by AI agents holds great promise, but remains at an early stage. While Faraday successfully replicated claims from a number of papers, it failed in several cases where we have confidence that the original result was obtained rigorously and reported honestly. We do not claim that any of Faraday’s failures to replicate published work suggest fundamental problems with the original research. Even as and when AI systems demonstrate sufficiently strong performance to serve as reliable judges of replicability, it will remain important for humans to cultivate the skills necessary for paper replication and to inspect the results of agents such as Faraday.\n\n##### Human studies.\n\nWe assessed whether our procedures for human data collection would require review by an external board and concluded that this was not necessary since the information elicited consisted only of professional judgements and did not feature sensitive personal data, and participation would pose no risk. We worked with a combination of people within our pre-existing professional networks and experts sourced by third-party data providers. We made clear to participants the purpose of the project. Participants were compensated irrespective of whether their ratings cleared our internal filtering.\n\n##### Conflict of interest.\n\nSome of the papers included in our corpus were written by authors of this paper and by individuals we know personally. Some work in the corpus comes from institutions whose commercial models we used for the research presented here. We applied the same automated pipeline to all items in the corpus and in no way altered scoring treatment for our own prior work or that of our acquaintances.\n\n##### Technical safety.\n\nNot all applications of scientific insight benefit society. Prior work on the use of AI to automate or accelerate scientific research notes accurately that these capabilities may empower malicious human actors and/or increase the dangers associated with misaligned AI systems. For this paper, we selected in silico tasks that we judge unlikely to cause harm, and we constrained Faraday in terms of both time and compute. Faraday did not have access to any physical lab equipment, although it did have internet access.\n\n## Acknowledgements\n\nWe thank Shi Dong, Alex Goldie, Matt Henderson, Akarsh Kumar, Chris Lu, Clare Lyle, and Jimmy Secretan for valuable comments on an early version of this manuscript.\nWe thank Sergio Gomez, José Miguel Hernández-Lobato, Chris Lu, and Matthias Rupp for providing feedback on the quality of replication of their papers.\n\n## References\n\nAbramson et al. (2024)\nJ. Abramson, J. Adler, J. Dunger, R. Evans, T. Green, A. Pritzel, O. Ronneberger, L. Willmore, A. J. Ballard, J. Bambrick, et al.\n\nAccurate structure prediction of biomolecular interactions with AlphaFold 3.\n\nNature 630, pp. 493–500.\n\nCited by: Table F.2.\n\nAhmadian et al. (2024)\nA. Ahmadian, C. Cremer, M. Gallé, M. Fadaee, J. Kreutzer, O. Pietquin, A. Üstün, and S. Hooker\n\nBack to basics: revisiting REINFORCE-style optimization for learning from human feedback in LLMs.\n\nIn Proceedings of the 62nd Annual Meeting of the Association for Computational Linguistics,\n\nCited by: §D.2.",
+ "ethics_coi": "## Ethics statement\n\n##### Awareness of limitations.\n\nPaper replication by AI agents holds great promise, but remains at an early stage. While Faraday successfully replicated claims from a number of papers, it failed in several cases where we have confidence that the original result was obtained rigorously and reported honestly. We do not claim that any of Faraday’s failures to replicate published work suggest fundamental problems with the original research. Even as and when AI systems demonstrate sufficiently strong performance to serve as reliable judges of replicability, it will remain important for humans to cultivate the skills necessary for paper replication and to inspect the results of agents such as Faraday.\n\n##### Human studies.\n\nWe assessed whether our procedures for human data collection would require review by an external board and concluded that this was not necessary since the information elicited consisted only of professional judgements and did not feature sensitive personal data, and participation would pose no risk. We worked with a combination of people within our pre-existing professional networks and experts sourced by third-party data providers. We made clear to participants the purpose of the project. Participants were compensated irrespective of whether their ratings cleared our internal filtering.\n\n##### Conflict of interest.\n\nSome of the papers included in our corpus were written by authors of this paper and by individuals we know personally. Some work in the corpus comes from institutions whose commercial models we used for the research presented here. We applied the same automated pipeline to all items in the corpus and in no way altered scoring treatment for our own prior work or that of our acquaintances.\n\n##### Technical safety.\n\nNot all applications of scientific insight benefit society. Prior work on the use of AI to automate or accelerate scientific research notes accurately that these capabilities may empower malicious human actor",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 1,
+  "p_value_or_ci": 4,
+  "seeds_or_runs": 12,
+  "swe_bench": 0,
+  "contamination": 3,
+  "human_study": 17,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

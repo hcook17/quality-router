@@ -1,0 +1,36 @@
+{
+  "arxiv_id": "2607.18213",
+  "contribution_type": "empirical",
+  "summary": "SWE-Pruner Pro trains a small head on the agent backbone's own last-layer hidden states to decide which lines of each tool output to keep before the next turn. No separate scoring model or goal-hint query is needed. Labels come from Claude Sonnet 4.6, and the backbone must be open-weight and self-served. Across two open MoE backbones it cuts tokens by up to 39% on read-only QA benchmarks with judge scores near the unpruned agent. On SWE-Bench Verified, one backbone gains 19 resolves while using 7.4% more input tokens, and the other loses 6.",
+  "claims": [
+    {"claim": "The backbone's hidden states already encode line-level relevance of tool output", "evidence": "§2, Fig. 2: logistic probe on frozen Qwen3-Coder-Next last-layer states, held-out AUC 0.83, best F1 0.63 vs majority-class 0.46. Labels are Claude Sonnet 4.6 judgments, so the probe recovers agreement with another LLM's notion of relevance.", "strength": "moderate", "location": "§2"},
+    {"claim": "SWE-Pruner Pro saves up to 39% of tokens while preserving task quality", "evidence": "Table 1: 39.4% on SWE-QA-Pro (Qwen3-Coder-Next), judge +0.24 on a 1-10 GPT-5.4-mini rubric. Single runs, no variance; quality on SWE-QA family is LLM-judged. On SWE-Bench Verified (Table 2) MiMo input tokens rise 7.4% and API calls rise 18%, which the abstract's 'saves up to 39%' omits.", "strength": "weak", "location": "Table 1, Table 2"},
+    {"claim": "SWE-Pruner Pro raises MiMo-V2-Flash SWE-Bench Verified resolve rate by +3.8%", "evidence": "Table 2: 326→345/500 single run; every pruner, including LongCodeZip and RAG, also raises MiMo, so the gain is not specific to this method. On Qwen3-Coder-Next every pruner loses (Pro 341→335).", "strength": "weak", "location": "§5.1, Table 2"},
+    {"claim": "Per-sample balanced focal loss and length-aware embedding drive the quality gain", "evidence": "Table 3: n=100 held-out judge set, judge 7.08 vs 5.95 (BCE); length embedding 6.86→7.08 with identical F1. Single checkpoint per variant, LLM judge.", "strength": "weak", "location": "§5.2, Table 3"},
+    {"claim": "Inference overhead is bounded (15% aggregate wall time)", "evidence": "§5.3: 16-trajectory replay on a patched SGLang stack; p95 per-trajectory 34.8%. Small replay; 15% is not 'negligible'.", "strength": "weak", "location": "§5.3, Fig. 5"}
+  ],
+  "patterns": [
+    {"id": "P08", "stance": "mixed", "note": "Pruning observations cuts tokens on read-only tasks, but on patch-generation it can raise input tokens and API calls, and resolve-rate effects flip sign across backbones."},
+    {"id": "P31", "stance": "neutral", "note": "SWE-Bench Verified, SWE-QA, SWE-QA-Pro, Oolong; Python-centric."},
+    {"id": "P23", "stance": "neutral", "note": "Does not use a small helper model; the pruning signal comes from the same backbone. This argues against a separate cheap pruner, not for it."}
+  ],
+  "methodology": {"sample": "SWE-Bench Verified 500, SWE-QA 144, SWE-QA-Pro 260, Oolong 280; training 22,609 LLM-labelled tool responses", "baselines": "No pruning, LLMLingua2, Selective Context, RAG, Self-Prune, LongCodeZip, SWE-Pruner (authors' own prior work); SWE-bench compares only four", "models": "MiMo-V2-Flash, Qwen3-Coder-Next (open-weight only); GPT-5.4-mini judge; Claude Sonnet 4.6 labeller", "variance": "None; single run per cell", "ablations": "Loss function, length embedding", "contamination_controls": "None stated; SWE-Bench Verified is public and widely trained on", "languages": "Python-centric (stated in Limitations)"},
+  "standards": {"peer_review": "None stated", "limitations_section": true, "artifacts": "Project page github.com/Ayanami1314/swe-pruner-pro; prompts in Appendix H", "preregistration": "n/a"},
+  "biases": [
+    {"type": "no_variance_reported", "detail": "Resolve deltas of 6-19 tasks on 500 with one run each."},
+    {"type": "llm_judge_unvalidated", "detail": "SWE-QA quality and ablations are GPT-5.4-mini scores; training labels are Claude Sonnet 4.6 judgments; no human check."},
+    {"type": "single_language_python", "detail": "All agent benchmarks are Python."},
+    {"type": "self_evaluation", "detail": "Authors' own prior SWE-Pruner is the main baseline; the new method is judged by authors' chosen judge and rubric."},
+    {"type": "cherry_picked_examples", "detail": "Abstract reports the MiMo SWE-bench gain and the 39% best cell; it omits the Qwen resolve loss and the MiMo token increase on SWE-bench."},
+    {"type": "metric_mismatch", "detail": "'Tokens saved' on SWE-bench is contradicted by higher input tokens and API calls for MiMo."}
+  ],
+  "coi": {"affiliations": "Shanghai Jiao Tong University group (corresponding author); same group as SWE-Pruner", "vendor_products_evaluated": "Open-weight Xiaomi MiMo and Qwen models; no author affiliation with them stated", "funding": "Not stated", "severity": "low", "detail": "No vendor COI; the authors improve on their own prior system, which raises self-evaluation risk but not commercial COI."},
+  "scores": {"rigor": 3, "reproducibility": 3, "generalizability": 2, "relevance": 1, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Broad baseline set and two backbones, but single runs, LLM-judged quality, and an abstract that selects favorable cells. The probing finding is solid; the efficiency claims on the coding benchmark do not hold.",
+  "applicability": "Needs hidden-state access to a self-served open-weight backbone, so it cannot be applied to hosted Claude/GPT/Cursor agents a Java team would use. The transferable caution is that pruning tool output can raise turns and total input tokens on patch tasks. Judge any host context-trimming feature by end-to-end tokens and resolve rate, not per-observation compression.",
+  "conflicts_with": [
+    {"arxiv_id": "2609.08318", "detail": "AttnCompress uses a small proxy model for relevance scoring and finds every compression method lowers pass rate; SWE-Pruner Pro reads the backbone itself and reports gains on one backbone. Both show backbone-dependent losses."},
+    {"arxiv_id": "2605.11051", "detail": "Implicit compression of tool observations degraded SWE-bench resolution; here explicit line pruning helps one backbone and hurts the other."}
+  ]
+}
