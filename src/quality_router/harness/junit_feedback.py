@@ -1,11 +1,10 @@
 """Turn JUnit XML failures into short, criterion-aware repair feedback for an agent.
 
-Evidence: 2609.00362 (raw JUnit output is barely better than "tests failed"
-for Java logic bugs; expected/actual, trimmed traces and the failing test
-source help), 2605.17242 (the acceptance loop pays off only with a reliable
-verifier). Counter-evidence: 2609.22222 found thin sanitized diagnostics
-added nothing beyond the retry budget (~35 runs), so measure with `qr eval`
-before claiming a gain. Reads Surefire/Gradle/console
+Engineering judgment, not an established lever. 2609.00362 found raw JUnit 4
+feedback no better than "tests failed" for Java logic bugs (weak, n=50);
+2609.22222 found thin diagnostics added nothing beyond the retry budget
+(~35 runs). This output tests the obvious hypothesis (expected/actual, app
+frames, the failing spec example); measure it with `qr eval`. Reads Surefire/Gradle/console
 launcher XML reports, like JaCoCo XML; never runs or relays the build.
 """
 
