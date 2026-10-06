@@ -147,7 +147,7 @@ class TestScaffold:
         assert made.criteria == ["AC-1", "AC-2"] and made.unbound == ["AC-2"]
         assert src.startswith("package com.acme;")
         assert '@Tag("AC-1")' in src and '@DisplayName("AC-2 Missing license defaults")' in src
-        assert "void ac_1(String title, String expectedTitle) {" in src
+        assert "void ac_1(String title, String expectedTitle) throws Exception {" in src
         assert "'  Intro  ' | Intro" in src
         # AC-2 has a literal "(null)" string, so its null marker moves to (nil).
         assert 'nullValues = "(nil)"' in src and 'nullValues = "(null)"' in src

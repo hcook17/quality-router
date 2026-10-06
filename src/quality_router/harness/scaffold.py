@@ -102,7 +102,7 @@ def _test_method(criterion: Criterion, table: ExampleTable, index: int,
         f"    @Tag({_java_string(criterion.id)})",
         f"    @DisplayName({_java_string(display)})",
         *_csv_source(rows, null, java_release),
-        f"    void {name}({signature}) {{",
+        f"    void {name}({signature}) throws Exception {{",
     ]
     bound = True
     for col in table.outputs:
