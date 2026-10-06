@@ -1,4 +1,4 @@
-"""argparse wiring for phase-3 harness commands: gate, lint, spec, contracts, policy, eval."""
+"""argparse wiring for harness commands: gate, lint, spec, feedback, contracts, policy, eval."""
 
 from __future__ import annotations
 
@@ -7,16 +7,21 @@ import json
 import re
 import sys
 import textwrap
+import xml.etree.ElementTree as ET
 from argparse import ArgumentParser, Namespace, RawDescriptionHelpFormatter
 from pathlib import Path
 
 from quality_router.harness import (
+    acceptance,
     contracts,
     coverage_gate,
     evalkit,
     instructions,
+    junit_feedback,
     oracles,
+    scaffold,
     spec_trace,
+    specdoc,
 )
 from quality_router.harness import policy as policy_mod
 from quality_router.harness.gitdiff import load_diff
@@ -29,6 +34,7 @@ GATE_EPILOG = textwrap.dedent(
       qr gate diff-coverage --diff pr.diff --jacoco target/site/jacoco/jacoco.xml --min 0.9
       qr gate test-oracles --base origin/main
       qr gate test-oracles --paths src/test/java/com/acme/IngestTest.java --json
+      qr gate acceptance --base origin/main
 
     Exit 0 pass, 1 gate failed, 2 usage error. Reads reports; never runs Maven/Gradle.
     """
@@ -43,13 +49,32 @@ LINT_EPILOG = textwrap.dedent(
 SPEC_EPILOG = textwrap.dedent(
     """\
     Examples:
-      qr spec trace --spec specs/content-ingest.md --tests .
+      qr spec new --title 'Content item v2' --out specs/content-item-v2.md
+      qr spec lint --spec specs/content-item-v2.md
+      qr spec scaffold --spec specs/content-item-v2.md --package com.acme.normalize \\
+          --class ContentItemV2AcceptanceTest --ac AC-1 --ac AC-2 \\
+          --bind 'AC-1=new Normalizer().title(input)' \\
+          --out src/test/java/com/acme/normalize/ContentItemV2AcceptanceTest.java
+      qr spec lock --spec specs/content-item-v2.md \\
+          --tests src/test/java/com/acme/normalize/ContentItemV2AcceptanceTest.java
       qr spec trace --spec ../umbrella/specs/item-v2.md --tests ../ingest --tests ../delivery
-      qr spec trace --spec specs/x.md --tests . --id-pattern 'CI-\\d+' --strict
 
-    Number acceptance criteria (AC-1 ...) and tag tests with the id
-    (@Tag("AC-1"), @DisplayName("AC-1 ..."), or a comment). Tag MUST/SHALL
-    lines with an AC id or [check: ArchUnitLayerRules].
+    Acceptance-first flow: new -> lint -> scaffold -> bind + review -> lock
+    (a spec-only change a human approves) -> implement against the lock.
+    `qr gate acceptance` fails if a locked file changed or the lock was
+    re-written after implementation; the policy hook blocks the edit first.
+    """
+)
+FEEDBACK_EPILOG = textwrap.dedent(
+    """\
+    Examples:
+      qr feedback junit --reports 'target/surefire-reports/*.xml' --sources src/test/java
+      qr feedback junit --reports 'build/test-results/test/*.xml' --sources src/test/java \\
+          --spec ../coordination/specs/content-item-v2.md --json
+
+    Reads JUnit XML (Surefire, Gradle, console launcher) after the build ran.
+    Prints expected/actual, trimmed app frames, the criterion and the spec's
+    example row. Exit 0 no failures, 1 failures, 2 no reports.
     """
 )
 CONTRACTS_EPILOG = textwrap.dedent(
@@ -70,11 +95,13 @@ POLICY_EPILOG = textwrap.dedent(
     Examples:
       qr policy check --command 'git push --force origin main'
       qr policy check --path src/main/resources/.env
+      qr policy check --write --path src/test/java/com/acme/ItemV2AcceptanceTest.java
       echo '{"command":"curl https://x.io"}' | qr policy hook --host cursor
 
     Policy: .quality-router/policy.json (stamp with `qr init --policy`).
     No policy file -> hook allows (disconnected no-op). Bad policy or bad
-    payload -> hook denies (fail closed).
+    payload -> hook denies (fail closed). A .quality-router/acceptance.lock.json
+    makes locked tests, specs and the lock read-only to the agent.
     """
 )
 EVAL_EPILOG = textwrap.dedent(
@@ -95,6 +122,7 @@ def register(subparsers) -> None:
     _gate(subparsers)
     _lint(subparsers)
     _spec(subparsers)
+    _feedback(subparsers)
     _contracts(subparsers)
     _policy(subparsers)
     _eval(subparsers)
@@ -145,6 +173,16 @@ def _gate(subparsers) -> None:
     _common(orc, strict=False)
     orc.set_defaults(handler=cmd_test_oracles)
 
+    acc = _sub(gates, "acceptance",
+               "Locked acceptance tests/spec unchanged; approved before implemented.",
+               GATE_EPILOG)
+    acc.add_argument("--root", default=".", help="Repository root holding the lock.")
+    acc.add_argument("--base", default=None,
+                     help="Also check commit order in REF..HEAD: no src/main commit before "
+                          "the lock commit (needs history: fetch-depth: 0).")
+    _common(acc)
+    acc.set_defaults(handler=cmd_gate_acceptance)
+
 
 def _lint(subparsers) -> None:
     lint = _sub(subparsers, "lint", "Lint agent-facing files.", LINT_EPILOG)
@@ -171,6 +209,72 @@ def _spec(subparsers) -> None:
                        help="MUST/SHALL count per spec before a constraint-load warning.")
     _common(trace)
     trace.set_defaults(handler=cmd_spec_trace)
+
+    lint = _sub(specs, "lint", "Testability: examples per criterion, contract, no vague terms.",
+                SPEC_EPILOG)
+    lint.add_argument("--spec", nargs="+", required=True, help="Spec markdown files or globs.")
+    lint.add_argument("--root", action="append", default=[],
+                      help="Extra directory to resolve Contract: paths (repeatable).")
+    lint.add_argument("--id-pattern", default=specdoc.DEFAULT_ID_PATTERN,
+                      help="Regex for criterion ids.")
+    _common(lint)
+    lint.set_defaults(handler=cmd_spec_lint)
+
+    scaf = _sub(specs, "scaffold", "JUnit 5 acceptance tests from the spec's example tables.",
+                SPEC_EPILOG)
+    scaf.add_argument("--spec", required=True, help="Spec markdown file.")
+    scaf.add_argument("--out", required=True, help="Java file to write.")
+    scaf.add_argument("--class", dest="class_name", default=None,
+                      help="Test class name (default: from --out).")
+    scaf.add_argument("--package", default="", help="Java package.")
+    scaf.add_argument("--ac", action="append", default=[],
+                      help="Only these criteria (repeatable; default: all with examples).")
+    scaf.add_argument("--bind", action="append", default=[],
+                      help="AC=EXPR, AC.column=EXPR or *=EXPR: Java expression for the output, "
+                           "using input column names as String variables.")
+    scaf.add_argument("--root", action="append", default=[],
+                      help="Extra directory to resolve Contract: paths.")
+    scaf.add_argument("--id-pattern", default=specdoc.DEFAULT_ID_PATTERN)
+    scaf.add_argument("--force", action="store_true", help="Overwrite an existing file.")
+    scaf.add_argument("--dry-run", action="store_true", help="Print the source; write nothing.")
+    scaf.set_defaults(handler=cmd_spec_scaffold)
+
+    lock = _sub(specs, "lock", "Pin approved acceptance tests + spec by hash (human step).",
+                SPEC_EPILOG)
+    lock.add_argument("--root", default=".", help="Repository root (lock goes under it).")
+    lock.add_argument("--spec", nargs="+", required=True, help="Spec file(s) the tests come from.")
+    lock.add_argument("--tests", nargs="+", required=True, help="Acceptance test files or globs.")
+    lock.add_argument("--ac", action="append", default=[],
+                      help="Criteria this repo owns (default: all in the spec).")
+    lock.add_argument("--id-pattern", default=specdoc.DEFAULT_ID_PATTERN)
+    lock.add_argument("--approved-by", default="", help="Recorded in the lock (e.g. reviewer).")
+    lock.add_argument("--dry-run", action="store_true", help="Print the lock; write nothing.")
+    lock.set_defaults(handler=cmd_spec_lock)
+
+    new = _sub(specs, "new", "Write a short executable-spec template.", SPEC_EPILOG)
+    new.add_argument("--title", required=True)
+    new.add_argument("--out", required=True)
+    new.add_argument("--contract", default="contracts/CHANGE-ME.schema.json",
+                     help="Output contract path for the Contract: line.")
+    new.add_argument("--dry-run", action="store_true", help="Print the template; write nothing.")
+    new.set_defaults(handler=cmd_spec_new)
+
+
+def _feedback(subparsers) -> None:
+    fb = _sub(subparsers, "feedback", "Repair feedback from test reports.", FEEDBACK_EPILOG)
+    fbs = fb.add_subparsers(dest="feedback_command", required=True)
+    junit = _sub(fbs, "junit", "JUnit XML failures -> criterion-aware feedback.",
+                 FEEDBACK_EPILOG)
+    junit.add_argument("--reports", nargs="+", required=True, help="JUnit XML files or globs.")
+    junit.add_argument("--sources", action="append", default=[],
+                       help="Test source root (repeatable), e.g. src/test/java.")
+    junit.add_argument("--spec", action="append", default=[],
+                       help="Spec file for criterion titles and example rows (repeatable).")
+    junit.add_argument("--id-pattern", default=specdoc.DEFAULT_ID_PATTERN)
+    junit.add_argument("--max-frames", type=int, default=5,
+                       help="Application stack frames kept per failure.")
+    _common(junit, strict=False)
+    junit.set_defaults(handler=cmd_feedback_junit)
 
 
 def _contracts(subparsers) -> None:
@@ -203,6 +307,8 @@ def _policy(subparsers) -> None:
     target = check.add_mutually_exclusive_group(required=True)
     target.add_argument("--command", dest="shell_command", default=None)
     target.add_argument("--path", default=None)
+    check.add_argument("--write", action="store_true",
+                       help="Decide --path as a write (locked acceptance files are read-only).")
     check.add_argument("--policy", default=None, help="Policy file (default: repo policy).")
     check.add_argument("--root", default=".", help="Repository root.")
     _common(check, strict=False)
@@ -332,6 +438,170 @@ def cmd_spec_trace(args: Namespace) -> int:
     return _emit(result, args)
 
 
+def _specs_or_usage(patterns: list[str], example: str) -> list[Path] | int:
+    cwd = Path.cwd()
+    specs = [p.relative_to(cwd) if p.is_relative_to(cwd) else p for p in _expand(patterns, cwd)]
+    missing = [str(p) for p in specs if not p.is_file()]
+    if not specs or missing:
+        return _usage(f"spec not found: {missing or patterns}", example)
+    return specs
+
+
+def _bad_pattern(pattern: str) -> int | None:
+    try:
+        re.compile(pattern)
+    except re.error as exc:
+        return _usage(f"bad --id-pattern: {exc}", "--id-pattern 'AC-\\d+'")
+    return None
+
+
+def cmd_spec_lint(args: Namespace) -> int:
+    specs = _specs_or_usage(args.spec, "qr spec lint --spec specs/feature.md")
+    if isinstance(specs, int):
+        return specs
+    bad = _bad_pattern(args.id_pattern)
+    if bad is not None:
+        return bad
+    result = specdoc.lint_spec(specs, [Path(r) for r in args.root], args.id_pattern, args.strict)
+    return _emit(result, args)
+
+
+def _parse_binds(items: list[str]) -> dict[str, str] | None:
+    binds: dict[str, str] = {}
+    for item in items:
+        key, sep, expr = item.partition("=")
+        if not sep or not key.strip() or not expr.strip():
+            return None
+        binds[key.strip()] = expr.strip()
+    return binds
+
+
+def _lint_errors(result: GateResult) -> list[str]:
+    return [f.render() for f in result.findings if f.level == "error"]
+
+
+def cmd_spec_scaffold(args: Namespace) -> int:
+    spec, out = Path(args.spec), Path(args.out)
+    example = ("qr spec scaffold --spec specs/x.md --class XAcceptanceTest "
+               "--out src/test/java/XAcceptanceTest.java")
+    if not spec.is_file():
+        return _usage(f"spec not found: {spec}", example)
+    bad = _bad_pattern(args.id_pattern)
+    if bad is not None:
+        return bad
+    binds = _parse_binds(args.bind)
+    if binds is None:
+        return _usage(f"bad --bind {args.bind}; use AC-1=EXPR", "--bind 'AC-1=svc.title(input)'")
+    class_name = args.class_name or out.stem
+    if not re.fullmatch(r"[A-Za-z_$][\w$]*", class_name):
+        return _usage(f"not a Java class name: {class_name!r}", "--class ItemV2AcceptanceTest")
+    if out.exists() and not args.force and not args.dry_run:
+        return _usage(f"{out} exists; pass --force to regenerate (then re-lock)", example)
+    lint = specdoc.lint_spec([spec], [Path(r) for r in args.root], args.id_pattern)
+    if lint.errors:
+        print("Error: spec does not lint clean; fix it first:", file=sys.stderr)
+        for line in _lint_errors(lint):
+            print(f"  {line}", file=sys.stderr)
+        return EXIT_FAIL
+    try:
+        made = scaffold.scaffold_tests(specdoc.parse_spec(spec, args.id_pattern), args.package,
+                                       class_name, binds, args.ac or None)
+    except scaffold.ScaffoldError as exc:
+        return _usage(str(exc), example)
+    if args.dry_run:
+        sys.stdout.write(made.source)
+        return EXIT_PASS
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(made.source, encoding="utf-8")
+    print(f"wrote={out}")
+    print(f"criteria={','.join(made.criteria)}")
+    if made.unbound:
+        print(f"unbound={','.join(made.unbound)}  # fill in the bind lines; they fail until then")
+    print("next=review the file, then `qr spec lock` in a spec-only change")
+    return EXIT_PASS
+
+
+def cmd_spec_lock(args: Namespace) -> int:
+    root = Path(args.root)
+    example = "qr spec lock --spec specs/x.md --tests src/test/java/XAcceptanceTest.java"
+    specs = _specs_or_usage(args.spec, example)
+    if isinstance(specs, int):
+        return specs
+    bad = _bad_pattern(args.id_pattern)
+    if bad is not None:
+        return bad
+    lint = specdoc.lint_spec(specs, [root], args.id_pattern)
+    if lint.errors:
+        print("Error: refusing to lock a spec that does not lint clean:", file=sys.stderr)
+        for line in _lint_errors(lint):
+            print(f"  {line}", file=sys.stderr)
+        return EXIT_FAIL
+    tests = _expand(args.tests, Path.cwd())
+    try:
+        lock = acceptance.build_lock(root, specs, tests, args.ac or None, args.id_pattern,
+                                     args.approved_by)
+    except acceptance.AcceptanceError as exc:
+        return _usage(str(exc), example)
+    if args.dry_run:
+        sys.stdout.write(json.dumps(lock, indent=2, sort_keys=True) + "\n")
+        return EXIT_PASS
+    path = acceptance.write_lock(root, lock)
+    print(f"wrote={path}")
+    print(f"locked_tests={len(lock['tests'])} owned={','.join(lock['owned'])}")
+    print("next=commit the lock with the tests in a spec-only change for human review")
+    return EXIT_PASS
+
+
+def cmd_spec_new(args: Namespace) -> int:
+    out = Path(args.out)
+    text = specdoc.new_spec(args.title, args.contract)
+    if args.dry_run:
+        sys.stdout.write(text)
+        return EXIT_PASS
+    if out.exists():
+        return _usage(f"{out} exists; refusing to overwrite", "qr spec new --title T --out new.md")
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(text, encoding="utf-8")
+    print(f"wrote={out}")
+    return EXIT_PASS
+
+
+def cmd_gate_acceptance(args: Namespace) -> int:
+    root = Path(args.root)
+    if not root.is_dir():
+        return _usage(f"not a directory: {root}", "qr gate acceptance --root .")
+    try:
+        result = acceptance.gate_acceptance(root, args.base, args.strict)
+    except acceptance.AcceptanceError as exc:
+        return _usage(str(exc), "git fetch origin main  # then: qr gate acceptance --base "
+                                "origin/main")
+    return _emit(result, args)
+
+
+def cmd_feedback_junit(args: Namespace) -> int:
+    reports = [p for p in _expand(args.reports, Path.cwd()) if p.is_file()]
+    if not reports:
+        return _usage(f"no JUnit XML reports match {args.reports}",
+                      "mvn -B test  # then: qr feedback junit --reports "
+                      "'target/surefire-reports/*.xml'")
+    bad = _bad_pattern(args.id_pattern)
+    if bad is not None:
+        return bad
+    specs = [Path(s) for s in args.spec]
+    missing = [str(s) for s in specs if not s.is_file()]
+    if missing:
+        return _usage(f"spec not found: {missing}", "--spec ../coordination/specs/x.md")
+    try:
+        total, failures = junit_feedback.parse_reports(reports, args.max_frames)
+    except ET.ParseError as exc:
+        return _usage(f"not JUnit XML: {exc}", "--reports 'target/surefire-reports/TEST-*.xml'")
+    docs = [specdoc.parse_spec(s, args.id_pattern) for s in specs]
+    junit_feedback.enrich(failures, [Path(s) for s in args.sources], docs, args.id_pattern)
+    render = junit_feedback.render_json if args.json else junit_feedback.render_text
+    sys.stdout.write(render(total, failures))
+    return EXIT_FAIL if failures else EXIT_PASS
+
+
 def cmd_contracts_diff(args: Namespace) -> int:
     try:
         result = contracts.run_contract_diff(args.old, args.new, Path(args.cwd), args.role,
@@ -363,10 +633,16 @@ def cmd_policy_check(args: Namespace) -> int:
         return _usage(str(exc), "qr init --policy")
     except (json.JSONDecodeError, KeyError, ValueError) as exc:
         return _usage(f"invalid policy: {exc}", "python -m json.tool .quality-router/policy.json")
+    try:
+        locked = _locked_for(root)
+    except acceptance.AcceptanceError as exc:
+        return _usage(str(exc), "git show origin/main:.quality-router/acceptance.lock.json")
     if args.shell_command is not None:
-        decision = policy.check_command(args.shell_command, root)
+        event = policy_mod.HookEvent("command", args.shell_command, str(root))
     else:
-        decision = policy.check_path(args.path, root)
+        event = policy_mod.HookEvent("path", args.path, str(root),
+                                     "write" if args.write else "read")
+    decision = policy_mod.decide(event, policy, root, locked)
     result = GateResult(gate="policy")
     if not decision.allow:
         result.add("error", f"denied_{decision.rule}", decision.reason)
@@ -382,6 +658,11 @@ def _find_policy(start: Path) -> Path | None:
     return None
 
 
+def _locked_for(start: Path) -> set[Path]:
+    lock = acceptance.find_lock(start.resolve())
+    return acceptance.locked_files(lock) if lock else set()
+
+
 def cmd_policy_hook(args: Namespace) -> int:
     raw = sys.stdin.read()
     deny = policy_mod.Decision(False, "", "hook_error")
@@ -392,12 +673,14 @@ def cmd_policy_hook(args: Namespace) -> int:
         event = policy_mod.parse_hook_event(payload)
         start = Path(event.cwd) if event and event.cwd else Path.cwd()
         path = Path(args.policy) if args.policy else _find_policy(start)
-        if path is None or not path.is_file():
+        locked = _locked_for(start)
+        if (path is None or not path.is_file()) and not locked:
             decision = policy_mod.Decision(True, "no policy file (disconnected)", "none")
-            root = start
+        elif path is None or not path.is_file():
+            decision = policy_mod.decide(event, policy_mod.Policy(), start, locked)
         else:
             root = path.parent.parent if path.parent.name == ".quality-router" else start
-            decision = policy_mod.decide(event, policy_mod.Policy.load(path), root)
+            decision = policy_mod.decide(event, policy_mod.Policy.load(path), root, locked)
     except (json.JSONDecodeError, ValueError, KeyError, TypeError, OSError) as exc:
         event = None
         decision = policy_mod.Decision(False, f"policy hook failed closed: {exc}", deny.rule)

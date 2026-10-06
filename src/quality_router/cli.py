@@ -33,11 +33,15 @@ ROOT_EPILOG = textwrap.dedent(
       qr gate diff-coverage --base origin/main --jacoco '**/target/site/jacoco/jacoco.xml'
       qr gate test-oracles --base origin/main
       qr lint instructions
+      qr spec lint --spec specs/feature.md
+      qr spec scaffold --spec specs/feature.md --out src/test/java/FeatureAcceptanceTest.java
+      qr gate acceptance --base origin/main
+      qr feedback junit --reports 'target/surefire-reports/*.xml' --sources src/test/java
       qr spec trace --spec specs/feature.md --tests .
       qr contracts check --manifest ../coordination/contracts.json
       qr eval report --runs runs.jsonl
 
-    Gates read CI artifacts (JaCoCo XML, diffs, sources, contracts); qr never
+    Gates read CI artifacts (JaCoCo/JUnit XML, diffs, sources, contracts); qr never
     runs Maven/Gradle. Cross-repo commands read other checkouts and write nothing.
 
     Constituents stay removable. A disconnected constituent no-ops.

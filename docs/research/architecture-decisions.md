@@ -4,7 +4,8 @@ This is the only architecture/research lock. Edit this file; do not add
 sibling memos, epics, or “spec gates” for the same decisions.
 
 Command specs (what to implement): `docs/design/phase-1-cli.md`,
-`docs/design/phase-2-init.md`. Operator notes stay gitignored in
+`docs/design/phase-2-init.md`, `docs/design/phase-3-harness.md`,
+`docs/design/phase-4-acceptance-first-sdd.md`. Operator notes stay gitignored in
 `docs/local/`. Merge SoT: **`uv.lock` + tests** (coverage ≥98.7% on
 `quality_router`).
 
@@ -165,6 +166,14 @@ harness for that team is host-agnostic; `qr` stays Job B inside it.
   manifest check, policy hooks, eval kit. Repo CI builds and calls them;
   `qr` still never runs Maven/Gradle. Spec:
   `docs/design/phase-3-harness.md`.
+- **Acceptance-first SDD (phase 4):** the org's SDD stages stay; the Spec
+  stage produces criteria with example tables and a contract (`qr spec
+  lint`), JUnit acceptance tests generated from those rows (`qr spec
+  scaffold`), and a human-approved hash lock (`qr spec lock`). The gate
+  and the policy hook keep the implementing agent from editing them.
+  Parsing JUnit XML for `qr feedback junit` is reading a build artifact,
+  like JaCoCo XML, not relaying Maven output. Spec:
+  `docs/design/phase-4-acceptance-first-sdd.md`.
 
 ## Build sequence
 
@@ -174,7 +183,11 @@ harness for that team is host-agnostic; `qr` stays Job B inside it.
 3. Phase 3 harness gates — **done** (`gate`, `lint`, `spec`,
    `contracts`, `policy`, `eval`; `init --policy` / `--ci`). Spec:
    `docs/design/phase-3-harness.md`.
-4. Next: `--json` on `status`, then `enable` / `disable`.
+4. Phase 4 acceptance-first SDD — **done** (`spec new/lint/scaffold/
+   lock`, `gate acceptance`, `feedback junit`, lock-aware policy hook).
+   Spec: `docs/design/phase-4-acceptance-first-sdd.md`.
+5. Next: run the phase-4 pilot (prose spec vs acceptance-first under
+   `qr eval`); `--json` on `status`, then `enable` / `disable`.
 
 Do not reopen Go, Wasmtime, docs MCP, RL trainer, or script intercept
 to start those.

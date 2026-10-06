@@ -89,7 +89,10 @@ class TestHookEvents:
         assert parse_hook_event({"tool_name": "Shell", "tool_input": "ls -la"}) == HookEvent(
             "command", "ls -la", "")
         assert parse_hook_event({"tool_name": "Write", "tool_input": {"file_path": "a/.env"},
-                                 "workspace_roots": ["/ws"]}) == HookEvent("path", "a/.env", "/ws")
+                                 "workspace_roots": ["/ws"]}) == HookEvent("path", "a/.env", "/ws",
+                                                                           "write")
+        assert parse_hook_event({"tool_name": "Read", "tool_input": {"file_path": "a"}}).access \
+            == "read"
         assert parse_hook_event({"tool_name": "Task", "tool_input": {}}) is None
         assert parse_hook_event({"tool_name": "Read", "tool_input": "[1]"}) is None
         assert parse_hook_event({"command": "ls", "cwd": "/c"}) == HookEvent("command", "ls", "/c")
