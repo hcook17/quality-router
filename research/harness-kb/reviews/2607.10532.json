@@ -1,0 +1,46 @@
+{
+  "arxiv_id": "2607.10532",
+  "contribution_type": "empirical",
+  "summary": "PTFEA argues that prompt components for LLM-based multimodal entity alignment (matching entities across knowledge graphs using names, structure and images) are mathematically equivalent to contrastive sequential fine-tuning, and builds a three-stage curriculum-style progressive inference pipeline on Qwen2.5 models. On DBP15K subsets, ICEWS-WIKI and ICEWS-YAGO it reports state-of-the-art Hits@1 and much lower runtime and tokens than MM-ChatAlign.",
+  "claims": [
+    {"claim": "Context engineering is mathematically equivalent to fine-tuning in MMEA", "evidence": "Theorem 1 with proof in Appendix A.1, under the paper's own linearized setup; not checked in depth here.", "strength": "weak", "location": "§3.2, Appendix A.1"},
+    {"claim": "Outperforms strong baselines on five datasets; +3.9% and +4.8% H@1 over MM-ChatAlign on ICWIKI/ICYAGO", "evidence": "Table 1 and §5.2.1; single seed (42), 3:7 train/test split.", "strength": "moderate", "location": "§5.2, Table 1"},
+    {"claim": "Runtime 21 h -> ~1 h and tokens 2200-3000 -> 200-400 vs MM-ChatAlign on ICWIKI with Qwen2.5-72B", "evidence": "§5.3.2, Table 3, Fig. 5.", "strength": "moderate", "location": "§5.3.2"},
+    {"claim": "H@1 gap between Qwen2.5-72B and 14B is only 0.6% on ICWIKI", "evidence": "§5.4, Fig. 6; 14B takes 282.4 vs 70.7 minutes.", "strength": "moderate", "location": "§5.4, Fig. 6"}
+  ],
+  "patterns": [
+    {"id": "P23", "stance": "neutral", "note": "Staged easy-to-hard inference resembles a cascade, but within one model and for entity alignment, not agent model routing."}
+  ],
+  "methodology": {
+    "sample": "Five entity-alignment datasets (DBP15K FR-EN, JA-EN, ZH-EN; ICEWS-WIKI; ICEWS-YAGO)",
+    "baselines": "Embedding-based (Dual-AMN, TEA, XGEA, MMIEA, MEAformer, Simple-HHEA) and LLM-based (ChatEA, MM-ChatAlign, etc.)",
+    "models": "Qwen2.5 family (72B primary, down to 14B)",
+    "variance": "Single fixed seed; no variance reported",
+    "ablations": "Stage-wise ablation on ICWIKI; missing-modality imputation",
+    "contamination_controls": "None",
+    "languages": "n/a (not code)"
+  },
+  "standards": {
+    "peer_review": "Accepted at KDD 2026",
+    "limitations_section": false,
+    "artifacts": "Code at github.com/DMiC-Lab-HFUT/PTFEA",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "no_variance_reported", "detail": "Single seed 42."},
+    {"type": "hype_language", "detail": "'Implicit fine-tuning' and 'first theoretical framework unifying context engineering and fine-tuning' framing for a staged prompting pipeline."},
+    {"type": "single_model", "detail": "Only the Qwen2.5 family."}
+  ],
+  "coi": {
+    "affiliations": "Hefei University of Technology; Southwest University; College of William and Mary",
+    "vendor_products_evaluated": "None",
+    "funding": "NSFC and Chinese provincial/municipal programs (Acknowledgements)",
+    "severity": "none",
+    "detail": "Academic work; no vendor product."
+  },
+  "scores": {"rigor": 3, "reproducibility": 3, "generalizability": 1, "relevance": 0, "coi_risk": 0},
+  "verdict": "reject",
+  "verdict_reason": "off-topic: multimodal knowledge-graph entity alignment with staged prompting; not about LLM agents, coding harnesses, or software engineering.",
+  "applicability": "Does not transfer to a Java team building an agentic harness for healthcare-education content ingestion. The only loose analogy is that a curriculum (resolve easy, high-confidence cases first and send only ambiguous ones to expensive reasoning) cut tokens about 10x; the team could apply that to content deduplication or entity matching during ingestion, but that is a data-pipeline design choice, not a harness decision.",
+  "conflicts_with": []
+}

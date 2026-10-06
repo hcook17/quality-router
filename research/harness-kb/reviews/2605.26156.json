@@ -1,0 +1,39 @@
+{
+  "arxiv_id": "2605.26156",
+  "contribution_type": "empirical",
+  "summary": "BITE treats choosing semantics-preserving stylistic edits (verbosity, italics, formatting, etc.) as a contextual bandit (LinUCB) and queries a black-box LLM judge up to 25 times to inflate its score. Across five judges (o3-mini, Gemini-2.5-Flash, Llama-3.3-70B, DeepSeek-R1, Qwen3-235B) on AlpacaEval 2.0, Arena-Hard-Auto and an AI-peer-review benchmark, it beats prompt-injection and jailbreak baselines, and the inflation survives standard style-control calibration.",
+  "claims": [
+    {"claim": "BITE inflates judge scores more than prompt-injection and jailbreak attacks.", "evidence": "Table 1: average score improvement 1.35-2.01 vs best baseline (PAIR) 0.87-1.86 across five judges; DeepSeek-R1 margin is small (1.909 vs 1.856).", "strength": "strong", "location": "§6.2.1, Table 1"},
+    {"claim": "Attack success rate exceeds 65%, raising scores 1-2 points on a 9-point scale.", "evidence": "ASR definitions differ between §1 (strictly higher score) and App. B.4 Table 7 (>=1 point or flipped verdict); Table 7 AlpacaEval pointwise ASR 96-97%, lower for pairwise. Supported, though the headline is a loose lower bound.", "strength": "moderate", "location": "§1, App. B.4 Table 7"},
+    {"claim": "The adaptive LinUCB policy is what makes the attack work.", "evidence": "Fig. 2 shows BITE above Random Action, but Table 7 shows Random Action over the same curated edits nearly matches it (AlpacaEval pointwise objective ASR 94.8 vs 96.0, SL 2.73 vs 2.85). Most of the effect comes from the curated bias catalog, not the bandit.", "strength": "weak", "location": "§6.2.1, Fig. 2, Table 7"},
+    {"claim": "Edits preserve semantics.", "evidence": "Embedding cosine similarity (App. B.5 Table 9) and an LLM similarity check; no human verification of semantic equivalence.", "strength": "weak", "location": "§6.2.1, App. B.5"},
+    {"claim": "Style-control calibration does not mitigate the attack.", "evidence": "Fig. 5 before/after scores nearly identical; non-linear variant in App. B.7.3.", "strength": "moderate", "location": "§6.4, Fig. 5"}
+  ],
+  "patterns": [
+    {"id": "P18", "stance": "contradicts", "note": "LLM judges/AI reviewers systematically reward verbosity and formatting, even on objective questions (Table 7); scores are manipulable without changing substance."},
+    {"id": "P22", "stance": "neutral", "note": "Benchmarks prompt-injection attacks against judges as baselines; style manipulation is a non-injection attack that evades injection-oriented defenses."},
+    {"id": "P16", "stance": "neutral", "note": "Implied: deterministic execution checks are not vulnerable to stylistic inflation, unlike judges; not tested."}
+  ],
+  "methodology": {
+    "sample": "AlpacaEval 2.0 and Arena-Hard-Auto prompts (pointwise and pairwise), plus MLRBench paper-review case study; seed answers from GPT-4.1-mini / GPT-4o.",
+    "baselines": "Five prompt-injection methods, Null Model, three jailbreaks (PAIR, TAP, AutoDAN) at 25-query budget; ablations Holistic Rewrite, Iterative Rewrite, Random Action.",
+    "models": "Five judges: o3-mini, Gemini-2.5-Flash, Llama-3.3-70B-Instruct, DeepSeek-R1-0528, Qwen3-235B-A22B.",
+    "variance": "Std dev shaded across runs (Fig. 2) and mean±sd in Table 2; pairwise averaged over swapped positions; p<0.05 filter in regression fingerprints.",
+    "ablations": "Action-space and policy ablations; transferability matrix (Fig. 4); defenses (style control, randomized prompting, rewriting).",
+    "contamination_controls": "n/a (attack paper).",
+    "languages": "Natural-language answers; no code evaluation."
+  },
+  "standards": {"peer_review": "Accepted, ICML 2026 (arXiv comment).", "limitations_section": false, "artifacts": "Code at github.com/xianglinyang/llm-as-a-judge-attack; prompts in App. A.2/D.", "preregistration": "n/a"},
+  "biases": [
+    {"type": "llm_judge_unvalidated", "detail": "Semantic preservation is checked by embedding similarity and an LLM, not humans, so 'semantics-preserving' is not independently established."},
+    {"type": "novelty_inflation", "detail": "Random selection over the same curated edit catalog captures most of the gain (Table 7); the bandit's marginal value is small."},
+    {"type": "other:threat_model_assumes_query_access", "detail": "Requires ~25 adaptive queries to the same judge with score feedback; internal CI reviewers rarely expose that loop to an adversary, though an agent optimizing against its own reviewer would have it."},
+    {"type": "other:no_code_tasks", "detail": "Judged artifacts are chatbot answers and paper reviews, not code or patches."}
+  ],
+  "coi": {"affiliations": "National University of Singapore; Nanyang Technological University (academic).", "vendor_products_evaluated": "Attacks third-party judges (OpenAI, Google, Meta, DeepSeek, Qwen); unfavorable to all.", "funding": "National Research Foundation Singapore / Cyber Security Agency of Singapore; AI Singapore AISG grant.", "severity": "none", "detail": "Independent academic security study."},
+  "scores": {"rigor": 4, "reproducibility": 4, "generalizability": 3, "relevance": 3, "coi_risk": 0},
+  "verdict": "admit",
+  "verdict_reason": "Peer-reviewed (ICML 2026). It covers five diverse judges, strong baselines, ablations, variance and released code. The headline holds. Caveats: the bandit's contribution is overstated relative to the curated bias list, and semantic preservation is not human-validated.",
+  "applicability": "Directly relevant if the harness uses an LLM reviewer or judge, for example to grade agent PRs, check spec conformance, or score generated healthcare education content. An agent iterating against a judge's score will learn to pad and format rather than fix substance, which is the same dynamic as BITE's query loop. Implications: (1) never let the producing agent see or optimize against the judge's numeric score; (2) gate merges on deterministic checks (Java compile, tests, contract/schema validation) and treat LLM review as advisory; (3) if a judge is used, normalize formatting/length before judging and rotate or ensemble judges from different families, since fingerprints differ and transfer is low (Fig. 4). This supports the AGENTS.md stance that the LLM proposes and `qr` verifies deterministically.",
+  "conflicts_with": []
+}

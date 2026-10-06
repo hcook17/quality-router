@@ -1,0 +1,41 @@
+{
+  "arxiv_id": "2605.22781",
+  "contribution_type": "system",
+  "summary": "An OS-level agent sandbox (Firecracker microVM, a modified Linux 6.8 overlayfs, and CRIU plus warm-template fork) that checkpoints and rolls back file and process state as deltas. This makes rollback cheap enough for MCTS-style tree search and RL rollout fan-out. It is evaluated by replaying recorded SWE-bench Verified MCTS trajectories against replay, Firecracker-diff, CRIU, and self-hosted E2B baselines.",
+  "claims": [
+    {"claim": "Checkpoint blocking is about 10.83 ms and restore about 1.86 ms on SWE-bench MCTS trajectories.", "evidence": "Table 2 weighted average: 10.83 ck / 1.86 rs, versus E2B (diff) 524.4 / 899.7. The arXiv metadata abstract states 14 ms / 5 ms, which does not match the full text read here (the text is likely a different version). Checkpoint time excludes the asynchronous CRIU dump, which is assumed to hide under a 1-9 s LLM inference window.", "strength": "moderate", "location": "§6.2.1 Table 2"},
+    {"claim": "State-management overhead drops from 23-48% of end-to-end time (E2B diff) to 1-2%.", "evidence": "Figure 6: 30-iteration Qwen3-Coder-30B trajectory replays across four archetype groups. E2B is invoked through its raw pause/resume primitives. The sample is 24 trajectories (4/4/10/6) each replayed twice; no variance is reported beyond means.", "strength": "moderate", "location": "§6.2.1 Fig. 6"},
+    {"claim": "Faster C/R lets agents explore more nodes under a fixed time budget.", "evidence": "This is inferred from latency only. No experiment measures more nodes explored or a higher SWE-bench resolve rate. The solve-rate motivation in Figure 1 is borrowed from other papers (SWE-Search and others).", "strength": "weak", "location": "Abstract, §2.1 Fig. 1"},
+    {"claim": "RL fan-out keeps GPU occupation at 95-97% versus 77-80% (CubeSandbox) and 29-36% (E2B).", "evidence": "Figure 7(c) is computed analytically from the measured fan-out time and the T_gen/T_train of Qwen2.5-7B LoRA on 4 GPUs. It is not measured in an actual training run.", "strength": "weak", "location": "§6.2.2 Fig. 7"}
+  ],
+  "patterns": [
+    {"id": "P20", "stance": "supports", "note": "Gives concrete evidence that microVM sandboxes can offer millisecond-scale coupled file and process rollback (Table 2)."},
+    {"id": "P29", "stance": "introduces", "note": "Process-level C/R lets multiple independently rollbackable agents share one VM (§4.4), an alternative to isolated worktrees; it is not evaluated for parallel coding."},
+    {"id": "P25", "stance": "neutral", "note": "Infrastructure for RL rollout fan-out; no training outcome is reported."},
+    {"id": "P31", "stance": "neutral", "note": "Uses SWE-bench Verified trajectories only as a workload trace, not as a capability benchmark."}
+  ],
+  "methodology": {
+    "sample": "24 SWE-bench Verified MCTS trajectories (Django, SymPy, Scientific, Tools groups), each replayed twice; 18 trajectories x 5 reps for the fork micro-benchmark.",
+    "baselines": "replay+cp, FC-Diff+dm, CRIU+cp, self-hosted E2B (diff), and CubeSandbox for fan-out. These are reasonable and current, though several are authors' prototypes (§6.1).",
+    "models": "Qwen3-Coder-30B and MiMo V2.5-Pro trajectories; Qwen2.5-7B for the RL timing.",
+    "variance": "Means for most results; p50/p99 only for fork fan-out (Table 3). No CIs.",
+    "ablations": "Component latency breakdown and adaptive optimizations (§6.3).",
+    "contamination_controls": "n/a (systems paper).",
+    "languages": "Python repositories only (SWE-bench Verified)."
+  },
+  "standards": {"peer_review": "None stated (arXiv preprint).", "limitations_section": false, "artifacts": "No code or artifact URL for DeltaBox in the text, though about 565 lines of C and 1,200 lines of Python are described.", "preregistration": "n/a"},
+  "biases": [
+    {"type": "metric_mismatch", "detail": "The headline benefit (more nodes explored, implicitly better agents) is never measured. Only C/R latency is."},
+    {"type": "single_language_python", "detail": "All workloads are Python SWE-bench repos. JVM processes, with large heaps and JIT state, would stress CRIU and fork-template memory very differently."},
+    {"type": "closed_artifacts", "detail": "No code release is mentioned."},
+    {"type": "other:version_mismatch", "detail": "Metadata abstract numbers (14 ms / 5 ms) differ from the full-text abstract and Table 2 (10.83 ms / 1.86 ms)."},
+    {"type": "no_variance_reported", "detail": "Table 2 and Figure 6 report means over few replays."},
+    {"type": "self_evaluation", "detail": "Authors benchmark their own system with their own replay harness; baselines are partly their own re-implementations."}
+  ],
+  "coi": {"affiliations": "Shanghai Jiao Tong University IPADS; Ministry of Education Engineering Research Center for Domain-specific OS; Huawei Technologies (3 authors).", "vendor_products_evaluated": "DeltaBox is the authors' own research system. Competitors E2B and CubeSandbox (Tencent) are compared unfavorably. No Huawei product is evaluated.", "funding": "Not stated in the text.", "severity": "low", "detail": "Huawei co-authorship counts as vendor affiliation. The system is the authors' own, but it is not a commercial product announcement."},
+  "scores": {"rigor": 3, "reproducibility": 1, "generalizability": 1, "relevance": 1, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "The latency engineering is credible: the per-event table, baselines, and component breakdown hang together. However, the agent-level benefit is asserted rather than measured, evaluation is Python-only trajectory replay, there is no limitations section and no artifact, and the metadata and text numbers disagree. Useful only as sandbox-infrastructure evidence.",
+  "applicability": "Low for the reference team. A Java ingestion and delivery team running interactive agents in mixed hosts is not doing MCTS or RL fan-out, where millisecond rollback matters. Git worktrees or container snapshots are adequate at human-in-loop cadence. If the team ever runs search-style agents or Best-of-N over Java builds, the main caveat is that CRIU and fork templates of JVM processes (large heaps, Gradle/Maven daemons) are untested here. The paper does not address cross-repo state, spec-driven development, or healthcare constraints.",
+  "conflicts_with": []
+}

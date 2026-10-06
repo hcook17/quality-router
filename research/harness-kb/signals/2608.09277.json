@@ -1,0 +1,161 @@
+{
+ "arxiv_id": "2608.09277",
+ "fulltext_chars": 75053,
+ "fulltext_lines": 1946,
+ "authors_block": "for Verified Code Generation Zenan Li Affiliation: Apodex Ziran Yang Affiliation: Princeton University Peiyang Song Affiliation: Caltech Zhaoyu Li Affiliation: University of Toronto*Equal contribution Kaiyu Yang Affiliation: Apodex",
+ "vendor_affiliation_hits": [],
+ "n_authors": 5,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# P3: Joint Program-and-Proof Planning"
+  ],
+  [
+   44,
+   "###### Abstract"
+  ],
+  [
+   52,
+   "## 1 Introduction"
+  ],
+  [
+   120,
+   "## 2 Problem"
+  ],
+  [
+   157,
+   "## 3 Methodology"
+  ],
+  [
+   175,
+   "### 3.1 Joint Program-and-Proof Planning"
+  ],
+  [
+   213,
+   "### 3.2 Plan-Guided Elaboration"
+  ],
+  [
+   228,
+   "### 3.3 Benefits of Plan-Guided Generation"
+  ],
+  [
+   243,
+   "## 4 Benchmark"
+  ],
+  [
+   252,
+   "### 4.1 Benchmark Construction"
+  ],
+  [
+   261,
+   "### 4.2 Specification Quality Pipeline"
+  ],
+  [
+   362,
+   "## 5 Experiments"
+  ],
+  [
+   364,
+   "### 5.1 Experimental Setup"
+  ],
+  [
+   388,
+   "### 5.2 Main Results"
+  ],
+  [
+   579,
+   "### 5.3 Case Study"
+  ],
+  [
+   588,
+   "## 6 Related Work"
+  ],
+  [
+   601,
+   "## 7 Conclusion"
+  ],
+  [
+   606,
+   "## References"
+  ],
+  [
+   1099,
+   "## Appendix A LLM Usage Disclosure"
+  ],
+  [
+   1103,
+   "## Appendix B Broader Impacts"
+  ],
+  [
+   1116,
+   "## Appendix C Limitations"
+  ],
+  [
+   1129,
+   "## Appendix D Full listMax Example"
+  ],
+  [
+   1265,
+   "## Appendix E Prompt Templates"
+  ],
+  [
+   1285,
+   "## Restated contract Verbatim restatement of the formal spec and any algorithmic / asymptotic instruction.## Algorithmic idea The decomposition: recursion variable, case split, termination measure.## Library support Specific stdlib functions and mathlib lemma names the plan commits to. Adding a lemma here that does not exist is a Phase-2 failure, not a Phase-5 failure.## Proof obligation sketch For the main theorem and each auxiliary lemma, the bridging predicate or invariant under which Phase 5 will close it."
+  ],
+  [
+   1297,
+   "## Appendix F Benchmark Comparison"
+  ],
+  [
+   1362,
+   "## Appendix G Fabric Relational Specification Example"
+  ],
+  [
+   1410,
+   "## Appendix H Lean4Commit0 Memchr Case Study"
+  ],
+  [
+   1429,
+   "## Appendix I Plan Retention and Failure Analysis"
+  ],
+  [
+   1438,
+   "## Appendix J Efficiency on the Difficult Subset"
+  ],
+  [
+   1633,
+   "## Appendix K Full-Restart Repair Frequency"
+  ],
+  [
+   1749,
+   "## Appendix L Per-Task Efficiency on the Solved Intersection"
+  ],
+  [
+   1946,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## Appendix C Limitations\n\nWe discuss the main limitations of this work along three axes.\n\nSubstrate scope.\nP3 and Lean4Commit0 are instantiated exclusively on Lean 4. Other verified-programming substrates, in particular SMT-backed systems such as Dafny and Verus and dependently typed languages such as F⋆ and Rocq, differ substantially in proof-obligation granularity, automation profile, and the cost of failed attempts. In Verus, a shared plan would pair Rust control and data structures with pre/postconditions, loop invariants, decreases clauses, ghost state, and SMT-facing auxiliary lemmas; Dafny admits an analogous mapping. Local annotation or solver errors could be repaired under the fixed plan, whereas a missing shared invariant or incompatible decomposition would trigger replanning. This transfer is plausible but not empirically established here.\n\nBenchmark and specification coverage.\nLean4Commit0 is constructed from real GitHub libraries surfaced through Commit0, but the extraction pipeline focuses on core APIs rather than full project compilation, and the resulting tasks therefore underrepresent very long-horizon dependencies, complex build configurations, and dynamic features that resist Lean modeling. The selected libraries also reflect Commit0’s domain distribution and are skewed toward Python-origin code, which may not generalize to systems-heavy or numerically intensive software. In addition, Lean4Commit0 specifications are constructed by our pipeline rather than fully hand-written. Each candidate is filtered by reference satisfaction, behavior-changing mutation rejection, and LLM review, but a specification could still be subtly under-constrained relative to a use case the reference tests do not exercise. Solve rate is therefore a function of the specifications we ship, not of the underlying intent.\n\nStatistical, cost, and backend considerations.\nBecause each (\\text{task},\\text{model},\\text{method}) configuration is run once, we do not estimate within-task stochastic variance or perform formal significance testing across all settings. The absolute costs reported are tied to the API pricing in effect at evaluation time and should be read as relative comparisons rather than fixed budgets. Our experiments also use four frontier closed-source LLM backends (Codex-GPT-5.5, Gemini-3-Pro, Claude-Sonnet-4.6, Claude-Opus-4.7); it remains open whether the planning advantage transfers to open-weight models, smaller models, or specialized fine-tuned theorem-proving models.\n\n## Appendix D Full listMax Example\n\nThis appendix gives the complete Lean 4 source for the listMax example of §2.\nBoth versions are checked against the same specification Spec; the file compiles under Lean 4 with Mathlib.\n\nShared specification.\nThe postcondition states that the returned value lies in the input list and upper-bounds every element.\n\n⬇\n\n m \\in xs \\wedge \\forall x \\in xs, x \\leq m\n\nVersion (A): structural recursion.\nThe induction mirrors the spec: Spec itself serves as the bridging predicate, and each conjunct of the postcondition is discharged case by case.\n\n⬇\n\n | [a], _ => a\n\n | a :: b :: rs, _ => max a (listMaxA (b :: rs) (by simp))\n\ntheorem listMaxA_spec :\n\n \\forall (xs : List Int) (h : xs \\neq []), Spec xs (listMaxA xs h)\n\n | [a], _ => by",
+ "ethics_coi": "## Appendix A LLM Usage Disclosure\n\nLarge language models are the central object of study in this work; their use as experimental backends (Codex-GPT-5.5, Gemini-3-Pro, Claude-Sonnet-4.6, and Claude-Opus-4.7) is fully documented in Section 5. Beyond this experimental role, the authors used LLM-based assistants (ChatGPT and Claude) for limited, non-substantive support during manuscript preparation, specifically polishing English phrasing in already-drafted paragraphs, suggesting LaTeX formatting fixes, and aiding in routine code refactoring for the evaluation harness. All research ideas, the design of P3, the construction of Lean4Commit0, the experimental protocol, the analysis of results, and all claims made in this paper were conceived, verified, and written by the authors, who take full responsibility for the final content.\n\n## Appendix B Broader Impacts\n\nWe discuss the societal implications of P3 and Lean4Commit0 along three axes.\n\nIntended positive impact.\nThe work targets verified code generation, where every accepted output ships with a machine-checked correctness proof against a formal specification. To the extent that planning-first agent workflows raise the solve rate of such pipelines, the deployable consequence is a higher fraction of LLM-produced software whose correctness is established by Lean’s kernel rather than by sampled tests, which is particularly relevant for safety-critical and security-critical settings (cryptographic primitives, parsers, configuration logic, smart-contract code). Lean4Commit0 itself contributes a denser supply of repository-derived, library-level training and evaluation tasks for the formal-methods community, with relational specifications across APIs that are largely absent from prior single-function benchmarks.\n\nRisks and misuse pathways.\nWe do not foresee direct misuse pathways beyond the residual risks already shared with general code-generation systems, namely the acceleration of software development in directions that m",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 1,
+  "java": 4,
+  "industrial": 2
+ },
+ "fulltext_source": "html"
+}

@@ -1,0 +1,155 @@
+{
+ "arxiv_id": "2606.25195",
+ "fulltext_chars": 92638,
+ "fulltext_lines": 1832,
+ "authors_block": "Large language models (LLMs) and coding agents now write, complete, review, and integrate software at scale [1, 2, 3]. Their adoption changes the security question from a relatively narrow one—“can a model produce a vulnerable snippet?”—to a broader systems question: “what progress has the field of AI secure code generation made, what pitfalls still prevent reliable security, and what paths forward would make generated code safer in practice?” The field has made real progress. Early empirical studies showed that code assistants often emit vulnerable code and can lead developers to write less secure programs [1, 2, 4]. Since then, researchers have proposed security-aware prompting [5, 6], retrieval-augmented generation [7, 8], constrained decoding [9, 10], supervised fine-tuning [11, 12], reinforcement learning and proactive alignment [13, 14, 15], and agentic scaffolds that let models access files, shells, tests, and development environments [16, 17, 18]. Benchmarks have also improved, moving from static or pattern-based snippet datasets [19, 20, 21, 22, 23, 24] to executable function-level and application-level suites [25, 26, 27], and more recently to repository and agent-oriented evaluations [28, 29, 30]. These studies show that interventions can change generated code and that stronger systems can sometimes produce code that is both functional and secure under benchmark oracles. What remains missing, however, is a mechanism-level account of this progress: what these interv",
+ "vendor_affiliation_hits": [],
+ "n_authors": 4,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/rupampatir/SoK_KAUGE"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "#"
+  ],
+  [
+   29,
+   "###### Abstract"
+  ],
+  [
+   33,
+   "## I Introduction"
+  ],
+  [
+   211,
+   "## II Systematizing Progress"
+  ],
+  [
+   213,
+   "### II-A Methodology"
+  ],
+  [
+   305,
+   "### II-B Techniques Taxonomy"
+  ],
+  [
+   311,
+   "### II-C Techniques: From Knowledge to Code"
+  ],
+  [
+   338,
+   "### II-D Evaluation: What Benchmarks Can(not) See"
+  ],
+  [
+   359,
+   "## III The Kauge Framework"
+  ],
+  [
+   361,
+   "### III-A Design Rationale"
+  ],
+  [
+   434,
+   "### III-B Framework Overview"
+  ],
+  [
+   452,
+   "### III-C Evaluation Design"
+  ],
+  [
+   461,
+   "## IV Progress: Secure-Coding Knowledge"
+  ],
+  [
+   579,
+   "## V Progress: Code-Level Actuation"
+  ],
+  [
+   638,
+   "## VI Pitfalls: The Knowledge–Actuation Gap"
+  ],
+  [
+   677,
+   "## VII Paths Forward"
+  ],
+  [
+   682,
+   "### VII-A Executable Feedback over Security Intent"
+  ],
+  [
+   688,
+   "### VII-B Sink-Grounded Principles"
+  ],
+  [
+   694,
+   "### VII-C Functionality-Preserving Principle Injection"
+  ],
+  [
+   702,
+   "### VII-D Mechanism-Grounded Secure-Code Training"
+  ],
+  [
+   708,
+   "### VII-E Principle- and Exploit-Aware Evaluation"
+  ],
+  [
+   714,
+   "## VIII Threats to Validity"
+  ],
+  [
+   725,
+   "## IX Related Work"
+  ],
+  [
+   731,
+   "## X Conclusion"
+  ],
+  [
+   735,
+   "## References"
+  ],
+  [
+   1438,
+   "## Appendix A Layer-1 Question Formats: Examples and Purpose"
+  ],
+  [
+   1530,
+   "## Appendix B Human Validation Protocol"
+  ],
+  [
+   1601,
+   "## Appendix C Knowledge–Actuation Robustness Check"
+  ],
+  [
+   1664,
+   "## Appendix D Layer-2 Breakdown by Language"
+  ],
+  [
+   1832,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## VIII Threats to Validity\n\nConstruct and oracle validity\nKAUGE operationalizes secure code generation through constructed artifacts, so each layer captures only part of the broader phenomenon. Layer 1 measures fixed-answer natural-language understanding of SCPs; Layer 2 relies on executable benchmark tests that may miss untested vulnerabilities or encode benchmark-specific assumptions; and Layer 3 uses exploit-to-SCP formulas with an LLM-based compliance judge, whose verdicts are diagnostic rather than ground truth. A formula may omit a valid alternative defense or over-credit a partial one. We mitigate these risks by aligning principles, CWEs, exploits, generated code, and oracles, and by validating questions, formulas, and judge verdicts with stratified human samples.\n\nScope and generalization\nOur results may not generalize to all models, languages, vulnerability classes, or development settings. We evaluate a bounded set of systems on CWEval and BaxBench, with appendix checks for additional base models, but the study is not intended as a comprehensive leaderboard. These benchmarks cover important exploit patterns, yet real projects involve larger dependency graphs, organization-specific APIs, deployment constraints, and evolving threat models.\n\nReproducibility and contamination\nReproducibility is limited by model and benchmark dynamics. Commercial APIs can change, and some models may have seen similar secure-coding examples or benchmark tasks during training. We record model names, access dates, and generation parameters, and rely on executable exploit outcomes where possible, but these steps cannot fully eliminate version instability or contamination.\n\n## IX Related Work\n\nRecent work [53] shows that secure-code-generation studies often evaluate security and functionality separately and rely on limited static-analysis signals, which can over-credit methods that degrade functionality, remove required behavior, or generate task-irrelevant code. Our Layer 2 builds on this critique by treating secure generation as a joint functional-security outcome. KAUGE is complementary: it asks not only whether code is functional and secure, but why—whether it implements the mapped secure-coding practice, blocks the exploit through another mechanism, or merely appears compliant while remaining vulnerable.\n\nOther related SoKs and surveys have primarily organized LLMs for software security by task, including vulnerability detection, vulnerability repair, and broader AI4Code security risks. Zhou et al. [54] survey LLM-based vulnerability detection and repair, while automated vulnerability repair SoKs systematize vulnerability analysis, patch generation, patch validation, datasets, and tool assessments [55, 56]. Broader AI4Code security SoKs further discuss risks across code generation, vulnerability detection, and code translation, including insecure outputs, benchmark limitations, data leakage, and robustness concerns [57]. These works are complementary to ours, but they do not center the mechanism-level question studied here: how security knowledge is supplied, internalized, constrained, or fed back, and whether that knowledge is actuated into the right code behavior. This paper therefore complements prior surveys and benchmarks by organizing secure generation around the translation of secure-coding principles into functional, exploit-resistant implementations.\n\n## X Conclusion\n\nIn this SoK, we systematized AI secure code generation as progress, pitfalls, and paths forward. We surveyed how methods carry security knowledge into generation, measured what models know in Layer 1, evaluated what they enact in Layer 2, and used Layer 3 to diagnose why knowledge still fails to become the right defense at the right implementation boundary. The path forward is to optimize that translation from principle understanding to secure programming.\n\n## References\n\n[1]\nH. Pearce, B. Ahmad, B. Tan, B. Dolan-Gavitt, and R. Karri (2022)\n\nAsleep at the keyboard?",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 1,
+  "p_value_or_ci": 5,
+  "seeds_or_runs": 5,
+  "swe_bench": 0,
+  "contamination": 3,
+  "human_study": 1,
+  "java": 1,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

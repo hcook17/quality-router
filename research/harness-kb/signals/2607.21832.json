@@ -1,0 +1,309 @@
+{
+ "arxiv_id": "2607.21832",
+ "fulltext_chars": 169105,
+ "fulltext_lines": 2926,
+ "authors_block": "DOI: XXXXXXX.XXXXXXXJournal: POMACSVolume: 37411107CCS: Software and its engineering Open source modelCCS: Software and its engineering Empirical software validationCCS: Software and its engineering Software defect analysisCCS: Software and its engineering Software evolution Iren Mazloomzadeh Note: Both authors contributed equally to this research. email: iren.mazloomzadeh@polymtl.ca Affiliation: Polytechnique Montréal, Montréal, Quebec, Canada , Mohammad Mehdi Morovati email: mehdi.morovati@polymtl.ca Affiliation: Polytechnique Montréal, Montréal, Quebec, Canada and Foutse Khomh email: foutse.khomh@polymtl.ca Affiliation: Polytechnique Montréal, Montréal, Quebec, Canada 2026",
+ "vendor_affiliation_hits": [],
+ "n_authors": 3,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/mazloomzadeh/AI-Agent-AnalysisAccessed"
+ ],
+ "hf_urls": [
+  "https://huggingface.co/datasets/hao-li"
+ ],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   26,
+   "# How Do AI Coding Agents Contribute to Software Development? an Empirical Study of Agentic Pull Requests"
+  ],
+  [
+   54,
+   "###### Abstract."
+  ],
+  [
+   61,
+   "###### Keywords:"
+  ],
+  [
+   64,
+   "## 1. Introduction"
+  ],
+  [
+   91,
+   "## 2. Background"
+  ],
+  [
+   93,
+   "### 2.1. GitHub and PR"
+  ],
+  [
+   104,
+   "### 2.2. AI Coding Agent"
+  ],
+  [
+   111,
+   "## 3. Methodology"
+  ],
+  [
+   113,
+   "### 3.1. Study Goal, Perspective, and Context"
+  ],
+  [
+   144,
+   "### 3.2. Data Collection"
+  ],
+  [
+   188,
+   "# Repos with \\geq 1 A-PR"
+  ],
+  [
+   189,
+   "# All PRs"
+  ],
+  [
+   190,
+   "# A-PRs"
+  ],
+  [
+   191,
+   "# AM-PRs"
+  ],
+  [
+   192,
+   "# AR-PRs"
+  ],
+  [
+   239,
+   "# Repos with \\geq 2 A-PRs"
+  ],
+  [
+   240,
+   "# All PRs"
+  ],
+  [
+   241,
+   "# A-PRs"
+  ],
+  [
+   242,
+   "# AM-PRs"
+  ],
+  [
+   243,
+   "# AR-PRs"
+  ],
+  [
+   287,
+   "### 3.3. Measures"
+  ],
+  [
+   291,
+   "#### 3.3.1. RQ1: Evolution of Agentic PR Mergeability"
+  ],
+  [
+   307,
+   "#### 3.3.2. RQ2: Development Tasks of Agentic PRs"
+  ],
+  [
+   345,
+   "#### 3.3.3. RQ3: Code Quality and Defect Proneness"
+  ],
+  [
+   353,
+   "## 4. Result"
+  ],
+  [
+   358,
+   "### 4.1. RQ1. How does the mergeability of agentic PRs evolve across different stages of the software development lifecycle?"
+  ],
+  [
+   589,
+   "### 4.2. RQ2. In which types of tasks are coding agents most frequently used?"
+  ],
+  [
+   793,
+   "#### 4.2.1. Systematic Differences Across Topic Categories"
+  ],
+  [
+   797,
+   "##### Development Activities with High Merge Ratio ( \\geq 0.80):"
+  ],
+  [
+   804,
+   "##### Development Activities with Medium Merge Ratio ( \\sim 0.60–0.80):"
+  ],
+  [
+   811,
+   "##### Development Activities with Low Merge Ratio ( \\leq \\sim 0.60 in at least one quartile):"
+  ],
+  [
+   820,
+   "#### 4.2.2. Temporal Trends Across Quarters"
+  ],
+  [
+   825,
+   "##### Increasing merge ratios over time:"
+  ],
+  [
+   830,
+   "##### Decreasing merge ratios over time:"
+  ],
+  [
+   837,
+   "##### Stable Merge Ratios:"
+  ],
+  [
+   844,
+   "#### 4.2.3. Quartile-Specific Insights"
+  ],
+  [
+   848,
+   "##### 1st Quartile:"
+  ],
+  [
+   853,
+   "##### 2nd Quartile:"
+  ],
+  [
+   860,
+   "##### 3rd Quartile:"
+  ],
+  [
+   865,
+   "##### 4th Quartile:"
+  ],
+  [
+   871,
+   "### 4.3. RQ3."
+  ],
+  [
+   895,
+   "#### 4.3.1. Complexity Analysis of Agentic and Human-generated PRs"
+  ],
+  [
+   905,
+   "##### Number of Contributors"
+  ],
+  [
+   915,
+   "##### Number of Commits"
+  ],
+  [
+   1181,
+   "##### Number of Changed Files"
+  ],
+  [
+   1189,
+   "##### Merge Duration"
+  ],
+  [
+   1197,
+   "##### Number of Comments"
+  ],
+  [
+   1207,
+   "##### Number of Changed LOC"
+  ],
+  [
+   1230,
+   "#### 4.3.2. Overall Complexity Analysis"
+  ],
+  [
+   1271,
+   "#### 4.3.3. Overall Complexity per Quarter"
+  ],
+  [
+   1290,
+   "##### Number of Contributors"
+  ],
+  [
+   1296,
+   "##### Number of Commits"
+  ],
+  [
+   1303,
+   "##### Number of Changed Files"
+  ],
+  [
+   1388,
+   "##### Time to Merge"
+  ],
+  [
+   1394,
+   "##### Number of Comments"
+  ],
+  [
+   1401,
+   "##### Number of Changed LOC"
+  ],
+  [
+   1472,
+   "#### 4.3.4. Bug Inducing Analysis of Agentic and Human Generated PRs"
+  ],
+  [
+   1535,
+   "## 5. Related Work"
+  ],
+  [
+   1537,
+   "### 5.1. Effect of AI coding Agents on Software Development"
+  ],
+  [
+   1556,
+   "### 5.2. Effect of Agentic PRs of Software Development"
+  ],
+  [
+   1573,
+   "### 5.3. Position of this Study"
+  ],
+  [
+   1578,
+   "## 6. Threats to Validity"
+  ],
+  [
+   1580,
+   "##### Construct Validity"
+  ],
+  [
+   1595,
+   "##### Internal Validity"
+  ],
+  [
+   1603,
+   "##### External Validity"
+  ],
+  [
+   1608,
+   "## 7. Conclusion and Future Work"
+  ],
+  [
+   1616,
+   "## References"
+  ],
+  [
+   2926,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 6. Threats to Validity\n\n##### Construct Validity\n\nPotential threats to construct validity stem from four primary sources: (1) the selection of software engineering agents and the PRs generated by them, (2) the repository inclusion criteria, specifically the restriction to repositories with more than 100 GitHub stars, (3) our operationalization of repository lifecycle stages, (4) the exclusion of open PRs from the analysis, and (5) the use of SZZ to identify bug-inducing commits. The remaining components of our methodology, including PR clustering and the identification of bug-inducing commits, are based on established techniques that have been widely adopted in prior software engineering research.\nFirst, our findings may be influenced by the specific agents represented in the dataset. To mitigate this threat, we relied on the AIDev dataset, which contains PRs generated by five widely adopted software engineering agents. Although these agents cover a substantial portion of current agent-assisted development practices, they may not fully represent the broader and rapidly evolving ecosystem of software engineering agents. Consequently, caution should be exercised when generalizing our findings to agents not included in the dataset.\nSecond, the repository selection criterion may affect the representativeness of our sample. Following the filtered AIDev dataset, we restricted our analysis to repositories with more than 100 GitHub stars. This threshold has been widely used in prior software engineering studies to select repositories with sufficient popularity and visibility (Moriconi et al., 2025; Tang et al., 2022; Romeo et al., 2025). This threshold helps ensure that the studied repositories have sufficient activity and community engagement (Sakib et al., 2025), reducing noise from inactive or experimental projects. However, repositories with fewer stars may exhibit different development practices, maintenance processes, and adoption patterns of AI agents. Therefore, our results may not generalize to less popular or newly created repositories.\nAnother threat concerns our definition of repository lifecycle stages. Repository evolution is inherently continuous (Joshi et al., 2025; Zheng et al., 2025). To operationalize this evolution for empirical analysis, we define the lifecycle of each agent–repository pair as the period between the first PR generated by the target agent in the repository and the last agent-generated PR observed before our data collection cutoff date. This definition enables consistent comparisons across repositories and agents but may not capture all dimensions of project maturity or evolution. Alternative lifecycle definitions could potentially yield different observations.\nAnother threat arises from restricting our analysis to closed PRs and excluded PRs that remained open at the time of data collection. This choice was necessary because several outcome measures considered in our study, including merge status and post-merge quality indicators, cannot be reliably determined for unresolved PRs. However, open PRs may differ systematically from closed PRs in terms of complexity, review effort, or eventual outcomes, which may introduce bias into the observed results.\n\nFinally, identifying bug-inducing commits using SZZ poses a threat to construct validity.\nTo reduce implementation-related errors, we relied on the official SZZ implementation provided by PyDriller (Spadini et al., 2018)\nrather than developing a custom implementation.\nHowever, Rosa et al. (Rosa et al., 2023)\nreported that the PyDriller implementation achieved a recall of 0.67, a precision of 0.39, and an F1-score of 0.49 without issue-date filtering.\nThese values indicate that, although PyDriller identifies a substantial proportion of known bug-inducing commits, it may also produce false positives and miss some relevant commits. Because a developer-validated ground truth is unavailable for our repositories, we could not directly measure SZZ accuracy",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 10,
+  "seeds_or_runs": 0,
+  "swe_bench": 2,
+  "contamination": 0,
+  "human_study": 1,
+  "java": 0,
+  "industrial": 1
+ },
+ "fulltext_source": "html"
+}

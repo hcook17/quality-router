@@ -1,0 +1,28 @@
+{
+  "arxiv_id": "2606.15029",
+  "contribution_type": "empirical",
+  "summary": "Proposes Metric Match: to estimate how well an LLM judge agrees with humans (ICC, Krippendorff's alpha, Spearman, Kendall) under a small annotation budget, draw C=20 random candidate subsets and send for human labeling the one whose judge-vs-other-LLMs agreement best matches the full-population inter-model agreement. Evaluated on four NLG/medical text datasets (15 annotation axes, 300 items each) with five frontier judges over 40 trials.",
+  "claims": [
+    {"claim": "Metric Match reduces reliability estimation error by 18.7% on average vs random selection and outperforms stratified sampling and bias correction.", "evidence": "Fig. 2 and §4.1.1: 26.7% ICC, 9.1% alpha, 21.0% Spearman, 17.9% Kendall; averaged over 40 trials and all datasets. Gains concentrate at low budgets; per-context results in Appendix H show contexts where it is worse than random. No CIs on the averages; no comparison with full PPI confidence-set methods.", "strength": "moderate", "location": "§4.1.1, Fig. 2, App. H"},
+    {"claim": "Win-rate of 0.838 against random selection.", "evidence": "Table 1: 0.838 is the macro win-rate (comparison of errors averaged over 40 trials, per context). The per-trial micro win-rate is 0.538, close to a coin flip; the abstract reports only the macro figure.", "strength": "weak", "location": "§4.2, Table 1"},
+    {"claim": "Annotation needs drop 32.5%, saving $1,041.67 in a MedVAL case study.", "evidence": "Fig. 3, §4.1.3: savings computed as (50-25) annotations x 5 min x $500/h for ICC on MedVAL. The dollar figure depends on assumed rates and is the best single case ('up to').", "strength": "weak", "location": "§4.1.2–4.1.3, Eq. 2"},
+    {"claim": "Metric Match beats random for the accept/reject decision on whether a judge passes a deployment threshold.", "evidence": "Table 2: macro win-rate 0.652, micro 0.570 averaged over thresholds 0.6/0.7/0.8; a modest edge.", "strength": "moderate", "location": "§4.3, Table 2"}
+  ],
+  "patterns": [
+    {"id": "P18", "stance": "supports", "note": "Gives a cheaper protocol to validate an LLM judge against human labels before trusting it; relevant to any harness that uses an AI reviewer, though the evidence comes from text-quality rating, not code review."}
+  ],
+  "methodology": {"sample": "4 datasets (HANNA, MedVAL, SummEval, MSLR), 15 human-annotated axes, truncated to 300 items each; 75 dataset/axis/judge contexts; 40 trials per budget", "baselines": "Random selection, stratified sampling, random with bias correction; PPI discussed but not run as a confidence-set baseline", "models": "Claude-3.5-Sonnet, GPT-4.1, GPT-5, DeepSeek-R1, Gemini-2.5-pro (leave-one-out ensembles); small-model ablations in App. I", "variance": "Averages over 40 trials; win-rates reported, no confidence intervals on headline gains", "ablations": "Aggregation method (E.1), number of candidate subsets C (E.2), variance matching (F), MSE target (G), small models and single-model ensembles (I)", "contamination_controls": "n/a", "languages": "English natural-language text; no code"},
+  "standards": {"peer_review": "arXiv preprint, no venue listed", "limitations_section": false, "artifacts": "Code at github.com/som-shahlab/MetricMatch plus installable package; datasets are public", "preregistration": "n/a"},
+  "biases": [
+    {"type": "cherry_picked_examples", "detail": "Abstract leads with macro win-rate 0.838 and the best-case $1,041.67, omitting the 0.538 per-trial win-rate."},
+    {"type": "no_variance_reported", "detail": "No CIs on 18.7% / 32.5% averages."},
+    {"type": "metric_mismatch", "detail": "Validated on Likert ratings of summaries/stories/medical text; no evidence for code-review or agent-trajectory judging."},
+    {"type": "other:missing_strong_baseline", "detail": "PPI-style estimators are named but not evaluated head-to-head beyond a simple bias-correction variant."}
+  ],
+  "coi": {"affiliations": "Stanford University (Computer Science and Medicine)", "vendor_products_evaluated": "Commercial LLMs used as judges; none are the authors' products", "funding": "NSF, IES, ARPA-H, MacArthur, Schmidt Sciences, HAI, DARPA, ONR; gifts from Open Philanthropy and Amazon to one author", "severity": "low", "detail": "An Amazon gift is the only commercial funding; no Amazon product is evaluated. Results do not favor any vendor."},
+  "scores": {"rigor": 3, "reproducibility": 4, "generalizability": 2, "relevance": 2, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Sound and reproducible small method with multiple judges, datasets and ablations. The headline is framed favorably (macro 0.838 vs micro 0.538), gains are modest outside low budgets, and nothing is tested on software-engineering judging.",
+  "applicability": "Applies only indirectly to the harness. If the team uses an LLM judge as a gate, whether for agent PR review or for checking ingested healthcare education content (clinical accuracy, reading level) before it reaches front ends, this gives a cheap protocol: pick the expert-labeled audit subset with the other available models instead of at random, then gate deployment on an ICC/kappa threshold. Expect modest savings, not the abstract's numbers. It is language-agnostic and host-agnostic, and it says nothing about Java, multi-repo work or spec-driven development.",
+  "conflicts_with": []
+}

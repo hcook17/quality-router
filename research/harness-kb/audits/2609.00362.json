@@ -1,0 +1,18 @@
+{"arxiv_id": "2609.00362",
+ "blind_scores": {"rigor": 3, "reproducibility": 4, "generalizability": 2, "relevance": 3, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "Lighter prompts reduce cost without significant loss of repair effectiveness; CoT costs most.", "proposed_strength": "weak", "reason": "Cost difference is measured, but 'without loss' rests on a non-significant Cochran Q at n=50 with Repair@1 at 80-88% (near ceiling) and one run per condition; the authors themselves state non-significance 'does not establish equivalence' (§III-B3). Cost side is moderate; the no-loss side is weak."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P17", "from": "supports", "to": "mixed", "reason": "javac feedback (94%) is not significantly better than 'The code is wrong. Please fix it.' (92%, Holm p=1.0); it only beats simulated human feedback. In the Python replication the 'compiler' modality (pylint) is below simple feedback for both models (Table I: 54.1 vs 57.5; 55.9 vs 62.5). Evidence that static/compiler feedback adds value over a generic retry signal is absent."},
+  {"id": "P18", "from": "contradicts", "to": "mixed", "reason": "'Human' feedback is GPT-4o-mini simulating an expert, not an AI reviewer as deployed. It is significantly worse only for compile mutations; for logical mutations no pairwise difference survives Holm correction (p>=0.0938), and the Python replication has no significance tests. Weak negative signal, not a contradiction."},
+  {"id": "P24", "from": "supports", "to": "neutral", "reason": "The paper reports cost per repair for prompt variants; it does not evaluate token budgets or caps as a harness mechanism."}
+ ],
+ "missed_issues": [
+  "Ceiling effect: Java repair rates of 74-94% on 50 function-level instances leave little room to detect feedback differences, compounding the underpowering the review notes.",
+  "Python replication claims ('main qualitative findings are reproducible', 'within expected variability') carry no significance tests at all, while HumanEval test feedback differs by 6.9 pp from the original (78.7 vs 85.6, Table II) and the test-vs-simple ordering flips.",
+  "The review's applicability statement that lighter prompts 'support keeping AGENTS.md/system-spec preambles lean' extrapolates a 50-task single-function repair null result to repository instruction files; the paper provides no evidence for that."
+ ],
+ "note": "First review is accurate on claims and caveats; the main corrections are pattern stances, where non-significant or weak contrasts were promoted to supports/contradicts."}

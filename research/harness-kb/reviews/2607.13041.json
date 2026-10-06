@@ -1,0 +1,28 @@
+{
+  "arxiv_id": "2607.13041",
+  "contribution_type": "dataset",
+  "summary": "Short dataset paper: 647 human-written STEM lessons (240 TheoremExplainBench topics, 97 web sources, 47% LibreTexts) scraped, converted HTML-to-Markdown, cleaned by Qwen 3.6 35B A3B, then 'reverse-engineered' into structured lesson plans by GPT-4.1 using a prompt mixing Bloom/Gagne/Merrill/5E, followed by an unspecified human review. It proposes (but does not run) a three-dimension evaluation: BERTScore, ROUGE-L, and re-deriving a plan from generated lessons to compare Bloom/role distributions.",
+  "claims": [
+    {"claim": "LessonBench-V1 contains 647 lesson/plan pairs across 240 topics with 3,620 learning objectives", "evidence": "Table 2 (647 pairs, 240 topics, 97 sources, 5.6±1.1 objectives/plan); §4 text states 3,620 objectives. Descriptive counts only.", "strength": "strong", "location": "§4, Table 2"},
+    {"claim": "Each lesson plan is human-reviewed and pedagogically grounded", "evidence": "§3.2 step 5 says lessons and plans 'are reviewed' for formatting/structural issues; no reviewer count, qualifications, rubric, or agreement measure. Limitations admit completeness/accuracy against expert plans is not yet verified.", "strength": "weak", "location": "§3.2, Limitations"},
+    {"claim": "The dataset enables systematic, reproducible evaluation of lesson-generation agents", "evidence": "No lesson-generation system is evaluated; the three-dimensional pipeline in §5 is described in one paragraph and never executed. Pedagogical-alignment dimension reuses an LLM reverse-engineering step that is itself unvalidated.", "strength": "unsupported", "location": "§5"},
+    {"claim": "Initial analysis shows meaningful subject patterns, 'affirming its validity'", "evidence": "§4 Bloom/role distribution narrative (Fig. 2) on LLM-assigned tags; distribution patterns do not establish validity of the plans.", "strength": "weak", "location": "§4, §6"}
+  ],
+  "patterns": [
+    {"id": "P18", "stance": "neutral", "note": "Plans and pedagogical tags are LLM-generated; the proposed alignment metric relies on another LLM pass with no validation against human experts."}
+  ],
+  "methodology": {"sample": "647 lessons, 240 topics, 4 STEM subjects, 97 English-language web sources", "baselines": "none (no system evaluated)", "models": "Qwen 3.6 35B A3B (cleanup), GPT-4.1 via GitHub Copilot API (plan generation)", "variance": "none; only dataset descriptive stats (mean ± sd word counts)", "ablations": "none", "contamination_controls": "none; lessons come from public web sources (LibreTexts, GeeksForGeeks, Brilliant) very likely in LLM pretraining data, which matters for a reference-similarity benchmark", "languages": "English natural-language educational content; not code"},
+  "standards": {"peer_review": "none stated (no arXiv comment/journal_ref)", "limitations_section": true, "artifacts": "dataset and prompts on GitHub (github.com/SuienS/lesson-bench-v1)", "preregistration": "n/a"},
+  "biases": [
+    {"type": "contamination_risk", "detail": "Reference lessons are scraped public web content likely in pretraining corpora; BERTScore/ROUGE-L against them would reward memorization."},
+    {"type": "llm_judge_unvalidated", "detail": "Lesson plans and Bloom/role tags are GPT-4.1 outputs with only an unspecified human formatting review; the proposed pedagogical-alignment metric is LLM-derived and unvalidated."},
+    {"type": "metric_mismatch", "detail": "ROUGE-L/BERTScore similarity to one human lesson does not measure pedagogical quality; many valid lessons exist per plan."},
+    {"type": "other:no_evaluation", "detail": "Benchmark proposed with no system results, no human-expert baseline, no evidence the metrics discriminate quality."}
+  ],
+  "coi": {"affiliations": "Nottingham Trent University (all five authors)", "vendor_products_evaluated": "none", "funding": "not stated", "severity": "none", "detail": "Academic authors; no product evaluated. Authors note it feeds their own future lesson-generation agent, a mild future self-evaluation risk."},
+  "scores": {"rigor": 1, "reproducibility": 3, "generalizability": 1, "relevance": 1, "coi_risk": 0},
+  "verdict": "reject",
+  "verdict_reason": "off-topic for the harness KB and no evaluation: a lesson-plan dataset built with LLMs and an unspecified human review; the proposed benchmark is never run. Not about coding agents or software engineering.",
+  "applicability": "Only tangential: the team works in healthcare education content, so the ingestion recipe (HTML to Markdown, LLM cleanup with a 'preserve verbatim' prompt, LLM-structured metadata, human review) resembles a content-ingestion stage. But it gives no measured error rates for the LLM cleanup/structuring, which is exactly what a Java ingestion team would need before trusting LLM-transformed medical education content. Nothing here informs multi-repo coordination, mixed agent hosts, or spec-driven development; treat as a pointer, not evidence.",
+  "conflicts_with": []
+}

@@ -1,0 +1,55 @@
+{
+  "arxiv_id": "2605.17242",
+  "contribution_type": "empirical",
+  "summary": "TDDev automates acceptance-test generation from requirements, LLM-driven browser testing of the deployed app, and translation of failures into repair feedback, exposed as MCP tools (start_app/run_tests/stop_app). A controlled study on 20 WebGen-Bench apps compares Vanilla generation with three TDD loops (Incremental, Whole-Project, Agentic) across a minimal Claude-Agent-SDK agent and OpenCode with three backbones (Claude Sonnet 4.6, MiniMax-M3, Qwen3.5-397B), with paired Wilcoxon tests and bootstrap CIs.",
+  "claims": [
+    {"claim": "With capable backbones TDD improves accuracy by 15.5–23.7 pp.", "evidence": "Table 6 (Sonnet): Vanilla 67.8 → Incr 84.6 (+16.8***), Whole 83.2 (+15.5**), Agent 91.5 (+23.7***); Fig. 2 (MiniMax): +15.8 to +22.3 minimal agent, +16.7–17.1 OpenCode, p<.01. Numbers match abstract. Caveat: the oracle test cases are the same human-authored WebGen-Bench tests converted into acceptance tests and fed into the TDD loop (§4.5.2), while Vanilla does not see them — so part of the gain is test visibility, not TDD per se. One run per cell, n=20 apps.", "strength": "moderate", "location": "§5.2, Fig. 2, Table 6"},
+    {"claim": "TDD remains effective for both minimal and full-featured coding agents.", "evidence": "Fig. 2: OpenCode Vanilla 72.0 → 88.8–89.2 with MiniMax; only one backbone tested on OpenCode.", "strength": "moderate", "location": "§5.2.1"},
+    {"claim": "Unreliable feedback negates TDD for weaker models; a stronger tester restores gains.", "evidence": "Table 6: Qwen3.5 self-feedback −4.4 to +4.8 (n.s.); with Sonnet feedback +6.8 to +9.4 (p .056/.092/<.05). Table 7: failure-verdict rate 56.2% vs 21.3%, regression 47.6% vs 14.7%. Mechanism well-documented; significance marginal.", "strength": "moderate", "location": "§5.2.2, Tables 6–7"},
+    {"claim": "Whole-Project TDD is most cost-efficient in most configurations.", "evidence": "Table 9: 4.97–10.33 pp per M additional tokens in 4 of 5 configs; 96.3% of build tokens are input.", "strength": "moderate", "location": "§5.4, Table 9"},
+    {"claim": "TDDev's testing agent catches 100% of defects; test generation covers 88.9% of reference criteria.", "evidence": "Table 5: 40 fixture evaluations on 10 hand-made micro-apps, 20/20 broken detected, 75% on correct apps (5 FPs). Table 4: 575/647 reference criteria, matched by an LLM (Claude) semantic judge without human validation of the matching.", "strength": "weak", "location": "§5.1, Tables 4–5"},
+    {"claim": "TDDev eliminates post-setup developer intervention.", "evidence": "Table 10: 3 developers × 2 sessions vs Bolt.diy; 0 vs 4.7 min manual time. Tiny convenience sample.", "strength": "weak", "location": "§6.2, Table 10"}
+  ],
+  "patterns": [
+    {"id": "P15", "stance": "supports", "note": "Acceptance-test-first loop raises oracle accuracy 15–24 pp for capable models; fails or hurts when the tester model is weak."},
+    {"id": "P16", "stance": "supports", "note": "Deploy-and-exercise execution feedback loop drives repairs; quality of the verifier is the binding constraint."},
+    {"id": "P34", "stance": "supports", "note": "Requirements turned into explicit, per-behavior acceptance tests that both guide and gate generation."},
+    {"id": "P18", "stance": "mixed", "note": "LLM browser tester used as both in-loop verifier and final oracle; 87.5% accuracy on 40 fixtures, false positives on correct apps; Qwen tester misattributes its own errors."},
+    {"id": "P04", "stance": "supports", "note": "Packaging TDD tools as an MCP server let the same tools plug into two different agents (minimal agent, OpenCode) and Bolt.diy."},
+    {"id": "P19", "stance": "neutral", "note": "Human reviews proposed acceptance tests once, then loop runs unattended (user study)."}
+  ],
+  "methodology": {
+    "sample": "20 apps randomly sampled (seed 42) from 101 WebGen-Bench tasks; RQ1 coverage on all 101; 40 fixture evaluations; 3-developer user study.",
+    "baselines": "Vanilla single-pass generation per agent/backbone; Bolt.diy in user study. No non-TDD iterative-repair baseline that sees the same tests without TDD structure.",
+    "models": "Claude Sonnet 4.6, MiniMax-M3, Qwen3.5-397B-A17B (temp 0, reasoning off); oracle tester fixed to Claude Sonnet 4.6.",
+    "variance": "Paired one-sided Wilcoxon and 10k-resample bootstrap 95% CIs over apps; single run per app/condition.",
+    "ablations": "Three TDD implementations × agents × backbones; feedback-model swap (Qwen dev + Sonnet tester).",
+    "contamination_controls": "None discussed; WebGen-Bench is public.",
+    "languages": "Full-stack web apps (JS/TS front ends with backends); no Java."
+  },
+  "standards": {
+    "peer_review": "Accepted at ASE 2026 (IEEE/ACM).",
+    "limitations_section": true,
+    "artifacts": "Code at github.com/yxwan123/TDD (Data Availability section).",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "metric_mismatch", "detail": "Oracle tests are the same tests given to the TDD loop; Vanilla never sees them, so TDD vs Vanilla conflates test-first workflow with test visibility."},
+    {"type": "llm_judge_unvalidated", "detail": "Final oracle is an LLM browser tester (Claude Sonnet 4.6) validated only on 40 fixture checks; it is also the developer/tester in the Sonnet configuration (shared-model bias). Test coverage matched by an LLM semantic judge."},
+    {"type": "small_sample", "detail": "20 apps, one run per cell; 3-person user study."},
+    {"type": "no_variance_reported", "detail": "No repeated runs to separate run-to-run nondeterminism from condition effects (CIs are across apps only)."},
+    {"type": "toy_tasks", "detail": "WebGen-Bench apps are small greenfield web apps, not changes to existing multi-module backends."}
+  ],
+  "coi": {
+    "affiliations": "Chinese University of Hong Kong, Columbia University, Singapore Management University.",
+    "vendor_products_evaluated": "Claude Sonnet 4.6 / Claude Agent SDK, MiniMax-M3, Qwen3.5, OpenCode, Bolt.diy; no author vendor ties.",
+    "funding": "Hong Kong RGC Senior Research Fellow Scheme; Singapore MOE AcRF Tier 1.",
+    "severity": "none",
+    "detail": "Academic authors and public funding; authors evaluate their own instrument, as usual."
+  },
+  "scores": {"rigor": 4, "reproducibility": 4, "generalizability": 2, "relevance": 4, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Peer-reviewed (ASE'26), factorial design across agents/backbones with significance tests and CIs, released code, and a useful negative result on weak testers. Caveats: the in-loop acceptance tests equal the oracle tests, the oracle is an LLM tester with modest validation, 20 small greenfield web apps, single runs.",
+  "applicability": "Directly relevant to the team's spec-driven rollout: derive executable acceptance tests from the spec, have a human approve them, then let the agent loop against them — the paper shows this pays off only if the verifier is reliable. For a Java backend, the verifier should be deterministic (JUnit/REST-assured/contract tests against the ingestion and delivery APIs) rather than an LLM browser agent, which removes the paper's main weakness. Packaging start/test/stop as an MCP server is a host-neutral way to give the same loop to Cursor, Claude Code, Codex, etc. Whole-Project loops amortize context cost best. Does not address changes spanning ≥4 existing repos or healthcare content correctness; front-end delivery checks could reuse the browser-testing idea.",
+  "conflicts_with": []
+}

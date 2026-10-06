@@ -1,0 +1,17 @@
+{"arxiv_id": "2605.06445",
+ "blind_scores": {"rigor": 3, "reproducibility": 4, "generalizability": 2, "relevance": 4, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "agree",
+ "claims_disputed": [
+  {"claim": "Specifying a database engine is the most damaging single constraint; ORM's marginal effect is small (and helps GPT-5.2)", "proposed_strength": "moderate", "reason": "Requiring PostgreSQL/SQLite adds real implementation work, not just a constraint: the engine must be used and the schema 'created automatically at server startup' (§3.2). L0 leaves persistence unspecified, so the matched-pair delta (Table 3a) conflates 'constraint' with 'more functionality'. The ± stderr also averages over pairs × configurations without clustering by configuration or framework."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P17", "from": "supports", "to": "neutral", "reason": "The regex-based static verifiers are only an evaluation gate, never fed back to the agent. App. D shows enforcing them changes A% by at most 2.7 pp, so the paper gives no evidence that static/lint feedback in the loop helps."}
+ ],
+ "missed_issues": [
+  "hype_language / overclaim: §5.1 says decay is 'steep, universal', but Table 2 has non-monotonic cases: GPT-5.2 A% goes 27.1 at L2 to 48.0 at L3; GPT-5.4 pass@1 is 64.6 at L3 vs 62.5 at L0; Kimi-K2.5 pass@1 is 33.3 at L3 vs 8.3 at L2. These are subset configurations with only 4 tasks × 3 runs per level.",
+  "other:constraint_vs_workload_confound: the database constraint adds persistence work (see disputed claim), so 'constraint decay' is partly 'task-size growth'.",
+  "The LLM-judge validation labels come from 'one of the authors' (App. B), a single annotator with no inter-rater check.",
+  "The feature-implementation sanity check (Table 3b) has no L0 counterpart, so it cannot show decay, only that the tasks are hard."
+ ],
+ "note": "I agree with admit_with_caveats. This is the most team-relevant paper in the batch (OpenAPI contract plus structural constraints), but its headline mixes constraint load with added persistence work, and 'universal' is contradicted by several non-monotonic rows."}

@@ -1,0 +1,205 @@
+{
+ "arxiv_id": "2606.24446",
+ "fulltext_chars": 78153,
+ "fulltext_lines": 1290,
+ "authors_block": "Frank Reyes Benoit Baudry Martin Monperrus KTH Royal Institute of Technology Université de Montréal KTH Royal Institute of Technology Stockholm, Sweden Montréal, Canada Stockholm, Sweden frankrg@kth.se benoit.baudry@umontreal.ca monperrus@kth.se",
+ "vendor_affiliation_hits": [],
+ "n_authors": 3,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/chains-project/bigbag.",
+  "https://github.com/google-gemini/gemini-cli",
+  "https://github.com/opencode-ai/opencode"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Agentic Generation of AST Transformation Rules for Fixing Breaking Updates"
+  ],
+  [
+   38,
+   "###### Abstract"
+  ],
+  [
+   48,
+   "###### Index Terms:"
+  ],
+  [
+   51,
+   "## I Introduction"
+  ],
+  [
+   106,
+   "## II Background"
+  ],
+  [
+   108,
+   "### II-A Breaking Dependency Updates"
+  ],
+  [
+   114,
+   "###### Definition 1"
+  ],
+  [
+   118,
+   "###### Definition 2"
+  ],
+  [
+   126,
+   "### II-B AST Transformations"
+  ],
+  [
+   131,
+   "###### Definition 3"
+  ],
+  [
+   144,
+   "###### Definition 4"
+  ],
+  [
+   148,
+   "### II-C Coding Agents"
+  ],
+  [
+   164,
+   "## III BigBag"
+  ],
+  [
+   249,
+   "### III-A Step 1: Input Context Assembly"
+  ],
+  [
+   253,
+   "#### III-A1 Client Project with Breaking Update"
+  ],
+  [
+   259,
+   "#### III-A2 AST Transformation Engine Documentation"
+  ],
+  [
+   267,
+   "#### III-A3 Transformation Template"
+  ],
+  [
+   274,
+   "#### III-A4 Dependency API Specification and Javadoc"
+  ],
+  [
+   285,
+   "### III-B Step 2: Transformation Generation and Application"
+  ],
+  [
+   305,
+   "### III-C Step 3: Fixing Transformation Verification"
+  ],
+  [
+   330,
+   "### III-D Step 4: Cross-Project Transformation Transfer"
+  ],
+  [
+   343,
+   "### III-E Implementation"
+  ],
+  [
+   372,
+   "## IV Experimental Methodology"
+  ],
+  [
+   374,
+   "### IV-A Datasets"
+  ],
+  [
+   395,
+   "### IV-B Research Questions"
+  ],
+  [
+   421,
+   "### IV-C Methodology for RQ1"
+  ],
+  [
+   440,
+   "### IV-D Methodology for RQ2"
+  ],
+  [
+   454,
+   "### IV-E Methodology for RQ3"
+  ],
+  [
+   486,
+   "## V Experimental Results"
+  ],
+  [
+   488,
+   "### V-A RQ1: Well-Formedness of Generated AST Transformations"
+  ],
+  [
+   611,
+   "### V-B RQ2: Transformation Effectiveness"
+  ],
+  [
+   790,
+   "### V-C RQ3: Transformation Generalizability"
+  ],
+  [
+   1028,
+   "## VI Threats to Validity"
+  ],
+  [
+   1047,
+   "## VII Related Work"
+  ],
+  [
+   1049,
+   "### VII-A API Evolution and Breaking Dependency Updates"
+  ],
+  [
+   1067,
+   "### VII-B Automated Program Repair"
+  ],
+  [
+   1080,
+   "### VII-C Agentic Code Generation"
+  ],
+  [
+   1094,
+   "### VII-D LLM-Generated Transformation Synthesis"
+  ],
+  [
+   1105,
+   "### VII-E Dependency Update Automation"
+  ],
+  [
+   1113,
+   "## VIII Conclusion"
+  ],
+  [
+   1124,
+   "## References"
+  ],
+  [
+   1290,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## VI Threats to Validity\n\nConstruct validity.\nOur metrics measure observable build outcomes per mvn test success, which does not guarantee the absence of behavioral regressions.\nThe conservative transfer criterion (accepting only clients that reference the same broken API element as the seed project) may exclude clients that would benefit from the transformation but manifest the breaking change through a different compilation error.\n\nInternal validity.\nEach (model, engine, breaking update) combination is executed once; LLM nondeterminism [22] means individual runs may deviate from average behavior.\nThe consistency of results across all four models within the same engine, and across both engines, makes it unlikely that nondeterminism drives the observed patterns.\n\nExternal validity.\nThe study is scoped to Java projects built with Maven, using two Java-specific AST transformation engines; generalizability to other languages or build systems cannot be assumed without further evaluation.\nThe 157 breaking updates span 69 client projects and 70 libraries across diverse domains, but are restricted to open-source, reproducible compilation failures; results may not generalize to closed-source or industrial codebases.\nThe transfer analysis seeds each transformation from a single client project, which may underrepresent the diversity of API usage patterns in the broader ecosystem.\n\nConclusion validity.\nPairwise statistical comparisons use Fisher’s exact test; with three pairwise dimensions (model, engine, SemVer level) across eight configurations, multiple-comparison inflation is possible.\nWe restrict causal claims to effects that are large and consistent across both engines, reducing the risk of false positives.\n\n## VII Related Work\n\n### VII-A API Evolution and Breaking Dependency Updates\n\nPrior work on API evolution has characterised and detected breaking changes at scale.\nDig and Johnson [4] establish a foundational taxonomy of API-breaking changes, classifying them into structural refactoring operations (method moves, renames, and signature changes) and behavioral modifications. Across five Java components, they find that over 80% of breaking changes are refactorings, with method moves and renames as the dominant types.\nOchoa et al. [5] confirm that semantic versioning alone is insufficient to protect downstream Maven clients, with a small fraction of high-usage libraries responsible for a disproportionate share of ecosystem-wide breakage.\nBrito et al. [2] establish a taxonomy of breaking-change categories in open-source Java; removal of deprecated elements and signature modifications are the dominant types, directly informing the AST transformations a repair agent must support.\n\nCloser to our setting, several works address migration assistance and rule mining.\nDagenais and Robillard [23] propose SemDiff, which recommends adaptive changes by mining framework-client co-evolution histories; it requires prior migration data that is unavailable for first-occurrence breaking updates.\nReyes et al. [24] analyze 243 real-world breaking dependency updates from BUMP using build-log and dependency-tree analysis, identifying root causes for 70% of them. Their taxonomy of compilation error categories directly characterizes the failure classes BigBag targets, providing explanations to guide developers rather than automated repair.\nRamos et al. [25] mine 461 correct API-migration rules from 1179 pull requests across four Python libraries using syntax-driven find-and-replace patterns in Comby. Their approach requires existing migration examples in library pull requests and produces lightweight syntactic patterns rather than fixing transformations applicable to previously unseen breaking changes.\n\nMore recent work has extended the scope from detection to automated repair.\nFruntke and Krinke [7] evaluate zero-shot prompting and an iterative LLM agent on the BUMP dataset, showing that LLMs can address this failure class without historical migration da",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 11,
+  "seeds_or_runs": 1,
+  "swe_bench": 3,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 24,
+  "industrial": 4
+ },
+ "fulltext_source": "html"
+}

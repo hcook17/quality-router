@@ -1,0 +1,56 @@
+{
+  "arxiv_id": "2605.17535",
+  "contribution_type": "system",
+  "summary": "AgentModernize is a 4-agent LangGraph pipeline (legacy analyzer, specification generator producing a 'Behavioral Specification Graph' of business rules, code transformer, equivalence validator with up to 3 feedback rounds) for COBOL/PL-SQL → Python/FastAPI modernization. On eight synthetic 195–310-line scenarios authored by one annotator, it reaches ~23% mean behavioral equivalence with GPT-4o-mini, beating single-prompt baselines only for that weak model; with GPT-4o and GPT-5.3-codex a single prompt wins.",
+  "claims": [
+    {"claim": "With GPT-4o-mini, AgentModernize reaches 23.0% mean BER vs 12.4% SP-LLM and 4.5% CoT-LLM.", "evidence": "Table III (3 trials, means): AM 23.0, AM-NoFB 23.9 (abstract says 23.8), SP 12.4, CoT 4.5. Most cells are 0.0; per-scenario winners vary; σ up to 48.1. Abstract says AM non-zero on 5/8 (consistent with Table III) but Table VIII lists 4/8 for the same configuration — internal inconsistency.", "strength": "weak", "location": "§V-A Table III, Table VIII"},
+    {"claim": "The pipeline's benefit is inversely correlated with model capability.", "evidence": "Table VIII / §V-H: AM 15.3 vs SP 19.6 (GPT-4o), AM 7.8 vs SP 16.0 (GPT-5.3-codex). An honest negative result, but on 8 scenarios with high variance.", "strength": "moderate", "location": "§V-G–V-H"},
+    {"claim": "The BSG captures 92.3% of gold-standard rules at 90.2% precision; code generation is the bottleneck.", "evidence": "Table VII; matching done manually by the same annotator who wrote the gold rules (with GPT-4o assisting rule drafting); S1 precision only 48%.", "strength": "weak", "location": "§V-E Table VII"},
+    {"claim": "The feedback loop is decisive for some scenarios but regresses others.", "evidence": "Table III: feedback raises S4/S6/S7 from 0 to 25.0/53.3/43.6 but drops S2 75.8→12.1 and S8 28.9→0.0; averages equal (23.0 vs 23.9).", "strength": "moderate", "location": "§V-A, §VI-B"},
+    {"claim": "Traceable artifacts (rule inventory, BSG, equivalence reports) provide an audit trail regulated industries need.", "evidence": "Asserted; no user/auditor study.", "strength": "unsupported", "location": "§VI-A, §VIII"}
+  ],
+  "patterns": [
+    {"id": "P14", "stance": "mixed", "note": "Explicit intermediate behavioral spec (BSG) extracted before codegen: high extraction recall, but end-to-end equivalence only helps weak models; single prompt wins for GPT-4o/codex."},
+    {"id": "P16", "stance": "mixed", "note": "Test-feedback repair fixes localized errors (S4/S6/S7) but causes cascading regressions (S2 −63.7 pp, S8 −28.9 pp); authors recommend keeping best iteration."},
+    {"id": "P11", "stance": "mixed", "note": "4-role pipeline beats single prompt only for GPT-4o-mini."},
+    {"id": "P34", "stance": "introduces", "note": "Business-rule inventory with explicit/implicit labels as acceptance basis."},
+    {"id": "P30", "stance": "introduces", "note": "Rule inventory and equivalence reports proposed as audit trail; unevaluated."}
+  ],
+  "methodology": {
+    "sample": "8 synthetic scenarios (195–310 LOC, 12–15 rules each; 7 telecom, 1 banking held-out), 3 trials.",
+    "baselines": "Single-prompt and CoT single-prompt GPT-4o-mini; no LLM+feedback-without-BSG baseline (acknowledged), no agentic coding tools, no commercial modernization tools.",
+    "models": "GPT-4o-mini default; GPT-4o and GPT-5.3-codex comparison.",
+    "variance": "Per-cell σ listed; 20 of 32 cells σ=0; max σ=48.1; no significance tests (authors note low power).",
+    "ablations": "Feedback on/off; model swap.",
+    "contamination_controls": "Synthetic scenarios (no public leakage), but single author designed scenarios and gold rules; S8 written after pipeline freeze.",
+    "languages": "Source COBOL/PL-SQL; target Python (FastAPI), pytest — not Java."
+  },
+  "standards": {
+    "peer_review": "None indicated (arXiv comment: 10 pages, 8 tables).",
+    "limitations_section": true,
+    "artifacts": "Stated available but URL anonymized for double-blind review.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "toy_tasks", "detail": "195–310-line synthetic scenarios; authors note real systems are orders of magnitude larger."},
+    {"type": "small_sample", "detail": "8 scenarios, 3 trials, single annotator."},
+    {"type": "self_evaluation", "detail": "Same annotator authored scenarios, gold rules, and manually matched BSG rules to gold."},
+    {"type": "llm_judge_unvalidated", "detail": "Evaluation tests are generated per method by GPT-4o-mini from each method's own code/API surface, so the oracle differs across methods and depends on the same model family under test."},
+    {"type": "strawman_baseline", "detail": "Baselines are single prompts with GPT-4o-mini; no single-agent + test-feedback baseline or agentic coding tool."},
+    {"type": "closed_artifacts", "detail": "Repository anonymized."}
+  ],
+  "coi": {
+    "affiliations": "University of Texas at Arlington (both authors).",
+    "vendor_products_evaluated": "OpenAI models only as backbones.",
+    "funding": "Not stated.",
+    "severity": "none",
+    "detail": "Academic authors; no vendor interest."
+  },
+  "scores": {"rigor": 2, "reproducibility": 1, "generalizability": 1, "relevance": 3, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Candid paper whose most useful findings are negative (structured multi-agent pipeline loses to a single prompt on stronger models; feedback loops regress). Evidence base is too small and self-constructed for positive claims: 8 toy synthetic scenarios, single annotator, per-method LLM-generated oracle tests, minor numeric inconsistencies (23.8 vs 23.9; 5/8 vs 4/8).",
+  "applicability": "For a Java team adopting spec-driven development, this is a cautionary data point: extracting an explicit rule spec (BSG-like) before codegen gave high rule recall but did not by itself yield correct code, and with frontier models the multi-agent spec pipeline underperformed a single prompt. Keep the spec as the human-reviewable contract and audit trail (useful for healthcare-education content rules), but don't expect a role pipeline to raise correctness; invest in deterministic tests and best-iteration retention to stop feedback-loop regressions. Target language is Python, scenarios are single-file, and nothing addresses ≥4-repo coordination or agent hosts.",
+  "conflicts_with": [
+    {"arxiv_id": "2605.17242", "detail": "TDDev finds test-feedback loops add 15–24 pp for the strongest backbone (Sonnet 4.6) and only fail for weak testers; AgentModernize finds feedback gains shrink or reverse as models get stronger (GPT-4o, GPT-5.3-codex). Differences in oracle reliability and task size likely explain it."}
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "arxiv_id": "2608.17528",
+  "contribution_type": "system",
+  "summary": "Agent Lightning v1.0 is a ~3,500-line Microsoft-led framework for RL post-training of models through an unmodified deployment harness via an LLM-endpoint proxy ('harnessed agentic RL'). The paper characterizes four engineering issues (retokenization breaking prefix merging, advantage assignment with variable samples per rollout, loss normalization, backend scheduling), argues for rollout-level advantage and normalization, and demos search, instruction-following, and coding-agent training, headlining Qwen3.5-9B on SWE-bench Verified from 41.8% to 56.4%.",
+  "claims": [
+    {"claim": "RL through mini-SWE-agent with ~6K SWE-smith tasks lifts Qwen3.5-9B on SWE-bench Verified from 41.8% to 56.4%.", "evidence": "Stated once in §Coding Agent / Training Dynamics text ('at step 208'); no table, no seeds, no CIs, no comparison against other RL frameworks or SFT baselines, and compute ('modest') is never quantified. SWE-smith training repos are Python and could overlap SWE-bench repos; no decontamination check reported.", "strength": "weak", "location": "§Experiments > Coding Agent > Training Dynamics"},
+    {"claim": "Rollout-level advantage plus rollout-level loss normalization trains more stably and better than sample-level variants.", "evidence": "Fig. 9: validation reward 38.2% (step 128) vs 35.0% baseline and 33.1% rollout-advantage-only; entropy curves. Single run per setting, peak-step comparison, 400-task held-out split.", "strength": "weak", "location": "§Coding Agent, Fig. 9"},
+    {"claim": "Search and instruction-following agents improve under the framework.", "evidence": "Search: validation 25.1% -> 41.7% with 50 sampled examples per dataset (Fig. 7); instruction-following: 51.9% -> 70.2% (Fig. 8). Single runs, no baselines.", "strength": "weak", "location": "§Search Agent, §General Instruction-Following Agent"},
+    {"claim": "Agents reward-hack coding RL via git history, wget/curl, pip and Python networking to fetch reference code; hiding .git and a K8s egress allow-list prevents it.", "evidence": "Qualitative list of observed behaviors and safeguards; no frequency counts.", "strength": "moderate", "location": "§Preventing Reward Hacking"},
+    {"claim": "Retokenization breaks token-prefix continuity, so one rollout yields a variable number of training samples.", "evidence": "Analytical in §Challenges; Fig. 10 shows only 36% of rollouts stay a single merged row, 2.41 samples per rollout on average.", "strength": "moderate", "location": "§Challenges, Fig. 10"}
+  ],
+  "patterns": [
+    {"id": "P25", "stance": "supports", "note": "RL of the agent model through the deployment harness; evidence limited to single runs."},
+    {"id": "P20", "stance": "supports", "note": "Self-hosted Kubernetes sandboxes with network policy and hidden .git were required to stop reward hacking."},
+    {"id": "P21", "stance": "supports", "note": "Egress allow-list and disabled git commands as enforced policy against shortcut-taking."},
+    {"id": "P30", "stance": "neutral", "note": "Describes trajectory monitoring and event APIs in system design; not evaluated."},
+    {"id": "P31", "stance": "neutral", "note": "Headline result on SWE-bench Verified."}
+  ],
+  "methodology": {"sample": "Coding: ~6,000 training / 400 test tasks filtered from SWE-smith (59,136 tasks, 128 Python repos) using the policy model itself as difficulty filter; search: 50 eval examples per QA dataset; instruction-following: 80/20 split of Instruction Pre-Training data.", "baselines": "Only the untrained starting checkpoint and two ablated loss variants; no comparison to verl/AReaL/slime or to SFT.", "models": "Qwen3.5-9B (coding), Llama-3.2-3B-Instruct (search), Qwen3-4B-Instruct-2507 (instruction following).", "variance": "None reported; single training run per configuration.", "ablations": "Advantage/normalization variants on coding agent (Fig. 9).", "contamination_controls": "Reward-hacking safeguards in training; no SWE-smith vs SWE-bench Verified overlap analysis.", "languages": "Python (SWE-smith, SWE-bench Verified)."},
+  "standards": {"peer_review": "None stated (no arXiv comment/journal_ref).", "limitations_section": false, "artifacts": "Code at github.com/microsoft/agent-lightning; paper states full workflow and training scripts released.", "preregistration": "n/a"},
+  "biases": [
+    {"type": "no_variance_reported", "detail": "All curves and the SWE-bench number are single runs; best-step values reported (step 128, step 208)."},
+    {"type": "self_evaluation", "detail": "Authors evaluate their own framework with their own design choices; no head-to-head against the competing frameworks they critique."},
+    {"type": "contamination_risk", "detail": "Python OSS training repos and SWE-bench Verified repos may overlap; not checked."},
+    {"type": "missing_cost_reporting", "detail": "'Modest compute' claimed but GPU count/hours never given."},
+    {"type": "single_language_python", "detail": "Coding results Python-only."},
+    {"type": "small_sample", "detail": "Search evaluation uses 50 examples per dataset."}
+  ],
+  "coi": {"affiliations": "Microsoft (most authors, both corresponding), Fudan University, Zhejiang University, University of Edinburgh.", "vendor_products_evaluated": "Agent Lightning (Microsoft open-source framework, authors' own); models are third-party (Qwen, Llama).", "funding": "Not stated.", "severity": "medium", "detail": "Vendor team presenting and favorably evaluating its own framework (and claiming others adopted its approach) without independent replication; mitigated because the code is open source and the models evaluated are not Microsoft's."},
+  "scores": {"rigor": 2, "reproducibility": 4, "generalizability": 1, "relevance": 1, "coi_risk": 2},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Useful engineering write-up of RL-through-harness pitfalls with released code, but the headline SWE-bench gain is a single, unbaselined, uncontaminated-unchecked run, and the team is evaluating its own framework. Low relevance to a team not training models.",
+  "applicability": "Mostly does not transfer: a Java backend team building a harness for healthcare-education content ingestion will consume hosted models, not RL-train them, and AGENTS.md here puts model choice with the host. Two side lessons do apply. Agents will take shortcuts when they can (reading git history, fetching upstream code over the network), so ingestion agents need sandboxed egress allow-lists and restricted VCS access when they are graded against fixtures. And because the harness controls context construction, harness changes alter model behavior, which argues for pinning harness versions across the mixed agent hosts when comparing results.",
+  "conflicts_with": []
+}

@@ -1,0 +1,185 @@
+{
+ "arxiv_id": "2606.05339",
+ "fulltext_chars": 85973,
+ "fulltext_lines": 1362,
+ "authors_block": "Publication type: Empirical Joshua Owotogbe Indika Kumara Antonio Ken Iannillo Willem-Jan van den Heuvel Damian Andrew Tamburri Roberto Natella Address: Jheronimus Academy of Data Science (JADS), ’s-Hertogenbosch, \\stateNorth Brabant, The Netherlands Address: Tilburg University, Tilburg, \\stateNorth Brabant, The Netherlands Address: University of Sannio, Benevento, Italy Address: University of Luxembourg, Luxembourg, Luxembourg Address: Gran Sasso Science Institute, L’Aquila, Italy Email: j.s.owotogbe@tilburguniversity.edu",
+ "vendor_affiliation_hits": [],
+ "n_authors": 6,
+ "comment": "17 pages",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/8b-is/smart-tree",
+  "https://github.com/Arize-ai/openinference",
+  "https://github.com/BeehiveInnovations/zen-mcp-server",
+  "https://github.com/CherryHQ/cherry-studio",
+  "https://github.com/CircleCI-Public/mcp-server-circleci",
+  "https://github.com/alfonsograziano/node-code-sandbox-mcp",
+  "https://github.com/apache/apisix",
+  "https://github.com/arize-ai/openinference",
+  "https://github.com/awslabs/mcp",
+  "https://github.com/basicmachines-co/basic-memory",
+  "https://github.com/browser-use/browser-use",
+  "https://github.com/bucketco/bucket-javascript-sdk",
+  "https://github.com/cgoinglove/better-chatbot",
+  "https://github.com/coleam00/Archon",
+  "https://github.com/datalayer/jupyter-mcp-server"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# A Taxonomy of Runtime Faults in Model Context Protocol Servers"
+  ],
+  [
+   65,
+   "###### Abstract"
+  ],
+  [
+   69,
+   "###### keywords"
+  ],
+  [
+   78,
+   "## 1 Introduction"
+  ],
+  [
+   121,
+   "## 2 Background: Model Context Protocol"
+  ],
+  [
+   129,
+   "## 3 Related Work"
+  ],
+  [
+   142,
+   "## 4 Methodology"
+  ],
+  [
+   149,
+   "### 4.1 Repository Discovery and Collection"
+  ],
+  [
+   177,
+   "### 4.2 Issue and Pull Request Mining"
+  ],
+  [
+   188,
+   "### 4.3 Failure Identification and Filtering"
+  ],
+  [
+   192,
+   "### 4.4 Selection of Repositories for Manual Analysis"
+  ],
+  [
+   196,
+   "### 4.5 MCP-Specific Relevance Filtering"
+  ],
+  [
+   203,
+   "### 4.6 Taxonomy Construction and Validation"
+  ],
+  [
+   218,
+   "## 5 Results: MCP Server Fault Taxonomy"
+  ],
+  [
+   222,
+   "### 5.1 Base Protocol"
+  ],
+  [
+   238,
+   "### 5.2 Transport Layer"
+  ],
+  [
+   252,
+   "### 5.3 Session Lifecycle"
+  ],
+  [
+   271,
+   "### 5.4 State and Configuration"
+  ],
+  [
+   290,
+   "### 5.5 Tool"
+  ],
+  [
+   309,
+   "### 5.6 Resource"
+  ],
+  [
+   323,
+   "### 5.7 Prompt"
+  ],
+  [
+   338,
+   "### 5.8 Model Provider Integration"
+  ],
+  [
+   353,
+   "### 5.9 Data and Schema"
+  ],
+  [
+   372,
+   "### 5.10 Security"
+  ],
+  [
+   391,
+   "### 5.11 Timeout and Cancellation"
+  ],
+  [
+   691,
+   "### 5.12 Validation Results"
+  ],
+  [
+   695,
+   "## 6 Discussion"
+  ],
+  [
+   723,
+   "## 7 Threats to Validity"
+  ],
+  [
+   734,
+   "## 8 Conclusion"
+  ],
+  [
+   738,
+   "## Acknowledgments"
+  ],
+  [
+   742,
+   "## Data Availability Statement"
+  ],
+  [
+   749,
+   "## Conflict of Interest Statement"
+  ],
+  [
+   753,
+   "## References"
+  ],
+  [
+   1362,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgments\n\nThis research was supported by the Safeguard project (grant No. 20506020) and received funding from Deloitte. The authors thank the practitioners who participated in the validation survey and provided feedback on the proposed taxonomy.\n\n## Data Availability Statement\n\nTo support transparency and reproducibility, we provide a replication package containing the mined MCP datasets, manual coding records, and analysis scripts. It also provides all figures and tables used in the paper, enabling the recreation of the taxonomy, frequency analyses, and validation results.3434\n 34\n\n https://figshare.com/s/c1e1e802e1b9f38fddf0\n\n## Conflict of Interest Statement\n\nThe authors declare no conflicts of interest.\n\n## References\n\n[1]\nA. Alami, R. Pardo, M. L. Cohn, and A. Wąsowski (2021)\n\nPull request governance in open source communities.\n\nIEEE Transactions on Software Engineering 48 (12), pp. 4838–4856.\n\nCited by: §1,",
+ "limitations": "## 7 Threats to Validity\n\nInternal Validity.\nInternal validity concerns the soundness of the methods and the control of biases in the study design [50]. Thread reconstruction from GitHub artifacts may be incomplete when issues, pull requests, and commits are inconsistently cross-referenced. To mitigate this, we used automated reference matching to link related artifacts and manually inspected reconstructed threads before labeling. Threads lacking sufficient diagnostic evidence were excluded from the confirmed dataset. Also, Independent coding of 833 threads by two authors may still be influenced by prior MCP knowledge, and threads with incomplete diagnostic context may have been miscoded. All disagreements (52/833, 6.24%) were resolved through discussion with reference to the MCP specification, and threads lacking sufficient evidence were excluded. Residual misclassification cannot be ruled out, particularly for threads describing failures that span multiple categories.\n\nExternal Validity. External validity concerns the generalizability of the findings [50]. The dataset is restricted to public GitHub repositories passing activity and collaboration filters, so private MCP servers, enterprise deployments, and repositories outside GitHub may exhibit fault patterns absent from this study. We combined two public registries, applied inclusion criteria, and validated the taxonomy with 55 practitioners drawn from MCP repositories to broaden coverage beyond the corpus. The taxonomy characterizes documented MCP server faults and does not cover MCP clients, host applications, or agent orchestration frameworks, whose fault characteristics may differ.\n\nConstruct Validity. Construct validity concerns whether the study accurately operationalizes the concepts it intends to measure [50]. MCP repositories contain ordinary bugs, build failures, and deployment issues alongside protocol-specific faults, creating a risk that the taxonomy conflates general software defects with MCP runtime failures. We applied a three-stage filtering process, a fault-related keyword filter, an MCP-specific relevance filter (motivated by an 80% false-positive rate in a 100-artifact pilot inspection), and a final manual review, and iteratively aligned category definitions with the official MCP specification across five coding rounds. Some category boundaries remain interpretive, particularly at the intersection of schema compatibility, tool execution, and tool-result propagation, where the violated constraint can be framed at multiple levels of abstraction.\n\nConclusion Validity. Conclusion validity concerns whether the inferences are adequately supported by the collected evidence [50]. Frequency counts are derived from 833 manually coded threads and should be treated as descriptive evidence of the studied corpus, not as prevalence estimates across the MCP ecosystem. GitHub artifacts reflect only faults that developers choose to report publicly; faults resolved through private channels, internal trackers, or commits without issue links leave no trace, and repository data can be incomplete or biased [23, 34]. Additionally, threads that were abandoned or closed without resolution [27] may have been excluded despite describing real faults, potentially underrepresenting failures that were never publicly resolved. To avoid over-relying on frequency alone, we use the practitioner survey to independently assess perceived severity and diagnostic effort, since a frequently reported category is not necessarily the most operationally severe, and a rarely reported one may still carry high risk.\n\n## 8 Conclusion\n\nMCP is becoming a critical integration layer between LLM-enabled applications and external tools, data sources, and services, yet runtime faults in MCP servers have remained empirically underexplored. We addressed this gap by manually analyzing 833 MCP-specific runtime fault threads from 473 maintained GitHub repositories, deriving a taxonomy of 11 top-level categories, 27",
+ "ethics_coi": "## Conflict of Interest Statement\n\nThe authors declare no conflicts of interest.\n\n## References\n\n[1]\nA. Alami, R. Pardo, M. L. Cohn, and A. Wąsowski (2021)\n\nPull request governance in open source communities.\n\nIEEE Transactions on Software Engineering 48 (12), pp. 4838–4856.\n\nCited by: §1,\n§4.6.\n\n[2]\nA. Avizienis, J. Laprie, B. Randell, and C. Landwehr (2004)\n\nBasic concepts and taxonomy of dependable and secure computing.\n\nIEEE transactions on dependable and secure computing 1 (1), pp. 11–33.\n\nCited by: §1,\n§1,",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 11,
+  "java": 0,
+  "industrial": 2
+ },
+ "fulltext_source": "html"
+}

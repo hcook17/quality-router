@@ -1,0 +1,195 @@
+{
+ "arxiv_id": "2607.25333",
+ "fulltext_chars": 95969,
+ "fulltext_lines": 2838,
+ "authors_block": "of system code DOI: XXXXXXX.XXXXXXXConference: Make sure to enter the correct conference title from your rights confirmation email; June 03–05, 2018; Woodstock, NYISBN: 978-1-4503-XXXX-X/2018/06 Qian Cheng Affiliation: Nanjing University, Nanjing, China , Saad Mohammad Rafid Pial Affiliation: University of Illinois, Urbana-Champaign, IL, USA , Ruize Tang Affiliation: Microsoft Research Asia, Beijing, China , Yiming Su Affiliation: University of Illinois, Urbana-Champaign, IL, USA , Emilie Ma Affiliation: University of British Columbia, Vancouver, Canada , Finn Hackett Affiliation: University of British Columbia, Vancouver, Canada , Ivan Beschastnikh Affiliation: University of British Columbia, Vancouver, Canada , Yu Huang Affiliation: Nanjing University, Nanjing, China and Tianyin Xu Affiliation: University of Illinois, Urbana-Champaign, IL, USA 2018",
+ "vendor_affiliation_hits": [
+  "Microsoft"
+ ],
+ "n_authors": 9,
+ "comment": "17 pages, 11 figures",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/codelion/openevolve",
+  "https://github.com/specula-org/Specula.",
+  "https://github.com/tlaplus/tlaplus"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Specula: Scaling formal specifications for autonomous model checking"
+  ],
+  [
+   73,
+   "###### Abstract."
+  ],
+  [
+   92,
+   "## 1. Introduction"
+  ],
+  [
+   212,
+   "## 2. Background"
+  ],
+  [
+   214,
+   "### 2.1. Formal specification and model checking"
+  ],
+  [
+   369,
+   "### 2.2. AI for Formal Specification"
+  ],
+  [
+   421,
+   "## 3. Specula Design"
+  ],
+  [
+   483,
+   "### 3.1. Understanding correctness properties"
+  ],
+  [
+   569,
+   "### 3.2. Generating effective system models"
+  ],
+  [
+   595,
+   "#### 3.2.1. Reference model."
+  ],
+  [
+   624,
+   "#### 3.2.2. Generating scenarios."
+  ],
+  [
+   684,
+   "#### 3.2.3. Scenario-based models."
+  ],
+  [
+   796,
+   "### 3.3. Ensuring model-code conformance"
+  ],
+  [
+   807,
+   "#### 3.3.1. Trace validation."
+  ],
+  [
+   874,
+   "#### 3.3.2. Repairing models."
+  ],
+  [
+   899,
+   "### 3.4. Finding and reproducing buggy code behavior"
+  ],
+  [
+   912,
+   "#### 3.4.1. Reproducing buggy code behavior."
+  ],
+  [
+   961,
+   "#### 3.4.2. Comprehending buggy behaviors."
+  ],
+  [
+   973,
+   "### 3.5. Self-evolving loops"
+  ],
+  [
+   988,
+   "#### 3.5.1. Loop structure."
+  ],
+  [
+   1050,
+   "#### 3.5.2. Correctness."
+  ],
+  [
+   1077,
+   "## 4. Implementation"
+  ],
+  [
+   1139,
+   "## 5. Evaluation"
+  ],
+  [
+   1177,
+   "### 5.1. Bugs found"
+  ],
+  [
+   1553,
+   "#### 5.1.1. False positives."
+  ],
+  [
+   1581,
+   "#### 5.1.2. Case studies"
+  ],
+  [
+   1777,
+   "### 5.2. Comparison with other agentic approaches"
+  ],
+  [
+   1845,
+   "#### 5.2.1. Quality of the generated TLA+ model."
+  ],
+  [
+   1868,
+   "#### 5.2.2. Bugs found."
+  ],
+  [
+   1880,
+   "#### 5.2.3. False positives."
+  ],
+  [
+   1901,
+   "### 5.3. Cost"
+  ],
+  [
+   1989,
+   "### 5.4. Effectiveness of self-evolving loops"
+  ],
+  [
+   2017,
+   "### 5.5. Sensitivity to coding agents"
+  ],
+  [
+   2074,
+   "## 6. Discussion"
+  ],
+  [
+   2148,
+   "## 7. Related Work"
+  ],
+  [
+   2216,
+   "## 8. Remarks"
+  ],
+  [
+   2231,
+   "## Acknowledgements"
+  ],
+  [
+   2247,
+   "## References"
+  ],
+  [
+   2838,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgements\n\nThe Specula project started from a hackathon effort to compete in the\nGenAI-accelerated TLA+ Challenge in 2025.\nWe thank the TLA+ Foundation for organizing the challenge\nand recognizing our work.\nWe thank Markus Kuppe for continuously supporting the project\nand for the invaluable discussions.\nWe thank Neil Giridharan for helping us understand our results on\nAutobahn.\nWe thank everyone who gave us feedback and/or encouragement throughout the development\nof Specula, including\nZhizhen (Cathy) Cai, Zhiting Zhu, Matthew Malcomson, Dmitry Kulagin, Claudia Cauli,\nTimo Lang, Igor Konnov, Chris Newcombe,\nand Darko Marinov.\n\n## References\n\nBanerjee et al. (2026)\nD. Banerjee, O. Bouissou, and S. Zetzsche\n\nDafnyPro: LLM-Assisted Automated Verification for Dafny Programs.\n\nNote: https://arxiv.org/abs/2601.05385",
+ "limitations": "",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 8,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

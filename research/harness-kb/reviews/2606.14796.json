@@ -1,0 +1,32 @@
+{
+  "arxiv_id": "2606.14796",
+  "contribution_type": "survey",
+  "summary": "Multivocal literature review (search Jan 2026) of 31 peer-reviewed papers and 73 quality-screened grey sources on how LLM-assisted coding creates technical debt, mapped onto Alves et al.'s 13 debt types. It adds LLM-specific categories (prompt, fast-integration, governance, provenance, ethical, data debt) and catalogs mitigation strategies, tools such as SonarQube/Snyk/CodeSmellEval, and the absence of LLM-specific benchmarks and metrics.",
+  "claims": [
+    {"claim": "LLMs amplify traditional code, design and documentation debt most.", "evidence": "§4.1 frequency counts across grey and formal sources, Fig. 5; counts reflect how often sources discuss a debt type, not measured incidence.", "strength": "moderate", "location": "§4.1, Fig. 5"},
+    {"claim": "Fast-integration debt triggers a domino effect into governance debt and higher long-term maintenance costs.", "evidence": "§4.1.1: governance debt in 19 grey sources, fast-integration in 13; the causal chain is the authors' synthesis of practitioner opinion with no longitudinal or quantitative evidence (§5.1 itself calls for longitudinal studies).", "strength": "unsupported", "location": "§4.1.1, §5.1"},
+    {"claim": "No standardized benchmarks or LLM-specific technical debt metrics exist.", "evidence": "§4.4–4.5, §5.4 across both literatures; plausible given the corpus, but peer-reviewed-only inclusion excludes arXiv preprints, where much of this work appears.", "strength": "moderate", "location": "§4.4, §4.5, §5.4"},
+    {"claim": "SonarQube is the commonly used tool for detecting debt indicators in LLM code.", "evidence": "§4.3.1 grey sources; several supporting sources are vendor blogs (Sonar 2025, Codescene, Qodo, Armorcode, Cast) among the 38 company-blog sources.", "strength": "weak", "location": "§4.3.1, Table 3"}
+  ],
+  "patterns": [
+    {"id": "P17", "stance": "neutral", "note": "Static analysis (SonarQube, Snyk) is the dominant practitioner mitigation, but the paper argues such tools are not designed for LLM-specific debt; no effectiveness evidence."},
+    {"id": "P19", "stance": "neutral", "note": "Human-in-the-loop review is the most cited strategy; based on opinion counts, not outcome data."},
+    {"id": "P30", "stance": "introduces", "note": "Recommends tracking/versioning prompts alongside code and documenting AI involvement for provenance."}
+  ],
+  "methodology": {"sample": "551 formal papers screened to 31 (ACM, IEEE, Springer, Elsevier); 132 grey sources from first 10 Google pages screened to 73 via a 22-criterion checklist (>11 threshold)", "baselines": "n/a (literature review)", "models": "n/a", "variance": "Cohen's kappa 0.93 for debt types on formal sources, 0.90–1.00 elsewhere; grey QA 'agreement 1.0' is post-reconciliation consensus, not IRR", "ablations": "n/a", "contamination_controls": "n/a", "languages": "Language-agnostic; English sources only"},
+  "standards": {"peer_review": "Accepted at ACM TOSEM 2026", "limitations_section": true, "artifacts": "Supplementary annotation sheets and assessments on figshare", "preregistration": "No protocol registration reported; follows Garousi and Kitchenham guidelines"},
+  "biases": [
+    {"type": "selection_bias_participants", "detail": "Formal corpus restricted to peer-reviewed venues, excluding arXiv where most 2025 LLM/agent SE work appears; grey corpus limited to first 10 Google pages."},
+    {"type": "self_reported_numbers", "detail": "Findings count opinions in sources; 38 of 73 grey sources are company blogs, several from quality-tool vendors promoting their own tools."},
+    {"type": "novelty_inflation", "detail": "New 'debt' labels (fast-integration, governance) rename known review and process concerns without operational definitions or measurement."},
+    {"type": "other:pre_agentic_scope", "detail": "Framed around LLM-generated code and assistants; autonomous coding-agent workflows appear only incidentally."}
+  ],
+  "coi": {"affiliations": "Drexel University (all four authors)", "vendor_products_evaluated": "None evaluated; commercial tools are cataloged", "funding": "No acknowledgments section found", "severity": "none", "detail": "Academic authors; the vendor tilt comes from grey sources, not authors."},
+  "scores": {"rigor": 3, "reproducibility": 3, "generalizability": 3, "relevance": 3, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Methodical, peer-reviewed (TOSEM) review with QA and kappa, useful as a vocabulary and gap map. Its central causal claims come from practitioner opinion, a large share of grey sources are vendor blogs, and excluding preprints leaves the agentic literature largely out.",
+  "applicability": "Mostly a framing aid for the team's governance design. Practical takeaways: treat prompts, rules and specs as versioned artifacts. Spec-driven development already does this; extend it to agent rule files and skill prompts across all ≥4 ingestion repos. Record provenance of agent-authored changes (which host and model, which spec) for healthcare education content where auditability matters. Keep a local Sonar/static-analysis gate, but do not expect it to catch LLM-specific debt such as duplicated near-identical ingestion adapters across repos. The paper offers no Java- or multi-repo-specific evidence and no measured effect sizes.",
+  "conflicts_with": [
+    {"arxiv_id": "2608.01001", "detail": "Complementary taxonomy: that mapping extends AI technical debt to agentic systems (memory, orchestration, multi-agent), which this review largely leaves out by excluding preprints and focusing on generated code."}
+  ]
+}

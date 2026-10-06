@@ -1,0 +1,148 @@
+{
+ "arxiv_id": "2608.06477",
+ "fulltext_chars": 69592,
+ "fulltext_lines": 1695,
+ "authors_block": "Multi-Step Indirect Prompt Injection Zhuoxin Zhan ††thanks: ˜Work done during an internship at RBC Borealis. Affiliation: Simon Fraser University Affiliation: RBC Borealis Email: zhuoxin_zhan@sfu.ca Akbar Rafiey Affiliation: New York University Affiliation: RBC Borealis Email: ar9530@nyu.edu Email: akbar.rafiey@rbc.com Avery Ma Affiliation: RBC Borealis Email: avery.ma@rbc.com Leila Pishdad Affiliation: RBC Borealis Email: leila.pishdad@borealisai.com Layla El Asri Affiliation: RBC Borealis Email: layla.elasri@borealisai.com",
+ "vendor_affiliation_hits": [],
+ "n_authors": 5,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/BorealisAI/StepJack.",
+  "https://github.com/xlang-ai/OSWorld"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# StepJack: Benchmarking Computer-Use Agent Safety Against"
+  ],
+  [
+   60,
+   "###### Abstract"
+  ],
+  [
+   69,
+   "## 1 Introduction"
+  ],
+  [
+   109,
+   "## 2 Related Work"
+  ],
+  [
+   128,
+   "## 3 Preliminaries"
+  ],
+  [
+   172,
+   "## 4 Multi-step Indirect Prompt Injection Attacks"
+  ],
+  [
+   176,
+   "### 4.1 Benign Trajectory Hijacking"
+  ],
+  [
+   197,
+   "### 4.2 Adversarial Goal Decomposition"
+  ],
+  [
+   323,
+   "## 5 Automatic Decomposition Pipeline"
+  ],
+  [
+   368,
+   "## 6 StepJack Dataset Construction"
+  ],
+  [
+   394,
+   "## 7 Experiments"
+  ],
+  [
+   396,
+   "### 7.1 Setup"
+  ],
+  [
+   417,
+   "### 7.2 Main Results"
+  ],
+  [
+   769,
+   "### 7.3 Effectiveness under Defenses"
+  ],
+  [
+   780,
+   "## 8 Conclusion"
+  ],
+  [
+   788,
+   "## Limitations"
+  ],
+  [
+   795,
+   "## Ethical Considerations"
+  ],
+  [
+   800,
+   "## References"
+  ],
+  [
+   976,
+   "## Appendix A CUA Details and Costs"
+  ],
+  [
+   1028,
+   "## Appendix B Test Examples in StepJack Dataset"
+  ],
+  [
+   1189,
+   "## Appendix C Qualitative Examples of Multi-step Indirect Prompt Injection"
+  ],
+  [
+   1206,
+   "## Appendix D Details of Automatic Attack Decomposition Pipeline"
+  ],
+  [
+   1258,
+   "## Appendix E On Verifier Bias in Stage 2"
+  ],
+  [
+   1278,
+   "## Appendix F Relationship Between ASR and Per-step Compliance"
+  ],
+  [
+   1293,
+   "## Appendix G Additional Results"
+  ],
+  [
+   1683,
+   "## Appendix H Licensing of Artifacts"
+  ],
+  [
+   1690,
+   "## Appendix I Use of AI Assistants"
+  ],
+  [
+   1695,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## Limitations\n\nThe evaluation is bounded by CUA API costs, so the results are based on a single run.\nThis is a budget constraint as one complete pass over Table 1 costs \\approx 520 USD in CUA API charges plus several hundred USD of AWS EC2 time, and repeating it multiple times is beyond our budget (Appendix A).\nAdditionally, given the high experiment costs and the fixed benchmark size, every axis in our benchmark competes with every other.\nWe vary platform, benign task, urgency cue, and user-instruction mode, at the cost of limiting the benchmark to 12 adversarial goals and k\\leq 3 , although we argue in Section 6 that our 12 goals cover more distinct behaviors than a larger nominal count would suggest.\n\n## Ethical Considerations\n\nStepJack documents a new attack class against CUAs, and we believe surfacing it openly puts defenders in a stronger position than withholding would.\nTo mitigate the dual-use risk of releasing a red-teaming pipeline, all evaluations are conducted in sandboxed environments derived from RedTeamCUA Liao et al. (2026) with no real user data or live services, and the benchmark targets frontier CUAs whose developers are positioned to act on the findings.\n\n## References\n\nAnthropic (2024)\n\nAnthropic. 2024.\n\nDeveloping a computer use model.\n\nhttps://www.anthropic.com/news/developing-computer-use.\n\nAnthropic (2026)\n\nAnthropic. 2026.\n\nIntroducing Claude Sonnet 4.6.\n\nhttps://www.anthropic.com/news/claude-sonnet-4-6.\n\nBoisvert et al. (2025)\n\nLeo Boisvert, Mihir Bansal, Chandra Kiran Reddy Evuru, Gabriel Huang, Abhay Puri, Avinandan Bose, Maryam Fazel, Quentin Cappart, Jason Stanley, Alexandre Lacoste, et al. 2025.\n\nDoomarena: A framework for testing ai agents against evolving security threats.\n\narXiv preprint arXiv:2504.14064.\n\nCao et al. (2025)",
+ "ethics_coi": "## Ethical Considerations\n\nStepJack documents a new attack class against CUAs, and we believe surfacing it openly puts defenders in a stronger position than withholding would.\nTo mitigate the dual-use risk of releasing a red-teaming pipeline, all evaluations are conducted in sandboxed environments derived from RedTeamCUA Liao et al. (2026) with no real user data or live services, and the benchmark targets frontier CUAs whose developers are positioned to act on the findings.\n\n## References\n\nAnthropic (2024)\n\nAnthropic. 2024.\n\nDeveloping a computer use model.\n\nhttps://www.anthropic.com/news/developing-computer-use.\n\nAnthropic (2026)\n\nAnthropic. 2026.\n\nIntroducing Claude Sonnet 4.6.\n\nhttps://www.anthropic.com/news/claude-sonnet-4-6.\n\nBoisvert et al. (2025)",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

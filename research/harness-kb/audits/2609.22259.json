@@ -1,0 +1,20 @@
+{"arxiv_id": "2609.22259",
+ "blind_scores": {"rigor": 3, "reproducibility": 4, "generalizability": 2, "relevance": 3, "coi_risk": 1},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "The contract beats the same knowledge pasted into the prompt because the rule is one lookup away.", "proposed_strength": "weak", "reason": "The numbers are real, but the causal 'because' is not isolated: the contract carries author-written INTERPRETATION clauses (empty-list wildcard) that the manual never states, and reversing that one clause changes 87 of 97 payment-family answers (§8.2). The §6.1 evidence that prompt-arm SQL rarely contains all six fee clauses (3-9%) is exactly what you would expect if the prompt arm lacked that clause, so it cannot distinguish 'reachability' from 'extra knowledge'. The manual arm also leads on the easy split on all four models (§5.1)."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P02", "from": "supports", "to": "mixed", "reason": "The on-demand-lookup vs pasted-prompt contrast is confounded by the interpretation clauses given only to the contract arm (no fifth arm run), and the pasted manual wins the easy split on every model. The clean ablation in the paper (hollow vs contract) tests content, not progressive disclosure."},
+  {"id": "P01", "from": "mixed", "to": "neutral", "reason": "No repository instruction file is tested; a 24k-character manual in a system prompt is an analogy to AGENTS.md at best, and the comparison is confounded as above."},
+  {"id": "P24", "from": "supports", "to": "neutral", "reason": "Cost per correct answer is reported, not a budget/cap mechanism; cross-run costs are 'suggestive only' per §4.3 because provider routes differ."}
+ ],
+ "missed_issues": [
+  "Abstract misattribution: 'Content dominates. It raises hard-task accuracy from 13.9% to 55.1% ... 37.0% to 77.4%' are schema->contract jumps (content + scaffolding + interpretation clauses). The content-only step (hollow->contract) is 19.3->55.1, 22.6->56.6, 38.0->68.4, 51.2->77.4 (§5.2). The review repeated the abstract framing in its first claim.",
+  "Frontier runs (Sonnet 5, GPT-5.6) have no temperature or seed control, and Sonnet 5 was added after a three-model draft was written; with a 23.4% flip rate observed even at temperature 0, the frontier-specific '14-15 point scaffolding' finding rests on unrepeated, uncontrolled runs.",
+  "Golds were reconstructed from leaderboard per-task answer files; the author states provenance of the contract but 'cannot prove' no benchmark question was read during authoring (§3.4), which is a contamination route into the contract itself, not just the models.",
+  "The harness and results live in the agentic-data-contracts repository, implying the author maintains the library under test; the paper calls it 'the instrument, not the contribution' but does not explicitly disclose authorship.",
+  "Reproducibility 5 is slightly generous: frontier runs are non-deterministic, and DeepSeek lost 29% of rows to rate limiting."
+ ],
+ "note": "Strong, candid ablation whose content-vs-hollow result is credible, but the first review let the abstract's schema-to-contract numbers stand as 'content' and graded the contract-over-prompt mechanism and P02 support higher than a confounded, single-run contrast allows."}

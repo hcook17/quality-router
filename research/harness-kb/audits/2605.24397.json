@@ -1,0 +1,22 @@
+{
+  "arxiv_id": "2605.24397",
+  "blind_scores": {"rigor": 2, "reproducibility": 2, "generalizability": 3, "relevance": 3, "coi_risk": 0},
+  "blind_verdict": "admit_with_caveats",
+  "blind_coi_severity": "none",
+  "agreement": "minor_disagreement",
+  "claims_disputed": [
+    {"claim": "Transitive dependencies are the largest single source of client-impacting breaks.", "proposed_strength": "weak", "reason": "The claim rests on two primary studies ([S9] npm, [S11] Maven), and the review's own text is inconsistent about them. §4.2.3 says both report that 'a majority of manifesting breaking changes originate from indirect (transitive) providers', but §7.1.3 gives the Maven figure as 20.36% of cases, 'the single most common source', which is a plurality and not a majority. Only the npm study gives a majority (57.8%). Two studies with conflicting characterizations do not support 'largest single source' across ecosystems."},
+    {"claim": "Semantic versioning is systematically violated and fails as a trust mechanism.", "proposed_strength": "moderate", "reason": "I keep 'moderate' but add a caveat. 'Systematic failure' is the authors' framing. The quantitative evidence quoted (e.g., non-major releases breaking APIs [S6], developers predicting binary compatibility ~60% of the time [S57]) comes from a handful of Maven/npm studies, and §8 admits that Python, Web APIs and Linux rest on few studies."}
+  ],
+  "pattern_stance_changes": [
+    {"id": "P27", "from": "supports", "to": "neutral", "reason": "The review synthesizes evidence that cross-boundary breaks are common, which establishes the problem. It contains no evidence that explicit cross-repo contracts or coordination reduce breaks. A 'supports' stance requires evidence that the pattern works, and the paper shows only that it is needed."},
+    {"id": "P17", "from": "supports", "to": "neutral", "reason": "The evidence is about standalone API-diff tools (japicmp/ROSEAU-style), whose accuracy is self-reported by the tool papers (e.g., ROSEAU F1=0.99). No surveyed study puts static-analysis feedback inside an agent loop. The review's §5.4 near-perfect recall claim cites only two studies [S6, S64]."}
+  ],
+  "missed_issues": [
+    "The reasons claim ('maintenance and design improvements account for a larger share than new feature work', in the abstract) generalizes from two studies. In the npm study [S1] all three reported categories (API design 61.8%, redundancy 30.9%, identifier names 7.3%) are maintenance-type, so a feature category was never measured there. The 'exceeding feature delivery' comparison is therefore vacuous for npm and rests only on 59 Java changes [S8]. Yet §4.1 opens with 'Across Maven, npm, Python, Web API, and Linux distributions, the literature consistently shows...'.",
+    "There is no quality appraisal of the 97 primary studies. Weak and strong studies are weighted equally, and tool accuracy numbers are reported as given by the tool authors (self_evaluation in the primary literature).",
+    "The paper says the search string uses '14 terminological variants' (§8), but the string printed in §2.1 has 22 OR-terms. Together with the full-text vs title/abstract inconsistency the first review flagged, this means the search cannot be replicated exactly.",
+    "The Listing 2 scikit-learn example (accuracy 0.05 -> 0.82, '77 percentage points') appears to be illustrative, constructed code attributed to [S26], whose prose says only 'substantially'. It should not be cited as a measured figure."
+  ],
+  "note": "The verdict is right, and this is a useful secondary map for a Java/Maven team's inter-repo breaking-change controls. The first review was too generous on rigor and generalizability for a single-screener, LLM-assisted SLR without quality appraisal. It also scored two patterns as 'supports' on the basis of problem prevalence and primary-study self-reports rather than evidence that the patterns work."
+}

@@ -1,0 +1,192 @@
+{
+ "arxiv_id": "2608.22751",
+ "fulltext_chars": 59397,
+ "fulltext_lines": 1881,
+ "authors_block": "Qinfei Li Affiliation: University of Science and Technology of China , Hefei , China email: lqfff1984@gmail.com , Xiaoxuan Dong Affiliation: University of Electronic Science and Technology of China , Chengdu , China email: 202522010524@std.uestc.edu.cn , Jin Zhang Affiliation: Lanzhou University , Lanzhou , China email: mjzj35723@gmail.com , Dexu Yu Affiliation: Fenz.AI , Palo Alto, United States email: yu.dex@northeastern.edu , Wenhao Deng Affiliation: University of Glasgow , Glasgow , United Kingdom email: w.deng.1@research.gla.ac.uk , Junchen Fu Affiliation: University of Glasgow , Glasgow , United Kingdom email: j.fu.3@research.gla.ac.uk , Youhua Li Affiliation: City University of Hong Kong , Hong Kong , China email: youhuali2-c@my.cityu.edu.hk , Hanwen Du Affiliation: The Ohio State University , Columbus , United States email: du.1128@osu.edu and Chunxiao Li Note: Corresponding author. Affiliation: University of Science and Technology of China , Hefei , China email: chunxiao.li@ustc.edu.cn 2026; © cc",
+ "vendor_affiliation_hits": [],
+ "n_authors": 9,
+ "comment": "Accepted by CIKM 2026",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/mixedbread-ai/mxbai-rerankAccessed",
+  "https://github.com/qli447/risk-aware-tool-retrieval-release."
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Risk-Aware Reranking for Agentic Tool RetrievalConference: Proceedings of the 35th ACM International Conference on Information and Knowledge Management; November 07–11, 2026; Rome, ItalyProceedings of the 35th ACM International Conference on Information and Knowledge Management (CIKM ’26), November 07–11, 2026, Rome, ItalyDOI: 10.1145/3799682.3840706ISBN: 979-8-4007-2539-5/2026/11CCS: Information systems Retrieval models and rankingCCS: Computing methodologies Natural language processingCCS: Security and privacy Software and application security"
+  ],
+  [
+   105,
+   "###### Abstract."
+  ],
+  [
+   131,
+   "###### Keywords:"
+  ],
+  [
+   136,
+   "## 1. Introduction"
+  ],
+  [
+   242,
+   "## 2. Related Work"
+  ],
+  [
+   292,
+   "## 3. Preliminaries"
+  ],
+  [
+   317,
+   "## 4. Method"
+  ],
+  [
+   319,
+   "### 4.1. Overview and Deployment Setting"
+  ],
+  [
+   346,
+   "### 4.2. Offline Risk Audit and Label Use"
+  ],
+  [
+   430,
+   "### 4.3. Dual-Head Risk-Aware Reranking"
+  ],
+  [
+   496,
+   "### 4.4. ToolGraph Score Smoothing"
+  ],
+  [
+   539,
+   "### 4.5. Optional Rule Filter"
+  ],
+  [
+   561,
+   "## 5. Experiments"
+  ],
+  [
+   592,
+   "### 5.1. Experimental Setup"
+  ],
+  [
+   652,
+   "### 5.2. Main Performance Comparison"
+  ],
+  [
+   880,
+   "### 5.3. Component Analysis"
+  ],
+  [
+   983,
+   "### 5.4. Relevance–Safety Operating Points"
+  ],
+  [
+   1015,
+   "### 5.5. Context-Aware Safety and Generalization"
+  ],
+  [
+   1108,
+   "### 5.6. Candidate Exposure and Stress Tests"
+  ],
+  [
+   1212,
+   "### 5.7. Qualitative Downstream Inspection"
+  ],
+  [
+   1285,
+   "## 6. Conclusion"
+  ],
+  [
+   1305,
+   "## Appendix A Risk Annotation Details"
+  ],
+  [
+   1310,
+   "#### Annotation protocol."
+  ],
+  [
+   1321,
+   "#### Prompt template."
+  ],
+  [
+   1333,
+   "#### Disagreement resolution."
+  ],
+  [
+   1381,
+   "## Appendix B ToolGraph Construction Details"
+  ],
+  [
+   1426,
+   "#### Permission categories."
+  ],
+  [
+   1437,
+   "## Appendix C Rule Filter Details"
+  ],
+  [
+   1443,
+   "### C.1. Constraints"
+  ],
+  [
+   1472,
+   "### C.2. Greedy Filtering Procedure"
+  ],
+  [
+   1500,
+   "### C.3. Complexity"
+  ],
+  [
+   1507,
+   "## Appendix D Head Architecture and Training Details"
+  ],
+  [
+   1524,
+   "## Appendix E Additional Experimental Results"
+  ],
+  [
+   1526,
+   "### E.1. Standard Deviations"
+  ],
+  [
+   1570,
+   "### E.2. Candidate-Matched Top-100 Evaluation"
+  ],
+  [
+   1574,
+   "###### Acknowledgements."
+  ],
+  [
+   1578,
+   "## GenAI Usage Disclosure"
+  ],
+  [
+   1586,
+   "## References"
+  ],
+  [
+   1881,
+   "##"
+  ]
+ ],
+ "acknowledgments": "###### Acknowledgements.\n\nThis work was supported in part by the Sponsor National Natural Science Foundation of China https://doi.org/10.13039/501100001809 under Grant Grant #72401282.\n\n## GenAI Usage Disclosure\n\nClaude Code, Codex, and Qwen were used only as preliminary annotators for\ntool-risk labels under the fixed rubric in Section 4.2.\nLabels were reconciled by the span-based procedure, and broad disagreements\nwere reviewed by human authors. The authors take full responsibility for the\nfinal labels, experiments, and manuscript.\n\n## References\n\nAndriushchenko et al. (2025)\nM. Andriushchenko, A. Souly, M. Dziemian, D. Dueñas, M. Lin, J. Wang, D. Hendrycks, A. Zou, Z. Kolter, M. Fredrikson, et al.\n\nAgentHarm: a benchmark for measuring harmfulness of llm agents.\n\nIn International Conference on Learning Representations,\n\nCited by: §2.\n\nBeaulieu et al. (1997)\nM. Beaulieu, M. Gatford, X. Huang, S. Robertson, S. Walker, and P. Williams",
+ "limitations": "",
+ "ethics_coi": "## GenAI Usage Disclosure\n\nClaude Code, Codex, and Qwen were used only as preliminary annotators for\ntool-risk labels under the fixed rubric in Section 4.2.\nLabels were reconciled by the span-based procedure, and broad disagreements\nwere reviewed by human authors. The authors take full responsibility for the\nfinal labels, experiments, and manuscript.\n\n## References\n\nAndriushchenko et al. (2025)\nM. Andriushchenko, A. Souly, M. Dziemian, D. Dueñas, M. Lin, J. Wang, D. Hendrycks, A. Zou, Z. Kolter, M. Fredrikson, et al.\n\nAgentHarm: a benchmark for measuring harmfulness of llm agents.\n\nIn International Conference on Learning Representations,\n\nCited by: §2.\n\nBeaulieu et al. (1997)\nM. Beaulieu, M. Gatford, X. Huang, S. Robertson, S. Walker, and P. Williams\n\nOkapi at trec-5.\n\nNist Special Publication SP, pp. 143–166.",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 5,
+  "swe_bench": 0,
+  "contamination": 1,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

@@ -1,0 +1,51 @@
+{
+  "arxiv_id": "2605.11051",
+  "contribution_type": "empirical",
+  "summary": "JetBrains Research/TUM authors adapt the In-Context Autoencoder (ICAE) to compress long tool observations of a SWE agent into continuous memory embeddings (Qwen3-8B, 4x nominal rate). Compression holds up on single-shot QA (SQuAD) and code retrieval (RepoQA) but resolves fewer SWE-bench Verified issues than the uncompressed base model (7 vs 19 of 500), a negative result the authors attribute to compounding reconstruction errors and a single-step training objective.",
+  "claims": [
+    {"claim": "Implicit compression fails on multi-step agentic coding: ICAE resolves fewer SWE-bench Verified issues than Base and far fewer than SFT.", "evidence": "Table 1: Resolved Issues Base 19, SFT 86, ICAE 7 (of 500); §3 reports p=0.013 vs Base, Appendix B Figure 1 reports p=0.0062 for the same comparison (5 runs, Welch t-test) - internally inconsistent p-values but same direction.", "strength": "moderate", "location": "§3, Table 1, Appendix B"},
+    {"claim": "ICAE matches or beats Base on single-shot tasks.", "evidence": "Table 1: SQuAD EM 0.54 -> 0.67 (p<0.001); RepoQA Pass@0.8 0.65 -> 0.69, not significant (p=0.6075, Appendix B).", "strength": "moderate", "location": "§3, Table 1"},
+    {"claim": "Compression extends effective trajectory length by 40% and speeds generation by 10%.", "evidence": "§3: 113 vs 81 steps on average at 32k context limit (Appendix C Figure 2); effective compression 2.0x on SWE-bench Verified. Speed figure stated without a table.", "strength": "weak", "location": "§3, Appendix C"},
+    {"claim": "Failure stems from reconstruction-error accumulation and lack of incentive to preserve info for future steps.", "evidence": "Hypotheses only: one qualitative URL hallucination example; proposed follow-up experiments not run.", "strength": "weak", "location": "§4"}
+  ],
+  "patterns": [
+    {"id": "P08", "stance": "contradicts", "note": "Learned implicit (embedding) compression of tool observations degraded SWE-bench Verified resolution vs no compression; hallucinated paths/URLs break exact-match edit tools."},
+    {"id": "P31", "stance": "neutral", "note": "Evaluated on SWE-bench Verified (500 tasks, 12 Python repos) with a SWE-smith-style 3-tool scaffold."},
+    {"id": "P25", "stance": "neutral", "note": "Involves LoRA/full fine-tuning; authors suggest full-trajectory RL may be needed."}
+  ],
+  "methodology": {
+    "sample": "SQuAD validation set, RepoQA 'Searching Needle Function' (5 languages, 8192-token context), SWE-bench Verified 500 tasks; 300 held-out SWE-smith trajectories for BLEU_ref.",
+    "baselines": "Base Qwen3-8B (no fine-tune) and SFT Qwen3-8B; SFT used full fine-tuning on SWE-bench while ICAE kept LoRA hyperparameters, so SFT gap is partly a training-budget confound. No explicit (token-level) compression baseline.",
+    "models": "Qwen3-8B only, thinking disabled.",
+    "variance": "5 independent runs with 95% CIs and Welch t-tests (Appendix B Figure 1).",
+    "ablations": "None; step-selection ablations proposed as future work.",
+    "contamination_controls": "None discussed for SWE-bench Verified vs Qwen3 pretraining.",
+    "languages": "SWE-bench Verified is Python-only; RepoQA spans 5 languages."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint, no venue in comment/journal_ref; appears to be a short conference-style submission (anonymised artifact links).",
+    "limitations_section": false,
+    "artifacts": "Code and checkpoints claimed at anonymised GitHub/HuggingFace URLs (AnonForConference/...), availability not verified.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "single_model", "detail": "Only Qwen3-8B with a 32k context limit; result may not hold for frontier hosted models used by real agent hosts."},
+    {"type": "single_language_python", "detail": "Agentic evaluation is SWE-bench Verified (Python only)."},
+    {"type": "strawman_baseline", "detail": "SFT baseline got full fine-tuning while ICAE stayed on LoRA, inflating the SFT-vs-ICAE gap; no explicit compression/summarisation baseline."},
+    {"type": "other:inconsistent_statistics", "detail": "p-value for ICAE vs Base on SWE-bench is 0.013 in §3 but 0.0062 in Appendix B."}
+  ],
+  "coi": {
+    "affiliations": "JetBrains Research (Gelvan, Slinko, Bogomolov, Zharov) and Technical University of Munich (Gelvan, Steinbauer, Kofler).",
+    "vendor_products_evaluated": "None; ICAE is a third-party method and Qwen3 is a third-party model. Negative result.",
+    "funding": "No acknowledgments/funding section found.",
+    "severity": "low",
+    "detail": "Vendor-affiliated authors, but no JetBrains product is evaluated and the headline result is negative."
+  },
+  "scores": {"rigor": 3, "reproducibility": 3, "generalizability": 1, "relevance": 2, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Clear, replicated (5 runs) negative result on SWE-bench Verified, but single 8B model, Python-only, confounded SFT baseline, inconsistent p-values, and causal explanations are untested hypotheses.",
+  "applicability": "Mostly a 'don't' signal. The team will not train encoders; their hosts (Cursor, Claude Code, Codex, Hermes) use frontier models with host-managed compaction. The transferable lesson: any compaction that paraphrases exact identifiers, file paths or URLs is dangerous for exact-match edit tools - for a Java multi-repo ingestion codebase, keep fully-qualified class names, Maven coordinates, and cross-repo contract paths verbatim (e.g. in AGENTS.md/spec files) rather than relying on compressed history. Does not inform spec-driven development or cross-repo coordination directly.",
+  "conflicts_with": [
+    {"arxiv_id": "2609.08318", "detail": "AttnCompress presents trajectory compression as a remedy for SWE agents; differs in being explicit/attention-guided pruning rather than implicit embeddings, so not a direct contradiction but opposite conclusion on compression's value."}
+  ]
+}

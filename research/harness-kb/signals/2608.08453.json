@@ -1,0 +1,213 @@
+{
+ "arxiv_id": "2608.08453",
+ "fulltext_chars": 48810,
+ "fulltext_lines": 933,
+ "authors_block": "Conference: The First Workshop on Agent Skills: Design, Evaluation, and Optimization of Procedural Knowledge for LLM Agents; May 26, 2026; San Jose, CA, USA Chi Zhang Affiliation: The Graduate Center, City University of New York, New York, NY, USA email: CHI.ZHANG06@gc.cuny.edu , Yimin Liu Affiliation: The Ohio State University, Columbus, OH, USA email: yiminliu.career@gmail.com , Xinze Chen Affiliation: The Graduate Center, City University of New York, New York, NY, USA email: xinze.chen95@gc.cuny.edu and Ping Ji Affiliation: Hunter College, City University of New York, New York, NY, USA email: ping.Ji@hunter.cuny.edu © , 2026",
+ "vendor_affiliation_hits": [],
+ "n_authors": 4,
+ "comment": "11 pages, 4 figures",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/agent-sh/agnix"
+ ],
+ "hf_urls": [
+  "https://huggingface.co/datasets/FayeZC"
+ ],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# What Keeps Agent Skills from Being Reusable? Evidence from 138K SKILL.md Files"
+  ],
+  [
+   53,
+   "###### Abstract."
+  ],
+  [
+   64,
+   "###### Keywords:"
+  ],
+  [
+   67,
+   "## 1. Introduction"
+  ],
+  [
+   129,
+   "## 2. Background and Related Work"
+  ],
+  [
+   131,
+   "### 2.1. Agent Skills and the SKILL.md Format"
+  ],
+  [
+   141,
+   "### 2.2. Related Work"
+  ],
+  [
+   174,
+   "## 3. Methodology"
+  ],
+  [
+   176,
+   "### 3.1. Data Collection"
+  ],
+  [
+   184,
+   "#### Inclusion criteria and representativeness."
+  ],
+  [
+   194,
+   "### 3.2. Defect Taxonomy"
+  ],
+  [
+   207,
+   "#### Tier 1: Spec Conformance (14 checks)."
+  ],
+  [
+   224,
+   "#### Tier 2: Best Practice Compliance (17 checks)."
+  ],
+  [
+   342,
+   "### 3.3. Detector Validation"
+  ],
+  [
+   348,
+   "### 3.4. Routing Stress Test"
+  ],
+  [
+   356,
+   "## 4. Results"
+  ],
+  [
+   358,
+   "### 4.1. Ecosystem Overview"
+  ],
+  [
+   370,
+   "### 4.2. RQ1: What reusability defects are prevalent in public skills?"
+  ],
+  [
+   380,
+   "#### Spec conformance defects dominate."
+  ],
+  [
+   386,
+   "### 4.3. RQ2: How do these defects limit skill reuse?"
+  ],
+  [
+   388,
+   "#### Routing defects reduce discovery quality."
+  ],
+  [
+   396,
+   "#### What the stress test does and does not show."
+  ],
+  [
+   434,
+   "### 4.4. RQ3: Which platform and provenance signals are associated with reusable skill quality?"
+  ],
+  [
+   436,
+   "#### Cross-platform quality."
+  ],
+  [
+   447,
+   "#### AI-marked skills differ from unmarked skills."
+  ],
+  [
+   463,
+   "### 4.5. RQ4: What traits characterize reusable, high-quality Agent Skills?"
+  ],
+  [
+   502,
+   "### 4.6. Evidence-Based Authoring Guidelines"
+  ],
+  [
+   603,
+   "## 5. Discussion"
+  ],
+  [
+   605,
+   "#### The conversation-first provenance hypothesis."
+  ],
+  [
+   614,
+   "#### Specification compliance is necessary but not sufficient."
+  ],
+  [
+   621,
+   "#### Real-world impact: evidence from GitHub issues."
+  ],
+  [
+   628,
+   "#### Prioritizing defects."
+  ],
+  [
+   636,
+   "#### Progressive enforcement: quantifying the return on investment."
+  ],
+  [
+   644,
+   "#### A quality-assured generation workflow."
+  ],
+  [
+   666,
+   "## 6. Threats to Validity"
+  ],
+  [
+   668,
+   "#### Construct validity."
+  ],
+  [
+   680,
+   "#### Internal validity."
+  ],
+  [
+   688,
+   "#### External validity."
+  ],
+  [
+   694,
+   "#### Functional generalization beyond BM25 and beyond R1."
+  ],
+  [
+   700,
+   "#### Reliability."
+  ],
+  [
+   705,
+   "## 7. Conclusion"
+  ],
+  [
+   714,
+   "#### Data Availability."
+  ],
+  [
+   718,
+   "## References"
+  ],
+  [
+   933,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 6. Threats to Validity\n\n#### Construct validity.\n\nOur defect detectors use regex-based heuristics, which may produce false positives or false negatives.\nWe mitigate implementation risk through mutation-style fixture tests and threshold sensitivity analysis, but these checks do not capture every semantic context in which a skill may be used.\nThe risk is highest for the two most context-dependent categories.\nR5.3 (prompt injection) catches lexical patterns that can appear legitimately inside security-auditing or red-team skills that deliberately discuss injection prompts.\nR7.1 (persona redefinition) catches second-person framing such as “you are a…” that is appropriate in skills designed to teach an agent a specialized role.\nA stratified manual precision audit of these safety-critical detectors is the most important construct-validity check we did not run, and we flag it as the first item of follow-up work; the headline 91.8% number is robust to it because R5 and R7 contribute only a small share of the all-category count, but per-category R5/R7 prevalence should be read as upper bounds.\nThe 91.8% figure also bundles defects of very different severity—cosmetic findings such as name-as-heading duplication (R2.4, 44.3%) are counted alongside shipped credentials—so we additionally report the Tier 1 89.3% number throughout and discuss severity prioritization in Section 5 so that the headline is not read as “92% of skills are broken.”\nAmbiguous credential-handling or persona-based skills may still be misclassified, and downstream task success may depend on context beyond static file structure.\nTreating the official specification as the reference also means that legitimate deviations from the recommended format (narrative-style skills, longer-than-recommended bodies that remain actionable) can be labeled as defects when they may work well in practice; the distinction between Tier 1 (spec) and Tier 2 (best practice) is partly motivated by this asymmetry, and we recommend reading defect counts as static-analysis findings rather than as direct evidence of task-time failure.\n\n#### Internal validity.\n\nSome detected “defects” may be intentional design choices (e.g., persona redefinition for specialized skills).\nWe separate spec violations from best-practice recommendations and report prevalence rather than normative claims.\nThe repair experiment uses GPT-4o-mini and a sample of 200 skills; stronger models may perform differently, and the per-category fix rates (notably the 0% for R5.2 bypass and R5.3 injection) are based on small per-category subsamples that we therefore use only to motivate the safety-gating stage, not to argue precise repair-rate point estimates.\nPlatform and AI-marker analyses identify ecosystem patterns, but the underlying authoring process is not directly observed.\nThe cross-platform comparison (Figure 3) further rests on the 41.7% of skills that file paths allow us to attribute; the remaining 58.3% land in generic skills/ paths and are excluded from per-platform statistics, so platform-level claims should be read as conditional on the attributable subset.\n\n#### External validity.\n\nOur dataset is limited to public GitHub repositories and the agentskills.in registry; enterprise skills may differ.\nThe top 5 repositories contribute 23.5% of skills; we report both aggregate and per-repository statistics.\nPlatform attribution via file paths is approximate because generic skills/ paths (58.3%) cannot be attributed to a specific platform.\n\n#### Functional generalization beyond BM25 and beyond R1.\n\nThe routing stress test isolates the discovery stage of reuse with a BM25 retriever (Section 3.4); production harnesses use LLM-based selection over the full description set, so the absolute Hit@1 numbers should not be read as production routing performance, and the gap between routing-clean and routing-defective skills may compress under semantic selection.\nWe also do not run end-to-end task benchmarks for R2–R7; their operationa",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 4,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 2
+ },
+ "fulltext_source": "html"
+}

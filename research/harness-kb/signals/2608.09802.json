@@ -1,0 +1,235 @@
+{
+ "arxiv_id": "2608.09802",
+ "fulltext_chars": 63861,
+ "fulltext_lines": 1570,
+ "authors_block": "",
+ "vendor_affiliation_hits": [],
+ "n_authors": 15,
+ "comment": "Published as a conference paper at COLM 2026",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/OpenListTeam/OpenList",
+  "https://github.com/ant-design/ant-design",
+  "https://github.com/betaflight/betaflight",
+  "https://github.com/google/langextract",
+  "https://github.com/nasa/fprime",
+  "https://github.com/plantuml/plantuml",
+  "https://github.com/tracel-ai/burn"
+ ],
+ "hf_urls": [
+  "https://huggingface.co/datasets/swe-bench-promax"
+ ],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   25,
+   "# SWE-Bench ProMax: Benchmarking Agents on Large-Scale Multilingual Code Refactoring"
+  ],
+  [
+   27,
+   "###### Abstract"
+  ],
+  [
+   33,
+   "## 1 Introduction"
+  ],
+  [
+   78,
+   "## 2 Related work"
+  ],
+  [
+   80,
+   "### 2.1 Coding benchmarks"
+  ],
+  [
+   84,
+   "##### From function-level to long-horizon evaluation."
+  ],
+  [
+   88,
+   "##### Refactoring benchmarks."
+  ],
+  [
+   92,
+   "##### Expert curation."
+  ],
+  [
+   96,
+   "### 2.2 Code refactoring"
+  ],
+  [
+   100,
+   "## 3 SWE-Bench ProMax"
+  ],
+  [
+   201,
+   "### 3.1 Task formulation"
+  ],
+  [
+   206,
+   "### 3.2 Dataset construction and curation"
+  ],
+  [
+   212,
+   "##### Stage 1: Data collection."
+  ],
+  [
+   216,
+   "##### Stage 2: Environment construction."
+  ],
+  [
+   220,
+   "##### Stage 3: Filtering and problem rewriting."
+  ],
+  [
+   232,
+   "### 3.3 Dataset composition"
+  ],
+  [
+   281,
+   "##### Language coverage."
+  ],
+  [
+   285,
+   "##### Scale and complexity."
+  ],
+  [
+   289,
+   "## 4 Experiments"
+  ],
+  [
+   291,
+   "### 4.1 Experimental setup"
+  ],
+  [
+   293,
+   "##### Agent scaffolds."
+  ],
+  [
+   297,
+   "##### Execution environment."
+  ],
+  [
+   301,
+   "##### Evaluation protocol."
+  ],
+  [
+   305,
+   "### 4.2 Models"
+  ],
+  [
+   321,
+   "## 5 Results and analysis"
+  ],
+  [
+   323,
+   "### 5.1 Main results"
+  ],
+  [
+   504,
+   "### 5.2 Agent behavior analysis"
+  ],
+  [
+   514,
+   "### 5.3 Cost and efficiency analysis"
+  ],
+  [
+   520,
+   "## 6 Conclusion"
+  ],
+  [
+   525,
+   "#### Acknowledgments"
+  ],
+  [
+   529,
+   "## Ethics statement"
+  ],
+  [
+   533,
+   "## LLM usage disclosure"
+  ],
+  [
+   537,
+   "## References"
+  ],
+  [
+   1100,
+   "## Appendix A Additional dataset details"
+  ],
+  [
+   1327,
+   "### A.1 Per-language summary"
+  ],
+  [
+   1330,
+   "#Repos"
+  ],
+  [
+   1331,
+   "#Inst."
+  ],
+  [
+   1396,
+   "## Appendix B Task category analysis"
+  ],
+  [
+   1410,
+   "##### Required skills."
+  ],
+  [
+   1418,
+   "## Appendix C Representative instances"
+  ],
+  [
+   1472,
+   "### C.1 C++: nasa/fprime (244 files, 559 LOC)"
+  ],
+  [
+   1486,
+   "### C.2 Java: plantuml/plantuml (94 files, 1,629 LOC)"
+  ],
+  [
+   1500,
+   "### C.3 C: betaflight/betaflight (62 files, 846 LOC)"
+  ],
+  [
+   1514,
+   "### C.4 Rust: tracel-ai/burn (49 files, 1,084 LOC)"
+  ],
+  [
+   1528,
+   "### C.5 Go: OpenListTeam/OpenList (47 files, 608 LOC)"
+  ],
+  [
+   1542,
+   "### C.6 Python: google/langextract (30 files, 1,960 LOC)"
+  ],
+  [
+   1556,
+   "### C.7 TypeScript: ant-design/ant-design (27 files, 97 LOC)"
+  ],
+  [
+   1570,
+   "##"
+  ]
+ ],
+ "acknowledgments": "#### Acknowledgments\n\nThis research was supported by the National Key Research and Development Program of China (Grant No. 2023YFB4503802), the Natural Science Foundation of Shanghai (Grant No. 25ZR1401175), the Hong Kong Research Grant Council General Research Fund (Grant No. 16206524), and the Hong Kong Research Grant Council Theme-based Research Scheme (Grant No. T41-517_25-N). We thank Kexin Pei for valuable feedback and advice.\n\n## Ethics statement\n\nAll repositories included in our benchmark are publicly available on GitHub and use approved open-source licenses (e.g., MIT, Apache 2.0, BSD), and we respect each project’s licensing terms in our distribution. No personal or sensitive data is collected; our dataset consists solely of code, commit metadata, and test cases derived from public repositories. The benchmark is intended exclusively for the evaluation and improvement of AI coding agents, and we encourage responsible use that aligns with the goals of advancing software engineering research.\n\n## LLM usage disclosure\n\nIn accordance with the policy on LLM usage, we disclose the following uses of large language models in this work: (1) Human annotators collaboratively used LLMs as writing assistants to rewrite problem statements and review test suites during benchmark curation (Stage 3 of our pipeline); the LLM served as an interactive tool under human direction, not as an autonomous generator. (2) Claude Sonnet 4.6 was used for multi-label classification of task categories and required reasoning skills (Appendix B); these classifications are used for analysis only and do not affect the benchmark instances or evaluation results. (3) LLMs were used for minor assistance in drafting and editing portions of this paper.\n\n## References\n\n[1]\nAnthropic (2026)\n\nClaude sonnet 4.6.\n\nNote: https://www.anthropic.com/news/claude-sonnet-4-6\n\nCited by: §4.2.\n\n[2]\nJ. Austin, A. Odena, M. Nye, M. Bosma, H. Michalewski, D. Dohan, E. Jiang, C. Cai, M. Terry, Q. Le, et al. (2021)",
+ "limitations": "",
+ "ethics_coi": "## Ethics statement\n\nAll repositories included in our benchmark are publicly available on GitHub and use approved open-source licenses (e.g., MIT, Apache 2.0, BSD), and we respect each project’s licensing terms in our distribution. No personal or sensitive data is collected; our dataset consists solely of code, commit metadata, and test cases derived from public repositories. The benchmark is intended exclusively for the evaluation and improvement of AI coding agents, and we encourage responsible use that aligns with the goals of advancing software engineering research.\n\n## LLM usage disclosure\n\nIn accordance with the policy on LLM usage, we disclose the following uses of large language models in this work: (1) Human annotators collaboratively used LLMs as writing assistants to rewrite problem statements and review test suites during benchmark curation (Stage 3 of our pipeline); the LLM served as an interactive tool under human direction, not as an autonomous generator. (2) Claude Sonnet 4.6 was used for multi-label classification of task categories and required reasoning skills (Appendix B); these classifications are used for analysis only and do not affect the benchmark instances or evaluation results. (3) LLMs were used for minor assistance in drafting and editing portions of this paper.\n\n## References\n\n[1]\nAnthropic (2026)\n\nClaude sonnet 4.6.\n\nNote: https://www.anthropic.com/news/claude-sonnet-4-6\n\nCited by: §4.2.\n\n[2]\nJ. Austin, A. Odena, M. Nye, M. Bosma, H. Michalewski, D. Dohan, E. Jiang, C. Cai, M. Terry, Q. Le, et al. (2021)\n\nProgram synthesis with large language models.\n\narXiv preprint arXiv:2108.07732.",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 1,
+  "swe_bench": 71,
+  "contamination": 4,
+  "human_study": 0,
+  "java": 23,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

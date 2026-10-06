@@ -1,0 +1,124 @@
+{
+ "arxiv_id": "2608.25202",
+ "fulltext_chars": 31462,
+ "fulltext_lines": 933,
+ "authors_block": "Spec-Driven Development Artifacts Shyam Agarwal, Anmol Singhal, Travis Breaux, Bogdan Vasilescu Affiliation: Carnegie Mellon University shyamaga@andrew.cmu.edu, singhal2@andrew.cmu.edu, tdbreaux@andrew.cmu.edu, vasilescu@cmu.edu",
+ "vendor_affiliation_hits": [],
+ "n_authors": 4,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/Fission-AI/OpenSpec",
+  "https://github.com/NAIST-SE/DevGPT",
+  "https://github.com/github/spec-kit",
+  "https://github.com/shyamagarwal13/specmine-official"
+ ],
+ "hf_urls": [
+  "https://huggingface.co/datasets/ShyAgarwal"
+ ],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# SpecMine: A Large-Scale Corpus of"
+  ],
+  [
+   30,
+   "###### Abstract"
+  ],
+  [
+   56,
+   "## I High-Level Overview"
+  ],
+  [
+   58,
+   "### I-A Why spec-driven development, and why now"
+  ],
+  [
+   83,
+   "### I-B What the data set contains"
+  ],
+  [
+   146,
+   "### I-C Summary statistics"
+  ],
+  [
+   225,
+   "## II Internal Structure"
+  ],
+  [
+   255,
+   "## III How to Access"
+  ],
+  [
+   281,
+   "### III-A Licensing, ethics, and privacy"
+  ],
+  [
+   299,
+   "## IV Research Questions"
+  ],
+  [
+   413,
+   "## V Data Availability"
+  ],
+  [
+   451,
+   "## References"
+  ],
+  [
+   479,
+   "## Appendix A: Schema and Entity–Relationship Diagram"
+  ],
+  [
+   668,
+   "## Appendix B: Construction and Quality Control"
+  ],
+  [
+   689,
+   "#### What the corpus is made of"
+  ],
+  [
+   703,
+   "#### Scope of the PR layer"
+  ],
+  [
+   727,
+   "#### The co-change heuristic and its limits"
+  ],
+  [
+   747,
+   "## Appendix C: Controlled Vocabularies"
+  ],
+  [
+   785,
+   "## Appendix D: Content and Structural Features"
+  ],
+  [
+   828,
+   "## Appendix E: Full Tool Attribution"
+  ],
+  [
+   933,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "",
+ "ethics_coi": "### III-A Licensing, ethics, and privacy\n\nAll artifacts come from public GitHub repositories, collected within the API\nterms of service. Every row keeps its repository’s license (28,698 carry\na recognized SPDX license), so participants can filter to license-compatible\nsubsets; redistribution follows each repository’s terms.\n\nThe release ships public handles but not private contact details. Author and\ncommitter logins and numeric IDs are kept: they are public, a repository’s slug\nalready contains its owner’s handle, and they are what makes authorship analysis possible\n(bot detection, newcomer-versus-maintainer, the developer–agent division of\nlabour). Commit emails, avatar URLs, and the remaining profile fields are dropped\nbefore release; a participant who needs them can fetch them from GitHub directly,\nunder GitHub’s terms and their institution’s approval rather than ours. Commit\nmessages and spec text are authored prose that may name people, and we do not\nrewrite them. We ask participants to avoid deanonymization and to keep personal\ndata out of published results beyond aggregate analysis.\n\n## IV Research Questions\n\nMaking the specification a first-class unit of study, alongside the tool that\nproduced it and the code it drives, opens agendas that a code-side dataset\ncannot reach. We group representative questions below, each tied to the layer\nthat enables it. Each question is answerable empirically, and most cut\nacross several tool families.",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 6,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

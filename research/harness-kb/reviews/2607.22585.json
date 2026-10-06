@@ -1,0 +1,53 @@
+{
+  "arxiv_id": "2607.22585",
+  "contribution_type": "empirical",
+  "summary": "Controlled workshop study holding the model fixed and varying the harness: Qwen 3.6 Plus and MiniMax M2.5 run through Goose, OpenCode and OpenHands-SDK (via Harbor, Daytona sandboxes, 900 s cap) on a stratified 50-task subset of Terminal-Bench Pro, one trial per cell (300 trials). Pass rates differ by only 0–8 pp within a model (CIs mostly include zero), while reported tokens per solved task differ up to ~40x and failure-mode profiles replicate across models.",
+  "claims": [
+    {"claim": "Harness choice induces up to 40x difference in tokens per solved task", "evidence": "Table 3: Goose 28,142 / 36,950 vs OpenCode 1,147,740 / 1,546,977 tokens per solve; bootstrap CIs non-overlapping (§4.2). But token accounting differs by harness: OpenCode/OpenHands totals include cached tokens via ATIF, Goose uses a total-only field (§3.5, §6), and §4.2 itself lists 'harness-specific token accounting' as a possible cause, so part of the gap may be measurement, not cost.", "strength": "moderate", "location": "§4.2, Table 3, §3.5, §6"},
+    {"claim": "Within-model pass-rate differences across harnesses are small (0–8 pp)", "evidence": "Table 2 with 95% paired bootstrap CIs; largest gap Goose vs OpenCode on MiniMax −8.0 pp [−18.0, 0.0]. n=50, single trial per task.", "strength": "moderate", "location": "§4.1, Table 2"},
+    {"claim": "Failure fingerprints are harness properties that replicate across models", "evidence": "Table 4: Goose REASON-dominated (20/15) with zero VERIFY; OpenHands-SDK VERIFY 6/8 and MAX_TURNS 6/6; OpenCode TIME/HANG with no MAX_TURNS (because it has no turn cap). Two models only; post-hoc rule-based classifier (App. A) not validated against human labels; the OpenCode fingerprint is partly an artefact of budget asymmetry.", "strength": "moderate", "location": "§4.5, Table 4, App. A"},
+    {"claim": "No-action turns explain the cost gap (10x more for OpenCode)", "evidence": "Fig. 2: 2.0–2.16 vs 0.2–0.3 no-action turns per task; mechanistic link is argued ('consistent with'), not tested.", "strength": "weak", "location": "§4.4, Fig. 2"}
+  ],
+  "patterns": [
+    {"id": "P31", "stance": "mixed", "note": "Shows model-name leaderboards conflate harness effects; recommends reporting harness specs, tokens, latency and failure vectors."},
+    {"id": "P24", "stance": "supports", "note": "Recommends choosing harness–model pairs by pass rate under token/latency budgets; budget controls (turn caps) materially change failure profiles."},
+    {"id": "P30", "stance": "supports", "note": "Per-trial logs, failure categories and no-action-turn metrics used as observability signals; raw logs released."},
+    {"id": "P20", "stance": "neutral", "note": "Daytona sandbox per task held constant."},
+    {"id": "P02", "stance": "neutral", "note": "Same four-skill operational playbook injected into all harnesses; not varied."}
+  ],
+  "methodology": {
+    "sample": "50 of 200 Terminal-Bench Pro tasks, stratified over 8 GPT-4o-mini-assigned categories; 3 harnesses x 2 models x 1 trial = 300 trials",
+    "baselines": "Harnesses compared against each other; no single 'proposed' system",
+    "models": "Qwen 3.6 Plus, MiniMax M2.5 via OpenRouter default sampling",
+    "variance": "95% paired-task bootstrap CIs (B=10,000) on pass rate and tokens/solve; single trial per task-cell, so run-to-run variance is not measured",
+    "ablations": "OpenCode turn-budget sensitivity check (§4.2)",
+    "contamination_controls": "None discussed",
+    "languages": "Terminal tasks (mixed shell/Python/etc.); not language-specific"
+  },
+  "standards": {
+    "peer_review": "Under review at DL4C Workshop @ ICML 2026; preliminary, 7 pages",
+    "limitations_section": true,
+    "artifacts": "Anonymized configs, raw trial logs, aggregated snapshots and analysis scripts (anonymous.4open.science); 50 task IDs in Appendix B",
+    "preregistration": "Task set fixed before runs and no tasks removed (§3.5); not formally preregistered"
+  },
+  "biases": [
+    {"type": "small_sample", "detail": "n=50 tasks, one trial each; one task = 2 pp."},
+    {"type": "metric_mismatch", "detail": "Token totals are not measured identically across harnesses (cached tokens included for two, total-only for Goose), weakening the 40x cost interpretation."},
+    {"type": "other:budget_asymmetry", "detail": "OpenCode has no turn cap (wall-time only) while others cap at 40 turns, which shapes the failure fingerprints being compared."},
+    {"type": "no_variance_reported", "detail": "Bootstrap is over tasks; no repeated runs, with provider-default sampling that may change between runs (§6)."}
+  ],
+  "coi": {
+    "affiliations": "Sentient Labs (both authors)",
+    "vendor_products_evaluated": "Goose, OpenCode, OpenHands-SDK (none by the authors); Alibaba and MiniMax models",
+    "funding": "Not stated",
+    "severity": "none",
+    "detail": "Authors do not ship any evaluated harness or model as far as the text shows."
+  },
+  "scores": {"rigor": 3, "reproducibility": 4, "generalizability": 2, "relevance": 4, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Well-controlled, honestly hedged harness-vs-model study with CIs and released logs, but small n, single trials, two models, and non-uniform token accounting that may inflate the headline 40x figure.",
+  "applicability": "Directly relevant to a team running mixed agent hosts: pass rate barely moves across harnesses, but cost, latency and failure style (stop-when-stuck vs persist-to-plausible vs spin-until-timeout) differ by harness. The team should treat host+model pairs as the evaluation unit, measure tokens per accepted change and failure categories per host on its own Java ingestion tasks, and set explicit turn/time budgets uniformly across hosts. A host whose failures skew to 'plausible but wrong' (VERIFY) needs stronger spec-driven acceptance tests and review gates. The Terminal-Bench tasks are not Java multi-repo work, so absolute numbers do not transfer.",
+  "conflicts_with": [
+    {"arxiv_id": "2607.20709", "detail": "NOOA reports consistent single-run pass-rate wins of a few points over OpenCode and PI; this study shows gaps of that size between open harnesses are mostly within bootstrap noise at n=50."}
+  ]
+}

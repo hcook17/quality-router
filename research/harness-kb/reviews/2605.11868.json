@@ -1,0 +1,47 @@
+{
+  "arxiv_id": "2605.11868",
+  "contribution_type": "tool",
+  "summary": "Tool report describing IPI-proxy, a mitmproxy-based intercepting proxy that injects indirect-prompt-injection payloads into live HTTP responses from whitelisted domains, so web-browsing agents can be red-teamed under production egress rules. It bundles 820 deduplicated payloads from six public benchmarks, three embedding techniques and six HTML insertion points, plus an exfiltration callback tracker. No attacks are actually run against any agent in the paper.",
+  "claims": [
+    {"claim": "IPI-proxy enables red-teaming of whitelisted web agents on their real retrieval surface, which existing benchmarks and scanners cannot.", "evidence": "Argued via gap analysis (§3, G1-G3) and author-constructed feature comparison (Table 1) in which IPI-proxy is the only 'whitelist-responsive' entry; no empirical demonstration against any agent.", "strength": "weak", "location": "§3, Table 1"},
+    {"claim": "A unified library of 820 deduplicated attack strings from BIPIA, InjecAgent, AgentDojo, Tensor Trust, WASP and LLMail-Inject.", "evidence": "Stated in §4 (payloads/unified.jsonl schema); no breakdown per source or dedup procedure validation in the text.", "strength": "weak", "location": "§4, §5.2"},
+    {"claim": "Provides a reproducible substrate for measuring and hardening agents against IPI.", "evidence": "No measurement, attack success rate, or reproducibility run reported anywhere; conclusion lists observability and CI integration as future work.", "strength": "unsupported", "location": "Abstract, §6"}
+  ],
+  "patterns": [
+    {"id": "P22", "stance": "introduces", "note": "Testing harness for IPI defenses (payload x embedding x insertion sweep, exfil tracker); no evidence about any defense's efficacy."},
+    {"id": "P30", "stance": "neutral", "note": "Exfiltration tracker decoupled from agent as success oracle; agent-side tracing listed as future work."},
+    {"id": "P04", "stance": "neutral", "note": "Mentions MCP-mediated retrieval as a surface the network-level proxy can cover (§5.5); not tested."}
+  ],
+  "methodology": {
+    "sample": "None - no agents, tasks or trials evaluated.",
+    "baselines": "None; qualitative feature table against BIPIA, InjecAgent, AgentDojo, WASP, PyRIT, garak, promptfoo, Rebuff.",
+    "models": "None evaluated.",
+    "variance": "n/a",
+    "ablations": "None.",
+    "contamination_controls": "n/a",
+    "languages": "Tool implementation in Python (mitmproxy addon, YAML config); targets HTML."
+  },
+  "standards": {
+    "peer_review": "arXiv technical report (cs.CR); no venue.",
+    "limitations_section": false,
+    "artifacts": "Code at https://github.com/VulcanLab/IPI-proxy (per metadata comment and text); not verified runnable.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "self_evaluation", "detail": "Only assessment is an author-built feature comparison table where the authors' tool is uniquely complete."},
+    {"type": "other:no_empirical_evaluation", "detail": "No attack success rates, no agents tested, no demonstration that payload embeddings survive real browsing tools."},
+    {"type": "novelty_inflation", "detail": "Response-rewriting MITM proxies are standard web-security tooling; novelty is packaging public payloads for agent red-teaming."}
+  ],
+  "coi": {
+    "affiliations": "Vulcan Research, AIFT (Chia-Pei Chen, Kentaroh Toyoda, Anita Lai, Alex Leung). Regex vendor hits for Microsoft and NVIDIA are citations of PyRIT and garak, not affiliations.",
+    "vendor_products_evaluated": "Own open-source tool described, not evaluated.",
+    "funding": "No acknowledgments/funding section found.",
+    "severity": "low",
+    "detail": "Authors describe their own tool; no commercial product scored against competitors beyond a qualitative feature table."
+  },
+  "scores": {"rigor": 1, "reproducibility": 3, "generalizability": 1, "relevance": 2, "coi_risk": 1},
+  "verdict": "reject",
+  "verdict_reason": "Design description of a red-teaming tool with no empirical evaluation; usable as a pointer to an artifact but provides no evidence for the knowledge base.",
+  "applicability": "Low for the core harness. The team's agents mostly read repos and internal APIs, not the open web, but if agents ingest third-party healthcare-education HTML (publisher pages, CMS exports) during content ingestion, the threat model applies: untrusted ingested content can carry injected instructions into agent context. The idea of testing at the network/retrieval boundary is host-agnostic (works regardless of Cursor/Claude Code/Codex), but the paper gives no data on which defenses work; use evaluated IPI papers instead.",
+  "conflicts_with": []
+}

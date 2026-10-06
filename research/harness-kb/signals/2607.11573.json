@@ -1,0 +1,201 @@
+{
+ "arxiv_id": "2607.11573",
+ "fulltext_chars": 65414,
+ "fulltext_lines": 1500,
+ "authors_block": "Ziheng Wang, Maike Li, Chen Zhi Affiliation: Zhejiang University Email: {zihwang,22451156,zjuzhichen}@zju.edu.cn",
+ "vendor_affiliation_hits": [],
+ "n_authors": 3,
+ "comment": "12 pages, 7 figures, 6 tables. Preprint",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Knowledge-Guided Synthetic Bug Feedback for LLM-Based Unit Test Generation"
+  ],
+  [
+   28,
+   "###### Abstract"
+  ],
+  [
+   32,
+   "###### Index Terms:"
+  ],
+  [
+   35,
+   "## I Introduction"
+  ],
+  [
+   75,
+   "## II Approach"
+  ],
+  [
+   85,
+   "### II-A Offline Knowledge Construction"
+  ],
+  [
+   93,
+   "#### II-A1 Semantic Mechanism Representation"
+  ],
+  [
+   111,
+   "#### II-A2 Structural Instantiability Representation"
+  ],
+  [
+   139,
+   "### II-B Base Context Retrieval"
+  ],
+  [
+   147,
+   "### II-C Knowledge-Guided Synthetic Bug Injection"
+  ],
+  [
+   151,
+   "#### II-C1 Focal Method Profiling"
+  ],
+  [
+   173,
+   "#### II-C2 Dual Structural-Semantic Recall"
+  ],
+  [
+   183,
+   "#### II-C3 Knowledge-Guided Injection Plan Generation"
+  ],
+  [
+   189,
+   "#### II-C4 Program-Side Execution and Validity Gates"
+  ],
+  [
+   195,
+   "### II-D Bug-Enhanced Iterative Test Improvement"
+  ],
+  [
+   199,
+   "#### II-D1 Base Test Suite"
+  ],
+  [
+   203,
+   "#### II-D2 Synthetic-Bug Feedback"
+  ],
+  [
+   209,
+   "#### II-D3 Promotion Gate and History Preservation"
+  ],
+  [
+   215,
+   "## III Evaluation"
+  ],
+  [
+   235,
+   "### III-A Experimental Setup"
+  ],
+  [
+   237,
+   "#### III-A1 Dataset"
+  ],
+  [
+   289,
+   "#### III-A2 Baselines"
+  ],
+  [
+   305,
+   "#### III-A3 Settings"
+  ],
+  [
+   376,
+   "### III-B RQ1: Effectiveness and Cost"
+  ],
+  [
+   378,
+   "#### III-B1 Design"
+  ],
+  [
+   406,
+   "#### III-B2 Results"
+  ],
+  [
+   450,
+   "### III-C RQ2: Ablation Study"
+  ],
+  [
+   452,
+   "#### III-C1 Design"
+  ],
+  [
+   474,
+   "#### III-C2 Results"
+  ],
+  [
+   542,
+   "### III-D RQ3: Usefulness of Synthetic-Bug Feedback"
+  ],
+  [
+   544,
+   "#### III-D1 Design"
+  ],
+  [
+   566,
+   "#### III-D2 Results"
+  ],
+  [
+   724,
+   "### III-E RQ4: Unique Detection Analysis"
+  ],
+  [
+   726,
+   "#### III-E1 Design"
+  ],
+  [
+   730,
+   "#### III-E2 Results"
+  ],
+  [
+   750,
+   "## IV Related Work"
+  ],
+  [
+   752,
+   "### IV-A LLM-Based Unit Test Generation"
+  ],
+  [
+   760,
+   "### IV-B Synthetic Bugs and Fault Knowledge"
+  ],
+  [
+   766,
+   "## V Threats to Validity"
+  ],
+  [
+   772,
+   "## VI Conclusion"
+  ],
+  [
+   776,
+   "## References"
+  ],
+  [
+   1500,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## V Threats to Validity\n\nFirst, LLM-based test generation is stochastic and token-intensive. Model outputs may be affected by sampling, context length, and execution-feedback details; to mitigate this threat, we use the same model backend and temperature setting for all LLM-based methods. KITE also incurs higher token cost because its multi-stage agent workflow repeatedly provides overlapping repository context to different agents. Future implementations can reduce this overhead by applying prompt or KV caching when supported.\n\nSecond, our benchmark has scope limitations. To control the cost of large-scale LLM experiments, we retain only real-bug instances whose production patch can be localized to a single focal method. This design helps precisely evaluate the ability of unit tests to detect real bugs, but it does not cover multi-method bugs or cross-file fixes. Future work can further expand the benchmark across projects, languages, and bug forms.\n\n## VI Conclusion\n\nThis paper presents KITE, a unit test generation and enhancement framework for real-bug detection. KITE constructs structural and semantic bug-mechanism knowledge from historical real-bug records and transforms recalled bug mechanisms into executable injected methods on the focal method. These injected methods provide LLM-based unit test generation with feedback signals closer to real-bug behavior than coverage or generic mutation scores. Experimental results show that KITE can reliably produce synthetic-bug feedback and substantially improve real-bug detection by generated tests.\n\n## References\n\n[1]\nC. Pacheco and M. D. Ernst (2007)\n\nRandoop: feedback-directed random testing for Java.\n\nIn Companion to the 22nd ACM SIGPLAN Conference on Object-Oriented Programming Systems and Applications Companion,\n\npp. 815–816.\n\nExternal Links: Document\n\nCited by: §I.\n\n[2]\nP. McMinn (2004)\n\nSearch-based software test data generation: a survey.\n\nSoftware Testing, Verification and Reliability 14 (2), pp. 105–156.\n\nExternal Links: Document\n\nCited by: §I.\n\n[3]\nG. Fraser and A. Arcuri (2011)\n\nEvoSuite: automatic test suite generation for object-oriented software.",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 1,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 11,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

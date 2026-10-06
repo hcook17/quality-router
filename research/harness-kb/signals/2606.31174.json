@@ -1,0 +1,248 @@
+{
+ "arxiv_id": "2606.31174",
+ "fulltext_chars": 69673,
+ "fulltext_lines": 1737,
+ "authors_block": "Kaiwen Xiong Affiliation: UNC-Chapel Hill Haonian Ji Affiliation: UNC-Chapel Hill Shi Qiu Affiliation: UNC-Chapel Hill Zeyu Zheng Affiliation: University of California, Berkeley Cihang Xie Affiliation: University of California, Santa Cruz Xinyu Ye ††thanks: Corresponding authors. Affiliation: UNC-Chapel Hill Huaxiu Yao11footnotemark: 1 Affiliation: UNC-Chapel Hill",
+ "vendor_affiliation_hits": [],
+ "n_authors": 7,
+ "comment": "24 pages, 10 figures, website: https://www.clawarena.cc/",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/aiming-lab/ClawArena.",
+  "https://github.com/openai/swarmExperimental"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# ClawArena-Team: Benchmarking Subagent Orchestration and Dynamic Workflows in Language-Model Agents"
+  ],
+  [
+   51,
+   "###### Abstract"
+  ],
+  [
+   57,
+   "## 1 Introduction"
+  ],
+  [
+   67,
+   "## 2 Related Work"
+  ],
+  [
+   69,
+   "#### Agent benchmarks."
+  ],
+  [
+   73,
+   "#### Agent-as-manager and the closest precedents."
+  ],
+  [
+   77,
+   "#### Management primitives in isolation."
+  ],
+  [
+   221,
+   "## 3 The ClawArena-Team Benchmark"
+  ],
+  [
+   223,
+   "### 3.1 Overview"
+  ],
+  [
+   227,
+   "### 3.2 Capability surface"
+  ],
+  [
+   257,
+   "### 3.3 Tasks, staged updates, and design criteria"
+  ],
+  [
+   320,
+   "### 3.4 Construction"
+  ],
+  [
+   324,
+   "### 3.5 Scoring"
+  ],
+  [
+   494,
+   "## 4 Experiments"
+  ],
+  [
+   498,
+   "### 4.1 Setup"
+  ],
+  [
+   508,
+   "### 4.2 Main results"
+  ],
+  [
+   514,
+   "#### Finding 1: the management bottleneck is privilege granting."
+  ],
+  [
+   518,
+   "#### Finding 2: cost and management quality are decoupled."
+  ],
+  [
+   522,
+   "#### Finding 3: scores converge while behaviors diverge."
+  ],
+  [
+   634,
+   "### 4.3 Error analysis"
+  ],
+  [
+   644,
+   "## 5 Conclusion"
+  ],
+  [
+   648,
+   "## Ethical Considerations"
+  ],
+  [
+   652,
+   "## References"
+  ],
+  [
+   994,
+   "## Appendix A Limitations"
+  ],
+  [
+   1002,
+   "## Appendix B Data Sample Overview"
+  ],
+  [
+   1006,
+   "## Appendix C Framework Details"
+  ],
+  [
+   1010,
+   "#### Subagent control surface."
+  ],
+  [
+   1014,
+   "## Appendix D Implementation Details"
+  ],
+  [
+   1040,
+   "#### claude-fable-5 refusals and fallback."
+  ],
+  [
+   1044,
+   "## Appendix E Scoring Details"
+  ],
+  [
+   1048,
+   "#### Correctness variants we omit from the headline."
+  ],
+  [
+   1052,
+   "## Appendix F Pricing Methodology"
+  ],
+  [
+   1156,
+   "## Appendix G Benchmark Construction: Workflow-Driven Synthesis under a Test Flywheel"
+  ],
+  [
+   1160,
+   "### G.1 Why full synthesis"
+  ],
+  [
+   1164,
+   "### G.2 The authoring substrate"
+  ],
+  [
+   1168,
+   "### G.3 Authoring a single scenario"
+  ],
+  [
+   1205,
+   "### G.4 Workflow-driven parallel authoring"
+  ],
+  [
+   1211,
+   "### G.5 The end-to-end test flywheel"
+  ],
+  [
+   1264,
+   "### G.6 Iterative refinement and reproducibility"
+  ],
+  [
+   1268,
+   "## Appendix H Dataset Composition and Statistics"
+  ],
+  [
+   1272,
+   "### H.1 Token and modality composition"
+  ],
+  [
+   1346,
+   "### H.2 File types"
+  ],
+  [
+   1432,
+   "### H.3 Multimodal coverage"
+  ],
+  [
+   1436,
+   "### H.4 Staged updates"
+  ],
+  [
+   1440,
+   "### H.5 Capability-tag taxonomy"
+  ],
+  [
+   1445,
+   "#Tags"
+  ],
+  [
+   1558,
+   "### H.6 Largest scenarios"
+  ],
+  [
+   1562,
+   "## Appendix I Token Usage"
+  ],
+  [
+   1564,
+   "#### Estimation caveat."
+  ],
+  [
+   1717,
+   "## Appendix J Per-Scenario Breakdown"
+  ],
+  [
+   1723,
+   "## Appendix K Tool-Grant and Bash-Mode Statistics"
+  ],
+  [
+   1727,
+   "## Appendix L Case Studies"
+  ],
+  [
+   1737,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## Appendix A Limitations\n\nWorker-quality coupling. The fixed subagent pool is what makes management the only variable across runs (§3), but it ties our findings to a particular worker capability. A stronger pool could let a sloppier manager succeed by absorbing the slack; a weaker pool could force even careful managers to over-grant or over-route. Both are open questions ClawArena-Team does not currently answer.\n\nExecution-based scoring blind spot. All checks gate on machine-verifiable artifacts. This deliberately rejects LLM-judge drift but also under-rewards correct reasoning that produces an unverifiable deliverable, such as a thoughtful conditional answer that the shell command then deems wrong because it does not match an expected literal form.\n\nSample size and implementation notes. The current study evaluates twelve main-agent models on 41 scenarios; broader coverage is ongoing and will refresh all tables. claude-fable-5 is evaluated as shipped with the vendor-recommended refusal \\rightarrow opus-4-8 fallback (§4), so its score is a composite rather than the base model in isolation. Self-hosted-model API costs are imputed from OpenRouter list rates and are approximate.\n\n## Appendix B Data Sample Overview\n\nEach scenario directory contains the workspace, the question sequence, staged updates, and execution checks. All 258 rounds use execution checks ( 100\\% ), each declaring an expected exit code and a timeout (mean 82.9  s) and referencing scenario scripts and the workspace. Updates split into new ( 61.1\\% ) and replace ( 38.9\\% ) groups, averaging 3.54 files per group.\n\n## Appendix C Framework Details\n\nThe main agent is exposed CapitalCase tools (Read/Write/Edit/Bash/Grep/Glob) plus subagent-management tools (CreateSubagent/RunSubagent/ListSubagents/InspectSubagent) and a Workflow tool. System-level signals (environment, token thresholds) are injected via <system-reminder> blocks and background-task completions via <task-notification> blocks. Read degrades out-of-modality files to a textual placeholder and suggests delegation, so a text-only main agent must route multimodal content to a vlm/omni subagent.\n\n#### Subagent control surface.\n\nCreateSubagent fixes a subagent’s system prompt, model key (llm/vlm/omni), tool subset, and path whitelist (a subset of the main agent’s own paths); RunSubagent executes it in the foreground or background and may either start a new session or continue an existing one (session reuse). The Workflow tool accepts a compact JavaScript-style DSL with agent(), parallel(), and pipeline() primitives that drive multiple subagents over the same pool, enabling programmatic parallel and staged orchestration. Read applies soft/hard size thresholds (notice then truncation) to bound context; all path access is realpath-checked and symlink escapes are rejected and counted as forbidden accesses (the MAF/SAFt statistics).\n\n## Appendix D Implementation Details\n\nThe subagent pool is served locally with vLLM and held identical across all evaluated main agents (Table 5). Per-turn generation is capped at 24{,}000 tokens to bound runaway generation. The 200 k main-agent context value is an advisory upper bound (not a hard cutoff in the evaluated runs); effective context depends on each model, whereas subagent budgets are uniform across runs by construction. Main agents are reached through provider-native or OpenAI-compatible APIs (Gemini, OpenRouter, a ChatMock bridge for codex, and a local server for self-hosted models).\n\nKey\nModel\nServer\nNative modalities\n\nllm\ngemma-4-31b-it\nlocal vLLM\ntext\n\nvlm\ngemma-4-31b-it\nlocal vLLM\ntext, image, video\n\nomni",
+ "ethics_coi": "## Ethical Considerations\n\nClawArena-Team uses synthetic scenarios and assets; any resemblance to real entities is incidental. The benchmark surfaces a safety-relevant behavior—over-broad privilege grants by manager agents—which we report to encourage least-privilege design rather than to enable misuse. No human-subjects data is used.\n\n## References\n\nAnthropic (2026a)\nAnthropic\n\nClaude managed agents: get to production 10x faster.\n\nNote: https://claude.com/blog/claude-managed-agentsAccessed 2026\n\nCited by: §1.\n\nAnthropic (2026b)\nAnthropic\n\nIntroducing claude fable 5 and claude mythos 5.\n\nNote: https://platform.claude.com/docs/en/about-claude/models/introducing-claude-fable-5-and-claude-mythos-5Refusals, fallback, and billing on Claude Fable 5. Accessed 2026\n\nCited by: Appendix D,\n§4.1.",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 0,
+  "swe_bench": 3,
+  "contamination": 0,
+  "human_study": 1,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

@@ -1,0 +1,52 @@
+{
+  "arxiv_id": "2606.13643",
+  "contribution_type": "system",
+  "summary": "Names the 'Recursive Agent Harness' (RAH): a parent coding agent writes and runs a script that spawns many full-harness subagents (filesystem, code execution) in parallel over chunks of a huge context, using JSON tool calls for small subtasks. On 199 Oolong-Synthetic long-context aggregation samples (1K-4M tokens), RAH with GPT-5 scores 81.36% vs 71.75% for a Codex coding-agent baseline reported by another paper, and 89.77% with Claude Sonnet 4.5.",
+  "claims": [
+    {"claim": "With GPT-5 fixed, RAH improves the Codex coding-agent baseline from 71.75% to 81.36%, attributable to the harness", "evidence": "Table 1; bootstrap over RAH's 199 per-instance scores gives +9.61 (95% CI [4.2,14.8]). Baselines are copied from Cao et al. 2026, not re-run, so the CI ignores baseline variance; RAH uses a different prompt set, a separate GPT-5 answer-extraction call, and many more model calls (compute not matched), so 'attributable to the harness rather than the model' holds only in the loose sense that harness includes all of these.", "strength": "moderate", "location": "§4.1, §4.2, Table 1"},
+    {"claim": "RAH beats model-only recursion (RLM 64.38%)", "evidence": "Table 1, +16.98 (95% CI [11.5,22.0]) against a fixed published number.", "strength": "moderate", "location": "§4.2"},
+    {"claim": "The design compounds with model quality (89.77% on Sonnet 4.5)", "evidence": "Table 1 single run; no Sonnet 4.5 baselines for Codex/RLM, so the 89.77% is not a controlled comparison.", "strength": "weak", "location": "§4.2"},
+    {"claim": "Latency is bounded by parallelism and cost is manageable via prompt caching", "evidence": "§4.5 explicitly states token and wall-clock profiles were not instrumented for GPT-5; caching savings cited from authors' own prior work.", "strength": "unsupported", "location": "§4.5"}
+  ],
+  "patterns": [
+    {"id": "P12", "stance": "supports", "note": "Isolated subagents each process a slice of the corpus; gain over single coding agent on one benchmark."},
+    {"id": "P13", "stance": "supports", "note": "Parent planner generates an executable spawning script; subagents execute."},
+    {"id": "P33", "stance": "supports", "note": "Code-as-action spawning (Task() scripts) used on all 199 instances."},
+    {"id": "P24", "stance": "contradicts", "note": "No cost or token accounting despite fan-out of many subagents re-reading shared context."}
+  ],
+  "methodology": {
+    "sample": "199 Oolong-Synthetic validation instances, 13 context-length buckets (avg 629K tokens)",
+    "baselines": "Full-context (59.22%), RLM (64.38%), Codex no-retriever (71.75%), all GPT-5 and copied from Cao et al. 2026; not re-run or compute-matched",
+    "models": "GPT-5 (gpt-5-2025-08-07) and Claude Sonnet 4.5; temperature 0",
+    "variance": "Bootstrap CIs over RAH per-instance scores (10,000 resamples); single run, no seeds; baselines treated as fixed points",
+    "ablations": "None (recursion depth, entries per subagent, spawning path not ablated, per §5)",
+    "contamination_controls": "None discussed",
+    "languages": "n/a (natural-language long-context aggregation, not code tasks)"
+  },
+  "standards": {
+    "peer_review": "arXiv preprint, no venue stated",
+    "limitations_section": true,
+    "artifacts": "Prompts in Appendices A-C; implementation and scoring scripts 'will be released shortly' (not available)",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "other:unreplicated_baselines", "detail": "All baselines are numbers reported by another paper; no re-run under the same infrastructure, extraction step, or budget."},
+    {"type": "missing_cost_reporting", "detail": "No token, dollar or latency figures for the GPT-5 configuration despite large subagent fan-out."},
+    {"type": "toy_tasks", "detail": "Oolong-Synthetic is a synthetic aggregation benchmark; Oolong-Real and coding tasks not evaluated."},
+    {"type": "novelty_inflation", "detail": "Authors acknowledge the pattern already exists in production (Anthropic dynamic workflows); contribution is naming plus one benchmark."},
+    {"type": "closed_artifacts", "detail": "Code not yet released."},
+    {"type": "other:shared_extractor", "detail": "GPT-5 answer-extraction step shares model family with the system under test; not human-validated (acknowledged)."}
+  ],
+  "coi": {
+    "affiliations": "PricewaterhouseCoopers, U.S. (all four authors)",
+    "vendor_products_evaluated": "None of PwC's products; OpenAI/Anthropic models used as backbones",
+    "funding": "Not stated",
+    "severity": "low",
+    "detail": "Industry consulting authors; no model or product of theirs is evaluated. Cost claim leans on the authors' own prior work (Lumer et al. 2026b)."
+  },
+  "scores": {"rigor": 2, "reproducibility": 2, "generalizability": 1, "relevance": 3, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Reports CIs and a plausible gain, but against baselines copied from another paper without compute matching, on one synthetic benchmark, with no ablations, no cost data and no released code. Evidence that subagent fan-out helps long-context aggregation, not that it is cost-effective or transfers to coding.",
+  "applicability": "Relevant to the content-ingestion side rather than to coding: when the team must classify, tag or aggregate thousands of independent healthcare-education content items that exceed a context window, a parent agent that writes a fan-out script of per-chunk subagents is a reasonable pattern to prototype. Before adopting it, measure token cost (each subagent re-reads shared context) and add deterministic aggregation and validation of subagent outputs. Nothing here addresses Java, the >=4-repo coordination problem or spec-driven development. The pattern is host-dependent (requires a host that exposes programmatic subagent spawning), so with mixed hosts it should live in a host-neutral runner, not in one host's feature.",
+  "conflicts_with": []
+}

@@ -1,0 +1,25 @@
+{
+  "arxiv_id": "2607.23537",
+  "contribution_type": "benchmark",
+  "summary": "ObsDriveBench is a multiple-choice benchmark for vision-language models in autonomous driving under adverse weather. It is built from K-Radar camera/LiDAR/radar frames (over 1.4k training and 1.3k test frames, giving more than 14k training and 13k test questions) and covers observability awareness, spatial reliability, and risk-aware decision-making. The authors also train ObsDrive (Qwen2.5VL-7B with SFT on normal weather, then GRPO on adverse weather) and report gains over 14 off-the-shelf models.",
+  "claims": [
+    {"claim": "Existing VLMs degrade consistently under real adverse weather and show modality bias (camera > LiDAR > radar).", "evidence": "§5.2.2 / Table 2: qualitative description of degradation across rain, snow, sleet, and fog and per modality; 14 off-the-shelf models in Table 1.", "strength": "moderate", "location": "§5.2, Tables 1-2"},
+    {"claim": "ObsDrive (SFT + adverse-weather RL) improves robustness across all three capabilities and transfers cross-dataset.", "evidence": "§5.2.2 (Ours-RL > Ours-SFT); §5.4: beats Qwen2.5-VL-7B in all 20 DriveBench task-condition settings (Table 4) and by 0.93/0.36 (night) and 1.22/0.72 (rain) on DriveLMM-o1 (Table 5). Compared mainly against its own base model; no variance reported; answers scored with an LLM judge.", "strength": "weak", "location": "§5.2, §5.4, Tables 4-5"}
+  ],
+  "patterns": [
+    {"id": "P25", "stance": "neutral", "note": "GRPO fine-tuning of a VLM for driving perception; not an agent harness and not software engineering."}
+  ],
+  "methodology": {"sample": "K-Radar-derived frames; over 14k training and 13k test MCQs.", "baselines": "14 off-the-shelf MLLMs including GPT-5, Gemini-3.1-Pro, Qwen-VL, InternVL, driving-specific models.", "models": "Qwen2.5VL-7B as the trained base.", "variance": "Not reported.", "ablations": "Input-modality ablation (§5.3); SFT vs RL.", "contamination_controls": "Off-the-shelf models not trained on the ObsDriveBench training split (§5.1).", "languages": "n/a (not code)."},
+  "standards": {"peer_review": "arXiv preprint; no venue in comment.", "limitations_section": false, "artifacts": "Dataset and evaluation code 'will be released' (github.com/russellyq/ObsDriveBench per abstract).", "preregistration": "n/a"},
+  "biases": [
+    {"type": "other:off_topic", "detail": "Autonomous-driving multimodal perception; unrelated to LLM coding agents or software engineering harnesses."},
+    {"type": "llm_judge_unvalidated", "detail": "MCQ answer correctness judged with an LLM-as-judge (§5.1) without a reported validation."},
+    {"type": "no_variance_reported", "detail": "Single-run numbers throughout."}
+  ],
+  "coi": {"affiliations": "The Chinese University of Hong Kong (CSE; Institute of Medical Intelligence and XR).", "vendor_products_evaluated": "None owned by authors.", "funding": "No acknowledgments or funding section found.", "severity": "none", "detail": "Academic benchmark. The authors also ship the top-ranked baseline (ObsDrive), but there is no commercial interest."},
+  "scores": {"rigor": 2, "reproducibility": 1, "generalizability": 1, "relevance": 0, "coi_risk": 0},
+  "verdict": "reject",
+  "verdict_reason": "Off-topic: an autonomous-driving vision-language benchmark under adverse weather, with no bearing on LLM coding agents, agent harnesses, or software engineering.",
+  "applicability": "Does not transfer. Nothing here informs a backend Java team building an agentic harness for healthcare education content ingestion across 4+ repositories, mixed agent hosts, or spec-driven development.",
+  "conflicts_with": []
+}

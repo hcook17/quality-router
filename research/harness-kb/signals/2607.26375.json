@@ -1,0 +1,251 @@
+{
+ "arxiv_id": "2607.26375",
+ "fulltext_chars": 122471,
+ "fulltext_lines": 2884,
+ "authors_block": "Figure 1: Our user study compares two ais—an agent that writes code for users and a chatbot that ensures our users write code—for finishing a web development task. Relative to chatbots, agents initially help users complete the task but largely harm comprehension (Cohen, 2013, p<0.002 , Cohen’s d>0.80 ). Agent users can better extend their code without agents, but this reverses when controlling for initial task accuracy, suggesting gains are driven by initial success over improved understanding. Figure 2: Our between-subjects user study to show how coding agents neglect user understanding. After taking a background quiz, n=54 users design a web-based variant of tic-tac-toe, prompting either: (A) an ai agent that directly edits user code; or (B) a chatbot that gives high-level syntax. We test understanding via comprehension questions about the user’s code, and accuracy on a follow-up task where users must extend their code without the agent. Coding agents follow natural language queries to modify code for users (Chan et al., 2026, e.g., Cursor). They are increasingly popular in nlp, evinced by the advent of “Code Models” and “llm Agents’’ tracks at EMNLP.22 2 https://2026.emnlp.org/calls/main_conference_papers/ Researchers and developers often equate agent progress to task completion metrics in benchmarks (Jimenez et al., 2024), then validate users prefer agents and can use them to finish tasks quickly (Peng et al., 2023; Shao et al., 2026). By this standard, coding agents appe",
+ "vendor_affiliation_hits": [
+  "Cursor"
+ ],
+ "n_authors": 6,
+ "comment": "In-progress Preprint",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/Ebazhanov/linkedin-skill-assessments-quizzes",
+  "https://github.com/aider-ai/aider",
+  "https://github.com/nbalepur/impaired-programming"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "#"
+  ],
+  [
+   55,
+   "###### Abstract"
+  ],
+  [
+   69,
+   "## 1 Intro: Coding Under the Influence"
+  ],
+  [
+   115,
+   "## 2 Background and Related Work"
+  ],
+  [
+   119,
+   "### 2.1 Evaluating Coding Agents"
+  ],
+  [
+   133,
+   "### 2.2 Measuring Code Understanding"
+  ],
+  [
+   146,
+   "## 3 Study Design: AI Website Development"
+  ],
+  [
+   154,
+   "### 3.1 Control for Analyses: Background Quiz"
+  ],
+  [
+   168,
+   "### 3.2 Productivity Metric: Initial Website Task"
+  ],
+  [
+   228,
+   "### 3.3 Understanding Metric 1: Comprehension"
+  ],
+  [
+   260,
+   "### 3.4 Understanding Metric 2: Extension Task"
+  ],
+  [
+   284,
+   "### 3.5 User Recruitment"
+  ],
+  [
+   292,
+   "## 4 Results: Outcomes with Coding Agents"
+  ],
+  [
+   297,
+   "### 4.1 Coding Agents Harm Understanding"
+  ],
+  [
+   305,
+   "### 4.2 Background Skill Drives Comprehension"
+  ],
+  [
+   327,
+   "# Users"
+  ],
+  [
+   356,
+   "### 4.3 Agents Trade Accuracy for Understanding and this can Degrade Extension Ability"
+  ],
+  [
+   369,
+   "## 5 Why Agent Users Lack Comprehension"
+  ],
+  [
+   375,
+   "### 5.1 Discourage “Lazy” Prompting"
+  ],
+  [
+   389,
+   "# Users"
+  ],
+  [
+   418,
+   "### 5.2 Actively Engage Users During Review"
+  ],
+  [
+   424,
+   "### 5.3 Generate More Readable Code"
+  ],
+  [
+   441,
+   "## 6 How Users Perceive Coding Agents"
+  ],
+  [
+   445,
+   "### 6.1 Users Recognize Reduced Understanding with Coding Agents, but Still Prefer Them"
+  ],
+  [
+   502,
+   "### 6.2 Why Users Feel They Lack Understanding"
+  ],
+  [
+   524,
+   "## 7 Conclusion: What’s Next for ai Agents"
+  ],
+  [
+   534,
+   "## 8 Limitations"
+  ],
+  [
+   552,
+   "## 9 Ethical Considerations"
+  ],
+  [
+   571,
+   "## Acknowledgments"
+  ],
+  [
+   580,
+   "## References"
+  ],
+  [
+   1781,
+   "## Appendix A Appendix"
+  ],
+  [
+   1783,
+   "### A.1 User Study Data Details"
+  ],
+  [
+   1791,
+   "### A.2 Model Implementation"
+  ],
+  [
+   1815,
+   "### A.3 Code Readability Implementation"
+  ],
+  [
+   1849,
+   "### A.4 Regressions for User-ai Interactions"
+  ],
+  [
+   1860,
+   "### A.5 Summary Path Mediation Model"
+  ],
+  [
+   1868,
+   "### A.6 Perceived versus True Code Comprehension and Extendability"
+  ],
+  [
+   1874,
+   "### A.7 User Interface Screenshots"
+  ],
+  [
+   1879,
+   "### A.8 Questions for Participants"
+  ],
+  [
+   1883,
+   "#### A.8.1 Background Questions"
+  ],
+  [
+   1990,
+   "#### A.8.2 Initial Task/Comprehension Questions"
+  ],
+  [
+   2021,
+   "#### A.8.3 Qualitative Feedback"
+  ],
+  [
+   2056,
+   "### A.9 Validating Comprehension Questions"
+  ],
+  [
+   2061,
+   "#### A.9.1 Question Validity"
+  ],
+  [
+   2082,
+   "#### A.9.2 Further Analyses of Comprehension"
+  ],
+  [
+   2094,
+   "### A.10 Qualitative Analysis of Chatbot Prompts"
+  ],
+  [
+   2100,
+   "### A.11 Comparing Chatbot and Agent Code"
+  ],
+  [
+   2105,
+   "### A.12 Rubrics"
+  ],
+  [
+   2109,
+   "### A.13 Prompts"
+  ],
+  [
+   2117,
+   "# Users"
+  ],
+  [
+   2182,
+   "# Functions"
+  ],
+  [
+   2205,
+   "# Functions"
+  ],
+  [
+   2884,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgments\n\nWe thank the clip lab at the University of Maryland and the cilvr lab at New York University for their support.\nWe are immensely grateful to Grace Chen for reviewing and validating our study questions, and Navita Goyal for extensive discussions on our modeling.\nWe thank Yu Hou, Dang Nguyen, Navita Goyal, and Paiheng Xu for pilot testing our interface.\nWe also appreciate discussions on earlier drafts from Vishakh Padmakumar, Wichayaporn Wongkamjan, Yu Hou, Deniz Qian, Fumeng Yang, David Weintrop, Shi Feng, Majeed Kazemitabaar, Aakanksha Naik, Joseph Chee Chang, and Pao Siangliulue.\nThis material is based upon work supported by the National Science Foundation under iis-2339746 (Rudinger) iis-2403436 (Boyd-Graber), and dge-2236417 (Balepur).\nAny opinions, findings, and conclusions or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of the National Science Foundation.\n\n## References\n\nAchiam et al. (2023)\nJ. Achiam, S. Adler, S. Agarwal, L. Ahmad, I. Akkaya, F. L. Aleman, D. Almeida, J. Altenschmidt, S. Altman, S. Anadkat, et al.\n\nGpt-4 technical report.\n\narXiv preprint arXiv:2303.08774.\n\nCited by: §A.2.\n\nAnthropic (2025)\nAnthropic\n\nAnthropic economic index: ai’s impact on software development.",
+ "limitations": "## 8 Limitations\n\nOur study is limited in population and domain: we evaluate CS students on two website development tasks.\nWhile common in nlp+hci user studies with coding agents (Yan et al., 2024; Shen and Tamkin, 2026), these findings may not apply to other user groups and tasks.\nThus, we encourage future work to extend our protocol to other domains; we open-source all our data and ui to facilitate these efforts.\n\nFurther, developers typically have custom workflows in practice (Chen et al., 2026) but for feasibility and to control agent use, our interface supports fewer workflow customization features.\nFuture research could test whether our results hold for users working with coding agents they choose—such as Cursor (Chan et al., 2026) or Codex (Chen et al., 2021)—by using our llm-tailored comprehension questions with proctored sessions (Thorgeirsson et al., 2026) or IDE plugins (Yan et al., 2024).\n\nTo ease the burden of manually scoring code and creating questions per user, we rely on imperfect nlp tools.\nDespite our checks—discussions with a front-end engineer, manual review of all generated questions, and llm validation with author-labeled websites—errors still may have slipped through;\nin Appendix A.9, we more rigorously analyze llm-generated questions and do not detect major issues.\nFuture research can explore standardizing and rigorously evaluating llms to support user study design and analysis, such as qualitative coding tools (Lam et al., 2024), question generators (Anugraha et al., 2026), and rubric-based judges (Kim et al., 2024).\n\nFinally, while we argue that user understanding is traditionally a desired objective for programming agents in real-world workflows, we acknowledge there are cases that short-term productivity may be sufficient, such as personal projects just for fun (Hu et al., 2026, e.g., vibe coding a personal website).\nHowever, many novices attempt these projects to gain realistic programming experience—promoting learning, ownership, and engagement (Zhang and Ma, 2023).\nAs a result, coding agents that jointly improve productivity and understanding would still help these users—and should at least be an option.\n\n## 9 Ethical Considerations\n\nOur study shows that coding agents allows users to finish tasks without comprehending the code they write.\nIf this persists over longer periods, this could impede and possibly weaken user’s skill formation (Shen and Tamkin, 2026).\nFuture work should consider these risks when designing coding agents, and we outline many new directions so nlp researchers can design tools that encourage user understanding.\n\nFor our specific user study, we do not collect and release PII in our data and compensate our students with coursework credit.\nTo ensure students are not coerced into participating in our study, we provide an additional assignment that users can complete for the same extra credit—implementing a research paper in Python—that requires the same amount of time ( \\sim 2 hours) as our study.\nThis compensation structure was approved by our organization’s irb.\n\nWe used Generative AI (GenAI) in this project.\nWe used Cursor1010\n 10\n\n https://cursor.com/agents to design our interface and plots, and ChatGPT to refine paper writing.\nGenAI did not directly write any parts of this paper.\nWe take responsibility for GenAI errors.\nBy discussing ai use here, we encourage nlp researchers to do the same.\n\n## Acknowledgments\n\nWe thank the clip lab at the University of Maryland and the cilvr lab at New York University for their support.",
+ "ethics_coi": "## 9 Ethical Considerations\n\nOur study shows that coding agents allows users to finish tasks without comprehending the code they write.\nIf this persists over longer periods, this could impede and possibly weaken user’s skill formation (Shen and Tamkin, 2026).\nFuture work should consider these risks when designing coding agents, and we outline many new directions so nlp researchers can design tools that encourage user understanding.\n\nFor our specific user study, we do not collect and release PII in our data and compensate our students with coursework credit.\nTo ensure students are not coerced into participating in our study, we provide an additional assignment that users can complete for the same extra credit—implementing a research paper in Python—that requires the same amount of time ( \\sim 2 hours) as our study.\nThis compensation structure was approved by our organization’s irb.\n\nWe used Generative AI (GenAI) in this project.\nWe used Cursor1010\n 10\n\n https://cursor.com/agents to design our interface and plots, and ChatGPT to refine paper writing.\nGenAI did not directly write any parts of this paper.\nWe take responsibility for GenAI errors.\nBy discussing ai use here, we encourage nlp researchers to do the same.\n\n## Acknowledgments\n\nWe thank the clip lab at the University of Maryland and the cilvr lab at New York University for their support.\nWe are immensely grateful to Grace Chen for reviewing and validating our study questions, and Navita Goyal for extensive discussions on our modeling.\nWe thank Yu Hou, Dang Nguyen, Navita Goyal, and Paiheng Xu for pilot testing our interface.\nWe also appreciate discussions on earlier drafts from Vishakh Padmakumar, Wichayaporn Wongkamjan, Yu Hou, Deniz Qian, Fumeng Yang, David Weintrop, Shi Feng, Majeed Kazemitabaar, Aakanksha Naik, Joseph Chee Chang, and Pao Siangliulue.",
+ "counts": {
+  "self_reported": 7,
+  "llm_as_judge": 1,
+  "p_value_or_ci": 15,
+  "seeds_or_runs": 0,
+  "swe_bench": 1,
+  "contamination": 0,
+  "human_study": 14,
+  "java": 1,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

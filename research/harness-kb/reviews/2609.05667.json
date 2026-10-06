@@ -1,0 +1,51 @@
+{
+  "arxiv_id": "2609.05667",
+  "contribution_type": "survey",
+  "summary": "Two-author CMU narrative review and forward-looking essay on AI for requirements engineering (RE). It sketches the history of AI-for-RE, LLM advances (pre-training limits, reasoning, context management), prompt programming, generalist SE agents and spec-driven development (spec-first / spec-anchored / spec-as-source), then argues that as implementation gets cheaper RE shifts toward operational specs, context curation, verification and long-horizon evaluation.",
+  "claims": [
+    {"claim": "As implementation becomes cheaper via SE agents, engineering effort shifts from writing code toward expressing, curating, verifying and evaluating requirements (a swing back toward plan-driven development).", "evidence": "Argued in §1 and §5 from cited trade-press/analyst signals (e.g. a 2025 executive survey on headcount reductions, which the authors note is anticipatory) and secondary literature; no new data.", "strength": "weak", "location": "§1, §5.1, §6"},
+    {"claim": "AI-for-RE research has mostly targeted requirements validation, with less work on verification (code/design satisfying requirements).", "evidence": "Based on a review of SE/RE venues since 2020 that the authors state 'is not systematic nor is it comprehensive' (§2); no counts or coding scheme reported.", "strength": "weak", "location": "§2, §5.1.1"},
+    {"claim": "Context files and specs help or hurt agents depending on how they are written; unnecessary requirements reduce success and raise token use.", "evidence": "Cites two prior studies ([113] reduced runtime/tokens; [66] irrelevant content reduces success) and CodeSpecBench best model 20.2% ([28]); secondary evidence accurately hedged as 'mixed'.", "strength": "moderate", "location": "§4.3, §5.1.4"},
+    {"claim": "RE lacks long-horizon benchmarks covering elicitation, planning, trace preservation and requirements-satisfaction testing; BLEU/ROUGE, LLM judges and fluency-dominated human evaluation are inadequate.", "evidence": "Research-agenda argument supported by cited metric critiques ([24,146,21,120,43,168]) and a cited NLG survey (200+ metrics, 478 evaluations, 165 papers [71]).", "strength": "moderate", "location": "§5.1.2-5.1.3"}
+  ],
+  "patterns": [
+    {"id": "P14", "stance": "neutral", "note": "Describes SDD spectrum (spec-first, spec-anchored, spec-as-source) and tools (SpecKit, Kiro, BMAD, OpenSpec); notes lack of evaluation frameworks and spec drift; no new evidence."},
+    {"id": "P34", "stance": "neutral", "note": "Mentions EARS-formatted requirements, Gherkin scenarios and acceptance tests as spec artifacts; calls for trace preservation to stakeholder acceptance tests."},
+    {"id": "P01", "stance": "mixed", "note": "Summarises secondary evidence that AGENTS.md-style context files can reduce runtime or reduce success depending on irrelevant content ([113] vs [66])."},
+    {"id": "P18", "stance": "contradicts", "note": "Cites evidence that LLM judges give biased labels and near-random performance in some settings ([43],[168]); argues they do not solve RE evaluation."},
+    {"id": "P08", "stance": "neutral", "note": "Suggests recursive summarization, hierarchical memory or graph retrieval may be needed to keep agents adherent to growing requirements documentation."},
+    {"id": "P35", "stance": "neutral", "note": "Mentions executable behavioral specs, auto-formalization and offloading verification to provers/model checkers as future directions."}
+  ],
+  "methodology": {
+    "sample": "Non-systematic narrative review of SE/RE venues since 2020 (TSE, TOSEM, REJ, ICSE, FSE, RE, ASE) plus LLM literature; ~200 references; no inclusion criteria or counts.",
+    "baselines": "n/a.",
+    "models": "n/a.",
+    "variance": "n/a.",
+    "ablations": "n/a.",
+    "contamination_controls": "n/a.",
+    "languages": "n/a."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint; no venue in comment or journal_ref.",
+    "limitations_section": false,
+    "artifacts": "None (essay).",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "other:non_systematic_review", "detail": "Authors state the review 'is not systematic nor is it comprehensive' (§2); characterisations of the field cannot be checked."},
+    {"type": "self_reported_numbers", "detail": "Motivation rests on trade-press/analyst figures (executive survey 60%/21% headcount reductions; Copilot +26% task completion) that the authors themselves flag as anticipatory or possibly outdated."},
+    {"type": "hype_language", "detail": "Framing of an industry-wide 'transformation' and fewer developers orchestrating agents is forecast, not evidence."}
+  ],
+  "coi": {
+    "affiliations": "Software and Societal Systems Department, Carnegie Mellon University (both authors).",
+    "vendor_products_evaluated": "None evaluated; SDD tools (SpecKit, Kiro, BMAD, OpenSpec) only mentioned.",
+    "funding": "No funding or acknowledgments section found.",
+    "severity": "none",
+    "detail": "Academic authors with no vendor ties evident."
+  },
+  "scores": {"rigor": 1, "reproducibility": 0, "generalizability": 1, "relevance": 3, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Useful, well-hedged framing of spec-driven development and RE evaluation gaps, but it is an explicitly non-systematic narrative essay with no new evidence; any empirical point should be traced to the cited primary studies, not this paper. Rigor 1 means the gate will reject it as evidence.",
+  "applicability": "Framing only. For a Java team adopting spec-driven development across >=4 ingestion repositories, the spec-first vs spec-anchored vs spec-as-source distinction (§4.3) is a useful decision vocabulary: spec-anchored (specs versioned with code, alignment enforced by tests) is the variant that guards against drift between the ingestion repos and front-end delivery contracts. The paper's call for change-impact analysis and traceability over spec artifacts maps to cross-repo contract checks, and its warning that irrelevant content in context/spec files can hurt agents argues for keeping per-repo AGENTS.md/spec files minimal and host-neutral for mixed agent hosts. It offers no healthcare-specific or Java-specific evidence and no measured effect sizes.",
+  "conflicts_with": []
+}

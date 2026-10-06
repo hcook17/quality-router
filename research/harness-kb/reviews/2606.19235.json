@@ -1,0 +1,30 @@
+{
+  "arxiv_id": "2606.19235",
+  "contribution_type": "system",
+  "summary": "Proposes CodeSentinel, an inference-time sanitizer that parses untrusted code context with Tree-sitter, scores model-facing CST nodes (comments, strings, identifiers, decoy blocks) with syntax rules, a surrogate-model Dynamic Min-K% likelihood score and node-perturbation logit influence, and removes or neutralizes flagged nodes before the context reaches a downstream code LLM. Evaluated on six published code-context injection attack families against three prior defenses.",
+  "claims": [
+    {"claim": "CodeSentinel achieves 0.80 average node-level F1 across six attack families, beating CodeGarrison (0.70), DePA (0.51) and KillBadCode (0.30).", "evidence": "Table 1 confirms the averages; CodeGarrison is better on Flashboom (0.85 vs 0.79). No sample counts per family, no seeds or variance, and baselines appear re-run by the authors with unspecified tuning. Thresholds were tuned on a repository-split validation set.", "strength": "moderate", "location": "§4.2 RQ1, Table 1"},
+    {"claim": "Sanitization reduces attack success on black-box commercial models.", "evidence": "Table 2: ASR drops from 27.11→7.72 (Claude-3.5-Haiku), 18.32→5.81 (GPT-5.1-Codex-mini), 24.14→8.28 (Gemini-3.1-Flash-lite). These are base models, not the 'commercial coding agents' the text claims, and residual ASR stays at 6–8%.", "strength": "moderate", "location": "§4.2 RQ4, Table 2"},
+    {"claim": "Sanitization mostly preserves benign-code utility.", "evidence": "Table 3: HumanEval unchanged, MBPP Pass@1 -6.23, RepoBench exact match -32.67 (BLEU-4 -5.95). A 33-point exact-match drop on repository-level completion contradicts 'mostly preserves' for repo-scale use; the victim model behind the 100% baselines is not stated.", "strength": "weak", "location": "§4.2 RQ5, Table 3"},
+    {"claim": "The defense degrades but holds under adaptive attacks (F1 >= 0.62).", "evidence": "Appendix G/Table 9: Copy Trigger 0.82→0.62, Contextual 0.82→0.66; the table caption says AUROC while the text says F1, and the 0.82 'original' differs from the 0.80 in Table 1.", "strength": "weak", "location": "Appendix G, Table 9"}
+  ],
+  "patterns": [
+    {"id": "P22", "stance": "supports", "note": "Structure-aware sanitization of untrusted code context reduces indirect prompt-injection ASR roughly 3x on three hosted models, single-context only."},
+    {"id": "P05", "stance": "neutral", "note": "Uses Tree-sitter CST parsing as the deterministic first layer."}
+  ],
+  "methodology": {"sample": "Paired benign/adversarial samples from six attack families (XOXO, ITGen, Flashboom, ShadowCode, INSEC, CoTDeceptor), split by repository; sample counts not reported", "baselines": "CodeGarrison, DePA, KillBadCode (recent code-specific defenses); no general prompt-injection defenses (e.g., StruQ) compared", "models": "Surrogates: codegen-350M-mono/multi, Qwen3.5-4B, gemma-4-E4B; victims: open-weight CodeGemma, CodeBERT, Gemma, Mistral families plus Claude-3.5-Haiku, GPT-5.1-Codex-mini, Gemini-3.1-Flash-lite", "variance": "None reported", "ablations": "Cumulative layer ablation (Fig. 3), cross-surrogate (Fig. 4), leave-one-attack-out (Table 8), adaptive attacks (Table 9)", "contamination_controls": "Repository-level splits; thresholds fixed on validation", "languages": "Not specified overall; examples in C; attack datasets are mostly Python/C"},
+  "standards": {"peer_review": "arXiv preprint, no venue", "limitations_section": true, "artifacts": "No code or data release linked", "preregistration": "n/a"},
+  "biases": [
+    {"type": "no_variance_reported", "detail": "Single numbers for all tables; no seeds or CIs."},
+    {"type": "closed_artifacts", "detail": "No code, prompts or sample lists released; baseline re-implementation details absent."},
+    {"type": "self_evaluation", "detail": "Authors' own adaptive attacks against their own defense."},
+    {"type": "metric_mismatch", "detail": "Node-level F1 on known attack families does not capture end-to-end agent compromise in multi-turn, multi-file settings, which the limitations section excludes."},
+    {"type": "other:reporting_inconsistency", "detail": "Table 9 labelled AUROC vs F1 in text; 0.82 vs 0.80 original; models called 'commercial coding agents' are base models."}
+  ],
+  "coi": {"affiliations": "National Yang Ming Chiao Tung University; Hon Hai Research Institute", "vendor_products_evaluated": "Own defense; victim LLMs from Anthropic/OpenAI/Google are not affiliated", "funding": "Not stated", "severity": "none", "detail": "No affiliation with evaluated model vendors or baseline authors."},
+  "scores": {"rigor": 2, "reproducibility": 1, "generalizability": 2, "relevance": 3, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "The method is sensible and the evaluation is broad (three baselines, ablations, leave-one-out and adaptive tests). But no sample sizes, variance or artifacts are given, the reporting has internal inconsistencies, there is a large repo-level utility drop, and the scope is explicitly single-context rather than agentic.",
+  "applicability": "Relevant to the threat model, not ready as a component. Agents ingesting third-party content and reading code across ≥4 repositories face indirect injection through comments and strings. A Tree-sitter pre-filter that strips or flags instruction-like comments and string literals in untrusted context is a cheap, host-neutral harness step (it sits before context assembly, not on the LLM HTTP path). The full method needs local surrogate-model logits, was not shown on Java, and cut RepoBench exact match by 33 points, so blanket sanitization of the team's own repos would hurt completions. Limit it to untrusted inputs (vendor content, external issue text) and rely on sandboxing and permissions for defense in depth.",
+  "conflicts_with": []
+}

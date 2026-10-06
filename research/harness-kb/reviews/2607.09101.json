@@ -1,0 +1,56 @@
+{
+  "arxiv_id": "2607.09101",
+  "contribution_type": "system",
+  "summary": "TestAgent is a three-agent Java unit-test generator (requirement planner, test generator, test reviewer) with on-demand tool APIs over a Neo4j knowledge graph built by static analysis that also stores test reports and failure analyses. With GPT-4o on 1,454 focal methods from six Java projects (five Defects4J plus Ruler), it reports 97.46% execution rate, 92.34% line, 90.24% branch coverage and 83.69% mutation score, beating ChatUniTest, HITS and EvoSuite; extra experiments cover two other LLMs, a private industrial set, a user study and a Python port.",
+  "claims": [
+    {"claim": "97.46% execution, 92.34% line, 90.24% branch, 83.69% mutation score; beats LLM baselines on all metrics and EvoSuite on mutation (43.59%)", "evidence": "Table III totals match the abstract. Single run per approach (§V-C). Baselines use the same GPT-4o (2024-05-13) and original configs; EvoSuite budget 300 s/class.", "strength": "moderate", "location": "§IV-B, Table III"},
+    {"claim": "The knowledge graph is the most important component", "evidence": "Table IV ablation: removing KG drops execution by 12.11%, line/branch coverage to 75.65%/72.62%, mutation to 66.12%; removing reviewer costs 8.09% mutation; retrieval 2.87%.", "strength": "moderate", "location": "§IV-C, Table IV"},
+    {"claim": "Performance holds on unseen industrial code, mitigating leakage", "evidence": "Table VI on UTXXX (658 methods, 4 private Maven/JUnit4 projects): 84.21% line, 82.12% branch, 55.38% mutation, using Qwen3-30B-A3B, HITS excluded. Mutation drops ~28 points vs public, and the model changed, so leakage and model effects are confounded; the 'consistent performance' claim in §V-C is overstated.", "strength": "weak", "location": "§IV-E, Table VI, §V-C"},
+    {"claim": "TestAgent finds real bugs via non-regression tests with 92.22% precision", "evidence": "§V-B: 154 of 167 suspected fault-revealing tests confirmed by two authors in a three-round review; no maintainer confirmation; LLM voting models agree only at kappa 0.39-0.55.", "strength": "weak", "location": "§V-B, Table IX"},
+    {"claim": "Tests are more readable and usable", "evidence": "Table VII: 10 participants with 3-5 years Java experience, blinded, 400 tests on 1-3 scales; no inter-rater agreement or significance test reported.", "strength": "moderate", "location": "§IV-F, Table VII"}
+  ],
+  "patterns": [
+    {"id": "P11", "stance": "supports", "note": "Planner/generator/reviewer roles outperform single-loop LLM baselines; reviewer removal costs 8.09% mutation score."},
+    {"id": "P07", "stance": "supports", "note": "Static-analysis knowledge graph of code entities/dependencies is the largest ablation contributor."},
+    {"id": "P16", "stance": "supports", "note": "Compile/execute/coverage feedback drives iterative repair; failing tests are preserved when judged real defects."},
+    {"id": "P18", "stance": "mixed", "note": "Reviewer agent helps, but LLM voting for defect confirmation has only fair-moderate agreement (kappa 0.39-0.55)."},
+    {"id": "P09", "stance": "introduces", "note": "Test reports and failure analyses persisted in the graph across generation; not separately ablated."},
+    {"id": "P05", "stance": "neutral", "note": "AST-based extraction underpins the graph and tool APIs."}
+  ],
+  "methodology": {
+    "sample": "1,454 focal methods from six Java projects (200 sampled each from Lang and Chart); 658 industrial methods; 141 Python methods",
+    "baselines": "EvoSuite, ChatUniTest, HITS (Java); CodaMosa, CoverUp (Python). Reasonable but no agentic baselines (e.g. a general coding agent asked to write tests)",
+    "models": "GPT-4o (primary), DeepSeek-V3, Qwen3-30B-A3B; o3-mini, DeepSeek-R1, Qwen3-235B as defect-voting models",
+    "variance": "Single run per approach; no CIs",
+    "ablations": "Retrieval, reviewer, knowledge graph removed one at a time; cost-effectiveness analysis",
+    "contamination_controls": "Private industrial dataset, but evaluated with a different model; Defects4J is heavily exposed in pretraining",
+    "languages": "Java primary; Python port"
+  },
+  "standards": {
+    "peer_review": "arXiv preprint, no venue listed",
+    "limitations_section": true,
+    "artifacts": "No code or data URL found in the text",
+    "preregistration": "none for the user study"
+  },
+  "biases": [
+    {"type": "no_variance_reported", "detail": "Single run per approach, acknowledged in §V-C."},
+    {"type": "contamination_risk", "detail": "Five of six projects are Defects4J; industrial check is confounded by switching to Qwen3-30B."},
+    {"type": "self_evaluation", "detail": "Real-bug precision (92.22%) judged by two authors, not by project maintainers."},
+    {"type": "closed_artifacts", "detail": "No artifact link; industrial dataset anonymized as UTXXX."},
+    {"type": "missing_cost_reporting", "detail": "Cost shown only as a utility-vs-cost scatter (Fig. 3); per-method dollar figures not tabulated in the text read."}
+  ],
+  "coi": {
+    "affiliations": "Nanjing University of Science and Technology; Nanjing University; one author at Huawei Cloud Computing Technologies",
+    "vendor_products_evaluated": "None; industrial dataset likely from the Huawei-affiliated author's company (not named)",
+    "funding": "No acknowledgments section found",
+    "severity": "low",
+    "detail": "Vendor co-author but no vendor product is evaluated or promoted; authors evaluate their own tool against baselines."
+  },
+  "scores": {"rigor": 3, "reproducibility": 1, "generalizability": 3, "relevance": 4, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Java-native, multi-baseline evaluation with a meaningful ablation and an industrial dataset, but single runs, no released artifacts, Defects4J contamination, and an overstated generalization claim (industrial mutation score 55.38% vs 83.69%, with a different model).",
+  "applicability": "Directly relevant to a Java backend team: it supports giving the test-writing agent a static-analysis dependency graph of the code (largest ablation effect) and a separate reviewer pass, with compile/execute/mutation feedback in the loop. For ingestion spanning ≥4 repositories, the per-project graph would need to be extended across repos (shared DTOs, content schemas), which the paper does not address. Expect much lower gains on private enterprise code than on Defects4J. Under spec-driven development, the 'requirement planner' step is where spec acceptance criteria should feed in rather than inferring requirements from code. Mutation score (e.g. PIT) is a better gate than line coverage alone.",
+  "conflicts_with": [
+    {"arxiv_id": "2606.18168", "detail": "Finds agent-authored tests often have weak oracles; TestAgent's high mutation scores on Defects4J suggest the opposite for a structured pipeline, but its industrial mutation score (55.38%) is much closer to that concern."}
+  ]
+}

@@ -1,0 +1,191 @@
+{
+ "arxiv_id": "2605.29737",
+ "fulltext_chars": 55173,
+ "fulltext_lines": 1072,
+ "authors_block": "Alexander Sternfeld Affiliation: IEM, HES-SO, Le Foyer, Techno-Pôle 1, Sierre, Switzerland Ljiljana Dolamic Affiliation: Cyber-Defence Campus, armasuisse Science and Technology, Thun, Switzerland Correspondence:alexander.sternfeld@hevs.ch Andrei Kucharavy Affiliation: IEM, HES-SO, Le Foyer, Techno-Pôle 1, Sierre, Switzerland",
+ "vendor_affiliation_hits": [],
+ "n_authors": 3,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [
+  "https://huggingface.co/Qwen/Qwen2.5-Coder-3B-Instruct.",
+  "https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct.",
+  "https://huggingface.co/codellama/CodeLlama-70b-Instruct-hf",
+  "https://huggingface.co/deepseek-ai/deepseek-coder-33b-instruct",
+  "https://huggingface.co/openai/gpt-oss-120b"
+ ],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Minimal Prompt Perturbations Lead to Code Vulnerabilities: Prompt Fragility and Hidden-State Signals in Coding LLMs"
+  ],
+  [
+   35,
+   "###### Abstract"
+  ],
+  [
+   39,
+   "## 1 Introduction"
+  ],
+  [
+   66,
+   "## 2 Related Work"
+  ],
+  [
+   68,
+   "#### Security benchmarks for LLM code generation."
+  ],
+  [
+   72,
+   "#### Prompt perturbations and code generation."
+  ],
+  [
+   76,
+   "#### Probing hidden representations."
+  ],
+  [
+   80,
+   "## 3 Methodology"
+  ],
+  [
+   82,
+   "### 3.1 CWEval benchmark"
+  ],
+  [
+   88,
+   "### 3.2 Mutations"
+  ],
+  [
+   194,
+   "### 3.3 Generation protocol"
+  ],
+  [
+   207,
+   "### 3.4 Hidden states probing"
+  ],
+  [
+   220,
+   "## 4 Results"
+  ],
+  [
+   222,
+   "### 4.1 CWEval benchmark"
+  ],
+  [
+   226,
+   "### 4.2 Effect of Mutations"
+  ],
+  [
+   301,
+   "### 4.3 Token Position versus Precise Mutation"
+  ],
+  [
+   308,
+   "### 4.4 Probing"
+  ],
+  [
+   313,
+   "#### Setup."
+  ],
+  [
+   322,
+   "#### Probe Performance and Patterns Across CWEs"
+  ],
+  [
+   401,
+   "## 5 Conclusion"
+  ],
+  [
+   407,
+   "## Limitations"
+  ],
+  [
+   459,
+   "## Ethical Considerations"
+  ],
+  [
+   466,
+   "## Acknowledgements"
+  ],
+  [
+   470,
+   "## References"
+  ],
+  [
+   742,
+   "## Appendix A Sensitivity Analyses"
+  ],
+  [
+   744,
+   "### A.1 Mutation effects"
+  ],
+  [
+   748,
+   "### A.2 Model family and size"
+  ],
+  [
+   762,
+   "### A.3 Temperature"
+  ],
+  [
+   767,
+   "#### Methodology."
+  ],
+  [
+   846,
+   "#### Results."
+  ],
+  [
+   850,
+   "## Appendix B Position analysis"
+  ],
+  [
+   852,
+   "#### Per-CWE position maps."
+  ],
+  [
+   858,
+   "#### Sensitive positions."
+  ],
+  [
+   966,
+   "#### Single-character flips in the specification."
+  ],
+  [
+   972,
+   "## Appendix C Probing: Hyperparameter Tuning"
+  ],
+  [
+   1056,
+   "## Appendix D Resource Usage and Emissions"
+  ],
+  [
+   1060,
+   "## Appendix E Generative AI Usage"
+  ],
+  [
+   1072,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgements\n\nAlexander Sternfeld was supported by the armasuisse S+T research contract AR-F03-103.\n\n## References\n\nBelinkov (2022)\nY. Belinkov\n\nProbing classifiers: promises, shortcomings, and advances.\n\nComput. Linguistics 48 (1), pp. 207–219.\n\nExternal Links: Link,\nDocument\n\nCited by: §3.4.\n\nBenjamini and Hochberg (1995)\nY. Benjamini and Y. Hochberg\n\nControlling the false discovery rate: a practical and powerful approach to multiple testing.\n\nJournal of the Royal Statistical Society. Series B (Methodological) 57 (1), pp. 289–300.",
+ "limitations": "## Limitations\n\nWe discuss three limitations of our study. First, our findings rest on open-weight, code-specialized models in the 30B-70B range, with a supplementary analysis on two further models (gpt-oss (120B) and Qwen2.5-Coder (3B)) in the appendix. We were unable to evaluate the leading closed-source models or the largest state-of-the-art open coding models, as our design requires generating and scoring many thousands of completions per model and extracting per-layer hidden states for probing. This is computationally prohibitive at frontier scale, and infeasible through closed APIs that do not expose internal representations.\n\nSecond, our probing analysis relies on a single benchmark and therefore on a limited set of CWEs and task specifications. While this benchmark suits our purpose by scoring functionality and security jointly, replicating our mutation and probing analysis across other joint security-functionality benchmarks, or on datasets constructed specifically for this purpose, could strengthen the findings.\n\nModel\nc\ncpp\ngo\njs\npy\n\nfunc\nfunc-sec\nfunc\nfunc-sec\nfunc\nfunc-sec\nfunc\nfunc-sec\nfunc\nfunc-sec\n\ngpt-oss (120B)\n41.9\n32.3\n76.2\n47.6\n21.1\n10.5\n47.8\n30.4\n80.0\n56.0\n\nQwen2.5-Coder (3B)\n22.6\n12.9\n52.4",
+ "ethics_coi": "## Ethical Considerations\n\nThis paper studies how minimal, random prompt perturbations affect the security of code generated by LLMs. These perturbations are the kind that arise from ordinary developer inattention, such as typos, paraphrasing, or autocomplete artifacts. We deliberately distinguish this threat model from adversarial attacks: we do not craft inputs to elicit vulnerabilities, nor do we engage with jailbreaking or prompt injection. Our perturbations are sampled without knowledge of the model’s internals or the security oracle, so the failures we report reflect fragility under benign use rather than an exploit recipe.\nOur work is defensive in orientation. The central artifact we develop, a probe over prompt-end hidden states, is intended to detect and ultimately mitigate insecure generations before code reaches a developer, not to produce them. We report aggregate vulnerability rates and per-CWE probe performance; we do not release novel exploit code, and the vulnerability classes we examine are already catalogued in the public CWE taxonomy and the CWEval benchmark we build on. The illustrative examples we include use the benchmark’s own tasks and are shown to explain a mechanism, not to weaponize it.\n\nOur primary external artifact is the CWEval benchmark Peng et al. (2025), which is released under the Apache-2.0 license and is intended for evaluating the functionality and security of LLM-generated code. We use it for exactly this purpose: we apply prompt mutations and re-run its paired functional and security test oracles to measure how minimal perturbations affect the security of generated code. This is a research use consistent with both the benchmark’s stated intended use and the permissive terms of its license. The code-generation models we study (CodeLlama-70B, DeepSeek-Coder-33B, Qwen3-Coder-30B, and, in the appendix, gpt-oss-120B and Qwen2.5-Coder-3B) are open-weight models used in accordance with their respective licenses and intended use for co",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 12,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

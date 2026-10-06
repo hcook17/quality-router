@@ -1,0 +1,246 @@
+{
+ "arxiv_id": "2606.14154",
+ "fulltext_chars": 84344,
+ "fulltext_lines": 1603,
+ "authors_block": "Youngduk Kim Affiliation: School of Electrical Engineering KAIST climbkim@kaist.ac.kr Minkyoo Song Affiliation: School of Electrical Engineering KAIST minkyoo9@kaist.ac.kr Affiliation: Seungwon Shin Affiliation: School of Electrical Engineering KAIST claude@kaist.ac.kr",
+ "vendor_affiliation_hits": [],
+ "n_authors": 3,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/anthropics/skillsAccessed",
+  "https://github.com/huifer/skill-security-scanAccessed",
+  "https://github.com/protectai/llm-guardAccessed",
+  "https://github.com/snyk/agent-scanAccessed"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# SkillMutator: Benchmarking and Defending Language-and-Code Cross-modal Attacks on LLM Agent Skills"
+  ],
+  [
+   48,
+   "###### Abstract"
+  ],
+  [
+   62,
+   "###### Index Terms:"
+  ],
+  [
+   65,
+   "## I Introduction"
+  ],
+  [
+   141,
+   "## II Background and Related Work"
+  ],
+  [
+   143,
+   "### II-A LLM Agents with Agent Skills"
+  ],
+  [
+   153,
+   "### II-B Attacks on Agent Systems"
+  ],
+  [
+   170,
+   "### II-C LLM-based Security Detection"
+  ],
+  [
+   184,
+   "## III Problem Definition"
+  ],
+  [
+   212,
+   "## IV SkillMutator"
+  ],
+  [
+   274,
+   "### IV-A Target Skills and Attack Categories"
+  ],
+  [
+   287,
+   "#### 4.1 Understand Evaluation Purpose"
+  ],
+  [
+   297,
+   "#### 4.1.a Reproducibility Notes for Difficult Benchmarks"
+  ],
+  [
+   369,
+   "### IV-B Mutation Pipeline"
+  ],
+  [
+   391,
+   "### IV-C Iterative Evasion Refinement"
+  ],
+  [
+   403,
+   "## V LLM-scanner Fine-tuning Framework"
+  ],
+  [
+   470,
+   "### V-A Four-phase Teacher Security Analysis"
+  ],
+  [
+   491,
+   "### V-B Metadata-based Deterministic Refinement"
+  ],
+  [
+   502,
+   "### V-C Inference-time Phase 4 Prefilling"
+  ],
+  [
+   506,
+   "## VI Evaluation"
+  ],
+  [
+   508,
+   "### VI-A Experimental Setup"
+  ],
+  [
+   642,
+   "### VI-B Evaluation of Existing Install-time Scanners"
+  ],
+  [
+   663,
+   "### VI-C Ablation Studies"
+  ],
+  [
+   703,
+   "#### VI-C1 Stealth-aware Attack Selection"
+  ],
+  [
+   714,
+   "#### VI-C2 Iterative Evasion Refinement"
+  ],
+  [
+   726,
+   "### VI-D Fine-tuning Effectiveness"
+  ],
+  [
+   782,
+   "### VI-E Further Analyses"
+  ],
+  [
+   847,
+   "## VII Conclusion"
+  ],
+  [
+   851,
+   "## VIII Ethical Considerations"
+  ],
+  [
+   860,
+   "## References"
+  ],
+  [
+   1354,
+   "## Appendix A Method and Implementation Details"
+  ],
+  [
+   1358,
+   "### A-A Judge Prompt Template"
+  ],
+  [
+   1369,
+   "## Injected attack ground truth"
+  ],
+  [
+   1379,
+   "## Key injected content"
+  ],
+  [
+   1382,
+   "## Scanner output"
+  ],
+  [
+   1391,
+   "### A-B Refinement Prompt Template"
+  ],
+  [
+   1397,
+   "## Research Background"
+  ],
+  [
+   1400,
+   "## Original Skill Files"
+  ],
+  [
+   1403,
+   "## Skill Analysis"
+  ],
+  [
+   1406,
+   "## Attack Scenario to Insert"
+  ],
+  [
+   1409,
+   "## PREVIOUS MUTATION WAS DETECTED"
+  ],
+  [
+   1414,
+   "## Evasion Strategy for This Iteration"
+  ],
+  [
+   1434,
+   "## Static Analysis Evasion Requirements"
+  ],
+  [
+   1437,
+   "## Output Format"
+  ],
+  [
+   1443,
+   "### A-C Forbidden-Pattern Table"
+  ],
+  [
+   1477,
+   "### A-D Per-Phase Schema Specification"
+  ],
+  [
+   1490,
+   "### A-E Deterministic Refine Synthesis Rule"
+  ],
+  [
+   1494,
+   "## Appendix B Empirical Validation Details"
+  ],
+  [
+   1498,
+   "### B-A Baseline Scanner Findings on Unmodified Anthropic Skills"
+  ],
+  [
+   1565,
+   "### B-B Per-Category Classifier Metrics for the Fine-tuned Scanner"
+  ],
+  [
+   1595,
+   "## Appendix C LLM Usage Statement"
+  ],
+  [
+   1603,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "",
+ "ethics_coi": "## VIII Ethical Considerations\n\nTo reduce misuse risk, we conducted all experiments in controlled research environments and used mutated skills only for install-time scanner evaluation.\nThe benchmark is built from public or community skill artifacts and contains no private user data, real credentials, or operational secrets.\nFor marketplace evaluation, we use publicly visible ClawHub skills and auditor-provided labels, reporting only aggregate results.\nWe also reported this threat to Anthropic’s Agent Skills team.\nBecause mutated skills may encode harmful logic, we will release them only upon research-purpose requests.\nWe also release a defensive local scanner to support mitigation. We believe the safety benefits of measuring and defending this cross-modal attack surface outweigh the risks under these controls.\n\n## References\n\n[1]\nS. Yao, J. Zhao, D. Yu, N. Du, I. Shafran, K. Narasimhan, and Y. Cao (2022)\n\nReact: synergizing reasoning and acting in language models.\n\narXiv preprint arXiv:2210.03629.\n\nCited by: §I,\n§II-A.\n\n[2]\nAnthropic (2025)\n\nClaude skills: progressive disclosure for agent capabilities.",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 1
+ },
+ "fulltext_source": "html"
+}

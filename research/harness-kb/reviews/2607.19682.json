@@ -1,0 +1,56 @@
+{
+  "arxiv_id": "2607.19682",
+  "contribution_type": "empirical",
+  "summary": "Experience paper from Tianjin University and Huawei Cloud on CATGen, a Java unit-test generation workflow that retrieves project/build context deterministically (IntelliJ PSI), builds the test-class skeleton from framework templates (JUnit 4/5, Spock, Spring Boot Test, Mockito/PowerMock), asks the LLM only for test logic in a single round, and repairs compile errors with static-analysis rules instead of LLM repair loops. On 183 proprietary industrial focal methods and four Defects4J projects, with nine open-weight 7–33B models, it beats EvoSuite and five LLM test generators on compilation, coverage, time and tokens.",
+  "claims": [
+    {"claim": "CATGen substantially raises compilation success on industrial Java code (91.83% avg vs 67.11% for best LLM baseline RATester, 75.80% EvoSuite)", "evidence": "Table 2 averages across nine models; five runs per configuration averaged; Wilcoxon signed-rank p<0.005 for all pairwise comparisons (unadjusted). Abstract range '24.72%–38.05%' lower bound matches 91.83−67.11; upper bound not reconcilable with the averages printed (HITS gap is 40.81 pp).", "strength": "moderate", "location": "§4.2 Finding I, Table 2"},
+    {"claim": "Deterministic static repair beats iterative LLM repair and cuts time/tokens by 51–69% / 67–84%", "evidence": "Table 4 (QC-32B): CATGen 1,836 s / 203k tokens vs ChatUniTest 3,768 s / 1,091k, HITS 5,924 s / 1,258k; post-processing 77 s and 0 tokens. Table 7 shows baselines improve when their repair is swapped for CATGen's post-processing. Efficiency measured with one model only.", "strength": "moderate", "location": "§4.2 Finding IV, Table 4; §6-II, Table 7"},
+    {"claim": "Each component (skeleton, static repair, enhancement) contributes", "evidence": "Table 3 ablation on QC-32B: w/o repair CSR −16.79; w/o skeleton CovL −16.37; w/o all CSR −38.88. Single model; deltas only, no variance shown.", "strength": "moderate", "location": "§4.2-II, Table 3"},
+    {"claim": "Results generalize to open-source Defects4J", "evidence": "Table 5/6: higher CovL/CovB and mutation score on Chart, Math, Lang, Time with QC-32B only. Defects4J is widely present in pre-training data; no contamination control discussed for this part.", "strength": "weak", "location": "§5, Tables 5–6"},
+    {"claim": "Industrial benchmark avoids data leakage because code is proprietary", "evidence": "Asserted in §1 and §7; plausible but the benchmark (183 methods, 8 projects) is unreleased and was curated by the authors with the partner, intentionally biased toward difficult methods (§4.1).", "strength": "moderate", "location": "§1, §4.1, §7"}
+  ],
+  "patterns": [
+    {"id": "P05", "stance": "supports", "note": "Deterministic AST/PSI-based context retrieval of dependencies and build config beats LLM inference of context (Table 2, Table 3)."},
+    {"id": "P17", "stance": "supports", "note": "Static-analysis-based compile repair replaces LLM repair loops with better CSR and ~0 tokens (Tables 4, 7)."},
+    {"id": "P28", "stance": "supports", "note": "Template-built test skeletons (deterministic scaffolding) with the LLM filling only the logic; ablation shows coverage loss without it."},
+    {"id": "P16", "stance": "mixed", "note": "Argues against iterative LLM repair loops driven by compiler feedback on cost grounds; execution still used for coverage measurement, not as a loop."},
+    {"id": "P32", "stance": "supports", "note": "Evaluated on eight proprietary production Java projects with partner engineers (183 focal methods)."},
+    {"id": "P24", "stance": "supports", "note": "Reports time and tokens per phase; deterministic stages reduce token spend by 67–84%."}
+  ],
+  "methodology": {
+    "sample": "183 focal methods from 8 proprietary Java projects (8 scenario categories, Table 1); Defects4J Chart, Lang, Time, Math",
+    "baselines": "EvoSuite (300 s budget), ChatTester, ChatUniTest, HITS, TELPA, RATester (re-implemented for Java), all re-run with the same open-weight models",
+    "models": "Nine open-weight models: CodeLlama-7B, Llama3.1-8B, DeepSeekCoder 6.7B/33B, DeepSeek-R1-Distill Llama-8B/Qwen-32B, Qwen2.5-Coder 7B/32B, Qwen2.5-32B; ablation/efficiency/Defects4J with QC-32B only",
+    "variance": "Five runs per configuration averaged (despite zero temperature); Wilcoxon signed-rank tests with effect size example; no per-run spread reported",
+    "ablations": "w/o skeleton, w/o repair, w/o enhancement, w/o all; post-processing swap into baselines (Table 7)",
+    "contamination_controls": "Proprietary industrial code argued leakage-free; none for Defects4J",
+    "languages": "Java only (C pilots mentioned in §7 but not reported)"
+  },
+  "standards": {
+    "peer_review": "arXiv preprint (23 pages, experience paper); no venue listed",
+    "limitations_section": true,
+    "artifacts": "Replication repo (github.com/CATGen-repository/CATGen) with prompts, rules, utilities and intermediate results; full source code and industrial benchmark not released (confidentiality)",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "self_evaluation", "detail": "Authors (incl. Huawei Cloud partner engineers) built both the tool and the industrial benchmark, intentionally biased toward the dependency-heavy failure modes CATGen was designed to fix (§4.1, §7 construct validity)."},
+    {"type": "closed_artifacts", "detail": "Industrial benchmark and full CATGen source withheld; only a replication package of rules/prompts."},
+    {"type": "contamination_risk", "detail": "Defects4J generalization study has no contamination discussion."},
+    {"type": "other:dated_models", "detail": "Only 7–33B open-weight models from the Qwen2.5/DeepSeek-Coder era; no frontier models or agentic coding assistants (explicitly excluded in §7), so the gap may shrink with stronger models that infer context better."},
+    {"type": "single_model", "detail": "Ablation, efficiency and Defects4J results use only Qwen2.5-Coder-32B."}
+  ],
+  "coi": {
+    "affiliations": "Tianjin University (5 authors incl. corresponding), Huawei Cloud Beijing (4 authors)",
+    "vendor_products_evaluated": "CATGen, an internal workflow developed with Huawei Cloud; no commercial product benchmarked",
+    "funding": "No acknowledgments/funding section found in the extracted text",
+    "severity": "medium",
+    "detail": "Industrial co-authors supplied and curated the proprietary benchmark used to validate their own deployed workflow; no independent replication possible because data is closed."
+  },
+  "scores": {"rigor": 3, "reproducibility": 2, "generalizability": 3, "relevance": 4, "coi_risk": 2},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Java industrial evaluation with many baselines, ablations and paired tests is unusually relevant, but the benchmark is closed and self-curated, models are small/dated, and some abstract ranges do not reconcile with Table 2.",
+  "applicability": "Directly relevant to a Java backend team: when the harness asks an agent for unit tests over Spring/Mockito-heavy ingestion services, it should deterministically extract dependencies and build config, stamp a framework-correct test skeleton, and run rule-based compile repair rather than burn tokens on LLM fix loops. Fits spec-driven development as a deterministic post-processing stage behind the spec. It says nothing about cross-repo (≥4 repos) contracts or mixed agent hosts; it is a pipeline, not an interactive host, so the team would need to wrap its ideas (PSI/JavaParser context, templates, repair rules) as host-agnostic CLI tools. Re-validate with current frontier models before assuming the same margins.",
+  "conflicts_with": [
+    {"arxiv_id": "2607.19653", "detail": "PerfAgent finds iterative execution-feedback loops are where the gains come from, whereas CATGen argues single-round generation plus deterministic repair beats iterative LLM repair loops; different tasks (optimization vs test compilation), but opposite conclusions on loop value."}
+  ]
+}

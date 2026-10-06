@@ -1,0 +1,54 @@
+{
+  "arxiv_id": "2605.16821",
+  "contribution_type": "system",
+  "summary": "Describes the authors' open-source buddyMe agent framework: a 'Sprint Contract' generator/evaluator plan pre-review, ReAct execution, real execution of produced Python/HTML/shell artifacts, a six-dimension weighted LLM evaluation, and an Evaluator–Defender debate. Evidence is one HTML travel-guide case study, a five-scenario table of plan-review outcomes, and a table of approximate debate statistics, all judged by LLMs (DeepSeek-v4-pro executor, GLM-5.1 evaluator).",
+  "claims": [
+    {"claim": "Generator-Evaluator pre-review detects requirement omissions in 20% of complex tasks, with 80% passing initial inspection.", "evidence": "Table 5 has 5 scenarios: 1 (blog post) had an omission = 20%; but only scenarios 1, 2, 4 passed first round = 3/5 = 60%, not 80% as stated in §6.3 and the arXiv abstract. n=5.", "strength": "unsupported", "location": "§6.3, Table 5"},
+    {"claim": "The ReAct loop leads to ~30% redundant tool invocations.", "evidence": "No 30% figure appears in the body; only qualitative notes on redundant reads in one case study (Table 4: verify.py read 8 times).", "strength": "unsupported", "location": "§6.2"},
+    {"claim": "Adversarial Evaluator-Defender discussion reaches consensus in 2-3 rounds for ~70% (arXiv abstract) / 95% (PDF abstract and conclusion) of scenarios.", "evidence": "Table 6 gives approximate values ('~70%' Defender acceptance, '~5%' max rounds) with no count of discussions, no data source, inconsistent percentages between abstract versions.", "strength": "unsupported", "location": "§6.4, Table 6"},
+    {"claim": "Four empirical case studies from deployment logs (museum guide, scheduled weather, tour planning).", "evidence": "Body contains one case study (Beijing travel guide HTML) plus a five-scenario pre-review table; museum and weather case studies are not present in the extracted text.", "strength": "unsupported", "location": "§6"},
+    {"claim": "Separating executor and evaluator LLM clients removed +0.12 score inflation.", "evidence": "Anecdotal 'lesson' in §7.2; no data, sample size, or human ground truth reported.", "strength": "unsupported", "location": "§7.2"}
+  ],
+  "patterns": [
+    {"id": "P18", "stance": "introduces", "note": "Six-dimension LLM judge plus Evaluator–Defender debate; no validation against humans."},
+    {"id": "P34", "stance": "introduces", "note": "'Sprint Contract' structured requirement doc with quantifiable success criteria used for planning and evaluation; n=5 anecdotal."},
+    {"id": "P16", "stance": "introduces", "note": "Real execution of generated Python/HTML/shell as evidence; limited to offline-runnable artifacts (§7.3)."},
+    {"id": "P11", "stance": "introduces", "note": "Generator/Evaluator/Defender roles; no comparison against single-agent."},
+    {"id": "P09", "stance": "neutral", "note": "Three-layer memory described; not evaluated."}
+  ],
+  "methodology": {
+    "sample": "1 end-to-end case study; 5 pre-review scenarios; unspecified number of debate sessions.",
+    "baselines": "None empirically; CrewAI/AutoGen/LangGraph compared only in a feature table.",
+    "models": "DeepSeek-v4-pro executor, GLM-5.1 evaluator.",
+    "variance": "None.",
+    "ablations": "None.",
+    "contamination_controls": "n/a",
+    "languages": "Generated HTML/Python/Vue/REST design artifacts; non-SE tasks (travel guide, blog)."
+  },
+  "standards": {
+    "peer_review": "None (arXiv comment: 11 pages, 7 tables).",
+    "limitations_section": true,
+    "artifacts": "Framework code at github.com/virgo777/buddyme-code; no logs or evaluation data released.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "self_evaluation", "detail": "Authors' framework scored by its own built-in LLM evaluator."},
+    {"type": "llm_judge_unvalidated", "detail": "All quality scores are LLM-generated; 'closer to human expert assessments' asserted without data."},
+    {"type": "small_sample", "detail": "One case study and five scenarios."},
+    {"type": "cherry_picked_examples", "detail": "Case study 'selected because it exercises all pipeline phases'."},
+    {"type": "hype_language", "detail": "'irrefutable evidence' / 'irrefutable proof of output quality that cannot be fabricated'."},
+    {"type": "other:abstract_body_mismatch", "detail": "arXiv abstract numbers (30% redundant calls, 70% consensus, four case studies incl. museum/weather) do not appear in the body; 80% first-round pass is arithmetically 60%."}
+  ],
+  "coi": {
+    "affiliations": "BuddyMe Research Team (Nanjing) and CHARMMIRAEL Biotech Co., Ltd.",
+    "vendor_products_evaluated": "The authors' own buddyMe framework.",
+    "funding": "Not stated.",
+    "severity": "medium",
+    "detail": "Framework authors promoting their own open-source product with self-scored evaluations and no independent check; not a commercial model vendor."
+  },
+  "scores": {"rigor": 0, "reproducibility": 1, "generalizability": 0, "relevance": 1, "coi_risk": 3},
+  "verdict": "reject",
+  "verdict_reason": "No real evaluation: one cherry-picked case study and five scenarios scored by the system's own LLM evaluator; headline abstract numbers are absent from or contradicted by the body (80% vs 3/5=60%; 30% redundancy absent; 70% vs 95% consensus). Tasks are not software-engineering-at-scale.",
+  "applicability": "Nothing here should drive a decision for the Java multi-repo team. The ideas worth tracking elsewhere — a requirements contract with measurable success criteria checked before and after execution (close to spec-driven development) and isolating evaluator context from executor context — need evidence from other papers.",
+  "conflicts_with": []
+}

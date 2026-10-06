@@ -1,0 +1,20 @@
+{"arxiv_id": "2605.12280",
+ "blind_scores": {"rigor": 1, "reproducibility": 2, "generalizability": 1, "relevance": 2, "coi_risk": 2},
+ "blind_verdict": "reject", "blind_coi_severity": "low",
+ "agreement": "major_disagreement",
+ "claims_disputed": [
+  {"claim": "Iterative expanded-scope auditing surfaced 51 defects over nine rounds with non-monotonic convergence (15, 8, 12, 2, 8, 1, 4, 1, 0).", "proposed_strength": "weak", "reason": "The counts match Table 4, but each 'defect' is a Claude finding accepted and coded by the single author (Appendix B), with no independent check of precision and no recall estimate. The audit scope widened by design (single-file rounds 1–2, multi-file 3–5, full-scope 6–9; Appendix A), and fixes between rounds were applied during the study. The curve therefore reflects protocol changes, not convergence of a fixed process. The stopping rule was a single clean pass, which the author himself says is too weak (§6)."},
+  {"claim": "The taxonomy is reliable: Cohen's kappa 0.80 on category, 0.46 on severity.", "proposed_strength": "unsupported", "reason": "The second coder is the modal label of four LLMs (one at flash tier) on 18 items (Table 11). The severity κ CI is [0.008, 0.811] and the category CI is [0.564, 1.000]. Appendix B still states 'Inter-rater validation was not performed'. This is not inter-rater reliability in the human sense, and the abstract presents it as an 'inter-rater reliability check' without qualification."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P18", "from": "supports", "to": "mixed", "reason": "On production there is no ground truth, so it is unknown what the LLM auditors missed or got wrong. The only controlled evidence is 5 author-seeded defects in a ~114-line fixture with intentionally higher defect density. That is too thin for 'supports' of LLM reviewers as a pattern; the paper's own n=1 caveats apply."},
+  {"id": "P27", "from": "supports", "to": "neutral", "reason": "The cross-lane defects are inconsistencies among eight prompt documents of one system, not coordination across repositories. Finding such defects shows the problem exists; it is not evidence that any cross-repo contract mechanism works."}
+ ],
+ "missed_issues": [
+  "The abstract labels LLM-panel agreement as an 'inter-rater reliability check' without saying the second coder is an LLM; this is hype_language/misleading framing. Appendix B contradicts §4.6 ('Inter-rater validation was not performed').",
+  "Gold-label key for the 'public' fixture is withheld ('held back ... until after the v15 review cycle'; Data Availability), so the replication evidence is not independently checkable yet; the AEGIS specs are also withheld.",
+  "Confound: the same Claude family authored AEGIS specs, audited them, and (per protocol) supported remediation between rounds; cascading edits are offered as an explanation but are an uncontrolled intervention.",
+  "Mann–Kendall p=0.008 on 9 non-independent points is reported in the abstract-level conclusions despite the author conceding non-independence.",
+  "COI is somewhat higher than 'low/1': the sole author's employer holds commercial licensing rights to AEGIS-based products, and the author designed the system, protocol, fixture, seeded defects and coding with no independent party involved."
+ ],
+ "note": "Candid but essentially an n=1, single-coder anecdote with an author-built 5-defect fixture and LLM-only 'IRR'. The first review's relevance 4 and 'supports' stances on P18/P27 overstate what it can bear. I would exclude it from load-bearing conclusions (reject), or at most cite it as a protocol idea."}

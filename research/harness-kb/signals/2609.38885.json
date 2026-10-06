@@ -1,0 +1,171 @@
+{
+ "arxiv_id": "2609.38885",
+ "fulltext_chars": 52640,
+ "fulltext_lines": 1430,
+ "authors_block": "Haobin Li Liang Jiang Zhenyu Huang Mouxing Yang Xi Peng Doing More with Less Tokens: Hierarchical Reinforcement Learning for Efficient Coding Agents Haobin Li1 Liang Jiang2 Zhenyu Huang1 Mouxing Yang1 Xi Peng1 1Sichuan University 2Independent Researchers Recently, coding agents have emerged as a dominant paradigm for real-world software engineering (SWE) scenarios, which solve complex tasks through multi-turn interactions with development environments. However, frequent interactions with environments would inevitably introduce substantial token overhead, leading to high usage costs and latency. Although recent studies have explored reducing token usage by context manipulation and interaction limits at inference time, these approaches focus on improving token efficiency while overlooking the risk of discarding task-relevant information, thus struggling to balance the trade-off between resolution rate and token efficiency. In this paper, we study a more general paradigm without suffering from the limitation, i.e., training token-efficient coding agents with promising resolution performance, which is a highly-practical yet less-explored problem. To this end, we reveal two core observations in SWE scenarios: i) Efficiency Variation: successful resolution could be achieved with fewer tokens; ii) Entropy Correlation: unproductive behaviors are associated with turn-level entropy. Motivated by observations, we propose a novel reinforcement learning framework, dubbed HERO. Specificall",
+ "vendor_affiliation_hits": [
+  "GitHub"
+ ],
+ "n_authors": 5,
+ "comment": "20 pages, 9 figures",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Doing More with Less Tokens: Hierarchical Reinforcement Learning for Efficient Coding Agents"
+  ],
+  [
+   57,
+   "## 1 Introduction"
+  ],
+  [
+   107,
+   "## 2 Related Work"
+  ],
+  [
+   111,
+   "### 2.1 Coding Agents"
+  ],
+  [
+   121,
+   "### 2.2 Token-Efficient Reinforcement Learning"
+  ],
+  [
+   132,
+   "## 3 Method"
+  ],
+  [
+   139,
+   "### 3.1 Problem Formulation"
+  ],
+  [
+   175,
+   "### 3.2 Hierarchical Policy Optimization"
+  ],
+  [
+   207,
+   "### 3.3 Multi-granularity Efficiency Credit Assignment"
+  ],
+  [
+   219,
+   "#### 3.3.1 Coarse-grained Trajectory Advantage"
+  ],
+  [
+   236,
+   "#### 3.3.2 Fine-grained Turn Advantage"
+  ],
+  [
+   253,
+   "## 4 Experiments"
+  ],
+  [
+   257,
+   "### 4.1 Experiment Configurations"
+  ],
+  [
+   423,
+   "### 4.2 Comparisons with State-of-the-Art Methods"
+  ],
+  [
+   435,
+   "### 4.3 Ablation and Analytic Study"
+  ],
+  [
+   508,
+   "## 5 Conclusion"
+  ],
+  [
+   515,
+   "## References"
+  ],
+  [
+   867,
+   "## Appendix A More Implementation Details"
+  ],
+  [
+   871,
+   "### A.1 Training Data"
+  ],
+  [
+   877,
+   "### A.2 More Implementation Settings"
+  ],
+  [
+   920,
+   "### A.3 Entropy Estimation"
+  ],
+  [
+   931,
+   "### A.4 Identification of Unproductive Behaviors"
+  ],
+  [
+   959,
+   "## Appendix B Additional Experimental Results"
+  ],
+  [
+   963,
+   "### B.1 Comparisons with Token-Efficient Reinforcement"
+  ],
+  [
+   1046,
+   "### B.2 Comparisons with Inference-Time Methods"
+  ],
+  [
+   1150,
+   "### B.3 Analytic Study on Prefix-Cache Reuse and Inference Cost"
+  ],
+  [
+   1207,
+   "### B.4 Ablation Studies on SWE-bench Multilingual"
+  ],
+  [
+   1245,
+   "### B.5 Analytic Study on Token Usage Breakdown"
+  ],
+  [
+   1303,
+   "### B.6 Analytic Study on Scaffold Generalization"
+  ],
+  [
+   1346,
+   "### B.7 More Detailed Ablation Studies"
+  ],
+  [
+   1389,
+   "### B.8 Sensitivity to the Capability Threshold"
+  ],
+  [
+   1396,
+   "### B.9 Sensitivity to the Entropy Percentile"
+  ],
+  [
+   1403,
+   "### B.10 Analytic Study on Fine-grained Turn Advantage"
+  ],
+  [
+   1430,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 1,
+  "swe_bench": 39,
+  "contamination": 1,
+  "human_study": 0,
+  "java": 1,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

@@ -1,0 +1,18 @@
+{"arxiv_id": "2608.23740",
+ "blind_scores": {"rigor": 3, "reproducibility": 2, "generalizability": 2, "relevance": 3, "coi_risk": 1},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "AgentRoom x2 suppresses lone-agent abandonment.", "proposed_strength": "weak", "reason": "The 'abandonment' label is structurally easier for a two-agent run to avoid. It requires a sub-0.3 score AND (duration <200 s OR <=2 source files) (App. B.12). Two concurrent agents naturally write more files and keep the run alive until the slower agent exits. That is a metric_mismatch with 'suppresses abandonment behaviour', and AgentRoom also uses about 2x compute (Table 5: 1072 s vs 550 s). The paper calls Tier I 'judge-free', but the codebook gates on a <0.3 quality score whose scorer is not specified in that section. App. B.12 admits that more permissive thresholds 'reclassify Codex AgentRoom runs from infrastructure to abandonment', so the default threshold sends some AgentRoom failures to the excluded infrastructure bucket. The CMH statistics are sound; the construct is not."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P04", "from": "supports", "to": "mixed", "reason": "No evidence that exposing coordination via MCP specifically helps. The MCP-tool step (0.588 to 0.669, n=7) has an interval spanning zero, and in the execution oracle (App. B.18) AgentRoom is 5.06 vs shared-only 4.91 capabilities. MCP itself caused failures: Gemini stdio framing, GPT-5.4-mini concurrent-MCP crashes. That is mixed at best."},
+  {"id": "P13", "from": "contradicts", "to": "neutral", "reason": "The baseline is an author re-implementation of ChatDev's 3-phase role pipeline. 7 of 13 runs crashed in the orchestrator before writing code and only n=6 remain. That shows a fragile baseline, not evidence that planner-executor orchestration fails."}
+ ],
+ "missed_issues": [
+  "The execution oracle undermines the headline 'Coordination, not parallelism or CRDT-merge, bears the load' (abstract). Under App. B.18, shared-only (CRDT, no coordination) reaches 4.91/10 against AgentRoom's 5.06. Nearly all the gain over parallel-merge (1.00) comes from not overwriting files, i.e. the shared substrate. The review flags the interior reversal but does not say that this contradicts the abstract's causal claim.",
+  "'Matched compute' holds only among the two-agent conditions. Every AgentRoom-vs-Solo statement (abandonment OR 13.7, conditional quality +0.125) compares about 2x compute against 1x (Table 5).",
+  "Unsupported assertion that Cursor's multi-agent editor, Claude Code agent teams and JetBrains 'run the file-claim pattern in production' (§5). No evidence or citation is given, and it inflates novelty and relevance.",
+  "missing_cost_reporting is only partial: dollar cost appears only for the Haiku-vs-Sonnet contrast ('roughly half'), derived from per-token price ratios rather than measured spend."
+ ],
+ "note": "Strong first review that already grades most claims weak. It is too lenient on the Tier I abandonment construct, which is mechanically favoured by two agents and compute-unmatched, and on the P04/P13 stances."}

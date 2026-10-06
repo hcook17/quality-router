@@ -1,0 +1,415 @@
+{
+ "arxiv_id": "2609.37590",
+ "fulltext_chars": 117246,
+ "fulltext_lines": 2824,
+ "authors_block": "Shantanu Dixit Anson Bastos Xuchao Zhang Chetan Bansal Saravan Rajmohan Affiliation: M365 Research, Microsoft",
+ "vendor_affiliation_hits": [
+  "Microsoft"
+ ],
+ "n_authors": 5,
+ "comment": "Preprint. Under Review",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   26,
+   "# FOCUS: Training-Free Decision-Preserving Context Compression for LLM Agents"
+  ],
+  [
+   40,
+   "###### Abstract"
+  ],
+  [
+   45,
+   "## 1 Introduction"
+  ],
+  [
+   101,
+   "## 2 Related Work"
+  ],
+  [
+   103,
+   "##### Long-horizon LLM agents."
+  ],
+  [
+   108,
+   "##### Context compression."
+  ],
+  [
+   113,
+   "##### Context compression for LLM agents."
+  ],
+  [
+   123,
+   "## 3 Problem Formulation"
+  ],
+  [
+   167,
+   "## 4 Method: FOCUS"
+  ],
+  [
+   244,
+   "### 4.1 Span-Level State Representation"
+  ],
+  [
+   253,
+   "### 4.2 Counterfactual Future Utility"
+  ],
+  [
+   260,
+   "###### Definition 1 (Counterfactual Future Utility)."
+  ],
+  [
+   282,
+   "###### Proposition 1 (Counterfactual utility and the Information Bottleneck objective)."
+  ],
+  [
+   301,
+   "### 4.3 Draft-Model Monte Carlo Estimation"
+  ],
+  [
+   317,
+   "###### Proposition 2 (Dependency score bounds counterfactual utility)."
+  ],
+  [
+   338,
+   "### 4.4 Defensive Verification"
+  ],
+  [
+   349,
+   "## 5 Experiments"
+  ],
+  [
+   364,
+   "### 5.1 Results"
+  ],
+  [
+   793,
+   "## 6 Conclusion"
+  ],
+  [
+   798,
+   "## AI Use Statement"
+  ],
+  [
+   802,
+   "## Reproducibility Statement"
+  ],
+  [
+   808,
+   "## References"
+  ],
+  [
+   1018,
+   "## Appendix A Appendix"
+  ],
+  [
+   1020,
+   "### A.1 Theoretical Analysis"
+  ],
+  [
+   1113,
+   "### A.2 From Dependency Scores to Counterfactual Utility"
+  ],
+  [
+   1127,
+   "##### Future variable."
+  ],
+  [
+   1137,
+   "###### Definition 2 (Dependency indicator and dependency score)."
+  ],
+  [
+   1153,
+   "###### Definition 3 (Signed perturbation)."
+  ],
+  [
+   1167,
+   "###### Assumption 1 (Dependency-directed perturbation)."
+  ],
+  [
+   1186,
+   "###### Proposition 3 (Utility decomposition and sandwich bound)."
+  ],
+  [
+   1198,
+   "###### Proof."
+  ],
+  [
+   1214,
+   "###### Remark (Interpretation of m_{i} )."
+  ],
+  [
+   1230,
+   "###### Assumption 2 (Bounded conditional impact)."
+  ],
+  [
+   1246,
+   "###### Corollary 1 (One-sided safety certificate)."
+  ],
+  [
+   1259,
+   "###### Proof."
+  ],
+  [
+   1280,
+   "###### Remark (What the guarantee does not say)."
+  ],
+  [
+   1316,
+   "##### From dependency scores to rollouts."
+  ],
+  [
+   1345,
+   "#### A.2.1 Information Bottleneck Objective"
+  ],
+  [
+   1347,
+   "###### Assumption 3 (Bounded future-interaction)."
+  ],
+  [
+   1369,
+   "##### Motivation and horizon dependence."
+  ],
+  [
+   1398,
+   "###### Proposition 4 (Counterfactual utility and the Information Bottleneck objective)."
+  ],
+  [
+   1447,
+   "###### Proof."
+  ],
+  [
+   1625,
+   "###### Corollary 2 (Gap between utility-selected and IB-optimal traces)."
+  ],
+  [
+   1657,
+   "###### Proof."
+  ],
+  [
+   1673,
+   "#### A.2.2 Utility Separation and Estimation Accuracy"
+  ],
+  [
+   1677,
+   "###### Assumption 4 (Utility Margin)."
+  ],
+  [
+   1691,
+   "##### Empirical validation of the margin."
+  ],
+  [
+   1707,
+   "###### Lemma 1 (Uniform Concentration of Utility Estimates)."
+  ],
+  [
+   1715,
+   "###### Proof sketch."
+  ],
+  [
+   1726,
+   "#### A.2.3 Recovery of Future-Relevant Spans"
+  ],
+  [
+   1742,
+   "###### Theorem 1 (High-Probability Recovery of Future-Relevant Spans)."
+  ],
+  [
+   1752,
+   "###### Proof sketch."
+  ],
+  [
+   1767,
+   "#### A.2.4 From Span Recovery to Decision Preservation"
+  ],
+  [
+   1783,
+   "###### Assumption 5 (Bounded Residual Compression Error)."
+  ],
+  [
+   1792,
+   "###### Corollary 3 (Decision Preservation under Span Recovery)."
+  ],
+  [
+   1806,
+   "###### Proof sketch."
+  ],
+  [
+   1814,
+   "#### A.2.5 Effect of Missed Spans"
+  ],
+  [
+   1824,
+   "###### Assumption 6 (Subadditive Omission Loss)."
+  ],
+  [
+   1834,
+   "###### Proposition 5 (Decision Loss with Missed Spans)."
+  ],
+  [
+   1848,
+   "#### A.2.6 Empirical Validation of the Draft-Model Estimator"
+  ],
+  [
+   1854,
+   "##### Protocol."
+  ],
+  [
+   1864,
+   "##### Estimation error decays as O(1/\\sqrt{N}) (Lemma )."
+  ],
+  [
+   1871,
+   "##### The keep-decision locks with far fewer samples (Theorem )."
+  ],
+  [
+   1880,
+   "##### Agreement with the KL counterfactual reference."
+  ],
+  [
+   1886,
+   "#### A.2.7 Discussion"
+  ],
+  [
+   2390,
+   "### A.3 Related Work"
+  ],
+  [
+   2392,
+   "##### Memory-augmented agents."
+  ],
+  [
+   2415,
+   "##### Comparison with Recent Agent Context Compression Methods."
+  ],
+  [
+   2472,
+   "### A.4 Additional Results on WebVoyager and \\tau^{2}- Bench"
+  ],
+  [
+   2476,
+   "### A.5 Latency Breakdown"
+  ],
+  [
+   2552,
+   "### A.6 Token Statistics"
+  ],
+  [
+   2593,
+   "### A.7 Benchmarks"
+  ],
+  [
+   2597,
+   "##### AppWorld"
+  ],
+  [
+   2601,
+   "##### OfficeBench"
+  ],
+  [
+   2605,
+   "##### 8-Objective QA"
+  ],
+  [
+   2609,
+   "##### WebVoyager"
+  ],
+  [
+   2613,
+   "##### \\tau^{2} -bench"
+  ],
+  [
+   2704,
+   "### A.8 Evaluation Metrics"
+  ],
+  [
+   2708,
+   "##### Steps."
+  ],
+  [
+   2712,
+   "##### Peak Tokens."
+  ],
+  [
+   2720,
+   "##### Dependency (Dep)."
+  ],
+  [
+   2728,
+   "### A.9 Implementation Details"
+  ],
+  [
+   2732,
+   "##### Inference Details."
+  ],
+  [
+   2736,
+   "##### Hyperparameters."
+  ],
+  [
+   2740,
+   "##### API Cost Estimation."
+  ],
+  [
+   2744,
+   "##### Draft Model Prompt."
+  ],
+  [
+   2758,
+   "##### Rollout Example."
+  ],
+  [
+   2780,
+   "### A.10 Qualitative Analysis of Failure and Success Cases"
+  ],
+  [
+   2784,
+   "##### Failure mode: set-generalized plans undervalue per-entity spans."
+  ],
+  [
+   2794,
+   "##### Condition for miscalibration."
+  ],
+  [
+   2798,
+   "##### Where forward-looking compression helps."
+  ],
+  [
+   2812,
+   "##### Takeaway."
+  ],
+  [
+   2816,
+   "### A.11 Potential Risks"
+  ],
+  [
+   2820,
+   "### A.12 Licenses."
+  ],
+  [
+   2824,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

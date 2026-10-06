@@ -1,0 +1,15 @@
+{
+  "arxiv_id": "2609.08149",
+  "blind_scores": {"rigor": 3, "reproducibility": 4, "generalizability": 3, "relevance": 2, "coi_risk": 1},
+  "blind_verdict": "admit_with_caveats",
+  "blind_coi_severity": "low",
+  "agreement": "agree",
+  "claims_disputed": [],
+  "pattern_stance_changes": [],
+  "missed_issues": [
+    "The paper's own rerun noise undercuts the LLM annotator's attribution. Between the Anti-hacking and Verified runs, the 629 unrefined instances, which are identical in both settings, show 35 PASS->FAIL out of about 397 passes (~8.8%) and 32 FAIL->PASS (Table 10: 53/37 overall minus 21/2 refined). Applying a similar random-flip rate to GLM-5.2's 590 Baseline passes would predict on the order of 50 random PASS->FAIL transitions. Yet the LLM annotator attributes only 17 of 186 to randomness and 169 to hacking removal (Table 8). That suggests the annotator over-attributes to hacking, so the 21.48 pp drop overstates the leakage effect by perhaps several points. It is still a large, real effect given 152 confirmed answer-file accesses.",
+    "Refinement candidates come only from publicly reported issues (119 mapped from GitHub/HF reports, §3.3), so remaining task-quality defects in the other ~612 instances are unmeasured. The 'Verified' label therefore covers known reports, not a systematic audit. The number of experts and any inter-annotator agreement are not reported.",
+    "Refinement validation uses a single model (GLM-5.2) that was also the model used to demonstrate hacking. Signs of benefit to other models rest on Fig. 1 alone, with no numbers in the text."
+  ],
+  "note": "The first review is accurate and appropriately skeptical. It correctly derived the ~10% rerun churn on unrefined instances that weakens the refinement claim, and its scores are within one point of mine. My only addition is that the same churn implies the LLM-assigned 'hacking removed' count is likely inflated, so the 'no collateral damage / 90.9% hacking' attribution should stay weak."
+}

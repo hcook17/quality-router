@@ -1,0 +1,44 @@
+{
+  "arxiv_id": "2605.27716",
+  "contribution_type": "empirical",
+  "summary": "Compares Kimi K2.5 against the Axe-Core rule engine for detecting WCAG violations in 662 static HTML pages (331 violating from the AccessGuru dataset plus 331 author-corrected), then compares zero-shot vs an iterative 'agentic' repair loop on 308 files. Repairs are almost always syntactically valid and reduce violations (3.98 to ~1.7 per file), but under 26% are fully fixed, ~30% alter structure, and iteration adds ~52% cost with no quality gain.",
+  "claims": [
+    {"claim": "LLM detection is comparable to rule-based tools (F1 ~0.65).", "evidence": "Table II: Axe-Core P 0.51/R 0.93/F1 0.66; LLM P 0.50/R 0.94/F1 0.65. On a balanced 331/331 set an always-'violation' classifier scores P 0.50/R 1.0/F1 0.667, so both systems are at the trivial baseline. Table I also says the 331 fixed pages have 0 violations, which is inconsistent with Axe-Core precision 0.51.", "strength": "weak", "location": "§VII-A1, Tables I-II"},
+    {"claim": "Strong semantic detection (F1 0.83) but weak syntax (0.62) and layout (0.48).", "evidence": "Table IV measures agreement with Axe-Core as the reference, not ground truth; the paper itself notes Axe covers ~30-50% of WCAG criteria (§IX-A). Table III detection rates use a different framing (syntax 91% vs 45%).", "strength": "weak", "location": "§VII-A2/A3, Tables III-IV"},
+    {"claim": "Repairs improve compliance in 80.2% of files; fewer than 26% fully fixed; ~30% change structure.", "evidence": "Tables V-VI, n=308: compliance improved 0.80 both strategies; fully fixed 25.7% zero-shot / 23.7% agent; structure preserved 68.2% / 69.5%; violations 3.98 -> 1.68 / 1.71.", "strength": "moderate", "location": "§VII-B2, Tables V-VI"},
+    {"claim": "Iterative agent refinement costs ~52% more with no improvement.", "evidence": "Table VII: 504 vs 308 calls, 21.2M vs 14.2M tokens, $7.50 vs $4.92. Fig. 3: 67% pass on first attempt, 2% on second, 31% hit the max of 3. §IX-B admits feedback was 'general structural feedback' rather than node-level, so the null may reflect weak feedback design.", "strength": "moderate", "location": "§VII-B1, §VII-C, Table VII, §IX-B"}
+  ],
+  "patterns": [
+    {"id": "P16", "stance": "contradicts", "note": "Validator-driven retry loop (axe + parser + DOM-similarity) gave no gain over zero-shot. Confounded by non-actionable feedback and a lenient pass criterion (any violation decrease), so it says the loop needs specific feedback rather than that loops fail."},
+    {"id": "P17", "stance": "mixed", "note": "Rule engine (Axe-Core) used as the in-loop checker and ground truth; the paper recommends a hybrid of LLM plus deterministic global-constraint checks but does not test one."},
+    {"id": "P24", "stance": "supports", "note": "Reports per-file cost ($0.016 vs $0.024), tokens and calls; shows retries inflate cost."},
+    {"id": "P10", "stance": "supports", "note": "Single-pass zero-shot matched the iterative agent at lower cost."}
+  ],
+  "methodology": {
+    "sample": "662 static HTML pages (331 violating from AccessGuru, 331 corrected by the authors); repair on 308 files.",
+    "baselines": "Axe-Core v4.10.2 for detection; zero-shot vs iterative agent for repair. No other LLMs and no prior repair systems (AccessGuru, multi-agent repair) run as baselines.",
+    "models": "Kimi K2.5 only.",
+    "variance": "Single run, temperature 0; no CIs or significance tests.",
+    "ablations": "Zero-shot vs iterative only; feedback specificity not varied.",
+    "contamination_controls": "None; AccessGuru is public.",
+    "languages": "Static HTML (scripts/styles stripped)."
+  },
+  "standards": {"peer_review": "Preprint (arXiv comment: '12 pages, 6 figures, preprint').", "limitations_section": true, "artifacts": "Dataset, prompts, code and analysis scripts at github.com/toyosi12/ai4se (per Artifact Availability).", "preregistration": "n/a"},
+  "biases": [
+    {"type": "single_model", "detail": "Only Kimi K2.5; acknowledged in §IX-C."},
+    {"type": "metric_mismatch", "detail": "Detection F1 ~0.65 equals the all-positive baseline on a balanced set; category metrics use Axe-Core as reference, so they measure agreement with a tool covering ~30-50% of WCAG."},
+    {"type": "strawman_baseline", "detail": "The 'agentic' loop gets only general structural feedback (§IX-B), max 3 iterations; a weak loop is then used to argue iteration does not help."},
+    {"type": "no_variance_reported", "detail": "Single run, no statistical tests on the ~2pt differences."},
+    {"type": "toy_tasks", "detail": "Static HTML snippets with JS/CSS stripped; no component frameworks (React/Vue) or rendered-page checks."},
+    {"type": "other:internal_inconsistency", "detail": "Table I (fixed pages = 0 violations) conflicts with Axe precision 0.51; Fig. 3 counts (208+7+95=310) do not match n=308."}
+  ],
+  "coi": {"affiliations": "Concordia University, Montreal (academic).", "vendor_products_evaluated": "Kimi K2.5 (Moonshot AI) and Axe-Core (Deque); authors not affiliated with either.", "funding": "Not stated.", "severity": "none", "detail": "No vendor ties found."},
+  "scores": {"rigor": 2, "reproducibility": 4, "generalizability": 1, "relevance": 2, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Artifacts are released and the repair/cost tables are internally consistent. However, the detection result is at the trivial all-positive baseline, the data tables are inconsistent with each other, there is one model and one run, and the 'iteration doesn't help' finding is confounded by vague feedback that the authors acknowledge. Useful only as a cautionary data point.",
+  "applicability": "Tangential to a Java backend team, except where the ingestion pipeline produces HTML/learning content delivered to front ends, which healthcare education content often must be (WCAG/Section 508 obligations). Takeaways: (1) do not rely on an LLM as the accessibility detector; keep a deterministic checker (axe-core in CI) as the gate. (2) If an agent repairs content, feed it node-level checker output, not generic 'validation failed' messages, and cap retries; retries with vague feedback only add cost. (3) Track 'fully fixed' rather than 'improved', because partial fixes dominate. This is not evidence against verifier loops in code harnesses generally.",
+  "conflicts_with": [
+    {"arxiv_id": "2608.24913", "detail": "That paper (per its abstract) finds unverified LLM accessibility edits improve and regress pages at similar rates and argues for verified repair. Here adding a validation loop yielded no improvement over zero-shot; the difference likely stems from this paper's non-actionable feedback."},
+    {"arxiv_id": "2606.21926", "detail": "A11YRepair (per its abstract) argues that structured, WCAG-knowledge-enhanced, multi-fault decomposition is needed for accessibility repair. This paper tests only generic zero-shot vs a retry loop and concludes iteration is not cost-effective, a conclusion that may not hold for structured approaches."}
+  ]
+}

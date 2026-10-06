@@ -1,0 +1,54 @@
+{
+  "arxiv_id": "2608.09072",
+  "contribution_type": "benchmark",
+  "summary": "SWE-RPG is a repository-level issue-resolution benchmark of 163 tasks (85 Java, 78 Python; 31 repos; 113 bug fixes, 50 features) that adds validated reference artifacts for requirement clarification (implicit-requirement QA points in six categories derived from interviews with ten practitioners) and implementation plans (steps checked by having a coding agent reproduce each gold sub-patch). It evaluates Claude Code, Codex and OpenCode with six LLM backends, two runs each, and uses a GPT-5.6-Sol judge to attribute each failed run to its earliest deviating stage.",
+  "claims": [
+    {"claim": "Popular coding agents average only 31.5% resolved; best configuration OpenCode + Kimi-K3 at 49.7%.", "evidence": "§5.1 and Fig. 5; SWE-bench protocol (fail-to-pass and pass-to-pass tests); two runs per configuration, run-level aggregates; no CIs, no per-language breakdown.", "strength": "moderate", "location": "§4, §5.1, Fig. 5"},
+    {"claim": "Implicit-requirement recovery is the main bottleneck, accounting for 24.5-46.0% of runs.", "evidence": "Fig. 6 stage attribution by GPT-5.6-Sol judge; judge matched human consensus on 46/50 sampled unresolved runs (92%). Attribution is against a single synthesized reference; because agents run autonomously and cannot ask questions, some 'requirement failures' may reflect underspecified issues rather than agent deficiency.", "strength": "moderate", "location": "§4 Failure Attribution, §5.2, Fig. 6"},
+    {"claim": "Agents identify where to edit but under-specify how to implement and verify; planning coverage cascades from target location to approach to constraints/validation.", "evidence": "§5.3, Fig. 7: Claude Code 79.7% to 64.5% to 41.6%; Codex 65.6% to 49.0% to 37.1%; OpenCode 43.8% to 31.1% to 24.8%. Judge coverage decisions agree with humans in 96% of 50 sampled assessments.", "strength": "moderate", "location": "§5.3, Fig. 7"},
+    {"claim": "Similar resolve rates can hide different failure profiles.", "evidence": "§5.2: Codex vs Claude Code with DeepSeek-V4-Pro 40.5% vs 39.3% resolved; requirement failures 26.4% vs 40.5%; implementation failures 23.9% vs 7.4%.", "strength": "moderate", "location": "§5.2"}
+  ],
+  "patterns": [
+    {"id": "P34", "stance": "supports", "note": "Missing implicit requirements (interfaces, conventions, data-structure semantics) are the most common failure stage; argues for explicit acceptance criteria and constraints in task input."},
+    {"id": "P14", "stance": "supports", "note": "Validated plans with constraints and validation strategy were sufficient for a coding agent to reproduce gold sub-patches during GT construction, and agents' own plans lack constraints/validation; indirect evidence that spec-first inputs would help, not tested as an intervention."},
+    {"id": "P13", "stance": "neutral", "note": "Plan quality is measured but planner-executor separation is not compared against single-loop agents."},
+    {"id": "P31", "stance": "introduces", "note": "SWE-bench-style benchmark extended with intermediate-stage references and Java tasks."},
+    {"id": "P18", "stance": "mixed", "note": "LLM judge used for stage attribution and coverage, validated on 50 samples each (92%, 96%); no inter-annotator agreement reported."}
+  ],
+  "methodology": {
+    "sample": "163 tasks from 31 repos (17 Java / 14 Python), filtered from 2,000+ issue-PR pairs; avg codebase 272.51K LOC; 3 agents x 6 LLMs x 2 runs.",
+    "baselines": "Current agents (Claude Code, Codex, OpenCode) and current models (Claude-Sonnet-5, GPT-5.6-Terra, DeepSeek-V4-Pro, GLM-5.2, MiniMax-M3, Kimi-K3); no human baseline.",
+    "models": "Six LLM backends; GT synthesis by GPT-5.4; judge GPT-5.6-Sol.",
+    "variance": "Two runs per configuration, aggregated; no variance or CIs reported.",
+    "ablations": "None (no condition where agents receive clarification or plan GTs as input).",
+    "contamination_controls": "Tasks required to be recent and non-overlapping with existing issue-resolution benchmarks; no explicit model-cutoff check.",
+    "languages": "Java (85 tasks) and Python (78 tasks); no per-language results."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint (9 pages), no venue.",
+    "limitations_section": true,
+    "artifacts": "Benchmark data and evaluation code at github.com/Xin-Zhou-smu/SWE-RPG-Bench.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "llm_judge_unvalidated", "detail": "Judge validated only on 50-item samples with no inter-annotator agreement (admitted); GTs themselves synthesized by GPT-5.4 before human review."},
+    {"type": "no_variance_reported", "detail": "Two runs per configuration, no spread reported; scaffold/model rankings differ by a few points."},
+    {"type": "metric_mismatch", "detail": "'Requirement failure' is attributed to the agent, but agents could not ask for clarification; underspecified issues are conflated with agent weakness."},
+    {"type": "small_sample", "detail": "163 tasks split across two languages and two task types; per-language results not given."},
+    {"type": "other:same_vendor_judge", "detail": "OpenAI models build GTs and judge runs that include Codex/GPT backends; no evidence of favouritism (Codex is lowest agent), but not cross-checked with another judge."}
+  ],
+  "coi": {
+    "affiliations": "Singapore Management University, Monash University Malaysia, DGIST, CUHK, NC State, CityU HK, HKUST, HKU.",
+    "vendor_products_evaluated": "Claude Code, Codex, OpenCode and six commercial/open LLMs; no author vendor ties stated.",
+    "funding": "No acknowledgments or funding statement found.",
+    "severity": "none",
+    "detail": "Academic benchmark; authors do not ship a ranked system."
+  },
+  "scores": {"rigor": 3, "reproducibility": 4, "generalizability": 3, "relevance": 5, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Current agents and models, half-Java tasks, released artifacts, and a partially validated judge make this directly useful; caveats are two runs without variance, LLM-synthesized references, no intervention test, and attribution that cannot separate underspecified issues from agent failure.",
+  "applicability": "High. Over half the tasks are Java and the agents studied are the same mixed hosts the team runs (Claude Code, Codex, OpenCode). The main lesson backs spec-driven development: agents most often fail by missing implicit requirements, especially interface contracts, code conventions and data-structure semantics, and their plans omit constraints and validation steps. For healthcare-education ingestion across ≥4 repos, specs should explicitly state cross-repo interface/DTO contracts, content-schema invariants, naming conventions and the tests that prove each change, rather than relying on the agent to infer them. The model and scaffold spread (17.8% to 49.7%) is also a reason to benchmark each host-model pair on the team's own Java tasks instead of assuming parity. The paper did not test giving agents the specs, so the size of the benefit is unknown.",
+  "conflicts_with": [
+    {"arxiv_id": "2609.08149", "detail": "SWE-Bench Pro Verified finds misleading problem statements and improperly scoped tests distort agent scores; SWE-RPG attributes the largest failure share to agents' implicit-requirement recovery without separating task underspecification, so part of that bottleneck may be benchmark-task quality."}
+  ]
+}

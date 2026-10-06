@@ -1,0 +1,54 @@
+{
+  "arxiv_id": "2609.09798",
+  "contribution_type": "benchmark",
+  "summary": "CS-Guard is a benchmark for guardrails against malware-generation requests to code LLMs: 1000 CyberSecEval TTP prompts (plus 7 jailbreak transforms and a new 'fictional scenario attack', FSA) for text-to-code, and 331 RMCBench/RedCode-Gen prompts for code-to-code. It evaluates alignment of 7 LLMs, 5 strategy-type and 5 classifier-type guardrails and reports that most are bypassed, especially by FSA and by code infilling/translation prompts.",
+  "claims": [
+    {"claim": "FSA (malicious intent wrapped in a fictional legitimate dev scenario) achieves very high ASR against model alignment, strategy guardrails and input classifiers.", "evidence": "§4: internal-type FSA ASR 85.9%-99.5% (Fig 3); best strategy-type reduction only 27.7% (PAT on Qwen3-30B), residual 64.7% (Fig 4); input classifiers 73.3% (Qwen3Guard) to 98.5% (LlamaGuard4) (Fig 5). Numbers given only in prose and heatmap figures; ASR counts success if any of 5 sampled responses is labeled bad (§3.4), which inflates ASR relative to single-sample use.", "strength": "moderate", "location": "§4, Figs 3-5, §3.4"},
+    {"claim": "For code-to-code generation, ASR approaches 100% on base LLMs and remains 14.4% to nearly 100% across guardrails.", "evidence": "Body reports base-LLM code-to-code average ASR 52.5%-98.9% (§4) and input-classifier infilling 22.5%-43.7%, translation 20.8%-45.0%; the abstract's '14.4%' does not appear anywhere in the body text and 'approaches 100%' overstates the 52.5% lower bound.", "strength": "weak", "location": "Abstract vs §4"},
+    {"claim": "The LLM labeler used for scaled evaluation is reliable.", "evidence": "§3.4: ~97-sample human audits (2 external experts + first author) give 96.8%, 93.8%, 93.7% accuracy for text-to-code L1, L2 and code-to-code; Fleiss' kappa shown in Fig 2. Validation exists but the first author is one of three annotators.", "strength": "moderate", "location": "§3.4, Fig 2"},
+    {"claim": "Multi-turn FSA defeats the strongest guardrail per category (65.0%-92.3% ASR).", "evidence": "§4.1/Fig 7, but on only 20 samples (admitted in Limitations); proof-of-concept.", "strength": "weak", "location": "§4.1, Limitations"},
+    {"claim": "Benchmark and data are released for community use.", "evidence": "Text says FSA-full/FSA-small are released under CC BY-NC-SA 4.0, but no repository or dataset URL appears in the paper text or signals.", "strength": "unsupported", "location": "§1, Ethical considerations"}
+  ],
+  "patterns": [
+    {"id": "P21", "stance": "contradicts", "note": "Classifier and prompt-strategy guardrails (LlamaGuard4, NemoGuard, SmoothLLM, PAT, etc.) are routinely bypassed by context-framed requests; guardrail-as-policy is weak as a sole control."},
+    {"id": "P22", "stance": "neutral", "note": "Studies direct jailbreak by a malicious user, not indirect prompt injection via ingested content; related but distinct threat."},
+    {"id": "P18", "stance": "mixed", "note": "Output classifiers (LLM judges of responses) do better than input classifiers on text-to-code but FSA drops F1 to 6.9%-72.3%; the benchmark's own LLM labeler is validated against ~97-sample human audits."}
+  ],
+  "methodology": {
+    "sample": "1000 text-to-code base prompts x 7 jailbreaks + 1000 FSA prompts; 331 code-to-code prompts (80 infilling, 91 translation, 160 completion); 20 multi-turn FSA samples.",
+    "baselines": "No prior guardrail benchmark baseline; 10 published guardrails evaluated (SmoothLLM, RPO, PAT, Parden, SelfReminder; Qwen3Guard-Gen, LlamaGuard4, WildGuard, NemoGuard, MDJudge) plus alignment of 7 LLMs.",
+    "models": "CodeLlama-13B, DeepSeekCoder-V2-Lite-16B, GPT-OSS-20B, Devstral-small-2-24B, Qwen3-30B, Qwen3-Coder-30B (all quantized), GPT5-mini; GPT5-mini and Venice-uncensored-1.1 used to construct FSA.",
+    "variance": "5 samples per prompt aggregated as any-bad=jailbroken; no CIs or run-to-run variance on ASR.",
+    "ablations": "Per-jailbreak and per-task-type breakdown; no ablation of FSA components.",
+    "contamination_controls": "None discussed; base prompts are public CyberSecEval/RMCBench/RedCode data that guardrail models may have trained on.",
+    "languages": "English prompts; code languages of malware samples not broken down."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint; no venue in comment or journal_ref (ACL-style Limitations/Ethics sections suggest a *ACL submission).",
+    "limitations_section": true,
+    "artifacts": "Release claimed (CC BY-NC-SA 4.0) and prompts in appendix A.6, but no URL in the paper.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "metric_mismatch", "detail": "ASR counts an attack successful if any of 5 sampled responses is labeled bad (§3.4), a best-of-5 attacker metric that inflates ASR versus single-shot deployment."},
+    {"type": "self_reported_numbers", "detail": "Abstract figure '14.4% to nearly 100%' is not present in the body; results are reported mainly as heatmap figures without numeric tables in the text."},
+    {"type": "small_sample", "detail": "Multi-turn FSA uses 20 samples; human labeler audit ~97 samples per setting."},
+    {"type": "other:quantized_models", "detail": "All open models are quantized; authors admit results may not hold at full precision."},
+    {"type": "closed_artifacts", "detail": "Release is asserted but no repository/dataset link is given."},
+    {"type": "self_evaluation", "detail": "The novel FSA attack is designed and judged by the authors; FSA validity check is 88 sampled prompts reviewed by experts including the first author."}
+  ],
+  "coi": {
+    "affiliations": "Jinyang Li, Mingyu Guo, Hung X. Nguyen - Adelaide University, Australia.",
+    "vendor_products_evaluated": "Third-party guardrails (Meta LlamaGuard4, NVIDIA NemoGuard, Qwen3Guard, etc.) and OpenAI GPT5-mini, none by the authors.",
+    "funding": "No acknowledgments or funding statement found.",
+    "severity": "none",
+    "detail": "Academic authors; evaluated products are third-party. Intellectual stake only in their own FSA attack."
+  },
+  "scores": {"rigor": 3, "reproducibility": 2, "generalizability": 2, "relevance": 1, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Reasonable breadth (10 guardrails, 7 models, validated LLM labeler), but best-of-5 ASR, figure-only results, an abstract number missing from the body, no artifact URL, and quantized models weaken it; the threat model (a malicious user asking for malware) is mostly tangential to a harness for a benign internal team.",
+  "applicability": "Low. A Java healthcare-education ingestion team is not primarily defending against its own developers asking for malware. The transferable lesson is negative: do not rely on an LLM guardrail classifier (LlamaGuard/NemoGuard-style) placed in front of agents as a security control, because context-framed requests bypass it; deterministic controls (sandboxing, policy-as-code permissions, network egress limits in the harness, enforced per-host by qr rather than by each agent host) are the right layer. It says nothing about multi-repo ingestion, spec-driven development, or Java code generation quality.",
+  "conflicts_with": [
+    {"arxiv_id": "2609.16287", "detail": "AgentGuard reports instruction-level learned guardrails substantially improving coding-agent behavior; CS-Guard shows LLM-based guardrails are easily bypassed under adversarial framing. Different threat models (benign misbehavior vs adversarial user) reconcile the two."}
+  ]
+}

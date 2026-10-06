@@ -1,0 +1,169 @@
+{
+ "arxiv_id": "2608.20167",
+ "fulltext_chars": 80818,
+ "fulltext_lines": 1377,
+ "authors_block": "Rachna Raj*, Benoit Baudry†, Diego Elias Costa* Affiliation: *Concordia University, †Université de Montréal, Montréal, Canada *rachna.raj@mail.concordia.ca, †benoit.baudry@umontreal.ca *diego.costa@concordia.ca,",
+ "vendor_affiliation_hits": [],
+ "n_authors": 3,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# BreakGuard: Towards Detecting Dependency Breaking Changes with LLM-Generated Tests"
+  ],
+  [
+   35,
+   "###### Abstract"
+  ],
+  [
+   46,
+   "###### Index Terms:"
+  ],
+  [
+   49,
+   "## I Introduction"
+  ],
+  [
+   95,
+   "## II Motivation"
+  ],
+  [
+   107,
+   "## III BreakGuard: Automatic Generation of Breaking Change Detectors"
+  ],
+  [
+   133,
+   "### III-A Static Analysis: Extracting Focal Methods and API Call-site"
+  ],
+  [
+   152,
+   "### III-B Prompt Construction"
+  ],
+  [
+   188,
+   "### III-C Test Suite Generation"
+  ],
+  [
+   197,
+   "## IV Experiment Setup"
+  ],
+  [
+   277,
+   "### IV-A Dataset Filtering"
+  ],
+  [
+   306,
+   "### IV-B LLM Selection for Experiments"
+  ],
+  [
+   370,
+   "### IV-C Applying BreakGuard to the Selected BUMP Instances"
+  ],
+  [
+   381,
+   "### IV-D Test Execution"
+  ],
+  [
+   409,
+   "## V Results"
+  ],
+  [
+   413,
+   "### V-A RQ1: How effective is BreakGuard at generating valid tests?"
+  ],
+  [
+   720,
+   "### V-B RQ2: How effective is BreakGuard at detecting breaking changes?"
+  ],
+  [
+   768,
+   "### V-C RQ3: What types of breaking failures can BreakGuard automatically detect?"
+  ],
+  [
+   963,
+   "### V-D RQ4: What is the cost of detecting breaking changes with BreakGuard?"
+  ],
+  [
+   1086,
+   "## VI Discussions and Implications"
+  ],
+  [
+   1090,
+   "### VI-A Why generated tests fail to detect breaking changes?"
+  ],
+  [
+   1115,
+   "### VI-B Feedback loops can improve compilation failures"
+  ],
+  [
+   1123,
+   "### VI-C Generated tests frequently write assertions but often implement exception handling that swallows the break"
+  ],
+  [
+   1127,
+   "### VI-D Implications for Practitioners"
+  ],
+  [
+   1140,
+   "### VI-E Implications for Researchers"
+  ],
+  [
+   1150,
+   "## VII Related Works"
+  ],
+  [
+   1154,
+   "### VII-A Breaking Change Detection and Test Adequacy"
+  ],
+  [
+   1160,
+   "### VII-B Regression Testing for Dependency Compatibility"
+  ],
+  [
+   1166,
+   "### VII-C LLM-based Test Generation"
+  ],
+  [
+   1172,
+   "## VIII Threats to Validity"
+  ],
+  [
+   1182,
+   "## IX Conclusion"
+  ],
+  [
+   1187,
+   "## X Data Availability Statement"
+  ],
+  [
+   1191,
+   "## References"
+  ],
+  [
+   1377,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## VIII Threats to Validity\n\nOne main threat to validity concerns our reliance on statically identified library API usages to guide test generation. Static analysis may miss open-source library calls that occur only at runtime or are obscured by reflection mechanisms. We reduced this threat by generating tests for every library API a client uses in its codebase. More importantly, this study explores a test generation setting to examine whether LLMs can generate tests based on how client code uses library APIs rather than on information about the breaking change itself. However, our results also indicate that providing richer runtime or library code-change information could improve breaking-change detection.\n\nAnother threat concerns our use of single-shot prompting without any repair loop. This is a deliberate design choice. We aim to measure the ability of LLMs to write tests that capture breaking changes without any additional engineering, such as iterative repair or tool use. Therefore, our reported detection rates are lower-bound results and could be improved with agentic pipelines or repair-based strategies.\n\nLLM test generation is inherently stochastic, meaning that repeated generations may produce different tests and, consequently, different detection outcomes. We reduce this source of variation by setting the temperature to zero. However, we generate only one response for each focal method to control the cost of generation and execution in the experiment, and therefore do not measure the variability of results across repeated generations. Future work could generate multiple samples per focal method to quantify this variation and assess the extent to which additional samples improve breaking-change detection.\n\nThe final threat concerns the transferability of our approach beyond Java/Maven projects. While adapting to other Java testing frameworks requires only minor changes, such as adjusting the prompt, applying our approach to other testing frameworks(e.g PyTest), build systems (e.g., Gradle), languages (e.g., Kotlin), or dependency ecosystems may require additional adaptations. Therefore, our findings may not directly generalize to these settings.\n\n## IX Conclusion\n\nWe presented BreakGuard, an approach that generates migration test suites for a client that depends on an open-source library. It statically analyzes all call sites a client uses from a library and generates tests for each focal method that exercises any of the library’s call sites. We evaluated BreakGuard on three LLMs, namely GPT4o, Qwen3-coder, and GPT-OSS, across three context variants, namely minimal, method, and class, on 89 reproducible BUMP instances. Each context variant includes additional context the LLM can use to write tests that capture any breaking changes caused by a dependency upgrade in the client codebase. Our results show three major findings. First, class context offers the best trade-off for detection, as it provides the full class code as additional context, along with other program- and dependency-upgrade-related context, such as the library version to upgrade and the call site the client uses in its focal methods. Second, we found that richer context improves breaking-change detection. Our best configuration (GPT-4o with class context) detected 30% breaking changes at an average cost of $0.90 per BUMP instance. Third, LLM-generated tests predominantly catch runtime errors (e.g., missing classes and methods) and largely miss behavioral breaking changes. Our results establish a lower bound, and future work should evaluate\nagentic repair for recoverable failures (such as compilation or test execution errors on the pre-breaking version), and dependency-graph-aware focal-method selection to improve targeting of the correct API method to test to improve breaking change detection.\n\n## X Data Availability Statement\n\nThe implementation of BreakGuard, code, and detailed setup for running the evaluations are available on GitHub. All execution ",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 16,
+  "industrial": 2
+ },
+ "fulltext_source": "html"
+}

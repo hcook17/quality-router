@@ -1,0 +1,54 @@
+{
+  "arxiv_id": "2608.00267",
+  "contribution_type": "benchmark",
+  "summary": "LoopsBench is a long-horizon coding benchmark of 112 tasks (29 PR sequences, 57 course labs, 26 research evolutions; 8 languages, >5,300 development units) where each task is a dependency DAG of separately testable units. A runtime releases tests along the ready frontier and keeps completed units as regression obligations, recording loop traces. Evaluates model families under vendor harnesses, eight models under Claude Code, six harnesses under a fixed model, and four 'loop' modes (goal modes, dynamic workflows, Ralph loop).",
+  "claims": [
+    {"claim": "The strongest configuration (Opus-4.7 + Claude Code + outer continuation) resolves only 25.00% of tasks.", "evidence": "Table 2: Opus-4.7 RR 16.96% without / 25.00% with outer continuation, TPR 41.18% / 53.05%. Single trial per pairing; App. I pass@3 said to preserve within-family ordering.", "strength": "strong", "location": "§3.1, Table 2, App. I"},
+    {"claim": "Harness (loop implementation) matters under a fixed model.", "evidence": "Table 2 loop sweep with gpt-5.4: Codex 13.39/18.75%, Claude Code 12.50/17.86%, GitHub Copilot 10.71/15.18%, OpenHands 6.25/9.82%, SWE-agent 5.36/8.93%, mini-swe-agent 4.46/7.14% RR (w/o / w/ continuation). One trial each, no CIs on 112 tasks.", "strength": "moderate", "location": "§3.1, Table 2 (Loop, fixed model)"},
+    {"claim": "Agent plans recover only part of the prerequisite DAG; agents write sparse tests and incur regressions.", "evidence": "Table 3 Edge F1, Layer rho, #T, F2P, Reg per harness; authors caution the reference DAG is a lower bound and that lower regression in weak harnesses reflects fewer passing obligations.", "strength": "moderate", "location": "§3.2, Table 3, Limitations"},
+    {"claim": "Dynamic workflows (task-specific workers with narrow contexts) give the best loop outcome but do not remove regressions.", "evidence": "Table 4: dynamic workflows 97.96 context rounds/run, 24.11% RR, 0.36 regressions/run; Ralph loop 13.24 rounds, 7.84% RR; Codex goal mode 0.34, Claude Code goal mode 0.13 Reg/run. Run coverage for RQ3 is described only in App. N.1.", "strength": "moderate", "location": "§3.3, Table 4"},
+    {"claim": "Contamination is not the main explanation of results.", "evidence": "App. argument: if memorization dominated, models would score higher on public course labs. Indirect reasoning; Limitations concede contamination risk from public sources.", "strength": "weak", "location": "App. (line ~3036), Limitations"}
+  ],
+  "patterns": [
+    {"id": "P31", "stance": "introduces", "note": "New long-horizon benchmark with DAG-gated test release and persistent regression obligations, beyond end-state SWE-bench scoring."},
+    {"id": "P16", "stance": "supports", "note": "Retaining completed units' tests as regression obligations exposes regressions that end-state scoring misses; agents themselves author few tests."},
+    {"id": "P13", "stance": "mixed", "note": "Closed harnesses plan tree-shaped concurrent structures but over-parallelize serial requirements; Edge F1 vs reference DAG far from perfect."},
+    {"id": "P12", "stance": "supports", "note": "Claude dynamic workflows with narrower worker contexts reach the best RQ3 resolve rate (24.11%) vs single-transcript goal modes; single configuration runs."},
+    {"id": "P08", "stance": "mixed", "note": "Compaction/context renewal counts differ widely across loops (13-98 rounds/run); renewal does not remove regression pressure (Fig. 5 compaction sensitivity)."},
+    {"id": "P10", "stance": "contradicts", "note": "Open-source linear-control-flow harnesses (OpenHands, SWE-agent, mini-swe-agent) form near-chain plans and resolve the fewest tasks under the same model."},
+    {"id": "P24", "stance": "neutral", "note": "Billed tokens per task reported in App. J."}
+  ],
+  "methodology": {
+    "sample": "112 tasks, >5,300 development units, 8 programming languages, 9 domains; median dependency depth 6.",
+    "baselines": "Broad: 4 model generations each for GPT/Claude/Qwen families under vendor harnesses, 8 models under Claude Code, 6 harnesses under gpt-5.4, 4 loop modes.",
+    "models": "GPT-5.5/5.2/5/4o, Opus-4.7/4.5, Sonnet-4.5/4, Qwen3.6-Plus/3.5-Plus/3-Max/2.5-72B, GLM-5.1, DeepSeek-V4P, Gemini-3.1-Pro, Kimi-2.6, Grok-4.1-FR, gpt-5.4.",
+    "variance": "One trial per model-loop pairing in Table 2; pass@3 reported in App. I to support ordering. No CIs on resolve rates.",
+    "ablations": "With/without outer continuation; compaction-budget sensitivity (Fig. 5).",
+    "contamination_controls": "Acknowledged risk from public sources; argued indirectly via low scores on public course labs. Task materialization used Claude Code offline, which could bias toward Claude.",
+    "languages": "8 programming languages (not enumerated in the sections read)."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint with project page loopsbench.ai; no venue listed.",
+    "limitations_section": true,
+    "artifacts": "Abstract says data and code open-sourced at microsoft/Loopsbench; Limitations says 'we will release' tasks, tests, environments, prompts, traces and a smoke-test subset.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "no_variance_reported", "detail": "Single trial per configuration; pass@3 only for within-family ordering."},
+    {"type": "novelty_inflation", "detail": "'Loop engineering' reframes known long-horizon agent execution, continuation and regression testing concepts as a new discipline."},
+    {"type": "contamination_risk", "detail": "Course labs and research code are public; authors concede contamination risk."},
+    {"type": "other:construction_model_bias", "detail": "Claude Code used for task classification/materialization (§2.1, Limitations) and Claude-based configuration tops results; authors note model-assisted materialization may bias wording and tests."}
+  ],
+  "coi": {
+    "affiliations": "Microsoft (corresponding author and several co-authors; first author interned at Microsoft), Nanjing University, University College London, Shanghai Jiao Tong University.",
+    "vendor_products_evaluated": "GitHub Copilot (Microsoft-owned) is one of six harnesses; it ranks third, behind Codex and Claude Code. Azure OpenAI used for provider routing.",
+    "funding": "Not stated.",
+    "severity": "low",
+    "detail": "Vendor-affiliated benchmark authors, but their own product is not ranked favourably and the benchmark authors do not ship the top system."
+  },
+  "scores": {"rigor": 3, "reproducibility": 3, "generalizability": 4, "relevance": 4, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Broad model/harness coverage on a multi-language benchmark with an informative regression-obligation design; single trials, no CIs, contamination only argued indirectly, and artifact release partly promissory.",
+  "applicability": "Relevant to the team's harness choices for multi-step spec-driven work: a spec decomposed into a dependency DAG of separately testable units, with earlier units' tests kept as regression obligations, is a directly reusable pattern for rolling out features across ingestion and delivery repos. Evidence that harness choice under a fixed model shifts resolve rates (13.4% Codex vs 4.5% mini-swe-agent) supports pinning and evaluating each agent host the team uses rather than assuming model choice dominates. The Limitations admit the DAG misses cross-service and build-system dependencies, which is where ≥4-repo ingestion pipelines are most fragile, so the team would need its own cross-repo contract tests as obligations. Java is not singled out in the parts read; treat language transfer as plausible but unverified.",
+  "conflicts_with": []
+}

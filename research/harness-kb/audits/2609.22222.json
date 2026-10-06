@@ -1,0 +1,17 @@
+{"arxiv_id": "2609.22222",
+ "blind_scores": {"rigor": 3, "reproducibility": 4, "generalizability": 1, "relevance": 3, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "Sanitized execution diagnostics contribute nothing beyond the retry budget they come with (C = D = 76.7%).", "proposed_strength": "moderate", "reason": "Grade is fine but the manipulation only bites on the runs that fail a static/execution/schema check: 20 repairs in C and 15 redraws in D (§4.2), so the effective sample for 'diagnostics vs redraw' is ~35 runs, not 90. Retries are never triggered by semantic errors in either condition, and thinking was disabled; the null is about thin operational diagnostics for a single model, not execution feedback in general, despite the abstract's 'not execution diagnostics'."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P14", "from": "supports", "to": "introduces", "reason": "No condition implements a semantic validator against frozen machine-readable specs; the recommendation in §5 is untested. The contract experiment shows evaluator/prompt mismatch manufactures error, which is P34 evidence, not evidence that spec-first development works."}
+ ],
+ "missed_issues": [
+  "The B -> C/D gain is substantially a harness artifact: 15 of B's 44 failures were static-checker rejections for importing sys plus 6 runtime/schema failures, all of which a retry can clear (Table 4). The headline 'retry budget is the component that actually buys reliability' partly measures rescuing the author's own checker; A had zero such rejections, which is unexplained.",
+  "The 'specified' contract was written after the author saw the first run's failures (§3.4), and the first run was not order-randomised; the primary experiment is therefore a post-hoc redesign (forking-paths risk), even though the original run is honestly reported.",
+  "Tasks, gold specifications, metadata cards and scorer are all authored by the single author with no independent validation of task/gold correctness (self_evaluation of the benchmark).",
+  "hype_language in the abstract's prescriptive conclusion ('Reliable statistical coding agents need ... not execution diagnostics') generalises from one model, 30 Python tasks and one API."
+ ],
+ "note": "Methodologically one of the more careful small studies (proper resampling control, cluster bootstrap, full package), but its retry-budget headline is inflated by checker rejections in B, and its P14 stance should be 'introduces', not 'supports'."}

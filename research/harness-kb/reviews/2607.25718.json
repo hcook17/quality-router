@@ -1,0 +1,28 @@
+{
+  "arxiv_id": "2607.25718",
+  "contribution_type": "empirical",
+  "summary": "HYSET frames tool retrieval for LLM agents as predicting a whole tool set: candidate sets are scored jointly as hyperedges on a tool co-invocation hypergraph, with interaction matrices specific to each set size. It acts as a pre-selection module ahead of a frozen agent. On ToolBench (13,860 APIs) it beats BM25, Contriever, ToolLLaMA-Retriever, ToolRerank, COLT, and ToolGen on retrieval and end-to-end pass rate, and it transfers to held-out tools and categories.",
+  "claims": [
+    {"claim": "HYSET outperforms state-of-the-art baselines in retrieval (COMP@5 +11.6% relative) and end-to-end pass rate (up to +13.1% relative).", "evidence": "Table 1: COMP@5 78.13 (Qwen) vs 70.01 ToolGen; Human Pass Rate 69.92 ± 1.87 vs 61.83 ± 1.98 ToolLLaMA-Ret (= 13.1% relative). But HYSET is trained with an execution reward (A+R) while baselines use annotations only. §3.2: with identical reward and budget, the GPT-4 Pass Rate margin falls from 8.8% to 4.3% relative.", "strength": "moderate", "location": "§3.2, Table 1"},
+    {"claim": "Joint set scoring, not other components, drives the gains.", "evidence": "Table 2 (3 seeds): removing F_set drops COMP@5 77.55 -> 67.36 and pass rate 69.69 -> 57.97. Alternative set scorers (MMR, facility location, DeepSets, Set Transformer) score lower under matched settings (§3.3).", "strength": "strong", "location": "§3.3, Table 2"},
+    {"claim": "Zero-/few-shot transfer to held-out tools, categories, and domains, recovering 93.2% of supervised performance with 5 shots.", "evidence": "Table 3: UC 5-shot COMP@5 71.40 vs UC full 76.60 (≈93.2%); CD zero-shot 61.96. §3.4: UltraTool +11.5% COMP@5 over ToolGen.", "strength": "moderate", "location": "§3.4, Table 3"}
+  ],
+  "patterns": [
+    {"id": "P03", "stance": "supports", "note": "Pre-selecting a small, jointly coherent tool subset from thousands improves agent pass rate. This only matters at very large catalog sizes."},
+    {"id": "P06", "stance": "supports", "note": "Learned embedding retrieval with set-level reranking over tool descriptions."}
+  ],
+  "methodology": {"sample": "ToolBench: 13,860 API endpoints, 200,311 instructions; UltraTool for disjoint-library transfer.", "baselines": "BM25, Contriever, ToolLLaMA-Retriever, ToolRerank, COLT, ToolGen. Relevant tool-retrieval SOTA, retrained with the same execution reward in a supplementary comparison.", "models": "Single frozen agent ToolLLaMA-2-7B-v2 (DFSDT); retriever backbones BERT-base and Qwen2.5-1.5B; GPT-4 ToolEval judge.", "variance": "Three seeds; ± error bars reported.", "ablations": "Component removal, interaction-matrix design, alternative set scorers.", "contamination_controls": "Cached StableToolBench mirror; held-out tool, category, and domain splits.", "languages": "n/a (API tool calls, not code)."},
+  "standards": {"peer_review": "arXiv preprint (9 pages); no venue.", "limitations_section": false, "artifacts": "Code: github.com/stormwther18/HYSET; supplementary has prompts and hyperparameters.", "preregistration": "n/a"},
+  "biases": [
+    {"type": "single_model", "detail": "End-to-end results use only the older ToolLLaMA-2-7B-v2 agent; no frontier agent is tested."},
+    {"type": "benchmark_overfit", "detail": "Hypergraph built from ToolBench co-invocation annotations; gains are measured on the same benchmark family."},
+    {"type": "llm_judge_unvalidated", "detail": "GPT-4 ToolEval pass rate is the primary end-to-end metric. A human pass rate is also reported, but its protocol is not detailed in the main text."},
+    {"type": "metric_mismatch", "detail": "The abstract's headline margins compare an execution-reward-trained HYSET against annotation-only baselines. Under matched training the margin roughly halves."}
+  ],
+  "coi": {"affiliations": "Not stated in the extracted author block (4 authors, no affiliations captured); no vendor affiliation detected.", "vendor_products_evaluated": "None.", "funding": "No acknowledgments section found.", "severity": "none", "detail": "Academic method paper; self-evaluation of their own method only."},
+  "scores": {"rigor": 3, "reproducibility": 4, "generalizability": 2, "relevance": 1, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Solid ablations and seeds, and the authors disclose the regime mismatch. However, the end-to-end evidence is ToolBench-only with an older 7B agent, and the problem (selecting from thousands of tools) is far from a harness with a small MCP catalog.",
+  "applicability": "Low direct value for the Java team. Their harness exposes a small, curated MCP tool catalog, and the project rule is to use RAG-style tool retrieval only above about 10-15 live tools. HYSET only pays off with thousands of APIs and needs co-invocation training data the team would not have. The one transferable idea: if tools are ever filtered dynamically, filter coherent bundles (e.g. 'ingest-repo-A schema tools + content validator') rather than ranking tools independently, so the agent doesn't get half of a workflow.",
+  "conflicts_with": []
+}

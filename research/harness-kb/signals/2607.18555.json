@@ -1,0 +1,168 @@
+{
+ "arxiv_id": "2607.18555",
+ "fulltext_chars": 20114,
+ "fulltext_lines": 685,
+ "authors_block": "for Automated Test Derivation in Production Software Tasmim Rashid Affiliation: North Dakota State University tasmim.rashid.dristy@gmail.com Muhammad Zubair Malik Affiliation: North Dakota State University zubair.malik@ndsu.edu",
+ "vendor_affiliation_hits": [],
+ "n_authors": 2,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/carta/flipper-client",
+  "https://github.com/pyeve/cerberus"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# LLM2Alloy: Investigating LLM-Generated Formal Specifications"
+  ],
+  [
+   36,
+   "###### Abstract"
+  ],
+  [
+   63,
+   "###### Index Terms:"
+  ],
+  [
+   67,
+   "## I Introduction"
+  ],
+  [
+   102,
+   "## II Background and Related Work"
+  ],
+  [
+   104,
+   "### II-A Alloy and TestEra"
+  ],
+  [
+   114,
+   "### II-B LLMs for Alloy Generation"
+  ],
+  [
+   123,
+   "### II-C LLM-Based Spec Repair"
+  ],
+  [
+   131,
+   "### II-D Specification Generation in Other Formalisms"
+  ],
+  [
+   143,
+   "### II-E Gap Addressed"
+  ],
+  [
+   151,
+   "## III Approach"
+  ],
+  [
+   153,
+   "### III-A Pipeline Overview"
+  ],
+  [
+   211,
+   "### III-B Why Alloy as an Intermediate Step"
+  ],
+  [
+   229,
+   "### III-C Automation Level"
+  ],
+  [
+   236,
+   "### III-D Prompt Design"
+  ],
+  [
+   280,
+   "### III-E Replication Protocol"
+  ],
+  [
+   288,
+   "## IV Case Study"
+  ],
+  [
+   290,
+   "### IV-A Subject Applications"
+  ],
+  [
+   305,
+   "### IV-B Flipper: Feature Flag Management"
+  ],
+  [
+   385,
+   "### IV-C Micro Ablation: Comparing Both Approaches on Flipper"
+  ],
+  [
+   416,
+   "### IV-D Baseline Comparison: Does the Alloy Step Help?"
+  ],
+  [
+   442,
+   "# FAILED: DID NOT RAISE <class ’Exception’>"
+  ],
+  [
+   466,
+   "### IV-E Cerberus: Data Validation"
+  ],
+  [
+   491,
+   "### IV-F Prompt Stability Results"
+  ],
+  [
+   540,
+   "## V Discussion"
+  ],
+  [
+   542,
+   "### V-A What Makes the Dual-Source Strategy Different"
+  ],
+  [
+   561,
+   "### V-B On Coverage as a Metric"
+  ],
+  [
+   573,
+   "### V-C External Validation"
+  ],
+  [
+   579,
+   "### V-D Threats to Validity"
+  ],
+  [
+   594,
+   "## VI Conclusion"
+  ],
+  [
+   620,
+   "## Acknowledgments"
+  ],
+  [
+   625,
+   "## References"
+  ],
+  [
+   685,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgments\n\nThe authors would like to thank the Overleaf built-in AI assistant\nand Gemini for linguistic and LaTeX-related suggestions.\n\n## References\n\n[1]\n\nD. Marinov and S. Khurshid,\n“TestEra: A novel framework for automated testing of Java programs,”\nin Proc. 16th IEEE Int. Conf. Automated Software Engineering\n(ASE), 2001.\n\n[2]\n\nD. Jackson,\n“Alloy: A lightweight object modelling notation,”\nACM Trans. Softw. Eng. Methodol., vol. 11, no. 2,\npp. 256–290, Apr. 2002.\n\n[3]\n\nY. Hong, S. Jiang, Y. Fu, and S. Khurshid,\n“On the effectiveness of large language models in writing Alloy",
+ "limitations": "### V-D Threats to Validity\n\nInternal validity. Each prompt ran in a fresh session with\nno shared context. Nothing was manually corrected. The main threat is\nLLM non-determinism, which we address by replicating each prompt\nthree times.\n\nExternal validity. Two libraries are enough for a\nproof-of-concept, but we cannot claim that the results generalise. Other\nlibraries, languages, and LLMs may behave very differently.\n\nConstruct validity. Test count is an imperfect proxy for\nquality. We use pass/fail outcomes and coverage as complementary\nsignals, and recommend mutation score for future work.\n\n## VI Conclusion\n\nWe set out to answer two questions: can an LLM generate workable Alloy\nspecifications from real production software, and do the two\nsources—documentation and code—produce different, useful results?\n\nBoth answers are yes. For RQ1, GPT-4o produced syntactically valid\nAlloy and executable tests in every run, with no manual corrections.\nFor RQ2, the two sources were genuinely complementary. The\ndocumentation-derived spec caught a real bug in Flipper that the\nexisting test suite and a direct LLM baseline at 68% branch coverage\nboth missed. The code-derived spec captured an abstraction in Cerberus\nthat the documentation omitted, adding test coverage the other\napproach lacked.\n\nMore broadly, these results suggest that introducing a formal\nintermediate representation can shift LLM-based testing from\nsurface-level pattern generation toward constraint-driven validation.\nWhether that shift holds across a wider range of systems is the\nnatural next question.\n\nFuture work includes testing more repositories, comparing LLMs,\nrunning more replication trials, integrating the Alloy Analyzer for\nautomated counterexample generation, and adopting coverage and\nmutation score as standard evaluation metrics.",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 3,
+  "swe_bench": 0,
+  "contamination": 1,
+  "human_study": 0,
+  "java": 3,
+  "industrial": 3
+ },
+ "fulltext_source": "html"
+}

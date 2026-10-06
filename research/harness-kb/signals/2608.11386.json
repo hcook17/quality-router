@@ -1,0 +1,175 @@
+{
+ "arxiv_id": "2608.11386",
+ "fulltext_chars": 93253,
+ "fulltext_lines": 2476,
+ "authors_block": "Xiangzhe Xu Email: xzx@purdue.edu Hamidreza Saghir Email: xyzhang@purdue.edu Qianhui Wu Email: kpei@uchicago.edu Marc-Alexandre Côté Tong Wang Kiran Lakkaraju Kexin Pei Affiliation: Purdue University Microsoft Research The University of Chicago Xiangyu Zhang Email: {hsaghir, qianhuiwu, macote, tong.wang, kiran.lakkaraju}@microsoft.com* Contribution during an internship at Microsoft Research.",
+ "vendor_affiliation_hits": [
+  "Microsoft"
+ ],
+ "n_authors": 8,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/XZ-X/tool-arch-study.git."
+ ],
+ "hf_urls": [
+  "https://huggingface.co/docs/smolagents"
+ ],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# The Devil Is in the Interface: Evaluating How Tool Architecture Shapes Coding Agent Behavior"
+  ],
+  [
+   48,
+   "###### Abstract"
+  ],
+  [
+   73,
+   "## 1 Introduction"
+  ],
+  [
+   165,
+   "## 2 Setups"
+  ],
+  [
+   167,
+   "### 2.1 Tool Setups"
+  ],
+  [
+   297,
+   "### 2.2 Evaluation Protocol"
+  ],
+  [
+   325,
+   "### 2.3 Evaluation Dimensions and Metrics"
+  ],
+  [
+   375,
+   "## 3 Evaluation Results"
+  ],
+  [
+   377,
+   "### 3.1 Task Resolve Rate"
+  ],
+  [
+   385,
+   "### 3.2 Consistency"
+  ],
+  [
+   604,
+   "### 3.3 Exploration"
+  ],
+  [
+   636,
+   "### 3.4 Efficiency"
+  ],
+  [
+   683,
+   "### 3.5 Why Cognitive Scaffolding Has Limited Effects"
+  ],
+  [
+   704,
+   "### 3.6 Generalization to Additional Coding Tasks"
+  ],
+  [
+   714,
+   "## 4 Related Work"
+  ],
+  [
+   749,
+   "## 5 Conclusion"
+  ],
+  [
+   758,
+   "## Acknowledgments"
+  ],
+  [
+   766,
+   "## LLM Usage Disclosure"
+  ],
+  [
+   771,
+   "## References"
+  ],
+  [
+   1318,
+   "## Appendix"
+  ],
+  [
+   1320,
+   "## Appendix A Formal Definitions of Evaluation Metrics"
+  ],
+  [
+   1457,
+   "## Appendix B Additional Discussions for Evaluation Results"
+  ],
+  [
+   1459,
+   "### B.1 Performance"
+  ],
+  [
+   1472,
+   "### B.2 Consistency Results with Additional Repeats"
+  ],
+  [
+   1565,
+   "### B.3 Mechanism Analysis: Atomic Reduces Environment-Interaction"
+  ],
+  [
+   1648,
+   "### B.4 Why NLSearch Broadens Exploration and What It Covers"
+  ],
+  [
+   1840,
+   "#### Manual validation of the high-relevant-file proxy."
+  ],
+  [
+   1877,
+   "### B.5 Detailed Efficiency Analysis and Compound Interaction"
+  ],
+  [
+   2123,
+   "#### Python does not introduce new action capabilities."
+  ],
+  [
+   2258,
+   "### B.6 How Tool-Architecture Effects Generalize to More Coding Tasks"
+  ],
+  [
+   2284,
+   "## Appendix C Why Cognitive Scaffolding Tools Have Limited Effects"
+  ],
+  [
+   2347,
+   "## Appendix D How Actors Use the Provided Tools Across Architectures"
+  ],
+  [
+   2398,
+   "## Appendix E Detailed Discussion of Related Work"
+  ],
+  [
+   2476,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgments\n\nWe thank the anonymous reviewers for their valuable\ncomments and suggestions. This research was supported, in part by the Microsoft Internship Program, National Science Foundation (NSF)\nAwards SHF-1901242, SHF-1910300, Proto-OKN 2333736,\nIIS-2416835, DARPA VSPELLS - HR001120S0058, and ONR\nN00014-23-1-2081. Any opinions, findings, and conclusions in this paper are those of the authors only and do not necessarily reflect the views of our sponsors.\n\n## LLM Usage Disclosure\n\nWe used large language models to help polish the writing of the paper. The\nauthors reviewed and verified all content.\n\n## References\n\nAnthropic (2026a)\n\nAnthropic.\n\nDemystifying evals for ai agents, 2026a.\n\nURL https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents.\n\nAnthropic (2026b)",
+ "limitations": "",
+ "ethics_coi": "## LLM Usage Disclosure\n\nWe used large language models to help polish the writing of the paper. The\nauthors reviewed and verified all content.\n\n## References\n\nAnthropic (2026a)\n\nAnthropic.\n\nDemystifying evals for ai agents, 2026a.\n\nURL https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents.\n\nAnthropic (2026b)\n\nAnthropic.\n\nHarness design for long-running application development, 2026b.\n\nURL https://www.anthropic.com/engineering/harness-design-long-running-apps.\n\nAnthropic (2026c)",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 0,
+  "swe_bench": 25,
+  "contamination": 2,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

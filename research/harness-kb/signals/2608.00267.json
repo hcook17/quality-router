@@ -1,0 +1,413 @@
+{
+ "arxiv_id": "2608.00267",
+ "fulltext_chars": 115314,
+ "fulltext_lines": 4049,
+ "authors_block": "Han Li1, \\ddagger ,* Zhemin Fang2,* Rili Feng2,* Yingqi Zhao4 Jiaheng Liu2 Pengfei Gao1,† Affiliation: He Ye3 Dayi Lin1 Qingwei Lin1 Saravan Rajmohan1 Dongmei Zhang1 Affiliation: 1Microsoft 2Nanjing University 3University College London 4Shanghai Jiao Tong University Affiliation: Project page: https://loopsbench.ai/ Affiliation: *Equal contribution. †Corresponding author \\ddagger Work done during an internship at Microsoft",
+ "vendor_affiliation_hits": [
+  "Microsoft"
+ ],
+ "n_authors": 11,
+ "comment": "Project page: https://loopsbench.ai/",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [
+  "https://huggingface.co/deepseek-ai/DeepSeek-V4-ProAccessed"
+ ],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   22,
+   "# LoopsBench: From Harness Engineering to Loop Engineering in Coding Agent Evaluation"
+  ],
+  [
+   62,
+   "###### Abstract"
+  ],
+  [
+   66,
+   "## 1 Introduction"
+  ],
+  [
+   197,
+   "## 2 LoopsBench as a Pipeline for Loop Engineering Evaluation in Long Horizon Coding"
+  ],
+  [
+   203,
+   "### 2.1 Task Collection"
+  ],
+  [
+   210,
+   "### 2.2 Task Preprocessing"
+  ],
+  [
+   222,
+   "### 2.3 Task Selection"
+  ],
+  [
+   227,
+   "### 2.4 Intra Task Relation Recovery"
+  ],
+  [
+   243,
+   "### 2.5 Task Instrumentation"
+  ],
+  [
+   261,
+   "### 2.6 Evaluation Protocol"
+  ],
+  [
+   280,
+   "## 3 Experiments"
+  ],
+  [
+   287,
+   "### 3.1 RQ1: How Far Do Coding Agent Loops Sustain Progress?"
+  ],
+  [
+   515,
+   "### 3.2 RQ2: How Do Coding Agent Loops Maintain Plan, Code, and Test State?"
+  ],
+  [
+   530,
+   "#T"
+  ],
+  [
+   622,
+   "### 3.3 RQ3: Which Loop Engineering Factors Shape Long Horizon Execution?"
+  ],
+  [
+   664,
+   "## 4 Related Work"
+  ],
+  [
+   672,
+   "## 5 Conclusion"
+  ],
+  [
+   680,
+   "## Limitations"
+  ],
+  [
+   691,
+   "## Compliance, Safety, and Data Statement"
+  ],
+  [
+   695,
+   "## References"
+  ],
+  [
+   1487,
+   "## Appendix A Related Work for Loop Engineering Evaluation"
+  ],
+  [
+   1542,
+   "## Appendix B Task Pool Statistics for Loop Engineering Evaluation"
+  ],
+  [
+   1556,
+   "#Files"
+  ],
+  [
+   1557,
+   "#LoC"
+  ],
+  [
+   1558,
+   "#Num"
+  ],
+  [
+   1559,
+   "#Mod"
+  ],
+  [
+   1560,
+   "#Edges"
+  ],
+  [
+   2190,
+   "#Files"
+  ],
+  [
+   2191,
+   "#LoC"
+  ],
+  [
+   2192,
+   "#Num"
+  ],
+  [
+   2193,
+   "#Mod"
+  ],
+  [
+   2194,
+   "#Edges"
+  ],
+  [
+   2816,
+   "## Appendix C Task Schema for Loop Engineering Evaluation"
+  ],
+  [
+   2914,
+   "## Appendix D Materialized Task Example for Loop Engineering Evaluation"
+  ],
+  [
+   2918,
+   "#### Native artifact."
+  ],
+  [
+   2922,
+   "#### Preprocessing output."
+  ],
+  [
+   2926,
+   "#### Materialized task bundle."
+  ],
+  [
+   2958,
+   "#### Per unit requirement."
+  ],
+  [
+   3012,
+   "#### Recovered DAG."
+  ],
+  [
+   3016,
+   "#### Trial verification."
+  ],
+  [
+   3020,
+   "#### Evaluation trace excerpt."
+  ],
+  [
+   3024,
+   "## Appendix E Contamination Checks for Loop Engineering Evaluation"
+  ],
+  [
+   3028,
+   "#### Input Side Anonymization."
+  ],
+  [
+   3032,
+   "#### Memorization and Loop Trace Metrics."
+  ],
+  [
+   3040,
+   "#### Model cutoff robustness slice."
+  ],
+  [
+   3044,
+   "## Appendix F Evaluation Settings for Model and Loop Configurations"
+  ],
+  [
+   3046,
+   "#### Models and provider routes."
+  ],
+  [
+   3053,
+   "#### Decoding and evaluation input."
+  ],
+  [
+   3057,
+   "#### Runtime budget and concurrency."
+  ],
+  [
+   3064,
+   "## Appendix G Metrics for Loop Engineering Evaluation"
+  ],
+  [
+   3074,
+   "### G.1 Resolve Rate (RR)"
+  ],
+  [
+   3082,
+   "### G.2 Test Pass Rate (TPR)"
+  ],
+  [
+   3090,
+   "### G.3 Dependency Depth (Depth)"
+  ],
+  [
+   3100,
+   "### G.4 Regression Rate (Reg)"
+  ],
+  [
+   3117,
+   "### G.5 Tokens (Tok)"
+  ],
+  [
+   3121,
+   "## Appendix H Model Metadata for Fixed Loop Comparisons"
+  ],
+  [
+   3241,
+   "## Appendix I Pass@K Robustness Under Fixed Loop Implementations"
+  ],
+  [
+   3305,
+   "## Appendix J Per Task Billed Tokens for RQ1"
+  ],
+  [
+   3402,
+   "## Appendix K Planning Loop Trace Metrics for Loop Engineering Evaluation"
+  ],
+  [
+   3406,
+   "### K.1 Edge F1"
+  ],
+  [
+   3420,
+   "### K.2 TC-F1"
+  ],
+  [
+   3434,
+   "### K.3 Layer \\rho"
+  ],
+  [
+   3447,
+   "### K.4 Critical Path Ratio"
+  ],
+  [
+   3457,
+   "### K.5 Width Ratio"
+  ],
+  [
+   3467,
+   "### K.6 Branch Switching Rate"
+  ],
+  [
+   3477,
+   "## Appendix L Extended RQ2 Loop Trace Metrics"
+  ],
+  [
+   3479,
+   "#### Loop trace metric definitions for Table 3."
+  ],
+  [
+   3486,
+   "#T = number of tests authored in the recorded loop trace per task."
+  ],
+  [
+   3489,
+   "#### Auxiliary planning metrics."
+  ],
+  [
+   3493,
+   "#### TC-F1 (planning)."
+  ],
+  [
+   3497,
+   "#### Branch Switching Rate (planning)."
+  ],
+  [
+   3501,
+   "#### Test-Ratio (testing)."
+  ],
+  [
+   3505,
+   "#### JSD (testing)."
+  ],
+  [
+   3509,
+   "#### Source of additional patch lines."
+  ],
+  [
+   3513,
+   "## Appendix M Per Source Resolve Rate for Model and Loop Configurations"
+  ],
+  [
+   3637,
+   "## Appendix N Context Round and Regression Metrics"
+  ],
+  [
+   3639,
+   "### N.1 Trace Definitions"
+  ],
+  [
+   3661,
+   "### N.2 Run Coverage"
+  ],
+  [
+   3665,
+   "### N.3 Trace Scope"
+  ],
+  [
+   3671,
+   "## Appendix O Evaluation Adapter Details"
+  ],
+  [
+   3677,
+   "#### Workspace and git contract."
+  ],
+  [
+   3685,
+   "#### Evaluation adapters."
+  ],
+  [
+   3699,
+   "#### Credential isolation."
+  ],
+  [
+   3703,
+   "## Appendix P Evaluation Contract for Loop Engineering"
+  ],
+  [
+   3723,
+   "## Optional planning artifact"
+  ],
+  [
+   3737,
+   "## Git workflow (required)"
+  ],
+  [
+   3763,
+   "## Recommended workflow"
+  ],
+  [
+   3795,
+   "## Required planning artifact (DAG)"
+  ],
+  [
+   3871,
+   "## Appendix Q Loop Engineering Evaluation Runtime Configuration"
+  ],
+  [
+   3987,
+   "#### Per task timeouts."
+  ],
+  [
+   3992,
+   "#### Residual handoff structure."
+  ],
+  [
+   3998,
+   "#### Model and provider configuration."
+  ],
+  [
+   4003,
+   "#### Example configuration."
+  ],
+  [
+   4049,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## Limitations\n\nThe recovered DAG is a lower bound on prerequisite structure rather than a complete causal graph of development. Edge admission uses four source evidenced patterns and a hot file denylist. The resulting depth and width statistics are therefore conservative. It may miss implicit dependencies in configuration, data formats, build systems, or cross service behavior. The fixed DAG is an evaluation contract: unit boundaries and reference patches are nonunique, and exploratory redesigns that replace earlier requirements fall outside its scope.\nThe three pipelines admit tasks when commit history, curriculum decomposition, or citation closure yields verifiable evidence, narrowing the current pool to sources with auditable prerequisite evidence and leaving mobile, frontend heavy, and hardware adjacent projects outside scope.\nReported correctness metrics are tied to the released test suite, including TPR, Resolve Rate, and Regression Rate, and therefore measure executable obligations rather than full semantic equivalence.\nHidden checkpoint state can make regressions reflect limited feedback as well as regression discipline. Claude Code is used only offline; evaluated loops share one contract and receive no construction transcript, gold solution, or active frontier. Model assisted materialization may still bias wording, boundaries, and tests, while public sources leave contamination risk.\nLoopsBench records coding agent loop execution through traces made accessible by current loop implementations and evaluation adapters. Internal events outside these interfaces cannot be measured directly.\nAs goal modes, dynamic workflows, compaction policies, and external loop implementations evolve, LoopsBench provides a loop engineering evaluation interface with replaceable adapters and version pinned run metadata.\nEvaluation is costly, and proprietary outputs may drift. We will release tasks, tests, pinned environments, construction and evaluation code, prompts, configurations, traces, checksums, and a smoke test subset to reproduce the contract, though not necessarily exact outputs.\nLoopsBench measures one executable contract, not general software engineering ability or deployment readiness; generated code still requires human review, security testing, and licensing checks.\n\n## Compliance, Safety, and Data Statement\n\nLoopsBench is constructed from public open source repositories, public course artifacts, and publicly released research code. It does not use personal data, customer data, or private production data. Generated benchmark instances are derived from source artifacts and should preserve the applicable source licenses, attribution requirements, and redistribution constraints. The construction pipeline may reintroduce historical defects, including security relevant defects, as part of benchmark generation. These instances are intended for research evaluation rather than deployment. We assume source histories and release artifacts are benign and trusted. Malicious, poisoned, or intentionally deceptive repositories are outside the scope of this benchmark.\n\n## References\n\nAlibaba Cloud (2025)\nAlibaba Cloud\n\nAlibaba cloud unveils strategic roadmaps for the next generation of AI innovations.\n\nNote: https://alizila.oss-us-west-1.aliyuncs.com/uploads/2025/09/Media-Release-Alibaba-Cloud-Unveils-Strategic-Roadmaps-for-the-Next-Generation-AI-Innovations-0924.pdfIncludes Qwen3-Max. Accessed 2026-05-16\n\nCited by: Table 9.\n\nAlibaba Group (2026)\nAlibaba Group\n\nAlibaba open-sources Qwen3.5, a natively multimodal model built for high-efficiency inference.\n\nNote: https://www.alibabagroup.com/document-1960233590314762240Identifies Qwen3.5-397B-A17B as Qwen3.5-Plus. Accessed 2026-05-16\n\nCited by: Table 9.\n\nAnthropic (2025a)\nAnthropic\n\nClaude 4 system card.",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 1,
+  "p_value_or_ci": 2,
+  "seeds_or_runs": 4,
+  "swe_bench": 15,
+  "contamination": 11,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

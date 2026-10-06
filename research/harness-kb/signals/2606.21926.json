@@ -1,0 +1,389 @@
+{
+ "arxiv_id": "2606.21926",
+ "fulltext_chars": 84663,
+ "fulltext_lines": 2226,
+ "authors_block": "DOI: XXXXXXX.XXXXXXXConference: Make sure to enter the correct conference title from your rights confirmation email; June 03–05, 2018; Woodstock, NYISBN: 978-1-4503-XXXX-X/2018/06CCS: Software and its engineering Software testing and debuggingCCS: Human-centered computing Accessibility technologies Kai Huang email: kai-kevin.huang@tum.de Affiliation: Technical University of Munich, Germany , Ling Zhu email: julialing.zhu@tum.de Affiliation: Technical University of Munich, Germany , Jian Zhang email: jian_zhang@ntu.edu.sg Affiliation: Nanyang Technological University, Singapore , Xiaofei Xie email: xfxie@smu.edu.sg Affiliation: Singapore Management University, Singapore and Chunyang Chen email: chun-yang.chen@tum.de Affiliation: Technical University of Munich, Germany 2018",
+ "vendor_affiliation_hits": [],
+ "n_authors": 5,
+ "comment": "Accepted by ASE 2026",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# A11YRepair: Bridging Web Accessibility Barriers via Knowledge-Enhanced Divide-and-Conquer Repair"
+  ],
+  [
+   62,
+   "###### Abstract."
+  ],
+  [
+   81,
+   "###### Keywords:"
+  ],
+  [
+   84,
+   "## 1. Introduction"
+  ],
+  [
+   153,
+   "## 2. Benchmark Construction"
+  ],
+  [
+   163,
+   "## 3. Motivating Study"
+  ],
+  [
+   167,
+   "### 3.1. Study Setup"
+  ],
+  [
+   169,
+   "#### 3.1.1. Repair Workflow"
+  ],
+  [
+   190,
+   "#### 3.1.2. Systems and Metrics"
+  ],
+  [
+   198,
+   "#### 3.1.3. Task Instances Selection"
+  ],
+  [
+   210,
+   "### 3.2. Results and Analysis"
+  ],
+  [
+   212,
+   "#### 3.2.1. Basic Repair Strategy"
+  ],
+  [
+   266,
+   "#### 3.2.2. Iterative Repair Strategy"
+  ],
+  [
+   313,
+   "#### 3.2.3. WCAG Guided Repair Strategy"
+  ],
+  [
+   355,
+   "## 4. Approach"
+  ],
+  [
+   364,
+   "### 4.1. Violation Grouping Mechanism"
+  ],
+  [
+   372,
+   "#### 4.1.1. Fault Localization Grouping"
+  ],
+  [
+   395,
+   "#### 4.1.2. Patch Generation Grouping"
+  ],
+  [
+   430,
+   "### 4.2. Fault Localization and Patch Generation"
+  ],
+  [
+   434,
+   "#### 4.2.1. Fault Localization"
+  ],
+  [
+   497,
+   "#### 4.2.2. Patch Generation"
+  ],
+  [
+   508,
+   "### 4.3. WCAG-Driven Knowledge Integration"
+  ],
+  [
+   539,
+   "## 5. Experiment Setup"
+  ],
+  [
+   541,
+   "### 5.1. Research Questions"
+  ],
+  [
+   559,
+   "### 5.2. Benchmark and Implementation"
+  ],
+  [
+   573,
+   "### 5.3. Evaluation Metrics"
+  ],
+  [
+   596,
+   "## 6. Evaluation"
+  ],
+  [
+   598,
+   "### 6.1. RQ1: Overall Effectiveness"
+  ],
+  [
+   778,
+   "#Total"
+  ],
+  [
+   793,
+   "### 6.2. RQ2: Ablation Study"
+  ],
+  [
+   930,
+   "### 6.3. RQ3: Generalizability Study"
+  ],
+  [
+   1012,
+   "### 6.4. RQ4: Usefulness Evaluation"
+  ],
+  [
+   1091,
+   "#66723"
+  ],
+  [
+   1095,
+   "#520"
+  ],
+  [
+   1100,
+   "#56510"
+  ],
+  [
+   1104,
+   "#4784"
+  ],
+  [
+   1109,
+   "#12728"
+  ],
+  [
+   1113,
+   "#743"
+  ],
+  [
+   1118,
+   "#25975"
+  ],
+  [
+   1122,
+   "#507"
+  ],
+  [
+   1127,
+   "#844"
+  ],
+  [
+   1131,
+   "#1700"
+  ],
+  [
+   1136,
+   "#3934"
+  ],
+  [
+   1140,
+   "#750"
+  ],
+  [
+   1145,
+   "#6872"
+  ],
+  [
+   1149,
+   "#1985"
+  ],
+  [
+   1154,
+   "#3101"
+  ],
+  [
+   1158,
+   "#3327"
+  ],
+  [
+   1163,
+   "#3597"
+  ],
+  [
+   1167,
+   "#1265"
+  ],
+  [
+   1172,
+   "#2892"
+  ],
+  [
+   1176,
+   "#1061"
+  ],
+  [
+   1181,
+   "#17139"
+  ],
+  [
+   1185,
+   "#299"
+  ],
+  [
+   1190,
+   "#54097"
+  ],
+  [
+   1194,
+   "#2064"
+  ],
+  [
+   1199,
+   "#24013"
+  ],
+  [
+   1203,
+   "#758"
+  ],
+  [
+   1208,
+   "#2307"
+  ],
+  [
+   1212,
+   "#1329"
+  ],
+  [
+   1217,
+   "#3327"
+  ],
+  [
+   1221,
+   "#259"
+  ],
+  [
+   1226,
+   "#4956"
+  ],
+  [
+   1230,
+   "#904"
+  ],
+  [
+   1235,
+   "#1170"
+  ],
+  [
+   1239,
+   "#700"
+  ],
+  [
+   1244,
+   "#363"
+  ],
+  [
+   1248,
+   "#250"
+  ],
+  [
+   1253,
+   "#3966"
+  ],
+  [
+   1257,
+   "#368"
+  ],
+  [
+   1262,
+   "#1787"
+  ],
+  [
+   1266,
+   "#373"
+  ],
+  [
+   1271,
+   "#173"
+  ],
+  [
+   1275,
+   "#177"
+  ],
+  [
+   1280,
+   "#17108"
+  ],
+  [
+   1284,
+   "#402"
+  ],
+  [
+   1289,
+   "#564"
+  ],
+  [
+   1293,
+   "#129"
+  ],
+  [
+   1298,
+   "#826"
+  ],
+  [
+   1302,
+   "#429"
+  ],
+  [
+   1307,
+   "#1550"
+  ],
+  [
+   1311,
+   "#44"
+  ],
+  [
+   1341,
+   "## 7. Threats to Validity"
+  ],
+  [
+   1355,
+   "## 8. Related Work"
+  ],
+  [
+   1396,
+   "## 9. Conclusion"
+  ],
+  [
+   1402,
+   "## 10. Data Availability Statement"
+  ],
+  [
+   1406,
+   "## References"
+  ],
+  [
+   1673,
+   "#A11yDev: understanding contemporary software accessibility practices from twitter conversations."
+  ],
+  [
+   2226,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 7. Threats to Validity\n\nData Leakage.\nUnlike many APR benchmarks that derive tasks from GitHub pull request histories (Just et al., 2014; Jimenez et al., 2024; Yang et al., 2025b),\nwhich risks exposing ground-truth fixes during LLM training.\nA11YBench is constructed from violations detected by the A11Y Checker.\nThis design avoids leaking the ground truth fixes into model pretraining corpora.\n\nWeak Oracles.\nA11Y checkers\nmay introduce false positives, so provide weak repair oracles to threaten the validity.\nWe mitigate this risk by using IBM A11Y Checker (IBM, 2025c), which offers good reported precision (97.5%) and highest recall among rule-based checkers (He et al., 2025).\nImportantly, the manual audit, low silent regression count, and real-world PR acceptance collectively provide independent validation signals beyond the single checker. The empirical evidence suggests that improvements are not merely checker-specific artifacts.\n\n## 8. Related Work\n\nAutomated Program Repair.\nTraditional work including search-based (Le Goues et al., 2012), constraint-based (Nguyen et al., 2013), and template-based methods (Liu et al., 2019) have recently evolved toward LLM-driven systems (Huang et al., 2024b; Yang et al., 2025a; Zhang et al., 2024a).\nFor example, AlphaRepair (Xia and Zhang, 2022), ChatRepair (Xia and Zhang, 2024), and Gamma (Zhang et al., 2023a) demonstrate how pretrained knowledge can yield human-like fixes.\nEspecially, recent efforts explore autonomous repair agents (Bouzenia et al., 2025; Yang et al., 2024; Xia et al., 2025b; Wang et al., 2025; Zhang et al., 2024b; Ruan et al., 2025; Meng et al., 2024; Team et al., 2025; Ye et al., 2025; Chen et al., 2025).\nThese systems mimic human debugging to implement the repair workflow.\nUnlike the general purpose repair systems, A11YRepair is the first repo-level web A11Y repair tool.\n\nWeb Accessibility Detection.\nWeb A11Y detection (Tafreshipour et al., 2024; Chiou et al., 2024; Chiou et al., 2021; Jain et al., 2025)\nfollows standards such as WCAG (WAI, 2025e).\nThese guidelines enabled the development of checkers (IBM, 2025c; WebAIM, 2025b; Systems, 2025; Google, 2025).\nWhile effective for syntactic or layout violations, static checkers struggle with semantic issues, e.g., whether an image’s alt text\nreflects its visual content.\nRecent work (He et al., 2025; Fathallah et al., 2025)\nleverage LLMs to identify semantic issues.\nThese advances\nprovide a foundation\nfor our study: A11YRepair addresses the remaining challenge by\nturning\ndetected violations into actionable\nfixes for the end-to-end accessible web development.\n\nWeb Accessibility Correction.\nEarly work relied on rule-based HTML/DOM transformations (Almasoud and Mathkour, 2019; Ferati and Sulejmani, 2016) or expert-in-the-loop methods (Mangiatordi and Lazzari, 2018; Seixas Pereira et al., 2024), while others addressed specific violations using computer vision, such as alt-text generation (Wu et al., 2017).",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 0,
+  "swe_bench": 6,
+  "contamination": 1,
+  "human_study": 0,
+  "java": 1,
+  "industrial": 1
+ },
+ "fulltext_source": "html"
+}

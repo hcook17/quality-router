@@ -1,0 +1,229 @@
+{
+ "arxiv_id": "2608.26171",
+ "fulltext_chars": 37207,
+ "fulltext_lines": 614,
+ "authors_block": "An Empirical Evaluation of Prompt Guardrails and Human-in-the-Loop Checkpoints Hiroko Takano Affiliation: Lemmanode LLC Email: contact@lemmanode.com July 2026",
+ "vendor_affiliation_hits": [],
+ "n_authors": 1,
+ "comment": "13 pages, 2 figures. v2: corrected author names in references and minor wording changes. Results unchanged",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Mitigating Fabrication in Multi-Stage LLM Pipelines for Hiring:"
+  ],
+  [
+   34,
+   "###### Abstract"
+  ],
+  [
+   40,
+   "## 1 Introduction"
+  ],
+  [
+   50,
+   "#### Research questions."
+  ],
+  [
+   68,
+   "#### Contributions."
+  ],
+  [
+   86,
+   "## 2 Related Work"
+  ],
+  [
+   88,
+   "#### Hallucination and fabrication in LLM generation."
+  ],
+  [
+   92,
+   "#### Error propagation in multi-stage systems."
+  ],
+  [
+   96,
+   "#### Human oversight and its limits."
+  ],
+  [
+   100,
+   "#### Guardrails."
+  ],
+  [
+   104,
+   "#### LLM-as-judge validity."
+  ],
+  [
+   108,
+   "#### Recruiting NLP."
+  ],
+  [
+   112,
+   "## 3 Method"
+  ],
+  [
+   114,
+   "### 3.1 Benchmark construction"
+  ],
+  [
+   116,
+   "#### Resumes."
+  ],
+  [
+   120,
+   "#### Ground truth."
+  ],
+  [
+   124,
+   "#### Job descriptions."
+  ],
+  [
+   128,
+   "### 3.2 Conditions"
+  ],
+  [
+   144,
+   "### 3.3 Execution"
+  ],
+  [
+   148,
+   "#### Supplementary run (SUP)."
+  ],
+  [
+   152,
+   "### 3.4 Reviewer protocol (C3)"
+  ],
+  [
+   156,
+   "#### Protocol deviations."
+  ],
+  [
+   160,
+   "### 3.5 Fabrication judgment"
+  ],
+  [
+   186,
+   "### 3.6 Judge validity"
+  ],
+  [
+   190,
+   "#### Non-independence disclosure."
+  ],
+  [
+   232,
+   "### 3.7 Metrics and analysis"
+  ],
+  [
+   236,
+   "## 4 Results"
+  ],
+  [
+   240,
+   "### 4.1 Fabrication is the default behavior (RQ1)"
+  ],
+  [
+   244,
+   "### 4.2 Guardrails help substantially but are insufficient (RQ2)"
+  ],
+  [
+   248,
+   "### 4.3 The human checkpoint: large effect, systematic residual (RQ3)"
+  ],
+  [
+   301,
+   "### 4.4 Guardrail vs. checkpoint"
+  ],
+  [
+   305,
+   "### 4.5 Newer model, same problem (RQ4)"
+  ],
+  [
+   309,
+   "### 4.6 Content preservation and usefulness"
+  ],
+  [
+   317,
+   "### 4.7 Handling of protocol deviations"
+  ],
+  [
+   321,
+   "### 4.8 Induced vs. unprompted fabrication (trap analysis)"
+  ],
+  [
+   349,
+   "### 4.9 Cross-domain contamination along the specialty-distance gradient (exploratory)"
+  ],
+  [
+   353,
+   "## 5 Discussion"
+  ],
+  [
+   355,
+   "#### Both mitigations are effective; neither alone reaches deployable safety."
+  ],
+  [
+   359,
+   "#### Residual reviewer error as a tooling specification."
+  ],
+  [
+   363,
+   "#### Combining the two mechanisms."
+  ],
+  [
+   367,
+   "#### Reviewer fallibility as data."
+  ],
+  [
+   371,
+   "## 6 Limitations"
+  ],
+  [
+   401,
+   "## 7 Future Work"
+  ],
+  [
+   405,
+   "## 8 Conclusion"
+  ],
+  [
+   409,
+   "## Acknowledgments"
+  ],
+  [
+   413,
+   "## Reproducibility"
+  ],
+  [
+   417,
+   "## Ethics statement"
+  ],
+  [
+   421,
+   "## References"
+  ],
+  [
+   614,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgments\n\nWe thank Ludovica Erhardt for her generous assistance with the construction of the synthetic data benchmark, and for her sustained feedback and support throughout this project.\n\n## Reproducibility\n\nHarness, prompts (versioned), benchmark (resumes, claim sheets, absence lists, JDs), judge prompt, seeds, and full JSONL logs are available upon request.\n\n## Ethics statement\n\nAll resumes and job descriptions are fully synthetic and PII-free; no real candidates’ data were used, and no fabricated identity details generated during the experiment are reproduced in this paper.\n\n## References\n\n[1]\nL. Huang, W. Yu, W. Ma, W. Zhong, Z. Feng, H. Wang, Q. Chen, W. Peng, X. Feng, B. Qin, and T. Liu (2025)\n\nA survey on hallucination in large language models: principles, taxonomy, challenges, and open questions.\n\nACM Transactions on Information Systems 43 (2), pp. 42:1–42:55.\n\nNote: arXiv:2311.05232\n\nExternal Links: Document",
+ "limitations": "## 6 Limitations\n\n1. \n\nSingle reviewer ( n = 1). All removal rates and error profiles describe one reviewer under one protocol. Between-reviewer variance, training effects, and fatigue dynamics are unmeasured; generalization requires a multi-reviewer study. Claims in this paper are therefore about the presence and size of a checkpoint effect, not about human reviewers in general.\n\n2. \n\nJudge validity is estimated on 20 items. Adjudicated accuracy 90% (precision/recall 93.8%) is strong but carries a wide interval at n = 20; residual judge error concentrates in the embellishment boundary of the largest finding category (new/altered), so category-level counts there carry the most measurement uncertainty.\n\n3. \n\nC3_post validity non-independence (reviewer = validity verifier for that stratum), disclosed in §3.6.\n\n4. \n\nSingle generation model / single domain (hiring, English-language resumes). The SUP run probes model generality only at baseline.\n\n5. \n\nSynthetic benchmark. PII-free construction was an ethical requirement but may understate the messiness of real resumes.\n\n6. \n\nQuality metrics show ceiling effects. Usefulness scores cluster at 4.5–5.0 and retention at 97–100%, indicating judge leniency; the quality judge was not separately validated against human ratings. These metrics support the narrow claim made from them (no material content or usefulness loss under either mitigation) but would not resolve fine-grained quality differences.\n\n7. \n\nTwo-checkpoint design, stage-1 results only. C3 includes a second checkpoint after question generation, but all results reported here are measured on stage-1 outputs; stage-2 checkpoint effects are analyzed separately.\n\n## 7 Future Work\n\nC4 (guardrail + HITL, 60 runs); multi-reviewer replication with tooling-assisted vs. unaided review as a factor; propagation analysis through stages 2–3 (question generation and feedback); a confirmatory cross-domain contamination study with multiple resumes per distance level, extending the exploratory gradient result (§4.9).\n\n## 8 Conclusion\n\nIn a controlled 180-run comparison, fully automated resume-improvement pipelines fabricated in 96.7% of outputs. Both mitigations proved effective in complementary ways. Prompt guardrails cut fabrication density by 86% and eliminated unprompted absence-list hits entirely; a single human checkpoint eliminated all identity-level fabrication, reduced JD-baited trap capture to 1.8%, and cut density by 59%. Neither intervention sacrificed content or usefulness. For multi-stage LLM pipelines in hiring, the evidence supports deploying both, with guardrails as a low-cost first layer and human checkpoints as the source of categorical guarantees; the measured residual errors of each indicate the reviewer-support tooling and the combined-condition experiment that should follow.\n\n## Acknowledgments",
+ "ethics_coi": "#### Non-independence disclosure.\n\nFor C3_post items, the manual validity reviewer is the same person who performed the C3 review being evaluated. Agreement figures for the C3_post stratum should therefore be read with this caveat. Table 1 reports per-stratum agreement.\n\nTable 1: Judge validity by stratum: pre-adjudication agreement and post-adjudication judge accuracy.\n\nStratum\nItems\nAgree (pre-adj.)\nJudge correct (post-adj.)\nNotes\n\nC1\n5\n5/5\n5/5\n\nC2\n5\n3/5\n4/5\none human miss, one judge false positive\n\nC3_pre\n4",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 4,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 2,
+  "swe_bench": 0,
+  "contamination": 6,
+  "human_study": 7,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

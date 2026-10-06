@@ -1,0 +1,20 @@
+{"arxiv_id": "2606.25195",
+ "blind_scores": {"rigor": 2, "reproducibility": 4, "generalizability": 3, "relevance": 2, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "Agentic scaffolding (Codex) improves actuation most, by improving software construction rather than security knowledge.", "proposed_strength": "weak", "reason": "The gain itself (Table III) is one sample per task for one model. The mechanism half of the claim is untestable as designed: K is measured on the base model only, so 'the scaffold does not change knowledge' holds by construction, not by measurement. The paper also states that agents 'did not receive exploit failures, SCP-compliance failures, or property-test failures as repair signals' (§VII-A), so which scaffold feature helps is not identified."},
+  {"claim": "Security fine-tuning/RL (SafeCoder, PurpCodeRL) does not reliably improve joint functional-security correctness.", "proposed_strength": "weak", "reason": "The internal numbers are inconsistent. SafeCoder BaxBench secure-pass@1 is 8.4 in Table III but 4.8 in Appendix C's K/A table. The result also rests on one backbone (Qwen2.5-14B), one third-party checkpoint per method, and a single sample per task."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P16", "from": "supports", "to": "introduces", "reason": "§VII-A says explicitly: 'In our experiments, agents generated code and were evaluated only afterward; they did not receive exploit failures ... as repair signals.' No execution-based verifier loop was tested. The executable-feedback recommendation is a proposed path forward, not evidence."},
+  {"id": "P25", "from": "contradicts", "to": "mixed", "reason": "PurpCodeRL is worse than base on joint correctness, but SafeCoder (SFT) improves BaxBench secure-pass@1 (3.8 to 8.4 per Table III). One checkpoint per method on one backbone cannot contradict RL or fine-tuning in general."}
+ ],
+ "missed_issues": [
+  "Layer-1 label noise exceeds the signal. Human validation finds reference-answer correctness of only 93.0% (86.3–96.6) and rule alignment of 84.0% (App. B), yet 9 of 10 models' K values lie in 88.2–92.3 (App. C). Differences in K are therefore within gold-label error.",
+  "The K–A correlation is driven by range restriction plus an outlier. Excluding CodeLlama-13B (K=74.4), K barely varies, so ρ=0.71 at n=10 is fragile, beyond the borderline p the review already noted.",
+  "There is an internal numeric inconsistency (SafeCoder BaxBench 8.4 vs 4.8), and the abstract's claim that knowledge predicts 'functional correctness, security, and joint' outcomes is not backed by any reported correlation for pass@k or secure@passk. Only secure-pass@k correlations are reported.",
+  "The Layer-1 and Layer-3 human validations were done by one annotator ('the annotator', App. B), with no inter-annotator agreement.",
+  "Rigor 3 is lenient for a study with one sample per task, two main-text models, LLM-generated and LLM-verified knowledge items, and an inconsistent table. That is closer to 2. Relevance is indirect: there is no Java and no backend ingestion setting, and the useful lesson (do not rely on prose security rules) is not tested as a harness intervention."
+ ],
+ "note": "The SoK framing and the joint-metric advice are useful, but the measurement contribution is weaker than graded. The review credits P16 with evidence the paper explicitly says it did not collect."}

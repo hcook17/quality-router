@@ -1,0 +1,215 @@
+{
+ "arxiv_id": "2609.22254",
+ "fulltext_chars": 45430,
+ "fulltext_lines": 1200,
+ "authors_block": "for Reliable On-Policy Distillation Jingang Zhou ††thanks: This work was done while Jingang was an intern at Ant Group. Yuyi Zhou Haiyang Guo Xukai Wang Shuai Feng Sirui Gao Jian Xu Qingpei Guo Xu-Yao Zhang ††thanks: Corresponding author.",
+ "vendor_affiliation_hits": [
+  "Ant Group"
+ ],
+ "n_authors": 9,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Teacher Should Think Ahead: Adaptive Continuations"
+  ],
+  [
+   45,
+   "###### Abstract"
+  ],
+  [
+   53,
+   "## Introduction"
+  ],
+  [
+   164,
+   "## Related Work"
+  ],
+  [
+   166,
+   "#### Knowledge Distillation."
+  ],
+  [
+   191,
+   "#### On-Policy Distillation."
+  ],
+  [
+   210,
+   "#### Positioning."
+  ],
+  [
+   218,
+   "## Teacher Uncertainty Contraction"
+  ],
+  [
+   237,
+   "#### Experimental setup."
+  ],
+  [
+   264,
+   "#### Observation."
+  ],
+  [
+   273,
+   "#### Connection to supervision variance."
+  ],
+  [
+   289,
+   "#### Answer to RQ1."
+  ],
+  [
+   294,
+   "## Theoretical Analysis"
+  ],
+  [
+   310,
+   "#### Analysis target."
+  ],
+  [
+   358,
+   "#### Teacher-student path mismatch."
+  ],
+  [
+   371,
+   "#### Local conditions."
+  ],
+  [
+   373,
+   "###### Assumption 1 (Average Teacher Uncertainty Contraction)."
+  ],
+  [
+   385,
+   "###### Assumption 2 (Local regularity and branch dependence)."
+  ],
+  [
+   392,
+   "###### Assumption 3 (Bounded per-step path divergence)."
+  ],
+  [
+   403,
+   "#### TUC reduces branch variance."
+  ],
+  [
+   405,
+   "###### Lemma 4 (Teacher-branch variance bound)."
+  ],
+  [
+   422,
+   "#### Path divergence introduces bias."
+  ],
+  [
+   424,
+   "###### Lemma 5 (Path-divergence bias bound)."
+  ],
+  [
+   447,
+   "#### Finite-Continuation Principle."
+  ],
+  [
+   449,
+   "###### Theorem 6 (Finite-continuation teacher-branch approximation)."
+  ],
+  [
+   459,
+   "###### Corollary 7 (Continuations scaling law)."
+  ],
+  [
+   477,
+   "#### Answer to RQ2."
+  ],
+  [
+   484,
+   "## Adaptive-Continuations On-Policy Distillation"
+  ],
+  [
+   492,
+   "### Student Rollout and Anchor Selection"
+  ],
+  [
+   644,
+   "### Teacher Continuations and Adaptive Length"
+  ],
+  [
+   697,
+   "### Training Objective"
+  ],
+  [
+   715,
+   "#### Answer to RQ3."
+  ],
+  [
+   719,
+   "## Experiments"
+  ],
+  [
+   723,
+   "### Experimental Setup"
+  ],
+  [
+   725,
+   "#### Models and training dataset."
+  ],
+  [
+   734,
+   "#### Baselines and evaluation."
+  ],
+  [
+   738,
+   "#### Training and reporting protocol."
+  ],
+  [
+   742,
+   "#### Main results."
+  ],
+  [
+   746,
+   "### Ablation Studies"
+  ],
+  [
+   748,
+   "#### Anchor selection."
+  ],
+  [
+   778,
+   "#### Fixed and adaptive continuations."
+  ],
+  [
+   826,
+   "#### Token-matched training progress."
+  ],
+  [
+   834,
+   "## Discussion and Conclusion"
+  ],
+  [
+   838,
+   "## References"
+  ],
+  [
+   1200,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 2,
+  "seeds_or_runs": 7,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

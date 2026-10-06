@@ -1,0 +1,361 @@
+{
+ "arxiv_id": "2609.38345",
+ "fulltext_chars": 113955,
+ "fulltext_lines": 2874,
+ "authors_block": "Autonomous coding agents have achieved remarkable progress, demonstrating promising capabilities to resolve complex issues in real-world software repositories (Jimenez et al., 2024; Wang et al., 2025). As real-world programming tasks grow in complexity, managing vast contexts and multi-stage execution within a single model becomes increasingly challenging. To push the boundaries of performance, the paradigm is shifting toward multi-agent systems (Li et al., 2023; Hong et al., 2024; Qian et al., 2024; Wu et al., 2024; Dong et al., 2024). By assigning specialized organization, such as analysts, developers, and testers, these systems tackle intricate tasks through division of labor and interactive coordination. This design assumes that structured organization improves performance, yet configured collaboration may not actually take place. Figure 1: Perspectives on multi-agent collaboration: (a) organization, (b) benefit and cost, (c) configured versus observed execution, and (d) collaboration auditing. Despite their potential, current multi-agent frameworks lack the infrastructure to evaluate actual effectiveness. First, existing systems lack a unified mechanism to explicitly declare an organizational topology. Second, multi-agent evaluations are rarely controlled, as harness differences and run-to-run variance can obscure what produced a performance gap (Zhang et al., 2026; Kaliyev and Maryanskyy, 2026). Third, intermediate collaborative processes suffer from poor observability,",
+ "vendor_affiliation_hits": [],
+ "n_authors": 15,
+ "comment": "work on process",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "#  OpenCollab: A Multi-Agent Coding Framework"
+  ],
+  [
+   61,
+   "## 1  Introduction"
+  ],
+  [
+   94,
+   "## 2  Motivation"
+  ],
+  [
+   225,
+   "## 3  Methodology"
+  ],
+  [
+   229,
+   "### 3.1  Architecture Overview"
+  ],
+  [
+   237,
+   "### 3.2  Programmable Collaboration"
+  ],
+  [
+   247,
+   "### 3.3  Controlled Evaluation and Comparison"
+  ],
+  [
+   253,
+   "### 3.4  Execution Traceability and Observability"
+  ],
+  [
+   259,
+   "### 3.5  Evaluation of Cooperation Effectiveness"
+  ],
+  [
+   284,
+   "## 4  Experiments"
+  ],
+  [
+   390,
+   "### 4.1  System-Level Performance and Organizational Value"
+  ],
+  [
+   519,
+   "### 4.2  Deconstructing Collaboration: Dimensions of Adherence"
+  ],
+  [
+   563,
+   "### 4.3  Causal Validity and Trace Diagnostics"
+  ],
+  [
+   571,
+   "## 5  Related Work"
+  ],
+  [
+   579,
+   "## 6  Conclusion"
+  ],
+  [
+   583,
+   "#### Acknowledgments"
+  ],
+  [
+   587,
+   "## References"
+  ],
+  [
+   1168,
+   "## Appendix A Identification theory for the CACE"
+  ],
+  [
+   1184,
+   "### A.1  Setup and notation"
+  ],
+  [
+   1257,
+   "### A.2  CACE decomposition and Wald identification"
+  ],
+  [
+   1259,
+   "###### Theorem A.1 (Decomposition and identification of the CACE)."
+  ],
+  [
+   1284,
+   "###### Proof."
+  ],
+  [
+   1312,
+   "### A.3  Paired diagnostic for the exclusion restriction"
+  ],
+  [
+   1337,
+   "### A.4  Sensitivity to exclusion violations"
+  ],
+  [
+   1339,
+   "###### Proposition A.2 (Exact discrepancy and sensitivity bounds)."
+  ],
+  [
+   1362,
+   "###### Proof."
+  ],
+  [
+   1377,
+   "### A.5  Reporting requirements"
+  ],
+  [
+   1420,
+   "### A.6  Empirical check on the adherence experiment"
+  ],
+  [
+   1499,
+   "## Appendix B Supplementary Experiments"
+  ],
+  [
+   1508,
+   "### B.1  Experimental Setup"
+  ],
+  [
+   1520,
+   "##### Benchmarks and task sets."
+  ],
+  [
+   1543,
+   "##### Organizations."
+  ],
+  [
+   1564,
+   "##### Shared settings."
+  ],
+  [
+   1578,
+   "##### Which runs are kept."
+  ],
+  [
+   1587,
+   "##### Metrics."
+  ],
+  [
+   1613,
+   "#### B.1.1  The adherence experiment"
+  ],
+  [
+   1737,
+   "##### Model."
+  ],
+  [
+   1743,
+   "##### Tools."
+  ],
+  [
+   1751,
+   "##### Budget."
+  ],
+  [
+   1759,
+   "##### Context: how the three cards are written."
+  ],
+  [
+   1812,
+   "##### Topology."
+  ],
+  [
+   1834,
+   "#### B.1.2  The cross-harness comparison"
+  ],
+  [
+   1841,
+   "##### Network access and answer leakage."
+  ],
+  [
+   1866,
+   "#### B.1.3  The Duo–single comparison"
+  ],
+  [
+   1873,
+   "##### The workflow."
+  ],
+  [
+   1888,
+   "##### Paired results."
+  ],
+  [
+   1919,
+   "### B.2  Full Results"
+  ],
+  [
+   2059,
+   "### B.3  How Runs End and What They Cost"
+  ],
+  [
+   2119,
+   "### B.4  Three Runs, Traced"
+  ],
+  [
+   2129,
+   "##### Delegation that works (Figure 11)."
+  ],
+  [
+   2133,
+   "##### Briefed but not waited for (Figure 11)."
+  ],
+  [
+   2137,
+   "##### Cross-review that picks the failing commit (Figure 11)."
+  ],
+  [
+   2143,
+   "### B.5  Limitations"
+  ],
+  [
+   2147,
+   "##### Three models, not a model sweep."
+  ],
+  [
+   2154,
+   "##### One agent at a time."
+  ],
+  [
+   2162,
+   "##### One workflow, not the space of workflows."
+  ],
+  [
+   2168,
+   "## Appendix C System Details"
+  ],
+  [
+   2178,
+   "### C.1  Runtime and Control Regimes"
+  ],
+  [
+   2186,
+   "##### The session loop."
+  ],
+  [
+   2209,
+   "##### Limits."
+  ],
+  [
+   2224,
+   "##### Context compaction."
+  ],
+  [
+   2239,
+   "##### Two controllers."
+  ],
+  [
+   2295,
+   "##### Workspaces."
+  ],
+  [
+   2304,
+   "##### The token budget."
+  ],
+  [
+   2311,
+   "### C.2  How the Code Is Organized"
+  ],
+  [
+   2320,
+   "##### Four layers in the runtime."
+  ],
+  [
+   2409,
+   "##### The layering is checked."
+  ],
+  [
+   2427,
+   "##### The evaluator."
+  ],
+  [
+   2441,
+   "### C.3  Declaring a Collaboration"
+  ],
+  [
+   2475,
+   "### C.4  Audit of Ten Agent Artifacts"
+  ],
+  [
+   2487,
+   "##### How the marks were placed."
+  ],
+  [
+   2545,
+   "##### Why the other rows fall short."
+  ],
+  [
+   2575,
+   "##### Our own row."
+  ],
+  [
+   2586,
+   "### C.5  The Run Record"
+  ],
+  [
+   2592,
+   "##### Three files per configuration."
+  ],
+  [
+   2605,
+   "##### Events."
+  ],
+  [
+   2751,
+   "##### Cost metrics."
+  ],
+  [
+   2770,
+   "### C.6  Adherence, Axis by Axis"
+  ],
+  [
+   2777,
+   "##### How a verdict is reached."
+  ],
+  [
+   2788,
+   "##### Which axes can vary here."
+  ],
+  [
+   2811,
+   "##### Unverifiable counts against adherence."
+  ],
+  [
+   2874,
+   "##"
+  ]
+ ],
+ "acknowledgments": "#### Acknowledgments\n\nWe sincerely thank Fanjian Su, Lirui Guan, Peize Li, and Weiming Wang for their contributions to the early stages of this work.\n\n## References\n\nag2ai (2024)\nag2ai\n\nAG2 (formerly AutoGen): the open-source AgentOS.\n\nNote: GitHub repository\n\nExternal Links: Link\n\nCited by: Table 1.\n\nAI Security Institute, UK (2024)\nAI Security Institute, UK\n\nInspect AI: framework for large language model evaluations.\n\n Zenodo.\n\nExternal Links: Document,",
+ "limitations": "### B.5  Limitations\n\nEach limitation below narrows how far a number in this paper reaches.\n\n##### Three models, not a model sweep.\n\nThe three model snapshots of\nTable 3 show that Adherence moves when the model\nchanges, but three snapshots cannot estimate how it varies across models in\ngeneral.\n\n##### One agent at a time.\n\nAll agents in a team share one lock, so\nexactly one agent runs at any moment; a message to a busy agent is delivered\nwhen its turn ends. Organizations\nwhose value depends on agents working truly in parallel are therefore outside\nwhat these experiments measure.\n\n##### One workflow, not the space of workflows.\n\nOpenCollab (Duo) is a\nsingle decomposition of the task. A different script could deliver a\ndifferent organization just as faithfully and perform differently.\n\n## Appendix C System Details\n\nThis part describes the code behind\nSections 3.1–3.5: the runtime and its\ntwo controllers (C.1), how the code is organized (C.2),\nhow a collaboration is declared (C.3), an audit of ten agent\nartifacts, with OpenCollab scored by the same rule, against the conditions of\nSection 3.3 (C.4), the run record\n(C.5), and how adherence is computed from it (C.6).\n\n### C.1  Runtime and Control Regimes\n\nSections 3.1 and 3.2 describe one\nruntime that carries three control regimes: a Team, a script-ordered\nWorkflow, and a single agent. This appendix gives the limits every session",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 1,
+  "p_value_or_ci": 13,
+  "seeds_or_runs": 13,
+  "swe_bench": 16,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

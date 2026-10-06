@@ -1,0 +1,49 @@
+{
+  "arxiv_id": "2609.24362",
+  "contribution_type": "system",
+  "summary": "Training-free framework for vision-language models working in a Docker sandbox. Generated images (crops, masks, overlays) are registered in an addressable 'image ledger'. Only a bounded set of two active visual slots is sent to the model, and the model explicitly promotes the evidence it wants to see. Evaluated on seven visual QA/math benchmarks with four VLMs against a vanilla VLM and an append-every-image sandbox.",
+  "claims": [
+    {"claim": "VLM-in-Sandbox achieves the highest sample-weighted accuracy for all four base VLMs.", "evidence": "§4.1/Table 1: +1.66, +3.54, +5.09, +9.61pp over Vanilla VLM (GPT-4.1-mini, Gemini-2.5-Flash, Qwen3.5-9B, Ministral-3-8B); beats Sandbox Only in all 28 model-benchmark pairs. Single run per cell at temperature 1.0 in the broad study.", "strength": "moderate", "location": "§4.1, Table 1"},
+    {"claim": "A compiler-matched 2x2 study reaches 66.27% accuracy with 18.6% fewer tokens than the retain-all control.", "evidence": "§4.2/Fig. 4: +1.83pp vs Matched-Auto-All, 52 rescues / 29 regressions, bootstrap CI [0.40, 3.25], McNemar p=0.014; GPT-4.1-mini only, N=1,260. Model-directed selection over recency is not significant (p=0.185); bounded retention is the main token lever.", "strength": "moderate", "location": "§4.2, Fig. 4, Table 10"},
+    {"claim": "302 rescues and 142 regressions versus Original Append-only across 6,350 GPT-4.1-mini examples.", "evidence": "§4.3/Fig. 5: +2.52pp, 95% CI [1.83, 3.21]; three-run repeats only on two benchmarks.", "strength": "moderate", "location": "§4.3, Fig. 5, Appendix B.2"},
+    {"claim": "The smaller workload reduces uncached tokens, TTFT and end-to-end latency under prefix caching.", "evidence": "§5.2/Fig. 8: -16.4% uncached prompt tokens, -19.7% TTFT, -13.0% E2E vs Matched-Auto-All; one local vLLM backend, Qwen3.5-9B.", "strength": "moderate", "location": "§5.2, Fig. 8, Table 14"}
+  ],
+  "patterns": [
+    {"id": "P08", "stance": "supports", "note": "Bounded active context with addressable off-context artifact store reduces tokens 18.6% and slightly improves accuracy; recent-3-turns + deterministic recap cut tokens 8.6% (§5.1). Visual, not code, context."},
+    {"id": "P20", "stance": "neutral", "note": "Docker sandbox as execution backend; container lifecycle 0.82 s/example, 2% of E2E."},
+    {"id": "P33", "stance": "neutral", "note": "Model writes executable programs/tools in sandbox to generate evidence."}
+  ],
+  "methodology": {
+    "sample": "7 benchmarks, 6,350 examples (HRBench-4K, V*Bench, WeMath, MathVision-mini, MMStar, RealWorldQA, MMMU); matched study N=1,260.",
+    "baselines": "Vanilla VLM and Original Append-only Sandbox; compiler-matched factorial controls. Related approaches compared only qualitatively (Appendix C).",
+    "models": "GPT-4.1-mini, Gemini-2.5-Flash, Qwen3.5-9B, Ministral-3-8B-Instruct.",
+    "variance": "Paired bootstrap CIs and McNemar for GPT-4.1-mini; three runs per setting only on V*Bench and RealWorldQA.",
+    "ablations": "2x2 visibility-by-retention, slot capacity, history policy, step budget.",
+    "contamination_controls": "None discussed; public benchmarks.",
+    "languages": "n/a (visual QA; Python tools in sandbox)."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint; no venue in comment or journal_ref.",
+    "limitations_section": true,
+    "artifacts": "No code repository link found in text; prompts and settings documented in Appendix A.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "self_evaluation", "detail": "Authors' own framework against their own baselines; no external agentic-VLM system run head-to-head."},
+    {"type": "closed_artifacts", "detail": "No code release link."},
+    {"type": "no_variance_reported", "detail": "Broad 28-cell table is single-run at temperature 1.0; repeats only on two benchmarks."},
+    {"type": "other:off_domain", "detail": "Visual QA benchmarks; no software-engineering tasks."}
+  ],
+  "coi": {
+    "affiliations": "Institute of Automation, Chinese Academy of Sciences; University of Chinese Academy of Sciences; Zhongguancun Academy.",
+    "vendor_products_evaluated": "None owned by authors; commercial and open models used as bases.",
+    "funding": "No acknowledgments or funding statement found.",
+    "severity": "none",
+    "detail": "Academic authors, no vendor tie."
+  },
+  "scores": {"rigor": 3, "reproducibility": 2, "generalizability": 2, "relevance": 1, "coi_risk": 0},
+  "verdict": "reject",
+  "verdict_reason": "off-topic: a visual-reasoning sandbox for VLMs on image QA and math benchmarks, with no software-engineering or code-agent tasks. The evaluation is reasonable, with matched controls and paired tests, but the gains are modest (1.8–2.5pp in controlled comparisons) and no code is released.",
+  "applicability": "Little transfers to a Java backend team ingesting and delivering healthcare-education content. The only portable idea is generic context hygiene: keep large intermediate artifacts in an addressable store outside the context, and expose a small bounded working set the agent explicitly promotes. That could inform how a harness handles large ingested documents or media assets, but this paper gives no evidence for that use, for multi-repo work or for spec-driven development.",
+  "conflicts_with": []
+}

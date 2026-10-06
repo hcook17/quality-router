@@ -1,0 +1,52 @@
+{
+  "arxiv_id": "2609.05692",
+  "contribution_type": "theory",
+  "summary": "Proposes MS-RGR, a goal-oriented requirements engineering (GORE/KAOS) mechanism that combines an 'epistemic surprise' signal and a 'cognitive regret' index (DRI) to choose between routine autonomy, reflective reasoning, or human escalation for agentic systems. Feasibility is shown with a self-built 100-seed stochastic simulation (elderly-care / driving scenarios) and a post-hoc application of the gate to recorded AgentHarm traces for seven LLMs.",
+  "claims": [
+    {"claim": "MS-RGR reduces silent failures to near-zero and detects risk ~17.5x faster than a sensor-only baseline.", "evidence": "Table V: TBR 0% (full) vs 34% (fixed-trust) vs 96% (sensor-only); TTI 4.1 vs 72.0 steps; 100 seeds x 100 steps of synthetic traces with Pr(friction)=0.7, Pr(surprise)=0.2. Numbers match the abstract, but the test scenario (S3 sensor-freeze, S_E=0) disables the very signal the sensor-only baseline relies on, so the baseline cannot succeed by construction; the simulator, parameters and DRI equations are all the authors'.", "strength": "weak", "location": "§VII-A, §VII-B2, Table V"},
+    {"claim": "All runtime tactic selections are formally traceable via LTL safety properties.", "evidence": "§VII-B3 LTL pass rate on the authors' own simulator output; traceability holds over a model checked against itself, not a deployed agent.", "strength": "weak", "location": "§VII-B3"},
+    {"claim": "Applied post-hoc to 208 AgentHarm scenarios, the gate improves harmful-task refusal only for models with strong baseline safety (e.g. Claude Haiku 4.5 84.1% -> 90.9%).", "evidence": "Table VI (175/208 -> 189/208 for Claude Haiku 4.5) and Table VII (GPT-OSS-120B 95.5% -> 100%; five other models change <=0.6 pp). Gate uses harm-category severity weights (e.g. Cybercrime L=9.5, Copyright L=4.0), i.e. benchmark category labels feed the gate; applied post-hoc to recorded traces; five of seven models graded by keyword matching on plain chat (admitted §VII-C4); benign/over-refusal split not evaluated; text states 44 base behaviours x 4 variants yet reports 208 scenarios (44x4=176), an unexplained inconsistency.", "strength": "weak", "location": "§VII-C1-C4, Tables VI-VII"},
+    {"claim": "MS-RGR amplifies rather than substitutes for model-level safety training.", "evidence": "Interpretation of Table VII where only the two high-baseline models move; but those are also the only two graded with tool-call grading, so evaluation method and baseline safety are confounded.", "strength": "weak", "location": "§VII-C3 Finding 2"}
+  ],
+  "patterns": [
+    {"id": "P19", "stance": "introduces", "note": "Design-time thresholds (tau, tau_crit) decide when to escalate to a human; evidence is synthetic simulation only."},
+    {"id": "P21", "stance": "introduces", "note": "Safety thresholds encoded in the goal model as deterministic resolution tactics with LTL properties, a policy-as-code style guardrail; not validated on a deployed agent."},
+    {"id": "P35", "stance": "neutral", "note": "LTL properties P1-P5 checked over simulator traces."},
+    {"id": "P30", "stance": "neutral", "note": "DRI computed from standard execution logs (L,R,A,n); trace-based gating applied post-hoc."}
+  ],
+  "methodology": {
+    "sample": "Synthetic: 100 seeds x 100 timesteps; AgentHarm: 208 scenarios (as reported) x 7 models, gate applied post-hoc.",
+    "baselines": "Authors' own ablated variants (fixed-trust, sensor-only, theory-removal ablations B'-E); no external guardrail or escalation baseline (e.g. Llama Guard, constitutional classifiers) compared.",
+    "models": "Claude Haiku 4.5 and GPT-OSS-120B (tool-call grading via inspect_evals); Gemma-4-31B, Llama-3.3-70B, Llama-3.2-3B, Nemotron-Ultra-550B, Hermes-405B via OpenRouter free tier with keyword refusal detection.",
+    "variance": "Wilcoxon tests, Cohen's h and rank-biserial r across 100 simulation seeds; AgentHarm results single run, no CIs.",
+    "ablations": "Removal of Prospect Theory, Reactance, Dual-Process, Satisficing components in simulation (§VII-B4).",
+    "contamination_controls": "None; gate parameters and category severity weights set with knowledge of AgentHarm categories.",
+    "languages": "n/a (no code generation)."
+  },
+  "standards": {
+    "peer_review": "Preprint (comment: '12 pages, 8 figures, preprint').",
+    "limitations_section": true,
+    "artifacts": "'Anonymised replication package available here' and simulation script name (whif1_simulation.py) mentioned; link not resolvable from extracted text.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "strawman_baseline", "detail": "Sensor-only baseline is evaluated in a sensor-freeze scenario where its only signal is zeroed, guaranteeing the 96% vs 0% result."},
+    {"type": "self_evaluation", "detail": "Mechanism, simulator, parameter choices, metrics (TBR/TTI/OCR/LPR) and LTL properties all defined by the authors."},
+    {"type": "toy_tasks", "detail": "Synthetic traces with injected event probabilities; no deployed agent or real elderly-care/driving logs."},
+    {"type": "metric_mismatch", "detail": "Keyword-matching refusal detection on plain chat for five models measures text refusal, not agentic harmful tool use; over-refusal on benign tasks not measured."},
+    {"type": "other:label_leakage", "detail": "Gate uses AgentHarm harm-category severity weights, so ground-truth category information informs the post-hoc decision."},
+    {"type": "hype_language", "detail": "'Reduces silent failures to near-zero' and '17.5x faster' are presented as headline results from a simulation whose outcome is structurally determined."}
+  ],
+  "coi": {
+    "affiliations": "School of Computer Science, University of Birmingham (all three authors).",
+    "vendor_products_evaluated": "None owned by authors; third-party models evaluated.",
+    "funding": "No funding statement found.",
+    "severity": "none",
+    "detail": "Academic authors; only intellectual self-evaluation."
+  },
+  "scores": {"rigor": 1, "reproducibility": 1, "generalizability": 1, "relevance": 1, "coi_risk": 0},
+  "verdict": "reject",
+  "verdict_reason": "Headline simulation result is tautological (baseline evaluated with its signal disabled), the AgentHarm proxy is post-hoc, uses benchmark category labels as gate input, mixes grading methods across models, omits over-refusal, and has an unexplained scenario-count inconsistency (44x4 stated vs 208 reported). Feasibility sketch, not evidence.",
+  "applicability": "Little transfer. A Java ingestion/delivery team for healthcare education content is not deploying autonomous agents with physical-world authority, so the elderly-care escalation framing does not map. The only usable idea is architectural and generic: encode escalation-to-human thresholds as explicit, version-controlled policy (deterministic, reviewable) rather than leaving them to the model, which the team would get more directly from host-neutral approval gates in its harness. Nothing here addresses multi-repo ingestion, mixed agent hosts, or spec-driven development.",
+  "conflicts_with": []
+}

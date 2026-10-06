@@ -1,0 +1,111 @@
+{
+ "arxiv_id": "2607.13041",
+ "fulltext_chars": 15755,
+ "fulltext_lines": 396,
+ "authors_block": "Ravidu Suien Rammuni Silva Affiliation: Department of Computer Science, Nottingham Trent University, Nottingham, UK Corresponding author: E-mail ravidu.rammunisilva2024@my.ntu.ac.uk Ahmad Lotfi Affiliation: Department of Computer Science, Nottingham Trent University, Nottingham, UK Corresponding author: E-mail ravidu.rammunisilva2024@my.ntu.ac.uk Isibor Kennedy Ihianle Affiliation: Department of Computer Science, Nottingham Trent University, Nottingham, UK Corresponding author: E-mail ravidu.rammunisilva2024@my.ntu.ac.uk Golnaz Shahtahmassebi Affiliation: Department of Physics and Mathematics, Nottingham Trent University, Nottingham, UK Jordan J. Bird Affiliation: Department of Computer Science, Nottingham Trent University, Nottingham, UK Corresponding author: E-mail ravidu.rammunisilva2024@my.ntu.ac.uk",
+ "vendor_affiliation_hits": [],
+ "n_authors": 5,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/SuienS/lesson-bench-v1"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# LessonBench-V1: A Benchmark Dataset for Evaluating AI Lesson Generation Agents"
+  ],
+  [
+   58,
+   "###### Abstract"
+  ],
+  [
+   62,
+   "###### Keywords:"
+  ],
+  [
+   65,
+   "## 1 Introduction"
+  ],
+  [
+   76,
+   "## 2 Related Work"
+  ],
+  [
+   78,
+   "#### Educational AI Benchmarks."
+  ],
+  [
+   82,
+   "#### Instructional Design Frameworks."
+  ],
+  [
+   86,
+   "#### LLMs for Educational Content."
+  ],
+  [
+   134,
+   "## 3 Dataset Construction"
+  ],
+  [
+   136,
+   "### 3.1 Source Data and Topic Selection"
+  ],
+  [
+   140,
+   "### 3.2 Multi-Stage Curation Pipeline"
+  ],
+  [
+   173,
+   "## 4 Dataset Analysis"
+  ],
+  [
+   212,
+   "#### Bloom’s Taxonomy Distribution."
+  ],
+  [
+   218,
+   "#### Instructional Role Distribution."
+  ],
+  [
+   222,
+   "## 5 Benchmarking Framework"
+  ],
+  [
+   228,
+   "## 6 Conclusion and Future Work"
+  ],
+  [
+   232,
+   "#### Limitations and Future Work."
+  ],
+  [
+   236,
+   "## References"
+  ],
+  [
+   396,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "#### Limitations and Future Work.\n\nThe lesson plans for the dataset were generated using GPT 4.1. Although the generated plans were reviewed prior to the final compilation of the dataset, we plan to conduct systematic experiments to statistically verify their completeness and accuracy against an expert-written lesson plan baseline. The dataset is currently drawn only from English-language sources, and future versions will include lessons from multiple languages. Furthermore, this dataset is an initial step in a larger research effort to develop a full end-to-end lesson-generation AI agent, which is planned to be evaluated on it.\n\n## References\n\n[1]\nL. W. Anderson and D. R. Krathwohl (2001)\n\nA taxonomy for learning, teaching, and assessing: A revision of Bloom’s taxonomy of educational objectives.\n\n Longman.\n\nCited by: §1,\n§2,\nitem 4.\n\n[2]\nR. W. Bybee (2015)\n\nThe BSCS 5E Instructional model: Creating Teachable Moments.\n\n National Science Teachers Association.\n\nCited by: §1,\n§2,\nitem 4.\n\n[3]\nA. Chevalier J. Geng et al. (2024)\n\nLanguage models as science tutors.\n\narXiv preprint arXiv:2402.11111.\n\nCited by: §1,\n§2,\nTable 1.\n\n[4]",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 2,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

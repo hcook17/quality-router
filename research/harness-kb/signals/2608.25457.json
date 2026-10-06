@@ -1,0 +1,316 @@
+{
+ "arxiv_id": "2608.25457",
+ "fulltext_chars": 74352,
+ "fulltext_lines": 2234,
+ "authors_block": "via Multi-Agent Collaboration Miseon Yu Affiliation: Seoul National University Affiliation: Seoul, Republic of Korea Email: altjs543@snu.ac.kr Jaehoon Choi Affiliation: Seoul National University Affiliation: Seoul, Republic of Korea Email: qkzkf011113@gmail.com Younghan Lee ††thanks: Corresponding authors: Younghan Lee (yhlee@sungshin.ac.kr) and Yunheung Paek (ypaek@snu.ac.kr). Affiliation: Sungshin Women’s University Affiliation: Seoul, Republic of Korea Email: yhlee@sungshin.ac.kr Yunheung Paek11footnotemark: 1 Affiliation: Seoul National University Affiliation: Seoul, Republic of Korea Email: ypaek@snu.ac.kr",
+ "vendor_affiliation_hits": [],
+ "n_authors": 4,
+ "comment": "8 pages",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/Mishuni/macgen-secure-code.git.",
+  "https://github.com/OWASP/CheatSheetSeries",
+  "https://github.com/OWASP/Go-SCP",
+  "https://github.com/goldbergyoni/nodebestpractices",
+  "https://github.com/ollama/ollamaAccessed",
+  "https://github.com/ossf/wg-best-practices-os-developers"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   22,
+   "# MACGen: Toward Functionally Correct and Secure Code Generation"
+  ],
+  [
+   59,
+   "###### Abstract"
+  ],
+  [
+   68,
+   "## 1 Introduction"
+  ],
+  [
+   106,
+   "## 2 Related Works"
+  ],
+  [
+   108,
+   "### 2.1 Multi-Agents for Code Generation"
+  ],
+  [
+   113,
+   "### 2.2 Secure Code Generation"
+  ],
+  [
+   119,
+   "## 3 MACGen Design"
+  ],
+  [
+   121,
+   "### 3.1 Problem Definition"
+  ],
+  [
+   125,
+   "### 3.2 Overall Workflow"
+  ],
+  [
+   129,
+   "### 3.3 Building a Standards-driven Security Knowledge Base"
+  ],
+  [
+   149,
+   "### 3.4 Role-specific Agents"
+  ],
+  [
+   153,
+   "#### 3.4.1 Planner"
+  ],
+  [
+   159,
+   "#### 3.4.2 Security Advisor"
+  ],
+  [
+   167,
+   "#### 3.4.3 Code Generator"
+  ],
+  [
+   172,
+   "#### 3.4.4 Reviewer"
+  ],
+  [
+   176,
+   "## 4 Experimental Setup"
+  ],
+  [
+   180,
+   "### 4.1 Benchmarks"
+  ],
+  [
+   544,
+   "### 4.2 Baselines & LLM Models"
+  ],
+  [
+   549,
+   "### 4.3 Implementation Details"
+  ],
+  [
+   553,
+   "### 4.4 Evaluation Metrics"
+  ],
+  [
+   558,
+   "## 5 Experimental Results"
+  ],
+  [
+   578,
+   "### 5.1 Performance on Secure and Functionally Correct Code Generation"
+  ],
+  [
+   692,
+   "### 5.2 Performance Across Different Programming Languages"
+  ],
+  [
+   699,
+   "### 5.3 Token Cost"
+  ],
+  [
+   774,
+   "### 5.4 Effect of Artifact-Only Coordination"
+  ],
+  [
+   781,
+   "## 6 Ablation Study"
+  ],
+  [
+   783,
+   "### 6.1 Impact of Different Agents"
+  ],
+  [
+   963,
+   "### 6.2 Effectiveness of Security Advisor Components"
+  ],
+  [
+   971,
+   "### 6.3 Performance on General Functional Tasks"
+  ],
+  [
+   975,
+   "### 6.4 Impact of Different Number of Samplings"
+  ],
+  [
+   1045,
+   "## 7 Conclusion"
+  ],
+  [
+   1049,
+   "## Limitations"
+  ],
+  [
+   1053,
+   "##### Efficiency"
+  ],
+  [
+   1057,
+   "##### Evaluation Granularity"
+  ],
+  [
+   1061,
+   "##### Reasoning-Centric Design"
+  ],
+  [
+   1065,
+   "## Ethical considerations"
+  ],
+  [
+   1069,
+   "## References"
+  ],
+  [
+   1722,
+   "## Appendix A Experiments Setup"
+  ],
+  [
+   1727,
+   "## Appendix B Evaluation Details"
+  ],
+  [
+   1729,
+   "##### CWEval."
+  ],
+  [
+   1735,
+   "##### BaxBench."
+  ],
+  [
+   1742,
+   "##### Metrics."
+  ],
+  [
+   1752,
+   "## Appendix C Implementation Details"
+  ],
+  [
+   1754,
+   "##### MACGen Configuration"
+  ],
+  [
+   1758,
+   "##### Security Knowledge Sources."
+  ],
+  [
+   1785,
+   "##### Knowledge Base Construction and Maintenance."
+  ],
+  [
+   1801,
+   "##### KB Normalization Quality Validation"
+  ],
+  [
+   1805,
+   "##### Baselines"
+  ],
+  [
+   1819,
+   "## Appendix D Security Guidelines"
+  ],
+  [
+   1823,
+   "## Appendix E Impact of Guideline Synthesis and Knowledge-Base Refinement"
+  ],
+  [
+   1874,
+   "## Appendix F Performance with the maximum number of inferred CWE groups C"
+  ],
+  [
+   1911,
+   "## Appendix G Analysis of Security Error"
+  ],
+  [
+   1919,
+   "##### Early-exit audit."
+  ],
+  [
+   1923,
+   "## Appendix H Language-specific analysis"
+  ],
+  [
+   1932,
+   "# EE"
+  ],
+  [
+   1933,
+   "# Not Secure"
+  ],
+  [
+   1974,
+   "# EE denotes the number of tasks where the Security Advisor"
+  ],
+  [
+   2037,
+   "## Appendix I Additional Results for Effect of Artifact-Only Coordination"
+  ],
+  [
+   2041,
+   "## Appendix J Additional Evaluation on LLMSecEval"
+  ],
+  [
+   2043,
+   "##### Setup."
+  ],
+  [
+   2047,
+   "##### Metrics."
+  ],
+  [
+   2051,
+   "##### Results."
+  ],
+  [
+   2061,
+   "# of rules"
+  ],
+  [
+   2065,
+   "# of CWEs"
+  ],
+  [
+   2070,
+   "# of *.ql"
+  ],
+  [
+   2074,
+   "# of CWEs"
+  ],
+  [
+   2083,
+   "#NC \\downarrow"
+  ],
+  [
+   2222,
+   "## Appendix K Prompts"
+  ],
+  [
+   2234,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## Limitations\n\nWhile MACGen demonstrates consistent improvements in both functionality and security, several limitations remain that present avenues for future research.\n\n##### Efficiency\n\nAlthough MACGen incorporates optimization mechanisms such as artifact-only interfaces and early-exit triage, the multi-agent architecture incurs additional inference cost compared to single-pass methods. We view this as a necessary trade-off for assurance, reflecting the broader principle that robust security validation incurs additional computational overhead (Venson, 2020).\n\n##### Evaluation Granularity\n\nIn practice, the boundary between necessary security measures and over-engineering is not always clear. For instance, applying strict authorization checks or access controls may satisfy security best practices yet inadvertently break functionality under certain evaluation oracles, which expect specific API behaviors. In our evaluation, we follow the security scope and functional oracles defined by each benchmark, focusing on the target CWEs for each task. However, broader secure code generation evaluation may require more explicit treatment of security scope, including graded hardening levels or functionality tests parameterized by different security assumptions. We leave this as an open direction for future work.\n\n##### Reasoning-Centric Design\n\nMACGen is intentionally designed to assess how far structured multi-agent coordination can push the security reasoning capability of LLMs with minimal external intervention, using retrieval only to bridge the security knowledge gap while delegating all synthesis, analysis, and refinement to agent reasoning. Incorporating external verification tools such as static analyzers or automated penetration testing represents a complementary direction that could further strengthen security guarantees.\n\n## Ethical considerations\n\nWe examine the ethical implications of this work and follow elements of established ethical frameworks (Kohno et al., ). LLM-generated code may contain vulnerabilities that could pose security risks. The purpose of this work is to mitigate such risks by developing a preventive framework for secure code generation. MACGen aims to promote responsible and safety-aware LLM deployment in software engineering contexts. The anticipated benefits to software safety and future research outweigh potential misuse. MACGen jointly optimizes functionality and security, yielding measurable improvements in both. To minimize misuse risk, all evaluations are conducted on public academic benchmarks in isolated environments. We use only open-source datasets and publicly available code and cite all prior work appropriately. All experiments are executed in controlled, offline settings. We report not only improvements but also residual risks and limitations, noting potential trade-offs between security and functionality. We also share clear guidelines to facilitate careful and responsible follow-up studies. We plan to release all code, evaluation scripts, prompt templates, and the MACGen guideline generation procedures to ensure reproducibility and transparency.\n\n## References\n\nAI@Meta (2024)\nAI@Meta\n\nLlama 3 model card.\n\nExternal Links: Link\n\nCited by: §4.2.\n\nBhatt et al. (2023)\nM. Bhatt, S. Chennabasappa, C. Nikolaidis, S. Wan, I. Evtimov, D. Gabi, D. Song, F. Ahmad, C. Aschermann, L. Fontana, et al.\n\nPurple llama cyberseceval: a secure coding benchmark for language models.\n\narXiv preprint arXiv:2312.04724.\n\nCited by: Appendix J,\n§1.",
+ "ethics_coi": "## Ethical considerations\n\nWe examine the ethical implications of this work and follow elements of established ethical frameworks (Kohno et al., ). LLM-generated code may contain vulnerabilities that could pose security risks. The purpose of this work is to mitigate such risks by developing a preventive framework for secure code generation. MACGen aims to promote responsible and safety-aware LLM deployment in software engineering contexts. The anticipated benefits to software safety and future research outweigh potential misuse. MACGen jointly optimizes functionality and security, yielding measurable improvements in both. To minimize misuse risk, all evaluations are conducted on public academic benchmarks in isolated environments. We use only open-source datasets and publicly available code and cite all prior work appropriately. All experiments are executed in controlled, offline settings. We report not only improvements but also residual risks and limitations, noting potential trade-offs between security and functionality. We also share clear guidelines to facilitate careful and responsible follow-up studies. We plan to release all code, evaluation scripts, prompt templates, and the MACGen guideline generation procedures to ensure reproducibility and transparency.\n\n## References\n\nAI@Meta (2024)\nAI@Meta\n\nLlama 3 model card.\n\nExternal Links: Link\n\nCited by: §4.2.\n\nBhatt et al. (2023)\nM. Bhatt, S. Chennabasappa, C. Nikolaidis, S. Wan, I. Evtimov, D. Gabi, D. Song, F. Ahmad, C. Aschermann, L. Fontana, et al.\n\nPurple llama cyberseceval: a secure coding benchmark for language models.\n\narXiv preprint arXiv:2312.04724.\n\nCited by: Appendix J,\n§1.",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 2,
+  "seeds_or_runs": 2,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

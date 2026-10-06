@@ -1,0 +1,321 @@
+{
+ "arxiv_id": "2605.19638",
+ "fulltext_chars": 61831,
+ "fulltext_lines": 1241,
+ "authors_block": "Operational Limits and Expansion Potential of AI-Generated Browser-Native Accessibility Systems Rizwan Jahangir Affiliation: NUST Business School, NUST, Islamabad, Pakistan Daisuke Ishii Affiliation: Kiara Inc., Tokyo, Japan",
+ "vendor_affiliation_hits": [],
+ "n_authors": 2,
+ "comment": "21 pages, 4 figures",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/Kiara-02-Lab-Social/cam-guide-for-blind",
+  "https://github.com/Kiara-02-Lab-Social/cam-guide-for-blind.",
+  "https://github.com/dequelabs/axe-core"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# The Accessibility Capability Boundary:"
+  ],
+  [
+   34,
+   "###### Abstract"
+  ],
+  [
+   40,
+   "## 1 Introduction"
+  ],
+  [
+   74,
+   "## 2 Related Work"
+  ],
+  [
+   78,
+   "### 2.1 Accessibility Standards, Barriers, and Metrics"
+  ],
+  [
+   84,
+   "### 2.2 Ability-Based and Adaptive Design"
+  ],
+  [
+   88,
+   "### 2.3 AI-Generated Interfaces and Code Synthesis"
+  ],
+  [
+   94,
+   "### 2.4 Browser-Native and Offline-First Architectures"
+  ],
+  [
+   100,
+   "### 2.5 Multimodal Interaction and Visual Impairment"
+  ],
+  [
+   104,
+   "## 3 The Accessibility Capability Boundary"
+  ],
+  [
+   108,
+   "### 3.1 Motivation and Conceptual Foundation"
+  ],
+  [
+   114,
+   "### 3.2 Formal Definitions"
+  ],
+  [
+   116,
+   "###### Definition 1 (Accessibility System)."
+  ],
+  [
+   120,
+   "###### Definition 2 (User Ability Profile)."
+  ],
+  [
+   124,
+   "###### Definition 3 (Operating Environment)."
+  ],
+  [
+   128,
+   "###### Definition 4 (Accessibility Constraint Vector)."
+  ],
+  [
+   168,
+   "###### Definition 5 (Accessibility Utility Function)."
+  ],
+  [
+   178,
+   "###### Definition 6 (Accessibility Capability Boundary)."
+  ],
+  [
+   188,
+   "### 3.3 Propositions on ACB Expansion"
+  ],
+  [
+   192,
+   "###### Proposition 1 (Deployment Latency Reduction)."
+  ],
+  [
+   198,
+   "###### Proposition 2 (Infrastructure Dependency Minimization)."
+  ],
+  [
+   204,
+   "###### Proposition 3 (ACB Expansion via Rapid Adaptation)."
+  ],
+  [
+   210,
+   "### 3.4 The Accessibility Frontier"
+  ],
+  [
+   220,
+   "## 4 Architecture of Browser-Native Autonomous Accessibility"
+  ],
+  [
+   224,
+   "### 4.1 HTML as a Universal Accessibility Substrate"
+  ],
+  [
+   230,
+   "### 4.2 System Architecture"
+  ],
+  [
+   238,
+   "### 4.3 Key Architectural Components"
+  ],
+  [
+   240,
+   "#### 4.3.1 Intent Parsing and Interface Synthesis"
+  ],
+  [
+   244,
+   "#### 4.3.2 Browser-Native API Utilization"
+  ],
+  [
+   264,
+   "#### 4.3.3 Offline Persistence via Service Workers"
+  ],
+  [
+   268,
+   "#### 4.3.4 Accessibility Tree Integration"
+  ],
+  [
+   272,
+   "## 5 Accessibility Probes: Real-World Exploratory Systems"
+  ],
+  [
+   276,
+   "### 5.1 Probe 1: Browser-Native Accessibility Interface for a Blind User in Nepal"
+  ],
+  [
+   278,
+   "#### 5.1.1 Context and Motivation"
+  ],
+  [
+   282,
+   "#### 5.1.2 System Description"
+  ],
+  [
+   306,
+   "#### 5.1.3 ACB Analysis"
+  ],
+  [
+   350,
+   "### 5.2 Probe 2: Webcam Alignment Assistant for Visually Impaired Users"
+  ],
+  [
+   352,
+   "#### 5.2.1 The Accessibility Problem"
+  ],
+  [
+   356,
+   "#### 5.2.2 System Description"
+  ],
+  [
+   384,
+   "#### 5.2.3 Multimodal Feedback Design"
+  ],
+  [
+   388,
+   "#### 5.2.4 ACB Analysis"
+  ],
+  [
+   410,
+   "## 6 Exploratory Evaluation Framework"
+  ],
+  [
+   414,
+   "### 6.1 Proposed Study Design and Setup"
+  ],
+  [
+   420,
+   "### 6.2 Accessibility Verification Pipeline"
+  ],
+  [
+   438,
+   "### 6.3 Proposed Pilot Study Protocol"
+  ],
+  [
+   454,
+   "### 6.4 Limited Empirical Scope Disclaimer"
+  ],
+  [
+   458,
+   "## 7 Empirical Validation and System Benchmarks"
+  ],
+  [
+   460,
+   "### 7.1 Benchmarking Methodology and Performance"
+  ],
+  [
+   503,
+   "### 7.2 Preliminary Usability Observations"
+  ],
+  [
+   507,
+   "### 7.3 Accessibility Verification Analysis"
+  ],
+  [
+   511,
+   "## 8 Reproducibility and Deployment Pipeline"
+  ],
+  [
+   521,
+   "## 9 Systems Implementation Analysis"
+  ],
+  [
+   525,
+   "### 9.1 Architecture and Deployment Model"
+  ],
+  [
+   535,
+   "### 9.2 The Closed-Loop Accessibility Pipeline"
+  ],
+  [
+   555,
+   "### 9.3 Accessibility Semantics and ARIA Engineering"
+  ],
+  [
+   581,
+   "### 9.4 Browser as a Universal Accessibility Runtime"
+  ],
+  [
+   585,
+   "## 10 Evaluation Framework and Comparative Analysis"
+  ],
+  [
+   587,
+   "### 10.1 Comparative Accessibility Matrix"
+  ],
+  [
+   677,
+   "### 10.2 Accessibility Friction Analysis"
+  ],
+  [
+   689,
+   "### 10.3 Deployment Time Comparison"
+  ],
+  [
+   725,
+   "### 10.4 Accessibility Capability Scoring"
+  ],
+  [
+   735,
+   "## 11 Threats to Validity and Limitations"
+  ],
+  [
+   739,
+   "### 11.1 Threats to Validity"
+  ],
+  [
+   749,
+   "### 11.2 Hard Constraints"
+  ],
+  [
+   757,
+   "### 11.3 Soft Constraints"
+  ],
+  [
+   767,
+   "## 12 Accessibility at Global Scale"
+  ],
+  [
+   775,
+   "## 13 Ethical Considerations"
+  ],
+  [
+   787,
+   "## 14 Future Work"
+  ],
+  [
+   803,
+   "## 15 Conclusion"
+  ],
+  [
+   811,
+   "## References"
+  ],
+  [
+   1241,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 11 Threats to Validity and Limitations\n\nWhile the ACB framework and empirical probes demonstrate significant potential, several threats to validity must be acknowledged.\n\n### 11.1 Threats to Validity\n\nInternal Validity: The proposed pilot study framework relies on heuristic evaluation rather than a full participant sample, which cannot capture the full variance of visual impairments or intersectional disabilities. Future participant studies utilizing SUS and NASA-TLX will inherently introduce self-reporting bias. Furthermore, the performance of the face detection algorithm is sensitive to lighting conditions and camera angles, which were controlled in our preliminary benchmarks but vary wildly in the wild.\n\nExternal Validity (Ecological Validity): Testing browser-native systems in controlled environments may not accurately reflect deployment in low-resource contexts (e.g., rural Nepal), where device fragmentation, outdated browsers, and severe bandwidth constraints ( b\\approx 0 ) introduce friction not captured in laboratory benchmarks.\n\nConstruct Validity: The operationalization of the ACB constraint vector ( \\boldsymbol{\\kappa} ) requires assigning scalar weights to qualitative experiences (e.g., cognitive load). The linear utility function (Equation 1) assumes independence between constraints, whereas real-world accessibility often involves complex, non-linear tradeoffs.\n\nThe expansion of the ACB via AI-generated browser-native systems is real but bounded. We identify the following hard and soft constraints.\n\n### 11.2 Hard Constraints\n\nHallucination and Accessibility Regression. LLMs may generate syntactically valid but semantically incorrect ARIA attributes (e.g., assigning role=\"button\" to a non-interactive element), creating accessibility regressions that are difficult to detect without specialized testing tools [17, 16]. This is a fundamental reliability constraint that cannot be fully mitigated without automated accessibility verification.\n\nBrowser Sandboxing. The browser security model restricts access to hardware and system resources. Deep hardware integration (e.g., braille display control, custom input device handling) requires native code that cannot be delivered via browser APIs. This is a hard architectural constraint that defines the outer boundary of the browser-native ACB.\n\nCompute Constraints at the Edge. Running complex AI inference (e.g., real-time image captioning, natural language understanding) entirely in-browser is currently limited by the computational capacity of edge devices, particularly in low-resource contexts. WebAssembly and WebGPU are expanding these limits, but they remain a constraint.\n\n### 11.3 Soft Constraints\n\nBrowser Inconsistency. While HTML and ARIA are standardized, browser implementations of accessibility APIs vary. The Web Speech API, for example, has inconsistent support across browsers and platforms, potentially fracturing the user experience.\n\nAI Reliability and Verification. The functional accessibility of AI-generated interfaces cannot be automatically verified against the full WCAG criterion set. Automated tools (e.g., axe, WAVE) detect only a subset of accessibility issues, and user testing with disabled users remains the gold standard [4].\n\nPrivacy and Security. Browser-native systems that access camera or microphone streams raise privacy concerns, particularly for users who may not fully understand the permissions they are granting. LLM-generated code may also introduce security vulnerabilities if not reviewed.\n\nDependency on LLM Providers. The generation phase of AI-generated systems depends on access to LLM APIs, which may be unavailable in low-connectivity environments, subject to cost constraints, or discontinued by providers. Local LLM execution is an emerging mitigation but remains computationally demanding.\n\n## 12 Accessibility at Global Scale\n\nThe empirical validation of browser-native AI accessibility systems has profound implications for the democratization of",
+ "ethics_coi": "## 13 Ethical Considerations\n\nThe deployment of AI-generated accessibility systems raises several ethical considerations that must be addressed in future work.\n\nInformed Consent and Transparency. Users of AI-generated interfaces should be informed that the interface was generated by an AI system and may contain errors. This is particularly important for accessibility applications, where errors may have significant consequences for the user’s ability to complete tasks.\n\nDisability Justice and Participatory Design. The design of accessibility systems should involve people with disabilities as active participants, not merely as test subjects [13]. AI-generated systems risk perpetuating the “design for, not with” paradigm if the generation process does not incorporate user feedback.\n\nData Privacy. Systems that access camera or microphone streams must implement appropriate data minimization and local processing to protect user privacy. All processing in the webcam alignment probe is performed client-side, with no video data transmitted to external servers.\n\nEquity and Access. While AI-generated systems reduce deployment friction, they still require access to a browser-capable device and, for the generation phase, internet connectivity. Addressing the digital divide that underlies these requirements is a prerequisite for equitable deployment [8].\n\n## 14 Future Work\n\nThe ACB framework opens several productive directions for future research.\n\nAutonomous Accessibility Agents. Future systems may employ AI agents that continuously monitor user interaction patterns, identify friction points, and autonomously regenerate interface components to reduce cognitive load and interaction complexity. This would move A_{d} toward 1.0 in real time.\n\nAccessibility-Aware AI Compilers. A critical open problem is the development of AI systems that guarantee WCAG compliance during the generation phase, rather than relying on post-hoc verification. This requires integrating formal accessibility",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 5,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

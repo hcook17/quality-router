@@ -1,0 +1,201 @@
+{
+ "arxiv_id": "2606.31767",
+ "fulltext_chars": 77868,
+ "fulltext_lines": 1205,
+ "authors_block": "Khashayar Etemadi email: ketemadi@ethz.ch Affiliation: ETH Zurich, Switzerland and Zhendong Su email: zhendong.su@inf.ethz.ch Affiliation: ETH Zurich, Switzerland © none",
+ "vendor_affiliation_hits": [],
+ "n_authors": 2,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/eclipse-lemminx/lemminx",
+  "https://github.com/khesoem/JETO-Bench.",
+  "https://github.com/openjdk/jmh"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# JETO-Bench: A Reproducible Benchmark for Execution Time Improvement Patches in Java"
+  ],
+  [
+   37,
+   "###### Abstract."
+  ],
+  [
+   41,
+   "###### Keywords:"
+  ],
+  [
+   44,
+   "## 1. Introduction"
+  ],
+  [
+   71,
+   "## 2. Execution Time Improvement Patches"
+  ],
+  [
+   75,
+   "###### Definition 0 (Functional Equivalence)."
+  ],
+  [
+   79,
+   "###### Definition 0 (Execution Time Improvement Patch (ETIP))."
+  ],
+  [
+   83,
+   "###### Definition 0 (ETIP Detector Test)."
+  ],
+  [
+   93,
+   "## 3. System Design"
+  ],
+  [
+   95,
+   "### 3.1. Overview"
+  ],
+  [
+   101,
+   "### 3.2. Static Analysis"
+  ],
+  [
+   114,
+   "###Issue Title### \\delimiter 69632778 issue_title \\delimiter 86414091 ###Issue Title End###"
+  ],
+  [
+   115,
+   "###Issue Body### \\delimiter 69632778 issue_body \\delimiter 86414091 ###Issue Body End###"
+  ],
+  [
+   117,
+   "###Commit Message### \\delimiter 69632778 commit_message \\delimiter 86414091 ###Commit Message End###"
+  ],
+  [
+   132,
+   "### 3.3. Dynamic Analysis"
+  ],
+  [
+   148,
+   "### 3.4. Evaluation Harness"
+  ],
+  [
+   156,
+   "### 3.5. Implementation"
+  ],
+  [
+   160,
+   "## 4. Experimental Methodology"
+  ],
+  [
+   162,
+   "### 4.1. Building JETO-Bench"
+  ],
+  [
+   195,
+   "### 4.2. Research Questions"
+  ],
+  [
+   211,
+   "### 4.3. Protocol for RQ1 (JETO-Bench characteristics)"
+  ],
+  [
+   217,
+   "### 4.4. Protocol for RQ2 (using JETO-Bench in practice)"
+  ],
+  [
+   229,
+   "### 4.5. Protocol for RQ3 (JETO-Mine performance)"
+  ],
+  [
+   239,
+   "### 4.6. Experiment Resources"
+  ],
+  [
+   243,
+   "## 5. Experimental Results"
+  ],
+  [
+   245,
+   "### 5.1. Results for RQ1 (JETO-Bench characteristics)"
+  ],
+  [
+   298,
+   "### 5.2. Results for RQ2 (using JETO-Bench in practice)"
+  ],
+  [
+   609,
+   "### 5.3. Results for RQ3 (JETO-Mine performance)"
+  ],
+  [
+   636,
+   "## 6. Discussion"
+  ],
+  [
+   638,
+   "### 6.1. JMH Tests"
+  ],
+  [
+   649,
+   "### 6.2. Test Generation"
+  ],
+  [
+   655,
+   "### 6.3. Threats to Validity"
+  ],
+  [
+   657,
+   "#### 6.3.1. Threat to External Validity"
+  ],
+  [
+   661,
+   "#### 6.3.2. Threat to Internal Validity"
+  ],
+  [
+   665,
+   "## 7. Related Work"
+  ],
+  [
+   669,
+   "### 7.1. Performance Issue Benchmarks"
+  ],
+  [
+   677,
+   "### 7.2. Fixing Performance Issues"
+  ],
+  [
+   687,
+   "## 8. Conclusion"
+  ],
+  [
+   695,
+   "## Acknowledgements"
+  ],
+  [
+   699,
+   "## References"
+  ],
+  [
+   1205,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgements\n\nWe used Cursor as a coding assistant during the development of JETO-Mine. We also used Claude to help polish the text and figures of this paper.\n\n## References\n\nAracena et al. (2025)\nG. Aracena, K. Luster, F. Santos, I. Steinmacher, and M. A. Gerosa\n\nApplying large language models to issue classification: revisiting with extended data and new models.\n\nScience of Computer Programming 246, pp. 103333.\n\nCited by: §5.3.\n\nBlackburn et al. (2006)\nS. M. Blackburn, R. Garner, C. Hoffmann, A. M. Khang, K. S. McKinley, R. Bentzur, A. Diwan, D. Feinberg, D. Frampton, S. Z. Guyer, et al.\n\nThe dacapo benchmarks: java benchmarking development and analysis.\n\nIn Proceedings of the 21st annual ACM SIGPLAN conference on Object-oriented programming systems, languages, and applications,\n\npp. 169–190.\n\nCited by: §2.",
+ "limitations": "### 6.3. Threats to Validity\n\n#### 6.3.1. Threat to External Validity\n\nJETO-Mine collects ETIPs from projects that use Maven Wrapper to build. This means Java projects that use other build tools, such as Gradle, are not considered. Hence, we cannot be certain that our approach generalizes to Java projects that do not use Maven Wrapper. However, as reported in Section 5.1, the number of ETIPs identified by JETO-Mine aligns with similar benchmarks for other programming languages (Garg et al., 2025a; He et al., 2025), which indicates the usefulness of our tool for evaluating advanced patch generation tools.\n\n#### 6.3.2. Threat to Internal Validity\n\nThe dynamic analysis and evaluation harness of JETO-Mine run project tests to determine if they detect an execution time improvement. Since the execution environment can be volatile, the results of this step may not be fully robust and reproducible. To address this concern, we run the tests multiple times and use statistical testing to report how confidently we can claim a test detects an improvement. However, in our experiments, we noticed that the order of running tests can affect execution time. This is an issue because by default, Maven does not guarantee a deterministic order for running tests. We resolve this with two techniques. First, we always configure Maven to run the tests in alphabetical order on both versions. Second, over the \\mathchar 29038\\mathchar 29045\\mathchar 29037\\_\\mathchar 29029\\mathchar 29048\\mathchar 29029\\mathchar 29027 rounds of executing tests on original and patched versions, at odd rounds we first run the patched version and at even rounds we first run the original version. These two techniques minimize the effects of test execution order and environment volatility to maximize confidence in our statistical test results.\n\n## 7. Related Work\n\nRecently, many researchers are working on automated repair of various non-functional bugs, including performance issues (Garg et al., 2025b; Ren et al., 2025; Yang et al., 2025; Garg et al., 2022; Singhal et al., 2024; Gong et al., 2025). This line of research heavily depends on having benchmarks for the evaluation of patches generated by repair tools. Consequently, researchers are also working on new performance improvement benchmarks and tools to collect such benchmarks (Shetty et al., 2025; He et al., 2025; Garg et al., 2025a). In this section, we review the literature on performance issue benchmarks, automated fixing of performance issues, and studies on the performance optimization capabilities of AI agents, which are the closest research areas to our work.\n\n### 7.1. Performance Issue Benchmarks\n\nThere are established bug benchmarks, such as Defects4J (Just et al., 2014), Bugs.jar (Saha et al., 2018), IntroClassJava (Durieux and Monperrus, 2016), QuixBugs (Lin et al., 2017), and Bears (Madeiral et al., 2019), which have been used for evaluating automated program repair (APR) tools for more than a decade. However, these benchmarks are particularly focused on functional bugs and rarely updated. In a more recent effort, Jimenez et al. (Jimenez et al., 2023) have proposed SWE-Bench, which has become one of the most prominent benchmarks for APR evaluation. SWE-Bench provides pairs of GitHub issues and their resolving PRs as well as Docker containers for reproducing the issues and executing generated patches. In contrast to JETO-Bench, SWE-Bench is focused on Python and functional bugs.\n\nAfter years of progress in automatically fixing functional bugs, researchers have recently paid more attention to building APR tools for performance bugs (Ma et al., 2025). Consequently, new benchmarks of performance bugs are also created to support this effort (Blot and Petke, 2025). Several benchmarks are collected from code competition submissions, including PIE (Madaan et al., 2023) (77K C++ modifications), EffiBench (Huang et al., 2024), EvalPerf (Liu et al., 2024), and Mercury (Du et al., 2024). While competition submissions are w",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 2,
+  "seeds_or_runs": 0,
+  "swe_bench": 5,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 58,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

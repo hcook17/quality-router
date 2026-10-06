@@ -1,0 +1,52 @@
+{
+  "arxiv_id": "2607.01980",
+  "contribution_type": "empirical",
+  "summary": "Compares the authors' Timeless pipeline (two-pass gpt-4o-mini prompting that first groups requirements into epics, then emits JSON-constrained Gherkin and fills coverage gaps) against a two-sentence zero-shot prompt on four PURE requirements documents (107 requirements). Measures structural validity, TF-IDF and embedding-based requirement coverage, and a pre-registered blind rating by four external SE researchers.",
+  "claims": [
+    {"claim": "JSON-constrained pipeline yields 100% structurally valid scenarios vs 99% for baseline", "evidence": "Table 2 / §4.3 RQ1: 0 invalid of 119 Timeless scenarios; baseline has one mal-ordered scenario in Gamma-J. Margin is a single scenario; validity is guaranteed by construction (schema + post-validation).", "strength": "moderate", "location": "§4.3 RQ1, Table 2"},
+    {"claim": "Semantic requirement coverage is comparable (94.3% vs 92.9%)", "evidence": "Table 3 / §4.3 RQ2. Four documents, single run each; embedding model text-embedding-3-small is from the same provider as the generator, which the authors flag as a possible inflation. Baseline wins negative-scenario coverage (81.2% vs 67.0%) and TF-IDF RCR (76.0% vs 72.0%).", "strength": "weak", "location": "§4.3 RQ2, Table 3, §6"},
+    {"claim": "Experts prefer epic-organized Gherkin on Correctness (4.61 vs 4.14), Executability (4.61 vs 4.07), Completeness (4.31 vs 3.50)", "evidence": "Table 4 matches abstract numbers. Pre-registered on OSF, blinded A/B assignment, 4 raters from independent organizations. But Fleiss' kappa is -0.08 to 0.03 (no agreement), Completeness is one rating per rater per document (n=16 ratings per system), no significance test reported, and H3 was falsified (Completeness went the other way).", "strength": "moderate", "location": "§4.4, Table 4"},
+    {"claim": "Lexical TF-IDF metrics underestimate coverage of abstracted Gherkin", "evidence": "Fig. 3b: CCTNS 44% lexical vs 96% semantic for Timeless; plausible but rests on the unvalidated embedding threshold.", "strength": "moderate", "location": "§4.3 'Lexical vs. semantic gap', Fig. 3"}
+  ],
+  "patterns": [
+    {"id": "P34", "stance": "supports", "note": "Structured, schema-constrained acceptance criteria rated more executable/correct than free-form, on small evidence."},
+    {"id": "P14", "stance": "mixed", "note": "Generates BDD specs from requirements; quality gains vs a strawman, coverage equal, negative scenarios worse."},
+    {"id": "P15", "stance": "neutral", "note": "Gherkin is a test-first artifact but no step definitions or executable tests are produced or run."},
+    {"id": "P13", "stance": "introduces", "note": "Two-pass plan (epic synthesis) then generate/gap-fill; no ablation of the two passes separately."}
+  ],
+  "methodology": {
+    "sample": "4 PURE SRS documents (KeePass, Gamma-J, CCTNS, Internet Peering), 107 requirements, 119 Timeless scenarios; 4 expert raters",
+    "baselines": "Two-sentence zero-shot prompt with same model; authors concede few-shot or CoT baselines would narrow gaps (§6 internal validity)",
+    "models": "gpt-4o-mini only (generation); text-embedding-3-small for semantic coverage",
+    "variance": "Single run per document; Fleiss' kappa near zero; no CIs or tests",
+    "ablations": "None separating epic grouping, JSON schema, and gap-fill pass",
+    "contamination_controls": "None; PURE is a public dataset",
+    "languages": "English natural-language requirements to Gherkin; no code"
+  },
+  "standards": {
+    "peer_review": "Accepted at SEET 2026 (Springer proceedings) per arXiv comment",
+    "limitations_section": true,
+    "artifacts": "Evaluation materials and analysis scripts on OSF (osf.io/9apdf); Timeless pipeline code release not stated",
+    "preregistration": "Expert evaluation pre-registered on OSF with hypotheses H1-H3"
+  },
+  "biases": [
+    {"type": "strawman_baseline", "detail": "Two-sentence zero-shot prompt with no schema, examples or BDD constraints; authors themselves frame result as structured vs unstructured prompting."},
+    {"type": "small_sample", "detail": "Four documents, 107 requirements, four raters; authors note four data points per metric are not enough for statistical generalization."},
+    {"type": "single_model", "detail": "Only gpt-4o-mini; single run per document."},
+    {"type": "no_variance_reported", "detail": "No repeated runs, no significance tests; inter-rater kappa is approximately zero."},
+    {"type": "self_evaluation", "detail": "Timeless is the authors' own platform [15]; mitigated by blinded external raters."},
+    {"type": "metric_mismatch", "detail": "Semantic coverage uses an embedding model from the same provider as the generator, with no human-validated threshold."}
+  ],
+  "coi": {
+    "affiliations": "Tampere University; University of Jyväskylä",
+    "vendor_products_evaluated": "Authors' own research platform Timeless; OpenAI models used, not evaluated",
+    "funding": "FAST doctoral network (Finnish Ministry of Education and Culture) and ANSE (1822/31/2025)",
+    "severity": "low",
+    "detail": "Academic authors evaluating their own research tool favorably; no commercial vendor, and rating was blinded and done by non-authors."
+  },
+  "scores": {"rigor": 2, "reproducibility": 2, "generalizability": 1, "relevance": 3, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Peer-reviewed and has a pre-registered blinded rating, but the comparison is against a strawman zero-shot prompt, with one model, one run, four documents and near-zero rater agreement. Coverage parity and the structural guarantee are the only robust takeaways.",
+  "applicability": "Relevant to spec-driven rollout: if the team drafts acceptance criteria for ingestion/delivery features with an LLM, use a JSON schema plus a deterministic validator so Gherkin is always well-formed, and check coverage with more than one metric. Do not read this as evidence that epic-grouping beats per-requirement generation for healthcare content rules; the baseline is weak, negative-scenario coverage dropped (81% to 67%), which matters for validation/error paths in content ingestion, and nothing tests whether the Gherkin compiles into Cucumber-JVM step definitions across the team's >=4 repos. Host-neutral: the technique is a prompt + schema, portable across agent hosts.",
+  "conflicts_with": []
+}

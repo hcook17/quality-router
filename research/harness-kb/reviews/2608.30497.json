@@ -1,0 +1,49 @@
+{
+  "arxiv_id": "2608.30497",
+  "contribution_type": "dataset",
+  "summary": "Bridge mines library-update datasets from client commits that both bump a dependency version (Maven POM, or Python dependency files) and change code. It matches removed and added API calls by similarity, then validates candidates against library artifacts (the replacement exists, and the legacy API was removed or deprecated). Run on World of Code V3, it yields 381,661 Java and 277,259 Python client update instances, plus 18,900 and 4,456 API update mappings. As an application, it shows that four LLMs recommend the correct replacement API at most 37.1% (Java FQN) and 44.4% (Python) of the time, with much worse accuracy on long-tail mappings.",
+  "claims": [
+    {"claim": "Bridge mines client update instances with high precision: Java 91.6% P / 88.7% R, Python 90.1% P / 64.0% R.", "evidence": "§4.2.2: Java 305/344 TP, 28 FP, 39 FN. Python 155/242 TP, 17 FP, 87 FN. Ground truth is 638 Java / 609 Python records from 100 sampled libraries per language, double-annotated with Cohen's κ=0.92. Recall is measured only over Phase-3 records, not end-to-end (Threats, internal validity).", "strength": "strong", "location": "§4.1–4.2, Table in §4.2.2"},
+    {"claim": "Library-side validation is the key design element, raising precision by 40.3pp (Java) and 43.3pp (Python).", "evidence": "RQ2 design analysis (§4.3.2), restated in §5.1. Similarity weights have limited impact on F1.", "strength": "strong", "location": "§4.3, §5.1"},
+    {"claim": "Mined mappings are long-tailed: the median mapping appears in only two client update instances.", "evidence": "RQ3 (§4.4.2) dataset statistics table and distribution analysis.", "strength": "strong", "location": "§4.4"},
+    {"claim": "LLMs are weak at replacement API recommendation, especially on long-tail mappings, and client call context does not consistently help.", "evidence": "Table 7: GPT-5.4 is best, with Java FQN 37.1 / full signature 27.5 and Python 42.5 (signature input) to 44.4 (context input). Accuracy is 15.4–21.1% (Java) for single-instance mappings vs 48.5–55.8% for >100 instances (Fig. 8). Context lowers Java full-signature accuracy by 0.6–2.0pp for all models (Holm-corrected McNemar, significant). Setup: zero-shot, temp 0, 128-token output, thinking disabled, no tools or docs. Exact match against a single reference may count valid alternatives as wrong.", "strength": "moderate", "location": "§4.5, Table 7, Fig. 8"}
+  ],
+  "patterns": [
+    {"id": "P28", "stance": "supports", "note": "Mined API update mappings and client examples are positioned as inputs for recipe-based migration (OpenRewrite/Moderne cited in §5.1). The low LLM accuracy argues for deterministic, validated mappings over free LLM recall."},
+    {"id": "P16", "stance": "neutral", "note": "Recommends a workflow where replacement selection is made explicit, then availability is checked against the target library version, then compile/type-check/test validation (§5.1). The workflow itself is not evaluated."},
+    {"id": "P05", "stance": "supports", "note": "Validating against authoritative library artifacts (deterministic signature resolution and deprecation checks) raised precision by 40+pp over similarity matching alone."}
+  ],
+  "methodology": {
+    "sample": "Ground truth: 638 Java / 609 Python API call change records (2,283 / 1,988 call pairs) from 100 libraries per language. Dataset: 2,557 Java and 999 Python libraries. LLM study: 18,166 Java and 4,360 Python examples.",
+    "baselines": "Ablation of the library-side validation phase. No direct comparison with prior mining tools on the same ground truth. The LLM study compares models against each other.",
+    "models": "GPT-5.4, DeepSeek-V4-Pro, DeepSeek-V4-Flash, GLM-5.1 (temp 0, thinking disabled).",
+    "variance": "Deterministic decoding. McNemar exact tests with Holm correction for the context-vs-signature comparison. No CIs on P/R.",
+    "ablations": "Similarity weights, threshold, and library-side validation (RQ2).",
+    "contamination_controls": "None for the LLM study. WoC V3 commits and library docs are likely in pretraining data, which, if anything, inflates LLM scores.",
+    "languages": "Java (Maven) and Python."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint formatted with an ACM journal template (JACM placeholder metadata). No acceptance stated.",
+    "limitations_section": true,
+    "artifacts": "Implementation and mined dataset at github.com/ROCK-SE/Bridge.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "metric_mismatch", "detail": "RQ1 recall excludes everything missed by Phases 1–3, so it is not ecosystem recall (acknowledged). RQ4 exact-match against a single mined reference undercounts valid alternatives."},
+    {"type": "self_evaluation", "detail": "The ground truth is sampled from Bridge's own Phase-3 output and annotated by the first two authors. RQ4 references are themselves Bridge-mined, with roughly 90% precision."},
+    {"type": "contamination_risk", "detail": "Historical public commits and library docs are probably in LLM training data. Not discussed."},
+    {"type": "other:non_agentic_llm_eval", "detail": "LLMs are tested zero-shot without documentation, tools or reasoning, which likely understates what an agent with library source and a compiler can do."}
+  ],
+  "coi": {
+    "affiliations": "University of Science and Technology Beijing (all three authors).",
+    "vendor_products_evaluated": "GPT-5.4, DeepSeek, GLM models as subjects. No vendor affiliation.",
+    "funding": "NSFC (62502030, 92582119, 62272037), China Postdoctoral Science Foundation (2025M781455), Fundamental Research Funds for the Central Universities (FRF-TP-25-030).",
+    "severity": "none",
+    "detail": "Academic authors with public funding."
+  },
+  "scores": {"rigor": 4, "reproducibility": 4, "generalizability": 3, "relevance": 3, "coi_risk": 0},
+  "verdict": "admit",
+  "verdict_reason": "The mining claims are backed by a double-annotated ground truth (κ=0.92) with explicit TP/FP/FN counts and a clear ablation. The dataset is released, Java is first-class, and threats are discussed candidly. The LLM study is a narrow zero-shot probe and is flagged as such.",
+  "applicability": "Directly relevant to dependency maintenance in a Java/Maven estate, and especially to coordinated upgrades across the ≥4 ingestion repositories. (1) Do not let an agent guess replacement APIs from memory: even GPT-5.4 got the exact Java signature right only 27.5% of the time, and far less for rarely seen APIs. Upgrade workflows in the harness should resolve replacements from authoritative sources (library sources, deprecation annotations, release notes, or OpenRewrite recipes), verify the API exists in the target version, then compile and test. (2) The Bridge dataset and its validation idea can seed deterministic recipes for common Java library migrations, keeping the LLM to the residual edits. That fits spec-driven development, where the upgrade spec lists mappings and the agent executes them, and it works the same regardless of agent host. It does not cover multi-commit or cross-repo adaptation, which the team would need to orchestrate itself.",
+  "conflicts_with": []
+}

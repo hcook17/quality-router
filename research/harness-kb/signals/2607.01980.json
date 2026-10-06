@@ -1,0 +1,209 @@
+{
+ "arxiv_id": "2607.01980",
+ "fulltext_chars": 39943,
+ "fulltext_lines": 944,
+ "authors_block": "Shahbaz Siddeeq Affiliation: Faculty of Information Technology and Communication Science, Tampere University, Tampere, Finland E-mail {shahbaz.siddeeq,jussi.rasku,zheying.zhang,pekka.abrahamsson }@tuni.fi Mateen Abbasi Affiliation: Faculty of Information Technology, University of Jyväskylä, Jyväskylä, Finland E-mail {mateen.a.abbasi,francois.m.christophe,tommi.j.mikkonen }@jyu.fi Jussi Rasku Affiliation: Faculty of Information Technology and Communication Science, Tampere University, Tampere, Finland E-mail {shahbaz.siddeeq,jussi.rasku,zheying.zhang,pekka.abrahamsson }@tuni.fi Zheying Zhang Affiliation: Faculty of Information Technology and Communication Science, Tampere University, Tampere, Finland E-mail {shahbaz.siddeeq,jussi.rasku,zheying.zhang,pekka.abrahamsson }@tuni.fi François Christophe Affiliation: Faculty of Information Technology, University of Jyväskylä, Jyväskylä, Finland E-mail {mateen.a.abbasi,francois.m.christophe,tommi.j.mikkonen }@jyu.fi Tommi Mikkonen Affiliation: Faculty of Information Technology, University of Jyväskylä, Jyväskylä, Finland E-mail {mateen.a.abbasi,francois.m.christophe,tommi.j.mikkonen }@jyu.fi Pekka Abrahamsson Affiliation: Faculty of Information Technology and Communication Science, Tampere University, Tampere, Finland E-mail {shahbaz.siddeeq,jussi.rasku,zheying.zhang,pekka.abrahamsson }@tuni.fi",
+ "vendor_affiliation_hits": [],
+ "n_authors": 7,
+ "comment": "Accepted for publication at the International Conference on Software Engineering of Emerging Technologies (SEET 2026)",
+ "journal_ref": "Communications in Computer and Information Science, volume 3126, pages 85-100, Springer, 2027",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Epic-Organized vs. Requirement-Aligned Gherkin: An Empirical Evaluation of LLM-Based Acceptance Criteria Generation Thanks: This paper has been accepted for publication at the International Conference on Software Engineering of Emerging Technologies (SEET 2026). It will be published by Springer Nature in the conference proceedings"
+  ],
+  [
+   64,
+   "###### Abstract"
+  ],
+  [
+   68,
+   "###### Keywords:"
+  ],
+  [
+   71,
+   "## 1 Introduction"
+  ],
+  [
+   103,
+   "## 2 Background and Related Work"
+  ],
+  [
+   105,
+   "### 2.1 Behavior-Driven Development, Gherkin, and the Authoring Challenge"
+  ],
+  [
+   114,
+   "### 2.2 Large Language Models for Acceptance Criteria and Gherkin Generation"
+  ],
+  [
+   122,
+   "## 3 Gherkin Generation Approach"
+  ],
+  [
+   124,
+   "### 3.1 Prompt Engineering for Gherkin Generation"
+  ],
+  [
+   182,
+   "### 3.2 The Timeless Platform"
+  ],
+  [
+   190,
+   "### 3.3 Pipeline Overview"
+  ],
+  [
+   197,
+   "## 4 Evaluation"
+  ],
+  [
+   199,
+   "### 4.1 Research Questions"
+  ],
+  [
+   224,
+   "### 4.2 Evaluation Design"
+  ],
+  [
+   226,
+   "#### Dataset."
+  ],
+  [
+   262,
+   "#### Gherkin Generation Procedure."
+  ],
+  [
+   267,
+   "#### Baseline."
+  ],
+  [
+   271,
+   "#### Metrics."
+  ],
+  [
+   275,
+   "##### Structural quality (RQ1)."
+  ],
+  [
+   280,
+   "##### Requirement coverage (RQ2)."
+  ],
+  [
+   287,
+   "### 4.3 Results"
+  ],
+  [
+   289,
+   "#### RQ1 — Structural Quality."
+  ],
+  [
+   407,
+   "#### RQ2 — Requirement Coverage."
+  ],
+  [
+   510,
+   "##### Two-pass coverage."
+  ],
+  [
+   514,
+   "##### Lexical vs. semantic gap (TF-IDF bias)."
+  ],
+  [
+   519,
+   "##### Spurious Scenario Rate."
+  ],
+  [
+   528,
+   "#### Generation Latency."
+  ],
+  [
+   532,
+   "### 4.4 Human Expert Evaluation (RQ3)"
+  ],
+  [
+   534,
+   "#### Protocol."
+  ],
+  [
+   545,
+   "#### Results."
+  ],
+  [
+   637,
+   "## 5 Discussion"
+  ],
+  [
+   639,
+   "##### For researchers."
+  ],
+  [
+   644,
+   "##### For practitioners."
+  ],
+  [
+   649,
+   "##### Limitations."
+  ],
+  [
+   654,
+   "## 6 Threats to Validity"
+  ],
+  [
+   656,
+   "##### Construct validity."
+  ],
+  [
+   661,
+   "##### Internal validity."
+  ],
+  [
+   665,
+   "##### External validity."
+  ],
+  [
+   669,
+   "##### Conclusion validity."
+  ],
+  [
+   673,
+   "## 7 Conclusion and Future Work"
+  ],
+  [
+   684,
+   "## Declaration of AI Assistance"
+  ],
+  [
+   688,
+   "## Acknowledgment"
+  ],
+  [
+   692,
+   "## References"
+  ],
+  [
+   944,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgment\n\nThis work has been supported by FAST, the Finnish Software Engineering Doctoral Research Network, funded by the Ministry of Education and Culture, Finland and ANSE (AI Native Software Engineering) (1822/31/2025).\n\n## References\n\n[1]\nC. Arora, J. Grundy, and M. Abdelrazek (2024)\n\nAdvancing requirements engineering through generative ai: assessing the role of llms.\n\nIn Generative AI for Effective Software Development,\n\npp. 129–148.\n\nCited by: §2.2,\n§4.2,\n§6.\n\n[2]\nL. P. Binamungu, S. M. Embury, and N. Konstantinou (2018)\n\nMaintaining behaviour driven development specifications: challenges and opportunities.\n\nIn 2018 IEEE 25th International Conference on Software Analysis, Evolution and Reengineering (SANER),",
+ "limitations": "##### Limitations.\n\nThe evaluation uses four documents from the PURE dataset (107 requirements); while consistent with comparable studies [9, 7], this limits confidence in the observed trends. All documents contain 20–35 functional requirements; it is not known whether the epic-grouping strategy\nscales to larger SRS documents with 100+ requirements, where finer feature granularity may be needed.\n\n## 6 Threats to Validity\n\n##### Construct validity.\n\nProvider coupling between gpt-4o-mini (generation) and\ntext-embedding-3-small (embedding) means the semantic RCR score may be inflated if both models share similar internal representations; replication with Sentence-BERT [17] would isolate this effect. Structural metrics do not capture readability, domain accuracy, or test precision [10], which the expert evaluation addresses.\n\n##### Internal validity.\n\nThe zero-shot baseline isolates structured prompting’s contribution; a chain-of-thought or few-shot baseline would narrow the NC and expert-rating gaps, though the architectural SV guarantee would remain. Results should be read as structured vs. unstructured prompting, not as the upper bound of LLM capability.\n\n##### External validity.\n\nFour documents yield four data points per metric, sufficient to show consistent trends but not enough for statistical generalization. Documents were selected to cover distinct domains (security, e-commerce, law enforcement, networking), following the sampling strategy of comparable LLM-based RE evaluations [18, 1].\n\n##### Conclusion validity.\n\nAll results are from a single run per document with gpt-4o-mini (OpenAI, April 2026); LLM non-determinism means repeated runs may produce different scenario counts and content. Structural guarantees depend on the JSON-constrained prompting strategy and must be re-validated for each new model or version.\n\n## 7 Conclusion and Future Work\n\nGherkin scenario authoring requires domain knowledge, structural discipline, and full requirement coverage, a combination difficult to sustain manually at scale. This paper evaluates a two-pass LLM prompting approach that organizes requirements into semantically coherent epics before generating JSON-constrained Gherkin output, compared against a zero-shot baseline across four PURE SRS documents (107 requirements).\n\nJSON-constrained generation achieves 100% structural validity by architectural design. Semantic coverage reaches 94.3%, matching the zero-shot baseline (92.9%), while TF-IDF underestimates abstracted Gherkin by 22 pp, a systematic bias lexical-only studies cannot detect. Expert evaluation confirms that epic-organized output scores higher on all three quality dimensions, including Completeness where the pre-registered hypothesis predicted the reverse.\n\nThree directions follow from these findings. First, extending the evaluation to n\\geq 10 PURE documents and live transcription inputs will test whether the coverage and quality trends hold across a wider requirement dataset (Section 6, external validity). Second, comparing the zero-shot baseline with chain-of-thought and few-shot prompts will separate the contribution of epic organization from the benefit of richer prompting alone (Section 6, internal validity). Third, replication\nwith open-source embedding models such as Sentence BERT [17] will isolate the provider coupling concern in the semantic coverage measure.\n\nThe results suggest that epic-organized, schema-constrained generation is a promising direction for automated BDD support. Further evaluation with stronger baselines, more documents, repeated model runs, live meeting inputs, and manually validated traceability data is needed before the findings can be generalized.\n\n## Declaration of AI Assistance\n\nDuring the preparation of this manuscript, the authors used ChatGPT to assist with grammar refinement, sentence restructuring, and formatting improvements. Following the use of this tool, the authors carefully reviewed and revised the content and assume full respons",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 3
+ },
+ "fulltext_source": "html"
+}

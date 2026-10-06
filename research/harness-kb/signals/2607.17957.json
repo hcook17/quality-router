@@ -1,0 +1,183 @@
+{
+ "arxiv_id": "2607.17957",
+ "fulltext_chars": 59526,
+ "fulltext_lines": 1547,
+ "authors_block": "Shenghao Yang1, Bo Lu2, Yaochen Liu2, Yu Kang2, Qiongfang Zhang2, Chetan Bansal2, Saravan Rajmohan2, Minghua Ma2 Affiliation: 1Carnegie Mellon University, Pittsburgh, PA, USA Email: shenghay@andrew.cmu.edu Affiliation: 2Microsoft Email: minghuama@microsoft.com Affiliation:",
+ "vendor_affiliation_hits": [],
+ "n_authors": 8,
+ "comment": "10 pages, 5 figures, 7 tables",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/openai/codexApache-2.0"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# DepRepair: LLM-Based Source-Code Repair for Dependency Breaking ChangesThanks: Work done during an internship at Microsoft."
+  ],
+  [
+   41,
+   "###### Abstract"
+  ],
+  [
+   45,
+   "###### Index Terms:"
+  ],
+  [
+   48,
+   "## I Introduction"
+  ],
+  [
+   122,
+   "## II Related Work"
+  ],
+  [
+   124,
+   "### II-A Dependency Updates and Breaking Changes"
+  ],
+  [
+   132,
+   "### II-B Same-Repository Repair"
+  ],
+  [
+   137,
+   "#### II-B1 Rule-Based Repair"
+  ],
+  [
+   145,
+   "#### II-B2 LLM-Based Repair"
+  ],
+  [
+   153,
+   "## III Benchmark"
+  ],
+  [
+   155,
+   "### III-A Construction"
+  ],
+  [
+   163,
+   "##### Data sources."
+  ],
+  [
+   168,
+   "##### Candidate harvest."
+  ],
+  [
+   174,
+   "##### Quality Filter."
+  ],
+  [
+   181,
+   "##### Oracle construction."
+  ],
+  [
+   187,
+   "### III-B Breaking-Change Taxonomy"
+  ],
+  [
+   207,
+   "### III-C Benchmark Statistics"
+  ],
+  [
+   315,
+   "## IV Approach"
+  ],
+  [
+   323,
+   "### IV-A Problem Formulation"
+  ],
+  [
+   354,
+   "### IV-B Evidence Filter: what changed"
+  ],
+  [
+   383,
+   "### IV-C Usage Locator: where it matters"
+  ],
+  [
+   408,
+   "### IV-D Subcategory Guide: how to edit"
+  ],
+  [
+   432,
+   "### IV-E Assembly and Single-Call Generation"
+  ],
+  [
+   437,
+   "## V Evaluation"
+  ],
+  [
+   439,
+   "### V-A Research Questions"
+  ],
+  [
+   459,
+   "### V-B Experimental Setup"
+  ],
+  [
+   501,
+   "### V-C RQ1: Overall Comparison"
+  ],
+  [
+   577,
+   "### V-D RQ2: The Empty Patch as the Dominant Failure"
+  ],
+  [
+   627,
+   "### V-E RQ3a: Evidence as a Double-Edged Sword"
+  ],
+  [
+   673,
+   "### V-F RQ3b: Component Ablation"
+  ],
+  [
+   775,
+   "### V-G RQ4: Per-Subcategory Analysis"
+  ],
+  [
+   856,
+   "### V-H Case Studies"
+  ],
+  [
+   977,
+   "## VI Discussion"
+  ],
+  [
+   1018,
+   "## VII Conclusion"
+  ],
+  [
+   1026,
+   "## Acknowledgment"
+  ],
+  [
+   1031,
+   "## References"
+  ],
+  [
+   1547,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgment\n\nGenerative AI tools were used to assist with drafting and editing portions of this manuscript.\nAll technical content, experimental results, and conclusions were produced and verified by the authors.\n\n## References\n\n[1]\nS. Raemaekers, A. van Deursen, and J. Visser (2017)\n\nSemantic versioning and impact of breaking changes in the maven repository.\n\nJournal of Systems and Software 129, pp. 140–158.\n\nCited by: §I,\n§I,\n§II-A.\n\n[2]\nC. Bogart, C. Kästner, J. Herbsleb, and F. Thung (2016)\n\nHow to break an api: cost negotiation and community values in three software ecosystems.\n\nIn Proceedings of the 2016 24th ACM SIGSOFT International Symposium on Foundations of Software Engineering,",
+ "limitations": "",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 2,
+  "seeds_or_runs": 0,
+  "swe_bench": 3,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 4,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

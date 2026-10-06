@@ -1,0 +1,155 @@
+{
+ "arxiv_id": "2608.13568",
+ "fulltext_chars": 33715,
+ "fulltext_lines": 741,
+ "authors_block": "A Measurement Methodology and Preliminary Study Pengcheng Xu Email: pooytr1@gmail.com June 2026",
+ "vendor_affiliation_hits": [],
+ "n_authors": 1,
+ "comment": "13 pages, 6 figures. Code and data: https://github.com/Poytr1/lsp-vs-grep-token-study",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/Poytr1/lsp-vs-grep-token-study",
+  "https://github.com/Poytr1/lsp-vs-grep-token-study.",
+  "https://github.com/aorwall/moatless-tools",
+  "https://github.com/isaacphi/mcp-language-server",
+  "https://github.com/oraios/serena"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Does a Language Server Save Tokens for Coding Agents?"
+  ],
+  [
+   30,
+   "###### Abstract"
+  ],
+  [
+   64,
+   "## 1 The fundamental question"
+  ],
+  [
+   84,
+   "## 2 Background and related work"
+  ],
+  [
+   86,
+   "#### Provenance note."
+  ],
+  [
+   96,
+   "#### Tools that already expose semantic navigation (F)."
+  ],
+  [
+   108,
+   "#### Recent literature (F, arXiv, full abstracts captured)."
+  ],
+  [
+   122,
+   "#### The gap."
+  ],
+  [
+   130,
+   "## 3 Method"
+  ],
+  [
+   132,
+   "#### Primary metric: tokens-to-success."
+  ],
+  [
+   146,
+   "#### The ablation: five arms."
+  ],
+  [
+   179,
+   "#### Tasks and controls."
+  ],
+  [
+   188,
+   "## 4 The three failure modes, made measurable"
+  ],
+  [
+   200,
+   "## 5 Why agents prefer grep — mechanism hypotheses"
+  ],
+  [
+   213,
+   "## 6 Results"
+  ],
+  [
+   222,
+   "### 6.1 Localization — grep wins on tokens"
+  ],
+  [
+   264,
+   "### 6.2 Model sweep — LSP helps weak models, taxes strong ones"
+  ],
+  [
+   303,
+   "### 6.3 Reference-completeness — LSP buys precision, not tokens, and cannot fix recall"
+  ],
+  [
+   365,
+   "### 6.4 Reference-completeness across models, and task-dependent tool choice"
+  ],
+  [
+   416,
+   "### 6.5 What actually determines the LSP’s value: lexical noise, not language"
+  ],
+  [
+   519,
+   "### 6.6 Synthesis"
+  ],
+  [
+   536,
+   "### 6.7 Edit tasks with real test execution"
+  ],
+  [
+   609,
+   "## 7 Limitations and threats to validity"
+  ],
+  [
+   629,
+   "## 8 Conclusion"
+  ],
+  [
+   646,
+   "## Code and data availability"
+  ],
+  [
+   655,
+   "## How to cite"
+  ],
+  [
+   666,
+   "## Appendix A Source provenance"
+  ],
+  [
+   676,
+   "## References"
+  ],
+  [
+   741,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 7 Limitations and threats to validity\n\nThe results are preliminary: (i) few repositories, small N —\nrequests plus remeda/hono (TypeScript), small libraries the models likely saw in\npretraining; 6 localization tasks, 5–6 reference targets, and 6 edit / 6 rename tasks, 2–3 rollouts each.\nDirections are robust; effect sizes (e.g. Sonnet’s +118\\% ) are preliminary and will move with more data.\n(ii) The edit results are local, not SWE-bench-scored: SWE-bench Docker images do not run under\nemulation on the available arm64 host, so edit tasks use a locally built set (real requests bugfix\ncommits and constructed multi-file renames) run natively. This is sound for the relative arm\ncomparison but the pass@1 values are not comparable to a standard SWE-bench leaderboard.\n(iii) Oracle quality drove a mid-study change from\npylsp to pyright (jedi was too incomplete to be ground truth) — itself a finding, and a\ncaution that any single LSP-as-truth inherits that server’s blind spots. (iii) Task coverage\n— we did not run the edit tasks end-to-end with test execution, arm E (static repo-map), or\nlarge repositories where per-symbol LSP cost and the static-index trade-off would bite.\n(iv) Language/server — Python with pylsp/pyright; the originally-motivating\nTypeScript case (statically typed, most reliable references) is untested and is the most\nimportant next stratum. (v) Harness specificity and (vi) token accounting (we count\ntotal context tokens; caching can change billed cost). (vii) Provenance as in §2.\n\n## 8 Conclusion\n\n“Does an LSP save tokens” is not a tooling opinion — it is a measurable statement about retrieval\nprecision under a token budget, and it has gone unmeasured in public while being near-universally\nasserted. We reduced it to a single metric (tokens-to-success at iso-accuracy), a five-arm\nablation, and a mapping of three failure modes onto movable variables — and ran a preliminary study that turns the\nprior into first numbers. The answer is conditional, and in the common case negative: on\nsymbol-named localization the LSP costs tokens (a tax growing with model strength); on\nreference-completeness it buys precision, not token savings, at a \\sim 19% premium and cannot\nlift the recall ceiling; it nets a saving only for the weakest model. Underneath sits the most robust\nfinding: every model defaults to grep when the LSP is merely available. That is why the\ndurable solution is not “add an LSP” but to make the routing — and eventually the semantic competence\nitself — native to the policy rather than a brittle external layer, the direction\nRL-from-language-server-feedback already points. The contribution is to replace an assertion with a\nmeasurement, and a blanket recommendation with a conditional one. The honest next step is scale: more and\nlarger repositories, real SWE-bench-scored edits on Docker-capable hardware, and a second model family.\n\n## Code and data availability\n\nAll code (harness, task builders, verifiers, analysis) and raw per-episode results are public at",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 5,
+  "swe_bench": 12,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

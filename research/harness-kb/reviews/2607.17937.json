@@ -1,0 +1,37 @@
+{
+  "arxiv_id": "2607.17937",
+  "contribution_type": "empirical",
+  "summary": "Single-author white-box case study of 'context rot' in a production-derived code-audit skill (4 audit tasks, 24 frozen mandatory checks), run mainly with Codex + gpt-5.4-mini. Clean 10,991-char context passes 8/10 runs; 299,140-char relevant and irrelevant contexts each pass 3/10 (Fisher p=0.0698), yet ~93% of individual checks still pass, so a few dropped obligations sink the artifact. A detailed external checklist restating all 24 obligations passes 10/10 vs 5/10 for a generic self-check (p=0.0325); a delegated sub-agent loses an opaque contract across native compaction in a single mechanism run.",
+  "claims": [
+    {"claim": "Long context (299K chars) cuts strict pass from 8/10 to 3/10 on the main task", "evidence": "§5.1.1/§5.2.1; two-sided Fisher p=0.0698, wide Wilson intervals; author explicitly calls it trend-level. One task, one model, n=10 per cell; sample sizes were extended after inspecting pilots (§7.2).", "strength": "moderate", "location": "§5.1-5.2, §7.2"},
+    {"claim": "Requirement coverage stays >92% while strict success collapses: rot removes a few decisive obligations", "evidence": "§5.3.1: long conditions satisfy 92.1-93.8% of checks; failures concentrated on the recurrent T002 array and cardinality rules.", "strength": "moderate", "location": "§5.3.1"},
+    {"claim": "No stable onset length; effect is task- and model-dependent", "evidence": "§5.1.2-5.1.3, §5.2.2: 90K fails once then passes on replay; Revert SL-007 passes all clean and long runs; five-model probes sparse and uneven.", "strength": "moderate", "location": "§5.1.2, §5.2.2, §7.3"},
+    {"claim": "Detailed external checklist passes 10/10 vs 5/10 for generic self-check", "evidence": "Table 7: 240/240 vs 234/240 checks; p=0.0325 two-sided; author notes single n=10 comparison may overestimate benefit; failure upper bound 27.8%.", "strength": "moderate", "location": "§5.5.1, Table 7"},
+    {"claim": "Most failed runs end with a success/completion claim (silent completion)", "evidence": "§1/§5.4: 38 of 44 failed runs in a mixed inventory end with success/safe/completion claim; trajectory coding by the sole author with no second rater.", "strength": "moderate", "location": "§5.4"},
+    {"claim": "Delegation does not contain rot: fresh worker loses opaque contract after native compaction", "evidence": "§5.6.1: a single valid run, discovered after stress probes; loss inferred from the worker's own disclosure; raw receipt lost (§7.2, §7.4).", "strength": "weak", "location": "§5.6, §7.2"}
+  ],
+  "patterns": [
+    {"id": "P02", "stance": "mixed", "note": "Loading a skill does not keep its obligations active through a long trajectory; skills still work in clean context (8/10)."},
+    {"id": "P08", "stance": "contradicts", "note": "Native compaction lost an opaque 256-entry contract in a sub-agent (single run); compaction is not a safe carrier for exact obligations."},
+    {"id": "P12", "stance": "mixed", "note": "Fresh sub-agent reduces working set but its own trajectory can rot after compaction; one mechanism run."},
+    {"id": "P34", "stance": "supports", "note": "Externally restating the frozen acceptance criteria at the completion boundary fixed the dominant failure (10/10 vs 5/10)."},
+    {"id": "P18", "stance": "contradicts", "note": "Generic self-validation repeats the generation blind spot (5/10)."},
+    {"id": "P16", "stance": "supports", "note": "24 deterministic artifact checks with positive/negative fixtures detect sparse omissions that agents silently pass over."},
+    {"id": "P05", "stance": "mixed", "note": "Coding-agent selective retrieval shrinks the active evidence set and helps GPT-5.5 (3/3 vs 1/3) but not gpt-5.4-mini."}
+  ],
+  "methodology": {"sample": "one main production-derived audit workflow (4 tasks, 24 checks), 10 valid runs per main cell; boundary probes on other tasks; 28 extension attempts excluded for infrastructure failures (20 in Irrelevant)", "baselines": "clean context vs relevant-long vs irrelevant-long; generic vs detailed completion guard; direct vs bundled vs Codex scaffold", "models": "main: Codex + gpt-5.4-mini; sparse probes across five model families incl. GPT-5.5; no same-model Codex vs Claude Code comparison", "variance": "Wilson intervals and Fisher exact tests at run level; checks not treated as independent", "ablations": "context relevance, scale pilots, guard type, scaffold, delegation arms", "contamination_controls": "allowlist sanitizer removing answer-bearing history; contaminated pilot runs excluded and documented", "languages": "code-audit artifacts (structured JSON/text); source language of audited code not central"},
+  "standards": {"peer_review": "none stated (technical report)", "limitations_section": true, "artifacts": "research package described but 'available from the author pending deposit'; proprietary source text excluded; one raw receipt lost", "preregistration": "none; author states analysis is exploratory and sample sizes were extended after pilots"},
+  "biases": [
+    {"type": "small_sample", "detail": "n=10 per cell, one positive task; main effect p=0.0698."},
+    {"type": "single_model", "detail": "Main evidence from gpt-5.4-mini in Codex; other models only sparse probes."},
+    {"type": "closed_artifacts", "detail": "Package available on request only; proprietary audit source excluded."},
+    {"type": "other:optional_stopping", "detail": "Sample sizes extended after inspecting pilot results (§7.2), and the delegation result was found after earlier stress probes."},
+    {"type": "other:single_coder", "detail": "Failure-stage classification done by the single author without inter-rater agreement."}
+  ],
+  "coi": {"affiliations": "CertiK, USA (single author)", "vendor_products_evaluated": "Codex, gpt-5.4-mini, other third-party models; CertiK's own audit workflow is the subject, not the product being promoted", "funding": "not stated", "severity": "low", "detail": "Industry author using an internal workflow as testbed; no product promoted, findings are cautionary and heavily hedged."},
+  "scores": {"rigor": 3, "reproducibility": 2, "generalizability": 2, "relevance": 5, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Unusually careful and self-bounded (exact tests, missingness audit, contamination controls), but one task, one main model, n=10, exploratory design and artifacts not public. The checklist-at-completion result and the coverage-vs-strict-success gap are actionable.",
+  "applicability": "Directly informs the harness: for ingestion specs spanning >=4 repos, do not rely on the agent having 'loaded' the spec or skill; restate the frozen acceptance criteria (from the spec-driven-development artifact) at the completion gate and verify each with deterministic checks (schema/contract tests, build, ArchUnit-style rules) rather than a generic 'double-check your work' prompt. Keep per-task context small (subagents or fresh sessions per repo) but do not trust compaction to carry exact contracts such as field mappings or content-schema enums; re-read them from committed files. Expect agents to claim success on artifacts missing one field, which in healthcare education delivery can mean missing required metadata; host-agnostic since the mitigation is a prompt plus checks.",
+  "conflicts_with": []
+}

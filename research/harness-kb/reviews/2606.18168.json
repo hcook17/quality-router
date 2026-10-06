@@ -1,0 +1,34 @@
+{
+  "arxiv_id": "2606.18168",
+  "contribution_type": "empirical",
+  "summary": "Mines 86,156 cumulative test-file patches from 33,596 agent-authored PRs (AIDev-pop, 2,807 repos with 100+ stars, five agents) and classifies each with a regex taxonomy of eight oracle-signal categories (five weak, three strong). Reports that most agent test patches carry weak or no explicit assertions and that, after covariate adjustment, PRs with multi-type strong oracles are more likely to be merged.",
+  "claims": [
+    {"claim": "80.2% of agent-authored test-file patches contain weak or no explicit oracle signals.", "evidence": "§III-A/Fig. 1: 80.2% W1–W5, S1 11.3%, S3 5.7%. Regex classifier matched human labels on 86.7% of a 384-patch stratified sample; inter-rater kappa 0.77. But patches are diffs, so a modified file classified W1 may already contain assertions (acknowledged in §V); the headline mixes modified and new files.", "strength": "moderate", "location": "§III-A, Fig. 1, §V"},
+    {"claim": "On newly created test files, strong-oracle rates range from 18% (OpenAI Codex) to 67% (Claude Code).", "evidence": "§III-A; chi-square 810.2 new vs modified and 2497.3 across agents, p<0.001. Cleanest measurement in the paper since the full file is the patch; no human-authored baseline to compare against.", "strength": "moderate", "location": "§III-A"},
+    {"claim": "After adjusting for agent, PR size, stars, task type and language, strong (S3) oracles raise merge likelihood (OR = 1.28, p<0.001).", "evidence": "§III-B: raw merge rate is lower for S3 (59.7% vs 72.6%) but S3 PRs are 4.2x larger and in 3.8x more-starred repos; logistic regression gives OR 1.28. No regression table, no CIs, no model-fit diagnostics; observational, unobserved confounders (CI requirements, reviewers) acknowledged.", "strength": "weak", "location": "§III-B, Fig. 2"},
+    {"claim": "Oracle-aware CI checks that flag new test files lacking assertions would separate verified contributions from scaffolding.", "evidence": "Recommendation in §IV; not evaluated.", "strength": "unsupported", "location": "§IV"}
+  ],
+  "patterns": [
+    {"id": "P16", "stance": "mixed", "note": "Shows execution-based gates that count test files or green CI overestimate verification when agents write the tests; presence of tests is not evidence of an oracle."},
+    {"id": "P15", "stance": "contradicts", "note": "Agent-authored tests bundled with feature work have strong oracles in only 18.2% of patches; test-first value depends on oracle quality, which agents often omit."},
+    {"id": "P17", "stance": "introduces", "note": "Proposes a syntactic/regex oracle check as a static gate on test diffs; not evaluated as a gate."},
+    {"id": "P32", "stance": "supports", "note": "Field data from real GitHub PRs at scale rather than benchmarks."}
+  ],
+  "methodology": {"sample": "86,156 cumulative test-file patches from 33,596 PRs in 2,807 repos (AIDev-pop, Dec 2024–Jul 2025); 384-patch stratified human-labelled sample", "baselines": "No human-authored PR baseline; comparisons are among oracle tiers and agents", "models": "Five agents: OpenAI Codex (65% of PRs), GitHub Copilot, Devin, Cursor, Claude Code", "variance": "Chi-square and Mann-Whitney tests with effect sizes; regression OR with p-value only, no CI", "ablations": "Sensitivity analysis reclassifying W4/W5 as strong moves weak rate <1 pp; within-agent, within-task, within-size stratification", "contamination_controls": "n/a (observational)", "languages": "30 extensions incl. Python, TS/JS, Go, Java, C#, Rust, Ruby; no per-language breakdown reported"},
+  "standards": {"peer_review": "Accepted at the 8th IEEE International Conference on Artificial Intelligence Testing (AITest) 2026", "limitations_section": true, "artifacts": "Replication package (scripts, classified dataset, figures) on figshare per ref [15]", "preregistration": "n/a"},
+  "biases": [
+    {"type": "metric_mismatch", "detail": "Syntactic presence of an assertion is not oracle correctness (S1 only shows an equality check exists); merge rate is a weak proxy for verification value."},
+    {"type": "survivorship", "detail": "Diff-only classification inflates W1 for modified files whose existing assertions are not in the patch; only the new-file subset is clean."},
+    {"type": "selection_bias_participants", "detail": "AIDev-pop repos with 100+ stars; Codex dominates at 65% of PRs, skewing pooled rates."},
+    {"type": "no_variance_reported", "detail": "Regression reported as single OR and p-value with no CI or coefficient table."},
+    {"type": "other:no_human_baseline", "detail": "Without a human-authored test-patch comparison, '80.2% weak' cannot be attributed to agents specifically."}
+  ],
+  "coi": {"affiliations": "Danovo Energy Solutions (industry, non-AI vendor) and Kennesaw State University", "vendor_products_evaluated": "Five commercial coding agents compared, none affiliated with authors", "funding": "None stated", "severity": "none", "detail": "No author works for an evaluated agent vendor."},
+  "scores": {"rigor": 3, "reproducibility": 4, "generalizability": 3, "relevance": 4, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Large-sample field study with a validated classifier (kappa 0.77, 86.7% agreement) and released artifacts; headline 80.2% is inflated by diff-only classification of modified files, there is no human baseline, and the merge-odds claim is observational with thin reporting.",
+  "applicability": "For the Java team, a cheap deterministic harness gate follows directly: when an agent adds or edits a JUnit test in any of the ingestion repos, require at least one value/exception assertion (assertEquals/assertThrows/AssertJ isEqualTo, not just assertNotNull or verify()) and flag mock-only tests, run host-agnostically in CI rather than per agent host. With spec-driven development, assertions should derive from spec acceptance criteria (content schema fields, delivery API payloads), and verification should be a separately scoped task rather than bundled into feature PRs (18.2% strong for feature vs ~25% for bug/test tasks). Java is in the sample, but no Java-specific numbers are reported; 2607.18057 provides Java coverage data.",
+  "conflicts_with": [
+    {"arxiv_id": "2607.18057", "detail": "Same AIDev source; that paper measures coverage (Java 61.5% of changed lines covered by existing tests) rather than oracle strength. Coverage-based gates would look healthier than this paper's oracle view, which is consistent with its argument that coverage overstates verification."}
+  ]
+}

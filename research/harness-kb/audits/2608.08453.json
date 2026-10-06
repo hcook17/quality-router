@@ -1,0 +1,17 @@
+{"arxiv_id": "2608.08453",
+ "blind_scores": {"rigor": 3, "reproducibility": 4, "generalizability": 3, "relevance": 3, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "91.8% of public skills contain at least one detected defect (89.3% violate the official spec), stable at 88.8-94.6% across thresholds.", "proposed_strength": "moderate", "reason": "Strength is fine, but 'stable' rests only on numeric-threshold variation over a 10,000-skill subsample (§3.3); detector definitions themselves are unvalidated on real skills (no precision audit, §6), so stability is internal to the authors' detector set, not a property of the ecosystem."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P02", "from": "supports", "to": "neutral", "reason": "The paper never compares progressive disclosure against an alternative. Its only functional evidence is a BM25 Hit@1 gap of 5.9 points (88.5% vs 82.6%, Table 1) with no significance test, and R1-defective includes missing/too-short descriptions (R1.1/R1.2) that mechanically shrink the BM25 index text, so the gap is partly by construction. 'Bloated bodies waste context' is asserted from prior work, not measured here."}
+ ],
+ "missed_issues": [
+  "Routing stress test (Table 1) has no significance test or CI and does not control for description length; since R1.1/R1.2 defects are defined as missing or <30-char descriptions, lower lexical retrieval is near-tautological.",
+  "Platform comparison claim ('Cursor skills are highest quality') covers only the 41.7% of skills attributable by path; the review does not flag that this is conditional (authors admit it in §6).",
+  "RQ4 exemplar traits 1, 2, 3, 5 are definitional under the detectors used to select exemplars (authors admit, §4.5); the 'Evidence-Based Authoring Guidelines' framing is partly circular and mildly hype_language/novelty_inflation.",
+  "Repair experiment is single_model (GPT-4o-mini) and missing_cost_reporting; the review lists small_sample but not single_model."
+ ],
+ "note": "First review is accurate and well caveated; I'd lower relevance to 3 because skill-file hygiene only informs the team indirectly (no Java, ingestion, multi-repo or SDD evidence), and downgrade the P02 stance because no progressive-disclosure comparison is run."}

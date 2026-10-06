@@ -1,0 +1,59 @@
+{
+  "arxiv_id": "2607.20709",
+  "contribution_type": "system",
+  "summary": "NVIDIA presents NOOA, a Python agent framework where an agent is a class: methods with '...' bodies are completed by an LLM CodeAct loop, type annotations are validated return contracts, and context/events/memory are Pythonic APIs. The authors report their own capability suite (97.9% pass over 10 models), SWE-bench Verified and Terminal-Bench 2.0 comparisons against OpenCode and PI, CyberGym L1, ARC-AGI-3, and a documentation-based feature comparison with 14 frameworks.",
+  "claims": [
+    {"claim": "NOOA beats open harnesses (OpenCode, PI) on SWE-bench Verified in every model/reasoning configuration", "evidence": "Table 3: GPT-5.5 xhigh 82.2 vs 78.6 / 78.2; Opus 4.6 high 79.8 vs 75.2 / 75.8; with Opus 'off' 76.8 vs 76.0 / 75.6 (within 1 pp). Single run per cell, no variance; gaps at high effort are 0.4–4.6 pp on 500 tasks.", "strength": "weak", "location": "§4.2, Table 3"},
+    {"claim": "Larger advantage on Terminal-Bench 2.0", "evidence": "Table 4: GPT-5.5 off 46.1 vs 34.8 / 37.1; but PI wins at GPT-5.5 xhigh (75.3 vs 73.0). 89 tasks, single run; OpenCode xhigh (52.8) is lower than its own high (60.7), suggesting noise or configuration issues.", "strength": "weak", "location": "§4.2, Table 4"},
+    {"claim": "Validated typed termination prevents premature completion", "evidence": "§4.2: 77% of OpenCode's failed GPT-5.5 Terminal-Bench trials end within ten steps; NOOA requires a validated TaskResult. Mechanism plausible but no ablation of the TaskResult contract itself.", "strength": "weak", "location": "§4.2 'Validated termination'"},
+    {"claim": "Fewer tokens via pass-by-reference (1.1M vs 2.2M tokens/task for PI)", "evidence": "§4.2 and Figure 6, GPT-5.5 xhigh on SWE-bench; per-task mean only, no distribution.", "strength": "moderate", "location": "§4.2, Fig. 6"},
+    {"claim": "6.4x harness effect on ARC-AGI-3 (85.1% vs 13.3% raw GPT-5.6-sol)", "evidence": "§4.4: compares own fleet to ARC Prize's evaluation under different budgets; footnote concedes 'evaluation budgets differ, so the comparison is indicative'. Memory ablation (50.2 vs 38.4) is internal, 25 games, one fleet each.", "strength": "weak", "location": "§4.4, Fig. 7"},
+    {"claim": "Models understand the NOOA interface (97.9% capability-suite pass)", "evidence": "Table 1: 4,309/4,400 records, 88 tests x 5 runs x 10 models. Suite written by NOOA authors to test NOOA; 94% of (test, model) pairs pass all five runs.", "strength": "moderate", "location": "§4.1, Tables 1–2"}
+  ],
+  "patterns": [
+    {"id": "P33", "stance": "supports", "note": "Code-as-action REPL over live Python objects; token savings vs PI/OpenCode (Fig. 6), though evidence is single-run and vendor-run."},
+    {"id": "P16", "stance": "introduces", "note": "Typed TaskResult with verification command validated by the harness before termination; not ablated."},
+    {"id": "P09", "stance": "supports", "note": "Memory subsystem ablation on ARC-AGI-3: 50.2 vs 38.4 RHAE with markdown files instead (§4.4); 25 games, one fleet."},
+    {"id": "P20", "stance": "neutral", "note": "Landlock/seccomp per-cell sandbox and red-team audit described for ARC-AGI-3 (§4.4, App. D.2); limitations note in-process execution does not protect the host (§7)."},
+    {"id": "P08", "stance": "neutral", "note": "Bounded previews claimed to avoid lossy compaction used by OpenCode/PI; not separately measured."},
+    {"id": "P31", "stance": "neutral", "note": "SWE-bench Verified, Terminal-Bench 2.0, CyberGym L1, ARC-AGI-3."},
+    {"id": "P03", "stance": "neutral", "note": "Argues CLI/code tools beat MCP JSON calls because outputs can be filtered programmatically (§6); opinion, not tested."}
+  ],
+  "methodology": {
+    "sample": "Capability suite 88 tests/36 families; SWE-bench Verified 500; Terminal-Bench 2.0 89; CyberGym L1; ARC-AGI-3 25 public games",
+    "baselines": "OpenCode 1.14.33 and PI v0.72.1 run by authors; Codex/Claude Code/closed-system numbers quoted from external reports; OpenHands figure quoted",
+    "models": "10 models in capability tests (Claude, Gemini, GLM, Kimi, Nemotron, GPT); GPT-5.5 and Opus 4.6 for SWE-bench/Terminal-Bench; GPT-5.5/GPT-5.6-sol for ARC-AGI-3",
+    "variance": "Five runs only for capability tests; benchmark results are single runs with no CIs",
+    "ablations": "Memory vs markdown-file ablation and baseline skill on ARC-AGI-3; none for SWE-bench/Terminal-Bench components",
+    "contamination_controls": "Rule-based network 'cheat check' on CyberGym; none discussed for SWE-bench Verified",
+    "languages": "Framework is Python; SWE-bench Verified is Python repositories"
+  },
+  "standards": {
+    "peer_review": "arXiv preprint, no venue",
+    "limitations_section": false,
+    "artifacts": "Framework repository nvidia-nemo/labs-OO-Agents referenced; BenchAgent (253 lines) and capability suite said to be in repo; trajectories not stated as released",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "self_evaluation", "detail": "NVIDIA authors evaluate their own framework on their own capability suite and choose the comparison harnesses; the 14-framework feature table is scored by the authors."},
+    {"type": "no_variance_reported", "detail": "SWE-bench/Terminal-Bench results are single runs; several gaps are within plausible run-to-run noise."},
+    {"type": "hype_language", "detail": "'completely remove the interface friction', '6.4x harness effect' from a budget-mismatched comparison."},
+    {"type": "self_reported_numbers", "detail": "Codex, Claude Code, Terminus-2 and closed CyberGym systems quoted from external sources under different settings."},
+    {"type": "single_language_python", "detail": "Programming model is Python-native; SWE-bench Verified is Python-only."},
+    {"type": "novelty_inflation", "detail": "Most of the six 'first to combine' capabilities are acknowledged as existing in other frameworks (§5)."}
+  ],
+  "coi": {
+    "affiliations": "NVIDIA (framework branded NVIDIA-labs, repo under nvidia-nemo); per-author affiliations not printed in extracted text",
+    "vendor_products_evaluated": "NOOA (NVIDIA's own framework); NVIDIA Nemotron models in capability tests; recommends NVIDIA OpenShell for sandboxing",
+    "funding": "Not stated",
+    "severity": "high",
+    "detail": "Vendor evaluates its own framework favorably against competitors it selected, with single-run benchmarks and no independent replication."
+  },
+  "scores": {"rigor": 2, "reproducibility": 3, "generalizability": 2, "relevance": 2, "coi_risk": 4},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Useful design ideas (typed validated termination, pass-by-reference code-as-action) and an informative harness feature survey, but benchmark wins are small, single-run, vendor-run, and the ARC-AGI-3 harness-effect claim is budget-mismatched; no limitations section beyond a sandboxing note.",
+  "applicability": "Mostly does not transfer: NOOA is a Python-in-process agent framework, while the team is Java backend with mixed agent hosts that already supply their own loops. Two ideas are portable as harness policy independent of NOOA: require a structured, machine-validated completion record (root cause, evidence, verification command) before an agent may declare a task done — which maps naturally onto spec-driven acceptance criteria — and prefer CLI/code tools whose output can be filtered over verbose JSON tool results. Nothing addresses multi-repo ingestion or Java toolchains.",
+  "conflicts_with": [
+    {"arxiv_id": "2607.22585", "detail": "Scaffold Effect finds within-model pass-rate differences across open harnesses of 0–8 pp with CIs mostly including zero, but large token differences; NOOA presents similar-sized single-run pass-rate gaps as consistent wins."}
+  ]
+}

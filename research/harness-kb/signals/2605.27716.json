@@ -1,0 +1,215 @@
+{
+ "arxiv_id": "2605.27716",
+ "fulltext_chars": 56449,
+ "fulltext_lines": 1409,
+ "authors_block": "Oluwatoyosi Oyelayo, Ghada Abushaqra, Parham Asadi, Durjoy Dey, Diego Elias Costa Department of Computer Science and Software Engineering Concordia University, Montreal, Canada oluwatoyosi.oyelayo@mail.concordia.ca ghada.a.shaqra89@gmail.com parham.5579@gmail.com durjoy.dey@mail.concordia.ca diego.costa@concordia.ca ###### Index Terms: Web Accessibility, Large Language Models, Program Repair, WCAG Compliance, Cost Efficiency",
+ "vendor_affiliation_hits": [],
+ "n_authors": 5,
+ "comment": "12 pages, 6 figures, preprint",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/toyosi12/ai4se"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# LLM Based Web Accessibility Repair: An Empirical Study of Detection, Remediation, and Cost"
+  ],
+  [
+   38,
+   "###### Index Terms:"
+  ],
+  [
+   41,
+   "## I Abstract"
+  ],
+  [
+   48,
+   "## II Introduction"
+  ],
+  [
+   58,
+   "## III Related Work"
+  ],
+  [
+   74,
+   "## IV Research Contribution & Differentiation"
+  ],
+  [
+   84,
+   "## V Research Questions"
+  ],
+  [
+   100,
+   "## VI Methodology"
+  ],
+  [
+   102,
+   "### VI-A Problem Formulation"
+  ],
+  [
+   122,
+   "### VI-B System Architecture"
+  ],
+  [
+   158,
+   "### VI-C Data and Preprocessing Layer"
+  ],
+  [
+   200,
+   "### VI-D Detection Layer"
+  ],
+  [
+   204,
+   "#### VI-D1 Rule-Based Detection (Axe-Core)"
+  ],
+  [
+   215,
+   "#### VI-D2 LLM-Based Detection"
+  ],
+  [
+   238,
+   "### VI-E Violation Taxonomy"
+  ],
+  [
+   246,
+   "### VI-F Agentic Remediation Layer"
+  ],
+  [
+   258,
+   "### VI-G Multi-Layer Validation Framework"
+  ],
+  [
+   273,
+   "### VI-H Cost and Efficiency Analysis"
+  ],
+  [
+   291,
+   "### VI-I Evaluation Metrics"
+  ],
+  [
+   306,
+   "## VII Experimental Procedure"
+  ],
+  [
+   313,
+   "### VII-A Detection as Binary Classification (Addressing RQ1)"
+  ],
+  [
+   330,
+   "#### VII-A1 Binary Detection Performance"
+  ],
+  [
+   354,
+   "#### VII-A2 Category-Level Detection Behavior"
+  ],
+  [
+   390,
+   "#### VII-A3 Relative Performance Against Rule-Based Reference"
+  ],
+  [
+   424,
+   "### VII-B Remediation as Automated Program Repair (Addressing RQ2)"
+  ],
+  [
+   432,
+   "#### VII-B1 Agent Iteration Effectiveness"
+  ],
+  [
+   444,
+   "#### VII-B2 Overall Remediation Performance"
+  ],
+  [
+   549,
+   "### VII-C Cost and Efficiency Analysis (Addressing RQ3)"
+  ],
+  [
+   557,
+   "#### VII-C1 Aggregate Cost Analysis"
+  ],
+  [
+   603,
+   "#### VII-C2 Per-File Cost Analysis"
+  ],
+  [
+   630,
+   "## VIII Qualitative and Rule-Level Analysis of Accessibility Violations"
+  ],
+  [
+   634,
+   "### VIII-A Exact Violation Distribution (Axe-Core)"
+  ],
+  [
+   766,
+   "### VIII-B Before–After Comparison (Rule-Level Analysis)"
+  ],
+  [
+   1088,
+   "### VIII-C Newly Introduced Violations"
+  ],
+  [
+   1114,
+   "#"
+  ],
+  [
+   1275,
+   "### VIII-D Category-Level Distribution"
+  ],
+  [
+   1293,
+   "## IX Threats to Validity"
+  ],
+  [
+   1297,
+   "### IX-A Construct Validity"
+  ],
+  [
+   1301,
+   "### IX-B Internal Validity"
+  ],
+  [
+   1305,
+   "### IX-C External Validity"
+  ],
+  [
+   1309,
+   "## X Discussion"
+  ],
+  [
+   1321,
+   "## XI Conclusion"
+  ],
+  [
+   1328,
+   "## Artifact Availability"
+  ],
+  [
+   1333,
+   "## References"
+  ],
+  [
+   1409,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## IX Threats to Validity\n\nTo ensure the rigour of our empirical findings, we identify and discuss the threats to the validity of our study across construct, internal, and external dimensions.\n\n### IX-A Construct Validity\n\nConstruct validity concerns whether our evaluation metrics accurately capture the properties we intend to measure. Our primary threat in this dimension is the reliance on Axe-Core as the definitive ground truth for accessibility violations. While Axe-Core is an industry-standard deterministic engine, automated checkers can only reliably detect approximately 30% to 50% of all WCAG criteria. Complex accessibility issues requiring visual, cognitive, or manual keyboard navigation testing are inherently excluded from our baseline. Furthermore, our measurement of “structural preservation” relies on DOM tree similarity algorithms. While a high similarity score ( \\geq 0.85 ) strongly correlates with visual integrity, it is possible that mathematically minor structural changes could still result in visual regressions on the rendered page.\n\n### IX-B Internal Validity\n\nInternal validity relates to factors that might influence the causal relationships observed in our results. A significant threat lies in the prompt engineering and the hyperparameter configurations of the LLM. The performance of the LLM agent, particularly its failure to utilize the validation feedback loop effectively, may be sensitive to the specific phrasing of the feedback prompts. A different prompt structure, such as explicitly isolating the exact DOM node that caused the validation failure rather than providing general structural feedback, might yield a higher retry success rate. Additionally, LLMs are inherently non-deterministic. We mitigate this by using strict sampling parameters (e.g., temperature set to 0.0), but slight variances in API responses could still occur.\n\n### IX-C External Validity\n\nExternal validity concerns the generalizability of our findings to other contexts, models, and codebases. First, our evaluation is currently limited to a single large language model (Kimi K2.5). While this model demonstrates strong reasoning capabilities, other frontier models might exhibit different proficiencies in handling global context and agentic reflection. Second, our dataset consists of 662 static HTML pages. Modern web accessibility remediation frequently involves dynamic, stateful components built with JavaScript frameworks (e.g., React or Vue). The LLM’s inability to resolve global ARIA constraints on static HTML suggests it would face similar or greater challenges with dynamic state management, but our current results cannot be strictly generalized to component-based frontend architectures without further empirical testing.\n\n## X Discussion\n\nThese findings challenge the prevailing assumption that iterative, autonomous LLM-based refinement inherently improves software quality, highlighting instead a critical need for constraint-aware correction mechanisms.\n\nAs standalone solutions for accessibility analysis, LLMs exhibit distinct limitations across all evaluation dimensions. In detection (RQ1), LLMs achieve performance comparable to rule-based systems, demonstrating strong semantic understanding but lower precision in syntactic analysis and significant divergence in layout-related cases. In remediation (RQ2), the model reliably generates syntactically valid code and improves compliance in 80% of instances, yet fully resolves fewer than 26% of cases while frequently introducing structural alterations. In efficiency (RQ3), the iterative agent-based approach introduces substantial computational overhead requiring 1.64\\times more API calls and increasing costs by 52% without yielding any measurable improvement in remediation outcomes.\n\nCrucially, our qualitative analysis explains the stark gap between the high rate of partial compliance improvement (80%) and the low full-resolution rate (25%). The primary limitation of LLM-based remediation lie",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

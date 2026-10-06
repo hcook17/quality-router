@@ -1,0 +1,19 @@
+{"arxiv_id": "2607.18057",
+ "blind_scores": {"rigor": 3, "reproducibility": 4, "generalizability": 3, "relevance": 4, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "Error-handling constructs are most under-tested (Try-Catch miss 86.0% Java, 81.0% Python)", "proposed_strength": "weak", "reason": "Table II: the Java 86.0% Try-Catch figure rests on 43 added lines in total, and Java Throw on 80 lines. This sample is too small to carry the abstract's headline or the review's practical advice ('Java miss rates were 86%' for ingestion parsers). The Python figure (1,356 lines) is better supported, but there is no human baseline for error-path coverage."},
+  {"claim": "Agent-written tests significantly raise diff coverage (+15.6 pp Java, +9.6 pp Python) but only a minority of PRs gain", "proposed_strength": "moderate", "reason": "The numbers check out (Table I: 23/64, 136/605), but the 'minority' framing ignores a ceiling effect. 42.2% of non-improving Java PRs were already at 100% diff coverage from existing tests (§IV-B), so they could not gain. The §V line 'agents ... still fail to test their own changes most of the time' therefore overstates the Java result, and the 2.6x deletion ratio comes from the residual handful of PRs (82 vs 31 tests)."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P15", "from": "contradicts", "to": "neutral", "reason": "No agent here was run test-first. These are uninstructed agentic PRs mined from AIDev. Showing that agents do not spontaneously write covering tests says nothing about whether a TDD workflow imposed by the harness works."},
+  {"id": "P31", "from": "contradicts", "to": "neutral", "reason": "The criticism of SWE-bench is an argument in §V. The paper runs no benchmark comparison, so it is a position, not evidence that benchmark evaluation fails."}
+ ],
+ "missed_issues": [
+  "Ceiling effect: many Code + Tests PRs start near 100% coverage (Java docs 97.1%, perf 92.9% without agent tests; 42.2% of non-improving Java PRs already at 100%). This deflates the '% improved' metric and undercuts the 'fail most of the time' conclusion.",
+  "Java Try-Catch (n=43 lines) and Throw (n=80) miss rates are tiny-sample figures, yet they are promoted to the abstract.",
+  "PR authorship versus final content: the paper analyses merged head commits, but it does not separate agent-written test lines from human follow-up commits in the same PR, so 'agent-written tests' may include human edits.",
+  "No per-agent breakdown is given, so harness or host differences (Codex vs Claude Code vs Cursor) cannot be read from this paper. That matters for a mixed-host team."
+ ],
+ "note": "The review is accurate on its sample sizes, missing human baseline, and Codex dominance. It is too generous on the Java error-handling claim (43 lines), misses the coverage-ceiling confound, and over-reads the paper as contradicting TDD and benchmarks. The diff-coverage-gate recommendation remains sound but untested."}

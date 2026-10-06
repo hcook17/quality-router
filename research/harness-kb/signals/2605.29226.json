@@ -1,0 +1,325 @@
+{
+ "arxiv_id": "2605.29226",
+ "fulltext_chars": 33653,
+ "fulltext_lines": 553,
+ "authors_block": "Industry Secure Supply Chain Summit Md Atiqur Rahman∗, Yasemin Acar†, Michel Cukier‡, William Enck∗, Christian Kästner§, Alexandros Kapravelos∗, Dominik Wermke∗, Laurie Williams∗ Affiliation: ∗North Carolina State University, Raleigh, NC, USA Affiliation: †Paderborn University, Paderborn, Germany and George Washington University, DC, USA Affiliation: ‡University of Maryland, College Park, MD, USA Affiliation: §Carnegie Mellon University, Pittsburgh, PA, USA",
+ "vendor_affiliation_hits": [],
+ "n_authors": 8,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# S3C2 Summit 2025-09:"
+  ],
+  [
+   36,
+   "###### Abstract."
+  ],
+  [
+   50,
+   "###### Keywords:"
+  ],
+  [
+   53,
+   "## 1. Introduction"
+  ],
+  [
+   79,
+   "## 2. Vulnerable Dependencies"
+  ],
+  [
+   85,
+   "### 2.1. Continued Themes"
+  ],
+  [
+   89,
+   "#### Vulnerability volume and prioritization fatigue"
+  ],
+  [
+   94,
+   "#### Risk beyond CVEs"
+  ],
+  [
+   98,
+   "#### Staying current at scale"
+  ],
+  [
+   102,
+   "#### Trust and provenance gaps"
+  ],
+  [
+   106,
+   "#### Automation limits"
+  ],
+  [
+   110,
+   "### 2.2. New Ideas"
+  ],
+  [
+   114,
+   "#### Inner-loop dependency signals"
+  ],
+  [
+   119,
+   "#### Developer endpoints as supply-chain attack surfaces"
+  ],
+  [
+   124,
+   "#### Vetted dependency sets"
+  ],
+  [
+   129,
+   "## 3. Component and Container Choice"
+  ],
+  [
+   135,
+   "### 3.1. Continued Themes"
+  ],
+  [
+   139,
+   "#### Reactive dependency management"
+  ],
+  [
+   145,
+   "#### Trusted base images and registry scanning"
+  ],
+  [
+   151,
+   "### 3.2. New Ideas"
+  ],
+  [
+   155,
+   "#### Network-isolated CI/CD builds"
+  ],
+  [
+   161,
+   "#### Endpoint and IDE exposure as supply-chain risk"
+  ],
+  [
+   166,
+   "#### Ecosystem-wide package-trust platforms"
+  ],
+  [
+   170,
+   "#### GitHub Actions as supply-chain artifacts"
+  ],
+  [
+   176,
+   "#### Registry-embedded container scanning"
+  ],
+  [
+   182,
+   "#### Uncertainty around GitHub-hosted VM images"
+  ],
+  [
+   190,
+   "## 4. Malicious Commits"
+  ],
+  [
+   196,
+   "### 4.1. Continued Themes"
+  ],
+  [
+   200,
+   "#### Commit intent remains opaque"
+  ],
+  [
+   206,
+   "#### Trust boundaries and multi-party review"
+  ],
+  [
+   212,
+   "#### Process-level countermeasures"
+  ],
+  [
+   217,
+   "#### Upstream uncertainty"
+  ],
+  [
+   225,
+   "### 4.2. New Ideas"
+  ],
+  [
+   229,
+   "#### Behavioral and identity signals"
+  ],
+  [
+   235,
+   "#### Tool-chain compromise paths"
+  ],
+  [
+   240,
+   "#### Capability-change diffs"
+  ],
+  [
+   246,
+   "## 5. Build Infrastructure"
+  ],
+  [
+   253,
+   "### 5.1. Continued Themes"
+  ],
+  [
+   257,
+   "#### Pipeline fragility and trust boundaries"
+  ],
+  [
+   262,
+   "#### SLSA adoption difficulties"
+  ],
+  [
+   267,
+   "#### Self-hosted vs. cloud runners"
+  ],
+  [
+   273,
+   "#### Limited practical use of reproducible builds"
+  ],
+  [
+   279,
+   "#### Provenance and key-management challenges"
+  ],
+  [
+   286,
+   "### 5.2. New Ideas"
+  ],
+  [
+   290,
+   "#### Workload identity as a central gap"
+  ],
+  [
+   297,
+   "#### Applying SLSA to AI and agent pipelines"
+  ],
+  [
+   303,
+   "#### Parallel reproducible builds for anomaly detection"
+  ],
+  [
+   309,
+   "## 6. Culture"
+  ],
+  [
+   315,
+   "### 6.1. Continued Themes"
+  ],
+  [
+   319,
+   "#### Top-down mandates and bottom-up adoption"
+  ],
+  [
+   324,
+   "#### Minimizing developer friction"
+  ],
+  [
+   329,
+   "#### Internal red teaming"
+  ],
+  [
+   336,
+   "### 6.2. New Ideas"
+  ],
+  [
+   340,
+   "#### Skill gaps widening with system complexity"
+  ],
+  [
+   347,
+   "#### Cultural shifts driven by GenAI adoption"
+  ],
+  [
+   354,
+   "#### Threat-intel as cultural leverage"
+  ],
+  [
+   359,
+   "## 7. LLMs and the Software Supply Chain"
+  ],
+  [
+   367,
+   "### 7.1. Continued Themes"
+  ],
+  [
+   371,
+   "#### Developer expertise still determines AI effectiveness"
+  ],
+  [
+   376,
+   "#### Persistent concerns around data retention and model privacy"
+  ],
+  [
+   381,
+   "#### Challenges in choosing trusted models and providers"
+  ],
+  [
+   387,
+   "#### AI-generated noise without proper guardrails"
+  ],
+  [
+   394,
+   "### 7.2. New Ideas"
+  ],
+  [
+   398,
+   "#### Emerging AI supply chain requiring provenance"
+  ],
+  [
+   404,
+   "#### Identity-aware agentic workflows with tiered access"
+  ],
+  [
+   412,
+   "#### MCP-driven expansion of hidden supply-chain surfaces"
+  ],
+  [
+   418,
+   "#### Privacy-preserving training for sensitive datasets"
+  ],
+  [
+   423,
+   "#### Agents embedded directly into security workflows"
+  ],
+  [
+   427,
+   "## 8. Executive Summary"
+  ],
+  [
+   448,
+   "## 9. Acknowledgements"
+  ],
+  [
+   455,
+   "## References"
+  ],
+  [
+   527,
+   "## Appendix A Initial Discussion Questions"
+  ],
+  [
+   553,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## 9. Acknowledgements\n\nWe sincerely thank all Summit participants for their time, openness, and thoughtful contributions. Their shared experiences and suggestions greatly enriched the discussion. The Summit was organized and recorded by Dr. Laurie Williams, Dr. Dominik Wermke, and Md Atiqur Rahman.\nThis material is based upon work supported by the National Science Foundation Grant Nos. 2207008, 2206859, 2206865, and 2206921.\nThese grants support the Secure Software Supply Chain Summit (S3C2), consisting of researchers at North Carolina State University, Carnegie Mellon University, University of Maryland, and George Washington University.\nAny opinions expressed in this material are those of the author(s) and do not necessarily reflect the views of the National Science Foundation.\n\n## References\n\nDunlap et al. (2023)\nT. Dunlap, Y. Acar, M. Cucker, W. Enck, A. Kapravelos, C. Kastner, and L. Williams\n\nS3C2 summit 2023-02: industry secure supply chain summit.\n\nExternal Links: 2307.16557,\nLink\n\nCited by: §1.\n\nEnck et al. (2023)\nW. Enck, Y. Acar, M. Cukier, A. Kapravelos, C. Kästner, and L. Williams\n\nS3C2 summit 2023-06: government secure supply chain summit.\n\nExternal Links: 2308.06850,",
+ "limitations": "",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 54,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

@@ -1,0 +1,56 @@
+{
+  "arxiv_id": "2609.15096",
+  "contribution_type": "system",
+  "summary": "OpenAI4S is an open-source (MIT) scientific research agent harness with a JSON tool-call control plane plus a 'science runtime' where the model writes whole code cells run in persistent Python/R kernels, backed by an append-only Action Ledger, versioned artifacts, checkpoints, sandboxing and bio/chem screening, and 604 bundled Skills. On the authors' 36-scenario benchmark across six chemistry/biology/materials tasks, it scores 7.83 vs 5.79-6.36 for Claude Code driven by Kimi-K3, GLM-5.2 and Opus-4.8, using an authors-built deterministic-first evaluator with a constrained LLM judge.",
+  "claims": [
+    {"claim": "OpenAI4S achieves an overall score of 7.83 vs 5.7-6.4 for a general-purpose coding harness with three frontier models.", "evidence": "Table 3: 7.83 vs Kimi-K3 5.79, GLM-5.2 6.36, Opus-4.8 6.12; GT ceiling 8.70. But OpenAI4S runs doubao-pro while baselines run other models inside Claude Code, so model, prompts, Skills, tools and compute are unmatched (§4.2, §5). Fig 5B labels OpenAI4S 'macro 8.20', inconsistent with Table 3's 7.83.", "strength": "moderate", "location": "§4.3, Table 3, Fig 5"},
+    {"claim": "Gains are not driven by outliers; OpenAI4S has a stronger lower tail.", "evidence": "§4.4: on 31 paired scenarios, mean paired differences +3.09/+2.20/+2.54 and W/T/L 25/3/3, 24/0/7, 28/1/2; 6.5% of OpenAI4S scenarios below 5 vs 61.3%/45.2%/51.6%. Fig 5C instead shows +2.39/+1.70/+1.93 on 'all 36 scenarios', so text and figure disagree on n and deltas. Leave-one-task-out stable, but removing protein domain shrinks margin over GLM-5.2 to ~0.04.", "strength": "moderate", "location": "§4.3-4.4, Fig 5"},
+    {"claim": "Largest gains on long-horizon, computation-intensive workflows.", "evidence": "Table 3: MD 8.57 vs best baseline 5.62; Protein-Binder 8.46 vs 7.58. Fig 6C: final artifact + report delivered in 15/15 MD+Binder cases vs 0/15, 3/15, 8/15. Driven largely by delivery/packaging criteria the evaluator rewards.", "strength": "moderate", "location": "§4.4, Table 3, Fig 6"},
+    {"claim": "Persistent execution with session-level provenance improves reliability of AI-assisted science.", "evidence": "Authors explicitly state the comparison is of complete systems and 'do not identify the causal contribution of any individual runtime component' (§4.2, §5); no ablation of the ledger/kernels/Skills.", "strength": "weak", "location": "§4.2, §5"},
+    {"claim": "Reproducibility remains weak for every evaluated system.", "evidence": "§5 limitations: kernel state lost on restart, recovery replays eligible cells only, limited dependency/lineage coverage.", "strength": "strong", "location": "§5"}
+  ],
+  "patterns": [
+    {"id": "P33", "stance": "supports", "note": "Code cells in persistent kernels as the action primitive; system-level gain over Claude Code but confounded with model/prompt/Skills."},
+    {"id": "P30", "stance": "introduces", "note": "Append-only Action Ledger, per-cell records, artifact versions and checkpoints for audit/recovery; benefits not isolated by ablation."},
+    {"id": "P02", "stance": "neutral", "note": "604 bundled Skills supply code recipes; not evaluated separately."},
+    {"id": "P20", "stance": "introduces", "note": "Configurable OS sandboxing; default continues in degraded mode if confinement cannot be established (§5)."},
+    {"id": "P21", "stance": "introduces", "note": "Permission mediation and code/trajectory screening; pattern- and model-based, no formal guarantee."},
+    {"id": "P18", "stance": "mixed", "note": "Evaluator uses deterministic checks with precedence and a constrained zero-temperature LLM judge for semantic criteria; judge not validated against humans; only the withheld-data detector was validated (17 false positives fixed)."},
+    {"id": "P16", "stance": "neutral", "note": "Structured completion checks verify artifacts/evidence exist, explicitly not scientific validity."}
+  ],
+  "methodology": {
+    "sample": "36 scenarios from 6 tasks; paired cross-system analysis on 31 scenarios from 5 tasks; 155 system-scenario evaluations.",
+    "baselines": "Claude Code harness with Kimi-K3, GLM-5.2, Opus-4.8; human-designed GT reference ceiling. No dedicated scientific-agent baselines and no matched-model comparison.",
+    "models": "OpenAI4S with doubao-pro (Volcengine); baselines Kimi-K3, GLM-5.2, Opus-4.8.",
+    "variance": "Single run per scenario apparently; distributions and paired W/T/L reported, no seeds or CIs.",
+    "ablations": "None of the harness components; leave-one-task-out and domain aggregation only.",
+    "contamination_controls": "Withheld-data access detector with hard score cap (validated, rescored).",
+    "languages": "Python and R scientific code."
+  },
+  "standards": {
+    "peer_review": "arXiv technical report; no venue.",
+    "limitations_section": true,
+    "artifacts": "MIT code at github.com/PKU-YuanGroup/OpenAI4S; scenario definitions and judge pipeline released as SciCodeBench-OpenAI4S; benchmark-run version differs from the described commit.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "self_evaluation", "detail": "Authors' system scored on authors' benchmark with authors' evaluator, which (as they admit) rewards properties OpenAI4S is designed to preserve."},
+    {"type": "llm_judge_unvalidated", "detail": "Semantic criteria decided by an LLM judge with no reported human agreement study."},
+    {"type": "strawman_baseline", "detail": "Baselines are a general-purpose coding harness without the domain Skills/instructions; models and prompts unmatched."},
+    {"type": "no_variance_reported", "detail": "No repeated runs or CIs."},
+    {"type": "other:internal_inconsistency", "detail": "Table 3 macro 7.83 vs Fig 5B 8.20; §4.4 paired deltas (+3.09/+2.20/+2.54, n=31) vs Fig 5C (+2.39/+1.70/+1.93, 'all 36')."},
+    {"type": "missing_cost_reporting", "detail": "Claims doubao-pro is more cost-efficient but reports no token or dollar costs."}
+  ],
+  "coi": {
+    "affiliations": "Mostly Peking University Shenzhen Graduate School; one Tsinghua; two independent researchers; three authors also/only at Beijing Yuankong Intelligent Technology Co., Ltd. Regex 'GitHub' hit is spurious.",
+    "vendor_products_evaluated": "Own open-source system; Volcengine ModelArk provided model access (doubao-pro) per acknowledgements.",
+    "funding": "Acknowledges Volcengine ModelArk team for model access and support; competing interests declared none.",
+    "severity": "medium",
+    "detail": "Tool authors evaluate their own harness on their own benchmark and evaluator; company co-affiliation and vendor-provided model access, though the system is MIT open source."
+  },
+  "scores": {"rigor": 2, "reproducibility": 4, "generalizability": 1, "relevance": 2, "coi_risk": 2},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Unusually candid limitations and open artifacts, but the headline comparison confounds model, prompts, Skills and harness, uses a self-built evaluator with an unvalidated LLM judge, has no ablations or variance, and contains figure/text numeric inconsistencies.",
+  "applicability": "Indirect; the domain is computational science in Python/R, not Java services. Transferable ideas for the team: an append-only action ledger linking each agent action to its execution result and produced artifact (useful audit trail for healthcare-education content ingestion runs), and a 'delivery contract' separated from expensive upstream work so partial runs still emit status and artifacts. Their finding that baselines often had reporting code but never materialized the report argues for completion checks in the harness that verify declared outputs exist, which maps onto spec-driven acceptance criteria. Nothing here addresses ≥4-repo coordination, Java tooling, or mixed agent hosts beyond showing Claude Code as one host.",
+  "conflicts_with": []
+}

@@ -1,0 +1,41 @@
+{
+  "arxiv_id": "2605.17548",
+  "contribution_type": "position",
+  "summary": "A long vision paper (submitted to TOSEM; a short version appeared at ICSE-JAWs 2026) that recounts five eras of code review and catalogs challenges in PR-based review. It proposes a five-stage multi-agent review framework: PR Creation, PR Augmentation (alignment, bug-proneness, runtime, and impact-analysis agents), Reviewer Selection, AI-Assisted Review, and PR Retrospective, with human-in-the-loop quality gates. Nothing is implemented or evaluated.",
+  "claims": [
+    {"claim": "AI-accelerated code production amplifies rather than mitigates existing shortcomings of PR-based review.", "evidence": "An argument from cited prior studies in §1 and §3.1 (e.g., refs [15]-[18] on productivity, review iterations, and AI-assisted review surfacing more low-severity issues). No new data.", "strength": "weak", "location": "§1, §3.1"},
+    {"claim": "Stage-scoped AI review tools cannot on their own produce effective reviews; context must be carried across stages.", "evidence": "A conceptual argument (§1, §4.1). Not tested.", "strength": "unsupported", "location": "§1, §4"},
+    {"claim": "A five-stage multi-agent framework with HITL gates will improve quality, speed up review cycles, and reduce fatigue.", "evidence": "Stated as aims in §4. There is no prototype, user study, or metric; §5.3.5 defers evaluation metrics to future research.", "strength": "unsupported", "location": "§4, §5.3.5"}
+  ],
+  "patterns": [
+    {"id": "P19", "stance": "introduces", "note": "Mandatory human verification gates at PR creation and review (§4.1), justified by automation-bias literature (§5.1)."},
+    {"id": "P11", "stance": "introduces", "note": "Many specialized agents (PR detail, issue linking, alignment, bug proneness, runtime, impact, toxicity, usefulness)."},
+    {"id": "P18", "stance": "introduces", "note": "An Automated PR Review Agent and fix suggestion; cites evidence that AI review surfaces low-severity issues more than high-severity ones."},
+    {"id": "P27", "stance": "introduces", "note": "An Impact Analysis Agent evaluates cross-module dependency effects on interfaces (§4.1, §4.3.3). Not evaluated."},
+    {"id": "P34", "stance": "introduces", "note": "An Alignment Analysis Agent classifies requirement fulfillment (exact, tangling, missing) against the linked issue (§4.3.1)."},
+    {"id": "P30", "stance": "introduces", "note": "A PR Retrospective stage stores review metrics and summaries as repository memory (§4.6)."}
+  ],
+  "methodology": {
+    "sample": "None (no empirical study).",
+    "baselines": "None.",
+    "models": "None evaluated.",
+    "variance": "n/a",
+    "ablations": "n/a",
+    "contamination_controls": "n/a",
+    "languages": "n/a"
+  },
+  "standards": {"peer_review": "Submitted to TOSEM (under review); short version presented at ICSE-JAWs 2026 workshop.", "limitations_section": true, "artifacts": "None.", "preregistration": "n/a"},
+  "biases": [
+    {"type": "hype_language", "detail": "'visionary' framework, 'supervisory operators of agents'; benefits are asserted without measurement."},
+    {"type": "novelty_inflation", "detail": "Most stages restate existing tools (reviewer recommendation, PR description generation, CodeRabbit-style review) composed into a pipeline."},
+    {"type": "missing_cost_reporting", "detail": "Proposes about a dozen agents per PR, but §5.2.2 acknowledges only qualitatively that operational cost is substantial."}
+  ],
+  "coi": {"affiliations": "Ankara University; Bilkent University; Microsoft (Erdem Tuna, Ankara).", "vendor_products_evaluated": "None evaluated. Commercial tools (GitHub Copilot code review, CodeRabbit, Qodo) are cited descriptively.", "funding": "No funding or acknowledgment statement found.", "severity": "low", "detail": "One Microsoft-affiliated author; the paper does not evaluate or promote a Microsoft product beyond citations."},
+  "scores": {"rigor": 1, "reproducibility": 0, "generalizability": 1, "relevance": 3, "coi_risk": 1},
+  "verdict": "reject",
+  "verdict_reason": "A position paper with no implementation or evaluation, so none of its framework claims has evidence. It is a useful literature map of code-review challenges (§3.1) and a checklist of review-stage ideas, but it cannot inform a harness decision as evidence.",
+  "applicability": "As a design checklist only. For a Java team with ingestion across four or more repos, the parts worth considering are: (a) an impact-analysis step that flags cross-repo or interface effects of a PR; this is unevaluated here, so the team should back it with deterministic contract tests rather than an LLM agent. (b) Linking each PR to its spec or issue and checking requirement alignment, which fits spec-driven development. (c) Keeping human gates where healthcare-content correctness and accountability matter. With mixed agent hosts, the 'internal platform' suggestion (§5.2.2) implies host-neutral review policy in committed config, not in a particular tool. None of this is evidenced by the paper.",
+  "conflicts_with": [
+    {"arxiv_id": "2606.13175", "detail": "This paper insists on keeping human reviewers at key decision points; 2606.13175 argues coding agents supersede human inspection."}
+  ]
+}

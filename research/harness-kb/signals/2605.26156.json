@@ -1,0 +1,451 @@
+{
+ "arxiv_id": "2605.26156",
+ "fulltext_chars": 102636,
+ "fulltext_lines": 2319,
+ "authors_block": "Xianglin Yang Affiliation: School of Computing, National University of Singapore, Singapore Correspondence to: xianglin@nus.edu.sg Bryan Hooi Affiliation: School of Computing, National University of Singapore, Singapore Gelei Deng Affiliation: Nanyang Technological University, Singapore Tianwei Zhang Affiliation: Nanyang Technological University, Singapore Jin Song Dong Affiliation: School of Computing, National University of Singapore, Singapore",
+ "vendor_affiliation_hits": [],
+ "n_authors": 5,
+ "comment": "Accepted to the Forty-Third International Conference on Machine Learning (ICML 2026)",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/xianglinyang/llm-as-a-judge-attack."
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Turning Bias into Bugs: Bandit-Guided Style Manipulation Attacks on LLM Judges"
+  ],
+  [
+   44,
+   "###### Abstract"
+  ],
+  [
+   54,
+   "###### Keywords:"
+  ],
+  [
+   57,
+   "## 1 Introduction"
+  ],
+  [
+   100,
+   "## 2 Related Work"
+  ],
+  [
+   102,
+   "##### Stylistic Biases in LLM-as-a-Judge."
+  ],
+  [
+   108,
+   "##### Attacks against LLM-as-a-Judge."
+  ],
+  [
+   112,
+   "## 3 Preliminary"
+  ],
+  [
+   114,
+   "### 3.1 LLM-as-a-Judge"
+  ],
+  [
+   128,
+   "### 3.2 Threat Model"
+  ],
+  [
+   137,
+   "## 4 Methodology"
+  ],
+  [
+   150,
+   "### 4.1 Bandit Formulation of the Attack"
+  ],
+  [
+   156,
+   "### 4.2 Detailed Methodology"
+  ],
+  [
+   160,
+   "##### ❶Context selection and state representation."
+  ],
+  [
+   260,
+   "## 5 Theoretical Analysis"
+  ],
+  [
+   262,
+   "##### Motivation."
+  ],
+  [
+   268,
+   "##### Setup."
+  ],
+  [
+   277,
+   "###### Theorem 5.1 (Linear regret under misspecified observations)."
+  ],
+  [
+   299,
+   "## 6 Experiments"
+  ],
+  [
+   315,
+   "### 6.1 Experimental Setup"
+  ],
+  [
+   317,
+   "##### Target LLM-as-a-Judge."
+  ],
+  [
+   324,
+   "##### Baselines."
+  ],
+  [
+   331,
+   "### 6.2 Attack Efficacy"
+  ],
+  [
+   333,
+   "#### 6.2.1 Chatbot Benchmarks"
+  ],
+  [
+   433,
+   "#### 6.2.2 Case Study: Automated Peer Review"
+  ],
+  [
+   481,
+   "### 6.3 Vulnerability Characterization and Transferability"
+  ],
+  [
+   504,
+   "### 6.4 Stealth and Mitigation"
+  ],
+  [
+   522,
+   "## 7 Conclusion"
+  ],
+  [
+   526,
+   "## Acknowledgements"
+  ],
+  [
+   531,
+   "## Impact Statement"
+  ],
+  [
+   537,
+   "## References"
+  ],
+  [
+   986,
+   "## Appendix A Details on Stylistic Edits"
+  ],
+  [
+   988,
+   "### A.1 Stylistic Bias Collection"
+  ],
+  [
+   1006,
+   "##### Non-Stylistic Biases."
+  ],
+  [
+   1096,
+   "### A.2 Prompts used to apply the style modifications."
+  ],
+  [
+   1102,
+   "#### Instruction"
+  ],
+  [
+   1105,
+   "#### Original Answer"
+  ],
+  [
+   1109,
+   "#### Modified Answer:"
+  ],
+  [
+   1115,
+   "#### Instruction"
+  ],
+  [
+   1119,
+   "#### Original Answer"
+  ],
+  [
+   1123,
+   "#### Modified Answer:"
+  ],
+  [
+   1129,
+   "#### Instruction"
+  ],
+  [
+   1132,
+   "#### Guiding Principles for Formatting"
+  ],
+  [
+   1148,
+   "#### Available Markdown Toolbox"
+  ],
+  [
+   1164,
+   "#### Crucial Constraints"
+  ],
+  [
+   1174,
+   "#### Original Answer"
+  ],
+  [
+   1178,
+   "#### Modified Answer:"
+  ],
+  [
+   1184,
+   "#### Instruction"
+  ],
+  [
+   1187,
+   "#### Original Answer"
+  ],
+  [
+   1191,
+   "#### Modified Answer:"
+  ],
+  [
+   1197,
+   "#### Instruction"
+  ],
+  [
+   1200,
+   "#### Original Answer"
+  ],
+  [
+   1204,
+   "#### Modified Answer:"
+  ],
+  [
+   1210,
+   "#### Instruction"
+  ],
+  [
+   1213,
+   "#### Original Answer"
+  ],
+  [
+   1217,
+   "#### Modified Answer:"
+  ],
+  [
+   1223,
+   "#### Instruction"
+  ],
+  [
+   1233,
+   "#### Original Answer"
+  ],
+  [
+   1237,
+   "#### Modified Answer:"
+  ],
+  [
+   1243,
+   "#### Instruction"
+  ],
+  [
+   1246,
+   "#### Original Answer"
+  ],
+  [
+   1250,
+   "#### Modified Answer:"
+  ],
+  [
+   1254,
+   "## Appendix B More on Experiments"
+  ],
+  [
+   1256,
+   "### B.1 Hyperparameter Setup for BITE"
+  ],
+  [
+   1258,
+   "##### BITE Configuration and Hyperparameters."
+  ],
+  [
+   1278,
+   "### B.2 Additional Experiment in RQ1"
+  ],
+  [
+   1280,
+   "##### Supplementary Metrics."
+  ],
+  [
+   1338,
+   "##### Analysis of BITE Uncertainty and Learning."
+  ],
+  [
+   1346,
+   "##### Head-to-Head Comparison with Baselines."
+  ],
+  [
+   1366,
+   "##### Ablation on the Helper Model"
+  ],
+  [
+   1401,
+   "### B.3 MLRBench Setup in RQ1"
+  ],
+  [
+   1405,
+   "### B.4 Question Type Analysis Results in RQ1"
+  ],
+  [
+   1409,
+   "##### Setup."
+  ],
+  [
+   1413,
+   "##### Results."
+  ],
+  [
+   1537,
+   "### B.5 Semantic-Preservation Validation in RQ1"
+  ],
+  [
+   1541,
+   "##### LLM validation."
+  ],
+  [
+   1577,
+   "##### Embedding similarity validation."
+  ],
+  [
+   1613,
+   "##### Concrete Examples"
+  ],
+  [
+   1655,
+   "### B.6 Regression Analysis Setup in RQ2"
+  ],
+  [
+   1659,
+   "##### Feature Extraction."
+  ],
+  [
+   1734,
+   "##### Model Specification."
+  ],
+  [
+   1744,
+   "##### Interpretation."
+  ],
+  [
+   1758,
+   "### B.7 Mitigation Analysis in RQ3"
+  ],
+  [
+   1760,
+   "#### B.7.1 Replication of Style Control (Li et al., 2024a)"
+  ],
+  [
+   1764,
+   "#### B.7.2 Stealth analysis Comparing to Jailbreak-based Baselines"
+  ],
+  [
+   1769,
+   "#### B.7.3 Additional Experiment of Defense with Judge Explanations"
+  ],
+  [
+   1773,
+   "##### Detection with judge explanation"
+  ],
+  [
+   1803,
+   "##### Non-Linear Debiasing (Style Control)."
+  ],
+  [
+   1866,
+   "##### Randomized Prompting."
+  ],
+  [
+   1884,
+   "##### Style Removal via LLM Rewriting."
+  ],
+  [
+   1939,
+   "### B.8 Benchmarking Against White-Box Attacks"
+  ],
+  [
+   1981,
+   "## Appendix C Theoretical Results"
+  ],
+  [
+   1983,
+   "###### Proof of Theorem 5.1."
+  ],
+  [
+   2243,
+   "### C.1 Our Position in the Bandit Literature"
+  ],
+  [
+   2253,
+   "## Appendix D LLM-as-a-Judge Implementation"
+  ],
+  [
+   2257,
+   "### D.1 Rewrite Prompt"
+  ],
+  [
+   2265,
+   "# # # # ANSWER TO IMPROVE"
+  ],
+  [
+   2271,
+   "### D.2 LLM-as-a-Judge Prompts"
+  ],
+  [
+   2279,
+   "# GOAL"
+  ],
+  [
+   2282,
+   "# INPUT"
+  ],
+  [
+   2287,
+   "# OUTPUT"
+  ],
+  [
+   2293,
+   "# INSTRUCTIONS FOR THE EVALUATION"
+  ],
+  [
+   2303,
+   "## FORMAT FOR THE EVALUATION"
+  ],
+  [
+   2319,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgements\n\nThis work was supported by the National Research Foundation, Singapore, and Cyber Security Agency of Singapore under its National Cybersecurity R&D Programme and CyberSG R&D Cyber Research Programme Office. Any opinions, findings, and conclusions or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of National Research Foundation, Singapore, Cyber Security Agency of Singapore as well as CyberSG R&D Programme Office, Singapore.\nThis research/project is also supported by AI Singapore under the AISG Stage 1B Grant (WBS A-8002158-01-00).\n\n## Impact Statement\n\nAs the field increasingly relies on LLM-as-a-Judge paradigms for scalable evaluation, ensuring the reliability and validity of these automated metrics is paramount. Our work serves as a diagnostic audit of current evaluation pipelines, revealing that existing judge models often conflate stylistic presentation with semantic quality. By characterizing this “stylistic bias” through the BITE framework, we highlight a critical challenge in maintaining the integrity of public leaderboards and automated benchmarks.\n\nWhile we demonstrate that judge scores can be optimized via black-box interactions, our primary motivation is to prevent the silent misuse of automated judges. If left unaddressed, these vulnerabilities could lead to a misalignment where models are incentivized to pursue superficial formatting over reasoning capability, resulting in inflated rankings and market distortions. Our research provides the necessary empirical groundwork for developing style-invariant evaluators and more robust defense mechanisms.\n\n## References\n\nAbbasi-Yadkori et al. (2011)\nY. Abbasi-Yadkori, D. Pál, and C. Szepesvári\n\nImproved algorithms for linear stochastic bandits.\n\nAdvances in neural information processing systems 24.\n\nCited by: §C.1,\nAppendix C,\n§5.\n\nAI (2024)",
+ "limitations": "",
+ "ethics_coi": "## Impact Statement\n\nAs the field increasingly relies on LLM-as-a-Judge paradigms for scalable evaluation, ensuring the reliability and validity of these automated metrics is paramount. Our work serves as a diagnostic audit of current evaluation pipelines, revealing that existing judge models often conflate stylistic presentation with semantic quality. By characterizing this “stylistic bias” through the BITE framework, we highlight a critical challenge in maintaining the integrity of public leaderboards and automated benchmarks.\n\nWhile we demonstrate that judge scores can be optimized via black-box interactions, our primary motivation is to prevent the silent misuse of automated judges. If left unaddressed, these vulnerabilities could lead to a misalignment where models are incentivized to pursue superficial formatting over reasoning capability, resulting in inflated rankings and market distortions. Our research provides the necessary empirical groundwork for developing style-invariant evaluators and more robust defense mechanisms.\n\n## References\n\nAbbasi-Yadkori et al. (2011)\nY. Abbasi-Yadkori, D. Pál, and C. Szepesvári\n\nImproved algorithms for linear stochastic bandits.\n\nAdvances in neural information processing systems 24.\n\nCited by: §C.1,\nAppendix C,\n§5.\n\nAI (2024)\nF. AIFlow judge: an open small language model for llm system evaluations(Website)\n\nExternal Links: Link\n\nCited by: §D.2.",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 21,
+  "p_value_or_ci": 5,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 1,
+  "human_study": 4,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

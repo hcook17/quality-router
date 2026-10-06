@@ -1,0 +1,30 @@
+{
+  "arxiv_id": "2606.05339",
+  "contribution_type": "empirical",
+  "summary": "Mining study deriving a taxonomy of runtime faults in MCP servers: from 1,774 public repos filtered to 473 maintained ones, then 200 fault-richest repos, keyword filtering and manual review yield 833 confirmed fault threads, coded into 11 categories, 27 subcategories, 73 leaf types. A survey of 55 MCP practitioners (≈4.6% response) checks recognition, severity and diagnostic effort.",
+  "claims": [
+    {"claim": "Taxonomy of 11 categories / 27 subcategories / 73 leaf types from 833 fault threads.", "evidence": "§4.6 coding in five rounds by two authors, final-round Cohen's kappa 0.938 with 52 disagreements; saturation asserted.", "strength": "strong", "location": "§4.6, §5"},
+    {"claim": "Tool (23.0%), Data & Schema (17.6%) and State & Configuration (17.1%) dominate, i.e., failures concentrate in capability execution and schema enforcement rather than transport.", "evidence": "§6 counts 192/147/143 of 833. Authors note these are descriptive of a criterion-selected sample (top-200 fault-rich repos), not prevalence estimates (§7 Conclusion validity).", "strength": "moderate", "location": "§6, §7"},
+    {"claim": "Respondents experienced on average 20 of the 27 subcategories; no category unobserved.", "evidence": "Inconsistent with body: §5.12 reports an average confirmation rate of 44% per subcategory (≈12 of 27), with least-reported categories at 25%. Survey also assessed a provisional 45-item taxonomy, not the final 27 subcategories (§4.6).", "strength": "unsupported", "location": "Abstract and §1 vs §5.12, §4.6"},
+    {"claim": "Some faults return well-formed JSON-RPC success while violating semantics (gray failures), so oracles must check behavior, not just errors.", "evidence": "§6 qualitative observation; no count given.", "strength": "weak", "location": "§6"}
+  ],
+  "patterns": [
+    {"id": "P04", "stance": "mixed", "note": "MCP integration layer has recurring server-side runtime faults (schema, state, initialization, result propagation)."},
+    {"id": "P16", "stance": "neutral", "note": "Recommends conformance tests derived from leaf categories and behavioral oracles; not evaluated."},
+    {"id": "P30", "stance": "neutral", "note": "Taxonomy proposed as triage labels; silent-success failures argue for content-level monitoring."}
+  ],
+  "methodology": {"sample": "473 repos mined (≤200 recent issues/PRs each), 200 selected for manual analysis, 833 confirmed threads; survey n=55 from ~1,200 invited.", "baselines": "n/a (taxonomy study).", "models": "n/a", "variance": "Inter-rater kappa reported; survey descriptive percentages only.", "ablations": "n/a", "contamination_controls": "n/a", "languages": "Not broken down by implementation language in the text reviewed; GitHub-only, English-only."},
+  "standards": {"peer_review": "arXiv preprint (17 pages); no venue listed.", "limitations_section": true, "artifacts": "Replication package on figshare with mined datasets, coding records, scripts.", "preregistration": "n/a"},
+  "biases": [
+    {"type": "survivorship", "detail": "Only closed, bug-labelled, English, publicly discussed threads; private/enterprise faults absent (acknowledged §7)."},
+    {"type": "selection_bias_participants", "detail": "4.6% response rate, purposive sampling; respondents rated a provisional 45-item version."},
+    {"type": "other:abstract_body_mismatch", "detail": "Abstract's 'average of 20 of 27 subcategories' conflicts with §5.12's 44% average confirmation rate."},
+    {"type": "metric_mismatch", "detail": "Survey 'no new category emerged' is weak evidence of completeness given low response rate."}
+  ],
+  "coi": {"affiliations": "JADS / Tilburg University, University of Sannio, University of Luxembourg, Gran Sasso Science Institute.", "vendor_products_evaluated": "None.", "funding": "Safeguard project (grant 20506020) and funding from Deloitte; COI statement declares none.", "severity": "low", "detail": "Industry funding (Deloitte) but no product evaluated."},
+  "scores": {"rigor": 3, "reproducibility": 4, "generalizability": 3, "relevance": 3, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Careful, replicable qualitative taxonomy with high inter-rater agreement and released data; caveats are the unexplained abstract/body mismatch on survey results, the survey validating a provisional taxonomy, and frequency counts from a criterion-selected sample.",
+  "applicability": "If the Java team exposes ingestion or content-delivery capabilities as MCP servers for mixed agent hosts, the taxonomy is a ready checklist for conformance tests: validate inputs against declared inputSchema, gate requests on initialization, preserve JSON-RPC ids, keep logs off stdout for stdio transport, and assert response content (silent-success faults). It is server-side only — it says nothing about host/client/orchestration faults or cross-repo contracts — and gives no evidence specific to Java SDKs.",
+  "conflicts_with": []
+}

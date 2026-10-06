@@ -1,0 +1,157 @@
+{
+ "arxiv_id": "2609.15877",
+ "fulltext_chars": 48180,
+ "fulltext_lines": 833,
+ "authors_block": "Muhammad Laiq Affiliation: Blekinge Institute of Technology, Sweden. E-mail {muhammad.laiq, muhammad.usman, ricardo.britto, deepika.badampudi}@bth.se Ricardo Britto Affiliation: Blekinge Institute of Technology, Sweden. E-mail {muhammad.laiq, muhammad.usman, ricardo.britto, deepika.badampudi}@bth.se Affiliation: Ericsson AB, Sweden. E-mail {ricardo.britto, nishrith.saini}@ericsson.com Muhammad Usman Affiliation: Blekinge Institute of Technology, Sweden. E-mail {muhammad.laiq, muhammad.usman, ricardo.britto, deepika.badampudi}@bth.se Nishrith Saini Affiliation: Ericsson AB, Sweden. E-mail {ricardo.britto, nishrith.saini}@ericsson.com Deepika Badampudi Affiliation: Blekinge Institute of Technology, Sweden. E-mail {muhammad.laiq, muhammad.usman, ricardo.britto, deepika.badampudi}@bth.se",
+ "vendor_affiliation_hits": [],
+ "n_authors": 5,
+ "comment": "Accepted at the 27th International Conference on Product-Focused Software Process Improvement (PROFES 2026)",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Using Agentic AI for contextualized and multifaceted code review at Ericsson"
+  ],
+  [
+   56,
+   "###### Abstract"
+  ],
+  [
+   68,
+   "###### Keywords:"
+  ],
+  [
+   71,
+   "## 1 Introduction"
+  ],
+  [
+   98,
+   "## 2 Related work"
+  ],
+  [
+   110,
+   "## 3 Research design"
+  ],
+  [
+   114,
+   "### 3.1 Phase 1: Problem identification"
+  ],
+  [
+   118,
+   "### 3.2 Phase 2: Solution design and development"
+  ],
+  [
+   122,
+   "### 3.3 Phase 3: Evaluation"
+  ],
+  [
+   156,
+   "## 4 The proposed solution"
+  ],
+  [
+   162,
+   "### 4.1 Code review dimensions focused"
+  ],
+  [
+   164,
+   "##### A. Readability Expert:"
+  ],
+  [
+   194,
+   "##### B. Maintainability Expert:"
+  ],
+  [
+   248,
+   "##### C. Reliability Expert:"
+  ],
+  [
+   290,
+   "##### D. Performance Expert:"
+  ],
+  [
+   322,
+   "### 4.2 Implementation details"
+  ],
+  [
+   331,
+   "##### LLM orchestrator:"
+  ],
+  [
+   336,
+   "##### MCP servers:"
+  ],
+  [
+   344,
+   "##### Context builder:"
+  ],
+  [
+   348,
+   "##### Specialized review agents:"
+  ],
+  [
+   355,
+   "## 5 Evaluation results"
+  ],
+  [
+   379,
+   "### 5.1 RQ1: What design choices are essential for providing multifaceted and contextualized code review?"
+  ],
+  [
+   391,
+   "### 5.2 RQ2: How accurate is the proposed approach in identifying issues from code commits?"
+  ],
+  [
+   408,
+   "### 5.3 RQ3: How effective is the proposed approach in terms of identifying important issues from code commits?"
+  ],
+  [
+   438,
+   "## 6 Discussion"
+  ],
+  [
+   461,
+   "## 7 Threats to validity"
+  ],
+  [
+   471,
+   "## 8 Conclusion and future work"
+  ],
+  [
+   477,
+   "#### Acknowledgements"
+  ],
+  [
+   481,
+   "#### Disclosure of Interests."
+  ],
+  [
+   485,
+   "## References"
+  ],
+  [
+   833,
+   "##"
+  ]
+ ],
+ "acknowledgments": "#### Acknowledgements\n\nThis work was partially supported by the Knowledge Foundation through the InScale project (reference number 20230095) at Blekinge Institute of Technology (BTH), Sweden.\n\n#### Disclosure of Interests.\n\nThe authors declare that they have no known competing financial interests or personal relationships that could have influenced the work reported in this paper.\n\n## References\n\n[1]\nA. Avritzer, R. Britto, C. Trubiani, M. Camilli, A. Janes, B. Russo, A. Van Hoorn, R. Heinrich, M. Rapp, J. Henß, et al. (2022)\n\nScalability testing automation using multivariate characterization and detection of software performance antipatterns.\n\nJournal of Systems and Software 193, pp. 111446.\n\nCited by: §4.1,\nTable 5.\n\n[2]\nA. Bacchelli and C. Bird (2013)\n\nExpectations, outcomes, and challenges of modern code review.",
+ "limitations": "## 7 Threats to validity\n\nConstruct validity: We study whether the generated reviews are trustworthy and useful to developers in practice. We operationalize trustworthiness as the correctness of each identified issue (RQ2), i.e., whether it describes a real property of the reviewed code rather than a hallucinated one, and usefulness as its importance on a three-level scale (RQ3), i.e., whether a correct finding is worth acting upon. Both measures rely on human judgment, which we consider appropriate for our research questions, since whether a finding is accurate and worth fixing depends on the semantics of the change and on system-specific knowledge.\n\nInternal validity: Having the authors (developers of the code commits) validate the findings in their own code can introduce bias in either direction, that is, greater leniency or greater scrutiny. However, the authors are best positioned to judge the relevance of a finding given their knowledge of the change.\n\nExternal validity: This study has several limitations that should be considered when interpreting the findings. First, the evaluation was conducted in a single company using seven commits from four projects, and the code studied was limited to Python. Although this provides realistic industrial evidence, the results may not generalize to other organizations or programming languages, and validation in other contexts is needed to assess external validity. Second, the results are based on a single LLM (Kiro CLI’s default model), and the reported accuracy or importance ratings may vary with other models/frameworks. A systematic comparison across models/frameworks covering several aspects such as accuracy, ease of use, cost, and privacy would be important for organizations weighing adoption and provides a clear direction for future work. In addition, in this study, we have considered only the four dimensions of code quality. Future work may include other aspects, such as security, technical debt, and testability.\n\nReliability: A threat specific to LLM-based solutions is non-determinism: repeated runs on the same commit may not produce identical findings. To support repeatability, the agents are specified declaratively via JSON configurations and skill documents, and the antipattern catalogs used by each agent are reported in Section 4.1, enabling the setup to be reconstructed. The data collection instrument is also reported in full (Table 1). However, the code commits and the generated reviews are proprietary and cannot be shared, which limits independent replication.\n\n## 8 Conclusion and future work\n\nIn this study, we proposed a contextualized multi-agent-based solution that provides a multifaceted assessment of code changes. The approach combines specialized review agents with context-specific knowledge to identify antipatterns in four dimensions: readability, maintainability, reliability, and performance. We developed and evaluated the solution in an industrial setting. The evaluation results for over 200 issues showed that the proposed solution achieves approximately 96% accuracy in correctly identifying issues. In addition, around 69% of the correctly identified issues were rated as important issues (with 33% considered severe that must be fixed and 36% important issues that should be fixed). Qualitative feedback from the developers corroborated these results and highlighted the usefulness of the generated reviews.\n\nIn future work (the next iteration of the design science research process), we plan to evaluate our solution in other contexts, including other programming languages and projects, and to include additional code quality aspects, such as security and technical debt. We also aim to implement feedback mechanisms that enable the system to learn from developers’ feedback. Finally, we plan to extend the solution to support InnerSource projects, in which core teams must ensure that contributions from developers outside the project align with the project’s conventions, ",
+ "ethics_coi": "#### Disclosure of Interests.\n\nThe authors declare that they have no known competing financial interests or personal relationships that could have influenced the work reported in this paper.\n\n## References\n\n[1]\nA. Avritzer, R. Britto, C. Trubiani, M. Camilli, A. Janes, B. Russo, A. Van Hoorn, R. Heinrich, M. Rapp, J. Henß, et al. (2022)\n\nScalability testing automation using multivariate characterization and detection of software performance antipatterns.\n\nJournal of Systems and Software 193, pp. 111446.\n\nCited by: §4.1,\nTable 5.\n\n[2]\nA. Bacchelli and C. Bird (2013)\n\nExpectations, outcomes, and challenges of modern code review.\n\nIn 2013 35th international conference on software engineering,\n\npp. 712–721.",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 3,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 2,
+  "java": 1,
+  "industrial": 12
+ },
+ "fulltext_source": "html"
+}

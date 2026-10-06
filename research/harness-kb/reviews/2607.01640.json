@@ -1,0 +1,52 @@
+{
+  "arxiv_id": "2607.01640",
+  "contribution_type": "tool",
+  "summary": "AgentFlow is a static analyzer (built on the YASA engine) that recovers an Agent Dependency Graph from Python programs written against five agent frameworks (OpenAI Agents SDK, LangChain/LangGraph, CrewAI, LlamaIndex, Semantic Kernel), modeling agents, prompts, models, tools/MCP/skills, memory and policy nodes. It is applied to Agent BOM generation and taint-style prompt-to-tool risk detection on AgentZoo, 5,399 GitHub agent projects.",
+  "claims": [
+    {"claim": "AgentFlow recovers richer agent entities and dependencies than AST-based tools (Agent-Wiz, Agentic Radar)", "evidence": "Table III on ADG-Eval (60 projects, 20 per framework): median 17 nodes / 28 edges vs 4/0 (Agent-Wiz) and 2.5/2 (Agentic Radar). 'Richer' is measured as raw counts with no ground-truth labeling of correctness or recall for RQ1, so more nodes could include false positives.", "strength": "moderate", "location": "§V-B, Tables II-III"},
+    {"claim": "AgentFlow produces more dependency-aware Agent BOMs than Trusera, Drako and Cisco BOM tools", "evidence": "Table V on BOM-Eval (100 projects): 2,295 components and 1,008 bindings vs 0 bindings for Drako/Trusera, 22 for Cisco. Baselines were not designed to emit binding relations, so the comparison is partly by construction; AgentFlow FP/FN inspection by two authors is mentioned but no BOM precision figure is reported in the read sections.", "strength": "weak", "location": "§V-C, Tables IV-V"},
+    {"claim": "Uncovers 238 taint-style prompt-to-tool risks in real-world programs", "evidence": "Table VI: 238 projects (4.4%) with 4,357 findings. Abstract wording '238 risks' actually means 238 projects. Manual audit of 100 reports: 73% precision (25 of 27 FPs due to sink semantics); 9 misses in 100 non-reported privileged agents. No exploitability confirmation or disclosure reported.", "strength": "moderate", "location": "§V-D, Table VI"},
+    {"claim": "Scales to thousands of programs", "evidence": "Median 14.17 s, p95 163.54 s per project on a 128-core/1 TB RAM server.", "strength": "strong", "location": "§V-E"}
+  ],
+  "patterns": [
+    {"id": "P07", "stance": "introduces", "note": "Typed dependency graph over agent components as a static IR; not used as agent context."},
+    {"id": "P22", "stance": "supports", "note": "Static taint analysis from untrusted prompts to privileged tools finds risky paths at 73% precision on a 100-report audit."},
+    {"id": "P30", "stance": "introduces", "note": "Agent BOM as an inventory/audit artifact for governance."},
+    {"id": "P21", "stance": "neutral", "note": "Models control-policy/guard nodes in the ADG; does not evaluate guardrail effectiveness."},
+    {"id": "P04", "stance": "neutral", "note": "MCP servers and skills captured as capability nodes."}
+  ],
+  "methodology": {
+    "sample": "AgentZoo: 5,399 Python GitHub projects; ADG-Eval 60 projects; BOM-Eval 100 projects; P2T-Audit 100 reported + 100 non-reported agents",
+    "baselines": "Agent-Wiz, Agentic Radar (RQ1); Trusera-AI-BOM, Drako-Agent-BOM, Cisco-AI-BOM (RQ2); baselines are the existing open-source tools but solve a narrower problem",
+    "models": "n/a (static analysis; no LLM in the analyzer)",
+    "variance": "Deterministic tool; no inter-rater agreement reported for the two-author audits",
+    "ablations": "None (e.g. no alias-resolution on/off)",
+    "contamination_controls": "n/a",
+    "languages": "Python only (plus TypeScript checker code); five Python agent frameworks"
+  },
+  "standards": {
+    "peer_review": "arXiv preprint, no venue in comment or journal_ref",
+    "limitations_section": true,
+    "artifacts": "No code or dataset release link found in the text; GitHub URLs are only to frameworks and baselines",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "metric_mismatch", "detail": "RQ1/RQ2 treat larger node/edge/binding counts as better without ground-truth correctness for those counts."},
+    {"type": "strawman_baseline", "detail": "BOM baselines are inventory tools that do not attempt binding relations; zero bindings is by design, not a failure."},
+    {"type": "self_evaluation", "detail": "Authors' tool, authors' sampled datasets, and authors' two-person manual audit for precision."},
+    {"type": "single_language_python", "detail": "Only Python agent programs; acknowledged in §VI."},
+    {"type": "closed_artifacts", "detail": "No release of AgentFlow, AgentZoo, or audit labels is stated."}
+  ],
+  "coi": {
+    "affiliations": "Huazhong University of Science and Technology; Macquarie University",
+    "vendor_products_evaluated": "Compares against open-source tools from Repello AI, SPLX, Trusera, Drako, Cisco; authors not affiliated with any",
+    "funding": "No acknowledgments section found",
+    "severity": "none",
+    "detail": "Academic authors evaluating their own research tool; self-evaluation bias but no commercial conflict."
+  },
+  "scores": {"rigor": 3, "reproducibility": 1, "generalizability": 2, "relevance": 1, "coi_risk": 0},
+  "verdict": "reject",
+  "verdict_reason": "off-topic: analyzes the security/BOM of Python applications built on agent frameworks (LangChain, CrewAI, etc.), explicitly excluding coding agents like Claude Code; it does not inform how a Java team builds or runs a coding-agent harness. Evaluation is reasonable for its own scope but 'richer' is count-based and no artifacts are released.",
+  "applicability": "Little transfer. The team's harness is coding agents operating on Java ingestion/delivery repos, not Python agent programs; AgentFlow does not analyze Java and excludes agent products. The only portable idea is conceptual: inventory which MCP servers/skills/tools each host config can reach and treat untrusted ingested healthcare content flowing into a prompt that can trigger write/exec tools as a taint path worth a policy check. That is better served by a deterministic config audit in the harness than by this tool.",
+  "conflicts_with": []
+}

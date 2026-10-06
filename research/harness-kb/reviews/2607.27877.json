@@ -1,0 +1,57 @@
+{
+  "arxiv_id": "2607.27877",
+  "contribution_type": "benchmark",
+  "summary": "Introduces MSEval, a benchmark of 10 full-stack web projects derived from university capstone assignments, run under 10 multi-agent collaboration topologies (feature squad, pipeline, PM oversight, QA-first, swarming, etc.) in the authors' LegoGent runtime and graded by their LLM-assisted TAgent grader over up to three feedback rounds. Reports that coordination topology shifts score, time and cost as much as model choice.",
+  "claims": [
+    {"claim": "For identical tasks and models, topology shifts scores by over 30 points.", "evidence": "§Key Findings: DeepSeek v4 Pro 89.9 (pipeline) vs 43.0 (open-source review) on the instant-messaging project. This is a single project/model pair, mostly single runs; on the 10-project averages (Table 3) the spread is much narrower (e.g. Pro 69.2-86.6; QA-first/rotation 83.3 vs open-source 73.5).", "strength": "weak", "location": "§Key Findings and Insights; Table 2; Table 3"},
+    {"claim": "Structured pipelines converge fastest with the highest quality, whereas heavy managerial oversight degrades performance.", "evidence": "Body text says QA-first and rotation tie highest (83.3) on the 10-mode average; pipeline is best only on some projects (e.g. e-commerce 96.2). Table 3 PM-oversight R3 averages (75.2 Flash, 78.3 Pro, 85.3 GLM) do not show a consistent degradation. Abstract framing is not cleanly supported.", "strength": "weak", "location": "Abstract vs §Key Findings, Table 3, App. modes"},
+    {"claim": "TAgent feedback drives refinement: 82.0% of 600 adjacent round transitions improve and 94.7% of runs finish R3 above R1.", "evidence": "§TAgent Feedback Drives Refinement, stated over 300 full-grid runs. Improvement is judged by the same TAgent that produced the feedback (self-evaluation loop).", "strength": "moderate", "location": "§TAgent Feedback Drives Refinement"},
+    {"claim": "TAgent scores agree with human TA scores (Spearman 0.87).", "evidence": "Single sentence in Limitations; no sample size, protocol or per-project breakdown given.", "strength": "weak", "location": "§Limitations"},
+    {"claim": "Failures are dominated by functional shortfall and broken cross-agent prerequisites rather than crashes.", "evidence": "Table 4: 1,440 failing checks; incomplete logic 32.2%, missing features 23.8%, auth/permission 11.9%, prerequisite cascades 11.0%. Labelling procedure and inter-rater agreement not described.", "strength": "moderate", "location": "§A General Failure Taxonomy, Table 4"}
+  ],
+  "patterns": [
+    {"id": "P11", "stance": "mixed", "note": "Role/topology choice strongly matters; some multi-agent modes (open-source review, swarming) waste rounds reconciling overlapping changes. No single-agent baseline, so it cannot say whether multi-agent beats one agent."},
+    {"id": "P13", "stance": "mixed", "note": "Pipeline (staged architect->backend->frontend->QA) strong on some projects; PM-oversight mode results are inconsistent across models."},
+    {"id": "P15", "stance": "supports", "note": "QA-first mode (requirements turned into acceptance targets before implementation) ties for best 10-project mean (83.3) and is strongest on hardest project; single-run evidence."},
+    {"id": "P34", "stance": "supports", "note": "Requirement documents compiled into weighted rubric checks used both for grading and as ranked repair agenda."},
+    {"id": "P16", "stance": "supports", "note": "Deploy-and-probe feedback loop over 3 rounds improves scores in most runs, though measured by the same grader."},
+    {"id": "P18", "stance": "introduces", "note": "TAgent uses LLM inspection for UI-state and code checks; validation is a single unreported-n Spearman 0.87 against TA scores."},
+    {"id": "P24", "stance": "neutral", "note": "Reports USD cost and cache-aware token accounting per round; 90-minute per-round cap; shows score frontier differs from cost frontier."},
+    {"id": "P27", "stance": "neutral", "note": "Identifies broken cross-agent API contracts / prerequisites (23% of failures) as the multi-agent-specific failure; layer-specialist mode synchronises at API contracts."}
+  ],
+  "methodology": {
+    "sample": "10 web projects from university capstone assignments x 10 modes; 5 models reported (Qwen3.6-Flash omitted after scoring 0 everywhere). Instant-messaging project run across all models; full 10-project grid for DeepSeek v4 Flash, Pro and GLM-5.2 (300 runs). Abstract says '100 runs'.",
+    "baselines": "No single-agent baseline and no external multi-agent framework baseline; modes compared only against each other inside LegoGent.",
+    "models": "Claude Opus 4.8, GPT-5.5, DeepSeek v4 Flash, DeepSeek v4 Pro, GLM-5.2 (Qwen3.6-Flash dropped).",
+    "variance": "Three trials only for instant-messaging token/time; other projects rerun only when 'experts flag a test as abnormal'. No CIs or seed variance for score comparisons.",
+    "ablations": "Modes are the manipulated variable; no ablation of TAgent feedback content vs bare retry.",
+    "contamination_controls": "None discussed; capstone projects are common web-app archetypes (chat, e-commerce, RBAC).",
+    "languages": "Web apps (frontend+backend); implementation languages not controlled or reported per run."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint, no venue listed.",
+    "limitations_section": true,
+    "artifacts": "Benchmark released at github.com/robinren03/MSEval (project specs, mode definitions, scripts per §Introduction).",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "no_variance_reported", "detail": "Mostly single runs per project x mode x model; the headline 30-point swing is one cell pair."},
+    {"type": "self_evaluation", "detail": "Authors' runtime (LegoGent) executed and authors' grader (TAgent) both scored results and generated the repair feedback whose effect is claimed."},
+    {"type": "llm_judge_unvalidated", "detail": "TAgent uses LLM inspection for UI/code checks; human agreement reported as one Spearman figure with no n or protocol."},
+    {"type": "hype_language", "detail": "Abstract calls MSEval 'a rigorous, reproducible standard' and claims pipelines give highest quality, which the body's averages do not show."},
+    {"type": "toy_tasks", "detail": "Student capstone web apps; 'real-world' overstated relative to industrial codebases."},
+    {"type": "other:abstract_body_mismatch", "detail": "Abstract '100 runs' vs body '300 full-grid runs'; abstract's pipeline/PM claims differ from Key Findings."}
+  ],
+  "coi": {
+    "affiliations": "Tsinghua University; Zhongguancun Laboratory.",
+    "vendor_products_evaluated": "Commercial models (Anthropic, OpenAI, DeepSeek, Z.AI, Alibaba) evaluated as subjects; authors' own LegoGent/TAgent tooling.",
+    "funding": "No acknowledgments/funding section found.",
+    "severity": "low",
+    "detail": "Academic authors with no model-vendor stake; mild self-interest in promoting their own benchmark/grader."
+  },
+  "scores": {"rigor": 2, "reproducibility": 3, "generalizability": 2, "relevance": 3, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Useful cost-aware framing and failure taxonomy for multi-agent topologies, but headline numbers rest on single runs, an LLM-assisted self-built grader with thin validation, no single-agent baseline, and abstract claims that diverge from the body.",
+  "applicability": "Directionally relevant to how the team might split agent work across ingestion and delivery repos: the finding that layer-split teams lose accountability for end-to-end scenarios, and that 23% of failures are broken cross-agent prerequisites/contracts, argues for owning a feature vertically (ingestion -> content API -> front-end contract) or pinning explicit API contracts before parallel work. QA-first's relative strength is weak support for spec-driven/acceptance-criteria-first workflows. Does not transfer directly: greenfield student web apps built from scratch in one shared repo, not an existing multi-repo Java backend; no Java, no healthcare constraints, and no comparison against a single agent, so it cannot justify adopting multi-agent topologies at all.",
+  "conflicts_with": []
+}

@@ -1,0 +1,201 @@
+{
+ "arxiv_id": "2609.24362",
+ "fulltext_chars": 73753,
+ "fulltext_lines": 1832,
+ "authors_block": "Hexiong Yang Affiliation: [ Mingrui Chen Affiliation: [ Jie Cao Affiliation: [ Ran He Affiliation: [ September 2026",
+ "vendor_affiliation_hits": [],
+ "n_authors": 4,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   25,
+   "# VLM-in-Sandbox: Visual Workspaces for Agentic Visual Reasoning"
+  ],
+  [
+   45,
+   "###### Abstract"
+  ],
+  [
+   51,
+   "## 1 Introduction"
+  ],
+  [
+   88,
+   "## 2 Related Work"
+  ],
+  [
+   90,
+   "### 2.1 Sandboxed and Tool-Augmented Visual Reasoning"
+  ],
+  [
+   94,
+   "### 2.2 Visual Evidence State and Evaluation"
+  ],
+  [
+   100,
+   "## 3 Methodology"
+  ],
+  [
+   112,
+   "### 3.1 Agent–Environment Loop"
+  ],
+  [
+   124,
+   "### 3.2 Image Ledger: Making Visual Evidence Addressable"
+  ],
+  [
+   130,
+   "##### Payload eviction."
+  ],
+  [
+   138,
+   "### 3.3 Active Visual Context and Explicit Promotion"
+  ],
+  [
+   140,
+   "##### Bounded active context."
+  ],
+  [
+   153,
+   "##### Explicit promotion."
+  ],
+  [
+   174,
+   "### 3.4 Prompt Compilation"
+  ],
+  [
+   345,
+   "## 4 Experimental Evaluation"
+  ],
+  [
+   349,
+   "### 4.1 Experimental Setup and Main Results"
+  ],
+  [
+   371,
+   "### 4.2 Matched Component Ablations"
+  ],
+  [
+   383,
+   "### 4.3 Reliability and Recovery"
+  ],
+  [
+   433,
+   "##### Wrong2Right Analysis and Selective Promotion."
+  ],
+  [
+   439,
+   "## 5 Visual Workspace Analysis"
+  ],
+  [
+   443,
+   "### 5.1 Context Growth and Visibility Control"
+  ],
+  [
+   457,
+   "### 5.2 Inference Efficiency"
+  ],
+  [
+   469,
+   "### 5.3 Qualitative Analysis"
+  ],
+  [
+   487,
+   "## 6 Discussion and Limitations"
+  ],
+  [
+   501,
+   "## 7 Conclusion"
+  ],
+  [
+   505,
+   "## References"
+  ],
+  [
+   1008,
+   "## Appendix A System and Reproducibility"
+  ],
+  [
+   1010,
+   "### A.1 Runtime Interface and Algorithm"
+  ],
+  [
+   1142,
+   "### A.2 Prompts, Tools, and Evaluation Settings"
+  ],
+  [
+   1176,
+   "##### System-prompt structure."
+  ],
+  [
+   1212,
+   "##### History and termination."
+  ],
+  [
+   1268,
+   "##### Scoring."
+  ],
+  [
+   1272,
+   "### A.3 Datasets and Experimental Configuration"
+  ],
+  [
+   1444,
+   "##### Software environment."
+  ],
+  [
+   1448,
+   "#### A.3.1 Executor overhead and reliability"
+  ],
+  [
+   1484,
+   "## Appendix B Extended Quantitative Results"
+  ],
+  [
+   1486,
+   "### B.1 Matched Controls and Component Sensitivity"
+  ],
+  [
+   1567,
+   "### B.2 Paired Reliability and Complete Transitions"
+  ],
+  [
+   1684,
+   "### B.3 Scaling and Systems Efficiency"
+  ],
+  [
+   1758,
+   "## Appendix C Comparison with Related Approaches"
+  ],
+  [
+   1826,
+   "## Appendix D A Failure of Intermediate Evidence Interpretation"
+  ],
+  [
+   1832,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 6 Discussion and Limitations\n\nComputation and deployment.\nTool-enabled reasoning costs more than a single Vanilla VLM call. Visual Workspace reduces the repeated visual workload relative to append-only sandboxing, but does not eliminate model and tool execution costs. Docker supplies a reproducible filesystem and execution environment; it can be replaced by a backend with equivalent tool behavior. Deployments still require resources and appropriate execution permissions.\n\nModel dependence.\nBecause the framework is training-free, the base VLM must decide when tools are useful, how long to continue, and which evidence deserves visual re-entry. This creates a real trade-off: Qwen3.5-9B obtains 734 rescues but also 411 regressions relative to Vanilla VLM, and its negative RealWorldQA cell is associated with longer, artifact-heavy trajectories on questions often answerable directly. Correctness-independent routing that selectively invokes sandbox reasoning is therefore an important extension.\n\nScope and extension to video.\nWe evaluate static-image reasoning. Persistent visual files and model-directed selection could extend to video by retaining temporal evidence while exposing only relevant frames or clips in each request. Temporal retrieval and tracking remain future work and require dedicated evaluation.\n\nResponsible use.\nTool-enabled VLMs may process sensitive images or be over-trusted in high-stakes settings. Deployment should provide appropriate access controls and human oversight.\n\n## 7 Conclusion\n\nWe introduced VLM-in-Sandbox, a training-free framework that separates persistent visual evidence from the images exposed to the model. Its Visual Workspace combines addressable artifacts, bounded active slots, and model-directed promotion. Across seven benchmarks and four VLMs, the complete method improves sample-weighted accuracy over Vanilla VLM and Original Append-only Sandbox. Matched controls identify bounded retention as the larger source of token savings, while selected visibility achieves the best observed accuracy. Paired outcomes, scaling replays, and prefix-cached measurements characterize the gains and their trade-offs. These findings support explicit visual evidence management as a core abstraction for sandboxed VLM reasoning.\n\n## References\n\n[1]\nT. Ashraf, A. Saqib, H. Ghani, M. AlMahri, Y. Li, N. Ahsan, U. Nawaz, J. Lahoud, H. Cholakkal, M. Shah, P. Torr, F. S. Khan, R. M. Anwer, and S. Khan (2025)\n\nAgent-x: evaluating deep multimodal reasoning in vision-centric agentic tasks.\n\nExternal Links: 2505.24876,\nLink\n\nCited by: §2.1,\n§2.2.\n\n[2]\nL. Chen, J. Li, X. Dong, P. Zhang, Y. Zang, Z. Chen, H. Duan, J. Wang, Y. Qiao, D. Lin, and F. Zhao (2024)\n\nAre we on the right way for evaluating large vision-language models?.\n\nExternal Links: 2403.20330,\nLink\n\nCited by: §1,",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 16,
+  "seeds_or_runs": 1,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

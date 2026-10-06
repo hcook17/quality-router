@@ -1,0 +1,55 @@
+{
+  "arxiv_id": "2608.25939",
+  "contribution_type": "benchmark",
+  "summary": "XRepoTest is a repository-level unit-test-generation benchmark of 3,642 focal methods from 6–10 GitHub repositories (≥500 stars) per language, in Rust, Go, Julia, PHP and Ruby. Java and Python are deliberately excluded. Generated tests run in Docker with the native test frameworks. The benchmark adds an Invocation Rate (IR) metric that checks whether a test directly calls the focal method. It evaluates 14 LLMs under standard, file-level, LSP and BM25/dense retrieval context, plus a small headless Claude Code agentic subset.",
+  "claims": [
+    {"claim": "Repository-level unit test generation is far harder than standalone: even the best models reach about 27% TPR under standard context.", "evidence": "Table 2 and §5.1. Best-model TPRs: Rust 12.78 (Claude 4.5 Sonnet), Go 25.78 (GPT-5.2), Julia 19.88, Ruby 25.78, PHP 26.93. Mean CSR is 57.4% and mean mutation score 3.2%. The Fig. 1 'gap' compares against McEval, which is a different task set, so it confounds setting with task difficulty.", "strength": "moderate", "location": "§5.1, Table 2, Fig. 1"},
+    {"claim": "File-level context is the most consistently effective augmentation. Retrieval and LSP give selective gains, and richer context can reduce IR.", "evidence": "Table 3 and §5.2. Claude Go: 34.14% TPR / 52.63% Cov with file context. Ruby IR drops from 85.63 to 53.19. App. H McNemar test for Claude Rust standard→file: χ²=17.65, p=1.53e-05. Retrievers were not tuned (Limitations), so the result that retrieval underperforms is weak.", "strength": "moderate", "location": "§5.2, Table 3, App. H"},
+    {"claim": "IR exposes failures that TPR misses: 9.7% of TPR-passing suites fail IR.", "evidence": "§5.4: 28.3% Rust, 19.2% Ruby, 0.6–0.7% Go/PHP, 6.1% Julia, confirmed by manual inspection. IR is a syntactic direct-call check (Algorithm 1), so it is a partial proxy for behavioral relevance.", "strength": "moderate", "location": "§4, §5.4, Alg. 1"},
+    {"claim": "An agentic harness (headless Claude Code) raises TPR 1.2–2.6× but can game pass rate by testing easier APIs.", "evidence": "Table 5, stratified subset of up to 5 easy + 5 hard functions per repo. PHP: TPR 48.3→59.8, Cov 50.4→17.1, IR 98.9→27.6. Single agent/model, no variance.", "strength": "moderate", "location": "§5.4, Table 5"},
+    {"claim": "Contamination is unlikely to dominate.", "evidence": "App. C: perplexity analysis of the repositories' test code under Yi-Coder-9B and Codestral-22B, which are not the evaluated frontier models, plus the argument that scores are low. No temporal cutoff filtering.", "strength": "weak", "location": "App. C"}
+  ],
+  "patterns": [
+    {"id": "P31", "stance": "introduces", "note": "New repo-level, execution-based test-generation benchmark with containerized harness and an IR metric."},
+    {"id": "P16", "stance": "supports", "note": "One round of compiler/execution feedback repair raises TPR 9–26% with IR nearly unchanged (§5.4, App. F). The agentic execution loop raises TPR 1.2–2.6×."},
+    {"id": "P05", "stance": "mixed", "note": "LSP-based symbol context gives only selective gains and can add noise. Plain file-level context is more reliable (§5.2)."},
+    {"id": "P06", "stance": "mixed", "note": "BM25/UniXCoder retrieval gives inconsistent, language- and model-dependent gains (§5.2, Table 3). Retrievers were untuned."},
+    {"id": "P15", "stance": "neutral", "note": "Measures the quality of agent-generated tests. Low mutation score (3.2%) and the IR gaming show that agent-written tests are weak oracles unless checked further."},
+    {"id": "P20", "stance": "neutral", "note": "Docker-containerized, language-native execution for reproducible evaluation."}
+  ],
+  "methodology": {
+    "sample": "3,642 focal methods (Julia 684, Rust 931, Go 706, PHP 646, Ruby 675) from 6–10 repos per language. The agentic subset has up to 10 focal functions per repo.",
+    "baselines": "Model-vs-model comparison across 14 LLMs, and context strategies against the standard focal-method-plus-signature setting. No classical test generators (search-based or symbolic) as baselines.",
+    "models": "14 LLMs, including Claude 4.5 Sonnet, GPT-5.2, DeepSeek V4-Pro/V3.2, Qwen3 family, GPT-OSS-120B, Kimi-K2.5, MiniMax-M2.7, Llama-3.3-70B. Headless Claude Code for the agentic runs.",
+    "variance": "Greedy decoding, single run. Bootstrap 95% CIs (10,000 iterations) for the top-3 models and Holm-corrected McNemar tests in App. H. Only 10/25 settings separate the top model from the runner-up.",
+    "ablations": "Context strategy comparison. Retrieval window/top-k sensitivity (App. G, Table A.8).",
+    "contamination_controls": "Perplexity-based memorization proxy on repository test code using two small code models (App. C). No temporal filtering.",
+    "languages": "Rust, Go, Julia, PHP, Ruby. Java and Python are explicitly excluded."
+  },
+  "standards": {
+    "peer_review": "Accepted to EMNLP Main 2026 (arXiv comment).",
+    "limitations_section": true,
+    "artifacts": "The abstract states the dataset and code are public at github.com/solis-team/XRepoTest. Prompts are in App. K.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "metric_mismatch", "detail": "The Fig. 1 standalone-vs-repo gap compares McEval tasks against different XRepoTest tasks. IR is a syntactic direct-call check, not a semantic oracle."},
+    {"type": "contamination_risk", "detail": "Repos with ≥500 stars, no temporal cutoff. Perplexity is checked on proxy models, not the evaluated models."},
+    {"type": "small_sample", "detail": "The agentic evaluation uses a small stratified subset with a single agent (Claude Code), so the 1.2–2.6× claim rests on few items per language."},
+    {"type": "strawman_baseline", "detail": "Retrieval pipelines are admitted to be untuned, which weakens the conclusion that retrieval is less effective than file context."}
+  ],
+  "coi": {
+    "affiliations": "Hanoi University of Science and Technology (5 authors) and University of L'Aquila (1 author).",
+    "vendor_products_evaluated": "Claude, GPT, DeepSeek, Qwen and others as subjects. Claude Code is used as the agentic harness. No author is vendor-affiliated.",
+    "funding": "EU Horizon MOSAICO project (Grant 101189664).",
+    "severity": "none",
+    "detail": "Academic benchmark. The authors do not ship a ranked system."
+  },
+  "scores": {"rigor": 4, "reproducibility": 4, "generalizability": 3, "relevance": 2, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "A peer-reviewed benchmark at scale, with 14 models, containerized execution, significance tests and a useful IR finding. Caveats: it deliberately excludes Java, the agentic evidence comes from a small subset with one agent, and contamination checks are weak.",
+  "applicability": "Indirect for a Java team, because Java is explicitly excluded. Several lessons still transfer to an agentic harness for the ingestion repos. (1) Pass rate alone is gameable: agents raised TPR while dropping coverage and direct invocation of the target (PHP IR 98.9→27.6). Harness verification gates on agent-written JUnit tests should add a direct-invocation or mutation check (e.g., PIT) and coverage of the changed method, not just 'tests green'. (2) Giving the agent the full containing file was more reliable than LSP or retrieval snippets, which argues for simple, deterministic context over elaborate RAG in the ingestion services. (3) Compile/execute feedback loops help (+9–26% TPR), so wire Maven/Gradle test runs into the agent loop regardless of host. Nothing here speaks to multi-repo or spec-driven development.",
+  "conflicts_with": [
+    {"arxiv_id": "2607.19682", "detail": "CATGen (industrial) finds that making project-level dependencies explicit and using static analysis is key to compilation robustness. XRepoTest finds LSP-resolved dependency context gives only selective gains and can add noise, with plain file context more reliable."}
+  ]
+}

@@ -1,0 +1,203 @@
+{
+ "arxiv_id": "2606.14796",
+ "fulltext_chars": 160224,
+ "fulltext_lines": 3844,
+ "authors_block": "DOI: XXXXXXX.XXXXXXXJournal: TOSEMVolume: 111CCS: Software and its engineering Software creation and managementCCS: Computing methodologies Intelligent agentsCCS: General and reference Surveys and overviews Ramtin Ehsani email: ramtin.ehsani@drexel.edu Affiliation: Drexel University, Philadelphia, Pennsylvania, USA , Shriya Rawal email: sr3728@drexel.edu Affiliation: Drexel University, Philadelphia, Pennsylvania, USA , Yuanfang Cai email: yc349@drexel.edu Affiliation: Drexel University, Philadelphia, Pennsylvania, USA and Preetha Chatterjee email: preetha.chatterjee@drexel.edu Affiliation: Drexel University, Philadelphia, Pennsylvania, USA Received 5 June 2009",
+ "vendor_affiliation_hits": [],
+ "n_authors": 4,
+ "comment": "Accepted for publication in ACM Transactions on Software Engineering and Methodology (TOSEM), 2026",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/primer/react"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Faster Code, Deeper Debt? A Multivocal Literature Review on Technical Debt and Its Early Signs in LLM-Assisted Software Development"
+  ],
+  [
+   53,
+   "###### Abstract."
+  ],
+  [
+   59,
+   "###### Keywords:"
+  ],
+  [
+   64,
+   "## 1. Introduction"
+  ],
+  [
+   86,
+   "### 1.1. Research Objective"
+  ],
+  [
+   111,
+   "### 1.2. Contributions"
+  ],
+  [
+   141,
+   "### 1.3. Organization of the Paper"
+  ],
+  [
+   146,
+   "## 2. Related Work"
+  ],
+  [
+   148,
+   "### 2.1. TD in Traditional Software Systems"
+  ],
+  [
+   160,
+   "### 2.2. TD in AI/ML Systems"
+  ],
+  [
+   169,
+   "## 3. Methodology"
+  ],
+  [
+   177,
+   "### 3.1. Goal and Research Questions"
+  ],
+  [
+   186,
+   "#"
+  ],
+  [
+   347,
+   "### 3.2. Search and Source Selection"
+  ],
+  [
+   356,
+   "#### 3.2.1. Grey Literature"
+  ],
+  [
+   456,
+   "#### 3.2.2. Formal Literature"
+  ],
+  [
+   638,
+   "### 3.3. Data Extraction and Synthesis"
+  ],
+  [
+   820,
+   "## 4. Results"
+  ],
+  [
+   822,
+   "### 4.1. RQ1: What forms of technical debt are introduced by integrating LLM-generated code into software projects?"
+  ],
+  [
+   828,
+   "#### 4.1.1. Grey Literature"
+  ],
+  [
+   1011,
+   "#### 4.1.2. Formal Literature"
+  ],
+  [
+   1038,
+   "### 4.2. RQ2: What strategies or guidelines exist to mitigate technical debt introduced by LLMs?"
+  ],
+  [
+   1040,
+   "#### 4.2.1. Grey Literature"
+  ],
+  [
+   1053,
+   "#### 4.2.2. Formal Literature"
+  ],
+  [
+   1069,
+   "### 4.3. RQ3: What tools or techniques currently exist to help practitioners detect or measure technical debt in LLM-generated code?"
+  ],
+  [
+   1071,
+   "#### 4.3.1. Grey Literature"
+  ],
+  [
+   1081,
+   "#### 4.3.2. Formal Literature"
+  ],
+  [
+   1150,
+   "### 4.4. RQ4: Are there benchmarks or datasets available to evaluate the technical debt or quality of LLM-generated code?"
+  ],
+  [
+   1152,
+   "#### 4.4.1. Grey Literature"
+  ],
+  [
+   1156,
+   "#### 4.4.2. Formal Literature"
+  ],
+  [
+   1164,
+   "### 4.5. RQ5: Are there existing technical debt metrics that sufficiently capture the debt introduced by LLMs? If not, what new metrics or dimensions are being suggested?"
+  ],
+  [
+   1166,
+   "#### 4.5.1. Grey Literature"
+  ],
+  [
+   1174,
+   "#### 4.5.2. Formal Literature"
+  ],
+  [
+   1188,
+   "## 5. Actionable Insights and Future Research Directions"
+  ],
+  [
+   1190,
+   "### 5.1. RQ1: LLMs introduce both traditional and new forms of debt"
+  ],
+  [
+   1227,
+   "### 5.2. RQ2: Strategies for addressing LLM-induced debts are unevenly distributed across debt types"
+  ],
+  [
+   1260,
+   "### 5.3. RQ3: Tools to detect LLM-induced technical debt are scarce and limited in scope"
+  ],
+  [
+   1290,
+   "### 5.4. RQ4 & RQ5: Metrics and benchmarks to measure LLM-induced technical debt are missing"
+  ],
+  [
+   1318,
+   "## 6. Threats to Validity"
+  ],
+  [
+   1335,
+   "## 7. Conclusion"
+  ],
+  [
+   1343,
+   "## References"
+  ],
+  [
+   3844,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 6. Threats to Validity\n\nConstruct Validity: While our source selection process involved manual filtering and is susceptible to human error, we mitigated this by having two authors independently review all sources and resolve disagreements through discussion. We also followed a rigorous quality assessment process for both formal and grey sources. For grey literature, we reviewed full content; for formal papers, we examined titles, abstracts, and full texts as needed.\nAnother potential threat lies in the formulation of search strings. To address this, we tested multiple variations and selected the one that yielded the most relevant results with minimal noise.\nTo reduce bias in data extraction and coding, two authors independently coded all data. For subjective coding dimensions, we calculated Cohen’s Kappa coefficients to assess inter-rater reliability, achieving high agreement scores (above 0.9). All extractions were reviewed in joint sessions with all authors to ensure consistency and accuracy.\nStudy selection bias may have occurred during screening, as inclusion and exclusion decisions involve researcher judgment. To mitigate this risk, we defined explicit inclusion criteria, conducted independent screening, and resolved disagreements through discussion.\n\nInternal Validity: Our search results may have been influenced by the internal algorithms of the digital libraries and search engines used, which are not publicly documented. To mitigate this risk, we used four major academic databases (IEEE Xplore Digital Library, ACM Digital Library, Elsevier ScienceDirect, and SpringerLink Online Library) and searched grey sources through the Google search engine, increasing coverage and reducing dependence on a single indexing mechanism.\nAdditionally, grey literature varies in methodological rigor compared to peer-reviewed studies. We mitigated this risk by applying a structured quality assessment checklist and excluding sources that did not meet the threshold.\n\nExternal Validity: We limited our selection to English-language sources accessible through the selected platforms. This may have excluded some relevant material and affected generalizability. In addition, our reliance on the technical debt terms in the search string may bias the sample toward studies and practitioner discussions that explicitly frame quality concerns as those types of debt, while not including related work discussed under alternative terms such as maintainability, software evolution, or code quality.\nTo mitigate this, we used an inclusive search string of 13 established technical debts in the literature, followed by extensive manual filtering to remove irrelevant entries. This allowed us to include as many relevant sources as possible while maintaining quality and focus.\nWe invested significant time in the manual inspection process, which led to the removal of over a thousand irrelevant sources.\nThe included studies span diverse tools, domains, and development contexts. However, findings may not generalize uniformly across all programming ecosystems or organizational settings.\nIn addition, while our source retrieval process followed systematic guidelines and\ndid not favor any specific source type, a large portion of our grey literature corpus (52%) consists of company blogs and industry reports, which reflects the current state of practitioner discourse in LLM-assisted development that may introduce a bias toward grey literature’s perspectives.\n\n## 7. Conclusion\n\nThis study provides a comprehensive examination of the risks and challenges posed by technical debt in the context of LLM-generated code, along with strategies proposed for its detection and mitigation from both practitioner and research perspectives. Through a multivocal literature review of 104 sources, we find that LLMs intersect with existing forms of technical debt, especially code, design, and documentation debts the most. In addition, they introduce new forms of debt, most notably data debt, fa",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 1,
+  "p_value_or_ci": 7,
+  "seeds_or_runs": 0,
+  "swe_bench": 3,
+  "contamination": 2,
+  "human_study": 2,
+  "java": 0,
+  "industrial": 6
+ },
+ "fulltext_source": "html"
+}

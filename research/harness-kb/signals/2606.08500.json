@@ -1,0 +1,357 @@
+{
+ "arxiv_id": "2606.08500",
+ "fulltext_chars": 143734,
+ "fulltext_lines": 2283,
+ "authors_block": "Zhengyi Zhuo Affiliation: School of Computer Science and Technology, Tongji University, Shanghai, People’s Republic of China Yan Liu Email: yanliu.sse@tongji.edu.cn Affiliation: School of Computer Science and Technology, Tongji University, Shanghai, People’s Republic of China",
+ "vendor_affiliation_hits": [],
+ "n_authors": 2,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/cline/clineOpen-source"
+ ],
+ "hf_urls": [
+  "https://huggingface.co/Qwen/Qwen3.5-397B-A17B."
+ ],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   22,
+   "# Projecting the Emerging Mindset of SWE Agent by Launching a Wild Code Understanding Journey"
+  ],
+  [
+   34,
+   "###### Abstract"
+  ],
+  [
+   44,
+   "###### keywords"
+  ],
+  [
+   47,
+   "### 1 Introduction"
+  ],
+  [
+   93,
+   "### 2 Formulation of Research Questions"
+  ],
+  [
+   95,
+   "#### 2.1 The Wild in Bounds: Crafting an Observable Digital World for SWE Agents"
+  ],
+  [
+   141,
+   "#### 2.2 Research Questions Enabled by the Apparatus"
+  ],
+  [
+   147,
+   "###### RQ1: How do the signals gathered from SWE agent trajectories distribute within our wild-but-bounded environment?"
+  ],
+  [
+   151,
+   "###### RQ2: When projected through mindset observation lenses, what do these behavioral tendencies reveal of the SWE agent and the underlying LLMs?"
+  ],
+  [
+   157,
+   "###### RQ3: Under external observer-guided coaching, does the agent improve its answer, or does the intervention expose an intrinsic boundary of mindset?"
+  ],
+  [
+   180,
+   "### 3 Methodology"
+  ],
+  [
+   184,
+   "#### 3.1 Methodological Position: Projecting Code-Understanding Trajectories"
+  ],
+  [
+   198,
+   "#### 3.2 Launching a Scoped SWE Agent into Code-Understanding Worlds"
+  ],
+  [
+   274,
+   "#### 3.3 Experimental Matrix: Tasks, Repositories, Models, and Conditions"
+  ],
+  [
+   443,
+   "#### 3.4 Analysis Lenses: A Way of Seeing"
+  ],
+  [
+   556,
+   "### 4 Results"
+  ],
+  [
+   562,
+   "#### 4.1 RQ1: Surface Signals from the Apparatus"
+  ],
+  [
+   574,
+   "###### Finding 1."
+  ],
+  [
+   580,
+   "#### 4.2 RQ2: Projecting Trajectories through Observation Lenses"
+  ],
+  [
+   584,
+   "##### 4.2.1 Journey Arc: Temporal Shape and Within-Condition Variance"
+  ],
+  [
+   602,
+   "###### Finding 2."
+  ],
+  [
+   608,
+   "##### 4.2.2 Action Policy: Transition Signatures across Models"
+  ],
+  [
+   628,
+   "###### Finding 3."
+  ],
+  [
+   636,
+   "##### 4.2.3 Adjudication: Conclusion Quality and Epistemic Grounding"
+  ],
+  [
+   716,
+   "###### Finding 4."
+  ],
+  [
+   724,
+   "##### 4.2.4 Footprint: Spatial Divergence in the Repository World"
+  ],
+  [
+   736,
+   "###### Finding 5."
+  ],
+  [
+   744,
+   "#### 4.3 RQ3: Does Intervention Improve or Expose a Boundary?"
+  ],
+  [
+   760,
+   "###### Finding 6."
+  ],
+  [
+   766,
+   "### 5 Discussion"
+  ],
+  [
+   768,
+   "#### 5.1 Situating Our Findings in the Broader Literature"
+  ],
+  [
+   848,
+   "#### 5.2 Making the Code-Understanding Journey Observable"
+  ],
+  [
+   856,
+   "#### 5.3 What Can Travel Beyond Ada"
+  ],
+  [
+   862,
+   "### 6 Threats and Limitations"
+  ],
+  [
+   866,
+   "#### 6.1 Apparatus Dependence"
+  ],
+  [
+   872,
+   "#### 6.2 Scope of Repository-Level Code Understanding"
+  ],
+  [
+   878,
+   "#### 6.3 Lens Dependence"
+  ],
+  [
+   888,
+   "### 7 Related Works"
+  ],
+  [
+   890,
+   "#### 7.1 Trajectory-Aware Evaluation of Software and Tool-Using Agents"
+  ],
+  [
+   894,
+   "#### 7.2 Tool-Mediated Interaction and Repository Environments"
+  ],
+  [
+   900,
+   "#### 7.3 Repository-Level Code Understanding and Software Comprehension"
+  ],
+  [
+   906,
+   "#### 7.4 From Process Evaluation to Projected Observation"
+  ],
+  [
+   912,
+   "### 8 Conclusions"
+  ],
+  [
+   920,
+   "### Declarations of Conflict of Interest"
+  ],
+  [
+   924,
+   "### Data Availability"
+  ],
+  [
+   928,
+   "### Usage of AI Tools"
+  ],
+  [
+   942,
+   "### 9 Appendix: Experiment Pipeline"
+  ],
+  [
+   946,
+   "#### 9.1 Ada Apparatus"
+  ],
+  [
+   948,
+   "##### 9.1.1 Prompt Scaffold"
+  ],
+  [
+   968,
+   "##### 9.1.2 Task Setup Prompts"
+  ],
+  [
+   972,
+   "###### Architecture Analysis."
+  ],
+  [
+   980,
+   "###### ASR Inference."
+  ],
+  [
+   988,
+   "###### Feature Implementation Tracing."
+  ],
+  [
+   998,
+   "###### Risk and Code-Smell Review."
+  ],
+  [
+   1008,
+   "##### 9.1.3 Tool Surface"
+  ],
+  [
+   1084,
+   "##### 9.1.4 Condition Variants"
+  ],
+  [
+   1124,
+   "##### 9.1.5 Model Runtime and Context Handling"
+  ],
+  [
+   1130,
+   "#### 9.2 Coach-Judge Pipeline"
+  ],
+  [
+   1132,
+   "##### 9.2.1 Pipeline Architecture"
+  ],
+  [
+   1144,
+   "##### 9.2.2 Judge Panel Composition"
+  ],
+  [
+   1150,
+   "##### 9.2.3 Judge Prompt Structure"
+  ],
+  [
+   1158,
+   "##### 9.2.4 Aggregation Logic"
+  ],
+  [
+   1164,
+   "##### 9.2.5 Coach Decision Policy"
+  ],
+  [
+   1196,
+   "### 10 Appendix: Pilot Launches"
+  ],
+  [
+   1200,
+   "#### 10.1 Prompt Framework Selection"
+  ],
+  [
+   1234,
+   "#### 10.2 GLM Exclusion"
+  ],
+  [
+   1240,
+   "### 11 LLM–Human Alignment and Adjudication Calibration"
+  ],
+  [
+   1244,
+   "#### 11.1 Evaluation Protocol and Judge Prompts"
+  ],
+  [
+   1254,
+   "#### 11.2 Inter-Judge Agreement"
+  ],
+  [
+   1306,
+   "#### 11.3 Human Alignment Check"
+  ],
+  [
+   1396,
+   "#### 11.4 Interpretation"
+  ],
+  [
+   1406,
+   "#### 11.5 Length Robustness Checks"
+  ],
+  [
+   1477,
+   "### 12 Supplementary Results and Unreported Details"
+  ],
+  [
+   1481,
+   "#### 12.1 Tool-Use Concentration and Task Variation"
+  ],
+  [
+   1491,
+   "#### 12.2 Extended Action-Policy Projections"
+  ],
+  [
+   1505,
+   "#### 12.3 Supplementary Adjudication Diagnostic"
+  ],
+  [
+   1555,
+   "#### 12.4 Repository-Footprint Anchors and Transition Corridors"
+  ],
+  [
+   1647,
+   "#### 12.5 Coach-Judge Condition Details"
+  ],
+  [
+   1767,
+   "## References"
+  ],
+  [
+   2283,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "### 6 Threats and Limitations\n\nThe limitations of this study are part of the methodological conditions under which trajectory-level observation becomes possible. Ada was designed to project repository-level code understanding from behavioral traces, while treating the underlying models as black boxes. This gives access to how an agent moves, reads, records, revises, and terminates inside a bounded repository world. It does not give access to why the model internally preferred one hypothesis, file, or conclusion over another. The three limitations below clarify the epistemic boundaries within which the reported findings hold.\n\n#### 6.1 Apparatus Dependence\n\nAny attempt to study an SWE agent in action requires deciding what world the agent enters, what actions it can take, what feedback it receives, and what counts as completion. These decisions constitute the observation environment, and they shape the trajectories that result. Ada is therefore not a neutral window onto SWE agent behavior. Its task openings, prompt scaffold, tool surface, repository interface, and termination mechanism all define what becomes observable, and what remains outside view. The four experimental conditions are prompt-level and interaction-policy perturbations over a single scaffold. They do not change the underlying toolset or runtime architecture, which strengthens cross-condition comparison but means that observed behavioral differences depend on how the perturbations were designed. Model selection introduces a parallel dependence. The four foundation models used for trajectory generation, the post-hoc evaluation models, and the runtime coach-judge layer belong to different parts of the experimental stack, and the study cannot claim that the same profiles would appear under all model families or all prompt formulations.\n\nOur design addresses this dependence by keeping the core scaffold stable across conditions and changing only specific forms of guidance or decision pressure. The resulting trajectories should be read as behavior under Ada’s apparatus. They speak to this setting, and the apparatus is designed for structured observation across conditions, not for claims about SWE agents in the abstract. Precisely because this dependence is unavoidable, making it explicit is a methodological contribution. The community benefits from observation environments whose assumptions are inspectable, rather than from claims that appear apparatus-free.\n\n#### 6.2 Scope of Repository-Level Code Understanding\n\nCode understanding is one phase of software engineering work, and this study deliberately isolates it. The task families ask the agent to understand, trace, infer, and explain code. They do not ask it to patch bugs, run tests, manage issue histories, negotiate requirements, or maintain software over time. This scope removes patch success as the organizing endpoint and places code understanding itself at the center of observation. It also means that the findings should not be transferred directly to repair-centered SWE agent settings.\n\nThe repository sets bounds on the study in a second way. Six repositories span compact libraries, classic frameworks, scientific software, and recent AI-infrastructure systems, providing a structurally heterogeneous terrain for observation. Heterogeneity, however, is not coverage. Six repositories cannot represent the full space of software systems, organizational practices, programming languages, or development contexts. The scale difference across the set, from compact repositories to systems exceeding 100K LOC, helps stress the apparatus but also means that repository complexity may interact with model behavior and task type in ways this study can only begin to characterize. These boundaries are intentional. They define the experimental field within which the observation method can be demonstrated and assessed, while leaving the question of broader applicability to future work with expanded repository sets and task designs.\n",
+ "ethics_coi": "### Declarations of Conflict of Interest\n\nThe authors declared that they have no conflicts of interest in this work.\n\n### Data Availability\n\nThe apparatus source code, all 408 recorded trajectories, observation lens outputs, analysis scripts, and evaluation prompt templates are publicly available as a replication package at https://doi.org/10.5281/zenodo.20337565. The package includes raw trajectory data, pre-computed projection results for all five lenses, and the scripts that produce every figure and table reported in this paper.\n\n### Usage of AI Tools\n\nAI-assisted tools (Claude - Anthropic, Grammarly, and Overleaf’s AI assistant features) were used during manuscript preparation for proofreading and readability improvements. Analysis scripts for trajectory statistics and visualization code for scientific figures were written with AI assistance under author-specified instructions and reviewed by the authors. The AI tools were not used to generate research ideas, design the study methodology, or produce images directly used in the paper. The authors take full responsibility for the content of this work.\n\nEditorial Policies for:\n\nSpringer journals and proceedings: https://www.springer.com/gp/editorial-policies\n\nNature Portfolio journals: https://www.nature.com/nature-research/editorial-policies\n\nScientific Reports: https://www.nature.com/srep/journal-policies/editorial-policies\n\nBMC journals: https://www.biomedcentral.com/getpublished/editorial-policies\n\n### 9 Appendix: Experiment Pipeline\n\nThis appendix documents the experimental apparatus behind Ada and the Coach-Judge condition. It is intended as replication-oriented scientific reporting: it describes what the apparatus asks the agent to do, what information the agent can observe, how the experimental conditions modify the agent’s operating stance, and how the coach-judge process enters a trajectory. It does not report behavioral findings.",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

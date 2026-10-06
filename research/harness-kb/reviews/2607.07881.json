@@ -1,0 +1,50 @@
+{
+  "arxiv_id": "2607.07881",
+  "contribution_type": "empirical",
+  "summary": "SecVecCoder trains secure and vulnerable LoRA adapters with localized preference optimization (LPO) on 803 SVEN secure/vulnerable pairs, then adds the secure task vector and subtracts a scaled vulnerable task vector from the base weights. On CodeGuard+ (17 main-CWE scenarios, Python and C/C++) it raises sec-pass@1 (functional and CodeQL-clean) for six 1.3B-7B open coding models at essentially no decoding overhead.",
+  "claims": [
+    {"claim": "Improves trustworthy completions (sec-pass@1) by 2.1-36.0 pp over base across six models", "evidence": "Table V main-CWE sec-pass@1; 36.0 appears in the table body (line ~1588). n=100 samples per scenario at T=0.1 over 17 scenarios; no seeds/CIs on the accuracy numbers.", "strength": "moderate", "location": "§V-A2, Table V"},
+    {"claim": "State-of-the-art on five of six models vs SVEN, SafeCoder, CoSec, SCoDE, DeepGuard", "evidence": "§V-A2: exceeds strongest prior defense by 3.8-27.5% on five models; loses on DeepSeek-Coder-6.7B (68.2 vs SafeCoder 79.3). SafeCoder run with its original corpus/default configuration rather than retuned.", "strength": "moderate", "location": "§V-A2, Table V"},
+    {"claim": "Generalizes to unseen CWEs (up to +39.1 pp)", "evidence": "§V-A3: gains 2.0-39.1 pp over base on all six models; but SafeCoder beats it by 19.3-29.6 pp on both StarCoder2 models, which the authors attribute to SafeCoder having seen those CWEs. 'Unseen' set is small.", "strength": "moderate", "location": "§V-A3, Table V"},
+    {"claim": "Decoding latency within 0.6% of base on average; 8.0-12.5% of SafeCoder training cost", "evidence": "§V-B, Table VI, Fig. 5: five runs, 95% CIs within +/-3% (Qwen-3B within +/-5%); training 0.68-1.80 A6000 GPU-hours.", "strength": "strong", "location": "§V-B, Table VI, Fig. 5"},
+    {"claim": "Both task-vector terms are necessary", "evidence": "Table VII ablation: removing tau_sec costs 0.3-18.1 pp (avg 8.0), removing tau_insec costs 4.2-20.3 pp (avg 11.1).", "strength": "moderate", "location": "§V-C, Table VII"}
+  ],
+  "patterns": [
+    {"id": "P25", "stance": "supports", "note": "Weight-space fine-tuning/task-vector steering improves joint functional+secure generation on small open models."},
+    {"id": "P17", "stance": "neutral", "note": "CodeQL is used only as the evaluation oracle, not as in-loop feedback."}
+  ],
+  "methodology": {
+    "sample": "CodeGuard+ 17 main-CWE scenarios plus a small unseen-CWE set; 100 completions per scenario; 6 validation scenarios used for hyperparameter sweeps",
+    "baselines": "SVEN, SafeCoder, CoSec, SCoDE, DeepGuard (current secure-codegen methods), plus SFT- and SafeCoder-derived task vectors",
+    "models": "Qwen2.5-Coder 3B/7B, DeepSeek-Coder 1.3B/6.7B, StarCoder2 3B/7B",
+    "variance": "Latency over 5 runs with 95% CIs; no seeds or CIs for sec-pass@1",
+    "ablations": "Fine-tuning strategy, steering operator, steering strength, temperature, component removal",
+    "contamination_controls": "Notes that 'unseen' CWEs are in some baselines' training data; no check of base-model pretraining contamination",
+    "languages": "Python and C/C++ only"
+  },
+  "standards": {
+    "peer_review": "arXiv preprint, no venue listed",
+    "limitations_section": false,
+    "artifacts": "Code and artifacts on Zenodo (records/21092998)",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "small_sample", "detail": "17 main scenarios; unseen-CWE set is a handful of scenarios."},
+    {"type": "no_variance_reported", "detail": "No seed variation or CIs for the headline sec-pass@1 numbers."},
+    {"type": "metric_mismatch", "detail": "Security judged solely by CodeQL queries per scenario; CodeQL false negatives count as 'secure'."},
+    {"type": "toy_tasks", "detail": "Short function-level completions (max 512 tokens) on small models, far from agentic repository work."},
+    {"type": "other:no_threats_section", "detail": "No limitations or threats-to-validity section."}
+  ],
+  "coi": {
+    "affiliations": "University of Waterloo; KTH Royal Institute of Technology",
+    "vendor_products_evaluated": "None",
+    "funding": "Wallenberg Visiting Professor Program, NSERC, Government of Ontario, Coefficient Giving and scholarships (Acknowledgements)",
+    "severity": "none",
+    "detail": "Academic authors evaluating their own method; no vendor product involved."
+  },
+  "scores": {"rigor": 3, "reproducibility": 4, "generalizability": 2, "relevance": 1, "coi_risk": 0},
+  "verdict": "reject",
+  "verdict_reason": "off-topic for the harness KB: a sound weight-steering method for <=7B open coding models on function-level Python/C completions; it requires access to model weights and says nothing about agent harness design.",
+  "applicability": "Does not transfer: the Java team uses hosted frontier models through agent hosts and cannot apply task vectors to their weights; evaluation is Python/C only and single-function. The only takeaway is methodological: measure security and functionality jointly (sec-pass) when gating agent output, e.g. require tests and a CodeQL/Semgrep pass together on ingestion code rather than reporting them separately.",
+  "conflicts_with": []
+}

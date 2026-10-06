@@ -1,0 +1,32 @@
+{
+  "arxiv_id": "2606.20173",
+  "contribution_type": "empirical",
+  "summary": "Proposes an n8n-orchestrated workflow that feeds an automatically generated taxonomy of Qiskit migration scenarios (built from release notes) into a Qdrant RAG store, then asks Gemini Flash-2.5 and gpt-oss-20b to detect migration scenarios in synthetic Python snippets and suggest refactorings. Outputs are graded by experts on a four-level 'stoplight' scale and compared across a free vs. restrictive retrieval prompt and against the authors' earlier stages.",
+  "claims": [
+    {"claim": "Taxonomy-based RAG, especially the restrictive scheme, significantly reduces hallucinations and improves descriptive quality.", "evidence": "Table 1 shows only small free-vs-restrictive deltas (Gemini OK 80->81, X 16->15; gpt-oss OK 31->37, X 13->13). §5 itself states 'no significant changes were reported between the data retrieval strategies, although a slight tendency toward superiority of the restrictive mode is evident'. No statistical test or repeated runs.", "strength": "weak", "location": "Abstract; Table 1; §5"},
+    {"claim": "Gemini Flash-2.5 outperforms gpt-oss-20b at detecting complex refactoring scenarios.", "evidence": "Table 1: Gemini detects 85/90 of 89 expected scenarios vs gpt-oss 42/51; OK 80/81 vs 31/37. §5 reports gpt-oss had empty/invalid responses in ~61% vs 15% for Gemini, so the gap is partly invocation failure, not migration skill.", "strength": "moderate", "location": "Table 1; §5"},
+    {"claim": "The architecture substantially improves over prior stages (X errors 47 -> 14.25 avg; OK 13 -> 57.25 avg).", "evidence": "§5 bullet list compares current averages to the authors' earlier papers (Suárez et al. 2025a/b), which used different setups; averages pool a weak and a strong model. Cross-stage comparison is not controlled.", "strength": "weak", "location": "§5, Figures 4-5"},
+    {"claim": "Results tables are internally consistent.", "evidence": "Table 1 gives gpt-oss total detected 59 (free) / 67 (restrictive) but Table 2 gives totals 56 / 53 and different X counts (13 vs 7 restrictive); §5 cites gpt-oss incorrect 'from 17 to 16' and correct 'from 42 to 51', numbers that do not match the X/OK rows of Table 1. Inconsistencies undermine the reported deltas.", "strength": "unsupported", "location": "Tables 1-2; §5"}
+  ],
+  "patterns": [
+    {"id": "P06", "stance": "mixed", "note": "RAG over a version-specific taxonomy; retrieval-mode effect is small and untested statistically, model choice dominates."},
+    {"id": "P28", "stance": "neutral", "note": "API-version migration via LLM suggestions, not deterministic recipes; no comparison to rule-based migration tooling."},
+    {"id": "P16", "stance": "neutral", "note": "Mentions automated code validation stage but results rely on expert grading; execution-based checks are listed as future work."}
+  ],
+  "methodology": {"sample": "Synthetic Python Qiskit snippets with 89 expected migration scenarios (Table 1 bracket value); single test battery.", "baselines": "Free vs restrictive retrieval prompt; earlier-stage results from authors' prior papers (different setup). No non-RAG baseline in this run, no rule-based migration tool baseline.", "models": "Gemini Flash-2.5 and gpt-oss-20b, default configurations, one-shot prompt.", "variance": "None reported; appears to be single run per configuration despite noted response volatility.", "ablations": "Retrieval scheme only.", "contamination_controls": "None discussed.", "languages": "Python (Qiskit) only."},
+  "standards": {"peer_review": "No venue in arXiv comment/journal_ref.", "limitations_section": false, "artifacts": "Mentions a GitHub-hosted project but no URL given in text; no released prompts or snippets found.", "preregistration": "n/a"},
+  "biases": [
+    {"type": "single_language_python", "detail": "Only Python Qiskit snippets."},
+    {"type": "toy_tasks", "detail": "Synthetic, controlled snippets; authors concede in §6 that realistic projects are needed."},
+    {"type": "no_variance_reported", "detail": "No repeated runs despite §5 noting gpt-oss is 'volatile' with high response variability."},
+    {"type": "self_evaluation", "detail": "Authors' own taxonomy and stoplight metric, graded by experts tied to the research line."},
+    {"type": "hype_language", "detail": "Abstract says 'significantly reduces hallucinations'; body says no significant change between retrieval schemes."},
+    {"type": "other:internal_inconsistency", "detail": "Table 1 and Table 2 totals for gpt-oss-20b disagree; §5 numbers do not match Table 1."}
+  ],
+  "coi": {"affiliations": "LIFIA, Universidad Nacional de La Plata; CIC Bs.As. (Argentina).", "vendor_products_evaluated": "Google Gemini, OpenAI gpt-oss (third-party models); Qiskit (IBM) as target, no IBM authors.", "funding": "No acknowledgments/funding section found.", "severity": "none", "detail": "Academic authors evaluating third-party models; only self-evaluation of their own taxonomy."},
+  "scores": {"rigor": 1, "reproducibility": 1, "generalizability": 1, "relevance": 1, "coi_risk": 0},
+  "verdict": "reject",
+  "verdict_reason": "Small synthetic Python benchmark, single runs, inconsistent tables, and an abstract claim ('significantly reduces hallucinations') contradicted by its own discussion. Domain (quantum SDK migration) is distant from the team.",
+  "applicability": "Little transfer. The only portable idea for a Java multi-repo ingestion team is grounding migration suggestions in a curated, version-specific changelog/taxonomy (e.g., for Spring Boot or library upgrades across the ≥4 ingestion repos); but the evidence here is too weak to justify RAG over deterministic recipes (OpenRewrite-style) plus compile/test verification, which the paper never compares against.",
+  "conflicts_with": []
+}

@@ -1,0 +1,46 @@
+{
+  "arxiv_id": "2609.21254",
+  "contribution_type": "empirical",
+  "summary": "Qualitative HCI study: semi-structured interviews with 14 US software engineers who have or self-identify with ADHD (screened via ASRS) about body doubling, pair programming and AI-based copresence. Thematic analysis finds human copresence gives social support but costs privacy and reputation management, while AI coding assistants (mainly Claude Code, GitHub Copilot) help maintain flow and accountability without social judgment; the authors map findings to Goffman's copresence theory and the SPACE framework and propose design recommendations.",
+  "claims": [
+    {"claim": "Developers with ADHD use AI copresence to maintain accountability and flow without social anxiety or surveillance.", "evidence": "§4.3.1: 10 of 14 participants had positive perceptions of AI (P1, P3, P5-P10, P12, P13), 4 negative, 1 avoided AI entirely; supported by quotes (P5, P10).", "strength": "moderate", "location": "§4.3.1"},
+    {"claim": "Human copresence remains needed for verification and domain expertise.", "evidence": "§4.3.2 quotes (e.g., P5) on accountability-based anxiety when auditing AI code alone.", "strength": "moderate", "location": "§4.3.2"},
+    {"claim": "Design recommendations for inclusive AI copresence tools (task initiation, flow maintenance, completion/breaks).", "evidence": "§5.3 D1-D3 derived from interview themes; not evaluated with any prototype.", "strength": "weak", "location": "§5.3"}
+  ],
+  "patterns": [
+    {"id": "P19", "stance": "neutral", "note": "Participants prefer humans for verification of AI-written code in sensitive projects; anecdotal support for keeping human review in the loop."},
+    {"id": "P29", "stance": "neutral", "note": "One participant describes orchestrating several concurrent Claude agents across terminals; anecdotal."}
+  ],
+  "methodology": {
+    "sample": "14 interviewees (11 male, 3 female), 1-25 years experience, US-only, recruited via LinkedIn/X, $50 gift card.",
+    "baselines": "n/a (qualitative).",
+    "models": "n/a; participants mention Claude Code and GitHub Copilot.",
+    "variance": "n/a; no inter-rater reliability computed by design (reflexive thematic analysis).",
+    "ablations": "n/a",
+    "contamination_controls": "n/a",
+    "languages": "n/a"
+  },
+  "standards": {
+    "peer_review": "arXiv preprint (28 pages, 3 figures); no venue listed.",
+    "limitations_section": true,
+    "artifacts": "Interview protocol in paper; transcripts not released (privacy).",
+    "preregistration": "none"
+  },
+  "biases": [
+    {"type": "small_sample", "detail": "14 participants."},
+    {"type": "selection_bias_participants", "detail": "Social-media recruitment, US-only, self-identification allowed, 11/14 male; authors acknowledge limits."},
+    {"type": "self_reported_numbers", "detail": "All evidence is participants' self-reported experiences."}
+  ],
+  "coi": {
+    "affiliations": "Veronica Pimenova, Seth Bernstein, Shalini Madan, Dhruv Jain, Venkatesh Potluri - University of Michigan, Ann Arbor.",
+    "vendor_products_evaluated": "None evaluated; tools mentioned by participants only.",
+    "funding": "None stated in extracted text.",
+    "severity": "none",
+    "detail": "Academic authors, no vendor link."
+  },
+  "scores": {"rigor": 2, "reproducibility": 1, "generalizability": 1, "relevance": 1, "coi_risk": 0},
+  "verdict": "reject",
+  "verdict_reason": "off-topic: a qualitative accessibility study of ADHD developers' copresence practices; methodologically reasonable for its genre but says nothing testable about agent harness design, context, verification, or multi-repo workflows.",
+  "applicability": "Does not transfer to harness decisions for the Java healthcare-education ingestion team. At most a people-side note: some developers value agents as low-judgment pair partners, and want humans for verification of sensitive code, which is consistent with keeping human review gates in a spec-driven rollout, but this is not evidence for any specific harness pattern, multi-repo coordination, or mixed-host setup.",
+  "conflicts_with": []
+}

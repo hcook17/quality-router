@@ -1,0 +1,189 @@
+{
+ "arxiv_id": "2605.22781",
+ "fulltext_chars": 77976,
+ "fulltext_lines": 1716,
+ "authors_block": "Yunpeng Dong1, Jingkai He1,2, Shiqi Liu1, Yuze Hou1, Dong Du1,2✉, Zhonghu Xu3, Si Yu3, Baochuan Yang3, Yubin Xia1,2, Haibo Chen1,2 1Institute of Parallel and Distributed Systems, Shanghai Jiao Tong University 2Engineering Research Center for Domain-specific Operating Systems, Ministry of Education, China 3Huawei Technologies Co., Ltd",
+ "vendor_affiliation_hits": [],
+ "n_authors": 10,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/TencentCloud/CubeSandbox",
+  "https://github.com/langchain-ai/langchain.",
+  "https://github.com/langchain-ai/langgraph.",
+  "https://github.com/openclaw/openclaw.",
+  "https://github.com/zerobootdev/zeroboot."
+ ],
+ "hf_urls": [
+  "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro"
+ ],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# DeltaBox: Scaling Stateful AI Agents with Millisecond-Level Sandbox Checkpoint/Rollback"
+  ],
+  [
+   30,
+   "###### Abstract."
+  ],
+  [
+   43,
+   "###### Keywords:"
+  ],
+  [
+   48,
+   "## 1. Introduction"
+  ],
+  [
+   134,
+   "## 2. Background and Motivation"
+  ],
+  [
+   249,
+   "### 2.1. AI Agent Search Strategies"
+  ],
+  [
+   266,
+   "### 2.2. Agent Sandbox"
+  ],
+  [
+   280,
+   "### 2.3. Limitations of Existing Approaches"
+  ],
+  [
+   290,
+   "### 2.4. Design Requirements"
+  ],
+  [
+   310,
+   "## 3. System Overview"
+  ],
+  [
+   320,
+   "### 3.1. System Architecture"
+  ],
+  [
+   342,
+   "### 3.2. Coupled deltaCheckpoint Flow"
+  ],
+  [
+   373,
+   "### 3.3. Coupled deltaRestore Flow"
+  ],
+  [
+   397,
+   "## 4. Detailed Design"
+  ],
+  [
+   401,
+   "### 4.1. DeltaFS: Dynamic Overlay Filesystem"
+  ],
+  [
+   414,
+   "#### 4.1.1. Lazy Switch for Open Files"
+  ],
+  [
+   429,
+   "### 4.2. DeltaCR: Diff-based Checkpoint/Restore"
+  ],
+  [
+   440,
+   "#### 4.2.1. Template Pool and Fork-Based Restore"
+  ],
+  [
+   458,
+   "#### 4.2.2. Async-warm"
+  ],
+  [
+   464,
+   "#### 4.2.3. Reusable I/O during Checkpoint with NPD"
+  ],
+  [
+   475,
+   "### 4.3. StateManager Coupling Protocol"
+  ],
+  [
+   490,
+   "### 4.4. Compatibility and Deployment Model"
+  ],
+  [
+   501,
+   "## 5. Implementation"
+  ],
+  [
+   520,
+   "## 6. Evaluation"
+  ],
+  [
+   522,
+   "### 6.1. Experimental Setup"
+  ],
+  [
+   552,
+   "### 6.2. End-to-End Performance"
+  ],
+  [
+   556,
+   "#### 6.2.1. MCTS Search Throughput"
+  ],
+  [
+   655,
+   "#### 6.2.2. DeltaBox for RL Rewarding"
+  ],
+  [
+   706,
+   "### 6.3. Extended Studies"
+  ],
+  [
+   708,
+   "#### 6.3.1. Checkpoint/Restore Latency"
+  ],
+  [
+   769,
+   "#### 6.3.2. Write Amplification"
+  ],
+  [
+   782,
+   "#### 6.3.3. Adaptive Optimization Effectiveness"
+  ],
+  [
+   792,
+   "#### 6.3.4. Cumulative Storage Overhead"
+  ],
+  [
+   796,
+   "## 7. Related Work"
+  ],
+  [
+   834,
+   "## 8. Conclusion"
+  ],
+  [
+   839,
+   "## References"
+  ],
+  [
+   1716,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "### 2.3. Limitations of Existing Approaches\n\nTable.​ 1summarizes existing approaches along both dimensions; none covers both efficiently.\nFilesystem-only tools (Git stash/branch (Yang et al., 2024), shutil.copytree, Docker commit, Btrfs/LVM snapshots) version files but discard process memory, forcing a restart and replay.\nVM snapshots (Firecracker (Agache et al., 2020)) dump the whole guest’s memory and device state but not the block device, so a consistent filesystem rollback needs a separate block snapshot; and the memory dump is VM-granular, capturing kernel, slab, and daemon pages irrelevant to the agent.\nAgent sandboxes either lack event-level coupled rollback altogether (DSec (DeepSeek-AI, 2026) only replays cached outputs from a write-ahead log, with no arbitrary rollback) or, like E2B (E2B, 2026), offer coupled, transparent C/R only through a VM-granular pause/snapshot at seconds scale ( {\\sim}4  s per GiB of RAM) that grows with total memory, far too slow for the high-frequency, on-critical-path rollback tree search demands.\nDeltaBox instead manages the coupled physical (filesystem, memory) state as a single, atomically consistent unit at millisecond-scale overhead (§​ 4.4).\n\nFigure 2. Design Overview. DeltaBox uses diff-based checkpoint/restore (deltaCheckpoint and deltaRestore) to enable millisecond-level checkpoint/rollback. The agent worker runs inside the sandbox, so every step is C/R-protected and can be rolled back promptly when needed.\n\n### 2.4. Design Requirements\n\nBased on the above analysis, we identify four key requirements for an efficient agent sandbox:\n\nR1 \n\nMillisecond-level coupled checkpoint/restore. Both filesystem and process state must be saved and restored jointly at millisecond scale.\n\nR2 \n\nWrite amplification proportional to actual changes. Storage overhead must scale with the agent’s actual modifications, not working directory size.\n\nR3 \n\n O(1) arbitrary rollback. Support rollback to any historical checkpoint in constant time.\n\nR4 \n\nAgent transparency. The coupled checkpoint/restore should be mostly invisible to the agent, i.e., no code changes, no forced restarts, and no context loss.\n\n## 3. System Overview\n\nThis paper presents DeltaBox, a new agent sandbox that satisfies the four requirements.\nFollowing our key insight that consecutive checkpoints differ only marginally (§​ 1), DeltaBox duplicates only the inter-checkpoint changes rather than the whole state.\n\nFig.​ 2sketches the resulting end-to-end workflow.\nThe agent worker runs inside the sandbox, so every search step is C/R-protected.\nConcurrently with each LLM round-trip, the StateManager issues a deltaCheckpoint that persists only the delta of the coupled (memory, filesystem) state for that step.\nA rollback is a deltaRestore: it switches the overlay layer stack to the target in one shot, then reconstructs the target process memory by forking a warm template (on hit) or loading the CRIU image chain (on miss).",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 4,
+  "seeds_or_runs": 0,
+  "swe_bench": 19,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 2
+ },
+ "fulltext_source": "html"
+}

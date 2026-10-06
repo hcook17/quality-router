@@ -1,0 +1,20 @@
+{
+  "arxiv_id": "2608.11386",
+  "blind_scores": {"rigor": 3, "reproducibility": 4, "generalizability": 2, "relevance": 3, "coi_risk": 1},
+  "blind_verdict": "admit_with_caveats",
+  "blind_coi_severity": "low",
+  "agreement": "minor_disagreement",
+  "claims_disputed": [
+    {"claim": "Python CodeAct-style interface matches task performance with 41.6% fewer steps and 56.3% lower token usage.", "proposed_strength": "weak", "reason": "I agree with 'weak' but for an additional reason. 'Matches task performance' rests only on Figure 5, with no numbers or test, and it hides a consistency cost. In Table 2, Python lowers pass^k for every actor: Qwen3Coder-30B pass^9 0.002 (-0.018, about 10x lower than BashOnly), Kimi -0.017 to -0.024, Sonnet -0.013 to 0.000. The 41.6% step figure exceeds every per-actor reduction in Table 8 (77->46 = 40%, 65->47 = 28%, 80->55 = 31%)."}
+  ],
+  "pattern_stance_changes": [
+    {"id": "P33", "from": "supports", "to": "mixed", "reason": "Code-as-action cuts steps and input tokens (Table 8), but by the paper's own Table 2 it is neutral-to-negative on repeated-attempt consistency for all three actors, and sharply negative for the weakest actor. A 'supports' stance ignores a measured downside."},
+    {"id": "P24", "from": "supports", "to": "neutral", "reason": "The paper measures token use as a function of interface choice. It does not study budgets, caps, or enforcement, which is what P24 covers."}
+  ],
+  "missed_issues": [
+    "Circular relevance proxy: a 'high-relevant' file is one read by at least three successful trajectories from every setup (B.4), so the proxy is built from the same trajectories it is used to evaluate. The manual validation used Codex-generated reference reasoning, and 3 cases where humans disagreed with it were dropped. This is an llm_judge-assisted label set and not independent.",
+    "The headline consistency claim mixes the ratio framing (4.7x) with the absolute gains. For Kimi-K2.5 the Atomic gain is about +0.013 on a ~0.29 base (about 4-5% relative). The paper calls this 'uniformly positive' without significance tests, and admits in B.2 that it is 'numerically modest'.",
+    "The generalization study (B.6) drops the only proprietary actor (Sonnet-4.5), uses 5 rollouts, tests only one pairwise comparison per finding, and draws on SWE-bench Verified, a benchmark with known contamination exposure. 'Directionally consistent' is the strongest wording it can bear."
+  ],
+  "note": "The review is careful and catches the untraceable headline numbers and the near-zero-base ratio. Its main error is tagging P33 (and P24) as 'supports' while ignoring the paper's own evidence that Python CodeAct lowers consistency. Relevance 4 is slightly high for Python-only single-repo tasks when the team cannot change host tool architecture beyond the MCP/CLI tools it exposes."
+}

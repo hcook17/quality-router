@@ -1,0 +1,181 @@
+{
+ "arxiv_id": "2609.26480",
+ "fulltext_chars": 53537,
+ "fulltext_lines": 1244,
+ "authors_block": "Xutian Li Affiliation: Peking University Email: xtli25@stu.pku.edu.cn Bo Xiong Affiliation: Peking University Email: 2601112134@stu.pku.edu.cn Yifeng Zhu Affiliation: Peking University Email: yifengzhu25@stu.pku.edu.cn Kunze Li Affiliation: Peking University Email: 2401213296@stu.pku.edu.cn Xianlin Zhao Affiliation: Peking University Email: zhaoxianlin@pku.edu.cn Runbang Yan Affiliation: Peking University Email: rbyan25@stu.pku.edu.cn Yanzhen Zou Affiliation: Peking University Email: zouyz@pku.edu.cn Lu Zhang Affiliation: Peking University Email: zhanglucs@pku.edu.cn Bing Xie Affiliation: Peking University Email: xiebing@pku.edu.cn",
+ "vendor_affiliation_hits": [],
+ "n_authors": 9,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Feature-Guided Dynamic Code Graph Construction and Retrieval for Repository-Level Code Generation"
+  ],
+  [
+   76,
+   "###### Abstract"
+  ],
+  [
+   87,
+   "## 1 Introduction"
+  ],
+  [
+   137,
+   "## 2 Motivation"
+  ],
+  [
+   139,
+   "### 2.1 Feature-Guided Dependency Retrieval"
+  ],
+  [
+   147,
+   "### 2.2 Motivating Example"
+  ],
+  [
+   157,
+   "## 3 Approach"
+  ],
+  [
+   167,
+   "### 3.1 Feature-Oriented Repository Indexing"
+  ],
+  [
+   187,
+   "### 3.2 Feature-Guided Dynamic Seed Graph Construction"
+  ],
+  [
+   193,
+   "### 3.3 Semantic-Structural Graph Reasoning"
+  ],
+  [
+   201,
+   "## 4 Experimental Settings"
+  ],
+  [
+   213,
+   "### 4.1 Benchmarks and Data Preprocessing"
+  ],
+  [
+   223,
+   "#Repos."
+  ],
+  [
+   227,
+   "#Tasks"
+  ],
+  [
+   326,
+   "#Func."
+  ],
+  [
+   327,
+   "#Feat."
+  ],
+  [
+   328,
+   "#Func./Feat."
+  ],
+  [
+   346,
+   "### 4.2 Baseline Methods"
+  ],
+  [
+   360,
+   "### 4.3 Evaluation Metrics"
+  ],
+  [
+   378,
+   "### 4.4 Parameter Settings"
+  ],
+  [
+   384,
+   "## 5 Experimental Results"
+  ],
+  [
+   386,
+   "### 5.1 RQ1: Effectiveness"
+  ],
+  [
+   388,
+   "#### 5.1.1 Dependency Retrieval"
+  ],
+  [
+   400,
+   "#### 5.1.2 Downstream Repository-Level Code Generation"
+  ],
+  [
+   471,
+   "### 5.2 RQ2: Efficiency"
+  ],
+  [
+   483,
+   "#Nodes"
+  ],
+  [
+   484,
+   "#Edges"
+  ],
+  [
+   526,
+   "## 6 Discussion"
+  ],
+  [
+   528,
+   "### 6.1 Effectiveness and Applicability Boundaries"
+  ],
+  [
+   534,
+   "### 6.2 Threats to Validity"
+  ],
+  [
+   540,
+   "## 7 Related Work"
+  ],
+  [
+   542,
+   "### 7.1 Retrieval-Augmented Repository-Level Code Generation"
+  ],
+  [
+   555,
+   "### 7.2 LLM-Based Repository Exploration"
+  ],
+  [
+   568,
+   "### 7.3 Feature-Oriented Software Development"
+  ],
+  [
+   582,
+   "## 8 Conclusion"
+  ],
+  [
+   588,
+   "## References"
+  ],
+  [
+   1244,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "### 6.2 Threats to Validity\n\nExternal validity. Our conclusions are drawn from DevEval and EvoCodeBench, which mainly target Python repository-level code generation. Whether the results generalize to other programming languages or industrial closed-source repositories remains to be verified.\n\nInternal validity. The parameters, candidate sizes, and prompt templates of different retrieval methods may affect the comparison. We use the same generation models and comparable context budgets where possible, but implementation differences may remain. The metrics also capture only part of code quality, since Pass@1 and DIR@1 reflect functional correctness and dependency reuse but not maintainability, security, or developer judgment. Finally, FeatLens depends on offline feature summarization and static structural relations. Inaccurate feature clusters, coarse descriptions, runtime dynamic binding, and implicit framework conventions may weaken retrieval. Future work could incorporate runtime traces, test feedback, and development history to strengthen graph reasoning.\n\n## 7 Related Work\n\n### 7.1 Retrieval-Augmented Repository-Level Code Generation\n\nRetrieval-augmented strategies provide reference code snippets as auxiliary context for code generation through mechanisms such as sparse term matching [24] and code search [29, 30].\nEmbedding-based retrieval methods represent code snippets with semantic vectors and rank candidate contexts by their similarity to the query [25, 31].\nAt the repository level, RLCoder [32] trains a retriever with reinforcement learning, while AlignCoder [33] rewrites or enhances queries to better align retrieved context with the target code completion.\nBecause semantic similarity alone can overlook cross-file dependencies such as calls and data definitions [34], structure-aware retrieval methods further incorporate code graphs into context selection.\nRepoGraph [26] constructs a line-level repository graph over dependency relations, while GraphCoder [13] builds code context graphs with control-flow and data-flow information. Then they retrieve ego-graph neighborhoods or structurally reranked context.\nSubsequent work further improves retrieval through long-range multi-hop reasoning [35], multi-granularity structural information [15], and repository architecture preservation [14].\n\nThese methods make repository context more accessible, but they are primarily organized around code similarity or repository structure rather than the feature-level requirements that trigger generation.\nGraph-based methods also incur overhead when they construct and maintain full-repository representations.\nFeatLens instead uses features as retrieval anchors and constructs a task-specific graph on demand, aiming to improve dependency localization while reducing graph construction overhead.\n\n### 7.2 LLM-Based Repository Exploration\n\nLLM-based repository exploration methods support repository-level code generation by enabling LLMs or agents to iteratively search, inspect, and refine task-relevant context within a repository.\nEarly agents, including SWE-Agent [16], AutoCodeRover [17], and CodeAgent [36], explore repositories mainly through autonomous tool use.\nThis flexibility is useful, but an unconstrained search space makes reliable localization difficult.\nSubsequent work introduces structured repository graphs to guide localization and reasoning [37, 38].\nCodexGraph [27] enables LLMs to explore a repository graph database through Cypher queries,\nwhile GraphCodeAgent [39] couples a requirement graph with a code graph for agent-driven multi-hop reasoning between intent and dependencies.\nMore recent approaches pursue stronger but heavier exploration, using Monte Carlo tree search [40], autonomous multi-round context construction [41], or knowledge graphs with working memory for long-horizon navigation [42].\n\nAlthough these methods can locate useful context, they often rely on long reasoning chains or multi-round agent decisions, increasing l",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 2,
+  "seeds_or_runs": 16,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 1
+ },
+ "fulltext_source": "html"
+}

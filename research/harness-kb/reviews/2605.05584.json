@@ -1,0 +1,29 @@
+{
+  "arxiv_id": "2605.05584",
+  "contribution_type": "position",
+  "summary": "A four-page vision paper arguing that developers already encode ethical values (fairness, accessibility, sustainability, tone, privacy) into AGENTS.md-style context files, and that these files act as a developer-authored governance layer. The evidence is six verbatim excerpts chosen from 25 manually inspected repositories found via GitHub code search and ChatGPT web search. The paper then sets out a research agenda, including whether agents actually comply.",
+  "claims": [
+    {"claim": "Developers are already embedding ethics-related guidance (fairness, accessibility, sustainability, tone, privacy) in AGENTS.md files", "evidence": "Table 1: six illustrative excerpts selected from 25 inspected repositories (§3). The paper says this is 'to motivate the research agenda rather than to offer a comprehensive empirical account'. There is no prevalence estimate or coding scheme. 'Privacy' appears in the abstract but none of the six excerpts shows it.", "strength": "weak", "location": "§3, Table 1"},
+    {"claim": "Context files function as a developer-authored governance layer", "evidence": "Argued by interpretation only. §4 itself lists 'whether agents adhere to encoded constraints' as untested future work, so the 'governance' function has no evidence.", "strength": "unsupported", "location": "§3-§4"}
+  ],
+  "patterns": [
+    {"id": "P01", "stance": "introduces", "note": "Treats repo instruction files as a carrier for value/policy constraints; no adherence evidence."},
+    {"id": "P21", "stance": "neutral", "note": "Mentions tool-permission settings and hooks as alternative configuration layers for future study (§4)."}
+  ],
+  "methodology": {"sample": "25 repositories manually inspected; 6 hand-picked for presentation", "baselines": "None", "models": "None evaluated", "variance": "n/a", "ablations": "None", "contamination_controls": "n/a", "languages": "n/a"},
+  "standards": {"peer_review": "AIware 2026 (vision track per paper framing)", "limitations_section": false, "artifacts": "None beyond repository names in Table 1", "preregistration": "n/a"},
+  "biases": [
+    {"type": "cherry_picked_examples", "detail": "Six examples chosen to illustrate a thesis; the search used ethics-targeted queries, so prevalence cannot be inferred."},
+    {"type": "small_sample", "detail": "25 repositories, no systematic coding."},
+    {"type": "selection_bias_participants", "detail": "Repositories were found partly via ChatGPT web search, an unreproducible and opaque sampling method."}
+  ],
+  "coi": {"affiliations": "Singapore Management University, Heidelberg University, University of Melbourne", "vendor_products_evaluated": "None", "funding": "One author's travel to the scoping workshop was funded by Google via a CAIDE project", "severity": "none", "detail": "Travel funding is unrelated to any product evaluated; no products evaluated."},
+  "scores": {"rigor": 1, "reproducibility": 1, "generalizability": 1, "relevance": 2, "coi_risk": 0},
+  "verdict": "reject",
+  "verdict_reason": "Position/vision paper with no evaluation: six cherry-picked excerpts and no test of whether agents follow the encoded values. It is useful only as a pointer to an agenda; it cannot back a harness decision.",
+  "applicability": "A healthcare-education team will want accessibility, inclusive-language and privacy rules in its portable instruction file. This paper shows other projects do that, but gives no evidence that agents obey such prose rules. For anything that matters (PHI or PII handling, accessibility of delivered content), the team should enforce it with deterministic checks (linters, policy-as-code, tests in the ingestion repos) rather than relying on AGENTS.md prose. That matters more with mixed agent hosts, which may interpret the same file differently.",
+  "conflicts_with": [
+    {"arxiv_id": "2608.23550", "detail": "That study of 481 CLAUDE.md files finds only ~4-16% of natural-language security rules have a matching enforceable built-in control, and calls CLAUDE.md a 'write-only channel'. This undercuts this paper's framing of context files as a 'governance layer'."},
+    {"arxiv_id": "2607.27250", "detail": "A controlled two-agent ablation finds context-file strategy does not measurably change correctness. This paper assumes context-file directives shape agent behaviour, but that is untested here."}
+  ]
+}

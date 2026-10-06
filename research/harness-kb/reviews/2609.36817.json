@@ -1,0 +1,111 @@
+{
+  "arxiv_id": "2609.36817",
+  "contribution_type": "tool",
+  "summary": "Tencent Zhuque Lab presents pikit, a Python toolkit that composes indirect-prompt-injection attacks (13), carriers/channels (16) and defenses (9 prompt-level plus 3 heuristic detectors) through a registry and a craft() API, with a MatrixRunner for combinatorial runs. As a demonstration, they run 9 prompt defenses on the open-source pi coding agent with an undisclosed ('anonymized') LLM. Pooled attack success falls from 6.00% to 1.69% on a pre-selected high-risk subset.",
+  "claims": [
+    {
+      "claim": "The 9 prevention defenses yield a 71.8% relative reduction in attack success rate (6.00% to 1.69%).",
+      "evidence": "Table 1 pooled row: n=2,817, 6.00% to 1.69%. The arithmetic matches. But baseline ASR is only about 6% (about 19 FULL outcomes per 315-run defense arm), so per-defense differences are a handful of events. For example, 0.32% is 1/315 and 3.17% is 10/315. No CIs are reported.",
+      "strength": "moderate",
+      "location": "§4.1, Table 1"
+    },
+    {
+      "claim": "few_shot_warning and instruction_hierarchy give the strongest protection.",
+      "evidence": "Table 1: both reach 0.32% vs 0.96% (spotlighting). The ranking rests on 1 vs 3 successful attacks out of about 315, with one undisclosed model and one agent. That is not statistically separable.",
+      "strength": "weak",
+      "location": "§4.1, Finding 1"
+    },
+    {
+      "claim": "Offline detection baselines achieve perfect precision but low recall.",
+      "evidence": "Table 2 (630 balanced samples): Length and Repetition detectors have 100% precision with 11.11% and 17.78% recall. PatternDetector has 0% recall, and its 0.00% precision is undefined (no positives), so 'perfect precision' holds for 2 of 3 detectors. These are trivial heuristics (a length threshold of 2,000 chars, a unique-character ratio).",
+      "strength": "moderate",
+      "location": "§4.2, Table 2"
+    },
+    {
+      "claim": "Runs are reproducible via full logging of prompts, traces, transcripts and verdicts.",
+      "evidence": "Logging is described (§3.4, §3.6) and code is linked. But the target LLM is anonymized, so the reported numbers cannot be reproduced by others.",
+      "strength": "weak",
+      "location": "Abstract, §3.6, §4"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P22",
+      "stance": "mixed",
+      "note": "Prompt-level defenses cut ASR on the selected subset, but none reaches 0. Static detectors miss more than 82% of tainted artifacts. Effect sizes are tiny in absolute counts, and the utility cost of each defense is not measured."
+    },
+    {
+      "id": "P30",
+      "stance": "neutral",
+      "note": "Per-run matched baseline IDs and full trace logging, a useful audit pattern for security regressions."
+    },
+    {
+      "id": "P21",
+      "stance": "neutral",
+      "note": "The threat model assumes the defensive pipeline sits between ingested artifacts and the context window and cannot be bypassed."
+    }
+  ],
+  "methodology": {
+    "sample": "Defense regression: top 9 attack-channel-mode combinations (chosen from a prior screening study by the same group) x 35 payloads x 9 defenses = 2,835 planned pairs, 2,832 completed. Detection: 315 tainted + 315 benign artifacts.",
+    "baselines": "No-defense matched runs. No comparison against other IPI toolkits/benchmarks (AgentDojo, InjecAgent) or against stronger LLM-based detectors.",
+    "models": "One undisclosed ('anonymized') LLM powering the pi coding agent.",
+    "variance": "None. No CIs or repeated runs; the ASR differences amount to single-digit event counts.",
+    "ablations": "None beyond per-defense comparison.",
+    "contamination_controls": "n/a",
+    "languages": "Toolkit is Python; the target agent works on unspecified repositories/tasks (canary-style tasks shown in §3.4)."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint (cs.CR), technical report format; no venue.",
+    "limitations_section": false,
+    "artifacts": "Code at github.com/Tencent/AI-Infra-Guard/tree/main/Research/pikit. Target model undisclosed.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {
+      "type": "single_model",
+      "detail": "One anonymized LLM on one agent (pi). The authors concede results are bound to this architecture and model (§5.2)."
+    },
+    {
+      "type": "small_sample",
+      "detail": "Baseline ASR of about 6% means about 19 successes per arm; defense rankings rest on 1-10 events."
+    },
+    {
+      "type": "no_variance_reported",
+      "detail": "No CIs or repeated runs for per-defense ASR."
+    },
+    {
+      "type": "selection_bias_participants",
+      "detail": "The evaluated subset is pre-selected high-risk combinations from the authors' prior screening, so the pooled reduction is not a population estimate."
+    },
+    {
+      "type": "missing_cost_reporting",
+      "detail": "No measurement of benign-task utility loss or token overhead for any prevention defense."
+    },
+    {
+      "type": "self_evaluation",
+      "detail": "The authors' toolkit, judge (RuleJudge) and payload set are evaluated by the authors."
+    },
+    {
+      "type": "closed_artifacts",
+      "detail": "Code is released, but the target LLM is anonymized, so the numbers are not reproducible."
+    }
+  ],
+  "coi": {
+    "affiliations": "Tencent Zhuque Lab (Zonghao Ying, Xiangfan Wu, Bo Yang, Huiyu Wu, Xing Zheng, Huangsheng Cheng, Xiaorong Shi, Jing Guo). The regex vendor hit list is empty, but the authors block and repo show Tencent.",
+    "vendor_products_evaluated": "pikit is shipped inside Tencent's AI-Infra-Guard repo. Defenses are generic literature techniques, and the agent (pi) is third-party.",
+    "funding": "None stated.",
+    "severity": "low",
+    "detail": "Vendor-affiliated authors presenting their own open-source toolkit. They are not ranking a Tencent model or product against competitors, though the paper partly serves as a showcase for AI-Infra-Guard."
+  },
+  "scores": {
+    "rigor": 2,
+    "reproducibility": 3,
+    "generalizability": 1,
+    "relevance": 3,
+    "coi_risk": 2
+  },
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Useful as a released red-team tool with a sensible attack x channel x defense decomposition. The empirical section is thin: an anonymized single model, about 6% baseline ASR, per-defense rankings from a few events, no CIs, no utility cost, and no limitations section.",
+  "applicability": "Practically relevant. An ingestion pipeline that pulls third-party healthcare-education content (documents, PDFs with metadata, spreadsheets, HTML) into agent context is exactly the indirect-injection surface pikit's file-mode channels model. The team could run pikit's craft()/MatrixRunner in CI against their own agent hosts, as a host-agnostic security regression, before trusting agents with ingestion repos. Do not adopt its defense ranking. The numbers come from one hidden model on the pi agent, and prompt-level defenses never reached 0%, so architectural controls (least-privilege tools, sandboxing, no network egress during ingestion runs) remain necessary. The toolkit is Python, so it would sit beside the Java services as a test harness rather than inside them.",
+  "conflicts_with": []
+}

@@ -1,0 +1,170 @@
+{
+ "arxiv_id": "2609.16936",
+ "fulltext_chars": 48400,
+ "fulltext_lines": 1058,
+ "authors_block": "Yunxiang Zhang Haiquan Wang Jiawei Guo Hanyang Xia Yan Chen ††thanks: Corresponding author: Yan Chen (chenyan2022@buaa.edu.cn). Tong Chen Zhang Zhiwei Junchen Ye",
+ "vendor_affiliation_hits": [],
+ "n_authors": 8,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/SWE-agent/mini-swe-agent",
+  "https://github.com/tree-sitter/tree-sitter"
+ ],
+ "hf_urls": [
+  "https://huggingface.co/collections/XiaomiMiMo"
+ ],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# RepoAtlas: Guiding Coding Agents via Evolving Multimodal Repository Views"
+  ],
+  [
+   39,
+   "###### Abstract"
+  ],
+  [
+   52,
+   "## 1 Introduction"
+  ],
+  [
+   170,
+   "## 2 Related Work"
+  ],
+  [
+   172,
+   "#### Repository context and structured retrieval."
+  ],
+  [
+   176,
+   "#### Multimodal graph representations."
+  ],
+  [
+   189,
+   "## 3 Repository Graph and View Formulation"
+  ],
+  [
+   214,
+   "## 4 RepoAtlas"
+  ],
+  [
+   216,
+   "### 4.1 Overview"
+  ],
+  [
+   231,
+   "### 4.2 Budgeted Structural Selection"
+  ],
+  [
+   236,
+   "#### Task-conditioned relevance."
+  ],
+  [
+   267,
+   "#### Connected structure construction."
+  ],
+  [
+   282,
+   "### 4.3 Adaptive Multimodal Projection"
+  ],
+  [
+   287,
+   "#### Aligned multimodal representation."
+  ],
+  [
+   294,
+   "#### Adaptive projection."
+  ],
+  [
+   306,
+   "### 4.4 State-Aware View Refresh"
+  ],
+  [
+   311,
+   "#### State-aware refresh control."
+  ],
+  [
+   318,
+   "#### Phase-conditioned refresh."
+  ],
+  [
+   332,
+   "## 5 Experiments"
+  ],
+  [
+   447,
+   "### 5.1 Experimental Setup"
+  ],
+  [
+   449,
+   "#### Models."
+  ],
+  [
+   455,
+   "#### Datasets and Metrics."
+  ],
+  [
+   465,
+   "#### Baselines."
+  ],
+  [
+   474,
+   "### 5.2 Main Results"
+  ],
+  [
+   497,
+   "### 5.3 Component Analysis"
+  ],
+  [
+   499,
+   "#### Stage-wise Ablation."
+  ],
+  [
+   557,
+   "#### Selection Analysis."
+  ],
+  [
+   606,
+   "### 5.4 Case Study"
+  ],
+  [
+   608,
+   "#### Success Case: Resolving Name Ambiguity."
+  ],
+  [
+   626,
+   "#### Failure Case: Missing Runtime Dependencies in Static Graphs."
+  ],
+  [
+   635,
+   "## 6 Conclusion"
+  ],
+  [
+   643,
+   "## References"
+  ],
+  [
+   1058,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 4,
+  "swe_bench": 11,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

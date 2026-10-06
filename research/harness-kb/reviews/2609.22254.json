@@ -1,0 +1,49 @@
+{
+  "arxiv_id": "2609.22254",
+  "contribution_type": "theory",
+  "summary": "Proposes AC-OPD, an on-policy distillation variant in which the teacher continues for an adaptively chosen number of tokens from selected anchor points in student rollouts, motivated by an observed 'teacher uncertainty contraction' and a variance-bias bound. Evaluated by distilling Qwen3-4B->1.7B and Qwen3-32B->4B on math (AMC/AIME/Minerva) and code (HumanEval+/MBPP+).",
+  "claims": [
+    {"claim": "AC-OPD improves over standard OPD by 4.37 points Math Avg. and 3.50 points Code Avg.", "evidence": "Table 1 Setting 1: OPD 33.65/57.70 vs AC-OPD 38.03/61.20. Setting 2 gains are smaller: Math 47.78->50.38, Code 75.60->76.65 (+1.05). Headline numbers are the larger setting only. OPD baseline AIME24 13.3 in Setting 1 is far below SFT's 23.0, suggesting a weak baseline run.", "strength": "moderate", "location": "§Experiments, Main results, Table 1"},
+    {"claim": "Results are robust over five independent runs.", "evidence": "Table 1 reports std devs of 0.09-0.46pp, including on AIME24/25 (30 problems each, ~3.3pp per problem); such small spreads across independent training runs are implausible without explanation of what varies across runs.", "strength": "weak", "location": "Table 1, Training and reporting protocol"},
+    {"claim": "Adaptive continuation length beats fixed lengths and a shuffled control.", "evidence": "Table 3 (Setting 1 code only): Adaptive 61.20 vs Fixed-8 60.85 (+0.35) vs Shuffled 60.10 vs Fixed-6 58.45. Margin over best fixed policy is within noise for HumanEval+ (164 problems).", "strength": "weak", "location": "Ablation Studies, Table 3, Fig. 4"},
+    {"claim": "Gains are not from extra supervised tokens.", "evidence": "Figure 5: early-stage training only, code task only, matched supervised tokens; no numbers in text.", "strength": "weak", "location": "Token-matched training progress, Fig. 5"}
+  ],
+  "patterns": [
+    {"id": "P25", "stance": "introduces", "note": "Model-training method (distillation) for small students; no agentic or tool-use setting evaluated."}
+  ],
+  "methodology": {
+    "sample": "Math: AMC23, AIME24, AIME25, Minerva (pass@16); Code: HumanEval+, MBPP+ (pass@1).",
+    "baselines": "SFT, OPD, ExOPD, EOPD (recent 2026 variants); all same protocol.",
+    "models": "Qwen3 family only (4B->1.7B-Base, 32B->4B-Base).",
+    "variance": "Mean ± std over five runs reported, but magnitudes look implausibly small for 30-problem benchmarks.",
+    "ablations": "Anchor selection, fixed vs adaptive horizon, shuffled control, token-matched early training — all on Setting 1 code only.",
+    "contamination_controls": "None discussed; HumanEval+/MBPP+/AMC are widely exposed benchmarks.",
+    "languages": "Python function-level code benchmarks."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint; no venue in comment or journal_ref.",
+    "limitations_section": false,
+    "artifacts": "Code 'will be made publicly available upon publication'; none released.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "single_model", "detail": "Only the Qwen3 family as teacher and student."},
+    {"type": "toy_tasks", "detail": "Function-level HumanEval+/MBPP+ for code; no repository or agentic tasks."},
+    {"type": "single_language_python", "detail": "Code evaluation is Python-only."},
+    {"type": "strawman_baseline", "detail": "Setting 1 OPD AIME24 score (13.3) is 10 points below SFT (23.0), inflating the headline Math gain; no tuning details for baselines."},
+    {"type": "closed_artifacts", "detail": "Code promised upon publication only."},
+    {"type": "contamination_risk", "detail": "Public benchmarks with no contamination analysis."}
+  ],
+  "coi": {
+    "affiliations": "University of Chinese Academy of Sciences; Institute of Automation, CAS; Ant Group (first author was an Ant Group intern; per-author mapping beyond that is not given in the text).",
+    "vendor_products_evaluated": "None; Qwen3 (Alibaba) used as base models, not an Ant product.",
+    "funding": "No acknowledgments or funding statement.",
+    "severity": "low",
+    "detail": "Industry co-affiliation (Ant Group) but no proprietary product evaluated."
+  },
+  "scores": {"rigor": 2, "reproducibility": 1, "generalizability": 1, "relevance": 0, "coi_risk": 1},
+  "verdict": "reject",
+  "verdict_reason": "off-topic: a method for distilling LLM weights on math and Python function-level benchmarks, with nothing about agents, harnesses or software-engineering workflows. Its evidence is also thin: the headline gains come from the smaller-scale setting, the OPD baseline looks weak, std devs are implausibly small and no code is released.",
+  "applicability": "None for the Java healthcare-education ingestion team. They consume hosted models through mixed agent hosts and will not train or distill student models, and nothing here touches multi-repo ingestion, spec-driven development or harness design.",
+  "conflicts_with": []
+}

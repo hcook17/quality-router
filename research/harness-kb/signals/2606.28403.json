@@ -1,0 +1,121 @@
+{
+ "arxiv_id": "2606.28403",
+ "fulltext_chars": 45000,
+ "fulltext_lines": 1196,
+ "authors_block": "Bruno Caro Vásquez Affiliation: Master’s Student in Computer Science, Universidad del Bío-Bío, Chile E-mail brunocaro1919@gmail.com Carola Figueroa Flores Affiliation: Department of Computer Science and Information Technology, Universidad del Bío-Bío, Chile E-mail cfigueroa@ubiobio.cl, gmarquez@ubiobio.cl Gastón Marquez Ortega Affiliation: Department of Computer Science and Information Technology, Universidad del Bío-Bío, Chile E-mail cfigueroa@ubiobio.cl, gmarquez@ubiobio.cl",
+ "vendor_affiliation_hits": [],
+ "n_authors": 3,
+ "comment": "15 pages, 1 figure, 7 tables. Submitted to CIARP 2026",
+ "journal_ref": "CIARP 2026",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Reinforcement Learning for Software Vulnerability Analysis: A Systematic Review with Emphasis on C/C++ Source Code and Static Analysis"
+  ],
+  [
+   40,
+   "###### Abstract"
+  ],
+  [
+   44,
+   "###### Keywords:"
+  ],
+  [
+   47,
+   "## 1 Introduction"
+  ],
+  [
+   61,
+   "## 2 Methodology"
+  ],
+  [
+   69,
+   "### 2.1 Research Questions"
+  ],
+  [
+   97,
+   "### 2.2 Search Strategy"
+  ],
+  [
+   117,
+   "### 2.3 Eligibility Criteria"
+  ],
+  [
+   153,
+   "### 2.4 Study Selection Process"
+  ],
+  [
+   214,
+   "## 3 Results"
+  ],
+  [
+   216,
+   "### 3.1 Descriptive Analysis"
+  ],
+  [
+   534,
+   "### 3.2 Research Questions"
+  ],
+  [
+   536,
+   "#### RQ1.- Application of RL in Cybersecurity Tasks"
+  ],
+  [
+   546,
+   "#### RQ2.- RL Algorithms and Agent Architectures"
+  ],
+  [
+   554,
+   "#### RQ3.- RL Problem Formulation"
+  ],
+  [
+   648,
+   "#### RQ4.- Code Representations"
+  ],
+  [
+   654,
+   "#### RQ5.- Datasets, Benchmarks and Metrics"
+  ],
+  [
+   662,
+   "#### RQ6.- Limitations, Risks and Gaps"
+  ],
+  [
+   666,
+   "## 4 Discussion"
+  ],
+  [
+   700,
+   "## 5 Conclusions"
+  ],
+  [
+   708,
+   "## References"
+  ],
+  [
+   1196,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "#### RQ6.- Limitations, Risks and Gaps\n\nSynthesizing the previous questions, the corpus exhibits six recurring gaps. Methodological: few studies present an explicit MDP formulation, and several reduce to supervised classification or to a bandit, so RL is not always structurally justified (RQ3). Representation: the use of static structural sources as the agent state is minimal, with Syzballer [10] and RLFD [12] offering only partial coverage of the target formulation. Evaluation: benchmarks are heterogeneous and weakly comparable, mixing binary fuzzing corpora with source-level detection datasets (RQ5). Generalization: few works report cross-project or unseen-CWE evaluation, leaving transferability uncertain, as acknowledged for fine-grained detection [12]. Baselines: comparisons against strong supervised detectors like graph neural networks and Transformer models such as Devign [31] are scarce, hindering positioning against the state of the art. Reproducibility: the limited release of code, data splits, and training configurations hampers independent verification. Together, these gaps indicate that RL-based source-code vulnerability detection, and especially fine-grained localization, remains an emerging area with clear opportunities for future work.\n\n## 4 Discussion\n\nUnlike prior secondary studies, this review adopts an RL-formulation perspective. Table 7 contrasts the closest reviews: existing work covers static code analysis without RL or deep-learning-based fuzzing without dissecting the RL problem, whereas this review analyzes how vulnerability-analysis tasks are cast as RL problems (state, action, reward, environment) and identifies the unaddressed source-level CFG-state gap.\n\nTable 7: Positioning against related secondary studies\n\nReview\nFocus\nRL\nCode analysis\nS–A–R analysis\n\nGomes et al.[6]\nStatic analysis (IoT security)\nNo\nYes\nNo\n\nMiao et al.[19]\nDeep learning for fuzzing\nPartial\nPartial\nNo\n\nThis review\nRL for C/C++ vulnerability analysis\nYes\nYes\nYes\n\nThe results of this SLR reveals two research streams: one optimizes exploration, mutation selection, and test generation to maximize coverage, while the other applies policy-gradient methods directly to detection over source code, as shown by the inclusion of studies by Ren et al[26] and Jiang et al.[12]. A question may arise as to why RL would be competitive with the dominant supervised line based on Transformers, graph neural networks, and code encoders such as CodeBERT [1, 31]. The evidence indicates that RL does not outperform these models at function-level classification, where strong supervised baselines are well established. Its value is therefore complementary rather than substitutive: the scientific opportunity is to pair powerful structural and semantic representations (CFGs, ASTs, code embeddings) with agents that learn navigation, prioritization, and localization policies, using RL as a decision layer over a structural encoder rather than replacing it.\n\nThis sharpens the representation gap noted earlier, as the corpus is split between binary- and source-based approaches, with almost no statically extracted source structure used as the agent state, pointing to an opportunity to unite structural static analysis with reward-driven decision-making.\n\n## 5 Conclusions",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 2,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 2
+ },
+ "fulltext_source": "html"
+}

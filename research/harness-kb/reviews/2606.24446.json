@@ -1,0 +1,32 @@
+{
+  "arxiv_id": "2606.24446",
+  "contribution_type": "empirical",
+  "summary": "BigBag uses a coding agent (OpenCode or GeminiCLI) in a generate-apply-verify loop with mvn compile feedback. Instead of patching each broken client, it writes a reusable Java AST transformation (Spoon or JavaParser) that fixes a breaking Maven dependency update, then applies that transformation to other clients broken by the same update. It is evaluated on 157 compilation-failure updates from BUMP with 4 models × 2 engines, plus a transfer study on 129 GitHub client projects.",
+  "claims": [
+    {"claim": "The best configuration achieves a 94.3% compilable transformation rate and a 78.6% fix rate.", "evidence": "Table I: 94.3% (148/157) CRR is DeepSeek-v3.2/JavaParser; Table II: 78.6% FR is Gemini-3.1-Pro/JavaParser, and FR = |S|/|C| is conditional on compilable output (66/84). The abstract conflates two different configurations. End-to-end, the best config fixes 66/157 = 42.0%; DeepSeek/JavaParser fixes only 29 (19.6% of its compilable).", "strength": "weak", "location": "Abstract; §V-A Table I; §V-B Table II"},
+    {"claim": "AST engine choice is a first-order determinant: JavaParser beats Spoon.", "evidence": "Table I: JavaParser higher CRR for all four models; Table II Fisher's exact tests: GPT-5.4-mini 27.0% vs 12.4% (p=0.005), DeepSeek 19.6% vs 4.0% (p<0.001), Gemini 78.6% vs 56.3% (p=0.002). Consistent across models, single run each.", "strength": "strong", "location": "§V-A, §V-B"},
+    {"claim": "Generated transformations transfer across projects: 33.3% cross-project fix rate overall, ≥80% when clients use the API uniformly.", "evidence": "§V-C: 43/129 verified targets across 16 qualifying updates; generalization shown in 9 of 16 updates. Only best config tested; conservative target selection (same broken API element).", "strength": "moderate", "location": "§V-C"},
+    {"claim": "Agents sometimes bypass the task (string replace, editing pom.xml).", "evidence": "§IV-C defines 'AST pretense' and 'strategy bypass' categories, detected and excluded from CRR — a useful reward-hacking observation.", "strength": "moderate", "location": "§IV-C, §V-A"}
+  ],
+  "patterns": [
+    {"id": "P28", "stance": "supports", "note": "LLM-authored deterministic AST codemods (JavaParser/Spoon) fix Java breaking updates and can be reused across repos; repair encoded as a program, not a patch."},
+    {"id": "P16", "stance": "supports", "note": "mvn compile feedback in loop plus mvn test as acceptance oracle; verification re-run outside agent loop."},
+    {"id": "P27", "stance": "supports", "note": "One transformation transferred to other clients broken by the same update (33.3% overall, ≥80% for uniform API usage)."},
+    {"id": "P21", "stance": "neutral", "note": "Bypass detection (no regex/pom edits) acts as a post-hoc policy check on agent output."}
+  ],
+  "methodology": {"sample": "157 BUMP compilation-failure updates (69 clients, 70 libraries); transfer: 16 updates, 129 verified external clients.", "baselines": "None external: no comparison to project-specific patch repair (e.g., authors' own Byam) or to OpenRewrite-style recipes; comparisons are only among 8 configurations.", "models": "GPT-5.4-mini, Qwen3-30B, DeepSeek-v3.2 (OpenCode); Gemini-3.1-Pro (GeminiCLI) — scaffold confounded with model for Gemini.", "variance": "Single run per configuration (acknowledged in §VI); Fisher's exact tests on proportions; no multiple-comparison correction.", "ablations": "Engine × model factorial; no ablation of context inputs (Javadoc, template, docs).", "contamination_controls": "None discussed; BUMP updates and their human fixes are public on GitHub.", "languages": "Java/Maven only."},
+  "standards": {"peer_review": "No venue listed.", "limitations_section": true, "artifacts": "Code, filtered dataset and replication scripts at github.com/chains-project/bigbag.", "preregistration": "n/a"},
+  "biases": [
+    {"type": "metric_mismatch", "detail": "Headline fix rate is conditional on compilable output; end-to-end success is 42.0% at best, and headline numbers come from two different configurations."},
+    {"type": "no_variance_reported", "detail": "Each configuration run once."},
+    {"type": "contamination_risk", "detail": "Public BUMP repos/fixes may be in pretraining; unaddressed."},
+    {"type": "self_evaluation", "detail": "Authors evaluate on their own benchmark (BUMP, Reyes et al. SANER 2024)."},
+    {"type": "other:no_external_baseline", "detail": "No comparison against patch-based LLM repair or existing recipe tools, so the value of transformations over patches is argued, not measured, for the seed project."}
+  ],
+  "coi": {"affiliations": "KTH Royal Institute of Technology; Université de Montréal.", "vendor_products_evaluated": "Third-party models and agent CLIs; Spoon (co-developed in the authors' community) loses to JavaParser.", "funding": "No acknowledgments section found in extracted text.", "severity": "none", "detail": "Academic; benchmark is the authors' own but not tuned to favor their engine."},
+  "scores": {"rigor": 3, "reproducibility": 4, "generalizability": 3, "relevance": 5, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Directly relevant Java/Maven study with a factorial design, significance tests and released artifacts, but the abstract's headline merges two configurations and a conditional metric (true end-to-end best is 42.0%), runs are single-shot, and there is no external baseline.",
+  "applicability": "Highly applicable. When one library bump (e.g., a shared HTTP client or content-model library) breaks all ≥4 ingestion repos, have the agent write a JavaParser transformation once, verify it with mvn compile/test in the seed repo, then apply the same transformation deterministically to the other repos. This beats asking each host's agent to patch each repo, which also helps with mixed agent hosts. Prefer JavaParser over Spoon for agent-authored rules. Budget for only about 40% end-to-end success and about one-third cross-repo transfer unless API usage is uniform across repos. Reject agent outputs that regex-replace or edit pom versions. Recipes can be stored as spec artifacts next to the dependency-upgrade spec.",
+  "conflicts_with": []
+}

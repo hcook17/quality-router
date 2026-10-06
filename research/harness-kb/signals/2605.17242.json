@@ -1,0 +1,227 @@
+{
+ "arxiv_id": "2605.17242",
+ "fulltext_chars": 77322,
+ "fulltext_lines": 1577,
+ "authors_block": "DOI: 10.1145/3832783.3834388ISBN: 979-8-4007-2882-2/2026/10Conference: Proceedings of the 41st IEEE/ACM International Conference on Automated Software Engineering; October 12–16, 2026; Munich, GermanyProceedings of the 41st IEEE/ACM International Conference on Automated Software Engineering (ASE ’26), October 12–16, 2026, Munich, Germanyase26main-p1397-pCCS: Software and its engineering Automatic programmingCCS: Computing methodologies Artificial intelligence Yuxuan Wan Note: Both authors contributed equally to this research. Affiliation: Chinese University of Hong Kong, Hong Kong, Hong Kong email: yxwan@link.cuhk.edu.hk , Tingshuo Liang Affiliation: Chinese University of Hong Kong, Hong Kong, Hong Kong email: 1155210994@link.cuhk.edu.hk , Jiakai Xu Affiliation: Columbia University in the City of New York, New York, USA email: ax2155@columbia.edu , Jingyu Xiao Affiliation: Chinese University of Hong Kong, Hong Kong, Hong Kong email: jyxiao@link.cuhk.edu.hk , Yintong Huo Note: Yintong Huo is the corresponding author. Affiliation: Singapore Management University, Singapore, Singapore email: ythuo@smu.edu.sg and Michael R. Lyu Affiliation: Chinese University of Hong Kong, Hong Kong, Hong Kong email: lyu@cse.cuhk.edu.hk Received 2026-06-18",
+ "vendor_affiliation_hits": [],
+ "n_authors": 6,
+ "comment": "Accepted by the 41st IEEE/ACM International Conference on Automated Software Engineering (ASE'26)",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/yxwan123/TDD"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# From Runnable Code to Shippable Applications: Test-Driven Development for Full-Stack Web Application Generation"
+  ],
+  [
+   71,
+   "###### Abstract."
+  ],
+  [
+   75,
+   "###### Keywords:"
+  ],
+  [
+   80,
+   "## 1. Introduction"
+  ],
+  [
+   145,
+   "## 2. Background"
+  ],
+  [
+   147,
+   "### 2.1. Task Formulation"
+  ],
+  [
+   151,
+   "### 2.2. Related Work"
+  ],
+  [
+   153,
+   "#### 2.2.1. UI Code Generation"
+  ],
+  [
+   157,
+   "#### 2.2.2. Coding Agents"
+  ],
+  [
+   161,
+   "#### 2.2.3. GUI Testing"
+  ],
+  [
+   165,
+   "#### 2.2.4. Test-Driven Development"
+  ],
+  [
+   218,
+   "## 3. Methodology"
+  ],
+  [
+   222,
+   "### 3.1. Stage 1: Acceptance Test Generation"
+  ],
+  [
+   234,
+   "### 3.2. Stage 2: Interactive Validation"
+  ],
+  [
+   320,
+   "### 3.3. Stage 3: Failure Translation"
+  ],
+  [
+   336,
+   "### 3.4. TDD Implementations"
+  ],
+  [
+   493,
+   "## 4. Experiment"
+  ],
+  [
+   495,
+   "### 4.1. Research Questions"
+  ],
+  [
+   513,
+   "### 4.2. Benchmarks"
+  ],
+  [
+   519,
+   "### 4.3. Coding Agents"
+  ],
+  [
+   542,
+   "### 4.4. Backbone Models"
+  ],
+  [
+   585,
+   "### 4.5. Evaluation Metrics"
+  ],
+  [
+   587,
+   "#### 4.5.1. RQ1 — Module reliability."
+  ],
+  [
+   596,
+   "#### 4.5.2. RQ2–3"
+  ],
+  [
+   620,
+   "#### 4.5.3. RQ4 — Cost Efficiency."
+  ],
+  [
+   630,
+   "## 5. Results"
+  ],
+  [
+   632,
+   "### 5.1. RQ1: Module Reliability"
+  ],
+  [
+   634,
+   "#### 5.1.1. RQ1.1: Test Generation Coverage"
+  ],
+  [
+   641,
+   "#GT"
+  ],
+  [
+   642,
+   "#Gen."
+  ],
+  [
+   666,
+   "#### 5.1.2. RQ1.2: Testing Agent Accuracy"
+  ],
+  [
+   710,
+   "### 5.2. RQ2: TDD Effectiveness"
+  ],
+  [
+   714,
+   "#### 5.2.1. Overall Effectiveness"
+  ],
+  [
+   720,
+   "#### 5.2.2. Generalization"
+  ],
+  [
+   826,
+   "### 5.3. RQ3: Comparison of Implementations"
+  ],
+  [
+   828,
+   "#### 5.3.1. Incremental TDD"
+  ],
+  [
+   834,
+   "#### 5.3.2. Whole-Project TDD"
+  ],
+  [
+   890,
+   "#### 5.3.3. Agentic TDD"
+  ],
+  [
+   898,
+   "### 5.4. RQ4: Cost Efficiency"
+  ],
+  [
+   938,
+   "## 6. Discussion"
+  ],
+  [
+   940,
+   "### 6.1. Practical Recommendations"
+  ],
+  [
+   997,
+   "### 6.2. Developer Perception"
+  ],
+  [
+   1021,
+   "### 6.3. Threats to Validity"
+  ],
+  [
+   1032,
+   "## 7. Conclusion"
+  ],
+  [
+   1036,
+   "## Data Availability"
+  ],
+  [
+   1040,
+   "## Acknowledgment"
+  ],
+  [
+   1044,
+   "## References"
+  ],
+  [
+   1577,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgment\n\nThe work was supported by the Research Grants Council of the Hong Kong Special Administrative Region, China, No. SRFS2425-4S03 of the Senior Research Fellow Scheme and Singapore Ministry of Education (MOE) Academic Research Fund (AcRF) Tier 1 grant (Project ID: 23-SIS-SMU-088). Any opinions, findings, conclusions, or recommendations expressed in this material are those of the author(s) and do not reflect the views of the Ministry of Education, Singapore.\n\n## References\n\nand (2023)\n\n2023.\n\nUI/Application Exerciser Monkey.\n\nhttps://developer.android.com/studio/test/other-testing-tools/monkey.\n\nAndroid Studio documentation, last updated 2023-04-12.\n\nweb (2024)\n\n2024.\n\nHow Many Websites Are There in 2024? (13 Latest Statistics).\n\nTechJury (2024).\n\nAccessed: 2024-05-30.",
+ "limitations": "### 6.3. Threats to Validity\n\nGeneralizability.\nOur results may not generalize to other models, agent architectures, or application domains. We mitigate this threat by evaluating multiple backbones and coding agents on 20 diverse full-stack applications.\n\nSample size.\nThe 20-application sample may underrepresent rare task characteristics and limits statistical power. We therefore report paired significance tests and 95% confidence intervals for all comparisons to quantify uncertainty rather than relying solely on mean differences.\n\nTest-oracle reliability.\nBrowser-based testing agents may produce incorrect verdicts because of interaction or interpretation errors. We evaluate oracle reliability separately in RQ1 and use a fixed, independent oracle for final evaluation to avoid condition-specific measurement bias.\n\n## 7. Conclusion\n\nWe present TDDev, an experimental instrument that enables closed-loop TDD for full-stack web application generation by automating acceptance-test derivation, dynamic browser validation, and failure translation. Our controlled study shows that TDD substantially improves generation accuracy, but its effectiveness depends on model capability, feedback reliability, and implementation strategy. Incremental TDD provides bounded control, Whole-Project TDD offers coordinated and cost-efficient repair, and Agentic TDD performs best with highly capable models. These findings establish TDD as a practical approach to improving generated web applications while reducing human testing and intervention.\n\n## Data Availability\n\nAll the code and data of TDDev is available at https://github.com/yxwan123/TDD\n\n## Acknowledgment\n\nThe work was supported by the Research Grants Council of the Hong Kong Special Administrative Region, China, No. SRFS2425-4S03 of the Senior Research Fellow Scheme and Singapore Ministry of Education (MOE) Academic Research Fund (AcRF) Tier 1 grant (Project ID: 23-SIS-SMU-088). Any opinions, findings, conclusions, or recommendations expressed in this material are those of the author(s) and do not reflect the views of the Ministry of Education, Singapore.\n\n## References\n\nand (2023)\n\n2023.\n\nUI/Application Exerciser Monkey.\n\nhttps://developer.android.com/studio/test/other-testing-tools/monkey.\n\nAndroid Studio documentation, last updated 2023-04-12.\n\nweb (2024)\n\n2024.\n\nHow Many Websites Are There in 2024? (13 Latest Statistics).",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 10,
+  "seeds_or_runs": 1,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 7,
+  "java": 0,
+  "industrial": 2
+ },
+ "fulltext_source": "html"
+}

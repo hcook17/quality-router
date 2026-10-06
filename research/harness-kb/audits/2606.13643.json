@@ -1,0 +1,21 @@
+{"arxiv_id": "2606.13643",
+ "blind_scores": {"rigor": 2, "reproducibility": 2, "generalizability": 1, "relevance": 2, "coi_risk": 1},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "With GPT-5 fixed, RAH improves the Codex coding-agent baseline from 71.75% to 81.36%, attributable to the harness", "proposed_strength": "weak", "reason": "The 71.75% is copied from Cao et al. and Table 3 notes the baseline is '71.75% flat across all buckets' (no per-instance or per-bucket baseline data). The CI treats the baseline as a fixed point. RAH adds a separate GPT-5 answer-extraction call (§4.1), uses different prompts, and uses far more calls with no compute matching. The intro says 199 'randomly sampled' instances (l.117), while §4.1 says the protocol matches the prior work, so it is not certain the instances are identical. Moderate overstates a single unreplicated, confounded comparison."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P13", "from": "supports", "to": "introduces", "reason": "There is no ablation that isolates the planner/parent script (§5: 'We do not ablate individual design choices'). The only evidence is the confounded overall comparison against a copied baseline."},
+  {"id": "P33", "from": "supports", "to": "introduces", "reason": "§5 says the code-execution vs tool-call spawning path is not ablated, so the paper gives no evidence that code-as-action is what helps. The review's note that Task() scripts were 'used on all 199 instances' repeats §4.2, but §4.6 contradicts it: 'on a small number of instances the parent answered directly without writing a spawning script'."},
+  {"id": "P24", "from": "contradicts", "to": "neutral", "reason": "Not reporting cost is a missing_cost_reporting bias, not evidence that budgets or caps fail. The paper has no data either way."},
+  {"id": "P12", "from": "supports", "to": "mixed", "reason": "In Table 3 the GPT-5 configuration falls below the 71.75% baseline in 4 of 13 buckets (262K 57.1%, 1M 53.3%, 2M 66.7%, 4M 66.7%), i.e. at the longest contexts where fan-out should matter most. Per-bucket n is 14–16."}
+ ],
+ "missed_issues": [
+  "The intro claims 'Gains are consistent across all context-length buckets including 4M tokens' (l.121–122). Table 3 contradicts this for the matched GPT-5 configuration, which is 66.7% at 4M against the 71.75% baseline and below baseline in 4 of 13 buckets. Even §4.4 retreats to 'majority of context lengths'. This is hype_language / cherry-picked framing, and the review did not flag it.",
+  "Internal inconsistency: §4.2 says 'Every RAH instance produced a Task() script', but §4.6 says that on some instances 'the parent answered directly without writing a spawning script'.",
+  "self_evaluation / no_variance_reported: there is a single temperature-0 run per configuration with no repeated runs. The bootstrap CI covers only instance resampling, not run-to-run variance.",
+  "Self-citation cluster: the motivation (Sen et al. 2026a/b), the harness definition (Lumer et al. 2026a) and the caching cost claim (Lumer et al. 2026b) all cite the same PwC author group.",
+  "The Sonnet 4.5 per-bucket results (Table 3) have no baseline at all, yet they are used to argue 'no monotone degradation'."
+ ],
+ "note": "The first review is solid on copied baselines and missing cost data. It missed that the paper's own per-bucket table contradicts its 'consistent across all buckets including 4M' claim, and it graded P13/P33 'supports' even though §5 explicitly says no ablation exists."}

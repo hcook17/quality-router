@@ -1,0 +1,33 @@
+{
+  "arxiv_id": "2607.00555",
+  "contribution_type": "tool",
+  "summary": "Phoenix is a four-agent GPT-5.4 workflow for finding cross-language (Python/C++/CUDA) tensor-semantic bugs in PyTorch without execution. One agent summarizes historical bug-fix PRs and CWE rules, a second extracts identifiers for lexical code retrieval, a third generates a 'semantic bridge IR' grounded in the retrieved code, and a fourth checks it for inconsistencies. It reports 31 bugs from 36 alarms (26 confirmed, 20 patches merged), far exceeding Bandit and the Clang Static Analyzer and largely disjoint from two LLM fuzzers.",
+  "claims": [
+    {"claim": "Phoenix finds 31 real bugs with a 13.89% false-positive rate, vs Bandit (1 bug, 99.41% FP) and CSA (0 bugs, 100% FP).", "evidence": "Table II matches. Bandit (a Python security linter) and CSA are not designed for tensor-contract bugs, so they are strawman comparators. No LLM-based static baseline (e.g. LLift/IRIS-style or plain GPT-5.4 prompting) is run. 'Real' bugs are judged by the first two authors; only 26 of the 31 are maintainer-confirmed (Table III), so the confirmed-only FP rate would be higher.", "strength": "moderate", "location": "§IV-B Table II, §VI"},
+    {"claim": "26 of 31 reported bugs were confirmed and 20 patches merged into PyTorch.", "evidence": "Table III: CPU 9/7/5, CUDA 7/5/5, MPS 2/2/2, other 13/12/8; Fig. 9 example patches. This is externally checkable evidence from upstream maintainers.", "strength": "strong", "location": "§IV-D Table III"},
+    {"claim": "Phoenix is complementary to dynamic LLM fuzzers: 30 of its 31 bugs are not found by TitanFuzz/WhiteFox.", "evidence": "Fig. 7 overlap: fuzzers find 12 and 15 bugs (20 distinct), with 1 bug common to all. Fuzzer budgets and run settings are only described as 'default'.", "strength": "moderate", "location": "§IV-C, Fig. 7"},
+    {"claim": "All components contribute; retrieval grounding (ERG) is essential to limit hallucination.", "evidence": "Table IV: w/o ERG 17 bugs at 60.47% FP; w/o CWE 8 bugs; w/o PR 23; w/o summary 27. Single target and single LLM; each item processed 10 times but no variance across repeats reported.", "strength": "moderate", "location": "§IV-E Table IV"}
+  ],
+  "patterns": [
+    {"id": "P05", "stance": "supports", "note": "Identifier extraction plus lexical codebase retrieval (ERG) grounds LLM analysis; removing it raises FP from 13.89% to 60.47%."},
+    {"id": "P17", "stance": "supports", "note": "LLM-based static analysis over a structured IR finds real cross-language bugs that conventional analyzers miss on this target."},
+    {"id": "P11", "stance": "introduces", "note": "Role-based pipeline (summarize, extract, generate, analyze); no comparison to a single-agent equivalent."},
+    {"id": "P16", "stance": "neutral", "note": "Positions static LLM analysis as a complement to execution-based fuzzing, not a replacement."}
+  ],
+  "methodology": {"sample": "One system (PyTorch nightly); bug knowledge from historical PyTorch PRs and CWE rules; 36 Phoenix alarms.", "baselines": "Bandit and Clang Static Analyzer (weak, domain-mismatched); TitanFuzz and WhiteFox for overlap only.", "models": "GPT-5.4 only.", "variance": "Each PR/CWE item processed 10 times to produce SBIRs; no run-to-run variance in bug counts reported.", "ablations": "Four variants (w/o CWE, PR, summary, ERG).", "contamination_controls": "None; patterns mined from the same repository's history that it then analyzes.", "languages": "Python, C++, CUDA (PyTorch)."},
+  "standards": {"peer_review": "No venue in arXiv comment.", "limitations_section": true, "artifacts": "No code or prompt-repository link found; upstream PyTorch issues/patches are public.", "preregistration": "n/a"},
+  "biases": [
+    {"type": "strawman_baseline", "detail": "Only generic static analyzers (Bandit, CSA) are compared for RQ1; no LLM static-analysis baseline."},
+    {"type": "single_model", "detail": "GPT-5.4 only."},
+    {"type": "self_evaluation", "detail": "Alarm triage into real/false done by the first two authors; 5 of the counted 31 bugs are not maintainer-confirmed."},
+    {"type": "missing_cost_reporting", "detail": "No token/API cost or runtime for the LLM workflow, despite motivating static analysis by fuzzing's cost."},
+    {"type": "closed_artifacts", "detail": "No release of the tool or prompts identified."},
+    {"type": "other:single_target", "detail": "Evaluated on PyTorch only (acknowledged in §VI)."}
+  ],
+  "coi": {"affiliations": "Nanjing University (State Key Laboratory for Novel Software Technology), Nantong University, Nanjing University of Aeronautics and Astronautics, Beijing Academy of Artificial Intelligence. The regex 'GitHub' vendor hit is a false positive (repository URLs, not an affiliation).", "vendor_products_evaluated": "None owned by the authors; GPT-5.4 used as backend.", "funding": "No acknowledgments/funding section found.", "severity": "none", "detail": "Academic; no vendor interest."},
+  "scores": {"rigor": 3, "reproducibility": 1, "generalizability": 1, "relevance": 2, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Real, maintainer-confirmed bugs (26 confirmed, 20 merged) are strong external evidence. However, the comparison baselines are strawmen, it is a single LLM on a single target, there are no artefacts, and FP figures are author-judged. It is relevant only as evidence that retrieval-grounded LLM static analysis can find cross-language contract bugs.",
+  "applicability": "Indirect. The transferable lesson for a Java team is architectural: ground LLM analysis in lexically retrieved real code (identifier extraction plus grep/LSP), not free generation. Ungrounded generation tripled false positives here. Mining one's own historical bug-fix PRs for patterns is also effective. Analogous 'contracts across boundaries' bugs exist where ingestion repos hand content schemas to delivery services across ≥4 repos, so an LLM reviewer checking cross-repo contract consistency is plausible. Nothing is shown for Java, and no cost data exists to judge whether it beats a schema/contract test.",
+  "conflicts_with": []
+}

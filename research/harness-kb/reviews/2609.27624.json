@@ -1,0 +1,53 @@
+{
+  "arxiv_id": "2609.27624",
+  "contribution_type": "empirical",
+  "summary": "Security study by an independent researcher. When multi-agent hosts use the peer-controlled A2A Agent Card display name as a local routing key (agent name, tool name, client-map key or broker topic), an admitted lower-trust peer that claims a trusted peer's name receives requests meant for the trusted peer. Six of seven pinned open-source integrations showed wrong-peer dispatch in controlled loopback tests and the seventh (Solace) collapsed both peers onto one broker route. Seven negative-control implementations show the fix (stable origin-bound IDs, fail-closed duplicates) is practical.",
+  "claims": [
+    {"claim": "Six client-style integrations dispatched an A-addressed request to attacker peer B's client/endpoint; a brokered implementation collapsed both onto one route.", "evidence": "Table 1 with pinned versions (Google ADK Python 2.8.0, ADK TS 2.0.0, UiPath LangChain 0.17.3, BeeAI 0.1.83, Solace Agent Mesh 1.28.8, Any-Agent 1.18.0, AutoDev 2.4.1); controlled tests with recording doubles/loopback peers; matched distinct-name controls for some targets but not UiPath/BeeAI (§3.2).", "strength": "strong", "location": "§3.2, §4.2, Table 1"},
+    {"claim": "Wrong-peer dispatch does not by itself transfer A's credentials or tools.", "evidence": "§5.2-5.3 synthetic credential and tool tests found no A-specific credential transfer or direct A-tool transfer in tested client bindings; broker path forwards caller configuration. Scripted models only, so real model behaviour is not measured.", "strength": "moderate", "location": "§3.3, §5"},
+    {"claim": "Safe A2A-compatible designs exist; remediation is implementation-level.", "evidence": "Table 3: seven negative controls (Semantic Kernel .NET, Agent Framework Python, ADK Java, ADK Go, Strands TS, python-a2a, Agno) reject or disambiguate duplicates.", "strength": "strong", "location": "§6.2, Table 3"},
+    {"claim": "The unsafe pattern propagated through reference code.", "evidence": "§6.1: first-party A2A samples contain ≥6 such paths; GitHub search found the exact assignment in 83 repositories, explicitly not a prevalence estimate.", "strength": "moderate", "location": "§6.1"},
+    {"claim": "Google ADK is remotely exploitable.", "evidence": "Explicitly not claimed: the registry admission edge was not tested in a Google Cloud project (§4.4, §9). Recorded here to mark the paper's evidence boundary.", "strength": "unsupported", "location": "§4.4, §9"}
+  ],
+  "patterns": [
+    {"id": "P21", "stance": "supports", "note": "Recommends policy that routes by an enrolled, origin-bound ID, keeps names presentational, fails closed on alias collisions, and attaches authority after identity resolution; negative controls show this works."},
+    {"id": "P11", "stance": "contradicts", "note": "Shows a concrete security failure class in multi-agent hosts that compose remote agents by name."},
+    {"id": "P04", "stance": "neutral", "note": "Analogous risk for tool registries: generated function-tool names derived from remote metadata (UiPath, BeeAI, Any-Agent with OpenAI Agents SDK 'warn' collision policy keeping the last tool)."},
+    {"id": "P22", "stance": "neutral", "note": "B-controlled output reaching a model with host-only tools is a model-mediated injection path; only shown with scripted models."}
+  ],
+  "methodology": {
+    "sample": "7 purposively selected implementations from 6 organisations at pinned revisions; 7 negative-control paths; 83-repo code-search snapshot for propagation.",
+    "baselines": "One-variable controls (distinct names) for some targets; negative-control implementations.",
+    "models": "No live LLM; scripted models and inert doubles to isolate routing behaviour.",
+    "variance": "n/a (deterministic routing tests).",
+    "ablations": "Controls per target where available; duplicate-rejection test stops dispatch.",
+    "contamination_controls": "n/a",
+    "languages": "Python and TypeScript frameworks tested; Java (Google ADK Java) and Go reviewed only as negative controls."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint; no venue in comment or journal_ref.",
+    "limitations_section": true,
+    "artifacts": "Reproducers, pinned sources and SHA-256 evidence manifests at github.com/adithyan-ak/agent-name-collision-attacks (Appendix A).",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "selection_bias_participants", "detail": "Purposive corpus selected because it meets the vulnerable-path criteria; no prevalence claim (acknowledged)."},
+    {"type": "small_sample", "detail": "Seven affected implementations; some lack matched distinct-name controls."},
+    {"type": "other:no_disclosure_statement", "detail": "No coordinated-disclosure or maintainer-response information found in the text."},
+    {"type": "other:llm_assisted_authoring", "detail": "OpenAI Codex assisted with repository inspection, scripts and drafting (Generative AI Usage section); author states outputs were not treated as evidence."}
+  ],
+  "coi": {
+    "affiliations": "Adithyan Arun Kumar, Independent Security Researcher (single author).",
+    "vendor_products_evaluated": "Open-source frameworks from Google, UiPath, IBM/BeeAI, Solace, Mozilla.ai, Microsoft and others are evaluated critically; no product of the author is promoted.",
+    "funding": "No funding statement.",
+    "severity": "none",
+    "detail": "No vendor tie; findings are critical of vendors rather than promotional."
+  },
+  "scores": {"rigor": 3, "reproducibility": 4, "generalizability": 3, "relevance": 2, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "A careful, well-bounded security study: pinned revisions, controls, negative controls, hashed reproducers, and explicit statements of what is not claimed. Caveats are the purposive sample, no live-model exploitation, no disclosure statement, and A2A-specific scope.",
+  "applicability": "Mostly an indirect design rule for the Java team, unless they start composing remote A2A agents. The transferable invariant applies to any harness spanning mixed agent hosts and many MCP servers: never key tools, agents or routes on peer-supplied display names, and fail closed on duplicate tool or agent names. With ingestion across ≥4 repos and per-repo MCP or tool configs, tool-name collisions across servers are the realistic analogue; a deterministic `qr`-style check could reject them. Google ADK Java was a safe negative control, a small reassurance for JVM stacks. Nothing here bears on spec-driven development or content ingestion itself.",
+  "conflicts_with": [
+    {"arxiv_id": "2609.10871", "detail": "A2ABreak frames A2A weaknesses as protocol-level, exploitable by a specification-compliant adversary without implementation flaws; this paper argues name collision is an implementation vulnerability enabled by a protocol identity gap, not a protocol exploit, citing safe conforming implementations."}
+  ]
+}

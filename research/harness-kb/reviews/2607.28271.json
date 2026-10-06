@@ -1,0 +1,56 @@
+{
+  "arxiv_id": "2607.28271",
+  "contribution_type": "system",
+  "summary": "American Express engineers describe the 'Locksmith Loop' for validating COBOL-to-Java migrations: deterministic tools run instrumented COBOL mocks and generated Java side by side, six input-search algorithms find test inputs, and when search plateaus an AI 'Authoring Layer' proposes symmetric mutations (and migrator fixes) that are accepted only if a deterministic parity gate passes. Evaluated as three case studies (430, 924 and 4,114 source lines).",
+  "claims": [
+    {"claim": "Mutation phase pushes coverage beyond input-search plateaus.", "evidence": "CBSTM03A: Mutation opened 8 of 24 covered paragraphs and 19 of 37 covered transitions (§IV, Fig. 4, §V). Production-shape program: Witness Search P=110/142, T=54/146; Mutation added +25 paragraphs and +47 transitions (§IV-A, Fig. 5). Comparison is only against the authors' own Witness Search phase.", "strength": "moderate", "location": "§IV, §IV-A, Figs. 3-6"},
+    {"claim": "Nearly complete coverage on the two open-source programs and 91.90% branch coverage on the internal program.", "evidence": "CBACT01C: 16/16 paragraphs, 28/28 transitions, 96.8% branches (60/62). CBSTM03A: only 74.0% branch coverage (38 of 146 probes uncovered), so 'nearly complete' holds for paragraph/transition coverage but not branch coverage, the metric used for the 91.90% figure (397/432 confirmed). Abstract mixes metrics.", "strength": "weak", "location": "Abstract vs §IV, §IV-A"},
+    {"claim": "Generated Java matched COBOL under deterministic parity checks in all accepted test cases.", "evidence": "38/38 test cases pass on CBSTM03A; 166/166 PASS on production-shape program (§IV-A). By construction only parity-passing cases are 'accepted' and defects were fixed in the migrator during the loop, so 100% is partly tautological; §V concedes gate is silent on intermediate state, FP rounding, JVM-only exceptions.", "strength": "moderate", "location": "§IV, §IV-A, §V"},
+    {"claim": "The loop ran autonomously without human intervention.", "evidence": "Asserted for the production-shape run (§IV-A), but §IV and §VII state human intervention was required when the agent failed to transfer a skill on CBSTM03A. Agent model, number of runs, token cost and wall-clock time are not reported.", "strength": "weak", "location": "§IV-A vs §IV, §VII"},
+    {"claim": "Coverage exceeds any alternative method the authors are aware of.", "evidence": "No external baseline (e.g. EvoSuite-style SBST, fuzzers, other COBOL test generators) is run; statement in §IV is assertion only.", "strength": "unsupported", "location": "§IV"}
+  ],
+  "patterns": [
+    {"id": "P16", "stance": "supports", "note": "Agent proposals accepted/rejected solely by a deterministic execution parity gate (compile + behavioural equivalence); case-study evidence only."},
+    {"id": "P28", "stance": "supports", "note": "Migration itself is done by a deterministic internal Migrator; the agent repairs the migrator rather than editing generated Java, keeping output reproducible."},
+    {"id": "P02", "stance": "introduces", "note": "Successful mutations are captured as reusable 'Mutation Skills' in a Skill Catalog; paper reports the agent sometimes failed to transfer a skill to a related case."},
+    {"id": "P05", "stance": "neutral", "note": "Deterministic AST analyzer identifies gates/locked paragraphs and constrains what the agent may mutate."},
+    {"id": "P19", "stance": "neutral", "note": "Human intervention still needed for some skill-transfer failures and to close remaining coverage gaps."},
+    {"id": "P30", "stance": "neutral", "note": "Parity gate records behavioural fingerprints (paragraph-entry set, ordered stub-operation log, terminal state) as an audit trail."}
+  ],
+  "methodology": {
+    "sample": "3 COBOL programs: AWS CardDemo CBACT01C (430 lines), CBSTM03A (924 lines), and one internal 'production-like' batch program (4,114 lines). Single run each as far as reported.",
+    "baselines": "Only the authors' own six-algorithm Witness Search phase (combinatorial, adaptive random, SBST, MAP-Elites, etc.) as the pre-mutation plateau; no external tools or prior COBOL test-generation systems run.",
+    "models": "Not specified ('frontier models available at the time of this writing').",
+    "variance": "None; no repeated runs, seeds or cost/time reporting.",
+    "ablations": "Implicit phase ablation (Witness Search vs + Mutation); no ablation of skills catalog or agent model.",
+    "contamination_controls": "n/a (coverage task, not benchmark); open-source CardDemo programs may be in pretraining data.",
+    "languages": "COBOL source -> Java target."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint (11 pages, 6 figures); no venue listed.",
+    "limitations_section": true,
+    "artifacts": "None released; internal Migrator and production-like program are proprietary.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "small_sample", "detail": "Three programs, one run each."},
+    {"type": "strawman_baseline", "detail": "Only baseline is the authors' own input-search phase; 'exceeding any alternative method' is unsupported by any comparison."},
+    {"type": "closed_artifacts", "detail": "No code, migrator, prompts, agent model or internal program released."},
+    {"type": "missing_cost_reporting", "detail": "Loop ran 'unattended for hours' but no token, dollar or time figures."},
+    {"type": "metric_mismatch", "detail": "Abstract's 'nearly complete coverage' for both open-source programs conflates paragraph/transition coverage with branch coverage (CBSTM03A branch coverage is 74.0%)."},
+    {"type": "hype_language", "detail": "'we achieved exactly that', forecasts of complete coverage 'at today's pace of AI improvement'."},
+    {"type": "self_evaluation", "detail": "Authors' own pipeline, own coverage instrumentation and own parity gate."}
+  ],
+  "coi": {
+    "affiliations": "All five authors American Express (aexp.com).",
+    "vendor_products_evaluated": "Internal American Express migration tooling; no commercial product or model evaluated by name.",
+    "funding": "Not stated (industry work).",
+    "severity": "low",
+    "detail": "Industry team reporting its own internal method favourably without independent replication, but no external product is being sold or benchmarked."
+  },
+  "scores": {"rigor": 1, "reproducibility": 0, "generalizability": 1, "relevance": 3, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Architecturally instructive industrial pattern (deterministic oracle gating agent proposals, agent repairs the deterministic migrator) but evidence is three unreplicated case studies with no external baseline, unnamed model, no artifacts, and an abstract that overstates coverage.",
+  "applicability": "Not about content ingestion, but the design principle transfers to the Java team: let deterministic code (parsers, schema validators, a golden-output differ) be the oracle, and confine the agent to proposing changes to a deterministic transformer rather than editing generated output. For ≥4-repo ingestion pipelines, a 'parity gate' comparing old vs new ingestion output for the same source content (healthcare curricula, assessments) is a concrete spec-driven acceptance check for refactors or framework migrations, and fits a 'LLM proposes, CLI verifies' harness regardless of agent host. Caveat the paper's own point: parity preserves legacy bugs, so it validates compatibility, not clinical/educational correctness; a separate spec oracle is still needed.",
+  "conflicts_with": []
+}

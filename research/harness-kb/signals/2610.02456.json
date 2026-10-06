@@ -1,0 +1,254 @@
+{
+ "arxiv_id": "2610.02456",
+ "fulltext_chars": 70136,
+ "fulltext_lines": 2231,
+ "authors_block": "Dimitrios Prasakis Affiliation: Georgia Institute of Technology dimitrios.prasakis@gatech.edu",
+ "vendor_affiliation_hits": [],
+ "n_authors": 1,
+ "comment": "17 pages, 5 figures, 9 tables. Georgia Tech M.S. Cybersecurity practicum project",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/Zouuup/landrun",
+  "https://github.com/abshkbh/arrakis",
+  "https://github.com/agent-infra/sandbox",
+  "https://github.com/apple/container",
+  "https://github.com/bots-garden/capsule",
+  "https://github.com/eugene1g/agent-safehouse",
+  "https://github.com/opensandbox-group/OpenSandbox",
+  "https://github.com/portofcontext/pctx",
+  "https://github.com/robcholz/vibebox",
+  "https://github.com/shuru-project/shuru",
+  "https://github.com/smol-machines/smolvm",
+  "https://github.com/trycua/cua"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# SideKernel: A Usable microVM Sandbox for AI Coding Agents on macOS"
+  ],
+  [
+   28,
+   "###### Abstract"
+  ],
+  [
+   32,
+   "###### Index Terms:"
+  ],
+  [
+   35,
+   "## I Introduction"
+  ],
+  [
+   37,
+   "### I-A Motivation"
+  ],
+  [
+   44,
+   "### I-B Isolation Primitives"
+  ],
+  [
+   60,
+   "### I-C Scope"
+  ],
+  [
+   66,
+   "### I-D Research Question and Contributions"
+  ],
+  [
+   86,
+   "## II Background"
+  ],
+  [
+   88,
+   "### II-A Terminal-Based vs. Programmatic AI Agents"
+  ],
+  [
+   92,
+   "### II-B Threat Model"
+  ],
+  [
+   116,
+   "#### II-B1 South Boundary Threat Model"
+  ],
+  [
+   120,
+   "#### II-B2 North Boundary Threat Model"
+  ],
+  [
+   124,
+   "## III Related Work"
+  ],
+  [
+   126,
+   "### III-A Existing Sandboxes"
+  ],
+  [
+   152,
+   "## IV Methodology"
+  ],
+  [
+   176,
+   "### IV-A User Survey Methodology"
+  ],
+  [
+   187,
+   "### IV-B Comparative Analysis Methodology"
+  ],
+  [
+   602,
+   "### IV-C Deriving Tests from the Usability Barriers"
+  ],
+  [
+   612,
+   "### IV-D Benchmark Construction"
+  ],
+  [
+   634,
+   "### IV-E Evaluation Protocol"
+  ],
+  [
+   660,
+   "## V User Survey Results"
+  ],
+  [
+   662,
+   "### V-A Google Survey Report Analysis"
+  ],
+  [
+   706,
+   "### V-B Usability Barriers"
+  ],
+  [
+   725,
+   "## VI SideKernel"
+  ],
+  [
+   727,
+   "### VI-A Architecture"
+  ],
+  [
+   740,
+   "### VI-B Design Goals and Implementation"
+  ],
+  [
+   906,
+   "#### VI-B1 Entering a sandbox"
+  ],
+  [
+   913,
+   "#### VI-B2 Authentication"
+  ],
+  [
+   917,
+   "#### VI-B3 Sharing External Files"
+  ],
+  [
+   921,
+   "#### VI-B4 Ports and networking"
+  ],
+  [
+   925,
+   "#### VI-B5 Network (NAT) kill switch"
+  ],
+  [
+   929,
+   "#### VI-B6 Persistence and host parity"
+  ],
+  [
+   933,
+   "## VII Evaluation: A Comparative Analysis"
+  ],
+  [
+   942,
+   "### VII-A Comparative Analysis Process"
+  ],
+  [
+   968,
+   "### VII-B UB-1: Host–Sandbox File Sharing"
+  ],
+  [
+   1173,
+   "# Mounting"
+  ],
+  [
+   1181,
+   "# Copying external files"
+  ],
+  [
+   1193,
+   "### VII-C UB-2: Networking, Ports & Localhost"
+  ],
+  [
+   1344,
+   "### VII-D UB-3: Environment Provisioning & Setup"
+  ],
+  [
+   1551,
+   "## VIII Discussion"
+  ],
+  [
+   1553,
+   "### VIII-A Interpreting the Aggregate Results"
+  ],
+  [
+   1557,
+   "### VIII-B Comparison with Docker Sandboxes"
+  ],
+  [
+   1563,
+   "### VIII-C Real-World Considerations"
+  ],
+  [
+   1581,
+   "## IX Limitations and Threats to Validity"
+  ],
+  [
+   1628,
+   "## X Future Work"
+  ],
+  [
+   1636,
+   "## XI Conclusion"
+  ],
+  [
+   1650,
+   "## Appendix A Full Task Definitions"
+  ],
+  [
+   1818,
+   "## Appendix B Google Survey Results"
+  ],
+  [
+   2046,
+   "## Acknowledgment"
+  ],
+  [
+   2057,
+   "## References"
+  ],
+  [
+   2231,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgment\n\nI co-developed the SideKernel codebase with AI (Claude, Anthropic).\nI also used AI to refine the grammar and phrasing of this paper, to\ngenerate the LaTeX code for tables and the draw.io code for diagrams,\nand to review the manuscript for factual errors. AI was used in a\nsupporting capacity throughout every task, but the substance of the work is my own,\nincluding but not limited to the text of this paper, design decisions, threat model,\nmethodology, instrument design, content of the tables and diagrams,\nevaluation, analysis, research, and conclusions.\n\n## References\n\n[1]\n\nM. Christodorescu, E. Fernandes, A. Hooda, S. Jha, J. Rehberger, K. Chaudhuri, X. Fu, K. Shams, G. Amir, J. Choi, S. Choudhary, N. Palumbo, A. Labunets, and N. V. Pandya, “Agent security is a systems problem,” 2026. [Online]. Available: https://arxiv.org/abs/2605.18991\n\n[2]\n\nAlways Further, Inc., “nono sandbox documentation,” 2026, accessed: Jun. 28, 2026. [Online]. Available: https://nono.sh/os-sandbox\n\n[3]\n\nZouuup, “landrun: Run Any Linux Process in a Secure, Unprivileged Landlock Sandbox,” 2026, accessed: Jul. 25, 2026. [Online]. Available: https://github.com/Zouuup/landrun",
+ "limitations": "## IX Limitations and Threats to Validity\n\nBelow I describe all the limitations and threats to the validity of the evaluation and development of SideKernel. The majority of those limitations are attributed to the time constraints of the practicum (which required scoping down), and single-evaluator bias.\n\n• \n\nEvaluator bias. The comparative analysis unavoidably introduces bias, because the developer is also the evaluator. Although I took every reasonable measure to reduce it (e.g. fixed success criteria, binary outcomes based on built-in capabilities,\nauditable tests, standardized and transparent friction notes), a better\nmethodology would involve multiple users, something, however, practically\ninfeasible within the practicum’s timeline.\n\n• \n\nUser survey instrument bias. The user survey instrument is designed by the developer. Many of the survey’s questions are multiple-choice or multi-select format. This anchors respondents towards the pre-formulated options, which introduces bias. I mitigate this by providing a free-text “Other” option on closed questions, as well as enriching the instrument with open free-text questions. While this likely reduces the instrument bias, it does not eliminate it.\n\n• \n\nSampling bias. The online survey’s sample tilts towards a security-aware audience. Real-world AI coding agent sandbox adoption is therefore probably significantly lower than the 38.2% that the study records.\n\n• \n\nSample size. While the sample (N = 80 respondents; 33 current or former sandbox users) is likely sufficient for formative/directional signals, it is low. The results were used for informed development decisions and a framework for the comparative analysis, rather than statistically generalizable data.\n\n• \n\nInformal study status. The formative user survey was conducted as informal practicum research and did not undergo a formal Georgia Tech IRB review. The study is not designed to produce generalizable knowledge but rather its results are interpreted as signals for the development and evaluation of SideKernel, rather than rigorous academic data.\n\n• \n\nUsability is measured indirectly. The tests measure how well a sandbox addresses the survey’s usability barriers, not usability in any general sense.\n\n• \n\nBinary scoring without gradation. The binary score of the capability tests is blind to friction. While I remediate this with qualitative notes on friction, it does not eliminate the fact that the score itself does not weigh the very nuances that describe usability.\n\n• \n\nBinary scoring without weights. The binary score of the capability tests does not consider which capabilities are important for the users in practice. The scores are naive, in the sense that the binary outcomes are unweighted. Therefore, the results are approximations.\n\n•",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 3,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 6,
+  "java": 0,
+  "industrial": 5
+ },
+ "fulltext_source": "html"
+}

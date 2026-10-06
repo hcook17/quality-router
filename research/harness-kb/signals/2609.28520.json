@@ -1,0 +1,249 @@
+{
+ "arxiv_id": "2609.28520",
+ "fulltext_chars": 44782,
+ "fulltext_lines": 1124,
+ "authors_block": "Linzhe Zhang Affiliation: Graduate School, Northeastern University Correspondence to: cfmy007@gmail.com Changming Xu Affiliation: Graduate School, Northeastern University Correspondence to: changmingxu@neuq.edu.cn",
+ "vendor_affiliation_hits": [],
+ "n_authors": 2,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Certified Task-Conditioned Active Observability"
+  ],
+  [
+   34,
+   "###### Abstract"
+  ],
+  [
+   68,
+   "###### Keywords:"
+  ],
+  [
+   71,
+   "## 1 Introduction"
+  ],
+  [
+   134,
+   "## 2 Problem formulation"
+  ],
+  [
+   136,
+   "### 2.1 Finite controlled hypothesis model"
+  ],
+  [
+   182,
+   "### 2.2 Task-predictive equivalence"
+  ],
+  [
+   187,
+   "###### Definition 2.1 (Task-predictive equivalence)."
+  ],
+  [
+   199,
+   "###### Theorem 2.2 (Minimal predictive quotient)."
+  ],
+  [
+   226,
+   "###### Corollary 2.3 (Identifiability obstruction)."
+  ],
+  [
+   232,
+   "## 3 Active observability theory"
+  ],
+  [
+   234,
+   "### 3.1 Exact deterministic characterization"
+  ],
+  [
+   252,
+   "###### Theorem 3.1 (Deterministic closure)."
+  ],
+  [
+   277,
+   "### 3.2 Noisy information lower bound"
+  ],
+  [
+   286,
+   "###### Theorem 3.2 (Pairwise stopped-transcript necessity)."
+  ],
+  [
+   318,
+   "### 3.3 Certified-tree upper bound"
+  ],
+  [
+   337,
+   "###### Theorem 3.3 (Adaptive certified composition)."
+  ],
+  [
+   359,
+   "###### Corollary 3.4 (Active-observability sandwich)."
+  ],
+  [
+   374,
+   "## 4 Certified observer construction"
+  ],
+  [
+   376,
+   "### 4.1 Nominal-first staged confirmation"
+  ],
+  [
+   380,
+   "### 4.2 Readwise evidence-triggered fallback"
+  ],
+  [
+   482,
+   "### 4.3 Score-shell compression and exact compilation"
+  ],
+  [
+   494,
+   "###### Theorem 4.1 (History-measurable sub-bank safety)."
+  ],
+  [
+   520,
+   "#### Exact direct compilation."
+  ],
+  [
+   530,
+   "###### Theorem 4.2 (Atomic fallback dominance)."
+  ],
+  [
+   542,
+   "## 5 Empirical evaluation"
+  ],
+  [
+   544,
+   "### 5.1 Experimental setup and evaluation metrics"
+  ],
+  [
+   548,
+   "#### Benchmark domains."
+  ],
+  [
+   554,
+   "#### Evaluation dimensions."
+  ],
+  [
+   563,
+   "### 5.2 Closed-loop interaction and computation trade-offs"
+  ],
+  [
+   666,
+   "### 5.3 Representation compression and exact compilation"
+  ],
+  [
+   668,
+   "#### Candidate compression and coverage calibration."
+  ],
+  [
+   714,
+   "#### Compiler exactness and search truncation."
+  ],
+  [
+   719,
+   "#### Theoretical invariants on synthetic systems."
+  ],
+  [
+   723,
+   "## 6 Related work"
+  ],
+  [
+   749,
+   "#### Interface with physical coordinate discovery and ontology learning."
+  ],
+  [
+   755,
+   "## 7 Limitations"
+  ],
+  [
+   761,
+   "## 8 Conclusion"
+  ],
+  [
+   776,
+   "## References"
+  ],
+  [
+   946,
+   "## Appendix A Proofs"
+  ],
+  [
+   948,
+   "### A.1 Proof of the minimal predictive quotient theorem"
+  ],
+  [
+   969,
+   "### A.2 Proof of the deterministic closure theorem"
+  ],
+  [
+   987,
+   "### A.3 Proof of the KL lower bound"
+  ],
+  [
+   1014,
+   "### A.4 Proof of certified adaptive composition"
+  ],
+  [
+   1025,
+   "### A.5 Proof of history-measurable sub-bank safety"
+  ],
+  [
+   1044,
+   "### A.6 Proof of atomic fallback dominance"
+  ],
+  [
+   1056,
+   "## Appendix B Additional protocol details"
+  ],
+  [
+   1058,
+   "### B.1 Staged risk accounting"
+  ],
+  [
+   1072,
+   "### B.2 Why stage-1 reads are not rescored"
+  ],
+  [
+   1081,
+   "### B.3 Exact direct-shell certificate"
+  ],
+  [
+   1101,
+   "## Appendix C Additional empirical results"
+  ],
+  [
+   1103,
+   "### C.1 Parallel speculation sensitivity"
+  ],
+  [
+   1116,
+   "### C.2 Development replay"
+  ],
+  [
+   1124,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 7 Limitations\n\nThe theoretical guarantees apply to finite controlled models with known representations under deterministic policies. The formulation focuses on certified tracking within verified dynamics and does not address unanchored cold-start identification or unmodeled process faults. Extending the guarantees from marginal next-block coverage to distribution-free conditional coverage across arbitrary covariates remains an open theoretical direction.\n\nOur atomicity analysis considers sequential evaluation; extending the framework to parallel execution, execution deadlines, or incremental candidate generation presents a practical direction for deployment.\n\n## 8 Conclusion\n\nTask-conditioned active observability separates a system’s minimal predictive\nrepresentation from the interaction needed to identify its current task-relevant\nstate. The predictive quotient is uniquely minimal and leaves the complexity\nunchanged. Deterministic systems admit an exact adaptive-tree characterization;\nnoisy systems admit complementary information lower bounds and certified-tree\nupper bounds. The prospective observer demonstrates how these ideas organize\npractical choices: defer expensive candidates, trigger fallback from evidence,\nuse fresh confirmation data after selection, compress representations without\nconflating safety and coverage, and stop expanding the controller when partial\ncomputation has no decision value.\n\nWithin a fixed representation, tightening the gap between the noisy information lower bound and executable certified trees remains the primary open direction.\n\n## References\n\nAngluin (1987)\nD. Angluin\n\nLearning regular sets from queries and counterexamples.\n\nInformation and Computation 75 (2), pp. 87–106.\n\nExternal Links: Document\n\nCited by: §6.\n\nChernoff (1959)\nH. Chernoff\n\nSequential design of experiments.\n\nThe Annals of Mathematical Statistics 30 (3), pp. 755–770.",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 3,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

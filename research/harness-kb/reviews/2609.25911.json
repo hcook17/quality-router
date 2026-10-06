@@ -1,0 +1,52 @@
+{
+  "arxiv_id": "2609.25911",
+  "contribution_type": "empirical",
+  "summary": "Short Internetware 2026 paper framing a pre-agent routing problem: which dependency-update PRs (Dependabot/Renovate-style) should be escalated to an expensive repair agent. A TF-IDF + LinearSVC router over PR titles and bot/dependency flags, trained on 497 manually labelled GitHub candidates (72 positive), captures 51.4% of repairs in the top 20%. A 60-PR diagnosis-only pilot with DeepSeek measures call and token savings.",
+  "claims": [
+    {"claim": "A creation-time-safe router captures 51.4% of repairs in the top 20% of PRs, cutting calls per captured repair from 6.90 to 2.68.", "evidence": "Table 1 (repair F1 0.488, top-20% recall 0.514) and Table 2 (99 calls, 37/72 repairs). Repository-grouped 5-fold CV. Single-annotator labels on a repair-enriched pool; the model search was exploratory (§5).", "strength": "moderate", "location": "§4.1-4.2, Tables 1-2"},
+    {"claim": "Full-history signals inflate apparent routing utility through hindsight leakage.", "evidence": "Table 1/2: full-history top-20% recall 0.653 vs 0.514 creation-safe. This is a sound methodological point, supported within the dataset.", "strength": "moderate", "location": "§4.1, Tables 1-2, §5"},
+    {"claim": "Router-gated diagnosis reduces actual LLM calls by 66.7% and tokens by 66.1%.", "evidence": "Table 3: 20 vs 60 calls. The call reduction is fixed by design (20 of 60 PRs). The all-agent arm found only 5 of 12 gold repairs and the router arm 4. n=60, diagnosis only, no patching or CI.", "strength": "weak", "location": "§4.3, Table 3"}
+  ],
+  "patterns": [
+    {"id": "P23", "stance": "supports", "note": "Cheap classifier gate before invoking an expensive agent; enrichment from 14.5% base rate to 37.4% precision at top 20%. Evidence limited to one small labelled set."},
+    {"id": "P24", "stance": "supports", "note": "Budget-aware escalation (top-k% routing) reported as calls/tokens per captured repair; end-to-end cost not measured."},
+    {"id": "P31", "stance": "neutral", "note": "Cites SWE-agent-style repository agents as the downstream consumer; not evaluated."}
+  ],
+  "methodology": {
+    "sample": "500 GitHub dependency-update candidates from keyword search (497 labelled, 72 positive); 60-PR diagnosis pilot (12 gold repairs).",
+    "baselines": "Route-all, random, richer T0 and full-history variants; DeepSeek full-history classifier as a retrospective comparator (not budget-matched).",
+    "models": "LinearSVC / logistic regression on TF-IDF; deepseek-chat (temperature 0) for diagnosis pilot.",
+    "variance": "None reported; no CIs on recall at n=72 positives.",
+    "ablations": "Feature-availability regimes (creation-time, T0, full history).",
+    "contamination_controls": "Repository-grouped CV to avoid repo leakage; explicit temporal-feature separation.",
+    "languages": "Not reported; ecosystems and repositories not enumerated (examples mention eslint)."
+  },
+  "standards": {
+    "peer_review": "Internetware 2026 (ACM, DOI 10.1145/3834680.3834727) per front matter; short/preliminary paper.",
+    "limitations_section": true,
+    "artifacts": "No dataset or code link found in the text.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "small_sample", "detail": "72 positive cases; 60-PR pilot with 12 gold repairs."},
+    {"type": "metric_mismatch", "detail": "66.7% call reduction is fixed by the 20-of-60 design. The pilot measures diagnosis escalation, not repair success, CI time or review effort."},
+    {"type": "selection_bias_participants", "detail": "Repair-enriched keyword sampling; 14.5% positive rate is not a population rate (acknowledged)."},
+    {"type": "no_variance_reported", "detail": "No intervals or repeated folds reported."},
+    {"type": "closed_artifacts", "detail": "Labelled dataset not released per text."},
+    {"type": "other:single_annotator", "detail": "Labels by one annotator with a self consistency pass; no inter-rater agreement."}
+  ],
+  "coi": {
+    "affiliations": "China Academy of Telecommunication Technology; School of Vehicle and Mobility, Tsinghua University; ITS Research Center, Southeast University.",
+    "vendor_products_evaluated": "None.",
+    "funding": "No acknowledgments or funding statement.",
+    "severity": "none",
+    "detail": "No vendor tie; authors evaluate their own router, standard for a methods paper."
+  },
+  "scores": {"rigor": 2, "reproducibility": 1, "generalizability": 1, "relevance": 3, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "The question is useful and the hindsight-leakage protocol is sound. But the evidence is preliminary: 72 positives, single-annotator labels, ecosystems not stated, no released data, and a 60-case pilot whose headline saving is fixed by the design and which never measures repair.",
+  "applicability": "Relevant pattern for the team's maintenance pipeline: with ≥4 ingestion repos each receiving Dependabot/Renovate PRs, put a cheap deterministic or ML gate in front of any repair agent, consistent with qr's 'deterministic CLI decides' invariant, and pick the routing budget per repo risk. Do not reuse the model: ecosystems are unspecified and there is no evidence for Maven/Gradle Java dependencies. Creation-time-only features are the honest ones to build on. A simpler gate the team could check first is whether the PR's own CI build fails on the update. The paper does not address spec-driven development or mixed hosts.",
+  "conflicts_with": [
+    {"arxiv_id": "2607.17957", "detail": "Complementary: DepRepair studies the downstream repair of dependency breaking changes across four ecosystems with executable oracles; this paper addresses only whether to invoke such repair."}
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "arxiv_id": "2605.04449",
+  "contribution_type": "system",
+  "summary": "GEM is a dialogue state tracking system. A router picks between a GNN (BERT + GATv2) and a QLoRA-tuned T5-Small for intent/slot detection, then fills slot values with a ReAct agent or RAG prompting backed by Claude 3.7 Sonnet or Llama 3.1 8B. On MultiWOZ 2.2 it reports 65.19% joint goal accuracy. The task is conversational NLU, not software engineering.",
+  "claims": [
+    {"claim": "GEM reaches 65.19% JGA on MultiWOZ 2.2, beating the prior SOTA TOATOD (63.79%)", "evidence": "Table 4: GEM (BERT+GNN)/T5small + Claude 3.7 Sonnet = 65.19; TOATOD T5base = 63.79. The +1.4 pt margin comes from a single run with no variance or significance test. Baselines are quoted from prior papers, not re-run.", "strength": "weak", "location": "Table 4, §Results"},
+    {"claim": "GEM substantially outperforms end-to-end LLM approaches (best 38.43%)", "evidence": "Table 2: Claude 3.7 Sonnet few-shot 38.43 JGA, ReAct row also listed; these are the authors' own prompted LLM baselines, so their prompt tuning is uncontrolled.", "strength": "moderate", "location": "Table 2"},
+    {"claim": "Computational efficiency: 70M/271M-parameter experts vs 11B D3ST", "evidence": "§Analysis compares only expert parameter counts. The best result also calls Claude 3.7 Sonnet (via Bedrock) or Llama 3.1 8B for value generation, which the efficiency claim omits.", "strength": "unsupported", "location": "§Analysis and Discussion, Table 10"}
+  ],
+  "patterns": [
+    {"id": "P23", "stance": "neutral", "note": "A learned domain router between small experts; this routes between task-specific NLU models, not a cost cascade for coding agents."}
+  ],
+  "methodology": {"sample": "MultiWOZ 2.2 standard test split (single dataset)", "baselines": "Published SOTA numbers quoted from papers; own zero/few-shot/ReAct prompts for Llama 3.1 8B and Claude 3.7 Sonnet", "models": "BERT-base, GATv2, T5-Small, Llama 3.1 8B, Claude 3.7 Sonnet", "variance": "None reported", "ablations": "Embedding model, loss weights, GNN size, context window (Tables 5-6, appendix)", "contamination_controls": "None; MultiWOZ is a long-public dataset likely seen by Claude/Llama", "languages": "English dialogue; no code"},
+  "standards": {"peer_review": "Submitted to AAAI 2026 (not stated as accepted)", "limitations_section": false, "artifacts": "No code or data release found", "preregistration": "n/a"},
+  "biases": [
+    {"type": "no_variance_reported", "detail": "The 1.4-pt SOTA margin has no seeds or confidence intervals."},
+    {"type": "metric_mismatch", "detail": "The efficiency claim counts expert parameters but ignores the frontier LLM in the value-generation path."},
+    {"type": "closed_artifacts", "detail": "No code release."},
+    {"type": "hype_language", "detail": "'superior', 'powerful paradigm', 'intelligent router' for a +1.4 pt gain."}
+  ],
+  "coi": {"affiliations": "All four authors: Generative AI Innovation Center, Amazon Web Services (amazon.com emails; the signals regex missed this)", "vendor_products_evaluated": "Claude 3.7 Sonnet accessed via Amazon Bedrock; Bedrock embedding models referenced", "funding": "Not stated; also published on Amazon Science", "severity": "low", "detail": "Vendor-affiliated authors use their own cloud platform. The model is third-party and is not being sold as the contribution."},
+  "scores": {"rigor": 2, "reproducibility": 1, "generalizability": 1, "relevance": 0, "coi_risk": 1},
+  "verdict": "reject",
+  "verdict_reason": "off-topic: dialogue state tracking on MultiWOZ, not LLM coding agents or SE. The SOTA margin is small, single-run, and against quoted baselines, and the efficiency claim leaves out the frontier-LLM cost.",
+  "applicability": "None for the Java ingestion/delivery harness. The 'ReAct' and 'mixture-of-experts router' vocabulary overlaps with agent-harness terms, but the system routes NLU models for slot filling. It says nothing about multi-repo work, agent hosts, or spec-driven development.",
+  "conflicts_with": []
+}

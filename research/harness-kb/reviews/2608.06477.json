@@ -1,0 +1,53 @@
+{
+  "arxiv_id": "2608.06477",
+  "contribution_type": "benchmark",
+  "summary": "StepJack introduces multi-step indirect prompt injection against computer-use agents: an adversarial goal is decomposed by an LLM pipeline into k innocuous-looking sub-steps planted across a chain of linked pages/document sections on the agent's benign path. Built on the RedTeamCUA sandbox (Reddit, OwnCloud), it has 480 examples per CUA and evaluates six CUAs; decomposition raises attack success on three of six and modestly on average, and it degrades a defensive system prompt and a screenshot-based injection detector.",
+  "claims": [
+    {"claim": "Multi-step decomposition raises ASR on three of six CUAs, by up to 31.2 points (GPT-5.4-mini 41.7% to 72.9%).", "evidence": "Table 1: GPT k=1 41.7, k=3 (Urgent=N) 72.9; Kimi 52.1 to 64.6 (k=2, N); Qwen 29.2 to 34.4 (k=3, N). Each k cell is 96 examples per CUA, single run. Claude Haiku/Sonnet drop with decomposition under urgency cue (Sonnet 20.8 to 4.2) and are near-flat otherwise.", "strength": "moderate", "location": "§7.2, Table 1"},
+    {"claim": "Averaged over five CUAs, ASR rises from 31.3% (single-step) to 36.9% (three-step).", "evidence": "Table 1 average row: k=1 31.3; Urgent=N k=2 36.0, k=3 36.9; but Urgent=Y k=2 27.1, k=3 31.5 (below or equal to single-step). The headline picks the favourable wrapping variant; a ~5.6-point difference from a single run on ~96 examples per model is within plausible noise.", "strength": "weak", "location": "Table 1"},
+    {"claim": "Defenses lose more ground to multi-step attacks: PID flags 56.2% of single-step attacks but at most 22.9% of any sub-step, 29.2%/37.5% overall at k=2/3; DSP ASR still rises with depth (Kimi 33.3 to 64.6, GPT 15.6 to 36.5).", "evidence": "Table 4; DSP tested only on two most vulnerable CUAs; PID is PromptArmor with GPT-4o only.", "strength": "moderate", "location": "§7.3, Table 4"},
+    {"claim": "Permissive user instructions ('follow the instructions on the website') raise ASR for most CUAs (up to +20.8 on GPT-5.4-mini).", "evidence": "Table 3 ablation, Union(2,3), Urgent=N.", "strength": "moderate", "location": "§7.2 Ablation, Table 3"}
+  ],
+  "patterns": [
+    {"id": "P22", "stance": "contradicts", "note": "Both a defensive system prompt and a per-screenshot injection classifier lose effectiveness when the payload is spread across steps; per-input filters are insufficient."},
+    {"id": "P21", "stance": "neutral", "note": "Ablation shows user-side blanket authorisation is treated as transferable to environment content; argues for permission policies scoped by action rather than by prompt wording, though not tested."},
+    {"id": "P20", "stance": "neutral", "note": "All experiments run in sandboxed VMs; attacks target file deletion and resource exhaustion that sandboxing would bound."},
+    {"id": "P18", "stance": "neutral", "note": "Pipeline uses Qwen3.5-27B judges for faithfulness/safety, then a CUA execution check (Stage 2) to correct judge misses."}
+  ],
+  "methodology": {
+    "sample": "480 examples per CUA = 2 platforms x 2 benign tasks x 12 adversarial goals x 2 instruction modes x (1 + 2x2) depth/wrapping variants; 96 per (CUA, k, wrapping) cell.",
+    "baselines": "Single-step (k=1) RedTeamCUA-style injection as baseline; defenses DSP and PromptArmor PID from RedTeamCUA.",
+    "models": "EvoCUA-32B, Qwen3.5-Plus, Kimi-K2.5, GPT-5.4-mini (xhigh thinking), Claude-Haiku-4.5, Claude-Sonnet-4.6; decomposition by Qwen3.5-27B, verifier Qwen3.5-Plus.",
+    "variance": "Single run due to cost (~520 USD per Table 1 pass); no CIs.",
+    "ablations": "Resource type, user-instruction mode, platform (Table 3); defenses (Table 4).",
+    "contamination_controls": "n/a (new attack content).",
+    "languages": "n/a (GUI/web agents)."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint, no venue in comment or journal_ref.",
+    "limitations_section": true,
+    "artifacts": "Dataset and code at github.com/BorealisAI/StepJack (per abstract); prompts in Appendix D; licensing in Appendix H.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "no_variance_reported", "detail": "Single run; authors acknowledge cost constraint."},
+    {"type": "small_sample", "detail": "12 adversarial goals; 96 examples per cell; average effect of +5.6 points."},
+    {"type": "cherry_picked_examples", "detail": "Headline average uses Urgent=N variant; Urgent=Y averages are at or below single-step."},
+    {"type": "self_evaluation", "detail": "Decomposer, judges and verifier are all Qwen models; verifier Qwen3.5-Plus is also an evaluated CUA (authors argue in App. E this does not bias selection)."},
+    {"type": "hype_language", "detail": "'New attack class' while gains are conditional and absent for the two Claude models."}
+  ],
+  "coi": {
+    "affiliations": "RBC Borealis (Royal Bank of Canada research lab); Simon Fraser University (intern); New York University.",
+    "vendor_products_evaluated": "Third-party CUAs (OpenAI, Anthropic, Moonshot, Alibaba, EvoCUA); no RBC product.",
+    "funding": "No acknowledgments section; work done at RBC Borealis.",
+    "severity": "none",
+    "detail": "Industrial lab with no stake in the evaluated agents."
+  },
+  "scores": {"rigor": 3, "reproducibility": 4, "generalizability": 2, "relevance": 3, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Well-designed, released benchmark with ablations and defense tests, but single-run results on 96-example cells, a modest and wrapping-dependent average effect, and computer-use (not coding) agents.",
+  "applicability": "Relevant as a threat model for any agent that reads ingested healthcare-education content (third-party courseware, documents, web pages) while it has write or shell tools. The lesson: per-input injection filters and 'be careful' system prompts are weak against instructions split across several sources, which is plausible when content flows through ≥4 ingestion repos. For the harness: do not grant blanket 'follow the document' authority, keep ingestion agents read-only or sandboxed, gate destructive actions (delete, bulk writes, publish to front ends) behind policy or human approval regardless of which agent host is running, and treat ingested content as data, never as spec. Spec-driven development helps if specs come only from the team's repos, never from ingested material. Evidence is from GUI agents, not coding CLIs.",
+  "conflicts_with": [
+    {"arxiv_id": "2606.19235", "detail": "CodeSentinel proposes a layered detector against indirect injection in code contexts; StepJack's result that per-input detectors miss distributed multi-step payloads (PID ≤22.9% per sub-step) challenges single-input detection approaches."}
+  ]
+}

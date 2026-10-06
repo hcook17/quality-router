@@ -1,0 +1,22 @@
+{
+  "arxiv_id": "2609.01481",
+  "blind_scores": {"rigor": 3, "reproducibility": 2, "generalizability": 2, "relevance": 3, "coi_risk": 0},
+  "blind_verdict": "admit_with_caveats",
+  "blind_coi_severity": "none",
+  "agreement": "minor_disagreement",
+  "claims_disputed": [
+    {"claim": "Plan updates, evidence feedback and warm-start each contribute.", "proposed_strength": "moderate", "reason": "The strength is fine, but the paper's supporting sentence is false and the review did not catch it. §4.3 says 'all three variants underperform Full HoH@3 on every task', yet Table 22 shows Lighthouse at Full 80.90 vs w/o Warm-Start 81.50. Each ablation cell is a single run with provider-default sampling, so per-task differences of a few points are within run-to-run noise that is never measured."},
+    {"claim": "HoH@3 outperforms the standalone harness for all three harness-model pairs on all three benchmarks.", "proposed_strength": "moderate", "reason": "The direction is supported by Table 1, but several body numbers cannot be traced to it. §4.2 gives FrontierSWE 'rewards' of 0.31->0.54, 0.23->0.31 and 0.26->0.55, while Table 1 reports only per-category rewards and Dominance. Dominance for Codex HoH@3 is 71% in the 12-configuration pool but 39.33% in the Fig. 5 11-checkpoint pool. The intro's '22% to 72.67%' does not match the §4.3 Vanilla value of 27.33%. Moderate is the ceiling."},
+    {"claim": "HoH autonomously builds a human-playable FPS over 70+ loops without human intervention.", "proposed_strength": "weak", "reason": "I agree with 'weak', but the review's reason is inaccurate. Appendix B.8 does describe a source-blinded PXI playtest, so it is not true that there is 'no external player study'. However, the 'main-paper table' it refers to is absent from the main text, and the number of evaluators is never reported, so the 'human-playable/polished' part is effectively unsupported. Human involvement was also non-zero: restoring network/API availability (§5.1)."}
+  ],
+  "pattern_stance_changes": [
+    {"id": "P09", "from": "supports", "to": "introduces", "reason": "The paper explicitly uses 'progressive disclosure rather than a dedicated memory module'. The warm-start ablation removes the carried-over code artifact (it rebuilds from the empty workspace A_0), which tests incremental development, not persistent agent memory."},
+    {"id": "P11", "from": "supports", "to": "introduces", "reason": "No ablation isolates role separation (planner/developer/tester) from the planning document plus evidence feedback, which a single agent could also carry. The pass-matched control shows that HoH's protocol beats plain continuation, which already counts toward P13. It does not show that multiple roles are the active ingredient."}
+  ],
+  "missed_issues": [
+    "Reproducibility is overstated at 4. B.9 says the released package contains the core implementation, prompts and adapters, but 'raw run artifacts, analysis records, environment files' and task data are not included. Every task-condition is a single run with no generation seed, and failed attempts were replaced rather than counted (B.2), which is an undisclosed survivorship/retry effect.",
+    "The case study uses a different and stronger model (GPT-5.6-Sol) plus extra tools (Godot MCP, asset-generation and testing skills) compared with the benchmark runs, so it is not evidence for the benchmarked configurations.",
+    "The paper does not say how GameCraft-Bench rubric items are scored (the benchmark's grader is not described), so the 35%+35% weight on Content Depth and Art/Presentation may rest on an unvalidated automated judge. That half of the Overall score covers the visual/presentation dimensions most affected by more iterations."
+  ],
+  "note": "The review's verdict is sound. It is somewhat lenient on reproducibility, generalizability (games plus 15 FrontierSWE tasks, no Java) and relevance, and it credits P09/P11 with 'supports' that the ablations do not isolate. It also missed internal numeric inconsistencies (Dominance pools, the FrontierSWE reward figures, the false 'every task' ablation sentence)."
+}

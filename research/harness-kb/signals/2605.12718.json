@@ -1,0 +1,421 @@
+{
+ "arxiv_id": "2605.12718",
+ "fulltext_chars": 308158,
+ "fulltext_lines": 5922,
+ "authors_block": "Tommaso Giovannelli Email: giovanto@ucmail.uc.edu Griffin D. Kent ††thanks: Primary corresponding author. Email: g.hal.dkent@gmail.com",
+ "vendor_affiliation_hits": [],
+ "n_authors": 2,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/GdKent/CHAL",
+  "https://github.com/Significant-Gravitas/AutoGPT",
+  "https://github.com/langchain-ai/langchain"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# CHAL: Council of Hierarchical Agentic Language"
+  ],
+  [
+   30,
+   "###### Abstract"
+  ],
+  [
+   34,
+   "## 1 Introduction"
+  ],
+  [
+   52,
+   "## 2 Meta-Cognition and Value Hierarchies"
+  ],
+  [
+   56,
+   "### 2.1 Epistemic, Logical, and Ethical Systems"
+  ],
+  [
+   70,
+   "### 2.2 A Note on Implicit Values Embedded Within LLMs"
+  ],
+  [
+   74,
+   "## 3 Internal Belief Systems"
+  ],
+  [
+   78,
+   "### 3.1 The CHAL Belief Schema"
+  ],
+  [
+   82,
+   "###### Definition 1 (CHAL Belief Schema)"
+  ],
+  [
+   98,
+   "#### 3.1.1 The Strength-Infused Bayesian Architecture"
+  ],
+  [
+   104,
+   "###### Definition 2 (Thesis Strength)"
+  ],
+  [
+   120,
+   "### 3.2 The Belief Dependency Graph"
+  ],
+  [
+   124,
+   "###### Definition 3 (Belief Dependency Graph)"
+  ],
+  [
+   142,
+   "###### Definition 4 (Strength Dependency Constraints)"
+  ],
+  [
+   154,
+   "### 3.3 The Belief Revision System"
+  ],
+  [
+   158,
+   "###### Definition 5 (Belief Patch)"
+  ],
+  [
+   164,
+   "#### 3.3.1 Gradient-Informed Belief Refinement"
+  ],
+  [
+   172,
+   "## 4 CHAL"
+  ],
+  [
+   176,
+   "### 4.1 Council Formalism"
+  ],
+  [
+   180,
+   "###### Definition 6 (The Council)"
+  ],
+  [
+   190,
+   "### 4.2 The Adjudicator"
+  ],
+  [
+   194,
+   "###### Definition 7 (The Adjudicator)"
+  ],
+  [
+   208,
+   "### 4.3 The Dialectical Pipeline"
+  ],
+  [
+   238,
+   "## 5 Numerical Experiments"
+  ],
+  [
+   244,
+   "### 5.1 Ablations"
+  ],
+  [
+   252,
+   "## 6 Conclusion"
+  ],
+  [
+   258,
+   "## References"
+  ],
+  [
+   1794,
+   "## Appendix A Literature Review"
+  ],
+  [
+   1798,
+   "### A.1 Modern AI"
+  ],
+  [
+   1809,
+   "### A.2 Multi-Agent Systems"
+  ],
+  [
+   1817,
+   "### A.3 Multi-Level and LLM Optimization"
+  ],
+  [
+   1826,
+   "### A.4 Argumentation Theory"
+  ],
+  [
+   1832,
+   "### A.5 Computational Argumentation"
+  ],
+  [
+   1838,
+   "### A.6 Philosophy of Epistemology"
+  ],
+  [
+   1844,
+   "### A.7 Philosophy of Logic and Formal Reasoning"
+  ],
+  [
+   1854,
+   "### A.8 Philosophy of Ethics"
+  ],
+  [
+   1858,
+   "## Appendix B Meta-Cognitive Systems"
+  ],
+  [
+   1862,
+   "### B.1 Definitions of Epistemic Positions"
+  ],
+  [
+   1907,
+   "### B.2 Definitions of Logical Systems"
+  ],
+  [
+   1940,
+   "### B.3 Definitions of Ethical Systems"
+  ],
+  [
+   1967,
+   "### B.4 Scoring Scales"
+  ],
+  [
+   1971,
+   "#### B.4.1 The Strength Scale"
+  ],
+  [
+   2013,
+   "#### B.4.2 Logic Scoring Scale"
+  ],
+  [
+   2040,
+   "#### B.4.3 Ethics Scoring Scale"
+  ],
+  [
+   2067,
+   "## Appendix C The CHAL Belief Schema"
+  ],
+  [
+   2071,
+   "### C.1 Belief Component Details"
+  ],
+  [
+   2126,
+   "#### C.1.1 Definitions (D#)"
+  ],
+  [
+   2178,
+   "#### C.1.2 Assumptions (A#)"
+  ],
+  [
+   2254,
+   "#### C.1.3 Evidence (E#)"
+  ],
+  [
+   2336,
+   "#### C.1.4 Claims (C#)"
+  ],
+  [
+   2459,
+   "#### C.1.5 Counterpositions (X#)"
+  ],
+  [
+   2536,
+   "#### C.1.6 Uncertainties (U#)"
+  ],
+  [
+   2583,
+   "#### C.1.7 The Thesis Object"
+  ],
+  [
+   2625,
+   "#### C.1.8 The Truth-Oriented Mechanisms"
+  ],
+  [
+   2631,
+   "### C.2 The Defense Boost Mechanism"
+  ],
+  [
+   2635,
+   "###### Definition 8 (Defense Boost)"
+  ],
+  [
+   2647,
+   "## Appendix D The CHAL Dialectical Pipeline Algorithm"
+  ],
+  [
+   2705,
+   "## Appendix E The Attack Taxonomy"
+  ],
+  [
+   2835,
+   "## Appendix F Numerical Experiments"
+  ],
+  [
+   2839,
+   "### F.1 Belief Embedding Methodology"
+  ],
+  [
+   2843,
+   "###### Definition 9 (Belief Embedding)"
+  ],
+  [
+   2886,
+   "### F.2 Agent Performance Score"
+  ],
+  [
+   2891,
+   "###### Definition 10 (Agent Performance Score)"
+  ],
+  [
+   2944,
+   "### F.3 Initial Epistemic Topology"
+  ],
+  [
+   2952,
+   "### F.4 Adjudicator Ablation: Detailed Analysis"
+  ],
+  [
+   3225,
+   "#### F.4.1 Pure Logic Adjudicator"
+  ],
+  [
+   3231,
+   "##### Excerpt 1: Bayesian prior contention on non-physical claims."
+  ],
+  [
+   3280,
+   "##### Excerpt 2: Catching equivocation on moral responsibility."
+  ],
+  [
+   3329,
+   "##### Excerpt 3: Noise does not equal indeterminism."
+  ],
+  [
+   3380,
+   "##### Excerpt 4: The verification principle is self-refuting."
+  ],
+  [
+   3433,
+   "##### Excerpt 5: Legitimate definitional inference is not circular."
+  ],
+  [
+   3516,
+   "#### F.4.2 Balanced Adjudicator"
+  ],
+  [
+   3522,
+   "##### Excerpt 6: TMS evidence resolves logic, but ethics reverses the verdict."
+  ],
+  [
+   3589,
+   "##### Excerpt 7: Logic and ethics achieve perfect opposition."
+  ],
+  [
+   3634,
+   "##### Excerpt 8: Ethical merit cannot compensate for logical invalidity."
+  ],
+  [
+   3681,
+   "#### F.4.3 Pure Ethics Adjudicator"
+  ],
+  [
+   3687,
+   "##### Excerpt 9: Neural determinism as “ethically harmful.”"
+  ],
+  [
+   3750,
+   "##### Excerpt 10: Strict empiricism fails the universalizability test."
+  ],
+  [
+   3793,
+   "##### Excerpt 11: The moral responsibility paradox."
+  ],
+  [
+   3890,
+   "### F.5 Council Member Ablation: Detailed Analysis"
+  ],
+  [
+   4123,
+   "#### F.5.1 Selected Adjudicator Excerpts"
+  ],
+  [
+   4127,
+   "##### Excerpt 12: The ungrounded determinism inference."
+  ],
+  [
+   4176,
+   "##### Excerpt 13: The is-ought gap against the Phenomenologist."
+  ],
+  [
+   4243,
+   "##### Excerpt 14: Replication does not establish veridicality."
+  ],
+  [
+   4299,
+   "##### Excerpt 15: Definitional circularity in moral desert."
+  ],
+  [
+   4367,
+   "### F.6 Topic Ablation: Detailed Analysis"
+  ],
+  [
+   4649,
+   "#### F.6.1 “Does free will exist?” (Empiricist vs. Supernaturalist)"
+  ],
+  [
+   4659,
+   "#### F.6.2 “Should AI have rights?” (Panpsychist vs. Skeptic)"
+  ],
+  [
+   4667,
+   "##### Excerpt 16: Successfully bridging the is-ought gap."
+  ],
+  [
+   4734,
+   "#### F.6.3 “Is it ethical to genetically modify future generations?” (Constructivist vs. Rationalist)"
+  ],
+  [
+   4740,
+   "##### Excerpt 17: The false analogy between somatic and germline therapies."
+  ],
+  [
+   4800,
+   "## Appendix G Initial and Final Refined Belief Examples"
+  ],
+  [
+   4804,
+   "### G.1 Initial Belief"
+  ],
+  [
+   5120,
+   "### G.2 Final Belief"
+  ],
+  [
+   5912,
+   "## Appendix H Current Limitations"
+  ],
+  [
+   5922,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## Appendix H Current Limitations\n\nCurrently, CHAL operates exclusively in an adversarial debate mode. While effective for stress-testing beliefs, this does not exhaust the space of useful dialectical interactions. For example, a collaborative truth-seeking mode, in which agents cooperate to resolve disagreements and align on an agreed-upon solution, or a moderated mode, in which a guiding agent steers agents through the most relevant sub-topics of a query, could potentially yield deeper analysis. CHAL’s modular architecture is designed to accommodate such extensions as toggleable modes and is a direction for future work.\n\nComputational cost is a practical constraint. As noted in Section 4.1, the number of adjudicated pairs scales on the order of \\mathcal{O}\\left(RSN^{2}\\right) , quadratically in the council size N and linearly in rounds R and challenges per pair S . A single five-round, two-agent debate using OpenAI’s o4-mini cost us approximately $2, so scaling to larger council sizes for more rounds incurs meaningful cost with the strongest frontier reasoning models.\n\nAt the implementation level, the structured CBS outputs also impose strict formatting requirements enforced through a multi-phase validation process. As such, failed outputs trigger retries with corrective feedback, increasing latency and token consumption. Frontier models handle these constraints reliably, but smaller or open-source models may struggle to produce well-formed CBS objects consistently, limiting the range of models that can currently serve as council members without further prompt engineering or fine-tuning. This is another direction for future software refinement of CHAL.\n\nFinally, CHAL’s current meta-cognitive library (thirteen epistemic personas, eight logic systems, and six ethics frameworks) is an initial set sufficient to demonstrate systematic effects of meta-cognitive parameterization. However, there are many agent personas and systems that could be integrated as viable options for CHAL to choose from, as well as further refining the prompting architecture of the pipeline as a whole. CHAL is designed as a general research platform to which the community can contribute additional configurations, and expanding this library is a natural direction for future development and research.\n\n##",
+ "ethics_coi": "### 2.1 Epistemic, Logical, and Ethical Systems\n\n?????????Agent\n\n1(a) A single agent in the latent belief space.\n\nLikely FeasibleBelief RegionAgent 1Agent 2Agent 3Agent 4Agent 5\n\n1(b) Multiple agents mapping the feasible belief region.\n\nAn agent’s epistemic position determines its standards for evidence, justification, and inference, including what kinds of reasons it takes to be compelling, how it weighs competing sources of knowledge, and where it locates the burden of proof. In CHAL, epistemic personas are assigned exclusively to the LLM council agents rather than the adjudicator (see Section 4 for formalism), whose evaluation is governed instead by independently configured logic and ethics systems. This separation is deliberate: the council’s role is to generate and defend positions from genuinely distinct epistemological starting points, while the adjudicator’s role is to evaluate the argumentative exchange against a fixed and consistent standard. By populating the council with agents reasoning from competing epistemological traditions, CHAL explores the belief space more broadly than any single framework would permit, as illustrated in Figures 1(a) and 1(b).\n\nCHAL currently provides twelve epistemic personas, eight logic systems, and six ethical systems, each grounded in established philosophical traditions. The default logic system, Classical + Informal + Bayesian (CIB), combines deductive validity with inductive and abductive support weighted by prior probability. Logic and ethics scores are computed independently by an adjudicator agent and combined via user-specified weights (see Section 4.2). The choice of system materially affects adjudication outcomes and is therefore a primary variable of interest for empirical studies of debate dynamics. Summary tables and complete descriptions for all epistemic positions as well as logical and ethical systems are provided in Appendix B.\n\n### 2.2 A Note on Implicit Values Embedded Within LLMs\n\nThe value systems descri",
+ "counts": {
+  "self_reported": 1,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 9,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 5,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

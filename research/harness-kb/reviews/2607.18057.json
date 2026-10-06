@@ -1,0 +1,36 @@
+{
+  "arxiv_id": "2607.18057",
+  "contribution_type": "empirical",
+  "summary": "ICSME 2026 mining study of 4,882 agent-generated PRs (532 Java across 68 repos, 4,350 Python across 448 repos) from AIDev v3, produced by Codex, Copilot, Cursor, Claude Code and Devin. Half of code-changing PRs include no test changes; in the buildable subset (213 Java / 1,664 Python merged PRs) existing tests cover 61.5% of changed Java lines and 27.0% of Python lines; agent-written tests raise diff coverage on average but only in 35.9% (Java) / 22.5% (Python) of Code+Tests PRs; try/catch lines are missed 86.0% (Java) and 81.0% (Python).",
+  "claims": [
+    {"claim": "Only 49.6% of PRs that change code under test include test changes", "evidence": "§IV-A: 2,176 of 4,387 code-changing PRs include test changes; Fig. 1 Venn. Purely descriptive; no human-authored PR comparison, so it is unknown whether agents differ from developers.", "strength": "moderate", "location": "§IV-A, Fig. 1"},
+    {"claim": "Existing tests cover 61.5% of agent-changed lines in Java and 27.0% in Python; 64.8% of Python PRs have zero covered changed lines", "evidence": "§IV-B RQ2a: file-level aggregate over 259 Java files and 2,696 Python files; 1079/1664 Python PRs zero coverage; Fig. 2. Java subset is only 10 buildable repos that are smaller than the population (29K vs 102K LOC median).", "strength": "moderate", "location": "§IV-B, Fig. 2, §VI Limitations"},
+    {"claim": "Agent-written tests significantly raise diff coverage (+15.6 pp Java, +9.6 pp Python) but only a minority of PRs gain", "evidence": "Table I with one-sided Wilcoxon signed-rank (p<0.001); 23/64 Java and 136/605 Python PRs improve. Java figure rests on 64 PRs.", "strength": "moderate", "location": "§IV-B RQ2b, Table I"},
+    {"claim": "Error-handling constructs are most under-tested (Try-Catch miss 86.0% Java, 81.0% Python)", "evidence": "§IV-B construct analysis with srcML tags; table near line 430s. Also no human baseline, and error paths are commonly under-tested in human code too.", "strength": "moderate", "location": "§IV-B"},
+    {"claim": "Agents need coverage-aware feedback loops before submitting PRs", "evidence": "Recommendation in §V derived from the findings; not tested experimentally.", "strength": "weak", "location": "§V"}
+  ],
+  "patterns": [
+    {"id": "P16", "stance": "mixed", "note": "Passing existing tests is weak evidence: those tests often never execute the agent's changed lines, so test-pass verifier loops need diff-coverage checks."},
+    {"id": "P15", "stance": "contradicts", "note": "Unprompted agents do not reliably write tests that exercise their own changes (gain in only 22.5-35.9% of Code+Tests PRs; Java non-improving PRs show 2.6x test deletions vs additions)."},
+    {"id": "P32", "stance": "supports", "note": "Field data from real GitHub repositories and merged PRs across five agents."},
+    {"id": "P31", "stance": "contradicts", "note": "Argues SWE-bench-style pass-the-tests metrics ignore whether tests exercise agent-introduced code."},
+    {"id": "P19", "stance": "neutral", "note": "Recommends human review prioritize error-handling paths."}
+  ],
+  "methodology": {"sample": "4,882 PRs for RQ1; RQ2 coverage on 213 Java PRs (10 repos) and 1,664 Python PRs (34 repos) that built and instrumented; paired with/without-tests analysis on 64 Java and 605 Python PRs", "baselines": "none against human-authored PRs; within-PR with vs without agent tests", "models": "five commercial agents (Codex dominant: 1,018 of 1,278 Java and 5,209 of 7,191 Python PRs before filtering); no per-agent breakdown reported", "variance": "Wilcoxon signed-rank significance; distributions shown; no CIs on headline percentages", "ablations": "by PR category and syntactic construct", "contamination_controls": "n/a (mining study)", "languages": "Java (JaCoCo) and Python (pytest-cov)"},
+  "standards": {"peer_review": "to appear at ICSME 2026 (emerging-results style, 12 pages)", "limitations_section": true, "artifacts": "replication package and dataset of patches, coverage reports, labeled lines (github.com/SageSELab/Agentic-Pull-Request-Test-Coverage)", "preregistration": "n/a"},
+  "biases": [
+    {"type": "survivorship", "detail": "Coverage analysis only on merged PRs from repos that build and instrument; Java subset is 10 smaller-than-average repos."},
+    {"type": "selection_bias_participants", "detail": "AIDev PRs are dominated by Codex, so 'agents' largely means Codex; no per-agent results."},
+    {"type": "other:no_human_baseline", "detail": "Without coverage numbers for comparable human PRs in the same repos, the paper cannot show agents are worse than developers."},
+    {"type": "metric_mismatch", "detail": "Line diff coverage measures execution, not assertion strength; covered lines may be unchecked."},
+    {"type": "small_sample", "detail": "Java paired analysis on 64 PRs."}
+  ],
+  "coi": {"affiliations": "University of Central Florida; George Mason University", "vendor_products_evaluated": "Codex, Copilot, Cursor, Claude Code, Devin (third-party, evaluated critically)", "funding": "NSF CCF-2423813 and CCF-2338287", "severity": "none", "detail": "Academic, publicly funded; no product promoted."},
+  "scores": {"rigor": 3, "reproducibility": 4, "generalizability": 3, "relevance": 5, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Solid, reproducible, peer-reviewed mining study with Java data, but the coverage subset is small and survivor-biased, results are Codex-dominated, and there is no human-PR baseline to show agents are worse than developers.",
+  "applicability": "Directly usable for a Java team: do not treat 'mvn test passes' as evidence that an agent's change was tested. Add a host-agnostic, deterministic diff-coverage gate (JaCoCo with a diff-coverage tool in CI) that applies to PRs from any agent host, and require tests for added lines, especially catch/throw blocks in ingestion parsers and delivery error paths, where Java miss rates were 86%. In spec-driven development, tie each acceptance criterion to a test that executes the changed lines; across >=4 ingestion repos, enforce the same gate in each repo's CI rather than trusting a cross-repo integration suite to cover them. Watch for agents deleting tests (2.6x deletion ratio in non-improving Java PRs).",
+  "conflicts_with": [
+    {"arxiv_id": "2606.13175", "detail": "That position paper argues agents can replace human code review; this paper's field data show agent PRs are often untested and passing suites rarely exercise agent changes, undercutting removal of human/quality gates."}
+  ]
+}

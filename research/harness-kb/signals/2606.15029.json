@@ -1,0 +1,227 @@
+{
+ "arxiv_id": "2606.15029",
+ "fulltext_chars": 129399,
+ "fulltext_lines": 3170,
+ "authors_block": "Alyssa Unell ††thanks: Equal contribution, authors listed alphabetically. Affiliation: Department of Computer Science Affiliation: Stanford University Email: aunell@stanford.edu Natalie Dullerud††footnotemark: Affiliation: Department of Computer Science Affiliation: Stanford University Email: ndulleru@stanford.edu Naomi Boneh Affiliation: Department of Computer Science Affiliation: Stanford University Email: naomicyb@stanford.edu Meena Jagadeesan Affiliation: Department of Computer Science Affiliation: Stanford University Email: meenaj@seas.upenn.edu Tatsu Hashimoto Affiliation: Department of Computer Science Affiliation: Stanford University Email: thashim@stanford.edu Nigam Shah Affiliation: Department of Medicine Affiliation: Stanford University Email: nigam@stanford.edu Sanmi Koyejo Affiliation: Department of Computer Science Affiliation: Stanford University Email: sanmi@stanford.edu",
+ "vendor_affiliation_hits": [],
+ "n_authors": 7,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/som-shahlab/MetricMatch"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   28,
+   "# Metric Match: A Subset Selection Approach to Evaluating LLM Judge Reliability"
+  ],
+  [
+   86,
+   "###### Abstract"
+  ],
+  [
+   95,
+   "## 1 Introduction"
+  ],
+  [
+   128,
+   "## 2 Related Works"
+  ],
+  [
+   130,
+   "### 2.1 LLM Evaluation and Human Annotation"
+  ],
+  [
+   134,
+   "### 2.2 LLM-as-a-Judge for Scalable Evaluation"
+  ],
+  [
+   138,
+   "### 2.3 Efficient Sampling and Annotation"
+  ],
+  [
+   146,
+   "## 3 Preliminaries"
+  ],
+  [
+   152,
+   "### 3.1 Problem Statement"
+  ],
+  [
+   168,
+   "### 3.2 Method: Metric Matching"
+  ],
+  [
+   231,
+   "### 3.3 Experimental Setup"
+  ],
+  [
+   233,
+   "##### Baselines."
+  ],
+  [
+   258,
+   "##### Evaluation procedure."
+  ],
+  [
+   280,
+   "##### Reliability metrics."
+  ],
+  [
+   285,
+   "##### Datasets and axes."
+  ],
+  [
+   289,
+   "##### Judges and synthetic labels."
+  ],
+  [
+   293,
+   "## 4 Estimation Evaluation"
+  ],
+  [
+   300,
+   "### 4.1 Estimation Error"
+  ],
+  [
+   304,
+   "#### 4.1.1 Raw Estimation Improvement"
+  ],
+  [
+   312,
+   "#### 4.1.2 Relative Annotation Savings"
+  ],
+  [
+   317,
+   "#### 4.1.3 Annotation Cost Savings"
+  ],
+  [
+   331,
+   "### 4.2 Win-rate against random selection baseline"
+  ],
+  [
+   491,
+   "#### 4.2.1 Analysis of win-rate and expected subset rank"
+  ],
+  [
+   496,
+   "### 4.3 Reliability Classification"
+  ],
+  [
+   651,
+   "## 5 Discussion"
+  ],
+  [
+   659,
+   "## 6 Acknowledgments"
+  ],
+  [
+   663,
+   "## References"
+  ],
+  [
+   1285,
+   "## Appendix A Metric Functions"
+  ],
+  [
+   1289,
+   "##### Intraclass Correlation Coefficient"
+  ],
+  [
+   1405,
+   "##### Krippendorff’s \\alpha"
+  ],
+  [
+   1476,
+   "##### Spearman r"
+  ],
+  [
+   1488,
+   "##### Kendall’s \\tau"
+  ],
+  [
+   1498,
+   "## Appendix B Dataset Details"
+  ],
+  [
+   1534,
+   "## Appendix C Rank Estimation Error Derivation"
+  ],
+  [
+   1552,
+   "###### Lemma 1."
+  ],
+  [
+   1576,
+   "###### Condition 1 (Expected rank condition)."
+  ],
+  [
+   1580,
+   "###### Theorem 2."
+  ],
+  [
+   1590,
+   "## Appendix D Additional Baseline Information and Comparison"
+  ],
+  [
+   2096,
+   "## Appendix E Ablation Studies"
+  ],
+  [
+   2098,
+   "### E.1 Average Aggregation"
+  ],
+  [
+   2236,
+   "### E.2 Number of Candidate Subsets C"
+  ],
+  [
+   2260,
+   "## Appendix F Variance Matching"
+  ],
+  [
+   2430,
+   "## Appendix G Mean Squared Error"
+  ],
+  [
+   2564,
+   "## Appendix H Results by Dataset Axis"
+  ],
+  [
+   2962,
+   "## Appendix I Target and Ensemble Ablations"
+  ],
+  [
+   2964,
+   "### I.1 Small models"
+  ],
+  [
+   3119,
+   "### I.2 Single Model Ensemble Ablations"
+  ],
+  [
+   3170,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## 6 Acknowledgments\n\nAU acknowledges support from the Stanford Graduate Fellowship and NSF GRFP. MJ acknowledges partial support from a Stanford AI Lab Postdoctoral fellowship. SK acknowledges support by NSF 2046795 and 2205329, IES R305C240046, ARPA-H, the MacArthur Foundation, Schmidt Sciences, and HAI. TH was supported by a grant by HAI, DSO labs, gifts from Open Philanthropy, Amazon, Schmidt Sciences, the Tianqiao and Chrissy Chen Foundation and a grant under the NSF CAREER IIS-2338866, ONR N00014-24-1-2609, and DARPA Cooperative Agreement HR00112520013. This work does not necessarily reflect the position or policy of the government and no official endorsement should be inferred.\n\n## References\n\n[1]\nA. Aali, V. Bikia, M. Varma, N. Chiou, S. Ostmeier, A. Singhvi, M. Paschali, A. Kumar, A. Johnston, K. Amador-Martinez, E. J. P. Guerrero, P. N. C. Rivera, S. Gatidis, C. Bluethgen, E. P. Reis, E. D. Z. van Rilland, P. L. Hosamani, K. R. Keet, M. Go, E. Ling, D. B. Larson, C. Langlotz, R. Daneshjou, J. Hom, S. Koyejo, E. Alsentzer, and A. S. Chaudhari (2025)\n\nMedVAL: toward expert-level medical text validation with language models.\n\nExternal Links: 2507.03152\n\nCited by: item 1,\n§1,\n§3.3.\n\n[2]\nA. N. Angelopoulos, S. Bates, C. Fannjiang, M. I. Jordan, and T. Zrnic (2023)\n\nPrediction-powered inference.\n\nScience 382 (6671), pp. 669–674.\n\nExternal Links: Document,",
+ "limitations": "",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 6,
+  "p_value_or_ci": 16,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

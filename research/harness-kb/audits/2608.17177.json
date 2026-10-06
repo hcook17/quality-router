@@ -1,0 +1,21 @@
+{"arxiv_id": "2608.17177",
+ "blind_scores": {"rigor": 3, "reproducibility": 0, "generalizability": 3, "relevance": 3, "coi_risk": 2},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "medium",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "Spec-driven agent improves bug detection by 9.8 pp (p=0.0352).", "proposed_strength": "weak", "reason": "Verified in Table 2, but significance appears only at k=4/5 among five k values tested without multiple-comparison correction; k=1 (+4.2 pp, p=0.3075) and k=2 (p=0.4545) are null. It rests on 12 vs 3 discordant bugs (§5.1.2). The arms are not compute-matched: the spec agent uses 1.38x tokens (Table 4), and tokens per unique bug detected are 16% worse."},
+  {"claim": "Capturing the violated contract in the spec predicts bug detection.", "proposed_strength": "weak", "reason": "Fisher's exact test over 450 runs (§5.3.1) treats 5 runs per bug as independent (pseudo-replication across 90 bugs). The association is confounded by bug difficulty: the paper itself reports a bimodal easy/hard distribution (§5.1.2), and easy bugs plausibly yield both contract coverage and detection. Contract coverage is LLM-judged with the fix diff in view. Correlation does not show the spec causes detection."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P14", "from": "supports", "to": "mixed", "reason": "The 'spec' is inferred by the agent from the already-fixed implementation C_f (§3.1, §4.3), so this is code-derived contract extraction, not spec-first development. The only significant gains are at k>=4. It supports 'an intermediate contract artifact helps test generation modestly', not spec-driven development as the team would adopt it; tagging it 'supports' invites over-citation."},
+  {"id": "P34", "from": "supports", "to": "mixed", "reason": "The evidence linking structured pre/post-conditions to outcomes is a confounded run-level correlation (phi=0.35) with an LLM-judged predictor. In 141 of 450 runs the spec missed the contract (§5.3.2), and in 110 runs the contract was captured but the bug was still missed (§5.3.3)."}
+ ],
+ "missed_issues": [
+  "Pseudo-replication in the Fisher/phi analysis (450 non-independent runs from 90 bugs) and confounding by bug difficulty.",
+  "Uncorrected testing across k=1..5; the abstract selects the significant k.",
+  "Verbosity bias is unaddressed: the spec agent emits 59% more output tokens and 'larger test suites' (§5.4), and the Gemini judge's preference may track size. The judge rubric was itself LLM-condensed from Google internal docs (§4.4.2).",
+  "RQ2 compares only 83 'successfully generated' suites (§5.2); the selection criterion is not defined, and tie handling for the 56.7% vs human figure is not reported.",
+  "COI under-rated: Google authors, a Google model as agent and as judge, an internal dataset, and nothing released. This is a vendor evaluating its own method on its own models without independent check, so medium rather than low.",
+  "The baseline prompt is minimal ('Create a comprehensive test suite', §4.2), with no edge-case or contract instruction. It is a weak comparator for the claim that the spec, rather than any explicit edge-case prompting, causes the gain; the authors concede no comparison against other scaffolds (§7)."
+ ],
+ "note": "The review is careful and correctly flags code-derived specs and the k selection, but it then scores relevance 5 and P14 'supports'. Given that the spec is extracted from fixed code and the effect is modest and only significant at k>=4, this is moderate evidence for a contract-extraction test step, not for spec-first development."}

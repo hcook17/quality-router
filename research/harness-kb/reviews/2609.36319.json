@@ -1,0 +1,55 @@
+{
+  "arxiv_id": "2609.36319",
+  "contribution_type": "system",
+  "summary": "StateTape keeps a symbol-level call graph of the repository, updated on every agent write. It uses the symbols each write changed to flag held context records the write made stale, and a small manager LLM evicts those records and pulls in callers and callees one edge away. The authors also build TraceBench: 403 pre-edit decision points from 48 Claude Code trajectories, labelled for held-vs-needed context. They report the best resolve rate in all 18 agent x benchmark cells across six Claude and GPT agents.",
+  "claims": [
+    {"claim": "Real coding-agent context is mostly unneeded and mostly stale: 73.4% of held tokens are unneeded, 72.3% of those are stale, and 58.5% of needed tokens are missing.", "evidence": "Table 5 and §3.1.2 match the abstract and Fig. 2. However, the labels are 'silver' (deterministic rules plus a gpt-5.4 oracle, with the human review queue 'not yet filled'). The data are one agent (Claude Code with Opus 4.8) on 48 SWE-EVO instances from 7 repos, and 'needed' is defined relative to the reference patch.", "strength": "moderate", "location": "§3.1, Table 5, App. E 'Provenance and limitations'"},
+    {"claim": "StateTape has the highest resolve rate in every one of 18 agent-benchmark cells, averaging +4.9 (SWE-EVO), +2.7 (SlopCodeBench) and +3.3 (SWE-bench Pro) over Control.", "evidence": "Table 1 is consistent, but many margins over the best baseline are within one or two tasks. SWE-EVO has 48 instances, so one task is about 2.1 points (e.g. Opus 62.5 vs 60.4). Margins are 0.3-0.7 points on several SWE-Pro cells (Haiku 27.8 vs 27.1, Opus 71.4 vs 71.1, terra 68.4 vs 67.7). Values are single runs with no seeds, CIs, or significance tests.", "strength": "weak", "location": "§4.2, Table 1"},
+    {"claim": "Manager overhead is small: 0.8%-4.7% of main-agent tokens, 2.6% overall.", "evidence": "Table 4 token totals per benchmark, including retries. Wall-clock overhead of graph maintenance is not separately quantified in what was read.", "strength": "moderate", "location": "§4.2, Table 4"},
+    {"claim": "The symbol-level code graph is the most important component; replacing it with files costs 3.4 points and halves CE to 3.14.", "evidence": "Table 3 ablation on a single main agent (Sonnet 5), single run.", "strength": "moderate", "location": "§4.3, Table 3"},
+    {"claim": "StateTape evicts and retrieves more selectively than baselines (CE 6.18, RE 10.47, clears 74.2% of unneeded tokens, recovers 68.1% of missing gold).", "evidence": "Table 2 on TraceBench. Selectivity is scored against the authors' own silver labels, on the same 48 SWE-EVO instances that also appear in end-to-end evaluation, so there is no held-out separation between design and evaluation data.", "strength": "weak", "location": "§4.2, Table 2"}
+  ],
+  "patterns": [
+    {"id": "P08", "stance": "supports", "note": "Write-conditioned compaction beats observation masking, LLM summary, CORVUS and a text-only pruner in Table 1, but by small, single-run margins."},
+    {"id": "P07", "stance": "supports", "note": "The call graph drives both staleness detection and retrieval; the file-level ablation drops 3.4 points (Table 3)."},
+    {"id": "P05", "stance": "supports", "note": "Deterministic per-write parsing and the symbol index decide staleness, with an LLM manager only for the residue."},
+    {"id": "P12", "stance": "neutral", "note": "The manager is a small-model subagent (Haiku 4.5 / GPT-5.4 nano) running beside the main agent."},
+    {"id": "P23", "stance": "supports", "note": "A cheap model handles context management for the expensive main agent at about 2.6% token overhead."},
+    {"id": "P31", "stance": "neutral", "note": "SWE-EVO, SlopCodeBench and SWE-bench Pro, plus the authors' new TraceBench."}
+  ],
+  "methodology": {
+    "sample": "TraceBench: 48 SWE-EVO instances / 7 repos / 403 decision points. End-to-end: SWE-EVO (48 instances implied by 2.08-point steps), SlopCodeBench (36 problems, all checkpoints), and SWE-bench Pro (count not stated in the sections read).",
+    "baselines": "Control (unmodified host), observation masking and LLM summary per Lindenbauer et al. 2025, CORVUS, and an AgentDiet-style text-only manager, all reimplemented in the authors' shim (App. D). These are reasonable, current baselines.",
+    "models": "Six main agents: Claude Haiku 4.5, Sonnet 5 and Opus 4.8 in Claude Code; GPT-5.6 luna/terra/sol in Codex CLI. Managers: Haiku 4.5 and GPT-5.4 nano. TraceBench judge: gpt-5.4.",
+    "variance": "None. Single runs per cell, no seeds or CIs.",
+    "ablations": "Component swaps (files instead of symbols, text judgment instead of tape, default manager actions) on Sonnet 5 only (Table 3).",
+    "contamination_controls": "None discussed. TraceBench and evaluation share the SWE-EVO instances.",
+    "languages": "Not stated for the code-graph parser. SWE-EVO and the worked examples are Python; SWE-bench Pro is multi-language, but per-language results are not given."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint; no venue in comment or journal_ref.",
+    "limitations_section": true,
+    "artifacts": "No code or dataset link found. Pinned judge settings (model, prompt version, seed) are described in App. E.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "no_variance_reported", "detail": "18-cell 'wins' rest on single runs with margins often of one task or less than 1 point."},
+    {"type": "small_sample", "detail": "SWE-EVO has 48 instances (one task is about 2.1 points); TraceBench labels come from one agent on 48 instances."},
+    {"type": "llm_judge_unvalidated", "detail": "TraceBench labels are silver (rules plus gpt-5.4 oracle) and the human review queue is not filled, as the authors admit."},
+    {"type": "self_evaluation", "detail": "The authors' own benchmark (TraceBench) and metrics (CE/RE) score their own method, on instances overlapping the end-to-end evaluation."},
+    {"type": "closed_artifacts", "detail": "No released code, shim, or TraceBench data located."},
+    {"type": "other:unspecified_language_support", "detail": "The code-graph construction does not state which languages are parsed. Transfer to Java's static typing and overloads is untested."}
+  ],
+  "coi": {
+    "affiliations": "Ziyang Yu, Liang Zhao (corresponding), Bowen Zhu and Hasibul Haque: Causal Dynamics Lab; Yu and Zhao also list Emory University.",
+    "vendor_products_evaluated": "Claude Code and Codex CLI are used as hosts under test, not the authors' products.",
+    "funding": "No acknowledgments or funding statement found; an AI-use statement is included.",
+    "severity": "none",
+    "detail": "No vendor tie visible. The only conflict is self-evaluation of their own method on their own benchmark."
+  },
+  "scores": {"rigor": 3, "reproducibility": 1, "generalizability": 2, "relevance": 4, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Well-motivated, with current baselines across six models and two real hosts. But the end-to-end gains are small and single-run, the TraceBench labels are unvalidated silver labels drawn from the same instances, and no code is released.",
+  "applicability": "Directly relevant to how the team's harness should manage context during long edit sessions. The idea is to invalidate held file and symbol reads when the agent writes to them, and to pull callers and callees via a symbol graph. For Java that graph is cheap and accurate via an LSP (Eclipse JDT LS) or javaparser, arguably more reliable than for Python. Across ≥4 ingestion repos, a cross-repo symbol graph would also surface contract consumers (DTOs consumed by delivery front ends) the agent has not read. That is what spec-driven development needs when a spec change ripples across repos. Because it runs as a shim around Claude Code and Codex CLI, it fits mixed agent hosts. Treat the reported 3-5 point gains as unproven until replicated with repeated runs.",
+  "conflicts_with": []
+}

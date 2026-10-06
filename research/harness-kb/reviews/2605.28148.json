@@ -1,0 +1,35 @@
+{
+  "arxiv_id": "2605.28148",
+  "contribution_type": "tool",
+  "summary": "DeltaMCP is a CLI that diffs two OpenAPI spec versions with oasdiff, splits the diff into per-endpoint change units, and asks a LoRA-fine-tuned small code LLM to patch only the affected tools of an existing Python/FastMCP server instead of regenerating the whole server (as AutoMCP does). It is trained on >2000 change samples from Azure Microsoft.Storage specs and evaluated on Microsoft.Resources across five version transitions against AutoMCP.",
+  "claims": [
+    {"claim": "DeltaMCP uses far less CPU/memory than AutoMCP during updates (~0.1% CPU, ~10.5-12.5 MB vs ~3.0% CPU, ~30 MB).", "evidence": "Figure 3 only; no table, no variance, no run count. The intro (§1) states memory 'around 12%' vs AutoMCP '±30% memory', while §4 states MB values: the units are inconsistent within the paper. GPU inference cost of the fine-tuned LLM is not reported, so CPU/RAM is not the relevant cost metric.", "strength": "weak", "location": "§1, §4 Fig. 3"},
+    {"claim": "DeltaMCP touches far fewer tools per update than full regeneration.", "evidence": "Figure 4; this follows by construction from incremental diffing rather than being an empirical finding.", "strength": "moderate", "location": "§4 Fig. 4"},
+    {"claim": "DeltaMCP's generation quality exceeds/is more consistent than AutoMCP's.", "evidence": "Figure 5 reports a normalized 100-point composite (syntax compile, 'MCP agent simulations', schema alignment) with no numeric values in text, no definition of the agent simulation, and no indication of which of the three fine-tuned models (StarCoder2-7B, CodeLlama-7B, Phi-3-mini) is used. The abstract gives no number.", "strength": "weak", "location": "§4 Fig. 5"},
+    {"claim": "DeltaMCP preserves custom enterprise tooling (telemetry, safeguards) that full regeneration discards.", "evidence": "Asserted in §1/§5/§6; no experiment injects custom code and measures preservation.", "strength": "unsupported", "location": "§5, §6"}
+  ],
+  "patterns": [
+    {"id": "P04", "stance": "introduces", "note": "Treats MCP servers generated from OpenAPI specs as the agent-to-service integration layer and proposes keeping them in sync incrementally."},
+    {"id": "P14", "stance": "introduces", "note": "Spec (OpenAPI) as source of truth driving regeneration of tooling; evidence weak."},
+    {"id": "P27", "stance": "neutral", "note": "Spec diff between service versions as a contract-change signal for downstream consumers; not evaluated across repos."},
+    {"id": "P25", "stance": "neutral", "note": "LoRA fine-tuning of 7B-class code models on change samples; no comparison against prompting a frontier model."}
+  ],
+  "methodology": {"sample": "One evaluation namespace (Azure Microsoft.Resources), five version transitions; training on >2000 change units from Microsoft.Storage.", "baselines": "AutoMCP full regeneration only; no prompted frontier-LLM patching baseline, no deterministic codegen-from-diff baseline (e.g. openapi-generator + merge).", "models": "LoRA on StarCoder2-7B, CodeLlama-7B, Phi-3-mini-4k; which one is reported is not stated.", "variance": "None reported; no run counts.", "ablations": "None.", "contamination_controls": "Train/eval on different Azure namespaces (Storage vs Resources); same vendor spec style.", "languages": "Python (FastMCP) servers only; OpenAPI/Azure specs only."},
+  "standards": {"peer_review": "None indicated (no arXiv comment/journal_ref).", "limitations_section": false, "artifacts": "No DeltaMCP code, data, or fine-tuned weights released; only the public Azure spec repo is linked.", "preregistration": "n/a"},
+  "biases": [
+    {"type": "self_evaluation", "detail": "Authors define and score their own 100-point composite quality metric with no external check."},
+    {"type": "metric_mismatch", "detail": "CPU/RAM of the orchestration process is reported as the efficiency metric while GPU inference of the fine-tuned model is ignored; 'preserves custom tooling' is never measured."},
+    {"type": "no_variance_reported", "detail": "Figures only; no repeats, no error bars, no numbers in text."},
+    {"type": "small_sample", "detail": "One evaluation namespace, five version transitions."},
+    {"type": "single_language_python", "detail": "Only Python FastMCP servers."},
+    {"type": "strawman_baseline", "detail": "Sole baseline is full regeneration (AutoMCP), which by construction touches every tool; no incremental baseline with a general LLM."},
+    {"type": "closed_artifacts", "detail": "No code/model/data released."},
+    {"type": "hype_language", "detail": "'self-patching and healing MCP infrastructure', 'revolutionized' with weak evidence."}
+  ],
+  "coi": {"affiliations": "First author Microsoft; two co-authors University of Adelaide.", "vendor_products_evaluated": "Uses Microsoft Azure REST API specs as data; DeltaMCP itself is not presented as a Microsoft product; AutoMCP baseline is third-party.", "funding": "Not stated.", "severity": "low", "detail": "Vendor affiliation and vendor dataset, but not grading a vendor product favorably."},
+  "scores": {"rigor": 1, "reproducibility": 0, "generalizability": 1, "relevance": 3, "coi_risk": 1},
+  "verdict": "reject",
+  "verdict_reason": "Interesting problem framing (incremental MCP regeneration from OpenAPI diffs) but the evaluation is figure-only with inconsistent units, no numeric quality results, no variance, one namespace, an undefined quality metric, an unidentified model, a by-construction baseline, and no artifacts. The custom-code-preservation claim is untested.",
+  "applicability": "The idea is relevant if the Java team exposes its content-delivery REST APIs to agents via MCP: treat the OpenAPI spec as SoT and regenerate tool wrappers from oasdiff output deterministically. But nothing here transfers as evidence: Python/FastMCP only, Azure-only specs, no Java/Spring codegen. For ≥4 ingestion repos a deterministic pipeline (oasdiff breaking-change check in CI per repo + openapi-generator) is a safer spec-driven baseline than a fine-tuned 7B patcher; mixed agent hosts are unaffected since MCP is host-agnostic.",
+  "conflicts_with": []
+}

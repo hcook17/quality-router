@@ -1,0 +1,20 @@
+{"arxiv_id": "2608.23550",
+ "blind_scores": {"rigor": 3, "reproducibility": 2, "generalizability": 2, "relevance": 4, "coi_risk": 1},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "Only ~4-16% of retrieved CLAUDE.md security rules have a matching built-in control; strict estimate 4.4% [2.6, 6.7].", "proposed_strength": "moderate", "reason": "The authors say the number is driven by the matching standard, not by sampling (§IV-A, §IV-B), so the narrow CI on 4.4% hides a fourfold definitional range. The strict standard requires a control to cover action, target, condition and approver (§III-A), which makes a low rate close to true by construction. Table I's 'Human, loose' row was coded by a single annotator, and App. D says the second annotator was 'added post-hoc', so the strict primary standard may have been settled after the first coding pass."},
+  {"claim": "Annotators agreed closely on match decisions.", "proposed_strength": "moderate", "reason": "κ=0.89 is computed on only 115 items, with the second annotator added post hoc (App. D). Both followed the same author-written guide, and the authors themselves say agreement shows reproducibility under that guide, not correctness (§IV-B). The annotators are unnamed in a single-author paper, so independence from the author cannot be checked."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P01", "from": "contradicts", "to": "neutral", "reason": "No agent is run (§VIII), so the paper gives no evidence that instruction files fail to change behaviour. It only shows that their security prose usually lacks a deterministic built-in control. That is a point about enforcement, not evidence against hierarchical instruction files."},
+  {"id": "P21", "from": "supports", "to": "mixed", "reason": "No policy-as-code system is evaluated. The data show that the host's no-code permission rules can express only a small minority of written security rules, which shows a limit of built-in policy controls. The paper's advocacy for deterministic enforcement is argument, not evidence."}
+ ],
+ "missed_issues": [
+  "other:post_hoc_standard_selection: one annotator coded under the 'loose' reading and the second annotator was added post hoc (App. D), so choosing the strict adjudicated standard as primary may be a post-hoc analytic choice. The review cites the post-hoc annotator only as a footnote to a 'strong' grade.",
+  "coi low, not none: the classifier is Claude Sonnet 5 (Anthropic), judging coverage by Anthropic's Claude Code controls. The finding is unfavourable, so this is not promotional, but the instrument and the object come from the same vendor, and the author's affiliation is unstated.",
+  "By instruction, the classifier prompt over-credits matches ('if unsure... set first_class = 1', App. B), so the 16.6% upper end is partly a design choice, not an independent estimate.",
+  "Reproducibility 3 is generous: the replication package is described, but no URL or DOI appears anywhere in the text, and per-rule source links are withheld pending review.",
+  "Not peer reviewed (no venue in the comment); single author."
+ ],
+ "note": "A relevant and carefully hedged measurement that prose security rules mostly lack a deterministic built-in control in Claude Code, but the headline is largely definitional and the validation design changed post hoc. Admit with caveats, and do not use it as evidence about how agents behave."}

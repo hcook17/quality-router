@@ -1,0 +1,46 @@
+{
+  "arxiv_id": "2610.02877",
+  "contribution_type": "empirical",
+  "summary": "Education-measurement researchers (DIPF) fit Many-Facet Rasch Models separately to human ratings (8 raters) and to ratings from 17 small open-weight LLM judges (0.8B-14B) on the 1,600 SummEval news summaries. They define 'residual hardness' (mean absolute post-fit residual) and show that moderate human-LLM agreement on latent summary quality (rho about 0.37) does not carry over to which summary-dimension units are hard to judge (rho about 0.09). Consistency is disproportionately LLM-hard, while coherence is human-hard.",
+  "claims": [
+    {"claim": "Moderate alignment in latent quality does not imply alignment in residual hardness.", "evidence": "§4.1: quality r=0.372 / rho=0.371 over 1,600 summaries. Residual hardness: summary level rho=0.176, summary-dimension level rho=0.089 over 6,400 units. Robust to the ≥7B-only panel (quality 0.408 vs hardness 0.039) and expert-only humans (0.688 vs 0.092). Fit diagnostics are in Table 1.", "strength": "strong", "location": "§4.1, Table 1, Fig. 1, App. A.2.3"},
+    {"claim": "Mismatch is dimension-dependent: consistency shows an LLM-hard shift (+23.9 points), coherence a human-hard shift (-22.5).", "evidence": "Table 2 under a median-split operational definition. The consistency gap persists (+26.2) in the expert vs ≥7B comparison; sensitivity checks are in App. A.2.5-A.2.6.", "strength": "moderate", "location": "§4.2, Table 2"},
+    {"claim": "Human-easy/LLM-hard cases are partially predictable from observable source-summary features.", "evidence": "Table 4: pooled AUROC 0.631, AUPRC 0.341 vs 23.3% base rate; relevance AUROC 0.717. Modest predictive power from class-balanced logistic regression with 5-fold CV. The authors frame the SHAP results as associations only.", "strength": "moderate", "location": "§4.3, Table 4, App. A.3.2"}
+  ],
+  "patterns": [
+    {"id": "P18", "stance": "contradicts", "note": "Shows that the usual validation of LLM judges (score correlation with humans) hides case-level unreliability, especially on factual-consistency checks. But the judges are 0.8B-14B open models on news summarization, not frontier code reviewers."},
+    {"id": "P19", "stance": "supports", "note": "Argues for routing predicted LLM-hard cases to human review; the predictor is only modestly accurate (AUROC 0.63)."}
+  ],
+  "methodology": {
+    "sample": "SummEval: 100 CNN/DailyMail sources x 16 systems = 1,600 summaries x 4 dimensions = 6,400 units; 8 human raters (3 expert, 5 crowd); 17 LLM judges.",
+    "baselines": "Standard human-alignment correlations as the comparison point; psychometric fit diagnostics.",
+    "models": "17 open-weight judges, 0.8B-14B (Gemma, Qwen3.5, Phi, Llama, Mistral, OpenChat). No frontier or API judges.",
+    "variance": "Greedy decoding (temperature 0), so no sampling variance. CIs are reported for the RQ3 predictors in the appendix. Multiple sensitivity analyses.",
+    "ablations": "Judge-size subset, expert-only humans, rater misfit exclusion, calibration comparability, feature ablations, quadrant definitions.",
+    "contamination_controls": "None. SummEval is public and may be in judges' pretraining data; not discussed.",
+    "languages": "English news summaries; not code."
+  },
+  "standards": {
+    "peer_review": "Accepted at AACL-IJCNLP 2026 (arXiv comment).",
+    "limitations_section": true,
+    "artifacts": "Judge prompt and model list in App. A.1. No code or rating-data repository link found.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "other:weak_judges_only", "detail": "All judges are at most 14B open-weight models with only moderate quality alignment (rho about 0.37). The findings may not hold for frontier judges used in agent harnesses; the authors acknowledge 'stronger judge populations' as future work."},
+    {"type": "toy_tasks", "detail": "A single legacy news-summarization benchmark (SummEval); acknowledged in Limitations."},
+    {"type": "contamination_risk", "detail": "SummEval is old and public; possible exposure in judge pretraining is not discussed."}
+  ],
+  "coi": {
+    "affiliations": "Longwei Cong, Sonja Hahn, Sebastian Gombert, Leon Camus, Fabian Zehner, Hendrik Drachsler and Ulf Kroehne: DIPF Leibniz Institute (plus ZIB, Goethe University Frankfurt, Chemnitz University of Technology).",
+    "vendor_products_evaluated": "None; open-weight models from several vendors are used as judges.",
+    "funding": "Leibniz Association, Leibniz Competition project ALwAI (T163/2024).",
+    "severity": "none",
+    "detail": "Public research institute, no vendor ties."
+  },
+  "scores": {"rigor": 4, "reproducibility": 2, "generalizability": 1, "relevance": 1, "coi_risk": 0},
+  "verdict": "reject",
+  "verdict_reason": "off-topic: a psychometric analysis of small LLM judges on news-summary quality (SummEval). It is not about LLM agents, coding or software engineering. Methodologically careful (fit diagnostics, many sensitivity checks, peer-reviewed), but it does not inform harness decisions directly.",
+  "applicability": "Does not transfer to the harness itself, which is Java services, multi-repo ingestion, mixed agent hosts and spec-driven development. One indirect cautionary point is worth keeping: if the team uses an LLM judge to grade ingested healthcare-education content or summaries before delivery, aggregate human agreement can hide case-level failures. Factual consistency against the source is the dimension where LLM judges diverge most, so source-grounding checks or human review should gate factual claims rather than an LLM score alone. The evidence comes from ≤14B judges on news summaries, so treat this as a hypothesis to test, not a measured property of frontier judges.",
+  "conflicts_with": []
+}

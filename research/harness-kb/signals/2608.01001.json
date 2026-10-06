@@ -1,0 +1,245 @@
+{
+ "arxiv_id": "2608.01001",
+ "fulltext_chars": 162140,
+ "fulltext_lines": 3278,
+ "authors_block": "Muhammad Tukura,d∗, Hayatullahi Adeyemob, Tao Chena, Nour Alic, Anis Zarrada, Marco Agusd, Rick Kazmane, Rami Bahsoona∗ Affiliation: aSchool of Computer Science, University of Birmingham, Edgbaston, UK bComputing and Informatics, Bournemouth University, Bournemouth, UK cBrunel University London, Uxbridge, UK dCollege of Science and Engineering, HBKU, Qatar eUniversity of Hawaii, Honolulu, USA",
+ "vendor_affiliation_hits": [],
+ "n_authors": 8,
+ "comment": "32 pages, 7 figures, 7 tables, submitted to IEEE Transactions on Software Engineering",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# From AI Technical Debt to Agentic Technical Debt: A Systematic Mapping of Root Causes and Manifestations in Agentic AI Systems"
+  ],
+  [
+   36,
+   "###### Abstract"
+  ],
+  [
+   42,
+   "###### Index Terms:"
+  ],
+  [
+   45,
+   "## I Introduction"
+  ],
+  [
+   85,
+   "## II Background"
+  ],
+  [
+   89,
+   "### II-A Artificial Intelligence, Generative AI, and Agentic AI"
+  ],
+  [
+   113,
+   "#### II-A1 Comparative Analysis of AI Paradigms"
+  ],
+  [
+   203,
+   "### II-B Technical Debt: From Traditional Systems to AI"
+  ],
+  [
+   207,
+   "### II-C AI Technical Debt (AITD)"
+  ],
+  [
+   211,
+   "### II-D Agentic Technical Debt (AgTD)"
+  ],
+  [
+   215,
+   "#### II-D1 Comparative Perspective: TD vs AITD vs AgTD"
+  ],
+  [
+   301,
+   "### II-E Summary"
+  ],
+  [
+   305,
+   "## III Related Work"
+  ],
+  [
+   309,
+   "### III-A Conceptual and Architectural Foundations"
+  ],
+  [
+   313,
+   "### III-B Systematic Reviews and Research Taxonomies"
+  ],
+  [
+   318,
+   "### III-C Trust, Risk, Security, and Governance"
+  ],
+  [
+   325,
+   "### III-D Domain-Specific Applications"
+  ],
+  [
+   333,
+   "### III-E Research Gaps and Limitations"
+  ],
+  [
+   357,
+   "### III-F Positioning of This Work"
+  ],
+  [
+   367,
+   "## IV Methodology"
+  ],
+  [
+   375,
+   "### IV-A Phase 1: Source Taxonomy (AITD Extraction)"
+  ],
+  [
+   614,
+   "#"
+  ],
+  [
+   806,
+   "### IV-B Phase 2: Agentic Contextualization"
+  ],
+  [
+   828,
+   "### IV-C Phase 3: Mapping AITDs to Agentic Manifestations"
+  ],
+  [
+   852,
+   "### IV-D Phase 4: Validation and Consistency Checking"
+  ],
+  [
+   862,
+   "### IV-E Summary of Methodological Contribution"
+  ],
+  [
+   880,
+   "## V Agentic Technical Debt (AgTD): Definition, Mapping, and Analysis"
+  ],
+  [
+   882,
+   "### V-A Formal Definition of Agentic Technical Debt"
+  ],
+  [
+   892,
+   "### V-B Systematic Mapping of AITDs to Agentic Manifestations"
+  ],
+  [
+   902,
+   "### V-C Transformation Semantics"
+  ],
+  [
+   906,
+   "#### V-C1 Direct Transformation (d)"
+  ],
+  [
+   1024,
+   "#### V-C2 Contextual Transformation (c)"
+  ],
+  [
+   1154,
+   "#### V-C3 Manifestation Expansion (e)"
+  ],
+  [
+   1347,
+   "### V-D Categorization and Analysis of AgTDs by Root-Cause Taxonomy"
+  ],
+  [
+   1352,
+   "#### V-D1 Data and Library-Related Debts"
+  ],
+  [
+   1392,
+   "#### V-D2 Model and Code-Related Debts"
+  ],
+  [
+   1484,
+   "#### V-D3 Algorithm-Related Debts"
+  ],
+  [
+   1515,
+   "#### V-D4 Design and Architecture-Related Debts"
+  ],
+  [
+   1573,
+   "#### V-D5 Operational and Lifecycle-Related Debts"
+  ],
+  [
+   1622,
+   "#### V-D6 Documentation and Communication Debts"
+  ],
+  [
+   1644,
+   "#### V-D7 Testing and QA-Related Debts"
+  ],
+  [
+   1657,
+   "### V-E Summary of Key Insights"
+  ],
+  [
+   1669,
+   "## VI Implications of Agentic Technical Debt for AI TRiSM"
+  ],
+  [
+   1673,
+   "### VI-A AgTD and AI Trustworthiness"
+  ],
+  [
+   1679,
+   "### VI-B AgTD as a Driver of Systemic Risk"
+  ],
+  [
+   1687,
+   "### VI-C Security Implications of AgTD in Agentic Systems"
+  ],
+  [
+   1694,
+   "### VI-D Challenges in Explainability, Governance, and System Reliability"
+  ],
+  [
+   1712,
+   "### VI-E Synthesis: AgTD within the AI TRiSM Framework"
+  ],
+  [
+   1724,
+   "## VII Conclusion and Future Work"
+  ],
+  [
+   1726,
+   "### VII-A Conclusion"
+  ],
+  [
+   1754,
+   "### VII-B Future Work"
+  ],
+  [
+   1790,
+   "## References"
+  ],
+  [
+   3278,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "### III-E Research Gaps and Limitations\n\nDespite recent advances, key gaps remain from an AgTD perspective:\n\n• \n\nUnaddressed Sources of Agentic Technical Debt: Existing studies (e.g., Moralles et al. (2026)) do not adequately address debt arising from autonomous decision-making, dynamic task orchestration, and inter-agent dependencies.\n\n• \n\nLack of Unified Modeling for AgTD Propagation: Current research lacks systematic approaches to model how technical debt propagates across agent interactions, coordination workflows, and emergent system behaviors, which serve as key pathways through which AgTD accumulates and amplifies at the system level.\n\n• \n\nInsufficient Governance for Autonomous Systems: While frameworks such as TRiSM Raza et al. (2026a) provide foundations for trust, risk, and security management, they do not fully address accountability, traceability, and control challenges in agentic ecosystems. These governance gaps can contribute to the accumulation of Agentic Technical Debt (AgTD) by limiting the visibility, monitoring, and remediation of debt arising from autonomous decisions, agent interactions, and evolving system behaviors.\n\n• \n\nUnderexplored Security and Coordination Debt: Technical debt arising from inadequate security controls, coordination mechanisms, and agent interaction protocols remains underexplored in agentic systems. Such debt can increase susceptibility to risks such as adversarial manipulation and coordination failures Rashid et al. (2025), limiting proactive mitigation and system resilience.\n\n• \n\nUnderexplored Sustainability Technical Debt: Although recent studies have extensively discussed trustworthiness, safety, security, and governance in Agentic AI Raza et al. (2025); Raheem and Hossain (2025); Leo et al. (2026); Adabara et al. (2025); Qi et al. (2026), the sustainability implications of AgTD remain largely unexplored. Agentic AI systems are inherently computationally intensive due to continuous reasoning, autonomous planning, persistent memory management, repeated inference, multi-agent communication, and frequent tool orchestration Abou Ali et al. (2026). Design deficiencies and inefficient workflow structures may therefore accumulate as SusTD, leading to excessive energy consumption, increased operational costs, inefficient resource utilization, and a larger carbon footprint throughout the system lifecycle. Despite the growing emphasis on Green AI and sustainable software engineering Cruz et al. (2025); Alloghani (2023), sustainability has received limited attention as a distinct manifestation of AgTD, highlighting an important research gap for future investigation.\n\n### III-F Positioning of This Work\n\nWhile prior studies provide comprehensive insights into the concepts, architectures, applications, and governance of Agentic AI, they largely overlook its implications for software quality, long-term system sustainability, and software engineering practices. In particular, existing research does not explicitly conceptualize how the autonomous, adaptive, collaborative, and persistent nature of agentic systems gives rise to new forms of technical debt that extend beyond both traditional technical debt and AI Technical Debt (AITD).\n\nThis paper addresses this gap by introducing Agentic Technical Debt (AgTD) as a foundational software engineering construct for understanding and managing technical debt in Agentic AI systems. Building upon a previously validated taxonomy of 31 AITDs Tukur et al. (2026), this work presents a theory-informed methodology for systematically transforming established AITDs into their corresponding agentic manifestations through transformation semantics. Specifically, the paper provides (i) a formal definition of AgTD, (ii) a systematic mapping of 31 AITDs to their agentic counterparts, (iii) a taxonomy-driven characterization of AgTD grounded in direct, contextual, and expansion transformations, and (iv) an analysis of the unique debt mechanisms introduced by autonomy, m",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 1,
+  "industrial": 9
+ },
+ "fulltext_source": "html"
+}

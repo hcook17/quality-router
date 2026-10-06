@@ -1,0 +1,509 @@
+{
+ "arxiv_id": "2610.02952",
+ "fulltext_chars": 104137,
+ "fulltext_lines": 1567,
+ "authors_block": "Masahiro Kato ††thanks: Email: mkato-csecon@g.ecc.u-tokyo.ac.jp Affiliation: Mizuho-DL Financial Technology Co., Ltd. October 2, 2026",
+ "vendor_affiliation_hits": [],
+ "n_authors": 1,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# GTDD: Generative Test-Driven Development for AI Coding Agents with Adversarial Testing"
+  ],
+  [
+   28,
+   "###### Abstract"
+  ],
+  [
+   32,
+   "## 1 Introduction"
+  ],
+  [
+   40,
+   "### 1.1 Contribution"
+  ],
+  [
+   50,
+   "### 1.2 Related Work"
+  ],
+  [
+   54,
+   "#### Test generation and counterexample-guided development."
+  ],
+  [
+   58,
+   "#### Generated tests in AI coding."
+  ],
+  [
+   62,
+   "#### Correctness and test-based objectives."
+  ],
+  [
+   66,
+   "#### Adaptive evaluation."
+  ],
+  [
+   70,
+   "#### Sequential inference."
+  ],
+  [
+   74,
+   "## 2 Problem Setup"
+  ],
+  [
+   78,
+   "### 2.1 Evaluation Model"
+  ],
+  [
+   82,
+   "#### Test cases."
+  ],
+  [
+   92,
+   "#### Candidate loss."
+  ],
+  [
+   102,
+   "#### Fixed execution behavior."
+  ],
+  [
+   106,
+   "### 2.2 Adaptive Development"
+  ],
+  [
+   118,
+   "### 2.3 Development Feedback"
+  ],
+  [
+   122,
+   "#### Information available to the tester."
+  ],
+  [
+   132,
+   "#### Counterexamples and regression tests."
+  ],
+  [
+   148,
+   "#### Feedback history and audit access."
+  ],
+  [
+   158,
+   "### 2.4 Evaluation Criteria"
+  ],
+  [
+   162,
+   "#### Test passing and target accuracy."
+  ],
+  [
+   170,
+   "###### Definition 2.1 (Discrepancy between test passing and target accuracy)."
+  ],
+  [
+   176,
+   "#### Improvement on inputs not yet reported."
+  ],
+  [
+   186,
+   "## 3 Generative Test-Driven Development"
+  ],
+  [
+   190,
+   "### 3.1 Round Protocol"
+  ],
+  [
+   242,
+   "### 3.2 Development Policies"
+  ],
+  [
+   246,
+   "#### Test generation."
+  ],
+  [
+   250,
+   "#### Feedback selection."
+  ],
+  [
+   254,
+   "#### Development outcomes."
+  ],
+  [
+   260,
+   "### 3.3 Acceptance Rules"
+  ],
+  [
+   268,
+   "### 3.4 Integration with Existing Tests"
+  ],
+  [
+   276,
+   "### 3.5 Applications"
+  ],
+  [
+   280,
+   "#### Structured inputs."
+  ],
+  [
+   284,
+   "#### Language and speech."
+  ],
+  [
+   288,
+   "#### Evaluation criteria."
+  ],
+  [
+   292,
+   "## 4 Theoretical Analysis"
+  ],
+  [
+   298,
+   "### 4.1 False Acceptance Probability"
+  ],
+  [
+   302,
+   "###### Proposition 4.1 (Exact acceptance probability)."
+  ],
+  [
+   312,
+   "###### Proof."
+  ],
+  [
+   321,
+   "###### Proposition 4.2 (Audits that permit failures)."
+  ],
+  [
+   331,
+   "###### Proof."
+  ],
+  [
+   338,
+   "### 4.2 Sample Size for Known Tests"
+  ],
+  [
+   342,
+   "###### Proposition 4.3 (Adaptation to known tests)."
+  ],
+  [
+   346,
+   "###### Proof."
+  ],
+  [
+   351,
+   "###### Proposition 4.4 (Exact size requirement for known tests)."
+  ],
+  [
+   359,
+   "###### Proof."
+  ],
+  [
+   366,
+   "### 4.3 Error Bounds under Repeated Feedback"
+  ],
+  [
+   370,
+   "#### A sufficient bound from feedback histories."
+  ],
+  [
+   374,
+   "###### Assumption 4.1 (Repeated evaluation on a hidden test set)."
+  ],
+  [
+   378,
+   "###### Theorem 4.5 (Finite-population bound from feedback histories)."
+  ],
+  [
+   399,
+   "#### A lower bound from adaptive probing."
+  ],
+  [
+   403,
+   "###### Theorem 4.6 (Adaptive probing lower bound)."
+  ],
+  [
+   407,
+   "###### Corollary 4.7 (A sufficient choice of probe size)."
+  ],
+  [
+   419,
+   "###### Remark (Case identity after reduction)."
+  ],
+  [
+   423,
+   "### 4.4 Error Bounds for Generated Tests"
+  ],
+  [
+   427,
+   "###### Proposition 4.8 (Uniform generation in each round)."
+  ],
+  [
+   437,
+   "###### Proof."
+  ],
+  [
+   444,
+   "###### Proposition 4.9 (Candidate-dependent test selection)."
+  ],
+  [
+   448,
+   "###### Proof."
+  ],
+  [
+   455,
+   "### 4.5 Sequential Error Control"
+  ],
+  [
+   461,
+   "###### Assumption 4.2 (Sampling after candidate commitment)."
+  ],
+  [
+   465,
+   "#### Simultaneous family conclusions."
+  ],
+  [
+   469,
+   "###### Theorem 4.10 (Sequential family-wise error control)."
+  ],
+  [
+   479,
+   "###### Proof."
+  ],
+  [
+   484,
+   "###### Corollary 4.11 (Family-wise sample size)."
+  ],
+  [
+   494,
+   "#### Acceptance of the complete repository."
+  ],
+  [
+   498,
+   "###### Theorem 4.12 (Joint repository acceptance)."
+  ],
+  [
+   507,
+   "###### Proof."
+  ],
+  [
+   514,
+   "###### Corollary 4.13 (Comparison with known tests)."
+  ],
+  [
+   520,
+   "#### An unbounded sequence of candidates."
+  ],
+  [
+   524,
+   "###### Theorem 4.14 (Error allocation over an unbounded horizon)."
+  ],
+  [
+   532,
+   "###### Proof."
+  ],
+  [
+   539,
+   "#### Sequential testing within one candidate."
+  ],
+  [
+   543,
+   "#### Evidence across different candidates."
+  ],
+  [
+   551,
+   "###### Theorem 4.15 (E-process for a sequence of bad candidates)."
+  ],
+  [
+   559,
+   "###### Proof."
+  ],
+  [
+   566,
+   "#### Comparison of acceptance conditions."
+  ],
+  [
+   594,
+   "## 5 Exact Numerical Analysis"
+  ],
+  [
+   598,
+   "### 5.1 Setup"
+  ],
+  [
+   604,
+   "### 5.2 Probability Calculation"
+  ],
+  [
+   616,
+   "### 5.3 Results"
+  ],
+  [
+   620,
+   "#### Required sample size."
+  ],
+  [
+   646,
+   "#### Adaptation through repeated feedback."
+  ],
+  [
+   684,
+   "#### Acceptance within tolerance."
+  ],
+  [
+   732,
+   "## 6 Empirical Case Study"
+  ],
+  [
+   736,
+   "### 6.1 Experimental Setup"
+  ],
+  [
+   740,
+   "#### Task and evaluation inputs."
+  ],
+  [
+   744,
+   "#### Model and paired design."
+  ],
+  [
+   748,
+   "#### Statistical analysis."
+  ],
+  [
+   752,
+   "### 6.2 Test Generation"
+  ],
+  [
+   756,
+   "#### Baselines."
+  ],
+  [
+   760,
+   "#### LLM-generated inputs."
+  ],
+  [
+   764,
+   "#### Counterexample feedback."
+  ],
+  [
+   768,
+   "#### Added conditions."
+  ],
+  [
+   772,
+   "### 6.3 Results"
+  ],
+  [
+   882,
+   "#### Primary comparison."
+  ],
+  [
+   886,
+   "#### Source access and the property-based baseline."
+  ],
+  [
+   890,
+   "#### Failures and successive repairs."
+  ],
+  [
+   894,
+   "#### Added conditions."
+  ],
+  [
+   898,
+   "#### Audits of the recorded candidates."
+  ],
+  [
+   902,
+   "## 7 Discussion"
+  ],
+  [
+   906,
+   "#### Development feedback."
+  ],
+  [
+   910,
+   "#### Evidence for acceptance."
+  ],
+  [
+   914,
+   "#### The evaluation target."
+  ],
+  [
+   918,
+   "## 8 Conclusion"
+  ],
+  [
+   922,
+   "## References"
+  ],
+  [
+   1297,
+   "## Appendix A Event Order and Information Access"
+  ],
+  [
+   1312,
+   "## Appendix B Counterexample Selection and Reduction"
+  ],
+  [
+   1316,
+   "#### Selection rules."
+  ],
+  [
+   1320,
+   "#### Reduction budget."
+  ],
+  [
+   1326,
+   "## Appendix C Elementary Properties"
+  ],
+  [
+   1330,
+   "#### Information available to the tester."
+  ],
+  [
+   1334,
+   "#### Repair and regression."
+  ],
+  [
+   1338,
+   "#### Agreement on reported cases."
+  ],
+  [
+   1342,
+   "## Appendix D Proofs for Repeated Testing"
+  ],
+  [
+   1346,
+   "###### Proof of Theorem 4.5."
+  ],
+  [
+   1353,
+   "###### Proof of Theorem 4.6."
+  ],
+  [
+   1360,
+   "###### Proof of Corollary 4.7."
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 5,
+  "seeds_or_runs": 0,
+  "swe_bench": 5,
+  "contamination": 2,
+  "human_study": 3,
+  "java": 0,
+  "industrial": 2
+ },
+ "fulltext_source": "html"
+}

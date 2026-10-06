@@ -1,0 +1,148 @@
+{
+ "arxiv_id": "2607.05762",
+ "fulltext_chars": 70753,
+ "fulltext_lines": 1272,
+ "authors_block": "Large language models (LLMs) have recently achieved remarkable progress in generating executable code from natural language descriptions [8, 20, 30]. This capability is beginning to transform scientific computing by assisting not only in the development of new software but also in the modification of existing code and the construction of complex analysis pipelines [18]. As a result, researchers no longer need to implement every computational step manually. Instead, they can describe computational tasks in natural language and integrate the generated code into a broader scientific workflow [24]. However, natural language based code generation introduces two distinct sources of uncertainty. The first arises from the request itself. Unlike programming languages, natural language does not impose a strict specification of computational procedures and often leaves room for interpretation in essential aspects of an analysis, including the target set of objects, exclusion criteria, aggregation units, and derivation rules [39]. The second arises from the variability and fallibility of the stochastic generation process. Even for identical or closely related requests, a language model may produce different outputs, some of which may be inappropriate, incomplete, or semantically incorrect [9]. Consequently, the executability of generated code does not ensure that users understand what the output represents, nor does it make explicit the assumptions and choices that underlie the result. T",
+ "vendor_affiliation_hits": [
+  "Oracle",
+  "Qwen"
+ ],
+ "n_authors": 2,
+ "comment": "20 pages, 1 figure and 4 tabels",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "#"
+  ],
+  [
+   41,
+   "###### Abstract"
+  ],
+  [
+   47,
+   "######"
+  ],
+  [
+   49,
+   "## 1 Introduction"
+  ],
+  [
+   67,
+   "## 2 Multi-Agent Framework"
+  ],
+  [
+   74,
+   "### 2.1 Methodology"
+  ],
+  [
+   80,
+   "#### Domain initialization"
+  ],
+  [
+   87,
+   "#### Helper selection"
+  ],
+  [
+   97,
+   "#### Code generation"
+  ],
+  [
+   104,
+   "#### Execution and iterative repair"
+  ],
+  [
+   114,
+   "#### Implementation tracing"
+  ],
+  [
+   124,
+   "#### Post generation critique"
+  ],
+  [
+   129,
+   "#### Golden Axe Oracle"
+  ],
+  [
+   147,
+   "## 3 A Case Study of Domain Specific Tuning"
+  ],
+  [
+   155,
+   "### 3.1 Code generation profile"
+  ],
+  [
+   165,
+   "### 3.2 Helper registry and helper selection policy"
+  ],
+  [
+   174,
+   "### 3.3 Critique context"
+  ],
+  [
+   181,
+   "### 3.4 Oracle context"
+  ],
+  [
+   218,
+   "## 4 Workflow Validation"
+  ],
+  [
+   310,
+   "### 4.1 Preparation of benchmark task cards"
+  ],
+  [
+   319,
+   "### 4.2 Stability of helper selection"
+  ],
+  [
+   400,
+   "### 4.3 Validation of generated code"
+  ],
+  [
+   491,
+   "### 4.4 Ambiguity Detection"
+  ],
+  [
+   670,
+   "### 4.5 Tracer and Critique"
+  ],
+  [
+   848,
+   "## 5 Conclusion"
+  ],
+  [
+   866,
+   "## Acknowledgments"
+  ],
+  [
+   871,
+   "## References"
+  ],
+  [
+   1272,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgments\n\nThis work is funded by grant number 22H05113, “Foundation of Machine Learning Physics”, Grant in Aid for Transformative Research Areas and 22K03626, Grant in Aid for Scientific Research (C). A. Hammad is\npartially supported by the Science, Technology & Innovation Funding Authority (STDF) under project ID 50806.\n\n## References\n\n[1]\nP. Agrawal, N. Craig, A. Madden, and I. V. Lombera (2026)\n\nThe FERMIACC: Agents for Particle Theory.\n\nExternal Links: 2603.22538\n\nCited by: §1.\n\n[2]\nA. Akli, M. Papadakis, M. Cordy, and Y. Le Traon (2026)\n\nWhen prompt under-specification improves code correctness: an exploratory study of prompt wording and structure effects on llm-based code generation.\n\narXiv preprint arXiv:2604.24712.\n\nExternal Links: 2604.24712",
+ "limitations": "",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 2,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

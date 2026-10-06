@@ -1,0 +1,157 @@
+{
+ "arxiv_id": "2608.23550",
+ "fulltext_chars": 63276,
+ "fulltext_lines": 1066,
+ "authors_block": "Ting Yan",
+ "vendor_affiliation_hits": [],
+ "n_authors": 1,
+ "comment": "11 pages, 5 figures",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# When “Do Not” Is Not deny: Security Rules in CLAUDE.md vs. Built-In Controls"
+  ],
+  [
+   24,
+   "###### Abstract"
+  ],
+  [
+   28,
+   "## I Introduction"
+  ],
+  [
+   56,
+   "## II Related Work"
+  ],
+  [
+   58,
+   "### II-A What developers write in coding agent instruction files"
+  ],
+  [
+   64,
+   "### II-B Why a written rule is not a security control"
+  ],
+  [
+   70,
+   "### II-C Permission systems and the developer’s security work"
+  ],
+  [
+   78,
+   "### II-D What existing evaluations measure"
+  ],
+  [
+   86,
+   "## III Definitions and Method"
+  ],
+  [
+   90,
+   "### III-A Definitions"
+  ],
+  [
+   118,
+   "### III-B Corpus and sampling"
+  ],
+  [
+   130,
+   "### III-C Primary label and secondary categories"
+  ],
+  [
+   152,
+   "### III-D Control reference"
+  ],
+  [
+   158,
+   "### III-E Classification and validation"
+  ],
+  [
+   170,
+   "## IV Results"
+  ],
+  [
+   172,
+   "### IV-A Overall coverage rate"
+  ],
+  [
+   194,
+   "### IV-B Reliability and recall"
+  ],
+  [
+   225,
+   "### IV-C Coverage by resource family"
+  ],
+  [
+   351,
+   "### IV-D Coverage by rule wording and by control"
+  ],
+  [
+   363,
+   "### IV-E Robustness"
+  ],
+  [
+   410,
+   "## V Discussion"
+  ],
+  [
+   420,
+   "## VI Limitations"
+  ],
+  [
+   434,
+   "## VII Conclusion"
+  ],
+  [
+   438,
+   "## Use of Generative AI"
+  ],
+  [
+   442,
+   "## VIII Ethics Considerations"
+  ],
+  [
+   446,
+   "## References"
+  ],
+  [
+   935,
+   "## Appendix A Control reference (Claude Code, frozen 2026-08-13)"
+  ],
+  [
+   1003,
+   "## Appendix B Frozen classifier prompt (abridged)"
+  ],
+  [
+   1015,
+   "## Appendix C Secondary categories for rules without a matching control"
+  ],
+  [
+   1048,
+   "## Appendix D Reproducibility"
+  ],
+  [
+   1066,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## VI Limitations\n\nScope. We measure only the rules as written in CLAUDE.md, and only whether Claude Code documents a matching control for them. We do not measure whether a team enforces a rule some other way, through continuous integration, hooks, or organization tooling, whether a repository configured the control, or whether it holds up at runtime. A rule with no matching control is therefore not necessarily unprotected, and our rates do not describe a repository’s overall security.\n\nInstrument and annotators. Our labels come from an LLM classifier, checked against a human reference that two annotators coded independently and then adjudicated, which we do not treat as ground truth. Because the sample draws equally from three unequal classifier strata, every rate uses inverse-probability weights and every interval resamples repositories as clusters. Coding the 180 items twice lets us estimate reliability rather than assert it: before adjudication the two agree on the match decision ( \\kappa=0.89 ; Section IV-B) and less on whether a segment is a security rule ( \\kappa=0.77 ). The rate still depends most on how strictly a control must match, from about 14 to 17% under a loose reading to about 4% under a strict one. We report the 4 to 16% range and rest the conclusion on what holds across it. Using an LLM as an offline instrument, checked against human labels, is distinct from relying on a model to interpret a rule at runtime.\n\nFamily labels. The family breakdown rests on a single round of human coding with only moderate agreement, so we treat it as exploratory (Section IV-C).\n\nGenerality. Our results depend on both what developers wrote and the controls Claude Code documented on our freeze date. A post-hoc audit of that control reference found one imprecise entry and one missing credential-protection feature, with no rule that would have matched it, but it cannot prove the reference was complete. The second corpus varies the sampling frame but reuses the same instrument and control vocabulary, so it does not test other products. We therefore bound the product claim to Claude Code and the time claim to the freeze date, and note that public CLAUDE.md files are not a random sample of security-relevant writing.\n\nClassification judgment. Deciding whether a control matches a rule takes judgment. We constrain it with a frozen prompt, an explicit definition of harm, a requirement that the model name the control it matched, and two blind human checks, and we flag the one boundary that proved contestable: whether a control fully matches a rule or only partly, which is where the two annotators split, on 4 of 180 rules.\n\nExtraction recall. Our extractor keys on predeclared rule words, so it misses security rules written without them; the 50-file audit puts recall at 66.3% [48.8, 82.0]. Our rates therefore describe the rules it retrieved, and the audit cannot say whether the missed rules have controls at the same rate.\n\n## VII Conclusion\n\nNatural language is increasingly how people both build agents and try to secure them. Yet across the different standards we tried, only about 4 to 16% of the security rules developers write in CLAUDE.md have one, and neither the file nor the agent shows which ones do. A written rule looks like protection, but the channel is write-only: the intent is recorded and never checked. This breaks the feedback loop that has long kept software dependable, where a developer could see whether a requirement took effect. It likely fails hardest for the growing number of builders least equipped to notice. We call on the builders of these tools to treat this as a gap worth closing, and to give natural-language security rules a mechanism that enforces them deterministically where it can, makes that enforcement observable, and warns when a rule is only advice. Closing this loop would make a written rule as dependable as it looks.\n\n## Use of Generative AI\n\nOpenAI Codex 5.6 Sol assisted with writing code to collect public G",
+ "ethics_coi": "## VIII Ethics Considerations\n\nThe study reads only public repository text. It does not run any agent, test any target system, or attempt to bypass any control. We follow the beneficence principle of the Menlo Report [47]: the benefit of measuring how often a written security rule has a matching built-in control outweighs the limited risk of reading public files at rest. We report results in aggregate and do not name individual repositories or authors. We decide whether to publish per-rule source links before release, weighing potential harm, license, and reproducibility. The work involves no participants and collects no personal data.\n\n## References\n\n[1]\nAnthropic (2026)\n\nConfigure Permissions: Claude Code Docs.\n\nNote: Accessed 2026-08-16\n\nCited by: Appendix A,\n§I,\n§III-D.\n\n[2]\nM. Rashidi (2026)\n\nThe Balkanization of Execution-Security Research for AI Coding Agents: Isolation, Access Control, and Time-of-Check-to-Time-of-Use Vulnerabilities.\n\nExternal Links: 2607.05743\n\nCited by: §I,",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 15,
+  "seeds_or_runs": 1,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 2,
+  "java": 0,
+  "industrial": 1
+ },
+ "fulltext_source": "html"
+}

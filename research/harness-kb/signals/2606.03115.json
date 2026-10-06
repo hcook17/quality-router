@@ -1,0 +1,514 @@
+{
+ "arxiv_id": "2606.03115",
+ "fulltext_chars": 128245,
+ "fulltext_lines": 4442,
+ "authors_block": "for Multi-Agent Software Engineering Royce Carbowitz ††thanks: Lead author and primary contributor. Corresponding author: royce.carbowitz@gmail.com Email: royce.carbowitz@gmail.com Dheeraj Kumar Email: dheeraj@testwithpinpoint.com June 1, 2026 Pinpoint Technologies LLC",
+ "vendor_affiliation_hits": [],
+ "n_authors": 2,
+ "comment": "55 pages, 12 tables, 6 figures; includes longitudinal deployment study and open-weights replication",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/Significant-Gravitas/Auto-GPTAccessed",
+  "https://github.com/gpt-engineer-org/gpt-engineerAccessed",
+  "https://github.com/paul-gauthier/aiderAccessed",
+  "https://github.com/yoheinakajima/babyagiAccessed"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# SPOQ: Specialist Orchestrated Queuing"
+  ],
+  [
+   36,
+   "###### Abstract"
+  ],
+  [
+   75,
+   "## 1 Introduction"
+  ],
+  [
+   87,
+   "##### Coordination Overhead."
+  ],
+  [
+   95,
+   "##### Quality Control Gaps."
+  ],
+  [
+   102,
+   "##### Limited Human Oversight."
+  ],
+  [
+   110,
+   "### 1.1 SPOQ: Our Approach"
+  ],
+  [
+   141,
+   "### 1.2 Contributions"
+  ],
+  [
+   229,
+   "## 2 Background and Related Work"
+  ],
+  [
+   231,
+   "### 2.1 Multi-Agent Systems for Software Engineering"
+  ],
+  [
+   236,
+   "##### ChatDev"
+  ],
+  [
+   244,
+   "##### MetaGPT"
+  ],
+  [
+   251,
+   "##### Multi-Agent Debate (MAD)"
+  ],
+  [
+   262,
+   "### 2.2 Task Decomposition and Dependency Management"
+  ],
+  [
+   267,
+   "##### Hierarchical Task Networks (HTNs)."
+  ],
+  [
+   273,
+   "##### DAG Scheduling."
+  ],
+  [
+   280,
+   "##### Critical Path Analysis."
+  ],
+  [
+   287,
+   "### 2.3 Human-AI Collaboration in AI-Native Engineering"
+  ],
+  [
+   292,
+   "##### Prompt Engineering."
+  ],
+  [
+   298,
+   "##### AI Pair Programming."
+  ],
+  [
+   305,
+   "##### Supervised Autonomy."
+  ],
+  [
+   312,
+   "### 2.4 Autonomous Agent Frameworks"
+  ],
+  [
+   317,
+   "##### AutoGPT and BabyAGI."
+  ],
+  [
+   326,
+   "### 2.5 Autonomous Software Engineering Agents"
+  ],
+  [
+   331,
+   "##### Devin and OpenHands."
+  ],
+  [
+   340,
+   "### 2.6 Code Generation and Pair Programming Tools"
+  ],
+  [
+   345,
+   "##### Aider and GPT-Engineer."
+  ],
+  [
+   354,
+   "##### Claude Code."
+  ],
+  [
+   367,
+   "##### GitHub Copilot."
+  ],
+  [
+   375,
+   "##### Positioning SPOQ."
+  ],
+  [
+   386,
+   "## 3 The SPOQ Methodology"
+  ],
+  [
+   392,
+   "### 3.1 Design Principles"
+  ],
+  [
+   396,
+   "###### Design Principle 3.1 (Atomic Task Boundaries)."
+  ],
+  [
+   402,
+   "###### Design Principle 3.2 (Explicit Dependencies)."
+  ],
+  [
+   410,
+   "###### Design Principle 3.3 (Quality Gates Before and After)."
+  ],
+  [
+   416,
+   "###### Design Principle 3.4 (Human-AI Collaboration)."
+  ],
+  [
+   421,
+   "###### Design Principle 3.5 (Cost-Optimized Agent Selection)."
+  ],
+  [
+   427,
+   "### 3.2 Four-Stage Pipeline"
+  ],
+  [
+   437,
+   "###### Definition 3.1 (Epic)."
+  ],
+  [
+   458,
+   "###### Definition 3.2 (Task)."
+  ],
+  [
+   487,
+   "### 3.3 Wave-Based Topological Dispatch"
+  ],
+  [
+   495,
+   "###### Definition 3.3 (Wave Assignment)."
+  ],
+  [
+   583,
+   "###### Theorem 3.1 (Parallelism Bound)."
+  ],
+  [
+   595,
+   "##### Critical Path Analysis."
+  ],
+  [
+   612,
+   "### 3.4 Three-Tier Agent Hierarchy"
+  ],
+  [
+   638,
+   "##### Opus Workers."
+  ],
+  [
+   644,
+   "##### Sonnet Reviewers."
+  ],
+  [
+   651,
+   "##### Haiku Investigators."
+  ],
+  [
+   658,
+   "##### Platform Independence."
+  ],
+  [
+   700,
+   "### 3.5 Human-as-an-Agent (HaaA) Integration"
+  ],
+  [
+   707,
+   "###### Definition 3.4 (Human-as-an-Agent)."
+  ],
+  [
+   726,
+   "##### Task Decomposition."
+  ],
+  [
+   747,
+   "##### Validation Participation."
+  ],
+  [
+   753,
+   "##### Consultation Requests."
+  ],
+  [
+   765,
+   "## 4 Validation Framework"
+  ],
+  [
+   774,
+   "### 4.1 Planning Validation: 10 Metrics"
+  ],
+  [
+   848,
+   "##### Pass Criteria."
+  ],
+  [
+   860,
+   "##### Threshold Rationale."
+  ],
+  [
+   870,
+   "##### Rationale: Validate Early."
+  ],
+  [
+   876,
+   "### 4.2 Code Validation: 10 Metrics"
+  ],
+  [
+   949,
+   "##### Pass Criteria."
+  ],
+  [
+   960,
+   "##### Code Threshold Rationale."
+  ],
+  [
+   969,
+   "##### Concise Feedback."
+  ],
+  [
+   976,
+   "### 4.3 Validation Cascade"
+  ],
+  [
+   992,
+   "## 5 Implementation"
+  ],
+  [
+   1000,
+   "### 5.1 Task Representation: The spoq/epics/ Directory"
+  ],
+  [
+   1005,
+   "##### Epic Lifecycle."
+  ],
+  [
+   1018,
+   "##### Roadmap Coordination."
+  ],
+  [
+   1029,
+   "##### Task YAML Schema."
+  ],
+  [
+   1033,
+   "###### Definition 5.1 (Task Specification)."
+  ],
+  [
+   1054,
+   "##### Phase Assignment."
+  ],
+  [
+   1069,
+   "### 5.2 Journal Tracking System"
+  ],
+  [
+   1075,
+   "###### Definition 5.2 (Journal Entry)."
+  ],
+  [
+   1088,
+   "##### Confidence Scoring."
+  ],
+  [
+   1097,
+   "##### Value Proposition."
+  ],
+  [
+   1121,
+   "### 5.3 Skill Framework"
+  ],
+  [
+   1127,
+   "###### Definition 5.3 (Skill)."
+  ],
+  [
+   1147,
+   "##### Core SPOQ Skills."
+  ],
+  [
+   1152,
+   "##### Skill Invocation and Anatomy."
+  ],
+  [
+   1162,
+   "##### Skill Extensibility."
+  ],
+  [
+   1168,
+   "### 5.4 Integration: From Specification to Execution"
+  ],
+  [
+   1207,
+   "##### Repository Bootstrap."
+  ],
+  [
+   1228,
+   "## 6 Evaluation"
+  ],
+  [
+   1232,
+   "### 6.1 Evaluation Overview"
+  ],
+  [
+   1252,
+   "### 6.2 Controlled Benchmark Environment"
+  ],
+  [
+   1278,
+   "### 6.3 Experiment 1: DAG Scheduling Efficiency"
+  ],
+  [
+   1444,
+   "### 6.4 Experiment 2: Planning Quality Benchmark"
+  ],
+  [
+   1576,
+   "### 6.5 Experiment 3: Validation Gate Ablation"
+  ],
+  [
+   1662,
+   "##### Functional quality improves monotonically with stronger validation."
+  ],
+  [
+   1666,
+   "##### Defect density decreases under stronger validation."
+  ],
+  [
+   1670,
+   "##### Static analysis improves monotonically."
+  ],
+  [
+   1674,
+   "##### Security issue identification increases under SPOQ."
+  ],
+  [
+   1678,
+   "##### Rework decreases as validation shifts left."
+  ],
+  [
+   1682,
+   "##### LOC churn increases but remains targeted."
+  ],
+  [
+   1741,
+   "### 6.6 Experiment 4: Human-as-Agent (HaaA) Evaluation"
+  ],
+  [
+   1817,
+   "##### Human intervention sharply reduces residual defects."
+  ],
+  [
+   1821,
+   "##### Human assistance improves final correctness."
+  ],
+  [
+   1825,
+   "##### Human assistance improves validation effectiveness."
+  ],
+  [
+   1829,
+   "##### Rework increases, but produces a better final system."
+  ],
+  [
+   1869,
+   "### 6.7 Field Evidence and Deployment Study"
+  ],
+  [
+   1873,
+   "#### 6.7.1 Case Study Summaries"
+  ],
+  [
+   1879,
+   "##### Case Study 1: UI Improvements (Internal)."
+  ],
+  [
+   1889,
+   "##### Case Study 2: Client Website Rebrand (External)."
+  ],
+  [
+   1901,
+   "#### 6.7.2 Multi-Project Adoption Survey"
+  ],
+  [
+   1903,
+   "##### Overview."
+  ],
+  [
+   1960,
+   "##### Domain Diversity."
+  ],
+  [
+   1970,
+   "##### Aggregate Metrics."
+  ],
+  [
+   1982,
+   "##### Third-Party Adoption."
+  ],
+  [
+   1986,
+   "##### Execution Velocity."
+  ],
+  [
+   1996,
+   "#### 6.7.3 Failure Modes and Mitigations"
+  ],
+  [
+   2008,
+   "#### 6.7.4 Cost Analysis"
+  ],
+  [
+   2027,
+   "##### Field-evidence interpretation."
+  ],
+  [
+   2031,
+   "##### Field-evidence limitations."
+  ],
+  [
+   2035,
+   "### 6.8 Threats to Validity"
+  ],
+  [
+   2037,
+   "##### Internal Validity."
+  ],
+  [
+   2041,
+   "##### Construct Validity."
+  ],
+  [
+   2045,
+   "##### External Validity."
+  ],
+  [
+   2049,
+   "##### Conclusion Validity."
+  ],
+  [
+   2053,
+   "## 7 Discussion"
+  ]
+ ],
+ "acknowledgments": "### Acknowledgments\n\nWe thank the Claude Code development team for the tooling infrastructure\nthat enabled this research. We also thank Ross Sylvester (CEO, Adrata) and\nJohn Armbruster (Founding Engineer, Notary Everyday), whose adoption of\nSPOQ and candid feedback helped refine the methodology.\n\n## References\n\nChen et al. (2021)\nM. Chen, J. Tworek, H. Jun, Q. Yuan, H. P. d. O. Pinto, J. Kaplan, H. Edwards, Y. Burda, N. Joseph, G. Brockman, et al.\n\nEvaluating large language models trained on code.\n\narXiv preprint arXiv:2107.03374.\n\nCited by: §2.3,\n§2.6.\n\nCoffman Jr and Graham (1972)\nE. G. Coffman Jr and R. L. Graham\n\nOptimal scheduling for two-processor systems.\n\nActa Informatica 1 (3), pp. 200–213.",
+ "limitations": "##### Field-evidence limitations.\n\nThis field evidence should be interpreted cautiously. The majority of repositories originate from a shared broader development context, there is no matched non-SPOQ control group, and several quality indicators rely on reviewer-agent scores or self-reported confidence values. We therefore use this section to establish practical viability and ecological validity rather than causal improvement.\n\n### 6.8 Threats to Validity\n\n##### Internal Validity.\n\nThe deployment study is observational and lacks matched controls. The controlled benchmarks mitigate this by fixing tasks, prompts, and evaluation criteria. The benchmark suite spans multiple task families, which improves robustness relative to a single benchmark instance, but the suite is still modest in size.\n\n##### Construct Validity.\n\nSome field-study metrics, such as reviewer-agent QA scores and confidence scores, may not perfectly reflect external software quality. Accordingly, our controlled experiments rely on executable tests, explicit structural planning metrics, defect counts, and requirement satisfaction rather than self-assessment alone.\n\n##### External Validity.\n\nAlthough the deployment study spans many repositories and stacks, much of the corpus originates from a shared development ecosystem. Third-party adoption partially mitigates this concern, but broader independent replication remains necessary. Likewise, the controlled task suite should be extended further in future work.\n\n##### Conclusion Validity.\n\nExperiment 1 includes 10 repeated runs per configuration with stable quantitative behavior. Experiments 2–4 aggregate across multiple benchmark tasks, which strengthens confidence in the conclusions. The Claude rows in Experiments 2–4 report mean \\pm sd across four runs per task; the Qwen replication rows are single-shot per task, providing direction-of-effect confirmation rather than precise effect-size estimates. Larger benchmark suites, repeated stochastic runs for the Qwen replication, and matched rubrics across providers would all strengthen the conclusions further.\n\n## 7 Discussion\n\n### 7.1 Comparison with Prior Multi-Agent Systems\n\nTable 13 contrasts SPOQ with representative\nmulti-agent systems and autonomous coding tools.\n\nTable 13: Comparison of Multi-Agent and Autonomous Coding Approaches\n\nFeature\nSPOQ\nChatDev\nMetaGPT\nAutoGPT\nDevin\nAider\n\nExecution model",
+ "ethics_coi": "##### Build Directory Conflicts.\n\nConcurrent build processes can corrupt shared directories (e.g., .next/,\ndist/, target/). Symptoms include partial builds, missing\nassets, and non-deterministic test failures.\n\nMitigation: Build verification runs sequentially between waves, not\nduring waves. For CI/CD integration, consider isolated build directories\nper agent or containerized build environments.\n\n#### B.5.2 Context and Memory Failures\n\n##### Context Window Exhaustion.\n\nComplex tasks with extensive codebase context can exhaust LLM context windows\n(currently 200K tokens for Claude). Symptoms include: agents losing track\nof earlier requirements, producing incomplete solutions, or generating\nresponses that contradict prior instructions. In one knowledge-graph pipeline deployment, an agent\nwith 180K tokens of context began hallucinating function signatures that\ndid not exist in the codebase.\n\nMitigation: Task descriptions should be self-contained, and the\nfiles_to_touch specification should limit scope to files the agent\ngenuinely needs. For large codebases, consider:",
+ "counts": {
+  "self_reported": 1,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 1,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 1,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

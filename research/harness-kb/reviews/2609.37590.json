@@ -1,0 +1,55 @@
+{
+  "arxiv_id": "2609.37590",
+  "contribution_type": "system",
+  "summary": "Microsoft M365 Research proposes FOCUS, a training-free compressor for agent context. A draft model samples N=3 plan sketches that cite which past (reasoning, action, observation) spans each future step depends on; spans cited often are kept verbatim, and a 'defensive' pass rescues failure and state spans. Evaluated with gpt-4.1 on AppWorld, OfficeBench, 8-objective QA, WebVoyager and tau2-Bench against ACON, LLMLingua and other baselines, it reports up to +8.9 points accuracy and up to 48% lower peak context.",
+  "claims": [
+    {"claim": "Improves task success by up to 8.9 points over uncompressed execution.", "evidence": "Table 1a, AppWorld test_normal (168 tasks): FOCUS-D 64.9 vs no compression 56.0, i.e. about 15 tasks, with a single run (temperature 0, seed 42). OfficeBench (95 subtasks): +1.1 to +2.1. 8-QA: EM +0.01-0.02.", "strength": "moderate", "location": "§5.1, Table 1"},
+    {"claim": "Cuts peak context by up to 48% and dependency by 73%.", "evidence": "OfficeBench FOCUS-O peak 3.81K vs 7.27K (about 48%) and dependency 1.16 vs 4.43 (about 74%). These maxima come from the Optimistic variant on one benchmark, whereas the +8.9 accuracy comes from the Defensive variant on AppWorld, where peak falls only 9.93 to 8.37 (16%). The abstract combines the best cells of different variants.", "strength": "moderate", "location": "§5.1, Table 1a-b"},
+    {"claim": "Robust to draft-model choice; Qwen3-8B, Qwen3-14B, Phi-4 and gpt-4.1-mini all beat no compression on AppWorld.", "evidence": "Table 3: FOCUS-D 58.3-65.5 vs 56.0 for no compression and 44.6-50.0 for ACON with the same compressors. Single runs. The weakest draft (Qwen3-8B) scoring best hints at noise.", "strength": "moderate", "location": "§5.1 RQ2, Table 3"},
+    {"claim": "Draft overhead is offset: total API cost falls 37% and latency 47.2s to 36.5s on OfficeBench.", "evidence": "Table 5 / Table 12 (OfficeBench, gpt-4.1 agent + gpt-4.1-mini draft). Table 13 shows the cost advantage on AppWorld is smaller (41.18 to 37.82) and that a gpt-4.1 draft is cost-neutral (0.245 vs 0.249 USD/task).", "strength": "moderate", "location": "§5.1 RQ4, Tables 5, 12, 13"},
+    {"claim": "Theoretical guarantee: rarely cited spans have provably small counterfactual utility (Prop. 2).", "evidence": "Rests on assumptions such as bounded distortion m_max and dependency-directed perturbation (App. A.2). The appendix 'Remark (What the guarantee does not say)' limits its scope, and the AppWorld failure case (§A, Venmo contacts) shows a set-valued goal breaking it.", "strength": "weak", "location": "§4.3, App. A.2"}
+  ],
+  "patterns": [
+    {"id": "P08", "stance": "supports", "note": "Span-level, decision-aware compaction beats FIFO, retrieval, LLMLingua, prompting and ACON on accuracy in most tables, using non-coding benchmarks and single runs."},
+    {"id": "P23", "stance": "supports", "note": "A cheap draft model (gpt-4.1-mini, Qwen3-8B) steering compaction for an expensive main agent lowers total cost (Tables 5, 13)."},
+    {"id": "P24", "stance": "neutral", "note": "A context budget threshold delta (4,096/2,048 tokens) triggers compression; cost is reported."}
+  ],
+  "methodology": {
+    "sample": "AppWorld test_normal 168 tasks; OfficeBench 95 subtasks; 8-objective QA 100 test tasks; WebVoyager text-only subset 135 tasks; tau2-Bench retail/airline (counts not checked).",
+    "baselines": "No compression, FIFO, retrieval, LLMLingua, prompting, ACON UT/UTCO, run 'in the same experiment settings as ACON'. ACON is a current, strong baseline. Whether baselines were re-run or copied from ACON is not stated explicitly.",
+    "models": "Main agent gpt-4.1 (and gpt-4.1-mini in Table 2) via Azure OpenAI. Drafts: gpt-4.1, gpt-4.1-mini, Qwen3-8B/14B, Phi-4. Only the OpenAI family is used as the main agent.",
+    "variance": "Single seed (42, temperature 0). No CIs. The N-rollout ablation swings 71.6 / 77.9 / 74.7 / 74.7 (Table 4), suggesting a noise floor of several points.",
+    "ablations": "Number of rollouts N, draft model, memory threshold delta, Optimistic vs Defensive variant.",
+    "contamination_controls": "None discussed.",
+    "languages": "n/a. Productivity apps, QA, web and dialogue; no coding benchmarks."
+  },
+  "standards": {
+    "peer_review": "Preprint, 'Under Review' per arXiv comment.",
+    "limitations_section": false,
+    "artifacts": "Prompts and hyperparameters said to be in the appendix (Reproducibility Statement). No code repository link found.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "no_variance_reported", "detail": "Single seed per configuration. The rollout ablation alone shows swings of up to 6 points, comparable to the headline gains."},
+    {"type": "cherry_picked_examples", "detail": "The abstract combines the peak/dependency reductions of FOCUS-O on OfficeBench with the accuracy gain of FOCUS-D on AppWorld."},
+    {"type": "single_model", "detail": "The main agent is always an OpenAI gpt-4.1-family model; no Claude or open-weight main agent."},
+    {"type": "metric_mismatch", "detail": "The 'Dependency' metric (cumulative dependence of actions on prior context) is inherited from ACON; lower values are presented as better without showing they track cost or quality beyond peak tokens."},
+    {"type": "closed_artifacts", "detail": "No code release located."},
+    {"type": "hype_language", "detail": "'Establishes new state of the art' from single-run gains on a few benchmarks."}
+  ],
+  "coi": {
+    "affiliations": "Shantanu Dixit, Anson Bastos, Xuchao Zhang, Chetan Bansal and Saravan Rajmohan, M365 Research, Microsoft.",
+    "vendor_products_evaluated": "Uses OpenAI gpt-4.1 via Azure OpenAI (a Microsoft-distributed service) as the main agent. The method is the authors' own; no Microsoft product is ranked against competitors.",
+    "funding": "None stated (Microsoft employment).",
+    "severity": "low",
+    "detail": "Vendor affiliation, but the paper evaluates a research method, not a commercial product. The main conflict is self-evaluation of their own method."
+  },
+  "scores": {"rigor": 3, "reproducibility": 2, "generalizability": 2, "relevance": 2, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Five benchmarks, current baselines (ACON) and several draft models are real strengths. But each result is a single seed with rollout-ablation noise as large as the gains, the abstract stitches together best-case cells from different variants, there is no code, and there is no coding or software-engineering evaluation.",
+  "applicability": "Indirect. The idea of keeping verbatim the context spans a cheap planner says the next steps depend on, and explicitly protecting failure and error spans, is a harness-level compaction policy any host could implement. Its 'defensive rescue' insight (never drop failed tool calls or negative results) is worth adopting in the team's harness rules. But nothing here is evaluated on coding, Java, multi-repo edits or spec-driven work. The documented failure on set-valued goals (dropping an enumerated list) is a direct risk for content ingestion, where agents iterate over many items or modules across ≥4 repos. Most agent hosts own compaction internally, so a mixed-host team can only apply this inside a custom harness, not in Cursor or Claude Code as shipped.",
+  "conflicts_with": [
+    {"arxiv_id": "2609.36319", "detail": "StateTape argues that history/text-based maintenance cannot detect records falsified by the agent's own writes in coding tasks. FOCUS decides retention purely from draft-model reading of the history and reports gains only on non-coding tasks, so its approach may not hold in edit-heavy code settings."},
+    {"arxiv_id": "2605.11051", "detail": "That paper finds compressing SWE-agent tool observations reduces SWE-bench resolution. FOCUS reports compression improving success, but on non-coding benchmarks with explicit span selection, so the two disagree on whether compression helps."}
+  ]
+}

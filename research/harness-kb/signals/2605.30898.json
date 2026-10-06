@@ -1,0 +1,277 @@
+{
+ "arxiv_id": "2605.30898",
+ "fulltext_chars": 107350,
+ "fulltext_lines": 2228,
+ "authors_block": "via Online Joint Optimization of Model Routing and Test-Time Scaling Kaiyu Huang Affiliation: School of Computer Science and Technology, Tongji University Affiliation: Shenzhen Research Institute of Big Data, The Chinese University of Hong Kong, Shenzhen Xingyu Wang Affiliation: School of Data Science, The Chinese University of Hong Kong, Shenzhen Mingze Kong Affiliation: School of Data Science, The Chinese University of Hong Kong, Shenzhen Zhubo Shi Affiliation: School of Computer Science and Technology, Tongji University Yuqian Hou Affiliation: College of Information Science and Electronic Engineering, Zhejiang University Hong Xu Affiliation: Department of Computer Science and Engineering, Chinese University of Hong Kong Zhongxiang Dai Affiliation: Shenzhen Research Institute of Big Data, The Chinese University of Hong Kong, Shenzhen Affiliation: School of Data Science, The Chinese University of Hong Kong, Shenzhen Correspondence to: daizhongxiang@cuhk.edu.cn Minchen Yu Affiliation: Shenzhen Research Institute of Big Data, The Chinese University of Hong Kong, Shenzhen Affiliation: School of Data Science, The Chinese University of Hong Kong, Shenzhen Correspondence to: yuminchen@cuhk.edu.cn Qingjiang Shi Affiliation: School of Computer Science and Technology, Tongji University Affiliation: Shenzhen Research Institute of Big Data, The Chinese University of Hong Kong, Shenzhen Correspondence to: shiqj@tongji.edu.cn",
+ "vendor_affiliation_hits": [],
+ "n_authors": 9,
+ "comment": "Accepted at the 43rd International Conference on Machine Learning (ICML 2026)",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   26,
+   "# UniScale: Adaptive Unified Inference Scaling"
+  ],
+  [
+   79,
+   "###### Abstract"
+  ],
+  [
+   91,
+   "###### Keywords:"
+  ],
+  [
+   96,
+   "## 1 Introduction"
+  ],
+  [
+   128,
+   "## 2 Background and Problem Setting"
+  ],
+  [
+   130,
+   "### 2.1 Foundations of Unified Inference Scaling"
+  ],
+  [
+   150,
+   "### 2.2 Adaptive Unified Inference Scaling via Bandits"
+  ],
+  [
+   228,
+   "## 3 The UniScale Framework"
+  ],
+  [
+   237,
+   "### 3.1 Updating the Reward Estimator"
+  ],
+  [
+   256,
+   "### 3.2 Selecting the Next Configuration a_{t}"
+  ],
+  [
+   278,
+   "### 3.3 Executing Unified Inference Scaling"
+  ],
+  [
+   302,
+   "### 3.4 Evaluating the Selected Configuration a_{t}"
+  ],
+  [
+   334,
+   "## 4 Empirical Evaluation"
+  ],
+  [
+   589,
+   "### 4.1 Scenario I: Adaptive Test-Time Scaling Selection"
+  ],
+  [
+   596,
+   "### 4.2 Scenario II: Adaptive Model Routing"
+  ],
+  [
+   608,
+   "### 4.3 Scenario III: Unified Inference Scaling"
+  ],
+  [
+   621,
+   "## 5 Ablation Study"
+  ],
+  [
+   806,
+   "## 6 Related Work and Discussion"
+  ],
+  [
+   822,
+   "## 7 Conclusion"
+  ],
+  [
+   830,
+   "## Acknowledgements"
+  ],
+  [
+   847,
+   "## Impact Statement"
+  ],
+  [
+   869,
+   "## References"
+  ],
+  [
+   1375,
+   "## Appendix A Additional Related Work"
+  ],
+  [
+   1399,
+   "## Appendix B Additional Main Experimental Details and Results"
+  ],
+  [
+   1401,
+   "### B.1 Infrastructure and Computational Environment"
+  ],
+  [
+   1414,
+   "### B.2 Semantic Representation of the Unified Inference Scaling Space"
+  ],
+  [
+   1446,
+   "### B.3 Hyperparameters and Baseline Configurations"
+  ],
+  [
+   1535,
+   "### B.4 Detailed Results on Main Experiment"
+  ],
+  [
+   1606,
+   "### B.5 Additional Comparisons with BEST-Route"
+  ],
+  [
+   1625,
+   "### B.6 Generalization Across Diverse Tasks"
+  ],
+  [
+   1661,
+   "## Appendix C Detailed Results on Ablation Study"
+  ],
+  [
+   1665,
+   "### C.1 Detailed Results for Effectiveness of Action Semantic Representations"
+  ],
+  [
+   1680,
+   "### C.2 Detailed Results for Robustness to Non-stationary Environmental Drifts"
+  ],
+  [
+   1704,
+   "### C.3 Sensitivity analysis of the exploration factor \\alpha"
+  ],
+  [
+   1773,
+   "### C.4 Sensitivity to the Underlying Verifier"
+  ],
+  [
+   1818,
+   "### C.5 System Overhead and Latency Breakdown"
+  ],
+  [
+   1829,
+   "## Appendix D More Details on UniScale Algorithm"
+  ],
+  [
+   1831,
+   "### D.1 More Details on Principled Uncertainty Measure"
+  ],
+  [
+   1838,
+   "###### Assumption D.1 (Linear Reward and sub-Gaussian Noise)."
+  ],
+  [
+   1850,
+   "###### Definition D.2 (Ridge Regression Estimator)."
+  ],
+  [
+   1871,
+   "###### Definition D.3 (Mahalanobis Norm)."
+  ],
+  [
+   1877,
+   "###### Lemma D.4 (Confidence Ellipsoid)."
+  ],
+  [
+   1889,
+   "###### Proposition D.5 (Reward Deviation Bound)."
+  ],
+  [
+   1897,
+   "###### Proof."
+  ],
+  [
+   1922,
+   "### D.2 Verifier Scores as an Indicator of Correctness"
+  ],
+  [
+   1932,
+   "### D.3 Unified Inference Scaling Cost Model"
+  ],
+  [
+   1937,
+   "###### Definition D.6 (Equivalent FLOPs, eFLOPs)."
+  ],
+  [
+   1947,
+   "###### Definition D.7 (Intermediate State)."
+  ],
+  [
+   2063,
+   "###### Assumption D.8 (Atomic Cost Components)."
+  ],
+  [
+   2106,
+   "###### Assumption D.9 (Advanced Engine Features)."
+  ],
+  [
+   2126,
+   "###### Definition D.10 (Effective Batch Size b_{j}(n) )."
+  ],
+  [
+   2134,
+   "###### Definition D.11 (Average Context Length \\bar{L}_{j}(n) )."
+  ],
+  [
+   2142,
+   "###### Definition D.12 (Maximum Decoding Step N_{j} )."
+  ],
+  [
+   2152,
+   "###### Proposition D.13 (Prefill Phase Cost)."
+  ],
+  [
+   2160,
+   "###### Proof."
+  ],
+  [
+   2176,
+   "###### Proposition D.14 (Incremental Decoding Cost)."
+  ],
+  [
+   2184,
+   "###### Proof."
+  ],
+  [
+   2198,
+   "###### Proposition D.15 (Verification Cost)."
+  ],
+  [
+   2206,
+   "###### Proof."
+  ],
+  [
+   2220,
+   "###### Remark D.16."
+  ],
+  [
+   2228,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgements\n\nWe thank the anonymous reviewers for their insightful comments that helped improve this work.\nWe also thank Zhaoyu Fan, Bowen Han, Zehua He, and Runze Lu for their helpful comments.\nThis work was supported in part by\nthe National Key Research and Development Program of China (Grant No. 2022YFA1003900),\nthe Joint Funds of the National Natural Science Foundation of China (Grant No. U25A20394),\nthe Science and Technology Commission of Shanghai Municipality (Grant Nos. 24DP1500704 and 24YL1901100),\nthe ”Medical+X” Interdisciplinary Research Project of Tongji University (Grant No. 2025-0674-YB-02),\nthe Fundamental Research Funds for the Central Universities (Grant No. 22120230311),\nCUHK-Shenzhen Research Grant (Grant No. UDF01003466),\nthe Guangdong Provincial Key Laboratory of Mathematical Foundations for Artificial Intelligence (Grant No. 2023B1212010001),\nthe National Natural Science Foundation of China (Grant No. 62506319),\nthe Guangdong Basic and Applied Basic Research Foundation (Grant No. 2026A1515030032),\nthe Shenzhen Science and Technology Program (Grant No. JCYJ20250604141031003)\n, and the Pearl River Talent Program of Guangdong Province (Grant No. 2024QN11X069).\n\n## Impact Statement\n\nThe profound significance of this work lies in proposing the Unified Inference Scaling (UIS) paradigm to break down technical silos between model routing and TTS, providing a unified theoretical foundation and a unified decision space for large-scale AI inference orchestration.\nUniScale, as a concrete implementation mechanism, shifts inference optimization from heuristic-based rules to data-driven automated policies, laying the groundwork for building intelligent and standardized AI infrastructure.\n\nEnvironmental Sustainability (Green AI).\nUniScale directly addresses the energy consumption challenges in the deployment of LLMs.\nBy leveraging the UIS Cost Model to provide a unified equivalent FLOPs metric, the framework enables hardware-aware optimization across diverse execution environments.",
+ "limitations": "",
+ "ethics_coi": "## Impact Statement\n\nThe profound significance of this work lies in proposing the Unified Inference Scaling (UIS) paradigm to break down technical silos between model routing and TTS, providing a unified theoretical foundation and a unified decision space for large-scale AI inference orchestration.\nUniScale, as a concrete implementation mechanism, shifts inference optimization from heuristic-based rules to data-driven automated policies, laying the groundwork for building intelligent and standardized AI infrastructure.\n\nEnvironmental Sustainability (Green AI).\nUniScale directly addresses the energy consumption challenges in the deployment of LLMs.\nBy leveraging the UIS Cost Model to provide a unified equivalent FLOPs metric, the framework enables hardware-aware optimization across diverse execution environments.\nFurthermore, the Path-Aware Early Exiting mechanism minimizes redundant computation by dynamically terminating low-potential inference branches.\nThis ensures that computational resources are concentrated on high-marginal-gain configurations, significantly reducing the carbon footprint of global inference services by preventing over-computation on suboptimal base models.\n\nTechnological Democratization and Inclusivity.\nThis framework fosters a more inclusive AI ecosystem by providing a universal orchestration mechanism applicable to heterogeneous environments.\nBy offering fine-grained control over the quality–cost trade-off, UniScale demonstrates significant potential in edge-cloud collaboration scenarios.\nIts online adaptivity allows resource-constrained edge hardware to intelligently determine when to leverage local capabilities and when to pursue cloud upgrades.\nThis bridges the digital divide, enabling personal devices to perform complex reasoning tasks previously reserved for high-end clusters, thus allowing a broader user base to access advanced AI intelligence with lower barriers to entry.\n\nData Privacy and Decentralized Governance.\nWhile this research ",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 1,
+  "swe_bench": 0,
+  "contamination": 2,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

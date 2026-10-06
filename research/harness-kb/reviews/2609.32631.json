@@ -1,0 +1,52 @@
+{
+  "arxiv_id": "2609.32631",
+  "contribution_type": "empirical",
+  "summary": "RL training method for SWE agents that converts runtime signals into step-level rewards: a navigation potential (how many gold-patch files the agent has inspected) and a verification potential (how many fail-to-pass tests are fixed without breaking pass-to-pass tests), measured by replaying edits in a parallel 'shadow' sandbox. Trained Qwen3.5-9B (issue repair) and Qwen3.5-35B-A3B (repo generation) and reports gains over GRPO and four process-reward baselines.",
+  "claims": [
+    {"claim": "SWE-MILE improves issue resolution over outcome-only and other process-reward RL methods.", "evidence": "Table 2: Avg@4 SWE-bench Verified 63.8 vs base 53.6, GRPO 58.2, best baseline SWE-TRACE 60.5; SWE-bench Pro 39.3 vs base 30.8, GRPO 33.9, SWE-TRACE 36.6. Avg@4 gives some sampling averaging but no per-seed training variance; checkpoint is the best one evaluated every five steps, apparently on the test benchmarks (App. B.1).", "strength": "moderate", "location": "§3.2, Table 2, App. B.1"},
+    {"claim": "Improves whole-repository generation with fewer turns and shorter responses.", "evidence": "Table 3: Doc2Repo 54.7 vs GRPO 51.3 / GraphGPO 52.4; NL2Repo-Bench 33.1 vs SWE-TRACE 30.9; turns 72.6 vs 85.7-112.0 on Doc2Repo. Doc2Repo has only 50 tasks.", "strength": "moderate", "location": "§3.2, Table 3"},
+    {"claim": "Both potentials, backward credit and RLOO advantage each contribute; structured tools beat bash-only.", "evidence": "Table 4: w/o milestone 59.4/34.7, w/o verification 60.7/35.8, w/o navigation 62.0/38.0, Bash only 62.2/38.6 vs full 63.8/39.3 (Verified/Pro). Several ablation deltas are 1-2 pp without variance.", "strength": "moderate", "location": "§3.3, Table 4"},
+    {"claim": "Asynchronous shadow probing hides most verification latency.", "evidence": "§2.6 reports runtime overhead over 9,600 rollouts with a tail-latency breakdown; only measured on the authors' SWE-MiniSandbox setup.", "strength": "moderate", "location": "§2.6"}
+  ],
+  "patterns": [
+    {"id": "P25", "stance": "supports", "note": "RL with runtime-derived process rewards outperforms outcome-only GRPO by ~5.6 pp on SWE-bench Verified and ~5.4 pp on SWE-bench Pro for a 9B model."},
+    {"id": "P16", "stance": "supports", "note": "Intermediate test execution (F2P/P2P states after each edit) is the strongest training signal; removing verification potential costs more than removing navigation."},
+    {"id": "P33", "stance": "contradicts", "note": "Bash-only action space slightly underperforms structured search/read/edit tools (62.2 vs 63.8 Verified)."},
+    {"id": "P20", "stance": "neutral", "note": "Namespace/cgroup sandboxes (primary + shadow) for replay and verification."},
+    {"id": "P31", "stance": "neutral", "note": "SWE-bench Verified/Pro, NL2Repo-Bench, Doc2Repo only."}
+  ],
+  "methodology": {
+    "sample": "Train: 1,952 Python SWE-rebench V2 tasks; 3,675 DeNovoSWE tasks. Test: SWE-bench Verified 500, SWE-bench Pro public 731, NL2Repo-Bench 104, Doc2Repo 50.",
+    "baselines": "GRPO, G-RA, SWE-TRACE (reimplemented, no official code; judge swapped to Qwen3.8-27B), GiGPO, GraphGPO, DeNovoSWE-Agent; same data/budgets. Proprietary model numbers listed for context only.",
+    "models": "Qwen3.5-9B (issue resolution), Qwen3.5-35B-A3B (repo generation); one policy per task type.",
+    "variance": "Avg@4 inference sampling; no repeated training runs, no CIs; best checkpoint selection every five steps.",
+    "ablations": "Component removal, advantage estimator, bash-only, potential-weight sensitivity (Fig. 3).",
+    "contamination_controls": "None reported for SWE-rebench training vs SWE-bench Verified/Pro test overlap.",
+    "languages": "Training Python-only for issue resolution; SWE-bench Pro includes JS/TS/Go at test; limitations note per-language test parsing pipelines are required."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint (23 pages); no venue listed.",
+    "limitations_section": true,
+    "artifacts": "Code at https://github.com/CcQunResearch/SWE-MILE; prompts in App. E; hyperparameters in Tables 5-6.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "benchmark_overfit", "detail": "Best checkpoint chosen among periodic evaluations without a stated separate validation split, so reported Avg@4 may be optimistically selected on test benchmarks."},
+    {"type": "no_variance_reported", "detail": "Single training run per method; ablation deltas of 1-2 pp are uninterpretable without seeds."},
+    {"type": "single_language_python", "detail": "Issue-resolution training data is the Python subset; verification potential needs per-language test parsers (D.2)."},
+    {"type": "strawman_baseline", "detail": "SWE-TRACE was reimplemented from the paper with a substituted judge model; fidelity to the original is unverified."},
+    {"type": "contamination_risk", "detail": "No decontamination between SWE-rebench training tasks and SWE-bench evaluation reported."}
+  ],
+  "coi": {
+    "affiliations": "Institute of Automation, Chinese Academy of Sciences / UCAS; Tencent Inc. (3 of 5 authors).",
+    "vendor_products_evaluated": "None of Tencent's products; Qwen base models.",
+    "funding": "No acknowledgments section found.",
+    "severity": "low",
+    "detail": "Vendor-affiliated authors evaluating their own training method, not a commercial product."
+  },
+  "scores": {"rigor": 3, "reproducibility": 4, "generalizability": 2, "relevance": 1, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Abstract claims are backed by Tables 2-4 with numbers that match, code is released, and baselines are recent; but it is a single-run, test-set-checkpoint-selected RL result on Python-trained small models, and is about model training rather than harness configuration.",
+  "applicability": "Low direct relevance: a Java team adopting hosted agents will not run RLVR training. Two indirect lessons transfer: (1) running tests after each repository-changing edit is the most valuable progress signal, which argues for a harness hook that runs the affected module's JUnit/contract tests on every edit across the ≥4 ingestion repos, not only at the end; (2) structured read/edit/search tools modestly beat raw bash. The shadow-sandbox replay idea could inform asynchronous CI-style verification in a harness, but the paper only shows it for training throughput. Nothing on specs, Java build systems, or mixed hosts.",
+  "conflicts_with": []
+}

@@ -1,0 +1,230 @@
+{
+ "arxiv_id": "2609.15096",
+ "fulltext_chars": 85771,
+ "fulltext_lines": 970,
+ "authors_block": "##### Report GitHub Issue Title: Content selection saved. Describe the issue below: Description: arXiv is now an independent nonprofit! Learn more Back to arXiv License: CC BY 4.0 arXiv:2609.15096v1 [cs.AI] 14 Sep 2026 \\setheaderlogo # OpenAl4S: Code as Action, Science as Sessions Gongbo Zhang Affiliation: Peking University Shenzhen Graduate School, Shenzhen, 518055, China Affiliation: These authors contributed equally to this work. Hao Li Affiliation: Peking University Shenzhen Graduate School, Shenzhen, 518055, China Affiliation: These authors contributed equally to this work. Yu Wang Affiliation: Peking University Shenzhen Graduate School, Shenzhen, 518055, China Mujie Lin Affiliation: Peking University Shenzhen Graduate School, Shenzhen, 518055, China Liuzhenghao Lv Affiliation: Peking University Shenzhen Graduate School, Shenzhen, 518055, China Yicheng Mao Affiliation: Peking University Shenzhen Graduate School, Shenzhen, 518055, China Yimi Wang Affiliation: Peking University Shenzhen Graduate School, Shenzhen, 518055, China Jun Zhu Affiliation: Tsinghua-Peking Joint Center for Life Sciences, School of Life Sciences, Tsinghua University, Beijing, China Minhan Tang Affiliation: Independent Researcher Zhengxiang Jiang Affiliation: Peking University Shenzhen Graduate School, Shenzhen, 518055, China Yusong Wang Affiliation: Independent Researcher Jiayu Yao Affiliation: Peking University Shenzhen Graduate School, Shenzhen, 518055, China Affiliation: Beijing Yuankong Intellige",
+ "vendor_affiliation_hits": [
+  "GitHub"
+ ],
+ "n_authors": 18,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/PKU-YuanGroup/OpenAI4S",
+  "https://github.com/huggingface/smolagents"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   22,
+   "#"
+  ],
+  [
+   107,
+   "###### Abstract"
+  ],
+  [
+   113,
+   "## 1 Introduction"
+  ],
+  [
+   143,
+   "## 2 Related Work"
+  ],
+  [
+   145,
+   "#### Agents for scientific discovery."
+  ],
+  [
+   149,
+   "#### Coding harnesses and code as action."
+  ],
+  [
+   153,
+   "#### Reproducibility and provenance in computational science."
+  ],
+  [
+   157,
+   "#### Evaluating scientific agents."
+  ],
+  [
+   161,
+   "## 3 Methods"
+  ],
+  [
+   163,
+   "### 3.1 Overview: from tool-calling agents to a scientific computing runtime"
+  ],
+  [
+   182,
+   "### 3.2 Dual-plane execution architecture"
+  ],
+  [
+   184,
+   "#### Control plane."
+  ],
+  [
+   188,
+   "#### Principle 1: a stateful, programmatic research environment."
+  ],
+  [
+   192,
+   "#### Principle 2: code as the scientific action primitive."
+  ],
+  [
+   196,
+   "#### Principle 3: controlled integration with host services."
+  ],
+  [
+   202,
+   "### 3.3 Reproducible research workflow management"
+  ],
+  [
+   206,
+   "#### Session state, artifact versions and exchange."
+  ],
+  [
+   212,
+   "#### Recovery of computing state."
+  ],
+  [
+   216,
+   "#### Action-level tracking and its coverage."
+  ],
+  [
+   224,
+   "#### Structured completion and scoped evidence checks."
+  ],
+  [
+   230,
+   "### 3.4 Structural and data safety"
+  ],
+  [
+   232,
+   "#### Structural controls and default configuration."
+  ],
+  [
+   270,
+   "#### Biosecurity and chemical-safety screening."
+  ],
+  [
+   276,
+   "### 3.5 Skills"
+  ],
+  [
+   280,
+   "### 3.6 Implementation"
+  ],
+  [
+   286,
+   "## 4 Experiments"
+  ],
+  [
+   288,
+   "### 4.1 Science domain"
+  ],
+  [
+   292,
+   "#### One task, several scenarios"
+  ],
+  [
+   398,
+   "#### Heterogeneous execution regimes"
+  ],
+  [
+   406,
+   "### 4.2 Quality evaluation"
+  ],
+  [
+   456,
+   "#### Evaluator validation and scope of the comparison."
+  ],
+  [
+   460,
+   "### 4.3 Cross-domain performance"
+  ],
+  [
+   524,
+   "### 4.4 Distributional robustness and scientific delivery"
+  ],
+  [
+   547,
+   "### 4.5 Representative workflow failure modes"
+  ],
+  [
+   558,
+   "## 5 Discussion"
+  ],
+  [
+   566,
+   "## Data Availability"
+  ],
+  [
+   570,
+   "## Code Availability"
+  ],
+  [
+   574,
+   "## References"
+  ],
+  [
+   818,
+   "## OpenAI4S Community"
+  ],
+  [
+   822,
+   "## Acknowledgements"
+  ],
+  [
+   826,
+   "## Competing interests"
+  ],
+  [
+   830,
+   "## Supplementary implementation notes"
+  ],
+  [
+   836,
+   "### S1. Execution channels and state lifetime"
+  ],
+  [
+   876,
+   "### S2. What execution records measure"
+  ],
+  [
+   902,
+   "### S3. Defaults, optional coverage and failure behavior"
+  ],
+  [
+   938,
+   "### S4. Persistence, recovery and exchange"
+  ],
+  [
+   948,
+   "### S5. Benchmark identifiers used in the main text"
+  ],
+  [
+   970,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgements\n\nWe thank the ModelArk team at Volcengine for providing model access and technical support.\n\n## Competing interests\n\nThe authors declare no competing interests.\n\n## Supplementary implementation notes\n\nThese notes describe implementation boundaries at commit\n4e96b25 (8 September 2026).\nThis commit is the code baseline against which the system description was checked; it is not the revision or configuration used in the reported experiments, and no experimental results appear here. The source links below are pinned to it.\n\n### S1. Execution channels and state lifetime\n\nOne outer agent loop selects native control calls, a sole engine-owned finalize_response, or one complete Python/R cell. Native calls take priority over a code fence in the same reply. Kernels start on demand. Their in-memory state lasts only while the corresponding worker remains alive.\n\nCapability\n\nPython science kernel\n\nR analysis kernel\n\nPersistent state",
+ "limitations": "",
+ "ethics_coi": "## Competing interests\n\nThe authors declare no competing interests.\n\n## Supplementary implementation notes\n\nThese notes describe implementation boundaries at commit\n4e96b25 (8 September 2026).\nThis commit is the code baseline against which the system description was checked; it is not the revision or configuration used in the reported experiments, and no experimental results appear here. The source links below are pinned to it.\n\n### S1. Execution channels and state lifetime\n\nOne outer agent loop selects native control calls, a sole engine-owned finalize_response, or one complete Python/R cell. Native calls take priority over a code fence in the same reply. Kernels start on demand. Their in-memory state lasts only while the corresponding worker remains alive.\n\nCapability\n\nPython science kernel\n\nR analysis kernel\n\nPersistent state\n\nNamespace retained across foreground cells in the same worker generation.\n\nSeparate namespace retained across foreground cells in the same worker generation.",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 1,
+  "p_value_or_ci": 3,
+  "seeds_or_runs": 0,
+  "swe_bench": 1,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

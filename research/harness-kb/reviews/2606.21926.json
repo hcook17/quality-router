@@ -1,0 +1,35 @@
+{
+  "arxiv_id": "2606.21926",
+  "contribution_type": "system",
+  "summary": "A11YRepair is an agentless LLM pipeline for repairing web accessibility violations reported by the IBM Accessibility Checker. It groups related violations by component and root cause, localizes files using DOM features, embeddings and screenshots, and pulls in WCAG guidance only when a violation needs it. The authors also release A11YBench, 60 JS/TS GitHub web projects with 8,886 checker-detected violations, and report 76.8% violations resolved plus 61 merged upstream PRs.",
+  "claims": [
+    {"claim": "A11YRepair resolves 76.8% of violations at about $0.018 per issue on A11YBench-Full.", "evidence": "Table 6: 76.82% solve rate, $160.15 total over 8,886 violations (≈$0.018). Solve rate = drop in checker-reported violations, which could in principle be gamed by removing elements; manual audit (Table 8) partly addresses this on the Lite subset.", "strength": "moderate", "location": "§6.3, Table 6"},
+    {"claim": "Outperforms state-of-the-art baselines in effectiveness and cost.", "evidence": "Table 3 (Lite, o4-mini): 78.15% vs GUIRepair-I 73.19% (+4.96 pts), side effects 172 vs 310, cost $59.43 vs $132.03. But GUIRepair-B is far cheaper ($6.24 Lite; $19.36 Full) and GUIRepair-W beats A11YRepair on some repos (e.g., TypeScript 85.00% vs 81.25%). GUIRepair is the same authors' prior system; SWE-agent/OpenHands appear only in the 5-repo motivating study. Single run, no variance.", "strength": "moderate", "location": "§6.1 Table 3; §6.3 Table 6"},
+    {"claim": "Selective WCAG retrieval beats both no-knowledge and always-on injection.", "evidence": "Table 4 ablation: selective 78.15% / 172 side effects vs always-on 58.74% / 498 and none +3.21 pts lower. Single model (o4-mini), single run.", "strength": "moderate", "location": "§6.2, Table 4"},
+    {"claim": "Patches are practically useful: 61 PRs merged into projects from Google, Microsoft, Facebook, IBM, etc.", "evidence": "§6.4 and Table 9 list merged PRs; one patch per project sampled randomly. Total number submitted is not stated clearly (61 merged, 4 approved, at least one rejected), so acceptance rate is unknown; merged accessibility PRs tend to be small, low-risk edits.", "strength": "moderate", "location": "§6.4, Table 9"},
+    {"claim": "Approach is model-agnostic.", "evidence": "Table 5: seven base models on Lite range 60.45% (GPT-4.1 mini) to 80.63% (Kimi-K2.5); no baseline re-run on those models, so relative advantage across models is not shown.", "strength": "weak", "location": "§6.3, Table 5"}
+  ],
+  "patterns": [
+    {"id": "P02", "stance": "supports", "note": "Selective, on-demand loading of WCAG guidance beats always-on injection (Table 4) — evidence that indiscriminate domain context hurts."},
+    {"id": "P17", "stance": "supports", "note": "Deterministic checker (IBM A11Y Checker) used as the repair oracle and re-check loop."},
+    {"id": "P16", "stance": "mixed", "note": "Iterative re-check against the checker improves solve rate, but manual audit found 6 silent regressions the checker cannot see."},
+    {"id": "P06", "stance": "supports", "note": "Feature-guided embedding retrieval improves localization over chat-only (Table 4)."},
+    {"id": "P19", "stance": "neutral", "note": "Authors conclude human review remains needed (contrast vs branding rejection)."},
+    {"id": "P31", "stance": "introduces", "note": "New repo-level A11YBench, SWE-bench-like Lite/Full split."}
+  ],
+  "methodology": {"sample": "A11YBench: 60 JS/TS repos, 147 pages, 8,886 violations; RQ1/RQ2 on Lite (10 repos, 2,622 violations).", "baselines": "GUIRepair (authors' own prior system) in three variants; SWE-agent and OpenHands only in motivating study.", "models": "o4-mini primary; 7 base models for A11YRepair only (Table 5).", "variance": "None reported; single runs.", "ablations": "Grouping, feature retrieval, locate reflection, knowledge integration (Table 4).", "contamination_controls": "Argued that checker-derived tasks have no ground-truth fix in pretraining (§7); not empirically tested.", "languages": "JavaScript/TypeScript web front ends."},
+  "standards": {"peer_review": "Accepted by ASE 2026 (arXiv comment).", "limitations_section": true, "artifacts": "Artifact website and Figshare (§10); benchmark construction documented.", "preregistration": "n/a"},
+  "biases": [
+    {"type": "self_evaluation", "detail": "Primary baseline GUIRepair is by the same authors (Huang, Zhang, Xie, Chen 2025); own benchmark, own metric."},
+    {"type": "no_variance_reported", "detail": "No repeated runs or CIs; Lite deltas of ~5 pts could be within run-to-run noise."},
+    {"type": "metric_mismatch", "detail": "Checker-count solve rate is a weak oracle; manual audit only on Lite final turn."},
+    {"type": "missing_cost_reporting", "detail": "'Lower cost' only vs iterative baseline; basic baseline is 3-8x cheaper and not framed as such."},
+    {"type": "hype_language", "detail": "'first' claims and vendor-name list of merged PRs in abstract."}
+  ],
+  "coi": {"affiliations": "Technical University of Munich; Nanyang Technological University; Singapore Management University.", "vendor_products_evaluated": "OpenAI/Google/Moonshot models used as backbones; IBM checker as oracle; no vendor authors.", "funding": "No acknowledgments section found in extracted text.", "severity": "none", "detail": "Academic; self-baselining against own prior tool is a methodological, not financial, conflict."},
+  "scores": {"rigor": 3, "reproducibility": 4, "generalizability": 3, "relevance": 2, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Peer-reviewed (ASE 2026), artifacts released, sensible ablations, and real merged PRs, but no variance, a self-authored baseline, and cost claims that hold only against the most expensive baseline.",
+  "applicability": "Indirect for a backend Java team: the transferable lessons are (1) load domain guidance (here WCAG; for the team, content standards or spec clauses) selectively rather than always-on, which measurably reduced regressions; (2) group related findings before handing them to an agent instead of one-agent-call-per-finding; (3) use a deterministic checker as the loop oracle but keep human review for semantic regressions. If the team's delivered healthcare-education content is rendered by front ends with accessibility obligations, an A11Y checker gate in the front-end repos is worth adding; the repair agent itself does not apply to Java ingestion code.",
+  "conflicts_with": [{"arxiv_id": "2605.27716", "detail": "That empirical study (Kimi K2.5) reports LLM fixes reduce violations but fewer than 26% of cases are fully resolved and ~30% of patches introduce structural changes; A11YRepair's 76.8% is a violation-count reduction, not full resolution, so the two are less contradictory than they appear but give very different impressions of repair reliability."}]
+}

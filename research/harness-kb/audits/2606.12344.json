@@ -1,0 +1,20 @@
+{"arxiv_id": "2606.12344",
+ "blind_scores": {"rigor": 3, "reproducibility": 4, "generalizability": 3, "relevance": 3, "coi_risk": 3},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "Harness choice changes success rate substantially with the model held fixed", "proposed_strength": "moderate", "reason": "Table 2 reports only 3-run means, with no SD or CI. The headline 24.3 pp gap on Qwen 3.6-flash is driven by a single outlier (GenericAgent 38.5%). Among the top harnesses the gaps are small: Hermes 73.1 vs OpenClaw 71.2 on GLM, 81.7 vs 79.8 on DeepSeek. The 'harness' variable also bundles unequalised hidden system prompts, tool schemas and stopping rules (§3.2), so the paper shows that harnesses differ, not which design choices cause the difference."},
+  {"claim": "Having the runner export patches from repository state, instead of the model writing diff text, is necessary for reliable scoring", "proposed_strength": "moderate", "reason": "Table 1 covers one harness (OpenClaw) and one model (GLM 5.1). The 'bare adapter' baseline asks the model to hand-write unified diffs, which is close to a strawman. The direction is convincing, but the evidence is too narrow to call 'necessary' strong."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P16", "from": "supports", "to": "neutral", "reason": "Tests are used only for final scoring by the official SWE-bench evaluator. The paper does not vary or evaluate an in-loop execution verifier, so it gives no evidence that verifier loops work."},
+  {"id": "P24", "from": "supports", "to": "neutral", "reason": "The paper reports costs and tokens, but no budget or cap is tested as an intervention. The outer timeout and max_turns are held fixed. Cost reporting is not evidence for token budgets."}
+ ],
+ "missed_issues": [
+  "COI is under-scored. Eight authors are from TokenRhythm. The benchmark is hosted under the opensquilla GitHub org, and TokenRhythm's own harness OpenSquilla (ref. 28, an aiXiv preprint by TokenRhythm) is inserted into the held-out Lite validation. Under the rubric anchor ('vendor-affiliated, not self-promoting' = 3), coi_risk should be about 3, not 1, even though severity stays low.",
+  "The 0.02 pp and 0.81 pp Lite agreement figures in §4.3 are in-sample: they come from the same 21 pairs used to optimise the subset. Only the six held-out pairs (single run each, §6.4) test generalisation.",
+  "Meta-Harness's gains are in-sample (evolved and evaluated on all 350 instances, App. C), and the proposer is DeepSeek-V4.1-Flash, the same model as one of the execution backbones. The authors disclose this, but the Table 2 row still carries bold-competitive numbers.",
+  "The commercial hosts the team actually mixes (Claude Code, Codex, Cursor) are absent. Only Hermes Agent overlaps with the team's host set, so relevance 4 overstates how directly this informs the team's host choice.",
+  "There is no limitations or threats-to-validity section at all, which the review notes but does not penalise in rigor."
+ ],
+ "note": "A useful, reproducible harness-comparison benchmark with an honest finding about leaked future commits. However, the main claim that harness choice matters rests on unreported variance and bundled design differences, and the vendor COI is under-scored."}

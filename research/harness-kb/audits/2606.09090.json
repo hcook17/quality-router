@@ -1,0 +1,17 @@
+{"arxiv_id": "2606.09090",
+ "blind_scores": {"rigor": 2, "reproducibility": 4, "generalizability": 3, "relevance": 4, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "Stale code-element references occur in 23.0% of repositories (95% CI 18.8-27.2%).", "proposed_strength": "weak", "reason": "As a prevalence claim this is weak. The CI covers sampling error only. 36% of inspected flags were false positives or ambiguous (Table 3, 50 items, one annotator), and the median affected repository has a single stale reference, so many of the 82 repositories may be flagged by one false positive. The authors themselves say to 'read 23.0% as a feasibility signal rather than a precise prevalence' (§3.3). The review's own evidence text argues for weak, yet it grades moderate."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P05", "from": "supports", "to": "neutral", "reason": "P05 concerns lexical retrieval as agent context. Here git grep is used offline to audit documentation consistency, and no agent retrieval is evaluated."},
+  {"id": "P01", "from": "mixed", "to": "neutral", "reason": "The paper gives no evidence for or against the effectiveness of instruction files. It measures only how often they go stale (1.27% of verified references) and leaves impact as open RQ3. 'Mixed' implies outcome evidence that is absent."}
+ ],
+ "missed_issues": [
+  "The review sets limitations_section false. There is no dedicated section, but §3.3 contains explicit threats (two opposing biases, single annotator, public-GitHub-only scope).",
+  "The two-snapshot design is blind to the kind of staleness most relevant to spec-driven teams: references added in later edits that were never valid, and semantic or convention drift. That restricts the claim to one narrow subclass of rot.",
+  "The most transferable result is actually the per-reference rate (1.27% of verified references stale). It is low and suggests that referential rot is a small hygiene issue rather than a major risk. The review's applicability text uses the repository-level 23% framing instead."
+ ],
+ "note": "First review is accurate and its verdict matches mine. It grades the headline prevalence claim moderate despite its own evidence that the number is unadjusted, and assigns P05 and P01 stances the paper does not support."}

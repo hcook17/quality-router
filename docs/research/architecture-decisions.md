@@ -126,6 +126,41 @@ Haiku cliff 10–15 tools, Rodrigues & Vas
 breaks direct-connect ([2607.15593](https://arxiv.org/abs/2607.15593))
 is refused here.
 
+## Consumer profile: multi-repo Java backend
+
+Reference case: a Java team whose content ingestion spans ≥4 repos
+(ingest → normalize → store/index → delivery API to front ends). The
+harness for that team is host-agnostic; `qr` stays Job B inside it.
+
+- **Per repo:** `qr init` in each of the N repos. One `AGENTS.md` per
+  repo (local build/test commands, module map). No fused Gortex
+  workspace across repos; one graph per repo.
+- **Cross-repo SoT** is a coordination repo the team owns (umbrella
+  specs, contract index, merge order), not `qr`. Reads cross-repo,
+  writes single-repo; one PR per repo linked to the umbrella spec.
+- **Contracts are the seam:** OpenAPI (delivery) and AsyncAPI/Avro
+  (ingestion events). Spectral lints them; breaking-change diffs and
+  Pact / schema-registry compatibility gate CI. Provider merges before
+  consumer (expand → migrate → contract).
+- **Java sensors** (Spotless, Error Prone, ArchUnit, Semgrep, local
+  Sonar, Testcontainers) are the host's hooks and the repo's CI. `qr`
+  installs/stamps Semgrep, Spectral and local Sonar; it does not run
+  Maven/Gradle or relay their output.
+- **Code intelligence:** at most one JDT-LS-backed MCP per host,
+  counted against the ~10–15 tool cliff. ripgrep/LSP over code RAG
+  ([2609.00006](https://arxiv.org/abs/2609.00006) §16: 0/11 harnesses
+  embed code).
+- Still refused here: a cross-repo MCP aggregator, a `qr` multi-repo
+  orchestrator, worktree sync across repos.
+- **Evidence base:** `research/harness-kb/` holds data, not a memo. It
+  covers 228 adversarially reviewed arXiv papers from 2026-05 to
+  2026-10. Its synthesis is in `FINDINGS.md`, regenerated from the KB.
+  The KB finds that deterministic sensors are supported and that
+  instruction-file prose and spec-driven development as a methodology
+  are not. It finds no studies of a team coordinating changes across
+  its own repos (P27). Diff-coverage and assertion-strength gates
+  belong in repo CI, not in `qr`.
+
 ## Build sequence
 
 1. Phase 1 CLI — **done** (`help` / `status` / `install`).

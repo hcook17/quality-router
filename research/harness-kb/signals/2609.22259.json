@@ -1,0 +1,271 @@
+{
+ "arxiv_id": "2609.22259",
+ "fulltext_chars": 100270,
+ "fulltext_lines": 2699,
+ "authors_block": "Separating Semantic Content from Retrieval Scaffolding in Text-to-SQL Agents Qing Ye Affiliation: Independent Researcher Email: qing.leafnode@gmail.com",
+ "vendor_affiliation_hits": [],
+ "n_authors": 1,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/flyersworder/agentic-data-contracts",
+  "https://github.com/tobymao/sqlglot."
+ ],
+ "hf_urls": [
+  "https://huggingface.co/blog/nvidia",
+  "https://huggingface.co/spaces/adyen"
+ ],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Which Part of the Context Layer Does the Work?"
+  ],
+  [
+   30,
+   "###### Abstract"
+  ],
+  [
+   61,
+   "## 1 Introduction"
+  ],
+  [
+   113,
+   "### Contribution"
+  ],
+  [
+   192,
+   "## 2 Background and Related Work"
+  ],
+  [
+   194,
+   "### 2.1 DABStep"
+  ],
+  [
+   236,
+   "### 2.2 Three kinds of layer, and when their semantics are compiled"
+  ],
+  [
+   296,
+   "### 2.3 What has been measured, and what this paper adds"
+  ],
+  [
+   364,
+   "## 3 The System Under Test"
+  ],
+  [
+   372,
+   "### 3.1 The contract"
+  ],
+  [
+   462,
+   "### 3.2 Nine tools and two-layer validation"
+  ],
+  [
+   481,
+   "### 3.3 The hollow contract"
+  ],
+  [
+   504,
+   "### 3.4 Provenance and freeze"
+  ],
+  [
+   522,
+   "## 4 Experimental Design"
+  ],
+  [
+   524,
+   "### 4.1 Two factors, four arms"
+  ],
+  [
+   579,
+   "### 4.2 Four models"
+  ],
+  [
+   656,
+   "### 4.3 What is held fixed"
+  ],
+  [
+   675,
+   "### 4.4 Tasks, golds and grading"
+  ],
+  [
+   713,
+   "## 5 Results: The Decomposition"
+  ],
+  [
+   715,
+   "### 5.1 Accuracy and cost on four models"
+  ],
+  [
+   909,
+   "#### On one model the manual is indistinguishable from a bare schema"
+  ],
+  [
+   924,
+   "### 5.2 Content dominates scaffolding"
+  ],
+  [
+   958,
+   "#### Empty tools are not free."
+  ],
+  [
+   972,
+   "### 5.3 The compiled ceiling and the derivation gap"
+  ],
+  [
+   1123,
+   "### 5.4 The gain stays inside the contract’s domain"
+  ],
+  [
+   1141,
+   "## 6 Why the Contract Arm Wins"
+  ],
+  [
+   1147,
+   "### 6.1 The rule was in both prompts; only one arm’s SQL carries it"
+  ],
+  [
+   1259,
+   "### 6.2 Less work, and usually less money"
+  ],
+  [
+   1458,
+   "### 6.3 Where the contract arm fails"
+  ],
+  [
+   1480,
+   "## 7 Governance"
+  ],
+  [
+   1579,
+   "## 8 Threats to Validity"
+  ],
+  [
+   1581,
+   "### 8.1 One benchmark, one domain"
+  ],
+  [
+   1591,
+   "### 8.2 The contract resolves ambiguities the manual leaves open"
+  ],
+  [
+   1609,
+   "### 8.3 No repeats, and two frontier points that disagree"
+  ],
+  [
+   1640,
+   "### 8.4 Reconstructed golds are lenient"
+  ],
+  [
+   1649,
+   "### 8.5 Contamination"
+  ],
+  [
+   1659,
+   "## 9 Conclusion"
+  ],
+  [
+   1684,
+   "#### Future work,"
+  ],
+  [
+   1699,
+   "## Artifact Availability"
+  ],
+  [
+   1709,
+   "## References"
+  ],
+  [
+   2114,
+   "## Appendix A Gold Reconstruction and External Validation"
+  ],
+  [
+   2148,
+   "#### Independent verification."
+  ],
+  [
+   2156,
+   "#### What the compiled ceiling shares with this check."
+  ],
+  [
+   2169,
+   "#### External validation."
+  ],
+  [
+   2239,
+   "## Appendix B The DeepSeek Run Lost 29% of Its Rows"
+  ],
+  [
+   2285,
+   "## Appendix C Scorer Leniency and the Correction"
+  ],
+  [
+   2399,
+   "## Appendix D Harness Asymmetries, the Digest Defect, and the Substituted Primary"
+  ],
+  [
+   2402,
+   "#### A validator defect, GLM only."
+  ],
+  [
+   2420,
+   "#### Different endpoints across runs."
+  ],
+  [
+   2432,
+   "#### The row limit."
+  ],
+  [
+   2448,
+   "#### The forced-answer policy."
+  ],
+  [
+   2462,
+   "#### The digest defect."
+  ],
+  [
+   2476,
+   "#### The substituted primary model."
+  ],
+  [
+   2496,
+   "## Appendix E Accuracy Inside and Outside the Contract’s Domain"
+  ],
+  [
+   2576,
+   "## Appendix F The Margin Over a Prompt Is Not Monotone in Capability"
+  ],
+  [
+   2600,
+   "## Appendix G Reading a Leaderboard Number"
+  ],
+  [
+   2649,
+   "## Appendix H The Two Escalations, in the Models’ Own Words"
+  ],
+  [
+   2699,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 8 Threats to Validity\n\n### 8.1 One benchmark, one domain\n\nThe gain is confined to fee questions, 294 of the 332 hard tasks\n(Section 5.4), and the benchmark is a concentrated one: 450\ntasks reduce to 113 question shapes, 27 of which cover three quarters of it\n(Section 2.1). Results on so narrow a question space should\nnot be read as results about analytics agents in general. We ran no second\nbenchmark; BIRD’s withheld evidence [17] is the nearest analogue,\nbut it supplies a hint per question rather than a domain manual.\n\n### 8.2 The contract resolves ambiguities the manual leaves open\n\nThe arms are matched on the sources they may consult, not on how those\nsources read. Seven metric descriptions carry an INTERPRETATION\nsentence (Section 3.1). Four restate or apply what the manual\nsupplies; three go further. The manual says a null field “applies\nto all possible values”, but the annexed fees data encodes that\nwildcard for list-typed fields as an empty list, which the manual\nnever mentions, and two band metrics break a tie on a shared boundary that\nthe manual’s “between A and B” does not decide. All three are recoverable\nfrom data every arm could query, and none supplies a task’s answer; but they\nwere recovered once, by us, and handed to one arm, and the empty-list clause\nmatters: reversing it in the compiled contract changes the answer on 87 of\nthe 97 tasks in the payments families. The contract arm’s margin therefore\ncombines delivery of what the manual states with resolution of what it\nleaves open. Separating them needs a fifth arm, the contract with its seven\nclauses stripped, which we did not run.\n\n### 8.3 No repeats, and two frontier points that disagree\n\nNone of the four runs repeats. One near-replicate exists: the all-450\ncontract sweep on GLM submitted to the leaderboard\n(Section 4.4) shares 401 tasks with the GLM run and differs\nfrom it only by a validator fix. Paired, the two agree on accuracy (60.3%\nagainst 57.9%, exact McNemar p{=}0.35 ) and disagree on 94 of 401\ntasks, a 23.4% flip rate, at temperature 0 on a pinned endpoint. The\nchurn is symmetric (52 one way, 42 the other), so the McNemar contrasts,\nwhich read asymmetry, are not at risk; but no claim about a named task’s",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 2,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 5
+ },
+ "fulltext_source": "html"
+}

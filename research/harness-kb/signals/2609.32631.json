@@ -1,0 +1,204 @@
+{
+ "arxiv_id": "2609.32631",
+ "fulltext_chars": 80306,
+ "fulltext_lines": 1908,
+ "authors_block": "Chaoqun Cui Affiliation: MAIS, Institute of Automation, Chinese Academy of Sciences Affiliation: School of Artificial Intelligence, University of Chinese Academy of Sciences Email: cuichaoqun2025@ia.ac.cn Hao Zhou Affiliation: Tencent Inc., China Email: wenji.mao@ia.ac.cn Meiqi Chen Affiliation: Tencent Inc., China Fandong Meng Affiliation: Tencent Inc., China Wenji Mao Affiliation: MAIS, Institute of Automation, Chinese Academy of Sciences Affiliation: School of Artificial Intelligence, University of Chinese Academy of Sciences",
+ "vendor_affiliation_hits": [
+  "Tencent"
+ ],
+ "n_authors": 5,
+ "comment": "23 pages, 6 figures",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/CcQunResearch/SWE-MILE.",
+  "https://github.com/rllm-org/rllm",
+  "https://github.com/verl-project/verl",
+  "https://github.com/vllm-project/vllm"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# SWE-MILE: Asynchronous Potential-Induced Milestone Credit Assignment for Long-Horizon Software Engineering Agents"
+  ],
+  [
+   50,
+   "###### Abstract"
+  ],
+  [
+   54,
+   "## 1 Introduction"
+  ],
+  [
+   78,
+   "## 2 Method"
+  ],
+  [
+   80,
+   "### 2.1 Preliminaries"
+  ],
+  [
+   92,
+   "### 2.2 Overall Framework"
+  ],
+  [
+   98,
+   "### 2.3 Codeflow Interaction Harness"
+  ],
+  [
+   102,
+   "### 2.4 Milestone Potential and Process Credit"
+  ],
+  [
+   184,
+   "### 2.5 Policy Optimization"
+  ],
+  [
+   206,
+   "### 2.6 Asynchronous Shadow Probing"
+  ],
+  [
+   256,
+   "## 3 Experiments"
+  ],
+  [
+   258,
+   "### 3.1 Experimental Settings"
+  ],
+  [
+   286,
+   "### 3.2 Main Results"
+  ],
+  [
+   594,
+   "### 3.3 Ablation Study"
+  ],
+  [
+   731,
+   "### 3.4 Hyperparameter Analysis"
+  ],
+  [
+   741,
+   "## 4 Conclusion"
+  ],
+  [
+   745,
+   "### AI use statement"
+  ],
+  [
+   749,
+   "### Reproducibility statement"
+  ],
+  [
+   753,
+   "## References"
+  ],
+  [
+   1270,
+   "## Appendix Contents"
+  ],
+  [
+   1290,
+   "## Appendix A Related Work"
+  ],
+  [
+   1294,
+   "### A.1 SWE Benchmarks and Scalable Verifiable Environments"
+  ],
+  [
+   1298,
+   "### A.2 SWE Agent Scaffolds and Environment Interaction"
+  ],
+  [
+   1302,
+   "### A.3 Credit Assignment for Long-Horizon SWE Agent Reinforcement Learning"
+  ],
+  [
+   1306,
+   "## Appendix B Experimental Settings Details"
+  ],
+  [
+   1310,
+   "### B.1 Main Setting"
+  ],
+  [
+   1586,
+   "### B.2 Baseline Implementation"
+  ],
+  [
+   1606,
+   "### B.3 Codeflow Scaffold"
+  ],
+  [
+   1686,
+   "### B.4 Shadow Probe for Whole-Repository Generation"
+  ],
+  [
+   1742,
+   "## Appendix C Training Dynamics"
+  ],
+  [
+   1746,
+   "### C.1 Evaluation Dynamics on SWE-bench Pro"
+  ],
+  [
+   1760,
+   "### C.2 Training Rollout Dynamics"
+  ],
+  [
+   1774,
+   "### C.3 Policy Optimization Dynamics"
+  ],
+  [
+   1788,
+   "## Appendix D Discussion"
+  ],
+  [
+   1792,
+   "### D.1 Replay Fidelity of SWE Environments"
+  ],
+  [
+   1796,
+   "### D.2 Limitations"
+  ],
+  [
+   1808,
+   "## Appendix E Prompts"
+  ],
+  [
+   1812,
+   "### E.1 System Prompt"
+  ],
+  [
+   1868,
+   "### E.2 Issue Resolution Prompt"
+  ],
+  [
+   1888,
+   "### E.3 Whole-Repository Generation Prompt"
+  ],
+  [
+   1908,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "### D.2 Limitations\n\nSWE-MILE has the following limitations:\n\n• \n\nAvailability of fine-grained verification feedback. Test frameworks across different programming languages produce heterogeneous result formats, and each language typically requires a dedicated verification potential collection pipeline to be developed and validated.\n\n• \n\nDifferences in test importance. The current verification potential aggregates results within each test category by pass rate or count, without distinguishing the importance of individual tests to task completion. As a result, different test states may receive the same potential value even when they represent different levels of functional progress.\n\n## Appendix E Prompts\n\nIn this section, we present the prompts used in our experiments. Placeholders substituted at runtime are shown in blue.\n\n### E.1 System Prompt\n\nThe system prompt declares the agent role, constrains the interaction protocol to exactly one native tool call per assistant turn, instantiates the tool policy, specifies the path convention, and explains the semantics of tool observations.\n\nIssue Resolution System Prompt\n\nYou are a programming agent responsible for resolving an issue in the repository at repository_root.\n\nInteract with the repository only through the provided native tools. Call exactly one tool per assistant turn and never write a tool call as text.\n\nTool policy:\n\n- Prefer the dedicated search, read_file, and edit_file tools for repository exploration, reading, and editing.\n\n- Use search as the default for repository searches and directory exploration. Avoid grep, rg, find, fd, git grep, ls/tree, or equivalent shell/Python searches when search can perform the operation. Bash search is a fallback only when the dedicated tool cannot express the required operation.\n\n- Use read_file as the default for repository file content, diffs, and status. Avoid cat, head/tail, sed/awk, Python file reads, git diff/status/show, or equivalent commands when read_file can perform the operation. Bash reading is a fallback only when the dedicated tool cannot express the required operation.\n\n- Use edit_file as the default for creating, modifying, and deleting repository files. Avoid shell redirection, sed -i, Python file writes, or equivalent commands when edit_file can perform the operation. Bash editing is a fallback only when the dedicated tool cannot express the required operation.\n\n- Use execute_bash primarily for tests, builds, and commands not covered by the dedicated tools. Put temporary scripts and outputs under /tmp. Searches and reads outside the repository and filtering command output remain allowed. Follow the protected-test, Git HEAD, environment, download, timeout, and sandbox boundary rules.\n\n- Use submit only after the implementation has been verified. Call it exactly as submit({}) with no arguments; do not add summary, answer, result, or other fields.",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 0,
+  "swe_bench": 21,
+  "contamination": 1,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

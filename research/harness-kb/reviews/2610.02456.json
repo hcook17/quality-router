@@ -1,0 +1,50 @@
+{
+  "arxiv_id": "2610.02456",
+  "contribution_type": "tool",
+  "summary": "A single-author Georgia Tech M.S. practicum. An informal online survey (N=80, 68 agent users) finds that only 38.2% of AI coding agent users run a sandbox, and identifies file sharing, networking/ports and environment provisioning as the top barriers. The author then builds SideKernel, a local macOS microVM sandbox for Claude Code (Apple Virtualization framework, Kata kernel, Rust PID-1 agent, host-side credential proxy). He scores it and four other sandboxes on 23 binary capability tests derived from those barriers; SideKernel and Docker Sandboxes each pass 19.",
+  "claims": [
+    {"claim": "Fewer than 40% of AI coding agent users run their agents in a sandbox.", "evidence": "§V-A: 26 of 68 agent users (38.2%) are current sandbox users. Informal Google survey, N=80, convenience sample tilted to security-aware engineers, no IRB. The author says real adoption is likely lower (§IX).", "strength": "weak", "location": "§V-A, §IX"},
+    {"claim": "The top usability barriers are networking/ports, environment setup and host-sandbox file sharing.", "evidence": "§V-A/Fig. 4: counts of 8, 8 and 7 among 33 current or former sandbox users. Tiny counts from a self-designed multiple-choice instrument.", "strength": "weak", "location": "§V-A, §V-B"},
+    {"claim": "Docker Sandboxes and SideKernel score highest on usability-related capabilities (19/23 each, vs 12 for SmolVM, Microsandbox, Shuru).", "evidence": "§VIII-A and Tables III-V. The developer is the sole evaluator, the tests are derived from barriers the developer chose to implement, and scoring is unweighted binary. The author lists all of these in §IX.", "strength": "weak", "location": "§VII, §VIII-A, §IX"},
+    {"claim": "The microVM architecture keeps credentials and the host kernel out of reach of the agent.", "evidence": "Architectural argument plus a credential proxy design (§VI-A). The author states there has been no formal security review (§VIII-C), and no adversarial testing is reported.", "strength": "unsupported", "location": "§VI-A, §VIII-C"}
+  ],
+  "patterns": [
+    {"id": "P20", "stance": "introduces", "note": "Local microVM sandbox for terminal coding agents with VirtioFS mounts, auto port forwarding and a NAT kill switch. Usability evidence only; no security evaluation."},
+    {"id": "P21", "stance": "neutral", "note": "North/south boundary threat model; a granular network allowlist is future work."},
+    {"id": "P32", "stance": "neutral", "note": "Practitioner survey (N=80) gives an informal field signal on sandbox adoption."}
+  ],
+  "methodology": {
+    "sample": "Survey: 80 respondents, 68 agent users, 33 current or former sandbox users. Comparative analysis: 5 sandboxes (Docker Sandboxes, Microsandbox, SmolVM, Shuru, SideKernel; VibeBox failed to install) x 23 capability tests.",
+    "baselines": "Existing macOS microVM sandboxes chosen by inclusion criteria. Seatbelt/container-based sandboxes are excluded by scope.",
+    "models": "n/a. Claude Code is the only agent integrated.",
+    "variance": "n/a (binary single-evaluator tests).",
+    "ablations": "None.",
+    "contamination_controls": "n/a",
+    "languages": "n/a. Implementation in Swift and Rust; macOS Tahoe 26.2 on M1/M4 only."
+  },
+  "standards": {
+    "peer_review": "Not peer-reviewed; Georgia Tech M.S. Cybersecurity practicum project (arXiv comment).",
+    "limitations_section": true,
+    "artifacts": "Not yet released: the author 'intend[s] to open-source SideKernel' (§VIII-B). The survey instrument and responses are in App. B, and task definitions in App. A.",
+    "preregistration": "No; the survey did not undergo IRB review."
+  },
+  "biases": [
+    {"type": "self_evaluation", "detail": "The developer designed the survey, derived the tests from it, implemented the features, and scored all sandboxes alone."},
+    {"type": "selection_bias_participants", "detail": "Convenience sample, about one third working in security; acknowledged."},
+    {"type": "small_sample", "detail": "Barrier counts of 5-8 respondents drive design and evaluation."},
+    {"type": "metric_mismatch", "detail": "Capability-test pass counts measure the author's chosen features, not usability or security."},
+    {"type": "closed_artifacts", "detail": "Code is not yet published at submission."}
+  ],
+  "coi": {
+    "affiliations": "Dimitrios Prasakis, Georgia Institute of Technology (single author).",
+    "vendor_products_evaluated": "Compares his own SideKernel against Docker Sandboxes and open-source tools; no commercial tie to any of them.",
+    "funding": "None stated. The acknowledgment discloses that the codebase was co-developed with Claude.",
+    "severity": "low",
+    "detail": "No vendor affiliation, but strong self-evaluation conflict: the author's own tool is graded by the author on tests derived from his own design priorities."
+  },
+  "scores": {"rigor": 1, "reproducibility": 1, "generalizability": 1, "relevance": 2, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "A candid practicum report with a thorough threats-to-validity section, but the evidence is an informal survey plus single-evaluator binary tests of the author's own tool. There is no security evaluation and the code is unreleased. Useful only as a landscape snapshot of macOS microVM sandboxes and a weak adoption signal.",
+  "applicability": "Marginal. A backend Java team running agents across ≥4 ingestion repos should sandbox agents (healthcare-education content may include licensed or PII-adjacent material), and the paper's survey hints that adoption fails on file sharing, ports and environment setup. Those are exactly the frictions for a JVM dev loop (Gradle/Maven caches, local DB/ports, multi-repo mounts). The design ideas worth copying are a host-side credential proxy (no tokens inside the sandbox, consistent with keeping secrets in env or a secret store) and a network kill switch. SideKernel itself is macOS-only, Claude-Code-only and unreleased, so it does not serve mixed agent hosts or Linux CI. The comparison does not establish that any tool is secure.",
+  "conflicts_with": []
+}

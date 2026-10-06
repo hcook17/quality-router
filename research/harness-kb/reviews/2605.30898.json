@@ -1,0 +1,32 @@
+{
+  "arxiv_id": "2605.30898",
+  "contribution_type": "system",
+  "summary": "UniScale treats the choice of base model (Qwen3 0.6B-32B) and test-time-scaling configuration (parallel/sequential sampling widths, beam size, PRM verifier) as one action space and learns a per-query selection policy online with LinUCB over a Transformer query embedding plus semantic action descriptions, with early exiting, dense verifier-score rewards, and an eFLOPs cost model. Evaluated on 210 math problems (AIME'24/'25, MATH-500) streamed as 50 warm-up + 160 policy steps, with a small LiveCodeBench case study in the appendix.",
+  "claims": [
+    {"claim": "Joint routing+TTS (UIS) space gives higher reward than TTS-only or routing-only subspaces.", "evidence": "Table 2: UniScale reward 0.7079 (UIS) vs 0.6196 (Routing) cost-sensitive; 0.6306 vs 0.5347 quality-priority. Mean±std over 5 seeds on 160 math queries.", "strength": "moderate", "location": "§4.3, Table 2"},
+    {"claim": "UniScale consistently outperforms all baselines across scenarios.", "evidence": "Table 2 contradicts 'consistently': in Routing/Quality-Priority Greedy beats UniScale (reward 0.5459 vs 0.5347; acc 50.00 vs 47.87), acknowledged in §4.2; in UIS/Quality-Priority UniScale 0.6306±0.0212 vs Thompson Sampling 0.6243±0.0050 is within one std. Clear wins are in Cost-Sensitive mode (UIS cost 49.4 vs 326-1762.8 TeFLOPs for baselines).", "strength": "moderate", "location": "§4.1-4.3, Table 2"},
+    {"claim": "UniScale is task-agnostic, generalizing to coding.", "evidence": "Appendix B.6 Table 8: one LiveCodeBench run (210 instances, only Qwen3-4B/8B, Cost-Sensitive only) vs k-NN only: reward +0.0182, accuracy -0.63pp, cost -59.97%; no seeds/std reported, other baselines omitted.", "strength": "weak", "location": "App. B.6, Table 8"},
+    {"claim": "Orchestration overhead is negligible (0.91% of execution time).", "evidence": "Appendix C.5 Table 10 latency breakdown.", "strength": "moderate", "location": "App. C.5"}
+  ],
+  "patterns": [
+    {"id": "P23", "stance": "supports", "note": "Evidence that joint model routing + test-time compute selection beats either alone on single-turn math with self-hosted Qwen3; not agentic, not hosted APIs."},
+    {"id": "P24", "stance": "supports", "note": "Explicit eFLOPs cost model and cost-sensitive reward modes cut compute substantially at similar accuracy (Table 2 cost-sensitive)."},
+    {"id": "P18", "stance": "neutral", "note": "Relies on a 1.5B process reward model as verifier for dense feedback; sensitivity to verifier studied in App. C.4."}
+  ],
+  "methodology": {"sample": "210 math instances (AIME'24, AIME'25, 150 from MATH-500), 50 warm-up + 160 evaluated online steps; appendix: 210 LiveCodeBench instances.", "baselines": "Random, Greedy, Thompson Sampling, NeuralUCB, online MLP and k-NN routers (RouterBench-style), Oracle; BEST-Route in App. B.5. Reasonable for bandit work, but no commercial routers or static 'always biggest model' baseline in main table.", "models": "Qwen3 family only (0.6B-32B) + Skywork 1.5B PRM.", "variance": "Mean (std) over 5 seeds for main results; none for coding case study.", "ablations": "Semantic action representation, non-stationary drift, exploration factor alpha, verifier choice, overhead (App. C).", "contamination_controls": "None; AIME/MATH-500 public and likely in Qwen3 training data.", "languages": "Math word problems; coding case study (LiveCodeBench, language not specified beyond standard-input/call-based)."},
+  "standards": {"peer_review": "Accepted at ICML 2026 (arXiv comment).", "limitations_section": false, "artifacts": "No code repository linked in the text.", "preregistration": "n/a"},
+  "biases": [
+    {"type": "small_sample", "detail": "160 evaluated queries per run; differences of a few accuracy points are ~2-5 problems."},
+    {"type": "single_model", "detail": "Single model family (Qwen3) for all candidates; heterogeneous-vendor routing untested."},
+    {"type": "toy_tasks", "detail": "Single-turn math QA; no multi-step agent loops or tool use."},
+    {"type": "contamination_risk", "detail": "AIME'24/'25 and MATH-500 public; no contamination analysis."},
+    {"type": "closed_artifacts", "detail": "No code release indicated."},
+    {"type": "hype_language", "detail": "'consistently better', 'fully unleashes', 'firmly substantiates ... task-agnostic' from one unreplicated coding run."}
+  ],
+  "coi": {"affiliations": "Tongji University, CUHK-Shenzhen, Shenzhen Research Institute of Big Data, Zhejiang University, CUHK.", "vendor_products_evaluated": "None (open Qwen3 models).", "funding": "Chinese national/provincial/university grants listed in Acknowledgements.", "severity": "none", "detail": "Academic; no product interest."},
+  "scores": {"rigor": 3, "reproducibility": 1, "generalizability": 1, "relevance": 1, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Sound bandit setup with seeds, std, and ablations, peer-reviewed at ICML; but evaluation is 160 math queries on one model family, 'consistently outperforms' is not true in two Table 2 columns, coding generalization is a single seedless run vs one baseline, and no code is released. Low relevance to agent harnesses.",
+  "applicability": "Does not transfer directly. It assumes self-hosted models with controllable TTS knobs (sampling width, beam, PRM) and per-query single-turn answers; the Java team consumes hosted models through mixed agent hosts (Cursor, Claude Code, Codex, Hermes) where model choice belongs to the host. The only takeaway is conceptual: if a BYOK gateway is ever adopted, treat model choice and retry/sample budget as one cost-quality knob with an explicit cost model, and budget per task class (e.g. cheap model + more test runs for spec-conformant ingestion mappers). Nothing here informs multi-repo coordination or spec-driven development.",
+  "conflicts_with": []
+}

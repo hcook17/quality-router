@@ -1,0 +1,53 @@
+{
+  "arxiv_id": "2607.07980",
+  "contribution_type": "theory",
+  "summary": "CMU authors collect 38,709 grey-literature documents (7,630 web articles, 31,079 Reddit threads) about code review, filter with a Gemini 2.5 Flash relevance judge, LLM-code a stratified sample of 3,100 with Thematic-LM, and hand-build a causal theory of 26 constructs and 67 relationships (64 directed, 3 contested) on how coding agents reshape code review. A motivating mining study on the Agents in the Wild corpus shows agent PRs are merged faster and reviewed less, but that trend directions flip under defensible operationalizations.",
+  "claims": [
+    {"claim": "Agent-authored PRs are reviewed less independently (40.1% examined only by the invoking developer vs 21.5% of human PRs) and the no-human-review share fell from >50% in mid-2025 toward the ~14% human baseline by early 2026", "evidence": "§II-B and Fig. 1, details in Appendix 1; authors themselves show the direction of independent-review comparisons reverses depending on whether the invoking developer counts as a reviewer.", "strength": "moderate", "location": "§II-B, Fig. 1, Appendix 1"},
+    {"claim": "Review is the control point: AI does not fix the sign of its effect on software; the team does via reviewer expertise and process", "evidence": "Theory in Fig. 2 with propositions P1-P17 grounded in practitioner quotes (e.g. G2048, G2935); explicitly not tested ('a proposed explanatory theory to be tested, not validated', §III-A1).", "strength": "weak", "location": "§IV, §VII"},
+    {"claim": "Effect of fully automated code review on quality/security is contested (P9); risk-tiered review policies lower latency while blanket gates raise it (P17)", "evidence": "Quotes on both sides (G2836 vendor-sourced CodeRabbit 82% figure vs G1957, G1891); no measurement.", "strength": "weak", "location": "§IV, P8-P9, P17"},
+    {"claim": "LLM-assisted grey-literature theory building is a scalable template (~US$0.35 per document)", "evidence": "§III-A pipeline; relevance judge validated at Cohen's kappa=0.75 vs a stronger model (not humans); open coding by three LLM 'lens' coders; §VI concedes automated theory construction 'proved ineffective' and saturation point unknown.", "strength": "moderate", "location": "§III-A, §VI, Appendix 3"}
+  ],
+  "patterns": [
+    {"id": "P18", "stance": "mixed", "note": "Practitioner discourse splits on AI reviewers: throughput/latency gains vs missed deep defects and false alarms; P9 marked contested."},
+    {"id": "P19", "stance": "introduces", "note": "Human review framed as the control point; risk-tiered gating (only material changes) proposed as better calibrated than blanket gates (P17). Not tested."},
+    {"id": "P32", "stance": "neutral", "note": "Grey-literature and OSS-mining evidence, not a controlled field study."},
+    {"id": "P14", "stance": "neutral", "note": "Corpus includes spec-driven development threads (e.g. 'Spec-driven agentic coding is quietly making us worse at ... supervising agents'), but the theory does not model specs."}
+  ],
+  "methodology": {
+    "sample": "38,709 documents collected; 23,631 judged; 13,469 relevant; 3,100 coded (1,263 web, 1,837 Reddit); theory from ~2,700 sources / ~4,800 codes",
+    "baselines": "n/a (theory building); motivating study compares agent vs human PRs",
+    "models": "Gemini 2.5 Flash relevance judge; Thematic-LM multi-agent coders; LLM-assisted theme proposals",
+    "variance": "Relevance judge kappa=0.75 vs stronger model; no human inter-coder reliability for open codes",
+    "ablations": "Sensitivity of motivating-study trends to operationalization (reviewer definition)",
+    "contamination_controls": "Acknowledges some sources may be LLM-generated; no detection applied",
+    "languages": "n/a (discourse); subreddits include nine language ecosystems"
+  },
+  "standards": {
+    "peer_review": "arXiv preprint, no venue listed",
+    "limitations_section": true,
+    "artifacts": "Anonymized replication package with pipeline, 3,100 coded documents, quotes, theory model",
+    "preregistration": "none"
+  },
+  "biases": [
+    {"type": "selection_bias_participants", "detail": "Grey literature over-represents vocal early adopters and vendor advocacy (acknowledged §III-A1)."},
+    {"type": "llm_judge_unvalidated", "detail": "Relevance judge validated only against another LLM (kappa 0.75); LLM open coding not validated against human coders."},
+    {"type": "self_reported_numbers", "detail": "Quoted figures such as CodeRabbit's 82% planted-bug catch rate are practitioner/vendor claims, not verified."},
+    {"type": "other:untested_theory", "detail": "All 67 relationships are proposed from discourse; none are tested; authors note a different team could draw them differently."}
+  ],
+  "coi": {
+    "affiliations": "Carnegie Mellon University (all four authors)",
+    "vendor_products_evaluated": "None",
+    "funding": "No acknowledgments section found in extracted text",
+    "severity": "none",
+    "detail": "Academic authors; no product evaluated."
+  },
+  "scores": {"rigor": 3, "reproducibility": 4, "generalizability": 3, "relevance": 3, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Transparent, well-scoped qualitative theory with a public pipeline and honest limitations; its propositions are hypotheses from practitioner opinion, not evidence, and its useful empirical nugget is that agent-PR review metrics flip sign under defensible operationalizations.",
+  "applicability": "For a Java team where agents will author PRs across ≥4 ingestion repositories, the paper is a checklist of risks to design the review gate against: volume-driven review-depth collapse, polished-but-wrong code, missing design rationale (opacity) and comprehension debt. Spec-driven development is a plausible counter to opacity because the spec carries the intent the reviewer otherwise has to reconstruct, but the paper does not test that. Practical takeaways: tier human approval by risk (e.g. schema/contract changes to content delivered to front ends and healthcare-content correctness) rather than gating every PR; treat AI reviewers as assistive, not a replacement; and define 'independent review' carefully (the invoking developer is not independent) when measuring review across mixed agent hosts.",
+  "conflicts_with": [
+    {"arxiv_id": "2606.13175", "detail": "'The End of Code Review' argues agents supersede human inspection; this theory holds human review is the control point and that full automation's quality effect is contested."},
+    {"arxiv_id": "2605.22534", "detail": "Agentic PR merge/reject mining; this paper shows such trend measures reverse direction under alternative operationalizations, cautioning against reading them causally."}
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "arxiv_id": "2609.38345",
+  "contribution_type": "system",
+  "summary": "OpenCollab is a multi-agent coding runtime that declares roles and topologies explicitly, holds tools, budgets and context constant across configurations, and logs fine-grained events. That lets it measure 'Adherence', whether the declared collaboration actually happened, and apply a complier-average-causal-effect (CACE) correction to team-vs-single gains. On 36 SWE-bench Pro tasks, adherence ranges from 47.2% to 97.2% depending on model, tools, budget, role card and topology. A code-driven two-coder workflow (Duo) tops Mini-SWE-agent, Codex CLI and Claude Code, all run with GPT-5.6-Luna, on SWE-bench Pro, Terminal-Bench 2.1 and DeepSWE subsets.",
+  "claims": [
+    {"claim": "Changing a single configuration dimension moves Adherence from 47.2% to as high as 97.2%.", "evidence": "Table 3 on 36 tasks with Clopper-Pearson 95% CIs (e.g. Qwen3.8-Flash 47.2 [30.4, 64.5] vs GPT-5.6-Luna 97.2 [85.5, 99.9]; read-only tools 94.4; mandatory card 91.7; ring 91.7). The large shifts have non-overlapping CIs, so the claim is well supported for this one SWE-bench Pro sample.", "strength": "strong", "location": "§4.2, Table 3, App. B.1"},
+    {"claim": "OpenCollab (Duo) sets new SOTA against mainstream harnesses: 64.25% SWE-bench Pro, 83.15% Terminal-Bench 2.1, 69.91% DeepSWE.", "evidence": "Table 2 numbers are present, but these are single runs on subsets (193 / 89 / 113 tasks). The SWE-Pro margin over Codex CLI is 64.25 vs 63.73 (1 task), and on Terminal-Bench it is 83.15 vs 80.90 (2 tasks). The authors themselves state that rerunning the single agent flips 5 of 36 tasks. All harnesses use GPT-5.6-Luna, which is non-native for Claude Code (58.03, the lowest on SWE-Pro). Only DeepSWE shows a clear margin.", "strength": "weak", "location": "§4.1, Table 2, App. B.1.2"},
+    {"claim": "Collaboration beats working alone: Duo over Base by +3.4 (Terminal-Bench) and +14.2 (DeepSWE).", "evidence": "Table 9 paired sign tests: DeepSWE 21 vs 5 discordant (p=0.0025); Terminal-Bench 6 vs 3 (p=0.51, not significant, as the authors concede). Duo runs two full solvers plus selection, i.e. best-of-two with a selector, using 2.2x the tokens on DeepSWE (26.11M vs 11.95M). A compute-matched single-agent best-of-2 baseline is missing.", "strength": "moderate", "location": "§4.1, App. B.1.3, Table 9"},
+    {"claim": "The single-agent configuration uses the fewest tokens across all suites.", "evidence": "Table 2: Base 3.89M / 1.54M / 11.95M tokens and the lowest cost ($0.41 / $0.19 / $1.19) on all three benchmarks.", "strength": "strong", "location": "Table 2"},
+    {"claim": "Adherence-adjusted CACE allows causal attribution of organizational gains.", "evidence": "Theory in App. A, but §4.3 undercuts the headline use: under the open card, the +5.6 ITT comes from the 19 non-adherent tasks (+15.8), while the 17 adherent tasks show -5.9, so the +11.8 CACE 'should not be read as the complier effect'. Higher adherence also coincides with lower Pass@1 (read-only 94.4% adherence with 52.8% pass vs 47.2% with 75.0%).", "strength": "moderate", "location": "§4.3, Table 4, App. A"}
+  ],
+  "patterns": [
+    {"id": "P11", "stance": "mixed", "note": "A model-directed team mostly does not collaborate as declared; where it does (high adherence), pass rate often drops. Gains come from a code-scripted Duo workflow, which is closer to parallel sampling plus selection than to role-based teamwork."},
+    {"id": "P29", "stance": "supports", "note": "Two coders in separate repository copies or candidate environments, with code selecting a patch, gave +14.2 on DeepSWE (p=0.0025). Not significant on Terminal-Bench."},
+    {"id": "P13", "stance": "mixed", "note": "Star topology with an Adopter that 'monopolizes execution until exhausting its token budget' (§4.3) shows orchestrators skipping delegation unless tools force it."},
+    {"id": "P30", "stance": "supports", "note": "Event streams expose the declared-vs-realized gap that outcome metrics hide, and caught 10 leaked-answer attempts on Terminal-Bench (App. B.1.2)."},
+    {"id": "P24", "stance": "supports", "note": "Per-role token allowances enforced by pre-call gates. The budget ablation shows 0.5M per role cuts Pass@1 to 44.4%."},
+    {"id": "P21", "stance": "neutral", "note": "Tool-set restriction (read-only, no edit) is the strongest lever for forcing delegation."},
+    {"id": "P31", "stance": "neutral", "note": "SWE-bench Pro, Terminal-Bench 2.1 and DeepSWE subsets."}
+  ],
+  "methodology": {
+    "sample": "Adherence experiment: 36 random SWE-bench Pro tasks per configuration. Cross-harness: 193 SWE-bench Pro, 89 Terminal-Bench 2.1, 113 DeepSWE tasks.",
+    "baselines": "Mini-SWE-agent, Codex CLI and Claude Code, all driven by GPT-5.6-Luna; plus the authors' single-agent Base. Claude Code with a non-Anthropic model is a weakened configuration. No compute-matched best-of-N single-agent baseline for Duo.",
+    "models": "DeepSeek-V4.1-Flash, Qwen3.8-Flash and GPT-5.6-Luna in the adherence experiment; GPT-5.6-Luna only in the cross-harness comparison.",
+    "variance": "Each configuration is run once. Clopper-Pearson CIs on adherence and exact sign tests on paired comparisons. The authors report a rerun-flip rate of 5/36 tasks for the single agent.",
+    "ablations": "Single-dimension ablations of model, tools, budget, context card and topology (Table 3).",
+    "contamination_controls": "No network in the adherence container. On Terminal-Bench, trajectories were searched for answer leakage and 10 leaked attempts were withdrawn or rerun (App. B.1.2).",
+    "languages": "Benchmarks' native mix (SWE-bench Pro and DeepSWE multi-language; Terminal-Bench shell tasks). No per-language breakdown seen."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint; comment says 'work on process'.",
+    "limitations_section": true,
+    "artifacts": "A 'Project page / Code' link is present in the paper (URL not extracted in the text), and App. C.4 says artifacts are 'released with the paper'.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "self_evaluation", "detail": "Authors' own runtime, Adherence metric and Duo workflow evaluated by the authors, who also run the competitor harnesses."},
+    {"type": "strawman_baseline", "detail": "Claude Code is run with GPT-5.6-Luna rather than its native models, and nine Claude Code runs were stopped by hand and scored as failed."},
+    {"type": "no_variance_reported", "detail": "Cross-harness Pass@1 comes from single runs; the SOTA margins (1-2 tasks) are inside the 5/36 rerun-flip rate the authors measured."},
+    {"type": "small_sample", "detail": "Adherence and CACE rest on 36 tasks per configuration; benchmarks are subsets."},
+    {"type": "single_model", "detail": "The cross-harness comparison uses GPT-5.6-Luna only; the limitations section says 'three models, not a model sweep'."},
+    {"type": "hype_language", "detail": "'Establishes new SOTA' over harnesses from 1-2-task margins on subsets."},
+    {"type": "other:compute_unmatched_comparison", "detail": "Duo runs two complete solving processes plus selection at about 1.7-3x the tokens of Base; this is not compared with Base at pass@2 plus the same selector."}
+  ],
+  "coi": {
+    "affiliations": "Mostly Shanghai Jiao Tong University (RISE-X Lab; corresponding author Yihong Dong), plus Cambridge, NTU, HKU, Imperial and Peking University. One author (Xue Jiang) lists Peking University and Tencent.",
+    "vendor_products_evaluated": "Compares against Anthropic's Claude Code and OpenAI's Codex CLI; no Tencent product evaluated.",
+    "funding": "No funding statement; acknowledgments thank four contributors only.",
+    "severity": "low",
+    "detail": "Predominantly academic. One vendor-affiliated co-author, with no vendor product judged. The conflict is self-evaluation of their own framework against competitors they configured."
+  },
+  "scores": {"rigor": 3, "reproducibility": 3, "generalizability": 3, "relevance": 4, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "The adherence analysis (CIs, sign tests, leakage audit, honest CACE caveats) is unusually careful and well supported. The 'new SOTA over Claude Code and Codex' headline is not: single runs, 1-2-task margins, a non-native model for Claude Code, and no compute-matched best-of-2 control for Duo.",
+  "applicability": "Directly useful for a mixed-host team deciding whether to orchestrate multiple agents. Don't assume a declared multi-agent org actually runs; measure it from traces. A model-directed lead agent often does the work itself unless tool permissions force delegation (read-only orchestrator). The gains that held came from code-scripted parallel candidates in isolated workspaces plus deterministic selection, which maps well to running two agents in separate git worktrees on a spec'd task and picking the patch that passes the shared contract tests across the ≥4 ingestion repos. Budget per role should be at least about 2M tokens before teams pay off. The evidence is Python-heavy benchmark subsets with GPT-5.6-Luna only, and nothing covers Java or cross-repo tasks.",
+  "conflicts_with": [
+    {"arxiv_id": "2607.27877", "detail": "MSEval reports topology shifting scores by over 30 points. OpenCollab's single-dimension topology ablation moves Pass@1 only 75.0 to 63.9 on 36 tasks, within a measured 5/36 rerun-flip noise floor, and argues such topology comparisons are uninterpretable without verifying adherence."}
+  ]
+}

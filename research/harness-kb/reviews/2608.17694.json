@@ -1,0 +1,33 @@
+{
+  "arxiv_id": "2608.17694",
+  "contribution_type": "system",
+  "summary": "GADR is a LangGraph multi-node workflow (extraction, critique, refinement, RAG over an OSS ADR corpus plus Tavily web search, formatting) using Gemini 3.1 Pro to turn noisy meeting transcripts into Nygard-format ADR drafts. A feasibility study covers five transcripts (four undergraduate teams, one senior-researcher health R&D team), qualitative comparison with zero-/few-shot prompting over 3 rounds, 15 student respondents, and four senior reviewers.",
+  "claims": [
+    {"claim": "The agentic workflow captures most expert-identified decisions.", "evidence": "§5.3: seniors listed 23 reference decisions; agent produced 17 ADRs covering 'approximately 18' of them under a decision-level mapping. Mapping procedure and inter-rater agreement not reported; authors note the expert baseline itself was incomplete for Groups 4 and 5.", "strength": "weak", "location": "§5.3, Table 3"},
+    {"claim": "Agentic workflow is more stable and structurally adherent than zero-/few-shot prompting.", "evidence": "§5.1: 5 transcripts x 3 rounds; comparison is described qualitatively (variance in ADR count, formatting) with an excerpt figure (Fig. 2) but no counts or variance numbers are tabulated.", "strength": "weak", "location": "§5.1, Fig. 2"},
+    {"claim": "Participants found the ADRs clear, complete and useful for recall.", "evidence": "§5.2: 15 respondents, 55 decision-level evaluations: 52/55 agreed with extracted decision, 51/55 clear and complete, 51/55 helped recall, 49/55 aided learning. Students rated their own projects (familiarity bias acknowledged in §7).", "strength": "weak", "location": "§5.2, Table 3"},
+    {"claim": "RAG enrichment introduces transcript-unfaithful content.", "evidence": "§5.1 and §5.3: concrete traced examples ('500 concurrent connections and 5000+ DAU' from an unrelated retrieved ADR; '93% industry adoption'); tentative discussions promoted to accepted decisions.", "strength": "moderate", "location": "§5.1, §5.3, §7"}
+  ],
+  "patterns": [
+    {"id": "P11", "stance": "introduces", "note": "Role-separated graph nodes (extract/critique/refine/format) vs single prompt; only qualitative evidence of benefit."},
+    {"id": "P06", "stance": "mixed", "note": "RAG over external ADR corpus enriches drafts but injects unsupported facts from unrelated projects."},
+    {"id": "P19", "stance": "supports", "note": "Findings consistently argue outputs must remain human-reviewed drafts; failure modes observed directly."},
+    {"id": "P30", "stance": "neutral", "note": "Shared mutable LangGraph state makes steps auditable; traceability used to locate the hallucinated fragment."},
+    {"id": "P18", "stance": "neutral", "note": "Internal critique node acts as an LLM self-reviewer; not separately evaluated."}
+  ],
+  "methodology": {"sample": "5 meeting transcripts (4 student teams of 4-7, 1 team of 4 senior researchers); 15 student respondents / 55 evaluations; 4 senior reviewers / 23 reference decisions.", "baselines": "Zero-shot and few-shot prompting with the same model (reasonable but simple; no other ADR generators compared).", "models": "Gemini 3.1 Pro only.", "variance": "3 rounds per approach, but no quantitative variance reported.", "ablations": "None (e.g., no critique-node or RAG-off ablation despite RAG being the main source of hallucination).", "contamination_controls": "n/a (private transcripts).", "languages": "Natural-language transcripts (language not stated in excerpts read; Brazilian context)."},
+  "standards": {"peer_review": "40th Brazilian Symposium on Software Engineering (SBES 2026) per front matter; not in arXiv comment field.", "limitations_section": true, "artifacts": "Zenodo archive (doi 10.5281/zenodo.21501559) and github.com/ldcss/GADR.", "preregistration": "None; ethics committee approval and informed consent stated."},
+  "biases": [
+    {"type": "small_sample", "detail": "Five transcripts, 23 reference decisions, 15 respondents."},
+    {"type": "selection_bias_participants", "detail": "Students evaluated ADRs from their own projects (familiarity bias), mostly undergraduate setting."},
+    {"type": "single_model", "detail": "Gemini 3.1 Pro only."},
+    {"type": "self_evaluation", "detail": "Decision-level mapping of agent ADRs to expert decisions appears to be done by the authors without reported agreement statistics."},
+    {"type": "no_variance_reported", "detail": "Stability claim vs baselines is qualitative despite 3 rounds."}
+  ],
+  "coi": {"affiliations": "Universidade Federal de Pernambuco (UFPE), Brazil.", "vendor_products_evaluated": "None (Gemini used as backbone, not evaluated as a product).", "funding": "INES.IA and CNPq grant 408817/2024-0.", "severity": "none", "detail": "Academic authors, public funding."},
+  "scores": {"rigor": 2, "reproducibility": 3, "generalizability": 1, "relevance": 2, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Honest, self-described feasibility probe with released artifacts and concrete failure analysis, but tiny sample, qualitative baseline comparison, single model, and familiarity-biased participant ratings.",
+  "applicability": "Tangential to the Java ingestion harness, with one useful lesson. If the team uses agents to draft ADRs or specs from design meetings while rolling out spec-driven development, keep the drafts in a human-review queue. Ground retrieval in the team's own past ADRs, not external corpora, and require a source link for each claim, because retrieval from unrelated projects inserted invented numbers and agents promoted tentative ideas to accepted decisions. The one health-domain transcript (Gov.br authentication, RNDS integration) involved senior researchers, but there are too few samples to draw conclusions for healthcare-education content. The paper says nothing about multi-repo ingestion or mixed agent hosts.",
+  "conflicts_with": []
+}

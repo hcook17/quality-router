@@ -1,0 +1,54 @@
+{
+  "arxiv_id": "2609.26480",
+  "contribution_type": "system",
+  "summary": "FeatLens builds an offline feature index by clustering functions, using static call/import relations and embeddings, and LLM-summarising each cluster into a feature description. At generation time it retrieves matching features, builds a small task-specific seed graph, and ranks dependencies with personalized PageRank, without LLM calls during retrieval. Evaluated on Python repo-level benchmarks DevEval (retrieval + generation) and EvoCodeBench (retrieval only) against BM25, UniXcoder, RepoGraph and CodexGraph.",
+  "claims": [
+    {"claim": "FeatLens achieves the best DR@15 (0.501 DevEval, 0.460 EvoCodeBench).", "evidence": "Fig. 3 and §5.1.1: DevEval DR@10/15/20 0.461/0.501/0.517 vs CodexGraph best 0.466 at DR@20, UniXcoder 0.415 at DR@15. RepoGraph at 0.127-0.129 looks like a poorly configured baseline (authors attribute it to LLM search-term quality). Single deterministic run, no variance.", "strength": "moderate", "location": "§5.1.1, Fig. 3"},
+    {"claim": "Highest DIR@1 (52.91% DeepSeek-V3.2, 53.58% GPT-5-mini) with competitive Pass@1.", "evidence": "Table 3 confirms DIR@1. Pass@1 is not better than simple dense RAG: DeepSeek 42.24 vs UniXcoder 41.40 and CodexGraph 42.31; GPT-5-mini 55.03 vs CodexGraph 56.35 and UniXcoder 53.43. Functional gains over dense retrieval are therefore ~1pp. DIR is the authors' preferred reuse metric.", "strength": "moderate", "location": "§5.1.2, Table 3"},
+    {"claim": "Compared with CodexGraph, reduces nodes 61.0%, edges 86.2%, total token overhead 45.9%, with no retrieval-time LLM tokens.", "evidence": "Table 4: 15 vs 38.5 nodes, 13.7 vs 99.3 edges, 0+7057.4 vs 3851.3+9189.6 tokens. The comparison excludes the offline LLM-based feature indexing (269-317 s and USD 0.21-0.30 per repo, Table 2/§4.1) and index maintenance under code change.", "strength": "moderate", "location": "§5.2, Table 4, Table 2"},
+    {"claim": "Per-stage contribution of the pipeline.", "evidence": "No ablation; §6.1 states results 'do not isolate the contribution of each stage'.", "strength": "unsupported", "location": "§6.1"}
+  ],
+  "patterns": [
+    {"id": "P07", "stance": "supports", "note": "Task-local, on-demand code graph beats persistent whole-repo graphs (RepoGraph, CodexGraph) on recall and token cost, Python benchmarks only."},
+    {"id": "P05", "stance": "supports", "note": "Static call/import extraction and deterministic PageRank ranking replace LLM-driven exploration at retrieval time."},
+    {"id": "P06", "stance": "mixed", "note": "Uses embeddings for feature matching; plain UniXcoder dense RAG nearly matches FeatLens on Pass@1."},
+    {"id": "P24", "stance": "neutral", "note": "Reports per-task token overhead and offline indexing cost."}
+  ],
+  "methodology": {
+    "sample": "90 DevEval projects (retrieval + generation) and 5 EvoCodeBench projects (retrieval only), filtered to those with complete dependency annotations.",
+    "baselines": "No-context, BM25, UniXcoder, RepoGraph, CodexGraph. No agentic-exploration baseline (e.g., an agent with grep/LSP), the default in current coding hosts.",
+    "models": "deepseek-v3.2-251201 and gpt-5-mini-2025-08-07, temperature 0, reasoning disabled.",
+    "variance": "None reported; single run per configuration.",
+    "ablations": "Top-N sensitivity only; no stage ablation.",
+    "contamination_controls": "None discussed; DevEval/EvoCodeBench repos are public GitHub projects.",
+    "languages": "Python only."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint; no venue in comment or journal_ref.",
+    "limitations_section": true,
+    "artifacts": "No code or data link in text.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "single_language_python", "detail": "Both benchmarks are Python; acknowledged in §6.2."},
+    {"type": "strawman_baseline", "detail": "RepoGraph recall ~0.13 is far below even BM25 (0.30), suggesting a poor configuration; no agentic grep/LSP baseline."},
+    {"type": "metric_mismatch", "detail": "Headline emphasises DR/DIR (reuse) while Pass@1 is not better than dense RAG or CodexGraph."},
+    {"type": "missing_cost_reporting", "detail": "45.9% token saving excludes offline LLM indexing cost and index refresh."},
+    {"type": "no_variance_reported", "detail": "Single runs, no CIs."},
+    {"type": "closed_artifacts", "detail": "No code release."}
+  ],
+  "coi": {
+    "affiliations": "Peking University (all nine authors).",
+    "vendor_products_evaluated": "None.",
+    "funding": "No acknowledgments or funding statement found.",
+    "severity": "none",
+    "detail": "Academic group evaluating its own method; the indexing procedure adapts prior feature-summarisation work [22], likely from a related group, a mild intellectual stake."
+  },
+  "scores": {"rigor": 2, "reproducibility": 1, "generalizability": 1, "relevance": 3, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Retrieval-recall and token-overhead numbers match the tables. However, the functional gains over plain dense RAG are about 1pp, there is no stage ablation, no variance and no code, the evaluation is Python-only, one graph baseline looks broken, and the efficiency comparison omits offline LLM indexing cost.",
+  "applicability": "Moderately useful as a design idea for the Java team: a feature-level index that maps business features (e.g., 'course module ingestion', 'learner content delivery') to functions, combined with static call graphs, could help agents find reusable code across ≥4 ingestion repos without whole-repo graph maintenance. Feature descriptions could also link to spec-driven development specs. The evidence does not transfer directly: Python only; Java's DI/Spring wiring and reflection are exactly the 'runtime dynamic binding and implicit framework conventions' the authors say weaken retrieval; single-repo tasks only; and no comparison against what mixed agent hosts already do (agentic grep/LSP). Treat it as a hypothesis to pilot, not a selection basis.",
+  "conflicts_with": [
+    {"arxiv_id": "2609.12464", "detail": "Agreement in direction: both report structure-aware graph retrieval outperforming plain vector RAG for code (there in an enterprise Java-to-microservice migration setting)."}
+  ]
+}

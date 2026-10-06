@@ -1,0 +1,121 @@
+{
+ "arxiv_id": "2608.26391",
+ "fulltext_chars": 89104,
+ "fulltext_lines": 1224,
+ "authors_block": "César Santos Federal Rural University of Pernambuco Recife, Brazil cesar.santos@ufrpe.br Michele Vitagliano University of Naples Federico II Naples, Italy mic.vitagliano@studenti.unina.it Roberto Natella Gran Sasso Science Institute (GSSI) L’Aquila, Italy roberto.natella@gssi.it Ermeson Andrade Federal Rural University of Pernambuco Recife, Brazil ermeson.andrade@ufrpe.br",
+ "vendor_affiliation_hits": [],
+ "n_authors": 4,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/ParasJagdale/gif-creator-python..",
+  "https://github.com/Shaso41/System-Monitor",
+  "https://github.com/VoltAgent/awesome-claude-code-subagents",
+  "https://github.com/calimage/calmage-service-registry-api",
+  "https://github.com/chas42/generated-software-llm",
+  "https://github.com/kriskimmerle/leakaudit",
+  "https://github.com/slowql/slowql"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Software Aging in LLM-Generated Applications: Runtime Evidence, Static Analysis, and Human-Written Comparisons"
+  ],
+  [
+   54,
+   "###### Abstract"
+  ],
+  [
+   59,
+   "###### Index Terms:"
+  ],
+  [
+   62,
+   "## I Introduction"
+  ],
+  [
+   102,
+   "## II Automatically Generated Software Systems"
+  ],
+  [
+   115,
+   "## III Related Work"
+  ],
+  [
+   135,
+   "## IV Experimental Plan"
+  ],
+  [
+   139,
+   "### IV-A Research Questions (RQs)"
+  ],
+  [
+   163,
+   "### IV-B Experiment Overview"
+  ],
+  [
+   175,
+   "### IV-C Setup"
+  ],
+  [
+   289,
+   "## V Results"
+  ],
+  [
+   293,
+   "### V-A Software Aging Analysis (RQ1)"
+  ],
+  [
+   406,
+   "### V-B Comparison (RQ2)"
+  ],
+  [
+   466,
+   "### V-C Static Analysis (RQ3)"
+  ],
+  [
+   583,
+   "### V-D Human-written implementations (RQ4)"
+  ],
+  [
+   707,
+   "### V-E Threats to validity"
+  ],
+  [
+   731,
+   "## VI Conclusion"
+  ],
+  [
+   743,
+   "## Acknowledgements"
+  ],
+  [
+   747,
+   "## References"
+  ],
+  [
+   1224,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgements\n\nThe authors acknowledge the support of the CNPq, Brazil, through project number 401147/2025-8.\n\n## References\n\n[1]\nAnupriya, P. Jain, L. Goel, R. Sharma, S. Jasola, and A. Ali (2024)\n\nAccelerating software development with artificial intelligence.\n\n2024 International Conference on Artificial Intelligence and Emerging Technology (Global AI Summit), pp. 727–732.\n\nExternal Links: Document\n\nCited by: §I.\n\n[2]\nS. Chauhan, Z. Rasheed, A. M. Sami, Z. Zhang, J. Rasku, K. Kemell, and P. Abrahamsson (2025)\n\nLlm-generated microservice implementations from restful api definitions.\n\narXiv preprint arXiv:2502.09766.\n\nCited by: §I,",
+ "limitations": "### V-E Threats to validity\n\nThreats to the validity of this work are described below.\n\n• \n\nAttribution of degradation causes. This study evaluates complete backend application environments, including generated code, frameworks, runtimes, external tools, libraries, operating-system resources, and LLM-based generation platforms. This design reflects how generated applications are executed in practice, but it limits the ability to attribute degradation symptoms to a single factor. Therefore, the results should be interpreted as evidence of aging symptoms in complete LLM-generated application environments, rather than as proof that degradation is caused only by the application code or by the programming language.\n\n• \n\nStatic-analysis interpretation. The static analysis combined traditional tools with an LLM-assisted code-review workflow to identify plausible aging-related mechanisms. However, static analysis cannot determine whether a potential mechanism was actually activated during the long-duration experiments. Some findings depend on specific runtime conditions, such as unique input values, cleanup failures, external command hangs, or request cancellation. In addition, LLM-assisted review may introduce false positives or miss implementation details. To mitigate this threat, the findings were filtered using explicit aging-related criteria and interpreted together with the runtime trends. Thus, the static-analysis results should be treated as explanatory evidence, not as definitive proof of causality.\n\n• \n\nExperimental scope and workload. The experiment included four service-oriented applications derived from BaxBench [11], covering image processing, file handling, structured data manipulation, process inspection, and network availability checking. However, these scenarios do not represent all types of generated software. The experiments also used a fixed workload configuration with 10 concurrent threads, a request dispatch interval of 0.1 seconds, and 48 hours of continuous execution. This supports controlled comparison across application-environment combinations, but different request rates, concurrency levels, input sizes, failure conditions, longer executions, or repeated independent runs may expose different aging patterns.\n\n• \n\nMonitoring granularity. Memory consumption was monitored at the operating-system level rather than at the individual application-process level. This captures the resource pressure experienced by the server environment during long-running execution, but it may also include effects from the operating system, runtime libraries, background activity, or auxiliary processes. Therefore, memory trends should be interpreted as evidence of memory-related aging symptoms at the server-environment level, not as definitive proof of application-level memory leaks.\n\n• \n\nHuman-written comparison. The comparison with human-written implementations was exploratory. The selected open-source systems implement scenarios that are functionally related to the evaluated LLM-generated applications, but they are not exact replicas. They may differ in frameworks, libraries, persistence mechanisms, architecture, code organization, and implementation choices. Therefore, the comparison should not be interpreted as a controlled human-versus-LLM experiment. Its purpose is to contextualize whether similar aging symptoms also appear in manually developed systems under comparable workload, monitoring, and statistical-analysis procedures.\n\n## VI Conclusion\n\nThis paper investigated software aging symptoms in applications automatically generated by LLMs. Through a controlled experimental setup, four service-based applications implemented in JavaScript, Python, and Rust were subjected to long-duration workloads, and their behavior was monitored over 48 hours using memory usage, response time, and throughput as primary indicators. The results show that memory consumption was the most consistent indicator of potential software aging, with st",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 11,
+  "seeds_or_runs": 1,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

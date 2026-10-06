@@ -1,0 +1,207 @@
+{
+ "arxiv_id": "2606.01629",
+ "fulltext_chars": 71452,
+ "fulltext_lines": 2176,
+ "authors_block": "Junjie Chen ††thanks: chenjj826@gmail.com Affiliation: Department of Computer Science and Technology, Tsinghua University Affiliation: Quancheng Laboratory Yuxi Dong Affiliation: University of Science and Technology Beijing Haitao Li Affiliation: Department of Computer Science and Technology, Tsinghua University Weihang Su Affiliation: Department of Computer Science and Technology, Tsinghua University Yujia Zhou Affiliation: Department of Computer Science and Technology, Tsinghua University Min Zhang Affiliation: Department of Computer Science and Technology, Tsinghua University Yiqun Liu Affiliation: Department of Computer Science and Technology, Tsinghua University Qingyao Ai ††thanks: Corresponding Author: aiqy@tsinghua.edu.cn Affiliation: Department of Computer Science and Technology, Tsinghua University Affiliation: Quancheng Laboratory",
+ "vendor_affiliation_hits": [],
+ "n_authors": 8,
+ "comment": "EMNLP 2026 main",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/cjj826/LongJudgeBench."
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Benchmarking LLM-as-a-Judge for Long-Form Output Evaluation"
+  ],
+  [
+   58,
+   "###### Abstract"
+  ],
+  [
+   68,
+   "## 1 Introduction"
+  ],
+  [
+   73,
+   "# Inst."
+  ],
+  [
+   136,
+   "## 2 Related Work"
+  ],
+  [
+   144,
+   "## 3 LongJudgeBench"
+  ],
+  [
+   146,
+   "### 3.1 Overview"
+  ],
+  [
+   152,
+   "### 3.2 Task Formalization"
+  ],
+  [
+   200,
+   "# Instance"
+  ],
+  [
+   201,
+   "# Output"
+  ],
+  [
+   276,
+   "### 3.3 Task Preparation"
+  ],
+  [
+   297,
+   "### 3.4 Task Statistics"
+  ],
+  [
+   692,
+   "## 4 Experimental Setup"
+  ],
+  [
+   694,
+   "### 4.1 Baselines"
+  ],
+  [
+   718,
+   "### 4.2 Metrics"
+  ],
+  [
+   758,
+   "## 5 Experimental Results"
+  ],
+  [
+   760,
+   "### 5.1 Main Results"
+  ],
+  [
+   776,
+   "### 5.2 Output Length Sensitivity Analysis"
+  ],
+  [
+   784,
+   "### 5.3 Case Study and Failure Analysis"
+  ],
+  [
+   794,
+   "## 6 Conclusion"
+  ],
+  [
+   798,
+   "## 7 Limitations"
+  ],
+  [
+   802,
+   "## 8 Ethical Considerations"
+  ],
+  [
+   806,
+   "## Acknowledgments"
+  ],
+  [
+   810,
+   "## References"
+  ],
+  [
+   1093,
+   "## Appendix A License"
+  ],
+  [
+   1117,
+   "## Appendix B Analysis Details"
+  ],
+  [
+   1170,
+   "## Appendix C Task Preparation Details"
+  ],
+  [
+   1178,
+   "### C.1 Deep Research"
+  ],
+  [
+   1180,
+   "#### DeepResearch Bench."
+  ],
+  [
+   1204,
+   "#### RealDeepResearch."
+  ],
+  [
+   1228,
+   "### C.2 Scientific Survey"
+  ],
+  [
+   1230,
+   "#### SurGE."
+  ],
+  [
+   1248,
+   "### C.3 Creative Writing"
+  ],
+  [
+   1250,
+   "#### WritingPreferenceBench."
+  ],
+  [
+   1280,
+   "### C.4 Long-Chain Analysis"
+  ],
+  [
+   1282,
+   "#### VerifyBench."
+  ],
+  [
+   1303,
+   "### C.5 Systematic Review"
+  ],
+  [
+   1305,
+   "#### MA."
+  ],
+  [
+   1332,
+   "### C.6 Normalization Across Datasets"
+  ],
+  [
+   1347,
+   "## Appendix D Prompt Details"
+  ],
+  [
+   1353,
+   "## Appendix E More Evaluation Results"
+  ],
+  [
+   2057,
+   "## Appendix F Guidelines for Expert Annotation"
+  ],
+  [
+   2176,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgments\n\nThis work is supported by the Research Project of Quancheng Laboratory, China (Grant No. QCL20250105).\n\n## References\n\nChang et al. (2024)\nY. Chang, X. Wang, J. Wang, Y. Wu, L. Yang, K. Zhu, H. Chen, X. Yi, C. Wang, Y. Wang, et al.\n\nA survey on evaluation of large language models.\n\nACM transactions on intelligent systems and technology 15 (3), pp. 1–45.\n\nCited by: §1.\n\nChen et al. (2026)\nJ. Chen, W. Su, Z. Chu, H. Li, Y. Zhou, D. Yuan, X. Wang, J. Zhou, Y. Liu, M. Zhang, et al.\n\nAuto-pre: an automatic and cost-efficient peer-review framework for language generation evaluation.\n\nIn Proceedings of the AAAI Conference on Artificial Intelligence,\n\nVol. 40, pp. 30235–30242.\n\nCited by: §2.",
+ "limitations": "## 7 Limitations\n\nWe acknowledge several limitations in this study and aim to address them in future work. First, although LongJudgeBench covers multiple representative long-form evaluation scenarios, it still cannot fully capture the diversity of real-world long-form generation tasks. We plan to further expand the benchmark with more domains, task types, and application settings. Second, our experiments consider several representative LLM judges and judging settings, but more advanced judge designs, such as retrieval-augmented judging, multi-agent judging, and calibration-based methods, remain to be explored. We hope future work can build upon LongJudgeBench to develop more reliable and robust long-form output evaluation methods.\n\n## 8 Ethical Considerations\n\nThroughout this research, ethical considerations have been integral to ensuring the responsible development and application of AI technologies. We are committed to the principles of open research and the scientific value of reproducibility. Therefore, we have made all the code from our study publicly accessible on GitHub. This transparency allows the community to validate our results and promotes the use of our methods in various settings. Moreover, we used AI assistants only for language polishing and editing to improve clarity, grammar, and readability.\n\n## Acknowledgments\n\nThis work is supported by the Research Project of Quancheng Laboratory, China (Grant No. QCL20250105).\n\n## References\n\nChang et al. (2024)\nY. Chang, X. Wang, J. Wang, Y. Wu, L. Yang, K. Zhu, H. Chen, X. Yi, C. Wang, Y. Wang, et al.\n\nA survey on evaluation of large language models.\n\nACM transactions on intelligent systems and technology 15 (3), pp. 1–45.\n\nCited by: §1.\n\nChen et al. (2026)\nJ. Chen, W. Su, Z. Chu, H. Li, Y. Zhou, D. Yuan, X. Wang, J. Zhou, Y. Liu, M. Zhang, et al.\n\nAuto-pre: an automatic and cost-efficient peer-review framework for language generation evaluation.\n\nIn Proceedings of the AAAI Conference on Artificial Intelligence,\n\nVol. 40, pp. 30235–30242.\n\nCited by: §2.\n\nChu et al. (2024)\nZ. Chu, Q. Ai, Y. Tu, H. Li, and Y. Liu\n\nAutomatic large language model evaluation via peer review.\n\nIn Proceedings of the 33rd ACM International Conference on Information and Knowledge Management,",
+ "ethics_coi": "## 8 Ethical Considerations\n\nThroughout this research, ethical considerations have been integral to ensuring the responsible development and application of AI technologies. We are committed to the principles of open research and the scientific value of reproducibility. Therefore, we have made all the code from our study publicly accessible on GitHub. This transparency allows the community to validate our results and promotes the use of our methods in various settings. Moreover, we used AI assistants only for language polishing and editing to improve clarity, grammar, and readability.\n\n## Acknowledgments\n\nThis work is supported by the Research Project of Quancheng Laboratory, China (Grant No. QCL20250105).\n\n## References\n\nChang et al. (2024)\nY. Chang, X. Wang, J. Wang, Y. Wu, L. Yang, K. Zhu, H. Chen, X. Yi, C. Wang, Y. Wang, et al.\n\nA survey on evaluation of large language models.\n\nACM transactions on intelligent systems and technology 15 (3), pp. 1–45.\n\nCited by: §1.\n\nChen et al. (2026)\nJ. Chen, W. Su, Z. Chu, H. Li, Y. Zhou, D. Yuan, X. Wang, J. Zhou, Y. Liu, M. Zhang, et al.\n\nAuto-pre: an automatic and cost-efficient peer-review framework for language generation evaluation.\n\nIn Proceedings of the AAAI Conference on Artificial Intelligence,",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 35,
+  "p_value_or_ci": 2,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

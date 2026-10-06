@@ -1,0 +1,149 @@
+{
+ "arxiv_id": "2609.05667",
+ "fulltext_chars": 106947,
+ "fulltext_lines": 838,
+ "authors_block": "Travis Breaux Email: breaux@cmu.edu Affiliation: Software and Societal Systems Department, Carnegie Mellon University, 5000 Forbes Avenue, Pittsburgh, 15213, Pennsylvania, United States Anmol Singhal Email: anmolsinghal@cmu.edu Affiliation: Software and Societal Systems Department, Carnegie Mellon University, 5000 Forbes Avenue, Pittsburgh, 15213, Pennsylvania, United States",
+ "vendor_affiliation_hits": [],
+ "n_authors": 2,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# The Impact of GenAI on the Future of Requirements Engineering"
+  ],
+  [
+   34,
+   "###### Abstract"
+  ],
+  [
+   38,
+   "###### keywords"
+  ],
+  [
+   41,
+   "## 1 Introduction"
+  ],
+  [
+   49,
+   "## 2 History of AI for Requirements Engineering"
+  ],
+  [
+   97,
+   "## 3 Advances in Language Models"
+  ],
+  [
+   107,
+   "### 3.1 Pre-training Limitations"
+  ],
+  [
+   113,
+   "### 3.2 Symbolic and Statistical Reasoning"
+  ],
+  [
+   119,
+   "### 3.3 Context Management"
+  ],
+  [
+   123,
+   "## 4 Requirements Re-visited"
+  ],
+  [
+   127,
+   "### 4.1 Prompt Programming"
+  ],
+  [
+   131,
+   "### 4.2 Advances in Agentic AI"
+  ],
+  [
+   135,
+   "#### 4.2.1 Generalist Agents"
+  ],
+  [
+   141,
+   "#### 4.2.2 Long-Horizon Tasks"
+  ],
+  [
+   145,
+   "#### 4.2.3 Software Engineering Agents"
+  ],
+  [
+   149,
+   "### 4.3 Spec-Driven Development"
+  ],
+  [
+   160,
+   "## 5 Future of Requirements"
+  ],
+  [
+   164,
+   "### 5.1 Matters of Software Process"
+  ],
+  [
+   168,
+   "#### 5.1.1 From Validation to Verification"
+  ],
+  [
+   176,
+   "#### 5.1.2 Singular to Long-Horizon Tasks"
+  ],
+  [
+   186,
+   "#### 5.1.3 Innovation in Evaluation"
+  ],
+  [
+   194,
+   "#### 5.1.4 Requirements Evolution & Management"
+  ],
+  [
+   202,
+   "### 5.2 Matters of Experiencing Requirements"
+  ],
+  [
+   208,
+   "#### 5.2.1 Reductions in Authorship Experience"
+  ],
+  [
+   212,
+   "#### 5.2.2 Previewing Behavioral Experiences"
+  ],
+  [
+   216,
+   "#### 5.2.3 Responsive and Adaptive Specification"
+  ],
+  [
+   220,
+   "## 6 Conclusion"
+  ],
+  [
+   224,
+   "## References"
+  ],
+  [
+   838,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "### 3.1 Pre-training Limitations\n\nThe quality and type of pre-training data determines which “skills” can be learned later [203]. GPT-3 was a notable advance not just because of its size (175B parameters), but because its pre-training data included highly curated prose from web crawl data, WebText2 pages linked from Reddit posts, and vast quantities of fiction and non-fiction describing human emotion, motivation, empathy and strategy. This early data also had its limitations: numerical representations of multiplication and division were largely absent and there was an absence of code, which corresponded to poor math performance [23] and the inability to generate executable code [29]. Finally, due to pre-training cut-off dates – the date after which the LLM parameters are frozen and no new information is learned – there will always be a need for augmented generation [61], whether using retrieval-augmented generation [50] or tool calling [137, 142, 195]. In fact, the under-representation of knowledge in pre-training is directly proportional to inaccuracy in zero-shot question-answering [118].\n\nIn RE, tacit knowledge, also referred to as the unknown knowns [156], refers to knowledge that a stakeholder has, but which they withhold from the development process for reasons including that they do not realize they have it or that they struggle to articulate it [63]. Requirements elicitation interviews are the predominant technique for surfacing tacit knowledge [57]. A consequence of tacit knowledge is under-representation of such knowledge in modern pre-training data: unspoken or unwritten stakeholder needs are unlikely to be captured in web text, audio or video. Consequently, because the accuracy of LLM-based question-answering is proportional to the number of relevant pre-training documents [118], accuracy on tasks concerning tacit knowledge is likely to be poor. Moreover, long-tail knowledge, which is largely under-represented [87], leads to increased incidence of hallucination [200], which means LLMs can generate factual inaccuracies or inconsistencies when LLMs are prompted on topics covering tacit knowledge. While many measures of language models have converged on fluency [71], we also know that human trust increases as reading effort decreases, independent of whether the information is valid [145, 96], which can lead to over-reliance and misplaced trust in generative AI [65].\n\n### 3.2 Symbolic and Statistical Reasoning\n\nLanguage models struggle to emulate logical reasoning [31], which is the foundation of many RE analysis methods [110]. For example, when LLMs are tested on symmetric relations learned during fine-tuning, e.g., testing “B is A” when “A is B” was learned, LLM performance is no better than random chance [16]. However, translating natural language problems into logic has since improved by decomposing and chaining translations of atomic formulae needed to construct complex logic [153], and then fine-tuning LLMs on synthetic logic samples to improve accuracy by 9-11% on both logic and code benchmarks [125]. In contrast, chain-of-thought prompting [186] raises awareness that inference-time compute to generate reasoning trajectories can increase accuracy in math word problems. This observation led to frontier-scale large reasoning models (LRMs) that generate long chain-of-thought (LCoT), which is encapsulated at inference time and later truncated from the response (e.g., in a generated < think > </ think > block). While LCoT simulates cognitive behaviors (e.g., verification, backtracking and sub-goal setting) in reasoning [60], the improvements gained by CoT have been limited to logic and algorithmic reasoning tasks, with performance on classification and question-answering tasks no different from random chance [165]. In LCoT, the cost of increasing inference-time compute is prohibitive, particularly when LRMs are known for overthinking, which can arrive at and later skip a correct answer in the reasoning trajectory [20",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 5,
+  "p_value_or_ci": 5,
+  "seeds_or_runs": 0,
+  "swe_bench": 3,
+  "contamination": 2,
+  "human_study": 14,
+  "java": 0,
+  "industrial": 3
+ },
+ "fulltext_source": "html"
+}

@@ -1,0 +1,53 @@
+{
+  "arxiv_id": "2609.10871",
+  "contribution_type": "empirical",
+  "summary": "A2ABreak uses Claude Sonnet/Opus 4.6 to extract 929 normative statements from the Agent2Agent (A2A) protocol spec, builds a unified 37-state/76-transition FSM, then has an LLM search the FSM for protocol-design flaws followed by adversarial and manual verification. It reports 11 spec-level vulnerabilities (cross-client context injection, credential harvesting across delegation hops, unattested capability claims) and says a zero-shot LLM over the raw spec found none.",
+  "claims": [
+    {"claim": "The A2A spec has 11 protocol-level vulnerabilities exploitable by a fully spec-compliant adversary.", "evidence": "§V RQ2: 5 C1 runs -> 17 unique candidates; C2 accepted 16; manual expert review kept 11 TP, 1 duplicate, 4 FP. Table III lists findings, §VI details three. Exploits are reasoned traces over the FSM, not demonstrated against running implementations (the paper says no open-source reference implementation exists, §I).", "strength": "moderate", "location": "§V RQ2, §VI, Table III"},
+    {"claim": "A2ABreak achieves 73.3% precision and 84.6% F1 against independent expert review.", "evidence": "Precision 11/15 is computed in §V. F1 84.6% implies recall = 1.0, but there is no independent ground-truth vulnerability set; recall is effectively assumed. 'Independent' reviewer identity, count and relationship to authors are not given (§IV-C: 'A domain expert validates').", "strength": "weak", "location": "§V RQ2, §IV-C"},
+    {"claim": "Explicit FSM grounding is essential: a zero-shot LLM baseline produced zero confirmed findings.", "evidence": "§V RQ1: two zero-shot runs of Claude Opus 4.6 gave 9 candidates, all rejected by the authors' own Stage C2 verifier. Baseline is minimal (2 runs, one prompt, no RAG/agentic baseline) and judged by the proposed system's own verifier.", "strength": "weak", "location": "§V RQ1"},
+    {"claim": "The FSM extraction stage is accurate.", "evidence": "Table I: on PSMBench TCP proxy, 11/11 states, 19/20 transitions, precision 0.760, recall 0.950, F1 0.844. Single proxy protocol; A2A FSM itself has no ground truth.", "strength": "moderate", "location": "§V RQ2, Table I"},
+    {"claim": "A full run costs about $41.", "evidence": "Table II per-stage costs total $40.97.", "strength": "strong", "location": "§V RQ5, Table II"}
+  ],
+  "patterns": [
+    {"id": "P11", "stance": "neutral", "note": "Shows that cross-organization agent delegation via A2A lacks context ownership, identity propagation and capability attestation; a security caveat for multi-agent designs rather than evidence about their effectiveness."},
+    {"id": "P04", "stance": "neutral", "note": "Positions A2A as the horizontal complement to MCP; no MCP evaluation."},
+    {"id": "P35", "stance": "supports", "note": "LLM-assisted extraction of a formal FSM from a natural-language spec outperformed unstructured LLM reasoning in finding design gaps (weak baseline)."},
+    {"id": "P27", "stance": "neutral", "note": "Protocol contracts between independently-owned agents; findings argue contracts must make identity and capability claims verifiable."}
+  ],
+  "methodology": {
+    "sample": "One specification (A2A v1.0); 929 statements; 5 discovery runs; 17 candidates; TCP proxy validation.",
+    "baselines": "Zero-shot Claude Opus 4.6 with high reasoning, 2 runs.",
+    "models": "Claude Sonnet 4.6 (Stage A) and Claude Opus 4.6 (Stages B-D), single vendor family.",
+    "variance": "None reported; C1 runs are merged rather than compared.",
+    "ablations": "Stage-wise FSM refinement counts (Fig 3), not ablations of detection quality.",
+    "contamination_controls": "Not applicable/discussed; Stage C uses web search of the spec.",
+    "languages": "Natural-language protocol spec; no code."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint, no venue listed.",
+    "limitations_section": false,
+    "artifacts": "GitHub link (github.com/arlotfi79/A2ABreak) given, yet the same section says artifacts will be open-sourced 'upon publication'; completeness unclear. Responsible disclosure to Linux Foundation maintainers reported as pending.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "self_evaluation", "detail": "Baseline candidates were rejected by the authors' own Stage C2 verifier; expert reviewer not identified as external."},
+    {"type": "metric_mismatch", "detail": "F1 84.6% presumes recall 1.0 without any ground-truth vulnerability inventory."},
+    {"type": "strawman_baseline", "detail": "Only baseline is two zero-shot prompts; no structured/agentic or human-only baseline."},
+    {"type": "single_model", "detail": "All stages use Anthropic Claude 4.6 models."},
+    {"type": "small_sample", "detail": "One protocol, 17 candidates, one TCP proxy for FSM accuracy."},
+    {"type": "hype_language", "detail": "'first rigorous systematic security analysis'; exploits are not demonstrated against any deployed implementation."}
+  ],
+  "coi": {
+    "affiliations": "Alireza Lotfi, Mirza Masfiqur Rahman, Elisa Bertino (Purdue University); Imtiaz Karim (University of Texas at Dallas). Regex vendor hits (Anthropic, Google, SAP, Salesforce) come from the introduction text, not author affiliations.",
+    "vendor_products_evaluated": "A2A protocol (originated by Google, now Linux Foundation) evaluated critically; Anthropic models used as tools.",
+    "funding": "NSF grant 2229876, NAIRR Pilot award 250336, UT System Rising STARs Award, UT Dallas startup funds.",
+    "severity": "none",
+    "detail": "Academic authors with public funding; findings are critical of the evaluated protocol."
+  },
+  "scores": {"rigor": 2, "reproducibility": 3, "generalizability": 1, "relevance": 2, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Concrete, plausible spec-level findings with cost reporting and a TCP sanity check, but no running-implementation exploits, an F1 that assumes perfect recall, an unnamed 'independent' reviewer, a two-prompt strawman baseline, and no limitations section.",
+  "applicability": "Indirect. The Java team is unlikely to expose A2A endpoints for content ingestion, but if mixed agent hosts (Claude Code, Codex, Cursor, Hermes) are ever wired together via A2A or similar delegation, the findings say: do not trust context IDs as authorization, do not forward credentials across hops, and do not trust self-declared agent skills - enforce these in the harness (qr) deterministically. The methodological idea transfers to spec-driven development: turning a prose spec (e.g., an ingestion contract across the >=4 repos) into an explicit state machine before asking an LLM to reason about it beats asking the LLM over raw prose, though the evidence here is thin.",
+  "conflicts_with": []
+}

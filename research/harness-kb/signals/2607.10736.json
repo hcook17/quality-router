@@ -1,0 +1,128 @@
+{
+ "arxiv_id": "2607.10736",
+ "fulltext_chars": 48089,
+ "fulltext_lines": 512,
+ "authors_block": "Obada Kraishan Affiliation: College of Media and Communication Affiliation: Texas Tech University Affiliation: Lubbock, TX 79409, USA Kulsawasd Jitkajornwanich Affiliation: College of Media and Communication Affiliation: Texas Tech University Affiliation: Lubbock, TX 79409, USA Kerk Kee Affiliation: College of Media and Communication Affiliation: Texas Tech University Affiliation: Lubbock, TX 79409, USA",
+ "vendor_affiliation_hits": [],
+ "n_authors": 3,
+ "comment": "12 pages, 4 figures, 3 tables",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/Significant-Gravitas/AutoGPT",
+  "https://github.com/langchain-ai/langchain"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Robo-Reporters: Evaluating Autonomous AI Agents as Algorithmic Gatekeepers in Computational Journalism"
+  ],
+  [
+   46,
+   "###### Abstract"
+  ],
+  [
+   59,
+   "## 1 Introduction"
+  ],
+  [
+   85,
+   "## 2 Literature Review"
+  ],
+  [
+   87,
+   "### 2.1 Computational Journalism and Agentic Architectures"
+  ],
+  [
+   97,
+   "### 2.2 Gatekeeping Theory and Algorithmic Transparency"
+  ],
+  [
+   105,
+   "## 3 Methodology"
+  ],
+  [
+   107,
+   "### 3.1 Agent Implementations"
+  ],
+  [
+   121,
+   "### 3.2 Journalism Task Design"
+  ],
+  [
+   125,
+   "### 3.3 Experimental Procedures"
+  ],
+  [
+   129,
+   "### 3.4 Evaluation Metrics"
+  ],
+  [
+   145,
+   "## 4 Results"
+  ],
+  [
+   149,
+   "### 4.1 RQ1: Performance Differences Across Agent Architectures"
+  ],
+  [
+   241,
+   "### 4.2 RQ2: Gatekeeping Patterns Across Agent Architectures"
+  ],
+  [
+   290,
+   "### 4.3 RQ3: Transparency Across Agent Architectures"
+  ],
+  [
+   298,
+   "## 5 Discussion"
+  ],
+  [
+   300,
+   "### 5.1 Theoretical Implications"
+  ],
+  [
+   306,
+   "### 5.2 Performance Tradeoffs and Practical Implications"
+  ],
+  [
+   312,
+   "### 5.3 Limitations"
+  ],
+  [
+   316,
+   "### 5.4 Future Research"
+  ],
+  [
+   320,
+   "## 6 Conclusion"
+  ],
+  [
+   326,
+   "## References"
+  ],
+  [
+   512,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "### 5.3 Limitations\n\nSeveral limitations qualify these findings. First, we examined only four architectures from the broader design space; hybrid architectures combining elements may achieve different tradeoff patterns. Second, all architectures employed the same underlying language model (Claude Sonnet 4), limiting generalizability to other model families; architectural effects may interact with model capabilities. Third, tasks represented only a subset of journalism work, primarily information gathering and synthesis amenable to automated evaluation, excluding interviewing, cultivating confidential sources, and other human-centric functions. Fourth, automated accuracy evaluation via keyword matching and semantic similarity did not assess narrative quality, stylistic appropriateness, or audience engagement; human expert evaluation would provide richer quality assessment. Fifth, we examined agents in isolated experimental contexts rather than integrated newsroom environments, where infrastructure constraints and workflow integration may produce different outcomes. Sixth, transparency measurement challenges with framework-based architectures limited our ability to calculate rejection rates or multistage filtering patterns for LangChain, CrewAI, and AutoGPT, a limitation that itself reflects a meaningful finding about framework opacity.\n\n### 5.4 Future Research\n\nFuture research should replicate these architectural comparisons across different base models (e.g., GPT-4, Gemini, Llama) to determine whether the observed patterns reflect general architectural properties or model-specific interactions. Task diversity should expand toward journalism activities involving human sources, extended investigations, and ethical decision-making, and expert journalist evaluations should complement automated accuracy metrics with assessments of narrative quality. Hybrid architectures combining chain-based speed with multi-agent quality control merit systematic testing, as do methods for instrumenting framework-based systems so that their internal gatekeeping becomes observable. Finally, field studies of deployed systems in working newsrooms would test whether the laboratory tradeoffs documented here persist under production conditions.\n\n## 6 Conclusion\n\nThis study provides the first systematic comparison of autonomous AI agent architectures in journalism contexts, representing how fundamental design choices shape editorial performance, gatekeeping patterns, and transparency. Our controlled experimental comparison across 50 journalism tasks demonstrated substantial architectural effects on task completion speed ( \\eta^{2}=.27 ) and computational efficiency ( \\eta^{2}=.82 ), with more modest effects on accuracy and transparency. These findings extend gatekeeping theory by revealing architecture as a structural level determining information flows from sources to audiences, with Claude’s 71.7% rejection rate documenting substantial algorithmic selectivity comparable to human gatekeeping funnels. Performance results challenge simplistic automation narratives by showing that different architectures optimize for different objectives: chain-based approaches for speed (30 s average), collaborative approaches for accuracy (84.7%), and iterative approaches for multidimensional balance. Transparency findings reveal that architectural design powerfully shapes which decision aspects become visible—framework-based architectures excelling at structured source attribution, monolithic and autonomous approaches providing superior methodological documentation. Universal limitations in uncertainty acknowledgment suggest systematic challenges in how contemporary AI systems handle epistemic humility, warranting attention in both technical design and regulatory frameworks. These contributions inform theory by demonstrating architecture as a gatekeeping variable, and practice by providing evidence-based guidance for newsrooms matching architectural approaches to editori",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 3,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

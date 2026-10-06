@@ -1,0 +1,33 @@
+{
+  "arxiv_id": "2606.19616",
+  "contribution_type": "system",
+  "summary": "Presents grite, the author's own server-less, git-native coordination substrate that stores an append-only, signed, CRDT-reconciled task/event log inside git refs with advisory leases, and argues that pre-PR coordination logs explain part of the agent PR acceptance gap. All quantitative results come from deterministic, seeded synthetic 'agents' on an abstract task pool, not from LLM agents or real repositories.",
+  "claims": [
+    {"claim": "Leases plus shared task state cut duplicate-work rate from 78% to 0% while goodput more than triples.", "evidence": "Table 1 (N=32, mean over seeds): dup-work 0.78/0.64/0.00, conflicting edits 410/138/48, goodput 2.33/3.84/8.00. Agents are synthetic op-generators that by design skip tasks marked done in the locks+state arm, so a 0% duplicate rate follows almost by construction; no LLM agents, no real code.", "strength": "weak", "location": "§4, §5.1, Table 1"},
+    {"claim": "Replicas converge to byte-identical state with no dropped writes, unlike a file-based last-writer-wins tracker.", "evidence": "§5.2: property-based tests over random event sets and delivery orders; contrast with whole-record LWW file baseline on a two-agent example. This is a standard CRDT property, verified by tests rather than measured in deployment.", "strength": "moderate", "location": "§4, §5.2"},
+    {"claim": "The coordination log exposes failure modes (conflicting edits, lock starvation, redundant rediscovery, race-to-close) invisible in PR history, and leases alone do not stop redundant rediscovery.", "evidence": "Table 2 from a separate high-contention synthetic run: locks-only shows 192 conflicting edits and 180 rediscoveries vs 104/36 for no-coordination, which contradicts Table 1's ordering for conflicting edits; authors say the runs differ. 'Pre-registered' detectors are self-declared. No real-agent logs (T2 is future work).", "strength": "weak", "location": "§5.3, Table 2, §7"},
+    {"claim": "Part of the agent PR 'faster but rejected' gap sits upstream of the PR.", "evidence": "Speculative link to AIDev in §6.1; no correlation with PR outcomes measured.", "strength": "unsupported", "location": "§6.1"}
+  ],
+  "patterns": [
+    {"id": "P29", "stance": "introduces", "note": "Coordination layer for concurrent agents (claims/leases + shared state) with no evidence from real LLM agents."},
+    {"id": "P30", "stance": "introduces", "note": "Signed, append-only, git-stored event log as an auditable coordination trace; mining toolkit released."},
+    {"id": "P11", "stance": "neutral", "note": "Motivated by multi-agent teams, but no multi-agent LLM system is run."}
+  ],
+  "methodology": {"sample": "Synthetic deterministic agents, N in {2,4,8,16,32}, single abstract task pool, multiple seeds (count not stated)", "baselines": "No-coordination and locks-only arms; file-based LWW tracker for convergence", "models": "None (no LLMs)", "variance": "Means over seeds; no dispersion or significance tests reported", "ablations": "Three coordination arms function as an ablation of leases vs shared state", "contamination_controls": "n/a", "languages": "n/a (abstract task pool, not source code)"},
+  "standards": {"peer_review": "arXiv preprint, LNCS format, no venue listed", "limitations_section": true, "artifacts": "Code, dataset, harness, mining toolkit at github.com/neul-labs/grite; pinned commit, seeds, make figures", "preregistration": "Detectors described as fixed before measurement; no external registration"},
+  "biases": [
+    {"type": "toy_tasks", "detail": "Abstract task pool with seeded op-generator agents; no LLMs, no code, no repositories."},
+    {"type": "self_evaluation", "detail": "Author's own tool is both the instrument and the object; duplicate/conflict flags are computed by grite's own apply_tracked path."},
+    {"type": "no_variance_reported", "detail": "Seed count and dispersion not reported; authors decline significance tests."},
+    {"type": "metric_mismatch", "detail": "Duplicate-work rate of 0 under locks+state is built into the agent policy, so it measures the simulation rather than agent behavior."},
+    {"type": "hype_language", "detail": "Abstract framing ('millions of pull requests', trust gap) implies real-agent evidence that the paper does not contain."}
+  ],
+  "coi": {"affiliations": "Single author, Arizona State University; grite is released under neul-labs, which the paper discloses as the author's own system", "vendor_products_evaluated": "grite (author's own system)", "funding": "None stated", "severity": "medium", "detail": "Author evaluates his own open-source tool favorably with his own metrics and no independent replication; disclosed, and not a commercial model vendor, so medium rather than high."},
+  "scores": {"rigor": 1, "reproducibility": 4, "generalizability": 0, "relevance": 2, "coi_risk": 3},
+  "verdict": "reject",
+  "verdict_reason": "No LLM agents or real repositories are evaluated. The headline 78%→0% result follows from the synthetic agents' policy, Tables 1 and 2 disagree on conflicting edits, and the author evaluates his own tool. The design idea of keeping coordination state in git refs is interesting, but the paper gives no evidence that it works for real agents.",
+  "applicability": "The idea transfers but the evidence does not. Mixed hosts working on ≥4 ingestion repos need some way to claim tasks and record completion that no single host owns, and a git-stored log fits a git-native, host-neutral setup. Per AGENTS.md, though, the team already gives each mutating agent its own clone or worktree and coordinates through PRs, which avoids the shared-tracker contention this paper simulates. Treat grite as a design reference only: try it on real agent logs before adopting it, and check whether advisory leases hold up when agents ignore them (the paper does not measure this).",
+  "conflicts_with": [
+    {"arxiv_id": "2608.23740", "detail": "AgentRoom also uses CRDT-backed claim/status coordination but evaluates five real coding-CLI models on backend tasks; it is the stronger evidence base for this design space."}
+  ]
+}

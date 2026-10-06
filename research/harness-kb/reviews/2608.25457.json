@@ -1,0 +1,55 @@
+{
+  "arxiv_id": "2608.25457",
+  "contribution_type": "system",
+  "summary": "MACGen is a four-role pipeline for secure code generation: a Planner, a Security Advisor (early-exit triage, CWE inference, RAG over a CERT/OWASP guideline KB, code-based guideline synthesis), a Code Generator, and a Reviewer. Agents exchange only structured artifacts, not the shared dialogue. Evaluated on CWEval (119 tasks, 5 languages, 6 LLMs) and BaxBench (392 tasks, 6 backend languages, 4 LLMs), it reports the best joint functional-and-secure pass rate (F&S@1) against four published inference-time baselines.",
+  "claims": [
+    {"claim": "MACGen improves F&S@1 over direct prompting by 19.61pp on CWEval on average across six LLMs, reaching up to 70.59%.", "evidence": "Table 1 (CWEval, 119 tasks) Δ columns. The 70.59 figure appears repeatedly in the table. Each cell comes from a single temperature-0 run with no variance. Table 7 (k=3, temp 0.5) preserves the ranking for GPT-4o.", "strength": "moderate", "location": "§5.1, Table 1, §6.4 Table 7"},
+    {"claim": "On BaxBench MACGen improves F&S@1 by 10.57pp on average and achieves the best F&S@1.", "evidence": "Table 2: GPT-4o 21.17→31.12 (+9.95) and GPT-4o-mini 10.76→21.94 (+11.18), so 10.57 is the mean of those two models only. Table 2 also has GPT-5.1 (35.71→51.53) and Claude Sonnet 5 (42.35→61.22). Over INDICT the margins are small: 31.12 vs 30.36, 51.53 vs 48.47, 61.22 vs 59.69, with INDICT ahead on Func@1 for GPT-5.1 (66.07 vs 62.50). These are single runs with no CIs, so the advantage over INDICT is within plausible noise.", "strength": "moderate", "location": "§5.1, Table 2"},
+    {"claim": "Artifact-only interfaces beat a shared-context variant: +20.17% on CWEval with GPT-4o-mini and +8.67% on BaxBench with GPT-4o.", "evidence": "Figure 5 plus Appendix I. This is an internal ablation against MACGen-Shared, which gets full upstream scratchpads. It is a reasonable controlled comparison but has no variance.", "strength": "moderate", "location": "§5.4, Fig. 5, App. I"},
+    {"claim": "MACGen uses 16% of INDICT's tokens and costs about the same as RAG baselines.", "evidence": "Table 3: 220,916 vs 1,411,754 total tokens, $0.91 vs $4.68. Measured on only 25 Python CWEval tasks with GPT-4o. RESCUE is cheaper ($0.23, 43,641 tokens).", "strength": "moderate", "location": "§5.3, Table 3"},
+    {"claim": "Each agent and each Security Advisor component contributes.", "evidence": "Tables 4–5 ablations show F&S@1 dropping when any agent or component is removed, on a subset of models. Single runs.", "strength": "moderate", "location": "§6.1–6.2, Tables 4–5"}
+  ],
+  "patterns": [
+    {"id": "P11", "stance": "supports", "note": "A role-specialized four-agent pipeline beats single-pass prompting and RAG baselines on two secure-code benchmarks. Its margin over the shared-dialogue multi-agent baseline INDICT is small."},
+    {"id": "P13", "stance": "supports", "note": "Planner-first then coder. Removing the Planner reduces F&S@1 in Table 4."},
+    {"id": "P08", "stance": "supports", "note": "Passing only compact upstream artifacts instead of full dialogue improves F&S@1 over the MACGen-Shared variant (Fig. 5) and cuts tokens (Table 3). This is an alternative to compacting a context after it has grown."},
+    {"id": "P18", "stance": "mixed", "note": "An LLM Reviewer checks functionality and security against the guidelines. The final judge is the benchmark oracles, not the reviewer, and the reviewer's accuracy is never measured on its own."},
+    {"id": "P06", "stance": "supports", "note": "Embedding retrieval over a normalized CERT/OWASP guideline KB. Removing standards-driven generation degrades F&S@1 (Table 5)."},
+    {"id": "P17", "stance": "neutral", "note": "Only a syntax checker is in the loop. The Limitations section names static analyzers and pentest tooling as future work, so there is no SAST feedback."},
+    {"id": "P24", "stance": "neutral", "note": "Reports tokens, cost and latency (Table 3), and caps refinement at M=2 iterations."}
+  ],
+  "methodology": {
+    "sample": "CWEval: 119 tasks. BaxBench: 392 tasks (28 scenarios × 14 frameworks). Plus HumanEval/HumanEval+ and LLMSecEval (150 tasks) in the appendices. Cost analysis on 25 Python tasks only.",
+    "baselines": "Direct prompting, SecGuide, CodeGuarder, RESCUE (RAG-based) and INDICT (multi-agent). Baselines run with the hyperparameters from their original papers, and RESCUE with the official implementation. These are current and reasonably faithful, though not re-tuned per model.",
+    "models": "CWEval: GPT-4o, GPT-4o-mini, Gemini 2.5-Flash, Gemini 2.5-Flash-Lite, DeepSeek-R1-Distill-Llama-70B, Qwen3-8B. BaxBench: GPT-4o, GPT-4o-mini, GPT-5.1, Claude Sonnet 5.",
+    "variance": "Temperature 0.0 single runs for the main tables. No seeds, SDs or CIs. Table 7 adds a pass@3 at temp 0.5 rather than repeated pass@1.",
+    "ablations": "Agent ablation (Table 4), Security Advisor component ablation (Table 5), shared-context variant (Fig. 5), CWE group count C (App. F), sampling k (Table 7).",
+    "contamination_controls": "None discussed. CWEval and BaxBench are public, and the KB includes OWASP cheat sheets that may overlap benchmark exploit categories.",
+    "languages": "C, C++, Python, JavaScript, Go (CWEval); Go, JavaScript, PHP, Python, Ruby, Rust (BaxBench). No Java."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint. The comment says '8 pages' with no venue.",
+    "limitations_section": true,
+    "artifacts": "The paper states that all source code, evaluation logs and prompts are at github.com/Mishuni/macgen-secure-code. The ethics section says 'plan to release', which is slightly inconsistent.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "no_variance_reported", "detail": "Main results are single temperature-0 runs. The MACGen-vs-INDICT gaps on BaxBench (0.76–3.57pp) have no uncertainty estimate."},
+    {"type": "self_evaluation", "detail": "The authors built MACGen and selected the configuration (C=3/C=2, M=2). Baselines use default settings from their papers. The benchmark oracles are third-party, which mitigates this."},
+    {"type": "missing_cost_reporting", "detail": "Cost is reported only for 25 Python tasks with GPT-4o, not on BaxBench, where the multi-file backends dominate."},
+    {"type": "metric_mismatch", "detail": "The abstract's BaxBench '10.57pp average' covers only GPT-4o and GPT-4o-mini, while Table 2 also contains GPT-5.1 and Claude Sonnet 5. The intro says BaxBench was evaluated with GPT-4o and GPT-4o-mini. The reporting is inconsistent, though the omitted models also improve."},
+    {"type": "contamination_risk", "detail": "Public benchmarks plus a KB built from OWASP/CERT material that overlaps the benchmarks' CWE targets. Not discussed."}
+  ],
+  "coi": {
+    "affiliations": "Seoul National University (3 authors) and Sungshin Women's University (1 author), Korea.",
+    "vendor_products_evaluated": "None. OpenAI, Google, DeepSeek, Qwen and Anthropic models are used as backbones.",
+    "funding": "No acknowledgments or funding statement in the text.",
+    "severity": "none",
+    "detail": "Academic authors evaluating their own method. The conflict is intellectual, not commercial."
+  },
+  "scores": {"rigor": 3, "reproducibility": 4, "generalizability": 3, "relevance": 3, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "The abstract numbers are reproduced in Tables 1–2. Baselines are current, and evaluation covers 6 models on CWEval and 4 on BaxBench across 5–6 languages, with useful ablations. However, everything is a single deterministic run, the margin over INDICT is within likely noise, cost is measured on 25 Python tasks only, and Java is absent.",
+  "applicability": "Moderately useful as a design pattern rather than a drop-in tool. The artifact-only handoff fits mixed agent hosts well: each stage (plan, security guidelines, code, review) writes a structured file instead of sharing a chat transcript, so stages can run on different hosts and be checked into the spec-driven workflow, and the plan doubles as a spec. For healthcare-education ingestion services, a 'security advisor' step that derives task-specific CWE guidance (input validation on ingested content, path handling, auth on delivery APIs) before coding is cheap (about $0.91 per 25 tasks on GPT-4o) and could live in one shared prompt/skill used across the ≥4 ingestion repos. Caveats: the paper has no Java/Spring evidence, and its reviewer is an LLM with no SAST in the loop. The team should pair this with Semgrep/Sonar rather than trust an LLM reviewer, and treat the gains as unproven for Java.",
+  "conflicts_with": []
+}

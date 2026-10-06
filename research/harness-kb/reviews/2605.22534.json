@@ -1,0 +1,41 @@
+{
+  "arxiv_id": "2605.22534",
+  "contribution_type": "empirical",
+  "summary": "MSR 2026 short paper that takes closed agent-authored PRs from the AIDev dataset (repos with at least 500 stars), drops bot-only-reviewed ones (9,799 left), and manually codes a stratified sample of 717 PRs. It argues that merge/reject labels misrepresent agent capability: only about a third of rejections are clear agent failures, and 15.4% of merges needed reviewer feedback or reviewer commits.",
+  "claims": [
+    {"claim": "Only 35.7% of rejected agentic PRs reflect clear agentic failures; 31.2% are workflow-driven and 33.1% have no observable rationale.", "evidence": "Table 2: 126 AF / 110 Non-AF / 117 Unknown of N=353; kappa about 0.90. The numbers match the abstract, but the Unknown third means the true agent-failure share could be anywhere from 35.7% to 68.8%.", "strength": "moderate", "location": "§5, Table 2"},
+    {"claim": "15.4% of merged agentic PRs required explicit reviewer involvement (feedback loops or reviewer-applied commits).", "evidence": "Table 3: 28 FL + 28 HI of N=364 merged; kappa reported as exactly 1.0, which is unusual for qualitative coding and is not explained.", "strength": "moderate", "location": "§6, Table 3"},
+    {"claim": "Agents differ systematically: Copilot and Devin are embedded in reviewer-mediated workflows, while Codex and Cursor PRs are merged with minimal interaction.", "evidence": "Table 3 per-agent rows (Copilot 29/49 FL+HI; Codex 1/167). But the per-agent cells are small (Claude Code n=8 in both tables), there are no statistical tests, and the authors concede in §7 that the difference may come from repository practice rather than the agent. Plausible confounder not discussed: Codex/Cursor PRs are typically opened and self-merged by the developer who invoked the agent.", "strength": "weak", "location": "§6-7, Tables 1-3"},
+    {"claim": "PR outcome labels alone are insufficient to evaluate agent performance; evaluation must be interaction-aware.", "evidence": "This follows reasonably from Tables 2-3 (one third of rejections are unexplained, and part of the merges depended on humans). It is a measurement-validity argument, not evidence about any particular harness.", "strength": "moderate", "location": "§7, §9"}
+  ],
+  "patterns": [
+    {"id": "P19", "stance": "supports", "note": "15.4% of merges depended on human feedback or reviewer commits, mostly for missing tests, CI config, and repository conventions (§7). That supports keeping human review gates on agent PRs."},
+    {"id": "P32", "stance": "supports", "note": "Field evidence from real OSS PRs; shows that merge rate is a confounded field metric."},
+    {"id": "P16", "stance": "neutral", "note": "Agentic failures were identified through failing CI and tests (§5). CI was the main observable failure signal, but the paper does not test verifier loops."},
+    {"id": "P01", "stance": "neutral", "note": "Reviewer interventions frequently enforced repository-specific conventions (§7). That hints at, but does not test, the value of repo instruction files."}
+  ],
+  "methodology": {
+    "sample": "11,048 closed agentic PRs (AIDev, repos with >=500 stars), reduced to 9,799 human-reviewed PRs, with 717 manually coded (353 rejected, 364 merged).",
+    "baselines": "None. This is descriptive qualitative coding with no comparison to human-authored PRs.",
+    "models": "Five agent products (Claude Code, Copilot, Cursor, Devin, OpenAI Codex), observed in the wild; underlying models are unknown.",
+    "variance": "No CIs or significance tests on the per-agent differences. Inter-rater kappa is about 0.90 (RQ1) and 1.0 (RQ2).",
+    "ablations": "n/a",
+    "contamination_controls": "n/a",
+    "languages": "Mixed, from OSS repos; the language mix is not reported."
+  },
+  "standards": {"peer_review": "Accepted at MSR 2026 (5-page short paper).", "limitations_section": true, "artifacts": "A replication package with sampling scripts, coding guidelines, and agreement statistics is claimed (github.com/cn-eveer/Agentic-PRs-Analysis); the citation is malformed in the text.", "preregistration": "n/a"},
+  "biases": [
+    {"type": "small_sample", "detail": "Per-agent cells are tiny (Claude Code 8 rejected and 8 merged; Cursor 22 rejected), yet cross-agent conclusions appear in the abstract."},
+    {"type": "other:sampling_claim_mismatch", "detail": "§4 says the sample is 'balanced across agents', but Tables 2-3 show it is proportional (Codex 280 PRs, Claude Code 16), so it is not balanced."},
+    {"type": "metric_mismatch", "detail": "The Unknown category (33.1% of rejections) is large enough that the headline that rejection 'overstates agent error' is only as strong as the assumption that Unknown cases are not agent failures."},
+    {"type": "survivorship", "detail": "Limited to repos with >=500 stars and closed PRs. Open or abandoned PRs and proprietary settings are excluded (acknowledged in §8)."}
+  ],
+  "coi": {"affiliations": "Waseda University, University of Osaka, Ritsumeikan University, Kyushu University, NAIST (all academic).", "vendor_products_evaluated": "Claude Code, Copilot, Cursor, Devin, OpenAI Codex, observed only; no authors from these vendors.", "funding": "No funding statement in the text.", "severity": "none", "detail": "Academic-only authorship with no product of their own."},
+  "scores": {"rigor": 3, "reproducibility": 3, "generalizability": 3, "relevance": 3, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "The dual-annotated coding is sound and the headline percentages match Tables 2-3. However, the cross-agent comparisons rest on tiny cells with no tests, the 'balanced' sampling claim is contradicted by the tables, and a third of rejections are unexplained. Admit for the measurement-validity point (merge rate is a confounded KPI), not for ranking agents.",
+  "applicability": "If the team measures agent success by PR merge rate across its four or more ingestion repos, this paper says that KPI is confounded: log interaction evidence (CI results, reviewer commits, review comments) per agent PR, and record an explicit closure reason so rejected PRs are attributable. Since reviewer fixes clustered on missing tests, CI config, and repo conventions, encoding those conventions in committed specs or instruction files and gating on CI is the actionable lesson. With mixed agent hosts, do not compare hosts by merge rate alone, because the paper shows the review workflow drives the outcome as much as the agent does. Java and healthcare specifics are not addressed.",
+  "conflicts_with": [
+    {"arxiv_id": "2606.13175", "detail": "That paper argues coding agents supersede human inspection. Here, 15.4% of merges needed human feedback or commits, and rejection causes are often invisible without human review context."}
+  ]
+}

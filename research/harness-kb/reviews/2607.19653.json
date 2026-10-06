@@ -1,0 +1,54 @@
+{
+  "arxiv_id": "2607.19653",
+  "contribution_type": "system",
+  "summary": "PerfAgent wraps Mini-SWE-Agent in a controller that feeds a curated py-spy profiler summary (including native-extension frames), re-profiles after each passing patch for up to 5 iterations, runs affected tests via pytest-testmon, and keeps the fastest correct patch. On GSO (102 tasks) and SWE-fficiency-Lite (100 tasks) with GPT-5.1 it roughly doubles expert-matching (hack-adjusted) patches over the benchmark-provided OpenHands patches and beats an oracle best-of-5 OpenHands at lower cost.",
+  "claims": [
+    {"claim": "PerfAgent raises hack-adjusted expert-matching rate from 19.6% to 39.2% on GSO and 26% to 74% on SWE-fficiency-Lite with GPT-5.1", "evidence": "Table II: OpenHands Hack-Adj 19.6 / 26 vs PerfAgent 39.2 / 74; Codex 17.7 / 39. Single run; OpenHands numbers come from patches shipped with each benchmark rather than re-runs under the same $5/200-step budget, so budget parity with the 5-iteration PerfAgent is not controlled in this table.", "strength": "moderate", "location": "§IV-B, Table II"},
+    {"claim": "Gains come from better feedback, not more test-time compute (beats oracle best@5 at lower cost)", "evidence": "Table VI: GSO Hack-adj 39.2 vs OpenHands best@5 26.5 at $2.88 vs $11.01; SWE-fficiency-Lite 74 vs 68 at $4.25 vs $9.91. Oracle uses hidden tests, which favors the baseline. But the best@5 baseline is a different harness (OpenHands) from PerfAgent's base (Mini-SWE-Agent), and the A_L loop-only ablation on SWE-fficiency-Lite already reaches 46, so the compute-vs-feedback split is only partly isolated.", "strength": "moderate", "location": "§IV-E1, Table VI"},
+    {"claim": "Profiler + test feedback together drive the improvement; tests alone do not help", "evidence": "Table II ablation: GSO A_L 29.4, +Tests 20.6, +Profiler 34.4, PerfAgent 39.2; SWE-fficiency-Lite 46/46/57/74. Single run; GSO differences of a few points are a handful of tasks.", "strength": "moderate", "location": "§IV-C, Table II"},
+    {"claim": "Win/loss record is statistically significant", "evidence": "Table III: 27 vs 7 decisive tasks on GSO, 52 vs 4 on SWE-fficiency-Lite. §VI asserts significance, but no test statistic or p-value is reported (the counts would plausibly pass a sign test, but the paper does not show it).", "strength": "moderate", "location": "§IV-B Table III, §VI"},
+    {"claim": "Prompting the agent with profiler instructions is not a substitute for a harness-run curated profiler", "evidence": "Table VII: A_P GSO Hack-Adj 16.7 vs PerfAgent 39.2; SWE-fficiency-Lite 44 vs 74.", "strength": "moderate", "location": "§IV-E3, Table VII"}
+  ],
+  "patterns": [
+    {"id": "P16", "stance": "supports", "note": "Execution/timing/test verifier loop with best-patch retention beats one-shot agents and oracle best@5 (Tables II, VI)."},
+    {"id": "P10", "stance": "supports", "note": "Built on a single-agent Mini-SWE-Agent loop; gains come from harness-injected feedback, not multi-agent structure."},
+    {"id": "P05", "stance": "supports", "note": "Deterministic tool output (profiler hotspots) summarized and injected beats prompting the agent to use the tool itself (Table VII)."},
+    {"id": "P24", "stance": "mixed", "note": "$5/task cap truncates iterations on SWE-fficiency-Lite; $10 raises Hack-Adj 74→77 (Table IX). Cost reported per task in Table VI."},
+    {"id": "P31", "stance": "neutral", "note": "Evaluated on GSO and SWE-fficiency-Lite; documents reward hacking (18 of A_L's high-scoring patches flagged as hacks) when timing harness is naive (§IV-E4)."},
+    {"id": "P18", "stance": "neutral", "note": "Uses GSO's LLM-as-judge hack detector combined with SWE-fficiency's detector, with manual review of flagged instances (§IV-A2, §VI)."}
+  ],
+  "methodology": {
+    "sample": "GSO 102 tasks / 10 repos; SWE-fficiency-Lite 100 tasks / 9 repos (random subset used by benchmark authors)",
+    "baselines": "OpenHands patches distributed with each benchmark (not re-run), Codex run by authors, oracle OpenHands best@5, prompt-only profiler agent A_P, and component ablations",
+    "models": "GPT-5.1 (high reasoning); Kimi-K2-0711 (GSO) and Kimi-K2-0905 (SWE-fficiency-Lite)",
+    "variance": "Single run per configuration (§VI acknowledges); no CIs; significance asserted for Table III without a reported test",
+    "ablations": "Loop-only, +Tests, +Profiler, prompt-only profiler, $5 vs $10 budget",
+    "contamination_controls": "None discussed; GSO hidden perf tests reduce workload overfitting; hack detection for reward hacking",
+    "languages": "Python repositories with C/C++/Cython/Rust native extensions"
+  },
+  "standards": {
+    "peer_review": "arXiv preprint, no venue listed",
+    "limitations_section": true,
+    "artifacts": "Prompt given in Appendix A; no code repository for PerfAgent found in the text",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "no_variance_reported", "detail": "All results single-run (§VI); Kimi-K2 GSO gap is ~2 tasks."},
+    {"type": "strawman_baseline", "detail": "OpenHands baseline is the benchmark-supplied patch set, likely one-shot and not budget-matched to PerfAgent's 5 iterations; mitigated partly by oracle best@5 and A_L ablation."},
+    {"type": "single_language_python", "detail": "Python-centric repos only; selective testing via pytest-testmon is Python-specific."},
+    {"type": "closed_artifacts", "detail": "No PerfAgent code link; only the prompt is published."},
+    {"type": "metric_mismatch", "detail": "SWE-fficiency-Lite times only the provided script, which authors show is gameable; headline 74% is on the weaker-validated benchmark."}
+  ],
+  "coi": {
+    "affiliations": "MIT, Rensselaer Polytechnic Institute, IBM (Ehningen; T.J. Watson Research Center), Michigan State University",
+    "vendor_products_evaluated": "None of IBM's; evaluates OpenAI Codex and OpenHands as baselines, GPT-5.1 and Kimi-K2 as models",
+    "funding": "MIT-IBM Watson AI Lab; US Air Force Research Laboratory / AI Accelerator (FA8750-19-2-1000)",
+    "severity": "low",
+    "detail": "IBM authors and funding, but no IBM product (e.g. iSWE-Agent, mentioned in §I) is evaluated; the system under test is the authors' own research harness."
+  },
+  "scores": {"rigor": 3, "reproducibility": 2, "generalizability": 2, "relevance": 3, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Ablations and a budget-aware oracle best@5 comparison make the 'feedback beats sampling' claim credible, but results are single-run, Python-only, the main baseline is not budget-matched, and code is not released.",
+  "applicability": "Transferable as a harness pattern rather than a tool: for a Java ingestion/delivery stack, the lesson is that the harness (not the prompt) should run deterministic tools (a JFR/async-profiler summary, affected-test selection via something like Gradle test impact or Maven incremental tests) and feed curated results back, with a controller that retains the best verified patch. Nothing here is validated on Java, multi-repo changes, or spec-driven workflows; the reward-hacking finding (caching inside timing loops) is a concrete warning for any performance gate the team adds to its harness.",
+  "conflicts_with": []
+}

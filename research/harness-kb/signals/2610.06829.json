@@ -1,0 +1,275 @@
+{
+ "arxiv_id": "2610.06829",
+ "fulltext_chars": 67905,
+ "fulltext_lines": 2021,
+ "authors_block": "Yifan Zhang Yutong Dai Viraj Prabhu Zhiyuan Hu Ran Xu Zeyuan Chen Affiliation: Salesforce AI Research Affiliation: {yifan.zhang, yutong.dai, viraj.prabhu}@salesforce.com Affiliation: {zhiyuan.hu, ran.xu, zeyuan.chen}@salesforce.com",
+ "vendor_affiliation_hits": [
+  "Salesforce"
+ ],
+ "n_authors": 6,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   32,
+   "# CLIFT: Conformal Self-Verification for Web Agent Training and Test-Time Scaling"
+  ],
+  [
+   52,
+   "###### Abstract"
+  ],
+  [
+   84,
+   "## 1 Introduction"
+  ],
+  [
+   224,
+   "## 2 CLIFT: Conformal Lift-calibrated Introspective Filtering of Trajectories"
+  ],
+  [
+   246,
+   "### 2.1 The Conformal Verifier"
+  ],
+  [
+   264,
+   "#### Certification."
+  ],
+  [
+   301,
+   "#### Bank growth."
+  ],
+  [
+   317,
+   "### 2.2 Training: Per-step Rewards and URL-stratified Advantages"
+  ],
+  [
+   334,
+   "#### URL-stratified per-token advantage."
+  ],
+  [
+   349,
+   "#### Training-time judge."
+  ],
+  [
+   357,
+   "### 2.3 Test Time: CTS (Conformal Trajectory Selection)"
+  ],
+  [
+   413,
+   "## 3 Experimental Design"
+  ],
+  [
+   444,
+   "### 3.1 Task synthesis and bank construction"
+  ],
+  [
+   455,
+   "### 3.2 Per-benchmark protocols"
+  ],
+  [
+   492,
+   "## 4 Result Analysis"
+  ],
+  [
+   502,
+   "### 4.1 Training with certified feedback"
+  ],
+  [
+   631,
+   "### 4.2 Bank transfer to a closed backbone"
+  ],
+  [
+   720,
+   "### 4.3 Cross-benchmark transfer"
+  ],
+  [
+   793,
+   "### 4.4 Ablation study"
+  ],
+  [
+   858,
+   "## 5 Discussion and future work"
+  ],
+  [
+   883,
+   "## 6 Related work"
+  ],
+  [
+   893,
+   "#### Web agents and test-time search."
+  ],
+  [
+   905,
+   "#### RL credit assignment and process rewards."
+  ],
+  [
+   919,
+   "#### Conformal reliability and specification mining."
+  ],
+  [
+   932,
+   "## 7 Conclusion"
+  ],
+  [
+   956,
+   "## References"
+  ],
+  [
+   1437,
+   "## Appendix A Appendix"
+  ],
+  [
+   1443,
+   "### A.1 Evaluation Prompts"
+  ],
+  [
+   1445,
+   "#### WAI browser-use agent prompt."
+  ],
+  [
+   1470,
+   "#### VWA Gemma-4 agent prompt."
+  ],
+  [
+   1497,
+   "#### OM2W agent and WebJudge prompts."
+  ],
+  [
+   1540,
+   "### A.2 CLIFT Training Setup"
+  ],
+  [
+   1551,
+   "#### Backbone and shard layout."
+  ],
+  [
+   1560,
+   "#### Seed pool."
+  ],
+  [
+   1570,
+   "#### Frontier-LLM expansion."
+  ],
+  [
+   1578,
+   "#### Four-stage filter."
+  ],
+  [
+   1589,
+   "#### Train/eval isolation."
+  ],
+  [
+   1598,
+   "#### Compute resources."
+  ],
+  [
+   1608,
+   "#### Rollout and verification loop."
+  ],
+  [
+   1617,
+   "#### Certification, reward, and deployment object."
+  ],
+  [
+   1628,
+   "### A.3 Reported CLIFT Hyperparameters"
+  ],
+  [
+   1641,
+   "### A.4 Bank Details and OM2W Transfer"
+  ],
+  [
+   1654,
+   "#### WAI and VWA training banks."
+  ],
+  [
+   1680,
+   "#### Representative certified questions."
+  ],
+  [
+   1694,
+   "#### Q.1: Reaching content-bearing pages"
+  ],
+  [
+   1712,
+   "#### Q.2: Constructive non-destructive behaviour"
+  ],
+  [
+   1730,
+   "#### Q.3: Source-grounded final answer"
+  ],
+  [
+   1747,
+   "#### Q.4: End-state coherence"
+  ],
+  [
+   1764,
+   "#### Q.5: Active search behaviour"
+  ],
+  [
+   1782,
+   "#### Q.6: Navigation depth"
+  ],
+  [
+   1811,
+   "#### OM2W transfer setting."
+  ],
+  [
+   1865,
+   "#### Transferred question taxonomy."
+  ],
+  [
+   1877,
+   "#### Recalibration."
+  ],
+  [
+   1888,
+   "### A.5 OM2W Transfer Performance Details"
+  ],
+  [
+   1956,
+   "### A.6 Case Studies"
+  ],
+  [
+   1958,
+   "#### Case A.1: CTS save on WAI Gmail."
+  ],
+  [
+   1975,
+   "#### Case A.2: CTS save on a long WAI Handshake chain."
+  ],
+  [
+   1991,
+   "#### Case A.3: No-regression behaviour on WAI Gmail."
+  ],
+  [
+   2005,
+   "#### Case A.4: Live-web recovery on OM2W Indeed."
+  ],
+  [
+   2021,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 2,
+  "p_value_or_ci": 2,
+  "seeds_or_runs": 5,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

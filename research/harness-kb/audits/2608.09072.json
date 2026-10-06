@@ -1,0 +1,20 @@
+{"arxiv_id": "2608.09072",
+ "blind_scores": {"rigor": 3, "reproducibility": 4, "generalizability": 3, "relevance": 4, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "Implicit-requirement recovery is the main bottleneck, accounting for 24.5-46.0% of runs.", "proposed_strength": "weak", "reason": "The judge assigns each failure to the 'earliest deviating stage' (§4), which structurally favours the requirement stage over planning/code; the body qualifies the ordering as holding 'for most configurations' (§5.2), not all; attribution is by a single LLM judge validated on only 50 runs; and agents running autonomously could not ask clarifying questions, so task underspecification is conflated with agent failure. Directionally plausible, not a strong causal ranking."},
+  {"claim": "Popular coding agents average only 31.5% resolved; best configuration OpenCode + Kimi-K3 at 49.7%.", "proposed_strength": "moderate", "reason": "Average is fine; 'best configuration' is not distinguishable from Claude Code + Kimi-K3 (49.1%) with two runs and no variance reported, so the ranking within the top pair should not be cited."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P14", "from": "supports", "to": "introduces", "reason": "No condition gives agents a spec or plan as input; the review's own note says 'not tested as an intervention'. GT plans reproducing gold sub-patches during construction (with iterative revision by a gap-analysis agent) is not evidence that spec-first inputs improve agent outcomes."},
+  {"id": "P34", "from": "supports", "to": "introduces", "reason": "The paper shows missing implicit requirements co-occur with failure (judge attribution, Fig. 6/7) but never supplies structured requirements/acceptance criteria to test whether they help. A diagnosis motivates P34; it is not evidence it works."}
+ ],
+ "missed_issues": [
+  "Earliest-deviating-stage attribution rule biases toward requirement failures; the headline ordering partly follows from the attribution protocol.",
+  "Abstract states the requirement-bottleneck range without the body's 'most configurations' qualifier.",
+  "No per-language (Java vs Python) results despite 85 Java tasks, so the Java-specific relevance is assumed rather than shown; relevance 5 is too high for a diagnostic benchmark with no intervention.",
+  "GT plans were produced by an iterative synthesize-check-revise loop with a coding agent and semantic-equivalence evaluator (LLM), i.e. the 'functional reproducibility' validation itself depends on LLM judging; human review by two authors has no reported agreement.",
+  "Contamination: only 'recent' and non-overlap filters; no model-cutoff check against the 2026 backends."
+ ],
+ "note": "Solid, current-model, half-Java benchmark worth admitting, but the first review over-reads it as supporting spec-driven development (P14/P34); it only diagnoses the gap that SDD targets, under an attribution rule that inflates the requirement stage."}

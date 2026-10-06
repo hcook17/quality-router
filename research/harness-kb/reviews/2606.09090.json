@@ -1,0 +1,30 @@
+{
+  "arxiv_id": "2606.09090",
+  "contribution_type": "position",
+  "summary": "Short vision paper naming 'context rot' — AI configuration files (CLAUDE.md, AGENTS.md, copilot-instructions, .cursorrules) going stale as code evolves — and proposing a roadmap that reuses documentation-consistency tools. As preliminary evidence, the unmodified DOCER README checker is run on 612 config files from 356 randomly sampled repositories, flagging stale code-element references in 23.0% of repos.",
+  "claims": [
+    {"claim": "Stale code-element references occur in 23.0% of repositories (95% CI 18.8-27.2%).", "evidence": "Table 1: 82/356 repos, 230 stale of 18,048 verified references (1.27%). But manual check of 50 flagged elements found only 32 (64%) genuine (Table 3, single annotator); the 23.0% repo-level figure is not adjusted for the 36% non-genuine rate, and median stale refs per affected repo is 1, so the true repo rate is likely lower.", "strength": "moderate", "location": "§3.3, Tables 1 and 3"},
+    {"claim": "Traditional documentation-consistency tooling can already surface context rot without modification.", "evidence": "DOCER applied unchanged (§3.2); 64% precision on 50-sample; two-snapshot design misses references introduced after first commit (acknowledged).", "strength": "moderate", "location": "§3.2-3.3"},
+    {"claim": "Context rot degrades AI assistance.", "evidence": "Asserted in §1 and posed as open RQ3; no behavioral measurement in this paper.", "strength": "unsupported", "location": "§1, §4 RQ3"}
+  ],
+  "patterns": [
+    {"id": "P01", "stance": "mixed", "note": "Repo instruction files are widely used but ~1.3% of verified references go stale and some repos accumulate rot; impact on agents untested."},
+    {"id": "P05", "stance": "supports", "note": "Deterministic regex + git grep two-snapshot check detects referential rot cheaply; recommends deterministic detection with LLM repair."},
+    {"id": "P17", "stance": "introduces", "note": "Proposes consistency checks for config files as a CI-style linter; not built here."},
+    {"id": "P04", "stance": "neutral", "note": "Lists MCP tool-description drift as an open transfer opportunity."}
+  ],
+  "methodology": {"sample": "356 of 4,420 eligible repos (random seed 42) from Galster et al. dataset; 612 config files; 29,454 candidates; 18,048 verified.", "baselines": "None (feasibility study).", "models": "None (deterministic tool).", "variance": "95% CI on repo proportion; no precision CI.", "ablations": "None.", "contamination_controls": "n/a", "languages": "Not broken down by programming language."},
+  "standards": {"peer_review": "arXiv preprint; no venue listed.", "limitations_section": false, "artifacts": "Online appendix with analysis script, per-element results, repo versions, DOCER regexes, 230 stale references, 50 annotations; input dataset on Zenodo.", "preregistration": "n/a"},
+  "biases": [
+    {"type": "metric_mismatch", "detail": "Headline repo-level rate counts tool flags with only 64% precision; and staleness is not shown to affect agent behavior."},
+    {"type": "small_sample", "detail": "Precision estimated from 50 elements by one annotator, no inter-rater agreement."}
+  ],
+  "coi": {"affiliations": "Singapore Management University; Heidelberg University.", "vendor_products_evaluated": "None.", "funding": "Not stated.", "severity": "none", "detail": "Second author is also an author of the input dataset (Baltes et al. Zenodo), not a COI."},
+  "scores": {"rigor": 2, "reproducibility": 4, "generalizability": 3, "relevance": 4, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Transparent, reproducible, random-sample feasibility study that is directly relevant to maintaining AGENTS.md-style files; but the headline 23% is unadjusted for 36% false/ambiguous flags, precision rests on one annotator and 50 items, and the paper does not show that rot harms agents.",
+  "applicability": "Directly actionable for a team with ≥4 ingestion repos and mixed hosts: each repo will carry AGENTS.md/CLAUDE.md/copilot-instructions variants, and references to Java classes, packages, and scripts will drift. A cheap deterministic CI check (extract identifiers/paths from instruction files, verify they exist at HEAD) is justified as hygiene; generating host-specific files from one committed source reduces divergence across hosts. Do not budget for it as a correctness lever until impact is shown — the corpus has a controlled ablation suggesting context files themselves do not move correctness much.",
+  "conflicts_with": [
+    {"arxiv_id": "2607.27250", "detail": "Context rot is motivated by the assumption that stale context files degrade agents; the two-agent ablation found context-file strategy did not measurably change correctness, which would bound the harm of rot."}
+  ]
+}

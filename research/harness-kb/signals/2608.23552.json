@@ -1,0 +1,171 @@
+{
+ "arxiv_id": "2608.23552",
+ "fulltext_chars": 43181,
+ "fulltext_lines": 1092,
+ "authors_block": "Seth Karten Alex L. Zhang Kevin Thomas Sebastian Müller Elie Bakouch Daniel Auras Mika Senghaas Fares Obeid Konstantin Dunas Johannes Hagemann Sami Jaghouar Affiliation: Princeton University Prime Intellect MIT Affiliation: Correspondence: seth@primeintellect.ai, altzhang@mit.edu First published: August 5, 2026 • Current version: August 24, 2026",
+ "vendor_affiliation_hits": [],
+ "n_authors": 11,
+ "comment": "16 pages, 10 figures. Technical report. Code: https://github.com/PrimeIntellect-ai/prime-agent",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/PrimeIntellect-ai/prime-agent."
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Prime Agent: A Self-Improving RLM Harness"
+  ],
+  [
+   50,
+   "###### Abstract"
+  ],
+  [
+   62,
+   "## 1  Introduction"
+  ],
+  [
+   98,
+   "## 2  Prime Agent Architecture"
+  ],
+  [
+   106,
+   "### 2.1 Architecture overview"
+  ],
+  [
+   120,
+   "### 2.2 Information hierarchy and persistent state"
+  ],
+  [
+   144,
+   "### 2.3 Programmatic computation with RLMs"
+  ],
+  [
+   161,
+   "### 2.4 Recursive orchestration and interaction"
+  ],
+  [
+   181,
+   "### 2.5 Continual Harness"
+  ],
+  [
+   198,
+   "### 2.6 Long-horizon execution and evaluation semantics"
+  ],
+  [
+   214,
+   "## 3  Evaluation"
+  ],
+  [
+   228,
+   "### 3.1 Interactive reasoning at test-time scale"
+  ],
+  [
+   242,
+   "### 3.2 Long-context information management"
+  ],
+  [
+   347,
+   "### 3.3 Multi-day autonomous research"
+  ],
+  [
+   362,
+   "### 3.4 Programmatic systems construction"
+  ],
+  [
+   364,
+   "#### Emulators."
+  ],
+  [
+   376,
+   "#### GPU kernels."
+  ],
+  [
+   386,
+   "### 3.5 Persistent interaction and refinement"
+  ],
+  [
+   388,
+   "#### Factorio."
+  ],
+  [
+   404,
+   "#### MazeBench."
+  ],
+  [
+   410,
+   "## 4  Related Work"
+  ],
+  [
+   412,
+   "#### Programmatic inference and adaptive state."
+  ],
+  [
+   419,
+   "#### Coding agents and long-horizon evaluation."
+  ],
+  [
+   425,
+   "#### Interactive reasoning on ARC-AGI-3."
+  ],
+  [
+   431,
+   "#### Multi-agent and human-agent communication."
+  ],
+  [
+   437,
+   "## 5  Conclusion"
+  ],
+  [
+   441,
+   "## Acknowledgements"
+  ],
+  [
+   446,
+   "## References"
+  ],
+  [
+   963,
+   "## Appendix A Example Out-of-Loop Experiments in the nanoGPT Speedrun"
+  ],
+  [
+   1061,
+   "## Appendix B Example Programmatic Orchestration"
+  ],
+  [
+   1065,
+   "# Admit independent subagents; do not wait for answers here."
+  ],
+  [
+   1075,
+   "# Later, recover retained sessions and send a follow-up."
+  ],
+  [
+   1087,
+   "## Appendix C LLM Usage Disclosure"
+  ],
+  [
+   1092,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgements\n\nWe thank Florian Brand, SinatraS, and Patience Cave for helping complete Prime Agent runs in additional environments.\nSinatraS created PMPP Hard, and Patience Cave created MazeBench.\n\n## References\n\n[1]\nARC Prize Foundation (2026)\n\nARC-AGI community leaderboard.\n\nNote: https://arcprize.org/leaderboard/communityAccessed August 2026\n\nCited by: §4.\n\n[2]\nARC Prize Foundation (2026)\n\nARC-AGI-3: a new challenge for frontier agentic intelligence.\n\nExternal Links: 2603.24621,\nLink\n\nCited by: §3.1,",
+ "limitations": "",
+ "ethics_coi": "## Appendix C LLM Usage Disclosure\n\nLarge language models were used to assist with code development, writing refinement, and formatting during the preparation of this manuscript.\nAll scientific claims, experimental design, analysis, and intellectual contributions are solely the work of the authors.\n\n##",
+ "counts": {
+  "self_reported": 1,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 4,
+  "seeds_or_runs": 1,
+  "swe_bench": 1,
+  "contamination": 2,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

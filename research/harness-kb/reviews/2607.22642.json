@@ -1,0 +1,52 @@
+{
+  "arxiv_id": "2607.22642",
+  "contribution_type": "system",
+  "summary": "Amazon Advertising applied paper on CRAFT, a two-stage post-training recipe for an analytics coding agent: schema-stripped supervised fine-tuning on 15.1K filtered trajectories (from 100K+ generations; execution, data-integrity and LLM-judge gates) on an unnamed 120B MoE base, then GRPO with execution-shaped rewards. Against a schema-stuffed baseline that injects 50K+ tokens of DDL/API docs, it reports +9.6 pp composite Agent Score and ~9x fewer input tokens, with all results given only as relative deltas because absolute scores are confidential.",
+  "claims": [
+    {"claim": "CRAFT improves composite Agent Score by +9.6 pp, consistency +4.1 pp, multi-turn coherence +4.2 pp over the schema-stuffed baseline", "evidence": "Table 4 (Stage II, ± values over three seeded runs). Only deltas are reported; absolute scores, number of evaluation tasks, baseline model identity, and judge validation are not disclosed. Agent Score weights are not given.", "strength": "weak", "location": "§5.2, Table 4"},
+    {"claim": "~9x input-token reduction and schema-discovery loops reduced to 0.20x", "evidence": "Table 5: input tokens 0.11x for both stages; loops 0.62x (SFT) and 0.20x (SFT+RL). Token reduction follows by construction from removing the 50K+ schema context.", "strength": "moderate", "location": "§5.2, Table 5"},
+    {"claim": "RL, not SFT alone, aligns tool-use/interaction policy", "evidence": "Table 4 ablation: SFT alone +2.6 Agent Score and −1.4 consistency; SFT+RL +9.6 / +4.1. Internal ablation, three seeds.", "strength": "moderate", "location": "§5.2, Tables 4, 6, 7"},
+    {"claim": "No general-capability regression", "evidence": "Table 8: IFEval +0.6, GSM8K +0.9, GPQA −0.3 pp vs pre-adaptation base; 13-gram GSM8K contamination audit (App. E).", "strength": "moderate", "location": "Table 8, App. E"}
+  ],
+  "patterns": [
+    {"id": "P25", "stance": "supports", "note": "SFT + execution-shaped GRPO internalizes a stable proprietary schema; internal-only evidence."},
+    {"id": "P16", "stance": "supports", "note": "Execution outcomes gate trajectory acceptance and anchor RL rewards (§3.2, App. C)."},
+    {"id": "P18", "stance": "mixed", "note": "LLM-judge ensemble used as filter gate and reward term for plan-code consistency; acknowledged reward-hacking risk, no validation reported (§9, App. C)."},
+    {"id": "P06", "stance": "contradicts", "note": "Argues against prompt-time schema stuffing/retrieval for stable schemas; limitations concede retrieval is still needed for schema-novel entities."},
+    {"id": "P24", "stance": "supports", "note": "Reports input-token ratios as a first-class metric."}
+  ],
+  "methodology": {
+    "sample": "25 schema-linked entities, 30 agentic workflows; number of held-out evaluation tasks not reported",
+    "baselines": "Schema-stuffed baseline with exhaustive DDL/API context; baseline model not named (App. A 'strongest schema-stuffed baseline')",
+    "models": "Unnamed 120B MoE base; 'larger reference' model in Table 8 unnamed",
+    "variance": "Means ± spread over three seeded runs",
+    "ablations": "SFT-only vs SFT+RL",
+    "contamination_controls": "13-gram GSM8K overlap audit; none needed for proprietary tasks",
+    "languages": "Generated analytics code over proprietary APIs; language not specified in sections reviewed"
+  },
+  "standards": {
+    "peer_review": "arXiv preprint, no venue",
+    "limitations_section": true,
+    "artifacts": "None released; schemas, APIs, rubrics, data and absolute scores confidential",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "closed_artifacts", "detail": "Only relative deltas; no data, model, prompts or rubrics."},
+    {"type": "self_evaluation", "detail": "Authors define Agent Score, rubrics and judges for their own system on their own environment."},
+    {"type": "llm_judge_unvalidated", "detail": "Judge signals in filtering, reward and evaluation (plan-code consistency, business alignment) without reported human agreement."},
+    {"type": "strawman_baseline", "detail": "Only baseline is schema stuffing; no retrieval-based or tool-based schema discovery baseline, which is the obvious competing approach."},
+    {"type": "single_model", "detail": "One unnamed base model."}
+  ],
+  "coi": {
+    "affiliations": "Amazon Advertising Foundations and Amazon Web Services Agentic AI (all listed authors)",
+    "vendor_products_evaluated": "Amazon's own pre-deployment advertising analytics agent over Amazon Ads beta APIs",
+    "funding": "Amazon (implied by affiliation); no acknowledgments section",
+    "severity": "high",
+    "detail": "Vendor evaluating its own planned product on confidential data with self-defined metrics; no independent replication is possible."
+  },
+  "scores": {"rigor": 2, "reproducibility": 0, "generalizability": 1, "relevance": 2, "coi_risk": 4},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Interesting design lesson (internalize stable schemas instead of stuffing prompts) with a seeded ablation, but evidence is relative-only, closed, judge-scored, and compared only against a weak schema-stuffing baseline by the vendor itself.",
+  "applicability": "Weak transfer. A Java team using third-party agent hosts will not post-train a 120B model, and its healthcare-education content schemas evolve across ≥4 repos — exactly the 'schema-novel' case the limitations say CRAFT does not cover. The practical takeaway is the opposite lever: don't stuff full schemas into prompts; expose schema/contract lookup as deterministic tools or on-demand skills, and gate agent output with execution and data-integrity checks before any LLM judge (the Tri-Gate ordering).",
+  "conflicts_with": []
+}

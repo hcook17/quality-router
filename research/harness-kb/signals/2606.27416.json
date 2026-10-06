@@ -1,0 +1,255 @@
+{
+ "arxiv_id": "2606.27416",
+ "fulltext_chars": 52829,
+ "fulltext_lines": 1568,
+ "authors_block": "Parallel LLM Coding Agents Vassili Philippov Affiliation: Glite, {vassili,pavel,dmitrii,igor}@glite.ai Email: a.nikolaev@sheffield.ac.uk Pavel Katunin Affiliation: Glite, {vassili,pavel,dmitrii,igor}@glite.ai Dmitry Andreev Affiliation: Glite, {vassili,pavel,dmitrii,igor}@glite.ai Igor Ostanin Affiliation: Glite, {vassili,pavel,dmitrii,igor}@glite.ai Anton Nikolaev Affiliation: School of Biosciences, The University of Sheffield, Sheffield, UK",
+ "vendor_affiliation_hits": [],
+ "n_authors": 5,
+ "comment": "13 pages, 6 figures, 7 tables. Open-source framework (Apache-2.0) and a public demo project at https://github.com/GliteTech/glite-arf and https://github.com/GliteTech/research-ace-cefr",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/Aider-AI/aider.",
+  "https://github.com/GliteTech/glite-arf.",
+  "https://github.com/GliteTech/research-ace-cefr",
+  "https://github.com/GliteTech/research-ace-cefr.",
+  "https://github.com/NousResearch/autoreason.",
+  "https://github.com/crewAIInc/crewAI.",
+  "https://github.com/huggingface/smolagents.",
+  "https://github.com/karpathy/autoresearch.",
+  "https://github.com/openai/codex."
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Glite ARF: Verifier-Driven Research with"
+  ],
+  [
+   46,
+   "###### Abstract"
+  ],
+  [
+   78,
+   "## 1 Introduction"
+  ],
+  [
+   161,
+   "## 2 Related Work"
+  ],
+  [
+   163,
+   "#### Multi-agent orchestration."
+  ],
+  [
+   171,
+   "#### Coding agents."
+  ],
+  [
+   182,
+   "#### Autoresearch (practitioner side)."
+  ],
+  [
+   195,
+   "#### Autoresearch (academic side)."
+  ],
+  [
+   208,
+   "#### Evaluation regime."
+  ],
+  [
+   222,
+   "#### Workflow, provenance, and experiment management."
+  ],
+  [
+   290,
+   "#### Position."
+  ],
+  [
+   296,
+   "## 3 System"
+  ],
+  [
+   298,
+   "### 3.1 Architecture and seven principles"
+  ],
+  [
+   323,
+   "#### 1. Task isolation."
+  ],
+  [
+   336,
+   "#### 2. Immutability with a corrections overlay."
+  ],
+  [
+   345,
+   "#### 3. Aggregators-only cross-task reading."
+  ],
+  [
+   353,
+   "#### 4. Materialised project overview for human observability."
+  ],
+  [
+   364,
+   "#### 5. Spec-verified artefacts."
+  ],
+  [
+   371,
+   "#### 6. Comprehensive logging."
+  ],
+  [
+   380,
+   "#### 7. Subagent isolation."
+  ],
+  [
+   400,
+   "### 3.2 Verifiers: enforcing the principles"
+  ],
+  [
+   440,
+   "### 3.3 Aggregators and the corrections overlay"
+  ],
+  [
+   467,
+   "### 3.4 Subagent isolation and parallelism"
+  ],
+  [
+   500,
+   "## 4 Case Study: BEA 2026"
+  ],
+  [
+   507,
+   "### 4.1 The shared task"
+  ],
+  [
+   521,
+   "### 4.2 The campaign"
+  ],
+  [
+   538,
+   "### 4.3 Headline result"
+  ],
+  [
+   622,
+   "### 4.4 Structured provenance caught the leakage"
+  ],
+  [
+   650,
+   "### 4.5 Compliance audit at scale"
+  ],
+  [
+   672,
+   "## 5 The framework in use"
+  ],
+  [
+   723,
+   "#### The structural machinery is cheap."
+  ],
+  [
+   738,
+   "#### Parallelism, measured."
+  ],
+  [
+   750,
+   "#### Isolation and portability hold across domains."
+  ],
+  [
+   760,
+   "## 6 Lessons and Limits"
+  ],
+  [
+   762,
+   "#### The structural layer is cheap."
+  ],
+  [
+   774,
+   "#### Human-in-the-loop is intentional, not interim."
+  ],
+  [
+   790,
+   "#### What verifiers do not catch."
+  ],
+  [
+   805,
+   "#### Limitations."
+  ],
+  [
+   817,
+   "## 7 Availability"
+  ],
+  [
+   830,
+   "#### Future work."
+  ],
+  [
+   841,
+   "## Ethics Statement"
+  ],
+  [
+   875,
+   "## References"
+  ],
+  [
+   1230,
+   "## Appendix A Task folder structure"
+  ],
+  [
+   1265,
+   "## Appendix B Verifier catalogue and log spec"
+  ],
+  [
+   1267,
+   "### B.1 Verifier scripts"
+  ],
+  [
+   1318,
+   "### B.2 Per-step log format"
+  ],
+  [
+   1351,
+   "## Appendix C Cost breakdown"
+  ],
+  [
+   1399,
+   "#### Per-experiment cost."
+  ],
+  [
+   1412,
+   "#### Framework overhead."
+  ],
+  [
+   1423,
+   "## Appendix D Observed failure modes"
+  ],
+  [
+   1487,
+   "## Appendix E Secondary case study: Ace-CEFR"
+  ],
+  [
+   1551,
+   "## Appendix F Aggregator output snapshots"
+  ],
+  [
+   1568,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "#### Limitations.\n\nTwo further limits are worth stating plainly. First, ARF assumes a\nsingle human operator: its task-index and merge conventions are\nnot designed for several people driving role 1 concurrently, which\nwould risk index collisions and duplicated work. Second, the\nverifiers are not agent-proof — they are ordinary scripts in the\nrepository, so an agent explicitly instructed to bypass a rule can\nweaken or rewrite the verifier that checks it. ARF targets\naccidental agent drift in a non-adversarial setting, not a determined\nor adversarial agent.\n\n## 7 Availability\n\nGlite ARF (Glite Tech Ltd et al., 2026) is released under the Apache 2.0\nlicence (version 0.1.0) at\nhttps://github.com/GliteTech/glite-arf. A public ARF\ndemo project accompanies it: English CEFR readability\n(https://github.com/GliteTech/research-ace-cefr). The\nframework code under arf/ is identical across all three\ncampaigns; only project/, tasks/, and meta/ carry\nproject-specific content (§5).\nAppendix D summarises the failure modes that\nshaped the design.\n\n#### Future work.\n\nWe plan automatic citation verification (motivated by F05), per-column\ncompliance audits as a reusable methodological contribution,\nheartbeat-style periodic agent reflection adapted from CORAL\n(Qu et al., 2026), and a controlled study — seeding the\nAppendix D incidents into test repositories —\nto measure verifier detection rates directly. Replacing role 1 with\nan autonomous brainstorming agent is not a near-term priority — see\nabove.\n\n## Ethics Statement\n\nGlite ARF runs LLM coding agents (Claude Code, Codex CLI)\nautonomously on the operator’s machine, with shell execution, file",
+ "ethics_coi": "## Ethics Statement\n\nGlite ARF runs LLM coding agents (Claude Code, Codex CLI)\nautonomously on the operator’s machine, with shell execution, file\nwrites, git push permissions, and paid API calls. The\nframework’s verifier layer enforces structural integrity, but it is\nnot a security sandbox: it does not constrain what an agent’s shell\ncommands can do to the host machine. The repository ships a permissive\n.claude/settings.json suitable for research environments and\ndocuments the security trade-offs in\narf/docs/explanation/safety.md;\noperators on machines with sensitive data should narrow the\nallow-list before running.\n\nThe BEA 2026 dataset is distributed under the British Council’s\nKnowledge-based Vocabulary Lists licence\n(Schmitt et al., 2024); we used it under the shared-task\nagreement. No personally identifying information appears in any\nartefact released with this paper. LLM API spend for the BEA campaign\nwas approximately $450 ($498 total third-party cost including rented\ncompute) and is itemised in Appendix C. Our campaign ran\npredominantly on a 48 GB Mac (CPU/GPU) and on rented A100 GPU hours;\nwe did not measure carbon emissions and therefore do not characterise\nthe campaign’s footprint.",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 0,
+  "swe_bench": 2,
+  "contamination": 2,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

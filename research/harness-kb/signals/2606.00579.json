@@ -1,0 +1,238 @@
+{
+ "arxiv_id": "2606.00579",
+ "fulltext_chars": 157777,
+ "fulltext_lines": 4228,
+ "authors_block": "Dongping Chen Xuanao Huang* Zhihan Hu Qingyuan Shi Dianqi Li Tianyi Zhou Corresponding author: Tianyi Zhou: david.tianyi.zhou@gmail.com. Affiliation: University of Maryland Affiliation: MBZUAI",
+ "vendor_affiliation_hits": [],
+ "n_authors": 6,
+ "comment": "Paper under review",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/Dongping-Chen/OmniCoding.",
+  "https://github.com/InternLM/WildClawBenchGitHub",
+  "https://github.com/SWE-agent/mini-swe-agentAccessed",
+  "https://github.com/krafton-ai/KIRAAccessed",
+  "https://github.com/nousresearch/hermes-agentAccessed",
+  "https://github.com/openclaw/openclawGitHub"
+ ],
+ "hf_urls": [
+  "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro"
+ ],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Sandboxed Coding Agents are Competitive Omni-modal Task Solvers"
+  ],
+  [
+   40,
+   "###### Abstract"
+  ],
+  [
+   46,
+   "## 1 Introduction"
+  ],
+  [
+   62,
+   "## 2 Analysis of Sandboxed Agent Performance on Omni-Modal Tasks"
+  ],
+  [
+   86,
+   "### 2.1 Main Results and In-depth Analysis"
+  ],
+  [
+   671,
+   "### 2.2 Failure Analysis: Taxonomy and Process-level Trajectory."
+  ],
+  [
+   741,
+   "### 2.3 Skills and Self-Evolution for Strong Many-modality Content Processing"
+  ],
+  [
+   768,
+   "## 3 Code-X: Towards Stronger Coding Agent for Omnimodal Content"
+  ],
+  [
+   839,
+   "### 3.1 OmniCoding: Synthesized Omnimodal Coding Agent Trajectory Dataset"
+  ],
+  [
+   843,
+   "### 3.2 Method and Training Infrastructure"
+  ],
+  [
+   882,
+   "### 3.3 Experiment Setups and Results"
+  ],
+  [
+   1061,
+   "## 4 TerminalBench-O: From Many-modality Understanding to Processing"
+  ],
+  [
+   1135,
+   "# Size"
+  ],
+  [
+   1190,
+   "## 5 Related Works"
+  ],
+  [
+   1198,
+   "## 6 Conclusion"
+  ],
+  [
+   1202,
+   "## Ackownledgement"
+  ],
+  [
+   1206,
+   "## References"
+  ],
+  [
+   2374,
+   "## Appendix A Limitations"
+  ],
+  [
+   2378,
+   "## Appendix B Broader Impacts"
+  ],
+  [
+   2382,
+   "## Appendix C Adapting Sandboxed Agents for Omni-Modal Tasks"
+  ],
+  [
+   2432,
+   "## Appendix D Discussion and Future Works"
+  ],
+  [
+   2440,
+   "## Appendix E Full Related Works"
+  ],
+  [
+   2442,
+   "### E.1 Multimodal Models and Evaluation"
+  ],
+  [
+   2450,
+   "### E.2 Agentic Tool-Use"
+  ],
+  [
+   2458,
+   "### E.3 Terminal Coding Agents and Benchmarks"
+  ],
+  [
+   2466,
+   "## Appendix F TerminalBench-O Construction Details"
+  ],
+  [
+   2487,
+   "##### Raw data."
+  ],
+  [
+   2497,
+   "##### Preprocessing."
+  ],
+  [
+   2504,
+   "##### Construction."
+  ],
+  [
+   2538,
+   "##### Filtering."
+  ],
+  [
+   2546,
+   "##### Evaluation."
+  ],
+  [
+   2558,
+   "## Appendix G Failure Mode Taxonomy and Process-level Trajectory Dataset"
+  ],
+  [
+   2690,
+   "## Appendix H Implementation Details"
+  ],
+  [
+   2692,
+   "### H.1 Code-X Reward Hyperparameters"
+  ],
+  [
+   2793,
+   "### H.2 Prompts in Benchmark"
+  ],
+  [
+   3047,
+   "### H.3 Experimental Configuration Details"
+  ],
+  [
+   3051,
+   "#### H.3.1 Agent-Omni"
+  ],
+  [
+   3169,
+   "#### H.3.2 OmniAgent"
+  ],
+  [
+   3343,
+   "## Appendix I Licenses and Use Terms of Existing Assets"
+  ],
+  [
+   3347,
+   "### Benchmarks for Evaluation"
+  ],
+  [
+   3365,
+   "### Datasets Used in OmniCoding"
+  ],
+  [
+   3383,
+   "### Source Material for TerminalBench-O"
+  ],
+  [
+   3399,
+   "### Models"
+  ],
+  [
+   3413,
+   "### Software and Libraries"
+  ],
+  [
+   3443,
+   "### I.1 Omni-terminal Harness"
+  ],
+  [
+   3928,
+   "## Appendix J Additional Experiment Results"
+  ],
+  [
+   3964,
+   "## Appendix K Case Study"
+  ],
+  [
+   3966,
+   "### K.1 Representative Failure Case per Error Category"
+  ],
+  [
+   4228,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## Appendix A Limitations\n\nOur study has several limitations. First, due to computing-resource constraints, the Code-X training recipe is only validated at the 9B and 27B scales (Qwen-3.5-9B and Qwen-3.6-27B), and we have not yet characterized how the recipe scales to frontier-size open-source models. Second, due to API credit constraints, several closed-source coding agents could not be evaluated on the full benchmark suite. In particular, Claude Opus 4.6 results on VideoZeroBench and Claude Opus 4.7 results across all four benchmarks are incomplete in the current draft, which means the comparison between coding agents and native omni-modal models is somewhat uneven on the closed-source side. Third, our scope is restricted to offline omni-modal tasks, where files are staged into a workspace ahead of time; conclusions do not transfer directly to streaming or interactive settings.\n\n## Appendix B Broader Impacts\n\nOur findings establish a more compute- and token-efficient pathway for offline omni-modal understanding, showing that text+image coding agents with sandboxed tool use can match or surpass native omni-modal models on many video- and audio-centric tasks while consuming fewer tokens. This lowers the resource barrier for omni-modal applications and broadens access for researchers and users who lack dedicated omni-model APIs, while our open-sourced Code-X recipe, OmniCoding dataset, and TerminalBench-O benchmark further support reproducible research at the model–tool–environment interface. As with any tool-using agent that processes video and audio, downstream deployments should incorporate standard safeguards such as content provenance, access controls, and user consent; we note that our agents operate only on user-staged files within an isolated workspace and do not autonomously take real-world actions.\n\n## Appendix C Adapting Sandboxed Agents for Omni-Modal Tasks\n\nWe represent each omni-modal task as\n\n x=(q,\\mathcal{F},\\mathcal{Y}), \n\nwhere q is a natural-language instruction, \\mathcal{F} is a set of input files, and\n \\mathcal{Y} is the set of acceptable final answers. We use an answer set rather than a\nsingle reference string so that aliases, option letters, numerical formats, and unit variants can\nbe handled uniformly in both evaluation and reinforcement learning.\n\nA native omni-modal model solves the task by packing the files into model context:\n\n \\hat{y}_{\\mathrm{omni}}=M_{\\theta}\\!\\left(\\mathrm{Pack}(q,\\mathcal{F})\\right), \n\nwhere \\mathrm{Pack}(\\cdot) denotes model-specific media encoding, sampling, and serialization.\nIn this formulation, video and audio are first-class model inputs.\n\nIn contrast, our sandboxed agent does not need to ingest all raw media as context. The files\n \\mathcal{F} are staged into an isolated workspace, and the agent is given the instruction and\nthe corresponding file paths. It then interacts with the workspace through a terminal interface:\nit can inspect files, invoke tools such as ffmpeg, ffprobe, OCR, or ASR systems,\nwrite and execute scripts, create intermediate artifacts, and finally submit an answer.\n\nA sandbox rollout is written as\n\n \\tau=(o_{0},a_{0},o_{1},a_{1},\\ldots,o_{T},a_{T}), \n\nwhere o_{t} is the current observation, including command outputs and workspace feedback, and\n a_{t} is the agent’s next message or terminal action. During a rollout, raw omni-modal files may\nbe converted into task-relevant artifacts such as transcripts, sampled frames, OCR text, timestamps,\ntables, crops, or executable analysis scripts. The final prediction is parsed from the trajectory:",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 5,
+  "seeds_or_runs": 2,
+  "swe_bench": 10,
+  "contamination": 1,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 1
+ },
+ "fulltext_source": "html"
+}

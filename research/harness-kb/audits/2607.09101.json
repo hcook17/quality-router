@@ -1,0 +1,17 @@
+{"arxiv_id": "2607.09101",
+ "blind_scores": {"rigor": 3, "reproducibility": 1, "generalizability": 3, "relevance": 4, "coi_risk": 1},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "Tests are more readable and usable", "proposed_strength": "weak", "reason": "Raters were blinded (§IV-F), but the 100 methods were selected so that all four approaches produced executable tests, which filters to the easier methods. Scores use a coarse 1–3 scale with no inter-rater agreement, no significance test and no spread. Differences are small (e.g. HITS 2.33–2.49 vs top scores around 2.55–2.80)."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P11", "from": "supports", "to": "mixed", "reason": "Only the reviewer role is ablated (-8.09% mutation). The planner is never removed, and no single-agent version with the same tools and knowledge graph is tested. The comparison with ChatUniTest/HITS is confounded with the knowledge graph and tool APIs, which the ablation shows matter most. The evidence supports a reviewer pass, not multi-agent roles as such."}
+ ],
+ "missed_issues": [
+  "Bug-finding plausibility: 70.13% of the 154 'confirmed bugs' are robustness bugs ('improper handling of invalid inputs results in exceptions') in mature libraries such as Commons-Lang, Cli, Csv and Gson. Many may be intended or documented exception behaviour. Confirmation is by two authors with no maintainer reports, so the 92.22% precision is an upper bound under a lenient bug definition.",
+  "The review states that the industrial dataset is 'likely from the Huawei-affiliated author's company'. The paper says only that UTXXX is 'sourced from industry' (§IV-A2), so that is inference, not text.",
+  "The §V-C claim of 'consistent performance across public and internal datasets' contradicts Table VI: mutation 55.38% on the industrial set vs 83.69% on public projects, with a different model. The review flags this, but it should also count as hype_language / overclaiming in the threats section itself.",
+  "Ablation logic: the paper says syntax staying at 100% 'confirm[s] that the generator consistently produces passing test cases', which is a non sequitur (syntax is not passing). It also never states what context the 'w/o Knowledge Graph' variant receives, so the size of the largest ablation effect may reflect removing all repository context rather than the graph specifically."
+ ],
+ "note": "First review is accurate and appropriately calibrated, and the Java relevance is genuinely high. I mainly downgrade the user-study claim and the multi-agent stance, and add that the 'real bug' set is dominated by input-validation exceptions judged only by the authors."}

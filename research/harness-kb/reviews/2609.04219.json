@@ -1,0 +1,53 @@
+{
+  "arxiv_id": "2609.04219",
+  "contribution_type": "survey",
+  "summary": "Systematic literature review (Kitchenham guidelines plus snowballing) of 20 primary studies (2024-2026) on LLM-assisted fuzz testing of microservice / API-based systems. It classifies LLM roles (input generator dominant, mostly black-box), integration styles (prompt/iterative, multi-agent, program-analysis augmentation), evaluation practices (targets, metrics, baselines, replication) and maps open challenges to research directions.",
+  "claims": [
+    {"claim": "LLMs are mainly used as semantic input generators in black-box fuzzing, with a shift toward agent-based / retrieval-augmented designs.", "evidence": "Table 3: input generator in black-box settings in 16 studies vs 1 grey-box, 1 white-box; orchestrator role in 5 black-box studies; Table 4: retrieval-based augmentation in only 2 studies vs program analysis in 4.", "strength": "moderate", "location": "§4.2.2-4.2.3, Tables 3-4"},
+    {"claim": "LLMs improve valid input generation and modestly increase coverage and vulnerability detection.", "evidence": "No quantitative synthesis or effect-size table of primary-study results; §4.3 lists metric families (Table 6) and baselines (Table 7) but never reports or aggregates effectiveness numbers despite RQ2 promising 'what effectiveness do they achieve'. The 'modest' qualifier is not backed by any figure in the body.", "strength": "weak", "location": "Abstract, §4.3, §7"},
+    {"claim": "Evaluation is heterogeneous, cost reporting is scarce, and experiments are biased toward single services.", "evidence": "Table 5: industrial targets in 6 studies, most target individual REST services; Table 6: cost/engineering metrics in 9 of 20 studies ('fewer than half'); Table 7: 3 studies compare only against other LLMs, 3 against human/expert ground truth; replication packages 11/20.", "strength": "moderate", "location": "§4.3.1-4.3.3, Tables 5-7"},
+    {"claim": "Practitioners should combine LLM fuzzing with program analysis / dependency information and prefer locally deployable smaller models for cost/compliance.", "evidence": "Derived from Table 8 challenge/direction mapping; recommendation is interpretive synthesis by the authors, not tested against any comparison.", "strength": "weak", "location": "§5 Implications, Table 8"}
+  ],
+  "patterns": [
+    {"id": "P16", "stance": "neutral", "note": "Surveyed fuzzers use execution feedback (responses, 5xx, logs) iteratively; review notes 5xx-only oracles are weak, but provides no pooled evidence."},
+    {"id": "P11", "stance": "neutral", "note": "Reports a growing number of multi-agent / orchestrator fuzzing architectures (5 studies) without comparative evidence of benefit."},
+    {"id": "P05", "stance": "neutral", "note": "Recommends hybrid LLM + static/symbolic analysis; program-analysis augmentation more common than RAG (4 vs 2 studies)."},
+    {"id": "P06", "stance": "neutral", "note": "Retrieval-augmented fuzzing appears in only 2 primary studies; no effectiveness evidence aggregated."},
+    {"id": "P24", "stance": "neutral", "note": "Flags token/latency cost as a CI/CD adoption barrier and that fewer than half of studies report cost."},
+    {"id": "P23", "stance": "introduces", "note": "Argues smaller / quantised / on-prem models are a deployment requirement; asserted from challenge mapping, not measured."},
+    {"id": "P18", "stance": "neutral", "note": "Lists LLM-as-judge oracles as a future direction for weak 5xx oracles."}
+  ],
+  "methodology": {
+    "sample": "20 primary studies (2 from 2024, 13 from 2025, 5 from 2026) from IEEE Xplore, ACM DL, Scopus, WoS, arXiv plus backward/forward snowballing; raw hit counts only in Fig. 1 (not in text).",
+    "baselines": "n/a (secondary study).",
+    "models": "n/a; primary studies mostly GPT-family (13 studies), some Claude/Gemini, Llama/DeepSeek/Mistral, fine-tuned CodeBERT/LlamaREST (Table 2).",
+    "variance": "n/a; no inter-rater agreement statistic reported for dual screening or quality scoring.",
+    "ablations": "n/a.",
+    "contamination_controls": "n/a.",
+    "languages": "Not extracted; primary studies dominated by REST/OpenAPI services, minimal GraphQL/RPC."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint; no venue in comment or journal_ref.",
+    "limitations_section": true,
+    "artifacts": "No replication package (search results, extraction sheet, quality scores) linked; appendix lists the 20 selected papers.",
+    "preregistration": "No registered protocol mentioned."
+  },
+  "biases": [
+    {"type": "small_sample", "detail": "Only 20 primary studies, several arXiv preprints; industrial evidence concentrated in a handful (ByteDance, Volkswagen)."},
+    {"type": "metric_mismatch", "detail": "RQ2 asks what effectiveness LLM fuzzers achieve, but the review only tabulates which metrics are used; the 'modest coverage gains' conclusion has no numeric synthesis."},
+    {"type": "other:inconsistent_quality_instrument", "detail": "Quality assessment uses DARE criteria (designed for appraising systematic reviews, e.g. 'search strategy completeness') applied to primary studies, threshold 6/12; per-study scores not reported."},
+    {"type": "other:single_synthesiser", "detail": "§6 admits the synthesis was performed primarily by a single reviewer; no kappa for screening."}
+  ],
+  "coi": {
+    "affiliations": "University of Helsinki (Finland) and Free University of Bozen-Bolzano (Italy) per institute block; no vendor authors.",
+    "vendor_products_evaluated": "None; secondary review of academic and industrial fuzzers.",
+    "funding": "FAST Finnish SE doctoral network (Ministry of Education and Culture), Research Council of Finland grant 359861 (MuFAno), EuroHPC Joint Undertaking. Disclosure: no competing interests.",
+    "severity": "none",
+    "detail": "Academic authors, public funding, explicit no-competing-interests statement."
+  },
+  "scores": {"rigor": 2, "reproducibility": 1, "generalizability": 2, "relevance": 2, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Reasonable descriptive mapping of a small, emergent literature with protocol, dual screening and a threats section, but the effectiveness conclusion is not quantitatively supported, no extraction data/quality scores are released, and synthesis was largely single-reviewer.",
+  "applicability": "Indirect. For a Java backend team delivering healthcare-education content to front ends, the useful takeaways are (a) LLM-generated API test inputs are most credible when grounded in the OpenAPI spec and checked against functional/response-difference oracles rather than 5xx-only, which fits spec-driven development where contracts are first-class; (b) single-service fuzzing evidence does not cover cross-service workflows, so ingestion pipelines spanning >=4 repositories need their own contract/integration tests between services; (c) cost reporting is missing in most studies, so any adoption needs its own token budgets. Nothing here is specific to Java, agent hosts, or content ingestion; it is a literature map, not evidence for a harness decision.",
+  "conflicts_with": []
+}

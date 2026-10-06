@@ -1,0 +1,35 @@
+{
+  "arxiv_id": "2606.16988",
+  "contribution_type": "tool",
+  "summary": "Converts public SWE-bench agent trajectories (ten model/scaffold combinations) into induced 'procedural' action vocabularies and argues that agents have identifiable behavioral fingerprints, that distilled students resemble their teachers, and that some procedural patterns (e.g., long edit streaks) predict failure. Releases ProcGrep, a library for structural queries over agent traces.",
+  "claims": [
+    {"claim": "A probe attributes an unseen trajectory to the correct agent at 85.7% accuracy, controlling for task leakage.", "evidence": "§1 text and §5: 85.7% vs a stated random baseline of 11.1% (which is 1/9 although Table 1 lists ten agents); GroupKFold by task changes accuracy by -0.007. Agents differ in scaffold (SWE-agent, Agentless, DARS, Moatless) as well as model, so part of the identifiability is scaffold vocabulary, not model 'style'. Conclusion restates it as 'near 90%'. No per-fold variance.", "strength": "moderate", "location": "§1, Table 1, §5"},
+    {"claim": "A distilled student and its teacher have JSD about 0.25, about half the distance between other pairs.", "evidence": "§6, Appendix (JSD ≈0.25 for Claude-3.7 Sonnet → SWE-agent-LM-32B); a single pair, no confidence interval; pass vs fail tool-signature overlap differs by only 0.01 (0.204 vs 0.193), yet the text says procedural mimicry could improve success.", "strength": "weak", "location": "§6, Fig. 8"},
+    {"claim": "ProcGrep outperforms LLMs on episodic search in efficiency and accuracy.", "evidence": "Table 5: ProcGrep F1 1.000 vs 0.093–0.278 for six LLMs. Ground truth is defined as ProcGrep's own deterministic structural match (§3), so ProcGrep's F1 of 1.0 is guaranteed by definition. The LLM prompts and the query set size are not described in the evaluation.", "strength": "unsupported", "location": "§3, Table 5"},
+    {"claim": "Edit streaks of 5+ actions are a strong failure signal.", "evidence": "§5: Moatless+DeepSeek-V3 fail rate 80% with streak vs 59% without; Claude-3.5 pass 26%→11%. Two agents, no significance test.", "strength": "weak", "location": "§5, Table 8"}
+  ],
+  "patterns": [
+    {"id": "P30", "stance": "introduces", "note": "Trace-level procedural querying for monitoring/auditing coding agents; deterministic structural search over traces."},
+    {"id": "P05", "stance": "neutral", "note": "Deterministic grep-like query over trajectories framed as preferable to LLM search, but evaluation is circular."},
+    {"id": "P23", "stance": "introduces", "note": "Suggests task-aware model routing from fingerprints; not evaluated."},
+    {"id": "P31", "stance": "neutral", "note": "Uses archived SWE-bench Verified trajectories; argues success rate alone is insufficient."}
+  ],
+  "methodology": {"sample": "Public SWE-bench experiment trajectories: ten agents with 278–499 instances each (Table 1), n=2,639 in Table 3", "baselines": "Uniform random chance for attribution; six LLMs for trace search (judged against ProcGrep's own output)", "models": "Claude-3 Opus, 3.5, 3.7, 4; GPT-4, GPT-4o; DeepSeek-R1, V3; SWE-agent-LM-32B, across four scaffolds", "variance": "None reported; single split figures", "ablations": "GroupKFold by task for leakage; BPE vs PrefixSpan vocabulary induction in appendix", "contamination_controls": "Task-grouped held-out folds for the probe; no benchmark contamination discussion", "languages": "Python only (SWE-bench)"},
+  "standards": {"peer_review": "arXiv preprint, no venue", "limitations_section": false, "artifacts": "ProcGrep code at github.com/hamidahoderinwale/procgrep; data are public SWE-bench trajectory archives", "preregistration": "n/a"},
+  "biases": [
+    {"type": "self_evaluation", "detail": "ProcGrep vs LLM comparison uses ProcGrep's own structural match as ground truth, guaranteeing F1=1.0."},
+    {"type": "strawman_baseline", "detail": "LLMs asked to do exact structural matching that a deterministic query solves by construction; prompts not described."},
+    {"type": "single_language_python", "detail": "All data from SWE-bench (Python repos)."},
+    {"type": "no_variance_reported", "detail": "No fold variance or CIs for 85.7% or JSD values."},
+    {"type": "other:scaffold_confound", "detail": "Agents differ in scaffold as well as model, so fingerprint identifiability conflates harness action vocabulary with model behavior."},
+    {"type": "hype_language", "detail": "Conclusion inflates 85.7% to 'near 90%'; 'programmable' behavior claims rest on reward specs not trained or evaluated."}
+  ],
+  "coi": {"affiliations": "Single author, McGill University (email); work 'done with support from Taste Labs'", "vendor_products_evaluated": "ProcGrep (author's own library)", "funding": "Support from Taste Labs (nature unspecified)", "severity": "low", "detail": "Author's own library is favored in a circular comparison, but no commercial model or product of the supporter is evaluated."},
+  "scores": {"rigor": 2, "reproducibility": 3, "generalizability": 1, "relevance": 2, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "The fingerprinting result uses task-grouped held-out folds and public data, but scaffold and model are confounded, the chance baseline is inconsistent, the distillation finding comes from one pair with a 0.01 difference, and the headline tool comparison is circular. No limitations section.",
+  "applicability": "The idea worth borrowing is light: with mixed agent hosts, normalize agent traces into a host-neutral action vocabulary (read/search/edit/test/submit) and run deterministic queries over them, e.g. 'did the agent run the ingestion repo's tests before opening the PR' or 'more than 5 edits in a row with no test run'. Those checks are cheap audit and early-stop signals in a 'qr' observability layer. Nothing here is Java-, multi-repo- or spec-specific, and the evidence comes from Python SWE-bench archives of older models. Do not use the ProcGrep-vs-LLM table as evidence against LLM-based trace review.",
+  "conflicts_with": [
+    {"arxiv_id": "2607.06624", "detail": "AgentLens relies on LLM-written trajectory reviews paired with formal checks, while this paper claims LLMs perform poorly over traces (F1 0.09–0.28); the contrast is mostly an artifact of this paper's circular ground truth, but the two disagree on whether LLMs are fit for trace review."}
+  ]
+}

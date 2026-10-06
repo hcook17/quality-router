@@ -1,0 +1,235 @@
+{
+ "arxiv_id": "2608.09072",
+ "fulltext_chars": 40761,
+ "fulltext_lines": 1168,
+ "authors_block": "Xin Zhou Chun Yong Chong Kisub Kim Yun Peng Rui Shu Zihan Wu Xu Han Guowen Yuan Zeyang Zhuang Jounghoon Kim Jeongjin Ju Seongmin Ju Taein Yoon David Lo",
+ "vendor_affiliation_hits": [],
+ "n_authors": 14,
+ "comment": "9 pages",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/Xin-Zhou-smu/SWE-RPG-Bench."
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# SWE-RPG: A Unified Issue Resolution Benchmark for Requirement Clarification, Planning, and Code Generation for Coding Agents"
+  ],
+  [
+   50,
+   "###### Abstract"
+  ],
+  [
+   97,
+   "## 1 Introduction"
+  ],
+  [
+   118,
+   "#### Limitations of Existing Benchmarks."
+  ],
+  [
+   232,
+   "#### Our Solution."
+  ],
+  [
+   250,
+   "#### Evaluation."
+  ],
+  [
+   278,
+   "## 2 Related Work"
+  ],
+  [
+   280,
+   "#### Repository-level Issue-resolution Benchmarks."
+  ],
+  [
+   303,
+   "#### Close Works."
+  ],
+  [
+   308,
+   "#### RACE-bench."
+  ],
+  [
+   322,
+   "#### Dialogue SWE-Bench."
+  ],
+  [
+   335,
+   "## 3 SWE-RPG Benchmark"
+  ],
+  [
+   346,
+   "### 3.1 Task Formulation and Example"
+  ],
+  [
+   348,
+   "#### Input and Output."
+  ],
+  [
+   355,
+   "#### Example Instance."
+  ],
+  [
+   401,
+   "### 3.2 Benchmark Construction"
+  ],
+  [
+   426,
+   "#### Repository and Task Selection."
+  ],
+  [
+   437,
+   "#### Building Environments."
+  ],
+  [
+   449,
+   "#### Overview of Ground-Truth Construction."
+  ],
+  [
+   518,
+   "# of Implicit Clarification Points"
+  ],
+  [
+   546,
+   "#### Ground-Truth Construction for Req. Clarification."
+  ],
+  [
+   548,
+   "#### Practitioner-Guided Clarification Taxonomy."
+  ],
+  [
+   568,
+   "#### Synthesis and Validation."
+  ],
+  [
+   580,
+   "#### Ground-Truth Construction for Planning."
+  ],
+  [
+   604,
+   "#### Ground-Truth Construction for Code Generation."
+  ],
+  [
+   610,
+   "#### Quality Assurance."
+  ],
+  [
+   625,
+   "### 3.3 Benchmark Statistics and Characteristics"
+  ],
+  [
+   643,
+   "## 4 Experimental Setup"
+  ],
+  [
+   645,
+   "#### Evaluated Agents and Models."
+  ],
+  [
+   657,
+   "#### Computing Infrastructure."
+  ],
+  [
+   663,
+   "#### Evaluation Metric."
+  ],
+  [
+   670,
+   "#### Failure Attribution to Stages."
+  ],
+  [
+   684,
+   "#### Pre-code Stage Evaluation."
+  ],
+  [
+   705,
+   "## 5 Results and Analysis"
+  ],
+  [
+   707,
+   "### 5.1 Patch Correctness"
+  ],
+  [
+   709,
+   "#### Overall Patch Correctness Results."
+  ],
+  [
+   718,
+   "#### Effectiveness of Agents, LLMs, and Pairings."
+  ],
+  [
+   733,
+   "#### Cost Analysis."
+  ],
+  [
+   743,
+   "#### Time Analysis."
+  ],
+  [
+   753,
+   "### 5.2 Failure Diagnosis"
+  ],
+  [
+   760,
+   "#### Requirement failure is the largest component for most"
+  ],
+  [
+   769,
+   "#### Similar resolve rates mask different bottleneck profiles."
+  ],
+  [
+   778,
+   "#### SWE-RPG suggests candidate areas for agent improvement."
+  ],
+  [
+   787,
+   "### 5.3 Req. Clarification and Planning of Agents"
+  ],
+  [
+   794,
+   "#### Lower clarification coverage is concentrated in interfaces,"
+  ],
+  [
+   805,
+   "#### Lower planning coverage is concentrated in approach,"
+  ],
+  [
+   817,
+   "## 6 Conclusion"
+  ],
+  [
+   828,
+   "## Limitations"
+  ],
+  [
+   841,
+   "## References"
+  ],
+  [
+   1168,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "#### Limitations of Existing Benchmarks.\n\nWe argue that faithfully diagnosing coding agents requires observing the\ncomplete issue-resolution11\n 1\n\n In repository-level issue-resolution task,\nwe call the original input request either the issue description or the\nuser requirement. process.\nAccordingly, we pose the following question: When a coding agent fails,\ndoes the primary bottleneck lie in\n1 requirement clarification,\n2 implementation planning, or\n3 code generation?\nHowever, prior works cannot answer this question in three respects, as\nsummarized in Table 1:\n(1) Requirement Clarification.\nIn practice, initial requirement descriptions are often incomplete or\nambiguous, requiring developers to recover implicit constraints from\ntask and repository context\n(Knauss et al. 2015; Franch et al. 2023).\nRecent benchmarks expand evaluation to long-horizon and continuous-evolution\ntasks (Deng et al. 2026b; Thai et al. 2025; Deng et al. 2026a),\nassess high-level issue understanding (Liu et al. 2026), or study\nclarification in simulated dialogue (King and Flanigan 2026).\nHowever, none provides validated references for systematically evaluating\nagents’ recovery of implementation-critical requirements left implicit in\noriginal requests.\n(2) Planning.\nImplementation plans translate intended behavior into actionable repository\nchanges (Bairi et al. 2024) and should be sufficient to generate\nfunctionally equivalent implementations. Most benchmarks provide no\nimplementation-plan references. RACE-bench comes closest with structured task\nsteps, but does not test their plan-to-code reproducibility.\n(3) Evaluation.\nExisting benchmarks primarily determine whether submitted patches pass\nexecutable tests, revealing whether agents fail but not where. Some provide\nmodule- or failure-level analyses, but none consistently attributes unsuccessful\ntrials to aligned requirement, planning, or coding stages.",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 0,
+  "swe_bench": 25,
+  "contamination": 1,
+  "human_study": 2,
+  "java": 6,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

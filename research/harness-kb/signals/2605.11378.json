@@ -1,0 +1,518 @@
+{
+ "arxiv_id": "2605.11378",
+ "fulltext_chars": 112198,
+ "fulltext_lines": 3737,
+ "authors_block": "Kang Zhou Sangmin Woo Haibo Ding Kiran Ramnath Subramanian Chidambaram Aosong Feng Vinayak Arannil Muhyun Kim Ishan Singh Darren Wang Zhichao Xu Megha Gandhi Nirmal Prabhu Soumya Smruti Mishra Smeet Dhakecha Vivek Singh Gouri Pandeshwar Lin Lee Cheong Affiliation: AWS AI Labs",
+ "vendor_affiliation_hits": [
+  "AWS"
+ ],
+ "n_authors": 18,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/awslabs/Agent-EvalKit",
+  "https://github.com/awslabs/Agent-EvalKit.",
+  "https://github.com/confident-ai/deepeval",
+  "https://github.com/open-telemetry/opentelemetry-collector",
+  "https://github.com/traceloop/openllmetry",
+  "https://github.com/upstash/context7"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   24,
+   "# An Empirical Study of Automating Agent Evaluation"
+  ],
+  [
+   64,
+   "###### Abstract"
+  ],
+  [
+   78,
+   "## 1 Introduction"
+  ],
+  [
+   107,
+   "## 2 EvalAgent"
+  ],
+  [
+   137,
+   "## 3 Meta-Evaluation and AgentEvalBench"
+  ],
+  [
+   143,
+   "### 3.1 Meta-Evaluation Framework"
+  ],
+  [
+   147,
+   "#### Dimensions."
+  ],
+  [
+   183,
+   "#### Scoring."
+  ],
+  [
+   193,
+   "#### Evaluation success rate."
+  ],
+  [
+   197,
+   "### 3.2 AgentEvalBench"
+  ],
+  [
+   201,
+   "#### Dataset."
+  ],
+  [
+   205,
+   "#### Test scenarios."
+  ],
+  [
+   209,
+   "#### User requirements."
+  ],
+  [
+   217,
+   "#Tools"
+  ],
+  [
+   435,
+   "### 3.3 Validating the Meta-Evaluator"
+  ],
+  [
+   481,
+   "#### Expert annotator vs. meta-evaluator alignment."
+  ],
+  [
+   486,
+   "#### Consistency analysis."
+  ],
+  [
+   494,
+   "## 4 Experiments"
+  ],
+  [
+   496,
+   "#### Setup."
+  ],
+  [
+   501,
+   "#### Baselines."
+  ],
+  [
+   893,
+   "### 4.1 Main Results"
+  ],
+  [
+   897,
+   "#### Meta-evaluation results."
+  ],
+  [
+   901,
+   "#### Evaluation success rate."
+  ],
+  [
+   905,
+   "#### Efficiency."
+  ],
+  [
+   909,
+   "### 4.2 Findings"
+  ],
+  [
+   911,
+   "#### Finding 1: EvalAgent is robust under both generic and specific requirements."
+  ],
+  [
+   970,
+   "#### Finding 2: Traces improve quality but reduce executability."
+  ],
+  [
+   1019,
+   "#### Finding 3: Planning without structure hurts quality."
+  ],
+  [
+   1068,
+   "#### Finding 4: Evaluation skills keep executability stable as complexity grows."
+  ],
+  [
+   1098,
+   "#### Finding 5: Access to up-to-date API docs is critical for executability."
+  ],
+  [
+   1118,
+   "### 4.3 Qualitative Analysis"
+  ],
+  [
+   1224,
+   "#### Insight 1: Without evaluation skills, baselines default to keyword matching instead of semantic evaluation."
+  ],
+  [
+   1228,
+   "#### Insight 2: Code complexity scales with autonomy level, but evaluation quality does not."
+  ],
+  [
+   1232,
+   "#### Insight 3: Unstructured planning produces unused files instead of constraining scope."
+  ],
+  [
+   1236,
+   "### 4.4 Failure Analysis"
+  ],
+  [
+   1294,
+   "#### Model capability affects error types, not error rates."
+  ],
+  [
+   1298,
+   "#### Failures are condition-dependent, not agent-dependent."
+  ],
+  [
+   1302,
+   "#### Implications."
+  ],
+  [
+   1306,
+   "## 5 Related Work"
+  ],
+  [
+   1308,
+   "#### LLM judges."
+  ],
+  [
+   1312,
+   "#### Agentic judges."
+  ],
+  [
+   1316,
+   "#### Agent benchmarks."
+  ],
+  [
+   1320,
+   "#### Agent evaluation frameworks."
+  ],
+  [
+   1324,
+   "#### Meta-evaluation of judges."
+  ],
+  [
+   1328,
+   "## 6 Conclusion"
+  ],
+  [
+   1338,
+   "#### Limitations."
+  ],
+  [
+   1342,
+   "#### Future directions."
+  ],
+  [
+   1346,
+   "## References"
+  ],
+  [
+   1841,
+   "## Appendix"
+  ],
+  [
+   1843,
+   "## Appendix A EvalAgent Pipeline Details"
+  ],
+  [
+   1847,
+   "### A.1 Phase 1: Evaluation Planning"
+  ],
+  [
+   1871,
+   "### A.2 Phase 2: Test Case Generation"
+  ],
+  [
+   1903,
+   "### A.3 Phase 3: Agent Instrumentation"
+  ],
+  [
+   1931,
+   "### A.4 Phase 4: Trace Collection and Processing"
+  ],
+  [
+   1933,
+   "#### Trace format."
+  ],
+  [
+   1937,
+   "#### Trace processing."
+  ],
+  [
+   1941,
+   "### A.5 Phase 5: Evaluation Code Generation"
+  ],
+  [
+   1957,
+   "### A.6 Phase 6: Reporting"
+  ],
+  [
+   1977,
+   "## Appendix B AgentEvalBench Dataset Details"
+  ],
+  [
+   1981,
+   "### B.1 Simple Complexity Agents"
+  ],
+  [
+   1983,
+   "#### AI Tic-Tac-Toe Agent."
+  ],
+  [
+   1990,
+   "#### Airbnb MCP Agent."
+  ],
+  [
+   1997,
+   "#### Browser MCP Agent."
+  ],
+  [
+   2004,
+   "#### Career Assist."
+  ],
+  [
+   2011,
+   "#### Chat with PDF Agent."
+  ],
+  [
+   2019,
+   "#### Chat with Research Papers."
+  ],
+  [
+   2026,
+   "#### Local News Agent."
+  ],
+  [
+   2034,
+   "#### MiniSWE Agent."
+  ],
+  [
+   2040,
+   "#### Simple QA Search."
+  ],
+  [
+   2047,
+   "#### Single Agent Trip Crew."
+  ],
+  [
+   2054,
+   "### B.2 Medium Complexity Agents"
+  ],
+  [
+   2056,
+   "#### City Agent."
+  ],
+  [
+   2063,
+   "#### CleverChatty Agent."
+  ],
+  [
+   2071,
+   "#### Code Assistant."
+  ],
+  [
+   2078,
+   "#### Data Warehouse Optimizer."
+  ],
+  [
+   2086,
+   "#### LlamaIndex Complex Agent."
+  ],
+  [
+   2094,
+   "#### Medical Document Processor."
+  ],
+  [
+   2101,
+   "### B.3 Hard Complexity Agents"
+  ],
+  [
+   2103,
+   "#### Adala Agent."
+  ],
+  [
+   2111,
+   "#### Agent4Rec Agent."
+  ],
+  [
+   2119,
+   "#### Hilton Search Agent."
+  ],
+  [
+   2127,
+   "#### Network Switch Operator Agent."
+  ],
+  [
+   2134,
+   "### B.4 Scenario Examples"
+  ],
+  [
+   2142,
+   "# Simple query format"
+  ],
+  [
+   2150,
+   "# Structured format (classification agents)"
+  ],
+  [
+   2162,
+   "# Domain-specific format (trip planning)"
+  ],
+  [
+   2178,
+   "### B.5 Evaluation Requirements Examples"
+  ],
+  [
+   2196,
+   "# Generic requirement"
+  ],
+  [
+   2202,
+   "# Specific requirements"
+  ],
+  [
+   2204,
+   "# medical_document_processor"
+  ],
+  [
+   2212,
+   "# hilton_search_agent"
+  ],
+  [
+   2220,
+   "# code_assistant"
+  ],
+  [
+   2228,
+   "## Appendix C Meta-Evaluation Dimension Rubrics"
+  ],
+  [
+   2232,
+   "#### Winner determination."
+  ],
+  [
+   2236,
+   "### C.1 User Requirement Fulfillment (Weight: 15%)"
+  ],
+  [
+   2258,
+   "### C.2 Metric Relevance (Weight: 30%)"
+  ],
+  [
+   2280,
+   "### C.3 Code Quality & Complexity (Weight: 25%)"
+  ],
+  [
+   2302,
+   "### C.4 Plan Quality (Weight: 15%)"
+  ],
+  [
+   2324,
+   "### C.5 Plan-Code Alignment (Weight: 15%)"
+  ],
+  [
+   2346,
+   "## Appendix D Prompt Specifications"
+  ],
+  [
+   2350,
+   "### D.1 Baseline Approaches"
+  ],
+  [
+   2396,
+   "# Agent Source Code:"
+  ],
+  [
+   2397,
+   "## File: {path}"
+  ],
+  [
+   2400,
+   "# EXECUTION TRACES"
+  ],
+  [
+   2403,
+   "# EVALUATION TASK"
+  ],
+  [
+   2406,
+   "## Output Format (STRICT)"
+  ],
+  [
+   2407,
+   "### File: <filename>.py"
+  ],
+  [
+   2443,
+   "### D.2 EvalAgent Prompts"
+  ],
+  [
+   2500,
+   "### D.3 Evaluation Skills Examples"
+  ],
+  [
+   2505,
+   "### Context7 Validation"
+  ],
+  [
+   2518,
+   "#### Reusable recipes: plan/report templates."
+  ],
+  [
+   2523,
+   "## 3. Evaluation Metrics"
+  ],
+  [
+   2528,
+   "### [Metric Name 1]"
+  ],
+  [
+   2534,
+   "# Agent Evaluation Report for [AGENT NAME]"
+  ],
+  [
+   2536,
+   "## Executive Summary"
+  ],
+  [
+   2544,
+   "## Agent Failure Analysis"
+  ],
+  [
+   2545,
+   "### Issue 1 - [Priority Level]"
+  ],
+  [
+   2551,
+   "#### Reusable recipes: code patterns."
+  ],
+  [
+   2592,
+   "### D.4 Meta-Evaluator Comparison Prompt"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "#### Limitations.\n\n(i) Our benchmark covers 20 agents but may not represent all agent types (e.g., embodied agents, multimodal agents). (ii) All experiments use the Claude model family; cross-model validation is needed to establish generalizability. (iii) Code executability of 62.5–65.0% means approximately one-third of generated evaluations require manual debugging. (iv) Meta-evaluation itself is inherently challenging and subjective: assessing whether an evaluation is “good” requires nuanced judgment about what matters for a given agent, making this a fundamentally difficult problem even for human experts.\n\n#### Future directions.\n\nKey directions include: (i) extending EvalAgent to support closed-loop iteration where evaluation feedback directly informs agent improvement; (ii) developing domain-specific evaluation skill libraries for different agent types (e.g., dialogue systems, embodied agents, coding assistants); (iii) advancing test data generation beyond simple synthesis to more sophisticated scenario construction; and (iv) establishing more generalizable trace format standardization. On the benchmark and methodology side, (v) expanding AgentEvalBench with additional agent types and (vi) developing more nuanced meta-evaluation methods remain important open challenges.\n\n## References\n\nAnthropic (2025a)\nAnthropic\n\nClaude 4.5 opus system card.\n\nTechnical report\n\n Anthropic.\n\nExternal Links: Link\n\nCited by: §3.3,\n§4.\n\nAnthropic (2025b)\nAnthropic\n\nClaude 4.5 sonnet system card.\n\nTechnical report\n\n Anthropic.\n\nExternal Links: Link\n\nCited by: §1,\n§3.3,\n§4.\n\nBrennan (1992)",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 17,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 7,
+  "swe_bench": 2,
+  "contamination": 0,
+  "human_study": 5,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

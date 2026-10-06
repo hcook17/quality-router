@@ -1,0 +1,36 @@
+{
+  "arxiv_id": "2605.26252",
+  "contribution_type": "position",
+  "summary": "Vision paper arguing that long-term agent memory is a new data-management workload whose correctness is a property of the state trajectory, not individual records. It formalizes Governed Evolving Memory (GEM), with state M_t=(D_t,S_t,P_t), four operators (ingest, revise, forget, retrieve-as-write) and six correctness conditions, and sketches MemState, a prototype on the Kuzu property-graph engine with topic units, field histories with provenance, typed edges and policy-checked atomic commits.",
+  "claims": [
+    {"claim": "Existing memory systems and DB paradigms each miss some of four capabilities, causing four failure modes (unregulated growth, missing revision, capacity-driven forgetting, read-only retrieval).", "evidence": "Table 1 is a qualitative capability matrix over database paradigms and agent memory systems; Fig. 1 is an illustrative example. No measurements.", "strength": "weak", "location": "§1-2, Table 1"},
+    {"claim": "Three structural observations establish that no record-level system can satisfy the conditions.", "evidence": "§3.4 explicitly states 'These are structural claims, not theorems'; the abstract's 'establish' overstates them.", "strength": "unsupported", "location": "Abstract, §3.4"},
+    {"claim": "MemState validates feasibility of GEM on commodity infrastructure.", "evidence": "§4.3 describes design and by-construction properties; no workload, latency, accuracy or memory-QA benchmark results reported.", "strength": "unsupported", "location": "§4, §4.3"}
+  ],
+  "patterns": [
+    {"id": "P09", "stance": "introduces", "note": "Proposes governed persistent memory: versioned field histories with provenance, salience-based graded forgetting, policy postconditions checked at commit, retrieval updates salience. No empirical evidence."},
+    {"id": "P07", "stance": "introduces", "note": "Topic-level property graph with typed extension vs association edges; revision propagates only along extension edges."},
+    {"id": "P30", "stance": "neutral", "note": "Provenance and value histories support auditing of past decisions (C4)."}
+  ],
+  "methodology": {
+    "sample": "None; illustrative examples only.",
+    "baselines": "None run; qualitative comparison with database paradigms and agent memory systems (e.g. Zep).",
+    "models": "Unspecified LLM used for host-topic selection in ingestion.",
+    "variance": "n/a",
+    "ablations": "n/a",
+    "contamination_controls": "n/a",
+    "languages": "n/a"
+  },
+  "standards": {"peer_review": "None stated (no arXiv comment).", "limitations_section": false, "artifacts": "Prototype code at github.com/CoDS-GCS/MemState.", "preregistration": "n/a"},
+  "biases": [
+    {"type": "hype_language", "detail": "Abstract says observations 'establish' impossibility; body concedes they are not theorems."},
+    {"type": "other:no_evaluation", "detail": "Prototype is a feasibility sketch with no quantitative results on any memory benchmark."},
+    {"type": "self_evaluation", "detail": "Capability matrix (Table 1) is the authors' own qualitative judgment of competing systems."}
+  ],
+  "coi": {"affiliations": "Concordia University (academic).", "vendor_products_evaluated": "None.", "funding": "Not stated.", "severity": "none", "detail": "No vendor ties."},
+  "scores": {"rigor": 1, "reproducibility": 2, "generalizability": 1, "relevance": 2, "coi_risk": 0},
+  "verdict": "reject",
+  "verdict_reason": "Position/vision paper with no empirical evaluation. The prototype's feasibility is asserted, not measured, and the abstract overstates informal observations as established results. Some concepts (versioned facts with provenance, policy-checked commits) are worth noting but carry no evidential weight.",
+  "applicability": "Only conceptually relevant. If the team gives agents persistent cross-session memory (for example facts about the 4+ ingestion repos, content-schema decisions, spec rulings), the useful design ideas are: store facts with value history and provenance rather than overwriting; propagate invalidation only along explicit dependency edges (e.g. schema change -> dependent delivery API facts); and check declarative policies before committing memory updates. Policy checks at commit would also map onto a deterministic 'qr verifies/commits/rejects' gate. Committed repo files (AGENTS.md, specs, ADRs) already provide versioned, auditable, host-neutral memory, and nothing here shows a graph memory engine beats that.",
+  "conflicts_with": []
+}

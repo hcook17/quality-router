@@ -1,0 +1,41 @@
+{
+  "arxiv_id": "2605.25624",
+  "contribution_type": "dataset",
+  "summary": "CUA-Gym is a multi-agent pipeline (Generator builds initial/golden environment states, Discriminator writes the reward function from the task text behind an information barrier, Orchestrator iterates) plus LLM-vote and teacher-rollout filters. It produces 32,112 verifiable RL training tuples across 110 computer-use environments (16 desktop apps, 94 synthesized mock web apps). GSPO training of Qwen3.5-35B-A3B / 397B-A17B on 10,858 tuples (after SFT on Claude Sonnet 4.6 rollouts) lifts OSWorld-Verified from 54.5 to 62.1 and 62.2 to 72.6.",
+  "claims": [
+    {"claim": "RLVR on CUA-Gym reaches 62.1% (A3B) and 72.6% (A17B) on OSWorld-Verified, best among open CUAs at comparable scale.", "evidence": "Fig. 6 table: bases 54.5 / 62.2 -> 62.1 / 72.6; open baselines EvoCUA-32B 56.7, OpenCUA-72B 45.0; Kimi-K2.6 73.1 is higher than A17B but larger. Single seed (§6).", "strength": "moderate", "location": "§3.1 Main Results, Fig. 6"},
+    {"claim": "Gains transfer to held-out WebArena.", "evidence": "Fig. 6: +3.7pp (40.8->44.5) and +2.0pp (54.0->56.0), single runs, no variance; small relative to typical run-to-run noise.", "strength": "weak", "location": "§3.1, Fig. 6"},
+    {"claim": "Performance scales with data volume and environment diversity.", "evidence": "§4.1 Fig. 9: 1.4K/3K/12K subsets from same SFT init; §4.2 10 vs 80 environments. Curves single-seed, partly smoothed.", "strength": "moderate", "location": "§4.1-4.2, Fig. 9"},
+    {"claim": "Information barrier plus static forbidden-pattern scan mitigate reward hacking 'by construction'.", "evidence": "App. A.3.2-A.3.3 describe the mechanism; §6 concedes it 'reduce[s] but do[es] not formally eliminate' reward hacking. Evidence is indirect (training-curve stability).", "strength": "weak", "location": "§2.1, App. A.3, §6"}
+  ],
+  "patterns": [
+    {"id": "P25", "stance": "supports", "note": "RLVR (GSPO) on synthesized verifiable tasks improves CUA models; single-seed."},
+    {"id": "P16", "stance": "supports", "note": "Executable reward functions over environment state preferred over VLM judges for training signal."},
+    {"id": "P18", "stance": "mixed", "note": "LLM majority vote and VLM-judge used only as filters, with disagreement routed back; the judges themselves are not validated against humans."},
+    {"id": "P11", "stance": "introduces", "note": "Generator/Discriminator/Orchestrator roles with an information barrier as an adversarial authoring pattern; not ablated against a single agent."},
+    {"id": "P02", "stance": "neutral", "note": "Auto-generated domain SKILL.md files guide the synthesis agents (App. A.5)."}
+  ],
+  "methodology": {
+    "sample": "32,112 synthesized tuples; 10,858 used for RL, 3,578 Claude Sonnet 4.6 trajectories for SFT; evaluated on OSWorld-Verified and WebArena.",
+    "baselines": "Own base models plus reported numbers for open CUAs (EvoCUA, OpenCUA, Step-GUI, Kimi-K2.6) and proprietary models; comparison numbers appear copied, not re-run under a common harness.",
+    "models": "Qwen3.5-35B-A3B and Qwen3.5-397B-A17B.",
+    "variance": "Single seeds for largest runs (acknowledged §6); no CIs.",
+    "ablations": "Data-size and environment-count scaling; distillation pipeline comparison (§4.2).",
+    "contamination_controls": "Intra-corpus dedup only (App. A.2.4). No reported decontamination against OSWorld test tasks, although desktop training apps (e.g. LibreOffice Calc, VS Code) are OSWorld domains.",
+    "languages": "n/a (GUI/computer-use tasks)."
+  },
+  "standards": {"peer_review": "None stated (no arXiv comment).", "limitations_section": true, "artifacts": "Promised: pipeline, dataset, CUA-Gym-Hub, models (github.com/xlang-ai/CUA-Gym, CUA-Gym-Hub; HF xlangai). Release status not verified.", "preregistration": "n/a"},
+  "biases": [
+    {"type": "contamination_risk", "detail": "Desktop training tasks are synthesized for the same applications OSWorld tests; no test-set decontamination reported."},
+    {"type": "no_variance_reported", "detail": "Single seeds; WebArena gains of 2-4pp could be noise."},
+    {"type": "self_reported_numbers", "detail": "Competitor scores appear taken from prior reports rather than re-run."},
+    {"type": "llm_judge_unvalidated", "detail": "LLM-vote and VLM-judge filters are not validated against human labels."},
+    {"type": "other:teacher_selection", "detail": "Teacher-rollout filter drops tasks Claude Sonnet 4.6 never solves and SFT uses Claude rollouts, biasing the corpus toward a proprietary teacher's competence."}
+  ],
+  "coi": {"affiliations": "University of Hong Kong; Qwen Team, Alibaba Inc. (majority of authors); UCSD; Tsinghua.", "vendor_products_evaluated": "Trains and evaluates Alibaba's Qwen3.5 models; OSWorld/OSWorld-Verified come from Xie et al. (xlang-ai), and Tianbao Xie and Tao Yu are co-authors here.", "funding": "Not stated.", "severity": "medium", "detail": "Model vendor improving and reporting its own model, plus benchmark authors shipping a top-ranked system on their own benchmark. Mitigated by promised full open release, which allows independent replication."},
+  "scores": {"rigor": 3, "reproducibility": 3, "generalizability": 2, "relevance": 1, "coi_risk": 3},
+  "verdict": "reject",
+  "verdict_reason": "off-topic: RL training-data generation for GUI computer-use models. A substantial, plausibly sound dataset paper, but it informs model training, not harness design for a backend coding team. It also carries medium COI (Qwen team on Qwen models, OSWorld authors on OSWorld), single-seed results, and no test decontamination.",
+  "applicability": "Does not transfer to a Java backend team building an agentic harness: the team will not train computer-use models. One indirect idea: separate the agent that writes the acceptance check from the agent that produces the artifact, with an information barrier, as in Generator vs Discriminator. That echoes keeping spec/acceptance-test authorship independent from implementation in spec-driven development, but the paper provides no evidence for it in a coding setting.",
+  "conflicts_with": []
+}

@@ -1,0 +1,19 @@
+{"arxiv_id": "2607.01980",
+ "blind_scores": {"rigor": 2, "reproducibility": 2, "generalizability": 1, "relevance": 3, "coi_risk": 1},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "Experts prefer epic-organized Gherkin on Correctness (4.61 vs 4.14), Executability (4.61 vs 4.07), Completeness (4.31 vs 3.50)", "proposed_strength": "weak", "reason": "There are 4 raters, Fleiss' kappa between -0.08 and 0.03, no significance test, and Completeness rests on one rating per rater per document. Completeness is confounded with output volume: Timeless produced 119 scenarios vs 71 (density 1.12 vs 0.60, Table 2), and the authors themselves attribute the Completeness win to 'higher scenario density'. The raters are 'SE researchers ... all PhD researchers', yet RQ3 and §5 present this as practitioner perception. The pre-registration and the 15/16 directional consistency only partly offset this."},
+  {"claim": "Lexical TF-IDF metrics underestimate coverage of abstracted Gherkin", "proposed_strength": "weak", "reason": "There is no human-annotated coverage ground truth, so calling the gap a 'measurement artifact' (§4.3) is assumed, not shown. The baseline, which 'echoes requirement wording directly', also has a +16.9 pp lexical-semantic gap, so the abstraction-specific excess is about 5 pp over 4 documents. The embedding threshold (0.50) is unvalidated and comes from the same provider as the generator (§6). The generalization that 'lexical-only metrics systematically favor less abstracted systems' goes beyond this evidence."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P34", "from": "supports", "to": "mixed", "reason": "The structured output wins on blinded ratings and structural validity. It loses on negative/edge-case coverage (67.0% vs 81.2%, Table 2), on TF-IDF RCR (72.0 vs 76.0), and on spurious-scenario rate on both metrics (semantic SSR 10.0% vs 0.0%, TF-IDF 33.0% vs 4.1%, Table 3). For acceptance criteria, losing error-path scenarios is a substantive cost."}
+ ],
+ "missed_issues": [
+  "metric_mismatch at the level of the research question: the title and RQ3 compare epic-organized vs requirement-aligned generation, but §4.3 says the baseline itself 'groups requirements into broad features that each contain many scenarios'. The baseline also produced far fewer than one scenario per requirement (0.35 for Peering, 7 scenarios for 20 requirements). What was actually tested is a bundle of prompt engineering (schema, constraints, epics, gap-fill pass) vs a two-sentence prompt, not two representation strategies.",
+  "The Timeless semantic spurious-scenario rate (10.0%, up to 20.6% on CCTNS) vs 0.0% for the baseline is dismissed rather than examined. The second-pass gap-fill appears to generate scenarios that are weakly tied to requirements.",
+  "selection_bias_participants: the raters are PhD SE researchers recruited by the authors, not industry BDD practitioners. Negative Coverage is measured by four-keyword matching ('fail', 'invalid', 'error', 'exceed') with no validation.",
+  "hype_language: 'confirms', 'architectural property', 'eliminates a concrete CI failure mode', and the RQ4 takeaway 'Teams ... should adopt epic-organized generation' all rest on 4 documents, one model and one run. Nothing was ever run through Cucumber, so the 'pasted directly into a .feature file and executed' claim (§5) is untested.",
+  "Author overlap with the Timeless vision paper [15] (Rasku, Zhang, Siddeeq) strengthens the self_evaluation concern. Blinded rating mitigates it, but the generation and metric design were done by the system's own builders."
+ ],
+ "note": "The first review is accurate and appropriately cautious overall. It rated the expert-preference and TF-IDF-bias claims one notch too high, and it missed that the baseline is not actually 'requirement-aligned', which undercuts the paper's central framing."}

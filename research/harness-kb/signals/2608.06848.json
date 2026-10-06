@@ -1,0 +1,231 @@
+{
+ "arxiv_id": "2608.06848",
+ "fulltext_chars": 100923,
+ "fulltext_lines": 3280,
+ "authors_block": "DOI: 10.1145/3832254Journal: PACMSEVolume: 3ISSTAISSTA16310issta26main-p1843-pCCS: Software and its engineering Source code generation Weifeng Sun Affiliation: Singapore Management University, Singapore, Singapore email: wfsun@smu.edu.sg , Quanjun Zhang Note: corresponding author. Affiliation: Nanjing University of Science and Technology, Nanjing, China email: quanjunzhang@njust.edu.cn , Yuchen Chen Affiliation: Nanjing University, Nanjing, China email: yuc.chen@smail.nju.edu.cn , Chengran Yang Affiliation: Singapore Management University, Singapore, Singapore email: cryang@smu.edu.sg , Gou Tan Affiliation: Sun Yat-sen University, Guangzhou, China email: tang29@mail2.sysu.edu.cn and David Lo Affiliation: Singapore Management University, Singapore, Singapore email: davidlo@smu.edu.sg Received 2026-06-25",
+ "vendor_affiliation_hits": [],
+ "n_authors": 6,
+ "comment": "ISSTA 2026",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/Nero0113/CoSec.",
+  "https://github.com/features/copilot",
+  "https://github.com/github/codeql",
+  "https://github.com/github/codeql.",
+  "https://github.com/swf1996120/SafeEdit."
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   22,
+   "# Understanding and Improving Model Editing for Secure Code Generation"
+  ],
+  [
+   71,
+   "###### Abstract."
+  ],
+  [
+   92,
+   "###### Keywords:"
+  ],
+  [
+   97,
+   "## 1. Introduction"
+  ],
+  [
+   199,
+   "## 2. Study Design"
+  ],
+  [
+   203,
+   "### 2.1. Overall Framework"
+  ],
+  [
+   211,
+   "### 2.2. Task Definition"
+  ],
+  [
+   213,
+   "###### Definition 0 (Security Editing Instance)."
+  ],
+  [
+   222,
+   "###### Definition 0 (Security Editing Dataset)."
+  ],
+  [
+   227,
+   "###### Definition 0 (Security Hardening via Model Editing)."
+  ],
+  [
+   236,
+   "###### Definition 0 (Evaluation Objectives)."
+  ],
+  [
+   306,
+   "### 2.3. Compared Methods"
+  ],
+  [
+   316,
+   "### 2.4. Target LLMs"
+  ],
+  [
+   320,
+   "### 2.5. Dataset"
+  ],
+  [
+   322,
+   "#### 2.5.1. Hardening Dataset"
+  ],
+  [
+   333,
+   "#### 2.5.2. Evaluation Dataset"
+  ],
+  [
+   361,
+   "### 2.6. Evaluation Metrics"
+  ],
+  [
+   383,
+   "### 2.7. Evaluation Pipeline"
+  ],
+  [
+   400,
+   "### 2.8. Implementation Details"
+  ],
+  [
+   418,
+   "### 2.9. Research Questions"
+  ],
+  [
+   446,
+   "## 3. Results and Analysis"
+  ],
+  [
+   448,
+   "### 3.1. RQ1: Security Effectiveness"
+  ],
+  [
+   450,
+   "#### 3.1.1. Answer to RQ1.1"
+  ],
+  [
+   803,
+   "#### 3.1.2. Answer to RQ1.2"
+  ],
+  [
+   819,
+   "### 3.2. RQ2: Security Generalization"
+  ],
+  [
+   1038,
+   "### 3.3. RQ3: Functional Correctness"
+  ],
+  [
+   1604,
+   "### 3.4. RQ4: Performance Improvement"
+  ],
+  [
+   1919,
+   "#### 3.4.1. Performance Comparison with Baselines"
+  ],
+  [
+   2095,
+   "#### 3.4.2. Evaluation on CodeGuard+"
+  ],
+  [
+   2119,
+   "## 4. Discussion"
+  ],
+  [
+   2121,
+   "### 4.1. Complementary Advantages"
+  ],
+  [
+   2200,
+   "### 4.2. Generalization of SafeEdit to Unseen CWEs"
+  ],
+  [
+   2254,
+   "### 4.3. Cross-language Functional Correctness."
+  ],
+  [
+   2339,
+   "### 4.4. SafeEdit vs. Fine-tuning"
+  ],
+  [
+   2396,
+   "### 4.5. Sensitivity Analysis of Regularization Strength \\mu"
+  ],
+  [
+   2442,
+   "### 4.6. Efficiency"
+  ],
+  [
+   2570,
+   "### 4.7. Editing Depth"
+  ],
+  [
+   2587,
+   "### 4.8. Editing Suffix Length"
+  ],
+  [
+   2598,
+   "### 4.9. Knowledge Injection Location"
+  ],
+  [
+   2619,
+   "### 4.10. Editing Dataset Size"
+  ],
+  [
+   2672,
+   "### 4.11. Validity of Static-Analysis-Based Security Evaluation"
+  ],
+  [
+   2719,
+   "## 5. Threats to Validity"
+  ],
+  [
+   2735,
+   "## 6. Related Work"
+  ],
+  [
+   2754,
+   "## 7. Conclusion and Future Work"
+  ],
+  [
+   2762,
+   "## Data Availability"
+  ],
+  [
+   2766,
+   "## Acknowledgments"
+  ],
+  [
+   2772,
+   "## References"
+  ],
+  [
+   3280,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgments\n\nThis research is supported by Natural Science Foundation of Jiangsu Province (BK20251458).\nThis research is also supported by the Ministry of Education, Singapore under its Academic Research Fund Tier 3 (Award ID: MOET32020-0004). Any opinions, findings and conclusions or recommendations expressed in this material are those of the author(s) and do not reflect the views of the Ministry of Education, Singapore.\nWe would also like to thank the anonymous reviewers for their valuable feedback and suggestions.\n\n## References\n\nBrown et al. (2020)\n\nTom Brown, Benjamin Mann, Nick Ryder, Melanie Subbiah, Jared D Kaplan, Prafulla Dhariwal, Arvind Neelakantan, Pranav Shyam, Girish Sastry, Amanda Askell, et al. 2020.\n\nLanguage models are few-shot learners.\n\nAdvances in neural information processing systems 33 (2020), 1877–1901.\n\nCassano et al. (2023)\n\nFederico Cassano, John Gouwar, Daniel Nguyen, Sydney Nguyen, Luna Phipps-Costin, Donald Pinckney, Ming-Ho Yee, Yangtian Zi, Carolyn Jane Anderson, Molly Q Feldman, et al. 2023.\n\nMultipl-e: A scalable and polyglot approach to benchmarking neural code generation.\n\nIEEE Transactions on Software Engineering 49, 7 (2023), 3675–3691.\n\nChen et al. (2024a)",
+ "limitations": "## 5. Threats to Validity\n\nRepresentativeness of Vulnerability Scenarios.\nOur experiments focus on high-impact CWE categories from widely used secure code generation datasets and prior benchmarks (Li et al., 2024c; Li et al., 2025a; He and Vechev, 2023; He et al., 2024), improving comparability with existing work and covering commonly studied vulnerability patterns (MITRE Corporation, 2024; Hajipour et al., 2024; Pearce et al., 2023).\nTo reduce benchmark-specific bias, we include multiple CWE categories and separate seen and unseen settings, where \\mathcal{T}_{seen}\\cap\\mathcal{T}_{unseen}=\\emptyset .\nNevertheless, no fixed benchmark can exhaustively cover real-world vulnerabilities, and our findings may not fully transfer to emerging or underrepresented CWE types.\nValidity of Evaluation Oracles and Metrics.\nFollowing prior studies (Li et al., 2024c; Li et al., 2025a; He and Vechev, 2023), we measure security using static-analysis-based vulnerability detection and functional correctness using execution-based tests. CodeQL provides a scalable and reproducible CWE-specific signal, but it is not a complete semantic oracle and may produce false positives or false negatives. We mitigate this threat with a validated query setup and manual inspection of 40 generated outputs, where CodeQL agrees with manual inspection on 37 cases. Thus, we interpret Security Ratio as a static-analysis-based proxy rather than an absolute security guarantee. We also emphasize that CodeQL is used only as an evaluation oracle, not as a defense: it detects vulnerabilities after generation, whereas model editing aims to prevent insecure patterns before generation. HumanEval is used to measure relative functional regressions, and we further include MultiPL-E and CodeGuard+ to complement the evaluation with multi-language functional tests and an additional static analyzer. Therefore, our conclusions rely on relative trends across methods rather than any single metric as a complete measure of security or correctness.\nScope of Model Editing and Baselines.\nOur study focuses on open-weight models because model editing requires access to parameters, leaving API-only proprietary models outside our editing scope, where inference-time defenses such as CoSec remain more applicable.\nThus, our results compare two complementary paradigms rather than replacing one with the other.\nSafeEdit is not conceptually restricted to UltraEdit: its edit-aware regularization can anchor any parameter subset modified by a base editing method and could in principle be applied to other editors such as DINM.\nWe instantiate SafeEdit on UltraEdit because it achieves the best security–correctness trade-off among the evaluated editing methods; applying it to more aggressive editors such as DINM may require stronger regularization and is left for future work.\nAlthough we evaluate multiple model families, temperatures, and random seeds, implementation choices may affect absolute results.\nWe release the data, scripts, outputs, and manual validation records to support reproducibility.\n\n## 6. Related Work\n\nSecurity Hardening for LLM-Generated Code.\nRecent studies have shown that LLMs can generate insecure or vulnerable code under certain contexts, motivating a growing body of work on security-aware code generation and hardening.\nExisting approaches include vulnerability-aware data curation, security-constrained decoding, and post-hoc filtering or repair.\nAmong them, CoSec (Li et al., 2024c; Li et al., 2025a) represents the state-of-the-art, introducing a supervised co-decoding framework that leverages an auxiliary security model to steer generation at inference time.\nWhile effective, CoSec relies on additional models, incurs non-trivial inference overhead, and its performance depends on the capacity and generalization ability of the auxiliary model.\nBeyond CoSec, GitHub Copilot (GitHub, 2025) incorporates an LLM-based vulnerability prevention mechanism that mimics the behavior of static analysis to",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 12,
+  "seeds_or_runs": 52,
+  "swe_bench": 0,
+  "contamination": 3,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

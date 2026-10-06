@@ -1,0 +1,51 @@
+{
+  "arxiv_id": "2607.05785",
+  "contribution_type": "empirical",
+  "summary": "Studies whether coding agents (GPT-5.5, Claude Opus 4.8, Gemini 3.5 Flash via a GitHub Copilot SDK agent) write useful observability code. RQ1 strips logging/tracing from 1,223 functions in 10 open-source and 8 Microsoft-internal repositories and scores restoration by placement F1 and 'KeyBag' F1 over diagnostic variables; RQ2 generates 200 microservice systems from specs, deploys them on Kubernetes and injects 13 Chaos Mesh faults (1,615 fault instances per model) to measure how often logs expose fault-specific signals; RQ3 adds an observability skill distilled from ~200 internal incident commits.",
+  "claims": [
+    {"claim": "Agents recover placement better than diagnostic content; explicit instructions cause over-generation", "evidence": "Table II: blind prompt Position F1 0.551/0.580/0.278 vs KeyBag F1 0.357/0.294/0.237 (GPT-5.5/Opus 4.8/Gemini 3.5 Flash); hinted prompt raises statements 4.9 vs 2.1 but KeyBag precision 0.33->0.20, F1 0.36->0.26; few-shot raises KeyBag F1 0.357->0.383. Ground truth is human-written logging, which authors admit is not optimal. Differences of 0.02-0.04 F1 reported without spread despite '5 repeats'.", "strength": "moderate", "location": "§IV-A, Table II, Fig. 4"},
+    {"claim": "Generated systems expose fault signals for only 4.95%-13.99% of injected faults", "evidence": "Table III and §IV-B; subset FSR up to 20.62% on successfully executed services; per-fault breakdown upstream failure 27.45% vs time skew 1.26%. FSR uses author-built fault-specific log oracles that may miss indirect signals (§V-B). Logs only; traces and metrics excluded.", "strength": "moderate", "location": "§IV-B, Table III, §III-C4"},
+    {"claim": "An observability skill improves FSR, Position F1 and KeyBag F1, but gains are limited", "evidence": "Table V / §IV-C: FSR GPT-5.5 4.95->13.62 (+8.67 pp), Opus 4.8 6.32->7.31 (+0.99 pp), Gemini 13.99->16.53 (+2.54 pp). No variance or significance; the +0.99 pp may be noise. Skill content only summarized at high level.", "strength": "weak", "location": "§III-D, §IV-C, Table V"}
+  ],
+  "patterns": [
+    {"id": "P02", "stance": "mixed", "note": "A domain skill helps observability metrics consistently but modestly; effect size varies 1-9 pp by model."},
+    {"id": "P30", "stance": "neutral", "note": "About observability of generated systems rather than harness tracing; shows functional runnability does not imply diagnosability."},
+    {"id": "P16", "stance": "neutral", "note": "Uses deployment plus fault injection as an execution-based oracle for a non-functional property."},
+    {"id": "P34", "stance": "neutral", "note": "Systems generated from 200 architecture specs that evidently did not specify observability; implies observability must be an explicit acceptance criterion."},
+    {"id": "P32", "stance": "supports", "note": "Includes 8 industrial repositories (782 instances) in RQ1, though unreleased."}
+  ],
+  "methodology": {
+    "sample": "RQ1: 1,223 instances (441 from 10 OSS microservice repos, 782 from 8 industrial repos); RQ2: 200 generated systems, 13 fault types, 1,615 fault instances per model; RQ3: same workloads with skill",
+    "baselines": "Prompting variants (blind, hinted, few-shot) and skill vs no skill; no non-LLM baseline (e.g. log-insertion tools)",
+    "models": "GPT-5.5, Claude Opus 4.8, Gemini 3.5 Flash through GitHub Copilot SDK",
+    "variance": "Each experiment repeated five times and averaged; no standard deviations or CIs reported",
+    "ablations": "Prompting strategy; skill on/off",
+    "contamination_controls": "None stated; OSS repos (train-ticket, eShop, microservices-demo, etc.) are likely in training data, which would inflate RQ1 restoration",
+    "languages": "Multi-language OSS repos (e.g. train-ticket Java, eShop .NET, NestJS TypeScript); per-language results and generated-system languages not reported in the sections read"
+  },
+  "standards": {
+    "peer_review": "arXiv preprint, no venue",
+    "limitations_section": true,
+    "artifacts": "§III-E 'Implementation and Reproducibility' lists models/harness; no release of generated systems, oracles, skill text or industrial data found",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "no_variance_reported", "detail": "Five repeats claimed but only means shown; small deltas (e.g. +0.99 pp FSR) uninterpretable."},
+    {"type": "metric_mismatch", "detail": "KeyBag F1 measures overlap with human logging, which authors concede is not an ideal reference; FSR depends on custom oracles."},
+    {"type": "closed_artifacts", "detail": "Industrial repositories, incident commits behind the skill, and evaluation harness not released."},
+    {"type": "contamination_risk", "detail": "Popular OSS microservice demos used for restoration are likely memorized."},
+    {"type": "other:inconsistent_model_ranking", "detail": "Gemini 3.5 Flash is worst on RQ1 restoration but best on RQ2 FSR; not explained, suggesting metric or setup sensitivity."}
+  ],
+  "coi": {
+    "affiliations": "Chongqing University; Microsoft (10 of 12 authors)",
+    "vendor_products_evaluated": "GitHub Copilot SDK (Microsoft-owned) used as harness; OpenAI, Anthropic, Google models evaluated; findings are negative for all",
+    "funding": "No acknowledgments found",
+    "severity": "low",
+    "detail": "Vendor-affiliated authors, but the paper does not promote a Microsoft product; Copilot SDK is infrastructure, not the object of evaluation. Use of internal data limits independent replication."
+  },
+  "scores": {"rigor": 3, "reproducibility": 1, "generalizability": 3, "relevance": 3, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Novel, practically important non-functional evaluation with a real fault-injection runtime and three frontier models, including industrial code. Caveats: custom oracles, no variance despite repeats, closed artifacts, possible contamination on OSS demos, and the skill's benefit is small and inconsistent.",
+  "applicability": "Relevant to the delivery side: agent-written Java services will likely log a lot but not record dependency, timeout, retry and correlation-ID context needed to diagnose failures between ingestion and front-end delivery. Practical consequences: put observability requirements into the spec/acceptance criteria (which fields must be logged on dependency failure, timeouts, content-validation rejections), and check them deterministically (log-schema tests, fault-injection smoke tests in CI) rather than relying on an observability skill, which raised FSR by only 1-9 pp. Few-shot examples from the team's own repos helped more than generic 'add observability' prompts, so share a reference logging module across the >=4 repos. For healthcare content, the skill's 'avoid sensitive data' guidance matters but is unmeasured. Results are host-neutral (Copilot SDK harness) but per-language Java numbers are not given.",
+  "conflicts_with": []
+}

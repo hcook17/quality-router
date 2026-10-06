@@ -1,0 +1,55 @@
+{
+  "arxiv_id": "2607.27250",
+  "contribution_type": "empirical",
+  "summary": "Single-author controlled ablation of how repository context (AGENTS.md) is delivered to two coding agents (Claude Code on claude-sonnet-4-6, Codex CLI on gpt-5.5): none vs always-on system-prompt injection vs on-demand wiki retrieval. 288 evaluated runs over 15/17 tasks mined from merged PRs in 3 Python repos, graded by hidden gold tests. Finds no detectable correctness effect (descriptively bounded to <10-15pp), plus narrow process-level efficiency effects.",
+  "claims": [
+    {"claim": "Context-injection strategy does not measurably change correctness on either agent.", "evidence": "Table 1: Claude 53.3/55.6/55.6% (n=45 each), Codex 58.8/56.9/52.9% (n=51 each); omnibus permutation p=1.00 and p=0.66. Authors concede the omnibus test is 'close to mechanical' due to floor/ceiling structure.", "strength": "moderate", "location": "§4.1, Table 1"},
+    {"claim": "The effect is bounded to <=10pp (Claude) / <=15pp (Codex) via equivalence testing.", "evidence": "Descriptive TOST on task-clustered bootstrap; §4.5 power analysis shows MDE >30pp (a 30pp effect detected only 57% of the time) and states it is 'not a powered equivalence claim'. The abstract's 'bounded' wording is stronger than the body supports.", "strength": "weak", "location": "§4.1 Equivalence bounds; §4.5; Limitations 1"},
+    {"claim": "Agents fail on implementation skill, not missing repository knowledge; the real AGENTS.md never converts a near-miss into a pass.", "evidence": "Qualitative triage of 4 near-miss tasks (§5.1) and a 36-cell probe on 2 tasks (Table 4: Codex 0/18; Claude 907 2/3,1/3,0/3). Mechanism claim rests on 2-4 tasks.", "strength": "weak", "location": "§5.1-5.2, Table 4"},
+    {"claim": "Borderline difficulty is agent-specific (Spearman rho=0.75), explaining prior contradictory results.", "evidence": "§4.3: rho=0.75, p=0.001 over 15 shared tasks; 6/15 borderline for exactly one agent. The reconciliation of prior work is explicitly a hypothesis not tested against those papers' task sets.", "strength": "moderate", "location": "§4.3, Table 3, §5.3"},
+    {"claim": "Context can still reduce wasted work: on opshin, Claude's blind full-suite test runs fall 3.67 -> 2.44 -> 1.67 and duration ~24% lower with context.", "evidence": "Table 2; post-hoc/exploratory, n=4-5 tasks, p=0.125 and p=0.25, Claude only; firebase shows opposite direction.", "strength": "weak", "location": "§4.2, Table 2"}
+  ],
+  "patterns": [
+    {"id": "P01", "stance": "contradicts", "note": "No correctness gain from repo-level AGENTS.md on either agent (3 Python repos, underpowered for <30pp effects); possible process/cost gain when the file contains operational warnings (e.g. slow test suite)."},
+    {"id": "P02", "stance": "mixed", "note": "On-demand wiki retrieval ('selective') did not improve correctness but significantly cut Claude cache-creation tokens (p_Holm=0.012); confounded with a 10-18x larger corpus for 2 of 3 repos."},
+    {"id": "P31", "stance": "neutral", "note": "SWE-bench Tier-C style gold-test evaluation on non-SWE-bench repos; shows per-agent task screening is needed for ablations."},
+    {"id": "P20", "stance": "neutral", "note": "Runs in egress-locked pod with git push/commit denied via PATH shims and future history pruned (§3.2, App. A)."},
+    {"id": "P24", "stance": "neutral", "note": "Claude runs cost-capped at $6/run, Codex turn-capped at 120; caps are experimental controls, not evaluated."}
+  ],
+  "methodology": {
+    "sample": "3 Python repos (pdm, firebase-admin-python, opshin); 15 tasks (Claude) / 17 tasks (Codex) from merged PRs; 3 strategies x 3 repeats = 288 evaluated runs; 4 tasks added via a Codex-calibrated borderline screen over 84 candidates.",
+    "baselines": "'none' (AGENTS.md removed) is the natural control; no 'natural discovery' arm where the file just sits in the workspace (acknowledged, Limitation 4).",
+    "models": "claude-sonnet-4-6 via Claude Code; gpt-5.5 via Codex CLI.",
+    "variance": "3 repeats per cell; permutation tests, Holm-corrected Wilcoxon, bootstrap TOST, Monte Carlo power analysis. Unusually thorough for the sample size, but power is low (MDE >30pp).",
+    "ablations": "The study itself is an ablation of delivery channel; manipulation-validity probe on 2 near-miss tasks.",
+    "contamination_controls": "Future git history pruned, remotes scrubbed, egress locked; SWE-bench repos excluded. No control for model pretraining exposure to these public repos/PRs.",
+    "languages": "Python only (deliberate filter, §3.2)."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint, no venue listed.",
+    "limitations_section": true,
+    "artifacts": "Code, 291-run dataset and analysis released at github.com/codeprakhar25/context-files-coding-agents (App. C).",
+    "preregistration": "Claims a pre-registered efficiency-metric family and probe; no external registry link found in text."
+  },
+  "biases": [
+    {"type": "small_sample", "detail": "15-17 tasks, 3 repeats; authors' own power analysis says ~120-200 tasks needed to detect 10pp."},
+    {"type": "single_language_python", "detail": "Python-only by design; 3 repos."},
+    {"type": "metric_mismatch", "detail": "Null correctness result is reported as 'bounded' equivalence in the abstract, while §4.5 admits it is not a powered equivalence claim."},
+    {"type": "other:confounded_condition", "detail": "Selective arm uses a 10x/18x larger auto-generated wiki for 2 of 3 repos; Claude vs Codex receive context through different channels (system prompt vs user turn)."},
+    {"type": "selection_bias_participants", "detail": "Repos filtered for a single 'Good/Excellent' AGENTS.md rated on the author's own rubric; borderline tasks screened using Codex only."}
+  ],
+  "coi": {
+    "affiliations": "Single author, 'Independent Researcher'.",
+    "vendor_products_evaluated": "Claude Code (Anthropic) and Codex CLI (OpenAI) are subjects, not promoted.",
+    "funding": "None stated; mentions an 'Anthropic budget cap' as a run constraint only.",
+    "severity": "none",
+    "detail": "No vendor affiliation; null result not favourable to any product. Ethics statement discloses AI-assisted drafting."
+  },
+  "scores": {"rigor": 3, "reproducibility": 4, "generalizability": 2, "relevance": 4, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Honest, well-instrumented, independently run null result with released artifacts and explicit power analysis, but tiny Python-only sample means it can only rule out large (>30pp) correctness effects; mechanism claims rest on 2-4 tasks.",
+  "applicability": "For the Java team, this argues against expecting AGENTS.md/CLAUDE.md to raise task success across the ≥4 ingestion repos; treat context files as cheap operational hints (build/test commands, 'full Maven/Gradle suite is slow, run module tests', repo-to-repo contract locations) that cut wasted tool calls and cost, not as a quality lever. Evidence is Python-only and single-repo-per-task, so it says nothing about cross-repo contract knowledge (e.g. content schema shared between ingestion and delivery services), which is exactly the kind of non-inferable fact the authors leave open. With mixed agent hosts, note the finding that difficulty is agent-specific: pilot any harness change per host (Claude Code, Codex, Cursor) rather than generalising from one. Spec-driven development's task-specific specs are a different manipulation from generic context files and are not tested here.",
+  "conflicts_with": [
+    {"arxiv_id": "2606.15828", "detail": "That paper catalogues AGENTS.md 'configuration smells' on the premise that file content quality matters for agent behaviour; this study finds even Good/Excellent-rated files do not move correctness, only process metrics."}
+  ]
+}

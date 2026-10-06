@@ -1,0 +1,183 @@
+{
+ "arxiv_id": "2609.33791",
+ "fulltext_chars": 54369,
+ "fulltext_lines": 1606,
+ "authors_block": "Since the advent of knowledge distillation (Hinton et al., 2015), KL divergence has been the default loss in distillation, as it allows the student to match the teacher’s soft targets and thereby capture the dark knowledge encoded in the teacher’s output distribution. Recently, on-policy distillation (OPD) (Xu et al., 2026; Xiao et al., 2026; Yang et al., 2025; Zeng et al., 2026) has emerged as an efficient post-training paradigm for LLMs. While classical distillation trains the student on a fixed dataset, OPD aligns the student with the teacher on the student’s own rollouts. As a distillation method, OPD naturally inherits KL divergence as its standard loss. Minimizing the reverse KL divergence between the student and the teacher on the student’s own rollouts preserves the on-policy property and achieves strong performance (Song and Zheng, 2026; Wu et al., 2025; Zhang et al., 2026; Zhao et al., 2026). In this work, however, we find that KL divergence may not be necessary for OPD. We show that simply preserving the update direction, without its magnitude, is sufficient for effective OPD. As long as the update direction is toward the teacher, OPD works. More precisely, it is not the direction of every token, but the direction of a small subset of tokens where the teacher and student disagree strongly. We first show that simply assigning a reward of +1 to tokens where the teacher probability is higher than the student probability, and -1 where the teacher probability is lower t",
+ "vendor_affiliation_hits": [],
+ "n_authors": 14,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/LeapLabTHU/KL-Free-OPD."
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   61,
+   "## 1 Introduction"
+  ],
+  [
+   82,
+   "## 2 Related Work"
+  ],
+  [
+   84,
+   "##### On-Policy Distillation with Reverse KL."
+  ],
+  [
+   88,
+   "##### Multi-Teacher On-Policy Distillation."
+  ],
+  [
+   92,
+   "## 3 Preliminary"
+  ],
+  [
+   94,
+   "##### On-Policy Distillation with Reverse KL."
+  ],
+  [
+   108,
+   "##### Multi-Teacher On-Policy Distillation."
+  ],
+  [
+   114,
+   "## 4 Teacher-Directional Updates Suffice for On-Policy Distillation"
+  ],
+  [
+   116,
+   "### 4.1 Method"
+  ],
+  [
+   133,
+   "### 4.2 Experiments"
+  ],
+  [
+   135,
+   "#### 4.2.1 Experimental Setup"
+  ],
+  [
+   181,
+   "#### 4.2.2 Experimental Results"
+  ],
+  [
+   448,
+   "##### Preserving the update direction is sufficient."
+  ],
+  [
+   452,
+   "### 4.3 Why can BinaryOPD work? A repeated-feedback view."
+  ],
+  [
+   477,
+   "## 5 Only the Direction of High-Disagreement Tokens Is Critical for OPD"
+  ],
+  [
+   481,
+   "### 5.1 Method"
+  ],
+  [
+   504,
+   "### 5.2 Results"
+  ],
+  [
+   610,
+   "## 6 Consensus Multi-Teacher On-Policy Distillation"
+  ],
+  [
+   612,
+   "### 6.1 Method"
+  ],
+  [
+   634,
+   "### 6.2 Experiments"
+  ],
+  [
+   636,
+   "#### 6.2.1 Experimental Setup"
+  ],
+  [
+   640,
+   "#### 6.2.2 Experimental Results"
+  ],
+  [
+   728,
+   "## 7 Conclusion"
+  ],
+  [
+   732,
+   "## References"
+  ],
+  [
+   1173,
+   "## Appendix A State Exploration Is Highly Redundant in OPD Training"
+  ],
+  [
+   1201,
+   "##### Setup."
+  ],
+  [
+   1205,
+   "##### Strong cross-prompt redundancy."
+  ],
+  [
+   1228,
+   "##### The visited-state geometry remains stable across training."
+  ],
+  [
+   1232,
+   "##### A small early state library already covers a substantial fraction of later states."
+  ],
+  [
+   1238,
+   "## Appendix B Whether the OPD Update Direction Is Aligned with the Verifier Is Not Important"
+  ],
+  [
+   1545,
+   "## Appendix C Experimental Details"
+  ],
+  [
+   1547,
+   "##### Models and Datasets."
+  ],
+  [
+   1551,
+   "##### Hyperparameters."
+  ],
+  [
+   1584,
+   "## Appendix D Training Dynamics"
+  ],
+  [
+   1596,
+   "## Appendix E Visualization of High-Disagreement Tokens"
+  ],
+  [
+   1602,
+   "## Appendix F Hardware Setup"
+  ],
+  [
+   1606,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 2,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

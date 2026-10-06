@@ -1,0 +1,305 @@
+{
+ "arxiv_id": "2605.17548",
+ "fulltext_chars": 236168,
+ "fulltext_lines": 3950,
+ "authors_block": "Hüseyin Özgür Kamalı Affiliation: Department of Software Engineering Affiliation: Ankara University Affiliation: Ankara, Turkey Email: 22290405@ogrenci.ankara.edu.tr Affiliation: ORCID: 0009-0009-9864-9513 Erdem Tuna Affiliation: Microsoft Affiliation: Ankara, Turkey Email: erdemtuna@microsoft.com Affiliation: ORCID: 0000-0001-7137-6361 Vahid Haratian Affiliation: Department of Computer Engineering Affiliation: Bilkent University Affiliation: Ankara, Turkey Email: vahid.haratian@bilkent.edu.tr Affiliation: ORCID: 0009-0001-3048-9586 Eray Tüzün Affiliation: Department of Computer Engineering Affiliation: Bilkent University Affiliation: Ankara, Turkey Email: eraytuzun@cs.bilkent.edu.tr Affiliation: ORCID: 0000-0002-5550-7816",
+ "vendor_affiliation_hits": [
+  "Microsoft"
+ ],
+ "n_authors": 4,
+ "comment": "Submitted to ACM Transactions on Software Engineering Methodology (TOSEM). A shorter version of this work has been presented at ICSE-JAWs 2026, Rio de Janeiro, Brazil",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/features/copilot"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Rethinking Code Review in the Age of AI: A Vision for Agentic Code Review"
+  ],
+  [
+   79,
+   "###### Abstract"
+  ],
+  [
+   107,
+   "## 1 Introduction"
+  ],
+  [
+   123,
+   "## 2 Evolution of Code Review Practices"
+  ],
+  [
+   130,
+   "### 2.1 Ad Hoc Code Review Era"
+  ],
+  [
+   146,
+   "### 2.2 Formal Inspection Era"
+  ],
+  [
+   171,
+   "### 2.3 Lightweight Peer Review Era"
+  ],
+  [
+   199,
+   "### 2.4 Integrated Code Review Era"
+  ],
+  [
+   244,
+   "### 2.5 Automation-Assisted Era"
+  ],
+  [
+   342,
+   "## 3 Traditional Code Review Systems"
+  ],
+  [
+   372,
+   "### 3.1 Challenges in Traditional Code Review Systems"
+  ],
+  [
+   382,
+   "#### 3.1.1 Challenges in PR Creation"
+  ],
+  [
+   394,
+   "#### 3.1.2 Challenges in Reviewer Assignment"
+  ],
+  [
+   406,
+   "#### 3.1.3 Challenges in Code Review"
+  ],
+  [
+   424,
+   "#### 3.1.4 Challenges in Comment Provision"
+  ],
+  [
+   436,
+   "## 4 AI-Powered Code Review Framework"
+  ],
+  [
+   442,
+   "### 4.1 Overview"
+  ],
+  [
+   457,
+   "### 4.2 PR Creation"
+  ],
+  [
+   461,
+   "#### 4.2.1 PR Detail Generation"
+  ],
+  [
+   476,
+   "#### 4.2.2 Issue Linking"
+  ],
+  [
+   482,
+   "#### 4.2.3 Automated Code Review"
+  ],
+  [
+   490,
+   "#### 4.2.4 Fix Suggestion"
+  ],
+  [
+   497,
+   "#### 4.2.5 Interactive Revision"
+  ],
+  [
+   501,
+   "### 4.3 PR Augmentation"
+  ],
+  [
+   511,
+   "#### 4.3.1 Alignment Analysis"
+  ],
+  [
+   517,
+   "#### 4.3.2 Bug Proneness Analysis"
+  ],
+  [
+   523,
+   "#### 4.3.3 Impact Analysis"
+  ],
+  [
+   529,
+   "#### 4.3.4 Runtime Analysis"
+  ],
+  [
+   541,
+   "#### 4.3.5 Summary Generation"
+  ],
+  [
+   547,
+   "### 4.4 Reviewer Selection"
+  ],
+  [
+   551,
+   "#### 4.4.1 Reviewer Recommendation"
+  ],
+  [
+   557,
+   "### 4.5 AI-Assisted Code Review"
+  ],
+  [
+   563,
+   "#### 4.5.1 PR Explanation"
+  ],
+  [
+   571,
+   "#### 4.5.2 Automated PR Review"
+  ],
+  [
+   575,
+   "#### 4.5.3 Fix Suggestion"
+  ],
+  [
+   579,
+   "#### 4.5.4 Toxicity Measurement"
+  ],
+  [
+   585,
+   "#### 4.5.5 Usefulness Measurement"
+  ],
+  [
+   591,
+   "#### 4.5.6 PR Review and Composing Comments"
+  ],
+  [
+   599,
+   "### 4.6 PR Retrospective"
+  ],
+  [
+   603,
+   "#### 4.6.1 Review Summary Generation"
+  ],
+  [
+   607,
+   "#### 4.6.2 Review Metrics Storage"
+  ],
+  [
+   611,
+   "## 5 Discussion"
+  ],
+  [
+   615,
+   "### 5.1 Challenges, Risks and Limitations"
+  ],
+  [
+   619,
+   "#### 5.1.1 Bias and Inaccuracy in LLM Predictions"
+  ],
+  [
+   628,
+   "#### 5.1.2 Limited Generalization Across Different Software Projects"
+  ],
+  [
+   634,
+   "#### 5.1.3 Accumulated Error in Multi-Agent Systems"
+  ],
+  [
+   640,
+   "#### 5.1.4 Evaluating the AI Agents"
+  ],
+  [
+   658,
+   "#### 5.1.5 Transparency of The System"
+  ],
+  [
+   662,
+   "#### 5.1.6 Accountability Issue"
+  ],
+  [
+   666,
+   "#### 5.1.7 Privacy Challenges of LLM Powered Agents"
+  ],
+  [
+   670,
+   "#### 5.1.8 Automation Bias"
+  ],
+  [
+   674,
+   "#### 5.1.9 Knowledge Sharing Deterioration"
+  ],
+  [
+   680,
+   "#### 5.1.10 Economic Impacts and Hidden Costs"
+  ],
+  [
+   688,
+   "### 5.2 Implications for Practitioners"
+  ],
+  [
+   692,
+   "#### 5.2.1 Redefining Roles and Responsibilities of Stakeholders"
+  ],
+  [
+   728,
+   "#### 5.2.2 Shift to Internal Platform Development"
+  ],
+  [
+   732,
+   "#### 5.2.3 Modular and Incremental Adoption Strategy"
+  ],
+  [
+   736,
+   "#### 5.2.4 Dynamic Risk-Based Review Routing"
+  ],
+  [
+   742,
+   "### 5.3 Implications for Researchers"
+  ],
+  [
+   746,
+   "#### 5.3.1 Review Quality"
+  ],
+  [
+   765,
+   "#### 5.3.2 User Experience for AI-Assisted Review"
+  ],
+  [
+   775,
+   "#### 5.3.3 Context Enrichment"
+  ],
+  [
+   787,
+   "#### 5.3.4 Technical Optimization"
+  ],
+  [
+   799,
+   "#### 5.3.5 Evaluation Metrics"
+  ],
+  [
+   808,
+   "## 6 Conclusion"
+  ],
+  [
+   818,
+   "## References"
+  ],
+  [
+   3950,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "### 5.1 Challenges, Risks and Limitations\n\nWhile the proposed AI-powered code review framework aims to address modern code review bottlenecks, transitioning to a multi-agent system introduces profound socio-technical risks. The stochastic nature of underlying models causes hallucinations and context degradation. Additionally, their inability to generalize across proprietary repositories threatens localized accuracy. Within interconnected pipelines, isolated inaccuracies can transform into cascading errors that compound systemic failures and unpredictable economic costs. Furthermore, the inherent opacity of these models creates severe deficits in transparency, accountability, and privacy. These deficits complicate governance and data security. Finally, excessive automation threatens to degrade HITL oversight through automation bias, deteriorate team knowledge sharing, and complicate system evaluation. Consequently, this section evaluates these limitations by detailing their impacts and exploring targeted mitigation strategies.\n\n#### 5.1.1 Bias and Inaccuracy in LLM Predictions\n\nAs Chen et al. [216] demonstrate, while the integration of models specifically fine-tuned on source code improves baseline syntactic generation, the inherent stochasticity of LLMs introduces hallucinations that act as critical blockers within the proposed AI-Assisted Code Review stage. Rather than merely producing formatted text, these models function fundamentally as stochastic parrots that stitch together probabilistic patterns without actual semantic grounding, a limitation detailed by Bender et al. [217]. In practical code generation scenarios, Zhang et al. [218] and Chen et al. [219] categorize how this stochasticity manifests as specific, non-syntactic defects, such as the invocation of non-existent APIs or the fabrication of phantom variables. Within our multi-agent architecture, such hallucinations severely disrupt the causal chain of the review workflow. For example, if the PR Review Agent probabilistically fabricates a false positive security vulnerability, this hallucinated risk directly triggers the Fix Suggestion Agent to generate an unnecessary, invalid patch. Consequently, instead of accelerating integration, the system forces the human reviewer to expend significant cognitive effort untangling AI-generated noise. This compounding failure demonstrates that model hallucination is not a secondary inconvenience but a primary structural threat that can systematically corrupt automated remediation efforts if explicit human oversight is bypassed.\n\nBeyond hallucinations, context degradation represents a fundamental constraint that paralyzes the architectural analysis of large, real-world PRs during the PR Augmentation stage. Although contemporary LLMs boast expanding maximum token limits, their ability to robustly retrieve and utilize information degrades significantly across long input contexts. Liu et al. [220] empirically demonstrated this “Lost in the Middle” phenomenon.\nThey revealed a U-shaped performance curve in which models fail to access relevant information located in the center of their context window. This degradation directly threatens the operational viability of the Impact Analysis Agent. When tasked with analyzing a massive 50-file refactoring PR, the agent requires complete retention of initial module definitions to accurately trace downstream dependencies. Because of context degradation, the Impact Analysis Agent may lose track of critical interface changes provided early in its prompt, causing it to fail to detect severe cross-module side effects. Consequently, the agent might incorrectly categorize a breaking architectural change as safe, providing a dangerously flawed analytical foundation for the subsequent reviewer selection and review stages. Therefore, token constraints dictate that our framework must incorporate explicit token threshold warnings and mandate manual human mitigation for changes exceeding the model’s relia",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 1,
+  "p_value_or_ci": 14,
+  "seeds_or_runs": 0,
+  "swe_bench": 2,
+  "contamination": 3,
+  "human_study": 1,
+  "java": 1,
+  "industrial": 16
+ },
+ "fulltext_source": "html"
+}

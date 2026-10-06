@@ -1,0 +1,38 @@
+{
+  "arxiv_id": "2608.11460",
+  "contribution_type": "empirical",
+  "summary": "Principal Trait Analysis (PTA) is an LLM pipeline (GPT-5.5 observation extraction, embedding clustering, Qwen3-4B Likert trait scoring, PCA-inspired greedy selection) that derives interpretable 'traits' of how humans use AI from conversation logs. Applied to StudyChat (1,540 student-tutor sessions, 171 students) and SWE-Chat (2,774 developer-coding-agent sessions), 10 selected traits add small but sometimes significant explanatory/predictive R^2 over a prior-outcome baseline; the authors conclude the traits do not yet qualify as generalizable skills.",
+  "claims": [
+    {"claim": "PTA traits significantly improve explanation of outcomes over the prior-outcome baseline.", "evidence": "Table 1: StudyChat Fall 2024 +0.103 R^2 (p=.028) lens pool, +0.102 (p=.030) generic; Spring 2025 not significant (p=.059, .132); SWE-Chat held-out +0.048 / +0.035 (p<.001). StudyChat R^2 is in-sample with 10 extra features on 342 targets; no multiple-comparison correction.", "strength": "weak", "location": "§5.1, Table 1"},
+    {"claim": "PTA beats coded baselines (dialogue acts, Bloom's taxonomy).", "evidence": "Table 1: baselines +0.046/+0.041 (n.s.) vs PTA +0.10 on Fall 2024; Bloom's baseline scored by the same LLM judge; no baseline at all for SWE-Chat.", "strength": "weak", "location": "§4.3 Baselines, Table 1"},
+    {"claim": "Traits reflecting explicit workflow direction/incremental staging predict coding-agent session success, while upfront specificity/acceptance criteria and evidence-driven oversight are negatively associated.", "evidence": "Table 2: workflow_control_delegation +0.025 (p<.001), workflow_structure_incrementality +0.013 (p=.042), delegation_specificity -0.017 (p=.003), evidence_driven_quality_oversight -0.027 (p<.001). Correlational, tiny coefficients, authors note signs are 'sometimes contradictory' and possibly confounded.", "strength": "weak", "location": "§5.2, Table 2"},
+    {"claim": "Traits do not qualify as skills (no stable generalization or learning curves).", "evidence": "Fall vs Spring significance differs (Table 1); flat SWE-Chat trait trajectories (Figure 3). Honest negative result.", "strength": "moderate", "location": "§5.1, §5.3"}
+  ],
+  "patterns": [
+    {"id": "P18", "stance": "neutral", "note": "Uses a small LLM (Qwen3-4B) as Likert judge for every session-trait pair with no human agreement check."},
+    {"id": "P34", "stance": "mixed", "note": "SWE-Chat: 'delegation_specificity' (constraints and acceptance criteria before handing off) negatively associated with session success, while staged plans with verification criteria positively associated; confounded and correlational."},
+    {"id": "P13", "stance": "mixed", "note": "Upfront planning / phase-gated workflows trait weakly positive (+0.013, p=.042)."}
+  ],
+  "methodology": {
+    "sample": "StudyChat 1,540 sessions / 171 students (342 exam targets); SWE-Chat 2,774 sessions from developers with >=2 sessions.",
+    "baselines": "Prior-outcome regression; for StudyChat also 8 dialogue-act counts and LLM-scored Bloom's taxonomy; none beyond prior for SWE-Chat.",
+    "models": "GPT-5.5 for observation extraction/cluster naming; self-hosted Qwen3-4B for scoring; ModernBERT and MPNet embeddings.",
+    "variance": "F-test p-values; 4-fold cross-validation by collaborator on SWE-Chat; StudyChat in-sample only; no seed/run variance of the LLM pipeline.",
+    "ablations": "Generic vs lens-ensemble trait pools.",
+    "contamination_controls": "n/a; traits derived on full data then evaluated, held-out only for SWE-Chat outcome model.",
+    "languages": "Conversation logs; not code-language specific."
+  },
+  "standards": {"peer_review": "arXiv preprint, no venue", "limitations_section": false, "artifacts": "Prompts in Appendix C; no code repository listed; datasets are third-party (StudyChat, SWE-Chat).", "preregistration": "none"},
+  "biases": [
+    {"type": "llm_judge_unvalidated", "detail": "All trait scores come from Qwen3-4B Likert ratings with no human validation or inter-rater check."},
+    {"type": "other:in_sample_fit", "detail": "StudyChat R^2 gains are in-sample with 10 added features on 342 samples; selection of traits uses the same data."},
+    {"type": "other:multiple_comparisons", "detail": "Individually significant traits reported from pooled models without correction; several coefficients have counterintuitive signs."},
+    {"type": "strawman_baseline", "detail": "SWE-Chat compared only to a prior-outcome regression (R^2 0.071)."}
+  ],
+  "coi": {"affiliations": "University of Massachusetts Amherst (2 authors); OpenRefinery.ai (1 author).", "vendor_products_evaluated": "None; no OpenRefinery product evaluated.", "funding": "No acknowledgments/funding section found.", "severity": "none", "detail": "One startup affiliation unrelated to evaluated artifacts."},
+  "scores": {"rigor": 2, "reproducibility": 2, "generalizability": 2, "relevance": 1, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Interesting method with candid negative conclusion, but effects are small, partly in-sample, judged by an unvalidated 4B LLM, with contradictory coefficient signs. Weak evidence for any harness decision.",
+  "applicability": "Marginal. The healthcare-education content is the team's domain, but this paper studies how students/developers prompt, not content ingestion or delivery. The SWE-Chat result that specifying acceptance criteria upfront is negatively correlated with session success should NOT be read as evidence against spec-driven development: it is correlational, effect sizes are ~0.02, likely confounded by task difficulty, and scored by a small LLM. At most, PTA is a possible method for later mining the team's own agent-session logs (across mixed hosts) to see which usage patterns correlate with merged PRs, provided judge scores are validated against human labels.",
+  "conflicts_with": []
+}

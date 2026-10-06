@@ -1,0 +1,18 @@
+{"arxiv_id": "2605.15569",
+ "blind_scores": {"rigor": 3, "reproducibility": 4, "generalizability": 4, "relevance": 3, "coi_risk": 1},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "Neo found 24 zero-day privilege escalation vulnerabilities (42 total incl. extensibility study), responsibly disclosed.", "proposed_strength": "moderate", "reason": "The authors verified the true positives with their own PoCs (§VI-B). Only 18 of 42 were acknowledged and 8 patched by developers at submission (§VI-H), so external confirmation covers fewer than half."},
+  {"claim": "Structured code-search primitives (vs raw bash/file reading) are essential; without them most vulns are missed.", "proposed_strength": "moderate", "reason": "The cited evidence is the wrong ablation: the primitives ablation is Neo-no-queryop (recall 4.8%, Table V), not the privileged-operations result (33.3%→92.9%). All ablation recalls are computed over 42 vulnerabilities that full Neo itself found, so the 92.9% is near-circular. The EnIGMA contrast is confounded by a different scaffold and by being given Neo's prompt."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P27", "from": "supports", "to": "introduces", "reason": "Cross-service channel matching (Q_inter) is never ablated or measured separately, and the 'services' are inside single open-source applications, not separately owned repositories with contracts. Cross-repo coordination is asserted, not evidenced."}
+ ],
+ "missed_issues": [
+  "other:circular_recall: the ablation denominator (42 vulns) consists of Neo's own 24 new finds plus ground truth, so full Neo is advantaged by construction. The 44-vuln union comparison set is likewise dominated by Neo finds (39/44).",
+  "strawman_baseline (partial): EnIGMA is run with Neo's prompt strategy rather than its own tuned setup, and MScan*+Sinks is fed Neo's sink list, so the baselines are partly configured around Neo.",
+  "The corpus selection 'prioritized applications used in prior microservice research' (§VI-A), so it is not a random sample of ≥500-star repositories.",
+  "Default model is Claude 3.7 Sonnet. The temperature sweep (Fig. 5) shows high sensitivity, and there are no repeated runs, so the 81%/85% figure is a single draw."
+ ],
+ "note": "Peer-reviewed, Java-heavy, real-code system with credible disclosed vulnerabilities, but its recall and ablation numbers rely on Neo-found denominators. Its cross-repo relevance is an extrapolation by the reviewer."}

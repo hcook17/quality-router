@@ -1,0 +1,51 @@
+{
+  "arxiv_id": "2609.30906",
+  "contribution_type": "empirical",
+  "summary": "Proposes ToolSearcher, an RL (GRPO-style, Verl) recipe that trains a small LLM to iteratively search a 16k-API tool repository (StableToolBench/RapidAPI) via an embedding retriever and pick the right tool set. Three additions: category-constrained training episodes to force discrimination of similar tools, an event-level reward for discovering new target tools, and stage-aligned credit. Evaluated on StableToolBench and, out of distribution, AppWorld with Qwen2.5-7B and Qwen3-4B.",
+  "claims": [
+    {"claim": "ToolSearcher outperforms RAG, SFT and RL baselines on large-scale tool selection.", "evidence": "Table 1: overall F1 0.513 vs best baseline GDPO 0.496 (Qwen2.5-7B) and 0.531 vs GDPO 0.518 (Qwen3-4B). Margins over the strongest baseline are 1.3-1.7 pp with no error bars (checklist answers [No] on significance, single fixed seed). Larger I3-Inst. gap (0.294 vs 0.228) on Qwen2.5-7B.", "strength": "weak", "location": "§5.1, Table 1"},
+    {"claim": "Large improvement over the untrained multi-turn search baseline.", "evidence": "Table 1: Qwen2.5-7B F1 0.098 -> 0.513, Match 0.046 -> 0.278; Qwen3-4B F1 0.408 -> 0.531. Numbers match §5.1 text; but the untrained Qwen2.5-7B baseline is very weak (F1 below plain RAG 0.194), inflating the headline jump.", "strength": "moderate", "location": "§5.1, Table 1"},
+    {"claim": "Generalizes out of distribution to AppWorld tool selection and downstream execution.", "evidence": "Table 2: F1 0.514 vs GDPO 0.483 (7B), 0.562 vs Search-R1 0.555 (4B); avg TGC 0.334 vs 0.277 (7B). Downstream executor is gpt-5-mini FullCodeRefl; D-3 tasks excluded; Difficulty-2 values (e.g. SGC 0.062/0.125) imply very few scenarios. Authors note limited gains due to stateful APIs (App. A).", "strength": "moderate", "location": "§5.3, Table 2, App. B.2"},
+    {"claim": "Each of the three components contributes.", "evidence": "Table 3 ablation on Qwen2.5-7B only: removing event-level search modeling drops F1 0.513 -> 0.394 (StableToolBench) and 0.514 -> 0.328 (AppWorld); w/o TCA 0.461 / 0.469; w/o CCTD 0.477 / 0.433. Single run.", "strength": "moderate", "location": "§5.4, Table 3"}
+  ],
+  "patterns": [
+    {"id": "P03", "stance": "supports", "note": "Treats a 16k-tool catalog as searchable with 5 docs/turn rather than loading all tools; trained multi-turn search beats single-shot top-100 RAG (F1 0.513 vs 0.194 on Qwen2.5-7B)."},
+    {"id": "P06", "stance": "mixed", "note": "Embedding retriever (Qwen3-Embedding-0.6B) is the substrate; plain single-round RAG is the weakest baseline, gains come from RL-trained iterative querying on top."},
+    {"id": "P25", "stance": "supports", "note": "RL with shaped process rewards improves tool selection on small open models, though margins over other RL methods are small and unvalidated statistically."},
+    {"id": "P31", "stance": "neutral", "note": "Benchmark-only evaluation (StableToolBench, AppWorld); no SWE tasks."}
+  ],
+  "methodology": {
+    "sample": "StableToolBench test (765 samples, I1/I2/I3 splits), 14,418 synthetic training samples; AppWorld 147 tasks for selection, 105 D-1/D-2 tasks for execution.",
+    "baselines": "RAG (top-100), RAG+SFT, untrained multi-turn, Search-R1, GSPO, GDPO, MARAG-R1 (MARAG-R1 adapted to the same search engine). Same RL hyperparameters for all — reasonably fair but not separately tuned.",
+    "models": "Qwen2.5-7B-Instruct and Qwen3-4B-Instruct policies; gpt-5-mini as downstream AppWorld executor.",
+    "variance": "None; NeurIPS checklist states error bars not reported, fixed seed.",
+    "ablations": "Component ablation on Qwen2.5-7B (Table 3); search-setting comparison (Table 4).",
+    "contamination_controls": "Filtered training instructions that leak API names; AppWorld not used for training.",
+    "languages": "Natural-language tool selection over REST API docs; no code-language dimension."
+  },
+  "standards": {
+    "peer_review": "Accepted at NeurIPS 2026 (arXiv comment).",
+    "limitations_section": true,
+    "artifacts": "Code and dataset link https://github.com/zhenlongDai/ToolSearcher stated in abstract; prompts in App. G.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "no_variance_reported", "detail": "Single fixed seed; 1.3-1.7 pp overall F1 margins over GDPO cannot be distinguished from noise."},
+    {"type": "strawman_baseline", "detail": "Headline 9.8% -> 51.3% compares against an untrained Qwen2.5-7B multi-turn baseline that is worse than plain RAG."},
+    {"type": "small_sample", "detail": "AppWorld Difficulty-2 execution results rest on a handful of scenarios (SGC values like 0.062)."},
+    {"type": "toy_tasks", "detail": "Training tasks are LLM-synthesized with mean ~2.2 APIs and mostly parallel (not sequential) compositions, as admitted in App. A."},
+    {"type": "other:small_models_only", "detail": "Only 4B/7B Qwen policies; unclear if frontier host models need this training at all."}
+  ],
+  "coi": {
+    "affiliations": "Zhejiang University and Ant Group (4 of 10 authors incl. a co-corresponding author).",
+    "vendor_products_evaluated": "None of Ant Group's products; Qwen (Alibaba) models used as base.",
+    "funding": "No acknowledgments section found.",
+    "severity": "low",
+    "detail": "Vendor affiliation without evaluating a vendor product."
+  },
+  "scores": {"rigor": 3, "reproducibility": 4, "generalizability": 2, "relevance": 2, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Peer-reviewed (NeurIPS 2026), code released, ablations present and abstract claims match tables, but margins over strong RL baselines are tiny with no variance, and the setting (RL-training a 7B model over RapidAPI) is far from a team using hosted coding agents.",
+  "applicability": "Mostly indirect. A Java backend team will not RL-train a tool selector. The transferable point is that when a tool/MCP catalog is large, a search-then-select step beats dumping all tools or a single top-k retrieval—consistent with keeping the per-host MCP catalog small and loading tools on demand. With mixed agent hosts, each host's own tool loading behaviour governs this, so the practical action is to keep ingestion-related MCP/tool surfaces (≥4 repos' build/test/contract tools) small and well-described with distinct names and categories, which is what the category-constrained discrimination result implies matters. Nothing here about Java, healthcare content, or spec-driven development.",
+  "conflicts_with": []
+}

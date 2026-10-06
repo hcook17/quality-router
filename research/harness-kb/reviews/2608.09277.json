@@ -1,0 +1,42 @@
+{
+  "arxiv_id": "2608.09277",
+  "contribution_type": "system",
+  "summary": "P3 is a prompt/skill-level agent workflow for Lean 4 verified code generation that has the agent first write a joint program-and-proof plan (decomposition, invariants, induction, lemmas) and then elaborate both artifacts under it, instead of program-then-proof. The authors also introduce Lean4Commit0, 108 library-level tasks extracted from real Python/Rust/C/C++/Java libraries with an automated spec-quality pipeline. P3 beats a plain Lean agent and a program-then-proof skill on Verina, AlgoVeri and Lean4Commit0 across four frontier backends.",
+  "claims": [
+    {"claim": "P3 achieves the highest solve rate in every (benchmark, model) cell, +4.6 to +11.2 pp over the stronger baseline.", "evidence": "Table 2: all 12 cells positive, e.g. Verina Gemini-3-Pro 60.8->72.0 (+11.2), Lean4Commit0 Opus-4.7 17.6->22.2 (+4.6). Single run per configuration; on Lean4Commit0 (108 tasks) +4.6 pp is ~5 tasks; no significance test.", "strength": "moderate", "location": "§5.2, Table 2"},
+    {"claim": "Joint planning (not just planning) is the source of the gain: +3.3 to +8.3 pp over implementation-only planning.", "evidence": "Table 3 ablation (Claude-Opus-4.7 only): Plan-Seq vs P3 69.8/74.6, 44.8/48.1, 13.9/22.2. Ablation run on one backend, single run.", "strength": "moderate", "location": "§5.2, Table 3"},
+    {"claim": "P3 reduces per-task cost by up to ~40% and wall-clock by up to ~37% on difficult tasks.", "evidence": "Text: 3.0-39.6% cost, 3.1-37.2% time reductions on the top-25% costliest tasks (n=48/20/27), Appendix Table 5. Subset is chosen post hoc by mean cost across methods; on the all-solved intersection P3 is only 'broadly comparable' with planning overhead on easy cells (Appendix L).", "strength": "weak", "location": "§5.2, Appendix J/L"},
+    {"claim": "Lean4Commit0 specifications are high quality (mean quality 90.7%).", "evidence": "Table 1: quality = 0.5*mutation rejection + 0.5*LLM review score; the LLM review half is an unvalidated LLM judge, and authors admit specs may be under-constrained (Appendix C).", "strength": "weak", "location": "§4.2, Table 1"}
+  ],
+  "patterns": [
+    {"id": "P35", "stance": "supports", "note": "Machine-checked Lean proofs as the acceptance criterion; planning proof structure up front improves verified solve rates."},
+    {"id": "P13", "stance": "supports", "note": "Plan-then-elaborate workflow beats sequential generate-then-repair; plan retained in 92.9% of Verina successes (Appendix I)."},
+    {"id": "P14", "stance": "supports", "note": "Formal spec is the input; result implies plans derived from the spec should anticipate verification obligations, not only implementation."},
+    {"id": "P16", "stance": "supports", "note": "Lean checker feedback loop closes proof leaves; Seq baseline's cost is dominated by full-restart repair loops (Appendix K)."},
+    {"id": "P02", "stance": "neutral", "note": "Method and baselines are delivered as agent 'skills' to native CLIs (Codex, Gemini, Claude)."},
+    {"id": "P31", "stance": "neutral", "note": "Benchmark-based evaluation on Verina, AlgoVeri and a new author-built benchmark."}
+  ],
+  "methodology": {
+    "sample": "Verina 189 tasks, AlgoVeri 77 tasks, Lean4Commit0 108 library tasks (511 impl + 519 theorem placeholders).",
+    "baselines": "Plain Lean agent with Lean tools; skill-based program-then-proof (Seq); ablation Plan-Seq. No comparison to existing proof-search/repair systems (argued not end-to-end, §5.1).",
+    "models": "Codex-GPT-5.5, Gemini-3-Pro, Claude-Sonnet-4.6, Claude-Opus-4.7 via native CLIs; $30/task budget, 180 min limit.",
+    "variance": "None: each (task, model, method) run once; no significance tests (acknowledged §5.1, Appendix C).",
+    "ablations": "Plan-Seq ablation on Claude-Opus-4.7 only.",
+    "contamination_controls": "None reported; Verina/AlgoVeri are public; Lean4Commit0 derived from public libraries.",
+    "languages": "Lean 4 target; Lean4Commit0 sources 65 Python, 17 Rust, 15 C/C++, 11 Java libraries."
+  },
+  "standards": {"peer_review": "arXiv preprint, no venue listed", "limitations_section": true, "artifacts": "Prompts, harness, scripts, pinned environment and run metadata on figshare (§5.1); no GitHub repo.", "preregistration": "n/a"},
+  "biases": [
+    {"type": "self_evaluation", "detail": "Authors built both the method and Lean4Commit0 and evaluate P3 on it; P3 skill prompt authored by the same team as the baseline skills."},
+    {"type": "no_variance_reported", "detail": "Single run per configuration; gains of ~5 tasks on Lean4Commit0 could be within run-to-run noise."},
+    {"type": "llm_judge_unvalidated", "detail": "Half of the benchmark quality score is an LLM review score with no human validation reported (§4.2)."},
+    {"type": "cherry_picked_examples", "detail": "Efficiency claims headline the post-hoc top-25% cost subset; on the solved intersection P3 shows planning overhead on easy cells."},
+    {"type": "toy_tasks", "detail": "Verina/AlgoVeri are textbook/competitive-programming tasks; Lean4Commit0 extracts core APIs, not full projects (Appendix C)."}
+  ],
+  "coi": {"affiliations": "Apodex (Zenan Li, Kaiyu Yang), Princeton, Caltech, University of Toronto.", "vendor_products_evaluated": "None of the authors' employers' products; evaluates closed frontier models from OpenAI/Google/Anthropic as backends.", "funding": "No acknowledgments/funding section found.", "severity": "low", "detail": "Two authors at Apodex (company); paper does not describe Apodex products. Main concern is self-built benchmark rather than vendor COI."},
+  "scores": {"rigor": 3, "reproducibility": 3, "generalizability": 2, "relevance": 1, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Consistent positive deltas across 12 cells with four backends and a targeted ablation, but single runs, self-built benchmark with LLM-judged quality, and post-hoc efficiency subset. Topic (Lean 4 verified generation) is far from the team's Java stack.",
+  "applicability": "Low direct transfer: the Java healthcare-content ingestion team will not write Lean proofs. The transferable lesson is for spec-driven development: plans derived from a spec should include how the result will be verified (which tests/contracts/invariants will prove it) before code is written, because generate-then-repair loops waste budget on full restarts. Usable as an argument to have spec templates include a 'verification plan' section that the agent fills before implementing, across the 4+ ingestion repos. No evidence about multi-repo, Java runtime code, or mixed hosts (though it does run identical skills across Codex/Gemini/Claude CLIs, a weak signal that skill-level workflows port across hosts).",
+  "conflicts_with": []
+}

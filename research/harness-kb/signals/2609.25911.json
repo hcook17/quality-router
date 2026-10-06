@@ -1,0 +1,97 @@
+{
+ "arxiv_id": "2609.25911",
+ "fulltext_chars": 24563,
+ "fulltext_lines": 372,
+ "authors_block": "Conference: the 17th International Conference on Internetware; July 18–20, 2026; Gold Coast, QLD, Australiathe 17th International Conference on Internetware (Internetware 2026), July 18–20, 2026, Gold Coast, QLD, AustraliaDOI: 10.1145/3834680.3834727ISBN: 979-8-4007-2891-4/2026/07 Liheng Fan email: fanliheng0807@gmail.com Affiliation: China Academy of Telecommunication Technology, Beijing, China , Jialun Yin email: yinjialun@tsari.tsinghua.edu.cn Affiliation: School of Vehicle and Mobility, Tsinghua University, Beijing, China and Yuzhi Chen email: y.z.chen.fhy@gmail.com Affiliation: Intelligent Transportation System Research Center, Southeast University, Nanjing, China © cc",
+ "vendor_affiliation_hits": [],
+ "n_authors": 3,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# When Should Dependency Updates Invoke Repair Agents? A Lightweight Routing Study"
+  ],
+  [
+   46,
+   "###### Abstract."
+  ],
+  [
+   50,
+   "###### Keywords:"
+  ],
+  [
+   55,
+   "## 1. Introduction"
+  ],
+  [
+   69,
+   "## 2. Dependency-Induced Repair Triage"
+  ],
+  [
+   71,
+   "### 2.1. Repair Definition"
+  ],
+  [
+   81,
+   "### 2.2. Why Triage Comes Before Repair"
+  ],
+  [
+   87,
+   "## 3. DepFixRouter"
+  ],
+  [
+   93,
+   "## 4. Preliminary Evidence"
+  ],
+  [
+   95,
+   "### 4.1. Dataset and Evaluation"
+  ],
+  [
+   141,
+   "### 4.2. Routing Utility"
+  ],
+  [
+   185,
+   "### 4.3. Measured Diagnosis-Agent Pilot"
+  ],
+  [
+   223,
+   "## 5. Threats to Validity"
+  ],
+  [
+   229,
+   "## 6. Conclusion"
+  ],
+  [
+   237,
+   "## References"
+  ],
+  [
+   372,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 5. Threats to Validity\n\nTemporal feature availability is the main internal threat. Some signals, such as human follow-up commits, later repair-like messages, and later file changes, are only observable after developers have already reacted to the dependency update. We therefore separate creation-time-safe routing, richer initial-PR T0 analysis, and retrospective full-history analysis. The retrospective results are useful for understanding hindsight evidence in pull-request histories, but they should not be interpreted as live routing performance.\n\nThe dataset is manually labeled but modest in size, especially for the positive class. The 14.5% positive rate is measured inside a repair-enriched candidate pool and should not be interpreted as the global repair rate of all dependency updates. Labels rely on historical human repair activity as a proxy for future repair need, not as evidence that a current repair agent would reproduce the fix. The single-annotator protocol, repair-like search queries, and exploratory model search may introduce subjectivity, sampling bias, and model-selection bias. The diagnosis-agent pilot reports real calls, tokens, and latency, but it measures escalation only; repository checkout, patch generation, CI execution, and human review cost remain future work.\n\n## 6. Conclusion\n\nDependency-update repair is sparse, costly to identify, and only partially visible at pull-request creation time. This paper addresses the pre-agent escalation problem in agentic dependency maintenance: before invoking expensive repository-level coding agents, a lightweight triage layer should estimate which dependency-update pull requests are likely to require compatibility diagnosis or patching.\n\nWe introduced DepFixRouter as an initial step toward this routing-first workflow. On 497 labeled dependency-update repair candidates, creation-time-safe signals already provided non-trivial enrichment: routing the top 20% highest-risk pull requests captured 51.4% of repair-requiring cases, reducing calls per captured repair from 6.90 under route-all or random routing to 2.68. Retrospective full-history signals achieved higher recall, but this improvement also revealed substantial hindsight evidence in pull-request histories. In a measured 60-case diagnosis-agent pilot, router-gated diagnosis reduced actual LLM calls by 66.7% and tokens by 66.1%, retaining 4 of the 5 true-positive escalations produced by all-agent diagnosis while covering 4 of the 12 gold repairs in the sample. This pilot measures diagnosis escalation cost, not repository editing or successful patch generation. The central methodological lesson is therefore to evaluate deployment-time routing separately from retrospective repair mining.\n\nDepFixRouter is not a replacement for automated program repair or LLM-based dependency repair; it is a front-end decision layer for deciding when expensive repair machinery should be invoked. Future work should extend creation-time signals, evaluate calibrated budget-recall policies across ecosystems, and measure end-to-end utility in terms of agent success, token cost, CI time, and human review effort. More broadly, repair-likelihood routing shifts the question from only how software agents fix dependency updates to when they should be activated.\n\n## References\n\nChen et al. (2023)\nL. Chen, M. Zaharia, and J. Zou\n\nFrugalGPT: how to use large language models while reducing cost and improving performance.\n\narXiv preprint arXiv:2305.05176.\n\nExternal Links: Document\n\nCited by: §1.\n\nGitHub (2026)\nGitHub\n\nAbout dependabot version updates.\n\nNote: https://docs.github.com/en/code-security/concepts/supply-chain-security/about-dependabot-version-updatesAccessed: 2026-05-03\n\nCited by: §1.\n\nHe et al. (2023)\nR. He, H. He, Y. Zhang, and M. Zhou\n\nAutomating dependency updates in practice: an exploratory study on github dependabot.",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 0,
+  "swe_bench": 1,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

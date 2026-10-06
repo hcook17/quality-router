@@ -1,0 +1,23 @@
+{
+  "arxiv_id": "2608.00267",
+  "blind_scores": {"rigor": 3, "reproducibility": 3, "generalizability": 3, "relevance": 3, "coi_risk": 1},
+  "blind_verdict": "admit_with_caveats",
+  "blind_coi_severity": "low",
+  "agreement": "minor_disagreement",
+  "claims_disputed": [
+    {"claim": "The strongest configuration (Opus-4.7 + Claude Code + outer continuation) resolves only 25.00% of tasks.", "proposed_strength": "moderate", "reason": "This is a single-trial number (App. I says Table 2 is 'estimated from one trial per model and loop pairing') with no CI over 112 tasks. The tasks' instructions, environments and tests were materialized by a Claude Code + Claude Opus 4.7 pipeline (§2.5), the same model that tops the table. The absolute level may be meaningful, but the ranking at the top is confounded with the construction model, so 'strong' is too high."},
+    {"claim": "Harness (loop implementation) matters under a fixed model.", "proposed_strength": "weak", "reason": "Table 2's 'Loop (fixed model: gpt-5.4)' row for Claude Code (12.50% / 17.86% RR, 36.97% / 48.21% TPR) is identical on four of five metrics to the 'Claude (Claude Code) Opus-4.5' row (only Depth differs, 0.42 vs 0.46). That suggests a copy or transcription error in the table that carries the claim. Each cell is also one trial, and the spread between the top three hosts (Codex 13.39, Claude Code 12.50, Copilot 10.71 RR) amounts to a few tasks out of 112."}
+  ],
+  "pattern_stance_changes": [
+    {"id": "P16", "from": "supports", "to": "neutral", "reason": "The regression obligations are evaluator-side scoring, and §2.6 says the loop gets no staged evaluator feedback. The 'w/ outer continuation' gain is re-prompting for residual work, not test-driven feedback. The paper therefore never measures whether an execution-based verifier loop helps the agent. It only shows that agents author few tests."},
+    {"id": "P12", "from": "supports", "to": "mixed", "reason": "RQ3 compares four single runs that differ in vendor, loop design and compaction policy at once. Dynamic workflows have the best RR (24.11%) but also the highest regression rate (0.36 events/run, vs 0.13 for Claude Code goal mode). That is not clean evidence that isolated worker contexts help."},
+    {"id": "P10", "from": "contradicts", "to": "neutral", "reason": "The open-source harnesses (OpenHands, SWE-agent, mini-swe-agent) differ from the closed ones in tools, prompts and continuation behavior, not only in being linear loops. The paper's 'near chain' observation is descriptive and does not isolate the single-agent linear loop as the cause of the lower scores."}
+  ],
+  "missed_issues": [
+    "The contamination 'check' (App. E) is argument, not measurement. The 'model cutoff robustness slice' is described as something that 'can partition tasks' but no results are reported. The only evidence offered is that the best score is 25%.",
+    "The per-unit tests are largely LLM-synthesized ('drafts missing tests', rewrites assertions in place when they fail under the gold patch, §2.5) and validated only by automated fail-to-pass checks. No human audit of test validity is reported, and assertions are rewritten until they pass the gold patch, which can encode reference-implementation details.",
+    "Half the tasks (57/112) are university course labs, which are well-specified, heavily published assignments and not representative of industrial multi-repo work. The Limitations also exclude cross-service and build-system dependencies.",
+    "Artifact release is partly promissory: the Limitations say 'We will release', while the abstract says it is open-sourced. Reproducibility of 4 is not yet earned."
+  ],
+  "note": "The review is broadly sound and caught the construction-model bias. It was too lenient on the headline claim (strong for a single trial) and missed an apparent duplicated row in Table 2 that undermines the fixed-model harness comparison. It also assigned 'supports'/'contradicts' stances to P16, P12 and P10 from confounded or evaluator-side observations."
+}

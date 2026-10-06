@@ -1,0 +1,52 @@
+{
+  "arxiv_id": "2606.10106",
+  "contribution_type": "theory",
+  "summary": "Single-author conceptual analysis that traces the term 'harness' from horse tack to test harness to ML eval harness to coding-agent harness, then proposes a constitutive definition: a system is an agent harness iff at runtime it has (T1) a reason-act-observe loop, (T2) a tool interface that can alter the environment, (T3) task-aware context management, and (T4) at least one control mechanism independent of model cooperation. The test is used to separate harnesses from frameworks, SDKs, IDE plugins, eval harnesses and orchestrators, and is applied to six products plus edge cases.",
+  "claims": [
+    {"claim": "T1-T4 are necessary and sufficient conditions for an agent harness", "evidence": "Argued by subtraction (remove one element, show what remains) in §4 'Anatomy'; sufficiency is asserted ('there is no fifth condition to add'), not demonstrated. No formal or empirical test.", "strength": "weak", "location": "§4"},
+    {"claim": "The test includes and excludes consistently", "evidence": "Table 4: all six chosen harnesses (Claude Code, Codex CLI, Aider, Cline, OpenHands, SWE-agent) pass; the author concedes in §6 that the six 'were chosen because they are harnesses, so passing the test was expected' and that core presence is 'almost tautological'. Exclusion shown via argued edge cases (inline autocomplete, eval harness, fixed orchestrator) in §5-6. Classification done by the sole author from vendor docs; no second rater or agreement measure.", "strength": "weak", "location": "§5, §6, Table 4"},
+    {"claim": "Control (T4) is where real harness designs diverge most and is least consolidated in the literature", "evidence": "Qualitative reading of Table 4 final column and Figure 5; no systematic literature count.", "strength": "weak", "location": "§6, §7"},
+    {"claim": "An evaluation isolating harness contribution while holding the model fixed is missing", "evidence": "Stated as research gap in §7-8; plausible and consistent with benchmark literature but presented as conjecture by the author.", "strength": "moderate", "location": "§7, §8"}
+  ],
+  "patterns": [
+    {"id": "P10", "stance": "neutral", "note": "Defines the single-agent loop as the core; multi-agent explicitly not required."},
+    {"id": "P16", "stance": "introduces", "note": "Deterministic verification (e.g. re-running the test suite) is the canonical T4 control; argued, not measured."},
+    {"id": "P21", "stance": "introduces", "note": "Guardrails framed as a subset of T4; containment called the strongest control because it does not depend on model cooperation."},
+    {"id": "P08", "stance": "neutral", "note": "T3 requires task-aware context selection; size-based truncation explicitly fails T3."},
+    {"id": "P20", "stance": "neutral", "note": "Axis 4 open permission vs containment; sandboxing cited as strongest containment."},
+    {"id": "P23", "stance": "neutral", "note": "Model switching framed as a control mechanism that makes the harness model-agnostic."}
+  ],
+  "methodology": {
+    "sample": "Six named harness products plus argued edge cases (inline autocomplete, eval harness, orchestrator, framework, SDK)",
+    "baselines": "n/a (conceptual work); positioned against existing surveys and the Claude Code / Hugging Face glossaries",
+    "models": "n/a",
+    "variance": "n/a; no inter-rater reliability for the classification",
+    "ablations": "Conceptual 'remove one condition' argument only",
+    "contamination_controls": "n/a",
+    "languages": "n/a"
+  },
+  "standards": {
+    "peer_review": "arXiv preprint, no venue in comment or journal_ref",
+    "limitations_section": false,
+    "artifacts": "None needed beyond text; sources are cited with URLs/DOIs. No coding sheet for the classification is released.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "self_evaluation", "detail": "The sole author both proposes the definition and applies it to cases chosen to pass; no independent coder."},
+    {"type": "selection_bias_participants", "detail": "Positive cases were selected because they are already known harnesses (conceded in §6), so consistency is near-tautological."},
+    {"type": "other:vendor_documentation_as_evidence", "detail": "Classifications rely on product documentation (grey literature) rather than inspection of runtime behavior."},
+    {"type": "novelty_inflation", "detail": "The four elements (loop, tools, context, control) are acknowledged in §4 to come from existing literature; the contribution is a consolidation, not new mechanisms."}
+  ],
+  "coi": {
+    "affiliations": "Federal Institute of Goiás (single author)",
+    "vendor_products_evaluated": "Claude Code, Codex CLI, Aider, Cline, OpenHands, SWE-agent classified, not ranked",
+    "funding": "Not stated; Generative-AI declaration says Grammarly and Claude Opus 4.8 were used for structuring and translation",
+    "severity": "none",
+    "detail": "Academic author, no vendor affiliation; products are classified, not compared for quality."
+  },
+  "scores": {"rigor": 2, "reproducibility": 2, "generalizability": 3, "relevance": 3, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "No empirical content and no limitations section, but a clear, operational T1-T4 vocabulary that is useful for comparing hosts and harness components. Its 'consistent classification' claim is weak by the author's own admission (positive cases chosen to pass, single coder). Admit as vocabulary, not as evidence.",
+  "applicability": "Useful as shared vocabulary for a team with mixed agent hosts: T1-T4 gives a host-neutral checklist for what the team's own harness layer must supply regardless of whether engineers run Claude Code, Codex, Cursor or others. T4 in particular argues that controls should be deterministic and independent of the model, e.g. Maven/Gradle builds, contract tests across the >=4 ingestion repositories, and policy checks on healthcare content, not prompt instructions. It says nothing about Java, multi-repo coordination, or spec-driven development, and gives no evidence on which controls work. Use it to structure architecture decisions, not to justify them.",
+  "conflicts_with": []
+}

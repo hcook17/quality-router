@@ -1,0 +1,54 @@
+{
+  "arxiv_id": "2610.06829",
+  "contribution_type": "system",
+  "summary": "CLIFT trains an open web agent (Gemma 4 31B + LoRA) with GRPO using per-step rewards from natural-language self-verification questions that are kept only if a conformal-style lift certifier shows they agree with a frontier training-time judge (Claude Opus 4.6). At test time the certified question bank selects among K rollouts without an external judge. It reports state-of-the-art open-source results on WebArena Infinity, transfer to GPT-5.5 on VisualWebArena, and zero-shot gains on Online Mind2Web.",
+  "claims": [
+    {"claim": "CLIFT+CTS achieves state of the art among open-source web agents on WebArena Infinity.", "evidence": "Table 3: Gemma-4 + CLIFT + CTS (K=3) 74.6 vs base 61.8 and Gemini 3 Flash + BU 70.1 over 9 apps. Compares a best-of-3 selected policy against published single-rollout leaderboard entries; the two apps where Gemini leads are dismissed as 'integer-rounding noise'. No variance.", "strength": "weak", "location": "§4.1, Table 3"},
+    {"claim": "Certified step rewards beat vanilla GRPO with the same judge.", "evidence": "Table 6: vanilla GRPO 64.7 (+2.9), CLIFT 72.6 (+10.8), CTS adds +2.0; CTS improves/ties/regresses 5/4/0 apps. Single training run, no seeds.", "strength": "moderate", "location": "§4.4, Table 6"},
+    {"claim": "Bank trained with the open model transfers to GPT-5.5 on VWA and reaches SOTA.", "evidence": "Table 4: GPT-5.5 + CLIFT+CTS (K=4) 53.7 vs WALT 52.9 (WALT is prior work by overlapping Salesforce authors) and SGV 50.2; 0.8-point margin with K=4 rollouts vs single-rollout baselines, no variance.", "strength": "weak", "location": "§4.2, Table 4"},
+    {"claim": "Translated, recalibrated bank improves live-web agents zero-shot on OM2W.", "evidence": "§4.3/Fig. 5: GPT-5.5 high 49.7 -> 61.0 at K=4; Gemma-4 40.0 -> 45.0. OM2W is scored by an LLM rubric judge; bank recalibrated on OM2W rollouts (App. A.4) with unclear disjointness from the 300 evaluation tasks.", "strength": "weak", "location": "§4.3, App. A.4-A.5"}
+  ],
+  "patterns": [
+    {"id": "P18", "stance": "mixed", "note": "Distills a frontier LLM judge into a calibrated self-verification bank; the judge itself is not validated against humans."},
+    {"id": "P25", "stance": "supports", "note": "GRPO with certified dense rewards beats vanilla GRPO by ~8 points on WAI (single run)."},
+    {"id": "P23", "stance": "neutral", "note": "Uses expensive judge only at training time and cheap self-verification at inference."}
+  ],
+  "methodology": {
+    "sample": "WAI 9-app slice (1,140 tasks across apps per Table 3), VWA three environments, OM2W 300 live tasks; training on 1,886 WAI + 1,272 VWA synthesized tasks.",
+    "baselines": "Published leaderboard numbers (Gemini 3 Flash + BU, Qwen 3.5+, Kimi K2.5, SGV, WALT) run at single rollout; in-house base and vanilla GRPO.",
+    "models": "Gemma 4 31B (trained), GPT-5.5 (inference), Claude Opus 4.6 as training judge; Claude Opus 4.6 and GPT-5.5 for task synthesis.",
+    "variance": "None reported; single training run.",
+    "ablations": "Table 6 component decomposition on WAI only.",
+    "contamination_controls": "App. A.2 states training pipeline never read evaluation tasks; OM2W recalibration uses OM2W rollouts, split not clearly specified.",
+    "languages": "n/a (browser tasks)."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint, no venue listed.",
+    "limitations_section": false,
+    "artifacts": "No code or bank release link found; prompts in App. A.1.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "metric_mismatch", "detail": "Best-of-K selected trajectories compared against single-rollout leaderboard baselines for SOTA claims."},
+    {"type": "no_variance_reported", "detail": "Single run, margins of 0.8 (VWA) and 4.5 (WAI) points without CIs."},
+    {"type": "llm_judge_unvalidated", "detail": "OM2W scored by LLM rubric; training judge Opus 4.6 not validated against humans; authors acknowledge judge bias risk (§5)."},
+    {"type": "self_reported_numbers", "detail": "Baseline rows taken from public boards/papers rather than rerun."},
+    {"type": "contamination_risk", "detail": "OM2W bank recalibrated on OM2W rollouts; disjointness from evaluation tasks not stated."},
+    {"type": "hype_language", "detail": "Repeated 'state-of-the-art' framing on narrow margins."},
+    {"type": "closed_artifacts", "detail": "No code or certified bank released."}
+  ],
+  "coi": {
+    "affiliations": "All six authors Salesforce AI Research.",
+    "vendor_products_evaluated": "Compares against and narrowly beats WALT (Prabhu et al. 2025), prior Salesforce work co-authored by Prabhu, Dai, Chen, Xu; does not evaluate a commercial Salesforce product.",
+    "funding": "Not stated; industrial lab compute (H200).",
+    "severity": "low",
+    "detail": "Vendor-affiliated, SOTA claim partly over own prior baseline; no commercial product evaluated."
+  },
+  "scores": {"rigor": 2, "reproducibility": 1, "generalizability": 2, "relevance": 1, "coi_risk": 2},
+  "verdict": "reject",
+  "verdict_reason": "off-topic: RL training and test-time selection for browser web agents, not software engineering harnesses; additionally SOTA claims rest on compute-mismatched comparisons, single runs, and an unvalidated LLM judge.",
+  "applicability": "Does not transfer to a backend Java team: the team will not RL-train web agents, and the method depends on URL-state traces and a frontier judge. The only portable idea is turning expensive LLM-judge feedback into a small calibrated checklist of verification questions reused across agent hosts; the paper's own discussion points to replacing such questions with executable assertions, which for a Java ingestion pipeline means tests and schema checks rather than this method.",
+  "conflicts_with": [
+    {"arxiv_id": "2607.24300", "detail": "That paper finds agent self-authored verification unreliable without exogenous checks; CLIFT relies on self-verification at test time, mitigated only by calibration against a training-time LLM judge."}
+  ]
+}

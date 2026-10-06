@@ -1,0 +1,191 @@
+{
+ "arxiv_id": "2610.02877",
+ "fulltext_chars": 77374,
+ "fulltext_lines": 1408,
+ "authors_block": "Longwei Cong Affiliation: DIPF | Leibniz Institute for Research and Information in Education Email: l.cong@dipf.de Sonja Hahn Affiliation: DIPF | Leibniz Institute for Research and Information in Education Email: s.hahn@dipf.de Sebastian Gombert Affiliation: DIPF | Leibniz Institute for Research and Information in Education Email: s.gombert@dipf.de Leon Camus Affiliation: DIPF | Leibniz Institute for Research and Information in Education Email: l.camus@dipf.de Fabian Zehner Affiliation: DIPF | Leibniz Institute for Research and Information in Education Affiliation: Centre for International Student Assessment (ZIB) Email: f.zehner@dipf.de Hendrik Drachsler Affiliation: DIPF | Leibniz Institute for Research and Information in Education Affiliation: Faculty of Computer Science, Goethe University Frankfurt Email: h.drachsler@dipf.de Ulf Kroehne Affiliation: DIPF | Leibniz Institute for Research and Information in Education Affiliation: Chemnitz University of Technology Email: u.kroehne@dipf.de",
+ "vendor_affiliation_hits": [],
+ "n_authors": 7,
+ "comment": "Accepted at AACL-IJCNLP 2026",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/tatsu-lab/alpaca_eval"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Evaluating LLM-as-a-Judge Beyond Score Alignment: A Psychometric Analysis of Residual Judging Difficulty"
+  ],
+  [
+   70,
+   "###### Abstract"
+  ],
+  [
+   76,
+   "## 1 Introduction"
+  ],
+  [
+   91,
+   "##### RQ1"
+  ],
+  [
+   95,
+   "##### RQ2"
+  ],
+  [
+   99,
+   "##### RQ3"
+  ],
+  [
+   119,
+   "## 2 Background"
+  ],
+  [
+   121,
+   "### 2.1 LLM-as-a-judge and Human Alignment"
+  ],
+  [
+   129,
+   "### 2.2 Item Response Theory"
+  ],
+  [
+   141,
+   "## 3 Method"
+  ],
+  [
+   145,
+   "### 3.1 Dataset and LLMs"
+  ],
+  [
+   151,
+   "### 3.2 Many-Facet Rasch Measurement"
+  ],
+  [
+   164,
+   "### 3.3 Residual Hardness"
+  ],
+  [
+   188,
+   "### 3.4 Predicting Human-Easy and"
+  ],
+  [
+   195,
+   "## 4 Results"
+  ],
+  [
+   197,
+   "### 4.1 RQ1"
+  ],
+  [
+   199,
+   "##### Model adequacy."
+  ],
+  [
+   226,
+   "##### Quality alignment does not imply hardness alignment."
+  ],
+  [
+   235,
+   "##### Robustness to judge capability and human-panel composition."
+  ],
+  [
+   242,
+   "### 4.2 RQ2"
+  ],
+  [
+   299,
+   "### 4.3 RQ3"
+  ],
+  [
+   350,
+   "## 5 Discussion"
+  ],
+  [
+   362,
+   "## 6 Conclusion"
+  ],
+  [
+   370,
+   "## Limitations"
+  ],
+  [
+   380,
+   "## Acknowledgments"
+  ],
+  [
+   384,
+   "## References"
+  ],
+  [
+   1011,
+   "## Appendix A Appendix"
+  ],
+  [
+   1013,
+   "### A.1 LLM Judge Prompt"
+  ],
+  [
+   1079,
+   "### A.2 MFRM"
+  ],
+  [
+   1081,
+   "#### A.2.1 MFRM Estimation Details"
+  ],
+  [
+   1085,
+   "#### A.2.2 Agreement-based Sanity Check for Residual Hardness"
+  ],
+  [
+   1150,
+   "#### A.2.3 Judge-Capability and Human-Panel Sensitivity"
+  ],
+  [
+   1172,
+   "#### A.2.4 Rater-by-Dimension Interaction Sensitivity"
+  ],
+  [
+   1176,
+   "#### A.2.5 Rater-Misfit Sensitivity"
+  ],
+  [
+   1240,
+   "#### A.2.6 MFRM Calibration Comparability Sensitivity"
+  ],
+  [
+   1289,
+   "### A.3 Additional Information and Experiments for RQ3"
+  ],
+  [
+   1291,
+   "#### A.3.1 Input Features for RQ3"
+  ],
+  [
+   1318,
+   "#### A.3.2 RQ3 Prediction Robustness and Ablations"
+  ],
+  [
+   1408,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgments\n\nThis research was conducted within the project “Assessment for Learning with AI (ALwAI)” funded by the Leibniz Association under the Leibniz Competition (project no. T163/2024).\n\n## References\n\nAbdin et al. (2024a)\nM. Abdin, J. Aneja, H. Awadalla, A. Awadallah, A. A. Awan, N. Bach, A. Bahree, A. Bakhtiari, J. Bao, H. Behl, A. Benhaim, M. Bilenko, J. Bjorck, S. Bubeck, M. Cai, Q. Cai, V. Chaudhary, D. Chen, D. Chen, W. Chen, Y. Chen, Y. Chen, H. Cheng, P. Chopra, X. Dai, M. Dixon, R. Eldan, V. Fragoso, J. Gao, M. Gao, M. Gao, A. Garg, A. D. Giorno, A. Goswami, S. Gunasekar, E. Haider, J. Hao, R. J. Hewett, W. Hu, J. Huynh, D. Iter, S. A. Jacobs, M. Javaheripi, X. Jin, N. Karampatziakis, P. Kauffmann, M. Khademi, D. Kim, Y. J. Kim, L. Kurilenko, J. R. Lee, Y. T. Lee, Y. Li, Y. Li, C. Liang, L. Liden, X. Lin, Z. Lin, C. Liu, L. Liu, M. Liu, W. Liu, X. Liu, C. Luo, P. Madan, A. Mahmoudzadeh, D. Majercak, M. Mazzola, C. C. T. Mendes, A. Mitra, H. Modi, A. Nguyen, B. Norick, B. Patra, D. Perez-Becker, T. Portet, R. Pryzant, H. Qin, M. Radmilac, L. Ren, G. de Rosa, C. Rosset, S. Roy, O. Ruwase, O. Saarikivi, A. Saied, A. Salim, M. Santacroce, S. Shah, N. Shang, H. Sharma, Y. Shen, S. Shukla, X. Song, M. Tanaka, A. Tupini, P. Vaddamanu, C. Wang, G. Wang, L. Wang, S. Wang, X. Wang, Y. Wang, R. Ward, W. Wen, P. Witte, H. Wu, X. Wu, M. Wyatt, B. Xiao, C. Xu, J. Xu, W. Xu, J. Xue, S. Yadav, F. Yang, J. Yang, Y. Yang, Z. Yang, D. Yu, L. Yuan, C. Zhang, C. Zhang, J. Zhang, L. L. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, and X. Zhou\n\nPhi-3 technical report: a highly capable language model locally on your phone.\n\nExternal Links: 2404.14219,\nLink\n\nCited by: §3.1.\n\nAbdin et al. (2024b)\nM. Abdin, J. Aneja, H. Behl, S. Bubeck, R. Eldan, S. Gunasekar, M. Harrison, R. J. Hewett, M. Javaheripi, P. Kauffmann, J. R. Lee, Y. T. Lee, Y. Li, W. Liu, C. C. T. Mendes, A. Nguyen, E. Price, G. de Rosa, O. Saarikivi, A. Salim, S. Shah, X. Wang, R. Ward, Y. Wu, D. Yu, C. Zhang, and Y. Zhang\n\nPhi-4 technical report.\n\nExternal Links: 2412.08905,\nLink\n\nCited by: §3.1.",
+ "limitations": "## Limitations\n\nOur study has several limitations. First, we examine residual hardness mismatch in summarization evaluation using a single multi-rater benchmark, which limits the generalizability of the findings to other LLM-as-judge settings. However, this benchmark is well suited to our research question because it provides repeated ratings across multiple evaluation dimensions and includes anonymized rater identifiers required for the MFRM. More broadly, public summarization benchmarks with repeated human ratings, identifiable raters, and summary-level multidimensional quality scores are extremely limited, and SummEval is, to our knowledge, the most suitable publicly available benchmark for this analysis.\n\nSecond, our results are based on a fixed panel of open-weight LLM judges under a single prompting setup. Different model families, prompting strategies, or evaluation protocols may yield different residual hardness structures.\n\nThird, residual hardness should not be interpreted as a standalone latent construct of judging difficulty or ambiguity. Rather, it is a post-fit diagnostic that operationalizes local judging difficulty through residual deviations from the fitted MFRM. Its magnitude may reflect local rater disagreement, model misspecification, or remaining structure not captured by the model. Accordingly, our analyses establish differences in residual-hardness patterns between the evaluated human and LLM panels, but do not assume that these residuals have identical substantive meaning across panels.\n\nFourth, the RQ3 prediction analysis identifies correlates of human–LLM mismatch from observable features, but does not establish the causal mechanisms underlying these patterns.\n\n## Acknowledgments\n\nThis research was conducted within the project “Assessment for Learning with AI (ALwAI)” funded by the Leibniz Association under the Leibniz Competition (project no. T163/2024).\n\n## References\n\nAbdin et al. (2024a)\nM. Abdin, J. Aneja, H. Awadalla, A. Awadallah, A. A. Awan, N. Bach, A. Bahree, A. Bakhtiari, J. Bao, H. Behl, A. Benhaim, M. Bilenko, J. Bjorck, S. Bubeck, M. Cai, Q. Cai, V. Chaudhary, D. Chen, D. Chen, W. Chen, Y. Chen, Y. Chen, H. Cheng, P. Chopra, X. Dai, M. Dixon, R. Eldan, V. Fragoso, J. Gao, M. Gao, M. Gao, A. Garg, A. D. Giorno, A. Goswami, S. Gunasekar, E. Haider, J. Hao, R. J. Hewett, W. Hu, J. Huynh, D. Iter, S. A. Jacobs, M. Javaheripi, X. Jin, N. Karampatziakis, P. Kauffmann, M. Khademi, D. Kim, Y. J. Kim, L. Kurilenko, J. R. Lee, Y. T. Lee, Y. Li, Y. Li, C. Liang, L. Liden, X. Lin, Z. Lin, C. Liu, L. Liu, M. Liu, W. Liu, X. Liu, C. Luo, P. Madan, A. Mahmoudzadeh, D. Majercak, M. Mazzola, C. C. T. Mendes, A. Mitra, H. Modi, A. Nguyen, B. Norick, B. Patra, D. Perez-Becker, T. Portet, R. Pryzant, H. Qin, M. Radmilac, L. Ren, G. de Rosa, C. Rosset, S. Roy, O. Ruwase, O. Saarikivi, A. Saied, A. Salim, M. Santacroce, S. Shah, N. Shang, H. Sharma, Y. Shen, S. Shukla, X. Song, M. Tanaka, A. Tupini, P. Vaddamanu, C. Wang, G. Wang, L. Wang, S. Wang, X. Wang, Y. Wang, R. Ward, W. Wen, P. Witte, H. Wu, X. Wu, M. Wyatt, B. Xiao, C. Xu, J. Xu, W. Xu, J. Xue, S. Yadav, F. Yang, J. Yang, Y. Yang, Z. Yang, D. Yu, L. Yuan, C. Zhang, C. Zhang, J. Zhang, L. L. Zhang, Y. Zhang, Y. Zhang, Y. Zhang, and X. Zhou\n\nPhi-3 technical report: a highly capable language model locally on your phone.\n\nExternal Links: 2404.14219,\nLink\n\nCited by: §3.1.\n\nAbdin et al. (2024b)\nM. Abdin, J. Aneja, H. Behl, S. Bubeck, R. Eldan, S. Gunasekar, M. Harrison, R. J. Hewett, M. Javaheripi, P. Kauffmann, J. R. Lee, Y. T. Lee, Y. Li, W. Liu, C. C. T. Mendes, A. Nguyen, E. Price, G. de Rosa, O. Saarikivi, A. Salim, S. Shah, X. Wang, R. Ward, Y. Wu, D. Yu, C. Zhang, and Y. Zhang\n\nPhi-4 technical report.\n\nExternal Links: 2412.08905,\nLink\n\nCited by: §3.1.\n\nBarzilay and Lapata (2005)\nR. Barzilay and M. Lapata\n\nModeling local coherence: an entity-based approach.",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 26,
+  "p_value_or_ci": 12,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 1,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

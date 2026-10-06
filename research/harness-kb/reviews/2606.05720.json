@@ -1,0 +1,39 @@
+{
+  "arxiv_id": "2606.05720",
+  "contribution_type": "system",
+  "summary": "Proposes 'MicroSkill Architecture': project knowledge split into small skill capsules with guardrails and boilerplate, selected per task by a cosine-similarity router under a token budget, with a binary guardrail verifier on generated changes and a self-learning loop that extracts new capsules. A single case study on an enterprise CMS (15 features, Claude 3.5 Sonnet) compares it to dumping all docs and foundational source into context.",
+  "claims": [
+    {"claim": "Token consumption cut by over 90% (48,500 -> 3,200 tokens per feature, ~93.4%).", "evidence": "Table I, single run per feature, 15 features; baseline is a full-context dump, so a large reduction is expected by construction.", "strength": "weak", "location": "§IV-B, Table I"},
+    {"claim": "First-attempt compilation success nearly doubles (40% -> 86.6%).", "evidence": "Table I; corresponds to 6/15 vs 13/15 features; no variance, no repeated runs, no significance test.", "strength": "weak", "location": "§IV-B, Table I"},
+    {"claim": "Architectural violations eliminated (12 -> 0).", "evidence": "§IV-B: the guardrail verifier rejects out-of-scope writes before commit, so zero violations is guaranteed by the mechanism being measured; baseline had no equivalent check.", "strength": "unsupported", "location": "§IV-B"},
+    {"claim": "Self-learning loop autonomously extracted 7 reusable capsules.", "evidence": "§IV-B narrative; no quality evaluation of extracted capsules beyond reuse anecdote.", "strength": "weak", "location": "§IV-B"}
+  ],
+  "patterns": [
+    {"id": "P02", "stance": "introduces", "note": "Skill capsules loaded on demand; evidence from one case study vs a full-dump baseline."},
+    {"id": "P06", "stance": "introduces", "note": "Cosine-similarity router over capsule embeddings."},
+    {"id": "P24", "stance": "introduces", "note": "Context allocation formalized as relevance maximization under a token budget."},
+    {"id": "P21", "stance": "introduces", "note": "Capsule-scoped write guardrails with binary verifier."},
+    {"id": "P26", "stance": "introduces", "note": "Self-learning loop that registers new capsules."}
+  ],
+  "methodology": {"sample": "One system (enterprise CMS), 15 feature specifications, within-subjects two conditions.", "baselines": "Monolithic context (all docs + directory + foundational files concatenated); no retrieval/RAG, AGENTS.md, or skills-based baseline.", "models": "Claude 3.5 Sonnet only.", "variance": "None.", "ablations": "None (router, guardrails, boilerplate, self-learning not separated).", "contamination_controls": "None.", "languages": "Not stated."},
+  "standards": {"peer_review": "arXiv preprint; no venue.", "limitations_section": true, "artifacts": "None (no code, capsules, or CMS released).", "preregistration": "n/a"},
+  "biases": [
+    {"type": "strawman_baseline", "detail": "Full-context dump is the weakest plausible comparator; no retrieval or curated-instructions baseline."},
+    {"type": "metric_mismatch", "detail": "Violation count is enforced to zero by the guardrail being evaluated."},
+    {"type": "small_sample", "detail": "15 features on one system."},
+    {"type": "single_model", "detail": "Claude 3.5 Sonnet only."},
+    {"type": "no_variance_reported", "detail": "Single run per condition."},
+    {"type": "self_evaluation", "detail": "Authors' own framework on a CMS they presumably built, measured by their metrics."},
+    {"type": "closed_artifacts", "detail": "Nothing released."},
+    {"type": "novelty_inflation", "detail": "Repackages progressive disclosure/skills + RAG routing under a microservices metaphor."},
+    {"type": "hype_language", "detail": "'eliminates architectural violations entirely', 'survive contact with reality'."}
+  ],
+  "coi": {"affiliations": "Artificial Intelligence Laboratory at AriooBarzan Engineering Team, Shiraz, Iran (one author email at sutech.ac.ir).", "vendor_products_evaluated": "The authors' own framework; no commercial product named.", "funding": "Not stated.", "severity": "low", "detail": "Company lab evaluating its own architecture without independent replication; no product sale evident."},
+  "scores": {"rigor": 1, "reproducibility": 0, "generalizability": 1, "relevance": 2, "coi_risk": 2},
+  "verdict": "reject",
+  "verdict_reason": "Evidence is a single unreplicated 15-feature case study with one model, a full-dump strawman baseline, no variance or ablations, a circular violations metric, unstated language, and no artifacts. The idea (on-demand skills + scoped guardrails) is reasonable but this paper does not provide evidence for it.",
+  "applicability": "The idea of small, scoped knowledge capsules with write-scope guardrails is relevant to a Java team spreading ingestion over ≥4 repos (per-repo/per-module skills instead of one huge instruction file, deny writes to core modules), and fits hosts that support skills. But the numbers should not be used to justify the decision: the comparison is against dumping everything into context, which no team would do. Prefer evidence from controlled context-file/skill studies in the corpus.",
+  "conflicts_with": [
+    {"arxiv_id": "2607.27250", "detail": "MicroSkill reports large correctness gains from changing context strategy; the two-agent ablation reports context-injection strategy did not measurably move correctness (bounded ≤10-15pp) across 288 runs."}
+  ]
+}

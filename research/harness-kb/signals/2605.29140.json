@@ -1,0 +1,329 @@
+{
+ "arxiv_id": "2605.29140",
+ "fulltext_chars": 57026,
+ "fulltext_lines": 885,
+ "authors_block": "Government Secure Supply Chain Summit Sivana Hamer∗, Pat Morrison∗, William Enck∗, Yasemin Acar†, Michel Cukier‡, Alexandros Kapravelos∗, Christian Kästner§, Dominik Wermke∗, Laurie Williams∗ Affiliation: ∗North Carolina State University, Raleigh, NC, USA Affiliation: †Paderborn University, Paderborn, Germany and George Washington University, DC, USA Affiliation: ‡University of Maryland, College Park, MD, USA Affiliation: §Carnegie Mellon University, Pittsburgh, PA, USA",
+ "vendor_affiliation_hits": [],
+ "n_authors": 9,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/aibom-squad/SBOM-for-AI-Use-Cases",
+  "https://github.com/mitre/hipcheck.",
+  "https://github.com/ossf/scorecard"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# S3C2 Summit 2025-07:"
+  ],
+  [
+   36,
+   "###### Abstract."
+  ],
+  [
+   52,
+   "###### Keywords:"
+  ],
+  [
+   55,
+   "## 1. Introduction"
+  ],
+  [
+   86,
+   "## 2. Software Bill of Materials, Vulnerability Exploitability eXchange, and Compliance"
+  ],
+  [
+   95,
+   "### 2.1. Continued Themes"
+  ],
+  [
+   97,
+   "#### No Carrots and Few Sticks"
+  ],
+  [
+   109,
+   "#### Trusting SBOMs"
+  ],
+  [
+   120,
+   "#### Producing SBOMs"
+  ],
+  [
+   131,
+   "#### Consuming SBOMs"
+  ],
+  [
+   144,
+   "#### Low VEX Adoption"
+  ],
+  [
+   154,
+   "### 2.2. New Ideas"
+  ],
+  [
+   156,
+   "#### Shifting US Regulations"
+  ],
+  [
+   169,
+   "#### Mapping Attacks to Frameworks"
+  ],
+  [
+   176,
+   "#### Quantum Supply Chains"
+  ],
+  [
+   183,
+   "#### Reporting Gaps"
+  ],
+  [
+   193,
+   "#### Vendors Pushback on SBOMs"
+  ],
+  [
+   214,
+   "#### Continuous SBOMs"
+  ],
+  [
+   225,
+   "## 3. Updating Vulnerable Dependencies"
+  ],
+  [
+   229,
+   "### 3.1. Continued Themes"
+  ],
+  [
+   231,
+   "#### Alert Fatigue"
+  ],
+  [
+   240,
+   "#### Reachability"
+  ],
+  [
+   247,
+   "#### Patching"
+  ],
+  [
+   259,
+   "### 3.2. New Ideas"
+  ],
+  [
+   261,
+   "#### Triggers of Updates"
+  ],
+  [
+   271,
+   "#### Risk Tolerance"
+  ],
+  [
+   284,
+   "## 4. Malicious Commits"
+  ],
+  [
+   293,
+   "### 4.1. Continued Themes"
+  ],
+  [
+   295,
+   "#### Intent"
+  ],
+  [
+   304,
+   "#### Zero-Trust"
+  ],
+  [
+   310,
+   "#### Signals"
+  ],
+  [
+   329,
+   "#### Supporting Open-Source Software"
+  ],
+  [
+   338,
+   "### 4.2. New Ideas"
+  ],
+  [
+   340,
+   "#### Partial-Trust"
+  ],
+  [
+   350,
+   "#### No Eyeballs"
+  ],
+  [
+   358,
+   "## 5. Build Infrastructure"
+  ],
+  [
+   363,
+   "### 5.1. Continued Themes"
+  ],
+  [
+   367,
+   "#### Tool Support"
+  ],
+  [
+   371,
+   "#### Isolating Builds"
+  ],
+  [
+   383,
+   "#### Attestation and Provenance"
+  ],
+  [
+   396,
+   "### 5.2. New Ideas"
+  ],
+  [
+   398,
+   "#### What Will Be The Panacea?"
+  ],
+  [
+   437,
+   "#### Education"
+  ],
+  [
+   443,
+   "## 6. Culture"
+  ],
+  [
+   448,
+   "### 6.1. Continued Themes"
+  ],
+  [
+   450,
+   "#### Impacts of Regulation"
+  ],
+  [
+   459,
+   "#### Fostering a Security Mindset"
+  ],
+  [
+   469,
+   "#### Security Across the Entire Organization."
+  ],
+  [
+   482,
+   "### 6.2. New Ideas"
+  ],
+  [
+   484,
+   "#### Need for Analogies"
+  ],
+  [
+   492,
+   "#### Need a Shared Vision"
+  ],
+  [
+   501,
+   "## 7. LLMs and Security"
+  ],
+  [
+   507,
+   "### 7.1. Continuing Trends"
+  ],
+  [
+   509,
+   "#### Prompt Engineering"
+  ],
+  [
+   516,
+   "#### Hallucinations"
+  ],
+  [
+   523,
+   "#### Poisoning"
+  ],
+  [
+   531,
+   "#### Licenses and Intellectual Property"
+  ],
+  [
+   537,
+   "### 7.2. New Ideas"
+  ],
+  [
+   539,
+   "#### AI as Software"
+  ],
+  [
+   546,
+   "#### SBOMs for AI"
+  ],
+  [
+   561,
+   "#### Secure Development of AI"
+  ],
+  [
+   568,
+   "#### Shifting Model Assumptions"
+  ],
+  [
+   576,
+   "#### Emerging AI Frameworks"
+  ],
+  [
+   583,
+   "#### AI Not an End All be All"
+  ],
+  [
+   590,
+   "#### Amnesia"
+  ],
+  [
+   596,
+   "## 8. Component and Container Choice"
+  ],
+  [
+   600,
+   "### 8.1. New Ideas"
+  ],
+  [
+   602,
+   "#### Creating a Paved Path"
+  ],
+  [
+   611,
+   "## 9. Executive Summary"
+  ],
+  [
+   637,
+   "## 10. Acknowledgements"
+  ],
+  [
+   644,
+   "## References"
+  ],
+  [
+   845,
+   "## Appendix A Initial Discussion Questions"
+  ],
+  [
+   885,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## 10. Acknowledgements\n\nA big thank you to all Summit participants. We are very grateful for the opportunity to hear about your valuable experiences and suggestions. The Summit was organized by Laurie Williams and Pat Morrison, and recorded by Sivana Hamer.\nThis material is based upon work supported by the National Science Foundation Grant Nos. 2207008, 2206859, 2206865, and 2206921.\nThese grants support the Secure Software Supply Chain Summit (S3C2), which comprises researchers from North Carolina State University, Carnegie Mellon University, the University of Maryland, and George Washington University.\nAny opinions expressed in this material are those of the author(s) and do not necessarily reflect the views of the National Science Foundation.\n\n## References\n\nSEC (2023)\n\n2023.\n\nSecurities and Exchange Commission v. SolarWinds Corp.\n\nDocket No. 1:23-cv-09518-PAE, S.D.N.Y. (filed Oct. 30, 2023; dismissed Nov. 20, 2025).\n\nhttps://www.courtlistener.com/docket/67927585/securities-and-exchange-commission-v-solarwinds-corp/\n\nCybersecurity and Infrastructure Security Agency (2025)\n\nCybersecurity and Infrastructure Security Agency. 2025.\n\n2025 Minimum Elements for a Software Bill of Materials (SBOM).",
+ "limitations": "",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 95,
+  "java": 0,
+  "industrial": 1
+ },
+ "fulltext_source": "html"
+}

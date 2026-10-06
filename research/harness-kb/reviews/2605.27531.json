@@ -1,0 +1,133 @@
+{
+  "arxiv_id": "2605.27531",
+  "contribution_type": "system",
+  "summary": "Spec-Agent infers per-function pre/postconditions for large C++ codebases. It picks a target logic (propositional, first-order, separation logic, or FO separation logic) from Tree-sitter features and heap tracing, has an LLM propose a contract, compiles it to runtime assertions, and validates it with libFuzzer harnesses lifted from existing unit tests, feeding counterexamples back with gains plateauing by ~20 attempts (Fig. 6). On 651 BDE and 508 BlazingMQ functions it reports 85.87% / 77.73% fuzz-valid contracts with open models, versus 81.48% / 66.69% for Claude Code with Opus 4.6.",
+  "claims": [
+    {
+      "claim": "Spec-Agent synthesizes valid specifications for ~85% of target functions.",
+      "evidence": "Table 1: BDE 81.00-85.87% Test Valid across four open models; BMQ 69.77-77.73%. The abstract's '85%' is the best BDE figure. 'Valid' includes trivial contracts (5.6-17.1% reduce to true).",
+      "strength": "moderate",
+      "location": "§4 Accuracy, Table 1"
+    },
+    {
+      "claim": "No false positives under fuzzing and expert validation.",
+      "evidence": "Fuzz-passing is the acceptance criterion, so 0% 'Test Invalid' is partly by construction. Independent check is two experts reviewing a random 100 specs per repo plus all harnesses (§4 setup, App. D); no inter-rater statistic beyond 'both agreed'.",
+      "strength": "weak",
+      "location": "§4 Experimental Setup, Table 1, §6"
+    },
+    {
+      "claim": "Outperforms Claude Code Opus 4.6 at 10x lower token cost.",
+      "evidence": "App. B Table 5 (BDE): token volumes are similar (Opus 3.3M in / 2.2M out vs Qwen3-Coder-Next 3.2M / 1.0M). The ~10x is dollar cost ($41.0 vs $4.0) from Anthropic list price vs Together AI open-model price, not token count. The accuracy edge on BDE is 4.4pt (85.87 vs 81.48).",
+      "strength": "weak",
+      "location": "Abstract, Fig. 1, App. B Table 5"
+    },
+    {
+      "claim": "Fuzzing adds validation value beyond unit tests.",
+      "evidence": "Table 3: fuzzer rejects 0.4% (BDE) and 8.0% (BMQ) of contracts that already passed unit tests.",
+      "strength": "moderate",
+      "location": "§4, Table 3"
+    },
+    {
+      "claim": "Spec-Agent produces more expressive contracts (more FOL/SL).",
+      "evidence": "Table 2 counts and Avg. Atoms 3.35/4.15 vs 2.34/2.46 for Opus (Table 1).",
+      "strength": "moderate",
+      "location": "Table 2"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P35",
+      "stance": "supports",
+      "note": "Formal contracts (separation logic) validated dynamically; fuzzing as pseudo-oracle, not proof."
+    },
+    {
+      "id": "P16",
+      "stance": "supports",
+      "note": "Counterexample-guided refinement loop with executable validation; Fig. 6 shows gains plateau by ~20 attempts."
+    },
+    {
+      "id": "P14",
+      "stance": "neutral",
+      "note": "Infers specs from code (reverse direction) rather than spec-first development; contracts could seed specs for legacy code."
+    },
+    {
+      "id": "P17",
+      "stance": "supports",
+      "note": "Static (Tree-sitter) + dynamic (heap trace) analysis selects target logic deterministically before the LLM call."
+    },
+    {
+      "id": "P10",
+      "stance": "supports",
+      "note": "Authors attribute the win over Claude Code subagents to a deterministic single-call-per-attempt loop vs exploratory subagents under the same budget (§4); this is plausible but not ablated."
+    },
+    {
+      "id": "P12",
+      "stance": "contradicts",
+      "note": "Claude Code's subagent exploration consumed budget with lower validity on this narrow task (Table 1); evidence is indirect."
+    },
+    {
+      "id": "P15",
+      "stance": "neutral",
+      "note": "Reuses existing unit tests as fuzz-harness seeds; tests are held out from generation."
+    }
+  ],
+  "methodology": {
+    "sample": "1,159 documented, unit-tested public functions (651 BDE, 508 BlazingMQ) from two C++ repos totaling >4M LOC; 100 random specs per repo expert-reviewed.",
+    "baselines": "Claude Code (Sonnet 4.6, Opus 4.6) with same prompts, tests and harnesses and a 6M weighted-token budget; prior spec-synthesis tools only compared qualitatively (Table 4), including authors' own Fun2Spec.",
+    "models": "Qwen3.5-35B-A3B, Qwen2.5-32B-Instruct, CWM, Qwen3-Coder-Next (greedy, 400 tokens/attempt).",
+    "variance": "Greedy decoding, single run; no seeds or CIs; Claude Code runs (non-deterministic) appear to be single runs.",
+    "ablations": "Attempts-vs-validity curve (Fig. 6) and fuzz rejection rates (Table 3); no ablation of language selector or of counterexample feedback.",
+    "contamination_controls": "None discussed; BDE and BlazingMQ are public GitHub repos likely in pretraining data.",
+    "languages": "C++ only."
+  },
+  "standards": {
+    "peer_review": "None stated (arXiv comment: '9 pages, 3 appendices').",
+    "limitations_section": true,
+    "artifacts": "No code or data link found in the paper; builds on authors' Fun2Spec (FSE'26 industry track).",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {
+      "type": "metric_mismatch",
+      "detail": "'10x lower token cost' is dollar pricing (Anthropic vs Together AI), not tokens; token counts are within ~1.3x (App. B Table 5)."
+    },
+    {
+      "type": "self_evaluation",
+      "detail": "Validity is judged by the system's own fuzz pseudo-oracle, which also gates acceptance; 0% invalid is partly tautological."
+    },
+    {
+      "type": "closed_artifacts",
+      "detail": "No code, prompts or synthesized contracts released."
+    },
+    {
+      "type": "contamination_risk",
+      "detail": "Evaluated repos are long-public open source; no contamination discussion."
+    },
+    {
+      "type": "no_variance_reported",
+      "detail": "Single greedy runs; Claude Code baseline single run."
+    },
+    {
+      "type": "other:narrow_evaluation_set",
+      "detail": "Two repositories selected for strong docs and tests; BDE is Bloomberg's own library (ref [2]: github.com/bloomberg/bde), i.e. the authors' organization. The paper does not state BlazingMQ's provenance."
+    }
+  ],
+  "coi": {
+    "affiliations": "All three authors at Bloomberg, NY.",
+    "vendor_products_evaluated": "Evaluates own system on BDE (Bloomberg's open-source library per ref [2]) and BlazingMQ; compares against Anthropic's Claude Code, a competitor tool, not their product.",
+    "funding": "Not stated.",
+    "severity": "low",
+    "detail": "Bloomberg is not an AI tooling vendor and Spec-Agent is not marketed. Authors grading their own system (built on their own Fun2Spec) on a codebase from their organization is self-evaluation rather than commercial COI."
+  },
+  "scores": {
+    "rigor": 3,
+    "reproducibility": 1,
+    "generalizability": 2,
+    "relevance": 3,
+    "coi_risk": 1
+  },
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Interesting, well-engineered generate-validate-refine loop with real codebases. However, the headline cost claim is a pricing artifact, 'no false positives' rests largely on the acceptance oracle itself, there is no variance and no artifacts, and it covers two C++ repos from the authors' organization.",
+  "applicability": "The method does not transfer directly to a Java team (C++/libFuzzer/separation logic). The architecture does transfer: deterministic analysis picks the spec form, an LLM proposes, and an executable oracle built from existing unit tests (for Java: Jazzer or jqwik property tests, or JML/OpenJML assertions) rejects candidates, with counterexamples fed back. This is a concrete template for back-filling machine-checkable contracts on legacy ingestion/delivery code before spec-driven development. Contracts at repo boundaries (DTO invariants, content-schema preconditions) could serve as cross-repo specs. It is evidence that a tight deterministic loop with a cheap open model can match a frontier agent host on a narrow verification task, which supports the 'qr verifies' stance. It is not evidence that open models are 10x cheaper in tokens.",
+  "conflicts_with": []
+}

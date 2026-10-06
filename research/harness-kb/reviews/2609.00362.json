@@ -1,0 +1,53 @@
+{
+  "arxiv_id": "2609.00362",
+  "contribution_type": "replication",
+  "summary": "Polytechnique Montréal authors partially replicate FeedbackEval (394 Python repair tasks; feedback types test/compiler/simulated-human/simple) with GPT-4o and Claude 3.5 Sonnet, reproducing the original trends within a few points. They then build an exploratory Java extension: 50 CoderEval Java tasks, 100 GPT-4o-mini-injected mutations (50 logical, 50 compile), and JUnit 4 tests translated by GPT-4o-mini. With GPT-4o-mini as the repair model, no feedback type is significantly better for logical bugs; compiler and simple feedback beat simulated human feedback for compile errors; and lighter prompts cost less with no significant accuracy loss.",
+  "claims": [
+    {"claim": "The FeedbackEval Python findings replicate: average Repair@1 55.55% vs 56.4% (GPT-4o) and 60.2% vs 60.8% (Claude 3.5 Sonnet), with test feedback best.", "evidence": "Table I matches the abstract numbers. But it is a single run per condition (§VI: 'Each condition was executed once'), and the claim that deviations are 'within expected variability' has no variance estimate behind it. Table II shows simple > test on HumanEval for GPT-4o (79.3 vs 78.7). RQ3 was not replicated.", "strength": "moderate", "location": "§II-C, Tables I-III"},
+    {"claim": "In Java, test feedback is not superior: simple and JUnit test feedback do not differ significantly for logical mutations.", "evidence": "Table IV: simple 43/50 (86%), test 41/50 (82%), human 37/50 (74%). Cochran Q(2)=8.00 p=0.0183, but all Holm-adjusted McNemar p>=0.0938 (simple vs test p=0.50). With n=50 the test can't detect small effects; the authors correctly say this is 'insufficient evidence', not equivalence.", "strength": "weak", "location": "§III-A3, Table IV"},
+    {"claim": "For compile-error repair, compiler (javac) and simple feedback significantly outperform simulated human feedback.", "evidence": "Table IV: compiler 47/50 (94%), simple 46/50 (92%), human 39/50 (78%); Q(2)=12.67 p=0.0018; Holm p=0.0234 and 0.0313. 92% of the compile mutations were syntax errors, so the bugs are easy.", "strength": "moderate", "location": "§III-A3, Table IV, Fig. 2 text"},
+    {"claim": "Lighter prompts reduce cost without significant loss of repair effectiveness; CoT costs most.", "evidence": "Table V: Repair@1 80-88%, Q(6)=5.04 p=0.5392; CoT CAD 0.000575/repair vs baseline 0.000236. Single model (GPT-4o-mini), single run, 50 tasks.", "strength": "moderate", "location": "§III-B3, Table V"},
+    {"claim": "Python conclusions may be sensitive to benchmark construction, feedback representation and tooling (JUnit terseness vs pytest verbosity).", "evidence": "Offered as a hypothesis only; Java and Python setups differ in mutation source, model and test framework all at once, so the cause can't be isolated. The authors acknowledge this (§VI).", "strength": "weak", "location": "§IV-B, §VI"}
+  ],
+  "patterns": [
+    {"id": "P16", "stance": "mixed", "note": "Execution-based test feedback is best in Python but shows no significant advantage over a generic 'code is wrong' prompt in Java with terse JUnit 4 output; compiler feedback is strong for compile errors."},
+    {"id": "P17", "stance": "supports", "note": "javac diagnostics give 94% repair of compile mutations and significantly beat simulated human feedback (though not simple feedback)."},
+    {"id": "P24", "stance": "supports", "note": "Cost per successful repair reported; lightweight prompts are cheaper with no significant effectiveness loss."},
+    {"id": "P18", "stance": "contradicts", "note": "LLM-simulated 'human/expert' feedback is the worst feedback type in both languages."}
+  ],
+  "methodology": {
+    "sample": "Replication: 394 Python tasks (230 CoderEval + 164 HumanEval) x 4 feedback types x 2 models. Extension: 50 CoderEval Java tasks -> 100 mutated instances; 7 prompt variants on the 50 logical instances.",
+    "baselines": "The original paper's reported numbers; the 'simple feedback' generic prompt serves as an internal baseline.",
+    "models": "Replication: GPT-4o, Claude 3.5 Sonnet (the original used 5 models). Extension: GPT-4o-mini only, which also generated the mutations, translated the tests and simulated human feedback. All are dated models for 2026.",
+    "variance": "Single run per condition. Wilson 95% CIs, Cochran Q and Holm-corrected exact McNemar tests in the Java extension; no significance tests on the Python replication.",
+    "ablations": "Prompt-component ablations (no docstring/context/guidelines/persona) in both parts.",
+    "contamination_controls": "None. HumanEval/CoderEval are public and likely in training data; Java mutations come from the same model family that repairs them (acknowledged §VI).",
+    "languages": "Python (replication), Java (extension, JUnit 4.13.2, javac, Docker)."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint (10 pages, 2 figures, 5 tables); no venue stated.",
+    "limitations_section": true,
+    "artifacts": "GitHub: LouisLalonde/FeedbackEval and leusonmario/LOG6306-EmpiricalStudy (replication package section).",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "single_model", "detail": "The whole Java extension uses GPT-4o-mini for mutation, test translation, simulated feedback and repair, so the model is effectively grading its own error distribution."},
+    {"type": "small_sample", "detail": "50 Java tasks / 100 instances; with McNemar at n=50 the non-significant results are underpowered."},
+    {"type": "no_variance_reported", "detail": "Each condition run once; replication deviations called 'within expected variability' without measuring it."},
+    {"type": "toy_tasks", "detail": "Function-level CoderEval/HumanEval repairs; 92% of compile mutations are syntax errors. Nothing repository-level or agentic."},
+    {"type": "contamination_risk", "detail": "Public benchmarks plus LLM-generated mutations may match the model's training distribution (acknowledged)."},
+    {"type": "other:confounded_comparison", "detail": "Python-vs-Java differences confound language, mutation source, model and test framework, so the 'tooling ecosystem' explanation is a hypothesis."}
+  ],
+  "coi": {
+    "affiliations": "Polytechnique Montréal (all five authors).",
+    "vendor_products_evaluated": "OpenAI GPT-4o / GPT-4o-mini and Anthropic Claude 3.5 Sonnet used as subjects; no vendor authors.",
+    "funding": "NSERC, CIFAR, Canada Research Chairs Program.",
+    "severity": "none",
+    "detail": "Independent academic replication of another group's benchmark."
+  },
+  "scores": {"rigor": 3, "reproducibility": 4, "generalizability": 2, "relevance": 3, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "An honest, well-reported replication with proper paired statistics and released artifacts, and it is one of few papers that tests Java at all. But the Java part is small (n=50), uses one dated model that also built the benchmark, runs each condition once, and works on function-level tasks. Its main Java result is a non-significant difference, not a demonstrated equivalence.",
+  "applicability": "Directly relevant as a caution for a Java team building verifier loops. Feeding raw JUnit 4 assertion failures back to the model may add little over a generic 'tests failed' signal. If test feedback is the backbone of the harness's repair loop, make it informative: JUnit 5 or AssertJ messages with expected/actual values, stack traces trimmed to the project's frames, and the failing test source. Measure that on the team's own ingestion repos instead of assuming the Python results carry over. javac/compile feedback is reliably useful, so compile-then-test gating is a safe default and works the same under any agent host. Lighter prompts are cheaper without measurable loss, which supports keeping AGENTS.md/system-spec preambles lean. It says nothing about multi-repo ingestion, spec-driven workflows or agentic (multi-step) repair, and the models are stale.",
+  "conflicts_with": []
+}

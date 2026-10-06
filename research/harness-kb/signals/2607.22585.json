@@ -1,0 +1,209 @@
+{
+ "arxiv_id": "2607.22585",
+ "fulltext_chars": 29610,
+ "fulltext_lines": 766,
+ "authors_block": "Harness Choice as a Hidden Variable in Coding-Agent Evaluation Naman Vats Affiliation: Sentient Labs Oleg Golev Affiliation: Sentient Labs Correspondence to: {naman, oleg}@sentient.xyz",
+ "vendor_affiliation_hits": [],
+ "n_authors": 2,
+ "comment": "7 pages, 2 figures, 6 tables. Preliminary work; under review at the 5th DL4C Workshop @ ICML 2026",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/aaif-goose/goose.",
+  "https://github.com/alibaba/terminal-bench-pro",
+  "https://github.com/alibaba/terminal-bench-pro.",
+  "https://github.com/anomalyco/opencode.",
+  "https://github.com/harbor-framework/harbor."
+ ],
+ "hf_urls": [
+  "https://huggingface.co/MiniMaxAI/MiniMax-M2.5."
+ ],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# The Scaffold Effect in Coding Agents:"
+  ],
+  [
+   34,
+   "###### Abstract"
+  ],
+  [
+   38,
+   "###### Keywords:"
+  ],
+  [
+   41,
+   "## 1 Introduction"
+  ],
+  [
+   49,
+   "#### Contributions."
+  ],
+  [
+   70,
+   "## 2 Related Work"
+  ],
+  [
+   72,
+   "#### Coding-agent benchmarks."
+  ],
+  [
+   82,
+   "#### Agent scaffolding and evaluation reliability."
+  ],
+  [
+   88,
+   "#### Cost, oversight, and human-centered evaluation."
+  ],
+  [
+   94,
+   "## 3 Experimental Setup"
+  ],
+  [
+   96,
+   "### 3.1 Tasks"
+  ],
+  [
+   138,
+   "### 3.2 Models"
+  ],
+  [
+   150,
+   "### 3.3 Harnesses"
+  ],
+  [
+   168,
+   "### 3.4 Standardization Protocol"
+  ],
+  [
+   174,
+   "### 3.5 Metrics"
+  ],
+  [
+   178,
+   "#### Token accounting."
+  ],
+  [
+   182,
+   "#### Provider settings."
+  ],
+  [
+   186,
+   "#### Task selection."
+  ],
+  [
+   190,
+   "## 4 Results"
+  ],
+  [
+   192,
+   "### 4.1 Pass Rate"
+  ],
+  [
+   215,
+   "### 4.2 Token Cost per Solved Task"
+  ],
+  [
+   219,
+   "#### Bootstrap robustness."
+  ],
+  [
+   223,
+   "#### OpenCode budget-control sensitivity."
+  ],
+  [
+   271,
+   "### 4.3 Pareto Frontier: Pass Rate vs. Token Cost"
+  ],
+  [
+   279,
+   "### 4.4 No-Action Turns"
+  ],
+  [
+   287,
+   "### 4.5 Failure-Mode Fingerprints"
+  ],
+  [
+   377,
+   "### 4.6 Pass Rate by Task Category"
+  ],
+  [
+   384,
+   "#Tasks"
+  ],
+  [
+   437,
+   "### 4.7 Summary of Harness vs. Model Effects"
+  ],
+  [
+   463,
+   "## 5 Discussion"
+  ],
+  [
+   465,
+   "### 5.1 What the Cost Gap Means for a Human User"
+  ],
+  [
+   481,
+   "### 5.2 What the Failure Fingerprints Mean"
+  ],
+  [
+   499,
+   "### 5.3 Implications for Benchmark Reporting"
+  ],
+  [
+   503,
+   "## 6 Limitations"
+  ],
+  [
+   525,
+   "## 7 Conclusion"
+  ],
+  [
+   529,
+   "## Data and Code Availability"
+  ],
+  [
+   533,
+   "## Impact Statement"
+  ],
+  [
+   537,
+   "## References"
+  ],
+  [
+   638,
+   "## Appendix A Failure Classification Decision Tree"
+  ],
+  [
+   671,
+   "## Appendix B Selected 50 Task IDs"
+  ],
+  [
+   726,
+   "## Appendix C Failure Examples (One per Category)"
+  ],
+  [
+   766,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 6 Limitations\n\n• \n\nSample size. n=50 tasks; with one task corresponding to 2 percentage points, several pass-rate effects we observe are within bootstrap noise. We treat them as descriptive rather than statistically definitive.\n\n• \n\nToken accounting asymmetry. Goose totals are reported without an input/output breakdown via Harbor’s standard interface. The 40 \\times ratio is robust to this: it is anchored in totals, which Goose does report. Per-direction comparisons, however, are not available for Goose.\n\n• \n\nTurn-budget asymmetry. Goose and OpenHands-SDK enforce a 40-turn cap; OpenCode is bounded only by the 900-second wall-time cap, because OpenCode does not expose a turn-budget flag through Harbor. “Turn” is also harness-defined and may include differing numbers of internal LLM calls per harness.\n\n• \n\nThree harnesses, two models. The harness-specific findings should not be assumed to generalize to all scaffold architectures or to commercial closed-source agent products that we did not evaluate.\n\n• \n\nProvider defaults may evolve. OpenRouter and the upstream provider defaults (sampling parameters, route selection, model version) can shift between runs; exact replication requires pinning the provider route and sampling settings that were in effect at our run time. The released run metadata records the settings available at execution time.\n\n## 7 Conclusion\n\nWe present controlled evidence that harness choice introduces a \\mathbf{40\\times} token-cost difference and harness-specific failure fingerprints in coding-agent evaluation, while shifting paired pass rate by at most 8 percentage points. Both replicate independently across two recent models. For the human-centered coding-agent agenda, this argues that the unit of evaluation should be the harness–model pair, with cost, idle-turn, and failure-mode signals reported alongside pass rate. We include anonymized configs, raw trial logs, aggregated snapshots, and analysis scripts as supplementary material.\n\n## Data and Code Availability\n\nAnonymized harness configurations, raw Harbor trial logs, aggregated snapshots, and the analysis pipeline are available at https://anonymous.4open.science/r/scaffold-effects-dl4c-supp/, frozen for the duration of review.\n\n## Impact Statement\n\nThis paper presents work whose goal is to advance the field of Machine Learning, specifically the evaluation of coding agents. By showing that scaffold choice drives a 40\\times token-cost gap and harness-specific failure profiles, we hope to encourage benchmark reporting that surfaces deployment cost and oversight burden, which directly affects the dollar cost, latency, and supervisory effort a human developer absorbs when using these systems. We see no specific ethical concern beyond those generally associated with releasing evaluation tooling and trial logs for coding agents.\n\n## References\n\nAgentic AI Foundation (2026) (originally Block, Inc.)\nAgentic AI Foundation (originally Block, Inc.).\n\nGoose: An open-source, extensible ai agent, 2026.",
+ "ethics_coi": "## Impact Statement\n\nThis paper presents work whose goal is to advance the field of Machine Learning, specifically the evaluation of coding agents. By showing that scaffold choice drives a 40\\times token-cost gap and harness-specific failure profiles, we hope to encourage benchmark reporting that surfaces deployment cost and oversight burden, which directly affects the dollar cost, latency, and supervisory effort a human developer absorbs when using these systems. We see no specific ethical concern beyond those generally associated with releasing evaluation tooling and trial logs for coding agents.\n\n## References\n\nAgentic AI Foundation (2026) (originally Block, Inc.)\nAgentic AI Foundation (originally Block, Inc.).\n\nGoose: An open-source, extensible ai agent, 2026.\n\nURL https://github.com/aaif-goose/goose.\n\nAlibaba (2026)\n\nAlibaba.\n\nTerminal-Bench Pro.\n\nGitHub repository, 2026.\n\nURL https://github.com/alibaba/terminal-bench-pro.\n\nHarbor Framework Team (2026)",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 12,
+  "seeds_or_runs": 0,
+  "swe_bench": 3,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

@@ -1,0 +1,50 @@
+{
+  "arxiv_id": "2608.07147",
+  "contribution_type": "empirical",
+  "summary": "DiDPO is a critic-free RL algorithm for training small coding models in a multi-turn add/delete edit loop. It splits each step's code diff into sub-diffs, aligns similar sub-diffs across rollouts of the same task via a 'groupability score', and adds a sub-diff-level group-relative advantage to the usual trajectory-level GRPO advantage. Evaluated on Qwen2.5-Coder-7B and Qwen3.5-4B over function-level and competitive-programming benchmarks, it beats GRPO, GiGPO and CodeRL+ by a few points; the authors also release a verl-code RL codebase.",
+  "claims": [
+    {"claim": "DiDPO achieves the highest average across benchmarks: 48.4% (Qwen2.5-Coder-7B) and 58.6% (Qwen3.5-4B), beating GiGPO by 4.2 and 4.9 points.", "evidence": "Table 1 and §5.2. Evaluation averaged over 5 sampled runs (App. E) but single training seed per method, no std reported.", "strength": "moderate", "location": "§5.2, Table 1"},
+    {"claim": "On Qwen2.5-Coder-7B, DiDPO exceeds comparable methods by over 10%.", "evidence": "Body reports +5.6 points over GRPO and +4.2 over GiGPO on average (≈13% and ≈9.5% relative); 'over 10%' only holds against GRPO in relative terms or on selected splits (e.g., +10.4 on APPS Interview).", "strength": "weak", "location": "Abstract vs §5.2"},
+    {"claim": "Sub-diff credit is responsible for the gain over GRPO.", "evidence": "Table 3 ablation on APPS/OJBench: full 31.3/8.0; w/o diff-level advantage 23.8/5.7; w/o sub-diff 25.0/4.4. Only one backbone, two benchmarks, no variance; lambda=1.2 selected by sensitivity curve without stated held-out tuning split.", "strength": "moderate", "location": "§5.3, Table 3, Fig. 5"},
+    {"claim": "DiDPO adds only ~2.3% training overhead over GRPO.", "evidence": "Fig. 5 right per-step time breakdown.", "strength": "moderate", "location": "§5.3"}
+  ],
+  "patterns": [
+    {"id": "P25", "stance": "supports", "note": "Fine-grained RL credit on code diffs improves small models on competitive programming; not shown for repository tasks."},
+    {"id": "P16", "stance": "neutral", "note": "Relies on test execution as the verifiable reward."}
+  ],
+  "methodology": {
+    "sample": "Training on filtered PRIME data plus ~3K SFT cold-start trajectories (Qwen3.6-27B rollouts on GPT-5.5-augmented tasks); evaluation on APPS, HumanEval, MBPP, LiveCodeBench, LeetCode, USACO, OJBench, ICPC.",
+    "baselines": "GRPO, GiGPO, CodeRL+ (same hyper-parameters), CoT/CodeAct/Self-Planning prompting, and large models (Kimi-K2.6, Qwen3.6-27B, GLM-5.2, GPT-5.5) as reference ceilings.",
+    "models": "Qwen2.5-Coder-7B and Qwen3.5-4B backbones.",
+    "variance": "Validation averaged over 5 sampled runs; no training seeds, std or CIs.",
+    "ablations": "Groupability score design, component removal, lambda sensitivity, overhead.",
+    "contamination_controls": "Training set filtered against validation set; LiveCodeBench cited as reduced-contamination; HumanEval/MBPP/APPS are public and likely in pretraining.",
+    "languages": "Python competitive programming; edit actions restricted to add/delete in a temp dir."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint marked 'work in progress'.",
+    "limitations_section": false,
+    "artifacts": "verl-code codebase at github.com/xuc865/verl-code; trained checkpoints and SFT data release not stated.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "toy_tasks", "detail": "'Long-horizon coding agent' tasks are single-file algorithmic problems with add/delete actions, not repository work."},
+    {"type": "single_language_python", "detail": "All benchmarks are Python code generation."},
+    {"type": "no_variance_reported", "detail": "Single training run per method; 4-5 point margins without seeds."},
+    {"type": "hype_language", "detail": "'Over 10%' and 'principled framework' overstate a 4-6 point average gain."},
+    {"type": "contamination_risk", "detail": "HumanEval/MBPP/APPS are long-public; SFT data distilled from larger models that may have seen them."},
+    {"type": "other:llm_labelled_analysis", "detail": "Group-type evolution (Fig. 4) labelled by GPT-5.5 without validation."}
+  ],
+  "coi": {
+    "affiliations": "USTC, Stanford University, Suzhou Institute for Advanced Research (USTC), Tongji University.",
+    "vendor_products_evaluated": "None.",
+    "funding": "No acknowledgments or funding statement found.",
+    "severity": "none",
+    "detail": "Academic; only stake is the proposed method."
+  },
+  "scores": {"rigor": 2, "reproducibility": 2, "generalizability": 1, "relevance": 1, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Plausible RL credit-assignment idea with ablations and released code, but work-in-progress, single training seed, Python competitive programming only, abstract overstates gains, and it concerns model training rather than harness design.",
+  "applicability": "Does not transfer to the Java team's harness decisions. The team uses hosted models via mixed agent hosts and will not run RL on coding policies; the tasks studied (single-file Python algorithm problems) say nothing about multi-repo Java ingestion services or spec-driven workflows. At most, it is background on why vendor models may get better at multi-region edits.",
+  "conflicts_with": []
+}

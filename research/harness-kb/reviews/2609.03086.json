@@ -1,0 +1,55 @@
+{
+  "arxiv_id": "2609.03086",
+  "contribution_type": "tool",
+  "summary": "Constructor Institute of Technology / Constructor University authors present Eiffel-tools, a Language Server Protocol server for Eiffel. It builds structured prompts from project context (contracts, variable lists, syntax guide, a verbatim feature template), sends them to an LLM, and loops the model's fix through the AutoProof static verifier for up to 10 attempts. They evaluate the 'fix feature body' command on 539 contract-annotated bugs (513 translated from BuggyJava+JML, 26 from Maple) with three models and two prompt variants, reporting 76-95% fix rates plus time and cost.",
+  "claims": [
+    {"claim": "Combining LLMs with a formal verifier fixes 76% to 95% of bugs depending on model and prompt.", "evidence": "§6/Fig. 6: Sonnet 4.6 95% full / 90% minimal; Laguna XS 85% / 76%; GPT-5 Nano 82% / 77%. The numbers match the abstract. But there is one run per configuration, no comparison with existing Eiffel repair tools (AutoFix, Proof2Fix, mentioned in §3), and the tasks are small textbook routines (absolute value, binary search, stack/queue).", "strength": "moderate", "location": "§6, Fig. 6"},
+    {"claim": "Rich tool-built context ('full' prompt) improves success by 6.4 pp on average.", "evidence": "§6. The 'minimal' variant removes the syntax guide, variable list, template, and the verifier error message itself. The ablation therefore conflates context engineering with whether verifier feedback is given at all, so it cannot isolate either.", "strength": "weak", "location": "§5.3, §6"},
+    {"claim": "Fix attempts trade off against success, time and cost; most fixes occur on the first attempt.", "evidence": "Fig. 7: 67.9%-83.5% of fixes on attempt 1, diminishing returns afterwards; Figs. 8-10: Sonnet ~5x the cost of GPT-5 Nano (full) but 2x faster; minimal prompts raise GPT reasoning tokens and cost.", "strength": "moderate", "location": "§6, Figs. 7-10"}
+  ],
+  "patterns": [
+    {"id": "P35", "stance": "supports", "note": "Verifier-in-the-loop generation against fixed Design-by-Contract specs on small routines; the template keeps pre/postconditions verbatim, which limits spec gaming."},
+    {"id": "P16", "stance": "supports", "note": "Repair loop that re-verifies each attempt, with diminishing returns after the first few attempts."},
+    {"id": "P05", "stance": "introduces", "note": "LSP as both the harness and the integration point; tree-sitter-based extraction of relevant code instead of whole-project context. Not compared against alternatives."},
+    {"id": "P17", "stance": "supports", "note": "Static-verifier error messages fed back to the model (only via the confounded ablation)."},
+    {"id": "P23", "stance": "neutral", "note": "Reports cost/latency of cheap vs expensive models but no routing."},
+    {"id": "P24", "stance": "neutral", "note": "Attempt cap of 10 and per-feature cost reported."}
+  ],
+  "methodology": {
+    "sample": "539 bugs: 513 from buggy-java-jml-eiffel (translation of BuggyJava+JML) and 26 from maple-recursive-eiffel.",
+    "baselines": "None external; only two prompt variants compared. No comparison with AutoFix/Proof2Fix or a no-verifier condition.",
+    "models": "GPT-5 Nano, Claude Sonnet 4.6 (reasoning off), Poolside Laguna XS, via OpenRouter.",
+    "variance": "Single run per model x prompt; no CIs.",
+    "ablations": "'Full' vs 'minimal' prompt (confounded, see claims).",
+    "contamination_controls": "None; leakage of the public Java/JML and C originals is acknowledged as a threat.",
+    "languages": "Eiffel (datasets translated from Java+JML and C)."
+  },
+  "standards": {
+    "peer_review": "Submitted and presented at VERIFAI-2026 (workshop), per arXiv comment.",
+    "limitations_section": true,
+    "artifacts": "Eiffel-tools GitHub repository (ref [5]) with an experiment-results folder.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "toy_tasks", "detail": "Textbook-size routines with complete contracts; not repository-level work."},
+    {"type": "contamination_risk", "detail": "Datasets are translations of public benchmarks whose fixes may be memorised (acknowledged)."},
+    {"type": "no_variance_reported", "detail": "One run per configuration."},
+    {"type": "other:no_external_baseline", "detail": "No comparison with prior Eiffel repair tools or a verifier-free LLM baseline."},
+    {"type": "other:confounded_ablation", "detail": "The 'minimal' prompt drops both context and the verifier error, so the effect of each is unknown."},
+    {"type": "self_evaluation", "detail": "Tool authors evaluate their own tool."}
+  ],
+  "coi": {
+    "affiliations": "Constructor Institute of Technology (Schaffhausen) and Constructor University (Bremen).",
+    "vendor_products_evaluated": "Third-party models (OpenAI, Anthropic, Poolside) used as backends; Eiffel-tools is the authors' own open-source tool.",
+    "funding": "No acknowledgments or funding section found.",
+    "severity": "none",
+    "detail": "Academic tool paper; no commercial interest evident."
+  },
+  "scores": {"rigor": 2, "reproducibility": 3, "generalizability": 1, "relevance": 2, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "The headline numbers are in the body, three models were compared, and code plus results are released. But it is a short workshop tool paper with one run per configuration, no external baseline, a confounded ablation, toy tasks, an Eiffel-only scope and acknowledged contamination risk.",
+  "applicability": "Mostly does not transfer: Eiffel/AutoProof has no direct counterpart in a Spring/Java ingestion stack, although the dataset originated in Java+JML. Two ideas carry over. (1) Verifier-gated repair: a Java team can do the analogous loop with javac, Error Prone/NullAway or JML/OpenJML-style contracts, or more realistically JSON-Schema/OpenAPI contract tests on ingested content. Keep the spec text locked (verbatim pre/postconditions) so the agent fixes the body, not the spec, which fits spec-driven development. (2) Most fixes land on the first attempt and returns diminish after 2-3, which argues for a small retry cap (P24) in any host's loop. Putting the logic in an LSP server makes it host-neutral across Cursor, VS Code and other editors, but that is only demonstrated, not compared.",
+  "conflicts_with": [
+    {"arxiv_id": "2609.00362", "detail": "Here, removing context together with the verifier error drops fix rates by 6.4 pp on average. In that paper's Java extension, a generic 'code is wrong' prompt did as well as structured test or compiler feedback. Both are small single-run studies, so the effect of feedback richness remains unsettled."}
+  ]
+}

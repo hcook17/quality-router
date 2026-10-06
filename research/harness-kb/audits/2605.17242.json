@@ -1,0 +1,21 @@
+{"arxiv_id": "2605.17242",
+ "blind_scores": {"rigor": 3, "reproducibility": 4, "generalizability": 2, "relevance": 3, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "Unreliable feedback negates TDD for weaker models; a stronger tester restores gains.", "proposed_strength": "weak", "reason": "The 'stronger tester' swapped in is Claude Sonnet 4.6, which is also the fixed final oracle (§4.5.2: oracle accuracy measured 'using a fixed, independent model (Claude Sonnet 4.6)'). The recovered +6.8 to +9.4 pp may partly reflect the loop optimising toward the oracle model's own judgements rather than better apps. Two of three gains are only p=.056/.092, on a single run per cell with n=20."},
+  {"claim": "With capable backbones TDD improves accuracy by 15.5–23.7 pp.", "proposed_strength": "moderate", "reason": "Keep moderate but the review's own caveat deserves more weight: the loop receives acceptance tests converted from the exact WebGen-Bench tests the oracle later scores (§4.5.2), while Vanilla never sees them, and there is no baseline that iterates against the same tests without the TDD structure. The Sonnet +23.7 pp is also scored by a Sonnet oracle."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P04", "from": "supports", "to": "introduces", "reason": "§4.3 says MCP packaging 'enables cross-agent evaluation', but it is never compared with a non-MCP integration. The paper uses MCP to make the tools portable; it does not test whether MCP works better than an alternative."},
+  {"id": "P16", "from": "supports", "to": "mixed", "reason": "Execution feedback hurts Qwen3.5 with its own tester (−4.4 and −0.8 pp, Table 6), and Whole-Project TDD regresses in 14/20 apps for MiniMax (Table 8). 'Supports' holds only when the verifier is reliable, and here the verifier is an LLM, not a deterministic test."}
+ ],
+ "missed_issues": [
+  "Circularity: the hybrid 'Sonnet feedback' condition and the Sonnet backbone are both scored by a Sonnet 4.6 oracle. That shared-model bias undercuts the paper's headline mechanism (that feedback quality is the bottleneck), not just the Sonnet row.",
+  "The oracle's reliability is checked only on 10 hand-written micro-fixtures with one seeded defect each (Table 3/5), never on the real generated apps whose scores it reports. The 75% accuracy on correct apps means there are false fails in the oracle itself.",
+  "The coverage matching in Table 4 is judged by a different model ('Claude-Sonnet-5', §4.5.1), and no human spot-check is reported.",
+  "The user study (n=3; two are research staff, presumably close to the authors) compares the authors' tool with Bolt.diy. This is selection_bias_participants plus self_evaluation, and no statistics are reported.",
+  "Rigor 4 is too lenient: there is one run per cell at temperature 0 and no non-TDD iterate-on-tests baseline, so the rubric's '5' anchors (variance and held-out data) are clearly not met.",
+  "novelty_inflation/hype: 'the first controlled study' is a self-claim, and the arXiv metadata title adds 'Multi-Agent', which the body does not use."
+ ],
+ "note": "Admittable, peer-reviewed study with released code. However, its causal claims about TDD and tester quality are confounded: the loop sees the oracle's own tests, and the 'stronger tester' is the same model as the oracle. Relevance to a backend Java team is indirect, since browser-based testing of greenfield web apps does not transfer directly."}

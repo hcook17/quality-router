@@ -1,0 +1,27 @@
+{
+  "arxiv_id": "2605.04902",
+  "contribution_type": "system",
+  "summary": "AegisTS cleans multivariate time series with two hierarchical RL policies: a high-level one orders the quality issues (duplicates, missing values, outliers, constraint violations) and a low-level one picks a cleaning operator for each. A dual-stage reward couples cleaning quality and downstream task performance. 'Agent' here means an RL policy, not an LLM agent.",
+  "claims": [
+    {"claim": "Up to 96% improvement in data cleaning quality", "evidence": "§6.2: 96.4% NMSE reduction vs EDITOR on ETTh1 only. On IDF_OilTemp, Clean4TSDB has lower NMSE, and on Handwriting EDITOR has higher RRA/F1, so 'up to' is the best case on one dataset.", "strength": "weak", "location": "§6.2, Table 4"},
+    {"claim": "Up to 27% improvement in downstream performance; best downstream on all scenarios", "evidence": "§6.2 downstream paragraph and Table 4 report the highest ΔPerf on each configuration (e.g. +0.1666 IDF_OilTemp). Single runs, no variance.", "strength": "moderate", "location": "§6.2, Table 4"},
+    {"claim": "Works without ground truth or domain rules", "evidence": "Evaluation still uses synthetically injected corruptions on clean datasets (following MTSClean) to obtain dirty-clean pairs, so the real-world no-ground-truth case is not tested directly.", "strength": "weak", "location": "§6.1.1"}
+  ],
+  "patterns": [
+    {"id": "P13", "stance": "neutral", "note": "Hierarchical high-/low-level RL policy; not an LLM planner-executor."}
+  ],
+  "methodology": {"sample": "4 public datasets (ETTh1, IDF_OilTemp, Libras, Handwriting), 6 dataset-task configurations, synthetic corruption injection", "baselines": "EDITOR, Clean4TSDB, DiffPrep (adapted; single-series only), random sampling", "models": "RL policies; no LLMs", "variance": "None reported", "ablations": "§6.5 ablation and §6.6 parameter study", "contamination_controls": "n/a", "languages": "n/a (time-series data)"},
+  "standards": {"peer_review": "None stated (ACM template placeholder text left in the front matter)", "limitations_section": false, "artifacts": "No code link found", "preregistration": "n/a"},
+  "biases": [
+    {"type": "cherry_picked_examples", "detail": "The 96% headline is the single best dataset/metric pair."},
+    {"type": "toy_tasks", "detail": "Corruptions are synthetic injections, not naturally dirty data."},
+    {"type": "no_variance_reported", "detail": "No seeds or CIs for an RL method."},
+    {"type": "closed_artifacts", "detail": "No released code."}
+  ],
+  "coi": {"affiliations": "Zhejiang University, National University of Singapore, University of Fribourg, Aalborg University", "vendor_products_evaluated": "None", "funding": "Not stated", "severity": "none", "detail": "Academic authors."},
+  "scores": {"rigor": 2, "reproducibility": 1, "generalizability": 2, "relevance": 0, "coi_risk": 0},
+  "verdict": "reject",
+  "verdict_reason": "off-topic: RL-based time-series data cleaning. 'Agentic' refers to RL policies, not LLM coding agents. The headline numbers are best cases on synthetic corruptions with no variance and no code.",
+  "applicability": "Not applicable. The team ingests healthcare education content (documents and media metadata), not sensor time series, and the paper has no bearing on agent harnesses, multi-repo coordination, agent hosts, or spec-driven development.",
+  "conflicts_with": []
+}

@@ -1,0 +1,31 @@
+{
+  "arxiv_id": "2606.31650",
+  "contribution_type": "empirical",
+  "summary": "ECHO is an agentic-RL training method for long-horizon tool-using agents. It compresses each completed tool turn into a source-indexed memory record, rebuilds the bounded context by having the policy select useful records, and routes positive GRPO credit only to the final segment plus the selected evidence turns. On BrowseComp-Plus it beats GRPO and a SUPO-style rolling-summary baseline, with zero-shot transfer to QA, CodeGym, LoCoBench-Agent, GAIA, HLE and Frames.",
+  "claims": [
+    {"claim": "ECHO reaches 43.4% held-out accuracy on BrowseComp-Plus vs GRPO 28.9% and SUPO 36.1%, with fewer turns.", "evidence": "§5.2 prose and Fig. 1 (numbers only in prose/figure). Table 3 shows the held-out set is only 83 examples, so the 7.3-point gap over SUPO is about 6 questions; single training run, no CIs. Turns 45.3 vs 62.5, split rate 57.8% vs 85.5%.", "strength": "weak", "location": "§5.2, Fig. 1, Appendix A Table 3"},
+    {"claim": "Learned source selection and traceable credit routing are both needed.", "evidence": "Fig. 5 ablations and Table 2: Qwen3-32B average 40.2 (ECHO) vs 38.2 (Top-K retrieval) vs 36.1 (w/o traceable CA & turn-level IS). Same small eval sets, single runs.", "strength": "moderate", "location": "§5.3, Fig. 5, Table 2"},
+    {"claim": "ECHO improves zero-shot generalization including code generation on dense and MoE backbones.", "evidence": "Table 2: LoCoBench-Agent 70.4 vs 68.1 (SUPO) on Qwen3-32B; 66.8 vs 65.1 on Qwen3-30B-A3B; CodeGym 41.4 vs 35.4. Code subsets are 128 instances each (Python-only LoCoBench, CodeGym subset filtered with the base policy); small margins, no variance.", "strength": "weak", "location": "§5.5, Table 2, Appendix A.1"}
+  ],
+  "patterns": [
+    {"id": "P08", "stance": "supports", "note": "Source-indexed selective turn memory beats rolling-summary compaction (SUPO) for RL-trained browsing agents; summarization-style compaction led to turn proliferation and MoE collapse (13.3% by step 50)."},
+    {"id": "P09", "stance": "neutral", "note": "Per-episode turn memory, not persistent cross-session memory."},
+    {"id": "P25", "stance": "introduces", "note": "Credit routing over selected evidence turns within GRPO."},
+    {"id": "P18", "stance": "neutral", "note": "Training/eval verifier is a Deepseek V4-Flash LLM judge, with no validation reported."}
+  ],
+  "methodology": {"sample": "BrowseComp-Plus 747 train / 83 held-out; zero-shot: multi-objective QA, CodeGym 128-instance subset, LoCoBench-Agent 128 Python instances, GAIA, HLE, Frames.", "baselines": "GRPO and SUPO-style rolling summarization: relevant but few; no MEM1/other memory-RL baselines run.", "models": "Qwen3-32B-Instruct (dense) and Qwen3-30B-A3B-Instruct (MoE).", "variance": "None; single training runs per method.", "ablations": "Memory components (top-K retrieval, full observations) and credit routing (w/o traceable CA, turn-level IS).", "contamination_controls": "None discussed.", "languages": "Natural-language QA; code evaluation Python-only (LoCoBench-Agent subset) and synthetic CodeGym APIs."},
+  "standards": {"peer_review": "No venue listed.", "limitations_section": false, "artifacts": "GitHub handle xiezijun714-lang/Echo given on title page; prompts in Appendix B; settings in Table 3.", "preregistration": "n/a"},
+  "biases": [
+    {"type": "small_sample", "detail": "Headline result on 83 held-out questions; code evals on 128-instance subsets."},
+    {"type": "no_variance_reported", "detail": "Single RL runs; differences of 1-3 points on zero-shot benchmarks are presented as wins."},
+    {"type": "llm_judge_unvalidated", "detail": "Reward and evaluation verifier is a Deepseek V4-Flash LLM judge without agreement statistics."},
+    {"type": "single_language_python", "detail": "Code generalization limited to Python LoCoBench-Agent instances and CodeGym."},
+    {"type": "other:no_limitations_section", "detail": "No limitations or threats section."}
+  ],
+  "coi": {"affiliations": "Baidu Inc. (most authors, including corresponding email), Peking University, University of Science and Technology of China.", "vendor_products_evaluated": "None of Baidu's; backbones are Qwen3 models.", "funding": "No acknowledgments/funding section found.", "severity": "low", "detail": "Vendor-affiliated authors, but no own product evaluated."},
+  "scores": {"rigor": 2, "reproducibility": 2, "generalizability": 2, "relevance": 1, "coi_risk": 1},
+  "verdict": "reject",
+  "verdict_reason": "off-topic: an RL training recipe for long-horizon web-search agents. The team will not train policies, and the headline rests on 83 held-out items with a single run and an unvalidated LLM-judge reward.",
+  "applicability": "Little transfers to a Java backend team using hosted agents across ≥4 repos. The team cannot apply RL credit routing to vendor models. The only weak harness-level hint is that keeping source-indexed, selectable records of past tool turns may beat rolling free-text summaries when compacting long sessions. Treat that as a hypothesis, not a finding for coding hosts, because the code evidence is Python-only and small.",
+  "conflicts_with": []
+}

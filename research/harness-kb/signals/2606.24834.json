@@ -1,0 +1,191 @@
+{
+ "arxiv_id": "2606.24834",
+ "fulltext_chars": 62261,
+ "fulltext_lines": 1856,
+ "authors_block": "Ali Pourghasemi Fatideh Affiliation: University of Maine Email: ali.pourghasemi@maine.edu Wilder Baldwin Affiliation: University of Maine Email: wilder.baldwin@maine.edu Maria Dhakal Affiliation: University of Notre Dame Email: mdhakal@nd.edu Collin McMillan Affiliation: University of Notre Dame Email: cmc@nd.edu Sepideh Ghanavati Affiliation: University of Maine Email: sepideh.ghanavati@maine.edu",
+ "vendor_affiliation_hits": [],
+ "n_authors": 5,
+ "comment": "9 pages, 5 figures. Accepted to SIGDIAL 2026 (27th Annual Meeting of the Special Interest Group on Discourse and Dialogue)",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/sh3rLock3d/DialogueNFR"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Accuracy and Satisfaction in Multi-Turn LLM Dialogues for NFR Assessment"
+  ],
+  [
+   52,
+   "###### Abstract"
+  ],
+  [
+   59,
+   "## 1 Introduction"
+  ],
+  [
+   86,
+   "## 2 Related Work and Background"
+  ],
+  [
+   169,
+   "### 2.1 Evaluation of LLM-based Code Assistants"
+  ],
+  [
+   174,
+   "### 2.2 Dialogue System Evaluation"
+  ],
+  [
+   180,
+   "### 2.3 Developer–AI Interaction Studies"
+  ],
+  [
+   184,
+   "### 2.4 iTrust"
+  ],
+  [
+   191,
+   "## 3 Methodology"
+  ],
+  [
+   196,
+   "### 3.1 Ground Truth Creation"
+  ],
+  [
+   208,
+   "### 3.2 Survey Design"
+  ],
+  [
+   219,
+   "### 3.3 Survey Tool"
+  ],
+  [
+   227,
+   "### 3.4 Participants"
+  ],
+  [
+   233,
+   "### 3.5 Annotation Process"
+  ],
+  [
+   365,
+   "## 4 Results"
+  ],
+  [
+   402,
+   "### 4.1 RQ1: Response Accuracy and Quality"
+  ],
+  [
+   406,
+   "#### 4.1.1 Ground Truth Accuracy"
+  ],
+  [
+   470,
+   "#### 4.1.2 Participant Perceived Response Quality"
+  ],
+  [
+   472,
+   "##### Distribution of Ratings."
+  ],
+  [
+   478,
+   "##### Rating Divergence."
+  ],
+  [
+   503,
+   "### 4.2 RQ2: Dialogue Characteristics and User Satisfaction"
+  ],
+  [
+   507,
+   "##### User Satisfaction."
+  ],
+  [
+   587,
+   "##### All Predictors."
+  ],
+  [
+   597,
+   "##### Predictors of User Satisfaction."
+  ],
+  [
+   640,
+   "## 5 Discussion"
+  ],
+  [
+   642,
+   "### 5.1 The Gap between Rating and Accuracy"
+  ],
+  [
+   652,
+   "### 5.2 Dialogue Design Implications"
+  ],
+  [
+   657,
+   "## 6 Conclusions"
+  ],
+  [
+   661,
+   "## 7 Limitations"
+  ],
+  [
+   677,
+   "## 8 Ethics Consideration"
+  ],
+  [
+   681,
+   "## 9 Acknowledgement"
+  ],
+  [
+   685,
+   "## References"
+  ],
+  [
+   1303,
+   "## Appendix A Participants Demographic"
+  ],
+  [
+   1309,
+   "## Appendix B Annotation Definitions"
+  ],
+  [
+   1313,
+   "## Appendix C Statistical Significance Tests"
+  ],
+  [
+   1482,
+   "## Appendix D Predictors"
+  ],
+  [
+   1708,
+   "## Appendix E High Correlated Predictors"
+  ],
+  [
+   1712,
+   "## Appendix F Backward Elimination Steps"
+  ],
+  [
+   1856,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## 9 Acknowledgement\n\nThis research was supported by NSF Award #2442683.\n\n## References\n\nAider (2024)\nAider\n\nO1 tops aider’s new polyglot leaderboard.\n\nNote: https://aider.chat/2024/12/21/polyglot.htmlAccessed: 2026-01-08\n\nCited by: §1,\n§2.1,\nTable 1.\n\nAlor et al. (2025)\nE. Alor, S. Khatoonabadi, and E. Shihab\n\nEvaluating the use of llms for documentation to code traceability.\n\narXiv preprint arXiv:2506.16440.\n\nCited by: §3.1.",
+ "limitations": "## 7 Limitations\n\nThis study has several limitations that should be considered when interpreting the results.\n\nFirst, the NFR corpus was initially extracted by a single privacy and software engineering expert who reviewed the HIPAA regulations and derived 180 NFRs from 650 extracted statements. A second expert reviewed and validated these extracted NFRs, which raises the possibility that some relevant requirements were missed. HIPAA is a complex and extensive regulatory framework, and a single reviewer may overlook statements that a second independent extractor would have identified. In the future, we will ensure that two experts independently extract NFRs from the regulations and reconcile their results to ensure a more comprehensive coverage of the regulatory space.\n\nSecond, we evaluated a single LLM-based agent (GitHub Copilot with gpt-5.1-codex-max) against a single codebase (iTrust) in one regulatory domain (HIPAA). While iTrust is a testbed for privacy and security requirements, the generalizability of our findings to other codebases, regulatory frameworks, or LLM-based agents remains an open question.\n\nThird, like most survey-based studies in software engineering, this work faces several validity threats. Variations in the source code and NFRs, participant selection, or the survey interface could affect outcomes. To address these concerns, we use the iTrust EHR system, a well-established codebase specifically designed to comply with HIPAA regulations, from which we draw our NFRs, and a simple web interface to avoid the complexity of tools like IDEs.\nAnother problem is that our participant pool, recruited through Prolific with screening filters to target individuals with software development experience, may not fully represent all developers who engage with NFR assessment in practice or have knowledge in HIPAA compliance, and may be subject to selection bias.\nThe study is also subject to self-report bias and recall bias, as participants rated the system’s responses based on their own understanding of HIPAA compliance, which may not reflect expert-level judgment, and may have misremembered details of the interaction when completing the satisfaction survey.\n\nFourth, our analysis was conducted on a relatively small dataset, i.e., 32 dialogues, which limits the statistical power of the analysis. Although we applied standard procedures, including predictor filtering, normalization, and backward elimination, the identified predictors and their coefficients may not be stable or generalizable beyond this dataset.\n\nFinally, our user satisfaction function should not be used to increase or optimize user satisfaction in an LLM agent, because it may make inaccurate responses seem more convincing.\n\n## 8 Ethics Consideration\n\nThis study was approved by the University of Maine’s Institutional Review Board (IRB) and conducted in compliance with institutional ethical standards. Prior to participation, all individuals were provided informed consent through a form detailing the investigators, risks, benefits, compensation, and confidentiality. They were informed that participation was voluntary, and individuals were free to withdraw at any point. Contact information for the investigators and the IRB was provided in the consent form. No participants contacted either party during the study.\n\n## 9 Acknowledgement\n\nThis research was supported by NSF Award #2442683.\n\n## References\n\nAider (2024)\nAider\n\nO1 tops aider’s new polyglot leaderboard.\n\nNote: https://aider.chat/2024/12/21/polyglot.htmlAccessed: 2026-01-08\n\nCited by: §1,\n§2.1,\nTable 1.\n\nAlor et al. (2025)\nE. Alor, S. Khatoonabadi, and E. Shihab",
+ "ethics_coi": "## 8 Ethics Consideration\n\nThis study was approved by the University of Maine’s Institutional Review Board (IRB) and conducted in compliance with institutional ethical standards. Prior to participation, all individuals were provided informed consent through a form detailing the investigators, risks, benefits, compensation, and confidentiality. They were informed that participation was voluntary, and individuals were free to withdraw at any point. Contact information for the investigators and the IRB was provided in the consent form. No participants contacted either party during the study.\n\n## 9 Acknowledgement\n\nThis research was supported by NSF Award #2442683.\n\n## References\n\nAider (2024)\nAider\n\nO1 tops aider’s new polyglot leaderboard.\n\nNote: https://aider.chat/2024/12/21/polyglot.htmlAccessed: 2026-01-08\n\nCited by: §1,\n§2.1,\nTable 1.\n\nAlor et al. (2025)\nE. Alor, S. Khatoonabadi, and E. Shihab\n\nEvaluating the use of llms for documentation to code traceability.",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 1,
+  "p_value_or_ci": 2,
+  "seeds_or_runs": 0,
+  "swe_bench": 2,
+  "contamination": 1,
+  "human_study": 29,
+  "java": 1,
+  "industrial": 3
+ },
+ "fulltext_source": "html"
+}

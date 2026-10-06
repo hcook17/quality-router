@@ -1,0 +1,48 @@
+{
+  "arxiv_id": "2608.28726",
+  "contribution_type": "system",
+  "summary": "Pro-Router is a serving-layer cascade for multimodal LLMs. A prompt pre-scorer sends easy requests to a small edge model (Qwen2.5-VL-7B, LLaVA-OneVision-7B or Pixtral-12B). A CPU-side two-layer transformer then reads the small model's per-token sampling distributions to decide whether its answer ships or escalates to a cloud Qwen2.5-VL-72B. A Ray/vLLM scheduler sizes dispatches to each device's measured service rate. Evaluated on 15 VQA/text QA benchmarks against RouteLLM, FrugalGPT, P(True) and AutoMix.",
+  "claims": [
+    {"claim": "The token-aware verifier has the highest routing accuracy of all baselines on every small model.", "evidence": "Figure 4 shows mean AUROC, macro PGR, AUARC and AUACC averaged over 15 benchmarks, as bar summaries without CIs. Table 2 gives full AUROC of 0.805 / 0.753 / 0.685 for Qwen / LLaVA-OV / Pixtral. Correctness labels come from an LLM judge whose validity is not reported.", "strength": "moderate", "location": "Experiment Results, Fig. 4, Table 2"},
+    {"claim": "The routing signal is more than 10× faster than prior methods.", "evidence": "Figure 5: 2–3 ms vs 47–119 ms for the scorer baselines (19–28×), and seconds to minutes for P(True)/AutoMix.", "strength": "moderate", "location": "Fig. 5"},
+    {"claim": "The pipeline gives more than 75% higher end-to-end throughput than the existing routing pipeline.", "evidence": "Figure 6b: 1.77–1.79× vs a Ray Serve deployment graph that sends every request to the small model first. That baseline is the authors' own expression of the policy, not a tuned production system.", "strength": "moderate", "location": "Fig. 6b"},
+    {"claim": "Throughput is robust to network latency and scales linearly with devices.", "evidence": "Figure 7: 90–96% of un-delayed throughput at 200–1000 ms injected delay. Linear scaling up to M=3, N=4 (5.8–6.9× a single cloud device). Single runs, no variance.", "strength": "moderate", "location": "Fig. 7"}
+  ],
+  "patterns": [
+    {"id": "P23", "stance": "supports", "note": "Small→large model cascade with confidence-based escalation from per-token logits. This requires self-hosted models with logit access and applies to multimodal QA, not coding agents."},
+    {"id": "P24", "stance": "neutral", "note": "Optimizes throughput and serving cost, but reports no dollar or token budgets."}
+  ],
+  "methodology": {
+    "sample": "15 benchmarks with roughly 106–682 test items each (Table 1).",
+    "baselines": "RouteLLM, FrugalGPT, P(True), AutoMix, 'reproduced faithfully' with verbatim templates. Plus a Ray Serve pipeline for throughput.",
+    "models": "Small: Qwen2.5-VL-7B, LLaVA-OneVision-7B, Pixtral-12B. Large: Qwen2.5-VL-72B.",
+    "variance": "None reported. No seeds, CIs or repeated runs.",
+    "ablations": "Verifier input features, verifier depth/architecture, and pipeline optimizations (batched dispatch, KV-cache gate), all in Table 2.",
+    "contamination_controls": "None.",
+    "languages": "n/a. Multimodal and text QA, no code."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint (9 pages). No venue.",
+    "limitations_section": false,
+    "artifacts": "Code at github.com/xinyuangui2/pro-router.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "llm_judge_unvalidated", "detail": "Correctness labels for routing accuracy come from an LLM judge with no reported agreement with humans."},
+    {"type": "no_variance_reported", "detail": "All figures are single-run point estimates."},
+    {"type": "strawman_baseline", "detail": "The throughput baseline is a naive small-first Ray Serve graph built by the authors."},
+    {"type": "other:off_topic_domain", "detail": "Multimodal VQA serving infrastructure, not software engineering or coding agents."}
+  ],
+  "coi": {
+    "affiliations": "Anyscale; Mississippi State University; Institute of Computing Technology, CAS; Institute of AI for Industries, CAS. Per-author mapping is lost in the text extraction.",
+    "vendor_products_evaluated": "Built on Ray (Anyscale's open-source framework) and compared favorably against a Ray Serve pipeline. No Anyscale commercial product is promoted.",
+    "funding": "No acknowledgments or funding statement.",
+    "severity": "low",
+    "detail": "Vendor affiliation (Anyscale) on a Ray-based system. The comparison is against the vendor's own open framework, so there is no self-promotion of a product."
+  },
+  "scores": {"rigor": 2, "reproducibility": 3, "generalizability": 2, "relevance": 1, "coi_risk": 1},
+  "verdict": "reject",
+  "verdict_reason": "Off-topic: serving-layer routing for multimodal VQA with logit access to self-hosted models. It does not address coding agents or SE harnesses. Results also lack variance and rely on an unvalidated LLM judge.",
+  "applicability": "Does not transfer. The team consumes hosted frontier models through mixed agent hosts, and the repo invariants leave cheap-vs-expensive model choice to the host or an opt-in gateway, so a per-token-logit verifier inside a vLLM serving stack is not something the harness can or should own. The only generic lesson is that confidence-gated escalation from a cheap model to an expensive one can recover most quality at lower cost, which a gateway the host points at might use. Nothing here bears on Java, multi-repo ingestion or spec-driven development.",
+  "conflicts_with": []
+}

@@ -1,0 +1,55 @@
+{
+  "arxiv_id": "2608.02001",
+  "contribution_type": "benchmark",
+  "summary": "VulnGym aligns 184 reviewed GitHub high-severity advisories (Nov 2025-Apr 2026, repos >10k stars) with vulnerable repository snapshots and annotates 408 entries with line-level entry points (EP), critical operations (CO) and EP-to-CO traces. It defines one end-to-end detection task (agent gets repo plus advisory title/description) and three oracle-conditioned subtasks, and evaluates Qwen3.5 2B-27B under Claude Code plus three open-weight frontier LLMs under Claude Code, OpenHands and MiniSWE with read-only shell tools. All configurations score low, especially on the Hard subset.",
+  "claims": [
+    {"claim": "Current coding agents remain limited in end-to-end repository-level vulnerability detection.", "evidence": "Table 2: best Hard-subset T1 result is OpenHands+DeepSeek-V4-Flash at 22.58% AR / 15.22% ER / 11.63% ES; Qwen3.5-27B under Claude Code 12.90% AR. But Hard is only 31 advisories / 46 entries, so 22.58% = 7/31 advisories; one run per configuration, no CIs.", "strength": "moderate", "location": "§Frontier Coding Agents on Hard Cases, Table 2"},
+    {"claim": "Scaffold-LLM compatibility is critical; scaffolds differ in sensitivity to LLM choice.", "evidence": "Table 2: DeepSeek-V4-Flash 22.58% AR with OpenHands vs 9.68% with Claude Code; GLM-5.2 reverses (6.45% vs 12.90%); MiniSWE identical 16.13% AR for all three LLMs. Differences are 1-5 advisories out of 31 in a single run, so reversals may be noise.", "strength": "weak", "location": "Table 2, §Frontier Coding Agents"},
+    {"claim": "EP identification is harder than CO localization; traces stay incomplete and noisy even with oracle endpoints.", "evidence": "Table 3: max CO FR 51.16% / LR 30.23% vs EP FR 30.23% / LR 18.60%; TNR 30.60-53.96% vs TNP 14.61-26.71%; max ES 36.37%. Consistent across 9 configs, but on 43 Hard items only.", "strength": "moderate", "location": "§Oracle-Conditioned Capability Analysis, Table 3"},
+    {"claim": "Higher resource consumption does not necessarily yield more effective detection.", "evidence": "Figure 7 token/cost vs AR scatter over 9 configs; OpenHands+GLM-5.2 highest cost, lowest AR. Only 9 points, no statistical test.", "strength": "weak", "location": "§Practical Efficiency Analysis, Fig. 7"},
+    {"claim": "Benchmark annotations are reliable (two independent reviewers, Cohen's kappa 0.87, senior adjudication).", "evidence": "Phase II text reports kappa=0.87; however Phase I record 'generation' method is not described (unclear whether LLM-generated), and the difficulty split counts 110/31/31 advisories and 278/56/46 entries (172/380) do not sum to the headline 184/408 without explanation.", "strength": "moderate", "location": "§Benchmark Construction, §Model Scaling"}
+  ],
+  "patterns": [
+    {"id": "P05", "stance": "mixed", "note": "Agents restricted to read-only grep/rg/find/cat; trajectory analysis (Fig. 6) shows search and read dominate, yet line-level localization still fails in 56.5% of Hard failures (wrong file or wrong line)."},
+    {"id": "P31", "stance": "introduces", "note": "New repository-level security benchmark with oracle-conditioned subtasks for diagnosis."},
+    {"id": "P24", "stance": "neutral", "note": "Reports tokens and USD per run vs accuracy (Fig. 7); no budget mechanism tested."},
+    {"id": "P16", "stance": "neutral", "note": "No execution or PoV validation at all; agents could not run code, which limits what the low scores say about agents with verifier loops."}
+  ],
+  "methodology": {
+    "sample": "184 advisories / 408 entries across 23 repos; headline agent comparison on Hard subset of 31 advisories / 46 entries (T1) and ~43 items in oracle tasks (inferred from percentages).",
+    "baselines": "No non-agent baseline (e.g., SAST tool or function-level LLM classifier); comparison is among 3 scaffolds x 3 LLMs and a Qwen scaling series. No Claude/GPT models despite using Claude Code.",
+    "models": "Qwen3.5-2B/4B/9B/27B; DeepSeek-V4-Flash, MiniMax-M3, GLM-5.2.",
+    "variance": "None; single run per configuration, no seeds or CIs.",
+    "ablations": "Oracle-conditioned subtasks act as a capability decomposition; no prompt/tool ablations.",
+    "contamination_controls": "Advisories restricted to Nov 2025-Apr 2026 as 'after training cutoff'; per-model cutoffs not verified. T1 supplies the advisory title and description, which strongly hints at location.",
+    "languages": "Not stated; Fig. 2 shows repository composition (e.g., Open WebUI). Language mix of the 23 repos not reported."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint, no venue in comment or journal_ref.",
+    "limitations_section": false,
+    "artifacts": "No benchmark or code link found in the text; only third-party URLs (OpenHands, Open WebUI, an advisory).",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "small_sample", "detail": "Headline frontier comparison uses 31 Hard advisories; each 3.2-point step equals one advisory."},
+    {"type": "no_variance_reported", "detail": "Single run per configuration; scaffold-LLM 'reversals' are within plausible run-to-run noise."},
+    {"type": "closed_artifacts", "detail": "Benchmark claimed as contribution but no dataset/code release link in the paper."},
+    {"type": "metric_mismatch", "detail": "T1 'detection' gives the advisory description, so it measures localization of a known vulnerability, not discovery; k=5 line window can also penalize semantically correct alternative traces."},
+    {"type": "contamination_risk", "detail": "Training cutoffs of evaluated models are asserted not verified; advisory text supplied in prompt."},
+    {"type": "other:no_frontier_closed_models", "detail": "Claude Code is run with non-Anthropic open models; no Claude/GPT backends, so 'frontier coding agents' is overstated."}
+  ],
+  "coi": {
+    "affiliations": "Tencent Wukong (Ji, Liu, Hu, Lian), CUHK, Fudan, HKU, Peking University.",
+    "vendor_products_evaluated": "Claude Code, OpenHands, MiniSWE scaffolds; DeepSeek, MiniMax, GLM, Qwen models. None from Tencent.",
+    "funding": "No acknowledgments or funding statement found.",
+    "severity": "low",
+    "detail": "Tencent security-team authors build a benchmark; no Tencent product is ranked. Vendor affiliation only."
+  },
+  "scores": {"rigor": 2, "reproducibility": 1, "generalizability": 2, "relevance": 2, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Useful diagnostic decomposition (EP vs CO vs trace) with decent annotation agreement, but headline comparisons rest on 31 advisories, a single run, open-weight models only, no artifact link, no limitations section, and unexplained count mismatches.",
+  "applicability": "Indirect. For the Java ingestion team it argues against relying on a read-only coding agent as the security review gate across ≥4 ingestion repos: even with the advisory text supplied, agents mislocate entry points (API handlers/event callbacks — exactly the ingestion endpoints) and produce noisy cross-module traces. Better to keep SAST (Semgrep/Sonar) as the deterministic gate and use agents to triage findings. The scaffold-model sensitivity result, though weak, is a caution for mixed agent hosts: do not assume a model's quality transfers between Claude Code, OpenHands and others. Language mix is unreported, so Java-specific transfer is unknown; CWE-Bench-Java/JavaVulBench are closer fits.",
+  "conflicts_with": [
+    {"arxiv_id": "2606.22263", "detail": "Revelio reports agentic detection finding 19 new memory-safety bugs by gating on executable PoV + sanitizer; VulnGym's pessimism comes from read-only agents without execution, so the two disagree on how capable agentic detection is because of the verifier setup."}
+  ]
+}

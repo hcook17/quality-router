@@ -1,0 +1,20 @@
+{"arxiv_id": "2607.17957",
+ "blind_scores": {"rigor": 3, "reproducibility": 1, "generalizability": 3, "relevance": 4, "coi_risk": 1},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "Empty patches, not wrong patches, are the dominant failure; DepRepair cuts them to 10/95", "proposed_strength": "weak", "reason": "Table IV (no backbone stated) is inconsistent with Table III. Oracle construction requires the unrepaired snapshot to fail the breakage tests (§III-A), so an empty patch cannot pass. Yet Agentic Codex (minimal, GPT-5.5 only) has 21 empty patches and 83/95 passes, against a maximum of 74. Agentic Claude Code (minimal) has 35 empty and 77 passes, against a maximum of 60. Direct LLM (minimal) has 21 empty, while GPT-5.5 reports 78 passes. Either the table rows are mislabelled or empty patches sometimes pass, which would break the negative-oracle guarantee. Only the DepRepair row (10 empty, 85 pass) is internally consistent. This cannot be graded strong."},
+  {"claim": "Raw upstream evidence reduces LLM and agent pass rates by 7-23 pp", "proposed_strength": "weak", "reason": "These are single temperature-0 runs. Agents are stochastic, and the agents were run 'without an in-loop build/test environment' (§V-B), which removes how they normally recover from noisy context. The −23.2 pp for Claude Code may be an artefact of that handicapped setting rather than of raw evidence per se. The direction is consistent across four pairs, but the magnitudes are not robust."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P08", "from": "supports", "to": "mixed", "reason": "On Opus, the distilled rules plus locator without subcategory guidance ('− Subcategory') score 58/95 (61.1%), exactly the raw-upstream Direct LLM score and below no evidence (71.6%) (Table VI). Distillation alone did not beat raw text on that backbone, so 'distilling beats dumping' holds only for the full bundle and for GPT-5.5."},
+  {"id": "P05", "from": "supports", "to": "neutral", "reason": "The usage locator is never ablated alone; it is removed together with the rules as '− Evidence'. Its contribution is unmeasured."},
+  {"id": "P27", "from": "supports", "to": "mixed", "reason": "Upstream-library-to-consumer evidence is only loosely 'cross-repo coordination', and per the Opus ablation structured rules help only together with guidance. Contracts or coordination among the team's own repositories are not studied."}
+ ],
+ "missed_issues": [
+  "Internal inconsistency between Table IV empty-patch counts and Table III pass counts (see the disputed claim). Either the empty-patch analysis or the oracle's negative check is unreliable.",
+  "The Java evidence is the most contamination-prone part. All 38 Maven instances are JUnit 4→5 or Spring Boot 2.7→3.0, two of the most documented migrations in existence. Import migration is 100% for every method, including the no-evidence baseline (Table VII). 'Solves all 38 Maven instances' says more about memorized migrations than about the method, which matters for the team's relevance reading.",
+  "The paper overclaims inconsistently. The conclusion says 'ranking ahead of state-of-the-art coding agents' and the introduction says 'at a fraction of their cost', yet §VI concedes 'only matching the strongest cross-architecture agent', and no cost figures are given anywhere.",
+  "The acknowledgment says generative AI assisted drafting. That is not a validity issue, but it fits the pattern of inconsistent narrative claims."
+ ],
+ "note": "Review is careful and correctly flags the unsupported 'agents' half of the abstract. It misses that Tables III and IV are arithmetically incompatible, and it awards 'strong' and 'supports' grades that the ablation and table inconsistencies do not bear."}

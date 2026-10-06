@@ -1,0 +1,30 @@
+{
+  "arxiv_id": "2608.16618",
+  "contribution_type": "position",
+  "summary": "A short (~31k chars, two-author) essay arguing that LLMs shift software complexity from implementation to requirements/specification, and naming a 'Specification Paradox' (more capable generators -> more dependence on human-produced specs) plus the terms 'Specification Overfitting' and 'Specification Debt'. It contains no new data; its 'Recent Empirical Evidence' section summarises four to five prior studies.",
+  "claims": [
+    {"claim": "AI redistributes rather than removes software complexity, shifting effort to RE, specification and validation (the 'Specification Paradox').", "evidence": "Argument by analogy to Brooks' essential/accidental complexity; no new measurement. Supporting citations are secondary (systematic review of 39 studies, eye-tracking study, forum-question analysis).", "strength": "weak", "location": "Intro; 'The Illusion of Automation'; 'Recent Empirical Evidence'"},
+    {"claim": "Richer specification context substantially improves LLM interpretation (e.g., GPT-4 accuracy ~41% -> ~81% with paragraph context).", "evidence": "Numbers quoted from a cited regulatory-compliance RE study [7], not produced by this paper; domain transfer to code generation is asserted, not shown.", "strength": "weak", "location": "'Recent Empirical Evidence' para 3"},
+    {"claim": "Specification Overfitting and Specification Debt are distinct risks of SDD (implementation satisfies spec but not the problem; accumulated incomplete/inconsistent specs propagate to generated artifacts).", "evidence": "Conceptual definitions only; no cases, examples, or measurement.", "strength": "unsupported", "location": "'Risks and Limitations'"},
+    {"claim": "Specifications for LLMs must be treated as maintained, traceable lifecycle artifacts, not prompts; requirement-derived tests and pre-generation spec review are recommended.", "evidence": "Prescriptive recommendations without evaluation.", "strength": "weak", "location": "'Practical Implications for Software Engineers'"}
+  ],
+  "patterns": [
+    {"id": "P14", "stance": "introduces", "note": "Argues for SDD as the direction of travel and frames its risks (spec overfitting, spec debt); no evidence that SDD works or fails."},
+    {"id": "P34", "stance": "introduces", "note": "Recommends objective acceptance criteria, usage scenarios and traceability links; untested."},
+    {"id": "P19", "stance": "neutral", "note": "Asserts human validation remains necessary because of automation bias; no study."},
+    {"id": "P35", "stance": "neutral", "note": "Contrasts NL specs with formal methods / correctness-by-construction; notes NL specs lack semantic guarantees."}
+  ],
+  "methodology": {"sample": "None (essay).", "baselines": "None.", "models": "None evaluated.", "variance": "n/a", "ablations": "n/a", "contamination_controls": "n/a", "languages": "n/a"},
+  "standards": {"peer_review": "No arXiv comment or journal_ref; acknowledgments mention an Article Processing Charge funded by CAPES, implying a journal/magazine venue, but the venue is not stated in the text.", "limitations_section": false, "artifacts": "None (no artifacts applicable).", "preregistration": "n/a"},
+  "biases": [
+    {"type": "novelty_inflation", "detail": "'Specification Paradox', 'Specification Overfitting' and 'Specification Debt' rename well-known ideas (Brooks' essential complexity, validation vs verification, documentation/requirements debt) without operationalising them."},
+    {"type": "self_reported_numbers", "detail": "All quantitative figures (39-study review, 41%->81% accuracy, 29,000 forum questions) are second-hand from cited work; the paper does not re-examine them."},
+    {"type": "other:confirmation_selection", "detail": "The 'empirical evidence' section cites only studies consistent with the thesis; no counter-evidence (e.g., cases where agents succeed with weak specs) is discussed."}
+  ],
+  "coi": {"affiliations": "Rio de Janeiro State University (Dept. of Computer Science; Faculty of Economics).", "vendor_products_evaluated": "None.", "funding": "CAPES and FAPERJ (Brazilian public agencies); ChatGPT used for language review and image enhancement (disclosed).", "severity": "none", "detail": "Academic authors, public funding, no product evaluated."},
+  "scores": {"rigor": 1, "reproducibility": 0, "generalizability": 1, "relevance": 2, "coi_risk": 0},
+  "verdict": "reject",
+  "verdict_reason": "Pure opinion piece with no original evaluation; the named concepts are untested relabelings and the only numbers are borrowed from other studies. Useful as vocabulary for an SDD rollout discussion, not as evidence for any harness decision.",
+  "applicability": "For the Java healthcare-education team adopting spec-driven development, the paper offers a checklist of risks worth naming in a rollout doc (spec overfitting: generated ingestion code passes the spec but misses clinical-content edge cases; spec debt across >=4 ingestion repos whose specs drift independently; automation bias in reviewers). It gives no evidence on how to structure specs, which agent host to use, or how to keep cross-repo specs consistent, so decisions should rest on empirical papers (e.g., 2608.17177 in this batch) rather than on this essay.",
+  "conflicts_with": []
+}

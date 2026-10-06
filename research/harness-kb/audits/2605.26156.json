@@ -1,0 +1,16 @@
+{"arxiv_id": "2605.26156",
+ "blind_scores": {"rigor": 3, "reproducibility": 4, "generalizability": 3, "relevance": 2, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "BITE inflates judge scores more than prompt-injection and jailbreak attacks.", "proposed_strength": "moderate", "reason": "Table 1 reports single averages with no variance or significance tests and the number of evaluated prompts is never stated; margins are small for DeepSeek-R1 (1.909 vs PAIR 1.856) and Llama-70B (1.347 vs PAIR 1.233). Jailbreak baselines are designed for eliciting restricted content, not score inflation, and are run at the same 25-query budget without tuning to this objective."}
+ ],
+ "pattern_stance_changes": [],
+ "missed_issues": [
+  "no_variance_reported: Table 1 (the main comparison) has no SDs/CIs; only Fig. 2 and Table 2 show spread, and the number of runs/seeds is not given.",
+  "other:unreported_sample_size: how many AlpacaEval/Arena-Hard prompts and MLRBench papers were attacked is not stated in the experimental setup.",
+  "No limitations/threats section (standards notes it, but it is not reflected in verdict 'admit').",
+  "metric_mismatch: App. B.2 'unbeaten rate' (92.96%/90.88%) counts ties as wins, inflating the head-to-head superiority; BITE vs Random average diff is only +0.105.",
+  "Semantic-preservation check uses GPT-5 as judge in a paper whose thesis is that LLM judges are manipulable; 'Verbosity' edits scoring 1.000 similarity suggests the check is insensitive to added content."
+ ],
+ "note": "Credible, peer-reviewed evidence that LLM judges are style-manipulable under adaptive query access, but the main table lacks variance and sample sizes, so 'admit' should carry caveats; relevance to the team is indirect (non-code artefacts)."}

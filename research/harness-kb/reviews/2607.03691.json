@@ -1,0 +1,56 @@
+{
+  "arxiv_id": "2607.03691",
+  "contribution_type": "empirical",
+  "summary": "Longitudinal study that holds the model fixed (self-hosted Qwen3-Next-80B-A3B-Instruct on vLLM) and runs 35 successive Qwen Code CLI releases on 50 stratified SWE-bench Verified tasks, two runs each, to isolate the harness's effect on resolve rate, tokens and tool calls. It adds a mining study of release velocity for five open-source harnesses (Codex, Qwen Code, Gemini CLI, OpenCode, OpenHands) and correlates release-level development and architectural-component changes with quality shifts.",
+  "claims": [
+    {"claim": "Holding the model fixed, harness releases change agent quality; resolve rate fluctuates (23%-39%) with no significant trend", "evidence": "Finding 5 / Fig. 6-7: Spearman rho=0.208, p=0.231 vs release order; mean 30.5%. On 50 tasks a 7-point swing is about 3-4 tasks, comparable to binomial noise (SE about 6.5 pp at 30%), so many 'fluctuations' may not be harness effects. Finding 4 treats Wilcoxon p>0.05 between two runs as proof the distributions are 'identical' (absence-of-evidence reasoning); 87.7% per-task agreement still leaves 12.3% flips.", "strength": "moderate", "location": "§5.3 Findings 4-5"},
+    {"claim": "Token consumption grows strongly across releases (about 391K to 668K per task) without effectiveness gains", "evidence": "Finding 6: rho=0.743, p<0.0001; task-normalized rho=0.751. Robust trend. Case-study magnitudes are inconsistent: §5.4 reports +52% (v0.1.4->v0.1.5) and +131% (v0.2.3->v0.3.0) while §8.2 cites 139% and 182% for the same releases.", "strength": "strong", "location": "§5.3 Finding 6, §5.4, §8.2"},
+    {"claim": "Token inflation is driven by ~8% larger initial prompts and 18% more turns", "evidence": "Finding 8 / Fig. 9: tokens vs turns rho=0.941. Correlational trajectory analysis; the fixed 600 s timeout may interact with turn count and is not discussed as a confound.", "strength": "moderate", "location": "§5.3 Finding 8, §3.3"},
+    {"claim": "Specific development patterns and architectural components (LLM Provider, Context Management, Security, Extensibility) explain quality shifts", "evidence": "RQ2/RQ3 Tables 7-11: many Spearman correlations around |rho|=0.33-0.55 on n=35 (delta n=34) with Benjamini-Hochberg correction and Cliff's d; observational, single project, many factors tested, so findings are hypotheses rather than causal effects. PR-level case studies are illustrative.", "strength": "weak", "location": "§6.3, §7.3, Findings 9-18"},
+    {"claim": "Agent harnesses release 13-28x more often than traditional OSS projects", "evidence": "RQ0 Findings 1-3 from GitHub mining of five harness repos.", "strength": "moderate", "location": "§4.3"}
+  ],
+  "patterns": [
+    {"id": "P30", "stance": "supports", "note": "Shows that functional CI passed while token cost rose 52-131% and resolve rate dropped; argues for agent-level regression tracking of resolve rate, tokens and tool calls."},
+    {"id": "P24", "stance": "supports", "note": "Unbudgeted harness evolution nearly doubled per-task tokens; failed tasks use 2.7x tokens, supporting caps."},
+    {"id": "P08", "stance": "contradicts", "note": "Expanding context-management logic associated with worse token efficiency (Finding 15); correlational."},
+    {"id": "P03", "stance": "supports", "note": "Growth of system prompt and tool schemas compounds per turn (Finding 8)."},
+    {"id": "P31", "stance": "neutral", "note": "Uses a 50-task SWE-bench Verified subset as the regression probe."},
+    {"id": "P10", "stance": "neutral", "note": "Single-agent CLI loop studied across versions."}
+  ],
+  "methodology": {
+    "sample": "35 releases x 50 SWE-bench Verified tasks (20 easy, 25 medium, 5 hard) x 2 runs = 3,500 executions; RQ0: 5 harness repos",
+    "baselines": "Release-to-release comparison; no other harness run under the same model",
+    "models": "Single model: Qwen3-Next-80B-A3B-Instruct via vLLM 0.18.0, harness's default sampling",
+    "variance": "Two runs per task; 87.7% binary agreement; Wilcoxon tests between runs; no CIs on per-release resolve rates",
+    "ablations": "None directly; component effects inferred by correlation with partial correlations",
+    "contamination_controls": "None discussed for SWE-bench Verified memorization by the Qwen model (constant across releases, so affects absolute but not relative numbers)",
+    "languages": "Python only (SWE-bench Verified)"
+  },
+  "standards": {
+    "peer_review": "arXiv preprint; ACM TOSEM template header but no acceptance in comment/journal_ref",
+    "limitations_section": true,
+    "artifacts": "Replication package with all 35 CLI versions, inference/evaluation scripts and raw results (§1, ref Sghaier et al. 2026)",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "single_model", "detail": "One model; authors note stronger/weaker models may react differently to prompt bloat."},
+    {"type": "single_language_python", "detail": "SWE-bench Verified only."},
+    {"type": "small_sample", "detail": "50 tasks per release; resolve-rate differences of a few tasks are within sampling noise."},
+    {"type": "other:single_harness", "detail": "Controlled analysis on Qwen Code only; title generalizes to 'coding agent quality'."},
+    {"type": "other:internal_inconsistency", "detail": "Token-increase magnitudes for v0.1.5 and v0.3.0 differ between §5.4 (52%, 131%) and §8.2 (139%, 182%)."},
+    {"type": "hype_language", "detail": "'Don't blame the LLM' framing, but the study never varies the model, so relative contribution of model vs harness is not measured."},
+    {"type": "other:correlational_many_tests", "detail": "RQ2/RQ3 test many factors on n=35 releases; moderate correlations are presented as component 'risk' guidance."}
+  ],
+  "coi": {
+    "affiliations": "Queen's University, Canada (all authors)",
+    "vendor_products_evaluated": "Qwen Code CLI (Alibaba/Qwen) evaluated, largely unfavorably; no author affiliation with Alibaba",
+    "funding": "No acknowledgments section found in signals",
+    "severity": "none",
+    "detail": "Independent academic evaluation of an open-source vendor harness."
+  },
+  "scores": {"rigor": 3, "reproducibility": 4, "generalizability": 2, "relevance": 5, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "The best-controlled evidence in the batch that the harness, with model held fixed, moves cost substantially and effectiveness noticeably; the token-inflation result is robust. Caveats: one harness, one model, Python-only 50-task probe, resolve-rate swings near noise, correlational component findings, and inconsistent case-study magnitudes.",
+  "applicability": "Directly informs the team's harness decisions. (1) Pin host/harness versions and treat upgrades of Claude Code, Codex, Cursor, etc. as changes that need a regression check, since functional CI did not catch 52-131% token jumps. (2) Build a small agent-level regression suite from the team's own Java tasks (e.g. 20-50 ingestion and delivery issues across the >=4 repos with Maven/Gradle tests as the oracle) and track resolve rate, tokens and tool calls per host version; this is host-neutral and fits the 'deterministic CLI decides' rule. (3) Keep shared instructions/specs and tool catalogs small, because prompt growth compounds every turn. Caution: numbers come from Python SWE-bench with one open model and may not transfer in size to Java or frontier models.",
+  "conflicts_with": []
+}

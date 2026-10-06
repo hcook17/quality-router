@@ -1,0 +1,55 @@
+{
+  "arxiv_id": "2605.16352",
+  "contribution_type": "system",
+  "summary": "LARGER augments a CLI coding agent's own grep/search results with structural neighbors from a pre-built repository graph (AST-derived imports, calls, type hierarchy, code-test links, with edge confidence and community priors), so graph evidence arrives inline in search output instead of via separate graph tools. Evaluated on two Python localization benchmarks (LocBench, MuLocBench) and two Scale AI SWE-Atlas downstream tasks against BM25, Agentless, SWE-agent, OpenHands, Codex, Claude Code, mini-swe-agent, CoSIL and LocAgent.",
+  "claims": [
+    {"claim": "+13.9 Acc@5 on LocBench (tuned) and +11.8 (fixed) over the strongest baseline.", "evidence": "Table 1: LocBench Acc@5 LARGER-Fixed 87.0, Tuned 89.1 vs Claude Code* 75.2 (Opus-4.6 backbone) and Codex 74.1 (GPT-5.2). Numbers reconcile with abstract. 'Tuned' is described as a per-repository oracle setting (hyperparameters picked per repo on the evaluated data), so the +13.9 figure is test-tuned; the fixed +11.8 is the honest number.", "strength": "moderate", "location": "§5.2, Table 1, App. D.2"},
+    {"claim": "Consistent gains on MuLocBench.", "evidence": "Table 1: Fixed Acc@5 55.7 vs Claude Code* 54.9 (+0.8) and Codex 50.0 (+5.7); Acc@1 and Recall@1/@5 slightly below Claude Code* (−1.8, −2.0, −0.4). Gain over the strongest baseline is marginal on the multi-file benchmark.", "strength": "weak", "location": "Table 1"},
+    {"claim": "Gains transfer to downstream SWE-Atlas test writing and codebase QA.", "evidence": "Table 2: QnA 32.25 vs Claude Code* 31.20 (+1.05), TW 37.78 vs 36.67 (+1.11); ~1 point margins on 124/90 tasks, scored by rubric LLM judge, no variance shown despite claimed 3-run averaging.", "strength": "weak", "location": "§5.2, Table 2"},
+    {"claim": "Graph expansion is the main source of gain; delivering graph evidence inline beats separate graph tools.", "evidence": "Table 3 ablation (MuLocBench): w/o graph expansion 48.2 vs 55.7; CoSIL/LocAgent (graph-tool baselines) trail non-graph agents in Table 1. Baselines not re-tuned and compared with GPT-5.2 only.", "strength": "moderate", "location": "§5.3, Table 3"},
+    {"claim": "Lower runtime and tokens than Codex.", "evidence": "§5.2: MuLocBench 99.9s vs 139.9s, 353K vs 521.8K tokens; LocBench 60.0s vs 129.2s. Excludes one-time graph build cost (amortized per repo; App. D.1).", "strength": "moderate", "location": "§5.2, App. B.1"}
+  ],
+  "patterns": [
+    {"id": "P07", "stance": "supports", "note": "Code graph context improves localization when injected into the existing lexical loop; separate graph-tool agents (CoSIL, LocAgent) underperform plain agents."},
+    {"id": "P05", "stance": "supports", "note": "Lexical search remains the anchor; graph only expands lexical hits."},
+    {"id": "P03", "stance": "supports", "note": "No new tools added to the agent's catalog; augmentation happens inside existing search output."},
+    {"id": "P24", "stance": "neutral", "note": "Budget-aware filtering of graph neighbors; reports tokens/cost."}
+  ],
+  "methodology": {
+    "sample": "LocBench 560 issues/5 repos, MuLocBench 1,100 issues/46 repos, SWE-Atlas TW 90 tasks, QA 124 questions (11 repos).",
+    "baselines": "BM25, Agentless, SWE-agent, OpenHands, Codex, Claude Code (different backbone), mini-swe-agent, CoSIL, LocAgent; matched step/context budgets for in-house agents.",
+    "models": "GPT-5.2 for in-house methods; Claude Code uses Claude-Opus-4.6; on/off toggles also under GPT-4.1.",
+    "variance": "States averages over three runs; no std/CIs reported.",
+    "ablations": "Component ablation (Table 3), hyperparameter sweep (App. D.2), LARGER on/off across two backbones (Fig. 1).",
+    "contamination_controls": "None; LocBench/MuLocBench are public GitHub issues on popular repos.",
+    "languages": "Localization: Python only. Downstream: Python/Go/TypeScript/C. No Java."
+  },
+  "standards": {
+    "peer_review": "None indicated.",
+    "limitations_section": false,
+    "artifacts": "Prompts in App. E.4; no code repository URL found.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "single_language_python", "detail": "Both localization benchmarks are Python-only."},
+    {"type": "benchmark_overfit", "detail": "Abstract headline uses 'tuned' per-repository oracle hyperparameters."},
+    {"type": "no_variance_reported", "detail": "Three-run averages without dispersion; ~1-point downstream gains."},
+    {"type": "llm_judge_unvalidated", "detail": "SWE-Atlas QA scored solely by rubric LLM judge (upstream prompts), no human check."},
+    {"type": "closed_artifacts", "detail": "No code released."},
+    {"type": "self_evaluation", "detail": "Authors' system on authors' configuration; baselines mostly untuned off-the-shelf."}
+  ],
+  "coi": {
+    "affiliations": "Emory University; CausalDynamics.com (one author dual-affiliated, two company-only).",
+    "vendor_products_evaluated": "Compared against commercial Codex and Claude Code; the company's product line is not described in the paper.",
+    "funding": "No acknowledgments section.",
+    "severity": "low",
+    "detail": "Company co-authors; if LARGER is a CausalDynamics product the risk would rise, but the paper does not say so."
+  },
+  "scores": {"rigor": 3, "reproducibility": 1, "generalizability": 2, "relevance": 4, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Strong same-backbone comparison against current agents with ablations and cost numbers; LocBench gains are large. But localization is Python-only, the abstract leads with a test-tuned number, MuLocBench and downstream gains over Claude Code are within ~1 point without variance, and nothing is released.",
+  "applicability": "Directly informs a harness decision: rather than adding a separate code-graph MCP tool (which the paper finds underperforms), augment the agent's existing search results with structural neighbors (imports, call chains, test links). For Java this maps naturally to a compiler/LSP-derived index (types, call hierarchy, Spring wiring), and incremental commit-aware updates (App. D.1) suit active repos. Unproven for Java and for cross-repo edges — a 4+ repo ingestion pipeline needs links across service contracts (e.g., OpenAPI/Kafka schemas), which LARGER's per-repository graph does not model. Host-neutral in principle (hooks into search output), but integration requires control over the host's grep tool, which differs by agent host.",
+  "conflicts_with": [
+    {"arxiv_id": "2605.15569", "detail": "Neo exposes structural analysis as explicit agent tools (CodeQL primitives) and finds them essential; LARGER finds separate graph tools (CoSIL/LocAgent) underperform and argues for inline delivery. Different tasks (security flow tracing vs localization), so this is tension over interface design, not a direct contradiction."}
+  ]
+}

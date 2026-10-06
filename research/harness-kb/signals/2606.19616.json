@@ -1,0 +1,173 @@
+{
+ "arxiv_id": "2606.19616",
+ "fulltext_chars": 26186,
+ "fulltext_lines": 599,
+ "authors_block": "Dipankar Sarkar Affiliation: Arizona State University E-mail dsarkar3@asu.edu",
+ "vendor_affiliation_hits": [],
+ "n_authors": 1,
+ "comment": "9 pages, 2 tables. LNCS format. Code, dataset, and mining toolkit: https://github.com/neul-labs/grite",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/git-bug/git-bug",
+  "https://github.com/neul-labs/grite",
+  "https://github.com/steveyegge/beadsGit-backed"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Before the Pull Request: Mining Multi-Agent Coordination"
+  ],
+  [
+   28,
+   "###### Abstract"
+  ],
+  [
+   45,
+   "###### Keywords:"
+  ],
+  [
+   48,
+   "## 1 Introduction"
+  ],
+  [
+   79,
+   "#### Contributions."
+  ],
+  [
+   98,
+   "## 2 Background and Related Work"
+  ],
+  [
+   104,
+   "#### Mining what agents produce."
+  ],
+  [
+   113,
+   "#### Agent memory and multi-agent frameworks."
+  ],
+  [
+   125,
+   "#### Git-native and repository-embedded trackers."
+  ],
+  [
+   135,
+   "#### Consistency and integrity foundations."
+  ],
+  [
+   152,
+   "## 3 grite: A Git-Native Coordination Substrate"
+  ],
+  [
+   166,
+   "#### Typed, content-addressed, signed events."
+  ],
+  [
+   175,
+   "#### CRDT projection."
+  ],
+  [
+   186,
+   "#### Advisory leases."
+  ],
+  [
+   196,
+   "#### Dependency graph and sync."
+  ],
+  [
+   204,
+   "## 4 Experimental Methodology"
+  ],
+  [
+   206,
+   "#### Independent variable: the coordination arm."
+  ],
+  [
+   216,
+   "#### Agents and the task pool."
+  ],
+  [
+   228,
+   "#### Dependent variables."
+  ],
+  [
+   237,
+   "#### Dataset and path to real agents."
+  ],
+  [
+   247,
+   "#### Verifying convergence (C2) and reproducibility."
+  ],
+  [
+   257,
+   "## 5 Results"
+  ],
+  [
+   265,
+   "### 5.1 C1: Coordination efficiency"
+  ],
+  [
+   298,
+   "### 5.2 C2: Convergence without data loss"
+  ],
+  [
+   307,
+   "### 5.3 C3: Mining the coordination log"
+  ],
+  [
+   350,
+   "## 6 Discussion and Threats to Validity"
+  ],
+  [
+   352,
+   "### 6.1 Interpretation against the claims"
+  ],
+  [
+   365,
+   "### 6.2 Threats to validity"
+  ],
+  [
+   382,
+   "### 6.3 Limitations"
+  ],
+  [
+   390,
+   "## 7 Conclusion"
+  ],
+  [
+   402,
+   "#### Future work."
+  ],
+  [
+   411,
+   "#### Artefact availability."
+  ],
+  [
+   419,
+   "## References"
+  ],
+  [
+   599,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 6 Discussion and Threats to Validity\n\n### 6.1 Interpretation against the claims\n\nThe results support C1, and the mining adds a design lesson the headline numbers do not convey:\nmutual exclusion and conflict-free shared state are jointly necessary—leases alone leave\nredundant rediscovery untouched (the locks-only arm has the highest count), and only the\ncombination drives the failure modes to zero. We treat C2 as a reliability floor, not a novelty\nclaim: its role is to establish that the substrate we measure on does not itself lose coordination\ndata, a precondition for trusting the mined log. C3 ties back to the AIDev speed–acceptance\ngap [9]: conflicting edits, lock starvation, and race-to-close leave no trace in PR\nhistory (a denied claim never becomes a commit; a raced task shows only the winner), so a\nPR-restricted analysis cannot recover them. Part of the “faster but rejected” gap may therefore\nsit upstream of the pull request.\n\n### 6.2 Threats to validity\n\nWe organise threats following Wohlin et al. [12].\nConclusion: results are from deterministic, seeded agents averaged over seeds, so the\nmeans are stable; we report no significance tests because the only variance is from seeding, and\nwe release the raw CSVs for re-analysis. Internal: the coordination arm is the only\nmanipulated variable—task pool, agent loop, seeds, and pool size are fixed across arms—so\nmetric differences are attributable to the arm; the conflict and duplicate flags come from\ngrite’s production apply_tracked path rather than a separate measurement model.\nConstruct: the metrics are proxies—duplicate-work rate misses partial overlap, goodput\nignores task difficulty, lock denials conflate overhead with starvation—so we define each\nexplicitly (Section 4). External: the main limitation—the agents are\nsynthetic op-generators on an abstract task pool, so absolute magnitudes will differ for real\nagents on real repositories; the production exporter makes the identical toolkit runnable on real\nlogs, and generalising the magnitudes is what the tier-T2 study (Section 7)\ntargets.\n\n### 6.3 Limitations\n\ngrite’s leases are advisory: a substrate cannot enforce coordination on an uncooperative\nagent. We view this as observable rather than fatal—lease-ignoring is itself a mineable failure\nmode—so partial compliance is something the log lets us study directly, though we have not yet\nmeasured it. The study also covers a single task-pool model; the released harness and exporter\nlet others re-run these measurements on their own agents and codebases.",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 7,
+  "swe_bench": 2,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

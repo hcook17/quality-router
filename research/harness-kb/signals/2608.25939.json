@@ -1,0 +1,398 @@
+{
+ "arxiv_id": "2608.25939",
+ "fulltext_chars": 143307,
+ "fulltext_lines": 5045,
+ "authors_block": "Dung Le Quang ††thanks: Equal contribution. Affiliation: Hanoi University of Science and Technology, Viet Nam Dong Cao Van* Affiliation: Hanoi University of Science and Technology, Viet Nam Nam Le Hai ††thanks: Corresponding author: namlh@soict.hust.edu.vn Affiliation: Hanoi University of Science and Technology, Viet Nam Linh Ngo Van Affiliation: Hanoi University of Science and Technology, Viet Nam Anh M. T. Bui Affiliation: Hanoi University of Science and Technology, Viet Nam Phuong T. Nguyen Affiliation: University of L’Aquila, Italy",
+ "vendor_affiliation_hits": [],
+ "n_authors": 6,
+ "comment": "Accepted to EMNLP Main 2026",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/swe-bench/SWE-bench."
+ ],
+ "hf_urls": [
+  "https://huggingface.co/01-ai/Yi-Coder-9B-Chat",
+  "https://huggingface.co/MiniMaxAI/MiniMax-M2.7",
+  "https://huggingface.co/Qwen/Qwen3-8B",
+  "https://huggingface.co/Qwen/Qwen3-Coder-Next",
+  "https://huggingface.co/deepseek-ai/DeepSeek-V3.2",
+  "https://huggingface.co/deepseek-ai/DeepSeek-V4-pro",
+  "https://huggingface.co/meta-llama/Llama-3.3-70B-Instruct",
+  "https://huggingface.co/mistralai/Codestral-22B-v0.1",
+  "https://huggingface.co/moonshotai/Kimi-K2.5",
+  "https://huggingface.co/openai/gpt-oss-120b"
+ ],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# XRepoTest: Benchmarking Multilingual Repository-Level Unit Test Generation for Large Language Models"
+  ],
+  [
+   46,
+   "###### Abstract"
+  ],
+  [
+   52,
+   "## 1 Introduction"
+  ],
+  [
+   89,
+   "## 2 Related Work"
+  ],
+  [
+   97,
+   "#### Gap for Multilingual Repository-level Evaluation."
+  ],
+  [
+   173,
+   "## 3 Methodology"
+  ],
+  [
+   177,
+   "### 3.1 Dataset Construction"
+  ],
+  [
+   181,
+   "#### Language Selection."
+  ],
+  [
+   185,
+   "#### Repository Selection."
+  ],
+  [
+   189,
+   "#### Focal Method Extraction."
+  ],
+  [
+   193,
+   "#### Context Augmentation."
+  ],
+  [
+   197,
+   "#### Containerized Execution Environment."
+  ],
+  [
+   204,
+   "### 3.2 Data Characteristics"
+  ],
+  [
+   206,
+   "#### Data Statistics."
+  ],
+  [
+   210,
+   "#### Comparison of Unit Test Generation Benchmarks."
+  ],
+  [
+   535,
+   "## 4 Evaluation Metrics"
+  ],
+  [
+   537,
+   "#### Standard Metrics."
+  ],
+  [
+   545,
+   "#### Novel Proposed Metric."
+  ],
+  [
+   551,
+   "## 5 Findings and Discussion"
+  ],
+  [
+   553,
+   "### 5.1 Performance across LLMs on XRepoTest"
+  ],
+  [
+   557,
+   "#### Overall trends across models."
+  ],
+  [
+   565,
+   "#### Auxiliary quality signals."
+  ],
+  [
+   569,
+   "#### Language-specific performance and challenges:"
+  ],
+  [
+   584,
+   "#### Unit Test Quality vs Software Engineering Capability."
+  ],
+  [
+   886,
+   "### 5.2 Impact of Context Augmentation"
+  ],
+  [
+   982,
+   "#### Retrieval-based Augmentation."
+  ],
+  [
+   986,
+   "#### Static Context Augmentation."
+  ],
+  [
+   990,
+   "#### Key Takeaways."
+  ],
+  [
+   994,
+   "### 5.3 Failure Modes Analysis"
+  ],
+  [
+   998,
+   "#### Analysis of Results:"
+  ],
+  [
+   1005,
+   "### 5.4 Agentic and Iterative-Repair Evaluation"
+  ],
+  [
+   1073,
+   "## 6 Conclusion"
+  ],
+  [
+   1077,
+   "## 7 Limitations"
+  ],
+  [
+   1081,
+   "## Acknowledgments"
+  ],
+  [
+   1085,
+   "## References"
+  ],
+  [
+   1743,
+   "## Appendix"
+  ],
+  [
+   1745,
+   "## Appendix A Detailed Statistics of XRepoTest"
+  ],
+  [
+   1975,
+   "## Appendix B Implementation Details"
+  ],
+  [
+   1979,
+   "#### Focal Function Filtering Rules."
+  ],
+  [
+   1983,
+   "#### LSP-based Context."
+  ],
+  [
+   2034,
+   "#### Retrieval-augmented Context."
+  ],
+  [
+   2073,
+   "#### Containerized provisioning and execution."
+  ],
+  [
+   2099,
+   "## Appendix C Data Contamination Risk"
+  ],
+  [
+   2153,
+   "## Appendix D Evaluation Metrics"
+  ],
+  [
+   2157,
+   "#### Test Pass Rate (TPR)."
+  ],
+  [
+   2167,
+   "#### Invocation Rate (IR)."
+  ],
+  [
+   2177,
+   "#### Line Coverage (Cov)."
+  ],
+  [
+   2189,
+   "#### Mutation Score (MS)."
+  ],
+  [
+   2200,
+   "#### Mutation@Pass Score (MS@Pass)."
+  ],
+  [
+   2210,
+   "#### Aggregate Reporting."
+  ],
+  [
+   2214,
+   "## Appendix E Additional Experiment Results"
+  ],
+  [
+   2562,
+   "### E.1 Full Results of LLMs Performance"
+  ],
+  [
+   2566,
+   "### E.2 Domain-Based Performance Analysis"
+  ],
+  [
+   2576,
+   "### E.3 Mutation Results"
+  ],
+  [
+   2720,
+   "### E.4 Correlation Analysis"
+  ],
+  [
+   2734,
+   "#### Correlations among XRepoTest metrics."
+  ],
+  [
+   2742,
+   "#### Correlation with SWE-bench."
+  ],
+  [
+   2752,
+   "### E.5 SWE-bench Verified Score Sources"
+  ],
+  [
+   2761,
+   "### E.6 Benchmark Hardness Analysis"
+  ],
+  [
+   2783,
+   "## Appendix F Agentic and Iterative-Repair Evaluation"
+  ],
+  [
+   2785,
+   "#### Agentic setup."
+  ],
+  [
+   2854,
+   "#### Iterative repair."
+  ],
+  [
+   2912,
+   "#### IR vs. TPR disagreement."
+  ],
+  [
+   2916,
+   "#### Julia dispatch-mismatch case study."
+  ],
+  [
+   2946,
+   "## Appendix G Retrieval Parameter Ablation"
+  ],
+  [
+   3056,
+   "## Appendix H Statistical Significance Analysis"
+  ],
+  [
+   3060,
+   "### H.1 Bootstrap Resampling"
+  ],
+  [
+   3068,
+   "### H.2 McNemar’s Test Results"
+  ],
+  [
+   3419,
+   "### H.3 Summary"
+  ],
+  [
+   3712,
+   "## Appendix I Model Details"
+  ],
+  [
+   3834,
+   "## Appendix J Failure Mode Details"
+  ],
+  [
+   4076,
+   "### J.1 Category Definitions"
+  ],
+  [
+   4080,
+   "#### 1. Syntactic & Compilation"
+  ],
+  [
+   4084,
+   "#### 2. Type System & Memory"
+  ],
+  [
+   4088,
+   "#### 3. API Hallucination"
+  ],
+  [
+   4092,
+   "#### 4. Logic & Assertion"
+  ],
+  [
+   4096,
+   "#### 5. Test Design & Mocking"
+  ],
+  [
+   4100,
+   "### J.2 Error Classification Methodology"
+  ],
+  [
+   4104,
+   "#### Hierarchical Classification Decision Tree."
+  ],
+  [
+   4180,
+   "### J.3 API Hallucination Sub-category Analysis"
+  ],
+  [
+   4270,
+   "#### Key findings."
+  ],
+  [
+   4280,
+   "### J.4 Failure Mode Breakdown by Model"
+  ],
+  [
+   4284,
+   "### J.5 Illustrative Examples"
+  ],
+  [
+   4623,
+   "## Appendix K Prompt Template"
+  ],
+  [
+   4627,
+   "### K.1 System prompt template"
+  ],
+  [
+   4654,
+   "#[cfg(test)]"
+  ],
+  [
+   4932,
+   "### K.2 User prompt template"
+  ],
+  [
+   5045,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgments\n\nThis paper has been partially supported by the MOSAICO project (Management, Orchestration and Supervision of AI-agent COmmunities for reliable AI in software engineering) that has received funding from the European Union under the Horizon Research and Innovation Action (Grant Agreement No. 101189664).\n\n## References\n\nAgarwal et al. (2025)\n\nSandhini Agarwal, Lama Ahmad, Jason Ai, Sam Altman, Andy Applebaum, Edwin Arbus, Rahul K Arora, Yu Bai, Bowen Baker, Haiming Bao, and 1 others. 2025.\n\ngpt-oss-120b & gpt-oss-20b model card.\n\narXiv preprint arXiv:2508.10925.\n\nAlagarsamy et al. (2024)\n\nSaranya Alagarsamy, Chakkrit Tantithamthavorn, and Aldeida Aleti. 2024.\n\nA3test: Assertion-augmented automated test case generation.\n\nInformation and Software Technology, 176:107565.\n\nAustin et al. (2021)\n\nJacob Austin, Augustus Odena, Maxwell Nye, Maarten Bosma, Henryk Michalewski, David Dohan, Ellen Jiang, Carrie Cai, Michael Terry, Quoc Le, and 1 others. 2021.",
+ "limitations": "## 7 Limitations\n\nIn this work, for comparability, we evaluate all models using a standardized prompt format and fixed decoding configuration. Alternative prompting strategies, decoding schemes, or tool-augmented settings may yield different absolute performance and could better exploit specific models. Similarly, retrieval-based augmentation is sensitive to retriever design choices (e.g., chunking strategy, indexing granularity, and relevance scoring), and our retrieval-based context results do not necessarily reflect an optimally tuned retrieval pipeline. Additionally, XRepoTest focuses on five underexplored yet impactful languages (Rust, Go, Julia, PHP, and Ruby) and a curated set of real-world repositories. While this scope enables meaningful multilingual, repository-level evaluation, the results may not directly generalize to other programming languages, application domains, or testing frameworks. To partially address this, we release an extensible, containerized evaluation pipeline designed to facilitate future expansion to additional languages, repositories, and test ecosystems.\n\n## Acknowledgments\n\nThis paper has been partially supported by the MOSAICO project (Management, Orchestration and Supervision of AI-agent COmmunities for reliable AI in software engineering) that has received funding from the European Union under the Horizon Research and Innovation Action (Grant Agreement No. 101189664).\n\n## References\n\nAgarwal et al. (2025)\n\nSandhini Agarwal, Lama Ahmad, Jason Ai, Sam Altman, Andy Applebaum, Edwin Arbus, Rahul K Arora, Yu Bai, Bowen Baker, Haiming Bao, and 1 others. 2025.\n\ngpt-oss-120b & gpt-oss-20b model card.\n\narXiv preprint arXiv:2508.10925.\n\nAlagarsamy et al. (2024)\n\nSaranya Alagarsamy, Chakkrit Tantithamthavorn, and Aldeida Aleti. 2024.\n\nA3test: Assertion-augmented automated test case generation.\n\nInformation and Software Technology, 176:107565.\n\nAustin et al. (2021)\n\nJacob Austin, Augustus Odena, Maxwell Nye, Maarten Bosma, Henryk Michalewski, David Dohan, Ellen Jiang, Carrie Cai, Michael Terry, Quoc Le, and 1 others. 2021.\n\nProgram synthesis with large language models.\n\narXiv preprint arXiv:2108.07732.\n\nBhatia et al. (2024)\n\nShreya Bhatia, Tarushi Gandhi, Dhruv Kumar, and Pankaj Jalote. 2024.\n\nUnit test generation using generative ai: A comparative performance analysis of autogeneration tools.",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 18,
+  "seeds_or_runs": 0,
+  "swe_bench": 20,
+  "contamination": 12,
+  "human_study": 0,
+  "java": 8,
+  "industrial": 1
+ },
+ "fulltext_source": "html"
+}

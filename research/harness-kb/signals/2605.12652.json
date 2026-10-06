@@ -1,0 +1,319 @@
+{
+ "arxiv_id": "2605.12652",
+ "fulltext_chars": 84569,
+ "fulltext_lines": 1953,
+ "authors_block": "via Peer Successes and Failures Weichen Yu1,2, Xiaomin Li2, Yizhou Zhao1, Xiaoze Liu3, Ruowang Zhang3, Haixin Wang2, Yinyi Luo1, Chen Henry Wu1, Gaurav Mittal2, Matt Fredrikson1, Yu Hu2 1Carnegie Mellon University 2Microsoft 3Purdue University wyu3@andrew.cmu.edu, xiaominli@microsoft.com August 24, 2026",
+ "vendor_affiliation_hits": [],
+ "n_authors": 11,
+ "comment": "23 pages",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/viviable/mopd_code."
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   24,
+   "# Multi-Rollout On-Policy Distillation"
+  ],
+  [
+   40,
+   "###### Abstract"
+  ],
+  [
+   44,
+   "## 1 Introduction"
+  ],
+  [
+   62,
+   "## 2 Related Work"
+  ],
+  [
+   64,
+   "#### On-Policy Distillation"
+  ],
+  [
+   87,
+   "#### Multi-Rollout Reinforcement Learning and Verifier-Guided Improvement"
+  ],
+  [
+   104,
+   "## 3 Preliminaries"
+  ],
+  [
+   113,
+   "#### On-policy distillation."
+  ],
+  [
+   126,
+   "## 4 Multi-Rollout On-Policy Distillation"
+  ],
+  [
+   134,
+   "### 4.1 Multi-rollout peer conditioning"
+  ],
+  [
+   167,
+   "### 4.2 Peer-context construction"
+  ],
+  [
+   230,
+   "#### Positive peer imitation."
+  ],
+  [
+   242,
+   "#### Contrastive success–failure conditioning."
+  ],
+  [
+   252,
+   "#### Unified view"
+  ],
+  [
+   256,
+   "## 5 Experiments"
+  ],
+  [
+   260,
+   "### 5.1 Experimental Setup"
+  ],
+  [
+   262,
+   "#### Benchmarks."
+  ],
+  [
+   273,
+   "#### Metrics."
+  ],
+  [
+   283,
+   "### 5.2 Main Results for Self-Distillation"
+  ],
+  [
+   285,
+   "#### LiveCodeBench."
+  ],
+  [
+   297,
+   "#### Case Study."
+  ],
+  [
+   358,
+   "### 5.3 Analysis of Self-Teacher Signal Quality"
+  ],
+  [
+   461,
+   "#### Setup: self-teacher signal evaluation."
+  ],
+  [
+   516,
+   "#### Results and interpretation."
+  ],
+  [
+   525,
+   "### 5.4 Solution Diversity Analysis"
+  ],
+  [
+   531,
+   "### 5.5 Does Peer Information Improve Teacher–Student Distillation?"
+  ],
+  [
+   592,
+   "## 6 Conclusion"
+  ],
+  [
+   597,
+   "## References"
+  ],
+  [
+   1446,
+   "## Appendix A Teacher Signal Quality Metric"
+  ],
+  [
+   1448,
+   "#### Mean Spearman Correlation."
+  ],
+  [
+   1456,
+   "#### Mean Kendall’s \\tau ."
+  ],
+  [
+   1464,
+   "#### Pairwise Accuracy."
+  ],
+  [
+   1472,
+   "#### Success AUC."
+  ],
+  [
+   1480,
+   "#### Success Point-Biserial Correlation."
+  ],
+  [
+   1488,
+   "#### Success Brier Score (Sigmoid)."
+  ],
+  [
+   1588,
+   "## Appendix B Preliminary on Divergence-based distillation"
+  ],
+  [
+   1590,
+   "#### Divergence-based distillation."
+  ],
+  [
+   1619,
+   "## Appendix C Case Studies"
+  ],
+  [
+   1630,
+   "### C.1 Case Study 1: Identifier-space composition"
+  ],
+  [
+   1633,
+   "#### Candidate pair."
+  ],
+  [
+   1638,
+   "#### SDPO failure."
+  ],
+  [
+   1653,
+   "#### MOPD success."
+  ],
+  [
+   1671,
+   "#### Training-time context: MOPD encounters the same failure pattern"
+  ],
+  [
+   1676,
+   "### C.2 Case Study 2: Dropped middle-character constraint"
+  ],
+  [
+   1678,
+   "#### Candidate pair."
+  ],
+  [
+   1684,
+   "#### SDPO failure."
+  ],
+  [
+   1701,
+   "#### MOPD success."
+  ],
+  [
+   1716,
+   "#### Takeaway."
+  ],
+  [
+   1723,
+   "### C.3 Case Study 3: Training dynamics —"
+  ],
+  [
+   1726,
+   "#### Candidate pair."
+  ],
+  [
+   1731,
+   "#### Early MOPD signal."
+  ],
+  [
+   1737,
+   "#### Late SDPO failure."
+  ],
+  [
+   1743,
+   "#### Takeaway."
+  ],
+  [
+   1749,
+   "### C.4 Overall Pattern"
+  ],
+  [
+   1765,
+   "## Appendix D Diversity"
+  ],
+  [
+   1767,
+   "#### Distinct- n ."
+  ],
+  [
+   1778,
+   "#### AST node Jaccard distance (code only)."
+  ],
+  [
+   1793,
+   "#### Code Extraction for Diversity Measurement."
+  ],
+  [
+   1797,
+   "#### Results."
+  ],
+  [
+   1835,
+   "## Appendix E More Training Details and Training Statistics"
+  ],
+  [
+   1837,
+   "#### Compute Resources."
+  ],
+  [
+   1883,
+   "#### Time Cost."
+  ],
+  [
+   1910,
+   "#### Training stability."
+  ],
+  [
+   1921,
+   "## Appendix F More Related Work"
+  ],
+  [
+   1923,
+   "#### On-Policy Distillation of Large Language Models"
+  ],
+  [
+   1929,
+   "#### Self-Distillation and Self-Improvement for Reasoning"
+  ],
+  [
+   1934,
+   "#### Multi-Rollout Reinforcement Learning and Verifier-Guided Improvement"
+  ],
+  [
+   1939,
+   "## Appendix G Limitation"
+  ],
+  [
+   1943,
+   "## Appendix H Societal Impacts"
+  ],
+  [
+   1949,
+   "## Appendix I Declaration of LLM Usage"
+  ],
+  [
+   1953,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## Appendix G Limitation\n\nMOPD relies on the availability of multiple rollouts and a verifier or reward function that can partition them into successful and failed trajectories. This makes the method most directly applicable to verifiable domains such as code, math, tool use, and structured QA, while extending it to open-ended generation tasks may require reliable preference models or process-level evaluators. Peer conditioning increases context length and teacher-query cost when raw rollouts are concatenated, especially for long reasoning traces; selecting the most informative peers under context-length constraints is an open question. Finally, the quality of the teacher signal depends on the correctness of the success/failure labels: noisy verifiers or mislabeled rollouts may introduce misleading positive or negative evidence. Future work should study more robust peer selection, better handling of noisy feedback, and extensions to less easily verifiable tasks.\n\n## Appendix H Societal Impacts\n\nMOPD may have positive societal impacts by improving the efficiency of post-training and making stronger reasoning capabilities more accessible in smaller language models. Better distillation can reduce inference cost and energy use, and may help deploy capable models in resource-constrained settings. In domains such as code generation, tool use, scientific question answering, and mathematical reasoning, more reliable small models could support education, research assistance, and productivity tools.\n\nAt the same time, improving the reasoning and tool-use capabilities of smaller models may also increase risks. More capable and cheaper models could be misused for generating harmful code, automating deceptive content, or executing tool-use workflows in unintended ways. Because MOPD learns from both successful and failed trajectories, poor verifier design or biased feedback could also reinforce undesirable behavior if incorrect success/failure labels are treated as reliable supervision. These risks suggest that peer-conditioned distillation should be paired with careful verifier design, safety evaluations, misuse monitoring, and appropriate deployment safeguards, especially when applied to open-ended, high-impact, or tool-using systems.\n\n## Appendix I Declaration of LLM Usage\n\nWe used large language models as assistance tools during the preparation of this paper. Specifically, LLMs were used to help draft, revise, and polish parts of the manuscript, including improving clarity, grammar, and organization. We also used LLM assistance for code writing and debugging, such as drafting utility scripts, checking implementation details, and improving code readability.\n\n##",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 4,
+  "seeds_or_runs": 12,
+  "swe_bench": 0,
+  "contamination": 2,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

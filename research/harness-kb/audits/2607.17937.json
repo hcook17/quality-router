@@ -1,0 +1,21 @@
+{"arxiv_id": "2607.17937",
+ "blind_scores": {"rigor": 2, "reproducibility": 1, "generalizability": 1, "relevance": 4, "coi_risk": 1},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "Long context (299K chars) cuts strict pass from 8/10 to 3/10 on the main task", "proposed_strength": "weak", "reason": "The headline effect is not significant (two-sided Fisher p=0.0698, the author calls it 'trend-level'). It comes from one task with one model at n=10, and the sample was extended after the pilots were inspected (§4.3, §7.2; Irrelevant moved from 0/5 to 3/10). 20 of 25 Irrelevant-extension attempts were unscoreable infrastructure failures (§5.7), so the denominator is selected. Moderate overstates a non-significant, optionally stopped estimate."},
+  {"claim": "Most failed runs end with a success/completion claim (silent completion)", "proposed_strength": "weak", "reason": "The 38/44 figure comes from 'mixed historical inventories', which §7.1 says 'are used only to show failure forms, never as population estimates'. The review states it as a general rate ('most failed runs'), which the paper explicitly disclaims. Coding was done by a single author."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P18", "from": "contradicts", "to": "neutral", "reason": "The Generic guard is the same agent asked to self-validate, not a separate LLM judge or AI reviewer. It also passes 5/10, against 3/10 with no guard under Relevant long, so it is not evidence that self-checking hurts."},
+  {"id": "P16", "from": "supports", "to": "neutral", "reason": "The 24 frozen checks are the experimenter's scoring instrument and were never fed back to the agent in a loop. The paper gives no evidence on an execution-based verifier loop inside the harness."},
+  {"id": "P34", "from": "supports", "to": "mixed", "reason": "The Detailed guard 'explicitly restates all 24 requirements' (Table 7 caption), which are exactly the checks the verifier scores. 10/10 shows that restating the scored acceptance criteria makes the agent satisfy them, which is close to teaching to the test. It does not show that acceptance criteria improve quality the checks do not measure. n=10 and a single task."}
+ ],
+ "missed_issues": [
+  "metric_mismatch / circularity: the winning mitigation is the scoring rubric itself pasted into the prompt. The review treats this as a general checklist result.",
+  "The delegation result relies on the worker's own self-report that the contract was lost and prohibited files were read; there is no independent access trace (§7.2). The review notes 'disclosure' but still uses it for a P08 'contradicts' stance. Treat it as n=1 mechanism evidence only.",
+  "The gateway 'may route a nominal model identifier to changing backends' (§7.2), so even the main cell may not be a single fixed model.",
+  "Relevance 5 is too high for a single proprietary code-audit task with structured JSON artifacts. The transferable harness lesson (restate frozen acceptance criteria at the completion gate; don't trust compaction to carry exact contracts) is real but rests on n=10 and n=1 evidence. Generalizability is closer to 1 than 2 (one positive task, the other tasks either pass or fail their clean gate).",
+  "Reproducibility 2 is generous: the package is 'available from the author pending deposit', with proprietary source excluded and one raw receipt lost. That is effectively closed at publication time."
+ ],
+ "note": "Review is faithful on the numbers but too lenient in how it grades the stance and claim strength. A non-significant headline and a circular checklist mitigation should not drive 'supports' stances or relevance 5."}

@@ -1,0 +1,132 @@
+{
+ "arxiv_id": "2607.19682",
+ "fulltext_chars": 87154,
+ "fulltext_lines": 2014,
+ "authors_block": "CCS: Software and its engineering Software testing and debuggingCCS: Computing methodologies Natural language generationCCS: Software and its engineering Software maintenance tools Junjie Chen Affiliation: Tianjin University, Tianjin, China email: junjiechen@tju.edu.cn , Ziqi Wang Affiliation: Tianjin University, Tianjin, China email: wangziqi123@tju.edu.cn , Lin Yang Affiliation: Tianjin University, Tianjin, China email: linyang@tju.edu.cn , Chen Yang Affiliation: Tianjin University, Tianjin, China email: yangchenyc@tju.edu.cn , Xiao Chu Affiliation: Huawei Cloud, Beijing, China email: chuxiao1@huawei.com , Jianyi Zhou Affiliation: Huawei Cloud, Beijing, China email: zhoujianyi2@huawei.com , Guangtai Liang Affiliation: Huawei Cloud, Beijing, China email: liangguangtai@huawei.com , Qianxiang Wang Affiliation: Huawei Cloud, Beijing, China email: wangqianxiang@huawei.com and Dong Wang Note: Corresponding Author. Affiliation: Tianjin University, Tianjin, China email: dong_w@tju.edu.cn 2026",
+ "vendor_affiliation_hits": [
+  "Huawei"
+ ],
+ "n_authors": 9,
+ "comment": "23 pages, 5 figures, 7 tables",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/CATGen-repository/CATGen",
+  "https://github.com/jacoco/jacoco"
+ ],
+ "hf_urls": [
+  "https://huggingface.co/Qwen/Qwen2.5-32B",
+  "https://huggingface.co/Qwen/Qwen2.5-Coder-32B-Instruct",
+  "https://huggingface.co/Qwen/Qwen2.5-Coder-7B-Instruct",
+  "https://huggingface.co/codellama/CodeLlama-7b-Instruct-hf",
+  "https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Llama-8B",
+  "https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-32B",
+  "https://huggingface.co/deepseek-ai/deepseek-coder-33b-instruct",
+  "https://huggingface.co/deepseek-ai/deepseek-coder-6.7b-instruct",
+  "https://huggingface.co/meta-llama/Meta-Llama-3.1-8B-Instruct"
+ ],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Context Matters: Improving the Practical Reliability of LLM-Based Unit Test Generation (Experience Paper)"
+  ],
+  [
+   90,
+   "###### Abstract."
+  ],
+  [
+   94,
+   "###### Keywords:"
+  ],
+  [
+   97,
+   "## 1. Introduction"
+  ],
+  [
+   165,
+   "## 2. Related Work"
+  ],
+  [
+   196,
+   "## 3. Practice-Driven Workflow for LLM-Based Unit Test Generation"
+  ],
+  [
+   207,
+   "### 3.1. Contextual Information Retrieval"
+  ],
+  [
+   245,
+   "### 3.2. Context-Aware Test Class Skeleton Construction"
+  ],
+  [
+   275,
+   "### 3.3. Skeleton-Conditioned Completion for Test Generation"
+  ],
+  [
+   301,
+   "### 3.4. Program Analysis-Based Post-Processing"
+  ],
+  [
+   347,
+   "## 4. Industrial Evaluation"
+  ],
+  [
+   349,
+   "### 4.1. Experimental Design"
+  ],
+  [
+   356,
+   "# Focal Methods"
+  ],
+  [
+   479,
+   "### 4.2. Evaluation Results"
+  ],
+  [
+   1014,
+   "## 5. Open-Source Software Evaluation"
+  ],
+  [
+   1257,
+   "## 6. Discussion"
+  ],
+  [
+   1365,
+   "## 7. Threats to Validity"
+  ],
+  [
+   1377,
+   "## 8. Conclusion"
+  ],
+  [
+   1387,
+   "## Data Availability"
+  ],
+  [
+   1396,
+   "## References"
+  ],
+  [
+   2014,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 7. Threats to Validity\n\nExternal Validity. A potential threat to external validity arises from the choice of models and the implementation of baselines. To mitigate this, we evaluate CATGen across multiple state-of-the-art LLMs with diverse architectures, including general-purpose and code-specialized models, to ensure findings are not tied to a single model. For baselines, we adopt publicly available implementations to ensure fair and reproducible comparisons.\nOur evaluation targets reproducible, pipeline-level test generation with locally hosted open-weight models; we do not report head-to-head experiments against interactive coding assistants (e.g., Claude Code and Codex-based tools), which optimize ad hoc developer interaction rather than batch generation under fixed project context and may raise data-security concerns for proprietary code under NDA settings.\n\nInternal Validity. Three aspects affect internal validity. First, our coverage metrics rely on Jacoco for runtime instrumentation, which may miss certain execution paths or misreport coverage in edge cases. While Jacoco is standard in Java testing, this limitation is acknowledged.\nSecond, the non-deterministic nature of LLMs may introduce variability in generated tests. To address this, we conduct multiple independent runs for each configuration and apply statistical significance testing to ensure observed improvements are consistent.\nThird, when contrasting CATGen with baselines in Section 4, we compare outcomes on identical focal methods using paired Wilcoxon signed-rank tests (Woolson, 2007), reporting p -values together with effect sizes ( r ) and the accompanying changes in compilation success rate, line coverage, and branch coverage.\n\nConstruct Validity. We treat success as compilable, executable tests under project constraints, not metric inflation alone. The industrial benchmark stresses deployment failure modes and may favor compilability-focused workflows; we therefore complement it with Defects4J and mutation-score analysis. Industrial focal methods were not publicly available during LLM training, and generic repair patterns also transferred to C pilots, but all reported experiments are Java-based.\nStatic context extraction uses IntelliJ PSI in our implementation but depends only on AST-level structural signals; any extractor providing equivalent facts can substitute for PSI.\n\n## 8. Conclusion\n\nLLMs have recently shown promise for automated unit test generation, yet our industrial deployments reveal a persistent gap between encouraging research results and practical usability.\nIn real-world projects, generated tests must not only achieve coverage but also compile and execute under complex project-level constraints.\nIn our experience, we observed that insufficient code context, fragile scaffolding, and costly repair loops frequently dominate the workflow, limiting the benefits of existing prompt-driven approaches.\nTo tackle this, we introduce a context-aware workflow developed through repeated industrial failures.\nRather than relying on LLMs to infer missing dependencies, CATGen explicitly retrieves project context, constructs deterministic test-class skeletons, and applies analysis-driven post-processing to ensure compilation robustness.\nAcross both industrial and open-source settings, CATGen consistently generates more compilable and effective tests while significantly reducing generation cost compared to existing LLM-based approaches.\nOur insights encourage future work to treat LLMs as components within engineered systems rather than standalone solutions, and to prioritize robustness and deployability when bringing AI-assisted testing techniques into real-world development environments.\n\n## Data Availability\n\nDue to confidentiality agreements with our industrial partner, the full source code and proprietary benchmark datasets used in this work cannot be publicly released.\nHowever, to maximize reproducibility and transparency under these constraints, w",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 6,
+  "seeds_or_runs": 1,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 11,
+  "industrial": 46
+ },
+ "fulltext_source": "html"
+}

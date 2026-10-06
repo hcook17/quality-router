@@ -1,0 +1,235 @@
+{
+ "arxiv_id": "2608.17177",
+ "fulltext_chars": 68541,
+ "fulltext_lines": 1259,
+ "authors_block": "Michele Tufano, James McClure, José Cambronero, Runxiang Cheng, Sherry Y. Shi, Renyao Wei, Dorothy Chen, Franjo Ivančić, Livio Dalloro, Pat Rondon email: {tufanomichele, jmcclure, jcambronero, chengsam, sherryyshi, renyaow, dschen, ivancic, dalloro, rondon}@google.com Affiliation: Google , USA 2026; © , 2026; Received 2026-07-16",
+ "vendor_affiliation_hits": [
+  "Google"
+ ],
+ "n_authors": 10,
+ "comment": "To appear in Proceedings of the 1st International Workshop on Specification-Driven Development Life Cycle (SpecOps 2026), co-located with SPLASH 2026",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Grounding AI Agents in Contracts: An Empirical Evaluation of Spec-Driven Test GenerationCCS: Software and its engineering Software verification and validationCCS: Software and its engineering Empirical software validationCCS: Computing methodologies Artificial intelligenceCCS: Software and its engineering Specification languagesDOI: 10.1145/3842652.3843195ISBN: 979-8-4007-2970-6/2026/10Conference: Proceedings of the 1st International Workshop on Specification-Driven Development Life Cycle; October 4–9, 2026; Oakland, CA, USAProceedings of the 1st International Workshop on Specification-Driven Development Life Cycle (SpecOps ’26), October 4–9, 2026, Oakland, CA, USAsplashws26specopsmain-p4-p"
+  ],
+  [
+   31,
+   "###### Abstract."
+  ],
+  [
+   40,
+   "###### Keywords:"
+  ],
+  [
+   45,
+   "## 1. Introduction"
+  ],
+  [
+   94,
+   "## 2. Semi-Formal Specifications for API Behavior"
+  ],
+  [
+   103,
+   "##### Formal Definition of the Specification Artifact"
+  ],
+  [
+   127,
+   "##### Generating Specifications with AI Agents"
+  ],
+  [
+   133,
+   "##### Illustrative Example"
+  ],
+  [
+   181,
+   "## 3. Proposed Approach"
+  ],
+  [
+   186,
+   "### 3.1. Phase I: Specification Extraction"
+  ],
+  [
+   206,
+   "### 3.2. Human-in-the-Loop Specification Curation"
+  ],
+  [
+   213,
+   "### 3.3. Phase II: Oracle-Driven Test Generation"
+  ],
+  [
+   220,
+   "## 4. Empirical Design"
+  ],
+  [
+   242,
+   "### 4.1. Dataset Collection"
+  ],
+  [
+   253,
+   "### 4.2. Agent Configurations"
+  ],
+  [
+   259,
+   "##### Baseline Agent"
+  ],
+  [
+   280,
+   "##### Spec-Driven Agent"
+  ],
+  [
+   287,
+   "### 4.3. Greenfield Test Generation Setup"
+  ],
+  [
+   326,
+   "#### 4.3.1. Post-Execution Sanity Checks"
+  ],
+  [
+   336,
+   "### 4.4. Evaluation Protocol and Metrics"
+  ],
+  [
+   338,
+   "#### 4.4.1. RQ1: Quantitative Effectiveness"
+  ],
+  [
+   352,
+   "##### Statistical Tests"
+  ],
+  [
+   366,
+   "#### 4.4.2. RQ2: Qualitative Test Rigor via LLM-as-a-Judge"
+  ],
+  [
+   389,
+   "##### Comparison to Original, Developer-Written Test Suites"
+  ],
+  [
+   393,
+   "#### 4.4.3. RQ3: Specification Accuracy and Contract Coverage"
+  ],
+  [
+   408,
+   "## 5. Evaluation Results"
+  ],
+  [
+   412,
+   "### 5.1. RQ1: Quantitative Effectiveness"
+  ],
+  [
+   417,
+   "#### 5.1.1. Test Suite Pass Rate (pass@k)"
+  ],
+  [
+   458,
+   "#### 5.1.2. Fault Detection Rate (detect@k)"
+  ],
+  [
+   508,
+   "##### Progress on More Challenging Bugs"
+  ],
+  [
+   517,
+   "##### Uniquely Detected Bugs"
+  ],
+  [
+   523,
+   "##### Statistical Significance"
+  ],
+  [
+   531,
+   "#### 5.1.3. Structural Coverage"
+  ],
+  [
+   565,
+   "### 5.2. RQ2: Qualitative Test Rigor"
+  ],
+  [
+   578,
+   "#### 5.2.1. Qualitative Evaluation Results"
+  ],
+  [
+   582,
+   "##### Spec-Driven Agent vs. Baseline Agent"
+  ],
+  [
+   589,
+   "##### Spec-Driven Agent vs. Developer-Written Test Suites"
+  ],
+  [
+   606,
+   "### 5.3. RQ3: Specification Accuracy"
+  ],
+  [
+   610,
+   "#### 5.3.1. Contract Coverage and Bug Detection"
+  ],
+  [
+   630,
+   "#### 5.3.2. Specification Generation Failure"
+  ],
+  [
+   655,
+   "#### 5.3.3. Test Generation Failure"
+  ],
+  [
+   681,
+   "### 5.4. RQ4: Cost-Efficiency"
+  ],
+  [
+   726,
+   "## 6. Threats to Validity"
+  ],
+  [
+   728,
+   "##### Construct Validity"
+  ],
+  [
+   735,
+   "##### Internal Validity"
+  ],
+  [
+   745,
+   "##### External Validity"
+  ],
+  [
+   751,
+   "## 7. Related Work"
+  ],
+  [
+   770,
+   "## 8. Conclusions"
+  ],
+  [
+   777,
+   "## References"
+  ],
+  [
+   1259,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 6. Threats to Validity\n\n##### Construct Validity\n\nOur evaluation relies on an LLM-as-a-Judge (Gemini 3.1 Pro) for assessing qualitative test rigor (§5.2) and for computing contract coverage (§5.3).\nA known threat is that LLMs can exhibit classification noise, verbosity bias, and self-preference bias.\nWe mitigate this by (1) deliberately using a larger, more capable Gemini 3.1 Pro model to evaluate the outputs of a smaller Gemini 3.0 Flash model which helps reduce self-preference bias, and (2) executing the LLM judge 5 independent times for every evaluation pair and computing the final decision via a strict majority vote.\nThis ensemble approach smooths classification noise and ensures consistent self-agreement across the independent runs.\n\n##### Internal Validity\n\nA pervasive threat when evaluating frontier AI models on historical software engineering datasets is data contamination: the risk that the model encountered the exact evaluation bugs during its pre-training phase, leading to memorization rather than true reasoning.\nHowever, in our evaluation, both the baseline and the Spec-Driven Agent utilize the exact same underlying LLM. Therefore, any observed performance improvements are strictly due to the enhanced reasoning capabilities unlocked by the specification rather than data contamination.\n\nSince our evaluation relies on a single set of LLMs (Gemini), the absolute performance metrics are inherently tied to this version’s underlying code-reasoning capabilities, so using different or future LLMs may yield different absolute bug detection and compilation rates. We use the same model set and agentic harness for both evaluated agents to mitigate this threat.\n\nEvaluating bug detection on historical bugs is an established protocol for regression testing. However, we acknowledge that developers want to find new bugs in practical production environments. We focus on understanding the feasiblity of semi-formal specification framework in helping the agent to recover bug-catching contracts, by evaluating on historical bugs.\nGiven its effectiveness illustrated in this paper, future work can explore using the framework to aid agentic discovery of new bugs.\n\n##### External Validity\n\nWhile our dataset is multi-lingual (C++, Java, Python, Go) and covers diverse domains, all historical bugs were sourced from Google’s monorepo, which\nrepresents a single large-scale technology organization with specific engineering standards and style guides. Consequently, our metrics must be interpreted in the context of this specific environment. While the exact detection and coverage rates may vary across different corporate or open-source codebases, the underlying methodology of using semi-formal contracts as a cognitive scaffold for agentic exploration is fundamentally language- and platform-agnostic.\nAdditionally, our evaluation scope is currently limited to bugs whose fixes modify a single source file to establish cleaner evaluation boundaries and straightforward comparison.\n\n## 7. Related Work\n\nWe discuss related work in program verification broadly, LLM-based program reasoning, and test generation specifically.\n\nHoare logic (21) introduced a compositional approach to formally reasoning about program behavior, based on pre- and post-conditions, setting the foundations for modern-day program verification. The seminal Eiffel programming language (29) built on these foundations, introducing design-by-contract, which allows developers to clearly document each component’s requirements and responsibilities by co-locating their logical assertions with their implementation and automatically checking these at runtime. Advances in automated reasoning tools and modern verification-aware programming languages, like Dafny (25) and F^{*} (37), allow developers to statically verify that their implementations satisfy their logical properties. Similarly, Lean (13) and Rocq (8) can be used to write rigorous, machine-checkable proofs, allowing computer scientists ",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 11,
+  "p_value_or_ci": 29,
+  "seeds_or_runs": 4,
+  "swe_bench": 0,
+  "contamination": 3,
+  "human_study": 0,
+  "java": 3,
+  "industrial": 6
+ },
+ "fulltext_source": "html"
+}

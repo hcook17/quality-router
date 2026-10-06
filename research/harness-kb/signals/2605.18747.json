@@ -1,0 +1,527 @@
+{
+ "arxiv_id": "2605.18747",
+ "fulltext_chars": 347137,
+ "fulltext_lines": 8778,
+ "authors_block": "\\lozenge Toward Executable, Verifiable, and Stateful Agent Systems \\lozenge Xuying Ning Katherine Tieu Dongqi Fu Tianxin Wei Zihao Li Yuanchen Bei Jiaru Zou Mengting Ai Zhining Liu Ting-Wei Li Lingjie Chen Yanjun Zhao Ke Yang Bingxuan Li Cheng Qian Gaotang Li Xiao Lin Zhichen Zeng Ruizhong Qiu Sirui Chen Yifan Sun Xiyuan Yang Ruida Wang Rui Pan Chenyuan Yang Dylan Zhang Liri Fang Zikun Cui Yang Cao Pan Chen Dorothy Sun Ren Chen Mahesh Srinivasan Nipun Mathur Yinglong Xia Hong Li Hong Yan Pan Lu Lingming Zhang Tong Zhang Hanghang Tong Affiliation: Corresponding Author Jingrui He Affiliation: Corresponding Author University of Illinois Urbana-Champaign Meta Stanford University Affiliation: Core Contributor",
+ "vendor_affiliation_hits": [
+  "Meta"
+ ],
+ "n_authors": 42,
+ "comment": "GitHub: https://github.com/YennNing/Awesome-Code-as-Agent-Harness-Papers",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/AgentOps-AI/agentopsGitHub",
+  "https://github.com/Arize-ai/openinferenceGitHub",
+  "https://github.com/Arize-ai/phoenixGitHub",
+  "https://github.com/BerriAI/litellmGitHub",
+  "https://github.com/EleutherAI/lm-evaluation-harnessGitHub",
+  "https://github.com/Helicone/heliconeGitHub",
+  "https://github.com/IBM/mcp-context-forgeGitHub",
+  "https://github.com/Kong/kongGitHub",
+  "https://github.com/NVIDIA-NeMo/GymGitHub",
+  "https://github.com/Picrew/awesome-agent-harnessCurated",
+  "https://github.com/Portkey-AI/gatewayGitHub",
+  "https://github.com/SWE-agent/SWE-ReXGitHub",
+  "https://github.com/Th0rgal/sandboxed.shGitHub",
+  "https://github.com/TracecatHQ/tracecatGitHub",
+  "https://github.com/UKGovernmentBEIS/inspect_evalsGitHub"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Code as Agent Harness"
+  ],
+  [
+   120,
+   "###### Abstract"
+  ],
+  [
+   151,
+   "## 1 Introduction"
+  ],
+  [
+   357,
+   "######"
+  ],
+  [
+   359,
+   "## 2 Harness Interface: Code for Reasoning, Acting, and"
+  ],
+  [
+   382,
+   "##### Scope boundary."
+  ],
+  [
+   414,
+   "### 2.1 Code for Reasoning"
+  ],
+  [
+   436,
+   "#### 2.1.1 Program-Delegated Reasoning"
+  ],
+  [
+   470,
+   "#### 2.1.2 Formal Verification and Symbolic Reasoning Interfaces"
+  ],
+  [
+   479,
+   "#### 2.1.3 Iterative Code-Grounded Reasoning"
+  ],
+  [
+   720,
+   "### 2.2 Code for Acting"
+  ],
+  [
+   934,
+   "#### 2.2.1 Grounded Skill Selection"
+  ],
+  [
+   954,
+   "#### 2.2.2 Programmatic Policy Generation"
+  ],
+  [
+   994,
+   "#### 2.2.3 Lifelong Code-Based Agents"
+  ],
+  [
+   1033,
+   "### 2.3 Code for Environment"
+  ],
+  [
+   1249,
+   "#### 2.3.1 Structured World Representations"
+  ],
+  [
+   1283,
+   "#### 2.3.2 Execution-Trace World Modeling"
+  ],
+  [
+   1316,
+   "#### 2.3.3 Code-Grounded Evaluation Environments"
+  ],
+  [
+   1354,
+   "#### 2.3.4 Verifiable Environment Construction"
+  ],
+  [
+   1375,
+   "## 3 Harness Mechanisms: Planning, Memory, Tool Use, Control, and Optimization"
+  ],
+  [
+   1387,
+   "### 3.1 Planning for Agent Harness"
+  ],
+  [
+   1395,
+   "#### 3.1.1 Linear Decomposition Planning"
+  ],
+  [
+   1401,
+   "#### 3.1.2 Structure-grounded Planning"
+  ],
+  [
+   1407,
+   "#### 3.1.3 Search-based Planning"
+  ],
+  [
+   1477,
+   "#### 3.1.4 Orchestration-based Planning"
+  ],
+  [
+   1489,
+   "### 3.2 Memory and Context Engineering for Agent Harness"
+  ],
+  [
+   1499,
+   "#### 3.2.1 Working Memory"
+  ],
+  [
+   1504,
+   "#### 3.2.2 Semantic Memory"
+  ],
+  [
+   1671,
+   "#### 3.2.3 Experiential Memory"
+  ],
+  [
+   1676,
+   "#### 3.2.4 Long-Term Memory"
+  ],
+  [
+   1681,
+   "#### 3.2.5 Multi-Agent Memory"
+  ],
+  [
+   1686,
+   "#### 3.2.6 Context Compaction and State Offloading"
+  ],
+  [
+   1694,
+   "### 3.3 Tool Use for Agent Harness"
+  ],
+  [
+   1817,
+   "#### 3.3.1 Function-Oriented Tool Use"
+  ],
+  [
+   1821,
+   "#### 3.3.2 Environment-Interaction Tool Use"
+  ],
+  [
+   1825,
+   "#### 3.3.3 Verification-Driven Tool Use"
+  ],
+  [
+   1829,
+   "#### 3.3.4 Workflow-Orchestration Tool Use"
+  ],
+  [
+   1835,
+   "### 3.4 Harness Control through the Plan, Execute, and Verify Loop"
+  ],
+  [
+   1841,
+   "#### 3.4.1 From Debugging to Harness-Level Control"
+  ],
+  [
+   1929,
+   "#### 3.4.2 Planning as Contract Formation"
+  ],
+  [
+   1933,
+   "#### 3.4.3 Sandboxed Execution and Permissioned State Transition"
+  ],
+  [
+   1939,
+   "#### 3.4.4 Verification through Deterministic Sensors"
+  ],
+  [
+   1947,
+   "### 3.5 Agentic Harness Engineering for Adaptive Harness Optimization"
+  ],
+  [
+   1955,
+   "#### 3.5.1 Deep Telemetry as the Optimization Substrate"
+  ],
+  [
+   1961,
+   "#### 3.5.2 The Evolution Agent"
+  ],
+  [
+   2049,
+   "#### 3.5.3 Governed Harness Mutation"
+  ],
+  [
+   2055,
+   "## 4 Scaling the Harness: Multi-Agent Orchestration over Code"
+  ],
+  [
+   2091,
+   "### 4.1 Improved Coding Support through Multi-agent Collaboration"
+  ],
+  [
+   2239,
+   "#### 4.1.1 Functional Role Specialization and Human-Guided Planning"
+  ],
+  [
+   2253,
+   "##### Program synthesis agents"
+  ],
+  [
+   2266,
+   "##### Program understanding agents"
+  ],
+  [
+   2277,
+   "##### Verification agents"
+  ],
+  [
+   2297,
+   "##### Execution agents"
+  ],
+  [
+   2309,
+   "##### Planning agents"
+  ],
+  [
+   2333,
+   "#### 4.1.2 Diverse Interaction Modes Grounded in Shared Program State"
+  ],
+  [
+   2348,
+   "##### Collaborative synthesis"
+  ],
+  [
+   2361,
+   "##### Critique and repair"
+  ],
+  [
+   2379,
+   "##### Adversarial validation"
+  ],
+  [
+   2396,
+   "##### Reasoning debate"
+  ],
+  [
+   2415,
+   "#### 4.1.3 Optimized Workflow Topology for Agentic Coordination"
+  ],
+  [
+   2422,
+   "##### Pre-defined Heuristic Topologies"
+  ],
+  [
+   2488,
+   "##### Objective-driven and Adaptive Topologies"
+  ],
+  [
+   2540,
+   "### 4.2 Execution Feedback and Shared-Harness Synchronization"
+  ],
+  [
+   2687,
+   "#### 4.2.1 Execution Feedback Integration"
+  ],
+  [
+   2689,
+   "##### Compiler and syntax feedback"
+  ],
+  [
+   2700,
+   "##### Test pass/fail signals"
+  ],
+  [
+   2718,
+   "##### Fuzzer crash traces"
+  ],
+  [
+   2729,
+   "##### Static analysis warnings"
+  ],
+  [
+   2738,
+   "##### Performance profiling results"
+  ],
+  [
+   2748,
+   "##### Fine-grained simulation feedback"
+  ],
+  [
+   2758,
+   "#### 4.2.2 Shared-Harness Synchronization"
+  ],
+  [
+   2776,
+   "##### Shared blackboard"
+  ],
+  [
+   2794,
+   "##### Parallel branches with merge"
+  ],
+  [
+   2806,
+   "##### Structured context scheduling"
+  ],
+  [
+   2825,
+   "##### Hierarchical memory"
+  ],
+  [
+   2840,
+   "##### Agent pool scaling"
+  ],
+  [
+   2855,
+   "##### Other"
+  ],
+  [
+   2864,
+   "### 4.3 Position: The Shared Code-Centric Harness Substrate"
+  ],
+  [
+   2957,
+   "#### 4.3.1 Shared Harness Representation"
+  ],
+  [
+   2968,
+   "##### Implicit / File-only Representation"
+  ],
+  [
+   2990,
+   "##### Repository-based Representation"
+  ],
+  [
+   3013,
+   "##### Execution-based Representation"
+  ],
+  [
+   3036,
+   "##### Blackboard / Shared-State Representation"
+  ],
+  [
+   3061,
+   "##### The Central Gap"
+  ],
+  [
+   3074,
+   "#### 4.3.2 Harness-State Convergence"
+  ],
+  [
+   3085,
+   "##### Correctness convergence"
+  ],
+  [
+   3102,
+   "##### Security convergence"
+  ],
+  [
+   3112,
+   "##### Performance convergence"
+  ],
+  [
+   3122,
+   "##### Score-based convergence"
+  ],
+  [
+   3144,
+   "##### Consensus convergence"
+  ],
+  [
+   3158,
+   "##### Implicit convergence"
+  ],
+  [
+   3177,
+   "### 4.4 Patterns and Trends"
+  ],
+  [
+   3188,
+   "##### The implicit-harness-state constraint"
+  ],
+  [
+   3209,
+   "##### Code-mediated channels do not eliminate coordination bottlenecks"
+  ],
+  [
+   3225,
+   "##### Execution feedback as the bridge between linguistic and formal reasoning"
+  ],
+  [
+   3249,
+   "##### Two complementary representations of the shared harness"
+  ],
+  [
+   3271,
+   "##### Topology complexity inversely correlates with harness-state formality"
+  ],
+  [
+   3291,
+   "##### Context management is the tax of implicit shared state"
+  ],
+  [
+   3308,
+   "##### Agent specialization increases the criticality of shared state metrics"
+  ],
+  [
+   3327,
+   "## 5 Emerging Fields and Open Problems"
+  ],
+  [
+   3333,
+   "### 5.1 Emerging Fields and Tangible Applications"
+  ],
+  [
+   3337,
+   "#### 5.1.1 Code Assistants"
+  ],
+  [
+   3353,
+   "##### Repository-centered Workspace"
+  ],
+  [
+   3367,
+   "##### Executable Development Harnesses."
+  ],
+  [
+   3393,
+   "##### Execution Feedback as Grounded Verification"
+  ],
+  [
+   3400,
+   "##### Memory and Context Management at Repository Scale"
+  ],
+  [
+   3407,
+   "##### Developer Intent and Project Conventions as Latent State"
+  ],
+  [
+   3427,
+   "##### From Inline Completion to Autonomous SWE Agents"
+  ],
+  [
+   3434,
+   "##### From Patch Generation to Software Lifecycle Participation"
+  ],
+  [
+   3454,
+   "##### Multi-Agent Code Assistance and Shared Repositories"
+  ],
+  [
+   3462,
+   "##### The Harness as a Distillation Surface"
+  ],
+  [
+   3469,
+   "##### Open Challenges for Code-Assistant Harnesses"
+  ],
+  [
+   3481,
+   "#### 5.1.2 GUI/OS Agents as a Program World"
+  ],
+  [
+   3485,
+   "##### GUI/OS as a Partially Observable Program World"
+  ],
+  [
+   3489,
+   "##### Code as a Bridge Between User Interfaces and GUI Agents"
+  ],
+  [
+   3499,
+   "##### Memory as Persistent Programmatic State"
+  ],
+  [
+   3503,
+   "##### UI Simulators and Sandboxes as Executable Dynamics"
+  ],
+  [
+   3507,
+   "##### From Simulation to Production: Executable Feedback Loops"
+  ],
+  [
+   3513,
+   "#### 5.1.3 Autonomous Embodied Agents"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "",
+ "ethics_coi": "#### 5.2.4 Transactional Shared Program State and Semantic Conflict Resolution\n\nScaling from single agents to multi-agent systems turns the codebase into a shared harness substrate. Planners, coders, testers, reviewers, security agents, and humans may all read and modify overlapping artifacts. Prior sections show that many systems still rely on sequential handoff, shared logs, or file-only state, while newer systems introduce blackboards, repository memories, execution feedback, and explicit belief-state synchronization [330, 55, 50, 250, 347]. The open problem is that synchronization alone does not provide transactional semantics or assumption-level consistency: these mechanisms often synchronize artifacts but not assumptions. One agent may plan from an old repository snapshot, another may test a newer patch, a third may remember an obsolete invariant, and a human reviewer may introduce a new constraint that is not propagated to the rest of the system.\n\nThe missing abstraction is transactional shared program state. Agents should not merely append messages to a common log; each action should declare its read set, write set, assumptions, version dependencies, verifier obligations, and conflict policy. Conflicts should be detected not only at the level of file diffs, but also at the level of plans, tests, retrieved evidence, permissions, memory entries, and latent user requirements. Future harnesses need conflict-resolution mechanisms that are semantic rather than purely textual, including semantic merge, rollback, dependency-aware locking, belief-state reconciliation, conflict explanation, and re-verification after merge. Classical version control, databases, CRDTs, and build systems provide useful analogies, but agentic systems add conflicts that conventional tools do not see: incompatible plans, stale memories, duplicated subtasks, inconsistent tool authority, and divergent interpretations of the user’s goal. A key research challenge is to determine when a conflict",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 11,
+  "seeds_or_runs": 2,
+  "swe_bench": 13,
+  "contamination": 5,
+  "human_study": 2,
+  "java": 1,
+  "industrial": 13
+ },
+ "fulltext_source": "html"
+}

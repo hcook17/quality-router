@@ -1,0 +1,141 @@
+{
+ "arxiv_id": "2607.01456",
+ "fulltext_chars": 66501,
+ "fulltext_lines": 1117,
+ "authors_block": "David Boram Hong Affiliation: University of California, Irvine Irvine, USA dbhong@uci.edu Aaron Imani Affiliation: University of California, Irvine Irvine, USA aaron.imani@uci.edu Iftekhar Ahmed Affiliation: University of California, Irvine Irvine, USA iftekha@uci.edu",
+ "vendor_affiliation_hits": [],
+ "n_authors": 3,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/agentskills/agentskills",
+  "https://github.com/anthropics/claude-code",
+  "https://github.com/features/copilot"
+ ],
+ "hf_urls": [
+  "https://huggingface.co/Qwen/Qwen3.6-27B",
+  "https://huggingface.co/cyankiwi/Qwen3.6-27B-AWQ-INT4",
+  "https://huggingface.co/datasets/open-index"
+ ],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# From Anatomy to Smells: An Empirical Study of SKILL.md in Agent Skills"
+  ],
+  [
+   46,
+   "###### Abstract"
+  ],
+  [
+   50,
+   "###### Index Terms:"
+  ],
+  [
+   53,
+   "## I Introduction"
+  ],
+  [
+   102,
+   "## II Related Work"
+  ],
+  [
+   104,
+   "#### Automated Construction and Evolution of Agent Skills"
+  ],
+  [
+   108,
+   "#### Empirical Studies of Agent Skills"
+  ],
+  [
+   112,
+   "#### Effectiveness and Optimization of Agent Skills"
+  ],
+  [
+   118,
+   "## III Methodology"
+  ],
+  [
+   129,
+   "### III-A RQ1: Semantic Components of SKILL.md Body"
+  ],
+  [
+   137,
+   "### III-B RQ2: SKILL.md Best Practices & Skill Smells"
+  ],
+  [
+   147,
+   "### III-C RQ3: Automated Detection of Skill Smells"
+  ],
+  [
+   162,
+   "### III-D RQ4: How Skill Smell Prevalence Evolves Over Time"
+  ],
+  [
+   168,
+   "## IV Results"
+  ],
+  [
+   170,
+   "### RQ1: Semantic Components of SKILL.md Body"
+  ],
+  [
+   381,
+   "### RQ2: SKILL.md Best Practices & Skill Smells"
+  ],
+  [
+   392,
+   "# Best Practices"
+  ],
+  [
+   393,
+   "# Sources"
+  ],
+  [
+   646,
+   "### RQ3: Prevalence of Skill Smells"
+  ],
+  [
+   772,
+   "### RQ4: How Skill Smell Prevalence Evolves Over Time"
+  ],
+  [
+   791,
+   "## V Discussion"
+  ],
+  [
+   813,
+   "## VI Threats to Validity"
+  ],
+  [
+   819,
+   "## VII Conclusion"
+  ],
+  [
+   823,
+   "## References"
+  ],
+  [
+   1117,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## VI Threats to Validity\n\nConstruct Validity. One threat concerns the subjectivity of manually identifying semantic components and labeling skill smells. We mitigated this through using independent coding by two authors, followed by negotiated agreement to resolve all disagreements [35, 36]. Another unavoidable threat is that our best practices are derived from grey literature rather than peer-reviewed guidelines. To reduce potential bias, we independently reviewed the top 50 retrieved sources and retained only practices supported by a strict majority of the selected sources. A further threat concerns the reliability of our LLM-based detector for semantically detectable skill smells, which we mitigated by validating it on a manually curated ground-truth dataset.\n\nExternal Validity. A key threat to external validity is that our sample was drawn exclusively from the skills.sh marketplace [4]. Furthermore, restricting the sample to popular English-language skills may limit generalizability and could underestimate the prevalence of skill smells in the broader ecosystem. Another threat concerns our use of a single LLM, Qwen3.6-27B (4-bit AWQ), for detecting semantically detectable skill smells; prevalence estimates may differ with other models or quantization schemes.\n\n## VII Conclusion\n\nOur study presents the first systematic characterization of SKILL.md files as a software artifact. We identify a taxonomy of 13 higher-level and 44 lower-level semantic components, derive 26 best practices, and introduce skill smells as violations of these practices. Our empirical study shows that skill smells are highly prevalent and become more common as skills evolve over time. These findings establish SKILL.md quality as an important SE concern and motivate automated support for refactoring skill smells during skill authoring. All code, data, and replication materials are available in the supplementary material [50].\n\n## References\n\n[1]\n\nAnthropic. Claude Code. [Online]. Available: https://github.com/anthropics/claude-code\n\n[2]\n\nGitHub and OpenAI. GitHub Copilot. [Online]. Available: https://github.com/features/copilot\n\n[3]\n\nAnthropic. Agent Skills. [Online]. Available: https://github.com/agentskills/agentskills\n\n[4]\n\nThe Agent Skills Directory. [Online]. Available: https://www.skills.sh\n\n[5]\n\nAI Agent Skills Directory. [Online]. Available: https://agentskill.sh/\n\n[6]\n\nAgent Skills - Specification. [Online]. Available: https://agentskills.io/specification\n\n[7]\n\nYAML. YAML Ain’t Markup Language. [Online]. Available: https://yaml.org/",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 1,
+  "p_value_or_ci": 6,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

@@ -1,0 +1,188 @@
+{
+ "arxiv_id": "2607.07881",
+ "fulltext_chars": 67008,
+ "fulltext_lines": 2223,
+ "authors_block": "Felix Wang1, Anudeep Das1, Meiyappan Nagappan1, N. Asokan12 Affiliation: 2 KTH Royal Institute of Technology, Stockholm, Sweden Affiliation: 1 University of Waterloo, Waterloo, ON, Canada {felix.wang, anudeep.das, mei.nagappan}@uwaterloo.ca, asokan@acm.org",
+ "vendor_affiliation_hits": [],
+ "n_authors": 4,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/github/codeql",
+  "https://github.com/sahil280114/codealpaca"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   22,
+   "# Functional and Secure Code Generation with Task Vectors"
+  ],
+  [
+   38,
+   "###### Abstract"
+  ],
+  [
+   48,
+   "###### Index Terms:"
+  ],
+  [
+   51,
+   "## I Introduction"
+  ],
+  [
+   109,
+   "## II Related Work"
+  ],
+  [
+   114,
+   "### II-A Security Risks of LLM-Generated Code"
+  ],
+  [
+   118,
+   "### II-B Approaches to Secure Code Generation"
+  ],
+  [
+   143,
+   "## III Methodology"
+  ],
+  [
+   145,
+   "### III-A Secure-Code Steering with Task Vectors"
+  ],
+  [
+   159,
+   "### III-B Task-Vector Steering Operators"
+  ],
+  [
+   225,
+   "### III-C Choice of W_{\\text{sec}} and W_{\\text{vul}}"
+  ],
+  [
+   237,
+   "### III-D Experiment to Choose Fine-tuning Strategy"
+  ],
+  [
+   310,
+   "### III-E Dataset Configuration"
+  ],
+  [
+   327,
+   "## IV Experimental Setup"
+  ],
+  [
+   616,
+   "### IV-A Datasets"
+  ],
+  [
+   632,
+   "### Instruction:"
+  ],
+  [
+   636,
+   "### Response:"
+  ],
+  [
+   652,
+   "### Instruction:"
+  ],
+  [
+   657,
+   "### Response:"
+  ],
+  [
+   663,
+   "### IV-B Training Configurations"
+  ],
+  [
+   720,
+   "### IV-C Target Models"
+  ],
+  [
+   767,
+   "### IV-D Implementation Details and Running Platform"
+  ],
+  [
+   780,
+   "### IV-E Evaluation Metrics"
+  ],
+  [
+   823,
+   "## V Results"
+  ],
+  [
+   825,
+   "### V-A RQ1: Does LPO-derived task-vector arithmetic improve trustworthy code generation?"
+  ],
+  [
+   832,
+   "#### V-A1 Steering operator and Steering Strength"
+  ],
+  [
+   1742,
+   "#### V-A2 Comparison to Prior Methods"
+  ],
+  [
+   1748,
+   "#### V-A3 Generalizability to Unseen CWEs"
+  ],
+  [
+   1757,
+   "#### V-A4 Temperature Sensitivity"
+  ],
+  [
+   1899,
+   "### V-B RQ2: What training and inference costs does task-vector arithmetic impose across models and methods?"
+  ],
+  [
+   1903,
+   "#### V-B1 Training Cost"
+  ],
+  [
+   1908,
+   "#### V-B2 Inference Latency"
+  ],
+  [
+   2037,
+   "### V-C Which components are necessary for the final LPO-steered model?"
+  ],
+  [
+   2049,
+   "## VI Conclusion and Future Work"
+  ],
+  [
+   2068,
+   "## Data Availability"
+  ],
+  [
+   2073,
+   "## Acknowledgements"
+  ],
+  [
+   2077,
+   "## References"
+  ],
+  [
+   2223,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgements\n\nThis work is supported in part by the Wallenberg Visiting Professor Program, the Natural Sciences and Engineering Research Council of Canada (grant number RGPIN-2026-04826), and the Government of Ontario (RE011-038). Anudeep is supported by Coefficient Giving, David R. Cheriton Scholarship, and Queen Elizabeth II Graduate Scholarship in Science and Technology. Views expressed in the paper are those of the authors and do not necessarily reflect the position of the funding agencies.\n\n## References\n\n[1]\n\nM. Chen, J. Tworek, H. Jun, Q. Yuan, H. P. de Oliveira Pinto, J. Kaplan, H. Edwards, Y. Burda, N. Joseph, G. Brockman, A. Ray, R. Puri, G. Krueger, M. Petrov, H. Khlaaf, G. Sastry, P. Mishkin, B. Chan, S. Gray, N. Ryder, M. Pavlov, A. Power, L. Kaiser, M. Bavarian, C. Winter, P. Tillet, F. P. Such, D. Cummings, M. Plappert, F. Chantzis, E. Barnes, A. Herbert-Voss, W. H. Guss, A. Nichol, A. Paino, N. Tezak, J. Tang, I. Babuschkin, S. Balaji, S. Jain, W. Saunders, C. Hesse, A. N. Carr, J. Leike, J. Achiam, V. Misra, E. Morikawa, A. Radford, M. Knight, M. Brundage, M. Murati, K. Mayer, P. Welinder, B. McGrew, D. Amodei, S. McCandlish, I. Sutskever, and W. Zaremba, “Evaluating large language models trained on code,” CoRR, vol. abs/2107.03374, 2021. [Online]. Available: https://arxiv.org/abs/2107.03374\n\n[2]\n\nQ. Zhang, C. Fang, Y. Xie, Y. Zhang, S. Yu, W. Sun, Y. Yang, and Z. Chen, “A survey on large language models for software engineering,” Sci. China Inf. Sci., vol. 69, no. 4, 2026. [Online]. Available: https://doi.org/10.1007/s11432-025-4670-0\n\n[3]\n\nH. Pearce, B. Ahmad, B. Tan, B. Dolan-Gavitt, and R. Karri, “Asleep at the keyboard? assessing the security of github copilot’s code contributions,” Commun. ACM, vol. 68, no. 2, p. 96–105, Jan. 2025. [Online]. Available: https://doi.org/10.1145/3610721\n\n[4]\n\nN. Perry, M. Srivastava, D. Kumar, and D. Boneh, “Do users write more insecure code with ai assistants?” in Proceedings of the 2023 ACM SIGSAC Conference on Computer and Communications Security, ser. CCS ’23. New York, NY, USA: Association for Computing Machinery, 2023, p. 2785–2799. [Online]. Available: https://doi.org/10.1145/3576915.3623157\n\n[5]\n\nG. Sandoval, H. Pearce, T. Nys, R. Karri, S. Garg, and B. Dolan-Gavitt, “Lost at c: a user study on the security implications of large language model code assistants,” in Proceedings of the 32nd USENIX Conference on Security Symposium, ser. SEC ’23. USA: USENIX Association, 2023.",
+ "limitations": "",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 5,
+  "seeds_or_runs": 26,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 1,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

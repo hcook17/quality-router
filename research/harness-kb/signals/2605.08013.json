@@ -1,0 +1,215 @@
+{
+ "arxiv_id": "2605.08013",
+ "fulltext_chars": 79549,
+ "fulltext_lines": 2147,
+ "authors_block": "Command line interface (CLI) agents have become a prominent setting for coding and computer use, studied in a large body of prior work [54, 65, 55, 18, 37, 2, 63, 34, 27, 75]. CLI agents operate directly in filesystem environments through shell commands, treating executable code as their native action space rather than calling predefined tool APIs. This interface gives language agents the same operational substrate used by developers, including directory exploration, program execution, artifact editing, and result checking through terminal feedback. Training agents in this interface requires learning from feedback over long interactions rather than from isolated input output pairs. The resulting LLM interaction space is broad and only partially observed, exposing two coupled bottlenecks. First, the policy must act from a local view of a high dimensional workspace state. Second, sparse terminal rewards must be assigned to actions whose effects are mediated by many intermediate observations and file changes. Training language agents to act through multi-turn feedback in executable environments, including command line workspaces, remains an open problem [68, 67, 1, 70]. Trajectory-level supervised fine-tuning constructs annotated traces and trains the model to imitate them [42, 6, 64, 47], yet the resulting policy is bounded by the narrow coverage of its training data, and recent analysis confirms that such imitation increases memorization of patterns tied to the interface rathe",
+ "vendor_affiliation_hits": [],
+ "n_authors": 2,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/Hoyant-Su/Agentic-RL-A3."
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   26,
+   "#"
+  ],
+  [
+   41,
+   "###### Abstract"
+  ],
+  [
+   46,
+   "## 1 Introduction"
+  ],
+  [
+   58,
+   "## 2 Related Work"
+  ],
+  [
+   60,
+   "### 2.1 Workspace-Driven CLI Agents"
+  ],
+  [
+   68,
+   "### 2.2 Agentic Reinforcement Learning"
+  ],
+  [
+   76,
+   "## 3 Method"
+  ],
+  [
+   80,
+   "### 3.1 AST measure for CLI agent actions"
+  ],
+  [
+   96,
+   "### 3.2 \\sigma -Reveal Context Harness"
+  ],
+  [
+   112,
+   "### 3.3 Action Advantage Assignment"
+  ],
+  [
+   119,
+   "#### 3.3.1 Episode Backbone"
+  ],
+  [
+   129,
+   "#### 3.3.2 Turn-Level Action Sub-Chain Residual"
+  ],
+  [
+   139,
+   "#### 3.3.3 Tree Advantage on Bucket-Abstracted Histories"
+  ],
+  [
+   150,
+   "#### 3.3.4 Fusion"
+  ],
+  [
+   160,
+   "#### 3.3.5 Sequence-Level Policy Gradient"
+  ],
+  [
+   174,
+   "## 4 Results"
+  ],
+  [
+   178,
+   "### 4.1 Dataset Usage and Construction"
+  ],
+  [
+   186,
+   "### 4.2 Experimental Configuration"
+  ],
+  [
+   190,
+   "### 4.3 Main Results"
+  ],
+  [
+   400,
+   "### 4.4 Long-Horizon Comparison with Frontier Agents on ShellOps-Pro"
+  ],
+  [
+   568,
+   "### 4.5 Ablation on \\mathrm{A}^{3} Components"
+  ],
+  [
+   582,
+   "### 4.6 Agentic Efficiency Comparison"
+  ],
+  [
+   670,
+   "## 5 Limitations"
+  ],
+  [
+   674,
+   "## 6 Conclusion"
+  ],
+  [
+   678,
+   "## References"
+  ],
+  [
+   1518,
+   "## Appendix A Dataset Details"
+  ],
+  [
+   1553,
+   "## Appendix B Components of the Agentic RL Infrastructure"
+  ],
+  [
+   1557,
+   "### B.1 Action Protocol"
+  ],
+  [
+   1583,
+   "### B.2 Sandboxed Execution"
+  ],
+  [
+   1609,
+   "## Appendix C Training Algorithm"
+  ],
+  [
+   1715,
+   "## Appendix D Training Dynamics across Agentic RL Methods"
+  ],
+  [
+   1727,
+   "## Appendix E Computational Cost of action space AST Similarity"
+  ],
+  [
+   1794,
+   "## Appendix F Secondary Main Results"
+  ],
+  [
+   1914,
+   "## Appendix G ShellOps-Pro \\sigma -Reveal Baseline Sweep"
+  ],
+  [
+   2003,
+   "## Appendix H Qualitative Case Study"
+  ],
+  [
+   2007,
+   "### H.1 ShellOps-Pro ShellOps_1e26c37bd6: Application Log Split"
+  ],
+  [
+   2023,
+   "### H.2 ShellOps-Pro ShellOps_b434dfe752: Leaderboard Aggregation"
+  ],
+  [
+   2039,
+   "### H.3 DataBench 071_COL_7: Cost-of-Living Comparison"
+  ],
+  [
+   2055,
+   "### H.4 AgentBench DBBench agentbench_dbbench_test_00191: Crowd Field Preservation"
+  ],
+  [
+   2071,
+   "### H.5 EHRCon ehrcon_curated_valid_physician_104841_566490_amiodarone_9: Dose Evidence Check"
+  ],
+  [
+   2087,
+   "### H.6 TableBench e7b71d1c7427df2a8dd74f7b599ff66e: PR Seat Aggregation"
+  ],
+  [
+   2103,
+   "### H.7 ShellOps-Pro ShellOps_007b8c76d2: PO Missing Translation Audit"
+  ],
+  [
+   2115,
+   "### H.8 AgentBench-OS agentbench_os_7_bootstrap_87: File Size Accounting"
+  ],
+  [
+   2131,
+   "### H.9 ShellOps ShellOps_b3147f267f: Harness Context for Nested Log Search"
+  ],
+  [
+   2147,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 5 Limitations\n\nFirst, the AST based action abstraction uses shell structure as a scalable proxy for action intent, but structurally similar commands can differ in effect because of paths, file contents, options, or prior workspace state. Second, \\sigma -Reveal provides a lightweight workspace prior for partial initial observations, but it cannot replace exhaustive evidence discovery when task relevance is weakly reflected in the file hierarchy. Third, the empirical scope is shell-driven filesystem interaction, and GUI, web, embodied, binary, or networked settings require further validation.\n\n## 6 Conclusion\n\nShell-driven filesystem interaction exposes a learning regime in which agents must identify relevant workspace evidence under partial observation and assign delayed rewards to executable actions. \\sigma -Reveal addresses the observation bottleneck by selecting token-budgeted workspace context before rollout, while \\mathrm{A}^{3} assigns credit through episode, turn, and tree advantage channels built from shell command structure. Across the mixed benchmark suite and ShellOps-Pro, \\mathrm{A}^{3} with \\sigma -Reveal achieves the strongest overall Qwen3-14B results in exact match and Pass@ k , with especially large ShellOps gains and the best Qwen3-14B agentic RL performance at every ShellOps-Pro horizon. The diagnostics show stable optimization and complementary advantage channels at near-standard agentic RL cost. Together, these results identify workspace evidence selection and command structure as effective bases for CLI agent learning.\n\n## References\n\n[1]\nM. Abdulhai, I. White, C. V. Snell, C. Sun, J. Hong, Y. Zhai, K. Xu, and S. Levine (2025)\n\nLMRL gym: benchmarks for multi-turn reinforcement learning with language models.\n\nIn Proceedings of the 42nd International Conference on Machine Learning,\n\nProceedings of Machine Learning Research, Vol. 267, pp. 126–153.\n\nCited by: §1,\n§2.2.\n\n[2]\nT. Abramovich, M. Udeshi, M. Shao, K. Lieret, H. Xi, K. Milner, S. Jancheska, J. Yang, C. E. Jimenez, F. Khorrami, P. Krishnamurthy, B. Dolan-Gavitt, M. Shafique, K. R. Narasimhan, R. Karri, and O. Press (2025)\n\nEnIGMA: interactive tools substantially assist LM agents in finding security vulnerabilities.\n\nIn Proceedings of the 42nd International Conference on Machine Learning,\n\nProceedings of Machine Learning Research, Vol. 267, pp. 246–355.\n\nCited by: §1.\n\n[3]\nA. Ahmadian, C. Cremer, M. Gallé, M. Fadaee, J. Kreutzer, O. Pietquin, A. Üstün, and S. Hooker (2024)\n\nBack to basics: revisiting REINFORCE-style optimization for learning from human feedback in LLMs.\n\nIn Proceedings of the 62nd Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers),",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 3,
+  "seeds_or_runs": 8,
+  "swe_bench": 2,
+  "contamination": 1,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

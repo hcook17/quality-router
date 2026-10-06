@@ -1,0 +1,205 @@
+{
+ "arxiv_id": "2609.05692",
+ "fulltext_chars": 63349,
+ "fulltext_lines": 2107,
+ "authors_block": "Nuwayyir Almohammadi Affiliation: School of Computer Science University of Birmingham Birmingham, United Kingdom Nra406@student.bham.ac.uk Rami Bahsoon Affiliation: School of Computer Science University of Birmingham Birmingham, United Kingdom r.bahsoon@bham.ac.uk Tao Chen Affiliation: School of Computer Science University of Birmingham Birmingham, United Kingdom t.chen@bham.ac.uk",
+ "vendor_affiliation_hits": [],
+ "n_authors": 3,
+ "comment": "12 pages, 8 figures, preprint",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Regret Dominates Surprise: Design-Time Requirements Engineering for Agentic-AI Safety"
+  ],
+  [
+   52,
+   "###### Abstract"
+  ],
+  [
+   65,
+   "###### Index Terms:"
+  ],
+  [
+   72,
+   "## I Introduction"
+  ],
+  [
+   162,
+   "## II Background and Motivation"
+  ],
+  [
+   216,
+   "## III Related Work and Problem Framing"
+  ],
+  [
+   329,
+   "## IV A Multi-Signal Framework for Regret-Aware Goal Resolution"
+  ],
+  [
+   338,
+   "### IV-A Overview"
+  ],
+  [
+   421,
+   "### IV-B Step 1: Model Goals and Resolution Tactics"
+  ],
+  [
+   430,
+   "### IV-C Step 2: Identify Regret-Prone Situations"
+  ],
+  [
+   463,
+   "### IV-D Step 3: Define Regret Thresholds as Safety Requirements"
+  ],
+  [
+   512,
+   "###### Example 1 (Elderly care medication scenario)."
+  ],
+  [
+   538,
+   "### IV-E Step 4: Detect Epistemic Novelty and Initiate"
+  ],
+  [
+   547,
+   "### IV-F Step 5: Regret-Aware Selection of Resolution Tactics"
+  ],
+  [
+   641,
+   "### IV-G Step 6: Feedback for Model Evolution"
+  ],
+  [
+   663,
+   "### IV-H Regret-Calibrated Resolution Tactics"
+  ],
+  [
+   717,
+   "### IV-I Handling Undetected Surprise Signals"
+  ],
+  [
+   727,
+   "## V Method Instantiation: Elderly Care"
+  ],
+  [
+   734,
+   "### V-A Goals and Obstacles"
+  ],
+  [
+   782,
+   "### V-B Regret-Prone Situations"
+  ],
+  [
+   792,
+   "### V-C Runtime Obstacle Handling"
+  ],
+  [
+   799,
+   "## VI Method Instantiation: Autonomous Driving"
+  ],
+  [
+   814,
+   "## VII Evaluation"
+  ],
+  [
+   826,
+   "### VII-A Experiment Setup"
+  ],
+  [
+   966,
+   "### VII-B Case Study I: Goal-Driven Stochastic Simulation"
+  ],
+  [
+   972,
+   "#### VII-B1 RQ1 – Operability"
+  ],
+  [
+   986,
+   "#### VII-B2 RQ2 – Robustness"
+  ],
+  [
+   1054,
+   "#### VII-B3 RQ3 – Traceability"
+  ],
+  [
+   1086,
+   "#### VII-B4 RQ4 – What-If Utility"
+  ],
+  [
+   1152,
+   "#### VII-B5 RQ5 – RE Coverage of the routine/reflective/escalation trilemma"
+  ],
+  [
+   1220,
+   "#### VII-B6 Sensitivity Analysis"
+  ],
+  [
+   1231,
+   "### VII-C Case Study II: Agentic-AI Safety via AgentHarm"
+  ],
+  [
+   1249,
+   "#### VII-C1 Evaluation Methodology"
+  ],
+  [
+   1284,
+   "#### VII-C2 Results by Harm Category"
+  ],
+  [
+   1365,
+   "#### VII-C3 Cross-Model Comparison"
+  ],
+  [
+   1449,
+   "#### VII-C4 Limitations"
+  ],
+  [
+   1471,
+   "## VIII Discussion"
+  ],
+  [
+   1473,
+   "### VIII-A Mitigation of Spurious Adaptations"
+  ],
+  [
+   1489,
+   "### VIII-B Traceable Governance under Uncertainty"
+  ],
+  [
+   1497,
+   "## IX Threats to Validity"
+  ],
+  [
+   1550,
+   "## X Conclusion and Future Work"
+  ],
+  [
+   1555,
+   "## References"
+  ],
+  [
+   2107,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "#### VII-C4 Limitations\n\nFree-model results (Table VII)\nare measured via keyword detection on plain chat,\nnot via the tool-call grading that\nAgentHarm was designed\nfor [2].\nModels that respond with capability denials\n(“I do not have access to those tools”) are\nclassified as complied, understating their true\nsafety rate.\nA further limitation is that the gate was applied\npost-hoc over recorded traces rather than\nembedded before llm fine-tuning; the\nresults therefore, evidence log-based\ncomputability, not the effect of authentic\ndesign-time integration, which may produce\nstronger or different outcomes.\nFull evaluation of all models via\ninspect_evals is identified as\na future work.\n\n## VIII Discussion\n\n### VIII-A Mitigation of Spurious Adaptations\n\nThe multi-signal gating reduces spurious interruptions.\nSurprise alone is highly sensitive to benign environmental\nnoise [7], while regret alone is\nreactive and post-hoc [15].\nms-rgr triggers adaptation only when epistemic mismatch\ncoincides with a violation of design-time safety thresholds.\nThese results provide promising feasibility evidence, consistent\nwith analogous re framework\nstudies [39], that ms-rgr\ncan encode safety properties required to prevent confident failures.\nSection VII-C demonstrates that\nms-rgr provides the design-time evaluative\nconstraint absent from AgentHarm scenario 17-2 [2].Full empirical investigation across all 44 public test scenarios is identified as immediate future work.",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 6,
+  "seeds_or_runs": 8,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

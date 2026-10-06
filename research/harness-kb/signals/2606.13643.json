@@ -1,0 +1,141 @@
+{
+ "arxiv_id": "2606.13643",
+ "fulltext_chars": 38560,
+ "fulltext_lines": 973,
+ "authors_block": "Elias Lumer Affiliation: PricewaterhouseCoopers, U.S. email: elias.lumer@pwc.com , Sahil Sen Affiliation: PricewaterhouseCoopers, U.S. email: sahil.s.sen@pwc.com , Kevin Paul Affiliation: PricewaterhouseCoopers, U.S. and Vamse Kumar Subbiah Affiliation: PricewaterhouseCoopers, U.S. © none",
+ "vendor_affiliation_hits": [],
+ "n_authors": 4,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Recursive Agent Harnesses"
+  ],
+  [
+   47,
+   "###### Abstract."
+  ],
+  [
+   66,
+   "###### Keywords:"
+  ],
+  [
+   77,
+   "## 1. Introduction"
+  ],
+  [
+   124,
+   "#### Scope of contribution."
+  ],
+  [
+   138,
+   "## 2. Related Work"
+  ],
+  [
+   154,
+   "## 3. Recursive Agent Harness"
+  ],
+  [
+   156,
+   "### 3.1. Overview"
+  ],
+  [
+   169,
+   "### 3.2. Code-Execution Spawning"
+  ],
+  [
+   178,
+   "### 3.3. JSON Tool-Call Spawning"
+  ],
+  [
+   184,
+   "### 3.4. Subagent Architecture"
+  ],
+  [
+   192,
+   "## 4. Experiments"
+  ],
+  [
+   194,
+   "### 4.1. Experimental Setup"
+  ],
+  [
+   231,
+   "### 4.2. Main Results"
+  ],
+  [
+   281,
+   "### 4.3. Per-Category Analysis"
+  ],
+  [
+   332,
+   "### 4.4. Per-Context-Length Analysis"
+  ],
+  [
+   404,
+   "### 4.5. Cost and Latency"
+  ],
+  [
+   417,
+   "### 4.6. Failure Modes"
+  ],
+  [
+   430,
+   "### 4.7. Choosing a Recursion Strategy"
+  ],
+  [
+   472,
+   "## 5. Limitations"
+  ],
+  [
+   485,
+   "## 6. Conclusion"
+  ],
+  [
+   501,
+   "## Code and Data Availability"
+  ],
+  [
+   509,
+   "## References"
+  ],
+  [
+   853,
+   "## Appendix A Parent Agent Prompt"
+  ],
+  [
+   914,
+   "## Appendix B Subagent Prompts"
+  ],
+  [
+   944,
+   "## Appendix C Answer-Extraction Prompt"
+  ],
+  [
+   973,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 5. Limitations\n\nThe evaluation is limited to Oolong-Synthetic. Generalization to Oolong-Real and to\ndomains where per-entry evidence is more ambiguous or less literally present in the\ncontext remains an open question. The failure modes above also bound the result, in\nparticular the parent occasionally skipping spawning at long context lengths and the\nNUMERIC scoring penalty that understates reasoning quality on continuous-quantity tasks.\nRAH further depends on the parent agent reliably generating syntactically correct spawning\nscripts, and exact token and latency profiles for the GPT-5 configuration remain\nuninstrumented. We do not ablate individual design choices such as recursion depth, the\nnumber of entries per subagent, or the code-execution versus tool-call spawning path.\nIsolating their contributions is left to future work.\n\n## 6. Conclusion\n\nWe name and evaluate the Recursive Agent Harness (RAH), the pattern of recursing over a full\nagent harness rather than a model call with no tools. Long-context reasoning requires both\nlarge-scale document navigation and per-entry LLM reasoning across thousands of independent\nentries, and prior approaches provide only one. Coding agents reduce per-entry reasoning to\nregex heuristics, while recursive language models lack filesystem access, code execution, and\nexternal tools. Using GPT-5 to match the Codex baseline, RAH improves the strongest prior\nresult from 71.75% to 81.36% with no change in model, which attributes the gain to the\nharness rather than the model. The pattern is already appearing in production systems such as\ndynamic workflows. Our aim is to name it, place it in the lineage of recursive language models,\nand measure it. The design should transfer to other settings that decompose into independent\nper-entry subtasks over a corpus larger than the context window, such as multi-document\nquestion answering and review of large document sets, which we leave to future work alongside\na characterization of the cost-quality tradeoff.\n\n## Code and Data Availability\n\nThe Recursive Agent Harness implementation and the evaluation and scoring scripts will be\nreleased shortly. The Oolong-Synthetic data and the published baseline numbers are due to\nCao et al. (Cao et al., 2026) and Zhang et al. (Zhang et al., 2026). The parent, subagent,\nand answer-extraction prompts are reproduced in full in Appendices A,\nB, and C.\n\n## References\n\nAnonymous (2026)",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 9,
+  "seeds_or_runs": 0,
+  "swe_bench": 1,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 2
+ },
+ "fulltext_source": "html"
+}

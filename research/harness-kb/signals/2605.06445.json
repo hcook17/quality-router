@@ -1,0 +1,280 @@
+{
+ "arxiv_id": "2605.06445",
+ "fulltext_chars": 80567,
+ "fulltext_lines": 2191,
+ "authors_block": "Francesco Dente ††thanks: Equal contribution. Affiliation: EURECOM, France Email: francesco.dente@eurecom.fr Dario Satriani††footnotemark: Affiliation: University of Basilicata, Italy Email: dario.satriani@unibas.it Paolo Papotti Affiliation: EURECOM, France Email: papotti@eurecom.fr",
+ "vendor_affiliation_hits": [],
+ "n_authors": 3,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/francdente/constraint-decay.",
+  "https://github.com/postmanlabs/newman"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Constraint Decay: The Fragility of LLM Agents in Backend Code Generation"
+  ],
+  [
+   40,
+   "###### Abstract"
+  ],
+  [
+   46,
+   "## 1 Introduction"
+  ],
+  [
+   80,
+   "## 2 Related Work"
+  ],
+  [
+   95,
+   "## 3 Methodology"
+  ],
+  [
+   99,
+   "### 3.1 Generation Task Design"
+  ],
+  [
+   117,
+   "### 3.2 Constraint Dimensions"
+  ],
+  [
+   129,
+   "# Variants"
+  ],
+  [
+   154,
+   "### 3.3 Evaluation Pipeline"
+  ],
+  [
+   165,
+   "## 4 Experimental Setup"
+  ],
+  [
+   167,
+   "#### Metrics."
+  ],
+  [
+   173,
+   "#### Agents and Models."
+  ],
+  [
+   182,
+   "#### Cost-driven evaluation scope."
+  ],
+  [
+   189,
+   "## 5 Results"
+  ],
+  [
+   197,
+   "### 5.1 RQ1: Effect of Constraint Accumulation"
+  ],
+  [
+   442,
+   "### 5.2 RQ2: Framework Sensitivity"
+  ],
+  [
+   458,
+   "### 5.3 RQ3: Root Causes of Failure"
+  ],
+  [
+   582,
+   "## 6 Conclusion"
+  ],
+  [
+   586,
+   "## Acknowledgement"
+  ],
+  [
+   590,
+   "## References"
+  ],
+  [
+   938,
+   "## Appendix A Subset Representativeness"
+  ],
+  [
+   1096,
+   "## Appendix B LLM-as-Judge Validation"
+  ],
+  [
+   1152,
+   "## Appendix C Verifier Functions"
+  ],
+  [
+   1156,
+   "### C.1 Architecture Verifier"
+  ],
+  [
+   1166,
+   "### C.2 Database Verifier"
+  ],
+  [
+   1176,
+   "### C.3 ORM Verifier"
+  ],
+  [
+   1186,
+   "### C.4 Limitations"
+  ],
+  [
+   1194,
+   "## Appendix D Verifier Impact on Reported Metrics"
+  ],
+  [
+   1410,
+   "## Appendix E Framework Leaderboard"
+  ],
+  [
+   1532,
+   "## Appendix F Generation Task Design"
+  ],
+  [
+   1536,
+   "### F.1 Prompt Template"
+  ],
+  [
+   1544,
+   "## Requirements"
+  ],
+  [
+   1564,
+   "## Mandatory Files"
+  ],
+  [
+   1568,
+   "## Server Configuration"
+  ],
+  [
+   1576,
+   "## Evaluation Pipeline"
+  ],
+  [
+   1582,
+   "### F.2 Constraint Blocks"
+  ],
+  [
+   1599,
+   "### F.3 Prompt Example"
+  ],
+  [
+   1619,
+   "## Requirements"
+  ],
+  [
+   1631,
+   "## Architecture"
+  ],
+  [
+   1645,
+   "## Database"
+  ],
+  [
+   1653,
+   "## Mandatory Files"
+  ],
+  [
+   1659,
+   "## Server Configuration"
+  ],
+  [
+   1667,
+   "## Evaluation Pipeline"
+  ],
+  [
+   1681,
+   "## Appendix G Feature Implementation Task Design"
+  ],
+  [
+   1685,
+   "### G.1 Construction by Codebase Ablation"
+  ],
+  [
+   1707,
+   "### G.2 Task Inventory and Statistics"
+  ],
+  [
+   1766,
+   "### G.3 Prompt and Evaluation"
+  ],
+  [
+   1792,
+   "## Appendix H Behavioral Test Suite"
+  ],
+  [
+   1802,
+   "### H.1 Coverage"
+  ],
+  [
+   1842,
+   "### H.2 Assertion Taxonomy"
+  ],
+  [
+   1854,
+   "## Appendix I Token Consumption"
+  ],
+  [
+   2033,
+   "## Appendix J Execution Pipeline"
+  ],
+  [
+   2037,
+   "### J.1 Infrastructure Overview"
+  ],
+  [
+   2047,
+   "### J.2 Build Phase (Agent Execution)"
+  ],
+  [
+   2085,
+   "### J.3 Evaluate Phase (Behavioral Testing)"
+  ],
+  [
+   2119,
+   "### J.4 Walkthrough: Generation Task"
+  ],
+  [
+   2143,
+   "### J.5 Walkthrough: Feature Implementation Task"
+  ],
+  [
+   2165,
+   "## Appendix K Revised Agent Scaffolds"
+  ],
+  [
+   2169,
+   "#### Mini-SWE-Agent."
+  ],
+  [
+   2185,
+   "#### OpenHands."
+  ],
+  [
+   2191,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgement\n\nThis work was partially supported by the AI4SWEng project, funded by the European Union’s Horizon Europe research and innovation programme under grant agreement No. 101189909, and by the 3IA Côte d’Azur Investments in the IA-cluster project managed by the National Research Agency (ANR) with the reference number ANR-23-IACL-0001.\n\n## References\n\nCao et al. (2026)\nR. Cao, M. Chen, J. Chen, Z. Cui, Y. Feng, B. Hui, Y. Jing, K. Li, M. Li, J. Lin, Z. Ma, K. Shum, X. Wang, J. Wei, J. Yang, J. Zhang, L. Zhang, Z. Zhang, W. Zhao, and F. Zhou\n\nQwen3-coder-next technical report.\n\nExternal Links: 2603.00729,\nLink\n\nCited by: §4.\n\nChen et al. (2025)\nH. Chen, C. Li, and J. Li\n\nFeatBench: evaluating coding agents on feature implementation for vibe coding.\n\narXiv preprint arXiv:2509.22237.\n\nCited by: §2.",
+ "limitations": "### C.4 Limitations\n\nAll three verifiers are deliberately conservative in their design:\n\nStatic-only. The verifiers analyze source text, not runtime behavior. An agent could satisfy the verifier’s patterns while violating constraints at runtime (e.g., importing SQLAlchemy but executing raw SQL). This means false positives are possible, but as discussed in Appendix D, they can only weaken the observed decay signal.\n\nPattern-based. Regex matching cannot capture all possible naming conventions or import patterns. We mitigate this with broad alias sets and case-insensitive matching, and validate empirically that the false-reject rate is \\leq 0.5% (§D).\n\n## Appendix D Verifier Impact on Reported Metrics\n\nA potential concern with our evaluation is that the static verifier functions (architecture, database, ORM) could introduce measurement artifacts: wrong rejections (incorrectly rejecting compliant runs, zeroing their A% contribution) would artificially inflate the constraint-decay signal, while missed violations (incorrectly accepting non-compliant runs) would weaken it by allowing structurally incorrect implementations to retain their A% scores.\n\nTo quantify the actual impact, we compute two variants of A%: (i) with verifier enforcement (Table 2), where a run that violates any applicable verifier has its assertion score set to zero before averaging; and (ii) without verifier enforcement, using raw behavioral-test scores regardless of structural compliance. Table 7 reports both variants side-by-side.\n\nWrong rejections.\nThe maximum difference between the two A% variants across all configurations and constraint levels is 2.7 pp (Mini-SWE + Qwen3-Coder-Next at L3). The average L0 \\to L3 decay changes from 26 pp (without enforcement) to 27 pp (with enforcement). This near-identity confirms that verifier wrong rejections have negligible impact: the overwhelming majority of test-passing runs also satisfy all structural constraints, and the few that do not ( {\\leq} 0.5% of constrained test-passing runs) barely move the aggregate statistics.\n\nMissed violations.\nIf verifiers were to miss genuine constraint violations, the effect would be to preserve the A% of non-compliant runs. This can only weaken the observed decay signal, making our reported constraint decay a conservative lower bound on the true effect. In other words, missed violations cannot inflate the decay, they can only mask it.\n\nTogether, these observations confirm that the constraint-decay findings are robust to verifier imperfections in both directions.\n\nL0\nL1\nL2\nL3\n\nAgent\nModel\nA%\nRaw\n \\Delta \nA%\nRaw\n \\Delta \nA%\nRaw\n \\Delta \nA%\nRaw",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 1,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 11,
+  "swe_bench": 7,
+  "contamination": 1,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

@@ -1,0 +1,56 @@
+{
+  "arxiv_id": "2609.24348",
+  "contribution_type": "position",
+  "summary": "Describes AI-SDLC, a six-phase lifecycle (Bootstrap, Specify, Design, Develop, Validate, Deploy) built for an FHNW course. It combines spec files under docs/specs, a compact AGENTS.md, phase-specific SKILL.md files, TASKS.md/PROJECT.md, ADRs and TDD. The lifecycle is evaluated only through a post-course perception survey of 13 business-AI bachelor students.",
+  "claims": [
+    {"claim": "The Specify step led students to sharpen requirements before the AI implemented.", "evidence": "§4: all 13 respondents agreed (11 strongly). Self-reported perception, no artifact analysis.", "strength": "weak", "location": "§4, Fig. 2a"},
+    {"claim": "Repository-local instruction files (AGENTS.md, skills) were effective.", "evidence": "§4: 11/13 clear how to use; 11/13 rejected 'hardly any influence'. But §5 notes that among respondents who described a concrete case, more reported cases where instructions did not help (forgotten conventions, file growing too large) than cases where they did; only 5/13 used skill files.", "strength": "weak", "location": "§4, §5"},
+    {"claim": "Students made faster progress and would reuse the process.", "evidence": "§4: 13/13 faster progress, 12/13 would reuse, NPS median 8. No control group, no productivity measurement; cohort mostly beginners with no prior process to compare against (acknowledged §5).", "strength": "unsupported", "location": "§4, §5"},
+    {"claim": "Verification shifted from code review to trusting tests and trying the software.", "evidence": "§4: following agent code among lowest-rated items; 11/13 described adopting code they did not understand; PR review named once in free text.", "strength": "weak", "location": "§4, Fig. 2b"}
+  ],
+  "patterns": [
+    {"id": "P14", "stance": "introduces", "note": "Spec-first lifecycle with docs/specs use-case specs before any implementation; evidence is perception only."},
+    {"id": "P01", "stance": "mixed", "note": "Compact AGENTS.md as entry point rated positively, but free-text reports forgotten conventions and context bloat."},
+    {"id": "P02", "stance": "introduces", "note": "Phase-specific SKILL.md files; used by only 5 of 13 respondents."},
+    {"id": "P15", "stance": "introduces", "note": "TDD Red-Green-Refactor in Develop phase; students trusted tests over code comprehension."},
+    {"id": "P34", "stance": "introduces", "note": "Specs carry acceptance criteria, NFRs and intended tests."},
+    {"id": "P19", "stance": "neutral", "note": "Human control via reviewable artifacts between phases rather than per-action approval; PR review was weakly practised."}
+  ],
+  "methodology": {
+    "sample": "13 complete responses of 34 invited students (38%), single cohort; 5 beginners, 7 basic programmers.",
+    "baselines": "None; no control group.",
+    "models": "Not specified; students used 'contemporary coding agents'.",
+    "variance": "n/a; descriptive frequency counts only, no inferential statistics.",
+    "ablations": "None.",
+    "contamination_controls": "n/a",
+    "languages": "Not reported; business-oriented student projects."
+  },
+  "standards": {
+    "peer_review": "Accepted for publication in the Journal of the Upper Rhine AI (URAI) Symposium 2026 (arXiv comment).",
+    "limitations_section": false,
+    "artifacts": "AI-SDLC artifacts (AGENTS.md, skills) archived on Zenodo per §2 and §3; survey data not stated as released.",
+    "preregistration": "none"
+  },
+  "biases": [
+    {"type": "small_sample", "detail": "13 respondents from one cohort."},
+    {"type": "selection_bias_participants", "detail": "38% response rate with self-selection; novices with no prior process for comparison (acknowledged §5)."},
+    {"type": "self_evaluation", "detail": "Authors designed the course and lifecycle and evaluate it; one author coded the free-text responses alone."},
+    {"type": "metric_mismatch", "detail": "Perceived usefulness and speed are measured; no measurement of code quality, defects, spec adherence or productivity."},
+    {"type": "other:no_model_or_tool_reporting", "detail": "Agents and models used are not specified, so nothing can be attributed to the harness rather than the tool."}
+  ],
+  "coi": {
+    "affiliations": "Andreas Martin, Sandro Schwander — FHNW School of Business.",
+    "vendor_products_evaluated": "None.",
+    "funding": "No funding statement; Generative AI use declaration only.",
+    "severity": "none",
+    "detail": "Academic authors; non-commercial conflict as designers/instructors of the evaluated course, mitigated by surveying after grading and anonymous links."
+  },
+  "scores": {"rigor": 1, "reproducibility": 2, "generalizability": 1, "relevance": 3, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Useful as a concrete, released template for spec-driven development with AGENTS.md plus skills, but the evaluation is a 13-student perception survey with no control group, no outcome measures, and no reported models. Treat it as a practice description, not evidence.",
+  "applicability": "The team can borrow the artifact layout as a starting point for its spec-driven rollout: docs/specs per use case with acceptance criteria and intended tests, a compact AGENTS.md entry point, phase-specific skills, TASKS.md state and ADRs. Being plain repo files, it is host-neutral across mixed agent hosts. It says nothing about ingestion spanning ≥4 repositories, and one finding is a warning for that setting: decisions made in one developer's agent session do not propagate to teammates' agents or repos (§5). Specs and contracts should therefore live in committed, shared artifacts with an explicit update step. Students did not report the drop in code comprehension as a problem, but for healthcare content that is a review risk, so pair specs with tests and real code review rather than relying on 'try it out'. Evidence came from Java-agnostic novice projects, so effects on an experienced backend team are unknown.",
+  "conflicts_with": [
+    {"arxiv_id": "2607.27250", "detail": "Controlled ablation finds AGENTS.md/context strategy does not move agent correctness; this paper's students perceive instruction files as effective. Perception vs measured outcome."},
+    {"arxiv_id": "2609.00252", "detail": "Agreement: both frame SDD plus repository-local harness artifacts as the governance mechanism; both rest on non-experimental evidence (gray literature there, student survey here)."}
+  ]
+}

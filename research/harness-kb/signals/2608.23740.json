@@ -1,0 +1,287 @@
+{
+ "arxiv_id": "2608.23740",
+ "fulltext_chars": 94764,
+ "fulltext_lines": 1594,
+ "authors_block": "in a CRDT-Backed Shared Workspace Seonglae Cho ††thanks: Correspondence: sungle3737@gmail.com Affiliation: Holistic AI Donghyun Lee Affiliation: University of California, Berkeley",
+ "vendor_affiliation_hits": [],
+ "n_authors": 2,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/yjs/yjs"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   28,
+   "# AgentRoom: Concurrent Multi-Agent Coding"
+  ],
+  [
+   40,
+   "###### Abstract"
+  ],
+  [
+   53,
+   "## 1 Introduction"
+  ],
+  [
+   71,
+   "## 2 Method"
+  ],
+  [
+   73,
+   "### 2.1 AgentRoom: a CRDT-backed shared workspace"
+  ],
+  [
+   87,
+   "### 2.2 Formal model: collision rate and coordination layer"
+  ],
+  [
+   106,
+   "### 2.3 Collaboration Protocol"
+  ],
+  [
+   108,
+   "#### Workflow."
+  ],
+  [
+   112,
+   "#### Rules in practice."
+  ],
+  [
+   117,
+   "### 2.4 Baselines"
+  ],
+  [
+   121,
+   "### 2.5 Quality Score and Emergence Score"
+  ],
+  [
+   133,
+   "### 2.6 Tasks"
+  ],
+  [
+   145,
+   "## 3 Experiments"
+  ],
+  [
+   165,
+   "## 4 Results"
+  ],
+  [
+   171,
+   "### 4.1 Tier I: Variance and Abandonment-Rate Reduction at \\times 2"
+  ],
+  [
+   192,
+   "### 4.2 Tier II.a: Six-Condition Ablation"
+  ],
+  [
+   246,
+   "### 4.3 Tier II.b: Cross-Paradigm Comparison vs Sequential Role Pipeline"
+  ],
+  [
+   255,
+   "### 4.4 Tier II.c: Concurrent-MCP CLI Compatibility (deployment caveat)"
+  ],
+  [
+   260,
+   "### 4.5 Scaling and Heterogeneity"
+  ],
+  [
+   268,
+   "### 4.6 MCP Chat vs CRDT State"
+  ],
+  [
+   273,
+   "## 5 Discussion"
+  ],
+  [
+   306,
+   "## 6 Conclusion"
+  ],
+  [
+   310,
+   "## 7 Limitations"
+  ],
+  [
+   320,
+   "## References"
+  ],
+  [
+   709,
+   "## Appendix A Formal Model Details"
+  ],
+  [
+   711,
+   "### A.1 Edit-Set Algebra and SEC"
+  ],
+  [
+   718,
+   "### A.2 Information Density"
+  ],
+  [
+   730,
+   "## Appendix B Additional Results"
+  ],
+  [
+   732,
+   "### B.1 12-Stratum CMH Forest"
+  ],
+  [
+   738,
+   "### B.2 Cross-Model ES (Tier III, Exploratory)"
+  ],
+  [
+   774,
+   "### B.3 Scaling on T4 Sonnet"
+  ],
+  [
+   778,
+   "### B.4 Difficulty Gradient (T1/T2/T3/T4/T5, Sonnet 4.6)"
+  ],
+  [
+   816,
+   "### B.5 Heterogeneous Pairs (T4, Sonnet 4.6 partner)"
+  ],
+  [
+   838,
+   "### B.6 Cost-Equivalent Paired Model (Tier II.b, T4)"
+  ],
+  [
+   844,
+   "### B.7 Compute Cost (T4, Sonnet 4.6)"
+  ],
+  [
+   887,
+   "### B.8 T5 Cross-Model Matrix"
+  ],
+  [
+   929,
+   "### B.9 Behavior Frequency (T4 \\times 2, Sonnet 4.6, n{=}6 )"
+  ],
+  [
+   956,
+   "### B.10 Pool-Wide Claim Coverage (T4, all models)"
+  ],
+  [
+   964,
+   "### B.11 Cross-Model Ablation (T4, all CLI-stable models)"
+  ],
+  [
+   1004,
+   "### B.12 Codebook Threshold Sensitivity (Tier I CMH)"
+  ],
+  [
+   1006,
+   "#### Implementation."
+  ],
+  [
+   1179,
+   "### B.13 Bundle Component Probe (CRDT + prompt, no MCP tools)"
+  ],
+  [
+   1187,
+   "### B.14 Pool Sensitivity (T4 Sonnet ablation, LLM-judge)"
+  ],
+  [
+   1214,
+   "### B.15 Solo+Collab-Prompt Control (T4, Sonnet and Haiku)"
+  ],
+  [
+   1241,
+   "### B.16 Cross-Domain Validation: DevBench (multi-file Python from PRD)"
+  ],
+  [
+   1302,
+   "### B.17 Cross-Language Validation: Rust + axum (T4 Transposed)"
+  ],
+  [
+   1308,
+   "### B.18 Execution-Oracle Replay (T4 Capability Probe)"
+  ],
+  [
+   1314,
+   "## Appendix C Full AgentRoom Logs"
+  ],
+  [
+   1320,
+   "### C.1 T4 \\times 3 Sonnet 4.6 : Complete AgentRoom Transcript"
+  ],
+  [
+   1394,
+   "### C.2 T4 \\times 4 Sonnet 4.6 : Conflict Resolution"
+  ],
+  [
+   1456,
+   "## Appendix D Task Specifications"
+  ],
+  [
+   1462,
+   "### D.1 T1: JWT Authentication System"
+  ],
+  [
+   1467,
+   "### D.2 T2: Marketplace API"
+  ],
+  [
+   1474,
+   "### D.3 T3: Collaborative E-commerce"
+  ],
+  [
+   1480,
+   "### D.4 T4: Fintech Ledger"
+  ],
+  [
+   1484,
+   "## Appendix E Quality Scorer Details"
+  ],
+  [
+   1486,
+   "#### LLM-judge (primary scorer for T4 budget-fair)."
+  ],
+  [
+   1496,
+   "#### Cross-validation against regex scorer."
+  ],
+  [
+   1503,
+   "#### Same-family judge concern."
+  ],
+  [
+   1509,
+   "#### Regex scorer (secondary, historical)."
+  ],
+  [
+   1539,
+   "#### AST cross-check."
+  ],
+  [
+   1547,
+   "#### Leave-one-out sensitivity (alternative solo subset)."
+  ],
+  [
+   1594,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 7 Limitations\n\nHow far do the statistics reach? The headline results span four backend domains and the three powered CLI-stable models from two providers; per-cell n ranges 7 – 35 , Gemini 3 is underpowered at 5{+}5 , and we exclude Codex-mini (§4.4). Pooling the 12 strata under CMH powers the Tier I abandonment claim rather than any single cell.\nDoes it hold beyond one runtime? All headline cells share one Express.js/TypeScript runtime; the Rust and Python checks (Appendices B.17, B.16) are bounded mechanism-portability spot checks, not a claim of runtime-general magnitude.\nThe parallel-merge vs AgentRoom contrast holds the same Sonnet producer on both sides (Li et al., 2026; Wataoka et al., 2025), and we cross-validate the LLM-judge composite against independent regex and TypeScript-AST scorers (§2.5). The cost-equivalent cross-model comparison (Appendix B.6) carries an exposed bias, and we frame it as suggestive.\nThe bundle-component probe reuses the ablation cells (Appendix B.13); we read its substrate-vs-coordination split as indicative, not a precise variance decomposition.\nQuality is assessed by the LLM-judge composite, not an execution oracle: tasks do not ship a held-out correctness suite (vitest suites are agent-authored), so we cross-validate the judge against the regex and AST scorers (§2.5) but do not claim execution-verified correctness.\nWe replay a post-hoc capability probe over the archived T4 snapshots, and it corroborates the ordering endpoints (Appendix B.18). Oracle-free evaluation of in-the-wild software is outside scope.\nReplication has a hosted-model ceiling: we pin CLI versions, model identifiers, and per-agent invocations (§3), but hosted models can change server-side, so bit-for-bit reproduction is not claimed; contrasts are matched-CLI and matched-budget, so drift moves both arms together.\n\n## References\n\nAshrafi et al. [2025]\n\nNazmus Ashrafi, Salah Bouktif, and Mohammed Mediani.\n\nEnhancing llm code generation: A systematic evaluation of multi-agent\ncollaboration and runtime debugging for improved accuracy, reliability, and\nlatency, 2025.\n\nURL https://arxiv.org/abs/2505.02133.\n\nAutomerge Project [2023]\n\nAutomerge Project.\n\nAutomerge: A library of data structures for building collaborative\napplications, 2023.\n\nURL https://automerge.org.\n\nBurrows [2006]\n\nMichael Burrows.\n\nThe chubby lock service for loosely-coupled distributed systems.\n\nIn Brian N. Bershad and Jeffrey C. Mogul, editors, 7th\nSymposium on Operating Systems Design and Implementation (OSDI ’06),\nNovember 6-8, Seattle, WA, USA, pages 335–350. USENIX Association,",
+ "ethics_coi": "### C.2 T4 \\times 4 Sonnet 4.6 : Conflict Resolution\n\nRoom broadcast log, T4 \\times 4 Sonnet 4.6, from messages.jsonl\n\nDEV-A t{=}30  s\n\nCLAIMING: src/types.ts, src/store.ts, src/accounts.ts, src/ledger.ts, src/transactions.ts\n\nDeveloper-3 t{=}32  s\n\nCLAIMING: src/types.ts, src/currency.ts, src/transactions.ts\n\nModule: Core types, multi-currency, transaction processing\n\nDEV-A t{=}45  s\n\nCONFLICT RESOLUTION: Dropping types.ts, transactions.ts\n\nREVISED CLAIM: src/store.ts, src/accounts.ts, src/ledger.ts\n\nDeveloper-3 t{=}48  s\n\nCONFLICT DETECTED with DEV-A on types.ts, transactions.ts\n\nREVISED: src/currency.ts, src/audit.ts, src/fraud.ts",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 3,
+  "p_value_or_ci": 15,
+  "seeds_or_runs": 1,
+  "swe_bench": 1,
+  "contamination": 1,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 1
+ },
+ "fulltext_source": "html"
+}

@@ -1,0 +1,179 @@
+{
+ "arxiv_id": "2606.31650",
+ "fulltext_chars": 56752,
+ "fulltext_lines": 1732,
+ "authors_block": "with Selective Turn Memory in Agentic RL Zijun Xie1,2∗† Binbin Zheng2,3∗† Enlei Gong2∗ Jihua Liu2 Yuyang You1 Lingfeng Liu1 Jiayao Tang1 Guanqun Zhao2 Xiaoliang Fu Aoqi Hu2 Zeyu Chen2‡ 1School of Mathematical Sciences, Peking University 2Baidu Inc. 3University of Science and Technology of China xiezijun@baidu.com GitHub:xiezijun714-lang/Echo",
+ "vendor_affiliation_hits": [
+  "GitHub"
+ ],
+ "n_authors": 10,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# ECHO: Prune to Act, Trace to Learn"
+  ],
+  [
+   46,
+   "###### Abstract"
+  ],
+  [
+   55,
+   "## 1 Introduction"
+  ],
+  [
+   146,
+   "## 2 Related Work"
+  ],
+  [
+   148,
+   "### 2.1 RL for Long-Horizon Language Agents"
+  ],
+  [
+   164,
+   "### 2.2 Context Management and Agent Memory"
+  ],
+  [
+   187,
+   "### 2.3 Credit Assignment in Agentic RL"
+  ],
+  [
+   207,
+   "## 3 Preliminaries"
+  ],
+  [
+   209,
+   "### 3.1 Multi-Turn GRPO for Agentic RL"
+  ],
+  [
+   297,
+   "### 3.2 Context-Managed Multi-Turn Rollouts"
+  ],
+  [
+   365,
+   "## 4 Method"
+  ],
+  [
+   367,
+   "### 4.1 Why Traceability Matters"
+  ],
+  [
+   406,
+   "### 4.2 Selective Turn Memory"
+  ],
+  [
+   416,
+   "#### Source-indexed memory."
+  ],
+  [
+   442,
+   "#### Memory selection."
+  ],
+  [
+   475,
+   "#### Context reconstruction."
+  ],
+  [
+   496,
+   "### 4.3 Traceable Credit Routing"
+  ],
+  [
+   552,
+   "## 5 Experiment"
+  ],
+  [
+   560,
+   "### 5.1 Experimental Setup"
+  ],
+  [
+   584,
+   "### 5.2 Main Results"
+  ],
+  [
+   616,
+   "### 5.3 Ablation Study"
+  ],
+  [
+   618,
+   "#### Memory ablations."
+  ],
+  [
+   632,
+   "#### Credit-routing ablations."
+  ],
+  [
+   807,
+   "### 5.4 Training Efficiency"
+  ],
+  [
+   823,
+   "### 5.5 Zero-shot Generalization Comparison"
+  ],
+  [
+   840,
+   "## 6 Conclusion"
+  ],
+  [
+   859,
+   "## References"
+  ],
+  [
+   1485,
+   "## Appendix A Experimental Details"
+  ],
+  [
+   1564,
+   "### A.1 Evaluation Benchmarks"
+  ],
+  [
+   1568,
+   "#### Multi-Objective QA."
+  ],
+  [
+   1572,
+   "#### Code Generation."
+  ],
+  [
+   1591,
+   "#### Deep Information Seeking."
+  ],
+  [
+   1595,
+   "## Appendix B Prompt Templates"
+  ],
+  [
+   1602,
+   "### B.1 Base BrowseComp-Plus Prompt"
+  ],
+  [
+   1650,
+   "### B.2 ECHO-Specific Prompts and Hints"
+  ],
+  [
+   1732,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 2,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 1,
+  "swe_bench": 1,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

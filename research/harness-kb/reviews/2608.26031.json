@@ -1,0 +1,49 @@
+{
+  "arxiv_id": "2608.26031",
+  "contribution_type": "empirical",
+  "summary": "This paper presents a gradient-guided, AST-preserving identifier-renaming attack that makes irrelevant code snippets look similar to a target query for code embedding models. Attacks crafted on small white-box surrogates (CodeT5+, OASIS) transfer to Nomic-embed-code, Voyage-code-3, and to LLM-based retrieval (GPT-5.4-mini, Gemini-3.1-Pro on RepoQA). The paper also tests robust finetuning as a defense, which trades retrieval quality for robustness.",
+  "claims": [
+    {"claim": "The attack degrades MRR of state-of-the-art code embedding models by up to 77% (absolute).", "evidence": "Table 3 (CosQA, 10% of irrelevant candidates per query replaced): MRR Δ −72.29 CodeT5+, −74.58 OASIS, −77.07 Nomic, −77.54 Voyage-code-3. This is a per-query pool setting where each query's own pool is poisoned. In the more realistic shared-corpus setting (Table 4, 20 queries over 500 snippets), drops are much smaller: MRR −38.2 CodeT5+, −11.9 OASIS, −14.4 Nomic, with Recall@5 largely unchanged.", "strength": "moderate", "location": "§4.3 Table 3, §4.4 Table 4"},
+    {"claim": "Attacks transfer to larger and closed-source models, and surrogate similarity change correlates with target change.", "evidence": "Table 1 reports ΔSim and Pearson/Spearman correlations across surrogate→eval pairs. Table 7 shows ΔSim on Nomic of 39.25±10.89 over 10,000 CosQA pairs.", "strength": "strong", "location": "§4.1 Table 1, §4.7 Table 7"},
+    {"claim": "The attack transfers to LLM-based repository retrieval.", "evidence": "Table 5 (RepoQA, two adversarial candidates per query). GPT-5.4-mini accuracy drops e.g. Python 96→81, C++ 92→70. Gemini-3.1-Pro 95→79 on Python, with similar drops on the other languages including Java. Single run, no variance.", "strength": "moderate", "location": "§4.5 Table 5"},
+    {"claim": "The attack beats adapted baselines (DAMP, CodeAttack) at lower cost.", "evidence": "Table 2, on 1,000 CosQA pairs. Both baselines were designed for classification and adapted by the authors.", "strength": "weak", "location": "§4.2 Table 2"}
+  ],
+  "patterns": [
+    {"id": "P06", "stance": "contradicts", "note": "Embedding-based code retrieval is fragile to functionality-preserving identifier perturbations in the indexed corpus, including commercial Voyage-code-3. Poisoned snippets can outrank relevant code."},
+    {"id": "P22", "stance": "neutral", "note": "Corpus-poisoning threat to retrieval feeding agents/LLMs. The only defense studied is robust finetuning (Table 6), with a utility trade-off. No harness-level defense."},
+    {"id": "P05", "stance": "neutral", "note": "The authors attribute the vulnerability to reliance on lexical identifier cues. They do not evaluate grep/AST/LSP retrieval, but structure-grounded representations are listed as future work."}
+  ],
+  "methodology": {
+    "sample": "CosQA and CLARC for embedding search (10,000 pairs for ablations, 1,000 for the baseline comparison). Shared corpus of 20 queries × 500 snippets. RepoQA for LLM retrieval. HumanEval-X for cross-language analysis (appendix).",
+    "baselines": "DAMP (white-box) and CodeAttack (black-box), both adapted from code classification.",
+    "models": "Surrogates: CodeT5+ (110M), OASIS (1.5B). Targets: Nomic-embed-code, Voyage-code-3, GPT-5.4-mini, Gemini-3.1-Pro.",
+    "variance": "Standard deviations of ΔSim across pairs (Table 7). No repeated runs or CIs for retrieval metrics or LLM accuracy.",
+    "ablations": "Gradient, style preservation and query-token similarity removed (Tables 5, 7). Iterations, α, and corpus attack ratio (App. E).",
+    "contamination_controls": "n/a (attack paper).",
+    "languages": "Python, C++, Java, Rust, TypeScript on RepoQA, plus others via CLARC/HumanEval-X."
+  },
+  "standards": {
+    "peer_review": "EMNLP Findings 2026 (arXiv comment).",
+    "limitations_section": true,
+    "artifacts": "Attack code is deliberately not released, citing misuse risk. Available on request from the first author. Datasets are public.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "hype_language", "detail": "The 'up to 77%' headline comes from the strongest threat model, in which every query's own candidate pool has 10% adversarial snippets. The shared-corpus setting shows 11.9–38.2 MRR drops with Recall@5 intact."},
+    {"type": "closed_artifacts", "detail": "Attack code is withheld."},
+    {"type": "strawman_baseline", "detail": "Baselines were designed for classification and adapted by the authors."},
+    {"type": "no_variance_reported", "detail": "LLM retrieval accuracy and retrieval metrics are single runs."}
+  ],
+  "coi": {
+    "affiliations": "University of Southern California (all four authors).",
+    "vendor_products_evaluated": "Voyage-code-3, GPT-5.4-mini and Gemini-3.1-Pro are attacked, i.e., evaluated unfavorably. No vendor affiliation.",
+    "funding": "U.S. NSF grants 2409005 and 2321444.",
+    "severity": "none",
+    "detail": "Independent academic security study."
+  },
+  "scores": {"rigor": 3, "reproducibility": 2, "generalizability": 3, "relevance": 2, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "The transfer results are solid and peer-reviewed, with a large-sample ΔSim and ablations. The headline 77% MRR drop is real but comes from the most favorable threat model, the shared-corpus results are much milder, and the attack code is withheld.",
+  "applicability": "Moderate, as a risk input for any embedding/RAG layer the harness adds. If the team indexes code across the ≥4 ingestion repos, or ingested third-party content, into a vector store for agent context, a single poisoned contribution (renamed identifiers, unchanged behavior and AST) can outrank relevant code for targeted queries. That would steer agents toward wrong or malicious snippets, and code review would not flag it because the code looks benign. The practical harness takeaway is to prefer deterministic lexical/AST/LSP retrieval over first-party repos as the primary context source, to restrict embedding indices to trusted, reviewed branches, and to record retrieved snippet provenance in traces. Java is included only in the LLM-retrieval test, where accuracy also drops. Nothing here addresses spec-driven development or mixed hosts directly.",
+  "conflicts_with": []
+}

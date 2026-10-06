@@ -1,0 +1,56 @@
+{
+  "arxiv_id": "2609.08040",
+  "contribution_type": "benchmark",
+  "summary": "VEX-Bench: 75 expert-labelled cases (67 CVEs, 35 projects; 25 Java, 30 Go, 20 Python) in which an agent receives a full downstream repository snapshot plus a known CVE in a dependency and must decide whether the project is affected and, if not, why (four VEX-style justifications). Nine models are evaluated in vendor or open harnesses (Claude Code, Codex, OpenCode) over three runs and compared with OSV-Scanner, Trivy and govulncheck.",
+  "claims": [
+    {"claim": "Claude Opus 4.6 and GPT-5.5 reach ~80% F1 on binary affected/not-affected classification.", "evidence": "Table 2: status F1 81.6 +/- 3.8 (Opus 4.6, Claude Code) and 79.9 +/- 8.0 (GPT-5.5, Codex); accuracy 88.4 / 89.3. Matches abstract. Note only 29.3% of cases are affected (Fig. 2), so an always-'not affected' predictor gets ~70.7% accuracy; MiniMax-M2.7 (71.1%) and DeepSeek-V4-Flash (72.9%) are near that floor.", "strength": "moderate", "location": "§4.2, Table 2, §3.3"},
+    {"claim": "Only GPT-5.5 exceeds 70% macro-F1 on fine-grained justification; justification is harder than status for every configuration.", "evidence": "Table 2: GPT-5.5 justification macro-F1 73.5 +/- 3.3, next best Kimi K2.6 64.6 +/- 7.9; justification accuracy < status accuracy for all nine (largest gap GPT-5.4 mini 15.5 pp). Some justification classes have very few cases (Limitations), so macro-F1 is noisy.", "strength": "moderate", "location": "§4.2, Table 2"},
+    {"claim": "Traditional SCA tools cannot reliably distinguish affected projects from false alerts.", "evidence": "Table 3: OSV-Scanner F1 40.5, Trivy 36.1 (precision 27.4 / 26.0) on n=75; Go-only OSV reachability F1 42.9, govulncheck 25.0 (completes 19/30). Mapping rule 'affected iff tool reports the CVE' on cases selected because the manifest was patched for that CVE makes high recall / low precision nearly guaranteed.", "strength": "moderate", "location": "§4.3, Table 3"},
+    {"claim": "Harness choice affects inference cost far more than classification performance.", "evidence": "Fig. 7: only two models (GPT-5.5, GPT-5.4 mini) under two harnesses (Codex CLI vs OpenCode); Codex better for GPT-5.5 at >2x tokens, comparable for mini at ~4x tokens. Main table confounds harness with model family (vendor harness for closed models, OpenCode for open weights).", "strength": "weak", "location": "§4.4.5, Fig. 7"},
+    {"claim": "No meaningful model-side leakage from source PRs.", "evidence": "Appendix C: manual audit of all 75 source PRs (3 discuss exploitability, none state the label); guided-completion probe on 19 PRs: GPT-5.5 1 exact match of 19, Opus 4.6 0 of 19. Agents had web access during evaluation (§3.4).", "strength": "moderate", "location": "§3.4, Appendix C, Table 6"}
+  ],
+  "patterns": [
+    {"id": "P27", "stance": "neutral", "note": "Task requires reasoning across an upstream advisory and a downstream repo (dependency call sites); benchmark measures this but proposes no coordination mechanism."},
+    {"id": "P31", "stance": "introduces", "note": "New agent benchmark with 3-run means/SD, Docker isolation, git-history stripping and leakage probe."},
+    {"id": "P20", "stance": "neutral", "note": "All runs in isolated Docker containers separated from labels and evaluation artifacts to prevent benchmark hacking."},
+    {"id": "P24", "stance": "neutral", "note": "Reports per-case tokens and dollar cost; Pareto analysis shows DeepSeek-V4-Pro ($0.075) and GLM-5.1 ($0.095) near frontier vs GPT-5.5 ($1.082)."},
+    {"id": "P23", "stance": "neutral", "note": "Cost-performance data (Fig. 3) could inform cheap-model routing for triage, but routing is not evaluated."},
+    {"id": "P17", "stance": "neutral", "note": "Compares agents against static SCA tools (OSV-Scanner, Trivy, govulncheck) that are the usual deterministic baseline."}
+  ],
+  "methodology": {
+    "sample": "75 cases from PRs in top-100 starred permissive repos referencing a CVE and modifying a manifest/lockfile; 22 affected vs 53 not affected (29.3% / 70.7%).",
+    "baselines": "OSV-Scanner, Trivy (full), OSV reachability and govulncheck (Go only); no majority-class or simple LLM-without-agent baseline.",
+    "models": "Claude Opus 4.6, Claude Sonnet 4.6 (Claude Code); GPT-5.5, GPT-5.4 mini (Codex); Kimi K2.6, DeepSeek-V4-Pro, DeepSeek-V4-Flash, MiniMax-M2.7, GLM-5.1 (OpenCode).",
+    "variance": "Mean +/- SD over three runs per configuration; SDs up to ~13 pp on recall/F1.",
+    "ablations": "Harness ablation for two GPT models only; language and repo-size breakdowns for four configurations.",
+    "contamination_controls": "Labels never public; Docker isolation; git history removed; manual PR audit and guided-completion memorization probe (Appendix C).",
+    "languages": "Java (25 cases, median 546K LOC), Go (30), Python (20); no JavaScript/npm."
+  },
+  "standards": {
+    "peer_review": "Accepted to EMNLP 2026 (comment).",
+    "limitations_section": true,
+    "artifacts": "Code and data at github.com/steven1518/vex-bench; full prompt and label-mapping in Appendix B; environment details Appendix D.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "small_sample", "detail": "75 cases, 22 affected; some justification classes have only a handful of cases, making macro-F1 and per-language splits fragile."},
+    {"type": "other:harness_model_confound", "detail": "Closed models run only in their vendor harness and open models only in OpenCode, so model and harness effects are entangled in Table 2."},
+    {"type": "metric_mismatch", "detail": "No majority-class baseline reported despite 70.7% not-affected prior; status accuracy near 71-73% for weaker models is close to trivial."},
+    {"type": "strawman_baseline", "detail": "SCA tools are scored 'affected iff CVE reported' on cases selected because the CVE triggered a manifest change, so low precision is partly by construction; still a realistic description of how these tools are used."},
+    {"type": "other:single_label_precedence", "detail": "Gold justification uses a precedence rule; §4.4.3 shows 4 of 5 reviewed GPT-5.5 'errors' were defensible alternative labels."}
+  ],
+  "coi": {
+    "affiliations": "Purdue University (Jiahao Shi, Yifeng Di, Tianyi Zhang) and Red Hat (Edward Tsien, Hongjiao Zhang, Yuan Tang, Ronit Dey, Ilona Shishov, Gal Netanel, Zvi Grinberg, Vladimir Belousov, Bat-Zion Rotman, Ilan Pinto). Signals regex missed Red Hat.",
+    "vendor_products_evaluated": "Models/harnesses from Anthropic, OpenAI, Moonshot, DeepSeek, MiniMax, Zhipu and SCA tools from Google/Aqua; no Red Hat product evaluated.",
+    "funding": "NSF Proto-OKN Award 2333736; Red Hat contributors acknowledged.",
+    "severity": "low",
+    "detail": "Majority of authors are from Red Hat, which has a commercial interest in VEX/supply-chain triage, but the paper does not evaluate or promote a Red Hat product and authors do not ship a ranked system."
+  },
+  "scores": {"rigor": 3, "reproducibility": 4, "generalizability": 3, "relevance": 3, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Carefully built, released, peer-reviewed benchmark with multi-run variance and leakage checks, and headline numbers match Table 2; but n=75 with heavy class imbalance and no majority baseline, harness-model confounding, and a two-model harness ablation limit the stronger conclusions.",
+  "applicability": "Directly useful for the Java team's dependency hygiene across >=4 ingestion repositories: Java is the largest subset (25 cases, median 546K LOC, Maven/Gradle manifests), and the results suggest an agent triage step on top of Dependabot/OSV/Trivy alerts can cut false positives (SCA precision ~26-27% vs agents ~75-89%), with cheaper open models (DeepSeek-V4-Pro, GLM-5.1) near the cost-performance frontier. For mixed agent hosts, the harness ablation hints that host choice mainly changes token cost, but that evidence is thin (two models). Treat agent output as a VEX justification proposal that a human or deterministic reachability check confirms, given ~20-30% justification error; nothing here touches healthcare content or spec-driven development.",
+  "conflicts_with": [
+    {"arxiv_id": "2606.12344", "detail": "Claw-SWE-Bench reports that harness choice changes success rate substantially with the model fixed, whereas VEX-Bench's (two-model) ablation concludes harness affects cost far more than performance."}
+  ]
+}

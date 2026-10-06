@@ -1,0 +1,229 @@
+{
+ "arxiv_id": "2609.30906",
+ "fulltext_chars": 107382,
+ "fulltext_lines": 2339,
+ "authors_block": "Zhenlong Dai Affiliation: Zhejiang University Email: zhenlongdai@zju.edu.cn Xujie Song Affiliation: Zhejiang University Email: songxujie@zju.edu.cn Zitong Wang Affiliation: Ant Group Email: yesi.wzt@antgroup.com Tong Niu Affiliation: Ant Group Email: niutong.niu@antgroup.com Jian Liu ††thanks: Co-corresponding authors. Affiliation: Ant Group Email: rex.lj@antgroup.com Weiqiang Wang Affiliation: Ant Group Email: weiqiang.wwq@antgroup.com Xiu Tang Affiliation: Zhejiang University Email: tangxiu@zju.edu.cn Sai Wu Affiliation: Zhejiang University Email: wusai@zju.edu.cn Chang Yao Affiliation: Zhejiang University Email: changy@zju.edu.cn Jingyuan Chen11footnotemark: 1 Affiliation: Zhejiang University Email: jingyuanchen@zju.edu.cn",
+ "vendor_affiliation_hits": [
+  "Ant Group"
+ ],
+ "n_authors": 10,
+ "comment": "Accepted at NeurIPS 2026",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/zhenlongDai/ToolSearcher."
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# ToolSearcher: Optimizing Tool Selection at Scale via Reinforcement Learning"
+  ],
+  [
+   83,
+   "###### Abstract"
+  ],
+  [
+   95,
+   "## 1 Introduction"
+  ],
+  [
+   142,
+   "## 2 Related Work"
+  ],
+  [
+   144,
+   "### 2.1 Retrieval-Augmented Generation"
+  ],
+  [
+   155,
+   "### 2.2 Agentic Reinforcement Learning"
+  ],
+  [
+   168,
+   "## 3 Method"
+  ],
+  [
+   176,
+   "### 3.1 Task Definition"
+  ],
+  [
+   182,
+   "### 3.2 Preliminary"
+  ],
+  [
+   192,
+   "### 3.3 Category-Constrained Tool Discrimination"
+  ],
+  [
+   216,
+   "### 3.4 Reinforcement Learning For Tool Selection"
+  ],
+  [
+   218,
+   "#### 3.4.1 Event-level Search Modeling."
+  ],
+  [
+   268,
+   "#### 3.4.2 Trajectory-Aligned Credit Allocation."
+  ],
+  [
+   296,
+   "## 4 Experimental Setup"
+  ],
+  [
+   298,
+   "### 4.1 Datasets and Metrics."
+  ],
+  [
+   311,
+   "### 4.2 Baselines."
+  ],
+  [
+   321,
+   "### 4.3 Implementation Details"
+  ],
+  [
+   543,
+   "## 5 Experimental Analysis"
+  ],
+  [
+   545,
+   "### 5.1 Main Results"
+  ],
+  [
+   560,
+   "### 5.2 Tool-Selection Capabilities Across Diverse Scenarios"
+  ],
+  [
+   571,
+   "### 5.3 Generalization Capability to Out-of-Distribution"
+  ],
+  [
+   750,
+   "### 5.4 Ablation Study and Method Analysis"
+  ],
+  [
+   864,
+   "## 6 Conclusion"
+  ],
+  [
+   870,
+   "## References"
+  ],
+  [
+   1405,
+   "## Appendix"
+  ],
+  [
+   1407,
+   "## Appendix A Limitations"
+  ],
+  [
+   1418,
+   "## Appendix B Dataset and Metric details"
+  ],
+  [
+   1420,
+   "### B.1 StableToolbench Dataset details."
+  ],
+  [
+   1466,
+   "### B.2 Appworld Dataset details."
+  ],
+  [
+   1479,
+   "### B.3 Metric details."
+  ],
+  [
+   1491,
+   "## Appendix C Baselines."
+  ],
+  [
+   1508,
+   "##### Training and Inference Setup."
+  ],
+  [
+   1516,
+   "## Appendix D Implementation Details"
+  ],
+  [
+   1521,
+   "##### Tool Retriever for Search Engine."
+  ],
+  [
+   1525,
+   "##### Training and Inference Settings."
+  ],
+  [
+   1541,
+   "## Appendix E Detailed Settings of Ablation Study"
+  ],
+  [
+   1548,
+   "## Appendix F Gradient Analysis"
+  ],
+  [
+   1550,
+   "##### ToolSearcher."
+  ],
+  [
+   1603,
+   "##### GRPO."
+  ],
+  [
+   1615,
+   "##### GDPO."
+  ],
+  [
+   1626,
+   "##### MARAG-R1."
+  ],
+  [
+   1670,
+   "##### GSPO."
+  ],
+  [
+   1713,
+   "## Appendix G Prompt"
+  ],
+  [
+   1746,
+   "# Description of Tool Categories:"
+  ],
+  [
+   1752,
+   "# Task Question:"
+  ],
+  [
+   1797,
+   "## Appendix H Broader Impact"
+  ],
+  [
+   1802,
+   "## NeurIPS Paper Checklist"
+  ],
+  [
+   2339,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## Appendix A Limitations\n\nAlthough our approach demonstrates improved performance over baseline models on the StableToolBench training set and out-of-distribution settings like AppWorld, there are several limitations to consider.\nFirst, the training data used in our method is synthesized based on LLMs (from Stabletoobench’s training data), where the majority of tool combinations are parallel rather than sequential, even when cross-category tool compositions are involved.\nThis results in a weak progression in tool combination usage, which is further exacerbated in complex scenarios. In contrast, AppWorld’s APIs are mostly stateful, meaning they alter user-related information and impact database states. Due to the lack of state-awareness in the synthesized training data, our model’s performance improvement in AppWorld remains limited.\n\nBeyond large-scale tool selection, the challenge of effectively combining stateful data and APIs with tight cross-category links remains an open problem, and we consider this as future work.\nAdditionally, despite achieving superior performance over baseline models in AppWorld, our approach is constrained by the context window during training, limiting the interaction rounds to 8 (equivalent to a total of 5,000 tokens).\nHowever, the average number of APIs involved in an AppWorld scenario exceeds 8, which presents a challenge even though our method outperforms other RL methods.\nHowever, the average number of APIs involved in the AppWorld scenario can exceed 8. We believe a feasible strategy to address this is to summarize interaction context information appropriately, thereby shortening the context window. Future work will focus on exploring how to effectively implement this during both training and inference to handle scenarios that involve more complex tool combinations.\n\n## Appendix B Dataset and Metric details\n\n### B.1 StableToolbench Dataset details.\n\nStableToolbench consists of 765 samples, with the maximum and mean API call counts required to complete the tasks being 6 and 2.35, respectively.\nStableToolbench gather 16,464 representational state transfer (REST) APIs from RapidAPI.\nRapidAPI is a leading API marketplace that connects developers with thousands of\nreal-world APIs, streamlining the process of integrating diverse services into applications.\nDevelopers\nAll APIs in RapidAPI can be classified into 49 coarse-grained categories, such as sports, finance, and weather.\nThe categories associate an API with the most relevant topic.\nAdditionally, the hub also provides 500+ fine-grained categorization called collections (e.g., Chinese APIs and database APIs.) APIs in the same collection share a common characteristic and often have similar functionalities or goals.\nIt evaluates the generalization ability across different scenarios: (1) Inst.: unseen instructions for the same set of tools, (2) Tool: unseen tools from the same category, and (3) Cate.: unseen tools from a different category than those in the training data.\n\nStableToolbench perform experiments on three scenarios:\nsingle-tool instructions (I1), intra-category multi-tool instructions (I2), and intra-collection multi-tool instructions (I3).\nFor I1, it conduct the evaluation for the aforementioned three levels (I1-Inst., I1-Tool, and I1-Cat.); for I2, since the training instructions already involve different tools of the same category, it only perform level 1 and level 3 for the generalization evaluation (I2-Inst. and I2-Cat.);\nsimilarly, it only perform level 1 generalization for I3 (I3-Inst.)\nsince it already covers instructions that involve various combinations of tools from different categories (the tools in a RapidAPI collection may come from different RapidAPI categories).\n\nFor the training data, we utilize their dataset, which is automatically constructed by sampling different combinations of APIs and crafting various instructions involving them. Specifically, they focus on two key aspects in the instruction generation process:\n",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 6,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 2,
+  "human_study": 2,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

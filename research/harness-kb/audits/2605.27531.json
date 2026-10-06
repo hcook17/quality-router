@@ -1,0 +1,19 @@
+{"arxiv_id": "2605.27531",
+ "blind_scores": {"rigor": 3, "reproducibility": 1, "generalizability": 2, "relevance": 2, "coi_risk": 2},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "Spec-Agent synthesizes valid specifications for ~85% of target functions.", "proposed_strength": "weak", "reason": "'Test Valid' is defined by the system's own acceptance oracle: fuzz-passing plus unit tests (§4, Table 1). Up to 17% of 'valid' contracts are trivially 'true' (BMQ Qwen3.5 17.13%). 85% is the best of four BDE configurations under greedy single runs, and BMQ is 69.8–77.7%. Strong expert validation exists only for 100 sampled specs per repo, with no agreement statistic. As stated, the number measures 'passes our own gate', not validity."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P10", "from": "supports", "to": "neutral", "reason": "The review itself notes 'not ablated'. The single-call loop versus Claude Code subagents is confounded with model, prompt and budget, so the attribution is the authors' assertion, not evidence."},
+  {"id": "P12", "from": "contradicts", "to": "neutral", "reason": "The comparison is not controlled. Claude Code differs in model family, scaffold and budget accounting. A 6M weighted-token budget per repository is about 9K tokens per function for 651 BDE functions (6M / 651), a tight cap for an exploratory subagent host. That handicaps the baseline rather than testing subagents."},
+  {"id": "P17", "from": "supports", "to": "neutral", "reason": "Tree-sitter features and heap tracing pick the target logic up front, but the paper gives no ablation of the selector. Static analysis is not used as feedback in the loop (the structural diagnostic is a lattice-level check). Nothing here is evidence for P17."}
+ ],
+ "missed_issues": [
+  "strawman_baseline risk: Claude Code runs on prompts and harnesses built for Spec-Agent's pipeline, under a per-repository token cap (about 9K per function). The paper gives no sign that the baseline was tuned or iterated to fuzz-pass under the same acceptance rule. The 'outperforms' margin on BDE is 4.4 pt (85.87 vs 81.48).",
+  "The expert validators are not identified. Given that all authors are at Bloomberg and BDE is Bloomberg's library ([2] github.com/bloomberg/bde), independence of the 'expert validation' is not established. I rate coi_risk 2 rather than 1 (organization's own code, own tool, own reviewers, competitor baseline). Severity stays low because no commercial product is promoted.",
+  "The paper calls fuzzing 'a strong, scalable alternative that supersedes functional testing' and 'a cost-effective proxy to full verification' (§6) without any comparison to a prover. That is hype_language.",
+  "Relevance 3 is generous for a C++/separation-logic contract-inference tool. For the Java healthcare-content team only the generic propose-validate-refine pattern transfers, and the review's applicability already rests on Java tools (Jazzer/jqwik/OpenJML) the paper never tests."
+ ],
+ "note": "First review is thorough and already catches the cost-metric and tautological-oracle problems. It still awards three 'supports'/'contradicts' pattern stances that it admits are unablated or indirect."}

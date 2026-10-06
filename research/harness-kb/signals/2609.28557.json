@@ -1,0 +1,197 @@
+{
+ "arxiv_id": "2609.28557",
+ "fulltext_chars": 113877,
+ "fulltext_lines": 3299,
+ "authors_block": "Journal: Journal Name Eranga Bandara Email: cmedawer@odu.edu Address: Old Dominion University, Norfolk, VA, USA Xueping Liang Email: xuliang@fiu.edu Address: Deloitte & Touche LLP, USA Asanga Gunaratna Email: asanga.gunaratna@complianceoslab.app Address: AI Motion Labs, Melbourne, Australia Tharaka Hewa Email: tharaka.hewa@oulu.fi Address: Center for Wireless Communications, University of Oulu, Finland Abdul Rahman Email: abdulrahman@deloitte.com Address: Deloitte & Touche LLP, USA Peter Foytik Email: pfoytik@odu.edu Address: Old Dominion University, Norfolk, VA, USA Safdar H. Bouk Email: sbouk@odu.edu Address: Old Dominion University, Norfolk, VA, USA Sachini Rajapakse Email: sachini.rajapakse@iciclelabs.ai Address: IcicleLabs.AI Isurunima Kularathna Email: isurunima.kularathna@iciclelabs.ai Address: IcicleLabs.AI Pramoda Karunarathna Email: pramoda.karunarathna@iciclelabs.ai Address: IcicleLabs.AI Chalani Rajapakse Email: chalani.rajapakse@iciclelabs.ai Address: IcicleLabs.AI Ng Wee Keong Email: awkng@ntu.edu.sg Address: Nanyang Technological University, Singapore Kasun De Zoysa Email: kasun@ucsc.cmb.ac.lk Address: University of Colombo, Sri Lanka Amin Hass Email: amin.hassanzadeh@accenture.com Address: Accenture Technology Labs, Arlington, VA, USA Wathsala Herath Email: wathsala.herath@agentsway.ai Address: Agentsway.AI Ross Gore Email: rgore@odu.edu Address: Old Dominion University, Norfolk, VA, USA Ravi Mukkamala Email: rmukkama@odu.edu Address: Old Dominion University, ",
+ "vendor_affiliation_hits": [],
+ "n_authors": 22,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# BaseCamp — An Agentic AI Framework for Automating DNA Sequencing Data Pipelines"
+  ],
+  [
+   158,
+   "###### Abstract"
+  ],
+  [
+   162,
+   "###### Keywords:"
+  ],
+  [
+   166,
+   "## 1 Introduction"
+  ],
+  [
+   310,
+   "## 2 Background"
+  ],
+  [
+   317,
+   "### 2.1 Large Language Models"
+  ],
+  [
+   343,
+   "### 2.2 Reasoning LLMs"
+  ],
+  [
+   365,
+   "### 2.3 LLM Fine-Tuning"
+  ],
+  [
+   443,
+   "### 2.4 AI Agents and Agentic AI"
+  ],
+  [
+   523,
+   "### 2.5 Model Context Protocol"
+  ],
+  [
+   551,
+   "### 2.6 Responsible and Explainable AI"
+  ],
+  [
+   594,
+   "## 3 Related Works"
+  ],
+  [
+   603,
+   "### 3.1 Bioinformatics Workflow Management and Pipeline Automation"
+  ],
+  [
+   640,
+   "### 3.2 LLM-Based Agents for Genomics and Biomedical Analysis"
+  ],
+  [
+   682,
+   "### 3.3 Agentic AI for Scientific Discovery and Autonomous Experimentation"
+  ],
+  [
+   707,
+   "### 3.4 Agentic AI and Multi-Agent Workflow Systems"
+  ],
+  [
+   747,
+   "### 3.5 Positioning"
+  ],
+  [
+   1047,
+   "## 4 Manual DNA Sequencing Pipeline Workflows"
+  ],
+  [
+   1162,
+   "### 4.1 Raw Read Quality Control and Preprocessing"
+  ],
+  [
+   1188,
+   "### 4.2 Reference Alignment and Parameter Selection"
+  ],
+  [
+   1212,
+   "### 4.3 Variant Calling and Filtering"
+  ],
+  [
+   1243,
+   "### 4.4 Annotation and Functional Interpretation"
+  ],
+  [
+   1265,
+   "### 4.5 Pipeline Monitoring and Exception Handling"
+  ],
+  [
+   1290,
+   "## 5 Delegating Manual Sequencing Processes to AI Agents"
+  ],
+  [
+   1395,
+   "### 5.1 Sample Intake and QC Agent"
+  ],
+  [
+   1421,
+   "### 5.2 Alignment Agent"
+  ],
+  [
+   1445,
+   "### 5.3 Variant Calling Agent"
+  ],
+  [
+   1472,
+   "### 5.4 Annotation and Interpretation Agent"
+  ],
+  [
+   1494,
+   "### 5.5 Pipeline Monitoring and Exception Agent"
+  ],
+  [
+   1520,
+   "### 5.6 Reporting Agent"
+  ],
+  [
+   1539,
+   "### 5.7 Agent Decomposition and Workflow Coordination"
+  ],
+  [
+   1606,
+   "### 5.8 Responsible and Explainable AI Agents"
+  ],
+  [
+   1712,
+   "## 6 Implementation and Evaluation"
+  ],
+  [
+   1732,
+   "### 6.1 Implementation Overview"
+  ],
+  [
+   1841,
+   "### 6.2 Fine-Tuning Corpus and Configuration"
+  ],
+  [
+   2021,
+   "### 6.3 Evaluation of the Variant Calling Agent"
+  ],
+  [
+   2184,
+   "### 6.4 Evaluation of the Pipeline Monitoring and Exception Agent"
+  ],
+  [
+   2323,
+   "### 6.5 Discussion"
+  ],
+  [
+   2371,
+   "## 7 Conclusion and Future Works"
+  ],
+  [
+   2429,
+   "## References"
+  ],
+  [
+   3299,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 5,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 15,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 1
+ },
+ "fulltext_source": "html"
+}

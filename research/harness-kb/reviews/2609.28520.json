@@ -1,0 +1,43 @@
+{
+  "arxiv_id": "2609.28520",
+  "contribution_type": "theory",
+  "summary": "Control-theory paper formalizing 'task-conditioned active observability': the minimum interaction cost for an observer to identify task-relevant hidden states of a finite controlled system with certified error and safe abstention. Proves a minimal-quotient theorem, deterministic and noisy bounds, and builds a staged 'nominal-first' observer evaluated on synthetic 24-bit Boolean controlled models and random automata. No LLMs or software agents are involved.",
+  "claims": [
+    {"claim": "Task-predictive equivalence yields a unique minimal sufficient quotient that leaves active observability complexity invariant.", "evidence": "Theorem 2.2 with proof in App. A.1.", "strength": "moderate", "location": "§2.2, App. A.1"},
+    {"claim": "Staged nominal-first observer reduces model computation more than five-fold while staying correct.", "evidence": "Table 1: eager 8.6213M model steps / 104.25 mean reads vs staged 1.6532M / 88.764; all policies 72/72 correct on 72 prospective tasks over two 24-bit Boolean models.", "strength": "moderate", "location": "§5.2, Table 1"},
+    {"claim": "Certified recovery 'across high-dimensional physical systems' with zero false acceptances.", "evidence": "Benchmarks are two 24-bit controlled Boolean models, 2,000 confirmatory operations, and 600 random Mealy automata (§5.1); 'physical systems' framing overstates synthetic testbeds.", "strength": "weak", "location": "§5.1"}
+  ],
+  "patterns": [],
+  "methodology": {
+    "sample": "72 prospective tasks on two 24-bit controlled Boolean models; 100 calibration + 100 evaluation blocks (2,000 operations); 600 random Mealy automata and 5,000 stochastic policies.",
+    "baselines": "Eager compilation and readwise variants of the authors' own observer.",
+    "models": "No ML/LLM models; finite controlled hypothesis models.",
+    "variance": "Not reported as CIs; correctness counts and means.",
+    "ablations": "Policy variants (λ settings), parallel speculation sensitivity (App. C).",
+    "contamination_controls": "n/a; hyperparameters frozen before confirmatory evaluation.",
+    "languages": "n/a"
+  },
+  "standards": {
+    "peer_review": "arXiv preprint (stat.ML/cs.AI/cs.LG); no venue.",
+    "limitations_section": true,
+    "artifacts": "No code link found.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "toy_tasks", "detail": "Synthetic 24-bit Boolean models and random automata presented as 'high-dimensional physical systems'."},
+    {"type": "hype_language", "detail": "'Stress audits across high-dimensional physical systems and thousands of operational trials' overstates the testbeds."},
+    {"type": "other:off_topic", "detail": "Not about LLM agents or software engineering."}
+  ],
+  "coi": {
+    "affiliations": "Graduate School, Northeastern University (two authors).",
+    "vendor_products_evaluated": "None.",
+    "funding": "No acknowledgments found.",
+    "severity": "none",
+    "detail": "Academic authors; no vendor link."
+  },
+  "scores": {"rigor": 2, "reproducibility": 1, "generalizability": 1, "relevance": 0, "coi_risk": 0},
+  "verdict": "reject",
+  "verdict_reason": "off-topic: theoretical active-observability/control paper on finite Boolean systems with no LLM, agent harness, or software-engineering content.",
+  "applicability": "Does not transfer. Nothing here bears on a Java backend team's agent harness, multi-repo healthcare-education content ingestion, mixed agent hosts, or spec-driven development. The loose analogy of 'verify a cheap nominal check first, escalate to expensive verification only on evidence' is a generic engineering heuristic, not evidence about coding agents.",
+  "conflicts_with": []
+}
