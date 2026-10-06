@@ -1,0 +1,25 @@
+{
+  "arxiv_id": "2606.08500",
+  "contributions": [
+    {"kind": "anti_pattern",
+     "statement": "Do not inject an always-on LLM coach/supervisor into the agent loop: on GPT-4.1 it raised turns about 2.5x and files read about 3.4x while lowering judged grounding of conclusions.",
+     "evidence": "§4.3 Fig. 12: 24 trajectories, one model, DeepSeek-V3 as coach and judges; grounding median ~0.68 vs 0.85-0.95, scored by LLM judges whose human alignment is weakest on grounding (App. 11 Table 15).",
+     "strength": "weak", "novelty": "new", "relative_to": [],
+     "transfers": "indirect"},
+    {"kind": "nuance",
+     "statement": "Tight turn budgets on read-only code-understanding tasks shrink exploration (turns, files, LOC) without a matching collapse in judged answer quality, but stopping calibration gets worse (0.715 to 0.633).",
+     "evidence": "§4.1-4.2 Figs. 4-5 and P24 evidence; one trajectory per grid cell, quality judged by LLMs; Python/TS/Rust repos, no change tasks.",
+     "strength": "weak", "novelty": "refines",
+     "relative_to": ["turn/token budget caps (P24)"],
+     "transfers": "indirect"},
+    {"kind": "nuance",
+     "statement": "Prompt-condition changes moved agent behaviour far less than switching models (task relevance 0.17-0.87 across models vs 0.61-0.63 across conditions).",
+     "evidence": "§4.2.2-4.2.3 Fig. 8, Table 6; single run per cell.",
+     "strength": "moderate", "novelty": "restates_known",
+     "relative_to": ["model choice dominates prompt variants", "2609.32459"],
+     "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "hypothesis_only",
+  "reason": "The coach-judge caution and the budget nuance are plausible but rest on 24 runs and LLM-judged quality; the moderate finding (models matter more than prompts) is already known."
+}

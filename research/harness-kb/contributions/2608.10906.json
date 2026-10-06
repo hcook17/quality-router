@@ -1,0 +1,12 @@
+{
+  "arxiv_id": "2608.10906",
+  "contributions": [
+    {"kind": "nuance",
+     "statement": "Half of public SKILL.md files are byte-for-byte copies, so a team sharing skills across repos needs one source of truth with versioned sync rather than copy-paste.",
+     "evidence": "§III item 3: 50.5% exact copies by content hash; no breakdown of template vs organic reuse.",
+     "strength": "moderate", "novelty": "restates_known", "relative_to": ["single source of truth / dependency management for shared config (known)"], "transfers": "direct"}
+  ],
+  "quantity_flags": ["system_description_only"],
+  "proposed": "drop",
+  "reason": "A 3-page dataset release; it measures adoption and copying but nothing about whether skills help, and the one implication is ordinary config hygiene."
+}

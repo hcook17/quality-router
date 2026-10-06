@@ -1,0 +1,30 @@
+{
+  "arxiv_id": "2609.37590",
+  "contributions": [
+    {
+      "kind": "heuristic",
+      "statement": "When compacting agent history, keep verbatim the spans that likely next steps depend on, plus every failure and state-change span, rather than summarising by recency.",
+      "evidence": "Table 1a: AppWorld FOCUS-D 64.9 vs 56.0 no compression (~15 tasks, single seed; rollout ablation swings up to 6pts); OfficeBench +1.1-2.1; non-coding benchmarks, gpt-4.1 only.",
+      "strength": "weak",
+      "novelty": "refines",
+      "relative_to": [
+        "P08 context compaction"
+      ],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "design_pattern",
+      "statement": "A cheap draft model steering compaction for an expensive main agent can lower total cost.",
+      "evidence": "Table 5/12-13: OfficeBench cost -37%; AppWorld advantage smaller; gpt-4.1 draft cost-neutral.",
+      "strength": "moderate",
+      "novelty": "duplicates",
+      "relative_to": [
+        "2608.24188"
+      ],
+      "transfers": "indirect"
+    }
+  ],
+  "quantity_flags": [],
+  "proposed": "hypothesis_only",
+  "reason": "The keep-failure-and-state-spans rule is plausible, but gains are single-seed and comparable to run-to-run swings on non-coding tasks; the cheap-draft-model point is already in the KB."
+}

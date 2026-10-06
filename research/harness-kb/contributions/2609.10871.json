@@ -1,0 +1,30 @@
+{
+  "arxiv_id": "2609.10871",
+  "contributions": [
+    {
+      "kind": "design_pattern",
+      "statement": "Before asking an LLM to hunt for design gaps in a natural-language interface spec, have it extract the spec into an explicit state machine and search that; free-text prompting over the raw spec found nothing confirmed.",
+      "evidence": "§V RQ1: 2 zero-shot Opus runs gave 9 candidates, all rejected; FSM-grounded runs gave 11 expert-kept findings. Baseline is two prompts judged by the authors' own C2 verifier; FSM accuracy shown only on a TCP proxy (Table I).",
+      "strength": "weak",
+      "novelty": "refines",
+      "relative_to": [
+        "P35 formal methods / spec formalization before analysis"
+      ],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "constraint",
+      "statement": "Do not adopt A2A delegation across trust boundaries without adding your own identity propagation and capability attestation; the spec itself leaves context ownership and capability claims unverifiable.",
+      "evidence": "Table III, §VI: 11 spec-level issues (cross-client context injection, credential harvesting across hops, unattested capabilities); exploits reasoned over the FSM, not demonstrated on live implementations.",
+      "strength": "moderate",
+      "novelty": "restates_known",
+      "relative_to": [
+        "authenticate peers and verify capability claims across trust boundaries (zero trust)"
+      ],
+      "transfers": "indirect"
+    }
+  ],
+  "quantity_flags": [],
+  "proposed": "hypothesis_only",
+  "reason": "The FSM-first idea is the only transferable heuristic and its baseline is a strawman judged by the authors' own verifier; the A2A findings matter only to teams adopting A2A and restate zero-trust practice."
+}

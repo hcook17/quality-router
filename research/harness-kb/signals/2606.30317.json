@@ -1,0 +1,313 @@
+{
+ "arxiv_id": "2606.30317",
+ "fulltext_chars": 45651,
+ "fulltext_lines": 802,
+ "authors_block": "Carson Rodrigues Affiliation: Celabe carson@celabe.com Oysturn Vas Affiliation: University of Waterloo ovas@uwaterloo.ca",
+ "vendor_affiliation_hits": [],
+ "n_authors": 2,
+ "comment": "9 pages, IEEEtran conference format, 2 figures. Extended version; a condensed version is under review at IEEE Software. Replication package: https://github.com/rodriguescarson/mcp-patterns-icsme2026",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/Significant-Gravitas/Auto-GPT",
+  "https://github.com/langchain-ai/langchain",
+  "https://github.com/modelcontextprotocol/python-sdk",
+  "https://github.com/modelcontextprotocol/servers",
+  "https://github.com/pipecat-ai/pipecat",
+  "https://github.com/rodriguescarson/mcp-patterns-icsme2026",
+  "https://github.com/rodriguescarson/mcp-patterns-icsme2026."
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# MCP Server Architecture Patterns for LLM-Integrated Applications"
+  ],
+  [
+   34,
+   "###### Abstract"
+  ],
+  [
+   38,
+   "###### Index Terms:"
+  ],
+  [
+   41,
+   "## I Introduction"
+  ],
+  [
+   67,
+   "## II Background"
+  ],
+  [
+   69,
+   "### II-A The Model Context Protocol"
+  ],
+  [
+   75,
+   "### II-B Relationship to Prior Work"
+  ],
+  [
+   119,
+   "### II-C LLM Tool Use and Agent Architecture"
+  ],
+  [
+   125,
+   "## III Methodology and Corpus"
+  ],
+  [
+   127,
+   "### III-A Corpus"
+  ],
+  [
+   233,
+   "### III-B Coding Protocol"
+  ],
+  [
+   239,
+   "## IV Five MCP Architecture Patterns"
+  ],
+  [
+   241,
+   "### IV-A Pattern 1: Resource Gateway"
+  ],
+  [
+   245,
+   "#### IV-A1 Context"
+  ],
+  [
+   249,
+   "#### IV-A2 Problem"
+  ],
+  [
+   253,
+   "#### IV-A3 Solution"
+  ],
+  [
+   295,
+   "#### IV-A4 Consequences"
+  ],
+  [
+   301,
+   "#### IV-A5 Known Uses"
+  ],
+  [
+   305,
+   "### IV-B Pattern 2: Tool Orchestrator"
+  ],
+  [
+   309,
+   "#### IV-B1 Context"
+  ],
+  [
+   313,
+   "#### IV-B2 Problem"
+  ],
+  [
+   317,
+   "#### IV-B3 Solution"
+  ],
+  [
+   349,
+   "#### IV-B4 Consequences"
+  ],
+  [
+   355,
+   "#### IV-B5 Known Uses"
+  ],
+  [
+   359,
+   "### IV-C Pattern 3: Stateful Session Server"
+  ],
+  [
+   363,
+   "#### IV-C1 Context"
+  ],
+  [
+   367,
+   "#### IV-C2 Problem"
+  ],
+  [
+   371,
+   "#### IV-C3 Solution"
+  ],
+  [
+   413,
+   "#### IV-C4 Consequences"
+  ],
+  [
+   419,
+   "#### IV-C5 Known Uses"
+  ],
+  [
+   423,
+   "### IV-D Pattern 4: Proxy Aggregator"
+  ],
+  [
+   427,
+   "#### IV-D1 Context"
+  ],
+  [
+   431,
+   "#### IV-D2 Problem"
+  ],
+  [
+   435,
+   "#### IV-D3 Solution"
+  ],
+  [
+   479,
+   "#### IV-D4 Consequences"
+  ],
+  [
+   485,
+   "#### IV-D5 Known Uses"
+  ],
+  [
+   489,
+   "### IV-E Pattern 5: Domain-Specific Adapter"
+  ],
+  [
+   493,
+   "#### IV-E1 Context"
+  ],
+  [
+   497,
+   "#### IV-E2 Problem"
+  ],
+  [
+   501,
+   "#### IV-E3 Solution"
+  ],
+  [
+   505,
+   "#### IV-E4 Consequences"
+  ],
+  [
+   511,
+   "#### IV-E5 Known Uses"
+  ],
+  [
+   515,
+   "## V Anti-Patterns"
+  ],
+  [
+   519,
+   "### V-A The God Tool"
+  ],
+  [
+   523,
+   "### V-B Unsanitized Resource Content"
+  ],
+  [
+   527,
+   "### V-C Synchronous Long-Running Operations"
+  ],
+  [
+   531,
+   "### V-D Missing or Vague Tool Descriptions"
+  ],
+  [
+   535,
+   "## VI Quantitative Evaluation"
+  ],
+  [
+   539,
+   "### VI-A Pattern Classification and Inter-Rater Reliability"
+  ],
+  [
+   545,
+   "### VI-B Transport Latency"
+  ],
+  [
+   597,
+   "### VI-C Tool Count vs. Accuracy (Observational)"
+  ],
+  [
+   609,
+   "## VII Cross-Cutting Concerns"
+  ],
+  [
+   611,
+   "### VII-A Authentication"
+  ],
+  [
+   615,
+   "### VII-B Error Handling"
+  ],
+  [
+   619,
+   "### VII-C Versioning"
+  ],
+  [
+   623,
+   "### VII-D Observability"
+  ],
+  [
+   627,
+   "## VIII Discussion"
+  ],
+  [
+   629,
+   "### VIII-A The LSP Parallel"
+  ],
+  [
+   633,
+   "### VIII-B API Design for LLM Clients"
+  ],
+  [
+   637,
+   "### VIII-C Implications for Practitioners and for Maintenance"
+  ],
+  [
+   645,
+   "### VIII-D Limitations"
+  ],
+  [
+   649,
+   "### VIII-E Threats to Validity"
+  ],
+  [
+   653,
+   "### VIII-F Reproducibility"
+  ],
+  [
+   657,
+   "### VIII-G Conflict of Interest"
+  ],
+  [
+   661,
+   "## IX Conclusion"
+  ],
+  [
+   665,
+   "## AI Disclosure"
+  ],
+  [
+   669,
+   "## References"
+  ],
+  [
+   802,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "### VIII-D Limitations\n\nFour limitations bound the contributions of this paper. (1) The derivation corpus is fifteen servers from one organization plus the official public registry; a recent measurement study catalogs {>}8{,}000 public MCP servers [18], and a stratified replication at that scale (which we did not attempt) could surface patterns beyond this set. (2) The taxonomy was derived through single-coder open coding with secondary verification, not independent dual coding; we mitigate this with a separate held-out inter-rater study (§VI-A, \\kappa=0.76 , N=54 ) but full independent dual coding of the derivation corpus remains future work. (3) The classification corpus consists of synthetic and real-derived server descriptions, not the running servers themselves; classifier accuracy on production servers may differ. (4) Three of the five rows in the transport-latency table are modeled, not measured end-to-end; we explicitly label the methodology per row to avoid overclaiming.\n\n### VIII-E Threats to Validity\n\nConstruct validity: the reliability study (§VI-A) uses two independent LLM raters on held-out servers, which mitigates single-rater bias, but both raters are LLMs and may share blind spots; independent human dual-coding remains future work. Internal validity: the modeled transport rows in Table III compose measured loopback overhead with a network-RTT constant; the constant is calibrated against same-region cloud telemetry but a deployment with cross-region or congested-network paths will see substantially different absolute numbers (the relative ordering of configurations is more stable than the absolute values). External validity: all five ANSYR production servers come from one application domain (voice AI for a single industry); patterns may differ in domains with different operational profiles. Conclusion validity: the reliability corpus ( N=54 ) yields a bootstrap 95% CI on inter-rater \\kappa of [0.62,0.88] ; while this is “substantial” agreement, the catalog’s coverage of the full design space should not be over-read from a 54-server sample alone.\n\n### VIII-F Reproducibility\n\nA complete replication package is published at https://github.com/rodriguescarson/mcp-patterns-icsme2026 under an MIT license. It contains: the enumerated derivation corpus (corpus.json), the 54-server reliability corpus and two-rater classification script (kappa_eval.py), the transport benchmark (transport_bench.py), the classification prompt template (prompts/classification_prompt.txt), the observational tool-count telemetry (tool_count_telemetry.csv), and the dependency manifest (requirements.txt). Both raters (claude-haiku-4-5-20251001 and Claude Sonnet 4) were queried at temperature 0 for determinism. Per-server predictions for both raters, the inter-rater \\kappa with its bootstrap CI, and each rater’s agreement with the author labels are written to results_kappa.json; raw transport samples to results/transport_measured.json.\n\n### VIII-G Conflict of Interest\n\nCarson Rodrigues is employed by Celabe, the operator of the ANSYR voice AI platform from which the production half of the corpus is drawn. Oysturn Vas is an academic affiliated with the University of Waterloo and has no commercial relationship with Celabe or ANSYR. The pattern catalog was derived from a balanced corpus (5 production + 10 public servers); the classification experiment uses synthetic descriptions and abstractions of public servers (no production telemetry is fed to the classifier), and the tool-count study (§VI-C) is openly labelled as observational ANSYR production telemetry.\n\n## IX Conclusion\n\nThis paper catalogued five recurring MCP server architecture patterns (Resource Gateway, Tool Orchestrator, Stateful Session Server, Proxy Aggregator, and Domain-Specific Adapter) along with four anti-patterns and a set of cross-cutting concerns, derived from an enumerated corpus of fifteen independently developed servers. We supplemented the qualitative description with thre",
+ "ethics_coi": "### VIII-G Conflict of Interest\n\nCarson Rodrigues is employed by Celabe, the operator of the ANSYR voice AI platform from which the production half of the corpus is drawn. Oysturn Vas is an academic affiliated with the University of Waterloo and has no commercial relationship with Celabe or ANSYR. The pattern catalog was derived from a balanced corpus (5 production + 10 public servers); the classification experiment uses synthetic descriptions and abstractions of public servers (no production telemetry is fed to the classifier), and the tool-count study (§VI-C) is openly labelled as observational ANSYR production telemetry.\n\n## IX Conclusion\n\nThis paper catalogued five recurring MCP server architecture patterns (Resource Gateway, Tool Orchestrator, Stateful Session Server, Proxy Aggregator, and Domain-Specific Adapter) along with four anti-patterns and a set of cross-cutting concerns, derived from an enumerated corpus of fifteen independently developed servers. We supplemented the qualitative description with three quantitative measurements: substantial inter-rater reliability of the taxonomy ( \\kappa=0.76 across two independent raters on 54 held-out servers, which also localizes three pattern-boundary ambiguities), end-to-end measurement of in-host transport overhead and explicitly modeled estimates for cross-host paths, and a tool-count study identifying \\approx 10–15 tools per context as the practical accuracy boundary for current Haiku-class models. As the MCP ecosystem matures, three directions remain open for future work: independent inter-coder validation of the taxonomy on a larger and more domain-diverse corpus; quantitative evaluation of LLM tool selection accuracy across pattern variants; and security analysis of MCP server attack surfaces, particularly prompt injection via resources.\n\n## AI Disclosure\n\nPer the ICSME Industry Track AI-content disclosure guideline, we record the following. Claude Sonnet 4.6 (Anthropic) was used as a writing and editing ass",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 7,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 9
+ },
+ "fulltext_source": "html"
+}

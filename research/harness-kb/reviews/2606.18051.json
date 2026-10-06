@@ -1,0 +1,37 @@
+{
+  "arxiv_id": "2606.18051",
+  "contribution_type": "empirical",
+  "summary": "SkillWeaver routes multi-step queries over a catalog of 2,209 public MCP server entries. An LLM splits the query into sub-tasks, a MiniLM bi-encoder retrieves candidate skills per sub-task, and an optional pass (SAD) feeds the retrieved skill names back into the decomposer. On 300 template-generated queries, SAD raises exact step-count accuracy from 51.0% to 67.7%, while top-1 category recall moves only from 34.2% to 37.0% (not significant). No real tool is executed.",
+  "claims": [
+    {"claim": "Task decomposition granularity, not retrieval, is the primary bottleneck in compositional skill routing", "evidence": "§7.6: CatR@1 is 34.2% unconditional vs 41.2% when step count is correct. An oracle step-count prompt reaches DA 99.3% but CatR@1 only 39.8% while CatR@10 is 79.1%. The paper's own oracle shows a second, larger bottleneck at top-1 ranking, so 'primary' is overstated; granularity is one of two gates.", "strength": "moderate", "location": "§7.6, §8"},
+    {"claim": "SAD improves decomposition accuracy from 51.0% to 67.7% (p<1e-6)", "evidence": "Table 2, Appendix G: n=300, Wilcoxon p<1e-6, bootstrap CI for ΔDA [+10.3, +23.0] pp. DA is exact step-count match against template ground truth. On 200 LLM-written 'human-style' queries strict DA is 8.5%→21.5% (Table 6), so the absolute level depends heavily on the template queries.", "strength": "moderate", "location": "Table 2, Table 6, Appendix G"},
+    {"claim": "Listing skills in the prompt is insufficient: even a much stronger model given 100 skills reaches only 21.1% CatR@1 vs SkillWeaver's 37.0%", "evidence": "Table 2 / §7.3: qwen-max, 50 queries, 100 skill names (not full schemas) including ground truth, single run. The comparison mixes 50-query and 300-query numbers and models, and no expose-all run over the 2,209-skill pool exists.", "strength": "weak", "location": "§7.3, Table 2"},
+    {"claim": "SkillWeaver reduces context window consumption by over 99%", "evidence": "Table 3 is arithmetic: 2,209 skills × an assumed 400 tokens vs 2.9 skills. It is not measured, and it ignores the ~1,100-token SAD hint pass and the routing accuracy lost by exposing so few tools.", "strength": "weak", "location": "Table 3, §7.7"},
+    {"claim": "SAD generalizes to unseen skills (+35.6% relative DA under category held-out)", "evidence": "Table 5: 62 queries with 2 of 24 categories removed, DA 0.452→0.613, CatR@1 0.195→0.213. The DA gain holds, but retrieval quality on held-out categories barely moves, so 'generalizes' applies to step counting only.", "strength": "weak", "location": "§7.9, Table 5"}
+  ],
+  "patterns": [
+    {"id": "P03", "stance": "supports", "note": "Retrieval narrows a 2,209-entry MCP catalog to ~3-10 exposed tools, and a 100-name prompt listing does worse on top-1 category recall. Evidence is retrieval metrics on synthetic queries; no task success with real tools."},
+    {"id": "P04", "stance": "neutral", "note": "Uses the public MCP registry descriptions as the skill pool; does not evaluate MCP as an integration layer."},
+    {"id": "P02", "stance": "mixed", "note": "Treats skills as loaded on demand by retrieval, but top-1 retrieval stays near 40% even with oracle granularity, so on-demand selection is unreliable at this catalog scale."},
+    {"id": "P13", "stance": "neutral", "note": "Decompose-then-retrieve planner; the compose/DAG stage is proposed but not evaluated."}
+  ],
+  "methodology": {"sample": "300 template-generated compositional queries (150 easy/100 medium/50 hard) over 2,209 awesome-mcp-servers entries; plus 200 paraphrased and 200 LLM-written 'human-style' queries; 30-query mock-execution pilot", "baselines": "Vanilla decomposition (own), LLM-Direct with 100 skill names (qwen-max, 50 queries), ReAct-style (DA=0 by protocol mismatch, so not a real baseline); no prior tool-retrieval system (e.g. SkillRouter, ToolRet) re-run", "models": "Qwen2.5-7B-Instruct primary; Qwen2.5-14B and qwen-max on 50-query subsets; all-MiniLM-L6-v2 encoder, BGE-base spot check", "variance": "Wilcoxon tests and bootstrap CIs over queries; single generation run, no seeds", "ablations": "Oracle step count, DA-conditioned analysis, iteration count, hint count H, held-out categories/skills, listwise reranker pilot", "contamination_controls": "Paraphrase robustness and LLM-written queries; ground truth phrases avoid skill names", "languages": "Natural-language queries; no code"},
+  "standards": {"peer_review": "None stated (arXiv preprint, cs.CL)", "limitations_section": true, "artifacts": "No code, benchmark or prompts released (prompt templates in Appendix F only)", "preregistration": "n/a"},
+  "biases": [
+    {"type": "toy_tasks", "detail": "Queries are template compositions of category verb phrases; nothing is executed except 30 queries against mock executors with hard-coded success rates."},
+    {"type": "metric_mismatch", "detail": "CatR@k counts any skill of the right category as correct, and DA scores only step count; neither measures whether the routed tool does the job."},
+    {"type": "strawman_baseline", "detail": "ReAct is scored DA=0 by protocol; LLM-Direct sees 100 names on 50 queries; no published tool retriever is re-run."},
+    {"type": "self_evaluation", "detail": "The author builds the benchmark, ground truth, and system; human-style queries are written by qwen-max, not people."},
+    {"type": "closed_artifacts", "detail": "CompSkillBench and code are not released."},
+    {"type": "hype_language", "detail": "'SAD closes the gap', 'validated lever' for a +3.8 pp reranker gain; 'over 99%' context reduction is an assumption, not a measurement."},
+    {"type": "single_model", "detail": "Main results on Qwen2.5-7B only; other models on 50-query subsets."}
+  ],
+  "coi": {"affiliations": "Single author, Alibaba Cloud (personal gmail address)", "vendor_products_evaluated": "Qwen2.5 and qwen-max (Alibaba models) are the decomposers", "funding": "Not stated", "severity": "low", "detail": "Vendor-affiliated author uses the vendor's models, but the paper does not claim Qwen beats other vendors' models; the contribution is the routing method."},
+  "scores": {"rigor": 3, "reproducibility": 1, "generalizability": 1, "relevance": 2, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Statistically careful within its frame (significance tests, oracle step-count control, held-out splits), but the frame is synthetic queries, category-level metrics, and no real execution. The DA-gain claim holds; the context-reduction and expose-all claims are arithmetic or weak.",
+  "applicability": "Speaks to catalogs of thousands of tools, far above the ~10-15 tools a Java team's host should expose. Transferable point: if a team ever retrieves tools, the step decomposition must use the catalog's vocabulary, and top-1 retrieval is unreliable (~40%), so expose top-k. It does not show that a small, curated catalog beats expose-all at 10-50 tools.",
+  "conflicts_with": [
+    {"arxiv_id": "2609.30906", "detail": "ToolSearcher reports trained multi-turn search beats single-shot top-100 RAG on a 16k-API catalog; SkillWeaver uses single-shot bi-encoder retrieval plus one LLM feedback pass and reports ~40% top-1 ceiling. They agree that single-shot retrieval is weak, but disagree on where the fix belongs (decomposer vs searcher)."}
+  ]
+}

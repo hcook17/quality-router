@@ -1,0 +1,14 @@
+{
+  "arxiv_id": "2605.30898",
+  "contributions": [
+    {"kind": "heuristic",
+     "statement": "Treat model choice and test-time sampling budget as one joint routing decision with an explicit cost model.",
+     "evidence": "§4.3 Table 2: joint space beats routing-only and TTS-only subspaces on 160 single-turn math queries with self-hosted Qwen3; coding generalization is one seedless run (App. B.6).",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["P23 model routing / cascades"],
+     "transfers": "no"}
+  ],
+  "quantity_flags": [],
+  "proposed": "drop",
+  "reason": "Requires self-hosted models with controllable sampling/beam/PRM knobs on single-turn math. Under this team's architecture, model pick belongs to the agent host, so nothing is actionable."
+}

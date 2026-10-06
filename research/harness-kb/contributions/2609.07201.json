@@ -1,0 +1,12 @@
+{
+  "arxiv_id": "2609.07201",
+  "contributions": [
+    {"kind": "design_pattern",
+     "statement": "Run a bounded compile/build repair loop first and a behaviour-test repair loop second, with an explicit failure label per unit.",
+     "evidence": "Table 1: 91/104 Coreutils binaries recompile and pass the gate; no compile-only counterfactual, the gate tests are the same tests that drive repair, model unnamed.",
+     "strength": "weak", "novelty": "restates_known", "relative_to": ["staged compile-then-test verification (P16)"], "transfers": "indirect"}
+  ],
+  "quantity_flags": ["self_declared_incomplete"],
+  "proposed": "drop",
+  "reason": "Five-page work in progress on decompiled C with feedback-equals-acceptance leakage; the staged gate is standard practice."
+}

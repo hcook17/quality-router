@@ -1,0 +1,31 @@
+{
+  "arxiv_id": "2607.08964",
+  "contributions": [
+    {
+      "kind": "test_practice",
+      "statement": "When comparing hosts or models on internal long tasks, grade with weighted deterministic sub-checks rather than binary pass/fail, because binary grading collapsed 10 of 17 models to zero solves and hid partial progress in 63% of runs.",
+      "evidence": "§3.2 Fig. 4: 50 passes, 241 runs R<0.05, 491 partial; rho=0.74 between pass rate and mean reward. Single run per model-task on 46 non-Java tasks; abstract numbers do not match the body.",
+      "strength": "strong",
+      "novelty": "refines",
+      "relative_to": [
+        "binary pass/fail benchmark scoring (P31)"
+      ],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "anti_pattern",
+      "statement": "Do not accept an agent's own 'done' on a long task without a hidden verifier.",
+      "evidence": "§3.5: 124 early exits, 14 with reward >= 0.75 ('false finishes'); interpretive, no trajectory coding.",
+      "strength": "moderate",
+      "novelty": "duplicates",
+      "relative_to": [
+        "2608.19799",
+        "2607.17937"
+      ],
+      "transfers": "indirect"
+    }
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "Partial-credit deterministic grading is a measurable improvement for internal agent evaluation sets; the false-finish point is already in the KB. Model rankings themselves should not be used."
+}

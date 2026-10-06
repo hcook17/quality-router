@@ -1,0 +1,12 @@
+{
+  "arxiv_id": "2609.03086",
+  "contributions": [
+    {"kind": "heuristic",
+     "statement": "Cap verifier-gated repair retries at about three: 68-84% of successful fixes landed on the first attempt and later attempts added little success at rising cost.",
+     "evidence": "§6 Fig. 7: 67.9-83.5% of fixes on attempt 1, diminishing returns afterwards; Figs. 8-10 time/cost. Small textbook Eiffel routines with AutoProof, one run per configuration, no external baseline.",
+     "strength": "moderate", "novelty": "refines", "relative_to": ["2609.22222", "retry/iteration budgets (P24)"], "transfers": "indirect"}
+  ],
+  "quantity_flags": ["system_description_only"],
+  "proposed": "keep",
+  "reason": "Mostly a tool tour for Eiffel; the attempt-distribution data is the one transferable measurement and supports a small retry cap in any host's loop. The context ablation is confounded."
+}

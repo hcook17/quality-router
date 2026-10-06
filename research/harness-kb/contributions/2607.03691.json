@@ -1,0 +1,28 @@
+{
+  "arxiv_id": "2607.03691",
+  "contributions": [
+    {
+      "kind": "heuristic",
+      "statement": "Pin agent-host versions and, before adopting an upgrade, re-run a fixed task probe that records tokens and turns per task, because with the model held fixed one harness's token use rose about 70% (391K to 668K per task) across releases with no resolve-rate gain and functional CI did not catch it.",
+      "evidence": "§5.3 Finding 6: Spearman rho=0.743, p<0.0001, task-normalized rho=0.751; Finding 8 links growth to ~8% larger initial prompts and 18% more turns. One harness (Qwen Code), one open model, Python SWE-bench subset.",
+      "strength": "strong",
+      "novelty": "new",
+      "relative_to": [],
+      "transfers": "direct"
+    },
+    {
+      "kind": "nuance",
+      "statement": "Do not use a 50-task, two-run probe to judge whether a host upgrade changed effectiveness; use it for cost regressions only, because run-to-run flips on identical releases (12.3%) are as large as the between-release resolve-rate spread.",
+      "evidence": "Finding 4-5: 87.7% per-task agreement between runs; resolve rate 23-39% with no significant trend. Audit downgrades the effectiveness claim to weak for exactly this reason.",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": [
+        "benchmark sampling noise / report CIs"
+      ],
+      "transfers": "direct"
+    }
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "The only controlled longitudinal evidence in the KB that host upgrades silently inflate cost with the model fixed; it directly supports version pinning and a cost-regression probe in qr. The component-correlation findings are weak and not used."
+}

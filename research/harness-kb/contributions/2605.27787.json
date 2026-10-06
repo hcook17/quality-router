@@ -1,0 +1,20 @@
+{
+  "arxiv_id": "2605.27787",
+  "contributions": [
+    {"kind": "design_pattern",
+     "statement": "Give multi-agent setups one persistent, lookup-only search sub-agent per task that returns file:line pointers instead of pasted excerpts and is told which ranges were edited since its last call; this cut per-episode GPU energy of two existing multi-agent systems by 11-30% at a non-inferior pass rate.",
+     "evidence": "§5.2 Tables 4-5, App. G; §3.3 Table 3 attributes excess output to re-exploring overlapping file regions. Audit: single run per configuration, one Qwen3.6 family, Python-only; leave-one-out (Table 8) shows equal or higher pass when removing three of four mechanisms, so the support is for cost, not quality.",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["P12 subagents for isolated exploration", "2609.36319 write-conditioned staleness flags"],
+     "transfers": "indirect"},
+    {"kind": "constraint",
+     "statement": "On self-hosted models, cap and shrink output tokens first (pointer-only sub-agent answers, no re-pasted code), because output tokens cost 30-1,000x more GPU energy per token than uncached or cached input tokens.",
+     "evidence": "§3.2 Table 2, App. A.2: per-token energy attribution on locally served Qwen3.6 under vLLM. Per-token API billing has a different (smaller) output/input ratio.",
+     "strength": "strong", "novelty": "refines",
+     "relative_to": ["P24 token/cost budgets (output tokens priced above input)"],
+     "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "The Librarian's pointer-only and freshness-report mechanisms are reusable as a host-agnostic subagent definition, and the energy attribution is solid. The paper does not show multi-agent beats single-agent; Table 1's single agent was cheapest."
+}

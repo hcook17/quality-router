@@ -1,0 +1,20 @@
+{
+  "arxiv_id": "2605.16352",
+  "contributions": [
+    {"kind": "design_pattern",
+     "statement": "Anchor code-graph context on the agent's own lexical hits: expand each grep match to confidence-filtered structural neighbors (imports, callers/callees, type hierarchy, linked tests) instead of graph-first retrieval; this lifted file-level Acc@5 by +11.8 points with fixed hyperparameters over the strongest baseline, and graph expansion was the largest ablation contributor.",
+     "evidence": "§5.2 Table 1 (LocBench), §5.3 Table 3 (component ablation on MuLocBench). Python-only localization; MuLocBench and downstream SWE-Atlas gains over Claude Code are ~1 point without variance; nothing released.",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["P07 code-graph context (2609.16936, 2609.26480)"],
+     "transfers": "indirect"},
+    {"kind": "heuristic",
+     "statement": "Deliver graph evidence inside existing search-tool output rather than adding separate graph tools to the agent's catalog.",
+     "evidence": "§5.2 comparison against separate-graph-tool agents (LocAgent, CoSIL); this is a cross-system comparison, not a controlled ablation of delivery mode.",
+     "strength": "weak", "novelty": "refines",
+     "relative_to": ["2607.19653 injected deterministic tool output beats asking the agent to call the tool", "P03 small tool catalog"],
+     "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "The lexical-anchoring condition plus a clean graph-expansion ablation adds to the KB's code-graph evidence; the 'inline beats separate tool' claim is suggestive only. For Java the graph would come from an LSP or compiler index."
+}

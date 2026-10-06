@@ -1,0 +1,16 @@
+{
+  "arxiv_id": "2609.01861",
+  "contributions": [
+    {"kind": "heuristic",
+     "statement": "When an agent proposes a harness or prompt change, require a written prediction of which failure class it fixes and what it must not regress, grade it against the eval result, and keep the graded predictions in a committed belief log.",
+     "evidence": "§4.2 Table 1: BCO beats a matched loop lacking only the world model on all five benchmarks held-out (e.g., GAIA 0.343 -> 0.495, TB2.0 0.470 -> 0.492). One trajectory per method; Table 3 run-to-run range 0.11-0.13 exceeds the small TB2.0/AppWorld gaps; content ablation p=0.125.",
+     "strength": "moderate", "novelty": "refines", "relative_to": ["self-improving harness with held-out evaluation (P26, 2610.05300)"], "transfers": "indirect"},
+    {"kind": "anti_pattern",
+     "statement": "Bound any persistent scratchpad that is re-injected every turn; an unbounded belief document overflowed context on a more verbose model and left 65-99 of 372 tasks with no output, while a 16-exchange sliding window completed all.",
+     "evidence": "§4.3 Fig. 3, App. D Table 6: AppWorld after target-model swap, BCO 0.516-0.532 vs vanilla 0.538-0.685; 99/77/65 no-output tasks at high/medium/low effort.",
+     "strength": "weak", "novelty": "refines", "relative_to": ["context compaction (P08)"], "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "The prediction-then-grade discipline is a concrete, host-neutral addition to harness tuning with consistent-direction evidence; the unbounded-scratchpad failure is a real but single-observation warning."
+}

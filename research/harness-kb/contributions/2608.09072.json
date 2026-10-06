@@ -1,0 +1,20 @@
+{
+  "arxiv_id": "2608.09072",
+  "contributions": [
+    {"kind": "nuance",
+     "statement": "Make spec templates state the constraints and the verification step explicitly, because agents' own plans name where to edit far more often than how to constrain or validate the change (Claude Code plan coverage 79.7% location, 64.5% approach, 41.6% constraints/validation).",
+     "evidence": "§5.3 Fig. 7: same cascade for Codex (65.6/49.0/37.1) and OpenCode (43.8/31.1/24.8); LLM judge agrees with humans on 96% of 50 samples. 163 tasks, 85 Java. Giving agents such specs was not tested.",
+     "strength": "moderate", "novelty": "new", "relative_to": [], "transfers": "direct"},
+    {"kind": "test_practice",
+     "statement": "Compare agent hosts by stage-level failure attribution, not resolve rate alone; Codex and Claude Code with the same backbone resolved 40.5% vs 39.3% but failed at requirements 26.4% vs 40.5% and at implementation 23.9% vs 7.4%.",
+     "evidence": "§5.2 Fig. 6 with DeepSeek-V4-Pro; attribution by one LLM judge (92% agreement on 50 runs) using an earliest-deviating-stage rule that favours the requirement stage (audit).",
+     "strength": "moderate", "novelty": "refines", "relative_to": ["harness choice changes results under a fixed model (2609.32459)"], "transfers": "direct"},
+    {"kind": "nuance",
+     "statement": "Missing implicit requirements (interface contracts, conventions, data-structure semantics) are the most common first point of failure for autonomous agents on issue tasks.",
+     "evidence": "Fig. 6: 24.5-46.0% of runs; audit downgrades to weak because the attribution rule inflates the requirement stage and agents cannot ask questions.",
+     "strength": "weak", "novelty": "refines", "relative_to": ["underspecified issues limit agent success (known)"], "transfers": "direct"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "Half-Java benchmark with intermediate-stage references; the plan-coverage cascade is a specific reason for SDD templates to carry constraints and a verification plan, though no intervention is tested."
+}

@@ -1,0 +1,25 @@
+{
+  "arxiv_id": "2606.24446",
+  "contributions": [
+    {"kind": "heuristic",
+     "statement": "When a coding agent authors a Java codemod for a breaking dependency update, have it target JavaParser rather than Spoon, since the verified fix rate was higher for all three models with fix data (for example 19.6% vs 4.0% and 78.6% vs 56.3%).",
+     "evidence": "§V-B Table II Fisher's exact: GPT-5.4-mini 27.0 vs 12.4 (p=0.005), DeepSeek 19.6 vs 4.0 (p<0.001), Gemini 78.6 vs 56.3 (p=0.002). Audit: Gemini compiled Spoon output more often (CRR 65.6 vs 53.5), and model and scaffold are confounded; single run each.",
+     "strength": "moderate", "novelty": "new", "relative_to": [],
+     "transfers": "direct"},
+    {"kind": "anti_pattern",
+     "statement": "Reject agent-written transformations that use String.replaceAll/regex, raw java.io.File edits, or pom.xml version edits instead of AST operations, because this 'transformation bypass' was a main failure mode and the dominant one for the strongest model.",
+     "evidence": "§IV-C defines AST pretense and strategy bypass; §V-A (lines 566, 594, 608): Gemini's JavaParser failures were bypass outputs while Qwen's were compile errors.",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["specification gaming / reward hacking checks on agent output"],
+     "transfers": "direct"},
+    {"kind": "design_pattern",
+     "statement": "When one library bump breaks several repositories, verify one agent-written transformation with mvn compile/test in a seed repo and then apply it deterministically to the others, but expect only about one-third cross-repository success unless the repositories use the API uniformly.",
+     "evidence": "§V-C: 43/129 targets fixed (33.3%) across 16 updates, best configuration only; 'Fixed' = test-compile; the >=80% uniform-usage subgroup is post hoc (audit). End-to-end best is 66/157 = 42%.",
+     "strength": "weak", "novelty": "refines",
+     "relative_to": ["deterministic codemods / OpenRewrite recipes (P28)"],
+     "transfers": "direct"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "Direct Java/Maven evidence on how to have agents write codemods (which AST library, which outputs to reject). The cross-repository reuse figure is weak and over-selected."
+}

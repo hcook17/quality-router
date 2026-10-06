@@ -1,0 +1,20 @@
+{
+  "arxiv_id": "2609.00006",
+  "contributions": [
+    {"kind": "nuance",
+     "statement": "In production harnesses LSP is a post-write diagnostics channel, not a retrieval index: OpenCode appends diagnostics from ~25 auto-downloaded language servers to every edit result, and Hermes uses LSP only after writes. Retrieval stays ripgrep/glob/tree-sitter. A JDT-LS integration for Java fits the host as an edit-feedback sensor more naturally than as a search tool.",
+     "evidence": "§13.2 Table 13 rows for OpenCode and Hermes; §6 loop notes (OpenCode feeds LSP diagnostics into edit results).",
+     "strength": "moderate", "novelty": "refines", "relative_to": ["2608.13568", "2608.25939", "P05"], "transfers": "direct"},
+    {"kind": "constraint",
+     "statement": "No pinned production coding harness (0/11) retrieves source code with embeddings; embeddings appear only for conversation memory. Any host the team adopts will not supply code RAG, so adding it is a team-owned component with its own staleness cost.",
+     "evidence": "§13.2 Absence 2, manifest and import sweep repeated across twelve trees three months apart.",
+     "strength": "strong", "novelty": "refines", "relative_to": ["P05", "P06", "2607.25431"], "transfers": "direct"},
+    {"kind": "test_practice",
+     "statement": "Before adding semantic code retrieval, show it beats ripgrep plus tree-sitter on a held-out task set.",
+     "evidence": "§16 Rec. 16; the paper itself runs no such comparison.",
+     "strength": "weak", "novelty": "restates_known", "relative_to": ["Standard ablation practice", "2607.25431"], "transfers": "direct"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "The inventory gives a dated, verifiable fact a Java team can act on: hosts ship lexical retrieval and treat LSP as diagnostics feedback, so a JDT-LS MCP belongs on the edit-feedback path. The 'no code RAG' advice is adoption-based. Its effectiveness side is contested by measured KB evidence (2607.25431), so it does not count as new."
+}

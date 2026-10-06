@@ -1,0 +1,19 @@
+{
+  "arxiv_id": "2606.05339",
+  "contributions": [
+    {"kind": "test_practice",
+     "statement": "Give every in-house MCP server conformance tests for: input validation against the declared inputSchema before execution, request gating until initialization completes, JSON-RPC id preservation, correct split between tool-result errors and JSON-RPC errors, and no non-protocol output on stdout for stdio transport.",
+     "evidence": "§5-§6 taxonomy from 833 confirmed fault threads (final-round kappa 0.938); Tool 23.0%, Data & Schema 17.6%, State & Configuration 17.1% dominate; §7 maps the five practices to categories. The practices themselves are not evaluated and no Java SDK evidence is given.",
+     "strength": "moderate", "novelty": "new", "relative_to": [],
+     "transfers": "indirect"},
+    {"kind": "test_practice",
+     "statement": "Assert response content and session state in MCP server tests, not just the absence of errors, because some faults return well-formed JSON-RPC success responses with wrong behaviour.",
+     "evidence": "§6 qualitative observation (gray failures), no count reported.",
+     "strength": "weak", "novelty": "refines",
+     "relative_to": ["gray failure (Huang et al. 2017)"],
+     "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "A reliable taxonomy turned into a concrete server-side conformance checklist that no other KB paper gives. The survey's headline recognition claim is unsupported and is not used here."
+}

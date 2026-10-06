@@ -1,0 +1,33 @@
+{
+  "arxiv_id": "2606.31174",
+  "contributions": [
+    {
+      "kind": "anti_pattern",
+      "statement": "Do not let an orchestrating model choose the file paths and tools it grants to subagents; enforce per-role allowlists deterministically, because every evaluated manager over-granted (workspace-permission precision under 50%, 0.48-5.78 forbidden accesses per subagent).",
+      "evidence": "§4.2 Finding 1, Table 3-4. Audit downgrades to weak: WPP's numerator is set by what the fixed Gemma worker reads, so the metric partly measures the worker, and there is one run per model on 41 synthetic non-SE scenarios. No enforcement layer is tested.",
+      "strength": "weak",
+      "novelty": "refines",
+      "relative_to": [
+        "least privilege",
+        "P21 policy-as-code permissions"
+      ],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "nuance",
+      "statement": "Do not pick a manager model from an aggregate leaderboard score: ten models sat in a 9.9-point band while their orchestration behaviour (forbidden accesses, delegation style) differed more than 10x.",
+      "evidence": "§4.2 Finding 3, Fig. 3, Table 4; single run, so ranks inside the band are not separable, which is the point but also limits it.",
+      "strength": "weak",
+      "novelty": "refines",
+      "relative_to": [
+        "report behaviour metrics alongside pass rate (2607.22585)"
+      ],
+      "transfers": "indirect"
+    }
+  ],
+  "quantity_flags": [
+    "numbers_without_mechanism"
+  ],
+  "proposed": "hypothesis_only",
+  "reason": "The over-granting observation motivates deterministic permission scoping, but it rests on a metric partly controlled by the worker, one run, and non-SE tasks; least privilege itself is already known. Keep as a hypothesis only."
+}

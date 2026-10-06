@@ -1,0 +1,16 @@
+{
+  "arxiv_id": "2606.20713",
+  "contributions": [
+    {"kind": "nuance",
+     "statement": "When judging a router or cascade, report the share of items within a tolerance of the strong-model reference, not only mean quality. A difficulty-only router raised mean quality but lowered parity below cheap-only, because the easy items it left unguarded regressed.",
+     "evidence": "Appendix F.1, Table 2: naive difficulty router mean 4.543 > low-cost 4.400, but within-0.5 parity 72% < 78%; 9 queries drive it (5 easy, 3 medium, 1 hard). n=50, one sample, LLM judge.",
+     "strength": "weak", "novelty": "refines", "relative_to": ["P23 model routing / cascades", "2606.22902"], "transfers": "indirect"},
+    {"kind": "design_pattern",
+     "statement": "Cheap model drafts, a cheap rubric evaluator accepts, a critic rewrites borderline answers, and only failures escalate to the premium model.",
+     "evidence": "§3.4, Algorithm 1, Table 2: 18% escalation vs 28% for a generic cascade, but quality margin over generic cascade CI [-0.040, +0.168].",
+     "strength": "weak", "novelty": "restates_known", "relative_to": ["FrugalGPT cascades", "RouteLLM"], "transfers": "indirect"}
+  ],
+  "quantity_flags": ["self_declared_incomplete"],
+  "proposed": "hypothesis_only",
+  "reason": "Self-declared WIP. The cascade is FrugalGPT-style, with an added rewrite band whose benefit over a plain cascade is not resolved. The mean-vs-parity observation is the only new angle, and it rests on 9 queries."
+}

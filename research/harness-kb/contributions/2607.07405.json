@@ -1,0 +1,20 @@
+{
+  "arxiv_id": "2607.07405",
+  "contributions": [
+    {"kind": "heuristic",
+     "statement": "When an agent-facing write tool accepts calls that domain policy forbids (policy lives only in the prompt), put a read-only deterministic predicate over (tool, args, current state) in front of the write and return a structured rejection. Where the tool already enforces its preconditions, skip the gate.",
+     "evidence": "§5.1-5.2, Tables 2-3: +12.4 pp replicated on disjoint seeds (+12.3 pp), lift concentrated in firing tasks (+19.2 pp); §6.1-6.2 negative controls: retail −4.7 pp (CI spans zero), BFCL 0 firings.",
+     "strength": "moderate", "novelty": "refines", "relative_to": ["AgentSpec (2503.18666)", "AEGIS runtime enforcement", "2609.22259"], "transfers": "indirect"},
+    {"kind": "test_practice",
+     "statement": "Audit every deterministic gate for precision against ground-truth trajectories and by minus-one removal before relying on it. In one suite a single 100%-precision gate carried the lift and another blocked correct writes 95% of the time.",
+     "evidence": "§5.5, Table 6: cancellation_eligibility 161/161 true blocks, only gate whose removal lowers pass1; baggage_allowance 2/42 precision; §5.8 frontier regressions on gate-firing tasks.",
+     "strength": "moderate", "novelty": "new", "relative_to": [], "transfers": "direct"},
+    {"kind": "nuance",
+     "statement": "Report pass^k, not only pass@1, for agent reliability: deterministic gates raised the share of tasks succeeding on all 5 trials from 8% to 26%, a larger relative change than pass@1.",
+     "evidence": "§5.4, Table 5: vanilla 29.6%→8.0% from k=1 to k=5; gated 42.0%→26.0%.",
+     "strength": "moderate", "novelty": "restates_known", "relative_to": ["τ-bench pass^k estimator (Yao et al., 2024)"], "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "Two contributions qualify: the gate-only-where-tools-are-permissive heuristic, with replication and negative controls, and the per-gate precision audit as a test practice. Both come from one simulated domain with gates fitted to the evaluated tasks, so strength stays moderate."
+}

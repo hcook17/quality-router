@@ -1,0 +1,32 @@
+{
+  "arxiv_id": "2609.15877",
+  "contributions": [
+    {
+      "kind": "design_pattern",
+      "statement": "Pilot an AI code reviewer as one subagent per quality dimension (readability, maintainability, reliability, performance), each with its own antipattern checklist and diff plus dependency-graph context from MCP; on real industrial commits developers rated 96% of findings correct, but measure recall separately because nobody did here.",
+      "evidence": "Table 7: 197/206 findings rated correct by the commits' own developers; Table 8: 65 must-fix, 70 should-fix, 62 minor; 7 commits, 5 raters, no recall, no single-agent baseline (§5.1).",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": [
+        "P18 LLM-as-reviewer (adds industrial developer-rated precision)"
+      ],
+      "transfers": "direct"
+    },
+    {
+      "kind": "nuance",
+      "statement": "Expect about a third of even correct AI review findings to be minor; triage by importance before routing findings to developers.",
+      "evidence": "Table 8: 62/197 correct issues rated minor.",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": [
+        "P18 LLM-as-reviewer"
+      ],
+      "transfers": "direct"
+    }
+  ],
+  "quantity_flags": [
+    "numbers_without_mechanism"
+  ],
+  "proposed": "keep",
+  "reason": "Small but real industrial evidence that a dimension-split reviewer is precise as judged by code owners; the mechanism (knowledge graph, decomposition) and recall are unmeasured, so it supports a pilot, not a gate."
+}

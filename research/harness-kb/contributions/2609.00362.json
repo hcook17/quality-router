@@ -1,0 +1,16 @@
+{
+  "arxiv_id": "2609.00362",
+  "contributions": [
+    {"kind": "anti_pattern",
+     "statement": "In a Java compile-error repair loop, feed the model raw javac diagnostics (or even a bare 'the code is wrong' retry) rather than LLM-written reviewer-style explanations, which repaired significantly fewer compile errors.",
+     "evidence": "§III-A3 Table IV (GPT-4o-mini, 50 CoderEval Java tasks): compiler 47/50 (94%), simple 46/50 (92%), simulated human 39/50 (78%); Cochran Q p=0.0018, Holm p=0.023/0.031. 92% of the injected compile bugs are syntax errors and javac does not beat the bare retry (audit), so this is about avoiding LLM-prose feedback, not about javac adding value.",
+     "strength": "moderate", "novelty": "refines", "relative_to": ["FeedbackEval (Python)", "2609.22222"], "transfers": "direct"},
+    {"kind": "nuance",
+     "statement": "Do not assume terse JUnit 4 failure output helps a repair loop more than a generic retry signal; make test feedback carry expected/actual values and the failing test source, and measure it on your own repos.",
+     "evidence": "Table IV logical mutations: simple 43/50, JUnit test 41/50, human 37/50; all Holm-adjusted pairwise p>=0.094, n=50, so this is insufficient evidence rather than equivalence.",
+     "strength": "weak", "novelty": "refines", "relative_to": ["2609.22222"], "transfers": "direct"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "One of the few Java repair-loop measurements; the significant result is that LLM-simulated reviewer feedback is the worst repair signal for compile errors. The Java sample is small and the bugs easy."
+}

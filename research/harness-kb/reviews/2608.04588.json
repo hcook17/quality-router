@@ -1,0 +1,33 @@
+{
+  "arxiv_id": "2608.04588",
+  "contribution_type": "empirical",
+  "summary": "E³-Orch trains a Qwen2.5-7B orchestrator with GRPO to plan in milestones: propose an intermediate goal, build a dependency DAG of subtasks, assign each to an executor described by an anonymous capability/cost profile, and run independent subtasks in parallel. Tree-structured rollouts and separately normalized performance, cost and completeness rewards give decision-level credit. Across math, embodied and deep-research benchmarks it beats re-implemented orchestration baselines by 0.7-3.8 points with 1.16-1.59x better performance per weighted token. There are no coding tasks, and the 'cheap' and 'strong' training executors are the same 7B model.",
+  "claims": [
+    {"claim": "E³-Orch achieves the best task performance on all seven benchmarks under both executor configurations (+0.7 to +3.8 points)", "evidence": "Table 1: 3 runs (32 for AIME) with std ±0.2-0.6; baselines re-implemented on the same 7B orchestrator backbone and training budget by the authors. Margins are small and depend on the authors' tuning of eleven baselines.", "strength": "moderate", "location": "§4.2, Table 1"},
+    {"claim": "The learned policy allocates work by task difficulty and executor capability-cost profiles", "evidence": "§4.4, Fig. 6: share of model_a calls shifts by benchmark. Appendix A.7 shows model_a and model_b are both Qwen2.5-7B-Instruct, differing only in context window (2048 vs 4096) and declared rank. The policy is learning a context-window and declared-cost preference, not a cheap-vs-capable model split.", "strength": "weak", "location": "§4.4, Appendix A.7"},
+    {"claim": "1.16-1.59x higher intelligence efficiency than the best baseline", "evidence": "Fig. 4, Appendix A.13: performance per cost-weighted executor output token; orchestrator tokens and training cost are excluded; costs are declared ranks, not prices.", "strength": "weak", "location": "§4.2, Fig. 4, A.13"},
+    {"claim": "Tree-structured rollouts and decoupled reward normalization drive the gains", "evidence": "Table 2: standard rollouts cost 3.5-4.2 points and raise tokens; removing the cost reward inflates tokens 24-82% at -0.7 to -1.9 points; scalarized reward loses 1.3-2.0 points. Ablations are averaged within family with ±0.3-1.0 std.", "strength": "moderate", "location": "§4.3, Table 2"},
+    {"claim": "The policy transfers to executor configurations introduced only at evaluation time", "evidence": "§4.2, Fig. 5, B.3: GPT-5-mini executors and a third Qwen2.5-14B executor; E³-Orch stays best. Only two or three executor configurations are tested.", "strength": "weak", "location": "§4.2, Appendix B.3"}
+  ],
+  "patterns": [
+    {"id": "P13", "stance": "supports", "note": "Milestone-scoped planner-executor with DAG plans beats flat orchestration baselines by small margins on non-coding tasks."},
+    {"id": "P23", "stance": "neutral", "note": "Executor 'cost profiles' are routing inputs, but the training executors are one model with two context windows, so cheap-vs-expensive routing is not actually tested."},
+    {"id": "P25", "stance": "supports", "note": "GRPO with tree rollouts and per-reward normalization improves orchestrator training over standard rollouts (Table 2)."},
+    {"id": "P24", "stance": "supports", "note": "An explicit cost reward is what keeps token use down; without it tokens rise 24-82% at similar performance."}
+  ],
+  "methodology": {"sample": "~7,000 training instances; AIME24/25, MATH500, ALFWorld, WebShop, GAIA, HLE", "baselines": "Direct, ReAct, Reflexion, AutoGen, Debate, MAS-ZERO, DAAO, AgentFlow, Puppeteer, MAS-Orchestra, MasRouter — re-implemented on the same orchestrator backbone", "models": "Qwen2.5-7B orchestrator (3B in B.1); Qwen2.5-7B or GPT-5-mini executors; Qwen2.5-14B added in B.3", "variance": "Std over 3 runs (32 for AIME)", "ablations": "Rollout structure, branching, each reward, scalarized vs decoupled normalization, completeness reward", "contamination_controls": "None stated; AIME/MATH500 widely seen", "languages": "English; no code-generation tasks"},
+  "standards": {"peer_review": "None; arXiv comment 'Work in progress'", "limitations_section": true, "artifacts": "No code release found (uses public SandboxFusion, Math-Verify)", "preregistration": "n/a"},
+  "biases": [
+    {"type": "metric_mismatch", "detail": "Capability-cost allocation is claimed, but the two training executors are the same 7B model; 'cost' is a declared rank."},
+    {"type": "missing_cost_reporting", "detail": "Efficiency excludes orchestrator inference and RL training cost (tree rollouts multiply rollouts B×N×E)."},
+    {"type": "self_evaluation", "detail": "All eleven baselines are re-implemented and tuned by the authors under their training budget."},
+    {"type": "contamination_risk", "detail": "AIME24/25 and MATH500 are public and likely in pretraining."},
+    {"type": "novelty_inflation", "detail": "Milestones are hierarchical planning; tree rollouts and decoupled GRPO normalization are cited prior techniques."}
+  ],
+  "coi": {"affiliations": "Monash University", "vendor_products_evaluated": "Qwen and GPT-5-mini as components", "funding": "Not stated", "severity": "none", "detail": "Academic authors; no product."},
+  "scores": {"rigor": 3, "reproducibility": 1, "generalizability": 2, "relevance": 1, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Broad benchmarks, ablations and run variance, but small margins over self-implemented baselines. The headline 'executor cost profile' behavior is learned over a pool of one model with two context windows. Self-declared work in progress.",
+  "applicability": "Not a coding-harness paper and not usable by a team on hosted agents: it trains an orchestrator model. The only portable observation is that an orchestrator optimized for success alone inflates tokens, so explicit cost pressure is needed. For a Java team that is a reason to keep model choice with the host, not a design to adopt.",
+  "conflicts_with": []
+}

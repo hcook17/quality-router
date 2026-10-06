@@ -1,0 +1,53 @@
+{
+  "arxiv_id": "2609.22222",
+  "contributions": [
+    {
+      "kind": "nuance",
+      "statement": "Benchmark any 'feed errors back to the agent' repair loop against a blind redraw with the same attempt budget; here sanitized diagnostics added nothing over resampling (76.7% vs 76.7%), so spend effort on validators instead.",
+      "evidence": "Table 3: C vs D +0.0pp (CI -12.2 to 13.3), 12/12 discordant; effective n ~35 repaired runs (audit); diagnostics only raised executability 100% vs 96.7%. One model, Python, thin diagnostics.",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": [
+        "2609.00362",
+        "P16 execution-feedback loops"
+      ],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "heuristic",
+      "statement": "Give the agent a frozen, machine-readable metadata card for each data source it queries (dimensions, codes, units); it nearly eliminated wrong-filter errors.",
+      "evidence": "Table 2/4: exact correctness 27.8% -> 51.1% (cluster CI 8.9-37.8, Holm p=0.0049); wrong filters 39 -> 4.",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": [
+        "retrieval augments context (data-dictionary grounding)"
+      ],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "test_practice",
+      "statement": "Before comparing agent configurations, specify the full output contract (ranking key, units, serialisation) in both prompt and scorer; an under-specified contract understated accuracy by 23.4 points and flipped a significance result.",
+      "evidence": "Table 6: C 53.3% vs 76.7% under original vs specified contract; adjusted p 0.2153 vs 0.0013; between-run, post-hoc redesign (audit).",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": [
+        "2609.08149"
+      ],
+      "transfers": "direct"
+    },
+    {
+      "kind": "test_practice",
+      "statement": "Do not treat 'it ran and matched the schema' as correct: about one in five executable answers was silently wrong even in the best condition.",
+      "evidence": "Table 2: silent errors 21/90 (C), 18/87 (D).",
+      "strength": "strong",
+      "novelty": "duplicates",
+      "relative_to": [
+        "2605.06754"
+      ],
+      "transfers": "direct"
+    }
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "The equal-budget redraw control is the cleanest test in the KB of whether diagnostics, not extra attempts, drive repair; the contract-completeness effect is a usable evaluation-hygiene rule. Single model and Python limit it to indirect transfer."
+}

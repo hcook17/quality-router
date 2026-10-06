@@ -1,0 +1,438 @@
+{
+ "arxiv_id": "2608.04588",
+ "fulltext_chars": 110388,
+ "fulltext_lines": 2903,
+ "authors_block": "Junnan Liu Linhao Luo Thuy-Trang Vu & Gholamreza Haffari Affiliation: Department of Data Science and AI, Faculty of Information Technology, Affiliation: Monash University, Australia September 27, 2026",
+ "vendor_affiliation_hits": [],
+ "n_authors": 4,
+ "comment": "Work in progress",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/bytedance/SandboxFusion",
+  "https://github.com/huggingface/Math-Verify"
+ ],
+ "hf_urls": [
+  "https://huggingface.co/datasets/nvidia"
+ ],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   22,
+   "# E {}^{\\text{3}} -Orch: Towards Effective, Efficient, and Extensible Agentic Orchestration with Reinforcement Learning"
+  ],
+  [
+   36,
+   "###### Abstract"
+  ],
+  [
+   49,
+   "### 1 Introduction"
+  ],
+  [
+   84,
+   "### 2 Related Work"
+  ],
+  [
+   86,
+   "###### Language Agents and Multi-Agent Collaboration."
+  ],
+  [
+   92,
+   "###### Agentic Orchestration."
+  ],
+  [
+   99,
+   "### 3 Method"
+  ],
+  [
+   101,
+   "#### 3.1 Preliminaries"
+  ],
+  [
+   103,
+   "###### Agentic Orchestration."
+  ],
+  [
+   113,
+   "###### Training Objective."
+  ],
+  [
+   119,
+   "#### 3.2 Milestone-Plan-Act Orchestration"
+  ],
+  [
+   128,
+   "###### Milestone Proposal."
+  ],
+  [
+   133,
+   "###### Plan Generation."
+  ],
+  [
+   140,
+   "###### Aggregation."
+  ],
+  [
+   146,
+   "#### 3.3 Orchestration Training"
+  ],
+  [
+   148,
+   "##### 3.3.1 Tree-Structured Orchestration Rollouts"
+  ],
+  [
+   155,
+   "###### Forest Initialization."
+  ],
+  [
+   161,
+   "###### Decision Branching."
+  ],
+  [
+   169,
+   "##### 3.3.2 Rewards Design"
+  ],
+  [
+   174,
+   "###### Performance Reward"
+  ],
+  [
+   197,
+   "###### Cost Reward"
+  ],
+  [
+   211,
+   "###### Completeness Reward"
+  ],
+  [
+   223,
+   "##### 3.3.3 Policy Optimization"
+  ],
+  [
+   245,
+   "### 4 Experiments"
+  ],
+  [
+   482,
+   "#### 4.1 Experimental Setup"
+  ],
+  [
+   484,
+   "###### Datasets."
+  ],
+  [
+   492,
+   "###### Baselines."
+  ],
+  [
+   506,
+   "###### Implementation Details."
+  ],
+  [
+   514,
+   "#### 4.2 Main Results"
+  ],
+  [
+   516,
+   "###### Performance Effectiveness."
+  ],
+  [
+   525,
+   "###### Intelligence Efficiency."
+  ],
+  [
+   533,
+   "###### Executor Extensibility."
+  ],
+  [
+   540,
+   "#### 4.3 Ablation Study"
+  ],
+  [
+   612,
+   "#### 4.4 Behavior Analysis of the Learned Orchestrator"
+  ],
+  [
+   624,
+   "### 5 Conclusion"
+  ],
+  [
+   631,
+   "### References"
+  ],
+  [
+   1045,
+   "## Appendix"
+  ],
+  [
+   1051,
+   "### Appendix A Additional Implementation Details"
+  ],
+  [
+   1053,
+   "#### A.1 Prompt for Milestone Generation"
+  ],
+  [
+   1095,
+   "#### A.2 Prompt for Plan Generation"
+  ],
+  [
+   1163,
+   "#### A.3 Executor Prompt"
+  ],
+  [
+   1199,
+   "#### A.4 Prompt for Milestone Outcome Generation"
+  ],
+  [
+   1225,
+   "#### A.5 Prompt for Final Answer Generation"
+  ],
+  [
+   1253,
+   "#### A.6 Prompt for CompassVerifier"
+  ],
+  [
+   1307,
+   "#### A.7 Executor Pool Configuration"
+  ],
+  [
+   1351,
+   "#### A.8 Tool Configuration"
+  ],
+  [
+   1353,
+   "###### Web Search."
+  ],
+  [
+   1392,
+   "###### Python Code Interpreter."
+  ],
+  [
+   1432,
+   "###### File Parser."
+  ],
+  [
+   1471,
+   "###### Image Question Answering."
+  ],
+  [
+   1517,
+   "###### Environment-Specific Tools for ALFWorld."
+  ],
+  [
+   1743,
+   "###### Environment-Specific Tools for WebShop."
+  ],
+  [
+   1815,
+   "#### A.9 Dataset Details"
+  ],
+  [
+   1819,
+   "##### A.9.1 Training Data"
+  ],
+  [
+   1821,
+   "###### DAPO-Math."
+  ],
+  [
+   1826,
+   "###### OpenScienceReasoning-2."
+  ],
+  [
+   1831,
+   "###### Natural Questions."
+  ],
+  [
+   1836,
+   "###### HotpotQA."
+  ],
+  [
+   1841,
+   "###### WebDancer."
+  ],
+  [
+   1846,
+   "###### ALFWorld and WebShop."
+  ],
+  [
+   1850,
+   "##### A.9.2 Evaluation Benchmarks"
+  ],
+  [
+   1852,
+   "###### AIME24 and AIME25."
+  ],
+  [
+   1857,
+   "###### MATH500."
+  ],
+  [
+   1862,
+   "###### ALFWorld."
+  ],
+  [
+   1867,
+   "###### WebShop."
+  ],
+  [
+   1872,
+   "###### GAIA."
+  ],
+  [
+   1877,
+   "###### HLE."
+  ],
+  [
+   1882,
+   "#### A.10 Baseline Details"
+  ],
+  [
+   1886,
+   "###### Direct Reasoning."
+  ],
+  [
+   1892,
+   "###### ReAct."
+  ],
+  [
+   1897,
+   "###### Reflexion."
+  ],
+  [
+   1902,
+   "###### AutoGen."
+  ],
+  [
+   1907,
+   "###### Multi-Agent Debate."
+  ],
+  [
+   1913,
+   "###### MAS-ZERO."
+  ],
+  [
+   1918,
+   "###### DAAO."
+  ],
+  [
+   1924,
+   "###### AgentFlow."
+  ],
+  [
+   1930,
+   "###### Puppeteer."
+  ],
+  [
+   1935,
+   "###### MAS-Orchestra."
+  ],
+  [
+   1942,
+   "###### MasRouter."
+  ],
+  [
+   1948,
+   "#### A.11 Baselines Implementation Details"
+  ],
+  [
+   1955,
+   "#### A.12 Training Parameters"
+  ],
+  [
+   2015,
+   "#### A.13 Definition of Intelligence Efficiency"
+  ],
+  [
+   2017,
+   "###### Cost of a Single Run."
+  ],
+  [
+   2031,
+   "###### Intelligence Efficiency."
+  ],
+  [
+   2045,
+   "###### Relation to the Cost Reward."
+  ],
+  [
+   2051,
+   "### Appendix B Additional Experimental Results and Analysis"
+  ],
+  [
+   2053,
+   "#### B.1 Scaling the Orchestrator"
+  ],
+  [
+   2091,
+   "#### B.2 Wall-Clock Time Analysis"
+  ],
+  [
+   2095,
+   "###### Evaluation Wall-Clock Time."
+  ],
+  [
+   2111,
+   "###### Training Wall-Clock Time."
+  ],
+  [
+   2118,
+   "#### B.3 Generalization Across Executor Configurations"
+  ],
+  [
+   2123,
+   "###### Generalization to Unseen Executor Configurations."
+  ],
+  [
+   2248,
+   "###### Generalization to Enriched Executor Descriptions."
+  ],
+  [
+   2365,
+   "#### B.4 Analysis of Orchestration Abstraction"
+  ],
+  [
+   2403,
+   "#### B.5 Ablation of Completeness Reward"
+  ],
+  [
+   2441,
+   "#### B.6 Case Studies"
+  ],
+  [
+   2443,
+   "###### Performance-Oriented Orchestration."
+  ],
+  [
+   2451,
+   "###### Efficiency-Oriented Orchestration."
+  ],
+  [
+   2895,
+   "### Appendix C Limitations and Future Work"
+  ],
+  [
+   2903,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "### Appendix C Limitations and Future Work\n\nOur prompts, executor profiles, and evaluation benchmarks are predominantly English. The current results therefore do not establish whether the learned orchestration policy transfers to multilingual tasks, code-switched inputs, or language-specific tools and executors. Multilingual settings may require the orchestrator to account explicitly for language proficiency and cross-lingual information integration.\n\nThe current evaluation further considers a limited number of executor configurations and assumes that the supplied capability and cost profiles are accurate and stable. In practice, executor behavior may vary across domains, prompts, and deployment conditions, while larger agent pools may substantially increase the orchestration search space. Evaluating robustness to noisy or evolving profiles and scaling to larger, more heterogeneous executor pools remain important directions for future work.\n\nFinally, tree-structured rollouts increase training-time computation. The number of candidate trajectories grows with the number of initial trajectories ( B ), branches per expansion ( N ), and expansion rounds ( E ). Selective branching, early pruning, and trajectory reuse may reduce this training overhead.\n\n##",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 1,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

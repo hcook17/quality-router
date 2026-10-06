@@ -1,0 +1,16 @@
+{
+  "arxiv_id": "2607.28928",
+  "contributions": [
+    {"kind": "constraint",
+     "statement": "Before trusting an agent-built component that passes its own tests, run a randomized differential campaign against an independent reference; in one agent-built compiler 82% of random inputs exposed defects, concentrated in unverified text interfaces and the spec-vs-hardware boundary.",
+     "evidence": "§V-B: first 30-minute detect phase, 6,760 of 8,200 generated programs triggered a defect; after 5 repairs a second 4,600-program phase surfaced none. Single artifact by the same author.",
+     "strength": "moderate", "novelty": "refines", "relative_to": ["differential/random testing of compilers (Csmith/CompCert, known)"], "transfers": "indirect"},
+    {"kind": "test_practice",
+     "statement": "Accept an agent's repair only after a fresh detect window on newly generated, unseen inputs stays clean, as a check against fixes tailored to the failing cases.",
+     "evidence": "§I Reward Hacking, §V: repeated detect-repair-revalidate rounds until clean windows; reward-hacking absence judged only by the author, failed/escalated attempts excluded from reporting.",
+     "strength": "weak", "novelty": "restates_known", "relative_to": ["held-out test validation of patches (known)"], "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "Lean compilers are far from Java ingestion, but the measured defect rate of an agent-built, self-tested artifact under randomized differential testing is a usable constraint; the rest is known test practice."
+}

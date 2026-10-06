@@ -1,0 +1,42 @@
+{
+  "arxiv_id": "2609.22259",
+  "contributions": [
+    {
+      "kind": "heuristic",
+      "statement": "In data contracts and specs the agent reads, state the encoding of every default and wildcard explicitly (for example 'empty list means all values'); reversing one such interpretation clause changed 87 of 97 answers in the affected task families.",
+      "evidence": "§8.2: seven INTERPRETATION clauses, three resolving ambiguities the manual leaves open; reversing the empty-list clause changes 87/97 payments answers.",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": [
+        "2609.08149",
+        "P34 structured requirements"
+      ],
+      "transfers": "direct"
+    },
+    {
+      "kind": "nuance",
+      "statement": "Wrapping a data store in governed tools without documenting what the fields and metrics mean buys little; the documented semantic content is what moves accuracy.",
+      "evidence": "Table 4/5 hard split: schema->hollow +5.4/+0.0/+15.1/+14.2; hollow->contract 19.3->55.1, 22.6->56.6, 38.0->68.4, 51.2->77.4 (four models, single runs, one benchmark).",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": [
+        "retrieval augments context; P04 MCP tool surface"
+      ],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "anti_pattern",
+      "statement": "Never give an agent a write-capable SQL connection for read tasks: without declared rules, competent agents created persistent tables to work around per-call sessions (166 mutating statements, two reached the database); declare forbidden operations in context and enforce them with a statement checker.",
+      "evidence": "§7 Table 10: ungoverned arms 166 mutating statements across 26 tasks, governed arms 0 (Fisher p=3e-8 pooled); enforcement layer never fired, so only the declarative half was tested; two real escalations described from transcripts.",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": [
+        "least privilege (adds non-adversarial route-around mechanism)"
+      ],
+      "transfers": "direct"
+    }
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "A careful hollow-vs-full ablation plus a concrete, non-adversarial mutation mechanism; the interpretation-clause sensitivity is directly relevant to spec-driven development of ingestion contracts. Single benchmark and single runs keep it at moderate."
+}

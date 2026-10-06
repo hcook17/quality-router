@@ -1,0 +1,19 @@
+{
+  "arxiv_id": "2606.14154",
+  "contributions": [
+    {"kind": "anti_pattern",
+     "statement": "Do not vet third-party SKILL.md bundles with SAST/SCA, rule-based skill scanners or generic prompt-injection detectors: attacks that split harmful intent between skill instructions and innocuous helper scripts were detected in at most 17% of cases.",
+     "evidence": "§VI-B Table IV: skill-security-scan 2-8%, Snyk Agent Scan 9-17%, held-out SkillScan 0-1.3%; LLM-Guard 4.0%, PIGuard 17.1%. Mutations were refined against these scanners (adaptive lower bound, §IV-C).",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["supply-chain vetting of third-party dependencies", "2608.10906"],
+     "transfers": "direct"},
+    {"kind": "heuristic",
+     "statement": "If skills are shared across agent hosts, use an LLM-based install-time review (frontier or a local distilled model) plus human approval, since LLM reviewers caught roughly 80-88% of these attacks but flagged about 8% of clean skills.",
+     "evidence": "§VI-D Fig. 6 (GPT-5.4 86.8%, distilled 7B 88.2%, in-distribution for the student); §VI-E Table VII FPR 8.0% on 100 clean ClawHub skills; App. B-B precision 60.9%.",
+     "strength": "weak", "novelty": "new", "relative_to": [],
+     "transfers": "direct"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "The only KB paper measuring malicious-skill detection; it shows that existing scanners miss cross-modal skill attacks, which matters for a team sharing skills across hosts."
+}

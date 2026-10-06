@@ -1,0 +1,12 @@
+{
+  "arxiv_id": "2609.08040",
+  "contributions": [
+    {"kind": "heuristic",
+     "statement": "Add an agent triage step on SCA dependency-CVE alerts that reads the repository and proposes affected/not-affected, but keep its justification as a proposal for human or reachability-tool confirmation, since only one model exceeded 70% macro-F1 on the reason.",
+     "evidence": "Table 2: status F1 81.6 +/- 3.8 (Opus 4.6, Claude Code), 79.9 +/- 8.0 (GPT-5.5, Codex) over 3 runs; justification macro-F1 73.5 best, next 64.6. Table 3: OSV-Scanner F1 40.5, Trivy 36.1 (precision ~26-27%), though the case selection nearly guarantees SCA low precision. 25 of 75 cases are Java/Maven-Gradle; 29% affected base rate.",
+     "strength": "moderate", "novelty": "refines", "relative_to": ["SCA reachability analysis / VEX triage"], "transfers": "direct"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "Multi-run, leakage-checked evidence with Java cases that agent triage of SCA alerts is useful for status but unreliable for justification; the SCA-baseline gap is partly by construction."
+}

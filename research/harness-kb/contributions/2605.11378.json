@@ -1,0 +1,26 @@
+{
+  "arxiv_id": "2605.11378",
+  "contributions": [
+    {"kind": "nuance",
+     "statement": "Ship shared helper code inside skills (e.g. common parsing/extraction routines) when a task has many interdependent parts: without such skills Eval@1 fell from 55% to 30% as metric count rose from 1 to 5, while the skill-equipped pipeline held 60-65%.",
+     "evidence": "§4.2 Finding 4, Table 9: Sonnet 4.5, n=20 agents (5 pp per agent), single runs, authors own system, benchmark and rubric.",
+     "strength": "weak", "novelty": "refines",
+     "relative_to": ["P02 skills improve agent outcomes (2607.16617, 2605.06754)"],
+     "transfers": "indirect"},
+    {"kind": "heuristic",
+     "statement": "Give agents live retrieval of current library docs when target APIs move faster than model training: removing Context7 dropped Sonnet's executable-eval rate from 65% to 20% because of stale model identifiers and class patterns.",
+     "evidence": "§4.2 Finding 5, Table 10; n=20, single run.",
+     "strength": "moderate", "novelty": "restates_known",
+     "relative_to": ["retrieve current library documentation for fast-moving APIs (doc-RAG)"],
+     "transfers": "indirect"},
+    {"kind": "nuance",
+     "statement": "A bare plan-then-implement stage without domain templates did not improve output and produced broader exception handling that hid failures as all-zero metrics.",
+     "evidence": "§4.2 Finding 3, Table 8: B3 vs B4, LLM meta-evaluator win-tie rates, n=20.",
+     "strength": "weak", "novelty": "refines",
+     "relative_to": ["P13 planner-executor orchestration"],
+     "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "hypothesis_only",
+  "reason": "The ablations point somewhere useful, but at n=20 with a self-built benchmark, rubric and judge none clear moderate except the docs-retrieval result, which is known practice. Kept as hypotheses only."
+}

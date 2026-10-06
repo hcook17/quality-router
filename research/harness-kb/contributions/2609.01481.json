@@ -1,0 +1,16 @@
+{
+  "arxiv_id": "2609.01481",
+  "contributions": [
+    {"kind": "design_pattern",
+     "statement": "Wrap the existing agent CLI in a plan -> develop -> independent-test loop where the tester's evidence pack updates the plan each round; at equal pass count this beat simply letting the same agent continue, and two rounds beat three plain continuations at fewer tokens.",
+     "evidence": "§4.3 Table 2 (Codex/GPT-5.5, GameCraft): HoH 59.71/64.84/71.52 vs Vanilla Continuation 49.58/54.99/58.24 at 1/2/3 passes; HoH@2 5.67M tokens vs Vanilla@3 6.33M. Table 3: removing evidence feedback -6.28 pts. One configuration, single runs; games, no Java.",
+     "strength": "moderate", "novelty": "refines", "relative_to": ["planner-executor loops (P13)", "execution-feedback loops (P16)"], "transfers": "indirect"},
+    {"kind": "heuristic",
+     "statement": "Warm-start each loop iteration from the previous increment's code and on-disk state instead of regenerating from an empty workspace.",
+     "evidence": "Table 3: w/o warm-start -7.85 pts and tokens 8.41M -> 11.12M; audit notes the 'every task' claim is false (Lighthouse 81.50 vs 80.90) and cells are single runs.",
+     "strength": "moderate", "novelty": "restates_known", "relative_to": ["incremental development"], "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "The pass-matched continuation control is what separates this from the usual 'our loop beats one pass' system paper, and it is host-agnostic like qr. Role separation itself is never isolated."
+}

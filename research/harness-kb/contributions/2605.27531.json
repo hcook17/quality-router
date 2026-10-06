@@ -1,0 +1,26 @@
+{
+  "arxiv_id": "2605.27531",
+  "contributions": [
+    {"kind": "test_practice",
+     "statement": "When agents infer pre/postconditions for legacy code, accept a contract only after it survives property/fuzz runs lifted from the existing unit tests (for Java, e.g. Jazzer or jqwik), not the unit tests alone: fuzzing rejected 8.0% of unit-test-passing contracts in the weaker-tested repo (0.4% in the well-tested one).",
+     "evidence": "§4 'Impact of Fuzzing', Table 3: BDE vs BlazingMQ survivors of the unit-test filter that fuzzing then violated. Two C++ repos from the authors' organization, single greedy runs.",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["property-based / fuzz testing beyond example-based tests", "2607.25333 spec-from-code validated against executions"],
+     "transfers": "indirect"},
+    {"kind": "test_practice",
+     "statement": "Reject agent-synthesized contracts or assertions that reduce to 'true' as a separate gate check, since up to 17% of 'valid' contracts were trivially true.",
+     "evidence": "Table 1 'Trivial' column (BMQ, Qwen3.5: 17.13%), noted by the audit as inflating the 85% validity headline.",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["2606.18168 assertion-free agent tests are not verification"],
+     "transfers": "indirect"},
+    {"kind": "heuristic",
+     "statement": "Cap counterexample-guided refinement at roughly 20 attempts per function; most gains arrive in the first five.",
+     "evidence": "Fig. 6: valid-spec count vs retry attempts on BDE for one model configuration.",
+     "strength": "weak", "novelty": "refines",
+     "relative_to": ["P16 execution-based verifier loops (2609.03086 diminishing returns after first attempts)"],
+     "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "The C++/separation-logic machinery does not transfer, but 'lift unit tests into fuzz oracles and reject trivial contracts' is a concrete gate for back-filling contracts before spec-driven work. The 10x cost headline is a pricing artifact and is not used."
+}

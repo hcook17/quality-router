@@ -1,0 +1,38 @@
+{
+  "arxiv_id": "2609.00006",
+  "contribution_type": "survey",
+  "summary": "A source-code study of eleven production coding harnesses (Claude Code, Codex CLI, Gemini CLI, Mistral Vibe, OpenHands, Aider, Mini-SWE-Agent, Hermes, Pi, OpenCode, OpenClaw), pinned to July 2026 releases, plus Databricks' Omnigent as a meta-harness contrast. Eight systems are re-diffed against April 2026 snapshots. It catalogues seven subsystems, 13 observations and 29 patterns, and reports two inventory absences from manifest and import sweeps: no runtime imports a general agentic framework, and none retrieves code with vector embeddings. It closes with 18 recommendations, including 'do not build RAG over code' (Rec. 8 and 16, §16). It runs no benchmarks. The paper was drafted with substantial help from Claude via Claude Code.",
+  "claims": [
+    {"claim": "None of the eleven harnesses retrieves code with vector embeddings; all use ripgrep, glob, tree-sitter and auto-discovered Markdown context files", "evidence": "§13.2 Absence 2 and Table 13: dependency-manifest and file-name sweep for vector stores and embedding libraries, repeated three months apart over twelve pinned trees. Embeddings appear only for conversation memory (OpenClaw default, Hermes opt-in). §15.6 concedes dynamic imports, forks and transpiled builds were not traced; Claude Code comes from a circulated March 2026 snapshot.", "strength": "strong", "location": "§13.2, Table 13, §15.6"},
+    {"claim": "No agent runtime imports a general-purpose agentic framework", "evidence": "§13.2 Absence 1: manifest and import grep across ~4M lines for LangChain, LangGraph, AutoGen, CrewAI and others; Aider's optional llama-index doc-RAG and OpenCode's Vercel AI SDK are boundary cases.", "strength": "strong", "location": "§13.2"},
+    {"claim": "Do not build RAG over code; use ripgrep, glob, tree-sitter and filesystem traversal instead", "evidence": "Rec. 8/16 in §16 rest on the 0/11 adoption count, Anthropic guidance, and the argument that embeddings go stale. No retrieval-quality or task-success comparison is run. CodeRAG-Bench is cited for variable gains. Rec. 16 itself asks to first prove semantic retrieval on a held-out set.", "strength": "weak", "location": "§13.2, §16 Rec. 8 and 16"},
+    {"claim": "Skills lead MCP in adoption (9/11 vs 8/11) and eight of nine skill adopters load bodies on demand", "evidence": "§12.4-12.5 source inventory.", "strength": "moderate", "location": "§12.5, abstract"},
+    {"claim": "Anthropic's effective-agents guidance is empirically validated by the corpus", "evidence": "§15.1 maps guidance to observations; §15.6 concedes this does not establish causation and no engineer interviews were done.", "strength": "unsupported", "location": "§15.1, §15.6"},
+    {"claim": "A 90-line scaffold on a frontier model would match Mini-SWE-Agent's SWE-Bench numbers", "evidence": "Stated as a conjecture without measurement.", "strength": "unsupported", "location": "Observation 13, §16"}
+  ],
+  "patterns": [
+    {"id": "P05", "stance": "supports", "note": "Inventory: all eleven production harnesses retrieve code lexically or structurally; LSP appears for post-write diagnostics (OpenCode ~25 servers, Hermes), not as a retrieval index. Adoption evidence, not effectiveness."},
+    {"id": "P06", "stance": "contradicts", "note": "0/11 harnesses embed code; embeddings appear only for chat memory. Absence of adoption is not measured inferiority."},
+    {"id": "P02", "stance": "supports", "note": "Eight of nine skill adopters load only metadata eagerly and fetch bodies on demand."},
+    {"id": "P04", "stance": "neutral", "note": "MCP in 8/11 systems; catalogued, not evaluated."},
+    {"id": "P08", "stance": "neutral", "note": "Seven of eleven use threshold-triggered LLM summarisation; catalogued, not evaluated."},
+    {"id": "P21", "stance": "neutral", "note": "Permission and sandbox stacks compared structurally (§10); no attack evaluation."}
+  ],
+  "methodology": {"sample": "Eleven production harnesses plus one meta-harness, pinned to release tags and commits (Table 3); eight re-pinned from April 2026", "baselines": "None; descriptive comparison", "models": "Not applicable; Claude (via Claude Code) assisted analysis and drafting", "variance": "Not applicable; inventory re-audit three months apart", "ablations": "None", "contamination_controls": "Not applicable", "languages": "Python, TypeScript, Rust harness code; no Java harness studied"},
+  "standards": {"peer_review": "arXiv preprint (83 pages), second edition", "limitations_section": true, "artifacts": "Public source trees at pinned commits; Claude Code from a circulated snapshot; no analysis scripts released", "preregistration": "n/a"},
+  "biases": [
+    {"type": "other:adoption_as_evidence", "detail": "Recommendations against code RAG are derived from what vendors ship, not from measured retrieval quality or task success."},
+    {"type": "other:llm_authored_analysis", "detail": "Source analysis and drafting were done with substantial help from Claude via Claude Code; the authors state findings were verified against the codebases."},
+    {"type": "other:qualitative_scoring", "detail": "Architectural comparisons rely on author judgement with no inter-rater check (§15.6)."},
+    {"type": "other:vendor_framing", "detail": "Frames the corpus as validating Anthropic's published guidance while using Anthropic's tool to write the analysis; causation is explicitly not established."}
+  ],
+  "coi": {"affiliations": "Wavestone AI Lab (consulting); Inclusive Brains", "vendor_products_evaluated": "Claude Code, Codex CLI, Gemini CLI, Mistral Vibe and open-source harnesses, described not benchmarked", "funding": "Not stated", "severity": "low", "detail": "No author works for a studied vendor. The paper's tooling and framing lean on Anthropic, but no product is promoted."},
+  "scores": {"rigor": 3, "reproducibility": 4, "generalizability": 2, "relevance": 4, "coi_risk": 2},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "The inventory claims are concrete, dated, pinned to commits and re-audited, so they are reliable as statements about what production harnesses contain. The recommendations turn adoption counts into design advice without any performance measurement and should not be read as evidence that code RAG underperforms.",
+  "applicability": "Useful to a Java team as a map of how hosts load skills, context files, MCP and permissions, and as evidence that lexical or structural retrieval is the production default. It contains no Java harness, no multi-repo evaluation, and no retrieval benchmark. A team deciding on code RAG should weigh it against measured KB results such as 2607.25431.",
+  "conflicts_with": [
+    {"arxiv_id": "2607.25431", "detail": "Reports dense candidates delivered eagerly beating BM25 and Aider's repo map on repair, and grep/read costing 2-8x the tokens, which cuts against 'do not build RAG over code' as a performance claim."},
+    {"arxiv_id": "2605.12493", "detail": "Agree in direction: embedding RAG trails agentic file inspection by ~15-25 points for trajectory memory."}
+  ]
+}

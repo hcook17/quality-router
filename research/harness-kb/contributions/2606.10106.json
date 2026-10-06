@@ -1,0 +1,14 @@
+{
+  "arxiv_id": "2606.10106",
+  "contributions": [
+    {"kind": "design_pattern",
+     "statement": "Make at least one harness control deterministic and independent of model cooperation (containment, re-running the build/test suite) rather than relying on prompt instructions.",
+     "evidence": "§4 T4 condition and §6 Table 4, argued by subtraction over six hand-picked harnesses; no measurement.",
+     "strength": "weak", "novelty": "restates_known",
+     "relative_to": ["deterministic CI gates", "least privilege / sandboxing"],
+     "transfers": "direct"}
+  ],
+  "quantity_flags": ["position_without_evidence"],
+  "proposed": "drop",
+  "reason": "A definitional essay (T1-T4) whose only actionable point, model-independent controls, is established practice; the inclusion test is acknowledged as near-tautological."
+}

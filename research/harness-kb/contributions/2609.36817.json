@@ -1,0 +1,21 @@
+{
+  "arxiv_id": "2609.36817",
+  "contributions": [
+    {
+      "kind": "constraint",
+      "statement": "Do not rely on prompt-level injection defenses or heuristic detectors alone; prompt defenses reduced but never eliminated attack success, and static detectors missed most tainted artifacts.",
+      "evidence": "Table 1: pooled ASR 6.00% -> 1.69%, none at 0; Table 2: detectors 11-18% recall; one anonymised model, ~19 successes per arm.",
+      "strength": "moderate",
+      "novelty": "duplicates",
+      "relative_to": [
+        "2606.14154"
+      ],
+      "transfers": "indirect"
+    }
+  ],
+  "quantity_flags": [
+    "system_description_only"
+  ],
+  "proposed": "drop",
+  "reason": "A toolkit description with a small demonstration on an anonymised model; its finding repeats what other KB papers show with better evidence."
+}

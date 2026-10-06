@@ -1,0 +1,16 @@
+{
+  "arxiv_id": "2608.16742",
+  "contributions": [
+    {"kind": "test_practice",
+     "statement": "When an agent writes both the code and its tests, keep a hidden oracle it cannot see or edit and review the expected values in its tests against the spec; most residual failures were code and self-written tests agreeing on the same wrong behaviour, while the loop blamed the wrong side in under 10% of failures.",
+     "evidence": "§4.5 Fig. 6 and App. C Table 11: 'matched failures' dominate; credit-assignment errors max 8.10%. RepoEval function completion, Python, single run.",
+     "strength": "moderate", "novelty": "refines", "relative_to": ["2607.24300 self-authored verification decouples from deployment performance"], "transfers": "indirect"},
+    {"kind": "nuance",
+     "statement": "Writing tests first adds little on its own (about 1.5-3 points); most of the gain comes from iterating code and tests against execution feedback, which plateaus around 6-7 rounds.",
+     "evidence": "§4.4 Table 4: Vanilla 68.35/73.63/52.97 vs TDD-iter1 69.89/76.48/54.51; Reflect without tests beats frozen-test single-track on two models; Fig. 3 plateau. No variance.",
+     "strength": "weak", "novelty": "refines", "relative_to": ["2605.17242 acceptance-test-first loop", "execution feedback loop (P16)"], "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "The matched-failure analysis gives a concrete mechanism for why agent-owned tests are not verification, on unit-level code closer to the team's work than 2607.24300's Atari setting; the TDD headline gains are small."
+}

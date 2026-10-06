@@ -1,0 +1,14 @@
+{
+  "arxiv_id": "2606.09090",
+  "contributions": [
+    {"kind": "heuristic",
+     "statement": "A deterministic CI check that extracts class names, packages and paths from AGENTS.md/CLAUDE.md and verifies they exist at HEAD catches stale references cheaply, but expect only about 1.3% of references to be stale and about a third of flags to be false, so run it as hygiene, not as a correctness gate.",
+     "evidence": "§3.3 Tables 1 and 3: 230 stale of 18,048 verified references (1.27%); 82/356 repos flagged but 32/50 inspected flags genuine (64%, one annotator); median one stale reference per affected repo. Audit downgrades prevalence to weak. Impact on agents not measured (RQ3 open).",
+     "strength": "weak", "novelty": "refines",
+     "relative_to": ["documentation-consistency checking (DOCER README linting)"],
+     "transfers": "direct"}
+  ],
+  "quantity_flags": ["renamed_known_idea", "self_declared_incomplete"],
+  "proposed": "hypothesis_only",
+  "reason": "'Context rot' is documentation drift applied to agent config files; the measured per-reference stale rate is low and impact on agents is left as future work."
+}

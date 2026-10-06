@@ -1,0 +1,20 @@
+{
+  "arxiv_id": "2607.26072",
+  "contributions": [
+    {"kind": "nuance",
+     "statement": "When replaying prior sessions into an agent's context, inject only the user-stated decisions and facts, not the prior assistant answers; adding assistant final answers to an otherwise lossless history cut answer accuracy from 83.2% to 44.1%.",
+     "evidence": "§4.5 Fig. 2 full-context oracle: user-messages-only 95.1% memory / 83.2% answer accuracy vs user+assistant-final-answers 74.1% / 44.1%, same 143 tasks and probe agent (Grok-4.3).",
+     "strength": "moderate", "novelty": "refines", "relative_to": ["context rot / more context is not better (known)"], "transfers": "indirect"},
+    {"kind": "test_practice",
+     "statement": "Evaluate an agent memory or retrieval layer on fact coverage (did the needed facts come back), not topical relevance; general-purpose vector, graph and file memories returned relevant context ~85-94% of the time but covered only about half the required facts.",
+     "evidence": "§4.3 Table 2: R-relevance CIs (Mem0 84.1-94.0) far above R-coverage CIs (Mem0 41.2-57.4; Graphiti 20.6-35.1); coverage gap persists with a stronger agent (§4.7).",
+     "strength": "moderate", "novelty": "refines", "relative_to": ["retrieval evaluation by recall vs precision (known IR practice)"], "transfers": "indirect"},
+    {"kind": "nuance",
+     "statement": "A domain template (separate tool-read facts from user-supplied facts, one atomic value per field) helped a weak agent-written file memory but slightly hurt an already fact-distilling store, so tune memory schemas only after measuring the default.",
+     "evidence": "§4.6 Fig. 3: template raised file-memory answer and memory accuracy to roughly Mem0 level; the same instruction lowered Mem0 slightly by fragmenting specifications. One model, one domain, no significance test.",
+     "strength": "weak", "novelty": "new", "relative_to": [], "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "BIM domain, but two measured nuances transfer to how the team stores and replays durable project knowledge: replay user decisions, not assistant chatter, and measure coverage rather than relevance."
+}

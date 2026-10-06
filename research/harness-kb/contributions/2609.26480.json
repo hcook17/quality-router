@@ -1,0 +1,21 @@
+{
+  "arxiv_id": "2609.26480",
+  "contributions": [
+    {
+      "kind": "nuance",
+      "statement": "Do not expect a feature-clustered code graph to beat plain dense retrieval on functional correctness; it improved dependency recall but Pass@1 was within about 1 point of UniXcoder RAG.",
+      "evidence": "Table 3: Pass@1 42.24 vs 41.40 (UniXcoder) and 42.31 (CodexGraph) on DeepSeek; 55.03 vs 56.35 (CodexGraph) on GPT-5-mini; no ablation; Python only.",
+      "strength": "moderate",
+      "novelty": "duplicates",
+      "relative_to": [
+        "2605.16352"
+      ],
+      "transfers": "indirect"
+    }
+  ],
+  "quantity_flags": [
+    "numbers_without_mechanism"
+  ],
+  "proposed": "drop",
+  "reason": "Retrieval-metric wins with no functional gain over dense RAG, no ablation, Python only; nothing a team could act on beyond what other graph-context papers show."
+}

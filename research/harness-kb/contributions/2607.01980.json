@@ -1,0 +1,30 @@
+{
+  "arxiv_id": "2607.01980",
+  "contributions": [
+    {
+      "kind": "nuance",
+      "statement": "When an LLM drafts Gherkin acceptance criteria, measure negative/error-path scenario coverage and spurious-scenario rate separately, because the structured epic-plus-gap-fill pipeline lost negative coverage (81% to 67%) and added spurious scenarios (semantic SSR 10% vs 0%) while looking better on aggregate ratings.",
+      "evidence": "Table 2-3; four documents, one model, one run, keyword-matched negative coverage. Audit downgrades the expert-preference and lexical-gap claims to weak.",
+      "strength": "weak",
+      "novelty": "refines",
+      "relative_to": [
+        "P34 structured acceptance criteria"
+      ],
+      "transfers": "direct"
+    },
+    {
+      "kind": "heuristic",
+      "statement": "Constrain LLM-generated Gherkin with a JSON schema plus a deterministic validator so every scenario is structurally valid before it reaches a .feature file.",
+      "evidence": "§4.3 RQ1: 0 invalid of 119 vs 1 invalid for the baseline; validity is guaranteed by construction, so this is a one-scenario margin.",
+      "strength": "moderate",
+      "novelty": "restates_known",
+      "relative_to": [
+        "schema-constrained structured output"
+      ],
+      "transfers": "direct"
+    }
+  ],
+  "quantity_flags": [],
+  "proposed": "hypothesis_only",
+  "reason": "Schema-constrained output is known practice, and the comparison is against a two-sentence prompt with near-zero rater agreement. The loss of error-path scenarios is the only transferable warning, and it is weakly measured."
+}

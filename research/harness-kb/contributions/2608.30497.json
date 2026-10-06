@@ -1,0 +1,16 @@
+{
+  "arxiv_id": "2608.30497",
+  "contributions": [
+    {"kind": "constraint",
+     "statement": "During dependency upgrades, do not let the agent pick replacement APIs from model memory: even GPT-5.4 named the exact Java replacement signature only 27.5% of the time (15-21% for rarely used mappings), and adding client call context did not help, so resolve replacements from the target library's artifacts or a recipe first.",
+     "evidence": "§4.5 Table 7: Java FQN 37.1%, full signature 27.5% (best model); Fig. 8: 15.4-21.1% for single-instance mappings vs 48.5-55.8% for >100 instances; context lowers Java full-signature accuracy 0.6-2.0 pp (Holm-corrected McNemar). Zero-shot, thinking disabled, 128-token output, so an agent with tools may do better.",
+     "strength": "moderate", "novelty": "refines", "relative_to": ["ground API usage in current docs rather than model memory", "2606.24446"], "transfers": "direct"},
+    {"kind": "heuristic",
+     "statement": "Validate any proposed old->new API mapping against the target library artifact (replacement exists in the new version, old API removed or deprecated) before accepting it; this check raised mapping precision by about 40 pp over similarity matching alone.",
+     "evidence": "§4.3.2 RQ2 design analysis: library-side validation +40.3 pp precision (Java), +43.3 pp (Python). Measured on a mining pipeline, not an agent loop; ground truth self-annotated (κ=0.92).",
+     "strength": "moderate", "novelty": "refines", "relative_to": ["compile/type-check the upgraded code (P16)"], "transfers": "direct"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "Java/Maven-native measurement of how poorly models recall replacement APIs, especially long-tail ones, plus a cheap deterministic artifact check; directly usable in upgrade workflows across the ingestion repos."
+}

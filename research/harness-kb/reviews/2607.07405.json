@@ -1,0 +1,34 @@
+{
+  "arxiv_id": "2607.07405",
+  "contribution_type": "empirical",
+  "summary": "In the τ²-bench airline domain, tools accept forbidden writes silently, and 78% of a budget agent's failures are wrong final states with no tool error. Four hand-written, read-only Python predicates check each proposed write against database state before it runs. They raise gpt-4o-mini success from 29.6% to 42.0%, and the lift replicates on 15 disjoint seeds. Almost all of it comes from one 100%-precision gate, and negative controls on retail and BFCL show little or no gain where tools already enforce their own preconditions.",
+  "claims": [
+    {"claim": "A four-gate deterministic pre-execution suite raises gpt-4o-mini success on τ²-bench airline from 29.6% to 42.0%, and the lift replicates", "evidence": "Table 2: 74/250→105/250 (+12.4 pp, CI [+4.0, +21.2], P=0.0012); disjoint 15-seed replication 231/750→323/750 (+12.3 pp, P=0.0008). Paired task-level bootstrap. Replication is over seeds on the same 50 tasks the gates were written against (§7 item 8).", "strength": "moderate", "location": "§5.1, Table 2"},
+    {"claim": "The lift is carried by where gates fire, and mostly by one high-precision gate", "evidence": "Table 3: firing stratum +19.2 pp (CI [+6.9, +33.1]) vs non-firing +5.0 pp (CI spans zero). Table 6: cancellation_eligibility 161/161 true blocks and the only gate whose removal lowers pass1; baggage_allowance 5% precision.", "strength": "moderate", "location": "§5.2, §5.5, Tables 3 and 6"},
+    {"claim": "Gates help only where tools are policy-permissive; they add little where tools self-enforce", "evidence": "§6.1: retail 8 tasks, 62.5%→57.8% (CI spans zero, partly an encoding bug). §6.2: BFCL 0 firings in 200 entries. The negative controls are small and the retail one is confounded by a gate bug.", "strength": "weak", "location": "§6.1-6.2"},
+    {"claim": "The failure mode persists for a frontier model (gpt-5.2): gates lift 61.2%→71.6%", "evidence": "§5.3: n=5 per task, unreplicated, CI [+0.4, +20.8]; three tasks regress with gate firings. Authors label it suggestive.", "strength": "weak", "location": "§5.3, §5.8"},
+    {"claim": "Gates beat model reasoning on deceptive inputs", "evidence": "§5.6: task #48 (user asserts false context) solved 16/16 gated vs ≤1/16 ungated across settings. A single task; no prompting or reflection baseline was tested (§7 item 7).", "strength": "weak", "location": "§5.6, §7"}
+  ],
+  "patterns": [
+    {"id": "P21", "stance": "supports", "note": "Deterministic predicates over (tool, args, DB state) at the write boundary lift task success with replication; precision must be audited per gate; one domain."},
+    {"id": "P18", "stance": "neutral", "note": "Explicitly contrasts gates with LLM judges and reflection, but does not run either as a baseline."},
+    {"id": "P30", "stance": "neutral", "note": "Per-gate fire/precision audit against ground-truth trajectories is a useful observability practice; not the paper's focus."}
+  ],
+  "methodology": {"sample": "50 τ²-bench airline tasks × 5 trials (plus 15-seed replication, 750 trials); 8 retail tasks; 200 BFCL v4 entries", "baselines": "Same harness without gates; no prompt-the-rule or reflection baseline", "models": "gpt-4o-mini agent (main), gpt-5.2 (suggestive), gpt-4.1 user simulator", "variance": "Paired task-level bootstrap CIs (20k resamples); pass^k; disjoint-seed replication", "ablations": "Minus-one gate removal, per-gate precision, firing stratification, curated-subset inflation", "contamination_controls": "Not applicable to a gate intervention; gates were written from policy and evaluated on the same tasks (acknowledged)", "languages": "Python harness; customer-service domain, no code generation"},
+  "standards": {"peer_review": "Accepted at KDD 2026 Workshop (ETAAI)", "limitations_section": true, "artifacts": "Code and gate predicates 'will be released upon publication'; none found", "preregistration": "n/a"},
+  "biases": [
+    {"type": "other:gates_fit_to_eval_tasks", "detail": "Gates were authored against the same 50 tasks; replication varies seeds, not tasks."},
+    {"type": "strawman_baseline", "detail": "No baseline that states the gated rules more forcefully in the prompt or adds reflection."},
+    {"type": "closed_artifacts", "detail": "Gate code not yet released."},
+    {"type": "single_model", "detail": "Replicated result is gpt-4o-mini only; the frontier arm is unreplicated."},
+    {"type": "toy_tasks", "detail": "One simulated airline domain with an LLM user simulator."}
+  ],
+  "coi": {"affiliations": "Independent researcher; IIT Kharagpur; MIT", "vendor_products_evaluated": "OpenAI models as agents; no own product", "funding": "Not stated", "severity": "none", "detail": "No vendor tie; the intervention is not a product."},
+  "scores": {"rigor": 3, "reproducibility": 1, "generalizability": 2, "relevance": 3, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Unusually well-bounded: replication, firing stratification, per-gate precision audit and negative controls, and limitations are stated plainly. Caveats: one positive domain, gates fitted to the evaluated tasks, no prompt baseline, artifacts unreleased.",
+  "applicability": "The transferable lesson is about where policy lives. If a tool accepts writes that policy forbids, put a deterministic state-reading predicate in front of it, or better, make the tool self-enforce. Audit each gate's precision, because a bad gate costs success. For a Java team this maps to agent-facing write tools (content publish, delivery API mutations) and CI gates. It says nothing about the runtime that hosts the predicates (Python vs WASM) or about gates over build artifacts.",
+  "conflicts_with": [
+    {"arxiv_id": "2609.09798", "detail": "That paper finds classifier and prompt guardrails routinely bypassed; this one finds state-reading deterministic gates hold. They agree once guardrail type is distinguished: probabilistic content filters vs deterministic state predicates."}
+  ]
+}

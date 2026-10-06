@@ -1,0 +1,19 @@
+{
+  "arxiv_id": "2606.19235",
+  "contributions": [
+    {"kind": "design_pattern",
+     "statement": "Before untrusted third-party code (vendor SDKs, external snippets, issue attachments) enters agent context, strip or neutralize comments, string literals and decoy blocks with a Tree-sitter pass; this cut indirect-injection success about 3x on three hosted models but left a 6-8% residual, so keep sandboxing and permissions too.",
+     "evidence": "§4.2 RQ4 Table 2: ASR 27.11->7.72 (Claude-3.5-Haiku), 18.32->5.81 (GPT-5.1-Codex-mini), 24.14->8.28 (Gemini-3.1-Flash-lite); base models, not agents; full method also uses surrogate-model logits; not shown on Java.",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["input sanitization / spotlighting for prompt injection (P22)"],
+     "transfers": "indirect"},
+    {"kind": "nuance",
+     "statement": "Do not apply such sanitization to your own trusted repositories, because blanket sanitization cut repository-level completion exact match by about 33 points.",
+     "evidence": "§4.2 RQ5 Table 3: RepoBench EM -32.67 (BLEU-4 -5.95), MBPP -6.23; victim model not stated.",
+     "strength": "weak", "novelty": "new", "relative_to": [],
+     "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "Gives a measured, cheap structural pre-filter for untrusted code context and a measured cost when applied too broadly; the adaptive-attack robustness claim is weak and is not used."
+}

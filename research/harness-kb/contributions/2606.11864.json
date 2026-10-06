@@ -1,0 +1,20 @@
+{
+  "arxiv_id": "2606.11864",
+  "contributions": [
+    {"kind": "nuance",
+     "statement": "Do not pick an embedding model for agent code retrieval from snippet-level code-search leaderboards: the same embedders that reach NDCG@10 ~72 on snippet search score ~20 on issue-to-edited-code localization, Java is among the hardest languages, and BM25 beats several dense models; evaluate on your own issue-to-diff pairs instead.",
+     "evidence": "§4.2 Table 3 (Qwen3-Embedding-8B L1 71.7 vs L2 20.3 NDCG@10), Fig. 4 (L1 only moderately correlates with L2), Table 17 (BM25 L2 13.0 beats bge-m3/gte-Qwen2/CodeRankEmbed), §4.5 Table 4 (Java L2 10.2 vs Python 18.4 for 0.6B). COI medium per review.",
+     "strength": "strong", "novelty": "refines",
+     "relative_to": ["retrieval augments context (P06)", "2605.12493"],
+     "transfers": "direct"},
+    {"kind": "nuance",
+     "statement": "Fine-tuning an embedder on your own PR history (issue text to edited chunks) improves edit localization substantially but lowers general snippet-search quality, so keep the tuned model scoped to agent localization.",
+     "evidence": "§4.3 Table 3: Qwen3-8B-SFT L2 32.8 vs 20.3, L3 50.2 vs 34.4; L1 drops 71.7 to 63.0 (0.6B: 66.9 to 58.1). Single training run; training repos disjoint from SWE-bench family (App. B).",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["domain fine-tuning of retrievers"],
+     "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "Shows with strong evidence that generic code-search benchmarks do not predict agentic localization, including for Java, and quantifies the SFT trade-off. Single-repo queries only."
+}

@@ -1,0 +1,12 @@
+{
+  "arxiv_id": "2608.09277",
+  "contributions": [
+    {"kind": "design_pattern",
+     "statement": "Have the agent plan how each step will be verified together with the implementation plan, before writing code; joint program-and-proof planning beat implementation-only planning by 3.3-8.3 points and avoided full-restart repair loops.",
+     "evidence": "§5.2 Table 3 ablation (Opus-4.7 only, single run): Plan-Seq vs P3 69.8/74.6, 44.8/48.1, 13.9/22.2; Appendix K attributes Seq cost to full-restart repairs. Lean 4 proofs, not tests.",
+     "strength": "moderate", "novelty": "refines", "relative_to": ["plan-then-execute (P13)", "test-first / TDD (P15)"], "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "Lean-specific, but the ablation isolates 'plan the verification with the code' from planning alone, which supports a verification-plan section in spec templates; transfer from proofs to JUnit is untested."
+}

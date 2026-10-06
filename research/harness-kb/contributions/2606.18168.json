@@ -1,0 +1,18 @@
+{
+  "arxiv_id": "2606.18168",
+  "contributions": [
+    {"kind": "test_practice",
+     "statement": "Gate agent-written or agent-edited JUnit tests on at least one value-level or exception assertion (assertEquals, assertThrows, AssertJ isEqualTo), not just assertNotNull or verify(), because 80% of agent test-file patches carried weak or no explicit oracle signals.",
+     "evidence": "§III-A Fig. 1: 80.2% W1-W5 across 86,156 test-file patches from 33,596 agent PRs; regex classifier 86.7% agreement with human labels (kappa 0.77). Modified-file diffs may hide existing assertions (§V); new files: 18-67% strong by agent (audit: unadjusted). The gate itself is not evaluated.",
+     "strength": "moderate", "novelty": "new", "relative_to": [],
+     "transfers": "direct"},
+    {"kind": "nuance",
+     "statement": "Make verification a separately scoped task rather than bundling it into feature work, since feature PRs got strong oracles in 18.2% of test patches versus about 25% for bug-fix and test-focused tasks.",
+     "evidence": "§III-A text (line 170): 18.2% feature vs 25.6% bug fix vs 24.9% test tasks; unadjusted for repository or agent.",
+     "strength": "weak", "novelty": "new", "relative_to": [],
+     "transfers": "direct"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "Field-scale evidence that green CI with agent-written tests often has no oracle, which leads directly to a cheap deterministic assertion gate; the merge-odds claim is weak and is not used."
+}

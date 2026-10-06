@@ -1,0 +1,31 @@
+{
+  "arxiv_id": "2607.16617",
+  "contributions": [
+    {
+      "kind": "nuance",
+      "statement": "If agents compose an existing pipeline through an MCP registry of operators, also ship procedural skill docs for the non-obvious composition steps, because registry access alone dropped pass rate to 83.3% vs 93.3% with skills, with the gain concentrated on 3 procedurally complex tasks.",
+      "evidence": "Table 1 and Table 3: 12 tasks x 10 runs, Claude Opus 4.7 only; 1a/1b/3b go 18/30 to 29/30 with skills; authors' own benchmark.",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": [
+        "P04 MCP as integration layer",
+        "P02 skills"
+      ],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "design_pattern",
+      "statement": "Let agents change a pipeline only through typed mutations that are committed after acyclicity and adjacent-schema compatibility checks.",
+      "evidence": "§3 design and Table 1 cost reduction (72.5% vs vanilla); validation's contribution is not isolated by ablation and the action space differs from baselines; structurally valid DAGs still failed semantically on tasks 4a/4b.",
+      "strength": "weak",
+      "novelty": "refines",
+      "relative_to": [
+        "schema validation gates between steps (2605.15425)"
+      ],
+      "transfers": "indirect"
+    }
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "The MCP-only vs MCP-plus-skills comparison with repeated runs gives a measured boundary for when a registry API is not enough; the validated-mutation design is plausible but unablated."
+}

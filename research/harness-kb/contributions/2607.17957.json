@@ -1,0 +1,31 @@
+{
+  "arxiv_id": "2607.17957",
+  "contributions": [
+    {
+      "kind": "constraint",
+      "statement": "For dependency upgrades, expect LLM repair to handle renames and import migrations but plan human review for paradigm-shift breaking changes, which were solved in only 65-70% of cases even by the best method.",
+      "evidence": "§V-G Table VII; per-cell rates rest on 9-27 instances; all 38 Maven cases are JUnit 4->5 or Spring Boot 2.7->3.0 (contamination-prone), and import migration was 100% even for the no-evidence baseline.",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": [
+        "2605.24397 breaking-change taxonomy",
+        "2606.24446"
+      ],
+      "transfers": "direct"
+    },
+    {
+      "kind": "anti_pattern",
+      "statement": "Do not paste raw upstream changelogs into an agent brief for a dependency upgrade; distill them into explicit old-to-new rules with affected call sites first.",
+      "evidence": "Table V: raw upstream evidence cut pass rates 7-23 pp; audit grades weak (single temperature-0 runs, agents denied in-loop build/test). Table VI: on Opus, rules+locator without type guidance scored 61.1%, below the 71.6% no-evidence baseline, so partial distillation can also hurt.",
+      "strength": "weak",
+      "novelty": "refines",
+      "relative_to": [
+        "P08 context distillation"
+      ],
+      "transfers": "direct"
+    }
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "Java/Maven-relevant boundary on which migration types LLMs still miss is usable for routing review; the raw-changelog warning is a hypothesis because agents were handicapped and runs are single."
+}

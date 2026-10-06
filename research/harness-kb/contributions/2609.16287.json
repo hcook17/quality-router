@@ -1,0 +1,30 @@
+{
+  "arxiv_id": "2609.16287",
+  "contributions": [
+    {
+      "kind": "nuance",
+      "statement": "When adding prohibitive agent rules (When/DoNot/Unless/Instead), track over-refusal as a first-class metric: guardrails cut abnormal actions from 69% to 27% of runs but made the agent abandon legitimate work in 19% of runs.",
+      "evidence": "Table 2: AER 207/300 -> 80/300 (CI -51.7 to -33.0); ORR 0 -> 58/300 (CI 12.7-26.7, p<0.001); Table 4: 55 runs with benign loss. Single model (Haiku 4.5), one Python repo, injected adversarial steps, unblinded raters.",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": [
+        "P21 instruction-level guardrails (adds measured over-refusal cost)"
+      ],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "design_pattern",
+      "statement": "Write each agent guardrail with an explicit Unless (when the action is legitimate) and Instead (smallest safe alternative), and load guardrails per action type rather than all at once.",
+      "evidence": "§3 rule schema and Table 1 routing entries; Table 5 overhead $0.158 -> $0.162; no ablation of Unless/Instead fields or against loading all rules.",
+      "strength": "weak",
+      "novelty": "refines",
+      "relative_to": [
+        "P02 progressive disclosure; P21 guardrails"
+      ],
+      "transfers": "indirect"
+    }
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "Gives a measured safety-vs-over-refusal trade-off for rule files on held-out tasks with CIs; the rule format itself is not isolated, and generalisation beyond one repo and model is untested."
+}

@@ -1,0 +1,20 @@
+{
+  "arxiv_id": "2605.15846",
+  "contributions": [
+    {"kind": "test_practice",
+     "statement": "When one agent task carries several spec targets, give every target its own acceptance test and fail the change if any target has none, because silently skipped or half-done targets ('Missing Implementation') were about 29% of even the strongest model's failures.",
+     "evidence": "§5.6 Fig. 9, App. H Fig. 15: failure classification across 13 models on 115 multi-target tasks (median 5 targets, ~51 files); Claude-Opus-4.7 profile: 55% implementation error, 29% missing implementation, 4% build error. Classifier validated per review; single trials.",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["2607.17937 silent dropped obligations under long context", "P34 per-target acceptance criteria"],
+     "transfers": "indirect"},
+    {"kind": "nuance",
+     "statement": "A compile/build gate catches much of a weaker model's failures (build errors 28-41%) but almost none of a frontier model's (4-15%), so with frontier models the behavioral tests carry the whole verification load.",
+     "evidence": "§5.6 and App. H per-model profiles (Seed-2.0-Pro 41% build error vs Opus 4% / DeepSeek 15%). No Java; uneven reasoning-effort settings across models.",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["compile success is not correctness (2605.06754)"],
+     "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "Beyond the leaderboard, the per-tier failure analysis says what a gate must check for multi-target spec work. The headline resolve rates alone would add nothing over other long-horizon benchmarks."
+}

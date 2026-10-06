@@ -1,0 +1,12 @@
+{
+  "arxiv_id": "2609.04219",
+  "contributions": [
+    {"kind": "test_practice",
+     "statement": "Ground LLM-generated API fuzz inputs in the OpenAPI spec and check responses with functional/response-difference oracles rather than 5xx-only.",
+     "evidence": "§4.3 and Table 8 challenge mapping; no pooled effect sizes; recommendation is the authors' interpretive synthesis.",
+     "strength": "weak", "novelty": "restates_known", "relative_to": ["spec-based REST API testing with semantic oracles"], "transfers": "indirect"}
+  ],
+  "quantity_flags": ["survey_restatement"],
+  "proposed": "drop",
+  "reason": "A 20-study mapping with no quantitative synthesis; its advice (use the spec, avoid 5xx-only oracles, report cost) is established API-testing practice."
+}

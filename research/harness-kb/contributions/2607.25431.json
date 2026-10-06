@@ -1,0 +1,26 @@
+{
+  "arxiv_id": "2607.25431",
+  "contributions": [
+    {
+      "kind": "test_practice",
+      "statement": "Verify incremental code-index updates (symbol graph, embeddings) against a periodic full rebuild per repository, and do not treat a successful update job as evidence of a correct index; symbol-graph repair completed on every held-out change but matched a rebuild on only 13 of 24.",
+      "evidence": "§9.5, §10.1 F4/F5: 13/24 symbol repair; vector reuse exact on 27/30 at ~40x speed; 8 repos in Go, Python, Rust, TS/JS (no Java).",
+      "strength": "strong",
+      "novelty": "new",
+      "relative_to": [],
+      "transfers": "direct"
+    },
+    {
+      "kind": "constraint",
+      "statement": "Serve symbol definitions from a precomputed static graph but route reference queries to a live language server, since static definitions matched live LSP on 86% of requests while references matched only 64% (C/C++ 23/75).",
+      "evidence": "§9.4 Fig. 9, F3: 403/470 definitions matched, 1.23 s vs 6.35 s ready time; 311 of 487 mismatches traced to the authors' own decoder bug. Java/jdtls untested.",
+      "strength": "strong",
+      "novelty": "new",
+      "relative_to": [],
+      "transfers": "indirect"
+    }
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "Index-fidelity results are the robust part and bear directly on any code-graph constituent (e.g. Gortex) serving multiple repos; the end-to-end repair gain is fragile and excluded."
+}

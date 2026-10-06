@@ -1,0 +1,16 @@
+{
+  "arxiv_id": "2608.06848",
+  "contributions": [
+    {"kind": "constraint",
+     "statement": "Weight-level security editing of open code models fixes trained CWEs but does not transfer to unseen CWEs and can cost functional correctness.",
+     "evidence": "§3.2 (29 scenarios, 17 unseen CWEs) and §3.3 Table 4 HumanEval Pass@k; 3B-8B open models only.",
+     "strength": "strong", "novelty": "new", "relative_to": [], "transfers": "no"},
+    {"kind": "heuristic",
+     "statement": "Keep static analysis as the security gate rather than trusting a 'secure-tuned' model.",
+     "evidence": "Implied by the generalization failure; not tested in an agent loop.",
+     "strength": "moderate", "novelty": "restates_known", "relative_to": ["run SAST in CI (known)"], "transfers": "direct"}
+  ],
+  "quantity_flags": [],
+  "proposed": "drop",
+  "reason": "The team consumes hosted models and cannot edit weights; the only transferable lesson is the known practice of keeping SAST as the gate."
+}

@@ -1,0 +1,37 @@
+{
+  "arxiv_id": "2607.15593",
+  "contribution_type": "system",
+  "summary": "Alibaba Cloud describes its production MCP gateway. The gateway sits between agents and tool servers, converts OpenAPI operations into MCP tools, bridges transports, centralizes auth, routes stateful sessions across replicas, and exposes a deterministic hybrid (dense + BM25) Tool Search tool. On its own catalog of up to 3,616 tools it reports 98% Recall@15, 8.9x lower tool-selection time and 23.8x fewer tokens than inlining 372 tools. It also measures the cost of the gateway itself: stateful session routing dominates per-request latency, and tail latency grows about 8x at four instances.",
+  "claims": [
+    {"claim": "Expose-all degrades with catalog size while retrieval-then-select stays stable", "evidence": "§6.2, Fig. 9: ToolBench naive selection 92.4% at N=15 → 78.2% at N=640; on Alibaba tools naive exceeds the context window at N≥752; Hybrid 81.6% vs RAG-MCP 72.1% at N=3,616. Single LLM (Qwen3.6-plus), single run, no variance. Accuracy is picking one tool, not task success.", "strength": "moderate", "location": "§6.2, Fig. 9"},
+    {"claim": "Hybrid semantic+lexical retrieval sustains 98% Recall@15 up to 3,616 tools and beats dense-only, BM25 and ToolLLM", "evidence": "§6.3: 98.2% vs RAG-MCP 83.1%, ToolLLM 78.6%, BM25 67.7% on the vendor's own catalog, where tool names encode identifiers that favour lexical matching. On public ToolBench the gain is small (97.5 vs 95.5 at N=640).", "strength": "moderate", "location": "§6.3, Fig. 9, Fig. 12"},
+    {"claim": "Gateway reduces tool-selection time 8.9x and tokens 23.8x", "evidence": "Tables 3-4: Top-15 vs a baseline mounting 372 tools on Qwen3-Plus. The baseline is the expose-all strawman at a scale no practitioner would inline; no comparison with a client-side deferred-loading host.", "strength": "weak", "location": "§6.2, Tables 3-4"},
+    {"claim": "Stateful session-aware routing dominates gateway cost and degrades with scale-out", "evidence": "§6.4, Fig. 14: one instance mean 4.59 ms with session management 3.45 ms (75%) and 85% CPU vs 27% stateless; four instances P99 55.6 ms (≈8x), driven by session-store misses; stateless stays 2.8 ms. Measured on the vendor's infrastructure; a negative result against their own design.", "strength": "moderate", "location": "§6.4, Fig. 14"},
+    {"claim": "Knowledge Cache returns 100% of prerequisite tool chains vs 56-73% for iterative LLM discovery", "evidence": "Table 5: the cache is built from the schema dependency DAG, and completeness appears to be scored against the same dependencies, so 100% is close to true by construction.", "strength": "weak", "location": "§7 Lesson 3, Table 5"}
+  ],
+  "patterns": [
+    {"id": "P03", "stance": "supports", "note": "Deterministic Tool Search returning top-15 instead of inlining hundreds of schemas; at N=15 the naive approach is still 92.4% on ToolBench, so the benefit appears only at large catalogs."},
+    {"id": "P04", "stance": "mixed", "note": "MCP at cloud scale needs protocol bridging, auth offload and session routing that direct-connect MCP lacks; the gateway adds its own latency and coordination failure modes."},
+    {"id": "P21", "stance": "introduces", "note": "Identity-based tool visibility and invocation control at the gateway; not evaluated for security."},
+    {"id": "P05", "stance": "supports", "note": "BM25 over identifier-rich tool names is load-bearing in the hybrid; dense-only loses 15 pp Recall@15 at 3,616 tools."}
+  ],
+  "methodology": {"sample": "Up to 3,616 production Alibaba Cloud tools and 4 production traces (VPC/ECS/SLB); ToolBench up to 640 tools", "baselines": "RAG-MCP (dense), ToolLLM retriever, BM25, naive expose-all", "models": "Qwen3.6-plus / Qwen3-Plus for selection; table of max tools for six models", "variance": "Latency percentiles; no seeds or CIs for accuracy", "ablations": "Top-K choice, stateful vs stateless gateway, long-lived connections, query rewrite stages", "contamination_controls": "Notes ToolLLM was trained on ToolBench; none otherwise", "languages": "Cloud API operations; no code generation"},
+  "standards": {"peer_review": "None stated", "limitations_section": false, "artifacts": "None released; production catalog and traces proprietary", "preregistration": "n/a"},
+  "biases": [
+    {"type": "self_evaluation", "detail": "Vendor evaluates its own deployed gateway and retriever on its own catalog and traces."},
+    {"type": "strawman_baseline", "detail": "Latency/token gains are against inlining 372 tools; no comparison with host-side deferred tool loading."},
+    {"type": "single_model", "detail": "Selection accuracy uses Qwen models only."},
+    {"type": "no_variance_reported", "detail": "Accuracy and recall are single-run point estimates."},
+    {"type": "closed_artifacts", "detail": "No code, catalog or traces released."},
+    {"type": "metric_mismatch", "detail": "Selection accuracy picks one tool per query; no end-to-end task success is reported."},
+    {"type": "hype_language", "detail": "'The MCP needs a gateway system', 'first ... cloud-scale deployment'."}
+  ],
+  "coi": {"affiliations": "Majority Alibaba Cloud; also Nanjing University, Fudan, RMIT, Politecnico di Milano, Zhejiang University", "vendor_products_evaluated": "Alibaba Cloud's production MCP gateway, built on its L7 load balancer, and Qwen models", "funding": "Not stated", "severity": "high", "detail": "Vendor reports favorable results for its own deployed product on proprietary data, with no independent replication. Partially offset by reporting its own session-routing overhead."},
+  "scores": {"rigor": 3, "reproducibility": 1, "generalizability": 2, "relevance": 2, "coi_risk": 4},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "A real production systems paper with useful overhead measurements, including a negative one on stateful routing. Headline efficiency gains rest on an expose-all strawman at hundreds of tools, on the vendor's own catalog, with nothing released.",
+  "applicability": "Applies to operators exposing thousands of cloud APIs to many tenants, not to a Java team whose hosts mount ~10-15 tools. Two points transfer. At 15 tools, expose-all is fine (92.4% on ToolBench), so a gateway buys nothing at that scale. If the team ever exposes its delivery/ingestion APIs over MCP to replicated servers, stateless servers avoid the session-routing tax.",
+  "conflicts_with": [
+    {"arxiv_id": "2606.30317", "detail": "Rodrigues & Vas place the onset of selection degradation at 10-15 tools for Haiku; here naive selection is still 92.4% at 15 tools on ToolBench with a Qwen model. The disagreement in onset is consistent with model dependence, but the two cannot be reconciled from the reported data."}
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "arxiv_id": "2605.23590",
+  "contributions": [
+    {"kind": "nuance",
+     "statement": "Unreviewed, auto-generated per-step acceptance criteria can mislead an agent rather than guide it.",
+     "evidence": "§4.3 Table 2: the 'w/o RL Rubric' variant scores 72.44 vs 72.76 for plain ReAct, a 0.3-point single-run difference under an LLM judge, which is noise rather than evidence of harm.",
+     "strength": "unsupported", "novelty": "refines",
+     "relative_to": ["2607.01980 LLM-generated Gherkin criteria miss negative scenarios"],
+     "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "drop",
+  "reason": "A GRPO-trained rubric generator for web deep-research agents with 1-4% single-run margins under a Gemini judge. The one transferable claim (untrained rubrics hurt) rests on a 0.3-point difference."
+}

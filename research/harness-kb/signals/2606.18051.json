@@ -1,0 +1,387 @@
+{
+ "arxiv_id": "2606.18051",
+ "fulltext_chars": 56914,
+ "fulltext_lines": 1395,
+ "authors_block": "Decompose, Retrieve, and Compose Xueping Gao Affiliation: Alibaba Cloud Affiliation: Hangzhou, China Email: hellogxp@gmail.com",
+ "vendor_affiliation_hits": [
+  "Alibaba"
+ ],
+ "n_authors": 1,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   22,
+   "# Compositional Skill Routing for LLM Agents:"
+  ],
+  [
+   34,
+   "###### Abstract"
+  ],
+  [
+   45,
+   "## 1 Introduction"
+  ],
+  [
+   96,
+   "## 2 Related Work"
+  ],
+  [
+   98,
+   "#### Tool Selection and Routing."
+  ],
+  [
+   108,
+   "#### Tool-Augmented LLM Benchmarks."
+  ],
+  [
+   113,
+   "#### Task Decomposition and Planning."
+  ],
+  [
+   118,
+   "#### MCP Ecosystem and Tool Discovery."
+  ],
+  [
+   126,
+   "#### Retrieval-Augmented Generation."
+  ],
+  [
+   130,
+   "## 3 Problem Formulation"
+  ],
+  [
+   132,
+   "#### Skill Library."
+  ],
+  [
+   137,
+   "#### Compositional Skill Routing."
+  ],
+  [
+   162,
+   "## 4 Method: SkillWeaver"
+  ],
+  [
+   166,
+   "### 4.1 Stage 1: Task Decomposition"
+  ],
+  [
+   176,
+   "### 4.2 Stage 2: Skill Retrieval"
+  ],
+  [
+   188,
+   "### 4.3 Stage 3: Compose"
+  ],
+  [
+   200,
+   "#### Scope of current evaluation."
+  ],
+  [
+   206,
+   "### 4.4 Skill-Aware Decomposition (SAD)"
+  ],
+  [
+   269,
+   "## 5 Benchmark: CompSkillBench"
+  ],
+  [
+   271,
+   "### 5.1 Skill Pool Construction"
+  ],
+  [
+   342,
+   "### 5.2 Query Generation"
+  ],
+  [
+   346,
+   "#### Difficulty Levels."
+  ],
+  [
+   363,
+   "#### Query Construction."
+  ],
+  [
+   368,
+   "### 5.3 Evaluation Metrics"
+  ],
+  [
+   372,
+   "#### Step-Level Metrics."
+  ],
+  [
+   383,
+   "#### Chain-Level Metrics."
+  ],
+  [
+   393,
+   "#### Decomposition Accuracy (DA)."
+  ],
+  [
+   398,
+   "#### Relaxed DA (DA±1)."
+  ],
+  [
+   404,
+   "## 6 Experimental Setup"
+  ],
+  [
+   406,
+   "#### LLM Decomposer."
+  ],
+  [
+   411,
+   "#### Retriever."
+  ],
+  [
+   417,
+   "#### Comparisons."
+  ],
+  [
+   433,
+   "#### Hardware."
+  ],
+  [
+   438,
+   "## 7 Results"
+  ],
+  [
+   440,
+   "### 7.1 Main Results"
+  ],
+  [
+   501,
+   "#### Key findings."
+  ],
+  [
+   508,
+   "### 7.2 Difficulty Analysis"
+  ],
+  [
+   514,
+   "### 7.3 Baselines"
+  ],
+  [
+   516,
+   "#### LLM-Direct (ceiling estimate)."
+  ],
+  [
+   522,
+   "#### ReAct-style."
+  ],
+  [
+   527,
+   "### 7.4 Paraphrase Robustness"
+  ],
+  [
+   537,
+   "### 7.5 Cross-Model Validation"
+  ],
+  [
+   544,
+   "### 7.6 Ablation: Granularity vs. Quality"
+  ],
+  [
+   546,
+   "#### DA as prerequisite for retrieval."
+  ],
+  [
+   551,
+   "#### SAD’s mechanism."
+  ],
+  [
+   558,
+   "#### Step-count-constrained baseline."
+  ],
+  [
+   564,
+   "### 7.7 Context Window Analysis"
+  ],
+  [
+   590,
+   "### 7.8 Convergence Analysis"
+  ],
+  [
+   634,
+   "### 7.9 Generalization to Unseen Skills"
+  ],
+  [
+   694,
+   "### 7.10 Error Analysis and SAD’s Mechanism"
+  ],
+  [
+   698,
+   "## 8 Discussion"
+  ],
+  [
+   700,
+   "#### Cascading bottleneck."
+  ],
+  [
+   704,
+   "#### Reranking as a validated lever."
+  ],
+  [
+   708,
+   "## References"
+  ],
+  [
+   980,
+   "## Limitations"
+  ],
+  [
+   982,
+   "#### Benchmark Construction."
+  ],
+  [
+   992,
+   "#### Evaluation Scope."
+  ],
+  [
+   998,
+   "#### Other Limitations."
+  ],
+  [
+   1006,
+   "## Ethics Statement"
+  ],
+  [
+   1011,
+   "## Appendix A Human-Style Query Evaluation"
+  ],
+  [
+   1069,
+   "#### Why is human-style DA low?"
+  ],
+  [
+   1076,
+   "#### Example human-style queries."
+  ],
+  [
+   1094,
+   "## Appendix B Difficulty Breakdown"
+  ],
+  [
+   1129,
+   "## Appendix C Category Taxonomy and Per-Category Results"
+  ],
+  [
+   1208,
+   "## Appendix D Decomposition Distribution"
+  ],
+  [
+   1214,
+   "## Appendix E Convergence Details"
+  ],
+  [
+   1216,
+   "#### Formal convergence condition."
+  ],
+  [
+   1228,
+   "#### SAD hint-count ( H ) sensitivity."
+  ],
+  [
+   1265,
+   "## Appendix F SAD Prompt Templates"
+  ],
+  [
+   1267,
+   "#### System prompt (shared by vanilla and SAD)."
+  ],
+  [
+   1271,
+   "#### Vanilla user prompt."
+  ],
+  [
+   1277,
+   "#### SAD user prompt (Pass 2)."
+  ],
+  [
+   1287,
+   "## Appendix G Statistical Significance"
+  ],
+  [
+   1291,
+   "#### Wilcoxon signed-rank tests."
+  ],
+  [
+   1301,
+   "#### Relaxed DA (DA±1)."
+  ],
+  [
+   1309,
+   "#### CatR@1 on DA-corrected subset."
+  ],
+  [
+   1316,
+   "#### Bootstrap 95% CI."
+  ],
+  [
+   1320,
+   "## Appendix H Skill Pool Statistics"
+  ],
+  [
+   1326,
+   "## Appendix I End-to-End Pilot with Mock Executors"
+  ],
+  [
+   1332,
+   "#### Protocol."
+  ],
+  [
+   1346,
+   "#### Results."
+  ],
+  [
+   1366,
+   "## Appendix J Error Analysis"
+  ],
+  [
+   1371,
+   "## Appendix K LLM-Listwise Reranker Pilot"
+  ],
+  [
+   1373,
+   "#### Setup."
+  ],
+  [
+   1379,
+   "#### Results (300 queries, 828 sub-tasks)."
+  ],
+  [
+   1387,
+   "#### Cost."
+  ],
+  [
+   1391,
+   "## Appendix L Encoder Robustness Spot-Check"
+  ],
+  [
+   1395,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## Limitations\n\n#### Benchmark Construction.\n\nOur benchmark queries are template-generated from verb phrases matched to categories, which introduces systematic patterns.\nWhile the skill pool is real (2,209 MCP servers from the public ecosystem), the queries are synthetic compositions.\nThe CatR@1 of 34–39% on this pool—well below the CatR@10 ceiling of \\sim 70%—suggests that template bias does not inflate results.\nTransfer experiments (§7.9) confirm SAD generalizes: +35.6% relative DA gain under category transfer and +23.2% under random skill held-out.\nWe additionally evaluate on 200 human-style queries (Appendix A) generated by an independent LLM to reduce text overlap with the skill pool.\nStrict DA on human queries is low (8.5% \\to 21.5%) due to open-ended step boundaries; relaxed DA±1 (30.5% \\to 50.5%) better reflects actual granularity quality.\nFully crowd-sourced query collection with multi-annotator agreement remains future work.\n\n#### Evaluation Scope.\n\nOur evaluation is retrieval-focused; we measure whether the correct skill category is retrieved, not whether the exact skill is selected or successfully executed.\nThe compose stage (Eq. 4) is proposed as architectural completion; its isolated evaluation requires compatibility ground-truth annotations not present in our current benchmark.\nFull end-to-end evaluation with real skill execution and error recovery mechanisms is important future work.\n\n#### Other Limitations.\n\nSAD requires two LLM inference passes in its default single-iteration mode, approximately doubling decomposition latency ( \\sim 2 \\times wall-clock time for the decomposition step; retrieval adds < 15ms).\nOur primary evaluation uses Qwen2.5-7B with cross-model spot-check on qwen-max (50 queries); broader multi-model evaluation (GPT-4o, Claude) is future work.\nWe use a single off-the-shelf encoder (all-MiniLM-L6-v2); domain-adapted or larger encoders (BGE-large, E5-large) may improve retrieval precision, although the step-count-constrained analysis (§7) suggests the @1-vs-@10 gap is unlikely to be closed by encoder scale alone—our LLM-listwise reranker pilot (Appendix K) provides empirical support ( p{<}0.01 ) for learned reranking as the more promising direction.\nWe assume a one-to-one mapping between sub-tasks and skills; relaxing this to many-to-many mappings is future work.\nThe hard subset (50 queries) remains statistically limited relative to easy/medium subsets.\n\n## Ethics Statement\n\nThis work uses only publicly available, open-source skill repositories and involves no human subjects or personal data.\nWe encourage responsible deployment of skill routing systems with human oversight.\n\n## Appendix A Human-Style Query Evaluation\n\nTo validate that SAD generalizes beyond template-generated queries, we evaluate on 200 human-style queries generated by an independent LLM (qwen-max) with instructions to avoid skill names and write naturally.\n\nMode\nDifficulty\nPred\nDA\nDA±1",
+ "ethics_coi": "## Ethics Statement\n\nThis work uses only publicly available, open-source skill repositories and involves no human subjects or personal data.\nWe encourage responsible deployment of skill routing systems with human oversight.\n\n## Appendix A Human-Style Query Evaluation\n\nTo validate that SAD generalizes beyond template-generated queries, we evaluate on 200 human-style queries generated by an independent LLM (qwen-max) with instructions to avoid skill names and write naturally.\n\nMode\nDifficulty\nPred\nDA\nDA±1\nCatR@1\nCatR@10\n\nVanilla\nEasy (GT=2.0)\n4.21\n0.025\n0.188\n0.306\n0.506",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 14,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 2,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

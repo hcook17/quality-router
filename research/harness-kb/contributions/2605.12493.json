@@ -1,0 +1,14 @@
+{
+  "arxiv_id": "2605.12493",
+  "contributions": [
+    {"kind": "nuance",
+     "statement": "Keep accumulated operational experience (gotchas, workflows, environment state) as plain committed files that an off-the-shelf coding agent searches, rather than building a vector store: unmodified Codex over files reached 69.3% vs 48.5% for the best RAG memory, but at ~180 s per query, so use it at task start rather than every step.",
+     "evidence": "§5.1-5.2 Table 2, Fig. 6. Confound: the RAG family uses a 9B controller and the coding-agent family GPT-5.4-mini xhigh; web-agent trajectories, LLM-judged free-form answers. The bespoke AgentRunbook-C adds only +3.2 pp over plain Codex.",
+     "strength": "weak", "novelty": "refines",
+     "relative_to": ["P09 persistent agent memory / P06 embedding RAG (2607.26072 file vs vector memory)"],
+     "transfers": "indirect"}
+  ],
+  "quantity_flags": ["self_declared_incomplete"],
+  "proposed": "hypothesis_only",
+  "reason": "arXiv comment says 'Work in Progress', and the agent-vs-RAG comparison confounds method with controller model. The file-based-memory signal stays a hypothesis."
+}

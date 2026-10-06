@@ -1,0 +1,16 @@
+{
+  "arxiv_id": "2608.13568",
+  "contributions": [
+    {"kind": "anti_pattern",
+     "statement": "Never perform an agent rename from language-server references alone; grep beat even a warmed LSP on multi-file renames because comments, strings and config are not semantic references and a cold server returned one reference until files were opened.",
+     "evidence": "§6.7: 6 renames, pass@1 grep 1.00 vs LSP location-only 0.67 vs text-inline 0.83, with the mechanism shown. Python/TypeScript, tiny N, self-declared preliminary.",
+     "strength": "moderate", "novelty": "refines", "relative_to": ["lexical/deterministic code retrieval (P05)"], "transfers": "indirect"},
+    {"kind": "heuristic",
+     "statement": "Add semantic (LSP) reference lookup only where grep is noisy for the identifier; its F1 gain tracked the grep false-positive rate (0 on clean names, +0.245 on noisy ones), not the language.",
+     "evidence": "§6.5 Fig. 6: requests +0.072, remeda +0.000, hono +0.245 dF1; monotonic within hono over 6 targets; pooled slope ~-0.49. No CIs.",
+     "strength": "moderate", "novelty": "refines", "relative_to": ["lexical/deterministic code retrieval (P05)"], "transfers": "indirect"}
+  ],
+  "quantity_flags": ["self_declared_incomplete"],
+  "proposed": "hypothesis_only",
+  "reason": "The grep-vs-LSP conditions are specific and relevant to whether to add jdtls via MCP, but the paper is self-declared preliminary with tiny N and an untested arm, so it stays a hypothesis to rerun on Java repos."
+}

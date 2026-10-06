@@ -1,0 +1,16 @@
+{
+  "arxiv_id": "2607.28591",
+  "contributions": [
+    {"kind": "test_practice",
+     "statement": "When turning merged PRs into internal agent eval tasks, accept a task only if its target checks go pass -> fail -> pass across healthy, task and restored states while regression checks pass throughout, repeated runs are stable, and a scope gate stops the solution from touching protected checks.",
+     "evidence": "§3 validation and scope/fidelity gates; §RQ1 Fig. 4: 900/1,130 eligible changes verified (79.6%); Table 1: 80.5% vs 62.3% for a re-implemented SWE-smith PR-mirror baseline on 621 matched Bug Fix cases.",
+     "strength": "moderate", "novelty": "refines", "relative_to": ["SWE-bench / SWE-smith fail-to-pass task construction (known)"], "transfers": "direct"},
+    {"kind": "nuance",
+     "statement": "An internal eval set mined from history can be re-hosted on current main without changing aggregate agent outcomes, so refresh it to the live codebase instead of freezing old snapshots.",
+     "evidence": "§RQ3 Table 2: 3,600 historical/reconstructed pairs, 89.7% outcome agreement, kappa 0.787, paired difference 0.0pp [-1.1, 1.1]; abstract's 98.0% is the best cell. Includes Java and API-migration tasks; single-repo only.",
+     "strength": "moderate", "novelty": "new", "relative_to": [], "transfers": "direct"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "Gives a validated recipe and an agreement measurement for building a refreshable internal eval from the team's own PRs; cross-repo changes are out of scope."
+}

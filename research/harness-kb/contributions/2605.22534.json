@@ -1,0 +1,20 @@
+{
+  "arxiv_id": "2605.22534",
+  "contributions": [
+    {"kind": "heuristic",
+     "statement": "Do not use merge/reject rate as the KPI for an agent rollout: record a closure reason for every rejected agent PR and count reviewer-touch (feedback rounds, reviewer-applied commits) on merged ones, because only 35.7% of rejected agent PRs were agent failures and 15.4% of merged ones needed reviewer work.",
+     "evidence": "§5 Table 2 (353 rejected: 35.7% agentic failure, 31.2% workflow-driven, 33.1% unknown) and §6 Table 3 (merged with feedback loops or reviewer commits); dual annotation of 717 sampled AIDev PRs. Cross-agent cells are tiny and not used here.",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["PR merge rate as agent-effectiveness metric (2607.21832)"],
+     "transfers": "direct"},
+    {"kind": "heuristic",
+     "statement": "Encode repository conventions, test expectations and CI configuration where agents read them, since reviewer fixes on merged agent PRs clustered on missing tests, CI config and repo conventions rather than core logic.",
+     "evidence": "§7 qualitative inspection; no counts per fix type.",
+     "strength": "weak", "novelty": "restates_known",
+     "relative_to": ["repository instruction files (AGENTS.md / CLAUDE.md)"],
+     "transfers": "direct"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "A measurement-validity result a team can act on when it measures its own agent adoption across repos. The convention-encoding advice is already known."
+}

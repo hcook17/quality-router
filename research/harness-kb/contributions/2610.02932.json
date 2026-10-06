@@ -1,0 +1,30 @@
+{
+  "arxiv_id": "2610.02932",
+  "contributions": [
+    {
+      "kind": "heuristic",
+      "statement": "Before codifying a repeated agent procedure into a deterministic script, count the cost of failed codification attempts and the number of future uses; measured payback was 2-16 uses, and failed attempts cost several times a successful one.",
+      "evidence": "Table 1: payback 1.39-15.5 uses; only 11/20 compilation cells pass verification; failed attempts ~6.6x successful (DeepSeek median); Table 4 ablation: equal-attempt-cost accounting +23% cost, no savings test +53% (simulation on recorded arrivals).",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": [
+        "P28 recipe/codemod codification (adds payback accounting incl. failed attempts)"
+      ],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "constraint",
+      "statement": "A cumulative cost budget relative to agent-only execution bounds worst-case overspend of a compile-or-run policy.",
+      "evidence": "Theorem 4.1; all 4,800 grid and 120 log runs within 1.25x; removing the budget barely changes mean cost (0.0013%).",
+      "strength": "strong",
+      "novelty": "restates_known",
+      "relative_to": [
+        "rent-or-buy / ski-rental competitive bounds"
+      ],
+      "transfers": "indirect"
+    }
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "GUI domain and simulated savings, but the payback measurement including failed attempts is a transferable cost rule for deciding when to turn agent workflows into scripts or recipes."
+}

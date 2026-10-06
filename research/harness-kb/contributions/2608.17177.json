@@ -1,0 +1,16 @@
+{
+  "arxiv_id": "2608.17177",
+  "contributions": [
+    {"kind": "nuance",
+     "statement": "Budget an agent-written pre/post-condition spec step before test generation at about 38% more tokens (16% more per unique bug found), and expect its bug-finding gain to appear only with several attempts (significant at k>=4, not at k=1).",
+     "evidence": "Table 4: 336.7M vs 243.9M tokens; 5.9M vs 5.1M per unique bug. Table 2: detect@1 +4.2pp p=0.31, detect@5 +9.8pp p=0.035 (12 vs 3 discordant bugs, uncorrected across k). Branch coverage +2.5pp p=0.003. Specs extracted from fixed code; single-file bugs in one monorepo.",
+     "strength": "moderate", "novelty": "refines", "relative_to": ["spec-driven / spec-first development (P14)"], "transfers": "direct"},
+    {"kind": "test_practice",
+     "statement": "Have a human review agent-extracted specs for missing error-handling contracts and omitted methods before generating tests from them; bugs whose violated contract the spec captured were detected far more often (54.9% vs 19.4%).",
+     "evidence": "§5.3.1 Fisher test over 450 runs; audit: pseudo-replication across 90 bugs and confounding by bug difficulty; contract coverage LLM-judged with the fix diff visible. The human review step itself was not tested.",
+     "strength": "weak", "novelty": "refines", "relative_to": ["human review of specs in SDD (P19)"], "transfers": "direct"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "Industrial same-model comparison that prices the spec step and shows where its modest benefit appears; the larger quality claims rest on a same-vendor LLM judge."
+}

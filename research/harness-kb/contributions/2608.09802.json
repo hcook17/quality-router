@@ -1,0 +1,16 @@
+{
+  "arxiv_id": "2608.09802",
+  "contributions": [
+    {"kind": "anti_pattern",
+     "statement": "After an agent performs a multi-file refactor, check deterministically that every call site was updated (compiler, references, recipe) before running tests; agents modified fewer files than the gold patch on large refactors.",
+     "evidence": "§5.2 Fig. 5 CDFs for two models only; 'dominant' never quantified; audit downgrades to weak. Java instances average 20.8 modified files (Table 5).",
+     "strength": "weak", "novelty": "refines", "relative_to": ["2608.19799 incomplete integration is a top failure", "deterministic codemods (P28)"], "transfers": "direct"},
+    {"kind": "nuance",
+     "statement": "Open-weight models came within 2-5 points of frontier models on large refactors at about 1/20 the cost.",
+     "evidence": "Table 3 OpenHands rows, single run, n=170, no significance.",
+     "strength": "moderate", "novelty": "restates_known", "relative_to": ["cost/quality model routing (P23)"], "transfers": "indirect"}
+  ],
+  "quantity_flags": ["leaderboard_only"],
+  "proposed": "hypothesis_only",
+  "reason": "Essentially a new leaderboard; the incomplete-propagation failure mode is plausible and relevant to cross-repo schema changes but rests on two CDFs."
+}

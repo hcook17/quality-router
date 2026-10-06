@@ -1,0 +1,14 @@
+{
+  "arxiv_id": "2606.13643",
+  "contributions": [
+    {"kind": "design_pattern",
+     "statement": "For aggregation over corpora larger than one context (for example tagging thousands of content items), a parent agent can write a script that fans out per-chunk subagents and aggregates their outputs deterministically, but measure token cost first, since the reported gain over a single coding agent is against a copied baseline and vanished at 4M tokens.",
+     "evidence": "§4.2 Table 1: 81.36% vs 71.75% (Codex baseline copied from Cao et al., not re-run); Table 3: 66.7% at 4M against 71.75% and below baseline in 4/13 buckets (audit); §4.5 admits no token/latency instrumentation.",
+     "strength": "weak", "novelty": "refines",
+     "relative_to": ["Recursive Language Models (RLM) / map-reduce over chunks"],
+     "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "hypothesis_only",
+  "reason": "A named variant of recursive subagent fan-out with an uncontrolled baseline and no cost data; it is worth trying for bulk content processing, not as evidence."
+}

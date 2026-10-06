@@ -1,0 +1,14 @@
+{
+  "arxiv_id": "2605.26156",
+  "contributions": [
+    {"kind": "anti_pattern",
+     "statement": "Never let a producing agent iterate against an LLM reviewer's numeric score: about 25 queries of semantics-preserving style edits (verbosity, formatting, emphasis) raised judge scores in more than 65% of attempts across five judge families, and style-control calibration did not remove the effect, so merge gates must rest on deterministic checks with LLM review advisory.",
+     "evidence": "§6.2.1 Table 1, App. B.4 Table 7, §6.4 Fig. 5 (style control). Artifacts are chatbot answers and paper reviews, not code; audit notes no variance for Table 1, and random selection over the same edit catalog captures most of the gain.",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["LLM-judge verbosity/format bias (Zheng et al. 2023)", "Goodhart effects on proxy rewards"],
+     "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "Turns known judge bias into a measured optimization-loop failure that existing calibration does not fix, which directly backs 'LLM proposes, deterministic gate decides'. The bandit itself is not the contribution."
+}

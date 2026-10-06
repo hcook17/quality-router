@@ -1,0 +1,41 @@
+{
+  "arxiv_id": "2609.32459",
+  "contributions": [
+    {
+      "kind": "nuance",
+      "statement": "Re-measure custom harness components at each model upgrade, because the advantage of a complex harness over a minimal loop shrank by more than half on SWE-style repair as models improved.",
+      "evidence": "Table 3 (leaderboard): OpenHands gain +13.60 -> +5.47pp, SWE-agent +9.60 -> +4.07pp from Claude 3.7 to Claude 4 Sonnet; own SWE-bench Pro runs: OpenCode advantage ~6 -> 2.67pp; heterogeneous leaderboard submissions, single runs.",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": [
+        "2606.24937 harness choice matters"
+      ],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "anti_pattern",
+      "statement": "Do not split an agent into generic SDLC-role subagents (requirements, architecture, coding, testing, repair); they degraded scores, whereas narrow task-specific subagents with restricted tools helped.",
+      "evidence": "§5.2.1 component study on ProgramBench, two models, one run each; task-specific subagents tailored to the benchmark and may have gained extra step budget under the 300-step cap (audit).",
+      "strength": "weak",
+      "novelty": "refines",
+      "relative_to": [
+        "P11 role-based multi-agent teams"
+      ],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "nuance",
+      "statement": "LLM-summary compaction can cut prompt tokens 54-77% while lowering task score 4-5 points; treat it as a cost trade-off, not a free win.",
+      "evidence": "Table 7 and §5.2.1; one compaction implementation, one task type, single run.",
+      "strength": "weak",
+      "novelty": "duplicates",
+      "relative_to": [
+        "2609.08318"
+      ],
+      "transfers": "indirect"
+    }
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "The capability-shrink nuance is useful for deciding how much harness to maintain; component rankings are benchmark-tailored and weak after audit."
+}

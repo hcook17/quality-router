@@ -1,0 +1,20 @@
+{
+  "arxiv_id": "2606.22263",
+  "contributions": [
+    {"kind": "design_pattern",
+     "statement": "Accept an agent's bug or defect claim only when an executable proof reproduces it (for Java, a failing test that the fix turns green), with the stage break and acceptance check enforced in code rather than described in the prompt; general agents given the same pipeline as a prompt reported 28-60% unreproducible findings.",
+     "evidence": "§V-B1 Table VIII on 100 CyberGym projects: Claude Code 49% FP, Codex 60%, Sorcar 28% vs Revelio 0% (by construction, since only sanitizer-confirmed PoVs are reported; audit); §V-C Table IX prompt-vs-enforced ladder is ~10 cases (weak). C/C++ sanitizer oracle.",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["execution-based verifier loop (P16)"],
+     "transfers": "indirect"},
+    {"kind": "heuristic",
+     "statement": "Spend the cheap model on broad hypothesis generation and the strong model only on the executable-confirmation stage, which carries most of the cost.",
+     "evidence": "§VI and App. C-A/C-B pilot sweep: Haiku 4.5 generation + Sonnet 4.6 confirmation; Stage 2 is 57.84% of cost (App. D). Configuration chosen on a 10-case pilot that may overlap the evaluation (audit); Revelio uses the most tokens per vulnerability.",
+     "strength": "weak", "novelty": "refines",
+     "relative_to": ["model cascades (P23)", "2606.22902"],
+     "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "Measured evidence that a prompt-described verify step leaves high false-positive rates while a code-enforced executable oracle removes them; the domain differs, but the gate pattern transfers."
+}

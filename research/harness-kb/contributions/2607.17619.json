@@ -1,0 +1,30 @@
+{
+  "arxiv_id": "2607.17619",
+  "contributions": [
+    {
+      "kind": "anti_pattern",
+      "statement": "Keep durable coding preferences in committed, reviewed files rather than opaque host memory, because a single stored insecure preference raised vulnerability rates 2.7-50.3 pp while models disclosed the memory's influence in only 2-10% of responses.",
+      "evidence": "§6.1 Table 2 and §6.2.1 (kappa 0.97-0.98): four assistants, Python and JS/C/C++/Go. The memory was task-targeted (best case for the attack), and these are chat assistants, not coding-agent hosts.",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": [
+        "memory poisoning attacks on LLM agents"
+      ],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "nuance",
+      "statement": "When adding security requirements to agent prompts, track functional pass rate alongside vulnerability rate, because appending them cut vulnerabilities 19.7-33.6 pp but cut ChatGPT's pass rate by 15.9 pp.",
+      "evidence": "§6.4 Table 7 on 28-29 prompts, two systems; Gemini's pass loss was only 6.0 pp, so the cost is model-dependent.",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": [
+        "security-oriented prompting"
+      ],
+      "transfers": "indirect"
+    }
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "Gives measured magnitudes for silent preference carry-over and for the security/functionality trade-off of security prompts; the 100% memory-filter result is recall-only and excluded."
+}

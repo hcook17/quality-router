@@ -1,0 +1,20 @@
+{
+  "arxiv_id": "2605.24397",
+  "contributions": [
+    {"kind": "test_practice",
+     "statement": "Block merges between internal Java repos on a static API-diff check, since syntactic breaking-change detection is mature in statically typed ecosystems, and add consumer behavioral/contract tests for the breaks such tools miss.",
+     "evidence": "§5.4 Tables 10-13 and §7.2.2: synthesized detection results (e.g. ROSEAU F1=0.99) from primary studies, numbers not normalized; single-screener LLM-assisted selection.",
+     "strength": "moderate", "novelty": "restates_known",
+     "relative_to": ["API/binary compatibility checkers in CI (japicmp, revapi)", "consumer-driven contract tests"],
+     "transfers": "direct"},
+    {"kind": "nuance",
+     "statement": "Do not trust semantic-version bumps between internal repos as a compatibility signal.",
+     "evidence": "§4.2.2, §7.1.2: a handful of Maven/npm studies of SemVer violations.",
+     "strength": "moderate", "novelty": "restates_known",
+     "relative_to": ["SemVer violations in Maven (Raemaekers et al., pre-2026)"],
+     "transfers": "direct"}
+  ],
+  "quantity_flags": ["survey_restatement"],
+  "proposed": "drop",
+  "reason": "A reasonable synthesis of breaking-change literature, but every actionable item is established pre-2026 practice and nothing is agent-specific. It adds volume, not evidence."
+}

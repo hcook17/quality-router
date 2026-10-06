@@ -1,0 +1,16 @@
+{
+  "arxiv_id": "2608.00267",
+  "contributions": [
+    {"kind": "test_practice",
+     "statement": "When an agent implements a spec decomposed into several units, keep each completed unit's acceptance tests as harness-owned regression obligations re-run at every checkpoint; agents author far fewer tests than the native suite and later edits regress earlier units that end-state scoring would miss.",
+     "evidence": "§3.2 Table 3: authored test count (#T) markedly below native suite for every loop, Reg>0 in every profile; Table 4 regressions/run 0.13-0.36 even for the best loops. Tests largely LLM-synthesized, single trial per pairing.",
+     "strength": "moderate", "novelty": "refines", "relative_to": ["regression testing in CI (known)", "2607.24300 harness-owned audit gate"], "transfers": "direct"},
+    {"kind": "nuance",
+     "statement": "Do not rely on the agent to infer prerequisite order across a multi-unit task; recorded plans recovered only part of the source dependency DAG, and linear open-source harnesses planned near-chains.",
+     "evidence": "§3.2 Table 3 Edge F1 and layer rho per harness; reference DAG is a lower bound (Limitations). Giving the DAG explicitly was not tested.",
+     "strength": "weak", "novelty": "new", "relative_to": [], "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "Beyond the leaderboard, it measures that long-horizon agents under-test and regress earlier units, which backs harness-owned per-unit regression obligations in a spec rollout; the fixed-model harness comparison is undermined by a likely duplicated table row."
+}

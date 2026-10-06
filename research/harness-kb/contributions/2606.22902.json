@@ -1,0 +1,20 @@
+{
+  "arxiv_id": "2606.22902",
+  "contributions": [
+    {"kind": "heuristic",
+     "statement": "If the host or an opt-in gateway routes between models, a static best-model-per-task-category table built from your own verified outcomes performs about as well as an LLM router given the same statistics; the gain comes from the outcome data, not from router reasoning.",
+     "evidence": "§3.1 Table 1 (2,919 tasks): Vanilla LLM router 41.41, +Perf stats 47.74, DimensionBest lookup 47.50, Oracle 57.00; repeated over 8 router models (App. C.1 Table 7); Perf/$ falls 1.97 to 1.71 with stats.",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["model routing / cascades (P23)"],
+     "transfers": "indirect"},
+    {"kind": "nuance",
+     "statement": "For multi-step agentic coding, one strong model beat every router including the proposed one (75.0% vs 62.5% resolved), so routing pays mainly on cheap single-turn tasks.",
+     "evidence": "§5.2 and App. D.7 Table 13-14: 176 OOD tasks; GPT-5.4 alone 132/176, ACRouter 62.50%, Always-Opus 57.14%; single run.",
+     "strength": "weak", "novelty": "refines",
+     "relative_to": ["model routing / cascades (P23)"],
+     "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "The paper's own ablation shows that a lookup table matches its LLM router, and its appendix shows a single model beating the router on agentic tasks; both are host-side model-choice findings, not harness components."
+}

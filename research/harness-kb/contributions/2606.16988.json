@@ -1,0 +1,13 @@
+{
+  "arxiv_id": "2606.16988",
+  "contributions": [
+    {"kind": "heuristic",
+     "statement": "Normalize agent traces from all hosts into a shared action vocabulary (read/search/edit/test/submit) and flag runs with five or more consecutive edits without a test or search step as an early failure signal.",
+     "evidence": "§5 Table 8: Moatless+DeepSeek-V3 fail rate 80% with a 5+ edit streak vs 59% without; Claude-3.5 pass 26% to 11%. Two agents, no significance test, older Python SWE-bench trajectories.",
+     "strength": "weak", "novelty": "new", "relative_to": [],
+     "transfers": "indirect"}
+  ],
+  "quantity_flags": ["numbers_without_mechanism"],
+  "proposed": "hypothesis_only",
+  "reason": "The fingerprinting result does not lead to any action for the team, and the ProcGrep-vs-LLM comparison is circular; only the edit-streak signal is a usable, unvalidated hypothesis."
+}

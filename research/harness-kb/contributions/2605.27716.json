@@ -1,0 +1,20 @@
+{
+  "arxiv_id": "2605.27716",
+  "contributions": [
+    {"kind": "test_practice",
+     "statement": "When an agent repairs delivered HTML/learning content against an accessibility checker, gate on 'zero remaining violations and DOM structure preserved', not 'violations reduced': 80.2% of files improved but fewer than 26% were fully fixed and about 30% had their structure altered.",
+     "evidence": "§VII-B2 Tables V-VI: 308 AccessGuru files repaired by Kimi K2.5, axe-core re-check plus DOM-similarity. One model, one run, static HTML only; some table counts inconsistent.",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["2606.21926 checker-driven a11y repair with silent regressions"],
+     "transfers": "indirect"},
+    {"kind": "nuance",
+     "statement": "A validator retry loop that feeds back only generic structural messages adds cost (~52%) without improving repairs.",
+     "evidence": "§VII-B1, §VII-C Table VII; authors acknowledge the non-actionable feedback (§IX-B), max 3 iterations.",
+     "strength": "moderate", "novelty": "duplicates",
+     "relative_to": ["2609.00362 terse feedback gives no advantage over a generic prompt in Java", "2609.22222 retry gains come from resampling, not diagnostics"],
+     "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "Relevant where ingestion produces WCAG-bound healthcare-education content: the 'fully fixed and structure-preserving' gate refines the KB's a11y-repair evidence. The retry-loop result is confounded and already shown elsewhere."
+}

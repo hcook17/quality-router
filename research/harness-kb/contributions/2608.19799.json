@@ -1,0 +1,16 @@
+{
+  "arxiv_id": "2608.19799",
+  "contributions": [
+    {"kind": "test_practice",
+     "statement": "Keep acceptance validators the agent never sees, and make them vary data scale, boundary parameters, input order and alternate execution paths rather than replaying the visible fixture; agents that score ~97% on visible tests pass these validators less than half the time.",
+     "evidence": "§4.1 construction (hidden validators vary scale/boundaries/ordering, inter-module contract tests); Table 2 and §8: Claude-Opus-5 96.64% public score vs 47.90% Pass@1; public 93-100% vs Pass@1 14-48% across eight model+harness configurations. Single attempt, no variance; Python scientific repos, so transfer to Java is indirect.",
+     "strength": "strong", "novelty": "refines", "relative_to": ["held-out acceptance tests / patch overfitting in automated program repair"], "transfers": "indirect"},
+    {"kind": "nuance",
+     "statement": "Supplying extra domain rationale to an agent can lower exact success for a strong model while helping a weak one, so domain docs should be targeted and paired with executable checks rather than dumped into context.",
+     "evidence": "§6.2 Figs. 6-7, 91-task subset: GPT-5.6-sol Pass@1 36.26% -> 31.87% with info (8 gained, 12 lost); DeepSeek-V4-flash 16.48% -> 23.08%. Two models, authors say not significant.",
+     "strength": "weak", "novelty": "refines", "relative_to": ["more context is not better / context rot"], "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "The visible-vs-hidden gap is large, measured across eight configurations, and gives a concrete recipe for what held-out validators should perturb. The domain-knowledge ablation is descriptive only."
+}

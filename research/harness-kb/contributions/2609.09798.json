@@ -1,0 +1,12 @@
+{
+  "arxiv_id": "2609.09798",
+  "contributions": [
+    {"kind": "anti_pattern",
+     "statement": "Do not rely on LLM input-classifier or prompt-strategy guardrails as the security control for code-generating agents; malicious requests framed as a fictional development scenario bypass them at 73-98.5%.",
+     "evidence": "§4 Figs. 3-5: FSA ASR 85.9-99.5% on model alignment, best strategy guardrail leaves 64.7%, input classifiers 73.3-98.5%. Best-of-5 ASR inflates relative to single-sample use; figures only.",
+     "strength": "moderate", "novelty": "restates_known", "relative_to": ["jailbreaks bypass guardrail classifiers; use deterministic controls / defense in depth"], "transfers": "indirect"}
+  ],
+  "quantity_flags": ["leaderboard_only"],
+  "proposed": "drop",
+  "reason": "A guardrail leaderboard for a malicious-user threat model that does not fit a benign internal team; the only lesson, that classifier guardrails are bypassable, is well known."
+}

@@ -1,0 +1,37 @@
+{
+  "arxiv_id": "2606.30317",
+  "contribution_type": "empirical",
+  "summary": "An industry experience paper that catalogues five MCP server patterns (Resource Gateway, Tool Orchestrator, Stateful Session Server, Proxy Aggregator, Domain-Specific Adapter) and four anti-patterns. The catalogue comes from 15 servers: 5 from the authors' voice-AI platform and 10 reference servers. Three measurements support it: two Claude models classify 54 held-out servers (κ=0.76), a loopback transport latency benchmark, and observational production telemetry. The telemetry shows tool-selection accuracy for Claude Haiku 4.5 falling below 90% between 10 and 15 tools in context, and for Sonnet 4 between 20 and 30.",
+  "claims": [
+    {"claim": "Tool-selection accuracy drops below 90% between 10 and 15 tools per context for Claude Haiku 4.5, and between 20 and 30 for Sonnet 4", "evidence": "§VI-C, Fig. 2: retrospective ANSYR production logs, N=200 turns per bucket, ground truth from human post-call review. Haiku 91% at 10 vs 87% at 15 with Wilson CIs of ±4 pp, so the two buckets overlap and the 'cliff' location is not statistically resolved. The model per turn was set by tenant config, so tool count, model and tenant/task are confounded. Raw logs are not released, only per-bucket aggregates.", "strength": "weak", "location": "§VI-C, Fig. 2"},
+    {"claim": "Selection accuracy declines as the number of tools in context grows, with a later onset for the stronger model", "evidence": "§VI-C: monotone decline over buckets 1-50 for both models; direction agrees with the cited Gan & Sun (>90% up to ~30 tools) and Kate et al. Descriptive and observational; no controlled manipulation of tool count.", "strength": "moderate", "location": "§VI-C"},
+    {"claim": "Transport overhead is dominated by network RTT, not protocol: stdio 0.01 ms, loopback streamable-http 0.39 ms p50", "evidence": "Table III: two measured rows (N=100 echo calls). The three cross-host rows, including the Proxy Aggregator hop, are loopback plus an assumed RTT constant, i.e. modeled arithmetic. The authors label each row correctly.", "strength": "moderate", "location": "§VI-B, Table III"},
+    {"claim": "The five-pattern taxonomy can be applied reliably (κ=0.76)", "evidence": "§VI-A: two Claude models from the same vendor agree with each other at κ=0.76 [0.62, 0.88], but agree with the authors' labels only 68.5-75.9%. Statefulness and domain logic are systematically misread. This shows inter-LLM consistency more than taxonomy validity.", "strength": "weak", "location": "§VI-A"},
+    {"claim": "Four anti-patterns (God Tool, unsanitized resource content, synchronous long-running ops, vague descriptions) degrade LLM tool use", "evidence": "§V: recorded during the authors' own development and code review and 'cross-checked' against public issues; no counts or measurement.", "strength": "unsupported", "location": "§V"}
+  ],
+  "patterns": [
+    {"id": "P03", "stance": "supports", "note": "Recommends ≤~10-15 tools per context (Haiku-class), ~20 for Sonnet-class, from observational production telemetry with overlapping CIs at the threshold and tenant/model confounding."},
+    {"id": "P04", "stance": "neutral", "note": "Describes MCP server structures; does not compare MCP against other integration layers."},
+    {"id": "P22", "stance": "introduces", "note": "Sanitize backend content at the Resource Gateway; asserted, not tested."},
+    {"id": "P30", "stance": "introduces", "note": "Recommends per-tool-call logging (name, input hash, latency, size, error); no evidence."}
+  ],
+  "methodology": {"sample": "15 derivation servers (5 own production, 10 reference); 54 held-out server descriptions; 100 echo calls per transport; 8 tool-count buckets × 200 production turns", "baselines": "None for patterns; tool-count is a dose-response curve without a controlled comparison", "models": "Claude Haiku 4.5 and Claude Sonnet 4 only", "variance": "Bootstrap CI on κ; Wilson CIs ±4 pp on tool-count buckets", "ablations": "None", "contamination_controls": "Architecture-neutral descriptions for the rater study (vs 97% on architecture-naming pilot)", "languages": "TypeScript/Python servers; domain is voice AI, not code"},
+  "standards": {"peer_review": "Under review (condensed version at IEEE Software); formatted for ICSME industry track", "limitations_section": true, "artifacts": "MIT replication package: corpus, kappa script, transport bench, prompts, per-bucket telemetry CSV; production logs withheld", "preregistration": "n/a"},
+  "biases": [
+    {"type": "other:observational_confounding", "detail": "Tool count and model are both set per tenant, so the tool-count curve may reflect tenant task complexity rather than catalog size."},
+    {"type": "small_sample", "detail": "15-server derivation corpus; ±4 pp CIs overlap across the 10 vs 15 tool buckets that define the headline threshold."},
+    {"type": "single_model", "detail": "Only two Claude models, and the 'independent raters' are both Anthropic models."},
+    {"type": "llm_judge_unvalidated", "detail": "Taxonomy reliability is measured between two LLMs, not human coders; agreement with authors is 69-76%."},
+    {"type": "closed_artifacts", "detail": "Production session logs behind the tool-count figure are not released; only aggregates."},
+    {"type": "novelty_inflation", "detail": "Table I concedes each pattern is a classical GoF/EIP pattern; the novelty is the LLM-client delta."},
+    {"type": "toy_tasks", "detail": "Transport benchmark is a JSON-RPC echo server; cross-host rows are modeled."}
+  ],
+  "coi": {"affiliations": "Carson Rodrigues: Celabe (operator of ANSYR voice AI); Oysturn Vas: University of Waterloo", "vendor_products_evaluated": "Celabe's own production MCP servers form a third of the corpus and all of the tool-count data; Claude models evaluated", "funding": "Not stated", "severity": "low", "detail": "Explicit COI statement. The paper does not sell a product; the risk is that one company's telemetry, which outsiders cannot audit, carries the most-cited number."},
+  "scores": {"rigor": 2, "reproducibility": 3, "generalizability": 2, "relevance": 4, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "A candid practitioner catalogue with honest labelling of measured vs modeled rows. Its one quantitative result that matters for harness design (the 10-15 tool threshold) is observational, confounded by tenant, and not resolved at the threshold, so it is a working budget, not a measured cliff.",
+  "applicability": "Directly relevant to how many MCP tools a Java team's host exposes. The defensible reading is: accuracy declines with tools in context, earlier for small models; budget ~10 for Haiku-class and ~20 for Sonnet-class, and re-measure on your own tools. Note that the paper recommends a scoped Proxy Aggregator (retrieval-over-tools) above the budget. It names the static-merge aggregator, not aggregation as such, as the failure.",
+  "conflicts_with": [
+    {"arxiv_id": "2606.18051", "detail": "SkillWeaver argues for per-step retrieval across thousands of tools; this paper puts the onset of degradation at 10-30 tools. They are compatible in direction but operate at different scales; neither tests the 15-100 range under control."}
+  ]
+}

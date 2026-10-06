@@ -1,0 +1,366 @@
+{
+ "arxiv_id": "2607.18213",
+ "fulltext_chars": 84475,
+ "fulltext_lines": 1785,
+ "authors_block": "\\checkdata [Project Page] https://github.com/Ayanami1314/swe-pruner-pro SWE-Pruner Pro: The Coder LLM Already Knows What to Prune Abstract Pruning long context for coding agents has been a vital technology for efficient context management. While existing context pruning methods such as SWE-Pruner realize this by attaching a separate code classifier, we find the agent itself encodes internal representations indicating the relevance of code context when reading tool output. Based on this finding, we propose SWE-Pruner Pro, which prunes tool outputs directly inside the agent. Concretely, a small head turns the agent’s own internal representations into a keep-or-prune label for each line, with a length-aware embedding keyed to each tool output’s line count. Across two open-weight backbones and four multi-turn benchmarks, SWE-Pruner Pro saves up to 39% of prompt and completion tokens while preserving task quality, with bounded inference overhead. Notably, on MiMo-V2-Flash SWE-Pruner Pro additionally raises the SWE-Bench Verified resolve rate by and the long-context Oolong accuracy by points. 1 1 footnotetext: Equal contribution. 2 2 footnotetext: Corresponding author: xiaodong.gu@sjtu.edu.cn . 1 Introduction Pruning long context for coding agents has been a vital technology for efficient context management [ 8 , 35 , 45 ] . During programming tasks, coding agents accumulate very long tool outputs full of redundant information during multi-turn interaction with environments. They s",
+ "vendor_affiliation_hits": [
+  "Anthropic",
+  "ByteDance",
+  "Cursor",
+  "OpenAI",
+  "Qwen",
+  "Xiaomi"
+ ],
+ "n_authors": 9,
+ "comment": "Project page: https://github.com/Ayanami1314/swe-pruner-pro",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/Ayanami1314/swe-pruner-pro",
+  "https://github.com/SWE-agent/mini-swe-agent",
+  "https://github.com/sgl-project/sglang"
+ ],
+ "hf_urls": [
+  "https://huggingface.co/BAAI/bge-reranker-v2-m3"
+ ],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   24,
+   "# SWE-Pruner Pro: The Coder LLM Already Knows What to Prune"
+  ],
+  [
+   26,
+   "###### Abstract"
+  ],
+  [
+   32,
+   "## 1 Introduction"
+  ],
+  [
+   61,
+   "## 2 Motivation"
+  ],
+  [
+   71,
+   "## 3 Method"
+  ],
+  [
+   77,
+   "### 3.1 Pipeline overview"
+  ],
+  [
+   83,
+   "### 3.2 Pruning head"
+  ],
+  [
+   89,
+   "#### Length-aware embedding."
+  ],
+  [
+   99,
+   "#### Per-token classifier."
+  ],
+  [
+   107,
+   "#### Line-level decision."
+  ],
+  [
+   117,
+   "### 3.3 Training"
+  ],
+  [
+   147,
+   "## 4 Experiments"
+  ],
+  [
+   299,
+   "#### Benchmarks."
+  ],
+  [
+   306,
+   "#### Agent backbones."
+  ],
+  [
+   310,
+   "#### Baselines."
+  ],
+  [
+   317,
+   "#### Metrics and judges."
+  ],
+  [
+   321,
+   "#### Inference configuration."
+  ],
+  [
+   325,
+   "## 5 Results"
+  ],
+  [
+   327,
+   "### 5.1 Main Results"
+  ],
+  [
+   329,
+   "#### Read-only multi-turn benchmarks."
+  ],
+  [
+   402,
+   "#### Code-modification benchmark."
+  ],
+  [
+   408,
+   "### 5.2 Ablations"
+  ],
+  [
+   454,
+   "#### Loss function."
+  ],
+  [
+   458,
+   "#### Length-aware embedding."
+  ],
+  [
+   462,
+   "### 5.3 Latency analysis"
+  ],
+  [
+   468,
+   "## 6 Related Work"
+  ],
+  [
+   470,
+   "### 6.1 Prompt Compression for Code"
+  ],
+  [
+   474,
+   "### 6.2 Agent Context Management"
+  ],
+  [
+   480,
+   "## 7 Conclusion"
+  ],
+  [
+   484,
+   "## Limitations"
+  ],
+  [
+   488,
+   "## Ethical Considerations"
+  ],
+  [
+   492,
+   "## References"
+  ],
+  [
+   1089,
+   "## Appendix A Training Data"
+  ],
+  [
+   1091,
+   "#### Overview."
+  ],
+  [
+   1142,
+   "#### Pre-filtering and diversity sampling."
+  ],
+  [
+   1150,
+   "#### Per-line labelling."
+  ],
+  [
+   1159,
+   "#### Distribution."
+  ],
+  [
+   1207,
+   "#### Probe subset for §2."
+  ],
+  [
+   1213,
+   "## Appendix B Training Details"
+  ],
+  [
+   1215,
+   "#### Head architecture."
+  ],
+  [
+   1219,
+   "#### Optimisation."
+  ],
+  [
+   1226,
+   "#### Loss."
+  ],
+  [
+   1230,
+   "#### Frozen-backbone, feature-cache pipeline."
+  ],
+  [
+   1235,
+   "## Appendix C Oolong Benchmark Conversion"
+  ],
+  [
+   1237,
+   "#### Oolong as a multi-turn agent benchmark."
+  ],
+  [
+   1242,
+   "#### Multi-turn re-cast."
+  ],
+  [
+   1249,
+   "## Appendix D Per-turn execution"
+  ],
+  [
+   1311,
+   "## Appendix E In-server hidden-state extraction"
+  ],
+  [
+   1318,
+   "### E.1 Correctness: closing the hidden-state vs. logprob asymmetry"
+  ],
+  [
+   1322,
+   "#### Batch alignment."
+  ],
+  [
+   1326,
+   "#### Chunked-prefill accumulation."
+  ],
+  [
+   1330,
+   "#### Prefix-cache exemption."
+  ],
+  [
+   1342,
+   "#### Validation against a transformers reference."
+  ],
+  [
+   1368,
+   "### E.2 Payload: replacing text-shaped serialization"
+  ],
+  [
+   1408,
+   "### E.3 In-engine pruning head"
+  ],
+  [
+   1416,
+   "## Appendix F Qualitative cases: per-line head scores on tool outputs"
+  ],
+  [
+   1421,
+   "### F.1 Read case: view /testbed/snapshot_dbg_cli/__init__.py"
+  ],
+  [
+   1423,
+   "#### Setup."
+  ],
+  [
+   1437,
+   "### F.2 Search case: grep -A 25 for a Flask helper"
+  ],
+  [
+   1439,
+   "#### Setup."
+  ],
+  [
+   1448,
+   "### F.3 Listing case: ls -la on legacy admin config dirs"
+  ],
+  [
+   1450,
+   "#### Setup."
+  ],
+  [
+   1459,
+   "### F.4 Test case: python test_fix.py traceback"
+  ],
+  [
+   1461,
+   "#### Setup."
+  ],
+  [
+   1470,
+   "#### Cross-case observation."
+  ],
+  [
+   1475,
+   "## Appendix G Qualitative cases: where F1 disagrees with the LLM judge"
+  ],
+  [
+   1489,
+   "## Appendix H Prompts"
+  ],
+  [
+   1491,
+   "#### Trajectory labelling prompt."
+  ],
+  [
+   1525,
+   "## Previous conversation (context):"
+  ],
+  [
+   1529,
+   "## Current tool call:"
+  ],
+  [
+   1535,
+   "## Tool response ({n_lines} lines):"
+  ],
+  [
+   1541,
+   "## What the agent does next:"
+  ],
+  [
+   1581,
+   "### What to KEEP:"
+  ],
+  [
+   1605,
+   "### What to REMOVE:"
+  ],
+  [
+   1615,
+   "### Confidence:"
+  ],
+  [
+   1655,
+   "#### Architecture-ablation judge prompt."
+  ],
+  [
+   1691,
+   "### Lines that SHOULD be kept:"
+  ],
+  [
+   1703,
+   "### Lines that SHOULD be removed:"
+  ],
+  [
+   1749,
+   "#### SWE-QA family answer-quality judge prompt."
+  ],
+  [
+   1785,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## Limitations\n\nWe close with two scope notes. SWE-Pruner Pro reads the agent backbone’s internal hidden states, so the present evaluation covers only open-weight models; the recipe itself extends to any backbone that exposes its hidden states, and the consistent quality preservation across the SWE-QA family and the natural-language Oolong setting suggests the paradigm transfers across both code and natural-language tool outputs, with only per-backbone head retraining required for a new model. As for language coverage, although our agent-task benchmarks are Python-centric, the pipeline is language-agnostic, and Oolong (a long-context natural-language aggregation benchmark) gives an out-of-domain check on which SWE-Pruner Pro preserves both token savings and quality on both backbones (Table 1); broader coverage across programming languages reuses the same pipeline and is left to future work.\n\n## Ethical Considerations\n\nAll training trajectories are drawn from publicly released datasets; no private repositories or proprietary codebases were used. The pruning head is trained solely to compress redundant tool output and does not alter the agent’s generation or reasoning; deployment should be validated per-backbone before use in safety-critical settings, as aggressive pruning may degrade task quality in ways not captured by our benchmarks.\n\n## References\n\n[1]\nJ. Achiam, S. Adler, S. Agarwal, L. Ahmad, I. Akkaya, F. L. Aleman, D. Almeida, J. Altenschmidt, S. Altman, S. Anadkat, et al. (2023)\n\nGpt-4 technical report.\n\narXiv preprint arXiv:2303.08774.\n\nCited by: §6.2.\n\n[2]\nAnthropic (2025)\n\nClaude code: built for developers.\n\nExternal Links: Link\n\nCited by: §6.2.\n\n[3]\nA. Bertsch, A. Pratapa, T. Mitamura, G. Neubig, and M. R. Gormley (2025)\n\nOolong: evaluating long context reasoning and aggregation capabilities.\n\nExternal Links: 2511.02817,\nLink\n\nCited by: §4.\n\n[4]\nI. Bouzenia, P. Devanbu, and M. Pradel (2024)",
+ "ethics_coi": "## Ethical Considerations\n\nAll training trajectories are drawn from publicly released datasets; no private repositories or proprietary codebases were used. The pruning head is trained solely to compress redundant tool output and does not alter the agent’s generation or reasoning; deployment should be validated per-backbone before use in safety-critical settings, as aggressive pruning may degrade task quality in ways not captured by our benchmarks.\n\n## References\n\n[1]\nJ. Achiam, S. Adler, S. Agarwal, L. Ahmad, I. Akkaya, F. L. Aleman, D. Almeida, J. Altenschmidt, S. Altman, S. Anadkat, et al. (2023)\n\nGpt-4 technical report.\n\narXiv preprint arXiv:2303.08774.\n\nCited by: §6.2.\n\n[2]\nAnthropic (2025)\n\nClaude code: built for developers.\n\nExternal Links: Link\n\nCited by: §6.2.\n\n[3]",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 1,
+  "swe_bench": 14,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 1,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

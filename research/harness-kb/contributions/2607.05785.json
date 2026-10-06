@@ -1,0 +1,26 @@
+{
+  "arxiv_id": "2607.05785",
+  "contributions": [
+    {
+      "kind": "test_practice",
+      "statement": "Write observability into the spec as checkable acceptance criteria (which fields and correlation IDs must be logged on dependency failure, timeout, or validation rejection) and verify with fault-injection smoke tests, because agent-generated services exposed a fault-specific log signal for only 5-14% of injected faults.",
+      "evidence": "§IV-B Table III: FSR 4.95-13.99% across three frontier models over 1,615 fault instances per model on 200 spec-generated Kubernetes systems; custom log oracles may miss indirect signals.",
+      "strength": "moderate",
+      "novelty": "new",
+      "relative_to": [],
+      "transfers": "direct"
+    },
+    {
+      "kind": "anti_pattern",
+      "statement": "Do not add a generic 'improve observability' instruction to agent prompts: it more than doubled logging statements (4.9 vs 2.1) while diagnostic-content precision fell (KeyBag P 0.33 to 0.20, F1 0.36 to 0.26).",
+      "evidence": "§IV-A Fig. 4, Table II; five repeats claimed but only means shown; ground truth is human-written logging.",
+      "strength": "moderate",
+      "novelty": "new",
+      "relative_to": [],
+      "transfers": "direct"
+    }
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "No other KB paper measures whether agent-written code is diagnosable; both the low fault-signal rate and the quantity-over-quality effect of explicit logging prompts are actionable for delivery services. The skill result is weak and excluded."
+}

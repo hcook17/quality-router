@@ -1,0 +1,17 @@
+{
+  "arxiv_id": "2607.25718",
+  "contributions": [
+    {
+      "kind": "design_pattern",
+      "statement": "If an agent must select from thousands of tools, retrieve jointly coherent tool sets rather than independently ranked tools.",
+      "evidence": "Table 2 (3 seeds): removing set scoring drops COMP@5 77.6 to 67.4 and pass rate 69.7 to 58.0; ToolBench with a 7B agent only.",
+      "strength": "strong",
+      "novelty": "new",
+      "relative_to": [],
+      "transfers": "no"
+    }
+  ],
+  "quantity_flags": [],
+  "proposed": "drop",
+  "reason": "Sound ablation, but it only applies to catalogs of thousands of APIs with co-invocation training data; this harness keeps a small catalog and only considers tool retrieval above ~10-15 tools."
+}

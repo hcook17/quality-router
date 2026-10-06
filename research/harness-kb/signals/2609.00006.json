@@ -1,0 +1,524 @@
+{
+ "arxiv_id": "2609.00006",
+ "fulltext_chars": 286285,
+ "fulltext_lines": 5278,
+ "authors_block": "##### Report GitHub Issue Title: Content selection saved. Describe the issue below: Description: arXiv is now an independent nonprofit! Learn more Back to arXiv License: CC BY 4.0 arXiv:2609.00006v1 [cs.SE] 15 Jul 2026 # Harness Engineering: Anatomy, Architecture, and Evolution of Coding Agents A Source-Code Study of Eleven Systems Paul Barbaste Lead and corresponding author. Inclusive Brains Wavestone AI Lab Tristan Darrigol Wavestone AI Lab Germain Vu Wavestone AI Lab Tom Wiltberger Wavestone AI Lab (July 2026)",
+ "vendor_affiliation_hits": [
+  "GitHub"
+ ],
+ "n_authors": 4,
+ "comment": "83 pages, 7 figures, 18 tables. Second, substantially expanded edition of an April 2026 study: corpus grown from eight to eleven systems plus a meta-harness contrast point; the retained April snapshots provide a controlled longitudinal comparison",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/Aider-AI/aider",
+  "https://github.com/NousResearch/hermes-agent",
+  "https://github.com/OpenHands/OpenHands",
+  "https://github.com/OpenHands/software-agent-sdk",
+  "https://github.com/anomalyco/opencode",
+  "https://github.com/earendil-works/pi",
+  "https://github.com/google-gemini/gemini-cli",
+  "https://github.com/mini-swe-agent/mini-swe-agent",
+  "https://github.com/mistralai/mistral-vibe",
+  "https://github.com/omnigent-ai/omnigent",
+  "https://github.com/pydantic/pydantic-ai-harness",
+  "https://github.com/strands-agents/harness-sdk"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "#"
+  ],
+  [
+   47,
+   "###### Abstract"
+  ],
+  [
+   69,
+   "##"
+  ],
+  [
+   110,
+   "##"
+  ],
+  [
+   117,
+   "###"
+  ],
+  [
+   127,
+   "###"
+  ],
+  [
+   148,
+   "###"
+  ],
+  [
+   244,
+   "###"
+  ],
+  [
+   252,
+   "##"
+  ],
+  [
+   255,
+   "###"
+  ],
+  [
+   275,
+   "###"
+  ],
+  [
+   283,
+   "###"
+  ],
+  [
+   293,
+   "###"
+  ],
+  [
+   304,
+   "###"
+  ],
+  [
+   313,
+   "###"
+  ],
+  [
+   326,
+   "###"
+  ],
+  [
+   333,
+   "##### Every vendor now ships a harness, and the market is consolidating."
+  ],
+  [
+   340,
+   "##### The open-source field has its own centers of gravity."
+  ],
+  [
+   348,
+   "##### A meta-layer has appeared."
+  ],
+  [
+   475,
+   "##"
+  ],
+  [
+   478,
+   "###"
+  ],
+  [
+   618,
+   "#####"
+  ],
+  [
+   632,
+   "#####"
+  ],
+  [
+   638,
+   "###"
+  ],
+  [
+   652,
+   "##"
+  ],
+  [
+   856,
+   "##"
+  ],
+  [
+   862,
+   "###"
+  ],
+  [
+   874,
+   "###"
+  ],
+  [
+   880,
+   "##### OpenHands: Event-Sourced Conversation Engine."
+  ],
+  [
+   887,
+   "##### Claude Code: Streaming Loop with Concurrent Tool Batching."
+  ],
+  [
+   895,
+   "##### Codex: Tokio Async State Machine."
+  ],
+  [
+   901,
+   "##### Mini-SWE-Agent: Minimal Linear Loop."
+  ],
+  [
+   958,
+   "##### Mistral Vibe: Middleware-Pipeline Loop."
+  ],
+  [
+   968,
+   "##### Gemini CLI: Async-Generator Loop with Hybrid Loop Detection."
+  ],
+  [
+   977,
+   "##### Hermes: Budgeted Loop with Stop-Guards."
+  ],
+  [
+   985,
+   "##### Pi: Functional Core with Steering Queues."
+  ],
+  [
+   993,
+   "##### OpenCode: Log-as-Queue Loop."
+  ],
+  [
+   1001,
+   "###"
+  ],
+  [
+   1014,
+   "###"
+  ],
+  [
+   1029,
+   "###"
+  ],
+  [
+   1162,
+   "##"
+  ],
+  [
+   1168,
+   "###"
+  ],
+  [
+   1173,
+   "##### Single-provider tight coupling (Anthropic, OpenAI, Google)."
+  ],
+  [
+   1179,
+   "##### Provider-first with generic fallback (Mistral)."
+  ],
+  [
+   1185,
+   "##### Multi-provider via abstraction layer."
+  ],
+  [
+   1192,
+   "##### Multi-provider via owned transports."
+  ],
+  [
+   1199,
+   "##### Hybrid plugin-based."
+  ],
+  [
+   1205,
+   "###"
+  ],
+  [
+   1333,
+   "##### Gemini CLI: Capability-Gated Snippets with Hierarchical Memory."
+  ],
+  [
+   1339,
+   "##### Mistral Vibe: Per-Agent Markdown Prompts."
+  ],
+  [
+   1346,
+   "##### Claude Code: Modular Assembly with Cache Boundary."
+  ],
+  [
+   1353,
+   "##### Codex: Per-Model Prompts as Server-Delivered Data."
+  ],
+  [
+   1360,
+   "##### OpenHands: Prompt Registry with Cache Tiers."
+  ],
+  [
+   1365,
+   "##### Hermes: Three-Tier Assembly with Bit-Perfect Prefixes."
+  ],
+  [
+   1370,
+   "##### Pi: One Small Builder, Co-Varying with the Toolset."
+  ],
+  [
+   1375,
+   "##### OpenCode: A Model-Family Prompt Matrix."
+  ],
+  [
+   1380,
+   "##### Aider: Polymorphic Prompts."
+  ],
+  [
+   1386,
+   "##### Mini-SWE-Agent: One-Shot Templates."
+  ],
+  [
+   1392,
+   "###"
+  ],
+  [
+   1400,
+   "##### Identity and persona."
+  ],
+  [
+   1412,
+   "##### Verbosity control."
+  ],
+  [
+   1423,
+   "##### Banned phrases and forbidden surface forms."
+  ],
+  [
+   1431,
+   "##### Anti-gold-plating directives."
+  ],
+  [
+   1443,
+   "##### Read-before-edit and verify-before-claim."
+  ],
+  [
+   1452,
+   "##### Git commit policy: a convergence that dissolved."
+  ],
+  [
+   1462,
+   "##### Emphasis markers."
+  ],
+  [
+   1471,
+   "##### Tool-use philosophy."
+  ],
+  [
+   1479,
+   "##### What is conspicuously absent."
+  ],
+  [
+   1489,
+   "###"
+  ],
+  [
+   1538,
+   "###"
+  ],
+  [
+   1553,
+   "##"
+  ],
+  [
+   1559,
+   "###"
+  ],
+  [
+   1569,
+   "###"
+  ],
+  [
+   1582,
+   "###"
+  ],
+  [
+   1596,
+   "###"
+  ],
+  [
+   1724,
+   "##### The editing landscape reorganized between snapshots."
+  ],
+  [
+   1731,
+   "##### The fuzzy-cascade family and its visible lineage."
+  ],
+  [
+   1746,
+   "###"
+  ],
+  [
+   1856,
+   "##### Gemini CLI joins Codex as the second cross-platform sandboxer."
+  ],
+  [
+   1864,
+   "##"
+  ],
+  [
+   1871,
+   "###"
+  ],
+  [
+   1881,
+   "###"
+  ],
+  [
+   1888,
+   "###"
+  ],
+  [
+   1897,
+   "###"
+  ],
+  [
+   1905,
+   "###"
+  ],
+  [
+   1914,
+   "##### Gemini CLI: Multi-Stage Context Pipeline."
+  ],
+  [
+   1921,
+   "##### Mistral Vibe: Middleware-Triggered, Now Two-Tier and Reactive."
+  ],
+  [
+   1928,
+   "##### Hermes: Lineage Compaction."
+  ],
+  [
+   1935,
+   "##### Pi: Compaction over a Session Tree."
+  ],
+  [
+   1942,
+   "##### OpenCode: Anchored Incremental Summaries."
+  ],
+  [
+   1947,
+   "###"
+  ],
+  [
+   1970,
+   "###"
+  ],
+  [
+   2017,
+   "##"
+  ],
+  [
+   2024,
+   "###"
+  ],
+  [
+   2038,
+   "###"
+  ],
+  [
+   2044,
+   "##### Layer 1: Execution Policy (Starlark, not TOML)."
+  ],
+  [
+   2075,
+   "##### Layer 2: Lifecycle Hooks."
+  ],
+  [
+   2080,
+   "##### Layer 3: Guardian, an LLM Approval Reviewer."
+  ],
+  [
+   2086,
+   "##### Layer 4: Native OS Sandboxing."
+  ],
+  [
+   2104,
+   "###"
+  ],
+  [
+   2113,
+   "###"
+  ],
+  [
+   2121,
+   "###"
+  ],
+  [
+   2148,
+   "###"
+  ],
+  [
+   2178,
+   "###"
+  ],
+  [
+   2188,
+   "###"
+  ],
+  [
+   2196,
+   "###"
+  ],
+  [
+   2205,
+   "###"
+  ],
+  [
+   2213,
+   "##"
+  ],
+  [
+   2219,
+   "###"
+  ],
+  [
+   2410,
+   "###"
+  ],
+  [
+   2416,
+   "####"
+  ],
+  [
+   2425,
+   "####"
+  ],
+  [
+   2457,
+   "####"
+  ],
+  [
+   2469,
+   "###"
+  ],
+  [
+   2474,
+   "##### AgentControl"
+  ],
+  [
+   2478,
+   "##### AgentRegistry"
+  ],
+  [
+   2482,
+   "##### Spawn Flow."
+  ],
+  [
+   2486,
+   "##### SpawnAgentForkMode."
+  ],
+  [
+   2501,
+   "##### Inter-Agent Communication."
+  ]
+ ],
+ "acknowledgments": "## Acknowledgments and Disclosure of AI Assistance\n\nThis paper was written with substantial assistance from Anthropic’s Claude (via the Claude Code CLI), which was used both for the source-code analysis and for drafting the manuscript.\nThe architectural findings, observations, patterns, and recommendations were verified against the referenced codebases before being kept in the paper.\nAny remaining errors are ours.\n\nThis disclosure follows the emerging authorship policies of ACL, NeurIPS, ICML, and the IEEE.\nThe value of the paper, if it has any, lies in what it says about the twelve codebases; the named modules, tools, and version pins cited throughout should let any reader verify the claims independently.\n\nWe thank the maintainers and contributors of the twelve studied systems for working in the open.\nThis paper would not have been possible without their decision to make their source code available for inspection.\n\n## \nAppendix A Detailed Comparison Tables\n\nThis appendix collects the densest per-system comparison tables, referenced from the body: the rhetorical content of the eleven system prompts (Table 16), the advanced API-feature matrix (Table 17), and the head-to-head Claude Code-versus-Codex pipeline comparison (Table 18).\n\nTable 16: Rhetorical content of the eleven system prompts (July 2026).\n\nSystem\n\nVerbosity rule\n\nAnti-gold-plate",
+ "limitations": "",
+ "ethics_coi": "## Acknowledgments and Disclosure of AI Assistance\n\nThis paper was written with substantial assistance from Anthropic’s Claude (via the Claude Code CLI), which was used both for the source-code analysis and for drafting the manuscript.\nThe architectural findings, observations, patterns, and recommendations were verified against the referenced codebases before being kept in the paper.\nAny remaining errors are ours.\n\nThis disclosure follows the emerging authorship policies of ACL, NeurIPS, ICML, and the IEEE.\nThe value of the paper, if it has any, lies in what it says about the twelve codebases; the named modules, tools, and version pins cited throughout should let any reader verify the claims independently.\n\nWe thank the maintainers and contributors of the twelve studied systems for working in the open.\nThis paper would not have been possible without their decision to make their source code available for inspection.\n\n## \nAppendix A Detailed Comparison Tables\n\nThis appendix collects the densest per-system comparison tables, referenced from the body: the rhetorical content of the eleven system prompts (Table 16), the advanced API-feature matrix (Table 17), and the head-to-head Claude Code-versus-Codex pipeline comparison (Table 18).\n\nTable 16: Rhetorical content of the eleven system prompts (July 2026).\n\nSystem\n\nVerbosity rule\n\nAnti-gold-plate",
+ "counts": {
+  "self_reported": 6,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 0,
+  "swe_bench": 20,
+  "contamination": 1,
+  "human_study": 2,
+  "java": 0,
+  "industrial": 14
+ },
+ "fulltext_source": "html"
+}

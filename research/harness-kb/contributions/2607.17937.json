@@ -1,0 +1,41 @@
+{
+  "arxiv_id": "2607.17937",
+  "contributions": [
+    {
+      "kind": "test_practice",
+      "statement": "Accept an agent artifact only if every acceptance obligation passes, not on the share of checks passed, because long-context runs still satisfied about 93% of checks while strict success fell to 3/10.",
+      "evidence": "§5.3.1: 92.1-93.8% check satisfaction in long conditions; failures concentrated on a few recurrent array/cardinality rules. One task, one main model, n=10.",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": [
+        "context rot / long-context degradation"
+      ],
+      "transfers": "direct"
+    },
+    {
+      "kind": "heuristic",
+      "statement": "At the completion step, restate the full frozen acceptance criteria from the spec instead of a generic 'double-check your work' prompt, which passed 10/10 vs 5/10 in this audit task.",
+      "evidence": "Table 7: 240/240 vs 234/240 checks, p=0.0325, single n=10 comparison. Audit: the restated list equals the scoring rubric, so it shows the agent satisfies criteria it is reminded of, not that unlisted quality improves.",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": [
+        "P34 structured acceptance criteria"
+      ],
+      "transfers": "direct"
+    },
+    {
+      "kind": "anti_pattern",
+      "statement": "Do not rely on context compaction to carry exact contracts (enum lists, field mappings) into a delegated sub-agent; have it re-read them from committed files.",
+      "evidence": "§5.6.1: one valid mechanism run in which the worker reported losing an opaque 256-entry contract after native compaction; self-reported, raw receipt lost.",
+      "strength": "weak",
+      "novelty": "refines",
+      "relative_to": [
+        "P08 context compaction"
+      ],
+      "transfers": "direct"
+    }
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "Small and exploratory, but it gives two directly usable gate rules for spec-driven work (strict per-obligation acceptance; restate frozen criteria at completion). The compaction point is a single-run hypothesis."
+}

@@ -1,0 +1,20 @@
+{
+  "arxiv_id": "2605.06754",
+  "contributions": [
+    {"kind": "test_practice",
+     "statement": "Do not accept a skill- or mapping-file-assisted Java framework migration on compile or deploy success; gate it on containerized behavioral tests, because framework-pair skill bundles raised compile and deploy rates (e.g. Gemini deploy 7% to 61%) while barely moving, and for one agent lowering, behavioral test pass.",
+     "evidence": "§5.1 Table 2, App. E.3, Tables 7-8: skills vs monolithic prompt across 5 CLI agents and 204 directed Spring/Jakarta EE/Quarkus tasks; staged compile->deploy->test oracle with 1,331 expert tests. Single run per task; skills written by the benchmark authors.",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["P02 skills improve agent outcomes (2605.11378, 2607.16617)", "2607.25333 skills without execution feedback gave no gain"],
+     "transfers": "direct"},
+    {"kind": "constraint",
+     "statement": "Treat cross-framework migration of enterprise Java (Spring <-> Jakarta EE <-> Quarkus) as beyond autonomous agent reach today: scope agents to sub-steps behind a compile->deploy->behavioral-test gate per step, since the best agent passed ~15% of behavioral tests and only 1 of 204 tasks came out fully equivalent (Jakarta EE target: 2% pass, 57% compile failures).",
+     "evidence": "§5 Table 2 (15.3% focused, 12.2% whole-app aggregate test pass), §5.1 Fig. 3 (per-target framework), App. C (1/204 fully equivalent). Single runs, contamination acknowledged.",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["2607.17957 DepBench same-framework dependency upgrades (e.g. Spring Boot 2.7->3.0)"],
+     "transfers": "direct"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "On the team's own stack, it shows that skills move migrations to 'runnable' but not 'correct', and it gives a hard capability ceiling for framework migration. The failure taxonomy (config/DI wiring) is LLM-annotated and weak, so it is not used."
+}

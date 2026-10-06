@@ -1,0 +1,12 @@
+{
+  "arxiv_id": "2608.07147",
+  "contributions": [
+    {"kind": "design_pattern",
+     "statement": "Sub-diff-level group-relative credit improves RL training of small coding models in a multi-turn edit loop by ~4-5 points over GiGPO.",
+     "evidence": "§5.2 Table 1, Table 3 ablation; single training seed, single-file Python algorithm tasks.",
+     "strength": "moderate", "novelty": "new", "relative_to": [], "transfers": "no"}
+  ],
+  "quantity_flags": [],
+  "proposed": "drop",
+  "reason": "An RL training algorithm for model builders on competitive-programming tasks; nothing a team consuming hosted models through agent hosts can act on."
+}

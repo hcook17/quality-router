@@ -1,0 +1,32 @@
+{
+  "arxiv_id": "2609.12464",
+  "contributions": [
+    {
+      "kind": "test_practice",
+      "statement": "Do not accept migration quality on CodeBLEU/similarity scores; add structural checks (imports resolve, inheritance preserved) because both arms scored ~91% CodeBLEU while structure diverged.",
+      "evidence": "Table 1: CodeBLEU 90.6 vs 91.1 while DRQ 34.8 vs 65.9 and PCC 26.7 vs 45.5; one repo, one run.",
+      "strength": "moderate",
+      "novelty": "restates_known",
+      "relative_to": [
+        "known CodeBLEU/n-gram metric criticism; evaluate code by execution/structure"
+      ],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "nuance",
+      "statement": "When an agent migrates a class, give it the parent classes/interfaces and a repo skeleton rather than top-k text chunks, since chunk RAG drops the type hierarchy.",
+      "evidence": "Table 1 hallucination 56.4% -> 16.2% on spring-petclinic-genai; metric redefined after it penalised the graph arm; no compile or test execution; untuned k=5 chunk baseline.",
+      "strength": "weak",
+      "novelty": "duplicates",
+      "relative_to": [
+        "2605.16352"
+      ],
+      "transfers": "indirect"
+    }
+  ],
+  "quantity_flags": [
+    "numbers_without_mechanism"
+  ],
+  "proposed": "drop",
+  "reason": "Java source but Java->Python direction, one sample repo, custom post-hoc metrics and no execution; what is left is known metric criticism and a graph-context effect shown better elsewhere."
+}

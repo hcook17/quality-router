@@ -1,0 +1,16 @@
+{
+  "arxiv_id": "2608.18645",
+  "contributions": [
+    {"kind": "nuance",
+     "statement": "Expect agent-written JUnit tests on low-maintainability Java classes to kill fewer mutants, so run mutation testing (PIT) on those classes rather than trusting coverage.",
+     "evidence": "Table I/II: Java median mutation score 34.8% (CH<6) to 95.1% (CH>=9.8); Spearman rho +.21 for Java mutation, line coverage ns. Single-shot, one model, competitive-programming files, mutation measured only where tests passed; vendor co-authors and proprietary metric.",
+     "strength": "weak", "novelty": "refines", "relative_to": ["code complexity lowers LLM test-generation effectiveness (known pre-2026)"], "transfers": "indirect"},
+    {"kind": "constraint",
+     "statement": "Low-maintainability Java files cost about 45% more input tokens than healthy ones, beyond what their size explains.",
+     "evidence": "Table III: rho -.28 to -.30 Java across four tokenizers, partial for SLOC -.24 to -.34; Table I bin medians.",
+     "strength": "moderate", "novelty": "new", "relative_to": [], "transfers": "indirect"}
+  ],
+  "quantity_flags": ["numbers_without_mechanism"],
+  "proposed": "hypothesis_only",
+  "reason": "High-COI correlational study on toy files with weak effect sizes; the token-cost correlation is real but not actionable beyond 'refactor messy code', so treat the mutation-score link as a hypothesis."
+}

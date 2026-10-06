@@ -1,0 +1,28 @@
+{
+  "arxiv_id": "2609.33762",
+  "contributions": [
+    {
+      "kind": "nuance",
+      "statement": "Prefer context-management schemes that edit only the tail of the prompt, because nearly all of each agent call's prompt repeats the previous call and an early rewrite invalidates the cached prefix.",
+      "evidence": "§3: 98.1% of prompt tokens already processed in the prior call; each task submits 1.86M prompt tokens (80x output); argued, not tested against compaction strategies.",
+      "strength": "moderate",
+      "novelty": "restates_known",
+      "relative_to": [
+        "provider prompt-caching guidance: keep a stable prefix"
+      ],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "constraint",
+      "statement": "Size KV host-memory tiers to the agents' reuse working set before enabling offloading.",
+      "evidence": "Fig. 2 / §5.5: 5 -> 20 GiB per rank cut recomputed prefill 93% and makespan 39%; admission policy 35% at 5 GiB.",
+      "strength": "strong",
+      "novelty": "new",
+      "relative_to": [],
+      "transfers": "no"
+    }
+  ],
+  "quantity_flags": [],
+  "proposed": "drop",
+  "reason": "Sound serving-systems work, but it applies to teams self-hosting inference, not to a backend team using hosted coding agents; the agent-side lesson is known prompt-caching practice."
+}

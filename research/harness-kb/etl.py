@@ -267,7 +267,11 @@ def _fulltext(pid: str, ver: int) -> tuple[str, str, str]:
     if shutil.which("pdftotext"):
         pdf = RAW / "pdf" / f"{pid}.pdf"
         pdf.parent.mkdir(parents=True, exist_ok=True)
-        pdf.write_bytes(_get(f"https://arxiv.org/pdf/{pid}v{ver}", timeout=120))
+        try:
+            pdf.write_bytes(_get(f"https://arxiv.org/pdf/{pid}v{ver}", timeout=120))
+        except Exception as exc:
+            print(f"  pdf failed {pid}: {exc}", file=sys.stderr)
+            return "", "", "none"
         txt = subprocess.run(["pdftotext", "-layout", str(pdf), "-"], capture_output=True,
                              text=True, check=False).stdout
         head = "\n".join(txt.splitlines()[:40])
@@ -361,6 +365,36 @@ def cmd_resignal(args: argparse.Namespace) -> None:
     print(f"resignaled {len(list(SIGNALS.glob('*.json')))}")
 
 
+def in_window(published: str) -> bool:
+    """First-submission (v1) date inside the window. A later revision does not qualify."""
+    w = TAXONOMY["window"]
+    day = published.replace("-", "")[:8]
+    return w["from"][:8] <= day <= w["to"][:8]
+
+
+def cmd_add(args: argparse.Namespace) -> None:
+    """Add papers cited outside the topic harvest (e.g. by the architecture lock)."""
+    papers = load_jsonl(ROOT / "papers.jsonl")
+    cands = load_jsonl(ROOT / "candidates.jsonl")
+    have, chosen = {p["arxiv_id"] for p in papers}, {c["arxiv_id"] for c in cands}
+    data = _get(API + "?" + urllib.parse.urlencode({"id_list": ",".join(args.ids),
+                                                   "max_results": len(args.ids)}))
+    for e in ET.fromstring(data).findall("a:entry", NS):
+        p = _parse_entry(e)
+        if not in_window(p["published"]):
+            print(f"{p['arxiv_id']} SKIP: v1 {p['published']} is outside the window")
+            continue
+        p["topic_hits"] = {}
+        if p["arxiv_id"] not in have:
+            papers.append(p)
+        if p["arxiv_id"] not in chosen:
+            cands.append({"arxiv_id": p["arxiv_id"], "selected_for": [args.reason],
+                          "title": p["title"], "version": p["version"]})
+        print(f"{p['arxiv_id']} v{p['version']} v1={p['published']} {p['title'][:70]}")
+    for name, rows in (("papers.jsonl", papers), ("candidates.jsonl", cands)):
+        (ROOT / name).write_text("".join(json.dumps(x, ensure_ascii=False) + "\n" for x in rows))
+
+
 def cmd_batches(args: argparse.Namespace) -> None:
     BATCHES.mkdir(exist_ok=True)
     for f in BATCHES.glob("batch_*.txt"):
@@ -410,9 +444,15 @@ def validate(r: dict, known_patterns: set[str]) -> list[str]:
     return errs
 
 
-def admission(r: dict) -> str:
+def withdrawn(meta: dict) -> bool:
+    return bool(re.search(r"\bwithdra(wn|w)\b", meta.get("comment") or "", re.I))
+
+
+def admission(r: dict, meta: dict | None = None) -> str:
     """Deterministic gate: the reviewer proposes a verdict; the gate can only tighten it."""
     s = r["scores"]
+    if meta is not None and (withdrawn(meta) or not in_window(meta.get("published", ""))):
+        return "rejected"
     if r["verdict"] == "reject" or s["rigor"] <= 1:
         return "rejected"
     if r["coi"]["severity"] == "high" and s["rigor"] <= 2:
@@ -428,6 +468,58 @@ def weight(r: dict, status: str) -> float:
     s = r["scores"]
     w = (s["rigor"] / 5) * (0.6 + 0.4 * s["reproducibility"] / 5) * (1 - 0.12 * s["coi_risk"])
     return round(w * (0.6 if status == "caveated" else 1.0), 3)
+
+
+CONTRIBUTIONS = ROOT / "contributions"
+KINDS = {"heuristic", "nuance", "design_pattern", "anti_pattern", "constraint", "test_practice"}
+NOVELTY = {"new", "refines", "duplicates", "restates_known"}
+TRANSFERS = {"direct", "indirect", "no"}
+QFLAGS = {"leaderboard_only", "system_description_only", "survey_restatement", "renamed_known_idea",
+          "numbers_without_mechanism", "position_without_evidence", "salami_slice",
+          "self_declared_incomplete"}
+PROPOSED = {"keep", "hypothesis_only", "drop"}
+
+
+def validate_contribution(c: dict) -> list[str]:
+    errs = []
+    if not isinstance(c.get("contributions"), list) or c.get("proposed") not in PROPOSED:
+        return ["missing contributions/proposed"]
+    for x in c["contributions"]:
+        if (x.get("kind") not in KINDS or x.get("strength") not in STRENGTH
+                or x.get("novelty") not in NOVELTY or x.get("transfers") not in TRANSFERS
+                or not str(x.get("statement", "")).strip()):
+            errs.append(f"contribution {str(x)[:60]}")
+        known = x.get("novelty") in ("refines", "duplicates", "restates_known")
+        if known and not x.get("relative_to"):
+            errs.append(f"{x.get('novelty')} without relative_to: {str(x.get('statement'))[:50]}")
+    errs += [f"flag {f}" for f in c.get("quantity_flags", []) if f not in QFLAGS]
+    return errs
+
+
+def contribution_gate(c: dict, max_claim: str) -> tuple[str, list[dict]]:
+    """Second gate. Contribution strength is capped at the review's strongest claim."""
+    cap = _CORDER[max_claim]
+    capped = []
+    for x in c["contributions"]:
+        x = dict(x)
+        if _CORDER[x["strength"]] > cap:
+            x["strength"] = max_claim
+        capped.append(x)
+    transferable = [x for x in capped
+                    if x["novelty"] in ("new", "refines") and x["transfers"] != "no"]
+    qualifying = [x for x in transferable if _CORDER[x["strength"]] >= _CORDER["moderate"]]
+    if qualifying and "self_declared_incomplete" not in c.get("quantity_flags", []):
+        outcome = "contributes"
+    elif transferable or "self_declared_incomplete" in c.get("quantity_flags", []):
+        outcome = "hypothesis"
+    else:
+        outcome = "no_contribution"
+    tighten = {"keep": "contributes", "hypothesis_only": "hypothesis", "drop": "no_contribution"}
+    order = ["contributes", "hypothesis", "no_contribution"]
+    proposed = tighten[c["proposed"]]
+    if order.index(proposed) > order.index(outcome):
+        outcome = proposed
+    return outcome, capped
 
 
 AUDITS = ROOT / "audits"
@@ -475,7 +567,10 @@ CREATE TABLE paper_topics(arxiv_id TEXT, topic_id TEXT, api_rank INT, relevance 
 CREATE TABLE reviews(arxiv_id TEXT PRIMARY KEY, contribution_type TEXT, summary TEXT, verdict TEXT,
   status TEXT, weight REAL, rigor INT, reproducibility INT, generalizability INT, relevance INT,
   coi_risk INT, coi_severity TEXT, coi_json TEXT, methodology_json TEXT, standards_json TEXT,
-  applicability TEXT, verdict_reason TEXT);
+  applicability TEXT, verdict_reason TEXT, review_status TEXT, contribution TEXT);
+CREATE TABLE contributions(arxiv_id TEXT, kind TEXT, statement TEXT, evidence TEXT, strength TEXT,
+  novelty TEXT, relative_to TEXT, transfers TEXT);
+CREATE TABLE quantity_flags(arxiv_id TEXT, flag TEXT);
 CREATE TABLE claims(arxiv_id TEXT, claim TEXT, evidence TEXT, strength TEXT, location TEXT);
 CREATE TABLE pattern_evidence(arxiv_id TEXT, pattern_id TEXT, stance TEXT, note TEXT);
 CREATE TABLE biases(arxiv_id TEXT, bias TEXT, detail TEXT);
@@ -524,14 +619,36 @@ def cmd_load(args: argparse.Namespace) -> None:
             r = merge_audit(r, a)
             db.execute("INSERT INTO audits VALUES(?,?,?,?,?)", (r["arxiv_id"], a.get("agreement", ""),
                        a.get("blind_verdict", ""), json.dumps(a), a.get("note", "")))
-        status = admission(r)
-        counts[status] += 1
+        review_status = admission(r, papers.get(r["arxiv_id"], {}))
+        status, contribution = review_status, "unassessed"
+        cf = CONTRIBUTIONS / f.name
+        if cf.exists():
+            c = json.loads(cf.read_text())
+            cerrs = validate_contribution(c)
+            if cerrs:
+                bad.append((f"contributions/{f.name}", cerrs))
+            else:
+                max_claim = max((x["strength"] for x in r["claims"]), key=_CORDER.get,
+                                default="unsupported")
+                contribution, capped = contribution_gate(c, max_claim)
+                for x in capped:
+                    db.execute("INSERT INTO contributions VALUES(?,?,?,?,?,?,?,?)", (
+                        r["arxiv_id"], x["kind"], x["statement"], x.get("evidence", ""),
+                        x["strength"],
+                        x["novelty"], json.dumps(x.get("relative_to", [])), x["transfers"]))
+                for flag in c.get("quantity_flags", []):
+                    db.execute("INSERT INTO quantity_flags VALUES(?,?)", (r["arxiv_id"], flag))
+                if review_status != "rejected" and contribution != "contributes":
+                    status = contribution
+        counts[status] = counts.get(status, 0) + 1
         s = r["scores"]
-        db.execute("INSERT INTO reviews VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", (
-            r["arxiv_id"], r["contribution_type"], r["summary"], r["verdict"], status, weight(r, status),
+        db.execute("INSERT INTO reviews VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", (
+            r["arxiv_id"], r["contribution_type"], r["summary"], r["verdict"], status,
+            weight(r, status) if status in ("admitted", "caveated") else 0.0,
             s["rigor"], s["reproducibility"], s["generalizability"], s["relevance"], s["coi_risk"],
             r["coi"]["severity"], json.dumps(r["coi"]), json.dumps(r["methodology"]),
-            json.dumps(r["standards"]), r["applicability"], r["verdict_reason"]))
+            json.dumps(r["standards"]), r["applicability"], r["verdict_reason"], review_status,
+            contribution))
         for c in r["claims"]:
             db.execute("INSERT INTO claims VALUES(?,?,?,?,?)", (r["arxiv_id"], c["claim"],
                        c.get("evidence", ""), c["strength"], c.get("location", "")))
@@ -551,20 +668,114 @@ def cmd_load(args: argparse.Namespace) -> None:
         print(f"  INVALID {name}: {'; '.join(errs[:4])}")
 
 
+EVIDENCE = "('admitted', 'caveated')"
+_QUALIFIES = (f"r.status IN {EVIDENCE} AND novelty IN ('new', 'refines') "
+              "AND transfers!='no' AND strength IN ('strong', 'moderate')")
+LEDGER_ORDER = ("test_practice", "anti_pattern", "constraint", "design_pattern", "heuristic",
+                "nuance")
+
+
+def _date_audit(q) -> list[str]:
+    w = TAXONOMY["window"]
+    recheck_f = AUDITS / "recheck" / "arxiv_current.json"
+    recheck = json.loads(recheck_f.read_text()) if recheck_f.exists() else {}
+    rows = q("""SELECT p.arxiv_id, p.version, p.published, p.comment FROM papers p
+                JOIN reviews r USING(arxiv_id)""").fetchall()
+    outside = [a for a, _, pub, _ in rows if not in_window(pub or "")]
+    gone = [a for a, _, _, c in rows if withdrawn({"comment": c})]
+    revised = [a for a, v, *_ in rows if a in recheck and recheck[a]["current_version"] != v]
+    first, last = min(x[2] for x in rows)[:10], max(x[2] for x in rows)[:10]
+    return ["## Date audit", "",
+            f"Window: first submission (v1) {w['from'][:8]}–{w['to'][:8]}. A paper first",
+            "posted earlier and only revised in the window does not qualify; the arXiv ID",
+            "prefix and the v1 `published` field are both checked by `admission`.", "",
+            "| Check | Result |", "| --- | --- |",
+            f"| Reviewed papers | {len(rows)} |",
+            f"| v1 dates | {first} … {last} |",
+            f"| v1 outside window | {len(outside)} {' '.join(outside)} |",
+            f"| Withdrawn (rejected) | {len(gone)} {' '.join(gone)} |",
+            f"| Revised since review (live arXiv recheck) | {len(revised)} "
+            f"{' '.join(revised)} |", ""]
+
+
+def _contribution_audit(q) -> list[str]:
+    out = ["## Contribution audit", "",
+           "| Outcome after review gate | Papers |", "| --- | --- |"]
+    for c, n in q("""SELECT contribution, COUNT(*) FROM reviews WHERE review_status!='rejected'
+                     GROUP BY 1 ORDER BY 2 DESC"""):
+        out.append(f"| {c} | {n} |")
+    out += ["", "Qualifying contributions (evidence papers; novelty new/refines; transfers;",
+            "strength ≥ moderate):", "", "| Kind | Items | Papers |", "| --- | --- | --- |"]
+    for k, n, p in q(f"""SELECT kind, COUNT(*), COUNT(DISTINCT arxiv_id) FROM contributions
+                        JOIN reviews r USING(arxiv_id) WHERE {_QUALIFIES}
+                        GROUP BY 1 ORDER BY 2 DESC, 1"""):
+        out.append(f"| {k} | {n} | {p} |")
+    out += ["", "Quantity-over-quality flags (any outcome):", "",
+            "| Flag | Papers |", "| --- | --- |"]
+    for f, n in q("""SELECT flag, COUNT(DISTINCT arxiv_id) FROM quantity_flags
+                     GROUP BY 1 ORDER BY 2 DESC, 1"""):
+        out.append(f"| {f} | {n} |")
+    for status, title in (("hypothesis", "Hypotheses (not evidence)"),
+                          ("no_contribution", "No contribution (dropped)")):
+        out += ["", f"### {title}", "", "| arXiv | Title | Flags |", "| --- | --- | --- |"]
+        for a, t, fl in q("""SELECT r.arxiv_id, p.title,
+                                    (SELECT GROUP_CONCAT(flag, ', ') FROM quantity_flags f
+                                     WHERE f.arxiv_id=r.arxiv_id)
+                             FROM reviews r JOIN papers p USING(arxiv_id)
+                             WHERE r.status=? ORDER BY r.arxiv_id""", (status,)):
+            out.append(f"| [{a}](https://arxiv.org/abs/{a}) | {t[:80]} | {fl or ''} |")
+    return out + [""]
+
+
+def _contribution_ledger(q) -> list[str]:
+    out = ["# Contribution ledger", "",
+           "What each evidence paper adds beyond restating known practice, by kind.",
+           "Only qualifying items (`CONTRIBUTION_RUBRIC.md`): novelty new/refines, transfers",
+           "to a Java multi-repo backend directly or indirectly, strength ≥ moderate after",
+           "capping at the paper's strongest audited claim.",
+           "Regenerate with `python3 etl.py report`.", ""]
+    for kind in LEDGER_ORDER:
+        rows = q(f"""SELECT arxiv_id, statement, strength, novelty, transfers, r.weight
+                    FROM contributions JOIN reviews r USING(arxiv_id)
+                    WHERE kind=? AND {_QUALIFIES}
+                    ORDER BY strength='strong' DESC, r.weight DESC, arxiv_id, statement""",
+                 (kind,)).fetchall()
+        if not rows:
+            continue
+        out += [f"## {kind} ({len(rows)})", "",
+                "| arXiv | Contribution | Strength | Novelty | Transfers | Weight |",
+                "| --- | --- | --- | --- | --- | --- |"]
+        for a, st, sg, nv, tr, w in rows:
+            st = " ".join(st.split()).replace("|", "/")
+            out.append(f"| [{a}](https://arxiv.org/abs/{a}) | {st} | {sg} | {nv} | {tr} | {w} |")
+        out.append("")
+    return out
+
+
 def cmd_report(args: argparse.Namespace) -> None:
     db = sqlite3.connect(ROOT / "kb.sqlite")
     q = db.execute
     out = ["# Generated KB tables", "", "Regenerate with `python3 etl.py load && python3 etl.py report`.", ""]
     tot = q("SELECT COUNT(*) FROM papers").fetchone()[0]
     rev = q("SELECT status, COUNT(*) FROM reviews GROUP BY status").fetchall()
-    out += [f"Harvested unique papers: {tot}. Reviews by gate status: {dict(rev)}.", ""]
+    out += [f"Harvested unique papers: {tot}. Reviews by gate status: {dict(rev)}.", "",
+            "Evidence = `admitted` or `caveated`: passed the review gate and the contribution",
+            "gate.",
+            "`hypothesis` and `no_contribution` passed review but add no transferable, adequately",
+            "evidenced heuristic, nuance, pattern, anti-pattern, constraint or test practice",
+            "(`CONTRIBUTION_RUBRIC.md`). They carry weight 0 and are excluded below.", ""]
+    out += _date_audit(q)
+    out += _contribution_audit(q)
     out += ["## Pattern evidence matrix", "",
-            "Weighted score = sum of review weights (rigor x reproducibility x COI discount; caveated x0.6; rejected 0).", "",
+            "Evidence papers only. Weighted score = sum of review weights "
+            "(rigor x reproducibility x COI discount; caveated x0.6; non-evidence 0).", "",
             "| Pattern | Supports | Contradicts | Mixed | Introduces | Weighted support | Weighted contra | Vendor-authored share |",
             "| --- | --- | --- | --- | --- | --- | --- | --- |"]
     for pid, name in q("SELECT id, name FROM patterns ORDER BY id"):
         rows = q("""SELECT pe.stance, r.weight, r.coi_severity FROM pattern_evidence pe
-                    JOIN reviews r USING(arxiv_id) WHERE pe.pattern_id=?""", (pid,)).fetchall()
+                    JOIN reviews r USING(arxiv_id)
+                    WHERE pe.pattern_id=? AND r.status IN ('admitted', 'caveated')""",
+                 (pid,)).fetchall()
         if not rows:
             continue
         c = {s: sum(1 for x in rows if x[0] == s) for s in ("supports", "contradicts", "mixed", "introduces")}
@@ -583,17 +794,20 @@ def cmd_report(args: argparse.Namespace) -> None:
     for t, n, mr, rj in q("""SELECT contribution_type, COUNT(*), AVG(rigor),
                              SUM(status='rejected') FROM reviews GROUP BY contribution_type ORDER BY 2 DESC"""):
         out.append(f"| {t} | {n} | {mr:.2f} | {rj} |")
-    out += ["", "## Topic coverage", "", "| Topic | Harvested (pass gate) | Reviewed | Admitted+caveated |",
+    out += ["", "## Topic coverage", "", "| Topic | Harvested (pass gate) | Reviewed | Evidence |",
             "| --- | --- | --- | --- |"]
     for tid, name in q("SELECT id, name FROM topics ORDER BY id"):
         h = q("SELECT COUNT(*) FROM paper_topics WHERE topic_id=? AND relevance>0", (tid,)).fetchone()[0]
-        rv = q("""SELECT COUNT(*), SUM(r.status!='rejected') FROM paper_topics pt JOIN reviews r USING(arxiv_id)
+        rv = q("""SELECT COUNT(*), SUM(r.status IN ('admitted', 'caveated'))
+                  FROM paper_topics pt JOIN reviews r USING(arxiv_id)
                   WHERE pt.topic_id=? AND pt.selected=1""", (tid,)).fetchone()
         out.append(f"| {tid} {name} | {h} | {rv[0]} | {rv[1] or 0} |")
-    out += ["", "## Top-weighted admitted papers", "", "| arXiv | Title | Type | Rigor | COI | Weight |",
+    out += ["", "## Top-weighted evidence papers", "",
+            "| arXiv | Title | Type | Rigor | COI | Weight |",
             "| --- | --- | --- | --- | --- | --- |"]
     for row in q("""SELECT r.arxiv_id, p.title, r.contribution_type, r.rigor, r.coi_severity, r.weight
-                    FROM reviews r JOIN papers p USING(arxiv_id) WHERE r.status!='rejected'
+                    FROM reviews r JOIN papers p USING(arxiv_id)
+                    WHERE r.status IN ('admitted', 'caveated')
                     ORDER BY r.weight DESC, r.relevance DESC LIMIT 40"""):
         out.append(f"| [{row[0]}](https://arxiv.org/abs/{row[0]}) | {row[1][:90]} | {row[2]} | {row[3]} | {row[4]} | {row[5]} |")
     out += ["", "## Rejected", "", "| arXiv | Title | Reason |", "| --- | --- | --- |"]
@@ -611,11 +825,14 @@ def cmd_report(args: argparse.Namespace) -> None:
     (ROOT / "kb_tables.md").write_text("\n".join(out) + "\n")
 
     ev = ["# Evidence ledger by pattern", "",
-          "Non-rejected papers only, ordered by review weight. Notes are reviewer/auditor text.", ""]
+          "Evidence papers only (passed both gates), ordered by review weight.",
+          "Notes are reviewer/auditor text.",
+          ""]
     for pid, name in q("SELECT id, name FROM patterns ORDER BY id"):
         rows = q("""SELECT pe.arxiv_id, pe.stance, r.weight, r.rigor, r.coi_severity, p.title, pe.note
                     FROM pattern_evidence pe JOIN reviews r USING(arxiv_id) JOIN papers p USING(arxiv_id)
-                    WHERE pe.pattern_id=? AND r.status!='rejected' AND pe.stance!='neutral'
+                    WHERE pe.pattern_id=? AND r.status IN ('admitted', 'caveated')
+                      AND pe.stance!='neutral'
                     ORDER BY r.weight DESC""", (pid,)).fetchall()
         if not rows:
             continue
@@ -626,7 +843,8 @@ def cmd_report(args: argparse.Namespace) -> None:
             ev.append(f"| [{a_id}](https://arxiv.org/abs/{a_id}) | {st} | {w} | {rg} | {coi} | {title[:70]} | {note} |")
         ev.append("")
     (ROOT / "kb_evidence.md").write_text("\n".join(ev) + "\n")
-    print("wrote kb_tables.md, kb_evidence.md")
+    (ROOT / "kb_contributions.md").write_text("\n".join(_contribution_ledger(q)) + "\n")
+    print("wrote kb_tables.md, kb_evidence.md, kb_contributions.md")
 
 
 LANDSCAPE = {
@@ -696,6 +914,25 @@ def cmd_check(args: argparse.Namespace) -> None:
     sys.exit(1 if failed else 0)
 
 
+def cmd_check_contrib(args: argparse.Namespace) -> None:
+    """Validate contribution files and show the gate outcome; never touches kb.sqlite."""
+    for name in args.files:
+        path = Path(name)
+        c = json.loads(path.read_text())
+        errs = validate_contribution(c)
+        if errs:
+            print(f"INVALID {path.name}: {'; '.join(errs[:5])}")
+            continue
+        review, audit = REVIEWS / path.name, AUDITS / path.name
+        r = json.loads(review.read_text()) if review.exists() else {"claims": []}
+        if review.exists() and audit.exists():
+            r = merge_audit(r, json.loads(audit.read_text()))
+        claims = r["claims"]
+        max_claim = max((x["strength"] for x in claims), key=_CORDER.get, default="unsupported")
+        outcome, _ = contribution_gate(c, max_claim)
+        print(f"ok {path.name} -> {outcome} (cap={max_claim})")
+
+
 def cmd_query(args: argparse.Namespace) -> None:
     db = sqlite3.connect(ROOT / "kb.sqlite")
     for row in db.execute(args.sql):
@@ -710,6 +947,9 @@ def main() -> None:
     h.add_argument("--per-page", type=int, default=100)
     h.add_argument("--only", nargs="*")
     h.add_argument("--force", action="store_true")
+    ad = sub.add_parser("add")
+    ad.add_argument("ids", nargs="+")
+    ad.add_argument("--reason", default="lock-citation")
     sub.add_parser("transform")
     s = sub.add_parser("select")
     s.add_argument("--per-topic", type=int, default=4)
@@ -721,13 +961,17 @@ def main() -> None:
     sub.add_parser("landscape")
     ck = sub.add_parser("check")
     ck.add_argument("files", nargs="+")
+    cc = sub.add_parser("check-contrib")
+    cc.add_argument("files", nargs="+")
     sub.add_parser("load")
     sub.add_parser("report")
     qq = sub.add_parser("query")
     qq.add_argument("sql")
     a = ap.parse_args()
-    {"harvest": cmd_harvest, "transform": cmd_transform, "select": cmd_select, "fulltext": cmd_fulltext,
-     "resignal": cmd_resignal, "batches": cmd_batches, "landscape": cmd_landscape, "check": cmd_check, "load": cmd_load, "report": cmd_report, "query": cmd_query}[a.cmd](a)
+    {"harvest": cmd_harvest, "add": cmd_add, "transform": cmd_transform, "select": cmd_select,
+     "fulltext": cmd_fulltext, "resignal": cmd_resignal, "batches": cmd_batches,
+     "landscape": cmd_landscape, "check": cmd_check, "check-contrib": cmd_check_contrib,
+     "load": cmd_load, "report": cmd_report, "query": cmd_query}[a.cmd](a)
 
 
 if __name__ == "__main__":

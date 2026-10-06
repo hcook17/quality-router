@@ -1,0 +1,28 @@
+{
+  "arxiv_id": "2609.25911",
+  "contributions": [
+    {
+      "kind": "test_practice",
+      "statement": "When evaluating a router that decides which PRs to hand to a repair agent, use only features available at PR creation; full-history features inflated top-20% repair recall from 0.514 to 0.653.",
+      "evidence": "Tables 1-2, repository-grouped 5-fold CV on 497 labelled PRs.",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": [
+        "temporal/target leakage avoidance in ML evaluation"
+      ],
+      "transfers": "direct"
+    },
+    {
+      "kind": "heuristic",
+      "statement": "Gate Dependabot/Renovate PRs with a cheap creation-time classifier and send only the top ~20% to the expensive repair agent; it captured about half of repairs at 2.68 vs 6.90 calls per captured repair.",
+      "evidence": "Table 1-2: top-20% recall 0.514, 37/72 repairs; single annotator, repair-enriched pool, exploratory model search; 60-PR pilot measures diagnosis only.",
+      "strength": "weak",
+      "novelty": "new",
+      "relative_to": [],
+      "transfers": "direct"
+    }
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "Directly relevant to multi-repo dependency maintenance; the leakage point is a sound evaluation nuance, while the routing gain itself rests on one annotator and 72 positives."
+}

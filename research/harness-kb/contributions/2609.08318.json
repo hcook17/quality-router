@@ -1,0 +1,12 @@
+{
+  "arxiv_id": "2609.08318",
+  "contributions": [
+    {"kind": "nuance",
+     "statement": "Compress agent trajectories only when context limits force it: every compression method lowered pass rate versus full context, LLM-summary compression cost more than no compression, and cheap masking of old observations halved cost at about 6 points lower pass rate.",
+     "evidence": "Table 1 (200 SWE-bench Verified, 3 agent LLMs): Original 55.17 vs AttnCompress 53.17, AgentDiet 51.17; AgentDiet $0.1429 vs Original $0.1189; ObsMask $0.0443 at ~-6 pp. Single runs except Table 2 (5 runs, gaps within one SD); audit: AttnCompress cost advantage disappears for Qwen3-Coder.",
+     "strength": "weak", "novelty": "duplicates", "relative_to": ["2608.24188"], "transfers": "indirect"}
+  ],
+  "quantity_flags": ["numbers_without_mechanism"],
+  "proposed": "drop",
+  "reason": "The method's advantage over baselines is within noise and it still loses to full context; the cost caution is already shown, with better statistics, by 2608.24188."
+}
