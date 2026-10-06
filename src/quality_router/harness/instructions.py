@@ -23,6 +23,7 @@ INSTRUCTION_FILES = (
 )
 RULE_GLOBS = (".cursor/rules/*.mdc", ".cursor/rules/*.md", ".github/instructions/*.md")
 CANONICAL = "AGENTS.md"
+BUILD_OUTPUT_DIRS = ("target", "build", "out", "dist", "node_modules", ".gradle")
 
 _BACKTICK = re.compile(r"`([^`\n]+)`")
 _PATHLIKE = re.compile(r"^(?:\./)?[\w.@-]+(?:/[\w.@*-]+)+/?$|^[\w-]+\.(?:md|java|kt|xml|yml|yaml|"
@@ -67,12 +68,14 @@ def _reference_exists(root: Path, ref: str) -> bool:
     ref = ref.strip().rstrip("/").removeprefix("./")
     if any(ch in ref for ch in "*?<>{}$"):
         return True
+    head, _, _ = ref.partition("/")
+    if head in BUILD_OUTPUT_DIRS:
+        return True
     if _FQCN.match(ref):
         rel = ref.replace(".", "/") + ".java"
         return any(root.glob(f"**/{rel}"))
     if (root / ref).exists():
         return True
-    head, _, _ = ref.partition("/")
     looks_like_file = "." in ref.rsplit("/", 1)[-1]
     return not ((root / head).is_dir() or looks_like_file)
 

@@ -30,6 +30,7 @@ class TestInstructionLint:
         body = "\n".join([
             "See `src/gone/Old.java` and `docs/missing.md` and `com.acme.Gone`.",
             "Ignore `target/*.jar` and `unrelated/path` and `build.gradle`.",
+            "Report at `target/site/jacoco/jacoco.xml` after the build.",
             "Never force push to main.",
             "Do not log PHI values.",
             "Use 4 spaces for indentation.",
@@ -41,7 +42,7 @@ class TestInstructionLint:
         assert found.count("stale_reference") == 4
         assert "context_bloat" in found and "lint_leakage" in found
         prose = [f for f in result.findings if f.code == "prose_only_rule"]
-        assert [f.line for f in prose] == [4]
+        assert [f.line for f in prose] == [5]
         assert not result.passed
 
     def test_divergent_host_files(self, tmp_path: Path, write: Write) -> None:
