@@ -1,0 +1,33 @@
+{
+  "arxiv_id": "2607.26072",
+  "contribution_type": "benchmark",
+  "summary": "IFCMemoryBench tests whether an agent can combine facts seeded in earlier chat sessions with live queries over BIM/IFC building models. It has 143 multi-session tasks across 19 projects and 4,016 prior sessions, derived from IFC-Bench v2. With a fixed ReAct probe agent (Grok-4.3), it compares vector (Mem0), temporal graph (Graphiti), and Markdown file memory (with and without citations). The best system reaches 32.4% answer accuracy, and memory rankings change when the probe LLM changes.",
+  "claims": [
+    {"claim": "The strongest memory system achieves only 32.4% answer accuracy under deployment-realistic ingestion.", "evidence": "§4.3, Table 2: Mem0 best, with Wilson 95% CI [25.2, 40.5]; no-memory baseline CI [0.0, 2.6]. CIs overlap for several systems, as the authors note.", "strength": "strong", "location": "§4.3, Table 2"},
+    {"claim": "The main bottleneck is coverage: memory retrieves topically relevant context but omits key facts.", "evidence": "Table 2: R-rel. CIs (e.g. Mem0 [84.1, 94.0]) are far above R-cov. CIs (Mem0 [41.2, 57.4]; Graphiti [20.6, 35.1]).", "strength": "moderate", "location": "§4.3, Table 2"},
+    {"claim": "Most tasks are solvable when relevant facts are visible; more context is not automatically better.", "evidence": "§4.5: user-message full-context oracle gives 83.2% answer / 95.1% memory accuracy; adding assistant final answers drops this to 44.1% / 74.1%.", "strength": "moderate", "location": "§4.5, Fig. 2"},
+    {"claim": "Memory-architecture rankings depend on the probe LLM.", "evidence": "§4.7: Gemini-3.5-Flash vs Grok-4.3 on the same 143 tasks with a Bayesian paired test; decisive gains for file memory and Mem0, and file memory overtakes Mem0. Mechanism: more memory queries (8.1 vs 1.7 per task for Mem0).", "strength": "moderate", "location": "§4.7, Fig. 4"},
+    {"claim": "LLM judges track expert judgement.", "evidence": "§3.3: one domain expert re-labelled 40 tasks; answer agreement 38/40 (κ=0.90), memory 40/40. Single annotator, small sample, and the judge uses the same Grok-4.3 as the agent.", "strength": "moderate", "location": "§3.3"}
+  ],
+  "patterns": [
+    {"id": "P09", "stance": "mixed", "note": "Persistent memory is necessary (no-memory gets about 0%), but general-purpose vector, graph, and file memories retain only about half the needed facts. Cited Markdown beats uncited, and a domain template helps file memory."},
+    {"id": "P06", "stance": "mixed", "note": "Mem0 vector memory is best under Grok but loses to file memory under a more search-active agent."},
+    {"id": "P07", "stance": "contradicts", "note": "Graphiti temporal knowledge graph fragments specification facts across nodes and edges and has the lowest coverage, even with the stronger agent."},
+    {"id": "P08", "stance": "mixed", "note": "Compressed session summaries (uncited Markdown) lose facts. Full-context injection works only with a clean ingestion scope and degrades with noisy assistant text."},
+    {"id": "P18", "stance": "supports", "note": "LLM-as-judge validated against one expert on 40 tasks (κ=0.90)."}
+  ],
+  "methodology": {"sample": "143 tasks, 19 projects, 23 IFC models, 4,016 prior sessions; synthetic seeding via user messages.", "baselines": "No-memory lower bound; full-context oracle upper bound; 4 memory configurations at default settings.", "models": "Grok-4.3 for probe agent, judges, and memory internals; Gemini-3.5-Flash as an alternative probe agent.", "variance": "Wilson 95% CIs and a Bayesian paired test. Single run per configuration at temperature 0.", "ablations": "Ingestion scope, domain customisation, probe LLM.", "contamination_controls": "Synthetic or public project info; IFC models from public IFC-Bench.", "languages": "n/a (BIM QA via IFC CLI)."},
+  "standards": {"peer_review": "KDD 2026 Workshop on Evaluation and Trustworthiness of Agentic AI (accepted per comment).", "limitations_section": true, "artifacts": "No explicit release statement for IFCMemoryBench found in the text; full prompts are in the appendices.", "preregistration": "n/a"},
+  "biases": [
+    {"type": "self_evaluation", "detail": "The same Grok-4.3 model serves as agent, memory extractor, and judge; validation uses only 40 tasks and one expert."},
+    {"type": "small_sample", "detail": "143 tasks; CIs overlap across most systems, so the rankings are not robust."},
+    {"type": "toy_tasks", "detail": "Facts are seeded synthetically and only through user messages (§5), which biases toward user-only ingestion scope."},
+    {"type": "closed_artifacts", "detail": "No dataset or code release link found."}
+  ],
+  "coi": {"affiliations": "Technical University of Munich; Nemetschek Group (BIM software vendor; 2 of 4 authors).", "vendor_products_evaluated": "Third-party memory systems (Mem0, Graphiti, LangChain DeepAgents). No Nemetschek product evaluated. The Bayesian test cites a co-author's own method (Vosseler 2026).", "funding": "Acknowledgments thank individuals only; no funding statement.", "severity": "low", "detail": "Vendor-affiliated authors, but they evaluate third-party systems and report negative results."},
+  "scores": {"rigor": 3, "reproducibility": 2, "generalizability": 1, "relevance": 2, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Careful decomposition into ingestion, retrieval, and use, with CIs, a validated judge, and an honest discussion of overlaps. However, it is a narrow BIM domain with synthetic seeding, a single judge model, and no artifact release.",
+  "applicability": "Relevant by analogy to healthcare education content work, where an agent must combine remembered decisions (curriculum conventions, editorial rules, client decisions) with live queries over structured content stores. The lessons for the Java team: off-the-shelf conversational memory layers retained only about half the needed facts. Durable project knowledge belongs in structured, cited, versioned artifacts, such as specs and decision records committed to the repos, rather than auto-extracted chat memory. That fits spec-driven development and the handoff-by-commit rule for mixed hosts. Do not adopt a knowledge graph memory without checking that facts aren't fragmented. Report the agent model as a factor, because rankings flipped between models. Nothing here addresses multi-repo code ingestion directly.",
+  "conflicts_with": []
+}

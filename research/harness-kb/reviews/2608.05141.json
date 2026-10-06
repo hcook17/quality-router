@@ -1,0 +1,50 @@
+{
+  "arxiv_id": "2608.05141",
+  "contribution_type": "empirical",
+  "summary": "OctoLong is a data pipeline that uses an AST parser, a Python language server (jedi) and the package manager inside a container to recursively pull in the implementations a Python file calls, including from installed third-party packages, yielding dependency-dense code contexts up to 128K+ tokens. The authors mix ~6.2B such tokens (~12%) into a ~50B-token context-extension corpus, mid-train Qwen3 0.6B-14B base models to 128K, then SFT on ~10B tokens, and compare against 18 open-weight long-context models plus three ablations on long-context code, general long-context, tool-use and short-context coding benchmarks.",
+  "claims": [
+    {"claim": "Replacing conventional long-context data with OctoLong cross-repo code improves long-context code understanding.", "evidence": "Table 3 ablation (8B only): '-Cross-Repo Code' is lower by 3.38 (LooGLE V2 Code), 2.84 (LongCodeQA), 3.05 (RepoQA). Single 8B run per variant, no seeds or CIs; ablation swaps in a ProLong-style control corpus whose composition (Table 2) differs in several categories, so the effect is not cleanly isolated to the 12% slice.", "strength": "moderate", "location": "§5 RQ1, Table 3, Table 6"},
+    {"claim": "Gains transfer to downstream agentic tool use.", "evidence": "Table 4: ablation drops 3.91 on BFCL V3 and 4.97 on tau2-Bench; OctoLong-14B 67.31 BFCL / 34.42 tau2 vs Qwen2.5-14B-Instruct-1M 55.59 / 26.02. No SWE-bench or repository-editing agent evaluation despite 'agentic workflows' framing; baselines are older-generation models with different post-training.", "strength": "moderate", "location": "§5 RQ3, Table 4, Table 8"},
+    {"claim": "OctoLong preserves short-context coding and improves API usage.", "evidence": "Table 4: OctoLong-8B is below official Qwen3-8B by 2.36 (LiveCodeBench V6) and 1.29 (BigCodeBench Hard); improvement is only vs its own ablations. 'No penalty' framing in §1 is overstated.", "strength": "weak", "location": "§5 RQ4, Table 4, Table 9"},
+    {"claim": "Despite Python-only data, benefits transfer to other programming languages.", "evidence": "Inferred from RepoQA (five languages) averages; no per-language breakdown vs ablation in the main text.", "strength": "weak", "location": "§5 RQ1 (line ~703)"}
+  ],
+  "patterns": [
+    {"id": "P05", "stance": "supports", "note": "Deterministic AST+LSP+package-manager traversal is the core retrieval mechanism for building dependency-dense context; evidence is via training gains, not inference-time retrieval."},
+    {"id": "P27", "stance": "neutral", "note": "Motivated by cross-repository dependencies (code not self-contained per repo), but only for training data, not for agent coordination across repos."},
+    {"id": "P25", "stance": "supports", "note": "Mid-training/SFT data recipe with ablations improves tool-use benchmarks for small open models."}
+  ],
+  "methodology": {
+    "sample": "12K installable Python repos, 92K seed files; ~6.2B OctoLong tokens; evaluation on LooGLE V2 Code, LongCodeQA, RepoQA, LongBench V2, OpenAI MRCR, AA-LCR, BFCL V3, tau2-Bench, LiveCodeBench V6, BigCodeBench Hard.",
+    "baselines": "18 open-weight long-context LMs (e.g., Qwen2.5-14B-Instruct-1M, GLM-4-9B-1M, Yi-Coder-9B, Llama-3 variants, ProLong, UltraLong); no closed or latest-generation agentic models.",
+    "models": "OctoLong-Instruct derived from Qwen3 dense base 0.6B-14B.",
+    "variance": "Not reported; single training run per config, sampling at T=0.6 with no repeated-run statistics.",
+    "ablations": "Three on 8B: minus cross-repo code, minus model merging, minus context extension.",
+    "contamination_controls": "13-gram decontamination against all downstream evals (App. B); LiveCodeBench restricted to V6 split.",
+    "languages": "Python-only training contexts; RepoQA covers five languages."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint, no venue in comment or journal_ref.",
+    "limitations_section": true,
+    "artifacts": "No code, data or model release link found in the text.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "single_language_python", "detail": "Pipeline and all mined contexts are Python (jedi); cross-language transfer is asserted from one benchmark."},
+    {"type": "no_variance_reported", "detail": "Ablation deltas of 2-5 points from single training runs."},
+    {"type": "closed_artifacts", "detail": "No release of pipeline, OctoLong data, or OctoLong-Instruct checkpoints is stated."},
+    {"type": "hype_language", "detail": "'Virtually limitless source' and 'no penalty on short-context' while Table 4 shows Qwen3-8B ahead on short-context coding."},
+    {"type": "other:ablation_confound", "detail": "-Cross-Repo Code replaces OctoLong data with a ProLong control mix; Table 2 shows the two mixes differ across many categories, so the effect is not cleanly attributable to cross-repo code."}
+  ],
+  "coi": {
+    "affiliations": "UKP Lab & ATHENE, TU Darmstadt; CAIDAS, University of Würzburg.",
+    "vendor_products_evaluated": "None; Qwen3 base models used as starting points.",
+    "funding": "hessian.AI (BMFTR grant 16IS22091; Hessian ministry S-DIW04/0013/003), ATHENE (German federal/state ministries); compute on JUWELS via GCS.",
+    "severity": "none",
+    "detail": "Academic, publicly funded; no commercial product promoted."
+  },
+  "scores": {"rigor": 3, "reproducibility": 1, "generalizability": 2, "relevance": 1, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Reasonably broad evaluation with ablations and decontamination, but single runs, an imperfectly isolated ablation, Python-only data, no artifact release, and it concerns model training rather than harness design.",
+  "applicability": "Mostly does not transfer: the team will not mid-train models. The one transferable idea is harness-side: build cross-repo context by deterministic dependency traversal (AST + language server + build-tool metadata) rather than embedding search. For a Java team whose ingestion spans ≥4 repos, the analogue is using jdtls/Maven or Gradle coordinates to resolve calls into sibling ingestion libraries and shared DTO/contract modules and feeding those to whichever agent host is in use. The paper gives no evidence for this at inference time or for Java, so treat it as a hypothesis to test, not a result.",
+  "conflicts_with": []
+}

@@ -1,0 +1,34 @@
+{
+  "arxiv_id": "2605.08013",
+  "contribution_type": "empirical",
+  "summary": "The paper trains a Qwen3-14B shell agent with A³, a GRPO-family RL method. A³ builds turn-level advantages from episode-relative reward, AST-based similarity of shell command sub-chains, and tree-level trajectory margins. It adds σ-Reveal, an inference-time heuristic that picks a token-budgeted subset of the initial file tree to show the agent. The authors also build ShellOps/ShellOps-Pro, a verifiable dataset of filesystem lookup, aggregate and edit tasks. A³ is the best 14B method on most streams, with its largest margins on the authors' own ShellOps.",
+  "claims": [
+    {"claim": "A³ is the strongest Qwen3-14B method across the mixed benchmark", "evidence": "Table 1 exact match: large gains on ShellOps (string 46.5 vs best baseline 27.5; hybrid 21.9 vs 11.3) and AB-DB (23.6 vs 15.1). Margins are small elsewhere: AB-OS 58.6 vs ReAct 57.9 (GSPO 61.4 is higher), TableBench 30.7 vs 25.0. In Table 2 Pass@3/5, untrained ReAct beats A³ on AB-OS (79.7/86.2 vs 76.2/79.3) and RetroAgent beats it on EHRCon. Single runs, no variance.", "strength": "moderate", "location": "§4.3, Tables 1-2"},
+    {"claim": "σ-Reveal improves results by selecting token-budgeted workspace context", "evidence": "Table 1: gains of 0.7-3.8 pts on most streams (e.g. ShellOps string 46.5→48.5, hybrid 21.9→24.6), but small regressions on Files AB-DB (46.6→46.4) and Files ShellOps (26.5→25.7). No variance, so most deltas are within plausible noise.", "strength": "weak", "location": "§3.2, Table 1"},
+    {"claim": "A³ reaches the Qwen3-235B range on ShellOps-Pro at longer horizons; gap remains to Kimi-K2.6/GLM-5.1", "evidence": "§4.4 and the ShellOps-Pro table (H_max 6/8/10): 150 OOD tasks, authors' own dataset.", "strength": "moderate", "location": "§4.4"},
+    {"claim": "Advantage computation stays at standard GRPO cost", "evidence": "Table 5 efficiency comparison; App. E AST similarity cost.", "strength": "moderate", "location": "§4.6, Table 5, App. E"}
+  ],
+  "patterns": [
+    {"id": "P25", "stance": "supports", "note": "RL credit assignment for CLI agents improves a 14B policy, mainly on the authors' dataset; single model, no variance."},
+    {"id": "P05", "stance": "mixed", "note": "σ-Reveal ranks files lexically (name matches task tokens, depth prior, extension prior); gains are small and inconsistent."},
+    {"id": "P24", "stance": "introduces", "note": "Token-budgeted initial context selection (subtree-closed knapsack under budget B)."},
+    {"id": "P33", "stance": "neutral", "note": "Shell commands as the native action space."},
+    {"id": "P20", "stance": "neutral", "note": "Sandboxed execution with 10 s timeout (App. B.2)."},
+    {"id": "P31", "stance": "introduces", "note": "ShellOps / ShellOps-Pro verifiable CLI datasets."}
+  ],
+  "methodology": {"sample": "6 benchmark streams (AgentBench OS/DB, DataBench, EHRCon, TableBench, ShellOps 714 in-distribution tasks) + ShellOps-Pro 150 OOD tasks; 30% of the training split used", "baselines": "ReAct, LATS, rStar, GSPO, GiGPO, HGPO, RetroAgent on Qwen3-14B under the same config; Kimi-K2.6, GLM-5.1, Qwen3-235B as frontier inference", "models": "Qwen3-14B policy only; Qwen3-8B as secondary LLM judge; Claude Opus 4.7 for data label audits", "variance": "None reported (fixed seed 42 for splits)", "ablations": "A³ branch ablation and window length (Table 4); channel contribution shares (Fig. 4a)", "contamination_controls": "Instances judged hallucinatory/mislabeled by Claude audits excluded; no training-data overlap check", "languages": "Bash over mixed-file workspaces; horizon 6 steps (up to 10 on ShellOps-Pro)"},
+  "standards": {"peer_review": "None stated (arXiv preprint)", "limitations_section": true, "artifacts": "Code at github.com/Hoyant-Su/Agentic-RL-A3; dataset release not explicitly confirmed", "preregistration": "n/a"},
+  "biases": [
+    {"type": "self_evaluation", "detail": "The largest gains are on ShellOps, a dataset built by the same authors, with labels from Claude audits."},
+    {"type": "single_model", "detail": "Qwen3-14B is the only trained policy."},
+    {"type": "no_variance_reported", "detail": "Single runs for an RL method; several margins are 1-3 pts."},
+    {"type": "toy_tasks", "detail": "6-step horizon and 10 s sandbox timeout; tasks are file lookup/aggregation/edit, not software builds."},
+    {"type": "llm_judge_unvalidated", "detail": "Secondary LLM-judge metric (Qwen3-8B) and Claude-generated labels are not validated against humans."}
+  ],
+  "coi": {"affiliations": "Fudan University, Shanghai Jiao Tong University, Shanghai Innovation Institute", "vendor_products_evaluated": "None", "funding": "Not stated", "severity": "low", "detail": "Academic authors with no vendor tie. The authors both built the ShellOps benchmark and propose the method that tops it, which is a self-evaluation risk rather than a commercial conflict."},
+  "scores": {"rigor": 2, "reproducibility": 3, "generalizability": 2, "relevance": 2, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Several RL baselines run under matched configs, plus a component ablation and released code. But it uses a single model with no variance, the largest wins are on the authors' own dataset, the horizons are short, and σ-Reveal's gains are small and inconsistent.",
+  "applicability": "Weak transfer. The team will use frontier agents on hosts it does not train, so A³ itself is irrelevant. σ-Reveal is a reusable harness idea: pre-select a token-budgeted, directory-preserving slice of the file tree using name, depth and extension heuristics before the first action. It is cheap to try across 4+ ingestion repos, but its evidence here is small, noisy gains on shallow-horizon tasks. Repo maps or deterministic grep/LSP retrieval would need their own A/B on the team's Java repos before adoption. The paper offers no evidence on spec-driven development or multi-host consistency.",
+  "conflicts_with": []
+}

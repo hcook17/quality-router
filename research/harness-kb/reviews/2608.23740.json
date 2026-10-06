@@ -1,0 +1,54 @@
+{
+  "arxiv_id": "2608.23740",
+  "contribution_type": "empirical",
+  "summary": "AgentRoom gives concurrent coding agents a CRDT-merged shared filesystem plus an MCP 'room' server (claim, release, state, broadcast, read) implementing advisory file-level locks. Five vendor CLI models run four Express.js/TypeScript backend tasks under 300-900 s budgets. Two agents in AgentRoom abandon tasks ('stub-and-exit') far less than Solo, and score higher on an LLM-judge composite than parallel-merge, a ChatDev-style pipeline, and partial bundles.",
+  "claims": [
+    {"claim": "AgentRoom x2 suppresses lone-agent abandonment.", "evidence": "Pooled CMH over 12 model x task strata: Solo abandonment odds 13.7x AgentRoom (95% CI [3.9, 48], p<1e-5, Tarone p=0.92). Deterministic codebook, threshold sweep App. B.12. T4: Haiku 12/35→1/17, Codex 9/17→2/21, Sonnet 6/33→0/17 (p=0.070). The two-agent arm uses roughly double the compute of Solo.", "strength": "moderate", "location": "§1, §4.1, App. B.12"},
+    {"claim": "At matched compute, AgentRoom beats parallel-merge by +0.213 mean quality.", "evidence": "Table 1 (T4, Sonnet): 0.669 (n=14) vs 0.456 (n=12), Welch p=0.003. Score is a Sonnet 4.6 LLM-judge composite of Sonnet output. Parallel-merge is a post-hoc file union with later-timestamp overwrite that silently clobbers server.ts, so every parallel-merge snapshot passes zero capabilities in the oracle replay.", "strength": "weak", "location": "§4.2, Table 1, App. B.18"},
+    {"claim": "Coordination, not parallelism or CRDT merge, carries the gain.", "evidence": "Bundle probe: shared-only 0.575 (n=11) < shared+prompt noMCP 0.588 (n=7) < AgentRoom 0.669; interval on the MCP step spans zero, and the execution-oracle replay reverses the interior ordering (shared-only 4.91 > noMCP 4.70 capabilities).", "strength": "weak", "location": "§5, App. B.13, App. B.18"},
+    {"claim": "AgentRoom beats a ChatDev-style sequential pipeline.", "evidence": "0.333 (n=6) vs 0.669; 7 of 13 ChatDev runs crashed at ~32 s and were excluded; ChatDev was re-implemented by the authors on the same CLI.", "strength": "weak", "location": "§4.3"},
+    {"claim": "Structured claim state beats free-text chat coordination.", "evidence": "T5: MCP-chat n=2 (1 failure) vs CRDT-state n=7 (7/7 succeed).", "strength": "weak", "location": "§4.6"}
+  ],
+  "patterns": [
+    {"id": "P11", "stance": "mixed", "note": "Two concurrent agents with explicit claims beat solo on abandonment, but quality peaks at N=2 and declines at N=3-4 (0.553, 0.489) while message traffic rises super-linearly."},
+    {"id": "P29", "stance": "mixed", "note": "Uncoordinated parallel agents in separate workspaces underperform solo (0.456 vs 0.544), but 'merge' here is naive file overwrite, not git merge of isolated worktrees, so this does not test proper worktree-plus-PR merging."},
+    {"id": "P04", "stance": "supports", "note": "Coordination primitives exposed as MCP tools; also a deployment caveat: MCP stdio framing mismatch crashed Gemini CLI, and GPT-5.4-mini crashed under concurrent MCP."},
+    {"id": "P18", "stance": "mixed", "note": "Primary metric is a same-family LLM judge; cross-judge correlation r≈0.86 reported, but an execution probe agrees only on the endpoints of the ordering."},
+    {"id": "P13", "stance": "contradicts", "note": "Sequential role pipeline (ChatDev-style) scored lowest, though with heavy crash exclusions."}
+  ],
+  "methodology": {
+    "sample": "4 synthetic Express.js/TypeScript tasks (T1, T2, T4, T5; T3 appendix only); per-cell n 5-35; spot checks on 10 DevBench Python projects and a Rust+axum T4 transposition (n=4-5).",
+    "baselines": "Solo, shared-only, shared+prompt noMCP, parallel-merge (naive union), ChatDev-style pipeline re-implemented by authors.",
+    "models": "Claude Sonnet 4.6, Haiku 4.5, GPT-5.4 (Codex CLI), Gemini 3 Flash; GPT-5.4-mini excluded for CLI crashes.",
+    "variance": "σ and bootstrap CIs per cell; Welch tests; CMH for pooled abandonment. No seeds (hosted models).",
+    "ablations": "Six-condition ablation, N=1-4 scaling, heterogeneous pairs, judge sensitivity, codebook threshold sweep.",
+    "contamination_controls": "n/a (newly specified tasks), but tasks are canonical CRUD/ledger domains.",
+    "languages": "TypeScript primarily; Python and Rust spot checks."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint; no venue.",
+    "limitations_section": true,
+    "artifacts": "Text says codebook, judge rubric and scorer scripts ship with a release repository; no repository URL found in the extracted text (only yjs link).",
+    "preregistration": "Partial: abandonment codebook script committed before CMH analyses (App. B.12)."
+  },
+  "biases": [
+    {"type": "llm_judge_unvalidated", "detail": "Sonnet 4.6 judges Sonnet outputs; cross-judges correlate, but no held-out execution suite exists (vitest suites are agent-authored), and the post-hoc oracle disagrees on interior ordering."},
+    {"type": "strawman_baseline", "detail": "Parallel-merge resolves conflicts by later-timestamp file overwrite, guaranteeing clobbered entry points; the ChatDev baseline lost 7/13 runs to orchestrator crashes."},
+    {"type": "toy_tasks", "detail": "Greenfield multi-file apps with 5-15 minute wall clocks in one runtime template, not changes to existing codebases."},
+    {"type": "small_sample", "detail": "Key cells n=6-14; Gemini 5+5; MCP-chat n=2."},
+    {"type": "self_evaluation", "detail": "Authors' own protocol, tasks and scorers."},
+    {"type": "hype_language", "detail": "'Activation of collaborative language' and emergence framing rest on 6-run behaviour counts."}
+  ],
+  "coi": {
+    "affiliations": "Seonglae Cho (Holistic AI), Donghyun Lee (UC Berkeley).",
+    "vendor_products_evaluated": "AgentRoom is the authors' research system; vendor CLIs evaluated neutrally. Holistic AI is not a coding-agent vendor.",
+    "funding": "Not stated.",
+    "severity": "low",
+    "detail": "Industry affiliation without a commercial product under test."
+  },
+  "scores": {"rigor": 3, "reproducibility": 2, "generalizability": 1, "relevance": 3, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "The statistics are unusually careful (CMH, Welch, judge cross-checks, oracle replay) and the judge-free abandonment result is credible. But quality claims rest on a same-family LLM judge, the parallel baseline is a strawman file-overwrite, tasks are short greenfield TypeScript apps, and the artifact URL is missing.",
+  "applicability": "Partially transferable. For a Java team running multiple agents, the useful findings are that explicit, machine-checked ownership claims (a lock/claim service the CLI enforces) beat free-text coordination, and that naive concurrent writes to shared entry points destroy work. Both argue for the existing rule of one mutating agent per working tree, with worktree isolation and PR-level merge. A shared CRDT workspace is the riskier alternative for a ≥4-repo ingestion system. The diminishing returns past two agents argue against large swarms. The MCP-stdio framing crashes are a concrete warning for mixed hosts: test any coordination MCP server against every host CLI in use. None of this was tested on Java, existing codebases, or spec-driven workflows.",
+  "conflicts_with": []
+}

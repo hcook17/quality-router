@@ -1,0 +1,35 @@
+{
+  "arxiv_id": "2606.08500",
+  "contribution_type": "empirical",
+  "summary": "Builds Ada, a read-only repository code-understanding agent with a seven-tool interface, and records 408 trajectories (6 repos x 4 task families x 4 models x 4 prompt conditions = 384, plus 24 coach-judge runs on GPT-4.1). Five 'observation lenses' (surface counts, journey arcs, transition grammar, LLM-judge adjudication, repository footprints) characterize model behavior under budget pressure, prior suppression, and external coaching.",
+  "claims": [
+    {"claim": "Budget pressure compresses exploration (turns, LOC, files, time) for all four models while raising per-turn effort.", "evidence": "Figures 4-5 (Finding 1); GPT-4.1 time/turn ~5s -> >15s. Authors note wall-clock is confounded with serving latency (Pearson r=0.397 with output length).", "strength": "moderate", "location": "§4.1, §4.2.1"},
+    {"claim": "Behavioral and judged-quality profiles are mainly model-characteristic; conditions cause smaller shifts.", "evidence": "Fig. 8: task relevance T1 0.174 (GPT-4o) to 0.868 (Qwen) vs condition range 0.608-0.632; Table 6. One trajectory per grid cell, no repeated runs.", "strength": "moderate", "location": "§4.2.2-4.2.3"},
+    {"claim": "External coach-judge intervention increases activity (2.5x turns, 3.4x files) but lowers conclusion grounding (median ~0.68 vs 0.85-0.95).", "evidence": "§4.3, 24 trajectories, GPT-4.1 only, DeepSeek-V3 as coach/judges; grounding scored by LLM judges whose human alignment is weakest on Trace Grounding (Appendix 11, Table 15).", "strength": "weak", "location": "§4.3, Fig. 12, App. 11"},
+    {"claim": "Trajectories diverge while conclusions converge.", "evidence": "RQ2 summary synthesizes lens readings; convergence judged by LLM adjudication only.", "strength": "weak", "location": "§4.2 Summary"}
+  ],
+  "patterns": [
+    {"id": "P30", "stance": "supports", "note": "Replayable trajectories plus lenses make agent navigation/stopping observable; full replication package."},
+    {"id": "P18", "stance": "mixed", "note": "Three-model judge vote with inter-judge agreement and a 250-item single-annotator human check; termination calibration has weak agreement and judges agree with each other more than with the human on grounding."},
+    {"id": "P24", "stance": "mixed", "note": "Turn-budget pressure cuts exploration without collapsing judged quality but lowers termination calibration (0.715 -> 0.633)."},
+    {"id": "P05", "stance": "neutral", "note": "Tool surface is structural overview + code-region peeking; these two account for 80.1% of calls."},
+    {"id": "P31", "stance": "neutral", "note": "Explicitly not benchmark-driven; observation of open-ended tasks."}
+  ],
+  "methodology": {"sample": "408 trajectories; 6 repos (Requests, Flask, scikit-learn, Graphiti in Python; Prompt Optimizer in TypeScript; TensorZero in Rust); 4 task families.", "baselines": "Natural condition as reference; no alternative scaffolds.", "models": "GPT-4o, GPT-4.1 (via GitHub Copilot runtime, default temperature), DeepSeek-V3.2, Qwen3.5-397B-A17B (temp 0.2); judges GLM-5, Kimi-K2.5, MiniMax-M2.7; coach DeepSeek-V3.", "variance": "One run per grid cell; within-condition variance shown qualitatively; no CIs on judged scores.", "ablations": "Prompt-framing conditions act as perturbations; coach condition only on GPT-4.1.", "contamination_controls": "Prior-suppression prompt condition; popular repos (Flask, Requests, scikit-learn) are surely in training data.", "languages": "Python (4 repos), TypeScript (1), Rust (1); no Java."},
+  "standards": {"peer_review": "arXiv preprint; formatted for a Springer venue but no acceptance listed.", "limitations_section": true, "artifacts": "Zenodo replication package: apparatus code, all 408 trajectories, lens outputs, scripts, judge prompts.", "preregistration": "n/a"},
+  "biases": [
+    {"type": "no_variance_reported", "detail": "Single trajectory per configuration; model-level differences may include run noise."},
+    {"type": "llm_judge_unvalidated", "detail": "Partial validation only: one human annotator on 250 items; weakest agreement on dimensions driving key findings (termination calibration, trace grounding)."},
+    {"type": "contamination_risk", "detail": "Well-known OSS repos; prior-suppression is only a prompt instruction."},
+    {"type": "small_sample", "detail": "Coach-judge finding rests on 24 GPT-4.1 runs."},
+    {"type": "other:dated_models", "detail": "GPT-4o/GPT-4.1 served through Copilot with uncontrolled decoding."}
+  ],
+  "coi": {"affiliations": "Tongji University, Shanghai.", "vendor_products_evaluated": "None; models are third-party.", "funding": "Not stated; COI declaration says none.", "severity": "none", "detail": "Academic study with no product interest."},
+  "scores": {"rigor": 3, "reproducibility": 4, "generalizability": 2, "relevance": 2, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Well-documented, fully released trajectory study across four models and six repos, with honest limitation sections; but one run per cell, read-only code-understanding tasks, partially validated LLM judges, and a small single-model intervention arm limit what can be concluded about harness design.",
+  "applicability": "Useful for the team's observability practice more than for design choices: recording replayable trajectories and analysing navigation footprints/stopping is a cheap way to compare hosts (Cursor, Claude Code, Codex) on the same ingestion repos. The coach-judge result is a caution against injecting an always-on LLM supervisor into the agent loop; deterministic gates are safer. Repos are Python/TS/Rust and tasks are read-only understanding, so nothing here measures Java or multi-repo change work.",
+  "conflicts_with": [
+    {"arxiv_id": "2606.03115", "detail": "Ada's LLM coach-judge intervention extended runs and lowered judged grounding, whereas SPOQ reports that review/validation interventions reduce defects; different task types, so tension rather than direct contradiction."}
+  ]
+}

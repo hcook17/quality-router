@@ -1,0 +1,29 @@
+{
+  "arxiv_id": "2605.29140",
+  "contribution_type": "position",
+  "summary": "A summary report of a one-day Chatham-House-rule discussion between three NSF S3C2 researchers and 12 participants from 6 unnamed US government agencies (July 2025) on supply-chain security: SBOM/VEX/compliance, vulnerable dependencies, malicious commits, build infrastructure, culture, LLMs, and component choice. Each section lists 'continued themes' and 'new ideas' from the notes; there is no data collection instrument beyond moderator questions (Appendix A).",
+  "claims": [
+    {"claim": "Government practitioners now treat LLM-based systems 'as software' (CVEs/CWEs apply) rather than as a new category.", "evidence": "§7.2 'AI as Software' paraphrases unattributed participant remarks; no count of how many participants held the view.", "strength": "weak", "location": "§7.2"},
+    {"claim": "SBOM adoption is stalled by missing incentives/enforcement, trust in produced SBOMs, and vendor pushback; VEX adoption is low due to legal-liability concerns.", "evidence": "§2.1-2.2 narrative summaries of discussion; consistent with prior S3C2 summits but no independent data.", "strength": "weak", "location": "§2, §9"},
+    {"claim": "Participants want paved paths (curated components/containers) to make secure choices the default.", "evidence": "§8.1 single short paragraph citing vendor examples mentioned by participants.", "strength": "weak", "location": "§8.1"}
+  ],
+  "patterns": [
+    {"id": "P21", "stance": "neutral", "note": "Discussion of policy/compliance as the driver of security controls; not agent-specific."},
+    {"id": "P20", "stance": "neutral", "note": "'Isolating builds' mentioned as continued theme (§5.1); no agent sandbox content."},
+    {"id": "P04", "stance": "neutral", "note": "MCP mentioned only as a shift in model architecture assumptions (§7.2)."}
+  ],
+  "methodology": {"sample": "12 participants from 6 US government agencies, one day; identities/affiliations withheld (Chatham House).", "baselines": "n/a (qualitative report); comparisons to prior S3C2 summits are narrative.", "models": "n/a", "variance": "n/a; no indication of how many participants supported each point.", "ablations": "n/a", "contamination_controls": "n/a", "languages": "n/a"},
+  "standards": {"peer_review": "None indicated (no arXiv comment/journal_ref); report reviewed by summit participants and other S3C2 authors (§1).", "limitations_section": false, "artifacts": "Discussion prompts in Appendix A; no transcripts or coding.", "preregistration": "n/a"},
+  "biases": [
+    {"type": "small_sample", "detail": "12 participants, 6 agencies, single session."},
+    {"type": "selection_bias_participants", "detail": "Invited participants 'invested in software security'; topics chosen by participant vote; attendance intentionally capped."},
+    {"type": "other:no_qualitative_method", "detail": "Notes taken by three researchers and drafted by a PhD student; no coding scheme, inter-rater agreement, or frequency of views."},
+    {"type": "other:internal_inconsistency", "detail": "Abstract says 'Thursday, July 9th' and 'six topics'; §1 says 'Wednesday, July 9th' and 'seven topics' (§9 lists seven)."}
+  ],
+  "coi": {"affiliations": "NC State, Paderborn/George Washington, U. Maryland, CMU (S3C2 academic center).", "vendor_products_evaluated": "None.", "funding": "NSF grants 2207008, 2206859, 2206865, 2206921 (§10).", "severity": "none", "detail": "Academic organizers; no product evaluated."},
+  "scores": {"rigor": 1, "reproducibility": 1, "generalizability": 1, "relevance": 1, "coi_risk": 0},
+  "verdict": "reject",
+  "verdict_reason": "Anecdotal, unattributed practitioner discussion summary with no systematic qualitative method and internal inconsistencies; LLM content (§7) is generic (hallucinated packages, poisoning, 'amnesia') and says nothing about agent harness design. Off-topic for harness decisions beyond background supply-chain context.",
+  "applicability": "Little transfers. For a Java healthcare-education ingestion team the only usable signals are background: hallucinated-package risk argues for dependency allow-lists / lockfile and SBOM checks on agent-generated Maven changes across the ≥4 ingestion repos, and 'paved path' supports a single shared harness config across mixed agent hosts. None of this is evidence; it does not inform spec-driven development.",
+  "conflicts_with": []
+}

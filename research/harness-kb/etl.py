@@ -430,6 +430,43 @@ def weight(r: dict, status: str) -> float:
     return round(w * (0.6 if status == "caveated" else 1.0), 3)
 
 
+AUDITS = ROOT / "audits"
+_VORDER = {"admit": 0, "admit_with_caveats": 1, "reject": 2}
+_SORDER = {"none": 0, "low": 1, "medium": 2, "high": 3}
+_CORDER = {"strong": 3, "moderate": 2, "weak": 1, "unsupported": 0}
+
+
+def merge_audit(r: dict, a: dict) -> dict:
+    """Conservative merge of a blind second-opinion audit into a review."""
+    r = json.loads(json.dumps(r))
+    b = a.get("blind_scores", {})
+    for k in ("rigor", "reproducibility", "generalizability", "relevance"):
+        if isinstance(b.get(k), int):
+            r["scores"][k] = min(r["scores"][k], b[k])
+    if isinstance(b.get("coi_risk"), int):
+        r["scores"]["coi_risk"] = max(r["scores"]["coi_risk"], b["coi_risk"])
+    if a.get("blind_verdict") in _VORDER and _VORDER[a["blind_verdict"]] > _VORDER[r["verdict"]]:
+        r["verdict_reason"] = f"[audit tightened {r['verdict']}->{a['blind_verdict']}] " + r["verdict_reason"]
+        r["verdict"] = a["blind_verdict"]
+    sev = a.get("blind_coi_severity")
+    if sev in _SORDER and _SORDER[sev] > _SORDER[r["coi"]["severity"]]:
+        r["coi"]["severity"] = sev
+    disputed = {d.get("claim", "").strip(): d for d in a.get("claims_disputed", [])}
+    for c in r["claims"]:
+        d = disputed.get(c["claim"].strip())
+        if d and d.get("proposed_strength") in _CORDER and _CORDER[d["proposed_strength"]] < _CORDER[c["strength"]]:
+            c["strength"] = d["proposed_strength"]
+            c["evidence"] = f"[audit: {d.get('reason', '')[:300]}] " + c.get("evidence", "")
+    changes = {x.get("id"): x for x in a.get("pattern_stance_changes", []) if x.get("to") in STANCE}
+    for p in r["patterns"]:
+        if p["id"] in changes:
+            p["note"] = f"[audit {p['stance']}->{changes[p['id']]['to']}: {changes[p['id']].get('reason', '')[:200]}] " + p.get("note", "")
+            p["stance"] = changes[p["id"]]["to"]
+    for b_ in a.get("missed_issues", []):
+        r["biases"].append({"type": "other:audit_missed", "detail": str(b_)[:500]})
+    return r
+
+
 SCHEMA = """
 CREATE TABLE papers(arxiv_id TEXT PRIMARY KEY, version INT, title TEXT, abstract TEXT, published TEXT,
   primary_category TEXT, authors TEXT, comment TEXT, journal_ref TEXT, n_topics INT);
@@ -444,6 +481,7 @@ CREATE TABLE pattern_evidence(arxiv_id TEXT, pattern_id TEXT, stance TEXT, note 
 CREATE TABLE biases(arxiv_id TEXT, bias TEXT, detail TEXT);
 CREATE TABLE conflicts(arxiv_id TEXT, other TEXT, detail TEXT);
 CREATE TABLE patterns(id TEXT PRIMARY KEY, name TEXT);
+CREATE TABLE audits(arxiv_id TEXT PRIMARY KEY, agreement TEXT, blind_verdict TEXT, blind_json TEXT, note TEXT);
 CREATE VIRTUAL TABLE fts USING fts5(arxiv_id UNINDEXED, title, abstract, summary, claims);
 """
 
@@ -480,6 +518,12 @@ def cmd_load(args: argparse.Namespace) -> None:
         if errs:
             bad.append((f.name, errs))
             continue
+        af = AUDITS / f.name
+        if af.exists():
+            a = json.loads(af.read_text())
+            r = merge_audit(r, a)
+            db.execute("INSERT INTO audits VALUES(?,?,?,?,?)", (r["arxiv_id"], a.get("agreement", ""),
+                       a.get("blind_verdict", ""), json.dumps(a), a.get("note", "")))
         status = admission(r)
         counts[status] += 1
         s = r["scores"]
@@ -556,8 +600,84 @@ def cmd_report(args: argparse.Namespace) -> None:
     for row in q("""SELECT r.arxiv_id, p.title, r.verdict_reason FROM reviews r JOIN papers p USING(arxiv_id)
                     WHERE r.status='rejected' ORDER BY r.arxiv_id"""):
         out.append(f"| [{row[0]}](https://arxiv.org/abs/{row[0]}) | {row[1][:80]} | {row[2][:160]} |")
+    out += ["", "## Second-opinion audits", "", "| Agreement | Papers |", "| --- | --- |"]
+    for ag, n in q("SELECT agreement, COUNT(*) FROM audits GROUP BY agreement ORDER BY 2 DESC"):
+        out.append(f"| {ag} | {n} |")
+    flips = q("""SELECT a.arxiv_id, p.title, a.blind_verdict, r.status FROM audits a JOIN papers p USING(arxiv_id)
+                 JOIN reviews r USING(arxiv_id) WHERE a.agreement='major_disagreement'""").fetchall()
+    if flips:
+        out += ["", "Major disagreements (merged conservatively):", ""]
+        out += [f"- [{x[0]}](https://arxiv.org/abs/{x[0]}) {x[1][:80]} — blind verdict `{x[2]}`, final `{x[3]}`" for x in flips]
     (ROOT / "kb_tables.md").write_text("\n".join(out) + "\n")
-    print("wrote kb_tables.md")
+
+    ev = ["# Evidence ledger by pattern", "",
+          "Non-rejected papers only, ordered by review weight. Notes are reviewer/auditor text.", ""]
+    for pid, name in q("SELECT id, name FROM patterns ORDER BY id"):
+        rows = q("""SELECT pe.arxiv_id, pe.stance, r.weight, r.rigor, r.coi_severity, p.title, pe.note
+                    FROM pattern_evidence pe JOIN reviews r USING(arxiv_id) JOIN papers p USING(arxiv_id)
+                    WHERE pe.pattern_id=? AND r.status!='rejected' AND pe.stance!='neutral'
+                    ORDER BY r.weight DESC""", (pid,)).fetchall()
+        if not rows:
+            continue
+        ev += [f"## {pid} {name}", "", "| arXiv | Stance | Weight | Rigor | COI | Title | Note |",
+               "| --- | --- | --- | --- | --- | --- | --- |"]
+        for a_id, st, w, rg, coi, title, note in rows:
+            note = " ".join((note or "").split()).replace("|", "/")[:260]
+            ev.append(f"| [{a_id}](https://arxiv.org/abs/{a_id}) | {st} | {w} | {rg} | {coi} | {title[:70]} | {note} |")
+        ev.append("")
+    (ROOT / "kb_evidence.md").write_text("\n".join(ev) + "\n")
+    print("wrote kb_tables.md, kb_evidence.md")
+
+
+LANDSCAPE = {
+    "P01 instruction files": r"AGENTS\.md|CLAUDE\.md|cursor ?rules|instruction files?|context files?",
+    "P02 skills": r"\bskills?\b.{0,30}\b(agent|library|SKILL\.md)|SKILL\.md|agent skills",
+    "P04 MCP": r"Model Context Protocol|\bMCP\b",
+    "P06 code RAG/embeddings": r"retrieval[- ]augmented|\bRAG\b|embedding[- ]based retrieval|vector (store|database)",
+    "P07 code graph": r"code graph|knowledge graph|call graph|dependency graph",
+    "P08 compaction": r"compaction|context compression|summariz\w+ (the )?(history|context|trajectory)",
+    "P09 memory": r"\bmemory\b",
+    "P11 multi-agent": r"multi-agent|multiagent",
+    "P14 spec-driven": r"spec(ification)?-driven|spec-first|specification first",
+    "P15 TDD": r"test-driven|\bTDD\b",
+    "P16 execution feedback": r"execution feedback|test feedback|run(ning)? (the )?tests|unit tests? (as|for) (feedback|verification)",
+    "P17 static analysis": r"static analysis|linter|compiler (feedback|errors?)",
+    "P18 LLM judge": r"LLM[- ]as[- ]a?[- ]?judge|LLM judges?",
+    "P20 sandbox": r"sandbox",
+    "P22 prompt injection": r"prompt injection",
+    "P23 routing": r"\brout(ing|er)\b|cascade",
+    "P25 RL": r"reinforcement learning|\bRL\b|GRPO|PPO",
+    "P27 cross-repo": r"multi-repo|multi-repository|cross-repo|cross-repository|polyrepo|microservices?",
+    "P31 SWE-bench": r"SWE-bench",
+    "P32 industrial/field": r"industrial|in production|field study|deployed at|enterprise",
+    "lang: Python": r"\bPython\b",
+    "lang: Java": r"\bJava\b",
+    "domain: healthcare": r"health ?care|clinical|medical|HIPAA",
+}
+
+
+def cmd_landscape(args: argparse.Namespace) -> None:
+    papers = [p for p in load_jsonl(ROOT / "papers.jsonl")
+              if any(h["relevance"] > 0 for h in p["topic_hits"].values())]
+    months = sorted({p["published"][:7] for p in papers if p["published"] >= "2026-05"})
+    by_month = {m: [p for p in papers if p["published"].startswith(m)] for m in months}
+    agentic = re.compile(r"\b(coding|software engineering|SWE)\b.{0,30}\bagents?\b|\bagentic\b.{0,30}\b(coding|software)", re.I)
+    out = ["# Landscape (abstract-level, all gate-passing harvested papers)", "",
+           f"Corpus: {len(papers)} papers, submitted {months[0]}..{months[-1]}. Share of abstracts matching each pattern regex.",
+           "Abstract mentions measure attention, not evidence.", "",
+           "| Pattern | All | " + " | ".join(months) + " | Coding-agent subset |",
+           "| --- | --- | " + " | ".join("---" for _ in months) + " | --- |"]
+    coding = [p for p in papers if agentic.search(p["title"] + " " + p["abstract"])]
+    for name, rx in LANDSCAPE.items():
+        r = re.compile(rx, re.I)
+        def share(ps):
+            return sum(1 for p in ps if r.search(p["title"] + " " + p["abstract"])) / max(1, len(ps))
+        cells = " | ".join(f"{share(by_month[m]):.1%}" for m in months)
+        out.append(f"| {name} | {share(papers):.1%} | {cells} | {share(coding):.1%} |")
+    out += ["", f"Monthly volume: " + ", ".join(f"{m}: {len(by_month[m])}" for m in months),
+            f"Coding-agent subset size: {len(coding)}", ""]
+    (ROOT / "landscape.md").write_text("\n".join(out) + "\n")
+    print("\n".join(out))
 
 
 def cmd_check(args: argparse.Namespace) -> None:
@@ -598,6 +718,7 @@ def main() -> None:
     sub.add_parser("resignal")
     b = sub.add_parser("batches")
     b.add_argument("--size", type=int, default=8)
+    sub.add_parser("landscape")
     ck = sub.add_parser("check")
     ck.add_argument("files", nargs="+")
     sub.add_parser("load")
@@ -606,7 +727,7 @@ def main() -> None:
     qq.add_argument("sql")
     a = ap.parse_args()
     {"harvest": cmd_harvest, "transform": cmd_transform, "select": cmd_select, "fulltext": cmd_fulltext,
-     "resignal": cmd_resignal, "batches": cmd_batches, "check": cmd_check, "load": cmd_load, "report": cmd_report, "query": cmd_query}[a.cmd](a)
+     "resignal": cmd_resignal, "batches": cmd_batches, "landscape": cmd_landscape, "check": cmd_check, "load": cmd_load, "report": cmd_report, "query": cmd_query}[a.cmd](a)
 
 
 if __name__ == "__main__":

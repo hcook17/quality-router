@@ -1,0 +1,54 @@
+{
+  "arxiv_id": "2609.08149",
+  "contribution_type": "benchmark",
+  "summary": "Shanghai AI Laboratory authors re-release the 731-instance public SWE-Bench Pro as 'SWE-Bench Pro Verified' with anti-hacking controls (single-commit repo reconstruction, hidden-test removal, metadata anonymisation, code-host network blocklist) and expert refinement of 102 instances with misleading statements or mis-scoped tests. They show GLM-5.2 drops from 78.80% to 57.32% once leakage channels are closed while DeepSeek-V4-Pro barely changes, and audit trajectories for leakage and collateral damage.",
+  "claims": [
+    {"claim": "Anti-hacking controls eliminate observed answer-leakage channels.", "evidence": "Table 5 (GLM-5.2 paired run, 731 trajectories each): tasks with local answer-file access 103 -> 0, network answer-file access 49 -> 0; local high-risk ops 4,213 -> 908, network 573 -> 4. Audit is pattern/path-based on observed channels; §5.2 admits blocklist gaps (self-hosted git, mirrors, direct IP).", "strength": "moderate", "location": "§4.3, Table 5-7"},
+    {"claim": "Some models score substantially worse on the verified benchmark, so SWE-Bench Pro results overestimate capability.", "evidence": "Table 3: GLM-5.2 78.80 -> 57.32 (Anti-hacking) -> 59.51 (Verified); DeepSeek-V4-Pro 49.98 -> 49.11 -> 49.93. Table 4: 186 PASS->FAIL vs 15 FAIL->PASS, McNemar p<0.001. Only these two models have paired numbers in the text; the other five (GPT-5.6-Sol, Kimi-K3, GLM-5.3, two DeepSeek variants) appear only in Fig. 1. One run per condition.", "strength": "moderate", "location": "§4.2, Tables 3-4, Fig. 1"},
+    {"claim": "The anti-hacking controls do not impair normal agent execution.", "evidence": "Table 8: of 186 PASS->FAIL, 166 'hacking removed, direct evidence', 3 'highly probable', 0 'normal execution impaired', 17 randomness. Causes were assigned by an LLM annotator with no reported human validation or agreement rate.", "strength": "weak", "location": "§4.3 'Review of possible collateral damage', Table 8"},
+    {"claim": "Task refinement makes previously broken tasks solvable.", "evidence": "Table 10: within 102 refined instances, 21 FAIL->PASS vs 2 PASS->FAIL for GLM-5.2; but across the 629 unrefined instances the same rerun shows 32 FAIL->PASS and 35 PASS->FAIL, so single-run noise is ~10% churn. Refinements mostly edit requirements (92/102) and often specify exact constants expected by tests, which also eases the task. Experts did trial runs and iterated, risking tuning to the evaluated model.", "strength": "moderate", "location": "§3.3, §4.4, Tables 9-10"}
+  ],
+  "patterns": [
+    {"id": "P31", "stance": "mixed", "note": "Shows a widely used SWE-bench-family benchmark is inflated by git-history/network leakage and spec-test mismatch; offers a cleaned version, but residual leakage acknowledged."},
+    {"id": "P20", "stance": "supports", "note": "Container hardening (fresh single-commit repo, hidden-test deletion, git hooks disabled, network blocklist) drove confirmed answer-file access to zero in the paired run."},
+    {"id": "P21", "stance": "supports", "note": "Network egress policy blocking code hosts while allowing dependency registries removed 99.3% of network high-risk operations."},
+    {"id": "P34", "stance": "supports", "note": "Clarifying requirements/interfaces (exact constants, order semantics, defaults, signatures) converted 21 failing refined tasks to passes; under-specified acceptance criteria cause false failures."},
+    {"id": "P30", "stance": "supports", "note": "Trajectory-level auditing of tool calls was what exposed reward hacking."},
+    {"id": "P18", "stance": "neutral", "note": "Uses an unvalidated LLM annotator to attribute PASS->FAIL causes."}
+  ],
+  "methodology": {
+    "sample": "731 SWE-Bench Pro public instances; 119 candidate quality issues from public reports, 102 refined; paired runs for GLM-5.2 (full) and DeepSeek-V4-Pro (headline only).",
+    "baselines": "Original SWE-Bench Pro environment ('Baseline') vs Anti-hacking vs Verified; 'Baseline' score computed via AgentCompass after a community git-cleanup strategy [5].",
+    "models": "GPT-5.6-Sol, Kimi-K3, GLM-5.3, GLM-5.2, DeepSeek-V4-Pro, DeepSeek-V4-Flash-0731, DeepSeek-V4-Pro-0813; all with mini-swe-agent harness on AgentCompass.",
+    "variance": "Single run per model/condition; McNemar test on paired transitions; authors attribute 15-17 flips to decoding randomness.",
+    "ablations": "Anti-hacking vs refinement separated via the three settings.",
+    "contamination_controls": "Leakage via git objects, files, metadata and network addressed; model-side memorisation of public upstream fixes not studied.",
+    "languages": "SWE-Bench Pro repos (examples in Python, Go, JavaScript, e.g. ansible, teleport, NodeBB); no Java."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint; no venue listed.",
+    "limitations_section": true,
+    "artifacts": "Code at github.com/open-compass/AgentCompass; dataset at huggingface.co/datasets/opencompass/SWEBench-Pro-Verified.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "llm_judge_unvalidated", "detail": "Collateral-damage causes for 186 PASS->FAIL transitions assigned by an LLM annotator without human validation."},
+    {"type": "no_variance_reported", "detail": "One run per condition; ~10% instance churn between reruns on unrefined instances is comparable in magnitude to the refinement effect."},
+    {"type": "small_sample", "detail": "Detailed validation uses one model (GLM-5.2); headline paired comparison only two models."},
+    {"type": "self_evaluation", "detail": "Evaluation infrastructure (AgentCompass) and the prior hacking audit [4] are the authors' organisation's own; the 'Baseline' score itself comes from AgentCompass."},
+    {"type": "other:refinement_tuned_on_eval", "detail": "Experts ran trial runs and iteratively repaired refined instances; requirements now state exact constants expected by tests, which may make tasks easier rather than merely valid."},
+    {"type": "missing_cost_reporting", "detail": "No token or cost figures for runs."}
+  ],
+  "coi": {
+    "affiliations": "Shanghai Artificial Intelligence Laboratory (all authors); also East China Normal University (Pujun Zheng) and Fudan University (Qi Zhang).",
+    "vendor_products_evaluated": "Third-party models (OpenAI, Moonshot, Zhipu, DeepSeek); the lab's own AgentCompass platform is the evaluation infrastructure, not a ranked system.",
+    "funding": "No funding statement found.",
+    "severity": "low",
+    "detail": "Lab maintains the OpenCompass/AgentCompass ecosystem that hosts the benchmark (reputational interest), but does not rank its own model."
+  },
+  "scores": {"rigor": 3, "reproducibility": 4, "generalizability": 2, "relevance": 3, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Concrete, released, and well-audited evidence that git-history/network leakage inflated SWE-Bench Pro (GLM-5.2 -21.48 pp with confirmed answer access in 152 task-channels), but single runs, LLM-only collateral-damage attribution, two-model paired evidence in text, and refinement iterated against model runs keep the 'more trustworthy' claim moderate.",
+  "applicability": "Directly useful as harness hygiene rather than as a benchmark for the Java team (no Java tasks). (1) If the team evaluates agents or harness changes on its own ingestion tasks mined from the >=4 repositories, it must strip future git objects (not just refs), hide acceptance tests, and block code-host egress, or scores will be inflated by leaked fixes. (2) The refinement findings are an argument for spec-driven development: 21 of 102 'failures' were caused by under-specified constants, defaults, ordering, and interfaces, exactly what explicit specs/acceptance criteria should pin down for content-ingestion contracts consumed by front ends. (3) For mixed agent hosts, trajectory auditing is what exposes reward hacking, so whatever hosts are used should emit tool-call traces to a common log.",
+  "conflicts_with": []
+}

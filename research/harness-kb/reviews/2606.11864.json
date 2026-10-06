@@ -1,0 +1,52 @@
+{
+  "arxiv_id": "2606.11864",
+  "contribution_type": "benchmark",
+  "summary": "CORE-Bench is a code-retrieval benchmark with three levels: L1 reuses existing snippet-level code-search sets, L2 maps SWE-bench-family issue/PR text to the pre-PR code chunks the patch edits (5,061 queries, 632 repos, 11 languages), and L3 adds broader-context labels mined from mini-SWE-agent browse traces and filtered by an LLM vote ensemble (2,580 queries, 106K labels). Embedding models that score high on L1 drop sharply on L2/L3; contrastive fine-tuning of Qwen3-Embedding on PRs from 628 non-SWE-bench repos raises L2/L3 substantially.",
+  "claims": [
+    {"claim": "Embedding retrievers drop sharply from traditional code search to agentic-coding retrieval", "evidence": "Table 3: Qwen3-Embedding-8B 71.7/96.9 (NDCG@10/R@100) on L1 vs 20.3/48.0 on L2 and 34.4/41.5 on L3; similar pattern across 11 listed models. Figure 4: L1 average only moderately correlates with L2.", "strength": "strong", "location": "§4.2, Table 3, Fig. 4"},
+    {"claim": "Simple in-domain SFT significantly improves agentic-coding retrieval", "evidence": "Table 3: Qwen3-8B-SFT L2 32.8/66.4 vs 20.3/48.0 base; L3 50.2/61.4 vs 34.4/41.5. Training repos stated disjoint from SWE-bench family (App. B). But SFT lowers L1 (8B: 71.7 -> 63.0 NDCG@10; 0.6B: 66.9 -> 58.1), a trade-off the text does not discuss; single training run, no variance.", "strength": "moderate", "location": "§4.3, Table 3, App. B"},
+    {"claim": "Level-3 labels capture functionally useful context, not just textual relatedness", "evidence": "Table 11: mini-SWE-agent resolve rate with reads restricted to L3 labels exceeds L2-only allowlist on all four sources (e.g. SWE-bench Verified 69.0% vs 62.0%; Multi-SWE-bench 39.5% vs 23.3%). Relative signal only; labels were produced by the same agent/model family that is then used to validate them, and relevance judged by an LLM vote (2x Qwen3.5-397B, 1x Claude Sonnet 4.6) with no human audit reported.", "strength": "moderate", "location": "§3.2.3, App. F.2, Table 11"},
+    {"claim": "Over 180K queries", "evidence": "§3.1: L1 172K + L2 5,061 + L3 2,580 (approx. 179.6K by stated rounded figures); detail in Table 8. Count is dominated by recycled L1 snippet datasets, not the new agentic levels.", "strength": "moderate", "location": "§3.1, Table 1, Table 8"},
+    {"claim": "Java remains one of the harder L2 languages even after SFT", "evidence": "Table 4/19 per-language NDCG@10 (e.g. Qwen3-0.6B Java L2 10.2 vs Python 18.4); stated in §4.5.", "strength": "moderate", "location": "§4.5, Table 4, Table 19"}
+  ],
+  "patterns": [
+    {"id": "P06", "stance": "mixed", "note": "Off-the-shelf embedding retrieval is weak for issue-to-edit localization (L2 NDCG@10 ~3-22 for base models); domain SFT helps but stays far below L1."},
+    {"id": "P05", "stance": "mixed", "note": "BM25 L2 average 13.0/38.8 (Table 17) beats several dense models (bge-m3, gte-Qwen2, CodeRankEmbed) but trails Qwen3-Embedding-8B; grep/ls-style agent exploration itself is not benchmarked."},
+    {"id": "P31", "stance": "neutral", "note": "Built entirely from SWE-bench-family data; inherits its repo/language skew."}
+  ],
+  "methodology": {
+    "sample": "L1: ~172K queries from 8 existing datasets; L2: 5,061 queries over 632 repos and 9.38M chunks; L3: 2,580 queries, 106K qrels; SFT: 53,301 queries from 628 repos disjoint from SWE-bench",
+    "baselines": "BM25 plus ~10 current general and code embedding models (Qwen3-Embedding, C2LLM-7B, SweRankEmbed-Large, jina-code, F2LLM-v2, e5-mistral, etc.); no rerankers, no hybrid, no agentic grep-based retrieval baseline",
+    "models": "Embedding models only; Qwen3.5-397B-A17B used for filtering, rewriting, agent runs and 2 of 3 relevance votes; Claude Sonnet 4.6 as third vote",
+    "variance": "None; single SFT run per size, no CIs",
+    "ablations": "Query-rewrite variant, per-language, per-difficulty and per-intent breakdowns; no ablation of SFT negative sampling or epochs",
+    "contamination_controls": "Temporal snapshot per query (corpus restricted to pre-PR state); SFT repos disjoint from SWE-bench family. No control for pretraining exposure of public SWE-bench repos in base embedding models.",
+    "languages": "11 languages in L2/L3 (Python, Go, JS, Rust, TS, Java, C++, C, Ruby, PHP, Swift); Python-heavy via SWE-bench sources"
+  },
+  "standards": {
+    "peer_review": "Accepted to EMNLP 2026 Main (arXiv comment)",
+    "limitations_section": true,
+    "artifacts": "Abstract footnote states dataset on Hugging Face and evaluation code on GitHub (URLs not captured in extracted text); prompts in App. H",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "llm_judge_unvalidated", "detail": "L3 relevance labels come from a 3-vote LLM ensemble (two votes from the same Qwen3.5 model) with no reported human agreement; validation in Table 11 is agent-based and relative."},
+    {"type": "other:model_family_entanglement", "detail": "Qwen3.5 builds/filters/rewrites the benchmark and the winning system is fine-tuned Qwen3-Embedding; Qwen-family authorship overlap (see coi)."},
+    {"type": "no_variance_reported", "detail": "No seeds or confidence intervals for SFT or evaluation."},
+    {"type": "metric_mismatch", "detail": "Measures single-shot embedding retrieval, while the paper's own intro says agent harnesses actually retrieve via ls/grep/iterative narrowing; no end-to-end agent success with each retriever."},
+    {"type": "contamination_risk", "detail": "SWE-bench repositories are public and widely used; base embedding models may have seen them."},
+    {"type": "other:unreported_tradeoff", "detail": "SFT reduces L1 performance by ~8-9 NDCG points; not discussed."}
+  ],
+  "coi": {
+    "affiliations": "Beihang University (Institute of AI; SKLCCSE) and Peking University listed. Four authors (Yanzhao Zhang, Mingxin Li, Dingkun Long, Pengjun Xie) have no affiliation in the extracted text; the cited Qwen3-Embedding paper (arXiv 2506.05176) lists Y. Zhang, M. Li, D. Long, P. Xie among its authors.",
+    "vendor_products_evaluated": "Qwen3-Embedding (base and fine-tuned) is the top-performing family; Qwen3.5 used to build the benchmark",
+    "funding": "Not stated",
+    "severity": "medium",
+    "detail": "Likely overlap between benchmark authors and the developers of the best-performing embedding family, with that affiliation undisclosed in the paper. Mitigated by many third-party baselines and a peer-reviewed venue; headline conclusion (all embedders drop on L2/L3) does not favor any vendor."
+  },
+  "scores": {"rigor": 3, "reproducibility": 4, "generalizability": 3, "relevance": 3, "coi_risk": 2},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Solid, peer-reviewed benchmark with many baselines and per-language breakdowns; the main finding (snippet-search scores do not predict issue-to-edit retrieval) is well supported. Caveats: L3 labels are LLM-judged without human audit, no variance, retrieval measured in isolation from agents, undisclosed probable Qwen-team involvement, and the SFT L1 regression is unmentioned.",
+  "applicability": "For a Java team choosing between embedding RAG and lexical/agentic search in its harness: do not trust general code-search leaderboards; generic embedders localize edits poorly (Java is among the hardest L2 languages, Table 4) and BM25 is competitive with several of them. If the team adds embedding retrieval over its >=4 ingestion repositories, expect gains only from fine-tuning on its own PR history (the L2-style recipe in App. B is reusable), and evaluate on its own issues-to-diffs. Cross-repo retrieval, spec documents, and healthcare content are not covered (each query is single-repo). The paper is host-neutral; nothing ties it to a specific agent host.",
+  "conflicts_with": []
+}

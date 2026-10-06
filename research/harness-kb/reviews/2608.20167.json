@@ -1,0 +1,52 @@
+{
+  "arxiv_id": "2608.20167",
+  "contribution_type": "empirical",
+  "summary": "BreakGuard statically finds every client (focal) method that calls a library API and asks an LLM, single-shot, to write one JUnit/TestNG test per focal method; a breaking change (BC) counts as detected if a generated test passes on the pre-update version and fails on the post-update version. Evaluated on 89 Java/Maven breaking updates from BUMP with GPT-4o, Qwen3-Coder-480B and GPT-OSS-120B under three context levels. The best configuration (GPT-4o, class context) detects 27/89 (30.3%); 95.1% of detections are crash-type (missing class/method), not behavioural.",
+  "claims": [
+    {"claim": "Best configuration detects 30.3% (27/89) of breaking changes.", "evidence": "Table V and RQ2 text: GPT-4o + Class context detects 27/89; Qwen3-Coder max 20 (22.5%), GPT-OSS max 10 (11.2%). Single generation per focal method at temperature 0; no repeated runs.", "strength": "moderate", "location": "§V-B, Table V"},
+    {"claim": "Mean cost of roughly $0.90 per detected breaking change.", "evidence": "Table IX column is headed 'USD/detection' but RQ4 text describes $0.90 as the mean cost per BUMP instance (median $0.088); the abstract's 'per detected breaking change' and the intro's 'median ~$0.09 per breaking-update instance' use different units. Per-detection cost (total cost / 27 detections) is never computed explicitly.", "strength": "weak", "location": "Abstract; §V-D, Table IX"},
+    {"claim": "LLM-generated tests mostly detect crash-type, not behavioural, BCs.", "evidence": "RQ3: 95.1% of detections are runtime errors; only 25 tests (0.7% of detecting tests) use value-based assertions; manual inspection of 80 of 455 non-detecting tests that loaded the broken class (32/80 swallowed exceptions in catch blocks, 11/80 used non-triggering inputs).", "strength": "strong", "location": "§V-C, Table VI, §VI-A, §VI-C"},
+    {"claim": "Class-level context gives the best detection/cost trade-off.", "evidence": "GPT-4o rises from 17 (Minimal) to 27 (Class) detections, but Qwen3-Coder is flat at 18-20 across contexts and gains nothing from Class context (§V-D). The claim holds for one of three models.", "strength": "weak", "location": "§V-B, §V-D"},
+    {"claim": "Client test suites often fail to detect BCs, motivating generated tests.", "evidence": "Asserted with citations in §I; the dataset was filtered to the 188 BUMP instances whose existing client tests already fail, so the evaluation re-detects BCs the client suite already caught. It shows no case where BreakGuard catches a BC the existing tests miss.", "strength": "unsupported", "location": "§I, §IV-A, Table I"}
+  ],
+  "patterns": [
+    {"id": "P16", "stance": "mixed", "note": "Uses execution (two-phase compile/run across pre/post Docker images) as the oracle, but deliberately has no feedback loop; compile rate tops out at 33.5% (Qwen3, class), and the authors argue a compile-error loop would help."},
+    {"id": "P27", "stance": "supports", "note": "Cross-repo contract checking for library upgrades: tests derived from client usage of a dependency surface 30% of real BCs at low median cost."},
+    {"id": "P15", "stance": "neutral", "note": "LLM-generated tests used as regression detectors rather than test-first development."},
+    {"id": "P24", "stance": "neutral", "note": "Reports token counts and dollar cost per instance; cost dominated by a few clients with >500 focal methods."}
+  ],
+  "methodology": {
+    "sample": "89 breaking updates (filtered from 571 BUMP; 188 test-failure instances), 31 client projects, 25 libraries, 5,790 focal methods; JSON (27) and logging (26) libraries dominate.",
+    "baselines": "None external. No comparison with existing client tests, japicmp/Clirr static API diff, EvoSuite/Randoop, or an agentic repair loop. Context variants and models compared against each other only.",
+    "models": "GPT-4o, Qwen3-Coder-480B, GPT-OSS-120B (temperature 0, top_p 1.0).",
+    "variance": "One generation per focal method; no repeated runs or CIs (acknowledged in §VIII).",
+    "ablations": "Three context levels (Minimal, Method, Class) across three models.",
+    "contamination_controls": "None; BUMP library versions predate model cutoffs (GPT-4o Oct 2023), so models may know post-update APIs.",
+    "languages": "Java/Maven only (JUnit 4/5, TestNG)."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint; no venue in comment or journal_ref.",
+    "limitations_section": true,
+    "artifacts": "Paper states code on GitHub and execution data/logs on Zenodo [46]; no GitHub URL extracted in the text.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "selection_bias_participants", "detail": "Only BUMP instances where the client's own test suite already fails were kept, plus a requirement for direct production call sites (60 removed). The setting where BreakGuard would add value (BCs the client suite misses) is not sampled."},
+    {"type": "no_variance_reported", "detail": "Single stochastic generation per focal method; no seeds or reruns."},
+    {"type": "metric_mismatch", "detail": "Cost metric unit is inconsistent between abstract (per detected BC), table header (USD/detection) and text (per BUMP instance)."},
+    {"type": "strawman_baseline", "detail": "No external baseline at all. Crash-type BCs (95% of detections) are the class that static API-diff tools like japicmp target, and no comparison with them is made."},
+    {"type": "contamination_risk", "detail": "Public OSS libraries and versions likely in training data; not discussed."}
+  ],
+  "coi": {
+    "affiliations": "Concordia University (Raj, Costa) and Université de Montréal (Baudry).",
+    "vendor_products_evaluated": "GPT-4o and GPT-OSS (OpenAI), Qwen3-Coder (Alibaba) used as generators; none authored by the paper's authors. BUMP benchmark has Baudry's group lineage (KTH), a mild self-benchmark link.",
+    "funding": "No acknowledgments or funding statement found.",
+    "severity": "none",
+    "detail": "Academic authors, no vendor ties."
+  },
+  "scores": {"rigor": 3, "reproducibility": 3, "generalizability": 3, "relevance": 4, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Rare Java-native study with a clean execution oracle and honest negative findings (exception-swallowing, crash-only detection). But it has no external baseline, uses a single run per test, the cost metric is inconsistent, and the dataset only contains BCs the client suites already caught, so the added-value claim is unproven.",
+  "applicability": "Directly relevant to a Java team whose ingestion spans ≥4 repos with shared libraries (Jackson, SLF4J and Spring are in the dataset). Practical use: on Dependabot/Renovate PRs, generate usage-derived tests per call site, run them pre/post in containers, and treat a pass-then-fail as a contract-break signal. Expect it to catch mostly removed/renamed APIs (run japicmp first; it is cheaper) and to miss behavioural changes such as JSON serialisation semantics, which matter most for content delivery to front ends. Add the compile-error feedback loop the paper skipped, plus a lint rule banning broad try/catch in generated tests. Host-agnostic, because it is a CI-side pipeline rather than an agent-host feature. In spec-driven development, contract specs for shared DTOs would supply the behavioural oracle that this approach lacks.",
+  "conflicts_with": []
+}

@@ -1,0 +1,53 @@
+{
+  "arxiv_id": "2608.26171",
+  "contribution_type": "empirical",
+  "summary": "A single-author controlled experiment on a synthetic hiring pipeline: resume rewrite, then interview questions, then answer feedback. It compares an automated baseline, a prompt guardrail, and a human-in-the-loop checkpoint over 180 runs (10 resumes × 2 job descriptions × 3 repetitions × 3 conditions) on claude-sonnet-4-6. Fabrications are judged by a cross-vendor LLM judge (Gemini 3.5 Flash) validated on 20 items. The paper concludes that both mitigations help, neither suffices alone, and a layered design is recommended.",
+  "claims": [
+    {"claim": "An unguarded pipeline fabricates by default: 96.7% of outputs had at least one unsupported claim, mean 6.80 findings per output.", "evidence": "§4.1: 58/60 outputs (Wilson CI [88.6, 99.1]), 408 findings, 237 new_unsupported. C3_pre replicates at 96.7% / 6.88.", "strength": "moderate", "location": "§4.1, Fig. 1"},
+    {"claim": "The prompt guardrail cuts finding density by 86% but leaves fabrication in 50% of outputs.", "evidence": "§4.2: 6.80→0.92 per output, item-level 96.7%→50.0%, pair-level sign test 15/0, p=.0001.", "strength": "moderate", "location": "§4.2"},
+    {"claim": "The human checkpoint eliminates identity fabrication and reduces density by 59%, but misses about half of subtle errors.", "evidence": "§4.3, Table 3: identity 6→0, absence hits 70.2% removed, qualifier_drop and new_unsupported 54.5% removed. Item-level 96.7%→75.0% (sign test 9/1, p=.022). A single reviewer (the first author), so this is n=1 for the human factor.", "strength": "weak", "location": "§4.3, Tables 2–3"},
+    {"claim": "Guardrail and checkpoint are complementary and support a layered architecture.", "evidence": "§4.4: the guardrail is at least as clean on aggregate (50.0% vs 75.0% item-level, p=.21 n.s.; 0.92 vs 2.82 density). The combined condition C4 was not run (deferred, §3.2), so complementarity is argued, not tested.", "strength": "unsupported", "location": "§4.4, §3.2"},
+    {"claim": "Model progress does not resolve fabrication.", "evidence": "§4.5: claude-fable-5 at baseline shows 90.0% fabrication (CI [69.9, 97.2]), 4.65 findings per output, on 20 pairs × 1 repetition at stage 1 only.", "strength": "weak", "location": "§4.5"}
+  ],
+  "patterns": [
+    {"id": "P19", "stance": "mixed", "note": "A human checkpoint gives categorical removal of flagrant fabrications but only ~55% removal of subtle ones. On aggregate it is not better than a prompt guardrail (n.s.). One reviewer."},
+    {"id": "P18", "stance": "neutral", "note": "Uses a cross-vendor LLM judge validated against blind human labels on 20 items (90% adjudicated accuracy). The quality judge was not validated (Limitations item 6)."},
+    {"id": "P21", "stance": "contradicts", "note": "Prompt-level rules alone leave fabrication in 50% of outputs, which is evidence that instruction-only guardrails are not a reliable safety property."},
+    {"id": "P34", "stance": "neutral", "note": "Ground-truth claim sheets and absence lists act as structured acceptance criteria for checking outputs."}
+  ],
+  "methodology": {
+    "sample": "180 runs (10 synthetic resumes × 2 JDs × 3 reps × 3 conditions), 260 stage-1 outputs judged, plus a 20-pair supplementary run. Analysis at pair level (n=20).",
+    "baselines": "Non-adversarial automated baseline prompt (C1). The guardrail (C2) and HITL (C3) are single-factor conditions. No combined condition.",
+    "models": "Generation: claude-sonnet-4-6 (temp 0.7) and claude-fable-5 (supplementary). Judge: Gemini 3.5 Flash.",
+    "variance": "3 repetitions per pair at temp 0.7. Wilson CIs and exact sign tests at pair level.",
+    "ablations": "None beyond the condition contrast. Trap and specialty-distance analyses are exploratory.",
+    "contamination_controls": "n/a. The benchmark is synthetic and purpose-built.",
+    "languages": "English natural-language resumes. No code."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint (v2, corrected references). No venue.",
+    "limitations_section": true,
+    "artifacts": "Harness, prompts, benchmark, judge prompt, seeds and JSONL logs are 'available upon request'. Not public.",
+    "preregistration": "Partial: the reviewer protocol has 'pre-registered borderline decision rules' (§3.4), but there is no study preregistration."
+  },
+  "biases": [
+    {"type": "small_sample", "detail": "One human reviewer (the first author). Judge validity rests on 20 items. Pair-level n=20."},
+    {"type": "self_evaluation", "detail": "The first author performed the HITL review and also validated the judge on the C3_post stratum (disclosed non-independence, §3.6)."},
+    {"type": "single_model", "detail": "One generation model for the main experiment; the newer model was tested at baseline only."},
+    {"type": "toy_tasks", "detail": "Synthetic PII-free resumes and JDs, which may understate real-world messiness (Limitations item 5)."},
+    {"type": "closed_artifacts", "detail": "All materials are on request only."},
+    {"type": "other:off_topic_domain", "detail": "Hiring-document generation, not software engineering or coding agents."}
+  ],
+  "coi": {
+    "affiliations": "Hiroko Takano, Lemmanode LLC (single author).",
+    "vendor_products_evaluated": "Anthropic Claude models as generators and Google Gemini as judge. No product of Lemmanode is evaluated.",
+    "funding": "No funding statement. The acknowledgment thanks one person for benchmark construction help.",
+    "severity": "low",
+    "detail": "Small private company author. No evident commercial interest in the outcome, but the work is single-author and self-reviewed."
+  },
+  "scores": {"rigor": 2, "reproducibility": 1, "generalizability": 1, "relevance": 1, "coi_risk": 1},
+  "verdict": "reject",
+  "verdict_reason": "Off-topic: an LLM hiring-content pipeline, not software engineering or agent harnesses. The study itself is carefully disclosed but rests on one human reviewer, one model and synthetic data. Its 'layered architecture' recommendation is untested because the combined condition was not run.",
+  "applicability": "Does not inform harness or Java engineering decisions directly. The one transferable idea is for the content side of the business: if any LLM stage rewrites or summarizes ingested healthcare-education material, an instruction-only guardrail still left unsupported claims in half the outputs, and an unaided human reviewer missed about half of subtle qualifier drops. Such a pipeline would need source-grounded claim diffing (automated checks against the original content) rather than prompts or spot review. No evidence here about code, multi-repo work, mixed agent hosts or spec-driven development.",
+  "conflicts_with": []
+}

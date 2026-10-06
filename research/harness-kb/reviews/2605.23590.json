@@ -1,0 +1,40 @@
+{
+  "arxiv_id": "2605.23590",
+  "contribution_type": "empirical",
+  "summary": "Co-ReAct trains a Qwen3-14B rubric generator with listwise GRPO (Spearman reward against a three-LLM-judge consensus ranking). It injects a step-level rubric before each tool call of a deep-research ReAct agent, then verifies the proposed action against the rubric and allows one retry. On DeepResearchBench and SQA-CS-V2 it beats ReAct, Self-Refine, Best-of-N, Step-Back, and CRITIC by small margins with Qwen3-8B and 14B search agents and a prompt-only Gemini 3.1 Pro variant.",
+  "claims": [
+    {"claim": "Co-ReAct achieves the best Global Average on both benchmarks at both model scales.", "evidence": "Table 1: 8B DRB 34.01 vs Self-Refine 33.71 (+0.89%), SQA 74.80 vs 74.18; 14B DRB 36.92 vs CRITIC 35.64, SQA 76.05 vs 74.22. Each is a single greedy run with no variance or significance tests, so the 8B margins are within plausible judge noise.", "strength": "weak", "location": "§4.2 Table 1"},
+    {"claim": "Untrained rubrics hurt; RL-trained, listwise rubrics help.", "evidence": "Table 2 (SQA, 8B only): untrained rubric 72.44 < ReAct 72.76; pairwise 74.04; inject-only 74.08; full 74.80. A one-benchmark, one-model, single-run ablation with sub-1-point differences.", "strength": "weak", "location": "§4.3 Table 2"},
+    {"claim": "The trained rubric transfers as a drop-in plug-in to other test-time methods.", "evidence": "Figure 3 shows positive transfer in all 6 cells, but exact numbers appear only in the figure, not in a table.", "strength": "weak", "location": "§4.6 Fig. 3"},
+    {"claim": "A prompt-only variant improves Gemini 3.1 Pro by 4.44% on DRB.", "evidence": "§4.4 and Figure 2: 37.13 RACE. Gemini is also the DRB judge, so self-preference bias is not controlled.", "strength": "weak", "location": "§4.4 Fig. 2"}
+  ],
+  "patterns": [
+    {"id": "P18", "stance": "mixed", "note": "An LLM verifier checks each step against rubric criteria, catching 21.4% of steps (§4.5). Evaluation is itself entirely LLM-judged (Gemini), and the authors note an untrained rubric generator degrades performance."},
+    {"id": "P34", "stance": "introduces", "note": "Explicit checkable criteria per step act as micro acceptance criteria. This is a weak analog of structured acceptance criteria, in a web-search domain."},
+    {"id": "P25", "stance": "introduces", "note": "GRPO fine-tuning of an auxiliary rubric model, not the agent itself."},
+    {"id": "P10", "stance": "neutral", "note": "Extends the single-agent ReAct loop to a five-tuple (Rubric, Reason, Act, Verify, Observe)."}
+  ],
+  "methodology": {
+    "sample": "DeepResearchBench and SQA-CS-V2 (evaluation set sizes not restated in the main text; 743 rubric steps at 7.4 per example implies about 100 SQA examples). Training used 29,866 branching points from 11,406 DR-Tulu queries.",
+    "baselines": "Self-Refine, Best-of-N (N=4), Step-Back, CRITIC on the same ReAct loop. These are reasonable but older prompting baselines; RL-trained search agents are explicitly excluded (Limitations).",
+    "models": "Qwen3-8B and Qwen3-14B search agents, Qwen3-14B rubric generator, Qwen3-235B answer rewriter, Gemini 3.1 Pro prompt-only variant; judges are Claude 4.5 Sonnet, Gemini 2.5 Pro, and GPT-5 (training) and Gemini (evaluation).",
+    "variance": "None: greedy decoding, single runs, no CIs.",
+    "ablations": "Table 2, on one benchmark and one model.",
+    "contamination_controls": "Not discussed. Gemini 2.5 Pro sits in the training-reward council, computes the Spearman ranking, and a Gemini model also judges the evaluation.",
+    "languages": "Natural-language web research (Chinese and English questions in DRB); not code."
+  },
+  "standards": {"peer_review": "None stated (arXiv preprint).", "limitations_section": true, "artifacts": "Code is claimed at github.com/ZBWpro/Co-ReAct (stated in the metadata abstract).", "preregistration": "n/a"},
+  "biases": [
+    {"type": "llm_judge_unvalidated", "detail": "All evaluation is Gemini-judged, with no human agreement check. The same model family supplies part of the training reward, which risks optimizing toward the judge."},
+    {"type": "no_variance_reported", "detail": "Single greedy runs; most margins over the best baseline are about 1-4%."},
+    {"type": "missing_cost_reporting", "detail": "Each step adds a rubric generation, a verifier call, and up to one retry, but no token or latency comparison with the baselines is given (Table 3 counts tool calls only)."},
+    {"type": "cherry_picked_examples", "detail": "The §4.7 case study is a single favorable question."},
+    {"type": "other:off_domain", "detail": "Deep-research web search, not software engineering."}
+  ],
+  "coi": {"affiliations": "Alibaba Qwen Business Unit (4 authors) and Tsinghua University (3 authors).", "vendor_products_evaluated": "Qwen3 models are used as backbones. The paper's own method is the object being evaluated, not Qwen's product ranking against competitors.", "funding": "Not stated.", "severity": "low", "detail": "Vendor-affiliated, but the paper does not promote Qwen models over competitors."},
+  "scores": {"rigor": 2, "reproducibility": 3, "generalizability": 1, "relevance": 1, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Results are directionally consistent across the two benchmarks and models, but the margins are small, there are single runs, no variance, and the evaluation is LLM-judged with judge-family overlap in training. The domain is web research, not code. Admit only as weak, out-of-domain evidence that per-step checkable criteria plus a verifier can steer an agent, and that untrained criteria can hurt.",
+  "applicability": "Mostly does not transfer: this is web search and report writing, not Java code or ingestion pipelines. The one transferable idea for a spec-driven team is to give the agent explicit, checkable acceptance criteria per step and verify against them before acting. Spec-driven development already does this with deterministic checks (tests, contract validation of ingested healthcare content), which the team should prefer over an LLM verifier. The ablation (untrained rubrics scored below plain ReAct) is a caution against auto-generated, unreviewed acceptance criteria in specs. Training a GRPO rubric model is out of scope for a mixed-host team.",
+  "conflicts_with": []
+}

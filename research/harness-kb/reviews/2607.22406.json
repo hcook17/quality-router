@@ -1,0 +1,50 @@
+{
+  "arxiv_id": "2607.22406",
+  "contribution_type": "empirical",
+  "summary": "Exploratory study comparing four TDD interaction models on one toy Python task (a TextFormatter class that centres words in a line): solo human coding, human + GPT-3.5 Turbo collaboration, fully-automated GPT-3.5 Turbo TDD scripts, and the MetaGPT X agentic platform (GPT-5 or Claude Sonnet 4). Sixteen professionals (9 solo, 7 collaborative) took part in a static-group pre-experiment; the automated and agentic workflows were run repeatedly. Agentic output passed the most baseline tests and was fastest but was more complex with lower branch coverage; human-involved workflows produced better-organized tests.",
+  "claims": [
+    {"claim": "Agentic workflow yields the most functionally correct production code", "evidence": "Table 9: agentic > solo TPR U=106.5, p=7.81e-05 (significant after Holm-Bonferroni); mean TPR 94.58%. But agentic used GPT-5/Claude Sonnet 4 while collaborative and fully-automated used GPT-3.5 Turbo (§4.2), so the model generation is confounded with the interaction model.", "strength": "weak", "location": "§5.1.2, Table 9; §4.2"},
+    {"claim": "Agentic code introduces untested implementation decisions (higher complexity, lower branch coverage by baseline tests)", "evidence": "§5.1.3 / §6: higher MCC and lower BCB; the 'untested decision points' interpretation is offered as 'one possible explanation', not verified by inspection of the branches.", "strength": "weak", "location": "§5.1.3, §6"},
+    {"claim": "Human-involved workflows produce better-organized test suites with higher coverage", "evidence": "§5.2 / Table 16: solo-coding achieves higher statement and branch coverage than agentic; Kruskal-Wallis significant for SC and BC with medium effect (Table 8). n=9 and 7 humans on one task.", "strength": "weak", "location": "§5.2, Tables 8, 16"},
+    {"claim": "Agentic workflow is most time-efficient", "evidence": "§5.3; MetaGPT X returned the solution in a single response because its SOPs do not support TDD-like iteration (§4.2.2), so it did not actually follow TDD and is not comparable on process.", "strength": "weak", "location": "§5.3, §4.2.2"}
+  ],
+  "patterns": [
+    {"id": "P15", "stance": "mixed", "note": "Human-in-the-loop TDD gives better tests; the 'agentic' arm did not perform TDD at all (single response), so the study cannot speak to agentic TDD."},
+    {"id": "P19", "stance": "mixed", "note": "Human involvement improves test quality but costs time (assertion reformulation)."},
+    {"id": "P14", "stance": "neutral", "note": "Notes agents add implementation decisions not required by the functional specification — a specification-completeness concern — but untested."}
+  ],
+  "methodology": {
+    "sample": "16 professionals (9 solo, 7 collaborative; 5 from a preliminary study plus 11 new); one two-subtask toy Python task; repeated autonomous runs (count per arm not clearly stated in extracted text)",
+    "baselines": "Solo human TDD as control group; baseline test suite written by the authors",
+    "models": "GPT-3.5 Turbo for collaborative and fully-automated; MetaGPT X Engineer mode with GPT-5 or Claude Sonnet 4 for agentic",
+    "variance": "Means and SDs per arm (Table 16); Kruskal-Wallis and one-tailed Mann-Whitney U with Holm-Bonferroni; small-n acknowledged",
+    "ablations": "Two prompt scenarios (minimal vs detailed) for agentic; merged after finding small differences",
+    "contamination_controls": "None; trivial task likely well represented in training data",
+    "languages": "Python only"
+  },
+  "standards": {
+    "peer_review": "arXiv preprint in Springer journal template (Received/Accepted placeholders); no venue stated",
+    "limitations_section": true,
+    "artifacts": "Prompts described in §4.3.1 and per-participant metrics in Appendix Table 16; no code repository link found",
+    "preregistration": "none"
+  },
+  "biases": [
+    {"type": "toy_tasks", "detail": "Single trivial TextFormatter task chosen to avoid complex APIs (§4.2)."},
+    {"type": "small_sample", "detail": "9 vs 7 human participants in a static-group (non-randomized pre-test) design."},
+    {"type": "other:model_confound", "detail": "Agentic arm used GPT-5/Claude Sonnet 4; collaborative and fully-automated arms used GPT-3.5 Turbo, so interaction-model effects are confounded with model capability."},
+    {"type": "single_language_python", "detail": "Python only, Google Colab environment."},
+    {"type": "metric_mismatch", "detail": "The agentic platform produced a single response without TDD iterations yet is compared on TDD process efficiency."}
+  ],
+  "coi": {
+    "affiliations": "Free University of Bozen-Bolzano (both authors)",
+    "vendor_products_evaluated": "MetaGPT X, ChatGPT, Claude used as subjects; no ties",
+    "funding": "European Commission Next Generation EU, PRIN2022 2022TEPX4R (BeT) and Mission 4 Component 1",
+    "severity": "none",
+    "detail": "Academic authors with public funding; no vendor relationship found."
+  },
+  "scores": {"rigor": 1, "reproducibility": 2, "generalizability": 0, "relevance": 1, "coi_risk": 0},
+  "verdict": "reject",
+  "verdict_reason": "One toy Python task, 16 participants, and a model-generation confound (GPT-3.5 vs GPT-5/Sonnet 4) between arms mean the comparison cannot isolate the interaction model; the 'agentic' arm did not perform TDD.",
+  "applicability": "Little transfer to a Java multi-repo ingestion team. The one usable hint — that autonomous agents add implementation decisions beyond the specification which the spec's tests then do not cover — argues for spec-driven development to pair every spec with acceptance tests and for a harness coverage check on agent-written branches, but this paper does not demonstrate it with credible evidence.",
+  "conflicts_with": []
+}

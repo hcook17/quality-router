@@ -1,0 +1,48 @@
+{
+  "arxiv_id": "2609.33762",
+  "contribution_type": "system",
+  "summary": "Systems paper on serving many concurrent coding agents: KV-cache offloading to CPU memory only pays if the host tier holds the 'reuse working set' of all active agents. EfficientAgent estimates that working set with a stack-distance model, sizes the host tier accordingly, and adds a write-admission rule to LMCache/vLLM that declines refills only when the tier is too small. Evaluated by replaying OpenHands + Qwen3-Coder-30B-A3B SWE-bench Verified trajectories on H20, RTX 3090 and H800 GPUs.",
+  "claims": [
+    {"claim": "Sizing the host tier to the estimated working set cuts recomputed prompt tokens by 93% and end-to-end time by 39%.", "evidence": "§5.2 / Fig. 2: computed prefill 76.7M -> 5.3M tokens (93.1%) and makespan 209 -> 128 min (38.7%) going from 5 to 20 GiB per rank on 8xH20. Note this is a capacity increase (5 -> 20 GiB), not the admission algorithm; the comparison is within one replayed workload.", "strength": "strong", "location": "§5.2, Fig. 2, App. B Table 3"},
+    {"claim": "Write admission cuts recomputation by 35% with a small tier and avoids the 4.3x penalty of always filtering with a large tier.", "evidence": "§5.5: at 5 GiB conditioned admission 76.7M -> 49.7M computed prefill (35%), makespan 208.9 -> 187.1 min; at 40 GiB fixed admission raises prefill 5.3M -> 22.8M (4.3x), conditioned admission stays at 5.3M.", "strength": "strong", "location": "§5.5, Fig. 3"},
+    {"claim": "Stack-distance model predicted the capacity transition before the experiments.", "evidence": "§5.4 / Tables 4-5: predicted 5.19-5.78M computed prefill at 20 GiB and 5.19-5.31M at 80 GiB; measured 5.28M and 5.29M. At 10 GiB the model under-predicted recovery (55.3-58.9M predicted vs 65.2M restored). Pre-registration of predictions is asserted, not externally timestamped.", "strength": "moderate", "location": "§5.4"},
+    {"claim": "Offloading pays only on GPUs with low compute per host-link byte.", "evidence": "Table 1: RTX 3090 offload/recompute 0.91 (dense 0.92), H20 0.60 when tier ≥ working set, H800 1.08-1.87 across all configs. Three GPU types, two models.", "strength": "moderate", "location": "§5.7, Table 1, App. E"}
+  ],
+  "patterns": [
+    {"id": "P08", "stance": "mixed", "note": "Argues context-management (folding, pruning, summarization) should be judged by the cache-stable prefix it preserves: an early rewrite rekeys every later KV chunk. 98.1% of prompt tokens in a call were already processed in the prior call."},
+    {"id": "P24", "stance": "neutral", "note": "Quantifies token cost structure of agent loops (each task submits 1.86M prompt tokens, 80x its output) and gives KV memory sizing formulas; no budget caps."},
+    {"id": "P29", "stance": "neutral", "note": "Concurrency (active pool of 8 vs 16 agents) changes serving cost: halving the pool cut makespan 24.8% under recomputation."}
+  ],
+  "methodology": {
+    "sample": "One recorded live SWE-bench Verified run replayed: 4,427 model calls, 147.1M prompt tokens; host capacities 3-80 GiB/rank; active pool 8 and 16; 17 replay runs at A=16.",
+    "baselines": "vLLM GPU prefix caching (recompute), unmodified LMCache offload, fixed write admission. Current, appropriate baselines; other agent-aware serving systems (Continuum, KVFlow, etc.) discussed but not run.",
+    "models": "Qwen3-Coder-30B-A3B-Instruct (MoE) and Qwen2.5-Coder-32B-Instruct (dense, subset of deployments).",
+    "variance": "A few independent repeats (two recompute runs agree to 0.2%; two 40 GiB offload runs 123.7/124.0 min); most points single runs, but replay is deterministic in tokens.",
+    "ablations": "Fixed vs conditioned admission across capacities; concurrency; GPU memory fraction sweep; parameter sensitivity (App. D).",
+    "contamination_controls": "n/a (serving performance, task quality not the claim).",
+    "languages": "SWE-bench Verified (Python repos); language irrelevant to the serving claim."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint (25 pages); no venue.",
+    "limitations_section": false,
+    "artifacts": "Code, replay framework and stack-distance analysis tools at https://github.com/KunmingSHAO/efficientagent_release; full configs in App. A, every run in App. B.",
+    "preregistration": "Authors state stack-distance predictions were recorded before running specific capacity points (§5.4); no external registration."
+  },
+  "biases": [
+    {"type": "other:single_workload", "detail": "All policy comparisons replay one OpenHands/CodeActAgent trajectory set on SWE-bench Verified; other harnesses with different context growth patterns (e.g. compaction) could shift the working set."},
+    {"type": "hype_language", "detail": "Abstract's '93% / 39%' headline comes from quadrupling host memory, not from the proposed admission policy, whose gain is 35% recomputation / ~10% makespan at 5 GiB."},
+    {"type": "self_evaluation", "detail": "Authors' own admission policy and replay methodology evaluated by the authors; mitigated by released tools and deterministic replay."}
+  ],
+  "coi": {
+    "affiliations": "HKUST, Huawei Technologies Ltd., The University of Hong Kong, Sun Yat-sen University.",
+    "vendor_products_evaluated": "Open-source vLLM, LMCache, OpenHands; NVIDIA GPUs. No Huawei product evaluated.",
+    "funding": "No acknowledgments found.",
+    "severity": "low",
+    "detail": "Vendor-affiliated co-authors; no self-promotion of a vendor product."
+  },
+  "scores": {"rigor": 4, "reproducibility": 4, "generalizability": 2, "relevance": 1, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Numbers in the abstract appear exactly in §5 with deterministic replay and released tooling, so the systems claims are solid; relevance to a team using hosted agent hosts is low, and the headline gain is from more host memory rather than the new policy.",
+  "applicability": "Only relevant if the team self-hosts open-weight models for agents (e.g. for healthcare data residency). Then: size CPU KV tiers by (concurrent agents x context length), and expect offloading to hurt on high-FLOP GPUs. For hosted agent hosts (Cursor, Claude Code, Codex, Hermes) the transferable lesson is about prompt-cache economics: harness features that rewrite early context (summarizing compaction, reordering rules files, injecting dynamic content at the top) invalidate provider prefix caches, so keep stable content (AGENTS.md, specs for the ≥4 ingestion repos) at the front and append-only. No bearing on Java, spec-driven development, or content ingestion logic.",
+  "conflicts_with": []
+}

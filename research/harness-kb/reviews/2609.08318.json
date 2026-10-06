@@ -1,0 +1,55 @@
+{
+  "arxiv_id": "2609.08318",
+  "contribution_type": "system",
+  "summary": "AttnCompress is a middleware for SE agents (implemented in Trae-Agent) that compresses past trajectory turns by segmenting observations at perplexity spikes, scoring blocks with a small proxy model's attention to the agent's current reasoning, and re-evaluating suppressed blocks via a rolling window. It is compared with seven compression baselines on a 200-instance SWE-bench Verified test split (three agent LLMs) and on 300-instance Multi-SWE-Bench-Flash (seven languages including Java).",
+  "claims": [
+    {"claim": "AttnCompress achieves a 53.17% pass rate, outperforming prior SOTA compression baselines.", "evidence": "Table 1: 53.17% is the mean across Gemini-3-Flash (71.50), Qwen3-235B (43.50), Qwen3-Coder-30B (44.50) vs AgentDiet 51.17, LLMSummary 50.83, SlidingWindow 49.83; it is below the uncompressed Original (55.17). Table 2 (5 runs, Qwen3-Coder-30B): AttnCompress 43.70 +/- 2.17 vs LLMSummary 42.70 +/- 2.22, AgentDiet 41.80 +/- 2.99, Original 44.10 +/- 2.38, so gaps to the best baselines are within one SD.", "strength": "weak", "location": "§5.1, Tables 1-2"},
+    {"claim": "Token consumption falls 21.6% and total cost 33.6%.", "evidence": "Both percentages are relative to AgentDiet (input 644.66k vs 822.44k; cost $0.0949 vs $0.1429), a baseline that is itself costlier than no compression ($0.1189). Against Original, input -42.3% and cost -20.2%. ObsMask is far cheaper ($0.0443, input 628.93k) at -6 pp pass rate. Numbers verified in Table 1/§5.1.", "strength": "moderate", "location": "§5.1, Table 1"},
+    {"claim": "Each component (PPL segmentation, proxy attention, rolling window) is essential.", "evidence": "Table 3 on the 100-instance validation set, single run: full 42.0 vs w/o PPL 39.0, w/o attention 35.0, w/o rolling 37.0. Differences of 3-7 instances on n=100, against ~2.2 pp run-to-run SD measured on n=200.", "strength": "weak", "location": "§5.2, Table 3"},
+    {"claim": "The framework is model-agnostic and generalises across languages.", "evidence": "Table 7 (Multi-SWE-Bench-Flash, 300 instances): 19.67% vs Original 20.33%, AgentDiet 18.33%; Java 17 passed, equal to Original vs AgentDiet 13 (Fig. 5). Single run, per-language differences of 0-4 instances. Only one agent framework (Trae-Agent) tested (§6).", "strength": "weak", "location": "§5.3, Table 7, Fig. 5, §6"}
+  ],
+  "patterns": [
+    {"id": "P08", "stance": "mixed", "note": "Every compression method, including AttnCompress, lowers pass rate vs full context (Table 1, Table 7); AttnCompress loses least and cuts cost ~20% vs Original, while cheap ObsMask halves cost at a larger accuracy loss."},
+    {"id": "P24", "stance": "supports", "note": "Reports per-instance tokens, agent vs compression cost with prefix-caching discounts, and latency breakdown; shows LLM-summary compression (AgentDiet) can cost more than no compression."},
+    {"id": "P23", "stance": "neutral", "note": "Uses a small proxy model (Qwen3-4B class; Llama/Gemma variants tested) for relevance scoring beside a larger agent model."},
+    {"id": "P31", "stance": "neutral", "note": "Evaluated only on SWE-bench Verified subset and Multi-SWE-Bench-Flash."}
+  ],
+  "methodology": {
+    "sample": "SWE-bench Verified: AgentDiet's 100-instance validation split (tuning/ablation) and 200-instance test split; Multi-SWE-Bench-Flash: 300 instances in 7 languages.",
+    "baselines": "Original (full context), Random, SlidingWindow (8k), ObsMask, LLMLingua, LLMSummary, AgentDiet, all re-run inside Trae-Agent with tail size k=2 and default hyperparameters; no tuning of baselines reported.",
+    "models": "Agent LLMs: Gemini-3-Flash, Qwen3-235B-Instruct, Qwen3-Coder-30B; proxy models Qwen, Llama-3.2-3B, Gemma-3-4B.",
+    "variance": "Five repeated runs only for Qwen3-Coder-30B on SWE-bench Verified (Table 2); everything else single-run.",
+    "ablations": "Component ablation and five-hyperparameter sensitivity on the validation split (Tables 3-4).",
+    "contamination_controls": "Acknowledged SWE-bench leakage risk; argues relative comparisons unaffected and adds Multi-SWE-Bench (§6).",
+    "languages": "Python (SWE-bench Verified); C, C++, Go, Java, JavaScript, Rust, TypeScript (Multi-SWE-Bench-Flash)."
+  },
+  "standards": {
+    "peer_review": "Accepted at ISSTA 2026 (comment; PACMSE DOI 10.1145/3832149).",
+    "limitations_section": true,
+    "artifacts": "Replication package with source and scripts at github.com/ZZR0/AttnCompress (Data Availability).",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "hype_language", "detail": "Abstract presents 53.17% as SOTA without saying it is a three-model mean below the no-compression baseline; 'strictly preserve critical task evidence' contradicts the failure analysis that it drops later-needed file paths and errors."},
+    {"type": "cherry_picked_examples", "detail": "Headline 21.6% token / 33.6% cost reductions are measured against AgentDiet, the most expensive baseline, rather than against Original or the cheapest competitive baseline."},
+    {"type": "no_variance_reported", "detail": "Multi-model, multi-language and ablation results are single runs; the one repeated-run table shows differences within SD."},
+    {"type": "small_sample", "detail": "Ablation deltas are 3-7 instances on a 100-instance split; per-language Multi-SWE results differ by 0-4 instances."},
+    {"type": "benchmark_overfit", "detail": "Validation/test splits and protocol inherited from AgentDiet on SWE-bench Verified; only one agent framework (Trae-Agent)."},
+    {"type": "self_evaluation", "detail": "Authors re-implement all baselines in their harness with default settings."}
+  ],
+  "coi": {
+    "affiliations": "Peking University, Beijing (all five authors).",
+    "vendor_products_evaluated": "None owned by authors; third-party Gemini and Qwen models.",
+    "funding": "No funding statement found.",
+    "severity": "none",
+    "detail": "Academic authors; intellectual self-evaluation only."
+  },
+  "scores": {"rigor": 3, "reproducibility": 4, "generalizability": 3, "relevance": 3, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Peer-reviewed, released, three agent models, seven baselines, held-out split and a five-run robustness check, but the advantage over the best baselines is within run-to-run noise, the method still loses to full context, and the headline cost reductions are framed against the costliest baseline.",
+  "applicability": "Moderately relevant to the harness cost question. For a Java team running long ingestion-pipeline debugging sessions across >=4 repositories, the paper's numbers say: (a) full context remains the accuracy ceiling, so compress only when context limits or cost force it; (b) LLM-summary compression can cost more than not compressing; (c) cheap rule-based masking of old tool outputs (ObsMask) roughly halves cost with a few points lost, which is the easiest host-neutral option. The Java subset (Multi-SWE-Bench-Flash, 17 passed vs 17 Original) is too small to conclude much. AttnCompress needs a proxy model in the request path and integration inside the agent loop, which most commercial agent hosts (mixed host setup) do not expose, and it has no bearing on spec-driven development or healthcare content.",
+  "conflicts_with": [
+    {"arxiv_id": "2609.37590", "detail": "FOCUS reports compression improving task success by up to 8.9 points over uncompressed execution (non-SE agent tasks), whereas here every compression method, including AttnCompress, underperforms full context on SWE tasks."},
+    {"arxiv_id": "2605.11051", "detail": "Implicit (embedding) compression sharply reduced SWE-bench resolution; AttnCompress's explicit block selection loses only ~2 pp, suggesting the compression form matters more than compression per se."}
+  ]
+}

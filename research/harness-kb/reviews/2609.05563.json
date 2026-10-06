@@ -1,0 +1,51 @@
+{
+  "arxiv_id": "2609.05563",
+  "contribution_type": "system",
+  "summary": "Human-centered design study of dBlocks, a web tool for LLM-assisted software tutorial authoring with per-section blocks (each with its own chat), a context manager to choose prompt context, and inline sandboxed code execution. Requirements come from a secondary analysis of 17 technical-writer interviews, the design is refined with 5 writers, and a 16-person within-subjects lab study compares dBlocks with participants' preferred LLM tools on one 15-minute Python tutorial task.",
+  "claims": [
+    {"claim": "Participants reported significantly higher confidence in tutorials produced with dBlocks.", "evidence": "Fig. 7 / §5.2: confidence M=3.31 (SD 1.14) vs 2.56 (SD 0.96), Wilcoxon W=8.0, p=.022, r=.76, n=16. Single-item self-report; one of five subscales tested with no multiple-comparison correction; success p=.100, frustration p=.112, mental demand/effort n.s. No independent quality rating of tutorials (admitted §6.4).", "strength": "weak", "location": "§5.2, Fig. 7, §6.4"},
+    {"claim": "Inline execution shifts writers to verifying code while drafting instead of deferring or skipping it.", "evidence": "§5.2.1 screen-recording coding: control condition, only 3 of 14 participants with code examples verified it (10 never attempted); dBlocks, 15 of 16 executed code inline; 15/16 rated execution useful (Fig. 8). Behavioral counts are concrete but confounded by the tool making execution one click vs heterogeneous control setups.", "strength": "moderate", "location": "§5.2.1, Table 5, Fig. 8"},
+    {"claim": "Blocks help writers avoid searching long chat histories by keeping each section and its conversation together.", "evidence": "Qualitative themes from interviews (§5.2.2) coded by the first author who ran all sessions; no quantitative measure of search time.", "strength": "weak", "location": "§5.2.2"},
+    {"claim": "The three requirements (scope LLM interactions to artifact structure, make context manipulable, inline verification) generalize to other LLM-assisted SE tasks such as programming.", "evidence": "Argued in §6.2 and §7; not tested outside a single Python tutorial task.", "strength": "unsupported", "location": "§6.2, §7"}
+  ],
+  "patterns": [
+    {"id": "P16", "stance": "supports", "note": "Inline sandboxed execution (Judge0) of generated code raised verification from 3/14 to 15/16 participants; evidence is behavioral but small and tool-confounded."},
+    {"id": "P08", "stance": "introduces", "note": "Context manager lets the human explicitly include/exclude history and reference excerpts instead of relying on whole-thread context; usability concerns with manual selection reported (§5.2.3)."},
+    {"id": "P19", "stance": "neutral", "note": "Human remains author/curator verifying every block; tool is an assistant, not an autonomous agent."}
+  ],
+  "methodology": {
+    "sample": "Formative: 17 interviews (secondary analysis of a prior study). Design iteration: 5 writers. Summative: 16 participants (11 technical writers, 5 developers) recruited via LinkedIn and personal networks, one 15-minute task per condition.",
+    "baselines": "Participants' own preferred LLM tools (ChatGPT, Gemini, Copilot, Codex, DeepSeek, Perplexity, etc.; Table 5); uncontrolled, ecologically valid but heterogeneous.",
+    "models": "dBlocks uses Claude 3.5 Haiku via Anthropic API (§4.3.5); control models vary per participant, so model is confounded with tool.",
+    "variance": "Means/SDs and Wilcoxon signed-rank with rank-biserial r; order effect check (Mann-Whitney U=28.5, p=.744). No correction for multiple subscales.",
+    "ablations": "None; three features evaluated jointly, per-feature only via usefulness Likert.",
+    "contamination_controls": "n/a.",
+    "languages": "Single Python tutorial (re + datetime); executor supports Python, JS, C++, Go but only Python tested."
+  },
+  "standards": {
+    "peer_review": "Under review at TOSEM special issue (comment); not yet accepted.",
+    "limitations_section": true,
+    "artifacts": "Interview protocol, demographics, coding guides, task material stated as supplementary material; no tool source code link found.",
+    "preregistration": "None mentioned; ethics board approval at McGill reported."
+  },
+  "biases": [
+    {"type": "small_sample", "detail": "n=16 summative, n=5 design iteration; one significant result out of five rating scales."},
+    {"type": "self_evaluation", "detail": "Authors' own tool; first author conducted all sessions and built the initial qualitative codebook, raising demand-characteristic and interpretation risk."},
+    {"type": "metric_mismatch", "detail": "Headline claim is self-reported confidence, not tutorial correctness or reader outcome; §6.4 admits writers transferred confidence from executed code to unverified prose."},
+    {"type": "toy_tasks", "detail": "15-minute beginner tutorial using Python standard library; professional tutorials involve review cycles and longer scope."},
+    {"type": "selection_bias_participants", "detail": "Recruited via LinkedIn and personal networks; 5 of 16 were developers, not writers."},
+    {"type": "other:uncontrolled_baseline", "detail": "Control used heterogeneous tools/models vs fixed Claude 3.5 Haiku in dBlocks, so feature effects cannot be isolated (admitted §6.4)."}
+  ],
+  "coi": {
+    "affiliations": "McGill University, Montreal (all three authors).",
+    "vendor_products_evaluated": "Authors' own research prototype dBlocks; no commercial product.",
+    "funding": "NSERC (Natural Sciences and Engineering Research Council of Canada).",
+    "severity": "none",
+    "detail": "Academic tool study; only intellectual self-evaluation, no commercial interest."
+  },
+  "scores": {"rigor": 2, "reproducibility": 2, "generalizability": 1, "relevance": 2, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Careful human-centered process with honest limitations, but the headline is a single self-reported confidence item on a 15-minute Python task with n=16, an uncontrolled baseline, and no quality measurement; the robust finding is behavioral (inline execution raises code verification).",
+  "applicability": "Partially relevant to the healthcare-education content side rather than the Java harness. If the team's front ends deliver educational content that is LLM-drafted or LLM-transformed during ingestion, the lesson is to scope generation per content unit (block/section) with its own provenance and to put verification in the same loop where content is produced (e.g. schema validation, link/code-snippet execution, clinical-claim review gates) rather than a later stage that gets skipped. It says nothing about Java, multi-repo ingestion pipelines, mixed agent hosts, or spec-driven development, and its evidence is perception, not content accuracy, which matters for healthcare material.",
+  "conflicts_with": []
+}

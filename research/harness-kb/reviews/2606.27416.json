@@ -1,0 +1,38 @@
+{
+  "arxiv_id": "2606.27416",
+  "contribution_type": "system",
+  "summary": "Glite ARF is an open-source Python framework that runs many Claude Code / Codex CLI agents in parallel on a research repository. Each task gets its own folder, branch and worktree, and deterministic 'verificator' scripts enforce versioned artefact specs, immutability, a corrections overlay and aggregator-generated overviews, with a human choosing hypotheses. Evidence is the authors' own campaigns: a BEA 2026 shared-task win and log mining of two other campaigns.",
+  "claims": [
+    {"claim": "The framework produced a first-place (closed) and second-place (open) BEA 2026 submission, reducing baseline RMSE by 29.9% / 35.9%.", "evidence": "Table 2 official leaderboard: closed avg 0.855 vs baseline 1.218; open avg 0.726 vs baseline 1.133; per-L1 reductions in §4.3. The result is real, but it is evidence about the NLP system, not about the framework's causal contribution, since there is no comparison campaign without ARF.", "strength": "moderate", "location": "§4.3, Table 2"},
+    {"claim": "Structured per-fold provenance let the authors catch four target-leaking feature sets (0.609 -> 0.802 RMSE).", "evidence": "§4.4 describes the incident. Appendix D states that 'the audit itself was human-driven, not triggered by a verifier', and that the specs enabling it were added after an earlier incident. This is an anecdote; provenance aided localisation but did not detect the leak.", "strength": "weak", "location": "§4.4, Appendix D"},
+    {"claim": "Structural machinery costs ~1% of wall-clock time.", "evidence": "§5 Fig. 5: classification of 17,915 WSD commands; framework scripts are ~25% of commands, ~1% of wall-clock. The WSD logs are author-held, not public.", "strength": "moderate", "location": "§5, Fig. 5"},
+    {"claim": "Prompt-encoded rules fail at low-single-digit rates, which compounds, so rules must live in deterministic code.", "evidence": "Asserted in §1 ('We tried'); no measurement, table or rate is reported. The authors defer a controlled verifier-detection study to future work (§7).", "strength": "unsupported", "location": "§1, §7 Future work"},
+    {"claim": "Isolation holds: across 305 merges no task corrupted another's data and no merge conflict reached main.", "evidence": "§5 log mining of WSD (271 merged branches) and Ace-CEFR (34). Self-reported, with no counterfactual; Appendix D lists a data-corruption incident (F02, 38 feature sets) from an earlier framework version in BEA.", "strength": "weak", "location": "§5, Table 3, Appendix D"}
+  ],
+  "patterns": [
+    {"id": "P29", "stance": "supports", "note": "Up to 12 parallel agent sessions in separate git worktrees/branches/PRs on one laptop; no merge conflicts reached main across 305 merges (self-reported)."},
+    {"id": "P16", "stance": "introduces", "note": "Deterministic verifiers with stable error codes gate commit/merge (prestep/poststep and required PR checks); detection rates not measured."},
+    {"id": "P21", "stance": "introduces", "note": "'Rules in code, not prose': process rules enforced by scripts and required PR checks rather than instruction files."},
+    {"id": "P14", "stance": "introduces", "note": "Every artefact has a versioned markdown specification with spec_version fields checked by a verifier."},
+    {"id": "P12", "stance": "introduces", "note": "Research/planning/implementation/analysis subagents with scoped context windows (§3.4); not evaluated."},
+    {"id": "P19", "stance": "supports", "note": "Keeps hypothesis selection human by design; the leakage fix required human judgement (Appendix D)."},
+    {"id": "P30", "stance": "supports", "note": "Comprehensive per-step logs and aggregator-materialised overviews made the leakage incident traceable (anecdotal)."},
+    {"id": "P20", "stance": "neutral", "note": "Ethics statement: verifiers are not a sandbox; ships a permissive .claude/settings.json."},
+    {"id": "P24", "stance": "neutral", "note": "Reports per-campaign spend ($498 BEA, $4,039 WSD, $19 Ace-CEFR) but no budget enforcement."}
+  ],
+  "methodology": {"sample": "Three author-run campaigns: BEA (273 tracked tasks, 146 runs), WSD (167 tasks, 17,915 logged commands), Ace-CEFR (35 tasks).", "baselines": "None for the framework; there is no prompt-only or no-verifier comparison campaign. The BEA leaderboard compares NLP systems, not harnesses.", "models": "Claude Code and Codex CLI agents; no per-model breakdown.", "variance": "None; single campaigns.", "ablations": "None; verifier detection rates explicitly left to future work.", "contamination_controls": "n/a for the framework; the leakage incident is itself a contamination finding in the downstream task.", "languages": "Python framework; NLP research tasks."},
+  "standards": {"peer_review": "No venue listed; arXiv comment notes 13 pages and the open-source release.", "limitations_section": true, "artifacts": "Apache-2.0 framework (github.com/GliteTech/glite-arf) and public demo campaign (research-ace-cefr); the WSD logs are author-held.", "preregistration": "n/a"},
+  "biases": [
+    {"type": "self_evaluation", "detail": "Framework authors mine their own campaigns' logs; no independent users or replication."},
+    {"type": "cherry_picked_examples", "detail": "Leakage catch is a single anecdote; Appendix D concedes detection was human-driven."},
+    {"type": "self_reported_numbers", "detail": "The low-single-digit prompt-rule failure rate is asserted with no data; WSD logs are not released."},
+    {"type": "metric_mismatch", "detail": "The shared-task leaderboard rank is presented as headline evidence for a process framework, but it measures the downstream model."},
+    {"type": "small_sample", "detail": "Three campaigns, one operator team, a single-human-operator design."}
+  ],
+  "coi": {"affiliations": "Four authors at Glite (glite.ai; Glite Tech Ltd is the licence holder); one at the School of Biosciences, University of Sheffield.", "vendor_products_evaluated": "Glite ARF itself (open-source, Apache-2.0); it uses Claude Code and Codex CLI without vendor authorship.", "funding": "No acknowledgments/funding section.", "severity": "medium", "detail": "Company authors evaluating their own released framework favorably with no independent check. It is free and open-source, but the paper doubles as a project showcase."},
+  "scores": {"rigor": 1, "reproducibility": 4, "generalizability": 2, "relevance": 4, "coi_risk": 3},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "A concrete, open-source design for parallel worktree agents with deterministic spec verifiers is directly reusable. The evidence is experience-report quality: no counterfactual, the central 'prompts fail, code rules work' claim is unmeasured, the leakage anecdote was caught by a human, and the authors evaluate their own framework.",
+  "applicability": "The design pattern transfers well to the team: one task = folder + branch + worktree + PR, with deterministic verifiers (stable error codes, required PR checks) instead of prose rules in AGENTS.md. That matches 'qr verifies/commits/rejects' and spec-driven rollout, because specs carry a version field and a checker. For ≥4 ingestion repos and mixed agent hosts, use host-agnostic verifier scripts (e.g. Java/Maven plugins or CI checks validating ingestion manifests, content-schema versions and 'no edits outside module' rules). Caveats: ARF assumes a single operator and is not adversarial-proof, since agents can edit the verifiers. Protect verifier code via CODEOWNERS or a separate repo. Nothing here is Java- or multi-repo-specific, and it is not a sandbox.",
+  "conflicts_with": []
+}

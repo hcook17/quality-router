@@ -1,0 +1,49 @@
+{
+  "arxiv_id": "2607.02825",
+  "contribution_type": "benchmark",
+  "summary": "JavaVulBench is a Java method-level vulnerability-detection dataset (30,637 methods: 5,281 vulnerable, 4,964 patched, 20,392 negatives; 1,740 CVEs, 700+ projects, 225 CWEs, 2015-2025) with line labels and five shipped split strategies, plus a harness that runs encoder classifiers, Ollama-served and OpenRouter-served LLMs through one prediction schema. It ships a per-model contamination audit that splits test CVEs by model training cutoff.",
+  "claims": [
+    {"claim": "Switching from random to project-disjoint split reproduces on Java the 15-40 F1-point gap reported for C/C++", "evidence": "Table 1: UniXcoder 0.446 -> 0.298 (-14.8 pts), GraphCodeBERT 0.343 -> 0.256 (-8.7 pts); CodeBERT 0.422 -> 0.000 is a degenerate majority-class collapse at threshold 0.5; DeepSeek-Coder-1.3B 0.341 -> 0.062. Only two of four models show a non-degenerate drop and neither is within 15-40 points, so the 'reproduces' wording is overstated, though the direction holds.", "strength": "weak", "location": "§4.1, Table 1"},
+    {"claim": "Twelve detectors evaluated under identical conditions from one command", "evidence": "Table 2 (4 models, full project split N=4,167) and Table 3 (8 API LLMs on a 200-sample stratified probe, seed 42). The two tables are explicitly not one leaderboard; API LLMs see only 200 samples, single seed, no CIs.", "strength": "moderate", "location": "§4.2, Tables 2-3"},
+    {"claim": "Contamination audit separates memorized from unseen CVEs; strongest API models score higher on the clean subset", "evidence": "Table 4: e.g. GPT-4o F1 0.488 all vs 0.528 clean; Claude Sonnet 4 0.444 vs 0.480. Audit is a date-vs-cutoff heuristic, not evidence of memorization; differences are on 200-sample probes without variance.", "strength": "weak", "location": "§4.3, Table 4"},
+    {"claim": "Self-contained reproducible artifact", "evidence": "§5: Zenodo archive with data (CC-BY-4.0), code (MIT), predictions, fine-tuned checkpoints, Docker, staged reproduce.py; cached pipeline 30-45 min.", "strength": "strong", "location": "§5"}
+  ],
+  "patterns": [
+    {"id": "P31", "stance": "introduces", "note": "New Java benchmark with leakage-aware reporting; argues split strategy must be reported with every number."},
+    {"id": "P17", "stance": "neutral", "note": "Evaluates learned/LLM vulnerability detectors as an analysis signal; F1 at most ~0.42-0.53 on probes, i.e. not reliable as a gate."}
+  ],
+  "methodology": {
+    "sample": "30,637 Java methods; project split test N=4,167; time split test N=12,139; API LLMs on a 200-sample probe",
+    "baselines": "CodeBERT, GraphCodeBERT, UniXcoder, DeepSeek-Coder-1.3B fine-tuned; 8 zero-shot API/open-weight LLMs; no specialized SAST tools (CodeQL, Semgrep, SpotBugs) or prior detectors like IRIS",
+    "models": "12 detectors across three backend families",
+    "variance": "Single run; single 200-sample seed for API models; no CIs",
+    "ablations": "Split strategies act as the main controlled variable; no prompt ablations for LLMs",
+    "contamination_controls": "Per-model risky/clean partition by CVE date vs model cutoff; deduplicated split currently equivalent to random at Jaccard 0.8 (admitted)",
+    "languages": "Java only"
+  },
+  "standards": {
+    "peer_review": "arXiv preprint; ACM template header names ASE 2026 but arXiv comment/journal_ref give no acceptance",
+    "limitations_section": true,
+    "artifacts": "Zenodo archive with data, code, checkpoints, prediction files, Docker; demo video",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "hype_language", "detail": "'Reproduces the 15-40 F1-point gap' while measured non-degenerate drops are 8.7 and 14.8 points."},
+    {"type": "small_sample", "detail": "API LLMs evaluated on 200 samples only, single seed."},
+    {"type": "no_variance_reported", "detail": "No repeated fine-tuning seeds or CIs; small F1 differences between API models are uninterpretable."},
+    {"type": "contamination_risk", "detail": "Date-vs-cutoff audit is a proxy; CVEs published after cutoff may have code present earlier in public repos; deduplicated split does not actually deduplicate."},
+    {"type": "other:missing_sast_baseline", "detail": "No conventional static analyzers compared, so practitioners cannot tell whether LLM detectors add value over existing Java SAST."}
+  ],
+  "coi": {
+    "affiliations": "University of Szeged (both authors)",
+    "vendor_products_evaluated": "OpenAI, Anthropic, DeepSeek, Qwen, Meta models evaluated neutrally",
+    "funding": "No acknowledgments found",
+    "severity": "none",
+    "detail": "Academic benchmark authors who do not ship a competing top-ranked detector."
+  },
+  "scores": {"rigor": 3, "reproducibility": 5, "generalizability": 3, "relevance": 2, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Strong artifact and a genuinely Java-specific dataset with useful split discipline, but the headline 'reproduces 15-40 points' is overstated, API LLM results rest on 200 samples with one seed, and it measures method-level classification rather than agentic coding. Admit as a Java security-evaluation resource, not as harness evidence.",
+  "applicability": "One of few Java-specific resources in the corpus. For the team it is a ready dataset to measure whether an LLM security-review step in the harness catches OWASP-class flaws (deserialization, SSRF, path traversal, injection) that matter for content ingestion pipelines parsing external healthcare education packages. The numbers argue against using an LLM detector as a merge gate (F1 about 0.3-0.5 on project-disjoint data) and in favor of keeping deterministic SAST (Semgrep, local Sonar) as the gate, with LLM review advisory. Its split lesson transfers directly: evaluate any harness change on held-out repos (project-disjoint) rather than random task splits, which matters with >=4 ingestion repos. It says nothing about agent hosts, multi-repo coordination, or specs.",
+  "conflicts_with": []
+}

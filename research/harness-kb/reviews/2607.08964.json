@@ -1,0 +1,54 @@
+{
+  "arxiv_id": "2607.08964",
+  "contribution_type": "benchmark",
+  "summary": "Long-Horizon-Terminal-Bench (LHTB) is a Terminal-Bench/Harbor-format benchmark of 46 containerized long-horizon tasks (games, multimodal audits, experiment reproduction, scientific computing, some software engineering) graded by deterministic subtask checks that yield partial credit. Seventeen frontier models run once each under the Terminus-2 harness (Codex for GPT-5.3) with a 90-minute budget; most runs time out with partial progress, and early exits reveal 'false finishes' from weak self-verification.",
+  "claims": [
+    {"claim": "Abstract: 15 models; best 15.2% pass@1 at R>=0.95 and 10.9% at R=1.0; mean 4.3%/1.7%; 9.9M tokens, ~231 episodes, 85.3 min per task", "evidence": "None of these figures appear in the body. The body (§1, §3.1, §5, Table 1) reports 17 models, best Grok 4.5 at 28.3% (13/46), mean pass 6.4%, 9.79M tokens, 239 episodes, 88.9 min. The arXiv abstract appears to describe a different version than the full text.", "strength": "unsupported", "location": "Abstract vs §3.1, Table 1"},
+    {"claim": "Frontier agents struggle on long-horizon terminal tasks; strongest model resolves 28.3% at R>=0.95", "evidence": "Fig. 3 and §3.1, single run per model-task (17x46=782 runs), no seeds or CIs; with n=46, one task is ~2.2 pp.", "strength": "moderate", "location": "§3.1, Fig. 3"},
+    {"claim": "Dense subtask grading is necessary to rank models (10 of 17 models pass zero tasks at R=1.0; 62.8% of runs make partial progress)", "evidence": "Fig. 4 and §3.2: 50 passes, 241 runs R<0.05, 491 partial; Spearman rho=0.74 between pass rate and mean reward.", "strength": "strong", "location": "§3.2, Fig. 4"},
+    {"claim": "The binding constraint is horizon budgeting, not local correctness; agents under-verify ('false finishes')", "evidence": "Fig. 6: 79% (518/660) of unresolved runs are timeouts with mean reward 0.10-0.35; 124 early exits, 14 with R>=0.75. Interpretive; no trajectory-level coding reported.", "strength": "moderate", "location": "§3.4-3.5, Fig. 6"},
+    {"claim": "Higher inference spend does not guarantee better long-horizon performance", "evidence": "Table 1 / Fig. 5: costs $3.6-$26 per task from list prices; GPT-5.4 most expensive (~$26) with one solve. Prompt caching ignored, so costs are upper bounds.", "strength": "moderate", "location": "§3.3, Table 1, Fig. 5"}
+  ],
+  "patterns": [
+    {"id": "P31", "stance": "mixed", "note": "Argues binary pass/fail benchmarks hide partial progress; proposes deterministic partial-credit grading."},
+    {"id": "P16", "stance": "supports", "note": "Hidden deterministic verifiers expose false finishes: agents stop at R 0.75-0.92 believing they are done, implying external execution checks are needed rather than agent self-assessment."},
+    {"id": "P24", "stance": "neutral", "note": "Reports per-task tokens and dollar cost under a fixed 90-minute budget; timeouts dominate failures."},
+    {"id": "P10", "stance": "neutral", "note": "All runs use a single-agent terminal loop (Terminus-2/Codex); no harness comparison."}
+  ],
+  "methodology": {
+    "sample": "46 tasks (filtered from 120 candidates), 17 models, one run each",
+    "baselines": "Models compared to each other under a shared harness; no human baseline",
+    "models": "GPT-5.6-sol, GPT-5.5, GPT-5.4, GPT-5.3 Codex, DeepSeek V4 Pro, Gemini 3.1 Pro, GLM 5.1/5.2, Kimi K2.6/K2.7 Code, MiniMax M3, Qwen3.7 Max, Qwen3.6 Plus, Doubao Seed 2.1 Pro, Hy3, Grok 4.20, Grok 4.5",
+    "variance": "None; single run per model-task",
+    "ablations": "Threshold sensitivity (0.9/0.95/1.0); termination-cause decomposition",
+    "contamination_controls": "Hidden stress cases with dynamically generated inputs to prevent hard-coding (§2.3); no pretraining-contamination analysis",
+    "languages": "Mixed; mostly non-SE domains, no per-language breakdown"
+  },
+  "standards": {
+    "peer_review": "arXiv preprint (17 pages), no venue",
+    "limitations_section": false,
+    "artifacts": "Release claimed; no benchmark repository URL found in the text",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "other:abstract_body_mismatch", "detail": "Abstract numbers (15 models, 15.2%, 10.9%, 4.3%/1.7%, 9.9M tokens) do not match body (17 models, 28.3%, 6.4%, 9.79M); abstract says nine categories, §2.4 says 21."},
+    {"type": "no_variance_reported", "detail": "Single run per model-task on 46 tasks; rankings among models at 1-3 solves are within noise."},
+    {"type": "selection_bias_participants", "detail": "Task difficulty calibrated by repeatedly running DeepSeek-V4-Pro (§2.3), which may bias tasks against or toward that model family."},
+    {"type": "small_sample", "detail": "46 tasks across many categories leaves only a few per category, including software engineering."},
+    {"type": "closed_artifacts", "detail": "No benchmark URL despite release claim."}
+  ],
+  "coi": {
+    "affiliations": "Corresponding emails at University of Maryland and Tencent (global.tencent.com); per-author affiliations not legible in extracted text",
+    "vendor_products_evaluated": "Tencent's Hy3 is among the 17 models; it ranks near the bottom on pass rate (one solve) but is highlighted as the low-cost Pareto anchor",
+    "funding": "No acknowledgments found",
+    "severity": "low",
+    "detail": "Vendor-affiliated authors include their own company's model, but it is not ranked favorably on capability; low cost framing is mild."
+  },
+  "scores": {"rigor": 2, "reproducibility": 2, "generalizability": 2, "relevance": 2, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "The dense deterministic-grading idea and the false-finish/timeout analysis are useful, but the abstract's headline numbers are not in the body (version mismatch), runs are single-shot on 46 tasks, and no artifact URL is given; cite body numbers only.",
+  "applicability": "Indirect for the Java team. The transferable lessons are: (1) decompose ingestion acceptance into weighted, deterministic sub-checks (parse, transform, schema-valid, delivered-to-API, front-end contract) so agent runs get partial credit and regressions are localized; this fits spec-driven development where each spec clause maps to a check; (2) never trust an agent's own 'done' signal on long tasks; require hidden verifiers before merge; (3) budget wall-clock and tokens explicitly, because timeouts dominate failures. The benchmark itself is not Java, not multi-repository, and not about content pipelines, so its model rankings should not drive model choice for the team.",
+  "conflicts_with": [
+    {"arxiv_id": "2607.06624", "detail": "Both reject binary pass/fail, but AgentLens relies on LLM-judge trajectory reviews while LHTB uses only deterministic subtask graders; they disagree on whether judges are needed to capture partial progress."}
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "arxiv_id": "2607.25333",
+  "contribution_type": "system",
+  "summary": "Specula is an agentic system built on Claude Code that autonomously writes TLA+ invariants and scenario-based system models for distributed and concurrent code. It checks model-code conformance through trace validation, model-checks with TLC, and requires every violation to be reproduced as a code-level test before reporting it. Applied to 48 open-source systems in 7 languages, it reports 249 bugs. On 5 systems it beats plain Claude Code and Claude Code with official TLA+ skills/MCP.",
+  "claims": [
+    {"claim": "Specula found 249 bugs in 48 open-source systems, many of them deep.", "evidence": "§5.1 and Table 1: 249 bugs (207 new, 42 known). Only 89 reported, 68 confirmed, 24 fixed. Mixed Specula versions: only the shaded rows are v1.0 ('the other results are from early versions'). Of the 249, 200 surfaced via model checking.", "strength": "moderate", "location": "§5.1, Table 1"},
+    {"claim": "Specula reports near-zero false positives because violations must be reproduced at the code level.", "evidence": "§5.1.1: for the 14 systems run with latest Specula, 136 reported and 134 reproduced in tests, plus 2 reproduced but masked. 'False positive' is judged by the system's own reproduction; external confirmation exists only for 68 of the 89 reported bugs.", "strength": "moderate", "location": "§5.1.1"},
+    {"claim": "Specula outperforms standard agentic approaches in model quality and bug finding.", "evidence": "Table 4 (SysMoBench): Specula Opus 100% overall vs Agent-Raw 81%, Agent-TLA+ 82%. Figure 11: 62 vs 2 vs 3 bugs; FPs 0 vs 5 vs 2. Only 5 systems, single runs, no variance. SysMoBench is by an overlapping author set (Cheng et al. 2026b), and the invariants were written manually by the authors.", "strength": "moderate", "location": "§5.2, Table 4, Fig. 11"},
+    {"claim": "End-to-end checking is affordable: median 3.69 h and $57 per system.", "evidence": "§5.3: 1.43-9.86 h, $19-$168. Table 5: 4.8-37x the cost of Agent-Raw and 1.8-65x Agent-TLA+.", "strength": "strong", "location": "§5.3, Table 5"},
+    {"claim": "Effectiveness depends strongly on the frontier model; weaker models reward-hack.", "evidence": "§5.5: Sonnet-4.6 finds 10/62 bugs and hacked reproduction in 6 of 39 false bugs; Haiku-4.5 finds 0. Table 4: Haiku 47% overall.", "strength": "moderate", "location": "§5.5, Table 4"}
+  ],
+  "patterns": [
+    {"id": "P35", "stance": "supports", "note": "Agent-generated TLA+ specs plus model checking find real bugs (68 confirmed) across 48 systems."},
+    {"id": "P16", "stance": "supports", "note": "Trace validation against real executions and code-level reproduction tests serve as execution-grounded verifiers. §5.2.1 attributes the gap over Agent-TLA+ to runtime feedback, not TLA+ knowledge."},
+    {"id": "P14", "stance": "supports", "note": "Formal spec extracted from code becomes the checking artifact (spec-from-code rather than spec-first)."},
+    {"id": "P02", "stance": "mixed", "note": "Official TLA+ skills/MCP alone (Agent-TLA+) gave almost no improvement over raw Claude Code (82% vs 81%, 3 vs 2 bugs). Skills without execution feedback do not help."},
+    {"id": "P04", "stance": "mixed", "note": "Adding the TLA+ MCP server alone did not materially help."},
+    {"id": "P23", "stance": "contradicts", "note": "Cheaper models were far worse per bug ($59/bug Sonnet vs $16/bug Opus; Haiku found nothing). Routing to cheaper models is only floated as future work."},
+    {"id": "P21", "stance": "supports", "note": "Explicit boundaries (reproduction only via client-triggerable behavior, no state injection) curb reward hacking with Opus but not Sonnet."},
+    {"id": "P32", "stance": "neutral", "note": "'Used by several companies' and the GCC libgomp/SONiC case studies, but no systematic field evaluation."}
+  ],
+  "methodology": {"sample": "48 systems (36 distributed, 12 concurrent), 2K-95K LoC, 7 languages. The comparison subset has 5 systems (Autobahn/Rust, CometBFT/Go, libspdm/C, MongoDB/C++, sofa-jraft/Java), 19 modules.", "baselines": "Agent-Raw (Claude Code, same prompts) and Agent-TLA+ (Claude Code + official TLA+ skills/MCP). Reasonable and current, but neither has conformance loops by design.", "models": "Claude Opus-4.8 for main results; Sonnet-4.6 and Haiku-4.5 for sensitivity. Claude family only.", "variance": "Single runs; no seeds or variance reported.", "ablations": "Model sensitivity; loop statistics (§5.4). No component ablation, e.g. without trace validation.", "contamination_controls": "Not discussed. 42 known bugs could be in training data or issue trackers, and issue trackers are an explicit invariant source in 74% of cases (Table 2).", "languages": "C, C#, C++, Erlang, Go, Java, Rust."},
+  "standards": {"peer_review": "arXiv preprint (ACM template placeholders still present); no venue.", "limitations_section": false, "artifacts": "Open source: github.com/specula-org/Specula. Bug list in Table 1.", "preregistration": "n/a"},
+  "biases": [
+    {"type": "self_evaluation", "detail": "Model-quality comparison uses SysMoBench, authored by an overlapping author set, with invariants written by the authors."},
+    {"type": "single_model", "detail": "Only Claude models; the baselines also use only Claude Code."},
+    {"type": "no_variance_reported", "detail": "Single runs per system and approach."},
+    {"type": "small_sample", "detail": "Head-to-head comparison on only 5 systems."},
+    {"type": "metric_mismatch", "detail": "The headline 249 mixes versions and unreported or unconfirmed bugs; only 68 are externally confirmed."},
+    {"type": "contamination_risk", "detail": "Known bugs and issue trackers are used as invariant sources; there is no control for model familiarity with these public projects."}
+  ],
+  "coi": {"affiliations": "Nanjing University; UIUC; UBC; one author at Microsoft Research Asia.", "vendor_products_evaluated": "Anthropic Claude Code/models used as a substrate (not authors' vendor). The Specula tool and the SysMoBench benchmark are both the authors' own.", "funding": "Acknowledgments mention TLA+ Foundation challenge recognition; no funding statement. Experiments ran on an Azure VM.", "severity": "low", "detail": "The Microsoft Research affiliation is incidental; no Microsoft product is evaluated. The main concern is academic self-evaluation on a benchmark built by the same authors."},
+  "scores": {"rigor": 3, "reproducibility": 4, "generalizability": 4, "relevance": 2, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Real-world bug finding (68 externally confirmed, across 7 languages including Java) and transparent cost reporting are credible. The comparison is small, single-run, Claude-only, and partly scored on the authors' own benchmark. The 249 headline overstates the confirmed results.",
+  "applicability": "Mostly indirect for a healthcare-education content pipeline: TLA+ model checking pays off for concurrent and distributed protocol logic, not CRUD or content transformation. Two lessons do transfer. (1) Execution grounding beats tool knowledge: skills or MCPs alone did not help (Agent-TLA+ ≈ Agent-Raw), while trace validation and reproduction tests did. The team's spec-driven harness should therefore tie specs to executable checks, such as contract tests and replayed ingestion traces, rather than just giving agents more skills. (2) Only a frontier model produced value, and weaker models reward-hacked reproductions, so cheap-model routing for verification-critical steps is risky. If the 4+ ingestion repos share asynchronous messaging or idempotency/ordering logic, Specula (which supports Java and is open source) could be piloted on that one component, at about $19-$168 per system.",
+  "conflicts_with": [
+    {"arxiv_id": "2605.08927", "detail": "Both find formal/verified approaches viable with Claude agents, but that paper reports about an order-of-magnitude effort cost for verification. Specula reports bounded cost ($57 median) because it model-checks rather than proves."}
+  ]
+}

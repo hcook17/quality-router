@@ -1,0 +1,44 @@
+{
+  "arxiv_id": "2605.18747",
+  "contribution_type": "survey",
+  "summary": "A 42-author narrative survey (UIUC, Meta, Stanford) with about 478 references. It frames 'code as agent harness' in three layers: interface (code for reasoning, acting, and environment modeling), mechanisms (planning, memory and context, tool use, feedback control, optimization), and multi-agent scaling over shared code artifacts. It surveys applications from coding assistants to GUI, embodied, and scientific agents, and lists open problems: harness-level evaluation, semantic verification, regression-free self-evolution, transactional shared state, and HITL accountability.",
+  "claims": [
+    {"claim": "Code serves as the operational substrate (harness) for agent reasoning, acting, environment modeling, and verification.", "evidence": "A taxonomy (Figure 1) organized over §2-4. It is a framing claim, illustrated by citations rather than tested.", "strength": "weak", "location": "§1, Fig. 1"},
+    {"claim": "Most surveyed multi-agent coding systems keep shared state implicit in conversation history, and this is the root of their brittleness.", "evidence": "§4.4 lists ChatDev, MetaGPT, MapCoder, and others as implicit-state systems. The causal attribution ('technical root of system brittleness') is the authors' interpretation, with no comparative evidence.", "strength": "weak", "location": "§4.4"},
+    {"claim": "LLM-simulated execution can reach 98%+ precision and recall in predicting actual outcomes, so execution is needed mainly for corner-case failure modes.", "evidence": "Relayed from Self-Collaboration [56] and QualityFlow [253] without critical appraisal of those benchmarks (function-level, Python-heavy). It is generalized to harness design advice.", "strength": "weak", "location": "§4.4"},
+    {"claim": "Multi-agent harnesses need transactional shared program state (read and write sets, assumptions, verifier obligations).", "evidence": "A position in §5.2.4, supported by no prototype or evaluation.", "strength": "unsupported", "location": "§5.2.4"}
+  ],
+  "patterns": [
+    {"id": "P33", "stance": "neutral", "note": "Central framing: code as action and reasoning medium (§2). Surveyed, not evaluated."},
+    {"id": "P16", "stance": "neutral", "note": "Execution feedback types (compiler, tests, fuzzers, static analysis, profiling) are catalogued in §4.2.1."},
+    {"id": "P17", "stance": "neutral", "note": "Static analysis warnings are treated as one feedback channel (§4.2.1)."},
+    {"id": "P08", "stance": "neutral", "note": "Context compaction and state offloading are surveyed (§3.2.6); context management is called 'the tax of implicit shared state' (§4.4)."},
+    {"id": "P09", "stance": "neutral", "note": "Working, semantic, experiential, long-term, and multi-agent memory taxonomy (§3.2)."},
+    {"id": "P11", "stance": "neutral", "note": "Multi-agent topologies and interaction modes (§4.1)."},
+    {"id": "P26", "stance": "neutral", "note": "Flags regression-free harness self-improvement as an open problem (§5.2.3)."},
+    {"id": "P19", "stance": "neutral", "note": "Human-in-the-loop safety and accountability treated as harness state (§5.2.5)."},
+    {"id": "P29", "stance": "neutral", "note": "'Parallel branches with merge' as a synchronization pattern (§4.2.2)."}
+  ],
+  "methodology": {
+    "sample": "About 478 cited works; no stated search strategy, databases, inclusion criteria, or date range.",
+    "baselines": "n/a (narrative survey).",
+    "models": "n/a",
+    "variance": "n/a",
+    "ablations": "n/a",
+    "contamination_controls": "n/a",
+    "languages": "Not analyzed. Java is barely mentioned (one text hit)."
+  },
+  "standards": {"peer_review": "None stated (arXiv preprint; comment gives only the awesome-list GitHub URL).", "limitations_section": false, "artifacts": "Curated paper list at github.com/YennNing/Awesome-Code-as-Agent-Harness-Papers.", "preregistration": "n/a"},
+  "biases": [
+    {"type": "other:non_systematic_selection", "detail": "No search protocol or inclusion criteria, so coverage and the 'majority of surveyed systems' statements cannot be checked."},
+    {"type": "novelty_inflation", "detail": "'Code as agent harness' largely re-labels established ideas (PAL and program-aided reasoning, CodeAct, execution feedback, SWE-agent ACI) under a new umbrella term."},
+    {"type": "self_reported_numbers", "detail": "Quantitative statements (e.g., 98%+ simulated-execution precision) are relayed from primary papers without appraisal."},
+    {"type": "single_language_python", "detail": "The surveyed coding evidence base is dominated by Python function-level and SWE-bench work, and the survey does not flag this."}
+  ],
+  "coi": {"affiliations": "University of Illinois Urbana-Champaign, Meta, Stanford University. The per-author mapping is not recoverable from the extracted text.", "vendor_products_evaluated": "None evaluated. Claude Code, Codex, and LangChain are cited as representative systems.", "funding": "No acknowledgments or funding section found.", "severity": "low", "detail": "Some authors are Meta-affiliated, but no Meta product is assessed."},
+  "scores": {"rigor": 2, "reproducibility": 2, "generalizability": 2, "relevance": 3, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "A useful map and vocabulary of harness mechanisms with a large bibliography. It is not a systematic review: there is no selection protocol, no limitations section, and causal claims (implicit state as the root of brittleness) and relayed numbers are not critically appraised. Use it to find primary sources, not as evidence.",
+  "applicability": "Use as a reference map when designing the harness. The open-problem list maps onto the team's concerns: harness-level evaluation beyond task success, verification where tests are incomplete (healthcare content correctness), and explicit authoritative shared state for multi-agent and multi-repo work (§4.4, §5.2.4). This suggests making specs, contracts, and test results the authoritative artifacts rather than chat history, which fits spec-driven development and mixed agent hosts. It gives no Java- or multi-repo-specific evidence. Do not adopt its suggestion to use LLM-simulated execution as a fast path in place of running Java builds and tests; the cited 98% figures come from function-level benchmarks.",
+  "conflicts_with": []
+}

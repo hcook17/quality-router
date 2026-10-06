@@ -1,0 +1,32 @@
+{
+  "arxiv_id": "2606.24834",
+  "contribution_type": "empirical",
+  "summary": "A user study in which Prolific-recruited programmers used GitHub Copilot CLI (gpt-5.1-codex-max) to assess 148 HIPAA-derived non-functional requirements against the iTrust Java EHR codebase. Each assessment covers satisfaction level, reasoning and code location. Participants agreed with the agent 91–94% of the time, yet accuracy against an expert ground truth was low (satisfaction F1 0.381, code-location F1 0.203). A PARADISE regression links verbosity (negatively) and proactive turns (positively) to user satisfaction.",
+  "claims": [
+    {"claim": "Participants agree with the agent's NFR assessments 91-94% of the time, but accuracy against expert ground truth is low.", "evidence": "Fig. 3/Table 5: agreement 91% (satisfaction), 94% (reasoning), 94% (location), means 3.27-3.34 on 1-4 scale; Table 4: satisfaction-level F1 0.381 (vs 0.25 chance), reasoning BERTScore F1 0.520, code-location F1 0.203. Ground truth built by one expert and reviewed by a second (no independent double-annotation or kappa for ground truth).", "strength": "moderate", "location": "§4.1, Tables 4-5"},
+    {"claim": "Reported code-location metrics are internally consistent.", "evidence": "Table 4 gives code-location precision 0.151 and recall 0.142 but F1 0.203; if F1 is averaged per item it cannot exceed the mean of P and R (0.1465), so the averaging scheme or subset differs and is not explained.", "strength": "weak", "location": "Table 4"},
+    {"claim": "Verbose responses and many information-providing turns lower satisfaction; proactive interaction raises it.", "evidence": "Table 7: standardized β = -0.583 (p=.002), -0.485 (p=.006), +0.422 (p=.015) from backward elimination over 21 predictors on 32 dialogues after outlier removal — high risk of overfitting, which the authors acknowledge in §7.", "strength": "weak", "location": "§4.2, Table 7, §7"},
+    {"claim": "49 programmers were hired to interact with Copilot.", "evidence": "§3.4: 8 pilot + 41 main participants; 15 removed after screening, leaving 34 dialogues (Table 3), and 32 for regression. The abstract's 49 includes pilot and excluded participants.", "strength": "moderate", "location": "§3.4, Table 3"}
+  ],
+  "patterns": [
+    {"id": "P19", "stance": "contradicts", "note": "Human reviewers rubber-stamp convincing but wrong agent assessments (91%+ agreement vs F1 0.381), so a human approval gate alone is weak for compliance NFRs."},
+    {"id": "P34", "stance": "mixed", "note": "Structured NFRs with explicit satisfaction levels/locations make agent errors measurable, but the agent cannot reliably assess them."},
+    {"id": "P14", "stance": "neutral", "note": "Relevant to spec-driven traceability (requirement -> code location); agent-generated trace links have F1 ~0.2."},
+    {"id": "P05", "stance": "neutral", "note": "Code localization for cross-cutting requirements is poor; no retrieval tooling compared."}
+  ],
+  "methodology": {"sample": "148 NFRs; 34 usable dialogues (406 turns) from Prolific participants; each NFR assigned to ≥2 participants; 32 dialogues in regression.", "baselines": "Chance (0.25) for satisfaction level only; no other agent/model or non-AI condition.", "models": "Single: GitHub Copilot CLI with gpt-5.1-codex-max.", "variance": "One-sample t-tests on agreement; regression SEs reported; no repeated agent runs.", "ablations": "None.", "contamination_controls": "None; iTrust is a public academic codebase likely in pretraining.", "languages": "Java (iTrust EHR)."},
+  "standards": {"peer_review": "Accepted to SIGDIAL 2026 (arXiv comment).", "limitations_section": true, "artifacts": "Data at github.com/sh3rLock3d/DialogueNFR.", "preregistration": "None reported; IRB-approved (University of Maine)."},
+  "biases": [
+    {"type": "single_model", "detail": "One agent/model on one codebase in one regulatory domain (acknowledged)."},
+    {"type": "small_sample", "detail": "34 dialogues; 21-predictor backward elimination on 32 data points."},
+    {"type": "selection_bias_participants", "detail": "Prolific crowd-workers without HIPAA expertise judge compliance; agreement may reflect lack of expertise rather than over-trust (acknowledged)."},
+    {"type": "metric_mismatch", "detail": "Lexical/embedding metrics (ROUGE, BERTScore) for reasoning quality; code-location F1 inconsistent with P/R."},
+    {"type": "other:single_annotator_ground_truth", "detail": "Ground truth by one expert with second-expert review rather than independent double coding."}
+  ],
+  "coi": {"affiliations": "University of Maine; University of Notre Dame.", "vendor_products_evaluated": "GitHub Copilot / OpenAI gpt-5.1-codex-max, evaluated unfavorably.", "funding": "NSF Award #2442683.", "severity": "none", "detail": "Academic, public funding; no vendor ties."},
+  "scores": {"rigor": 2, "reproducibility": 3, "generalizability": 2, "relevance": 4, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Peer-reviewed, IRB-approved, data released, and it targets a healthcare-compliance Java codebase, but it uses a single model, few usable dialogues, a fragile regression, and a code-location metric inconsistency.",
+  "applicability": "Directly relevant warning for a healthcare-education Java team adopting spec-driven development. Do not let an agent's self-assessment of whether NFRs (privacy, HIPAA/FERPA-like handling of learner or patient data) are satisfied, plus a quick human 'looks right', count as verification: reviewers agreed 91%+ with assessments that were mostly wrong. Express compliance NFRs as executable checks (tests, static rules, data-flow scans) in each of the ≥4 ingestion repos. Require agents to cite exact file:line evidence that a deterministic tool re-checks. Keep agent responses short and proactive. The results come from one model and one codebase, so re-measure on your own stack.",
+  "conflicts_with": []
+}

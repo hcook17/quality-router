@@ -1,0 +1,37 @@
+{
+  "arxiv_id": "2605.06754",
+  "contribution_type": "benchmark",
+  "summary": "ScarfBench is a benchmark for behavior-preserving cross-framework migration of enterprise Java among Spring, Jakarta EE and Quarkus. It has 34 application families (29 focused single-layer apps plus 5 whole apps), each hand-implemented in all three frameworks by experts, giving 204 directed tasks scored by a containerized compile → deploy → behavioral-test oracle (1,331 expert tests). Five commercial and open CLI agents were run once each, with and without framework-pair skill bundles. The best reach about 15% test pass on focused apps and 12% on whole apps.",
+  "claims": [
+    {"claim": "Strongest agent: 15.3% aggregate test pass on focused migrations, 12.2% on whole apps", "evidence": "Table 2 (with skills): Gemini CLI/Gemini-3.1-Pro focused t=15; Claude Code/Opus-4.6 whole t=12 (c=87, r=40). Consistent with the abstract after rounding.", "strength": "strong", "location": "§5, Table 2"},
+    {"claim": "Only one of 204 tasks yields a fully behaviorally equivalent target", "evidence": "Stated in abstract/§1/§7; Table 2 reports aggregate pass rates, not the per-task count, which comes from per-direction breakdowns in App. C.", "strength": "moderate", "location": "Abstract, §1, App. C"},
+    {"claim": "Jakarta EE is the hardest target (2% test pass vs 12% Spring, 14% Quarkus; 57% fail at compile)", "evidence": "Figure 3 and §5.1 text.", "strength": "moderate", "location": "§5.1, Fig. 3"},
+    {"claim": "Skills improve compilability/deployability more than behavioral correctness", "evidence": "Table 2: focused compile rises sharply with skills (e.g. Gemini CLI 17→87, Codex 27→79), focused deploy Gemini 7→61; test-pass gains are smaller, and Claude Code focused test falls 12→7 with skills. The skills were written by the benchmark authors (App. E.3), per framework pair.", "strength": "moderate", "location": "§5.1, Table 2, App. E.3"},
+    {"claim": "Failure taxonomy concentrates at build/deploy coordination points (config, DI wiring, packaging)", "evidence": "Table 3 and App. F. Labels come from two LLM annotators (Claude Opus-4.7, GPT-5.5) with κ=0.72 between the two LLMs only; not calibrated against humans (stated in §6).", "strength": "weak", "location": "§5.2, Table 3, §6"}
+  ],
+  "patterns": [
+    {"id": "P31", "stance": "introduces", "note": "New execution-verified Java migration benchmark; argues SWE-bench-style progress does not transfer to system-level transformations."},
+    {"id": "P02", "stance": "mixed", "note": "Framework-pair skill bundles (SKILL.md + dependency/config/code mapping files) greatly raise compile and deploy rates but barely move behavioral pass, and lower it for Claude Code focused."},
+    {"id": "P16", "stance": "supports", "note": "Staged compile-deploy-test gate gives precise first-failure diagnosis; shows compile success is a poor proxy for behavior preservation."},
+    {"id": "P20", "stance": "neutral", "note": "Docker/Compose target runtimes with external services (DBs, Kafka, JMS) used for evaluation."},
+    {"id": "P18", "stance": "neutral", "note": "LLM annotators used for failure labelling; acknowledged as uncalibrated."},
+    {"id": "P33", "stance": "neutral", "note": "All evaluated systems are CLI agents (Claude Code, Gemini CLI, Codex, OpenCode, Qwen CLI)."}
+  ],
+  "methodology": {"sample": "204 directed tasks (174 focused + 30 whole per agent); 34 app families; 102 variants (~151K LOC); 1,331 tests", "baselines": "Five frontier agent stacks × {monolithic prompt, skills directory}", "models": "Claude Opus 4.6, GPT-5.4, Gemini-3.1 Pro, Qwen-3.5-397B, GLM-5.1", "variance": "Single run per (agent, task) at temperature 0; no variance or CIs", "ablations": "Skills vs single-prompt; per-direction and per-layer breakdowns", "contamination_controls": "None; §6 notes that the sources (Jakarta EE examples, spring-petclinic) are likely in training data", "languages": "Java (Spring Boot, Jakarta EE/OpenLiberty, Quarkus), Maven"},
+  "standards": {"peer_review": "None stated (arXiv preprint)", "limitations_section": true, "artifacts": "Benchmark, harness, agent traces at scarfbench.info; prompts and skill bundles in App. E", "preregistration": "n/a"},
+  "biases": [
+    {"type": "no_variance_reported", "detail": "One sample per task at temperature 0; differences of a few points between agents (e.g. focused t 14 vs 15) are not distinguishable."},
+    {"type": "small_sample", "detail": "The whole-application tier is 5 apps × 6 directions = 30 tasks per agent."},
+    {"type": "contamination_risk", "detail": "Public framework examples and petclinic; acknowledged, not mitigated."},
+    {"type": "llm_judge_unvalidated", "detail": "Failure taxonomy labels come from LLM annotators agreeing with each other (κ=0.72), not validated against humans."},
+    {"type": "self_evaluation", "detail": "The skill bundles in the 'skills' condition were authored by the benchmark team, so the skills effect partly reflects their quality."}
+  ],
+  "coi": {"affiliations": "IBM Software Innovation Labs (7 of 9 authors), Rensselaer Polytechnic Institute (work done at IBM), Columbia University", "vendor_products_evaluated": "Anthropic, Google, OpenAI, Alibaba and Zhipu agent stacks; no IBM product evaluated. DayTrader, one of the apps, is an IBM benchmark application.", "funding": "Not stated", "severity": "low", "detail": "Vendor-affiliated benchmark authors. IBM sells Java modernization tooling commercially, but none is evaluated or ranked, and the results are uniformly negative for all agents."},
+  "scores": {"rigor": 3, "reproducibility": 4, "generalizability": 3, "relevance": 5, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Strong oracle design (expert-authored triples, containerized compile/deploy/test) on exactly the team's stack, with released artifacts and an honest limitations section. Caveats: single-run, no variance; small whole-app tier; contamination acknowledged but not controlled; failure taxonomy from uncalibrated LLM annotators.",
+  "applicability": "The most directly applicable paper in this batch for a Java backend team. (1) Agents translate framework APIs at the source level but rarely preserve runtime behavior, and failures cluster at configuration, DI wiring and deployment. So anything touching Spring config, CDI/beans or packaging across the 4+ ingestion repos needs a compile-deploy-test gate (containerized, behavior-level HTTP tests) before merge. Compile success is not enough. (2) Per-task skill files (mapping tables, workflow) raise compile and deploy rates but not correctness. Use skills to get to a runnable state, and have tests decide correctness. (3) Gherkin scenarios turned into executable tests (App. H) work as framework-neutral oracles and fit spec-driven development: the spec doubles as the behavioral contract. (4) Its framework-pair skill bundles are portable files that would work across mixed agent hosts. The paper shows the five CLIs consuming them through each harness's instruction file.",
+  "conflicts_with": [
+    {"arxiv_id": "2607.27250", "detail": "Partial tension. That study finds repository context files do not move correctness; here, task-specific skill files strongly raise compile/deploy rates. Both agree that behavioral correctness barely moves, which suggests guidance files help build plumbing more than semantics."}
+  ]
+}

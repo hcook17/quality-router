@@ -1,0 +1,52 @@
+{
+  "arxiv_id": "2605.12280",
+  "contribution_type": "empirical",
+  "summary": "Single-author, single-system case study (MDPI Software, peer reviewed) of repeatedly auditing the prompt-specification surface (8 documents, 7152 lines, seven 'lanes') of the author's employer's multi-agent pipeline AEGIS with Claude sub-agents. Nine audit rounds surfaced 51 cross-document consistency defects with non-monotonic per-round counts; the paper offers a post hoc seven-category taxonomy, a locked audit protocol, and two partial replications on a released ~114-line synthetic mini-spec (four-vendor LLM panel; LLM-panel-as-second-coder agreement).",
+  "claims": [
+    {"claim": "Iterative expanded-scope auditing surfaced 51 defects over nine rounds with non-monotonic convergence (15, 8, 12, 2, 8, 1, 4, 1, 0).", "evidence": "Table 4 lists per-round counts with Wilson CIs and primary categories; later rounds caught cross-lane schema/data-contract breaks (round 7-8, e.g. priority_score vs fix_priority). No single-pass full-scope control was run (§1.3), so 'needs iteration' is not tested against an alternative; audit scope and protocol co-evolved.", "strength": "moderate", "location": "§4.1, Table 4"},
+    {"claim": "Same-LLM-family blind spots are bounded: other vendors recover the seeded defects and the multi-vendor union detects all five.", "evidence": "Table 8: GPT-5.5 5.00/5, Gemini 3.1 Pro 5.00/5, Claude Opus 4.8 4.67/5, Grok 4.3 4.00/5 (3 runs each, 12 traces) on a synthetic 4-file ~114-line fixture with 5 author-seeded defects. Tiny, author-constructed fixture; does not test the production AEGIS specs (§5.5.1 concedes this).", "strength": "weak", "location": "§4.5, Tables 8-9"},
+    {"claim": "The taxonomy is reliable: Cohen's kappa 0.80 on category, 0.46 on severity.", "evidence": "§4.6/Table 11 on an 18-defect stratified subsample, but the 'second coder' is the modal label of the same four-LLM panel, not a human; author frames it as multi-LLM coder agreement only.", "strength": "weak", "location": "§4.6, Table 11, §5.5.1"},
+    {"claim": "A locked audit protocol (checklist, prompt template, finding schema, convergence criterion) is released for replication.", "evidence": "Appendices A and C plus reproducibility bundle described in Data Availability Statement (round_counts.csv etc.); production AEGIS specs themselves are not public.", "strength": "moderate", "location": "Appendices A, C; Data Availability"}
+  ],
+  "patterns": [
+    {"id": "P18", "stance": "supports", "note": "LLM sub-agent auditors found real cross-file spec defects; multi-vendor reviewer union beat any single vendor on the fixture (Table 8-9). Evidence is n=1 system plus a toy fixture."},
+    {"id": "P14", "stance": "mixed", "note": "Treats prompt specs as the system's source of truth; shows such spec surfaces accumulate drift (stale versions, field-name breaks) and need structured, repeated inspection."},
+    {"id": "P27", "stance": "supports", "note": "Most consequential late-round finds were cross-lane data-contract/schema mismatches that single-file review cannot catch by construction."},
+    {"id": "P12", "stance": "neutral", "note": "Audit rounds spawn Claude sub-agents via the Agent tool with defined context loading (§3)."},
+    {"id": "P01", "stance": "neutral", "note": "Each lane governed by a PROMPT.md specification file; the audit target is effectively a set of instruction files."}
+  ],
+  "methodology": {
+    "sample": "One production system (8 documents, 7152 lines, 51 defects); synthetic fixture with 5 seeded defects, 12 LLM traces; 18-defect IRR subsample.",
+    "baselines": "None on the production system (no single-pass control, no human inspection); vendors compared against each other on the fixture.",
+    "models": "Claude sub-agents for production audit; GPT-5.5, Claude Opus 4.8, Gemini 3.1 Pro, Grok 4.3 on fixture.",
+    "variance": "3 runs per vendor on fixture; Wilson CIs on round shares (descriptive), Mann-Kendall trend test, bootstrap CIs on kappa.",
+    "ablations": "None.",
+    "contamination_controls": "Fixture gold labels withheld from models; fixture authored by the study author.",
+    "languages": "Natural-language prompt specifications (Markdown), not source code."
+  },
+  "standards": {
+    "peer_review": "Published in MDPI Software 2026, 5, 26 (Special Issue on Software Reliability, Security and Quality Assurance); companion preprint arXiv:2604.05000.",
+    "limitations_section": true,
+    "artifacts": "Reproducibility bundle as supplementary material (fixture, checklist, prompts, round counts, run traces); production specs not released.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "small_sample", "detail": "Single system (n=1), single coder, 18-defect IRR subsample, 5-defect fixture."},
+    {"type": "toy_tasks", "detail": "Cross-vendor replication uses a ~114-line, author-seeded synthetic spec roughly thirty-fold smaller than production."},
+    {"type": "self_evaluation", "detail": "Author designed the system, audit protocol, taxonomy, fixture and seeded defects; Claude family both authored and audited AEGIS."},
+    {"type": "llm_judge_unvalidated", "detail": "Second coder for IRR is an LLM panel, not a human; no human validation of audit findings' correctness reported."},
+    {"type": "other:no_control_condition", "detail": "No single-pass full-scope review control, so the value of iteration vs. a better first pass is untested."}
+  ],
+  "coi": {
+    "affiliations": "Elias Calboreanu, Swift AI Lab, The Swift Group, LLC (Reston, VA).",
+    "vendor_products_evaluated": "AEGIS, to which the author's employer holds commercial licensing rights (disclosed COI statement); the paper reports defects in it rather than performance claims.",
+    "funding": "No external funding (Funding statement).",
+    "severity": "low",
+    "detail": "Commercial interest disclosed; the study characterises the audit method and AEGIS's own defects rather than promoting AEGIS over competitors."
+  },
+  "scores": {"rigor": 2, "reproducibility": 3, "generalizability": 1, "relevance": 4, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Unusually candid about threats and peer reviewed, but evidence is one system with no control, an author-seeded toy fixture, and LLM-only 'inter-rater' agreement; useful as protocol, weak as proof.",
+  "applicability": "Directly relevant to spec-driven development across ≥4 ingestion repositories: the defects that mattered were cross-document data-contract breaks (field renames, stale versions) that per-file review misses. Concretely: run a scheduled, checklist-locked cross-repo spec/contract audit (OpenAPI/JSON Schema for content ingestion and delivery payloads, AGENTS.md, phase specs) until a clean pass, and use auditors from more than one model vendor - which mixed agent hosts already provide - since the union caught what single vendors missed. Treat convergence-to-zero as internal consistency only, and back it with deterministic contract checks (schema diff, consumer-driven contract tests in the Java build) rather than LLM audits alone.",
+  "conflicts_with": []
+}

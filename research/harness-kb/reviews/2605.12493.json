@@ -1,0 +1,52 @@
+{
+  "arxiv_id": "2605.12493",
+  "contribution_type": "benchmark",
+  "summary": "UCLA authors release LongMemEval-V2, 451 human-curated questions testing whether a memory system can extract environment-specific experience (static state, dynamic state, workflows, gotchas, premise awareness) from up to ~500 web-agent trajectories (WebArena/WorkArena; up to 115M tokens). Memory systems return evidence for a fixed Qwen3.5-9B reader. The authors' own coding-agent-over-files memory (AgentRunbook-C, Codex + GPT-5.4-mini) scores best (72.5% avg), ahead of plain Codex (69.3%) and RAG baselines (48.5%), but with ~100-140 s query latency.",
+  "claims": [
+    {"claim": "AgentRunbook-C achieves the best performance with 72.5% average accuracy vs 69.3% for off-the-shelf Codex and 48.5% for the strongest RAG baseline.", "evidence": "Table 2: AgentRunbook-C 0.749 (Small) / 0.701 (Medium); Codex 0.699 / 0.687; RAG query->slice+notes 0.510 / 0.459 - averages match abstract. On Medium, AgentRunbook-C's overall gain over Codex (0.701 vs 0.687) is not marked significant, and it is worse on Gotchas (0.449 vs 0.517).", "strength": "moderate", "location": "§5.1, Table 2"},
+    {"claim": "Coding-agent controllers over file-stored trajectories beat RAG-style memory, at much higher latency.", "evidence": "Table 2: Codex-family 0.69-0.75 vs best RAG-family AgentRunbook-R 0.586/0.570; latency 108-186 s vs 0.1-27 s; Figure 6 accuracy-latency frontier across reasoning efforts. Confounded: RAG controller is Qwen3.5-9B while coding agents use GPT-5.4-mini xhigh.", "strength": "moderate", "location": "§5.1-5.2, Table 2, Figure 6"},
+    {"claim": "Each AgentRunbook-R memory pool and the AgentRunbook-C workflow guidance contribute.", "evidence": "Table 2 ablations: removing raw slice pool drops R to 0.423/0.335; removing workflow drops C to 0.701/0.641; paired bootstrap p<0.05 markers.", "strength": "moderate", "location": "Table 2"},
+    {"claim": "LME-V2 is challenging and not solvable from parametric knowledge.", "evidence": "No-retrieval baseline 0.013 overall; questions filtered so at least 2 of 4 frontier models (Gemini-3-Pro, GPT-5.2, Grok-4.1, Claude-Opus-4.6) fail (§3.2 footnote; Appendix B.1).", "strength": "moderate", "location": "§3.2, Table 2, Appendix B"}
+  ],
+  "patterns": [
+    {"id": "P09", "stance": "supports", "note": "Persistent, structured memory of prior trajectories (events, state slices, strategy notes) substantially beats no memory (0.013) and plain slice RAG."},
+    {"id": "P06", "stance": "mixed", "note": "Embedding RAG (Qwen3-Embedding-8B) is fast but trails coding-agent file inspection by ~15-25 points; enriched multi-pool RAG narrows the gap."},
+    {"id": "P05", "stance": "supports", "note": "Coding agent navigating trajectories stored as files with inspection tools (agentic grep/read) is the most accurate memory controller."},
+    {"id": "P33", "stance": "supports", "note": "Codex CLI used as the memory controller in an augmented sandbox; CLI-first agent outperforms bespoke RAG."},
+    {"id": "P24", "stance": "neutral", "note": "Latency reported per method; reasoning-effort setting is the main latency knob (§5.2). No token cost reporting."}
+  ],
+  "methodology": {
+    "sample": "451 questions; 1,540 collected trajectories; Small tier 100 shared trajectories, Medium ~500 per question.",
+    "baselines": "No retrieval, slice RAG, slice+notes RAG, off-the-shelf Codex; ablations of authors' methods. No published memory systems (e.g., MemGPT/Mem0-style) compared in main table.",
+    "models": "Reader fixed Qwen3.5-9B; RAG controller Qwen3.5-9B + Qwen3-Embedding-8B; coding agents Codex with GPT-5.4-mini at various reasoning efforts.",
+    "variance": "Paired bootstrap significance tests; reader sampled at temperature 0.6 but no repeated-run variance reported.",
+    "ablations": "Memory pools (R), workflow and manifest components (C), reasoning effort.",
+    "contamination_controls": "Questions filtered against parametric knowledge of four frontier models; environments are synthetic sandbox data.",
+    "languages": "n/a (web-agent trajectories: accessibility trees and screenshots)."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint marked 'Work in Progress'.",
+    "limitations_section": true,
+    "artifacts": "Project page listed; code and derived benchmark artifacts 'planned' for Apache-2.0 release (Appendix E.2) - not yet confirmed.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "self_evaluation", "detail": "Benchmark authors also propose and rank first with their own AgentRunbook methods."},
+    {"type": "other:confounded_controller", "detail": "RAG family uses a 9B open model as controller while coding-agent family uses GPT-5.4-mini xhigh, so 'coding agent beats RAG' mixes method and model strength."},
+    {"type": "llm_judge_unvalidated", "detail": "Gotchas and abstention questions scored by an LLM judge (Table 5 prompts) with no reported human agreement."},
+    {"type": "single_model", "detail": "Single reader model (Qwen3.5-9B) and single coding-agent model; rankings may shift with stronger readers."},
+    {"type": "missing_cost_reporting", "detail": "Latency is reported, but not token or dollar cost of 100-180 s coding-agent queries over 100M-token histories."}
+  ],
+  "coi": {
+    "affiliations": "University of California, Los Angeles (Di Wu, Zixiang Ji, Asmi Kawatkar, Bryan Kwan, Jia-Chen Gu, Nanyun Peng, Kai-Wei Chang).",
+    "vendor_products_evaluated": "OpenAI Codex/GPT-5.x used as baseline and as base of the authors' method; no vendor authors.",
+    "funding": "No acknowledgments/funding section; annotators were student authors paid wages or given research credit.",
+    "severity": "low",
+    "detail": "Academic; only conflict is benchmark creators evaluating their own methods on it."
+  },
+  "scores": {"rigor": 3, "reproducibility": 2, "generalizability": 2, "relevance": 2, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Abstract numbers match Table 2 and significance testing plus ablations are present, but it is a WIP, web-agent-only benchmark whose authors win on it, with a confounded RAG-vs-agent comparison and unvalidated LLM judging.",
+  "applicability": "Indirect: the domain is web agents, not Java code. The transferable signal for the team's harness is that persistent memory stored as plain files that a CLI coding agent greps/reads beat embedding RAG on accuracy - consistent with keeping cross-repo ingestion knowledge (runbooks, 'gotchas' about the content pipeline, environment quirks of each of the ≥4 repos) as committed, host-agnostic Markdown files any agent host can read, rather than a vector store tied to one host. The 100+ s query latency argues for using such memory at task start, not in every agent step. Says nothing about spec-driven development or Java tooling.",
+  "conflicts_with": []
+}

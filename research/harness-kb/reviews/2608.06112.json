@@ -1,0 +1,54 @@
+{
+  "arxiv_id": "2608.06112",
+  "contribution_type": "position",
+  "summary": "Three executives of Instil-IT (Hyderabad) propose a seven-layer 'compliance-first' agentic AI platform for hospitals with an agent orchestration layer, a policy-as-code compliance layer (HIPAA, GDPR, EU AI Act, DPDP, DISHA, ISO) and a privacy-preserving data fabric. The abstract frames validation as a prototype on a Synthea-generated synthetic dataset, but the Results section additionally reports an 18-month deployment in live hospitals with time-motion, survey, federated-learning and ROI figures. It is not about coding agents or software engineering.",
+  "claims": [
+    {"claim": "Triage risk agent (XGBoost) reaches ROC-AUC 0.892, accuracy 82.7%, F1 0.681.", "evidence": "§V Results and Fig 15; evaluated on a synthetic held-out set where the high-risk label is itself generated from a latent severity score (§IV), so the model is recovering the generator's rule.", "strength": "weak", "location": "§IV Data Acquisition; §V, Fig 15"},
+    {"claim": "Platform reduced task durations (e.g., triage 30%, bed assignment 56%, discharge summary 31%) in a supervised pilot.", "evidence": "§V 'Workflow Time Reduction', Fig 16. Abstract calls these 'simulated'; body says 'validated through time-motion studies' in 'three live hospital setups' with a single ~450-bed facility described. No sample sizes, no site identification, no ethics approval. Arithmetic error: imaging order 32 to 19 minutes is reported as 7%.", "strength": "unsupported", "location": "§V, Fig 16"},
+    {"claim": "Policy-as-code yields 85-95% regulatory coverage vs 15-42% for siloed tools.", "evidence": "§V Fig 18; coverage assessed by the authors' own automated audits and an unnamed 'third-party gap analysis'; no rubric, item counts, or auditor identity.", "strength": "unsupported", "location": "§V Regulatory Compliance Coverage, Fig 18"},
+    {"claim": "Clinician SUS rose from 58.3 to 74.6 (p<0.001); documentation burden fell 4.2 h/clinician/week (31%); critic-agent review cut discharge-summary error rate 42%.", "evidence": "§V Clinician Experience and Agent Orchestration paragraphs; no n, no instrument details, no IRB/consent statement, no comparison design.", "strength": "unsupported", "location": "§V"},
+    {"claim": "Five-year TCO crossover by Year 3 with >USD 8.2M cumulative savings.", "evidence": "Fig 17 is a projection model with unstated assumptions.", "strength": "unsupported", "location": "§V Financial Return on Investment, Fig 17"}
+  ],
+  "patterns": [
+    {"id": "P21", "stance": "introduces", "note": "Centralised policy-as-code compliance layer gating every agent data access; effectiveness claims are unsupported."},
+    {"id": "P30", "stance": "introduces", "note": "All decisions and data flows logged for post-hoc audit; asserted, not evaluated."},
+    {"id": "P11", "stance": "introduces", "note": "12 domain agents coordinated via Kafka-based orchestration layer; no controlled evaluation."},
+    {"id": "P18", "stance": "introduces", "note": "Critic agent reviews discharge summaries; 42% error reduction reported without method."}
+  ],
+  "methodology": {
+    "sample": "5,000 Synthea-style synthetic patient records for model training/simulation; claimed live pilot with unspecified numbers of clinicians, encounters, and sites.",
+    "baselines": "'Siloed tools' baseline is hypothetical/constructed; no real comparator system.",
+    "models": "XGBoost triage model; unspecified LLMs for document drafting.",
+    "variance": "None reported for time savings; p-values for SUS without n or test.",
+    "ablations": "None.",
+    "contamination_controls": "n/a",
+    "languages": "n/a (Python/FastAPI/Kafka mentioned for implementation)."
+  },
+  "standards": {
+    "peer_review": "Published in IJISRT 11(5) 2026 (journal_ref); venue is a low-selectivity open-access journal.",
+    "limitations_section": false,
+    "artifacts": "Abstract claims an 'open, ready-to-deploy prototype' but no repository link appears in the text.",
+    "preregistration": "None; human-subject survey and time-motion claims with no ethics approval reported."
+  },
+  "biases": [
+    {"type": "self_evaluation", "detail": "Company executives (COO, Chief AI Architect, CEO) evaluate their own platform with their own coverage and effort-unit metrics."},
+    {"type": "self_reported_numbers", "detail": "Pilot outcomes, compliance coverage and ROI are not independently verifiable; sites unnamed."},
+    {"type": "toy_tasks", "detail": "Predictive results are on synthetic data whose labels come from a generator's latent score."},
+    {"type": "hype_language", "detail": "'Deployment-ready in multi-jurisdictional hospital networks', 'globally compliant, ROI-focused' from synthetic/unverified evidence."},
+    {"type": "strawman_baseline", "detail": "Siloed-tools baseline coverage (15-42%) and effort units (85 vs 25) are author-constructed."},
+    {"type": "other:internal_inconsistency", "detail": "Abstract says simulated synthetic evaluation; Results describe an 18-month live deployment with surveys and a federated study with two peer hospitals; also a 32-to-19-minute change labelled 7%."},
+    {"type": "closed_artifacts", "detail": "No code, data or prototype link despite 'open' claim."}
+  ],
+  "coi": {
+    "affiliations": "All three authors: Instil-IT, Hyderabad (COO/Head of R&D, Chief AI Architect, CEO/MD).",
+    "vendor_products_evaluated": "The authors' company's hospital AI platform architecture/prototype.",
+    "funding": "Declared independent, no external funding; results attributed to 'the authors and Instil-IT'.",
+    "severity": "high",
+    "detail": "Company leadership grading their own platform favourably with no independent replication; reads partly as a product/consulting blueprint."
+  },
+  "scores": {"rigor": 0, "reproducibility": 0, "generalizability": 1, "relevance": 1, "coi_risk": 5},
+  "verdict": "reject",
+  "verdict_reason": "off-topic: hospital clinical AI platform architecture, not LLM coding agents or SE harnesses; additionally the evidence is synthetic or unverifiable, internally inconsistent (simulated vs live deployment), lacks ethics reporting, and is self-evaluated by company executives.",
+  "applicability": "Little transfer. The team does healthcare education content, not clinical data, and the paper says nothing about coding agents, repositories, or spec-driven development. The only reusable idea — a single policy-as-code layer and a single data-access interface shared by all consumers, with audit logging — is generic platform advice the team can get from better sources; none of the numbers here should be cited to justify harness or compliance decisions.",
+  "conflicts_with": []
+}

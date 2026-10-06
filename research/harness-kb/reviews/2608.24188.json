@@ -1,0 +1,55 @@
+{
+  "arxiv_id": "2608.24188",
+  "contribution_type": "tool",
+  "summary": "Paritok-4B is a 264 MB LoRA adapter on Qwen3-4B, distilled from a gpt-4.1-mini teacher over 67,074 OpenHands trajectories (SWE-rebench, SWE-Gym), that extractively compresses coding-agent context conditioned on the agent's current intent. On SWE-bench Lite (300 instances, single-shot, oracle file context, claude-sonnet-4-5 as solver) it compresses context to 25.7-27.8% of its size while retaining 86.5-89.3% of the uncompressed solve rate. The paired McNemar test is not significant (p=0.079). Released under Apache 2.0 by the company Paritok.",
+  "claims": [
+    {"claim": "Compresses to 25.7% of size, 2.0x and 2.4x harder than gpt-4.1-mini (50.2%) and gpt-5 (61.9%) as compressors.", "evidence": "Table 9 macro-averaged compression rates over 300 instances; corpus-level ratio 21.7% [20.0, 23.5]; per-instance IQR 15.2-35.3%.", "strength": "strong", "location": "§6.2, Table 9"},
+    {"claim": "Retains 86.5% (raw) / 89.3% (line-numbered) of uncompressed solve quality; not significantly worse.", "evidence": "122/300 uncompressed vs 109/300 compressed resolved; 30 vs 17 discordant, exact McNemar p=0.079; ratio paired bootstrap CI [79.2%, 100%]. The authors state 'not significant is not the same as no effect'. Apply failures 16 vs 5.", "strength": "moderate", "location": "§6.2, §7 limitation 9"},
+    {"claim": "96.0% of emitted identifiers/paths/numbers appear in its input (96.2% on held-out SWE-bench Lite).", "evidence": "§3.1 extractiveness measurement over 64,843 emitted lines / 212,506 identifier-like tokens; audit scripts released. Roughly 60% of input identifiers are dropped (limitation 1).", "strength": "strong", "location": "§3.1"},
+    {"claim": "gpt-5 as a compressor is net-negative at list prices; Paritok-4B's economics depend on self-hosting cost.", "evidence": "Table 10: gpt-5 +$6.30 per 1M tokens vs raw; gpt-4.1-mini -$0.29; Paritok-4B wins only if C_self < $2.23/M (not measured). Uncached list pricing; caching would shrink savings.", "strength": "moderate", "location": "§6.3, Table 10"},
+    {"claim": "Suitable for coding agents (title framing).", "evidence": "Evaluation is single-shot with oracle file context, no agent loop, no tool calls, no exact-match edits; multi-turn agent effects deferred to a companion paper.", "strength": "weak", "location": "§6.2 'What is and is not in the measured path', §7 limitation 7"}
+  ],
+  "patterns": [
+    {"id": "P08", "stance": "mixed", "note": "Extractive, intent-conditioned compression keeps single-shot quality within noise at ~1/4 tokens, but apply failures triple and multi-turn agent behaviour is untested."},
+    {"id": "P24", "stance": "supports", "note": "Explicit cost arithmetic shows a frontier-model compressor can cost more than it saves; useful budget reasoning."},
+    {"id": "P23", "stance": "supports", "note": "Small self-hosted model for an auxiliary step, frontier model for solving; supports cheap-model routing for context processing."},
+    {"id": "P31", "stance": "neutral", "note": "SWE-bench Lite used in single-shot mode, not as an agentic benchmark."}
+  ],
+  "methodology": {
+    "sample": "Training: 67,074 trajectories → 40,606 validated examples; evaluation: all 300 SWE-bench Lite instances plus an intrinsic OOD segment holdout.",
+    "baselines": "Uncompressed; gpt-4.1-mini and gpt-5 as prompt-based compressors. No LLMLingua-family or other code-specific compressor baseline, and no agentic (multi-turn) baseline.",
+    "models": "Compressor Qwen3-4B + LoRA; solver claude-sonnet-4-5 only (temperature 0).",
+    "variance": "Wilson CIs, paired McNemar, bootstrap CIs on ratios and compression rate; single solver run.",
+    "ablations": "Backbone selection (§5.1), drop-supervision weighting (§5.2, backfired), checkpoint sweep, line-numbered vs raw input.",
+    "contamination_controls": "SWE-bench Lite held out from training; repo-level overlap between SWE-Gym/SWE-rebench training repos and SWE-bench Lite repos not checked.",
+    "languages": "Python only (acknowledged limitation 4)."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint; no venue.",
+    "limitations_section": true,
+    "artifacts": "Weights, data pipeline, SFT configs, audit scripts and SWE-bench harness at github.com/Paritok-official/paritok-4b-v1 (Apache 2.0) and Hugging Face.",
+    "preregistration": "n/a; reports a falsified prediction for the line-numbered regime."
+  },
+  "biases": [
+    {"type": "self_evaluation", "detail": "Paritok company authors evaluate their own product with their own harness."},
+    {"type": "single_language_python", "detail": "Training and evaluation on Python SWE-bench-style repos only."},
+    {"type": "single_model", "detail": "Only claude-sonnet-4-5 as downstream solver."},
+    {"type": "metric_mismatch", "detail": "Single-shot oracle-context patch generation is used to support claims about coding-agent context compression."},
+    {"type": "contamination_risk", "detail": "Training repos may overlap with SWE-bench Lite repositories; only the instances are held out."},
+    {"type": "missing_cost_reporting", "detail": "Self-hosting throughput and cost (C_self) not measured, yet economics are a headline claim."}
+  ],
+  "coi": {
+    "affiliations": "Jiayu Shi and Luzhuo Chen, Paritok (company email paritok9@gmail.com).",
+    "vendor_products_evaluated": "Paritok-4B, the authors' own product, compared favourably against gpt-4.1-mini/gpt-5 compressors.",
+    "funding": "Not stated.",
+    "severity": "high",
+    "detail": "Vendor evaluating its own product without independent replication. Mitigated by unusually candid statistics (non-significance, apply-failure counting, falsified prediction) and fully open artifacts."
+  },
+  "scores": {"rigor": 3, "reproducibility": 5, "generalizability": 1, "relevance": 3, "coi_risk": 4},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Statistically honest and fully open, with headline compression numbers in Table 9. But it is a vendor self-evaluation, Python-only, with a single solver, and the 'coding agent' claim rests on a single-shot harness with no agent loop and 3x more apply failures.",
+  "applicability": "Moderate and indirect. For a Java team, the transferable ideas are: (1) any compression on the agent path must be extractive, with a byte-exact read_original fallback, because reflowed signatures break exact-match edits; (2) do the cost arithmetic before adding a paid-model compressor, which can cost more than it saves. The adapter itself is Python-tuned and unbenchmarked on Java. Repo invariants forbid placing a local LLM between the agent host and MCP servers, so a compressor gateway like this would have to be a host-side, opt-in component, not something qr runs. Mixed hosts with prompt caching will see smaller savings than Table 10.",
+  "conflicts_with": [
+    {"arxiv_id": "2605.11051", "detail": "Finds implicit (embedding) context compression works single-shot but fails on multi-step agentic coding tasks, a warning that Paritok's single-shot retention may not carry over to agent loops."}
+  ]
+}

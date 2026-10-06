@@ -1,0 +1,40 @@
+{
+  "arxiv_id": "2605.24397",
+  "contribution_type": "survey",
+  "summary": "A Kitchenham-style systematic literature review of 97 primary studies (50 seeds from 2,750 database hits plus 47 found by snowballing) on breaking changes across Maven/Java, npm, Python, Web APIs, and Linux distributions. It produces a four-dimensional taxonomy (Nature, Detectability, Scope, Visibility), five reason and five impact categories, 43 detection approaches, and 66 communication, prevention, and recovery strategies. It identifies behavioral-break detection, SemVer unreliability, and transitive propagation as open challenges.",
+  "claims": [
+    {"claim": "Syntactic breaking-change detection is mature (near-perfect recall in statically typed ecosystems), while behavioral breaks remain largely undetected.", "evidence": "§5.4 and Table 13 synthesize trade-offs of 43 approaches. Per-tool figures are in Tables 10-12 and are taken from the primary studies, not re-measured.", "strength": "moderate", "location": "§5.4, Tables 10-13"},
+    {"claim": "Semantic versioning is systematically violated and fails as a trust mechanism.", "evidence": "§4.2.2 aggregates SemVer-violation studies, predominantly Maven and npm.", "strength": "moderate", "location": "§4.2.2, §7.1.2"},
+    {"claim": "Transitive dependencies are the largest single source of client-impacting breaks.", "evidence": "§4.2.3 and §7.1.3 synthesize primary studies. The authors concede quantitative findings are concentrated in the Maven and npm literature (§8).", "strength": "moderate", "location": "§4.2.3, §7.1.3"},
+    {"claim": "LLM-augmented behavioral contract inference is a promising direction.", "evidence": "§7.2.1 argues by analogy from related-task results (nl2postcond, TOGA on Defects4J) and three LLM repair studies [S4, S94, S86]. This is a research agenda, not evidence that it works for breaking changes.", "strength": "weak", "location": "§7.2.1"}
+  ],
+  "patterns": [
+    {"id": "P27", "stance": "supports", "note": "The synthesized evidence shows that cross-boundary (library-to-client, transitive) contract breaks are a dominant failure source and that SemVer alone is insufficient. This motivates explicit, checked inter-repo contracts."},
+    {"id": "P17", "stance": "supports", "note": "Static API-diff tools reach near-perfect recall for syntactic breaks in statically typed ecosystems, and ROSEAU reports F1=0.99 (§5.4, §7.2.2). The authors recommend blocking CI gates."},
+    {"id": "P28", "stance": "supports", "note": "Template- and graph-based migration tools (LIBSYNC, Meditor, LibCatch, APIFIX at 98.7% precision) are summarized in §6 and §7.2.1, all as reported by their primary studies."},
+    {"id": "P16", "stance": "mixed", "note": "The LLM repair studies cited (BUMP, Byam) fix compilation but leave a gap to semantic correctness that requires a test oracle (§6)."},
+    {"id": "P35", "stance": "introduces", "note": "Proposes LLM-inferred behavioral contracts (JML, postconditions) verified by existing tools (§7.2.1)."}
+  ],
+  "methodology": {
+    "sample": "97 primary studies, 2010-2026. Searched IEEE Xplore, ACM DL, and Springer in April 2026, plus backward and forward snowballing.",
+    "baselines": "n/a (secondary study). Closest prior review is Lamothe et al. 2021 on API evolution.",
+    "models": "Claude Opus 4.7 assisted first-stage title and abstract screening, with the first author verifying every decision (§2.2).",
+    "variance": "n/a. Two authors independently extracted and coded each study and resolved disagreements by discussion (§2.4); no agreement statistic is reported.",
+    "ablations": "n/a",
+    "contamination_controls": "n/a",
+    "languages": "Java/Maven, JavaScript/npm, Python, Web APIs, Linux distributions. Java and npm dominate the quantitative evidence."
+  },
+  "standards": {"peer_review": "None stated on arXiv (the HTML header carries TOSEM template metadata, but there is no acceptance comment).", "limitations_section": true, "artifacts": "The list of 97 studies is in Appendix A; no extraction spreadsheet or replication package URL is given.", "preregistration": "No registered review protocol."},
+  "biases": [
+    {"type": "other:single_screener_llm_assisted", "detail": "First-stage exclusion of about 2,695 of 2,750 papers was done by the first author alone, aided by Claude Opus 4.7, with no second screener or agreement measure (§2.2)."},
+    {"type": "other:internal_inconsistency", "detail": "§2.1 says the search string was applied to full text, while §8 says title, abstract, and keyword fields."},
+    {"type": "survivorship", "detail": "Grey literature (E4) and papers under 5 pages (E1) are excluded, which drops much practitioner and tool documentation on breaking changes."},
+    {"type": "self_reported_numbers", "detail": "Detection and repair accuracy figures are copied from primary studies without normalization across benchmarks."}
+  ],
+  "coi": {"affiliations": "University of Melbourne (3 authors); Sun Yat-sen University.", "vendor_products_evaluated": "None.", "funding": "Not stated.", "severity": "none", "detail": "Academic authors with no tool of their own promoted."},
+  "scores": {"rigor": 3, "reproducibility": 2, "generalizability": 4, "relevance": 3, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "A broad, traceable synthesis ([S##] citations, Appendix A) with dual extraction. It is weakened by single-author, LLM-assisted screening, no agreement statistics, no protocol registration or extraction data release, and an inconsistency in the stated search scope. Its findings are secondary, and it is not about agents; it informs the contract-safety layer around agents.",
+  "applicability": "Directly useful for the multi-repo Java ingestion setup, even though it is not an agent paper. With ingestion spread over four or more repos, internal library and API changes between repos are the team's own breaking-change ecosystem. The review supports (a) blocking CI gates with static API-diff tools for syntactic breaks in Java, which are mature and fast; (b) not trusting SemVer bumps between internal repos; (c) explicit behavioral contracts and consumer-driven contract tests for the content schemas delivered to front ends, since behavioral breaks are what tooling misses. In spec-driven development, specs should state API and behavioral contracts that the harness can check. Agent-authored cross-repo changes should be gated on those checks rather than on an LLM's judgment. The LLM contract-inference direction (§7.2.1) is speculative.",
+  "conflicts_with": []
+}

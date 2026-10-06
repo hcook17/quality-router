@@ -1,0 +1,50 @@
+{
+  "arxiv_id": "2608.01001",
+  "contribution_type": "position",
+  "summary": "Conceptual paper that takes the authors' own earlier scoping review of 31 AI technical debts (AITDs) in 7 root-cause categories and re-interprets each one as an 'Agentic Technical Debt' (AgTD) via three labels (direct transformation, contextual transformation, manifestation expansion), then discusses implications for AI TRiSM and proposes 'Sustainability Technical Debt'. No new data on agentic systems is collected.",
+  "claims": [
+    {"claim": "Presents 'the first systematic mapping' of 31 AITDs to agentic manifestations, framed as an empirical contribution.", "evidence": "§IV-C/§V: one-to-one mapping produced by 'iterative qualitative analysis' of the authors' prior review (Tukur et al. 2026; 60 primary studies, none necessarily about agentic systems). No observation of real agentic systems, incidents or practitioners; the 'empirical' label is not supported.", "strength": "weak", "location": "§I contributions, §IV-A to IV-C, Fig. 6"},
+    {"claim": "Mapping validity is ensured by multi-author review and consensus.", "evidence": "§IV-D describes independent review and consensus sessions but reports no agreement statistic, number of disputed items, or external validation.", "strength": "weak", "location": "§IV-D"},
+    {"claim": "AgTD manifests as cascading failures, orchestration fragility, memory inconsistencies and unsafe autonomous decisions, requiring runtime governance rather than static testing.", "evidence": "§V-D/§V-E narrative synthesis citing literature; no quantitative or case evidence.", "strength": "unsupported", "location": "§V-D, §V-E"},
+    {"claim": "Agentic systems incur Sustainability Technical Debt from compute/energy demands.", "evidence": "§I, §V-E argument citing Lee and Park (2026); no measurement.", "strength": "weak", "location": "§I, §V-E"}
+  ],
+  "patterns": [
+    {"id": "P30", "stance": "introduces", "note": "Argues behaviour-centric monitoring and runtime governance are needed to track debt propagation across agents; no evidence."},
+    {"id": "P11", "stance": "neutral", "note": "Frames multi-agent coordination as a debt amplifier (cascading failures, inter-agent dependencies) without data."},
+    {"id": "P09", "stance": "neutral", "note": "Lists persistent-memory inconsistency/corruption as an agentic debt manifestation."},
+    {"id": "P21", "stance": "neutral", "note": "Calls for governance/accountability controls under AI TRiSM; no mechanism evaluated."}
+  ],
+  "methodology": {
+    "sample": "31 AITDs from authors' prior PRISMA-ScR review of 60 primary studies; no new sample.",
+    "baselines": "n/a",
+    "models": "n/a",
+    "variance": "n/a",
+    "ablations": "n/a",
+    "contamination_controls": "n/a",
+    "languages": "n/a"
+  },
+  "standards": {
+    "peer_review": "arXiv preprint, 'submitted to IEEE Transactions on Software Engineering' (not yet accepted).",
+    "limitations_section": false,
+    "artifacts": "None (no mapping spreadsheet or coding protocol released).",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "novelty_inflation", "detail": "Renames existing AI/ML technical-debt categories with an 'agentic' prefix; the 'empirical contribution' is a re-labelling of the authors' prior review."},
+    {"type": "hype_language", "detail": "'paradigm shift', 'foundational software engineering construct', 'rigorous and extensible framework' without supporting evidence."},
+    {"type": "other:no_primary_evidence", "detail": "No agentic system, incident data, or practitioner input is examined; the only 'Research Gaps and Limitations' section critiques prior work, not this study."},
+    {"type": "self_evaluation", "detail": "Authors validate their own mapping by internal consensus; heavy reliance on their own prior review."}
+  ],
+  "coi": {
+    "affiliations": "University of Birmingham, Bournemouth University, Brunel University London, HBKU (Qatar), University of Hawaii.",
+    "vendor_products_evaluated": "None.",
+    "funding": "Not stated.",
+    "severity": "none",
+    "detail": "Academic authors; no vendor or product involvement."
+  },
+  "scores": {"rigor": 0, "reproducibility": 0, "generalizability": 1, "relevance": 1, "coi_risk": 0},
+  "verdict": "reject",
+  "verdict_reason": "Conceptual relabelling of the authors' prior AI technical-debt taxonomy with no primary evidence about agentic systems, no reported inter-rater agreement and no artifacts; provides vocabulary at most, nothing load-bearing for harness decisions.",
+  "applicability": "Little transfers to the Java team's harness choices. At most, its debt categories (glue-code turning into orchestration logic, hidden feedback loops, memory inconsistency, cross-agent dependency entanglement) are a checklist for reviewing a multi-host, ≥4-repo ingestion harness, e.g. auditing whether agent-written orchestration scripts and prompts become untracked glue code. It gives no evidence on which practices reduce such debt, and nothing specific to healthcare content, Java, or spec-driven development.",
+  "conflicts_with": []
+}

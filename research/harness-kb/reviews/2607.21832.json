@@ -1,0 +1,52 @@
+{
+  "arxiv_id": "2607.21832",
+  "contribution_type": "empirical",
+  "summary": "Mining study on the AIDev dataset: 220,612 closed PRs from 489 Python GitHub repositories (>100 stars), of which 9,428 are from Codex, Copilot, Claude Code, Cursor and Devin. It models merge probability by agent and lifecycle quarter (binomial GLMM with repo random intercept), topic-models agentic PRs into task categories (BERTopic on GPT-4.1-mini summaries), and compares 2,275 merged agentic vs 2,275 merged human PRs on size/review metrics and SZZ-identified bug-inducing commits.",
+  "claims": [
+    {"claim": "Merge probability differs by agent (Claude 84.3%, Codex 73.5% highest; Devin lowest at 43.0%) but is relatively stable across lifecycle quarters", "evidence": "Table 3 GLMM estimated marginal means and pairwise odds ratios; Fig. 5 per-agent trends with only one significant quarter step (Codex Q2→Q3). Agent attribution relies on branch prefixes / bot author / 'Co-Authored-By: Claude' text, so Claude Code PRs without the trailer are missed and selection differs per agent.", "strength": "moderate", "location": "§4.1, Table 3, Fig. 5"},
+    {"claim": "Agents are used mostly for repetitive, well-structured tasks (documentation largest); declarative/additive/non-functional changes merge more, context-heavy tasks (LLM integration, function implementation, JSON template) merge less", "evidence": "§4.2: 36 BERTopic clusters labelled by two authors; label check on 100 PRs with Cohen's kappa 0.842 (§6). Merge-ratio comparisons across categories are descriptive, with no statistical tests or controls for repo.", "strength": "moderate", "location": "§4.2, §6 Internal Validity"},
+    {"claim": "Agentic PRs show comparable or lower defect proneness than human PRs", "evidence": "Table 12(a): chi-squared per quarter, only Q4 significant (p=0.021) with negligible Cramér's V 0.068. SZZ with keyword-based bug-fix detection; agentic PRs are recent (2025) and right-censoring (less time for bugs to surface) is not addressed; merged-only sample.", "strength": "weak", "location": "§4.3.4, Table 12"},
+    {"claim": "Agentic and human PRs differ in several characteristics but mostly with small practical magnitude", "evidence": "§4.3.1–4.3.3, Mann–Whitney U with Cliff's delta per agent and quarter; agentic PRs merge faster, small effects in Q3–Q4 only (Table 10).", "strength": "moderate", "location": "§4.3, Fig. 9–11"}
+  ],
+  "patterns": [
+    {"id": "P32", "stance": "mixed", "note": "Field evidence from open-source GitHub: agents succeed on narrow, well-specified tasks and struggle on context-heavy ones."},
+    {"id": "P34", "stance": "supports", "note": "Indirect: semantically well-defined, narrowly scoped tasks have higher and more stable merge rates (§4.2.1), consistent with giving agents explicit acceptance criteria. Correlational only."},
+    {"id": "P19", "stance": "neutral", "note": "Merge decision by human maintainers is the outcome measure; no analysis of review gates themselves."}
+  ],
+  "methodology": {
+    "sample": "220,612 closed PRs, 489 Python repos (>100 stars, ≥2 agentic PRs), 9,428 agentic PRs; balanced 2,275 vs 2,275 merged PRs for RQ3; cut-off 20 Nov 2025",
+    "baselines": "Human-generated PRs from same repos and calendar quarter, bots and agent PRs excluded",
+    "models": "Five agents observed in the wild (Codex, Copilot, Claude Code, Cursor, Devin); GPT-4.1-mini used for PR summarisation before BERTopic",
+    "variance": "GLMM with repo random effect; Mann–Whitney/Cliff's delta; chi-squared/Cramér's V; unadjusted multiple comparisons",
+    "ablations": "Three embedding models compared for BERTopic coherence (C_V 0.624 with Gemini-embedding-001, k=36)",
+    "contamination_controls": "n/a (mining study)",
+    "languages": "Python repositories only"
+  },
+  "standards": {
+    "peer_review": "arXiv preprint; ACM template header (POMACS placeholder DOI), no acceptance stated",
+    "limitations_section": true,
+    "artifacts": "Data and supplementary materials released (github.com/mazloomzadeh/AI-Agent-Analysis)",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "single_language_python", "detail": "Python repositories only; §6 asserts generalization to other languages without evidence."},
+    {"type": "survivorship", "detail": "RQ3 uses merged PRs only and SZZ on recent agentic code; agentic changes have had less time to accrue bug-fix commits, biasing toward 'lower defect proneness'."},
+    {"type": "metric_mismatch", "detail": "Merge rate is used as a proxy for agent effectiveness, which 2605.22534 shows misrepresents agent capability; keyword-SZZ is a noisy defect proxy."},
+    {"type": "selection_bias_participants", "detail": "Agent identification heuristics differ per agent (branch prefix vs bot account vs commit trailer), so agent samples are not comparable and many agent-assisted PRs remain in the 'human' group (acknowledged in §6)."},
+    {"type": "llm_judge_unvalidated", "detail": "GPT-4.1-mini summaries feed topic modelling; only the final topic labels are validated (kappa 0.842 on 100 PRs), not the summaries."}
+  ],
+  "coi": {
+    "affiliations": "Polytechnique Montréal (all three authors)",
+    "vendor_products_evaluated": "Codex, Copilot, Claude Code, Cursor, Devin observed, not promoted",
+    "funding": "No acknowledgments section found in the extracted text",
+    "severity": "none",
+    "detail": "Academic authors, no vendor ties identified."
+  },
+  "scores": {"rigor": 3, "reproducibility": 4, "generalizability": 2, "relevance": 2, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Large, statistically modelled mining study with released data, but Python-only, merge rate and keyword-SZZ are weak proxies, and the 'not more bug-prone' conclusion ignores right-censoring and merged-only selection.",
+  "applicability": "Indirect for the Java team: it supports scoping agent work in the ingestion repos to narrow, declarative, well-specified changes (config, CI, docs, tests, dependency bumps) first, and treating schema/template changes that ripple downstream (the paper's 'JSON template' category) as high-risk — directly relevant when content schemas feed front ends across ≥4 repos. It gives no evidence about Java, multi-repo coordination, mixed hosts, or spec-driven workflows, and its defect-proneness result should not be used to justify relaxing review gates.",
+  "conflicts_with": [
+    {"arxiv_id": "2605.22534", "detail": "That study's manual coding finds merge/reject labels misrepresent agent capability (only ~a third of rejections are clear agent failures); this paper uses merge probability as its main effectiveness measure."}
+  ]
+}

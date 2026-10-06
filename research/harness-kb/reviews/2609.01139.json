@@ -1,0 +1,47 @@
+{
+  "arxiv_id": "2609.01139",
+  "contribution_type": "empirical",
+  "summary": "Amazon researchers compare decomposition-based LLM-as-a-judge methods (HD-Eval, CheckEval, plus their own ICL and AOI decomposition variants) against a direct-prediction judge (criterion definition + CoT + 5 ICL examples, optionally calibrated by a regressor trained on human labels). They use SummEval, TopicalChat and Seahorse, with Claude-4 Sonnet as the main judge and Qwen3-32B and GPT-OSS-120B in an appendix. They find decomposition gives no consistent gain over a fair direct baseline, and that HD-Eval's reported gains come from the human-label-trained aggregator rather than from decomposition.",
+  "claims": [
+    {"claim": "Decomposition-based LLMaJ does not outperform a fair direct-prediction baseline.", "evidence": "Table 1 (averaged over criteria, Claude-4): TopicalChat rho DP 0.701-0.716 vs HD-Eval 0.563-0.582. But on SummEval the authors' own AOI decomposition has the best rho (0.586 vs DP 0.545-0.560), and Appendix E notes ICL/AOI decomposition achieve the best SummEval scores with other models. No significance tests; a single run (§5 footnote 7). 'No consistent superiority' is supported, 'no evidence of gain' is slightly overstated.", "strength": "moderate", "location": "§6.1, Table 1, Appendix A/E"},
+    {"claim": "HD-Eval's gains stem from human labels used to train the aggregator, not from decomposition.", "evidence": "The L1-agnostic HD-Eval variant (25 generic criteria, regressor trained on human labels) performs on par with standard decomposition and DP (Appendix C, Table 3). DP with human labels reaches AP 0.835/0.885 vs 0.593/0.864 without. A sensible ablation, though the best regressor is picked per setting by rho+AP on a 50/50 split and no separate validation split is described.", "strength": "moderate", "location": "§6.1, Appendix C, §5 Implementation"},
+    {"claim": "Direct-prediction LLMaJ with human labels can match or beat human annotators (alt-test WR 1.0).", "evidence": "Table 1: WR 1.0 on both datasets with human labels; per-criterion results show weaknesses (Relevance on SummEval; Grammar and Main Ideas on Seahorse).", "strength": "moderate", "location": "§6.2, Tables 7-8, Appendix A"}
+  ],
+  "patterns": [
+    {"id": "P18", "stance": "mixed", "note": "A simple direct-prediction judge calibrated with a small set of human labels is as good as elaborate checklist/decomposition judges. Human labels, not judge-pipeline complexity, drive alignment."}
+  ],
+  "methodology": {
+    "sample": "SummEval, TopicalChat (3 annotators each, alt-test), Seahorse (1 annotation/sample); 50/50 train/test split following HD-Eval.",
+    "baselines": "HD-Eval and CheckEval re-implemented with Claude-4 plus originally reported numbers. The CheckEval re-run was much worse than the original (rho 0.411 vs 0.549 SummEval), but the authors show their conclusion also holds against the original numbers.",
+    "models": "Claude-4 Sonnet (t=0) main; Qwen3-32B and GPT-OSS-120B in Appendix E.",
+    "variance": "Single run; the authors state they 'did not observe significant variations across runs' without reporting them. No CIs or significance tests on the method comparisons.",
+    "ablations": "L1-agnostic decomposition; with vs without human labels; float vs integer rounding (Appendix D.3); regressor types.",
+    "contamination_controls": "None; acknowledged that pretraining exposure to the datasets cannot be ruled out.",
+    "languages": "English NLG (summarization, dialogue); no code."
+  },
+  "standards": {
+    "peer_review": "Accepted to EMNLP 2026 (arXiv comment).",
+    "limitations_section": true,
+    "artifacts": "No code repository linked; prompts in Appendix G.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "no_variance_reported", "detail": "Single run, no CIs or significance tests on small rho differences (e.g., 0.553 vs 0.567)."},
+    {"type": "other:baseline_reproduction_gap", "detail": "CheckEval re-implementation underperforms its published numbers by a wide margin, which flatters DP in the like-for-like comparison."},
+    {"type": "other:test_selection", "detail": "The best regressor per setting is chosen by rho+AP with only a train/test split described, so selection may use test data."},
+    {"type": "closed_artifacts", "detail": "No code release."},
+    {"type": "contamination_risk", "detail": "Public NLG benchmarks from 2019-2023; acknowledged."}
+  ],
+  "coi": {
+    "affiliations": "All four authors: Amazon (Barcelona, Berlin).",
+    "vendor_products_evaluated": "Claude-4 Sonnet (Anthropic), Qwen3-32B, GPT-OSS-120B used as judges; no Amazon product evaluated.",
+    "funding": "No acknowledgments/funding section.",
+    "severity": "low",
+    "detail": "Vendor-employed authors, but the paper is a methods comparison that doesn't promote an Amazon product."
+  },
+  "scores": {"rigor": 3, "reproducibility": 2, "generalizability": 2, "relevance": 2, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "A peer-reviewed (EMNLP 2026) negative result with a sensible ablation (the L1-agnostic variant) and three judge models. However, it uses a single run with no significance tests, the authors' own decomposition variants win on SummEval, the CheckEval reproduction is weak, and there is no code. It is NLG evaluation, not software engineering, so it bears only on LLM-judge design.",
+  "applicability": "Indirect but concrete. If the team uses an LLM judge to grade ingested healthcare-education content (e.g., summary faithfulness or readability before delivery to front ends) or to review agent-produced specs, this says not to build elaborate checklist-decomposition judges. Use a direct rubric prompt with a few human-scored examples, and spend the effort on a small human-labelled calibration set per criterion; human labels are what move alignment. It also warns that judges vary by criterion (relevance, grammar, main ideas were weak), so per-criterion validation against clinicians or educators is needed before an LLM judge gates content. Nothing here addresses code, Java, multi-repo ingestion or agent hosts.",
+  "conflicts_with": []
+}

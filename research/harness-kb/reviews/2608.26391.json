@@ -1,0 +1,50 @@
+{
+  "arxiv_id": "2608.26391",
+  "contribution_type": "empirical",
+  "summary": "The authors generated four BaxBench-derived backend services (image→GIF converter, credit-card store, process monitor, uptime checker) in three environments: JavaScript/Express via Bolt, Python/FastAPI via ChatGPT, and Rust/Actix via Gemini. After functional validation, each service ran under a 48-hour JMeter workload while OS-level memory, response time and throughput were recorded and tested for trends with Mann-Kendall/Sen's slope. Static analysis (CodeQL, Semgrep, LeakAudit, SlowQL plus Claude Code review subagents) and an exploratory comparison with three human-written Python GitHub projects round out the study.",
+  "claims": [
+    {"claim": "Memory usage is the most consistent aging indicator: significant upward trends in 11 of 12 application-environment combinations.", "evidence": "Table I and §V-A. Only Rust Image Converter is non-significant. Memory is total OS-level RAM, not process memory (Threats: monitoring granularity), and each combination is a single 48h run.", "strength": "weak", "location": "§V-A, Table I"},
+    {"claim": "Response time and throughput degradation are heterogeneous across environments.", "evidence": "§V-A/§V-B: JavaScript shows significant latency growth in 3 of 4 apps, Python in 1, and one Rust result is spike-dominated. Language, framework, generation platform and runtime are fully confounded (one implementation per cell).", "strength": "weak", "location": "§V-A–B, Table I"},
+    {"claim": "Static analysis identifies plausible code-level aging mechanisms (unbounded persistent state, missing cleanup, subprocess retention).", "evidence": "§V-C (RQ3). The mechanisms come mainly from an LLM-assisted multi-agent review whose precision is not validated. The authors admit the correspondence with runtime trends is not uniform.", "strength": "weak", "location": "§V-C"},
+    {"claim": "Human-written implementations show comparable or stronger aging.", "evidence": "§V-D, Table IV: three Python GitHub projects with all memory trends significant. They are not replicas (different libraries and architectures), and the authors label the comparison exploratory.", "strength": "weak", "location": "§V-D, Table IV"}
+  ],
+  "patterns": [
+    {"id": "P16", "stance": "contradicts", "note": "Passing BaxBench-derived functional tests did not reveal resource accumulation that appears under sustained load. A test-pass verifier is insufficient for long-running services, though the evidence is thin."},
+    {"id": "P17", "stance": "mixed", "note": "CodeQL/Semgrep/LeakAudit/SlowQL needed custom rules for aging faults and were supplemented by LLM review. Static findings were only partly consistent with runtime trends."},
+    {"id": "P18", "stance": "neutral", "note": "Uses a Claude Code multi-agent review (specialist + general + performance-engineering validator) with no accuracy validation."}
+  ],
+  "methodology": {
+    "sample": "4 scenarios × 3 environments = 12 generated apps, one implementation and one 48h run each, plus 3 human-written Python apps.",
+    "baselines": "Exploratory comparison with non-equivalent human-written GitHub projects. No controlled baseline.",
+    "models": "Bolt (JavaScript), ChatGPT 5.0 (Python), Gemini 3.0 (Rust), all via chat/web platforms. Platform and language are confounded.",
+    "variance": "Single run per configuration. Mann-Kendall significance and Sen's slope with CIs on within-run time series, but no repeated independent runs (acknowledged).",
+    "ablations": "None. Language, framework and generator are not separated.",
+    "contamination_controls": "n/a.",
+    "languages": "JavaScript, Python, Rust. No Java."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint. No venue in comment or journal_ref.",
+    "limitations_section": true,
+    "artifacts": "Replication package with data, source code and scripts at github.com/chas42/generated-software-llm (branch project-2026). Time-series plots are in the package annex.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "small_sample", "detail": "12 apps, one generation and one 48h run each."},
+    {"type": "metric_mismatch", "detail": "Memory is measured at OS level, so trends may reflect OS caches or background activity rather than application leaks (acknowledged)."},
+    {"type": "no_variance_reported", "detail": "No repeated runs. Within-series trend tests do not capture run-to-run variability."},
+    {"type": "llm_judge_unvalidated", "detail": "Aging mechanisms identified by Claude Code review agents without precision/recall checks."},
+    {"type": "other:confounded_design", "detail": "Each language is tied to a single generator and framework, so no factor can be attributed. The contributions list also says Python/Flask while the setup says FastAPI."}
+  ],
+  "coi": {
+    "affiliations": "Federal Rural University of Pernambuco (Brazil), University of Naples Federico II and Gran Sasso Science Institute (Italy).",
+    "vendor_products_evaluated": "Bolt, ChatGPT, Gemini as generators. Not evaluated favorably or unfavorably as products.",
+    "funding": "CNPq Brazil, project 401147/2025-8.",
+    "severity": "none",
+    "detail": "Academic authors with no vendor ties."
+  },
+  "scores": {"rigor": 2, "reproducibility": 3, "generalizability": 1, "relevance": 2, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "The question of operational reliability beyond functional tests is a useful and under-studied one. The evidence is thin: 12 single-run apps, OS-level memory, fully confounded factors and unvalidated LLM review. Admit only as a caution signal, not as quantitative evidence.",
+  "applicability": "Low to moderate. The transferable point for a backend team delivering healthcare-education content to front ends is that functional and contract tests on agent-generated services do not catch unbounded in-memory state, missing cleanup of temp files or subprocesses, or growing persistence. Agent-produced ingestion services should get a soak or load stage (and JVM heap/GC metrics, file-descriptor counts, and retention policies in specs) before release. Spec-driven templates could make retention and size limits explicit non-functional requirements. The study has no Java/JVM services, uses chat UIs rather than agent harnesses, and says nothing about multi-repo or mixed-host work.",
+  "conflicts_with": []
+}

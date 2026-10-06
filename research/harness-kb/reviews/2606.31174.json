@@ -1,0 +1,34 @@
+{
+  "arxiv_id": "2606.31174",
+  "contribution_type": "benchmark",
+  "summary": "ClawArena-Team is a synthetic benchmark of 41 multi-turn, multimodal, multi-directory scenarios (258 rounds, 72 staged updates). It measures how well a single text-only 'manager' LLM creates, grants tools/paths to, schedules and integrates a fixed locally served pool of Gemma subagents. The score is execution-based (no LLM judge): task completion multiplied by least-privilege and modality-routing precision. Twelve manager models were evaluated once each.",
+  "claims": [
+    {"claim": "The management bottleneck is privilege granting: no model exceeds 50% workspace-permission precision.", "evidence": "Finding 1 and Table 3: ROC and MCA ≥92% for all capable models; TPP ~70-80%; WPP never reaches 50%. WPP is defined as files accessed / files granted, so granting a directory whose files are not all read counts as imprecision even when that grant is reasonable. The metric partly encodes the benchmark's own definition of 'over-grant'.", "strength": "moderate", "location": "§3.5, §4.2 Finding 1, Table 3"},
+    {"claim": "Cost and management quality are decoupled: cost spans >100x while SMS spans <4x; cheap open models are on the Pareto frontier.", "evidence": "Finding 2/Fig. 2: $0.8 to $93 per run; claude-fable-5 SMS 60.0% at ~$93 vs gemini-3.5-flash 53.8% at $23.7; deepseek-v4-pro 46.4% at $1.7. Self-hosted costs are imputed from OpenRouter rates (Appendix A/F).", "strength": "moderate", "location": "§4.2 Finding 2, Appendix F"},
+    {"claim": "Leaderboard scores cluster in a 9.9-point band while orchestration behaviors diverge >10x.", "evidence": "Finding 3, Fig. 3, Table 4: ten models within 43.9-53.8% SMS; per-subagent forbidden-access 0.48 (gpt-5.5) to 5.78 (deepseek-v4-pro). This comes from a single evaluation run on 41 scenarios with no variance, so ranks inside the band are not separable.", "strength": "moderate", "location": "§4.2 Finding 3, Table 4"},
+    {"claim": "Over-granting does not buy correctness.", "evidence": "§4.3 error analysis plus case studies (Appendix L); no correlation statistic between grant breadth and TCR is reported.", "strength": "weak", "location": "§4.3, Appendix L"}
+  ],
+  "patterns": [
+    {"id": "P12", "stance": "mixed", "note": "Managers can delegate, but they over-grant paths/tools and keep stale beliefs across staged updates; the full-scenario pass rate is near zero (§4.3)."},
+    {"id": "P11", "stance": "neutral", "note": "Measures manager-of-subagents ability rather than fixed role teams."},
+    {"id": "P21", "stance": "supports", "note": "Evidence that LLM managers do not self-enforce least privilege (WPP <50%, forbidden accesses), which argues for external policy enforcement."},
+    {"id": "P23", "stance": "supports", "note": "Cheap open models (deepseek-v4-pro at $1.7) are near the cost/quality Pareto frontier for manager roles."},
+    {"id": "P24", "stance": "neutral", "note": "Reports per-run cost; context budget advisory, per-turn output capped."},
+    {"id": "P13", "stance": "neutral", "note": "Dynamic workflow tool lets managers author parallel/pipeline stages; adoption varies (Table 4) without a clear SMS link."}
+  ],
+  "methodology": {"sample": "41 synthetic scenarios, 258 rounds, 72 staged-update groups; 12 manager models.", "baselines": "Models compared against each other; no human manager or fixed-workflow baseline.", "models": "claude-fable-5 (with vendor refusal fallback to opus-4-8), claude-sonnet-4-6, gemini-3.5-flash, gemini-3.1-pro, two gpt-5 versions via codex, kimi-k2.6, deepseek-v4-pro, glm-5.2, qwen3.6-27b, gemma-4-31b, glm-4.7-flash; worker pool gemma-4-31b-it / gemma-4-e4b-it.", "variance": "Single evaluation run per model; no seeds, CIs or repeat runs.", "ablations": "None on the scoring formula or worker-pool strength (acknowledged in Appendix A).", "contamination_controls": "Fully synthetic, regenerable scenarios; but checks were loosened after baseline-harness runs (Appendix G.5), which calibrates difficulty to that baseline.", "languages": "Not code-focused; shell-based execution checks over documents, images, audio across domains (law, medicine, etc.)."},
+  "standards": {"peer_review": "No venue; arXiv comment lists 24 pages and website.", "limitations_section": true, "artifacts": "Code at github.com/aiming-lab/ClawArena; scenarios regenerable from version-controlled scripts.", "preregistration": "n/a"},
+  "biases": [
+    {"type": "no_variance_reported", "detail": "One run per model; the 9.9-point cluster cannot be ranked reliably."},
+    {"type": "metric_mismatch", "detail": "WPP (accessed/granted files) and TPP (used/granted tool types) treat any unused grant as a failure, and the multiplicative SMS couples them to correctness with equal weights that are not justified."},
+    {"type": "other:synthetic_tasks_calibrated_on_baseline", "detail": "Scenarios are LLM-synthesized and checks loosened until a baseline harness's failures are 'true difficulty' (Appendix G.5), so difficulty is tuned to one run."},
+    {"type": "small_sample", "detail": "41 scenarios; per-scenario difficulty is uneven and model-specific (§4.3)."},
+    {"type": "other:composite_model_entry", "detail": "The top-ranked claude-fable-5 score includes fallback to opus-4-8 on refusals (Appendix A), so it is not the base model alone."}
+  ],
+  "coi": {"affiliations": "UNC-Chapel Hill (5 authors), UC Berkeley, UC Santa Cruz.", "vendor_products_evaluated": "Twelve third-party models; none authored by the paper's institutions.", "funding": "No acknowledgments/funding section found.", "severity": "none", "detail": "Academic benchmark authors; no evaluated model is theirs."},
+  "scores": {"rigor": 3, "reproducibility": 4, "generalizability": 2, "relevance": 3, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Novel, execution-scored measurement of subagent management with released code, and the least-privilege finding is useful. However, it is a single run per model on 41 synthetic scenarios, the permission-precision metric is debatable, and it is not a software-engineering benchmark.",
+  "applicability": "Indirectly useful for a mixed-host harness that spawns subagents across ≥4 ingestion repos: do not rely on the orchestrating model to scope subagent permissions. Enforce path and tool allowlists deterministically (policy-as-code per repo or per subagent role, read-only exploration agents by default), which fits 'qr decides enable/disable'. The stale-belief-after-update failure suggests specs and acceptance criteria should be re-read after upstream contract changes rather than kept in conversational memory. The cost/quality decoupling supports letting hosts route manager roles to cheaper models, though the evidence is from non-code tasks and has no variance. Not Java- or SE-specific.",
+  "conflicts_with": []
+}

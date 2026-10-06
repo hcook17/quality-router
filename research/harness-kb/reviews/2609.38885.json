@@ -1,0 +1,53 @@
+{
+  "arxiv_id": "2609.38885",
+  "contribution_type": "empirical",
+  "summary": "HERO is an RL recipe for coding agents with two parts: a resolution-first objective that only turns on a token-efficiency reward once the policy solves enough tasks, and credit assignment at two levels (shorter successful trajectories, and penalties on low-entropy 'unproductive' turns). Qwen3.5-4B/9B/35B-A3B are trained on 640 multilingual SWE tasks inside the Claude Code scaffold and evaluated on SWE-bench Verified and Multilingual. Average resolve rate rises from 37.4% to 42.2%, using 39.8% fewer tokens than GRPO.",
+  "claims": [
+    {"claim": "HERO raises average resolve rate from 37.4% to 42.2% across the Qwen3.5 variants.", "evidence": "Averaging the six base cells in Tables 1-2 gives 37.4 and the six HERO cells gives 42.2, so the claim matches. Results are the mean of 3 seeds (§4.1), but no std or CI is given. Per-cell gains are 1.4-7.2 points.", "strength": "moderate", "location": "§4.2, Tables 1-2"},
+    {"claim": "HERO matches or beats GRPO on resolve rate with 39.8% less token usage.", "evidence": "GRPO tokens sum to 36.9M across the six cells and HERO to 22.2M (about 40% less), so the arithmetic holds. Against the untrained base model, however, HERO uses 22.2M vs 23.4M, only about 5% fewer, and more on Multilingual-4B (4.5 vs 4.0). The 'efficiency' is largely undoing GRPO's token inflation, not reducing below baseline.", "strength": "moderate", "location": "Tables 1-2"},
+    {"claim": "HERO beats token-efficient RL baselines (Training Efficient, LASER, OTC-GRPO, SlimSearcher).", "evidence": "Table 6 on Qwen3.5-4B only. HERO has the best TRS, but LASER and OTC-GRPO use fewer tokens with lower resolve. Baselines were re-implemented by the authors with configs copied from papers designed for non-SWE settings (LASER threshold chosen by the authors).", "strength": "moderate", "location": "App. B.1, Table 6"},
+    {"claim": "Each component matters: removing hierarchical policy optimization collapses resolve to 29.2%.", "evidence": "Table 3 ablation on 4B / Verified only.", "strength": "moderate", "location": "§4.3, Table 3"},
+    {"claim": "Learned efficiency generalizes across scaffolds.", "evidence": "Table 12: under mini-SWE-agent, 4B goes 39.5 (base), 41.2 (GRPO), 43.0 (HERO). Only one alternative scaffold and one model size. Notably, the base model scores higher in mini-SWE-agent than in Claude Code (39.5 vs 32.8).", "strength": "weak", "location": "App. B.6, Table 12"}
+  ],
+  "patterns": [
+    {"id": "P25", "stance": "supports", "note": "RL with an efficiency reward gated on capability improves resolve over the base model and keeps tokens near base, avoiding the token inflation seen with plain GRPO."},
+    {"id": "P24", "stance": "mixed", "note": "Shows token cost can be trained down, but HERO's tokens are close to the base model's. Inference-time caps (turn limit, masking) reduce tokens but not resolve rate (App. B.2)."},
+    {"id": "P08", "stance": "neutral", "note": "Inference-time pruning and masking are compared (App. B.2) and found complementary to, not substitutes for, training."},
+    {"id": "P31", "stance": "neutral", "note": "SWE-bench Verified (500) and Multilingual (300)."}
+  ],
+  "methodology": {
+    "sample": "Training: 640 tasks from SWE-Gym, Multi-SWE-bench and SWE-rebench (352 Python, 38 Java, 50 each in C/C++, JS/TS, PHP, Go, Rust). Evaluation: SWE-bench Verified 500 and Multilingual 300.",
+    "baselines": "GRPO (no efficiency term), four token-efficient RL methods re-implemented by the authors, four inference-time methods, and four open-source coding models (Gemma-4-26B-A4B, Qwen3-Coder-30B-A3B, GLM-4.7-Flash, KAT-Dev-32B) run in the Claude Code scaffold.",
+    "models": "Qwen3.5-4B, 9B, 35B-A3B (one model family). Most ablations use 4B only.",
+    "variance": "3 seeds, means only; no std, CIs or significance.",
+    "ablations": "Component ablations, lambda sweep, capability threshold and entropy percentile sensitivity, scaffold transfer (4B).",
+    "contamination_controls": "None discussed. Training draws from Multi-SWE-bench and SWE-rebench; possible repository overlap with SWE-bench Multilingual is not addressed.",
+    "languages": "Multilingual training and evaluation (nine languages in SWE-bench Multilingual). No per-language breakdown, and Java has only 38 training tasks."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint (20 pages); no venue.",
+    "limitations_section": false,
+    "artifacts": "No code, checkpoints or training data link found.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "strawman_baseline", "detail": "The headline 39.8% token saving is measured against GRPO, which has no efficiency term and inflates tokens. Against the base model the saving is about 5%."},
+    {"type": "no_variance_reported", "detail": "3 seeds but only means; margins of 1-3 points on 300-500 tasks are reported without dispersion."},
+    {"type": "single_model", "detail": "Only the Qwen3.5 family is trained; ablations are on 4B only."},
+    {"type": "contamination_risk", "detail": "No discussion of overlap between SWE-bench (Verified/Multilingual) and the training sources, or of pretraining exposure."},
+    {"type": "self_evaluation", "detail": "The TRS trade-off metric and the 'unproductive behavior' identification (App. A.4) are the authors' own constructs, used to score their own method."},
+    {"type": "closed_artifacts", "detail": "No code or weights released."}
+  ],
+  "coi": {
+    "affiliations": "Haobin Li, Zhenyu Huang, Mouxing Yang and Xi Peng (Sichuan University); Liang Jiang (independent researcher). The regex 'GitHub' hit is a false positive from benchmark text.",
+    "vendor_products_evaluated": "Claude Code is used as the scaffold only; Qwen is the backbone and is not the authors' product.",
+    "funding": "None stated.",
+    "severity": "none",
+    "detail": "Academic authors, no vendor ties."
+  },
+  "scores": {"rigor": 3, "reproducibility": 1, "generalizability": 3, "relevance": 2, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "The abstract numbers match the tables, there are seeds and broad baselines, and evaluation is multilingual. But the token saving is framed against an inflating GRPO baseline (about 5% vs base), only one model family is used, no dispersion is reported, contamination is unaddressed, and no artifacts are released.",
+  "applicability": "Low direct use. The team will not RL-train its own coding model, and mixed hosts use vendor models. The transferable observations are about harness telemetry. Repeated tool calls, over-exploration and erroneous commands are measurable 'unproductive turn' signals the harness can log and flag. Inference-time turn caps or masking cut tokens without raising resolve rate (App. B.2), so a budget cap alone won't improve quality. It also flags that RL-tuned open models can be much more token-hungry (GRPO rows), which matters if the team routes cheap tasks to open-weight models. Java coverage is thin (38 training tasks, no per-language results).",
+  "conflicts_with": []
+}

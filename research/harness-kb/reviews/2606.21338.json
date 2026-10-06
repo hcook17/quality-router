@@ -1,0 +1,31 @@
+{
+  "arxiv_id": "2606.21338",
+  "contribution_type": "tool",
+  "summary": "MCPPrivacyDetector runs six CodeQL-based source/sink rules plus heuristic filtering (e.g., ignore len(), tokens_used) and taint reachability over MCP server code in Python, Go, Java, JavaScript and TypeScript. Applied to 10,655 MCP servers crawled from GitHub and seven registries, it reports leakage rates above 10% in every language (Java 19.1%, Python 15.4%) and illustrates token/API-key logging and printing cases.",
+  "claims": [
+    {"claim": "Privacy leakage exceeds 10% in every language studied, peaking at 19.1% in Java and 15.4% in Python.", "evidence": "§4.3 text and Figure 6(a) report these rates; underlying per-language counts are only in the figure, and the per-rule Table 2 is garbled/partially empty in the extracted text.", "strength": "moderate", "location": "§1, §4.3, Fig. 6"},
+    {"claim": "The detector is accurate: 4.0% false positive rate and no false negatives.", "evidence": "§4.2: 200 randomly sampled flagged servers manually checked, 192 true, 8 FP. Only positives were sampled, so the 'no false negatives' statement is not measurable from this design; no inter-rater agreement, no recall study on negatives.", "strength": "weak", "location": "§4.2"},
+    {"claim": "Leakage is protocol-induced via implicit sinks (tool return values, exceptions, logs) that existing tools miss.", "evidence": "Argued in §1/§3; no comparison against CodeQL default queries, Semgrep, gitleaks or other secret scanners. Case study 2 (API key placed in the outbound header to its own API) is intended credential use, suggesting the leak definition is over-broad.", "strength": "weak", "location": "§3.1, §4.4"},
+    {"claim": "83.0% of detected cases concentrate in Pulse MCP, Smithery Registry and Mcpmarket.", "evidence": "§4.3: 29.1% + 27.0% + 26.9% shares; driven by registry size, as the authors acknowledge; servers listed in multiple registries may be double-counted (dedup not described).", "strength": "moderate", "location": "§4.3, Fig. 5"}
+  ],
+  "patterns": [
+    {"id": "P04", "stance": "contradicts", "note": "Evidence that third-party MCP servers commonly leak secrets/PII into logs and tool responses; MCP as integration layer carries supply-chain privacy risk."},
+    {"id": "P17", "stance": "supports", "note": "CodeQL taint rules can triage MCP server code at scale with low FP on sampled positives (recall unknown)."},
+    {"id": "P21", "stance": "neutral", "note": "Argues for protocol-aware safeguards; does not evaluate any guardrail."}
+  ],
+  "methodology": {"sample": "10,655 MCP servers from GitHub API and 7 registries; 200 flagged servers manually verified.", "baselines": "None; no comparison to existing secret scanners or default CodeQL queries.", "models": "n/a (static analysis, no LLM).", "variance": "n/a (deterministic); no confidence intervals on prevalence.", "ablations": "None (no measure of what context-aware filtering removes).", "contamination_controls": "n/a; deduplication across registries not described.", "languages": "Python, Go, Java, JavaScript, TypeScript."},
+  "standards": {"peer_review": "No venue listed.", "limitations_section": false, "artifacts": "Source code via anonymous.4open.science/r/mcp_priv/ (Open Science section); crawled dataset release not stated.", "preregistration": "n/a"},
+  "biases": [
+    {"type": "self_evaluation", "detail": "Authors manually verify their own tool's output; single unspecified verification protocol, no second rater."},
+    {"type": "metric_mismatch", "detail": "Claims zero false negatives while only sampling positive detections."},
+    {"type": "strawman_baseline", "detail": "Asserts existing tools are 'ill-equipped' without running any of them."},
+    {"type": "novelty_inflation", "detail": "'Unified cross-language representation' is CodeQL's per-language databases; the rules resemble standard clear-text-logging/hardcoded-credential queries."},
+    {"type": "other:overbroad_definition", "detail": "Sending an API key in the header to its own provider is counted as leakage (Case Study 2), inflating prevalence."}
+  ],
+  "coi": {"affiliations": "Shandong University; Xidian University (China).", "vendor_products_evaluated": "None; registries (Smithery, Pulse MCP, Cursor Directory, Glama, etc.) are measured, not promoted.", "funding": "No acknowledgments/funding section found.", "severity": "none", "detail": "Academic; only self-evaluation of own tool."},
+  "scores": {"rigor": 2, "reproducibility": 3, "generalizability": 4, "relevance": 3, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Large, multi-language ecosystem measurement with released code and a useful threat model, but precision is self-assessed on 200 positives, recall is unmeasured, there are no baselines, and the leak definition is broad enough to inflate the >10% headline.",
+  "applicability": "Directly relevant to a healthcare-education team wiring mixed agent hosts to MCP servers: treat third-party MCP servers as untrusted code, and add CodeQL/Semgrep rules for secrets or learner PII flowing into tool return values, exceptions and logs in any in-house Java MCP servers (Java had the highest rate, 19.1%). Keep tokens in env/secret stores rather than mcp.json, and gate MCP server adoption across the ≥4 ingestion repos on a static scan. Treat the prevalence numbers as an upper bound.",
+  "conflicts_with": []
+}

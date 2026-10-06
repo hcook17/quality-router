@@ -1,0 +1,56 @@
+{
+  "arxiv_id": "2610.05300",
+  "contribution_type": "system",
+  "summary": "MESH-Harness splits an agent harness into functional slots with fixed interfaces, keeps a pool of LLM-written implementations per slot, uses full-covariance LinUCB over module embeddings to choose which combination to evaluate next, and uses validation traces to have an LLM edit modules. Under a 40-evaluation budget it beats Meta-Harness and four other harness optimizers on text classification, retrieval-augmented math, LiveCodeBench, and ScienceWorld, with lower search and test cost.",
+  "claims": [
+    {"claim": "Outperforms Meta-Harness by 5.70, 7.01, 2.00, 5.00 points on Text, Math, LiveCodeBench, ScienceWorld under matched 40-evaluation budgets.", "evidence": "Table 1 numbers match abstract. Test sets small (Table 9: LiveCodeBench 100 problems so +2.00 = 2 problems; USPTO 100, LawBench 100, ScienceWorld 102 episodes). Scores average three test runs of one frozen harness; no variance across search runs or seeds reported.", "strength": "moderate", "location": "§5.2, Table 1, Table 9"},
+    {"claim": "Both bandit selection and trace-driven module evolution contribute.", "evidence": "Tables 4-5 (text only): random composition 48.80, alpha=0 51.70, full 56.33; no pool refresh 51.20, refresh without traces 53.80. Single runs, text tasks only.", "strength": "moderate", "location": "§5.3"},
+    {"claim": "Test-time cost 44.2% lower and total search+test cost 14.6% lower than Meta-Harness.", "evidence": "Table 6: $3.5528 -> $1.9835 test-only; $195.0537 -> $166.6078 search+test. Test-only savings dominated by ScienceWorld (59.5%); Text only 2.8%.", "strength": "strong", "location": "§5.4, Table 6"},
+    {"claim": "Optimized harness transfers across execution models.", "evidence": "Table 7: frozen text harness keeps 4.36-5.70 point lead with GPT-5.6 Luna, Qwen 3.8 Flash, Claude Sonnet 5. Text tasks only.", "strength": "moderate", "location": "§5.4, Table 7"}
+  ],
+  "patterns": [
+    {"id": "P26", "stance": "supports", "note": "Searched/self-improving harness with held-out frozen test evaluation; gains of 5.63-7.79 over first-round configurations."},
+    {"id": "P30", "stance": "supports", "note": "Validation traces drive module edits; refresh without traces loses 2.53 points (Table 5)."},
+    {"id": "P24", "stance": "supports", "note": "Explicit candidate-evaluation budget and USD cost reporting for search and test."},
+    {"id": "P16", "stance": "neutral", "note": "LiveCodeBench harness uses public examples to test/repair before private scoring."},
+    {"id": "P31", "stance": "neutral", "note": "Evaluation entirely on public benchmarks; no SE repository tasks."}
+  ],
+  "methodology": {
+    "sample": "Six datasets in four domains; test sizes 100-500 instances (Table 9); 40 candidate evaluations per task.",
+    "baselines": "SkillOpt, DGM-H, ADIAS, AHE, Meta-Harness (current 2026 harness optimizers) plus fixed reference harnesses; Meta-Harness initialized from fixed harnesses while MESH starts from LLM-generated pools (different initialization).",
+    "models": "Optimizer: Claude Code with Claude Opus 5; executor: DeepSeek V4 Flash; transfer to GPT-5.6 Luna, Qwen 3.8 Flash, Claude Sonnet 5.",
+    "variance": "Means over three test executions of one frozen harness; no std/CI; single search run per method.",
+    "ablations": "Selection rule (alpha sweep, random), pool refresh, trace access - text tasks only.",
+    "contamination_controls": "Math retrieval corpus filtered against evaluation questions and deduplicated; LiveCodeBench v6 split; validation/test disjoint.",
+    "languages": "Python programs for LiveCodeBench; harness code in Python; other tasks are text/QA."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint, no venue listed.",
+    "limitations_section": false,
+    "artifacts": "No code link found; reproducibility statement points to algorithm descriptions and appendices only.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "no_variance_reported", "detail": "One search run per method; only three test re-executions averaged; no CIs on 2-11 point differences."},
+    {"type": "small_sample", "detail": "LiveCodeBench +2.00 on 100 problems is 2 problems; text tests of 100-212 items."},
+    {"type": "closed_artifacts", "detail": "No code or selected-harness release found."},
+    {"type": "toy_tasks", "detail": "Benchmarks are single-turn classification/QA, competitive programming, and simulated science; no repository-level software engineering."},
+    {"type": "self_evaluation", "detail": "Authors run all baselines themselves under their budget protocol; no independent replication."},
+    {"type": "other:no_limitations_section", "detail": "No limitations or threats section."}
+  ],
+  "coi": {
+    "affiliations": "CUHK-Shenzhen, CUHK, NTU, Fudan, NUS, and DeepWisdom (company; Chenglin Wu listed).",
+    "vendor_products_evaluated": "None of the compared baselines appear to be authors' products; related MASPOB (Hong et al. 2026) shares authors but is not a reported baseline.",
+    "funding": "No acknowledgments/funding section found.",
+    "severity": "low",
+    "detail": "One industry affiliation (DeepWisdom) without a product evaluated; usual method-author self-evaluation."
+  },
+  "scores": {"rigor": 3, "reproducibility": 1, "generalizability": 2, "relevance": 3, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Numbers in the abstract are supported by tables with current baselines and cost reporting, but single search runs, no variance, small test sets, no artifacts, and no SE-repository tasks limit confidence.",
+  "applicability": "Moderately useful as a design pattern rather than a tool: structuring the team's harness into slots with fixed interfaces (context builder, retrieval, verifier, recovery) makes components swappable per agent host and lets a small evaluation budget compare variants. A Java team could adopt the discipline (frozen held-out eval set per ingestion workflow, budget-capped search, trace-driven edits) without the bandit machinery. The evidence does not cover multi-repo Java code changes, spec-driven workflows, or healthcare content; self-modifying harnesses also need tamper auditing before use on regulated content.",
+  "conflicts_with": [
+    {"arxiv_id": "2609.00069", "detail": "Harness-tampering audit argues self-improving harness gains can be illusory or violate integrity constraints; MESH reports gains without auditing edits, though it uses frozen held-out tests."},
+    {"arxiv_id": "2607.24300", "detail": "Reports self-authored verification is unreliable in self-improving agents; MESH relies on validation-set scores chosen by the optimizer, mitigated only by a frozen held-out test."}
+  ]
+}

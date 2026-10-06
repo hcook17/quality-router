@@ -1,0 +1,49 @@
+{
+  "arxiv_id": "2608.06848",
+  "contribution_type": "empirical",
+  "summary": "An ISSTA 2026 empirical study of model editing (UltraEdit, DINM, token-wise DEFER*) as a way to harden open-weight code LLMs against generating vulnerable code, compared with the inference-time method CoSec on six 3B-8B models. Editing raises CodeQL-measured security on the 9 trained CWEs but transfers unreliably to 17 unseen CWEs and hurts HumanEval correctness; the authors then propose SafeEdit (functional tuning on Code Evol-Instruct with a regulariser anchoring UltraEdit-modified parameters) and evaluate it on eight models.",
+  "claims": [
+    {"claim": "Model editing improves security ratio by 15-25% over vanilla on seen CWEs, more than CoSec, and is stable under prompt perturbations.", "evidence": "§3.1 RQ1.1 tables and Finding text (line ~126); perturbation set built from a single scenario (CWE-089 0-Py) for RQ1.2. 25 completions x 10 seeds x 3 temperatures.", "strength": "moderate", "location": "§3.1, RQ1.1-1.2"},
+    {"claim": "Editing gains transfer unreliably to unseen CWEs and can reduce functional correctness.", "evidence": "§3.2 (29 scenarios over 17 unseen CWEs, disjoint CodeQL rules) and §3.3 Table 4 HumanEval Pass@k; CoSec stays near vanilla on unseen CWEs.", "strength": "strong", "location": "§3.2, §3.3, Table 4"},
+    {"claim": "SafeEdit improves Pass@1 over UltraEdit by +11.73/+13.70/+15.50 points at T=0.1/0.4/0.8 while largely preserving security, and beats CoSec on security by +7.54% to +12.04% relative.", "evidence": "§3.4.1, Table 6; Table 7 Wilcoxon over 8 LLMs (SR vs CoSec p≤0.039, Cliff's δ 0.438-0.688). Security vs UltraEdit changes +7.44/-0.28/-3.48 points, so 'largely preserving' holds. Pass@1 recovery comes from instruction tuning on Code Evol-Instruct, with no reported decontamination against HumanEval.", "strength": "moderate", "location": "§3.4.1, Tables 6-7"},
+    {"claim": "SafeEdit improves joint secure-and-correct generation on CodeGuard+.", "evidence": "Table 8: SP@1 improves over vanilla on all eight models (5.41% to 20.29% relative); CodeGuard+ uses CodeQL+SonarQube ensemble and unit tests, 91 prompts, 34 CWEs in Python and C/C++.", "strength": "moderate", "location": "§3.4.2, Table 8"}
+  ],
+  "patterns": [
+    {"id": "P25", "stance": "mixed", "note": "Parameter-level hardening works on trained CWEs but generalises poorly and costs correctness unless followed by regularised tuning."},
+    {"id": "P17", "stance": "neutral", "note": "CodeQL used as the security oracle (37/40 agreement with manual inspection); authors stress it is an evaluation proxy, not a defense. Implicitly supports keeping static analysis as the gate since model-level fixes miss unseen CWEs."}
+  ],
+  "methodology": {
+    "sample": "710 vulnerable/fixed pairs (9 CWEs, Python and C/C++) for editing; D_sec 9 CWEs x 3 prompts; 29 unseen-CWE scenarios over 17 CWEs; HumanEval 164; MultiPL-E (C++/JS/TS); CodeGuard+ 91 prompts.",
+    "baselines": "Vanilla, CoSec (current inference-time SOTA, official implementation), UltraEdit, DINM, DEFER*; fine-tuning comparison in §4.4.",
+    "models": "LLaMA-3.1-8B, LLaMA-3.2-3B, DeepSeek-Coder-6.7B, CodeGen-6B, Qwen2.5-Coder-7B/3B; plus StarCoder-3B/7B for SafeEdit. All small open-weight, several dated.",
+    "variance": "10 random seeds, 25 completions per prompt, three temperatures; Wilcoxon signed-rank and Cliff's delta across models.",
+    "ablations": "Suffix length L, efficiency, SafeEdit vs fine-tuning, combination with CoSec, unseen-CWE generalisation.",
+    "contamination_controls": "Seen/unseen CWE sets disjoint (Jaccard 0); Evol-Instruct tuning data stated to not overlap the editing set, but no HumanEval decontamination reported.",
+    "languages": "Python and C/C++ for security; HumanEval Python; MultiPL-E C++/JavaScript/TypeScript. No Java."
+  },
+  "standards": {
+    "peer_review": "Accepted at ISSTA 2026 (PACMSE vol. 3, DOI 10.1145/3832254).",
+    "limitations_section": true,
+    "artifacts": "Code at github.com/swf1996120/SafeEdit; replication package referenced for perturbations and full results.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "self_evaluation", "detail": "SafeEdit is the authors' method, evaluated on their chosen pipeline, though with external CodeGuard+ check."},
+    {"type": "contamination_risk", "detail": "Functional recovery tuning on Code Evol-Instruct then measured on HumanEval with no decontamination stated."},
+    {"type": "metric_mismatch", "detail": "Security ratio is a CodeQL proxy over short completions (256 tokens) of templated prompts, not real-world secure-by-construction code."},
+    {"type": "toy_tasks", "detail": "Function-level completions from small prompt suites (27 seen-CWE prompts), not repository-level or agentic generation."},
+    {"type": "other:open_weights_only", "detail": "Model editing needs parameter access; inapplicable to API models used by commercial agent hosts (acknowledged)."}
+  ],
+  "coi": {
+    "affiliations": "Singapore Management University, Nanjing University of Science and Technology, Nanjing University, Sun Yat-sen University.",
+    "vendor_products_evaluated": "None; open-weight models and academic methods.",
+    "funding": "Natural Science Foundation of Jiangsu Province (BK20251458); Singapore MOE AcRF Tier 3 (MOET32020-0004).",
+    "severity": "none",
+    "detail": "Academic authors; only intellectual stake in proposed SafeEdit."
+  },
+  "scores": {"rigor": 4, "reproducibility": 4, "generalizability": 2, "relevance": 1, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Peer-reviewed, multi-model, seeded and statistically tested with released code; but function-level, small open models only, CodeQL-proxy security, no Java, and the technique cannot be applied to the hosted models an agent harness uses.",
+  "applicability": "Low direct transfer. The Java team consumes hosted models through mixed agent hosts and cannot edit weights, so SafeEdit itself is unusable. The transferable finding is negative for model-side hardening: security gains do not generalise to unseen CWE types and trade off correctness. That argues for keeping deterministic static analysis (CodeQL/Semgrep/local Sonar with Java rules) as a gate in the agent loop across all ingestion repos instead of trusting any 'secure-tuned' model, and for encoding security requirements (input validation, injection-safe persistence for ingested content) as explicit acceptance criteria in specs.",
+  "conflicts_with": []
+}

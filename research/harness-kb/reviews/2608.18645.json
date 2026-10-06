@@ -1,0 +1,31 @@
+{
+  "arxiv_id": "2608.18645",
+  "contribution_type": "empirical",
+  "summary": "Using CodeScene's proprietary CodeHealth (CH) maintainability score, the authors (two from CodeScene) generate single-shot unit tests with Qwen3-Coder-30B for ~24.6k competitive-programming solutions (5,000 Python, 9,795 Java, 9,825 C++) and correlate CH with line/branch coverage, mutation score, and input-token counts across four tokenizers. They find weak positive CH-effectiveness correlations (strongest for mutation score) and moderate negative CH-token correlations for Java and C++.",
+  "claims": [
+    {"claim": "CH is a weak but consistent signal of LLM-generated test effectiveness, clearest for mutation score.", "evidence": "Table II: Spearman rho for mutation score +.18 (Py), +.21 (Java), +.34 (C++); line coverage +.11/+.01(ns)/+.15; partial-for-SLOC Python mutation becomes ns (+.12, only 251 files). Table I Java median mutation 34.8% (CH<6) to 95.1% (CH>=9.8, N=271). Mutation computed only where generated tests passed, a conditioning bias the authors acknowledge.", "strength": "moderate", "location": "§IV-A, Tables I-II"},
+    {"claim": "Lower CH code costs more input tokens, beyond SLOC, for Java and C++.", "evidence": "Table III: rho -.28 to -.30 (Java), -.25 to -.28 (C++) across Qwen/OpenAI/Claude/Gemini tokenizers; partial-for-SLOC -.24 to -.34; Java persists after controlling for characters (-.25 to -.28). Table I: lowest-CH bin has 45.1% (Java) / 43.8% (C++) higher median tokens than top bin.", "strength": "moderate", "location": "§IV-B, Table III, Table I"},
+    {"claim": "AI tools, like humans, perform better on healthy code (practical implication).", "evidence": "Inferred from correlations on standalone competitive-programming files with one model in single-shot mode; no agentic loop, no industrial code. Authors acknowledge both limits in §V.", "strength": "weak", "location": "§V"}
+  ],
+  "patterns": [
+    {"id": "P17", "stance": "neutral", "note": "Maintainability metric correlates weakly with LLM test effectiveness; suggests static-quality signals matter, but not tested as an in-loop feedback signal."},
+    {"id": "P24", "stance": "supports", "note": "Quantifies that low-maintainability Java code inflates input tokens ~45% (lowest vs highest CH bin), relevant to context and cost budgets."},
+    {"id": "P15", "stance": "neutral", "note": "Studies LLM unit-test generation (JUnit 5, PIT mutation for Java), single-shot without iteration."}
+  ],
+  "methodology": {"sample": "~24.6k files from CodeContests (5,000 Python, 9,795 Java, 9,825 C++), stratified by CH with CodeBLEU diversity filter; seven CH bins, sparse at low CH for Python.", "baselines": "None (correlational study).", "models": "Qwen3-Coder-30B-A3B-Instruct only, temp 0.1, single shot; four tokenizers for RQ2.", "variance": "Single generation per file; Spearman correlations with significance stars; no CIs.", "ablations": "Partial correlations controlling for SLOC and character count.", "contamination_controls": "None; CodeContests solutions are public and likely in training data.", "languages": "Python, Java (JUnit 5, JaCoCo, PIT), C++."},
+  "standards": {"peer_review": "Accepted at SCAM 2026 Engineering Track (arXiv comment).", "limitations_section": true, "artifacts": "Replication package 'codescene-research/test-generation-scam-2026' with prompt templates; CH metric itself is proprietary CodeScene tooling.", "preregistration": "n/a"},
+  "biases": [
+    {"type": "self_evaluation", "detail": "Vendor authors validate their own product's metric (CodeHealth) as predictive of AI performance; CH bin names such as 'AI-ready code' come from the product."},
+    {"type": "single_model", "detail": "Only Qwen3-Coder-30B; acknowledged."},
+    {"type": "toy_tasks", "detail": "Standalone competitive-programming solutions with stdin/stdout, not production units; acknowledged as main external-validity threat."},
+    {"type": "survivorship", "detail": "Mutation score computed only for files whose generated tests passed; pass rates per CH bin not reported, so selection may drive the mutation trend."},
+    {"type": "contamination_risk", "detail": "Public CodeContests solutions; not addressed."},
+    {"type": "closed_artifacts", "detail": "Independent replication of CH scores requires the proprietary CodeScene analyzer."}
+  ],
+  "coi": {"affiliations": "Heidelberg University (student), CodeScene and Lund University (Markus Borg), Lund University, CodeScene (Adam Tornhill).", "vendor_products_evaluated": "CodeScene CodeHealth metric (authors' employer's product).", "funding": "WASP WARA-Ops and VINNOVA grant 2023-00541 (NextG2Com).", "severity": "high", "detail": "Two of four authors are from CodeScene, including its founder, and the study favorably positions the company's proprietary metric as an AI-readiness signal, with no independent replication. Mitigating factors: effects are reported candidly as weak, the paper is peer-reviewed, and a replication package exists."},
+  "scores": {"rigor": 3, "reproducibility": 2, "generalizability": 2, "relevance": 3, "coi_risk": 4},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Large-N, multi-language, peer-reviewed correlational study with honest effect sizes, but a single model in single-shot mode on competitive-programming code, a mutation-score survivorship bias, and a vendor validating its own proprietary metric.",
+  "applicability": "One of the few papers here with Java numbers. For the team's ingestion repos, it is weak evidence that refactoring low-maintainability Java (deep nesting, complex methods) before handing it to agents may make generated JUnit tests more effective under PIT mutation testing and reduce input tokens by up to ~45% for the worst files. Any maintainability gate (including open alternatives to CodeScene, consistent with the local-Sonar constituent) is a plausible pre-agent hygiene step. The effects are weak correlations (rho ~0.2 for Java mutation) on toy files with one model and no agent loop, so this should not drive harness architecture. Do not adopt the proprietary metric on this evidence alone.",
+  "conflicts_with": []
+}

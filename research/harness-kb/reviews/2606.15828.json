@@ -1,0 +1,36 @@
+{
+  "arxiv_id": "2606.15828",
+  "contribution_type": "empirical",
+  "summary": "Builds a catalog of six 'configuration smells' for AGENTS.md/CLAUDE.md files (Context Bloat, Skill Leakage, Lint Leakage, Blind References, Init Fossilization, Conflicting Instructions) from a 14-document grey-literature review, then measures their prevalence in the root config files of the 100 most-starred GitHub application repos using line-count/commit-count thresholds and a Gemini Flash-Lite prompt per smell, with first-author manual confirmation of LLM hits. It does not test whether any smell actually degrades agent task outcomes.",
+  "claims": [
+    {"claim": "Configuration smells are widespread: 91 of 100 files have at least one smell.", "evidence": "Table II and §VI summary: 91/100 files with >=1 detected smell; detection for 4 of 6 smells is LLM-based with first-author confirmation, Context Bloat is a >=200-line threshold, Init Fossilization is 'single commit'.", "strength": "moderate", "location": "§VI, Table II"},
+    {"claim": "Lint Leakage affects 62%, Context Bloat 42%, Skill Leakage 35% of files.", "evidence": "Table II reports 62/42/35 detector instances, but the abstract's percentages are raw detector hits including false positives; confirmed counts are 58 Lint Leakage (93% precision) and 29 Skill Leakage (text says 86%, Table II says 82%; 29/35 = 82.9%). Recall is never measured. Context Bloat uses an Anthropic-documentation-derived 200-line cut-off with no validation.", "strength": "weak", "location": "Abstract vs §VI-A–C, Table II"},
+    {"claim": "Smells co-occur; Skill Leakage and Conflicting Instructions raise the likelihood of Context Bloat (~83%).", "evidence": "Association-rule lift 1.81 (Conflicting Instructions) and 1.76 (Skill Leakage) on 100 files; Conflicting Instructions detector precision is only 57% (16/28 confirmed), so the co-occurrence analysis inherits noisy labels; no significance test.", "strength": "weak", "location": "§VII, lift table"},
+    {"claim": "These smells impair the overall performance of coding agents.", "evidence": "Asserted from grey literature (vendor docs, blog posts) only; no agent runs, no task outcomes, no token measurements.", "strength": "unsupported", "location": "§I, §IV"}
+  ],
+  "patterns": [
+    {"id": "P01", "stance": "mixed", "note": "Treats AGENTS.md/CLAUDE.md as standard but catalogs common failure modes; harm is asserted, not measured."},
+    {"id": "P02", "stance": "introduces", "note": "Skill Leakage smell recommends moving rarely used instructions into on-demand skill files; no evidence the move improves outcomes."},
+    {"id": "P17", "stance": "introduces", "note": "Lint Leakage argues style rules belong in linters/pre-commit hooks rather than prose instructions; normative, not tested."},
+    {"id": "P18", "stance": "neutral", "note": "Uses an LLM (gemini-3.1-flash-lite, temp 0) as smell detector with single-author precision check, no recall."}
+  ],
+  "methodology": {"sample": "14 grey-literature documents (first 30 Google hits); 100 config files (39 AGENTS.md, 61 CLAUDE.md) from top-starred GitHub application repos, Jan 2026; 383 PRs filtered to 17, of which 2 discussed smells", "baselines": "none (prevalence study)", "models": "gemini-3.1-flash-lite at temperature 0 for four detectors", "variance": "none; single LLM pass, no repeated runs", "ablations": "none", "contamination_controls": "n/a", "languages": "mixed repos (TypeScript/Python heavy by example); only root-level config files analyzed"},
+  "standards": {"peer_review": "arXiv preprint, no venue listed", "limitations_section": true, "artifacts": "Replication package on Zenodo (doi 10.5281/zenodo.20600327) with document list and PRs", "preregistration": "n/a"},
+  "biases": [
+    {"type": "llm_judge_unvalidated", "detail": "Four of six detectors are a single LLM prompt; precision checked only by the first author (no second rater, no kappa), recall never estimated."},
+    {"type": "metric_mismatch", "detail": "Prevalence of a smell is presented as evidence of a problem, but no measurement links smells to agent correctness, cost, or adherence."},
+    {"type": "self_reported_numbers", "detail": "Abstract headline percentages are unconfirmed detector hits; text and Table II disagree on Skill Leakage precision (86% vs 82%)."},
+    {"type": "selection_bias_participants", "detail": "Top-100 starred repos and first 30 Google results; root-level files only, so hierarchical/nested config files are ignored."},
+    {"type": "small_sample", "detail": "14 source documents, 100 files, 2 informative PRs."},
+    {"type": "other:vendor_guidance_as_ground_truth", "detail": "Thresholds (200 lines) and smell definitions lean on Anthropic documentation rather than independent evidence."}
+  ],
+  "coi": {"affiliations": "Federal University of Minas Gerais and Federal Institute of Minas Gerais (Brazil); academic", "vendor_products_evaluated": "None evaluated favorably; Claude Code/Codex config conventions are the subject", "funding": "FAPEMIG and CNPq", "severity": "none", "detail": "No vendor affiliation found in author block; vendor docs are used as sources, not as products under test."},
+  "scores": {"rigor": 2, "reproducibility": 3, "generalizability": 2, "relevance": 4, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Useful, concrete vocabulary for linting instruction files and a released dataset, but prevalence numbers rest on an unvalidated single-LLM detector checked by one author, abstract figures include false positives, and the core premise that smells hurt agents is unmeasured.",
+  "applicability": "Directly usable as a checklist for the team's portable AGENTS.md/rule stamps across the >=4 ingestion repos: keep root files short, move ingestion-specific procedures (e.g., content-format parsers, delivery API contract steps) into on-demand skills, delete Java style rules already enforced by Checkstyle/Spotless/Sonar, and annotate every referenced spec doc with when to read it. Because hosts differ (Cursor, Claude Code, Codex, Hermes), a single deterministic 'qr' lint for line count, unannotated references, and duplicated linter rules is cheap and host-neutral. Do not treat the prevalence numbers or the 200-line threshold as evidence of impact; pair with 2607.27250, which found context-file strategy did not move correctness.",
+  "conflicts_with": [
+    {"arxiv_id": "2607.27250", "detail": "That ablation finds context-file strategy does not measurably change correctness for Claude Code or Codex, undercutting this paper's unmeasured premise that config-file smells impair agent performance."},
+    {"arxiv_id": "2606.09090", "detail": "Complementary rather than contradictory: Context Rot frames stale config as a doc-consistency problem, overlapping this paper's Init Fossilization smell."}
+  ]
+}

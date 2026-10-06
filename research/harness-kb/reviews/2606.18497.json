@@ -1,0 +1,28 @@
+{
+  "arxiv_id": "2606.18497",
+  "contribution_type": "empirical",
+  "summary": "Shows that soft-delete in HNSW vector stores (ChromaDB/hnswlib, FAISS IndexHNSWFlat, Weaviate) leaves embeddings on disk, and that an attacker with raw storage access can invert them with an off-the-shelf Vec2Text corrector to recover some PII from text records and identities/classes from image embeddings. Proposes 'Epoch Key Rotation' (encrypt vectors, discard key on deletion, ECDSA-signed deletion proof).",
+  "claims": [
+    {"claim": "Soft-deleted vectors remain physically recoverable in three HNSW systems.", "evidence": "§V-A, Table I: ChromaDB get_items() returns all 500 deleted vectors (cosine >0.999); FAISS IndexHNSWFlat has no delete; Weaviate only inferred from disk growth (52.5→55.4 MB), since extraction was not performed.", "strength": "moderate", "location": "§V-A, Table I"},
+    {"claim": "On Wikipedia BLP, 25.5% of person names and 46.4% of locations are recovered (ROUGE-L 0.185).", "evidence": "§V-B1, Table VII on n=98 records; only 18% entity recovery on the 50 records whose entities do not appear in live data. Small sample.", "strength": "moderate", "location": "§V-B1, Table VII"},
+    {"claim": "100% recovery of patient age and gender markers on Synthea.", "evidence": "Table near §V-B2 (Synthea EHR ROUGE-L 0.290 ±0.033); age/gender are low-entropy fields in templated synthetic text, and the paper concedes zero-shot MIMIC-III reconstruction is ROUGE-L ≈0.005. MIMIC fine-tuning gains are reported inconsistently (0.009→0.052, 5.9x in §VIII vs 0.005→0.077, '26.6x' in §V-B3).", "strength": "weak", "location": "§V-B2, §V-B3, §VIII"},
+    {"claim": "Epoch Key Rotation reduces PII recovery to 0% at ~0.005 ms/record.", "evidence": "§VI: encryption with key discard yields ROUGE-L 0.000 by construction; this is standard crypto-shredding, and §VIII notes keys can be extracted from RAM or SQLite free pages.", "strength": "moderate", "location": "§VI, §VIII"}
+  ],
+  "patterns": [
+    {"id": "P06", "stance": "neutral", "note": "Security/compliance risk of embedding stores used by RAG; not about code retrieval effectiveness."}
+  ],
+  "methodology": {"sample": "5,000 Wikipedia records (scales 1K–100K), 98 BLP records, 1,000 Faker clinical, 1,000 Synthea, 100 MIMIC-III demo notes, LFW 4,324 images, PathMNIST 1,000", "baselines": "Hard delete / AES key-discard; random Gaussian vectors; random phrase-pair BERTScore", "models": "gtr-t5-base embeddings + Vec2Text gtr-base corrector; CLIP ViT-H/14 for images", "variance": "ROUGE-L ± std, Wilcoxon tests; LFW over 5 seeds", "ablations": "Scale sweep, quantization, surrogate embedding transfer, backup snapshot", "contamination_controls": "Unique-entity subset of 50 records to rule out live-record leakage", "languages": "n/a (text/image data, Python tooling)"},
+  "standards": {"peer_review": "Preprint, 'prepared for submission'", "limitations_section": true, "artifacts": "No code release linked", "preregistration": "n/a"},
+  "biases": [
+    {"type": "novelty_inflation", "detail": "Epoch Key Rotation is crypto-shredding; 'ghost vector' inversion is Vec2Text applied to vectors that soft-delete does not remove."},
+    {"type": "toy_tasks", "detail": "Clinical results on Faker/Synthea synthetic templates; real MIMIC-III recovery is near zero."},
+    {"type": "self_reported_numbers", "detail": "Inconsistent MIMIC fine-tuning figures between §V-B3 and §VIII."},
+    {"type": "closed_artifacts", "detail": "No code or scripts released."}
+  ],
+  "coi": {"affiliations": "Trinity College, USA (academic)", "vendor_products_evaluated": "None; open-source vector DBs analyzed critically", "funding": "Not stated", "severity": "none", "detail": "No vendor ties."},
+  "scores": {"rigor": 2, "reproducibility": 1, "generalizability": 2, "relevance": 1, "coi_risk": 0},
+  "verdict": "reject",
+  "verdict_reason": "Off-topic: vector-database storage security and erasure compliance, not LLM agents, coding agents or harness design. The evidence is also mixed: clinical claims rest on synthetic templates, MIMIC numbers are reported inconsistently, and the defense is standard crypto-shredding.",
+  "applicability": "It does not transfer to harness decisions. The one product-side point: if the team's delivery layer indexes healthcare education content into a vector store for RAG, a deletion or takedown request does not remove the embedding on disk (ChromaDB/FAISS). Retraction workflows need index rebuilds or per-record encryption with key destruction, plus backup purging. That belongs to the content platform's data-governance design, not the agentic coding harness.",
+  "conflicts_with": []
+}

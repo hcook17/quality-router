@@ -1,0 +1,30 @@
+{
+  "arxiv_id": "2606.03394",
+  "contribution_type": "survey",
+  "summary": "Single-author interpretive synthesis arguing software engineering is shifting from code authorship toward orchestration, verification and governance of AI agents. It proposes three coexisting paradigms (Traditional, GenAI-enabled, Agentic), a five-category competency framework with a matrix, and nine untested propositions, grounded mainly in a curated core corpus of 12 sources (Table 1), chiefly the AIDev PR dataset.",
+  "claims": [
+    {"claim": "Agentic contribution is large-scale but trust lags: agent PRs are merged less often, especially for complex tasks.", "evidence": "§4.2 restates AIDev findings (456,535 PRs) from a single cited source [1]; no new analysis.", "strength": "weak", "location": "§4.2"},
+    {"claim": "Effort is migrating to specification, verification, integration and governance.", "evidence": "§4.3 cites four sources (Acharya, Sun & Staron, Betz & Penzenstadler, Kohl & Carro) mostly position papers; no quantitative measure of effort.", "strength": "weak", "location": "§4.3"},
+    {"claim": "An original competency framework (FSE-CF) with five categories organizes future engineer capabilities.", "evidence": "§8 framework derived by author coding; no expert validation, Delphi, or empirical test.", "strength": "unsupported", "location": "§8"},
+    {"claim": "Nine falsifiable propositions (e.g., throughput gated by verification capacity).", "evidence": "Table 8 lists propositions and suggested tests; none tested.", "strength": "unsupported", "location": "§9.1, Table 8"}
+  ],
+  "patterns": [
+    {"id": "P14", "stance": "neutral", "note": "Argues intent specification becomes the engineer's core value; no evidence on spec-driven tooling."},
+    {"id": "P19", "stance": "neutral", "note": "Accountable human oversight emphasized; proposition P8 for safety-critical domains, untested."},
+    {"id": "P18", "stance": "neutral", "note": "Notes provider-aligned agent/review-bot 'closed loops' risk (from AIDev), proposition P4."}
+  ],
+  "methodology": {"sample": "Core corpus of 12 sources (Table 1) plus foundational references; no search string, databases, or PRISMA-style counts.", "baselines": "n/a", "models": "n/a", "variance": "n/a", "ablations": "n/a", "contamination_controls": "n/a", "languages": "n/a"},
+  "standards": {"peer_review": "arXiv preprint, no venue listed.", "limitations_section": true, "artifacts": "None beyond the reference list.", "preregistration": "n/a"},
+  "biases": [
+    {"type": "small_sample", "detail": "Synthesis rests on a curated 12-source core corpus with no reproducible search protocol."},
+    {"type": "selection_bias_participants", "detail": "Curated inclusion by a single author; §10 concedes alternative syntheses are possible and corpus skews to open source."},
+    {"type": "novelty_inflation", "detail": "Paradigm shift / competency framing restates widely held positions from the cited roadmaps."},
+    {"type": "other:no_empirical_test", "detail": "Framework and propositions are not validated by experts or data."}
+  ],
+  "coi": {"affiliations": "Saudi Data and Artificial Intelligence Authority (SDAIA), Riyadh — government body.", "vendor_products_evaluated": "None.", "funding": "None stated.", "severity": "none", "detail": "No product evaluated."},
+  "scores": {"rigor": 1, "reproducibility": 1, "generalizability": 1, "relevance": 1, "coi_risk": 0},
+  "verdict": "reject",
+  "verdict_reason": "Position-style synthesis with a 12-source hand-curated corpus, no search protocol, single author coding, and no empirical validation of the framework or propositions; it adds no harness-decision evidence beyond what the cited AIDev study already provides.",
+  "applicability": "Does not inform a concrete harness decision for the Java ingestion team. At most it is background framing for why spec-driven development (intent specification + verification) and human oversight gates matter in a regulated healthcare-education context; the team should cite primary empirical sources (e.g., AIDev) instead. Nothing here addresses multi-repo ingestion, mixed agent hosts, or Java.",
+  "conflicts_with": []
+}

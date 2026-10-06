@@ -1,0 +1,52 @@
+{
+  "arxiv_id": "2609.28557",
+  "contribution_type": "system",
+  "summary": "Describes BaseCamp, a six-agent framework (QC, alignment, variant calling, annotation, monitoring, reporting) that configures and interprets established bioinformatics tools (GATK, BWA, VEP, etc.) rather than doing analysis itself, using LoRA-tuned local models plus a GPT-OSS reasoning model via Ollama, each workflow exposed as an MCP server with human approval in LM Studio. The evaluation section's tables and figures are explicitly labelled as placeholders.",
+  "claims": [
+    {"claim": "Agent-generated configurations are concordant with expert practice (e.g. 99.1% call-set concordance, 96.2% caller agreement).", "evidence": "Table 4 caption reads 'Placeholders.'; the Figure 10 example output is labelled 'Values are illustrative placeholders.' The numbers are not measured results.", "strength": "unsupported", "location": "§6.3, Table 4, Fig. 10"},
+    {"claim": "Cross-stage anomaly detection surfaces conditions execution monitoring misses (overall recall 0.88, precision 0.85; latency under 1 hour vs 6 days).", "evidence": "Table 5 caption reads 'Placeholders.'; Figure 11 output 'illustrative placeholders'. Latency and 4.5/5 evaluator ratings are given in prose with no study design, number of raters, or data.", "strength": "unsupported", "location": "§6.4, Table 5, Fig. 11"},
+    {"claim": "Fine-tuning corpus of 4,450 records with held-out runs disjoint from training.", "evidence": "Table 2 caption: 'Counts are placeholders.' Table 3 'Values marked in red are placeholders'; Fig. 8 'All plotted values are placeholders pending measurement.'", "strength": "unsupported", "location": "§6.2, Tables 2-3, Fig. 8"},
+    {"claim": "An explicit filtering ledger makes inspectable what filtering silently removes.", "evidence": "Design property shown in the prompt (Fig. 9) and illustrative output; plausible as a design claim, no measured evidence.", "strength": "weak", "location": "§6.3, Fig. 9"}
+  ],
+  "patterns": [
+    {"id": "P04", "stance": "introduces", "note": "Each analytical workflow exposed as an independent MCP server orchestrated from LM Studio; no evaluation of the integration layer."},
+    {"id": "P11", "stance": "introduces", "note": "Six role-specialised agents plus a consortium of fine-tuned models reconciled by a reasoning model; no comparison against fewer agents."},
+    {"id": "P19", "stance": "introduces", "note": "Human-in-the-loop approval/override and escalation on INSUFFICIENT_CONTEXT; asserted, not measured."},
+    {"id": "P30", "stance": "introduces", "note": "Filtering ledger and run configuration record (tool/model/adapter versions) as audit trail."},
+    {"id": "P33", "stance": "neutral", "note": "Agents call deterministic established tools instead of doing computation themselves."}
+  ],
+  "methodology": {
+    "sample": "Not established: corpus counts, held-out runs, and all metrics are placeholders.",
+    "baselines": "Expert manual configuration is the stated comparator, but no real measured comparison is reported.",
+    "models": "Llama-3, Mistral, Qwen 2.5 (4-bit LoRA adapters) and GPT-OSS reasoning model via Ollama; agents on OpenAI Agents SDK.",
+    "variance": "None.",
+    "ablations": "None (proposed as future work).",
+    "contamination_controls": "Claims run-disjoint held-out split, but the counts are placeholders.",
+    "languages": "n/a (bioinformatics pipeline configuration)."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint; template header 'Journal: Journal Name' indicates an unfinished manuscript.",
+    "limitations_section": false,
+    "artifacts": "No code, adapters, or data released.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "self_reported_numbers", "detail": "All quantitative results (Tables 2-5, Figs 8, 10, 11) are explicitly placeholders, yet the abstract states 'Evaluation shows' concordance and anomaly detection."},
+    {"type": "hype_language", "detail": "'Production-grade agentic workflows' and 'generalizable blueprint' without measured evaluation."},
+    {"type": "closed_artifacts", "detail": "No code, prompts beyond two figures, or data."},
+    {"type": "cherry_picked_examples", "detail": "Single illustrative outputs per agent, themselves placeholders."},
+    {"type": "self_evaluation", "detail": "Builds on the authors' own AgentsWay methodology (ref [9]) and is judged only by unspecified 'human evaluators'."}
+  ],
+  "coi": {
+    "affiliations": "Old Dominion University, FIU address/Deloitte & Touche LLP, AI Motion Labs, University of Oulu, IcicleLabs.AI (4 authors), Nanyang Technological University, University of Colombo, Accenture Technology Labs, Agentsway.AI, among 22 authors. Regex vendor hits were empty but several authors are at consultancies and AI startups.",
+    "vendor_products_evaluated": "BaseCamp itself; built with the authors' AgentsWay development methodology (Agentsway.AI author on the paper).",
+    "funding": "No acknowledgments or funding statement found.",
+    "severity": "medium",
+    "detail": "Startup/consultancy-affiliated authors promote a framework tied to their own methodology with no measured evaluation; not a vendor grading a shipped product against competitors, so not rated high."
+  },
+  "scores": {"rigor": 0, "reproducibility": 0, "generalizability": 0, "relevance": 1, "coi_risk": 3},
+  "verdict": "reject",
+  "verdict_reason": "Evaluation is not real: Tables 2-5 and Figures 8, 10, 11 are explicitly captioned as placeholders 'pending measurement', so every quantitative claim in the abstract is unsupported; the domain (DNA sequencing) is also off-topic for a software-engineering harness.",
+  "applicability": "No evidence to transfer. The only reusable idea is architectural and untested: keep LLM agents in a judgment layer that configures and explains deterministic tools, with a ledger recording what each filter removed. A healthcare-education ingestion pipeline across ≥4 Java repos could log every content filter or transformation decision with its justification, but this paper gives no data that it works. It is a local-LLM-in-the-loop design with MCP servers per stage, which says nothing about mixed coding-agent hosts or spec-driven development.",
+  "conflicts_with": []
+}

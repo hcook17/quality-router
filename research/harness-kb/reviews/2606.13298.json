@@ -1,0 +1,51 @@
+{
+  "arxiv_id": "2606.13298",
+  "contribution_type": "empirical",
+  "summary": "Repository-mining causal study of 151 open-source Java projects (74 with detectable agentic-AI adoption via CLAUDE.md/AGENTS.md/.cursorrules/copilot-instructions/Aider config or Co-Authored-By trailers, 77 propensity-matched controls) over 1,811 monthly Arcan snapshots, using staggered difference-in-differences (Borusyak imputation). Architectural smell density falls 6.7%, but raw smell counts are flat (+1.1%, p=0.82) while LOC grows 12.8%, so the drop is a denominator effect, not an architectural improvement.",
+  "claims": [
+    {"claim": "Adoption lowers architectural smell density by 6.7%", "evidence": "Table 1: Borusyak ATT -0.0698 (SE 0.0239, 95% CI [-0.117,-0.023], p=0.004); Sun-Abraham -6.6% (p=0.005); 1,811 obs., 151 repos, repo and time FE, clustered SEs.", "strength": "strong", "location": "§4.2, Table 1"},
+    {"claim": "The density decline is a denominator effect: smell counts unchanged, code grows", "evidence": "§4.5, Fig. 4: raw smell counts +1.1% (p=0.82), LOC +12.8% (p=0.003), package count +9.7% (p=0.032); per-type counts CD/HL/GC all p>0.25.", "strength": "strong", "location": "§4.5, Fig. 4"},
+    {"claim": "Parallel trends hold", "evidence": "§4.4, Fig. 3: pre-period event-study Wald chi2=1.64, df=5, p=0.896; authors note this cannot exclude smooth pre-trends absorbed by FE (§6).", "strength": "moderate", "location": "§4.4, §6"},
+    {"claim": "Result is robust to attrition and stale observations", "evidence": "§6: Lee bounds [-9.9%, -2.3%] but upper bound's CI includes zero (p=0.239), i.e. under worst-case attrition the effect is indistinguishable from null; aggressive stale-observation filtering (N=94) makes it non-significant. Authors disclose both.", "strength": "weak", "location": "§4.7, §6"},
+    {"claim": "Unstable dependencies may be rising in raw count", "evidence": "UD raw count +5.8% (raw p=0.032, Holm-adjusted p=0.128); explicitly labelled suggestive.", "strength": "weak", "location": "§4.3, §4.5"}
+  ],
+  "patterns": [
+    {"id": "P01", "stance": "neutral", "note": "Uses presence of CLAUDE.md/AGENTS.md/.cursorrules/copilot-instructions as the adoption marker; no evidence about the files' effect per se."},
+    {"id": "P17", "stance": "neutral", "note": "Architectural smell detection (Arcan) used as the outcome; shows density metrics can mislead when the treatment changes code size."},
+    {"id": "P32", "stance": "supports", "note": "Field evidence from real OSS repositories with a causal design: short-term agentic adoption does not measurably increase architectural smells in mature Java systems."}
+  ],
+  "methodology": {
+    "sample": "151 Java OSS repos (74 treated, 77 controls) from 90+90 matched; 1,811 monthly snapshots over 13-month windows; 29 repos lost (16 treated, 13 control)",
+    "baselines": "Propensity-matched never-treated controls; Borusyak imputation and Sun-Abraham TWFE estimators",
+    "models": "n/a (tool adoption: Claude Code 44, Copilot 14, Cursor 15, Codex 1 retained)",
+    "variance": "Clustered SEs, 95% CIs, wild cluster bootstrap, Lee bounds, Holm correction across smell types",
+    "ablations": "Per-type, per-tool (exploratory), stale-observation sensitivity, covariate adjustment, Bacon decomposition, autocomplete-contamination sensitivity",
+    "contamination_controls": "Content validation of ambiguous markers (CLAUDE.md, AGENTS.md); attenuation-bias correction for undetected AI use in controls (c=8.9%)",
+    "languages": "Java only"
+  },
+  "standards": {
+    "peer_review": "Accepted at SEAA 2026 (Springer LNCS), author's accepted manuscript",
+    "limitations_section": true,
+    "artifacts": "Replication package with curated 151-repo monthly panel at github.com/Oliver1703dk/seaa2026-replication-package",
+    "preregistration": "none"
+  },
+  "biases": [
+    {"type": "survivorship", "detail": "Differential attrition (17.8% treated vs 14.4% control), concentrated among the largest projects lost to Arcan JVM memory limits; worst-case Lee bound includes null."},
+    {"type": "other:treatment_misclassification", "detail": "Adoption proxied by config files/trailers; inline autocomplete undetectable, and AGENTS.md is mapped to Codex though it is used by several hosts. Intensity of use is unknown."},
+    {"type": "other:short_horizon", "detail": "Effect still growing at h=6 months; long-run architectural impact unobserved."}
+  ],
+  "coi": {
+    "affiliations": "SDU Software Engineering, University of Southern Denmark",
+    "vendor_products_evaluated": "None evaluated favorably; tool adoption studied observationally",
+    "funding": "Not stated",
+    "severity": "none",
+    "detail": "Academic authors; no vendor ties disclosed or apparent."
+  },
+  "scores": {"rigor": 4, "reproducibility": 5, "generalizability": 3, "relevance": 4, "coi_risk": 0},
+  "verdict": "admit",
+  "verdict_reason": "Careful, peer-reviewed causal design with multiple estimators, pre-trend tests, multiplicity correction, transparent threats (including that worst-case attrition reaches null) and a full replication package. Main contribution, that density metrics mislead when AI changes code volume, is well supported. Limited to short-horizon effects in mature Java OSS.",
+  "applicability": "Directly relevant to a Java backend team: in mature Java codebases, short-term agentic adoption grew code ~13% without measurably increasing architectural smell counts, so the main risk is code volume growth rather than immediate architectural decay. Practical takeaways for the >=4 ingestion repositories: track raw smell/dependency counts and LOC separately (not only density) in Sonar/Arcan-style dashboards, watch unstable-dependency counts, and monitor beyond six months. It does not address cross-repo contracts, spec-driven workflows, or which agent host is used beyond the exploratory, under-powered per-tool split.",
+  "conflicts_with": [
+    {"arxiv_id": "2606.14796", "detail": "That multivocal review reports LLM-assisted coding often amplifies design debt; this causal study finds no increase in architectural smell counts in the short term for mature Java repos."}
+  ]
+}

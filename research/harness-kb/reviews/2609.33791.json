@@ -1,0 +1,46 @@
+{
+  "arxiv_id": "2609.33791",
+  "contribution_type": "empirical",
+  "summary": "Studies on-policy distillation (OPD) of small LLMs and finds that replacing the reverse-KL loss with a binary +1/-1 token reward pointing toward the teacher (BinaryOPD) trains about as well, and that only high-disagreement tokens' direction matters. Applies this to multi-teacher distillation (C-MOPD), supervising each sample with both a math and a code teacher, reporting gains over MOPD on math and function-level code benchmarks.",
+  "claims": [
+    {"claim": "Binary directional reward reproduces OPD with reverse KL.", "evidence": "§4.2 / Table 2 across five math student-teacher pairs and two code pairs (Table 1), Avg@8; comparable training curves. No repeated training seeds.", "strength": "moderate", "location": "§4.2, Tables 1-2"},
+    {"claim": "Only the direction of high teacher-student disagreement tokens is critical.", "evidence": "§5.2 experiments flipping/ignoring low-disagreement tokens; App. E visualizations.", "strength": "moderate", "location": "§5"},
+    {"claim": "C-MOPD consistently outperforms MOPD on math and code.", "evidence": "Table 5 (Qwen3-4B student, avg@8): LCB v6 32.9 vs 27.9, HumanEval 87.8 vs 85.9, MBPP 54.3 vs 53.5, AIME24 61.3 vs 60.0, MATH500 93.0 vs 92.9. Several gains are <1 pt with no training-seed variance; ε=0.8 picked from §5 findings rather than a held-out sweep. Single student model.", "strength": "weak", "location": "§6.2, Table 5"}
+  ],
+  "patterns": [
+    {"id": "P25", "stance": "neutral", "note": "Post-training/distillation objective study; not about agent harnesses or agentic RL."}
+  ],
+  "methodology": {
+    "sample": "Math: DAPO-Math-17k, DeepMath; code: Eurus; C-MOPD mixture of ~50k math/code problems. Evaluation on AIME24/25, AMC, MATH500, Minerva, OlympiadBench, LiveCodeBench v6, HumanEval, MBPP.",
+    "baselines": "Standard OPD with reverse KL; MOPD for the multi-teacher setting. Appropriate but narrow.",
+    "models": "1.5B-30B students (DeepSeek-Distill-Qwen-1.5B, Qwen3-1.7B/4B/30B-A3B, Llama-3.2-3B); C-MOPD only on Qwen3-4B-Non-Thinking.",
+    "variance": "Avg@8 sampling at evaluation; no repeated training runs or CIs.",
+    "ablations": "Disagreement-threshold ε (0.0 vs 0.8), token-subset direction experiments, verifier alignment (App. B).",
+    "contamination_controls": "None discussed; HumanEval/MBPP are widely contaminated benchmarks.",
+    "languages": "Code benchmarks are Python function-level (HumanEval, MBPP, LiveCodeBench)."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint; extracted text shows an ICML-style warning, no acceptance stated.",
+    "limitations_section": false,
+    "artifacts": "Code at https://github.com/LeapLabTHU/KL-Free-OPD; hyperparameters in App. C.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "no_variance_reported", "detail": "Single training run per configuration; sub-point gains in Table 5 cannot be distinguished from noise."},
+    {"type": "single_language_python", "detail": "Code evaluation limited to Python function-level benchmarks."},
+    {"type": "contamination_risk", "detail": "HumanEval and MBPP with no contamination analysis."},
+    {"type": "other:off_topic", "detail": "Model post-training objective; no agent, tool-use, or repository-level SE content."}
+  ],
+  "coi": {
+    "affiliations": "LeapLab and Qiuzhen College, Tsinghua University; Beihang University; NUS; CUHK; E Fund Management Co., Ltd. (asset manager).",
+    "vendor_products_evaluated": "None; open models only.",
+    "funding": "No acknowledgments found.",
+    "severity": "none",
+    "detail": "Industry co-authors are from a fund manager, not an AI vendor; no product evaluated."
+  },
+  "scores": {"rigor": 3, "reproducibility": 3, "generalizability": 1, "relevance": 0, "coi_risk": 0},
+  "verdict": "reject",
+  "verdict_reason": "off-topic: LLM distillation loss study evaluated on math and Python function-level code benchmarks; it does not concern agents, harnesses, or repository-scale software engineering.",
+  "applicability": "Does not transfer. A Java backend team building an agentic harness across ≥4 ingestion repositories with mixed hosted agent hosts and spec-driven development does not distil models; the results are about training small open models and say nothing about Java, multi-repo work, or harness design.",
+  "conflicts_with": []
+}

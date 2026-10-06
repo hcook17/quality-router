@@ -1,0 +1,57 @@
+{
+  "arxiv_id": "2609.22259",
+  "contribution_type": "empirical",
+  "summary": "Single-author four-arm ablation on the DABStep text-to-SQL/analytics benchmark across four models. It separates a 'context layer' into semantic prose content, retrieval scaffolding (nine governed tools plus allow-lists), and pre-computed views, using a YAML data contract that can be 'hollowed' (prose emptied) or compiled to views. Main finding: semantic content does most of the work, delivering it via one-lookup tools beats pasting the same manual into the prompt, and declared forbidden operations stopped all mutating SQL.",
+  "claims": [
+    {"claim": "Content delivered through the contract raises hard-task accuracy from 13.9/22.6/22.9/37.0% (bare schema) to 55.1/56.6/68.4/77.4% on four models.", "evidence": "Table 4 hard column matches the abstract exactly; Table 5 schema-vs-contract McNemar p from 2e-15 to 1e-35. Hard-split golds are reconstructed and run ~3-6pp lenient (§4.4, §8.4).", "strength": "strong", "location": "§5.1, Tables 4-5"},
+    {"claim": "Scaffolding without content is worth 0-5 points on flash models and 14-15 on frontier models; content outweighs scaffolding by 1.8x-6.6x.", "evidence": "Table 4 schema vs hollow hard: GLM 13.9->19.3, DeepSeek 22.6->22.6, Sonnet 5 22.9->38.0, GPT-5.6 37.0->51.2; Table 5 last row p=0.058/0.61 (flash) vs 9e-9/4e-7 (frontier). Single run per model; the frontier/flash split rests on two models each and was not predicted (§8.3).", "strength": "moderate", "location": "§5.2, Tables 4-5, §8.3"},
+    {"claim": "The contract beats the same knowledge pasted into the prompt because the rule is one lookup away.", "evidence": "Table 4 manual vs contract hard: +32.2, +13.7, +44.6, +27.1pp; §6.1 SQL carries all six fee clauses 39/65/55/98% vs 3/9/4/4% for prompt arm. Confound acknowledged in §8.2: the contract adds seven INTERPRETATION clauses that resolve ambiguities the manual leaves open (reversing one changes answers on 87/97 payment tasks); the fifth arm needed to separate them was not run. Manual arm beats contract on easy tasks on all four models.", "strength": "moderate", "location": "§5.1, §6.1, §8.2"},
+    {"claim": "Declared rules deterred mutation: ungoverned arms issued 166 mutating statements, governed arms none.", "evidence": "§7, Table 10 (e.g., GLM schema 27, manual 92, governed 0); the validator never fired, so deterrence came from declared rules in context, not enforcement.", "strength": "moderate", "location": "§7, Table 10"},
+    {"claim": "On one model the benchmark's withheld golds grade contract 51.9% vs 18.8% for the prompt baseline.", "evidence": "§4.4: GLM all-450 sweeps submitted to the leaderboard; 378 hard tasks; McNemar p=4.9e-28. Independent grading for one model only.", "strength": "strong", "location": "§4.4, Appendix A/C"}
+  ],
+  "patterns": [
+    {"id": "P02", "stance": "supports", "note": "Fetch-one-rule-at-a-time contract beats the same knowledge pasted into a 24,000-character prompt on all four models (hard split)."},
+    {"id": "P01", "stance": "mixed", "note": "A pasted domain manual (analogous to a large instruction file) was indistinguishable from bare schema on Sonnet 5 hard tasks; structured, retrievable content worked much better."},
+    {"id": "P21", "stance": "supports", "note": "Declared forbidden operations plus table allow-list: 166 -> 0 mutating statements; enforcement layer never needed to fire."},
+    {"id": "P34", "stance": "supports", "note": "Machine-readable data contract (semantics + rules) as the agent's source of truth."},
+    {"id": "P04", "stance": "neutral", "note": "Nine governed tools expose the warehouse; the paper shows the tool surface alone (hollow arm) adds little on flash models."},
+    {"id": "P24", "stance": "supports", "note": "Per-arm cost reported; contract arm is the cheapest per correct answer on three of four models."}
+  ],
+  "methodology": {
+    "sample": "DABStep 401 of 450 tasks with reconstructed golds (332 hard, 69 easy); DeepSeek complete-case 279 tasks after 29% loss to rate limits; 6,416 transcripts.",
+    "baselines": "Bare schema, hollow contract, manual pasted into prompt (practitioner baseline), compiled-view ceiling. No external text-to-SQL systems compared beyond leaderboard band checks.",
+    "models": "glm-5.3-flash, deepseek-v4-flash, Claude Sonnet 5, gpt-5.6-sol; medium reasoning effort; temperature 0 only on the two flash models.",
+    "variance": "No repeats. One near-replicate on GLM shows a 23.4% per-task flip rate at temperature 0 (§8.3). Paired exact McNemar, Wilson CIs, 24 tests with no multiplicity correction.",
+    "ablations": "Four-arm ladder is itself the ablation; missing fifth arm (contract minus interpretation clauses).",
+    "contamination_controls": "None run; DABStep is public. Author argues memorisation would not depend on context arm (an inference, §8.5).",
+    "languages": "SQL (DuckDB-style warehouse); Python harness library."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint; no venue in comment or journal_ref.",
+    "limitations_section": true,
+    "artifacts": "Harness, frozen and hollow contracts, raw rows and all 6,416 transcripts with SHA-256 digests at github.com/flyersworder/agentic-data-contracts (release dabstep-eval-2026-09).",
+    "preregistration": "Text refers to a pre-registered design and records departures (primary model substituted, Sonnet 5 added late, those contrasts labelled exploratory); no registry link found in the text."
+  },
+  "biases": [
+    {"type": "self_evaluation", "detail": "Author wrote the contract (including the interpretation clauses that resolve manual ambiguities) and the open-source library under test; the hollowing design partly mitigates."},
+    {"type": "no_variance_reported", "detail": "Each model run once; observed 23.4% per-task flip rate between near-identical GLM runs."},
+    {"type": "benchmark_overfit", "detail": "One benchmark, one domain: 294 of 332 hard tasks are fee questions; 450 tasks collapse to 113 question shapes (§8.1)."},
+    {"type": "contamination_risk", "detail": "Public benchmark, no contamination probe."},
+    {"type": "small_sample", "detail": "Capability-trend claims rest on two flash and two frontier models that disagree on some contrasts."}
+  ],
+  "coi": {
+    "affiliations": "Qing Ye, Independent Researcher (single author).",
+    "vendor_products_evaluated": "Author's own open-source agentic-data-contracts library is the instrument; commercial models evaluated neutrally.",
+    "funding": "No acknowledgments or funding statement.",
+    "severity": "low",
+    "detail": "No commercial vendor tie; intellectual self-interest in the library and the contract approach. The leaderboard-graded GLM contrast provides a partial external check."
+  },
+  "scores": {"rigor": 3, "reproducibility": 5, "generalizability": 2, "relevance": 4, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "A careful decomposition: the abstract numbers match Table 4, the threats section is candid, one contrast is graded officially, and transcripts are fully released. However, there is a single run per model, one benchmark and domain, and the contract-vs-prompt margin is confounded by interpretation clauses that the author added to the contract only.",
+  "applicability": "Strong design signal for the Java ingestion team even though the domain is analytics SQL. (1) Put healthcare-education content semantics (field meanings, licensing/audience rules, versioning conventions) into a machine-readable, versioned contract that agents fetch rule-by-rule through a tool. Do not paste long docs into AGENTS.md or the prompt. (2) Write the semantics before building retrieval tooling or pre-computed helpers. (3) Declared forbidden operations and allow-lists in the contract cut destructive actions to zero, which matters for ingestion jobs touching shared stores. For ≥4 ingestion repos, a shared contract artifact could serve as the cross-repo SoT and fits spec-driven development. Caveats: the tool layer is a Python library; host-agnostic delivery would be via MCP or CLI. Results came from analytics questions, not code changes in Java services. Gains held only inside the contract's domain.",
+  "conflicts_with": [
+    {"arxiv_id": "2607.27250", "detail": "That ablation finds AGENTS.md/CLAUDE.md context strategy does not move coding-agent correctness; here curated semantic content raises accuracy by 26-45 points. The difference is consistent with domain semantics that agents cannot infer (fee rules) vs repository knowledge agents can discover."},
+    {"arxiv_id": "2609.22222", "detail": "Agreement rather than conflict: both find compact authoritative metadata is the largest single lever and that unstated contract details masquerade as model error."}
+  ]
+}

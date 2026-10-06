@@ -1,0 +1,45 @@
+{
+  "arxiv_id": "2608.13568",
+  "contribution_type": "empirical",
+  "summary": "Single-author preliminary study defining 'tokens-to-success' and a five-arm ablation (grep-only, LSP-only, both, forced-semantic, static repo-map [untested]) to test whether LSP retrieval saves coding-agent tokens. On tiny task sets in requests (Python) and remeda/hono (TypeScript) with three Claude models, LSP usually costs more tokens on localization, improves precision but not recall on reference-finding, and loses to grep on multi-file renames because comments/strings are not semantic references. The author proposes routing by task class, model strength, and lexical noise.",
+  "claims": [
+    {"claim": "On symbol-named localization the LSP costs tokens (+6% to +118%) and the agent ignores it when free.", "evidence": "§6.1 table: 6 SWE-bench-Lite requests issues, 3 rollouts; Opus T2S 920 vs 971 (+6%), free-choice arm 0 semantic calls; §6.2 Sonnet +118%, Haiku -26%. All arms 100% success on localization so the task is near-trivial; tiny N (author: effect sizes preliminary).", "strength": "weak", "location": "§6.1-6.2"},
+    {"claim": "LSP buys precision (1.00 vs 0.76) but not recall on reference-completeness.", "evidence": "§6.3 table: F1 0.778 vs 0.706, recall ~0.66 all arms, 5 targets x 3 rollouts. Oracle is pyright's reference set while the LSP arm for reference experiments also uses pyright (§6 intro), so precision 1.00 is partly circular. Grep F1 is exactly 0.706 for Opus, Sonnet and Haiku (§6.4), which is unexplained.", "strength": "weak", "location": "§6.3-6.4"},
+    {"claim": "LSP value is determined by lexical noise (grep false-positive rate), not language.", "evidence": "§6.5: requests +0.072, remeda +0.000, hono +0.245 dF1; within-hono 6 targets rank monotonic by grep precision; pooled slope ~-0.49 (Figure 6). Plausible and internally consistent but n=6 targets per repo, no CIs.", "strength": "moderate", "location": "§6.5, Figure 6"},
+    {"claim": "On multi-file renames grep beats even a warmed, text-inline LSP.", "evidence": "§6.7: 6 renames; pass@1 grep 1.00, LSP location-only 0.67, LSP text-inline 0.83; mechanism shown (comment occurrence not a semantic reference; cold pyright returns 1 ref until files opened). Note Limitations (iii) says edit tasks were not run end-to-end with test execution and (iv) that TypeScript is untested, contradicting §6.5/§6.7 — stale text.", "strength": "moderate", "location": "§6.7, §7"}
+  ],
+  "patterns": [
+    {"id": "P05", "stance": "mixed", "note": "Grep is the better default for localization and renames; LSP adds precision for reference-finding on lexically noisy identifiers."},
+    {"id": "P24", "stance": "supports", "note": "Introduces tokens-to-success at iso-accuracy as the cost metric; shows tool surfaces change token cost by -26% to +118%."},
+    {"id": "P23", "stance": "introduces", "note": "Proposes an adaptive retrieval router keyed on task class, model capability and lexical noise; not implemented/evaluated."},
+    {"id": "P04", "stance": "neutral", "note": "Discusses LSP-MCP servers (Serena, mcp-language-server); warmed index and inline context are 'table stakes'."},
+    {"id": "P16", "stance": "neutral", "note": "Edit tasks scored by real test execution in a local harness."}
+  ],
+  "methodology": {
+    "sample": "6 localization tasks, 5-6 reference targets per repo, 6 single-file edits, 6 multi-file renames; 2-3 rollouts each; 3 small repos (requests, remeda, hono).",
+    "baselines": "Grep-only arm is the baseline; LSP arms are pylsp/pyright (and a TS server); arm E repo-map not run.",
+    "models": "Claude Opus 4.8, Sonnet 4.6, Haiku 4.5 (single vendor family).",
+    "variance": "2-3 rollouts, no CIs or significance; author states effect sizes will move.",
+    "ablations": "Five-arm design (four run); warm vs cold index; location-only vs text-inline LSP.",
+    "contamination_controls": "None; author notes the small libraries were likely seen in pretraining.",
+    "languages": "Python and TypeScript; no Java."
+  },
+  "standards": {"peer_review": "arXiv preprint (13 pages), no venue", "limitations_section": true, "artifacts": "Harness, task builders, verifiers, raw per-episode JSONL and figure scripts at github.com/Poytr1/lsp-vs-grep-token-study.", "preregistration": "Three predictions and failure modes are stated before results in the text (§4-§5), but not externally registered."},
+  "biases": [
+    {"type": "small_sample", "detail": "Six tasks per experiment with 2-3 rollouts; percentages like +118% rest on a handful of episodes."},
+    {"type": "single_model", "detail": "Only Anthropic Claude models; author lists a second model family as next step."},
+    {"type": "metric_mismatch", "detail": "Reference precision measured against pyright, the same backend as the LSP arm, so LSP precision 1.00 is partly by construction."},
+    {"type": "contamination_risk", "detail": "requests/remeda/hono are popular small libraries likely in pretraining (§7)."},
+    {"type": "toy_tasks", "detail": "Localization is 100% solved by all arms; small repos (requests has 19 files) where LSP per-symbol cost and indexing trade-offs differ from large codebases."},
+    {"type": "other:internal_inconsistency", "detail": "Limitations claim edit tasks and TypeScript were not run, while §6.5 and §6.7 report them; identical grep F1 (0.706) across three models unexplained."}
+  ],
+  "coi": {"affiliations": "Single author, personal email; no affiliation listed.", "vendor_products_evaluated": "No product of the author; open-source LSP servers and Claude models.", "funding": "None stated.", "severity": "none", "detail": "Independent; no vendor interest apparent."},
+  "scores": {"rigor": 2, "reproducibility": 4, "generalizability": 1, "relevance": 4, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Valuable, well-instrumented and openly released measurement method with a clear mechanism for the rename result, but very small N, Claude-only, small Python/TS repos, a partly circular precision oracle, and internally inconsistent limitations text. Directional evidence only.",
+  "applicability": "Directly informs whether the Java team should add an LSP/MCP server (e.g. jdtls via Serena) to its harness. Transfer is uncertain: Java is statically typed with reliable references and heavy dynamic-free call graphs, but also has noisy, collision-prone names (getId, process, Content*, DTO/mapper boilerplate) across 4+ ingestion repos, which per §6.5 is exactly where semantic references help. Practical guidance: keep grep/ripgrep as the default for every host; if an LSP tool is exposed, pre-warm/persist the index per repo and return reference lines inline; never use LSP references alone for renames (comments, strings, Spring config, YAML/JSON contract files and other repos are not semantic references) — pair with grep or OpenRewrite and a compile check across all repos. The team should rerun this harness on its own Java repos before adopting LSP-MCP.",
+  "conflicts_with": [
+    {"arxiv_id": "2605.16352", "detail": "LARGER argues lexical search misses structural relations and adds graph expansion anchored on lexical hits; this paper finds grep competitive or better on localization and renames, LSP helping only for noisy identifiers."},
+    {"arxiv_id": "2608.11386", "detail": "Consistent rather than conflicting: tool-architecture study also finds bash/grep baselines hard to beat on outcomes, with richer search raising recall at lower precision; here LSP raises precision without recall."}
+  ]
+}

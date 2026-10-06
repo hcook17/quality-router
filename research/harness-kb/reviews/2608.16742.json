@@ -1,0 +1,37 @@
+{
+  "arxiv_id": "2608.16742",
+  "contribution_type": "system",
+  "summary": "TDD-Agent is a single-agent loop that first writes executable unit tests for a target function, then implements it, and iteratively revises both code and tests from pytest feedback (max 10 rounds). A prompt-only variant is tested on LiveCodeBench and the full agent on the RepoEval function-completion subset (455 problems, 8 Python repos) with GPT-5-mini, DeepSeek-V3.2 and Qwen3-Coder-30B.",
+  "claims": [
+    {"claim": "Test-first prompting (TDD-prompt) beats reasoning-prompt baselines on LiveCodeBench across three models.", "evidence": "Table 1: TDD-prompt 70.04/67.86/44.87 vs best baseline 68.48 (ICoT, GPT)/67.46 (CoT, DeepSeek)/42.99 (CoT, Qwen). Margins are 0.4-1.9 points with 10 samples/problem; no CIs or significance tests.", "strength": "weak", "location": "§3.1, Table 1"},
+    {"claim": "TDD-Agent outperforms retrieval and agent baselines on RepoEval function completion.", "evidence": "Table 2: TDD-Agent-iter10 78.24/90.77/59.34 vs mini-SWE-agent 61.31/84.18/52.97. Numbers present in body. Single run, no variance.", "strength": "moderate", "location": "§3.4, Table 2"},
+    {"claim": "Both test-first generation and dual-track (code+test) refinement are essential.", "evidence": "Table 4 ablation: Vanilla 68.35/73.63/52.97; TDD-iter1 69.89/76.48/54.51 (test-first alone adds only ~1.5-2.9 pts); Reflect (no tests) 72.09/81.53/54.06 actually beats Single-track (frozen tests) 70.11/79.56 on GPT and DeepSeek. Most of the gain comes from the iterative loop, and the authors' own tool-equipped Vanilla (68.35 GPT) already exceeds mini-SWE-agent (61.31 GPT), so the Table 2 margin over mini-SWE-agent is largely a harness/tooling effect, not TDD.", "strength": "weak", "location": "§4.4, Table 4"},
+    {"claim": "Generated tests improve over iterations in pass rate, coverage and mutation score.", "evidence": "Figure 5 (plotted only, values not tabulated in body); MutPy with 20 mutants per problem; line coverage on ground truth.", "strength": "moderate", "location": "§4.3, Fig. 5"},
+    {"claim": "Most failures are 'matched failures' where code and self-generated tests agree but repository tests fail; credit-assignment errors are <10% of failures.", "evidence": "Fig. 6; Appendix C Table 11 (max 8.10%). This is an important negative finding: self-tests converge to a consistent-but-wrong state.", "strength": "moderate", "location": "§4.5, App. C"}
+  ],
+  "patterns": [
+    {"id": "P15", "stance": "mixed", "note": "Test-first alone gives small gains (Table 4 iter1 vs Vanilla); iterative refinement with self-written tests helps, but dominant failure mode is self-consistent wrong tests (Fig. 6)."},
+    {"id": "P16", "stance": "supports", "note": "Execution-feedback loop drives most of the improvement (Reflect and iteration curves, Fig. 3, plateau ~iter 6-7)."},
+    {"id": "P05", "stance": "neutral", "note": "Uses lightweight lexical tools (grep/find, skeleton viewer, line reader); limitations section says semantic repo access is the bottleneck."},
+    {"id": "P10", "stance": "supports", "note": "Single agent with retained history, deliberately not multi-agent; competitive with mini-SWE-agent at similar token cost (Table 3)."},
+    {"id": "P24", "stance": "neutral", "note": "Reports tokens/calls (Table 3) and recommends a moderate iteration cap given plateau at 6-7 rounds."},
+    {"id": "P31", "stance": "neutral", "note": "Evaluation is on public benchmarks (LiveCodeBench, RepoEval)."}
+  ],
+  "methodology": {"sample": "LiveCodeBench (10 samples/problem, subset described in App. B); RepoEval function-completion subset: 455 problems from 8 Python repositories.", "baselines": "Prompting: one-shot, CoT, SCoT, Self-Planning, ICoT. Repo-level: In-File, sparse RAG, RepoCoder (original config), mini-SWE-agent (100-call cap). mini-SWE-agent is a reasonable agent baseline but uses a bare bash tool, while TDD-Agent has custom inspection tools; no stronger agents (OpenHands, SWE-agent with tools) compared.", "models": "GPT-5-mini, DeepSeek-V3.2, Qwen3-Coder-30B-A3B-Instruct.", "variance": "Unbiased pass@1 over 10 samples on LiveCodeBench; RepoEval results appear to be single runs with no variance or significance tests.", "ablations": "Vanilla, Reflect, Single-track, TDD-iter1 (Table 4); iteration curves.", "contamination_controls": "LiveCodeBench is designed to be contamination-resistant; RepoEval (2023, public GitHub repos) has no contamination control discussed.", "languages": "Python only (stated in Limitations)."},
+  "standards": {"peer_review": "None stated (no arXiv comment/journal_ref); anonymous artifact link suggests submission under review.", "limitations_section": true, "artifacts": "Code at anonymous.4open.science link; prompts in Appendix E; generation parameters in Appendix A.", "preregistration": "n/a"},
+  "biases": [
+    {"type": "single_language_python", "detail": "All experiments Python/pytest; Java/JUnit transfer only asserted in Limitations."},
+    {"type": "no_variance_reported", "detail": "RepoEval numbers are single runs; LiveCodeBench margins of 0.4-1.9 points have no CIs."},
+    {"type": "strawman_baseline", "detail": "Agent baseline (mini-SWE-agent, bash only) is weaker than the authors' own Vanilla tool-equipped variant (68.35 vs 61.31 on GPT), so the headline margin conflates TDD with toolset differences."},
+    {"type": "contamination_risk", "detail": "RepoEval repos are public and pre-date all three models' training cutoffs; not discussed."},
+    {"type": "metric_mismatch", "detail": "Ablation 'essential' claim not borne out: Reflect without tests beats Single-track on two of three models."}
+  ],
+  "coi": {"affiliations": "Beihang University (multiple schools/institutes).", "vendor_products_evaluated": "None (third-party models via API/vLLM).", "funding": "No acknowledgments section found.", "severity": "none", "detail": "Academic authors evaluating their own method — normal self-evaluation, no vendor interest."},
+  "scores": {"rigor": 3, "reproducibility": 3, "generalizability": 1, "relevance": 3, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Reasonable multi-model evaluation with an ablation, but Python-only, single-run repo-level results, and the ablation shows the iterative execution loop, not test-first, carries most of the gain. The most transferable finding is the negative one: self-generated tests and code co-evolve into consistent-but-wrong states.",
+  "applicability": "For the Java team: the transferable lesson is to keep a held-out oracle (existing JUnit/integration tests, contract tests on ingestion schemas) that the agent cannot see or rewrite, because agent-authored tests that the agent may also edit mostly fail by agreeing with buggy code. Letting an agent revise its own tests is risky for healthcare-education content where correctness is judged against curated source material. Iteration caps around 6-7 rounds are a reasonable default budget. Nothing here addresses multi-repo ingestion, mixed hosts, or Java build latency (Maven/Gradle loops are far slower than pytest), so expect costs to differ.",
+  "conflicts_with": [
+    {"arxiv_id": "2608.17177", "detail": "Same batch: 2608.17177 reports spec-first (pre/post-condition) reasoning improves bug detection in Google production code, whereas here test-first-only (TDD-iter1) adds just ~1.5-2.9 points and most gain comes from iteration; both find agent-generated oracles can be confidently wrong."}
+  ]
+}

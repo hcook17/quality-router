@@ -1,0 +1,54 @@
+{
+  "arxiv_id": "2607.01456",
+  "contribution_type": "empirical",
+  "summary": "Mining study of 238 SKILL.md files sampled one-per-repository from the skills.sh marketplace. Two authors build a taxonomy of body components (13 higher-level, 44 lower-level), a multivocal review of 29 grey-literature sources yields 26 best practices whose inversions are defined as 'skill smells', and a hybrid detector (5 rule-based checks + 21 LLM-judged checks with a 4-bit Qwen3.6-27B) measures prevalence and evolution over commit history.",
+  "claims": [
+    {"claim": "Over 99% of SKILL.md files contain at least one skill smell; average 10.5 smells per file; 11 of 26 smells occur in >50% of files", "evidence": "Table IV and Finding 3: only one of 238 files smell-free, mean 10.5. But 21 of 26 smells are detected by an LLM whose validation is a single weighted F1=0.78 (P=0.79, R=0.78) on 53 files; no per-smell precision/recall. Validation-set vs full-sample frequencies diverge strongly for some smells (MT 57% vs 25%, TOB 36% vs 8%, BG 57% vs 81%), suggesting per-smell detector error that the aggregate F1 hides. Table IV header says 'Entire Sample (228 Skills)' while text says 238.", "strength": "moderate", "location": "§IV RQ3, Table IV, §III-C"},
+    {"claim": "Skill smells rarely disappear once introduced and become more prevalent over time", "evidence": "Figure 4 heatmap over 142 multi-commit files, 35 weekly bins with last-observation-carried-forward; early weeks contain very few files (starting from one), and the authors concede prevalence is merely stable in the window where all files exist. No statistical trend test. Conclusion's 'become more common' is stronger than Finding 4's 'rarely disappear'.", "strength": "weak", "location": "§III-D, §IV RQ4, Fig. 4"},
+    {"claim": "Skill smells impair agent performance, efficiency and safety", "evidence": "Not measured. §V argues by analogy to prior context-quality literature and explicitly says direct impact 'remains an open question'.", "strength": "unsupported", "location": "§V"},
+    {"claim": "Taxonomy of 13/44 semantic components derived reliably", "evidence": "Two-author coding with negotiated agreement on 128 files, codebook applied to remaining 110; no inter-rater agreement statistic reported.", "strength": "moderate", "location": "§III-A, §IV RQ1"}
+  ],
+  "patterns": [
+    {"id": "P02", "stance": "neutral", "note": "Characterizes the artifact that implements on-demand skills; documents quality gaps but does not measure whether skills help or hurt agents."},
+    {"id": "P01", "stance": "neutral", "note": "Findings on instruction-file authoring (context bloat, undelegated details, missing verification steps) are analogous to AGENTS.md hygiene, not measured on agent outcomes."},
+    {"id": "P17", "stance": "introduces", "note": "Proposes a linter-like smell detector for skill files, suggests CI integration; no evidence that fixing smells improves outcomes."},
+    {"id": "P18", "stance": "neutral", "note": "Uses an LLM as classifier for 21 smells, validated only by aggregate weighted F1 on 53 files."}
+  ],
+  "methodology": {
+    "sample": "238 SKILL.md files (one per repo, repos >=8,000 stars, >=10 weekly downloads, English) from a skills.sh dump of 133,149 skills; 142 multi-commit files / 1,199 commits for RQ4; 29 grey-literature sources for best practices; 53-file labeled validation set",
+    "baselines": "None (descriptive study); no comparison detector",
+    "models": "Single detector LLM: Qwen3.6-27B 4-bit AWQ in thinking mode",
+    "variance": "No repeated runs of the stochastic detector; no inter-rater kappa; no CIs on prevalence",
+    "ablations": "None",
+    "contamination_controls": "n/a",
+    "languages": "Natural-language Markdown skill files, English only; skill target domains not broken down"
+  },
+  "standards": {
+    "peer_review": "arXiv preprint, no venue in comment or journal_ref",
+    "limitations_section": true,
+    "artifacts": "Supplementary material on anonymous.4open.science (code, data, prompt, per-skill figures) per §VII and ref [50]",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "llm_judge_unvalidated", "detail": "21 of 26 smells judged by a single quantized LLM; only aggregate weighted F1 0.78 reported, no per-smell metrics, yet per-smell prevalences are headline results."},
+    {"type": "metric_mismatch", "detail": "Smells are defined as deviations from majority grey-literature advice, not from any measured effect on agent behavior; 'quality' is asserted, not shown."},
+    {"type": "single_model", "detail": "One detector model; authors concede prevalence may differ with other models or quantization."},
+    {"type": "selection_bias_participants", "detail": "Only popular English skills from one marketplace, one per repository; enterprise/private skills not represented."},
+    {"type": "no_variance_reported", "detail": "No inter-rater agreement statistic, no repeated detector runs, no trend test for RQ4."},
+    {"type": "other:internal_inconsistency", "detail": "Table IV header lists 228 skills vs 238 in text; conclusion claims smells 'become more common' while Finding 4 only says they persist."}
+  ],
+  "coi": {
+    "affiliations": "University of California, Irvine (all three authors)",
+    "vendor_products_evaluated": "None ranked; Anthropic's Agent Skills format is the object of study",
+    "funding": "No acknowledgments/funding section found",
+    "severity": "none",
+    "detail": "Academic authors studying a public artifact format; no product being promoted."
+  },
+  "scores": {"rigor": 3, "reproducibility": 3, "generalizability": 2, "relevance": 3, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Careful sampling and a reusable checklist of SKILL.md anti-patterns, but prevalence numbers rest on a single quantized LLM judge with only aggregate validation, the 'skills smells hurt agents' premise is not tested, and the evolution claim is weak. Admit as a descriptive catalogue, not as evidence that any smell affects outcomes.",
+  "applicability": "If the team ships shared skills (e.g. 'ingest a content package', 'add a delivery endpoint', 'write the spec for a feature') across mixed hosts, the 26-smell list is a cheap review checklist: delegate details to reference files, include validation/feedback steps, avoid context bloat, add safeguards. The static subset (size, naming, structured tags) can become a deterministic CI lint in the harness repo; the semantic subset should not gate merges given F1 0.78 and no per-smell validation. Nothing here is Java-, healthcare- or multi-repo-specific, and it gives no evidence on whether skills beat AGENTS.md or specs for spec-driven work.",
+  "conflicts_with": [
+    {"arxiv_id": "2608.08453", "detail": "Larger SKILL.md corpus study (138K files) on reusability; prevalence estimates from a 238-file popular-only sample should be checked against it."}
+  ]
+}

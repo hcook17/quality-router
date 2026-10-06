@@ -1,0 +1,36 @@
+{
+  "arxiv_id": "2606.04769",
+  "contribution_type": "empirical",
+  "summary": "Defines Description-Code Inconsistency (DCI) in MCP servers — tool descriptions that overclaim, omit, misstate, or hide side effects relative to code — with a seven-subtype taxonomy. DCIChecker extracts tool descriptions plus an AST-based code bundle (call depth 3, sensitive APIs) and asks Claude Sonnet 4.5 direct and reverse consistency questions with arbitration on disagreement. Applied to 19,200 tool pairs from 2,214 Python MCP servers, it flags 9.93% of tools and 35% of servers.",
+  "claims": [
+    {"claim": "DCIChecker detects DCI with ~96-97% precision/recall/F1 and outperforms MCPDiff, Agent Scan, MCP-Shield, Semgrep, Bandit.", "evidence": "Table IV: DRA on D_real P 96.00 / R 97.46 / F1 96.73; D_syn F1 96.16. But D_real is 200 predicted-consistent + 200 predicted-inconsistent pairs sampled from DCIChecker's own output (§V-A), so recall is not reweighted to the ~89% predicted-consistent population; with 5 FN in 200 predicted-consistent, population-level recall is likely materially lower than 97%. D_syn is LLM-mutated pairs following the authors' own taxonomy. MCPDiff is the authors' re-implementation (Table III footnote). Security scanners are not designed for DCI, so their low coverage is expected.", "strength": "moderate", "location": "§V-A, §V-B, Tables III-IV"},
+    {"claim": "DCI is widespread: 9.93% of tools and 35.00% of servers.", "evidence": "Table V: 1,907/19,200 tools; 775/2,214 servers. Numbers match abstract. Depends on detector precision (8 FPs in 200 flagged sample) and includes demo/toy servers (e.g., Case 1 weather->currency, Case 7 echo returning SECRET_KEY), which may inflate prevalence relative to production servers.", "strength": "moderate", "location": "§V-C, Table V"},
+    {"claim": "Direct-Reverse-Arbitration prompting reduces prompt-direction bias.", "evidence": "Table IV ablation: direct-only recall 47.21% on D_real, reverse-only precision 78.80%; DRA balances. Single model, temperature 0.", "strength": "moderate", "location": "§V-B Table IV"},
+    {"claim": "DCI creates practical consequences up to malicious exploitation and a defense blind spot.", "evidence": "§V-D gives 8 illustrative cases; no agent runs measuring task failure or exploitation rates.", "strength": "weak", "location": "§V-D, Table VI"}
+  ],
+  "patterns": [
+    {"id": "P04", "stance": "mixed", "note": "MCP as integration layer carries a measured trust gap: ~10% of tools' descriptions misrepresent code."},
+    {"id": "P22", "stance": "neutral", "note": "Positions DCI as complementary to prompt-injection/tool-poisoning defenses."},
+    {"id": "P21", "stance": "neutral", "note": "Recommends allow-lists, confirmation gates, egress restrictions (§VI-A); not evaluated."},
+    {"id": "P20", "stance": "neutral", "note": "Recommends sandboxing uncertain tools; not evaluated."},
+    {"id": "P18", "stance": "supports", "note": "LLM judge with bidirectional prompts + arbitration validated against 400 human-labelled pairs (two annotators + senior arbiter)."},
+    {"id": "P05", "stance": "supports", "note": "AST-based code-bundle extraction feeding the judge; not ablated separately."}
+  ],
+  "methodology": {"sample": "D_large 19,200 pairs / 2,214 Python servers (from prior dataset [14]); D_real 400 human-labelled; D_syn 560 (280 consistent seeds + 280 LLM-mutated, human-selected).", "baselines": "MCPDiff (re-implemented), Agent Scan, MCP-Shield, Semgrep, Bandit.", "models": "claude-sonnet-4-5-20250929-thinking only, temperature 0.", "variance": "None reported; single deterministic-setting run.", "ablations": "Direct vs Reverse vs DRA.", "contamination_controls": "None discussed for the LLM having seen public MCP repos.", "languages": "Python MCP servers only."},
+  "standards": {"peer_review": "arXiv preprint ('Preprint').", "limitations_section": true, "artifacts": "Prompts and algorithm in Appendix B; no code or dataset release link found in the text.", "preregistration": "n/a"},
+  "biases": [
+    {"type": "single_language_python", "detail": "Only Python MCP servers analyzed (§V-A)."},
+    {"type": "single_model", "detail": "Only Claude Sonnet 4.5 used as the checker."},
+    {"type": "self_evaluation", "detail": "Synthetic benchmark built from authors' taxonomy; real benchmark sampled from the tool's own predictions."},
+    {"type": "metric_mismatch", "detail": "Recall on a 50/50 stratified sample of own predictions is not population recall."},
+    {"type": "strawman_baseline", "detail": "General security scanners are not designed for description-code consistency; MCPDiff re-implemented by the authors."},
+    {"type": "closed_artifacts", "detail": "No released detector code or labelled data."},
+    {"type": "cherry_picked_examples", "detail": "Consequences shown via 8 selected cases rather than measured agent outcomes."}
+  ],
+  "coi": {"affiliations": "Fudan University (all authors).", "vendor_products_evaluated": "Claude Sonnet 4.5 used as backbone, not evaluated favorably per se; competitors' scanners compared.", "funding": "Not stated.", "severity": "none", "detail": "Academic tool authors evaluating their own tool (captured as self_evaluation bias, not vendor COI)."},
+  "scores": {"rigor": 3, "reproducibility": 1, "generalizability": 2, "relevance": 3, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Real problem, large measurement, human-labelled validation and a meaningful prompting ablation; but single model, Python-only, recall measured on a sample of the tool's own outputs, synthetic set built from the authors' taxonomy, consequences only illustrated, and no artifacts. The ~10% prevalence is a reasonable order-of-magnitude signal, not a precise rate.",
+  "applicability": "For a mixed-host team wiring MCP servers (third-party and internal) into agents that touch healthcare-education content, this argues that tool descriptions are part of the spec and must be verified, not trusted: (a) for internal Java MCP servers, generate descriptions from code/annotations or check them in CI so they cannot drift (spec-driven fits naturally — treat the tool description as a contract); (b) for third-party servers, keep a small allow-listed catalog and gate mutating/egress tools. Detection results do not transfer to Java servers (Python-only AST extraction), so the team would need its own extractor; the DRA prompting idea is cheap to reuse in a review hook.",
+  "conflicts_with": []
+}

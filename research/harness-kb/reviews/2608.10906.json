@@ -1,0 +1,37 @@
+{
+  "arxiv_id": "2608.10906",
+  "contribution_type": "dataset",
+  "summary": "GitSkills is a 3-page MSR '27 data-showcase paper releasing an SQLite dataset of 3,797,117 SKILL.md files from 282,200 public GitHub repositories (July 2026), deduplicated to 1,877,981 distinct contents and enriched with front matter, sibling files, repo metadata and sampled commit history. It reports only descriptive counts (e.g. 50.5% of files are byte-identical copies) and lists research questions; no analysis of skill quality or effect is performed.",
+  "claims": [
+    {"claim": "Dataset contains 3,797,117 SKILL.md files from 282,200 repos, 1,877,981 distinct contents.", "evidence": "Table I and §I; collection method (size-partitioned code search to bypass the 1,000-result cap) in Appendix A.", "strength": "strong", "location": "§I, Table I, Appendix A"},
+    {"claim": "Reuse happens by copying: 50.5% of collected files are byte-for-byte copies of another file.", "evidence": "Single sentence in §III.3; follows from content-hash grouping. No breakdown by template/catalog vs organic reuse.", "strength": "moderate", "location": "§III item 3"},
+    {"claim": "Dataset is a lower bound on the public population.", "evidence": "Appendix A lists GitHub code-search coverage limits (default branch only, <384 KB, forks only if more stars, recently active repos); 54,289 case-variant skill.md files (1.4%) retained, some predating the format.", "strength": "strong", "location": "Appendix A"}
+  ],
+  "patterns": [
+    {"id": "P02", "stance": "neutral", "note": "Documents mass adoption of on-demand skills (SKILL.md) but measures nothing about whether skills improve agent outcomes."},
+    {"id": "P01", "stance": "neutral", "note": "Skills as repo-committed instruction artifacts; raises (does not answer) questions about vendor-neutral vs tool-specific locations."},
+    {"id": "P22", "stance": "neutral", "note": "Flags supply-chain risk: copied skills without review may add command execution or network access (RQ 5b); not measured."}
+  ],
+  "methodology": {
+    "sample": "3,797,117 files / 282,200 repos / 195,841 accounts; commit history for standard locations plus size-stratified sample (458,548 records).",
+    "baselines": "n/a (dataset paper).",
+    "models": "n/a.",
+    "variance": "n/a.",
+    "ablations": "n/a.",
+    "contamination_controls": "n/a; 42 representatives changed between discovery and fetch (flagged via content_sha_ok); folder listings missing for 1,544 representatives.",
+    "languages": "Natural-language skill files; repo primary language recorded as metadata."
+  },
+  "standards": {"peer_review": "To appear, MSR '27 (3 pp, data showcase)", "limitations_section": false, "artifacts": "Full SQLite on Zenodo (doi 10.5281/zenodo.21875637), Parquet mirror on Hugging Face, sample on GitHub; collection tool details in Appendix A. Coverage limits discussed in Appendix A though no formal limitations section.", "preregistration": "n/a"},
+  "biases": [
+    {"type": "survivorship", "detail": "GitHub code search indexes only default branches, active repos and higher-starred forks; private/enterprise skills (the kind a healthcare team would write) are absent."},
+    {"type": "metric_mismatch", "detail": "Copy count and file presence are popularity proxies, not evidence of skill usefulness; paper itself does not claim usefulness, but downstream users may misread adoption as efficacy."}
+  ],
+  "coi": {"affiliations": "University College London; University of Hohenheim; University of Cagliari.", "vendor_products_evaluated": "None evaluated; Anthropic's format and Claude Code conventions used as reference (the .claude/skills/ location is preferred for representative selection).", "funding": "Hector Stiftung (one author).", "severity": "none", "detail": "Academic authors, no vendor funding; first author also cites own prior skill-authoring preprint (arXiv:2607.25032)."},
+  "scores": {"rigor": 2, "reproducibility": 5, "generalizability": 3, "relevance": 2, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Solid, openly released dataset with transparent collection limits, but contributes no findings about whether skills work; only descriptive counts. Admit as infrastructure, not as evidence for any harness pattern.",
+  "applicability": "Indirect. For a team with mixed agent hosts adopting skills, the dataset can be mined to find existing Java/Spring, ingestion, or spec-driven-development skills and to see how often skills sit in vendor-neutral vs host-specific folders (.claude/skills/ etc.) before deciding where the team's skills live across its 4+ ingestion repos. The 50.5% copy rate and the absence of a registry are a caution: if the team copies skills between repos, it needs its own provenance/versioning (e.g. a single source repo synced by CLI) and a review gate for skills that execute scripts. It provides no evidence that skills improve correctness for healthcare content pipelines.",
+  "conflicts_with": [
+    {"arxiv_id": "2608.08453", "detail": "Mines 138K SKILL.md files for reusability vs 3.8M here; differing corpus definitions/dedup mean prevalence statistics across the two are not directly comparable."}
+  ]
+}

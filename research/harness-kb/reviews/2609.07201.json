@@ -1,0 +1,53 @@
+{
+  "arxiv_id": "2609.07201",
+  "contribution_type": "system",
+  "summary": "Five-page work-in-progress paper proposing a two-loop workflow for repairing decompiled C of whole command-line binaries: deterministic preprocessing plus LLM build repair driven by compiler/linker diagnostics, then LLM semantic repair driven by smoke checks and related official Coreutils tests. On 104 GNU Coreutils 9.5 binaries, 91 (87.5%) recompile and pass the test gate.",
+  "claims": [
+    {"claim": "91 of 104 Coreutils binaries (87.5%) recompile and pass the test gate; 9 fail to recompile, 4 recompile but fail the gate.", "evidence": "Table 1 matches the abstract exactly. But the related official tests used as the acceptance gate are the same tests whose discrepancy summaries drive semantic repair (§3, §4.1), so acceptance is not measured on held-out behavior; the LLM, decompiler and iteration-extension counts are not named in the text.", "strength": "moderate", "location": "§4.2, Table 1"},
+    {"claim": "Recompilation is not enough: compile/smoke-passing binaries can still fail official tests, so test-gate feedback is needed.", "evidence": "Only a single illustrative case (cut passed 2 of 5 related tests after compile+smoke pass, Fig. 1). The paper never reports how many of the 95 recompiled binaries would have failed the gate before semantic repair, so the size of the compile-only gap is unquantified.", "strength": "weak", "location": "§2, Fig. 1, §4.2"},
+    {"claim": "Test-gate feedback makes LLM-assisted repair more auditable than compile-only recovery.", "evidence": "Argued from the explicit per-binary stage labels and recorded budgets (§3, §5); auditing of generated repairs against test-name branches and answer-key shortcuts is described but no audit counts are reported.", "strength": "weak", "location": "§3, §5"},
+    {"claim": "Total repair effort across the 104 binaries was 6.87M tokens.", "evidence": "§4.3 single aggregate; no per-binary distribution, cost, or wall-clock figures.", "strength": "moderate", "location": "§4.3"}
+  ],
+  "patterns": [
+    {"id": "P16", "stance": "supports", "note": "Staged compile -> test-gate verifier loop with bounded iterations and explicit failure labels; evidence limited to one utility family and no compile-only counterfactual."},
+    {"id": "P28", "stance": "neutral", "note": "Deterministic, source-independent preprocessing rules normalise recurring decompiler artifacts before the LLM is invoked."},
+    {"id": "P24", "stance": "neutral", "note": "Fixed iteration budgets (three build, three semantic) treated as part of the method; total tokens reported."},
+    {"id": "P30", "stance": "neutral", "note": "Each binary keeps a repair trace with stage labels for audit."}
+  ],
+  "methodology": {
+    "sample": "104 GNU Coreutils 9.5 binaries restricted to those with decompiler exports and deterministic exact-output smoke comparisons (selection excludes harder, nondeterministic utilities).",
+    "baselines": "None: no compile-only, no prior decompilation-repair systems (DecLLM, PseudoFix, etc.), no pseudo-only track.",
+    "models": "LLM not identified in the text; decompiler not named.",
+    "variance": "Single run; no seeds or repetition.",
+    "ablations": "None; pseudo-only and component ablations listed as future work (§5, §7).",
+    "contamination_controls": "Coreutils source excluded from repair input, but Coreutils is a heavily public codebase likely memorised by any LLM; not discussed.",
+    "languages": "C (decompiled), Coreutils only."
+  },
+  "standards": {
+    "peer_review": "Workshop-length preprint (comment: 5 pages, 2 figures); no venue.",
+    "limitations_section": false,
+    "artifacts": "No code, data or traces released or linked.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "other:test_set_as_feedback", "detail": "Related official tests are both repair feedback and acceptance gate; passing them shows fitting to the tests, not behavioral equivalence (partially acknowledged in §5)."},
+    {"type": "contamination_risk", "detail": "GNU Coreutils source is ubiquitous in training data; LLM repair may recall upstream code rather than reason from decompiled C."},
+    {"type": "strawman_baseline", "detail": "No baseline at all; 'compile-only' is the implied comparison but never measured."},
+    {"type": "single_model", "detail": "One unnamed LLM, one decompiler, one utility family."},
+    {"type": "no_variance_reported", "detail": "Single run with no repeats."},
+    {"type": "closed_artifacts", "detail": "No repository or trace release."},
+    {"type": "cherry_picked_examples", "detail": "The motivating gap rests on one cut example."}
+  ],
+  "coi": {
+    "affiliations": "Xidian University and Ant Group (Yuhan Huang, dual); Ant Group (Puzhuo Liu); Xidian University (Jianlei Chi).",
+    "vendor_products_evaluated": "None; Ant Group product or model not evaluated.",
+    "funding": "No funding statement found.",
+    "severity": "low",
+    "detail": "Vendor affiliation present but the paper does not promote a vendor product or model."
+  },
+  "scores": {"rigor": 2, "reproducibility": 0, "generalizability": 1, "relevance": 1, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Headline numbers are internally consistent (Table 1), but it is a preliminary single-run study with no baseline, no named model, no artifacts, test-as-feedback-and-gate leakage, and obvious contamination risk on Coreutils. Admit only as weak support for staged compile-then-test verification.",
+  "applicability": "Low direct relevance: decompiled C repair does not occur in a Java ingestion/delivery stack. The transferable pattern is the discipline of a two-stage gate (compile/build first, then behavior tests) with bounded retries and explicit per-unit failure labels, which a Java harness can apply per ingestion module (mvn/gradle compile, then contract and golden-output tests on content transformations). The paper also illustrates the trap of using the same tests as feedback and acceptance; for spec-driven development across >=4 repos, keep a held-out acceptance suite derived from the spec that the agent never sees during repair.",
+  "conflicts_with": []
+}

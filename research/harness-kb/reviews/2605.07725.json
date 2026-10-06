@@ -1,0 +1,31 @@
+{
+  "arxiv_id": "2605.07725",
+  "contribution_type": "empirical",
+  "summary": "SOD modifies on-policy distillation for small models doing tool-integrated reasoning with a Python interpreter. It reweights the teacher's token-level signal per step by student-teacher divergence, so supervision is damped after an erroneous tool call has pushed the student off-distribution. Qwen3-0.6B/1.7B students distilled from a GRPO-tuned Qwen3-4B teacher beat SFT, GRPO, OPD and OPSD baselines on AIME 2024/2025, GPQA-Diamond and LiveCodeBench.",
+  "claims": [
+    {"claim": "Up to 20.86% improvement over the second-best baseline", "evidence": "Table 1: 0.6B average 24.22 (SOD) vs 20.04 (OPD), a relative gain of 20.86%, i.e. about 4.2 absolute points. 1.7B: 42.98 vs 36.27 (18.50% relative). The abstract's 'improvement' is relative, not absolute.", "strength": "strong", "location": "§5.2, Table 1"},
+    {"claim": "0.6B student reaches 26.13% on AIME 2025, 'first sub-billion model' at this level", "evidence": "Table 1: 26.13 ± 1.07 (avg@32 over 5 runs). The 'first' claim is asserted without a survey or comparison.", "strength": "moderate", "location": "§1, Table 1"},
+    {"claim": "Naive OPD fails under tool-induced state drift; step-wise reweighting fixes it", "evidence": "Propositions 1-2 (§4.1); training dynamics in Fig. 4 (OPD 1.7B peaks then degrades); ablation of six variants (§5.3); 14B-teacher generalization (§5.4, Fig. 3).", "strength": "moderate", "location": "§4.1, §5.3-5.5"}
+  ],
+  "patterns": [
+    {"id": "P25", "stance": "supports", "note": "Distillation-based post-training of small tool-using models, with seeds and ablations; limited to Python-interpreter TIR."},
+    {"id": "P33", "stance": "neutral", "note": "Code-interpreter-as-tool setting (multi-turn TIR)."},
+    {"id": "P23", "stance": "neutral", "note": "Makes small models more capable, which could feed a cheap tier in a cascade; routing itself is not studied."}
+  ],
+  "methodology": {"sample": "4 benchmarks (AIME24, AIME25, GPQA-Diamond, LiveCodeBench); 3k SFT + 30k RL training examples", "baselines": "Vanilla, SFT, GRPO, OPD, OPSD-gt, OPSD-hint under one shared config. At 0.6B, SFT and GRPO score below the untrained model (e.g. AIME24 7.71 → 5.67 / 4.06), which suggests the baselines were not tuned per method.", "models": "Qwen3 family only (0.6B/1.7B students; 4B and 14B teachers)", "variance": "avg@32 samples, 5 seeds, ± reported in Table 1", "ablations": "Six variants on step reweighting and objective (§5.3); teacher scale (§5.4)", "contamination_controls": "LiveCodeBench is contamination-aware; AIME 2024/2025 overlap with Qwen3 pretraining is not discussed", "languages": "Python (code interpreter, LiveCodeBench stdin/stdout)"},
+  "standards": {"peer_review": "None stated (arXiv preprint)", "limitations_section": true, "artifacts": "Code at github.com/YoungZ365/SOD; HF collection youngzhong/sod", "preregistration": "n/a"},
+  "biases": [
+    {"type": "single_model", "detail": "Qwen3 family only (acknowledged in §6)."},
+    {"type": "single_language_python", "detail": "Python interpreter is the only tool; acknowledged that web/API agents may drift differently."},
+    {"type": "strawman_baseline", "detail": "Shared hyperparameters 'to isolate the effect' leave SFT/GRPO below the vanilla model at 0.6B."},
+    {"type": "contamination_risk", "detail": "AIME results on Qwen3 are not checked for training-data overlap."}
+  ],
+  "coi": {"affiliations": "Zhejiang University, Tencent (Large Language Model Department), USTC, National University of Singapore; work done during a Tencent internship", "vendor_products_evaluated": "None of Tencent's; Qwen3 (Alibaba) open models used", "funding": "Not stated", "severity": "low", "detail": "Vendor-affiliated authors evaluating a training method on a competitor's open models; no product promotion."},
+  "scores": {"rigor": 3, "reproducibility": 4, "generalizability": 2, "relevance": 1, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Sound ML evaluation with 5 seeds, variance, ablations, two teacher scales and released code. It is narrow (one model family, Python interpreter, math/science/competitive coding) and its baselines may be undertuned. Admitted only as background on agent-model training; it is very weakly relevant to harness design.",
+  "applicability": "Little direct transfer. A Java backend team building a harness across mixed agent hosts will not distill its own sub-2B tool-using models, and the paper's tasks (AIME, GPQA, LiveCodeBench in Python) do not resemble multi-repo ingestion work or spec-driven development. The only takeaway is indirect: small models fail by cascading errors after a bad tool call. That argues for cheap, early verifier checks (compile or test after each tool action) if a small or cheap model tier is ever used.",
+  "conflicts_with": [
+    {"arxiv_id": "2609.33791", "detail": "That paper (per its abstract) finds the update direction on the small subset of tokens with large teacher-student disagreement is what makes OPD work. SOD instead attenuates distillation in high-divergence steps. The granularities differ (token vs step), but the two make opposing prescriptions about high-divergence regions."}
+  ]
+}

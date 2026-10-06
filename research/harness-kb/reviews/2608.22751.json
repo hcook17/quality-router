@@ -1,0 +1,49 @@
+{
+  "arxiv_id": "2608.22751",
+  "contribution_type": "empirical",
+  "summary": "Proposes a lightweight reranker on top of a frozen ToolRet-BGE retriever with two small MLP heads (query-tool relevance, tool-level risk), a tunable safety/utility weight λ, ToolGraph score smoothing, and an optional rule filter. It labels 6,108 tools in UltraTool and Seal-Tools with 5-level risk via three LLM annotators, and defines exposure metrics (RVR@5, SRR@5, sNDCG@5). It reports better relevance-safety trade-offs than relevance-only rerankers.",
+  "claims": [
+    {"claim": "Core+Graph reranker improves relevance over the strongest baseline on UltraTool.", "evidence": "Table 2: NDCG@5 0.562 vs ToolRet-BGE 0.429; MRR 0.625. Ours scores the full tool pool while the 8 baselines rerank ToolRet-BGE top-100, so the setups differ; under matched top-100 candidates Core+Graph gets 0.621 NDCG@5 (App. E.2). Means over 3 seeds, SDs in App. E.1.", "strength": "moderate", "location": "§5.2, Table 2, App. E"},
+    {"claim": "Rule-filtered variant substantially reduces risky-tool exposure.", "evidence": "Table 2: UltraTool RVR@5 0.073 and SRR@5 0.019 vs ToolRet-BGE 0.176/0.078; Seal-Tools RVR@5 0.007 vs 0.020. The rule filter consumes the same LLM-derived risk labels used for evaluation, so the reduction is partly circular.", "strength": "moderate", "location": "§5.2, §4.5, App. C"},
+    {"claim": "Risk labels are reliable enough to supervise and evaluate.", "evidence": "Human audit of 150 tools: 60.0% exact agreement, quadratically weighted κ=0.362; Krippendorff α 0.523 on UltraTool across LLM annotators. Human auditor rated health/financial access more conservatively.", "strength": "weak", "location": "§4.2, Table 1"},
+    {"claim": "Retrieval-stage filtering reduces the action space exposed to agents before execution.", "evidence": "Only a qualitative 6-query inspection (Table 8). No downstream agent execution, task success, or attack-based evaluation.", "strength": "weak", "location": "§5.7, Table 8"}
+  ],
+  "patterns": [
+    {"id": "P03", "stance": "introduces", "note": "Risk-aware top-k tool exposure as a way to shrink and safen the tool catalog; evidence is retrieval metrics only."},
+    {"id": "P21", "stance": "introduces", "note": "Rule filter with risk caps and permission constraints over an audited tool registry; no runtime enforcement evaluated."},
+    {"id": "P06", "stance": "neutral", "note": "Embedding retrieval over tool descriptions with learned heads."}
+  ],
+  "methodology": {
+    "sample": "UltraTool: 2,032 tools, 1,000 test queries; Seal-Tools: 4,076 tools, 700 test_in + 654 test_out queries.",
+    "baselines": "ToolRet-BGE plus 8 general-purpose rerankers (MiniLM CE, BGE-reranker-v2-m3, mxbai, MonoT5, Qwen2 rerankers). None of them is risk-aware, so the safety comparison is against methods that do not try to reduce risk.",
+    "models": "Frozen ToolRet-BGE-large encoder; 196,866-parameter heads.",
+    "variance": "3 seeds; means in main tables, SDs in App. E.1.",
+    "ablations": "Component analysis (§5.3), λ sweep (§5.4), stress tests (§5.6).",
+    "contamination_controls": "n/a; OOD split (Seal-Tools test_out) used.",
+    "languages": "n/a (tool descriptions, natural language)."
+  },
+  "standards": {
+    "peer_review": "Accepted at CIKM 2026 (comment).",
+    "limitations_section": true,
+    "artifacts": "Code and supplementary materials at github.com/qli447/risk-aware-tool-retrieval-release.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "strawman_baseline", "detail": "Safety gains are measured against relevance-only rerankers that have no risk objective; no risk-aware or permission-filter baseline (e.g., a simple metadata filter over the same labels)."},
+    {"type": "llm_judge_unvalidated", "detail": "Risk labels from Claude Code/Codex/Qwen voting are both training supervision and the evaluation ground truth; human agreement κ=0.362 is low."},
+    {"type": "metric_mismatch", "detail": "RVR/SRR measure exposure of risky tools in top-5, not whether an agent misuses them or whether tasks still succeed."},
+    {"type": "toy_tasks", "detail": "Synthetic tool benchmarks (UltraTool, Seal-Tools), not real MCP catalogs."}
+  ],
+  "coi": {
+    "affiliations": "USTC, UESTC, Lanzhou University, University of Glasgow, City University of Hong Kong, Ohio State University; one author (Dexu Yu) listed at Fenz.AI.",
+    "vendor_products_evaluated": "None of the authors' products evaluated; commercial LLMs used only as annotators.",
+    "funding": "National Natural Science Foundation of China Grant 72401282.",
+    "severity": "low",
+    "detail": "One startup affiliation; no product under evaluation."
+  },
+  "scores": {"rigor": 3, "reproducibility": 4, "generalizability": 2, "relevance": 2, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Peer-reviewed, seeds and SDs reported, and code released. But the safety metric is circular with weak LLM-derived labels, the baselines are risk-unaware, and nothing is shown at the level of agent behaviour.",
+  "applicability": "Mostly indirect. A team running a small, curated MCP tool set (≤15 tools, per the repo invariants) does not need learned tool retrieval at all. The transferable idea is to attach a risk level and permission metadata to each tool and filter exposure deterministically per task (e.g., write/delete tools for content stores hidden during read-only ingestion analysis). That is a policy-as-code rule the CLI can enforce identically across mixed agent hosts, not a learned reranker. Healthcare-adjacent data access is exactly where the human auditor disagreed with LLM labels, so risk labels for tools touching learner or PHI-like data should be set by humans.",
+  "conflicts_with": []
+}

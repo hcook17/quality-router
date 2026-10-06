@@ -1,0 +1,52 @@
+{
+  "arxiv_id": "2609.35811",
+  "contribution_type": "system",
+  "summary": "Lookahead-R treats tool retrieval from a big API catalog (ToolBench) as budget-constrained planning. A LoRA-fine-tuned Llama-3-8B 'world model' predicts whether a tool call will succeed, how long it will take, and how useful it is, and a cost-aware MCTS uses those predictions to rank tools without calling real APIs. It reports NDCG@5 of 91.40 on ToolBench I3 versus 90.16 for ToolGen.",
+  "claims": [
+    {"claim": "On I3, NDCG@5 is 91.40% versus 90.16% for ToolGen (+1.24).", "evidence": "Table 1 I3@5: Lookahead-R 91.40 vs ToolGen 90.16, IterFeedback 90.20. The number is present, but it is one run with no variance, and the margin over IterFeedback is 1.2 points.", "strength": "moderate", "location": "§4.2, Table 1"},
+    {"claim": "Lookahead-R consistently outperforms all baselines in NDCG.", "evidence": "Contradicted by the paper's own Table 1. I1@3 is 89.65 vs 90.95 (IterFeedback) and 90.85 (ToolGen). I1@5 is 89.80 vs 92.67 (ToolGen) and 92.47 (IterFeedback). I2@1 is 90.12 vs 91.45 (ToolGen). The abstract's 'superior trade-off across all test scenarios' is overstated.", "strength": "unsupported", "location": "§4.2 'Superior Ranking Capability', Table 1"},
+    {"claim": "Better ranking translates into higher Pass Rate (77.4%) and Win Rate (66.8%).", "evidence": "Table 1 last columns: 77.4 / 66.8 vs ToolGen 75.8 / 63.9. The text then cites a 'Win Rate' drop from 78.5% to 75.2% for w/o Cost Penalty, but those are the Success Rate values for Full vs Cost-Shuffled in Table 2. The metrics are mixed up, and how PR/WR are judged is not specified.", "strength": "weak", "location": "§4.2, Tables 1-2"},
+    {"claim": "Explicit latency modeling is the key signal, since shuffling the cost labels raises latency from 680 ms to 1,120 ms.", "evidence": "Table 2 ablation, on I1 only (N=1,000), single run, with a qualitative 'Diversity' column. It is internally consistent but small, and it is not run on the I3 split where the headline claim is made.", "strength": "moderate", "location": "§4.4, Table 2"},
+    {"claim": "Anytime behaviour: quality improves monotonically with the latency budget and beats generative baselines below 500 ms.", "evidence": "Figure 3 only (not readable in the text extraction). No tabulated numbers.", "strength": "weak", "location": "§4.3, Fig. 3"}
+  ],
+  "patterns": [
+    {"id": "P03", "stance": "introduces", "note": "Narrows a 47k-API catalog to a few executable tools per query. Relevant to keeping the live tool catalog small, but evaluated only on ToolBench."},
+    {"id": "P24", "stance": "introduces", "note": "Puts latency and a budget into the retrieval objective. The cost evidence comes from a single-split ablation."},
+    {"id": "P31", "stance": "neutral", "note": "Benchmark-only evaluation on ToolBench I1-I3."}
+  ],
+  "methodology": {
+    "sample": "ToolBench official split I1/I2/I3 (87,413 / 84,815 / 25,251 instances per §4.1). Ablation on 1,000 I1 queries.",
+    "baselines": "BM25, EmbSim (Ada-002 in the table, text-embedding-3-large in the text), ToolRetriever, Re-Invoke, IterFeedback (GPT-3.5), long-context GPT-4o over 2k tools, and ToolGen. The list follows ToolGen and the numbers look reused from prior work; there is no statement that baselines were re-run.",
+    "models": "Llama-3-8B-Instruct world model (LoRA in §4.1, QLoRA in §3.2). The teacher is 'e.g., Qwen3-Max' for trace mining and utility grading.",
+    "variance": "None reported. Single runs, no CIs.",
+    "ablations": "Three mechanism ablations on I1 (Table 2).",
+    "contamination_controls": "States that the test splits are disjoint from the training instructions (§4.1). Training traces are synthesized from 10% of the G1-G3 seed data.",
+    "languages": "n/a (API/tool retrieval over natural-language queries)"
+  },
+  "standards": {
+    "peer_review": "Published at ICMR 2026 (arXiv comment, DOI 10.1145/3805622.3810632).",
+    "limitations_section": false,
+    "artifacts": "No code, data, or model link found in the text or metadata.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "cherry_picked_examples", "detail": "The abstract highlights I3@5, the only cell with a clear win. I1@3, I1@5 and I2@1 lose to ToolGen/IterFeedback, yet the text says 'consistently outperforms all baselines'."},
+    {"type": "no_variance_reported", "detail": "No seeds, repeated runs, or CIs for margins of about 1 NDCG point."},
+    {"type": "llm_judge_unvalidated", "detail": "Training utility labels are rubric scores from teacher LLM prompts (median of 3) with no human validation. Pass Rate and Win Rate judging is unspecified."},
+    {"type": "closed_artifacts", "detail": "No code, model, or synthesized trace dataset released."},
+    {"type": "hype_language", "detail": "'Paradigm Shift', 'mine execution physics', 'uniquely suitable for real-time systems'."},
+    {"type": "other:internal_inconsistency", "detail": "Win Rate vs Success Rate numbers are confused in §4.2. The EmbSim backbone differs between the text and Table 1. The fine-tuning method is described as LoRA in one place and QLoRA in another. The case study (Table 3) is a multimodal poster query, which does not match ToolBench's text-only setup."}
+  ],
+  "coi": {
+    "affiliations": "Zongze Wu, Yani Guo, and Runnan Li (corresponding author), all at Beijing University of Posts and Telecommunications.",
+    "vendor_products_evaluated": "None of their own. GPT-4o, OpenAI embeddings, and Qwen3-Max are used as baselines or teacher.",
+    "funding": "BUPT Scientific Research Fund 510224070 and a BUPT teaching reform project 2024YB26.",
+    "severity": "none",
+    "detail": "Academic authors with no vendor tie. The only conflict is the usual self-evaluation of their own method."
+  },
+  "scores": {"rigor": 2, "reproducibility": 1, "generalizability": 1, "relevance": 1, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "The headline I3 number is in Table 1, but the paper's own table contradicts its 'outperforms all baselines' claim. There is no variance, no artifacts, and there are metric inconsistencies. Only marginally relevant to coding harnesses: it addresses selection from thousands of APIs, not MCP catalogs of 10-15 tools.",
+  "applicability": "Low. A Java ingestion and delivery team with mixed agent hosts exposes a small MCP tool catalog (well under the roughly 10-15-tool threshold where retrieval over the catalog is even worth considering), so a learned world model plus MCTS for tool ranking is far heavier than the problem needs. The one transferable idea is to rank or prune tools by predicted execution failure and latency, not just description similarity. That is achievable deterministically with schema checks on tool arguments (for example, OpenAPI contracts shared across the ≥4 ingestion repos under spec-driven development). Nothing here touches Java, multi-repo, or healthcare-content concerns.",
+  "conflicts_with": []
+}

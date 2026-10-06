@@ -1,0 +1,43 @@
+{
+  "arxiv_id": "2605.21810",
+  "contribution_type": "system",
+  "summary": "Two NVIDIA authors evolve the natural-language skill file injected into a Claude Opus 4.6 Verilog agent. A GPT-5 oracle mines rollout traces, Claude Sonnet 4.5 mutates the skill, and selection is driven by a hidden-verifier-led score, with an optional budgeted 'dense' verifier feedback tool. On 8 CVDP tasks the seed agent failed, the full configuration achieves at least one pass on 6/8 tasks after 640 rollouts per configuration.",
+  "claims": [
+    {"claim": "Trace2Skill with dense verifier feedback solves 6/8 hard tasks (33.6% pass rate) versus 0/8 for the seed agent.", "evidence": "Table 3: C1 0/8 with 32 rollouts; C4 6/8, 33.6%, with 640 rollouts. 'Solved' means at least one pass across 80 rollouts per task (e.g., PCIe 1/80, §4.4), so this is closer to pass@80 versus pass@4. Compute is 20x unequal, and there is no held-out evaluation: skills are optimized and scored on the same 8 tasks (§3.1).", "strength": "weak", "location": "§4.2 Table 3, §4.4"},
+    {"claim": "Dense feedback adds value specifically when coupled to skill evolution (C3 to C4 at a matched EA budget).", "evidence": "Table 3: C3 3/8 (27.0%) versus C4 6/8 (33.6%) at an equal 640 rollouts. This is a fair within-method comparison, but it rests on 8 tasks with no CIs on pass rate; Figure 3 shows only SEM on proxy metrics.", "strength": "moderate", "location": "§4.2-4.3"},
+    {"claim": "The AgentQ proxy tracks hidden pass/fail closely (r=0.90, AUC 0.982).", "evidence": "§3.2 and Figure 2, on 96 seed-skill baseline rollouts. This is calibrated on the same OSS24 task pool and not validated on evolved-skill rollouts.", "strength": "moderate", "location": "§3.2"},
+    {"claim": "It solves tasks that also defeat frontier agents (Claude Code, Codex).", "evidence": "Appendix Table 4 marks the tasks. The frontier agents were run once per task in their native harness (Table 2: 12/24 each), so the comparison is a single shot versus 80 tuned rollouts.", "strength": "weak", "location": "§4.1 Table 2, App. A1"}
+  ],
+  "patterns": [
+    {"id": "P26", "stance": "mixed", "note": "Evolved skill text raises solved-task count on the tasks it was tuned on. The authors also report that shared skills transferred unreliably across tasks (§1), which undercuts reuse."},
+    {"id": "P02", "stance": "introduces", "note": "The skill document is treated as an evolvable policy injected per task."},
+    {"id": "P16", "stance": "supports", "note": "Budgeted dense verifier feedback (at most 3 calls, sanitized) improved outcomes (C1 to C2 0 to 2/8; C3 to C4 3 to 6/8). For NoobsCpu, all 35 passes used feedback (§4.4)."},
+    {"id": "P30", "stance": "neutral", "note": "Every stage writes traceability artifacts (§2.3, App. A4)."},
+    {"id": "P24", "stance": "neutral", "note": "Per-rollout call budgets and a 30-turn cap are used, but token and dollar cost is never reported despite being acknowledged as compute-intensive (§4.5)."}
+  ],
+  "methodology": {
+    "sample": "24 OSS CVDP tasks for the baseline (6 per CID); 8 hard tasks for the ablation.",
+    "baselines": "Seed-skill agent (32 rollouts), Claude Code and Codex in native harnesses (single runs). Compute is not matched against Trace2Skill (640 rollouts).",
+    "models": "Claude Opus 4.6 for rollouts, GPT-5 as oracle, Claude Sonnet 4.5 as mutator. Only one rollout model is tested.",
+    "variance": "4 repeats per candidate, with SEM on proxy metrics in Figure 3. No CIs on pass rates.",
+    "ablations": "2x2 over evolution and dense feedback (C1-C4).",
+    "contamination_controls": "Hidden harnesses and reference solutions are kept from the agent. However, selection uses hidden-verifier outcomes on the same tasks being reported, so test labels feed the optimizer.",
+    "languages": "Verilog/SystemVerilog only."
+  },
+  "standards": {"peer_review": "None stated (arXiv preprint, no comment).", "limitations_section": true, "artifacts": "No code URL. The appendix has trace excerpts and a component map; full traces are 'in the experiment directories' and not released.", "preregistration": "n/a"},
+  "biases": [
+    {"type": "benchmark_overfit", "detail": "Skills are optimized and evaluated on the same 8 tasks, with hidden-verifier outcomes as the leading selection term (§3.1, §3.2)."},
+    {"type": "small_sample", "detail": "8 hard tasks; 'solved' can mean 1 pass in 80."},
+    {"type": "strawman_baseline", "detail": "The compute-unmatched baseline (32 vs 640 rollouts) and single-shot frontier agents are compared against best-of-many evolution."},
+    {"type": "single_model", "detail": "Only Claude Opus 4.6 is used as the rollout agent."},
+    {"type": "missing_cost_reporting", "detail": "No token, dollar, or wall-clock figures for 640 rollouts per configuration, although the paper admits the method is compute-intensive."},
+    {"type": "closed_artifacts", "detail": "No code or skill release."},
+    {"type": "self_evaluation", "detail": "Authors evaluate their own method on a benchmark co-authored by one of them, using their own metrics (AgentQ, SelectQ)."}
+  ],
+  "coi": {"affiliations": "NVIDIA (both authors).", "vendor_products_evaluated": "CVDP benchmark (Pinckney is first author of the CVDP paper) and NeMo Gym (NVIDIA) as rollout infrastructure. Anthropic and OpenAI models are used as components.", "funding": "Not stated; NVIDIA employment.", "severity": "medium", "detail": "The authors' own method is run on their organization's benchmark and infrastructure and judged by their own proxy metrics. No commercial product is promoted, but there is no independent replication."},
+  "scores": {"rigor": 2, "reproducibility": 1, "generalizability": 1, "relevance": 2, "coi_risk": 2},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "The ablation design (C1-C4) is sensible, and the matched-budget C3 versus C4 comparison is informative. The headline 6/8 is test-time search on the evaluation tasks themselves, with 20x more compute than the baseline, no held-out split, 8 tasks, no cost data, and no code. Treat it as evidence that budgeted verifier feedback helps search, not that evolved skills transfer.",
+  "applicability": "Mostly does not transfer: Verilog and EDA tasks with per-task skill evolution at about 640 rollouts per configuration are far from Java ingestion work. Two narrow lessons do apply. First, a budgeted, sanitized verifier tool (at most 3 calls, only after an edit and compile) is a reasonable harness design for the team's Java build and contract tests across ingestion repos. Second, the authors report that shared skills transfer poorly across heterogeneous tasks, so a SKILL.md tuned on one repo should not be assumed to help another. Do not adopt per-task skill evolution without cost accounting, and keep evolved skill files under spec review, since they are LLM-written policy.",
+  "conflicts_with": []
+}

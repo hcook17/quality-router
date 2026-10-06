@@ -1,0 +1,52 @@
+{
+  "arxiv_id": "2606.12344",
+  "contribution_type": "benchmark",
+  "summary": "Claw-SWE-Bench repackages 350 SWE-bench instances (300 from SWE-bench-Multilingual, 50 from SWE-bench-Verified-Mini; 43 repos, 8 language groups including Java) behind a five-method adapter protocol so general-purpose 'claw' harnesses (OpenClaw, Hermes Agent, nanobot, ZeroClaw, GenericAgent, DeepSeek Harness, Meta-Harness) can be compared with the model held fixed. The runner, not the agent, exports the patch from git state. It reports large harness-driven Pass@1 and cost differences, an 80-instance Lite subset, and a future-commit leak in SWE-bench-Multilingual images.",
+  "claims": [
+    {"claim": "Harness choice changes success rate substantially with the model held fixed", "evidence": "Table 2: 7 harnesses x 3 models (GLM 5.1, Qwen 3.6-flash, DeepSeek-V4.1-Flash), 3 runs each (22,050 executions); max gap 24.3 pp on Qwen 3.6-flash (Hermes 62.8% vs GenericAgent 38.5%). Means only, no per-run spread reported.", "strength": "strong", "location": "§6.2, Table 2"},
+    {"claim": "Having the runner export patches from repository state, instead of the model writing diff text, is necessary for reliable scoring", "evidence": "Table 1: OpenClaw + GLM 5.1 bare adapter 19.3% resolved vs full adapter 71.2%; apply failures below 1.5% with full adapter.", "strength": "strong", "location": "§6.1, Table 1"},
+    {"claim": "Harness choice also drives cost; Pareto frontier is GenericAgent, Meta-Harness and Hermes on DeepSeek-V4.1-Flash, Hermes reaching 81.7% at $36", "evidence": "Fig. 3 and Table 2 cost columns; costs computed from logged tokens x fixed price table (App. A.4), so they depend on provider pricing/caching at the time.", "strength": "moderate", "location": "§6.3, Fig. 3, App. A.4"},
+    {"claim": "Lite-80 preserves full-350 Pass@1 and rankings at ~25% of cost", "evidence": "§4.3: calibration mean 66.10% vs 66.07%, mean abs diff 0.81 pp over 21 pairs; §6.4: six held-out pairs, max abs diff 1.70 pp, ranking unchanged (single run each).", "strength": "moderate", "location": "§4.3, §6.4, Fig. 4"},
+    {"claim": "SWE-bench-Multilingual images leak future commits including reference fixes for non-Python repos", "evidence": "§6.5, Fig. 5: after cleanup Pass@1 never higher for 8 models on 300 Multilingual instances; Opus 4.7 drops 8.0 pp, Kimi 2.6 5.0 pp.", "strength": "strong", "location": "§6.5, Fig. 5"}
+  ],
+  "patterns": [
+    {"id": "P31", "stance": "mixed", "note": "Benchmark-based harness comparison, but documents a contamination leak in SWE-bench-Multilingual that inflates earlier non-Python results."},
+    {"id": "P16", "stance": "supports", "note": "Test-based scoring via official SWE-bench harness; runner-exported patches remove diff-format failures."},
+    {"id": "P26", "stance": "neutral", "note": "Meta-Harness evolved GenericAgent improves Pass@1, but evolution and evaluation used the same instances; authors say it is not a fair comparison."},
+    {"id": "P24", "stance": "supports", "note": "Per-pair cost, tokens and cache-hit rate reported; cache pricing materially changes the Pareto frontier."},
+    {"id": "P20", "stance": "neutral", "note": "All runs in SWE-bench Docker images with network blocked except model inference."}
+  ],
+  "methodology": {
+    "sample": "350 instances, 43 repos, 8 language groups (300 Multilingual + 50 Python Verified-Mini); Lite 80 (10 per language)",
+    "baselines": "Seven current open harnesses including DeepSeek Harness and Meta-Harness; no proprietary hosts (Claude Code, Codex CLI, Cursor) in main comparison",
+    "models": "Main: GLM 5.1, Qwen 3.6-flash, DeepSeek-V4.1-Flash; App. F: 11 models under OpenClaw incl. GPT 5.5 (78.0%) and Claude Opus 4.7 (77.1%)",
+    "variance": "Three runs per main configuration but only means reported; other experiments single run",
+    "ablations": "Bare vs full adapter; future-commit cleanup before/after; Lite K-sweep",
+    "contamination_controls": "Network blocked; future git history removed (and measured); no control for pretraining exposure of public SWE-bench repos",
+    "languages": "Java, Go, Rust, JS/TS, C/C++, Ruby, PHP, Python"
+  },
+  "standards": {
+    "peer_review": "arXiv preprint, no venue stated",
+    "limitations_section": false,
+    "artifacts": "Data on GitHub (opensquilla/claw-swe-bench) and Hugging Face; adapters for seven harnesses, run_infer.py/run_eval.py; reproduction protocol and pricing in App. A",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "no_variance_reported", "detail": "Three runs per pair but no standard deviation or CI; some harness gaps (e.g. 2.1 pp nanobot vs best on DeepSeek) are within plausible run-to-run noise."},
+    {"type": "contamination_risk", "detail": "Public SWE-bench repos/issues; authors fixed the git-history leak but pretraining exposure remains."},
+    {"type": "other:uneven_tuning", "detail": "Harness hidden prompts, tool schemas and stopping rules are not equalized (by design), so 'harness effect' bundles many design variables; Meta-Harness evaluated on its training instances."},
+    {"type": "small_sample", "detail": "Per-language samples are small (Python only 50 instances; Lite has 10 per language), so per-language conclusions are fragile."}
+  ],
+  "coi": {
+    "affiliations": "TokenRhythm Technologies (8 authors), Infinigence AI, Peking University, Tsinghua, Shanghai Jiao Tong, Beijing Jiaotong, City University of Hong Kong, SEE Fund",
+    "vendor_products_evaluated": "TokenRhythm's own harness OpenSquilla (ref. 28) appears only as one held-out pair in Lite validation, not ranked in the main table; benchmark hosted under the opensquilla GitHub org",
+    "funding": "Not stated",
+    "severity": "low",
+    "detail": "Benchmark built by a harness vendor, but its own harness is not ranked and the winner (Hermes Agent) is third-party. Watch for future OpenSquilla claims on this benchmark."
+  },
+  "scores": {"rigor": 4, "reproducibility": 4, "generalizability": 3, "relevance": 4, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Large controlled comparison (22,050 executions) with released adapters, cost accounting and an honest contamination finding. Caveats: no variance reported despite three runs, no limitations section, preprint, open-source harnesses only, and harness internals not equalized.",
+  "applicability": "Directly relevant to a mixed-host team: it shows that with the model fixed, the choice of harness can move issue-resolution success by up to ~24 pp and cost several-fold, so the team should evaluate the hosts its engineers actually use on its own Java tasks rather than assume parity. The adapter protocol (create/send/backup/delete/docker-args, with patches exported from git state) is a good template for a host-neutral evaluation harness across the >=4 ingestion repositories. Java is included (and is among the easier languages under OpenClaw, App. F.2), but tasks are single-repo bug fixes, not cross-repo or spec-driven changes. The future-commit leak is a concrete warning: strip git history beyond the base commit in any internal agent eval.",
+  "conflicts_with": []
+}

@@ -1,0 +1,45 @@
+{
+  "arxiv_id": "2608.11386",
+  "contribution_type": "empirical",
+  "summary": "Controlled study of 'tool architecture' in coding agents: six capability-matched tool setups (BashOnly, Atomic file tools, NLSearch subagent, Python CodeAct, HypoTrack, Scratchpad) on a 65-instance SWE-bench Live subset with three actors and 10 rollouts each (11,700 trajectories). Resolve rates are broadly unchanged, but Atomic tools raise pass^k consistency, NLSearch broadens file exploration, Python code-as-action cuts steps and input tokens, and lightweight thinking tools do little.",
+  "claims": [
+    {"claim": "Structured low-level (Atomic) tools improve repeated-attempt consistency by up to 4.7x, for all three actors.", "evidence": "Table 2: Qwen3Coder-30B pass^9 0.020 -> 0.094 (the 4.7x is a ratio on a near-zero base); Kimi-K2.5 +0.013-0.014 and Sonnet-4.5 +0.017-0.031 absolute. Direction consistent; Appendix B.2 repeats Bash vs Atomic with 3x more attempts for open-weight actors. No CIs/significance.", "strength": "moderate", "location": "§3.2, Table 2, Appendix B.2"},
+    {"claim": "Python CodeAct-style interface matches task performance with 41.6% fewer steps and 56.3% lower token usage.", "evidence": "Exact 41.6%/56.3% figures not found in body text; Table 8 shows step reductions 77->46, 65->47, 80->55 (~28-40%); input tokens shown only in Figure 4. Direction supported, headline magnitudes not traceable in the extracted text. Resolve-rate parity shown only as Figure 5 without numbers.", "strength": "weak", "location": "§3.4, Table 8, Appendix B.5"},
+    {"claim": "Natural-language search broadens exploration and increases access to relevant files by >11%, with lower precision.", "evidence": "Figure 3 read-diversity deltas; Table 7 recall/precision vs a high-relevant-file proxy, which is validated on 30 trajectories / 619 file ops at 94.4% precision, 97.6% recall (LLM-assisted human labels). NLSearch is a same-model subagent using grep, so its subagent token cost is a confound for efficiency.", "strength": "moderate", "location": "§3.3, Appendix B.4, Tables 6-7"},
+    {"claim": "Lightweight cognitive-scaffolding tools (scratchpad, hypothesis tracking) have limited effect.", "evidence": "Table 2 mixed/negative deltas for Scratchpad and HypoTrack; Appendix C qualitative analysis that actors restate existing reasoning. Authors scope claim to lightweight scaffolds.", "strength": "moderate", "location": "§3.5, Appendix C"}
+  ],
+  "patterns": [
+    {"id": "P33", "stance": "supports", "note": "Python code-as-action reduces interaction steps and cumulative input tokens at similar resolve rate across three actors (Table 8)."},
+    {"id": "P05", "stance": "mixed", "note": "Grep/bash baseline is competitive on resolve rate; NL search over grep raises recall but lowers precision."},
+    {"id": "P12", "stance": "mixed", "note": "NLSearch is implemented as a same-model exploration subagent: broader exploration, not more diverse solutions or higher resolve rate."},
+    {"id": "P03", "stance": "neutral", "note": "Shows that how a small tool set is exposed changes behavior even at fixed capability; does not study catalog size."},
+    {"id": "P24", "stance": "supports", "note": "Interface choice is a cost lever: fewer steps -> lower cumulative input tokens."},
+    {"id": "P31", "stance": "neutral", "note": "SWE-bench Live subset main eval; SWE-bench Verified/Pro and a debugging split as generalization checks (two open-weight actors, 5 rollouts)."}
+  ],
+  "methodology": {
+    "sample": "65 SWE-bench Live instances (25 of 100 repos sampled, <=5 issues each); 10 rollouts x 6 setups x 3 actors = 11,700 trajectories; extra study on SWE-bench Verified, SWE-bench Pro, debugging split with 5 rollouts.",
+    "baselines": "BashOnly (mini-swe-agent-style) as reference; all setups built by the authors to be capability-matched.",
+    "models": "Qwen3Coder-30B, Kimi-K2.5, Claude Sonnet 4.5 (generalization study: only the two open-weight models).",
+    "variance": "Repeated rollouts used to compute pass^k; no confidence intervals or significance tests reported.",
+    "ablations": "The six setups are themselves the ablation; mechanism analyses in Appendix B.3-B.5.",
+    "contamination_controls": "SWE-bench Live chosen as contamination-controlled benchmark.",
+    "languages": "SWE-bench Live repos (predominantly Python); no Java evaluation."
+  },
+  "standards": {"peer_review": "arXiv preprint; acknowledgments thank anonymous reviewers but no venue stated", "limitations_section": false, "artifacts": "Code and data at github.com/XZ-X/tool-arch-study.", "preregistration": "n/a"},
+  "biases": [
+    {"type": "hype_language", "detail": "'Up to 4.7x' consistency is a ratio of 0.094 to 0.020 for the weakest model; for strong actors the gain is 1-3 absolute points."},
+    {"type": "no_variance_reported", "detail": "Ten rollouts give pass^k but no CIs/significance on deltas as small as 0.013."},
+    {"type": "single_language_python", "detail": "SWE-bench Live/Verified/Pro subsets; no Java or statically typed repo results."},
+    {"type": "small_sample", "detail": "65 instances from 25 repos in the main study."},
+    {"type": "self_reported_numbers", "detail": "Headline 41.6% steps / 56.3% tokens not traceable to a body table; Table 8 shows 28-40% step reductions."},
+    {"type": "missing_cost_reporting", "detail": "NLSearch subagent cost accounting not clearly separated; efficiency comparison may understate NLSearch cost."}
+  ],
+  "coi": {"affiliations": "Purdue University, Microsoft Research, University of Chicago; first author interned at Microsoft Research.", "vendor_products_evaluated": "No Microsoft product evaluated; actors are Qwen, Kimi, Anthropic models; tool setups are generic.", "funding": "Microsoft Internship Program, NSF, DARPA, ONR.", "severity": "low", "detail": "Vendor-affiliated co-authors, but no self-promotion of a vendor product."},
+  "scores": {"rigor": 3, "reproducibility": 4, "generalizability": 2, "relevance": 4, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Well-controlled capability-matched design with many repeated rollouts and released code, but Python-only tasks, no significance testing, inflated ratio headline, and the token/step headline numbers are not traceable to body tables.",
+  "applicability": "Directly informs tool design for the team's harness, regardless of host: (1) give agents a small set of structured edit/view/search primitives rather than bash alone to improve run-to-run consistency, which matters for repeatable ingestion jobs; (2) allow a code-execution action (in a Java shop this could be a JShell/Groovy/script step or a CLI wrapper) to cut steps and token cost; (3) scratchpad/'think' tools add little and can be dropped from the catalog. Caveats: evidence is Python repos only, single-repo tasks, so effects on a Maven/Gradle multi-module Java codebase spanning 4+ repos are unmeasured; and mixed hosts (Cursor, Claude Code, Codex) fix their own tool architecture, so the team can only influence this via MCP/CLI tools it exposes.",
+  "conflicts_with": [
+    {"arxiv_id": "2608.13568", "detail": "Both find grep/bash baselines hard to beat on outcomes; LSP study shows semantic tools add tokens, consistent with NLSearch raising recall but lowering precision here."}
+  ]
+}

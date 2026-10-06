@@ -1,0 +1,60 @@
+{
+  "arxiv_id": "2609.01481",
+  "contribution_type": "system",
+  "summary": "Shanghai AI Laboratory authors present Harness-of-Harness (HoH), a meta-harness that wraps existing coding-agent CLIs (Codex, OpenCode, Pi) in iterative planner-developer-tester loops. Each role returns schema-checked artifacts; state is persisted on disk behind an index (progressive disclosure); testing is separated from implementation; and project history is versioned. On sampled subsets of GameCraft-Bench (45 tasks), FrontierSWE (15) and ProgramBench, HoH@3 beats one-pass vanilla for all three harness-model pairs. A pass-matched control and three ablations are included, plus a 70-loop autonomous FPS-game case study.",
+  "claims": [
+    {"claim": "HoH@3 outperforms the standalone harness for all three harness-model pairs on all three benchmarks.", "evidence": "Table 1: GameCraft Overall 49.58->71.52 (Codex/GPT-5.5), 26.90->48.98 (OpenCode/DeepSeek-V4-Pro), 42.16->58.78 (Pi/MiniMax-M3); FrontierSWE dominance 44->71%, 25->44%, 35->64%; ProgramBench pass rate 60.41->66.50, 45.27->57.56, 35.83->52.68. Consistent direction, but one run per task-condition with provider-default sampling and no generation seed (App. B.2). Vanilla is a single pass against three for HoH, so this table does not control for compute.", "strength": "moderate", "location": "§4.2, Table 1"},
+    {"claim": "Average relative gain 52.25%, max 82.86% after three iterations.", "evidence": "These figures appear only in the abstract. The reviewer reproduced them from Table 1 as the mean relative gain over GameCraft Overall, FrontierSWE Dominance and ProgramBench pass rate; 82.86% is Pi's Dominance 35->64%. Dominance is a win rate against a pool that contains the HoH checkpoints themselves, and the paper does not explain the metric choice behind the aggregate.", "strength": "weak", "location": "Abstract; derived from Table 1"},
+    {"claim": "Gains are not explained by more passes or more tokens alone.", "evidence": "Table 2 (Codex/GPT-5.5, GameCraft only): at 1/2/3 passes HoH 59.71/64.84/71.52 vs Vanilla Continuation 49.58/54.99/58.24; HoH@2 (5.67M tokens) > Vanilla@3 (6.33M). A useful control, but only one configuration on one benchmark, and HoH@3 still uses more tokens (8.41M vs 6.33M).", "strength": "moderate", "location": "§4.3, Table 2"},
+    {"claim": "Plan updates, evidence feedback and warm-start each contribute.", "evidence": "Table 3 ablation (Codex, 45 GameCraft tasks): -8.13, -6.28, -7.85 points; w/o warm-start raises tokens 8.41M->11.12M. Single config, single run.", "strength": "moderate", "location": "§4.3 Ablation, Table 3"},
+    {"claim": "HoH autonomously builds a human-playable FPS over 70+ loops without human intervention.", "evidence": "§5 case study with GPT-5.6-Sol: 81 issues recorded, 65 closed, 16 unresolved, 17 reopened. It uses extra domain tools (Godot MCP, asset generation skills) not used in the benchmarks. 'Human-playable', 'polished' and 'coherent storyline' are judged by the authors; there is no external player study.", "strength": "weak", "location": "§5.1-5.2, Figure 1"}
+  ],
+  "patterns": [
+    {"id": "P13", "stance": "supports", "note": "Planner/developer/tester loop over existing harnesses beats one-pass and pass-matched continuation (Tables 1-2)."},
+    {"id": "P16", "stance": "supports", "note": "The tester's evidence fed back to the planner matters: removing evidence feedback costs 6.28 points (Table 3)."},
+    {"id": "P02", "stance": "introduces", "note": "Artifacts exposed via a concise index with details retrieved on demand; role-scoped Markdown skills. Not ablated separately."},
+    {"id": "P09", "stance": "supports", "note": "File-system project state and warm-start across loops; removing warm-start costs 7.85 points and 32% more tokens."},
+    {"id": "P11", "stance": "supports", "note": "Role separation with independent testing; evidence comes from the full-system comparison rather than an isolated ablation of roles."},
+    {"id": "P30", "stance": "introduces", "note": "Versioned per-role, per-iteration history committed to GitHub enables rollback and traceability (case study)."},
+    {"id": "P24", "stance": "neutral", "note": "Tokens reported per configuration; no budget mechanism."},
+    {"id": "P34", "stance": "neutral", "note": "Case study is driven by a PRD with player-observable acceptance criteria."}
+  ],
+  "methodology": {
+    "sample": "GameCraft-Bench 45/140 tasks (stratified, seed fixed), FrontierSWE 15/17 tasks, ProgramBench (task count in supplement); one 70-loop case study.",
+    "baselines": "Vanilla one-pass runs of the same harness+model; Vanilla Continuation (pass-matched) for Codex on GameCraft only. No comparison against other meta-harnesses or multi-agent frameworks.",
+    "models": "GPT-5.5 (high) via Codex CLI 0.142.5, DeepSeek-V4-Pro via OpenCode 1.14.30, MiniMax-M3 via Pi 0.80.10; GPT-5.6-Sol for the case study.",
+    "variance": "One run per task-condition; no generation seed (App. B.2); 95% bootstrap CIs over tasks (Fig. 4), ±1 SE on FrontierSWE (Fig. 5).",
+    "ablations": "w/o plan update, w/o evidence feedback, w/o warm-start (Codex, GameCraft).",
+    "contamination_controls": "Evaluator outputs not returned to the development loop; private rubrics hidden from agents (appendix). No other contamination control.",
+    "languages": "Godot/GDScript games, FrontierSWE and ProgramBench repos (languages not summarised in main text); no Java-specific evaluation."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint; comment gives GitHub and project page only.",
+    "limitations_section": false,
+    "artifacts": "GitHub Flesymeb/HarnessOfHarness and project page; case-study repo with commit/issue history; supplementary task lists.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "self_evaluation", "detail": "Authors evaluate their own framework; the case-study quality judgments ('polished visuals', 'human-playable') are their own."},
+    {"type": "no_variance_reported", "detail": "Single run per condition with no generation seeds; CIs only over tasks."},
+    {"type": "other:compute_mismatch", "detail": "Headline Table 1 compares 3 passes to 1; the pass-matched control covers only Codex on GameCraft."},
+    {"type": "metric_mismatch", "detail": "The 52.25%/82.86% headline mixes metrics and leans on Dominance, a relative win rate within a pool that includes HoH checkpoints."},
+    {"type": "cherry_picked_examples", "detail": "Qualitative Figure 6 and the FPS case show selected artifacts."},
+    {"type": "hype_language", "detail": "'Without human intervention', 'polished', 'complete' for a case that ends with 16 open and 17 reopened issues."},
+    {"type": "other:no_limitations_section", "detail": "No limitations or threats section."}
+  ],
+  "coi": {
+    "affiliations": "Shanghai Artificial Intelligence Laboratory (all authors).",
+    "vendor_products_evaluated": "Third-party harnesses (Codex, OpenCode, Pi) and models (GPT-5.5, DeepSeek-V4-Pro, MiniMax-M3) used as substrates; HoH is the authors' own system.",
+    "funding": "No acknowledgments or funding section found.",
+    "severity": "low",
+    "detail": "Research lab evaluating its own open-source framework on third-party benchmarks; no commercial product promoted."
+  },
+  "scores": {"rigor": 3, "reproducibility": 4, "generalizability": 3, "relevance": 4, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Three harness-model pairs, three external benchmarks, a pass-matched control and ablations make this more rigorous than most harness papers, and the code is released. But each condition is a single run, the headline aggregate leans on a self-referential Dominance metric, the compute control is narrow, the case-study claims are self-judged, and there is no limitations section.",
+  "applicability": "The most transferable design in this batch for a mixed-host team. HoH sits above existing CLIs (Codex, OpenCode, Pi) and works with three hosts and models, which matches the 'qr is not locked to a host' stance. A Java team could run a planner -> developer -> independent tester loop where each role must emit a schema-validated artifact (plan, change report, test evidence pack), with the tester's black-box checks running against the delivery APIs rather than the developer's own unit tests. Persist state on disk with an index (plans, issue table, evidence) instead of a memory service, and keep warm-start from the previous increment. The ablations suggest evidence-conditioned replanning and warm-start are worth implementing first. Caveats: the evidence is for greenfield single-repo game and program builds, not changes to ≥4 existing ingestion repos with cross-repo contracts. Healthcare-education content has correctness and compliance criteria a self-run tester cannot certify, so keep human acceptance gates. Budget for about 3x the tokens of a single pass.",
+  "conflicts_with": [
+    {"arxiv_id": "2607.24300", "detail": "That paper finds self-authored verification unreliable in self-improving loops. HoH's internal tester is also agent-authored; HoH mitigates this by scoring with external evaluators that are hidden from the loop, but its own deployment-time QA has no sealed check."}
+  ]
+}

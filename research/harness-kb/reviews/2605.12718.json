@@ -1,0 +1,48 @@
+{
+  "arxiv_id": "2605.12718",
+  "contribution_type": "system",
+  "summary": "Proposes CHAL, a multi-agent debate framework for 'defeasible' philosophical questions in which each o4-mini agent keeps a graph-structured, Bayesian-inspired belief schema revised via a 'gradient-informed' prompting step, with epistemic personas, logic systems and ethical systems exposed as hyperparameters and an adjudicator agent scoring exchanges. Evaluation is three ablations on topics such as 'Does free will exist?' with 10 trajectories per configuration.",
+  "claims": [
+    {"claim": "The adjudicator's value system determines the debate's trajectory in latent belief space.", "evidence": "§5.1 adjudicator ablation: 2 agents, 1 topic, 10 trajectories x 3 configurations, o4-mini only; outcome reverses under pure-ethics adjudication (Appendix F.4). Measured by the framework's own thesis strength/APS and UMAP projections of belief embeddings.", "strength": "weak", "location": "§5.1, Appendix F.4"},
+    {"claim": "Council diversity refines beliefs for all participants.", "evidence": "§5.1: 2-agent vs 3-agent council on one topic yields 'tighter final belief distributions' (Appendix F.5); tightness in embedding space is not a validated quality measure.", "strength": "weak", "location": "§5.1, Appendix F.5"},
+    {"claim": "The framework generalizes across broad fields.", "evidence": "Topic ablation is a single trajectory per topic across three topics, described as primarily qualitative (§5.1, Appendix F.6).", "strength": "unsupported", "location": "§5.1, Appendix F.6"}
+  ],
+  "patterns": [
+    {"id": "P11", "stance": "introduces", "note": "Role-based debate council with an adjudicator; no comparison against single-agent or majority-vote baselines."},
+    {"id": "P18", "stance": "introduces", "note": "LLM adjudicator scores arguments under configurable logic/ethics rubrics; not validated against humans."}
+  ],
+  "methodology": {
+    "sample": "One main topic for two ablations (10 trajectories per configuration, 5 rounds); 3 topics x 1 trajectory for generalization.",
+    "baselines": "None (no single-agent, CoT, or standard multi-agent debate comparison).",
+    "models": "OpenAI o4-mini for all agents and adjudicator.",
+    "variance": "Distributions over 10 trajectories shown in appendix; no ground truth.",
+    "ablations": "Adjudicator value system, council size, topic.",
+    "contamination_controls": "n/a",
+    "languages": "n/a (natural-language philosophical argument)."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint, no venue.",
+    "limitations_section": true,
+    "artifacts": "Code at https://github.com/GdKent/CHAL.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "metric_mismatch", "detail": "Success measured by the framework's own thesis-strength and Agent Performance Score and UMAP clustering; no external measure of reasoning quality."},
+    {"type": "single_model", "detail": "o4-mini only."},
+    {"type": "small_sample", "detail": "One topic for the quantitative ablations; one trajectory per topic for 'generalization'."},
+    {"type": "hype_language", "detail": "'Gradient-informed' belief optimization and 'differentiable objective' describe prompt-level heuristics; claims of implications for alignment are not tested."},
+    {"type": "self_evaluation", "detail": "Authors' framework evaluated only by its own internal metrics."}
+  ],
+  "coi": {
+    "affiliations": "Tommaso Giovannelli (ucmail.uc.edu email; no affiliation stated in text) and Griffin D. Kent (gmail address, no affiliation stated).",
+    "vendor_products_evaluated": "None; uses OpenAI o4-mini as backbone.",
+    "funding": "No acknowledgments/funding section found.",
+    "severity": "none",
+    "detail": "No vendor affiliation or product promotion evident."
+  },
+  "scores": {"rigor": 1, "reproducibility": 3, "generalizability": 0, "relevance": 0, "coi_risk": 0},
+  "verdict": "reject",
+  "verdict_reason": "off-topic: multi-agent debate on philosophical/defeasible questions, not software engineering or coding-agent harnesses; evaluation uses only internal metrics with no baselines.",
+  "applicability": "Does not transfer. Nothing here informs a Java backend team's ingestion/delivery harness across ≥4 repos, mixed agent hosts, or spec-driven development: tasks are philosophy debates without ground truth, and the multi-agent council has no software-engineering evaluation. Its finding that the adjudicator's rubric dominates outcomes is a generic caution about LLM reviewers, better evidenced elsewhere.",
+  "conflicts_with": []
+}

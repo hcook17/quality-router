@@ -1,0 +1,33 @@
+{
+  "arxiv_id": "2607.22917",
+  "contribution_type": "system",
+  "summary": "Single-author design manual for ATWZ, a filesystem-based operations layer (skills, hooks, scripts) around Claude Code's Agent Teams. It keeps each agent's role, checkpoints, decisions, and inbox messages in per-agent 'workstation' directories so that a team can be rebuilt with one command after a session ends or compaction. The author states it is a design manual, not an empirical study, and reports no measurements.",
+  "claims": [
+    {"claim": "ATWZ lets an interrupted Claude Code agent team be restored with a single command and recovers working state lost to compaction.", "evidence": "Mechanism described in §6.1-6.4 (checkpoints, reactivation for CC >= 2.1.178 and earlier versions). No recovery-reliability measurement; §1 and §12 explicitly say 'We make no benchmarking or user-study claims' and 'we have not measured how much they help'.", "strength": "unsupported", "location": "§6, §1, §12"},
+    {"claim": "File-based state substantially mitigates agentic 'technical debt' and reduces prompt-writing effort through inter-agent document passing.", "evidence": "Abstract asserts 'substantially mitigate' and 'greatly reducing the effort'; the body offers only design rationale (§4.2, §7) and scenarios, with no comparison against alternatives.", "strength": "unsupported", "location": "Abstract, §4, §7"},
+    {"claim": "The design was hardened through real use, and a catalog of failure modes with mitigations was found.", "evidence": "§10.1 lists about 9 anecdotal incidents (ghost respawns, timezone false alarm, archival buck-passing, releases missing migration scripts) with fixes. Self-reported, from using the layer to build itself; §10.2 says the list is not exhaustive.", "strength": "weak", "location": "§10"}
+  ],
+  "patterns": [
+    {"id": "P09", "stance": "introduces", "note": "Per-agent persistent state in files (workstations, checkpoints); no evaluation."},
+    {"id": "P08", "stance": "introduces", "note": "Argues compaction erodes working detail; uses file checkpoints to recover after compaction. Asserted, not measured."},
+    {"id": "P11", "stance": "introduces", "note": "Role library and team-lead/teammate protocol on top of Claude Code Agent Teams (§8)."},
+    {"id": "P13", "stance": "introduces", "note": "Lead decomposes and delegates to teammates."},
+    {"id": "P30", "stance": "introduces", "note": "File inbox doubles as an audit trail of which agent did what (§7)."},
+    {"id": "P19", "stance": "neutral", "note": "Human kept in the loop throughout; no gate evaluation."},
+    {"id": "P01", "stance": "neutral", "note": "Installer writes rule blocks into CLAUDE.md and README; describes rule drift across installed copies (§10.1)."}
+  ],
+  "methodology": {"sample": "None. Self-use while building the tool itself.", "baselines": "None.", "models": "Claude Code (versions before and from 2.1.178); no model-level reporting.", "variance": "n/a", "ablations": "None.", "contamination_controls": "n/a", "languages": "Shell/scripts layer; target projects not characterized."},
+  "standards": {"peer_review": "arXiv preprint (31 pages, 9 figures); no venue.", "limitations_section": true, "artifacts": "Code released: github.com/SR-A-W/agent-team-work-zone", "preregistration": "n/a"},
+  "biases": [
+    {"type": "self_reported_numbers", "detail": "All failure-mode evidence comes from the author's own use; there is no external user."},
+    {"type": "hype_language", "detail": "Abstract says 'substantially mitigate' and 'greatly reducing the effort' even though §12 says nothing was measured."},
+    {"type": "other:no_evaluation", "detail": "Design manual only; recovery reliability and overhead are untested."},
+    {"type": "other:host_lock_in", "detail": "Tightly coupled to Claude Code Agent Teams internals that already changed once (v2.1.178), so the design is fragile to vendor API churn. §2.3 notes Codex lacks equivalent persistent teams."}
+  ],
+  "coi": {"affiliations": "Case Western Reserve University (single author).", "vendor_products_evaluated": "Builds on Anthropic Claude Code; the author's own open-source tool.", "funding": "No acknowledgments or funding section found.", "severity": "low", "detail": "No vendor affiliation. The 'GitHub' vendor hit comes from the arXiv page boilerplate. The author describes and promotes their own tool, but no comparative claim is made."},
+  "scores": {"rigor": 0, "reproducibility": 3, "generalizability": 1, "relevance": 2, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Admit only as a design reference for a file-backed persistence pattern. It has no evaluation at all, and every benefit claim is unsupported by the authors' own admission (§1, §12).",
+  "applicability": "The transferable idea for the Java team is host-neutral: store agent working state (decisions, checkpoints, hand-off documents) as committed or workspace files rather than chat context. This matches the team's handoff-by-commit rule and suits mixed agent hosts and spec-driven development, since hand-off documents can be spec fragments. The implementation itself is Claude-Code-specific (Agent Teams API, hooks), so it would not carry over to Codex, Hermes, or Cursor hosts, and it has no notion of coordinating across 4+ ingestion repositories. Treat it as a pattern sketch, not evidence. The failure catalog (§10.1), especially release migrations missing and rules not reaching subagents, is a useful checklist of things that go wrong when stamping rule files.",
+  "conflicts_with": []
+}

@@ -1,0 +1,50 @@
+{
+  "arxiv_id": "2607.22511",
+  "contribution_type": "system",
+  "summary": "CausalSmith is an agentic pipeline for automated theoretical research in causal inference: it proposes results, solves them in natural language, stores them as a dependency graph, formalizes each node in Lean 4 against Causalean (a 8,179-declaration library built with LLM assistance), audits statement-to-claim match with an LLM, proves them, and writes papers. Over 144 recorded runs, 14 were accepted as sound, novel and fully Lean-proved; one closes a minimax gap from prior work.",
+  "claims": [
+    {"claim": "14 of 144 runs produced accepted, fully machine-checked, novel results", "evidence": "Table 5: 14 accepted, 59 downgraded, 71 failed. 'Novel at tier' is judged by the pipeline's own LLM review; §7 states research-quality ratings have no independent human validation.", "strength": "moderate", "location": "§6, Table 5, §7"},
+    {"claim": "Accepted proofs are sound (only standard Lean axioms, no sorry/admit/axiom)", "evidence": "§6.3: #print axioms on headline theorems in a clean build plus source scan (Appendix H). Proof validity is genuinely machine-checked.", "strength": "strong", "location": "§6.3, App. H"},
+    {"claim": "Statement audit ensures the Lean statement matches the informal claim", "evidence": "§7 concedes the audit is an LLM task and the error rate is not estimated; §7's phrase 'guarantees' is overstated.", "strength": "unsupported", "location": "§5.3, §7"},
+    {"claim": "Library feedback loop grows Causalean with reusable lemmas", "evidence": "§6.4 traces one concrete lemma; anecdotal.", "strength": "weak", "location": "§6.4"}
+  ],
+  "patterns": [
+    {"id": "P35", "stance": "supports", "note": "Lean 4 type checking replaces LLM refereeing for proof validity; axiom audit on accepted results (§6.3)."},
+    {"id": "P18", "stance": "contradicts", "note": "Motivated by LLM reviewers accepting fabricated papers; yet novelty and statement-match still rely on unvalidated LLM review (§7)."},
+    {"id": "P26", "stance": "introduces", "note": "Self-improving loop: run record screens later proposals and proven lemmas are promoted back into the library; no controlled before/after measurement."},
+    {"id": "P07", "stance": "introduces", "note": "Claim dependency graph as persistent run record driving formalization and audit (§5.1)."}
+  ],
+  "methodology": {
+    "sample": "144 recorded runs (nine legacy runs excluded); 14 accepted",
+    "baselines": "None; no comparison with other autoformalization or research-agent systems",
+    "models": "GPT-5.5 / GPT-5.6 Sol for mathematics and Lean; Claude Opus 4.7/4.8/5 for review and planning; GPT-5.6 Terra for mechanical stages; lineup changed mid-campaign",
+    "variance": "None; single campaign with changing models",
+    "ablations": "None",
+    "contamination_controls": "Novelty judged by pipeline; no independent literature check reported beyond LLM review",
+    "languages": "Lean 4 / mathematics; no software engineering code"
+  },
+  "standards": {
+    "peer_review": "arXiv preprint, no venue",
+    "limitations_section": true,
+    "artifacts": "Library, pipeline and run records at github.com/Jiyuan-Tan/CausalSmith plus companion site",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "self_evaluation", "detail": "Pipeline rates its own research quality and novelty; no human validation (§7)."},
+    {"type": "llm_judge_unvalidated", "detail": "Statement-match audit error rate not estimated (§7)."},
+    {"type": "cherry_picked_examples", "detail": "One flagship result examined in depth (§6.2)."},
+    {"type": "missing_cost_reporting", "detail": "No cost per run reported in the sections reviewed."}
+  ],
+  "coi": {
+    "affiliations": "Jiyuan Tan, Vasilis Syrgkanis (affiliations not printed in extracted text)",
+    "vendor_products_evaluated": "None; uses OpenAI and Anthropic models",
+    "funding": "No acknowledgments section found",
+    "severity": "none",
+    "detail": "No vendor relationship identified."
+  },
+  "scores": {"rigor": 2, "reproducibility": 4, "generalizability": 1, "relevance": 1, "coi_risk": 0},
+  "verdict": "reject",
+  "verdict_reason": "off-topic: automated mathematical research in causal inference via Lean, not software engineering; the evaluation is also self-rated with no baselines.",
+  "applicability": "Does not transfer to a Java healthcare-education ingestion team. The only portable idea is architectural: separate a deterministic checker (here Lean; for the team, compilers, schema validators, contract tests) from LLM judgment, and keep a persisted claim-dependency record, but the team already gets this from build/test gates without any of this machinery.",
+  "conflicts_with": []
+}

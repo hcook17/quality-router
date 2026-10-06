@@ -1,0 +1,25 @@
+{
+  "arxiv_id": "2606.01592",
+  "contribution_type": "empirical",
+  "summary": "Log analysis of 291 Japanese junior-high students answering 29,963 EFL grammar-drill questions built from ~55,000 GPT-4.1-mini-generated English-Japanese sentences tagged to CEFR-J grammar levels. Reports descriptive accuracy/latency by question type (MCQ easiest, cloze hardest to self-correct, drag-and-drop slowest) and by CEFR level (accuracy falls from 79.13% at A1.1 to 50.88% at B2.2).",
+  "claims": [
+    {"claim": "Question modality creates a performance hierarchy: MCQ 76.9% first-try, drag-and-drop 74.5%, cloze 69.2%; drag-and-drop slowest (median >7.5s).", "evidence": "§4 RQ1, Figures 3-4; descriptive only, no significance tests or mixed-effects model despite repeated measures per student.", "strength": "moderate", "location": "§4 RQ1"},
+    {"claim": "Learner data validate the CEFR-J grammar hierarchy (accuracy declines, latency rises with level).", "evidence": "§4 RQ2, Figures 5-6; non-monotonic anomalies (MCQ A2.2 63.06% < B1.1 67.02%; latency falls at B2); self-selection into levels confounds difficulty (acknowledged §5.3); B2.2 has only 256 attempts.", "strength": "weak", "location": "§4 RQ2, §5.3"},
+    {"claim": "LLMs can successfully generate learning content.", "evidence": "No audit of generated sentences for grammaticality, translation accuracy, or level fit, and no comparison with teacher-written items; both are listed as future work (§5.3 'Content Validation'). Student accuracy trends do not measure content quality.", "strength": "unsupported", "location": "Abstract, §5.2, §5.3"}
+  ],
+  "patterns": [],
+  "methodology": {"sample": "291 students from one high-performing Japanese junior high school; 29,963 attempts after removing timeouts, top-5% latency tail and 5,662 rapid-guess MCQs (<1.04s KDE cutoff).", "baselines": "None (no teacher-written or non-LLM content comparison).", "models": "GPT-4.1-mini for sentence generation only.", "variance": "None; descriptive percentages and medians only.", "ablations": "None.", "contamination_controls": "n/a", "languages": "English/Japanese natural language; no code."},
+  "standards": {"peer_review": "Under review for ICCE 2026 (arXiv comment).", "limitations_section": true, "artifacts": "No data, prompts, or app code released.", "preregistration": "None mentioned for a human-subjects log study."},
+  "biases": [
+    {"type": "selection_bias_participants", "detail": "Single high-performing school; students self-select CEFR level filters (acknowledged)."},
+    {"type": "metric_mismatch", "detail": "Student accuracy is used as evidence that LLM-generated content is valid, without assessing the content itself."},
+    {"type": "no_variance_reported", "detail": "No CIs, tests, or per-student modelling."},
+    {"type": "closed_artifacts", "detail": "Generated corpus and prompts not released."}
+  ],
+  "coi": {"affiliations": "Kyoto University and Ritsumeikan University; authors appear to operate the Grammar Gretel app studied.", "vendor_products_evaluated": "Authors' own educational app; GPT-4.1-mini used as a generator, not evaluated.", "funding": "None stated.", "severity": "low", "detail": "Authors evaluate their own app's content with their own logs, but no commercial interest stated."},
+  "scores": {"rigor": 1, "reproducibility": 0, "generalizability": 1, "relevance": 1, "coi_risk": 1},
+  "verdict": "reject",
+  "verdict_reason": "off-topic: EFL grammar-drill learner analytics, not LLM agents or software engineering. Its headline claim that LLM-generated content is pedagogically viable is never tested (no content audit, no teacher-written comparison) and the analysis is descriptive only.",
+  "applicability": "Does not inform any harness decision. The only tangential lesson for a healthcare-education content team is negative: learner performance logs are not a substitute for validating LLM-generated content; ingestion pipelines that accept LLM-generated items should carry explicit content QA (expert review or automated levelers/validators) before delivery to front ends. No relevance to Java, multi-repo ingestion, mixed agent hosts, or spec-driven development.",
+  "conflicts_with": []
+}

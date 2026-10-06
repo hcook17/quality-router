@@ -1,0 +1,47 @@
+{
+  "arxiv_id": "2609.29995",
+  "contribution_type": "empirical",
+  "summary": "Randomized 2x2 classroom experiment (N=132 CS1 students, Python) comparing four GPT-4o AI teaching-assistant configurations: Socratic vs direct guidance, and with vs without the problem statement and student code as context. The Socratic + full-context TA was rated significantly lower for helping complete tasks; other differences (stress, external LLM use, comprehension) were descriptive and non-significant.",
+  "claims": [
+    {"claim": "Students rated the Socratic + Full Context AI TA lowest for perceived task-completion support.", "evidence": "§4.1: Kruskal-Wallis chi2(3)=12.14, p=.007; mean 3.53 vs 4.12-4.27 in other cells. Only an omnibus test is reported; no post-hoc pairwise test (e.g. Dunn) isolates which cell differs.", "strength": "moderate", "location": "§4.1, Fig. 2"},
+    {"claim": "This condition had the highest external LLM use, stress, and lowest comprehension.", "evidence": "§4.2.1: 23% (7/30) vs 9-15%, chi2(3)=2.47, p=.48; stress p=.213; full comprehension 48% vs 67% (descriptive, no test). Authors acknowledge non-significance in the abstract.", "strength": "weak", "location": "§4.2.1, §4.3"},
+    {"claim": "Lack of context makes students write longer messages; Socratic + no context drives more queries.", "evidence": "§4.2.2: queries per problem 11.1 vs 4.1-5.1, chi2(3)=13.28, p=.004; message length 126 vs 54-81 chars, chi2(3)=29.96, p<.001.", "strength": "moderate", "location": "§4.2.2"}
+  ],
+  "patterns": [
+    {"id": "P21", "stance": "mixed", "note": "Prompt-level pedagogical guardrails (not policy-as-code) can create friction that pushes users to unrestricted external LLMs; tangential to agent permission guardrails."}
+  ],
+  "methodology": {
+    "sample": "132 analyzed of 598 enrolled / 254 interested; 30-37 per cell; three simple Python tasks (prime check, duplicate detection, matrix neighbor sum).",
+    "baselines": "Factorial comparison of four prompt configurations; no no-AI control.",
+    "models": "GPT-4o only.",
+    "variance": "Non-parametric omnibus tests; no effect sizes or post-hoc pairwise tests reported.",
+    "ablations": "n/a (2x2 design).",
+    "contamination_controls": "n/a; function names anonymized to limit solution inference.",
+    "languages": "Python (CS1)."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint; no venue listed (CCS-formatted, likely a computing-education submission).",
+    "limitations_section": true,
+    "artifacts": "No code, prompts, or data released.",
+    "preregistration": "None mentioned; IRB approved."
+  },
+  "biases": [
+    {"type": "selection_bias_participants", "detail": "Volunteers for 0.5% extra credit; 132 of 254 interested students retained after exclusions, causing cell imbalance."},
+    {"type": "small_sample", "detail": "30-37 students per cell; comprehension measured on one task."},
+    {"type": "single_model", "detail": "GPT-4o only."},
+    {"type": "metric_mismatch", "detail": "Ceiling effect: 128/132 passed all tests (mean 2.98/3), so task success cannot discriminate conditions; outcomes rest on self-report Likert items."},
+    {"type": "other:off_topic", "detail": "About student-facing tutoring chatbots, not software-engineering agents or harnesses."}
+  ],
+  "coi": {
+    "affiliations": "University of Florida; University of Auckland.",
+    "vendor_products_evaluated": "GPT-4o used as backend; the coding platform resembles the authors' prior system (Kapoor et al., 2026).",
+    "funding": "No acknowledgments or funding statement found.",
+    "severity": "none",
+    "detail": "Academic authors; no vendor affiliation."
+  },
+  "scores": {"rigor": 2, "reproducibility": 0, "generalizability": 1, "relevance": 1, "coi_risk": 0},
+  "verdict": "reject",
+  "verdict_reason": "off-topic: classroom RCT on AI teaching-assistant prompt design for CS1 students, not LLM agents for software engineering or harness design; also omnibus-only statistics with most headline differences non-significant.",
+  "applicability": "Does not inform the agentic harness. At most a product-side note for a team delivering healthcare-education content to front ends: if that content is later fronted by a tutoring chatbot, rigid Socratic guardrails combined with full context were rated least helpful and may push learners to external tools. Nothing transfers to Java backend ingestion, ≥4-repo coordination, mixed agent hosts, or spec-driven development.",
+  "conflicts_with": []
+}

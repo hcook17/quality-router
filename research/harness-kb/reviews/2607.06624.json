@@ -1,0 +1,57 @@
+{
+  "arxiv_id": "2607.06624",
+  "contribution_type": "benchmark",
+  "summary": "AgentLens is a small Java coding-agent benchmark (16 scenarios x 2 simulated-user personas = 32 trajectories) that scores whole trajectories with five LLM-judge dimensions plus formal verifiers (Maven/Gradle tests, coverage, regex, IDE static analysis), and supports side-by-side pairwise judging for regression detection in a nightly CI pipeline. It is built by Explyt and used to rank Explyt's own IntelliJ agent (EAA) against Claude Code across 17 harness/model configurations.",
+  "claims": [
+    {"claim": "Trajectory-level LLM-judge reviews are a trustworthy evaluation signal (judge agreement with humans at least as high as human-human)", "evidence": "§3.2 bases this on 'informal internal pairwise-annotation experiments' that were 'preliminary and small in size'; no agreement statistic reported. §5 concedes validity 'rests on internal pairwise-annotation experience rather than a published agreement study'.", "strength": "unsupported", "location": "§3.2, §5"},
+    {"claim": "The benchmark is stable run-to-run", "evidence": "§3.5.1: five repeats of one configuration (GLM-5.1 self-hosted) give QI 67.28 +/- 0.94; 60.5% of variance from formal verification; Fig. 2 shows 16 of 32 scenario-persona points flaky. Only one configuration repeated; all other Table 6 rows are single runs.", "strength": "moderate", "location": "§3.5.1, Fig. 2, Table 6"},
+    {"claim": "Judge bias (position, self-preference) is limited", "evidence": "Table 4 order-swap on two pairs shows small residuals; Table 5: GPT-5.5 vs Sonnet 4.6 judges disagree on 23% of 157 task-metric comparisons, with 18% self-favouring vs 5% opposite. This actually documents material self-preference; leaderboard uses a single fixed judge (GPT-5.4).", "strength": "weak", "location": "§3.5.2-3.5.3, Tables 4-5"},
+    {"claim": "Explyt AI Agent with Opus 4.7 outperforms Claude Code with Opus 4.7 (QI 81.5 vs 76.2)", "evidence": "Table 6, single run each, n=32 trajectories, no CI; formal verification identical (81.2 vs 81.2, '26 vs. 26' in §4.2) so the gap comes entirely from LLM-judge dimensions. Benchmark tasks were partly derived from Explyt product usage (§3.1) and §5 admits tasks may be 'more natural for our system'.", "strength": "weak", "location": "Table 6, §4.2, §5"},
+    {"claim": "QI captures an axis distinct from public benchmarks (rho=0.82 with APEX-Agents-AA, negative with IFBench)", "evidence": "§4.4 / Fig. 5 Spearman over 11 models; bootstrap CIs given for rank gaps. Small n=11 makes correlation estimates fragile.", "strength": "moderate", "location": "§4.4, Fig. 5"}
+  ],
+  "patterns": [
+    {"id": "P18", "stance": "introduces", "note": "Five-dimension LLM-judge trajectory review and pairwise judging; judge validity not established against humans, self-preference measured at 18% vs 5%."},
+    {"id": "P16", "stance": "neutral", "note": "Formal verifiers (JavaRunTestsVerifier via Maven/Gradle, coverage) are a component; variance is dominated by formal pass flakiness."},
+    {"id": "P17", "stance": "neutral", "note": "NoFileErrorsVerifier uses IDE static analysis as a check, not studied as a loop intervention."},
+    {"id": "P30", "stance": "introduces", "note": "Nightly CI regression detection via side-by-side reviews against an anchor run; anecdote of a ConcurrentModificationException race in parallel tool calling (§3.6)."},
+    {"id": "P31", "stance": "mixed", "note": "Argues pass/fail benchmarks miss trajectory quality; offers a complementary benchmark rather than evidence against SWE-bench."}
+  ],
+  "methodology": {
+    "sample": "16 scenarios x 2 personas = 32 trajectories per agent; 17 harness/model configurations",
+    "baselines": "Claude Code as the only external harness; models compared to each other",
+    "models": "Opus 4.7, Sonnet 4.6, Haiku 4.5, GPT-5.5, GLM-5.1, DeepSeek V4 Pro/Flash, Gemini 3.1 Pro/3 Flash, MiniMax 2.7, Qwen 3.6 Plus, Mimo V2.5 Pro, Kimi K2.6; judge GPT-5.4",
+    "variance": "Five repeats for one configuration only (QI SD 0.94); all other rows single-run",
+    "ablations": "Order-swap and judge self-preference checks; metric correlation analysis (Tables 2-3, n=15)",
+    "contamination_controls": "None; §4.2 notes Claude Code Haiku may benefit from training exposure to its harness",
+    "languages": "Java only (§5)"
+  },
+  "standards": {
+    "peer_review": "arXiv preprint, no venue listed",
+    "limitations_section": true,
+    "artifacts": "Benchmark code at github.com/agent-lens/agent-lens-bench; judge prompts in Appendix C; test-generation fold and other IDE variants not yet released",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "self_evaluation", "detail": "Explyt built the benchmark around its own assistant (§5) and ranks its own EAA+Opus first, ahead of Claude Code+Opus."},
+    {"type": "llm_judge_unvalidated", "detail": "No human agreement study; single GPT-5.4 judge for leaderboard; self-preference shown to be material in Table 5."},
+    {"type": "small_sample", "detail": "32 trajectories per agent; 11-model correlation study."},
+    {"type": "no_variance_reported", "detail": "Variance reported for one configuration; leaderboard gaps of a few QI points lack CIs."},
+    {"type": "selection_bias_participants", "detail": "Scenarios come from interviews and anonymized usage of the authors' own product users (§3.1)."},
+    {"type": "metric_mismatch", "detail": "QI is an unweighted mean of judge scores and formal pass rate, validated only by a developer 'vibe check' (§3.3)."}
+  ],
+  "coi": {
+    "affiliations": "Six of seven authors at Explyt (vendor of Explyt AI Agent, an IntelliJ coding agent); one at Steklov Institute / St. Petersburg State University",
+    "vendor_products_evaluated": "Explyt AI Agent (EAA) evaluated against Claude Code; EAA+Opus 4.7 ranked first",
+    "funding": "No acknowledgments or funding statement found",
+    "severity": "high",
+    "detail": "Vendor-built benchmark, tasks partly drawn from the vendor's product usage, vendor's own agent ranked top via vendor-chosen LLM judge without independent replication; limitation is acknowledged in §5."
+  },
+  "scores": {"rigor": 2, "reproducibility": 3, "generalizability": 2, "relevance": 4, "coi_risk": 4},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Useful, concrete design for trajectory-level and regression evaluation of Java coding agents (Maven/Gradle verifiers, pairwise CI regression checks), but the leaderboard is vendor self-evaluation on 32 trajectories with an unvalidated single LLM judge; treat the harness-ranking claims as marketing-grade and the methodology as the contribution.",
+  "applicability": "Directly reusable idea for a Java team: a small, fast nightly fold of interview-derived scenarios with Maven/Gradle test, coverage and file-boundary verifiers (NoChangesVerifier is a cheap guard for multi-repo ingestion changes) plus side-by-side regression reports when changing agent host, model, or harness rules. For mixed agent hosts it shows harness choice changes outcome with the same model (EAA vs Claude Code), so the team should evaluate host+model pairs, not models. It does not cover multi-repository tasks, spec-driven workflows, or healthcare content; do not trust its judge scores without building a small human-labelled agreement set first.",
+  "conflicts_with": [
+    {"arxiv_id": "2605.26156", "detail": "Shows LLM judges can be manipulated by style; AgentLens relies on judge-only dimensions (incl. Pleasantness) for most of its QI spread."},
+    {"arxiv_id": "2607.22585", "detail": "Agrees harness is a hidden variable; AgentLens' EAA-vs-Claude-Code gap is a vendor-run instance of the same effect and should be read in that light."}
+  ]
+}

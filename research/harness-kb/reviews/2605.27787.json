@@ -1,0 +1,44 @@
+{
+  "arxiv_id": "2605.27787",
+  "contribution_type": "empirical",
+  "summary": "Measures GPU energy of multi-agent SWE systems (HyperAgent, BOAD) on locally served Qwen3.6 models and attributes per-turn energy to token categories, finding output tokens cost 30-1,000x more energy than input/cached tokens. Proposes 'Librarian', a persistent, lookup-only code-search sub-agent that returns file:line pointers instead of excerpts and is told which ranges were edited since its last call; it cuts per-episode GPU energy 11-30% at non-inferior pass rate on SWE-Bench Verified and a 100-task SWE-Bench-Live sample.",
+  "claims": [
+    {"claim": "Output tokens cost 30-1,000x more GPU energy per token than uncached/cached input tokens.", "evidence": "Table 2: beta_o 967 vs beta_u 30.5 vs beta_c 1.36 mJ/tok (A3B/A100); 3,512 vs 33.97 vs 2.04 (27B/B200); R^2 0.979-0.992; VIF<=1.05 (Table 10); fitted on 23k-196k turns (App. A.2).", "strength": "strong", "location": "§3.2, Table 2, App. A.2"},
+    {"claim": "Librarian reduces per-episode GPU energy of existing MAS by 11-30% while preserving pass rate.", "evidence": "Table 4 (500 SWE-Bench Verified tasks): HyperAgent A3B 25.64->22.73 kJ (-11%), HyperAgent 27B 121.84->91.45 (-25%), BOAD A3B 17.45->14.66, BOAD 27B 88.96->71.76; pass rate equal or higher. Table 5 SWE-Bench-Live HyperAgent 182.32->128.26 (-30%) but pass 23->21. App. G Table 15: Wilcoxon significant in 7/8 cost comparisons after Holm; McNemar-style non-inferiority holds 8/8 at 3.5pt margin, only 5/8 at 2pt.", "strength": "strong", "location": "§5.2, Tables 4-5, App. G"},
+    {"claim": "Re-exploration of overlapping file regions across sub-agent invocations is a major source of excess MAS output.", "evidence": "Table 3 gives an explicit upper bound (not point estimate) on duplicate output, e.g. HyperAgent executor 26.8% cross-invocation from editor and 34.4% within-invocation; authors acknowledge it is a bound.", "strength": "moderate", "location": "§3.3, Table 3"},
+    {"claim": "All four mechanisms (persistent session, pointer-only output, lookup-only scope, freshness report) contribute.", "evidence": "Table 8 leave-one-out on 100 tasks, Qwen3.6-27B only: removing any mechanism raises output tokens and energy on both MAS; pass rates differ by 1-4 points on 100 tasks, which is within noise.", "strength": "moderate", "location": "§5.3, Table 8"},
+    {"claim": "Persistent history beats BM25/dense retrieval of prior reads.", "evidence": "Table 9: lowest energy in 3 of 4 settings; on BOAD/A3B dense retrieval wins on both pass (77 vs 74) and energy (12.42 vs 13.61). 100-task samples only.", "strength": "weak", "location": "§5.4, Table 9"}
+  ],
+  "patterns": [
+    {"id": "P12", "stance": "supports", "note": "A long-lived, lookup-only sub-agent isolated from editing reduces orchestrator context and output volume; evidence on two MAS x two backbones."},
+    {"id": "P11", "stance": "mixed", "note": "Table 1: single-agent Vanilla uses less energy (10.31 kJ A3B) than any MAS incl. BOAD+Librarian (14.66 kJ); Vanilla pass rate is never reported, so MAS benefit over a single agent is not established."},
+    {"id": "P08", "stance": "supports", "note": "Pointer-only answers act as output compaction; LastNObservation truncation (observation masking) increased energy and lowered pass in every setting (Table 4)."},
+    {"id": "P09", "stance": "supports", "note": "Within-episode persistent search history with a freshness report of edited ranges; Figure 3 shows fewer turns per later invocation."},
+    {"id": "P05", "stance": "neutral", "note": "Librarian uses bash/grep + file view; compares against BM25 and embedding retrieval of prior reads (P06) with mixed results."},
+    {"id": "P24", "stance": "supports", "note": "Shows API token counts/pricing are a poor proxy for energy; output-token budget is the lever. Directly relevant to cost caps."},
+    {"id": "P31", "stance": "neutral", "note": "SWE-Bench Verified + SWE-Bench-Live, Python-only."}
+  ],
+  "methodology": {
+    "sample": "500 SWE-Bench Verified tasks for main results; 100-task samples of SWE-Bench-Live (46 repos, 41 not in Verified), and 100-task samples for ablations/retrieval comparisons.",
+    "baselines": "Two published MAS (HyperAgent, BOAD) as hosts; token-efficiency baselines caveman prompting and LastNObservation (N=5). No comparison to a commercial agent host; single-agent Vanilla pass rate not reported.",
+    "models": "Qwen3.6-35B-A3B and Qwen3.6-27B, FP8, vLLM on B200 (plus A100 for regression).",
+    "variance": "One run per task; paired Wilcoxon (cost) and McNemar-style non-inferiority (pass) tests with Holm correction on the 500-task set (App. G). No repeated seeds.",
+    "ablations": "Leave-one-out of four mechanisms (Table 8); persistent session transferred to executor role; retrieval variants (Table 9).",
+    "contamination_controls": "None for SWE-Bench Verified; SWE-Bench-Live sample used as a fresher split.",
+    "languages": "Python only (SWE-Bench family)."
+  },
+  "standards": {"peer_review": "Accepted, EMNLP 2026 Main (arXiv comment).", "limitations_section": true, "artifacts": "Code at github.com/ml-postech/Librarian; system prompt and tool policy in App. B.4-B.5.", "preregistration": "n/a"},
+  "biases": [
+    {"type": "single_language_python", "detail": "SWE-Bench Verified and SWE-Bench-Live are Python repositories only."},
+    {"type": "metric_mismatch", "detail": "GPU energy is measured on self-hosted vLLM; teams paying per-token API prices see a different cost function (input tokens dominate billing, cached tokens discounted)."},
+    {"type": "small_sample", "detail": "Ablations, retrieval comparison and SWE-Bench-Live use 100 tasks; HyperAgent A3B baseline pass is 66.0 on 500 tasks but 71.0 on the 100-task sample, showing sampling noise exceeds many reported deltas."},
+    {"type": "strawman_baseline", "detail": "Main comparison omits the cheaper single-agent baseline's pass rate, so 'MAS + Librarian' is never shown to beat a plain single agent on cost-effectiveness."},
+    {"type": "other:limited_model_scale", "detail": "Only 3B-27B active-parameter open models; authors concede transfer to >500B models is open."}
+  ],
+  "coi": {"affiliations": "POSTECH (Graduate School of AI; Dept. CSE), academic.", "vendor_products_evaluated": "None; evaluates third-party open MAS and open Qwen models.", "funding": "Korean government NRF and IITP grants (MSIT).", "severity": "none", "detail": "No vendor affiliation; authors evaluate their own add-on but against published MAS with paired statistics."},
+  "scores": {"rigor": 4, "reproducibility": 4, "generalizability": 2, "relevance": 4, "coi_risk": 0},
+  "verdict": "admit",
+  "verdict_reason": "Headline numbers are reproducible from Tables 2, 4 and 5 and backed by paired significance tests with multiple-comparison correction. Main gaps: Python-only, small open models, one run per task, no single-agent pass-rate comparison. The design guidance (persistent lookup sub-agent, pointer-only returns, edited-range freshness report) transfers regardless of energy accounting.",
+  "applicability": "For a Java team whose ingestion spans 4+ repositories, the transferable design is a single long-lived 'librarian' lookup sub-agent per task. It searches across all repos, returns repo/file:line pointers rather than pasted code, and gets a freshness report listing ranges edited since its last call. This directly targets cross-repo re-exploration, where content-model and delivery-API code is read repeatedly. It is host-agnostic: it works as a subagent definition in Claude Code, Cursor or Codex. Caveats: the evidence is Python on self-hosted models, so the energy savings are not dollar savings under per-token API pricing; savings come from output-token reduction, which is still the most expensive token class on most commercial APIs. Do not read this as evidence that multi-agent beats single-agent. Table 1 shows a single agent was cheapest. Avoid naive observation truncation (LastNObservation hurt both cost and pass rate).",
+  "conflicts_with": []
+}

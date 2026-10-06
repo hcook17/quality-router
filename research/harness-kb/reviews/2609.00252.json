@@ -1,0 +1,58 @@
+{
+  "arxiv_id": "2609.00252",
+  "contribution_type": "position",
+  "summary": "Four UPM authors present a conceptual, multivocal-literature-review-based framework for Spec-Driven Development (SDD) as a team-level discipline for agentic software engineering. It proposes a two-level specification hierarchy (system specs in rule files such as AGENTS.md vs per-feature specs, plus on-demand skills), splits the 'harness' into a technical harness around the agent and a methodological harness of eight team mechanisms, and offers a typology of five human-agent interaction patterns. No empirical evaluation is performed; the authors explicitly frame it as a first step toward consensus.",
+  "claims": [
+    {"claim": "A 'productivity paradox' exists: AI raises individual output while review time, instability and defects degrade at team level.", "evidence": "Cites secondary figures only: Faros AI (21% more tasks, 98% more merged PRs, 91% more review time, 9% more defects), DORA 2024/2025, METR RCT (19% slower), GitClear (refactoring share 25%->below 10%). No new data; several sources are vendor reports (Faros AI, GitClear) whose methods the paper does not appraise beyond 'reputation'.", "strength": "weak", "location": "§1, Figure 1, §3.5"},
+    {"claim": "SDD with specifications as the version-controlled contract (four commitments; spec wins on disagreement) is the discipline that makes team-scale ASE feasible.", "evidence": "Operational definition and argument only; threats section concedes 'whether SDD adoption can mitigate the productivity paradox remains an empirical question'.", "strength": "unsupported", "location": "§4.1, §8.3"},
+    {"claim": "The harness comprises a technical harness (loop, tools, context, memory, guardrails, verification) and an eight-mechanism methodological harness (context engineering, persistent shared knowledge, executable specs, N-version parallel agents in worktrees, normative specs, structured consultation, evidence-backed acceptance, graduated autonomy).", "evidence": "Thematic synthesis of literature with worked (invented) refund-endpoint examples; representative traceability in Table 4; full extraction matrix in Zenodo package. Mechanisms largely adopted from Hassan et al. 2025 (Merge-Readiness Packs, Consultation Request Packs, autonomy ladder) and Böckeler/Fowler, LangChain.", "strength": "moderate", "location": "§5.1-5.11, §7 Table 4"},
+    {"claim": "Five interaction patterns (briefing, consultation, review, norm encoding, orchestration) redefine the human role from coder to orchestrator/verifier.", "evidence": "Conceptual typology derived from the synthesis; no observation of teams.", "strength": "weak", "location": "§6.1-6.3"}
+  ],
+  "patterns": [
+    {"id": "P14", "stance": "introduces", "note": "Central thesis: specs as canonical contract with four commitments and proposal-apply-archive iteration (OpenSpec-style); no measured effect."},
+    {"id": "P01", "stance": "introduces", "note": "System specification physically lives in always-loaded rule files (AGENTS.md/CLAUDE.md); normative clauses added via reviewed PR."},
+    {"id": "P02", "stance": "introduces", "note": "Skills (SKILL.md) distinguished as procedural, loaded on demand vs normative always-on system spec."},
+    {"id": "P09", "stance": "introduces", "note": "Harness 2: persistent shared knowledge store capturing decisions and rationale."},
+    {"id": "P29", "stance": "introduces", "note": "Harness 4: N-version generation with one git worktree per agent to avoid silent collisions."},
+    {"id": "P19", "stance": "introduces", "note": "Structured consultation and graduated autonomy (human-approved plan for auth-module changes)."},
+    {"id": "P34", "stance": "introduces", "note": "Feature specs carry acceptance criteria; evidence packs map tests to spec clauses."},
+    {"id": "P16", "stance": "neutral", "note": "Executable specifications and verification loops described as harness components."},
+    {"id": "P30", "stance": "introduces", "note": "Evidence-backed acceptance bundles provide audit trail from spec version to tests and rationale."}
+  ],
+  "methodology": {
+    "sample": "Multivocal literature review: academic search with single string \"Agentic Software Engineering\" (IEEE 15/12 included, ACM 21/16, Scopus 36/22, arXiv 48/44; 9 duplicates) plus unquantified gray literature (industry reports, blogs, X/YouTube creators).",
+    "baselines": "None (conceptual).",
+    "models": "None evaluated.",
+    "variance": "n/a.",
+    "ablations": "n/a.",
+    "contamination_controls": "n/a.",
+    "languages": "n/a; worked examples are generic backend (refund/payment service)."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint; no venue in comment or journal_ref (ACM template with placeholder DOI).",
+    "limitations_section": true,
+    "artifacts": "Zenodo replication package (DOI 10.5281/zenodo.22151221) with source-selection material and extraction matrix.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "other:no_empirical_validation", "detail": "Framework is entirely argued; authors concede SDD's effect on the productivity paradox is untested (§8.3)."},
+    {"type": "self_reported_numbers", "detail": "Motivating statistics are second-hand from vendor/industry reports (Faros AI, GitClear, DORA) not re-analysed; quality assessment of gray literature is reputation/novelty-based (§3.5)."},
+    {"type": "novelty_inflation", "detail": "Most mechanisms (Merge-Readiness Packs, Consultation Request Packs, autonomy ladder, mentorship-as-code) are explicitly adopted from Hassan et al. 2025; contribution is mostly reframing them under 'SDD'."},
+    {"type": "other:methodology_inconsistency", "detail": "Abstract says the analysis draws 'predominantly on gray literature', yet §3.4 reports ~94 included academic papers and never counts gray sources; single broad search string; convenience sampling acknowledged."},
+    {"type": "cherry_picked_examples", "detail": "Worked examples (refund endpoint idempotency, exception mapping) are constructed by the authors to illustrate, not drawn from observed teams."}
+  ],
+  "coi": {
+    "affiliations": "All four authors: Universidad Politécnica de Madrid.",
+    "vendor_products_evaluated": "None evaluated; mentions Claude Code, Codex, OpenCode, OpenSpec as examples.",
+    "funding": "Declared 'Not applicable'; authors declare no conflict of interest.",
+    "severity": "none",
+    "detail": "Academic authors, no vendor tie. Note that some cited evidence comes from vendors with commercial interest (Faros AI, GitClear), which is a source-quality issue rather than an author COI."
+  },
+  "scores": {"rigor": 1, "reproducibility": 2, "generalizability": 2, "relevance": 4, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "No empirical evidence, mechanisms largely borrowed from Hassan et al. 2025 and a search method that doesn't match how the abstract describes it. Still, it is the most directly on-topic vocabulary for a team adopting SDD, and it is honest about being unvalidated. Admit it as a conceptual reference, not as evidence that SDD works.",
+  "applicability": "Directly usable as a vocabulary and checklist, not as evidence. For the Java ingestion team: (a) the system-vs-feature spec split maps onto a committed AGENTS.md/system spec per repository plus per-change feature specs with acceptance criteria. The ≥4 ingestion repos need a shared, versioned system spec (content schema, healthcare-education provenance and retention rules, delivery API contracts) so no repo-local rule file drifts. (b) The 'spec wins on disagreement, never silent edits' commitment fits contract-first OpenAPI/JSON Schema between ingestion and front-end delivery. (c) Worktree-per-agent isolation and evidence packs work the same under Cursor, Claude Code, Codex or Hermes, because they are git and CI artifacts rather than host features. (d) Graduated autonomy per task class (e.g., dependency bumps autonomous, PHI-adjacent or auth code needs a human-approved plan) is a cheap policy to write down. Cross-repo coordination is not addressed explicitly, so the team must design it themselves. Treat the eight mechanisms as hypotheses to measure (review time, defect escape), not as proven practice.",
+  "conflicts_with": [
+    {"arxiv_id": "2606.13175", "detail": "That paper argues human code review is no longer necessary; this one keeps the human as verifier/orchestrator with evidence-backed acceptance and graduated autonomy as the core of SDD."}
+  ]
+}

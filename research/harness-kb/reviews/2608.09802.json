@@ -1,0 +1,45 @@
+{
+  "arxiv_id": "2608.09802",
+  "contribution_type": "benchmark",
+  "summary": "SWE-Bench ProMax is a 170-instance refactoring benchmark mined from post-January-2025 'refactor' commits in 70 GitHub repositories across seven languages (26 Java instances from 11 repos), with expert-rewritten problem statements and manually pruned test suites. Six frontier/open-weight models are run under mini-swe-agent and OpenHands; the best resolve rate is 41.2% (GPT-5.2, OpenHands), and the main failure mode is agents editing too few files.",
+  "claims": [
+    {"claim": "Best model achieves only 41.2% resolve rate; benchmark is unsaturated.", "evidence": "Table 3: GPT-5.2 under OpenHands 41.2%; next Claude Sonnet 4.6 38.8%. Single run per model/scaffold, no variance.", "strength": "strong", "location": "§5.1, Table 3"},
+    {"claim": "Instances are large: 11.4 modified source files and 261.6 LOC on average.", "evidence": "Table 2 dataset statistics (11.4 files, 261.6 LOC source gold patch; 15.9 total files incl. tests); Table 5 per language (Java 20.8 files avg).", "strength": "strong", "location": "§3.3, Table 2, Appendix A.1"},
+    {"claim": "Expert curation removes overly narrow/broad tests and yields descriptions that are necessary and sufficient for the gold patch.", "evidence": "Stage 3 process described (§3.2) but no annotator count, no inter-rater agreement, no audit of residual test defects, and LLMs assisted rewriting (LLM usage disclosure). Quality is asserted, not measured.", "strength": "weak", "location": "§3.2, LLM usage disclosure"},
+    {"claim": "Open-weight models are competitive at a fraction of the cost (GLM-5 36.5% at $0.24 vs Sonnet 4.6 38.8% at $4.77).", "evidence": "Table 3 OpenHands rows. Differences of 2-5 pp on n=170 with single runs are not shown to be significant.", "strength": "moderate", "location": "§5.1, §5.3, Table 3"},
+    {"claim": "Dominant failure mode is incomplete cross-file propagation: agents modify fewer files than the gold patch.", "evidence": "Figure 5 CDFs for two models (Sonnet 4.6, Kimi-K2.5) only; qualitative manual inspection, no quantified failure taxonomy.", "strength": "moderate", "location": "§5.2, Figure 5"}
+  ],
+  "patterns": [
+    {"id": "P31", "stance": "introduces", "note": "New SWE-bench-family benchmark targeting multi-file refactoring with curated tests."},
+    {"id": "P16", "stance": "neutral", "note": "Resolution judged by full test-suite execution in prebuilt Docker containers."},
+    {"id": "P33", "stance": "mixed", "note": "Scaffold matters a lot: GPT-5.2 goes 21.8% (mini-swe-agent, bash-centric) to 41.2% (OpenHands, structured tools); Gemini-3-Pro gets worse (26.5% to 19.4%)."},
+    {"id": "P34", "stance": "supports", "note": "Problem statements rewritten as precise, self-contained specs stating components, transformation and invariants; argued (not ablated) to be necessary for fair evaluation."},
+    {"id": "P23", "stance": "neutral", "note": "Cost/resolve data (GLM-5 at ~1/20 the cost of Sonnet 4.6) is input to model-routing decisions but no routing is evaluated."},
+    {"id": "P28", "stance": "neutral", "note": "Incomplete propagation to peripheral call sites is exactly the gap deterministic codemods/recipes cover; not evaluated."}
+  ],
+  "methodology": {
+    "sample": "170 instances from 70 repos (29,782 candidates); per language 20-29 instances; TypeScript from only 2 repos, Rust from 5; Java 26 instances / 11 repos.",
+    "baselines": "No prior-method baselines (benchmark paper); compares six models x two scaffolds with 300-step / $10 caps.",
+    "models": "Gemini-3-Pro, Claude Sonnet 4.6, GPT-5.2, GLM-5, Kimi-K2.5, Qwen3.5.",
+    "variance": "Single Pass@1 run per configuration; no CIs. Per-language rates rest on ~20-29 instances each.",
+    "ablations": "Scaffold comparison only.",
+    "contamination_controls": "Commits after January 2025 only; no check against model training cutoffs, no decontamination analysis despite citing contamination as a motivation.",
+    "languages": "Python, Java, TypeScript, Go, C, C++, Rust."
+  },
+  "standards": {"peer_review": "Accepted at COLM 2026 (arXiv comment)", "limitations_section": false, "artifacts": "Dataset on Hugging Face (swe-bench-promax/SWE-Bench-ProMax) with Docker environments built via SWE-Factory; agent trajectories/scripts release not stated.", "preregistration": "n/a"},
+  "biases": [
+    {"type": "no_variance_reported", "detail": "Single run per model/scaffold; model rankings separated by 2-5 pp on 170 instances; per-language cells of 20-29 instances swing widely (e.g. Gemini TypeScript 14.3% vs 0.0% across scaffolds)."},
+    {"type": "contamination_risk", "detail": "Public GitHub commits from 2025 onward; several evaluated models likely trained after some commits; no cutoff-aware split."},
+    {"type": "metric_mismatch", "detail": "Commits are selected by 'refactor' keyword and must change tests; some instances (e.g. PlantUML Gantt hour-level resolution, Appendix C.2) are feature changes, so 'behavior-preserving refactoring' is not consistently what is measured."},
+    {"type": "self_reported_numbers", "detail": "Curation quality (narrow/broad tests removed, descriptions sufficient) is asserted without annotator counts, agreement statistics, or an independent audit."},
+    {"type": "small_sample", "detail": "Per-language conclusions ('GLM-5 leads on Java 34.6%') rest on 26 Java instances = ~9 resolved tasks."}
+  ],
+  "coi": {"affiliations": "Affiliations not present in extracted text or metadata (15 authors). Funding: National Key R&D Program of China, Natural Science Foundation of Shanghai, Hong Kong RGC GRF and Theme-based Research Scheme.", "vendor_products_evaluated": "Third-party models and open-source scaffolds; authors do not ship a ranked system.", "funding": "Public research grants (China/Shanghai/Hong Kong).", "severity": "none", "detail": "No vendor affiliation identifiable; benchmark authors do not appear to rank their own system. Affiliation could not be verified from the text."},
+  "scores": {"rigor": 3, "reproducibility": 4, "generalizability": 4, "relevance": 3, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Useful multilingual (incl. Java) large-patch refactoring benchmark at a peer-reviewed venue with released data, but curation quality is asserted rather than measured, no variance, no limitations section, weak contamination control, and small per-language cells.",
+  "applicability": "Relevant as evidence that cross-file propagation is the main failure mode for agents on large changes: for the Java ingestion team, multi-file refactors (e.g. a content-schema change rippling through 4+ ingestion repos and delivery APIs) should not be trusted to a single agent pass. Harness implications: (1) after an agent edit, run a deterministic 'all call sites updated' check (compiler, grep/LSP references, OpenRewrite recipe where possible) before tests; (2) specs for refactors should enumerate affected components and invariants, as the benchmark's rewritten descriptions do; (3) scaffold choice moves results ~2x, so evaluate harnesses per host rather than assuming model rank transfers across Cursor/Claude Code/Codex. Java subset (26 instances, 11 repos) is a usable but small internal eval seed. Note it is single-repo per task, so it says nothing directly about cross-repo coordination.",
+  "conflicts_with": [
+    {"arxiv_id": "2609.08149", "detail": "SWE-Bench Pro Verified also re-curates benchmark tests; both claim to fix SWE-bench test-quality defects with different curation methods, so 'reliable' benchmark claims should be compared."}
+  ]
+}

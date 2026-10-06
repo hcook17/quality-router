@@ -1,0 +1,52 @@
+{
+  "arxiv_id": "2607.05762",
+  "contribution_type": "system",
+  "summary": "A multi-agent pipeline for LLM-generated collider-physics analysis code: a helper selector picks domain helper functions, a generator writes Python, an execute-and-repair loop fixes runtime errors, a tracer maps task-card items to code, a critique agent flags mismatches, and a 'Golden Axe Oracle' flags ambiguities in the user's task card before generation. Validated on five hand-built LHC analysis task cards with Qwen and Llama open models.",
+  "claims": [
+    {"claim": "Modular task decomposition enhances transparency and reliability relative to the previous single-prompt approach", "evidence": "No quantitative head-to-head with the earlier single-prompt system; §4.3 presents only Case 5 in detail ('qualitative patterns are similar'), with Table 3 a manual author judgment of four generated programs (2 pass, 2 partial success).", "strength": "weak", "location": "§4.3, Table 3, §5"},
+    {"claim": "Enables substantially smaller (~14B) models to run the complete workflow", "evidence": "§5 states the previous implementation needed ~70B; §4.3 shows Qwen3-14B codegen produced partial successes (wrong composite Delta-phi) when helpers were chosen by the 14B selector. 'Runs end to end' is supported; 'correct' is not.", "strength": "weak", "location": "§4.2-4.3, §5"},
+    {"claim": "Ambiguity oracle detects useful specification ambiguities before code generation", "evidence": "Table 4: counts of useful vs off-target ambiguity detections over ten runs per model (e.g. 27 useful for Qwen2.5-7B); categories defined and judged by the authors, no ground-truth ambiguity set or second rater.", "strength": "weak", "location": "§4.4, Table 4"},
+    {"claim": "Explicit composite-object definitions in the task card improve generation stability", "evidence": "§4.1 asserts 'significantly improved generation stability' from preliminary studies; no numbers reported.", "strength": "unsupported", "location": "§4.1"}
+  ],
+  "patterns": [
+    {"id": "P11", "stance": "introduces", "note": "Role-separated generation, execution, tracing, critique agents; no ablation against fewer roles."},
+    {"id": "P34", "stance": "introduces", "note": "Structured task cards with explicit object definitions; claimed to help, not measured."},
+    {"id": "P14", "stance": "introduces", "note": "Pre-generation ambiguity detection on the spec, with alternative readings returned to the user."},
+    {"id": "P16", "stance": "neutral", "note": "Execute-and-repair loop catches runtime errors; authors stress it does not catch semantic errors."},
+    {"id": "P18", "stance": "introduces", "note": "LLM critique agent compares as-implemented spec to task card; not validated against ground truth."}
+  ],
+  "methodology": {
+    "sample": "Five collider-physics task cards; detailed results for one (Case 5)",
+    "baselines": "None quantitative; refers to authors' previous CoLLM single-prompt system",
+    "models": "Qwen2.5-14B, Qwen3-14B, Llama3-70B, Qwen2.5-7B (oracle); codegen switched to Qwen3-14B because Qwen2.5-14B API became unavailable",
+    "variance": "Helper selection 5 runs; oracle 10 runs; codegen outputs judged once",
+    "ablations": "Helper-card source varied (14B vs 70B selector); no component ablation",
+    "contamination_controls": "n/a",
+    "languages": "Python analysis code only"
+  },
+  "standards": {
+    "peer_review": "arXiv preprint (comment: 20 pages, 1 figure, 4 tables)",
+    "limitations_section": false,
+    "artifacts": "Package said to be on GitHub; no URL extracted in signals",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "self_evaluation", "detail": "Authors judge their own pipeline's outputs manually (Table 3) and label oracle detections as useful/off-target."},
+    {"type": "small_sample", "detail": "Five task cards, one reported in detail."},
+    {"type": "cherry_picked_examples", "detail": "Case 5 chosen as 'representative' without reporting the other four."},
+    {"type": "toy_tasks", "detail": "Hand-written benchmark analyses rather than real published analyses."},
+    {"type": "llm_judge_unvalidated", "detail": "Critique and tracer outputs are not validated against independent ground truth."}
+  ],
+  "coi": {
+    "affiliations": "KIAS (Korea); KEK Theory Center, Sokendai, Kavli IPMU (Japan)",
+    "vendor_products_evaluated": "None; open-weight Qwen and Llama models used. The regex 'Oracle' hit refers to the 'Golden Axe Oracle' module, not Oracle Corp.",
+    "funding": "JSPS grants 22H05113 and 22K03626; STDF project 50806",
+    "severity": "none",
+    "detail": "Academic physicists; no vendor relationship."
+  },
+  "scores": {"rigor": 1, "reproducibility": 2, "generalizability": 1, "relevance": 1, "coi_risk": 0},
+  "verdict": "reject",
+  "verdict_reason": "off-topic: LLM code generation for collider-physics analyses, with evaluation of five hand-built task cards judged manually by the authors and no quantitative comparison to the prior system. The ambiguity-detection idea is tangentially relevant to spec-driven development, but the evidence is too thin to inform a harness decision.",
+  "applicability": "Little transfer to a Java backend team. The one portable idea is a pre-generation 'ambiguity pass' over a spec that lists unclear phrases with two candidate readings for a human to choose, and a post-generation trace mapping each spec item to the code that implements it. Both resemble spec-driven review steps the team could try on ingestion rules (e.g. which content items a filter applies to, in what order validations run), but this paper offers no measured evidence they help, and its domain, Python stack and small open models do not match.",
+  "conflicts_with": []
+}

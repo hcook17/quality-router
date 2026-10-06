@@ -1,0 +1,33 @@
+{
+  "arxiv_id": "2606.24937",
+  "contribution_type": "survey",
+  "summary": "A single-author, book-length practitioner guide (v1.4, ~1.7M characters, 31 chapters) that runs from transformer internals, RL alignment (PPO/DPO/GRPO) and inference systems through RAG, agent memory, harness design, loop and graph engineering, MCP, skills, A2A, multi-agent systems, frameworks, evaluation and regulation. Its running example is a LangGraph/Ollama multi-agent glucose-monitoring assistant (the 'Guardian Angel System'), with notebooks. It reports no new experiments.",
+  "claims": [
+    {"claim": "Building great agentic systems requires understanding every layer of the pipeline, not just one.", "evidence": "Thesis stated in abstract/Preface; argued by exposition, not evaluated.", "strength": "unsupported", "location": "Abstract; Preface"},
+    {"claim": "A poorly designed harness can nullify the capabilities of even the most powerful LLM.", "evidence": "Chapter 18 introduction asserts this; supported only by citations to secondary literature, no measurement in the document.", "strength": "weak", "location": "Ch. 18"},
+    {"claim": "The guide is an accurate reference to primary literature.", "evidence": "Disclaimer states LLMs were used as a research and drafting aid and content was verified 'on a best-effort basis'; no external review. Accuracy of individual claims not checked in this review beyond chapter structure.", "strength": "weak", "location": "Disclaimer"}
+  ],
+  "patterns": [
+    {"id": "P02", "stance": "neutral", "note": "Chapter 24 on Agent Skills and procedural memory (§17.2.4)."},
+    {"id": "P04", "stance": "neutral", "note": "Chapter 23 on MCP."},
+    {"id": "P09", "stance": "neutral", "note": "Chapter 17 agentic memory systems."},
+    {"id": "P11", "stance": "neutral", "note": "Chapter 26 multi-agent topologies."},
+    {"id": "P13", "stance": "neutral", "note": "Chapters 18-20 harness orchestration, loop vs graph engineering."},
+    {"id": "P18", "stance": "neutral", "note": "Chapter 14/22 discuss LLM-as-Judge evaluation."},
+    {"id": "P25", "stance": "neutral", "note": "Chapter 12 agentic training and harness distillation (§12.6)."}
+  ],
+  "methodology": {"sample": "n/a (no empirical study).", "baselines": "n/a", "models": "Running example uses llama3.2 via Ollama.", "variance": "n/a", "ablations": "n/a", "contamination_controls": "n/a", "languages": "Python (LangGraph notebooks)."},
+  "standards": {"peer_review": "None; arXiv comment 'version 1.4'; v3 on arXiv, living document.", "limitations_section": false, "artifacts": "Notebooks at github.com/haggair/agentic-ai-book.", "preregistration": "n/a"},
+  "biases": [
+    {"type": "other:llm_assisted_authorship", "detail": "Author discloses LLM drafting assistance with best-effort verification; high risk of unverified or hallucinated details in a 1.7M-character text."},
+    {"type": "hype_language", "detail": "Promotional framing ('the reference I wish I had', 'full stack')."},
+    {"type": "single_language_python", "detail": "All implementation material is Python/LangGraph."},
+    {"type": "other:no_evaluation", "detail": "Survey/textbook with no systematic literature-selection protocol and no new evidence."}
+  ],
+  "coi": {"affiliations": "Single author Haggai Roitman; no affiliation stated (disclaimer disclaims employer views). The regex 'GitHub' vendor hit is a false positive from repository URLs.", "vendor_products_evaluated": "None evaluated; frameworks (LangGraph, AutoGen, OpenAI Agents SDK, etc.) described.", "funding": "None stated.", "severity": "none", "detail": "No evidence of vendor promotion."},
+  "scores": {"rigor": 0, "reproducibility": 2, "generalizability": 1, "relevance": 2, "coi_risk": 0},
+  "verdict": "reject",
+  "verdict_reason": "An unreviewed, LLM-assisted textbook with no empirical contribution and no systematic review method. It can serve as a background glossary, but none of its claims should be weighted as evidence in the KB.",
+  "applicability": "Usable only as orientation reading for team members new to agent harness vocabulary (harness, loop engineering, MCP, skills, memory). It gives no evidence for harness decisions for a Java multi-repo ingestion team: there is no Java, no multi-repo coordination, no spec-driven development, and no mixed-host material. The medical running example (glucose monitoring) is clinical decision support, not healthcare education content.",
+  "conflicts_with": []
+}

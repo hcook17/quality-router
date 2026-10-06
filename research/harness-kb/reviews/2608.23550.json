@@ -1,0 +1,51 @@
+{
+  "arxiv_id": "2608.23550",
+  "contribution_type": "empirical",
+  "summary": "Measures how many security rules written in public CLAUDE.md files have a matching built-in Claude Code control (permission deny/ask, mode, sandbox) that would enforce them deterministically. It covers 481 repos and 4,661 rule-word candidate segments, of which 870 were classified security-related by Claude Sonnet 5. Validation used a 180-item stratified sample labelled blind by two practitioners. Only about 4-16% of retrieved security rules have a matching control (strict adjudicated estimate 4.4%, 95% CI 2.6-6.7%). The paper frames CLAUDE.md as a 'write-only' security channel.",
+  "claims": [
+    {"claim": "Only ~4-16% of retrieved CLAUDE.md security rules have a matching built-in control; strict estimate 4.4% [2.6, 6.7].", "evidence": "Table I: classifier 16.6% [12.5, 21.4]; human loose (single annotator) 14.3% [7.6, 23.4]; adjudicated strict 4.4% [2.6, 6.7]; repository-clustered bootstrap CIs with inverse-probability weights over 3 strata.", "strength": "strong", "location": "§IV-A, Table I"},
+    {"claim": "Annotators agreed closely on match decisions.", "evidence": "Table II: κ=0.89 [0.77, 0.97] on 115 items both judged security-related (111/115 agree), Gwet AC1 0.95; κ=0.77 on the security-relevance gate. The second annotator was added post hoc (App. D).", "strength": "strong", "location": "§IV-B, Table II, App. D"},
+    {"claim": "The LLM classifier over-credits matches.", "evidence": "Classifier precision 0.350 and recall 1.000 on match vs adjudicated reference; it treats any blockable command/path as a match even when the condition is not expressible.", "strength": "strong", "location": "§IV-B, Table II, error analysis"},
+    {"claim": "Extraction captures 66.3% of eligible security rules.", "evidence": "Single-annotator 50-file audit: 63/95 reference segments, file-clustered CI [48.8, 82.0].", "strength": "moderate", "location": "§IV-B"},
+    {"claim": "CLAUDE.md is a write-only channel that gives developers no enforcement feedback, a usable-security problem.", "evidence": "Interpretive argument from the coverage gap; no developer study, no runtime test of whether agents violate the uncovered rules.", "strength": "weak", "location": "§V"}
+  ],
+  "patterns": [
+    {"id": "P01", "stance": "contradicts", "note": "As a security mechanism, instruction files are advisory. ≥84% of security rules written there have no deterministic control behind them in Claude Code."},
+    {"id": "P21", "stance": "supports", "note": "Argues for policy-as-code; the small enforceable subset (destructive commands, egress) maps to permission rules, while conditional/content/semantic rules need hooks or CI checks."},
+    {"id": "P20", "stance": "neutral", "note": "Sandbox settings counted as one class of built-in control."},
+    {"id": "P18", "stance": "neutral", "note": "LLM classifier used as measurement instrument and explicitly validated against blind human labels (precision 0.35 on matches), a good model for validating LLM judges."}
+  ],
+  "methodology": {
+    "sample": "481 CLAUDE.md files (647 examined) from capped, relevance-ranked GitHub code search (2026-08-14); 870 security segments across 201 repos; 180-item validation sample (60 per stratum); 50-file recall audit; replication frame of 701 Agent READMEs repos (classifier only).",
+    "baselines": "n/a (measurement study); three matching standards compared.",
+    "models": "Claude Sonnet 5 classifier with frozen prompt (App. B).",
+    "variance": "Repository-clustered bootstrap 95% CIs (10,000 replicates), post-stratification weights.",
+    "ablations": "Sensitivity to duplicates/templates and repo concentration (Table V); second sampling frame (Table VI: 25.1%).",
+    "contamination_controls": "n/a",
+    "languages": "English CLAUDE.md prose; code languages not analysed."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint (11 pages, 5 figures); no venue listed.",
+    "limitations_section": true,
+    "artifacts": "Replication package described (frozen frames, manifests with commit SHAs, control reference, scripts, aggregate outputs); no URL in extracted text; per-rule source links withheld pending harm review.",
+    "preregistration": "Not preregistered; control reference frozen 2026-08-13 and seed fixed before analysis."
+  },
+  "biases": [
+    {"type": "selection_bias_participants", "detail": "Corpus skews to recent, low-visibility projects: 93% of segments from repos created 2025-2026, 58% of repos have zero stars."},
+    {"type": "metric_mismatch", "detail": "Measures whether a documented control exists, not whether agents actually violate uncovered rules or whether teams enforce them via hooks/CI (acknowledged)."},
+    {"type": "other:single_product_scope", "detail": "Control reference is Claude Code only at one freeze date; Codex, Cursor and other hosts are not measured."},
+    {"type": "small_sample", "detail": "Human validation is 180 items; family breakdown rests on a single annotator with 57.1% weighted agreement."}
+  ],
+  "coi": {
+    "affiliations": "Single author Ting Yan; no affiliation stated in the paper.",
+    "vendor_products_evaluated": "Claude Code's controls are the object of study and Claude Sonnet 5 is the classifier. The finding is unfavourable to the product's coverage, not promotional.",
+    "funding": "None stated. Codex was used for code and writing assistance (Use of Generative AI section).",
+    "severity": "none",
+    "detail": "No vendor tie visible; the affiliation is unknown, so independence cannot be fully confirmed."
+  },
+  "scores": {"rigor": 4, "reproducibility": 3, "generalizability": 2, "relevance": 5, "coi_risk": 0},
+  "verdict": "admit",
+  "verdict_reason": "Careful measurement design: frozen instrument, blind dual annotation, design-weighted CIs, an explicit sensitivity range, and an honestly reported recall ceiling. The headline range is well supported. Scope is limited to one host and to control existence rather than runtime behaviour.",
+  "applicability": "Directly informs the harness. Do not rely on AGENTS.md/CLAUDE.md prose for security-relevant constraints such as 'never write learner data to logs', 'never push to main' or 'do not touch production content stores'. The share these files can enforce is small, and the gap varies by host, which matters for a mixed-host team. The deterministic CLI should own enforcement: compile the enforceable subset into each host's permission format (deny/ask rules, sandbox egress) and push the rest into hooks and CI checks (secret scanners, Semgrep rules, path-ownership checks across the ≥4 ingestion repos). Mark the remaining prose rules as advisory. In spec-driven development, security requirements in specs should carry an explicit enforcement mapping (control, hook, test, or 'advisory') so a rule cannot be written once and never checked.",
+  "conflicts_with": []
+}

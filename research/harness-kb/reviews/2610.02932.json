@@ -1,0 +1,51 @@
+{
+  "arxiv_id": "2610.02932",
+  "contribution_type": "system",
+  "summary": "PACE measures the token cost of compiling repeated GUI (computer-use) procedures into parameterized programs, including failed compilation attempts, and proposes an online rent-or-buy style algorithm that decides when to compile under a cumulative (1+epsilon) cost budget relative to always running the agent. Savings are shown mainly in simulations that map measured cost profiles onto synthetic grids and recorded public event-log arrival orders.",
+  "claims": [
+    {"claim": "Payback counts for successful compilations are 2-16 uses (excluding source agent runs).", "evidence": "Table 1 compilation-only payback ranges 1.39 to 15.5 uses (text: 1.389 to 15.488); abstract rounds up. Only 11 of 20 compilation cells pass verification; seven task families, three models, k=3 source traces.", "strength": "moderate", "location": "§3.2, Table 1"},
+    {"claim": "PACE reduces token cost by 17.3% vs ReAct, 24.9% vs AutoRPA adaptation, 17.3% vs ToolPro adaptation on recorded arrivals (eps=0.25).", "evidence": "§5.1: 17.34% vs ReAct, CI [14.96,19.61]%; Table 3 ratios. These are simulations: logs (Sepsis, BPI 2019, two Wikipedia streams) supply arrival order only; measured cost profiles are shuffled onto families. PACE is costlier than ReAct in 3 of 12 conditions (Sepsis ratios 0.971-0.998). ToolPro equals ReAct by construction in grids. Authors state the grids were used while developing PACE.", "strength": "moderate", "location": "§5, Tables 2-3, App. C"},
+    {"claim": "Cumulative cost never exceeds (1+eps) times agent-only cost.", "evidence": "Theorem 4.1 with proof under stated action-cost bounds; empirically all 4800 grid runs and 120 log runs stay within 1.25. Limitations note historical mean costs do not provide the required bounds.", "strength": "strong", "location": "§4.3, §5.1, §7"},
+    {"claim": "The savings test and failed-attempt cost accounting matter; the budget mainly protects worst case.", "evidence": "Table 4: removing savings test raises log mean cost 52.68%; equal attempt costs +23.34%; removing budget changes log mean by 0.0013% but raises worst grid ratio from 1.2468 to 1.7563.", "strength": "moderate", "location": "§5.2, Table 4"}
+  ],
+  "patterns": [
+    {"id": "P24", "stance": "supports", "note": "Explicit cumulative token budget with provable bound; ablation shows it caps worst-case overspend."},
+    {"id": "P33", "stance": "supports", "note": "Compiling agent traces into executable programs cuts per-use cost (saving shares 0.936-0.999), with agent fallback."},
+    {"id": "P28", "stance": "mixed", "note": "Trace-to-deterministic-program is analogous to recipe codification; compilation fails in 9/20 cells and failed attempts cost ~6.6x successful ones (DeepSeek median)."},
+    {"id": "P30", "stance": "neutral", "note": "Measurement protocol records successful and failed compilation charges; useful cost-accounting template."}
+  ],
+  "methodology": {
+    "sample": "7 task families (4 AndroidWorld, 2 custom LibreOffice in OSWorld container, 1 WebArena Reddit); 30 fresh deployment tasks per program; 180 matched agent replays; simulations over 2x300 conditions x 8 runs and 12 log conditions x 10 runs.",
+    "baselines": "ReAct (always agent), decision-rule adaptations of AutoRPA and ToolPro using the same compiler; not original systems end to end. ToolPro degenerates to ReAct in grids.",
+    "models": "GLM 5.3 Flash, DeepSeek Flash, Qwen 3.8 Flash (cheap tier only).",
+    "variance": "Paired bootstrap (2000 resamples) conditional CIs in App. C.7/C.8; compilation itself mostly single attempt with a repeated-compilation appendix.",
+    "ablations": "No savings test, no budget, equal attempt costs, eager retry; cost-ratio sensitivity over 72 conditions.",
+    "contamination_controls": "n/a (cost measurement); authors flag that simulation grids were used during development so not independent confirmation.",
+    "languages": "Generated programs for GUI automation; no software-engineering code tasks."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint, no venue listed (comment: 27 pages, 3 figures).",
+    "limitations_section": true,
+    "artifacts": "Code, saved records, and scripts claimed at github.com/myl7/computer-use.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "other:simulation_only", "detail": "Headline savings come from simulations mapping measured cost profiles onto arrival logs from non-GUI process logs; live study (App. D) tests only fallback for a fixed program, not the online algorithm (§7)."},
+    {"type": "small_sample", "detail": "Seven task families, 11 verified programs; payback range rests on a handful of cells in Table 1."},
+    {"type": "strawman_baseline", "detail": "Baselines are decision-rule adaptations; ToolPro adaptation is identical to ReAct in grids, making the '17.3% vs ToolPro' headline a repeat of the ReAct number."},
+    {"type": "other:tuned_on_eval_grid", "detail": "Authors state the grids were used while developing PACE (§5)."},
+    {"type": "missing_cost_reporting", "detail": "Latency, device use, and program-maintenance effort excluded (§7)."}
+  ],
+  "coi": {
+    "affiliations": "City University of Hong Kong (all four authors per authors block).",
+    "vendor_products_evaluated": "None owned by authors; uses third-party GLM/DeepSeek/Qwen models.",
+    "funding": "No acknowledgments/funding section found.",
+    "severity": "none",
+    "detail": "Academic authors evaluating their own algorithm (usual self-evaluation), no vendor interest."
+  },
+  "scores": {"rigor": 3, "reproducibility": 4, "generalizability": 2, "relevance": 2, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Careful cost accounting with a proved budget bound and candid limitations, but savings are simulated, tested on cheap models and GUI tasks only, and baselines are weak adaptations; relevance to a code harness is indirect.",
+  "applicability": "Indirect for a Java backend team. The transferable idea is the accounting rule: before codifying a repeated agent procedure (e.g., a recurring content-ingestion transformation across the 4+ ingestion repos) into a deterministic script or recipe, count failed codification attempts and expected reuse, and cap cumulative spend relative to just letting the agent do it. That suggests a harness-level token budget per task family and a 'promote to script after N successful repeats' rule that works regardless of which agent host is used. GUI-specific results (screenshots, AndroidWorld) do not transfer, and nothing here addresses Java, multi-repo contracts, or spec-driven development.",
+  "conflicts_with": []
+}

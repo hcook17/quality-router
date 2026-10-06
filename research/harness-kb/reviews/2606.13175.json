@@ -1,0 +1,54 @@
+{
+  "arxiv_id": "2606.13175",
+  "contribution_type": "position",
+  "summary": "Single-author position paper arguing that coding agents now make mandatory human code review unnecessary: agents can serve every review goal (defects, style, security, knowledge transfer) more cheaply, AI-writes/human-reviews is a dead end because humans rubber-stamp and cannot scale, and the cost-benefit crossover 'has already been reached'. It proposes agent sign-off as a CI gate, with human approval kept for high-risk, novel-architecture and regulated changes, and rebuts five counter-arguments.",
+  "claims": [
+    {"claim": "Every goal of code review can be served by agents at lower cost and higher throughput", "evidence": "§IV-A cites prior work (Pornprasit & Tantithamthavorn [12], CodeReviewer [11]) and SWE-bench leaderboard trends (§III-A). No new data; SWE-bench measures issue resolution, not review; cited review studies show comparability on a fraction of cases, not superiority on all goals. Knowledge-transfer and team-awareness goals are asserted.", "strength": "unsupported", "location": "§III, §IV-A"},
+    {"claim": "Human review of agent-generated code is illusory assurance (rubber-stamping) and does not scale", "evidence": "§IV-B argues from a single cited study on reviewers' focus on surface issues [14] and throughput reasoning; no measurement of review effectiveness on agent PRs.", "strength": "weak", "location": "§IV-B"},
+    {"claim": "The crossover point where human review's marginal benefit no longer justifies its cost has already been reached", "evidence": "§IV-C; asserted without any cost or defect-escape data. Also states agent reviews are 'deterministic', which is not generally true of LLM-based reviewers.", "strength": "unsupported", "location": "§IV-C"},
+    {"claim": "Prompt injection against reviewer agents is an unsolved, qualitatively new attack surface", "evidence": "§VI-C concedes this with citation [32]; the paper offers no mitigation beyond treating it as a threat model, which undercuts the main thesis for adversarial contributions.", "strength": "moderate", "location": "§VI-C"}
+  ],
+  "patterns": [
+    {"id": "P18", "stance": "introduces", "note": "Agent reviewer as the default merge gate, with ensemble review and calibrated abstention proposed as mitigations; no evidence presented."},
+    {"id": "P19", "stance": "mixed", "note": "Argues against mandatory human approval, yet retains it for high-risk, architectural and regulated code paths (§V-A)."},
+    {"id": "P14", "stance": "neutral", "note": "Developers become 'specifiers and orchestrators'; architecture coherence moved to design docs and ADRs."},
+    {"id": "P22", "stance": "neutral", "note": "Acknowledges reviewer-agent prompt injection as unsolved."},
+    {"id": "P30", "stance": "introduces", "note": "Structured, machine-readable review records (JSON/SARIF) and signed agent identities in VCS audit logs."}
+  ],
+  "methodology": {
+    "sample": "None; argument from literature",
+    "baselines": "n/a",
+    "models": "n/a",
+    "variance": "n/a",
+    "ablations": "n/a",
+    "contamination_controls": "n/a",
+    "languages": "n/a"
+  },
+  "standards": {
+    "peer_review": "arXiv preprint, no venue stated",
+    "limitations_section": false,
+    "artifacts": "None (position paper)",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "metric_mismatch", "detail": "Uses SWE-bench resolution rates and competitive-programming rank as evidence for review capability."},
+    {"type": "hype_language", "detail": "'without precedent', 'dead end', 'eliminate it entirely', crossover 'already reached' with no data."},
+    {"type": "cherry_picked_examples", "detail": "Cites studies favorable to LLM review; omits evidence on agent PR defects or reviewer-agent false negatives beyond brief counter-argument section."},
+    {"type": "other:no_empirical_evidence", "detail": "Load-bearing claims are not tested; counter-arguments (§VI) are rebutted by assertion."}
+  ],
+  "coi": {
+    "affiliations": "KTH Royal Institute of Technology (single author, Martin Monperrus)",
+    "vendor_products_evaluated": "None",
+    "funding": "Not stated",
+    "severity": "none",
+    "detail": "Academic author; no product evaluated."
+  },
+  "scores": {"rigor": 1, "reproducibility": 0, "generalizability": 1, "relevance": 3, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Provocative, well-structured position from an established SE researcher that is useful for framing merge-gate design, but its central claims are unsupported by new evidence and partly rely on mismatched metrics. Kept only as a labelled opinion; the deterministic gate will reject it on rigor <= 1, which is appropriate for evidence weighting.",
+  "applicability": "For a healthcare-education team the paper's own carve-out applies: regulated content and code paths 'where a named human must bear legal accountability' keep human approval, so the team should not drop human review of ingestion logic that touches clinical or compliance-relevant content. The useful, transferable parts are: run an agent reviewer as a CI gate on every PR across all >=4 ingestion repositories, emit SARIF/JSON so findings are host-neutral (works regardless of which agent host produced the change), give agent reviewers distinct signed identities, and move architectural coherence into specs/ADRs, which fits a spec-driven rollout. Treat reviewer-agent prompt injection as an open risk.",
+  "conflicts_with": [
+    {"arxiv_id": "2607.07980", "detail": "That study's organizing claim (from 3,100 coded practitioner documents) is that review is the control point through which a coding agent's effect on software is decided, the opposite of this paper's claim that review is obsolete."},
+    {"arxiv_id": "2605.17548", "detail": "Vision paper that keeps humans as supervisory operators of staged agentic review rather than removing review; partially compatible but rejects the 'end of review' framing."}
+  ]
+}

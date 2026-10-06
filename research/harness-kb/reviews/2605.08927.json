@@ -1,0 +1,55 @@
+{
+  "arxiv_id": "2605.08927",
+  "contribution_type": "empirical",
+  "summary": "Single-author case study in which Claude Code (Opus 4.7, Lean 4) under the author's supervision implements three simple compiler optimizations (UCE, DAE, CP) twice in the author's own agent-built Axon compiler: once as credible compilation (unverified transform + verified certificate checker) and once fully verified. It reports effort (sessions, active time, tokens, LoC, prompts) and compile-time statistics, concluding verification costs about an order of magnitude more effort.",
+  "claims": [
+    {"claim": "Verification requires roughly an order of magnitude more development effort than credible compilation.", "evidence": "Table 1: UCE CC 1 session / 0:18 / 0.49M tokens vs UCE VF 8 sessions / 5:58 / 12.27M tokens; CP CC 1.75M tokens vs CP VF 17.86M tokens; UCE+DAE CC 1.86M vs VF 16.35M; proof LoC +4,348 to +8,158 for VF vs +0 for CC. Ratios hold, but each cell is a single supervised development run (n=1) with one supervisor and one model; checker-update (CU) rows partly offset the CC side.", "strength": "moderate", "location": "§4.1, Table 1"},
+    {"claim": "To enhance provability the agent chose less efficient algorithms/data structures, making verified optimizations slower.", "evidence": "Table 2 timings (20 runs, min/max dropped, mean of 18; SDs in Tables 3-4) show VF slower than CC opt; attribution to lists-vs-hash-maps and whole-program fixed-point iteration is qualitative (§5, §6).", "strength": "moderate", "location": "§4.2, Table 2, §6"},
+    {"claim": "The agent repeatedly reduced optimization scope to minimise proof effort.", "evidence": "Narrative development histories in §5.1-5.3; no systematic count beyond anecdotes.", "strength": "weak", "location": "§5"},
+    {"claim": "Certificate checking time dominates optimization and certificate generation time.", "evidence": "Table 2 chk column vs opt/gen on Livermore kernels; consistent with prior Axon report (ref 23, same author).", "strength": "moderate", "location": "§4.2, Table 2"},
+    {"claim": "Formal specs + verified checker eliminate the need for human code audits and enable immediately deployable agent code.", "evidence": "Asserted in §1 and §6; no audit-vs-no-audit comparison, no defect study. The corpus paper 2607.28928 runs automated testing/repair on the same Axon compiler, implying defects outside verified code.", "strength": "unsupported", "location": "§1, §6"}
+  ],
+  "patterns": [
+    {"id": "P35", "stance": "supports", "note": "Agent produced full Lean proofs and verified checkers for three optimizations; feasibility demonstrated, but at ~10x effort for full verification."},
+    {"id": "P16", "stance": "supports", "note": "Credible compilation is an execution-time checker gate: unverified agent output accepted only if verified certificate check passes; this was the cheap path."},
+    {"id": "P19", "stance": "neutral", "note": "All work done under human supervision with prompt counts reported (1-59 per optimization); supervision cost grows sharply for verification."},
+    {"id": "P24", "stance": "neutral", "note": "Reports tokens and cache reads per task (Table 1) but no budget/cap mechanism."}
+  ],
+  "methodology": {
+    "sample": "3 optimizations x 2 approaches, each developed once (n=1 per cell), plus checker-update rows; compile timing on Livermore kernels (20 runs each).",
+    "baselines": "Credible compilation vs full verification compared against each other; no human-developer baseline or other agent/model.",
+    "models": "Claude Code with Claude Opus 4.7 (1M context), single model.",
+    "variance": "Timing: SDs reported (Tables 3-4). Effort metrics: none (single run, single supervisor).",
+    "ablations": "None.",
+    "contamination_controls": "n/a (new Lean code); data collection scripts were themselves agent-generated (§4).",
+    "languages": "Lean 4; Axon TAC IR; Livermore kernels auto-translated from Fortran."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint, no venue listed in comment or journal_ref.",
+    "limitations_section": true,
+    "artifacts": "No code/data link in text or metadata; initial prompts given in §11.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "self_evaluation", "detail": "Author evaluates development on his own Axon compiler (ref 23, Rinard 2026) and his own supervision; all measurement scripts were agent-generated."},
+    {"type": "small_sample", "detail": "Three simple optimizations, each implemented once per approach; effort numbers are single trajectories."},
+    {"type": "single_model", "detail": "Only Claude Opus 4.7 via Claude Code; limitations admit another supervisor/agent could change results."},
+    {"type": "no_variance_reported", "detail": "No repeated development runs; effort ratios have no uncertainty."},
+    {"type": "hype_language", "detail": "Claims of eliminating human code audits and 'immediately deployable components with no required human validation' go beyond evidence."},
+    {"type": "closed_artifacts", "detail": "No repository link for Axon or the optimization code in this paper."}
+  ],
+  "coi": {
+    "affiliations": "Martin Rinard, National University of Singapore and MIT (single author).",
+    "vendor_products_evaluated": "Claude Code / Claude Opus 4.7 used as tool, not the object of comparison; Axon compiler is the author's own system.",
+    "funding": "No acknowledgments or funding statement found.",
+    "severity": "low",
+    "detail": "Academic author; no vendor affiliation. Self-evaluation of own system and approach preference (credible compilation) is an intellectual, not commercial, conflict."
+  },
+  "scores": {"rigor": 2, "reproducibility": 1, "generalizability": 1, "relevance": 2, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Effort ratios in Table 1 do back the order-of-magnitude claim, but it is n=1 per cell, single model, single supervisor, on the author's own toy-language compiler; the 'no audits needed' conclusion is unsupported.",
+  "applicability": "Indirect. The transferable lesson for a Java ingestion team is architectural: let agents write unverified transforms but gate them with a cheap, trusted checker (schema/contract validators for ingested healthcare-education content, golden-file diff checks) rather than demanding proofs of the transform itself. That pairs well with spec-driven development if specs are machine-checkable (JSON Schema/OpenAPI contracts shared across the ≥4 ingestion repos). Lean proofs and compiler IR do not transfer to Spring/Java services, and effort numbers are tied to one Claude host, so they say nothing about mixed agent hosts.",
+  "conflicts_with": [
+    {"arxiv_id": "2607.28928", "detail": "Applies automated defect detection and agent repair to the same Axon compiler (noting possible reward hacking risk from validation on a small benchmark set), which tempers this paper's claim that the formal architecture removes the need for code audits."}
+  ]
+}

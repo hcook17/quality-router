@@ -1,0 +1,33 @@
+{
+  "arxiv_id": "2606.31767",
+  "contribution_type": "benchmark",
+  "summary": "JETO-Mine is a configurable pipeline that mines GitHub Java (Maven Wrapper) projects for execution-time improvement patches. It uses an LLM issue classifier, Docker images, and repeated JUnit runs with binomial tests to produce JETO-Bench: 660 identified ETIPs (174 repos), 102 executable, 91 manually verified. OpenHands with GPT-5-mini correctly fixes 13/91 (14.3%), judged by manual comparison to the ground-truth patch, and existing tests rarely demonstrate the speedup.",
+  "claims": [
+    {"claim": "OpenHands with GPT-5-mini fixes 14.3% (13/91); GLM-5.1 and Mimo-pro-2.5 fix 9.9%.", "evidence": "Table 3 matches. Correctness is a manual classification (exact AST match or 'semantically equivalent' to ground truth), not a measured speedup. 36.3-61.5% of runs generate no patch; single run per model, no variance.", "strength": "moderate", "location": "§5.2, Table 3"},
+    {"claim": "The pipeline produces reproducible benchmarks with statistical evidence of execution-time improvement.", "evidence": "§5.1: with the default config only 19 of the 102 executable ETIPs have any test class showing significant improvement, and for 6 of those a test shows the original running significantly faster. Most 'executable' ETIPs therefore have no execution-time evidence; 'executable' means builds and passes tests.", "strength": "weak", "location": "§3.3, §5.1"},
+    {"claim": "JETO-Mine achieves 78% precision and 95% accuracy in identifying execution-time issues.", "evidence": "§5.3: 518/660 judged true (one author + GPT-5.5, external expert as tie-breaker). The 95/100 'accuracy' sample contained only 6 true positives, of which the filter detected 1, so recall in that sample is ~1/6. Accuracy is inflated by class imbalance.", "strength": "weak", "location": "§4.5, §5.3"},
+    {"claim": "Open-source Java projects largely lack tests that demonstrate execution-time improvements (JMH in only 14/91).", "evidence": "§5.1 (19 detector ETIPs) and §6.1 (14/91 have JMH benchmarks).", "strength": "strong", "location": "§5.1, §6.1"},
+    {"claim": "Mining cost is practical: 478 h and $5.33 of LLM filtering for 1.77M commits; median 34 min and 790 MB per Docker image.", "evidence": "§5.3 and Fig. 8.", "strength": "strong", "location": "§5.3"}
+  ],
+  "patterns": [
+    {"id": "P16", "stance": "mixed", "note": "Execution harness confirms that generated patches compile and pass tests, but most incorrect patches also pass, so functional tests cannot verify performance intent without dedicated detector tests."},
+    {"id": "P20", "stance": "supports", "note": "Per-ETIP Docker images with pinned Java versions, used as the OpenHands sandbox, make Java agent evaluation reproducible (median 790 MB)."},
+    {"id": "P31", "stance": "introduces", "note": "SWE-bench-style benchmark for Java performance patches with an evaluation harness for both patches and test generation."},
+    {"id": "P15", "stance": "neutral", "note": "Argues for generating ETIP detector tests first; preliminary OpenHands test-generation study only."}
+  ],
+  "methodology": {"sample": "3,686 repos / 1,769,958 commits scanned; 660 identified, 102 executable (40 repos), 91 manually verified ETIPs; 100-issue random sample for accuracy.", "baselines": "None beyond comparing three LLMs under one agent (OpenHands); no non-agent or other-scaffold baseline.", "models": "OpenHands with GPT-5-mini, GLM-5.1, Mimo-pro-2.5; gpt-5.1-codex-mini as issue filter; GPT-5.5 as second labeler.", "variance": "Agent results single-run; timing uses 1 warm-up + 30 runs with paired one-sided binomial tests (p=0.01, 5% minimum improvement by default).", "ablations": "Two statistical configurations for detector tests; no agent ablations.", "contamination_controls": "None discussed; patches are public GitHub commits (2015-2025) likely in model training data.", "languages": "Java only (Maven Wrapper projects; Gradle excluded)."},
+  "standards": {"peer_review": "No venue in arXiv comment.", "limitations_section": true, "artifacts": "JETO-Mine and JETO-Bench at github.com/khesoem/JETO-Bench with Docker images.", "preregistration": "n/a"},
+  "biases": [
+    {"type": "metric_mismatch", "detail": "'Correct fix' is similarity to the ground-truth patch rather than a measured speedup; 'accuracy 95%' hides ~17% recall on 6 positives."},
+    {"type": "contamination_risk", "detail": "Public historical commits from popular repos (many >10k stars); exact-match fixes (10/13 for GPT) could reflect memorization; no temporal split."},
+    {"type": "no_variance_reported", "detail": "One agent run per model on 91 tasks; 13 vs 9 correct fixes is not shown to be significant."},
+    {"type": "self_evaluation", "detail": "Ground-truth labels and patch classifications done mainly by one author, assisted by GPT-5.5; no inter-rater agreement reported."},
+    {"type": "small_sample", "detail": "91 verified tasks from 40 repos; only 13 multi-module tasks."}
+  ],
+  "coi": {"affiliations": "ETH Zurich (both authors).", "vendor_products_evaluated": "OpenHands and three third-party LLMs; none authored by ETH.", "funding": "Acknowledgments only disclose use of Cursor for coding and Claude for text polishing; no funding stated.", "severity": "none", "detail": "Academic benchmark; no product interest."},
+  "scores": {"rigor": 3, "reproducibility": 4, "generalizability": 3, "relevance": 3, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "A rare real-world Java agent benchmark with Dockerized, released artefacts and a careful JVM timing protocol. However, few tasks carry actual timing evidence, correctness is manual similarity to ground truth, the 'accuracy' figure masks very low recall, and there is one run per model with no contamination control.",
+  "applicability": "Directly Java-relevant. Expect off-the-shelf agents to fix only ~10-14% of real performance issues in Maven projects, and most wrong patches still pass existing JUnit suites. For an ingestion/delivery backend, performance acceptance criteria in specs need executable JMH or timed detector tests (warm-up plus repeated runs plus a statistical threshold, as in §3.3) before agents can be gated on them. The per-commit Docker-image approach is a workable template for reproducible agent evaluation across ≥4 Maven repos, but Gradle repos are not covered. Multi-module fixes were the weakest case (2 successes, both trivial), which matters for cross-module ingestion changes.",
+  "conflicts_with": []
+}

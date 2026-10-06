@@ -1,0 +1,58 @@
+{
+  "arxiv_id": "2605.11378",
+  "contribution_type": "system",
+  "summary": "AWS AI Labs presents EvalAgent, a Claude Code-based pipeline that turns an agent's source code and OTEL traces into evaluation plans, Python evaluation code (DeepEval) and reports, guided by on-demand 'evaluation skills' and Context7 API-doc retrieval. They also introduce AgentEvalBench (20 agents) and an agentic Claude Opus 4.5 meta-evaluator, and report that EvalAgent beats four Claude Code-derived baselines on pairwise preference and on Eval@1 (first-run executable, non-vacuous evaluation).",
+  "claims": [
+    {"claim": "EvalAgent improves Eval@1 from 17.5% to 65%.", "evidence": "Table 5(b): 17.5% is B1 (single-prompt LLM, no tools), the weakest baseline; strongest baseline B2 (Claude Code on source only) reaches 45.0-60.0% vs EvalAgent 62.5-65.0%. n=20 agents per cell, no CIs. Headline framing picks the weakest baseline.", "strength": "weak", "location": "§4.1, Table 5(b)"},
+    {"claim": "Frontier coding assistants without evaluation knowledge reach only ~30% execution success and produce 12+ metrics per agent.", "evidence": "30% matches B3/B4 (Table 5b, Table 6) but not B2 (45-60%); '12+ metrics' matches only B4 (12.0 +/- 5.6 metric classes, Table 11) while B2/B3 average 7.1/7.2.", "strength": "weak", "location": "Abstract, §1, Table 11"},
+    {"claim": "Evaluation skills are critical: removing them drops Eval@1 from 65% to ~30%, and skills keep executability stable as metric count grows.", "evidence": "EvalAgent vs B4 (same two-stage design without skills): 62.5-65.0% vs 30.0-32.5% (Table 5b); Table 9 at 5 metrics: Ours 65%, B4 40%, B3 30% (Sonnet, n=20).", "strength": "moderate", "location": "§4.1, §4.2 Finding 4, Table 9"},
+    {"claim": "Up-to-date API docs via Context7 are critical for executability.", "evidence": "Table 10: Sonnet 4.5 Eval@1 65.0% with Context7 vs 20.0% without; Haiku 62.5% vs 47.5%. Failures attributed to wrong model identifiers for DeepEval/LiteLLM/Bedrock.", "strength": "moderate", "location": "§4.2 Finding 5, Table 10"},
+    {"claim": "Human experts prefer EvalAgent in 79.5% of comparisons and the meta-evaluator tracks humans.", "evidence": "Table 3: 3 blinded annotators (no prior EvalAgent involvement, Appendix E), 40 cases EvalAgent vs B4 only, Fleiss kappa 0.923; meta-evaluator overall-winner match 39/40 but per-dimension match only 50% (Plan Quality) and 60% (Plan-Code Alignment). Rubric weights (Metric Relevance 30%, conciseness in CQC 25%, anti-length) were set heuristically by the authors and favour EvalAgent's design.", "strength": "moderate", "location": "§3.3, Table 3, Appendix E"}
+  ],
+  "patterns": [
+    {"id": "P02", "stance": "supports", "note": "Skills loaded per pipeline stage with progressive disclosure; B4-vs-EvalAgent comparison isolates skills as the main driver (Table 5, Table 9)."},
+    {"id": "P04", "stance": "supports", "note": "Context7 doc retrieval (an MCP-style external resource) gives +45pp Eval@1 for Sonnet (Table 10)."},
+    {"id": "P18", "stance": "mixed", "note": "Agentic LLM meta-evaluator validated against 3 humans on 40 cases: good winner agreement, weak on plan-related dimensions; generated evaluations themselves lean on LLM-as-judge metrics."},
+    {"id": "P13", "stance": "mixed", "note": "Planning without domain structure hurts (4.4x longer plans, 6.6x more code, Finding 3); planning helps only when paired with skills/templates."},
+    {"id": "P30", "stance": "supports", "note": "OTEL/Traceloop instrumentation and trace processing are a pipeline stage; traces improve quality but reduce executability (Finding 2)."},
+    {"id": "P16", "stance": "neutral", "note": "Eval@1 is an execution-based check on generated eval code, but there is no self-repair loop on first run by design."}
+  ],
+  "methodology": {
+    "sample": "20 agents (9 frameworks, 14 domains), 5 test scenarios and 2 requirement types each; Eval@1 cells are n=20 or 40.",
+    "baselines": "B1 single-turn LLM; B2-B4 Claude Code v2.1.92 variants (source-only, +traces, +planning). All baselines are author-built ablations on the same host; no external agent-evaluation tool (e.g., stock DeepEval workflows, other hosts) compared.",
+    "models": "Claude Haiku 4.5 and Sonnet 4.5 as backbones; Claude Opus 4.5 (and Sonnet 4.5) as meta-evaluator. Claude family only.",
+    "variance": "Meta-evaluator run-to-run agreement reported (3 runs, 84.2% pairwise); generation results appear single-run with temperature 0 in prompts; no CIs on Eval@1.",
+    "ablations": "Traces, planning, skills (via B4), Context7, metric count.",
+    "contamination_controls": "None discussed; agents are public repos.",
+    "languages": "Python agents and Python evaluation code (DeepEval)."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint, no venue listed.",
+    "limitations_section": true,
+    "artifacts": "Prompts and code at https://github.com/awslabs/Agent-EvalKit; AgentEvalBench described in Appendix B (release status not verified).",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "self_evaluation", "detail": "Authors built EvalAgent, AgentEvalBench, the meta-evaluator rubric (weights set heuristically) and all baselines; rubric rewards concision and few metrics, which is what EvalAgent's skills enforce."},
+    {"type": "cherry_picked_examples", "detail": "Abstract headline 17.5% -> 65% uses the weakest baseline; '12+ metrics' and '30%' generalise from B4/B3 to 'frontier coding assistants'."},
+    {"type": "single_model", "detail": "Claude family only for backbone and judge; limitations admit cross-model validation is needed."},
+    {"type": "small_sample", "detail": "20 agents; each Eval@1 percentage step is 5 points at n=20."},
+    {"type": "no_variance_reported", "detail": "No confidence intervals or repeated generation runs for Eval@1 or win rates."},
+    {"type": "single_language_python", "detail": "All agents and generated evaluations are Python."},
+    {"type": "llm_judge_unvalidated", "detail": "Meta-evaluator only human-validated on EvalAgent vs B4 (40 cases); comparisons to B1-B3 rely on the LLM judge alone."}
+  ],
+  "coi": {
+    "affiliations": "All 18 authors at AWS AI Labs.",
+    "vendor_products_evaluated": "EvalAgent (released as awslabs/Agent-EvalKit) is the authors' own system; uses Claude models (also offered via AWS Bedrock) and third-party Context7/DeepEval.",
+    "funding": "No acknowledgments/funding section; implicitly AWS.",
+    "severity": "medium",
+    "detail": "Vendor lab evaluating its own open-source tool on its own benchmark with its own rubric; partially mitigated by blinded human annotators with no involvement in EvalAgent, but no independent replication."
+  },
+  "scores": {"rigor": 3, "reproducibility": 3, "generalizability": 2, "relevance": 3, "coi_risk": 3},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Ablations (skills via B4, Context7) are informative and human validation exists, but headline numbers are framed against the weakest baseline, everything is Claude-only and Python-only at n=20, and authors own the system, benchmark and rubric.",
+  "applicability": "Useful for how the team evaluates its own harness and agents rather than for Java code itself. Two transferable findings: (1) packaging domain procedure as on-demand skills/templates beat unstructured planning on the same host - analogous to shipping portable skills for ingestion conventions (content schema, healthcare-education metadata, delivery contracts) across the ≥4 repos instead of long free-form plans; (2) live API-doc retrieval mattered most when libraries move fast - relevant for Spring/Jackson/vendor SDK versions. Caveats: Python/DeepEval-specific, Claude Code-only, so no evidence the gains hold on mixed hosts (Cursor, Codex, Hermes); the concision-favouring rubric is not a validated measure for spec-driven acceptance criteria.",
+  "conflicts_with": [
+    {"arxiv_id": "2607.24300", "detail": "Reports self-authored verification is unreliable in self-improving agents; EvalAgent has agents author the evaluation code and uses same-family LLMs to judge it, so its reliability claims sit in tension with that finding."}
+  ]
+}

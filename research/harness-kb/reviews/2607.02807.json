@@ -1,0 +1,54 @@
+{
+  "arxiv_id": "2607.02807",
+  "contribution_type": "system",
+  "summary": "SwarmResearch is an orchestrator-subagent harness, packaged as three Claude Code skills, in which a Shepherd agent holds summaries of all attempts and spawns Explorer (fresh context) or Optimizer (forked context) Search agents, each working on its own git branch. On 15 open-ended optimization tasks (math, ADRS systems, ALE-Bench-Lite heuristics) it is compared with EvoX and CORAL under a $50 budget, plus a fixed-scaling study and a speculative-decoding case study.",
+  "claims": [
+    {"claim": "Better or comparable to SOTA LLM-guided evolution and multi-agent techniques on 13/15 tasks", "evidence": "Table 1, single run per method per task with Opus 4.6. Text is internally inconsistent: §3.2 says SwarmResearch strictly exceeds CORAL on 10/15 and matches 2, while the takeaway box says exceeds on 8 and similar on 5. Several 'wins' are tiny (Circle Packing 2.635996 vs CORAL 2.635985). EvoX underperforms its own paper because it was run with Opus instead of GPT-5; reproduced CORAL is worse than its published numbers.", "strength": "weak", "location": "§3.2, Table 1, §3.1"},
+    {"claim": "SwarmResearch makes larger, higher-level code changes (1.7x-3.2x lines changed)", "evidence": "§3.3 / Fig. 5: median of per-task mean lines changed; lines changed is a proxy for 'higher-level exploration', and EvoX diffs are measured only on improving programs.", "strength": "moderate", "location": "§3.3, Fig. 5"},
+    {"claim": "Orchestrator-guided scaling beats optimal fixed serial/parallel scaling", "evidence": "Table 2: 4/5 tasks (2/3 math, 2/2 systems) using Minimax-M2.5 in a minimal Pi harness; 5 tasks only, single runs; orchestrator adds 7.7% output tokens.", "strength": "weak", "location": "§3.4, Table 2"},
+    {"claim": "4.58x speculative-decoding speedup", "evidence": "§4: 100 held-out tasks, 5 seeds; accuracy drops from 65.8% to 60.6%. Gain mostly from batching, which existing inference engines already implement; novel ideas 'performed poorly' and one claimed improvement was 'unsubstantiated' on re-evaluation.", "strength": "moderate", "location": "§4"}
+  ],
+  "patterns": [
+    {"id": "P29", "stance": "supports", "note": "Each search agent works on its own git branch/worktree; shared git history beat independent agents in fixed scaling (§3.4). Evidence is single-run."},
+    {"id": "P12", "stance": "supports", "note": "Fresh-context Explorer subagents reduce anchoring; weakly supported by diff-size proxy and Table 1."},
+    {"id": "P13", "stance": "mixed", "note": "Shepherd orchestrator helps on scaling study, but §3.5 says its steering is near-greedy and it struggles to plan strategically even with heavy prompting."},
+    {"id": "P02", "stance": "neutral", "note": "Harness shipped as skills for Claude Code."},
+    {"id": "P08", "stance": "supports", "note": "Two-tier context (summaries to orchestrator, local context to workers) is the core hypothesis; not ablated separately."},
+    {"id": "P24", "stance": "neutral", "note": "Fixed $50/task budgets; full benchmark run cost about $1,700 (App. B)."}
+  ],
+  "methodology": {
+    "sample": "15 open-ended optimization tasks (5 math, ADRS systems tasks, 5 ALE-Bench-Lite heuristics); 5 tasks for scaling study; 1 case study",
+    "baselines": "EvoX and CORAL via public implementations; both ran worse than their published results in authors' hands (EvoX with non-native model)",
+    "models": "Claude Opus 4.6 via Claude Code for main comparison; Minimax-M2.5 for scaling study",
+    "variance": "Single run per method per task (App. B argues multiple runs are too costly); 5 seeds only in the case-study evaluation",
+    "ablations": "Minimal-harness scaling study isolates orchestrator; no ablation of Explorer vs Optimizer or two-tier context",
+    "contamination_controls": "Open-ended tasks with evaluator-only API access; no internet",
+    "languages": "Task programs mostly Python/C++-style optimization code; not stated as multi-language evaluation"
+  },
+  "standards": {
+    "peer_review": "arXiv preprint, no venue",
+    "limitations_section": false,
+    "artifacts": "Code at github.com/SwarmResearch/SwarmResearch; skill prompts in Appendix C",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "no_variance_reported", "detail": "One run per method per task on stochastic high-temperature search; authors acknowledge estimates are unstable."},
+    {"type": "strawman_baseline", "detail": "EvoX run with Opus although it performs better with GPT models; reproduced CORAL below its published results."},
+    {"type": "metric_mismatch", "detail": "Lines of code changed used as evidence of 'higher-level exploration'."},
+    {"type": "other:internal_inconsistency", "detail": "CORAL win counts differ between §3.2 (10 exceed/2 match) and the RQ takeaway (8 exceed/5 similar)."},
+    {"type": "single_model", "detail": "Main comparison only with Opus 4.6; scaling study only Minimax-M2.5."},
+    {"type": "toy_tasks", "detail": "Open-ended optimization with scalar evaluators, not feature development or maintenance in real codebases."}
+  ],
+  "coi": {
+    "affiliations": "University of Illinois Urbana-Champaign (all authors)",
+    "vendor_products_evaluated": "Claude Code / Opus 4.6 used as runtime, not evaluated as a product",
+    "funding": "No acknowledgments section found",
+    "severity": "low",
+    "detail": "Academic authors evaluating their own system against reproduced competitors; self-evaluation but no commercial conflict."
+  },
+  "scores": {"rigor": 2, "reproducibility": 3, "generalizability": 1, "relevance": 2, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Interesting harness design (branch-per-subagent, fresh-context explorers, summary-only orchestrator) with released code, but single-run comparisons, weakened baselines, internally inconsistent win counts and tiny margins mean the 13/15 headline is not reliable. Admit as design evidence for parallel branch isolation, not as proof of superiority.",
+  "applicability": "Weak transfer: tasks are scalar-scored optimization problems, not Java ingestion or delivery features. Two ideas are portable to a mixed-host harness: run parallel agents in separate git branches/worktrees and pass only short attempt summaries upward, so no single context accumulates everything; and budget each run with a hard $ cap. For the team's >=4 ingestion repos, branch isolation per agent is consistent with the AGENTS.md rule that two mutating agents must not share one tree. The paper's own §4 warning that agents produce plausible-but-wrong claims needing expensive human review argues for deterministic verifiers (Maven/Gradle tests, contract tests) rather than orchestrator judgment. Skills are Claude-Code-specific packaging, so port the pattern, not the implementation.",
+  "conflicts_with": []
+}

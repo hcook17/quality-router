@@ -1,0 +1,51 @@
+{
+  "arxiv_id": "2608.01324",
+  "contribution_type": "empirical",
+  "summary": "G-ReAct structures open-web 'deep search' agents around a fixed-topology query graph whose node states are updated from evidence, used both to generate SFT trajectories and as inference-time guidance. A Qwen3-30B-A3B model fine-tuned on 1.9K graph-structured trajectories reports 52.6 on BrowseComp-ZH and 79.0 on XBench-DeepSearch; inference-time use improves three proprietary models on BrowseComp-ZH. The paper is about web question answering, not software engineering.",
+  "claims": [
+    {"claim": "With 1.9K trajectories, the 30B model reaches 52.6% on BrowseComp-ZH and 79.0% on XBench-DS, beating open-source methods trained on more data.", "evidence": "Table 1 (lines ~439-440) and §4.2(1): 52.6 and 79.0 present. Baseline numbers are 'taken from official technical reports or public leaderboards' (§4.1 Baselines), not re-run under the same judge/settings.", "strength": "moderate", "location": "§4.2, Table 1"},
+    {"claim": "Graph-structured trajectories are more data-efficient than linear ReAct trajectories.", "evidence": "Same-source comparisons: +6.1/+4.2/+5.0 over OpenSeeker-v1-SFT with 16% of data; App. D.3 Table 6 controlled 618-QA comparison: BrowseComp-ZH 45.33 vs 31.83 pass@1, but XBench pass@1 lower (70.00 vs 73.00).", "strength": "moderate", "location": "§4.2(2), App. D.3 Table 6"},
+    {"claim": "Inference-time G-ReAct consistently improves strong LLMs with fewer tool calls.", "evidence": "Table 2, BrowseComp-ZH only: doubao-seed-2.0-pro 64.71->71.28, Claude-4.5-Sonnet 39.10->43.94, OpenAI-o3 54.33->56.87; tool calls down ~1.1-1.5. Single benchmark, no variance reported for this table.", "strength": "weak", "location": "§4.2(3), Table 2"},
+    {"claim": "Both query graph and state evolution components contribute.", "evidence": "Table 3 component removal; Table 4 window-size sweep (64K best); App. B summarizer ablation averaged over 3 runs.", "strength": "moderate", "location": "§4.3, Tables 3-5"}
+  ],
+  "patterns": [
+    {"id": "P08", "stance": "supports", "note": "Discards raw interaction history between rounds and carries only a structured graph state; ablations show state evolution matters (web search domain only)."},
+    {"id": "P07", "stance": "introduces", "note": "Query-graph state as the reasoning substrate; this is a question-decomposition graph, not a code/knowledge graph of a repository."},
+    {"id": "P25", "stance": "supports", "note": "SFT on 1.9K structured trajectories is competitive with larger SFT+RL pipelines on reported benchmarks."},
+    {"id": "P18", "stance": "neutral", "note": "All results scored by GPT-4o-mini as judge without reported validation."}
+  ],
+  "methodology": {
+    "sample": "Four deep-search benchmarks: BrowseComp, BrowseComp-ZH, XBench-DeepSearch (full test sets), GAIA 103-question text-only subset.",
+    "baselines": "Closed models (Claude, o3, GPT-5, OpenAI Deep Research), large open models, and ~30B deep-search agents; numbers copied from reports/leaderboards rather than re-run.",
+    "models": "Qwen3-30B-A3B-Thinking-2507 fine-tuned; inference-time tests on doubao-seed-2.0-pro, Claude-4.5-Sonnet, OpenAI-o3.",
+    "variance": "Pass@1 at temperature 0.6; some ablations averaged over 3 runs; main tables lack CIs.",
+    "ablations": "Component removal, sliding-window size, state-summarizer swap, trajectory-construction comparison.",
+    "contamination_controls": "None discussed for public benchmarks.",
+    "languages": "Natural-language web QA (English and Chinese); no code."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint (v3), no venue listed.",
+    "limitations_section": false,
+    "artifacts": "'We will publicly release all code and model weights' (promissory); prompts in App. G. The GitHub URL in signals is a cited MiniMax-M2 repo, not the authors' code.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "llm_judge_unvalidated", "detail": "All accuracy judged by GPT-4o-mini with no agreement check."},
+    {"type": "self_reported_numbers", "detail": "Baseline results taken from official reports/leaderboards with possibly different judges and settings."},
+    {"type": "closed_artifacts", "detail": "Code and weights not yet released."},
+    {"type": "metric_mismatch", "detail": "'Consistently improves' inference-time claim rests on one benchmark (BrowseComp-ZH)."},
+    {"type": "other:off_topic", "detail": "Web deep-search QA, not software engineering or coding agents."}
+  ],
+  "coi": {
+    "affiliations": "Xiaomi Inc. (most authors); Huazhong University of Science and Technology.",
+    "vendor_products_evaluated": "No Xiaomi model or product evaluated; base model is Qwen (Alibaba).",
+    "funding": "Not stated.",
+    "severity": "low",
+    "detail": "Industry lab promoting its own method; no product self-grading."
+  },
+  "scores": {"rigor": 3, "reproducibility": 1, "generalizability": 1, "relevance": 1, "coi_risk": 1},
+  "verdict": "reject",
+  "verdict_reason": "off-topic: open-web deep-search QA agent training, not coding agents or software engineering; additionally relies on unvalidated LLM judging and copied baseline numbers.",
+  "applicability": "Does not transfer to a Java backend team's coding-agent harness: the tasks are multi-hop web questions, not repository edits, and there is no code, test, or multi-repo setting. The only loosely portable idea is replacing an ever-growing transcript with a compact structured state between rounds (a form of context compaction), which the team would need to validate on its own ingestion/delivery tasks rather than borrow from these results.",
+  "conflicts_with": []
+}

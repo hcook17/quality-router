@@ -1,0 +1,54 @@
+{
+  "arxiv_id": "2607.28591",
+  "contribution_type": "system",
+  "summary": "Change2Task converts merged PRs drawn from 12 public benchmark collections into executable coding-agent tasks re-hosted on a healthy modern revision of the same repo, escalating from patch reversal to code mapping to agent reconstruction (Claude Code + Opus 4.8), with lifecycle, scope and fidelity gates. From 1,130 eligible changes it finalizes 900 tasks across five families (bug fix, feature, test generation, API migration, security repair), shows historical vs modernized tasks give near-identical agent solve rates, and reports environment-reuse savings.",
+  "claims": [
+    {"claim": "79.6% verified task construction success (900/1,130).", "evidence": "§RQ1, Fig. 4(a); per-family 76.3-82.0% with Wilson CIs in App. E. Denominator is already filtered to 'construction-eligible' changes (App. B funnel), so this is a conditional rate.", "strength": "strong", "location": "§RQ1, Fig. 4, App. B/E"},
+    {"claim": "Recovers 29.2% more verified tasks than a PR-based baseline on a matched set.", "evidence": "Table 1: 500/621 (80.5%, CI 77.2-83.4) vs SWE-smith PR Mirror 387/621 (62.3%) vs direct reversal 81/621; Bug Fix only. Baseline re-implemented by authors within their own envelope (App. C.3).", "strength": "moderate", "location": "Table 1, App. C.3"},
+    {"claim": "Historical and reconstructed tasks achieve up to 98.0% matched outcome agreement.", "evidence": "'Up to' is the best single agent x family cell in Table 2. Aggregate over 3,600 pairs is 89.7% agreement, kappa 0.787, paired difference 0.0pp [-1.1, 1.1], McNemar p=1.0; per-agent agreement 86.4-95.3%. Aggregate result is solid; abstract cherry-picks the maximum.", "strength": "moderate", "location": "§RQ3, Table 2, App. G"},
+    {"claim": "Reuse of modern bases reduces end-to-end expenditure by 10.8%.", "evidence": "§RQ4: $1,917 -> $1,710 ($0.23/task); setup time -58.4% (3,240h -> 1,349h), storage -71.2% (Table 3). Internal matched accounting only; depends on 2.32 tasks per base.", "strength": "moderate", "location": "§RQ4, Table 3, App. H"},
+    {"claim": "Reconstructed tasks preserve the source change (fidelity 0.894).", "evidence": "Fig. 5: weighted similarity of file/hunk/line/symbol/check counts (author-chosen 76/24 weighting); semantic audit by two LLM judges (Kimi K3, DeepSeek V4 Pro) jointly accepting 834/912 with manual adjudication of the rest (Fig. 6). Count-based similarity is a proxy for semantic equivalence.", "strength": "moderate", "location": "§RQ2, Fig. 5-6, App. F"}
+  ],
+  "patterns": [
+    {"id": "P31", "stance": "supports", "note": "Shows benchmark tasks can be refreshed onto current code without changing agent outcomes in aggregate (kappa 0.787), useful for continuous internal evaluation."},
+    {"id": "P16", "stance": "supports", "note": "Every task is validated across healthy -> task -> restored states with executable target and regression checks; solutions count only if oracle, regression and scope gates all pass."},
+    {"id": "P21", "stance": "neutral", "note": "Scope gate restricts which artifacts a solution may touch (e.g. test-only for Test Generation) and protects hidden checks."},
+    {"id": "P18", "stance": "neutral", "note": "Two LLM judges used for semantic alignment audit, with human adjudication of disagreements; judge validity not separately measured."},
+    {"id": "P24", "stance": "neutral", "note": "Reports full pipeline dollar, time and storage accounting."}
+  ],
+  "methodology": {
+    "sample": "1,130 eligible changes from 12 public benchmark collections (SWE-bench and others incl. Java vulnerability/test datasets); 900 finalized (500 Bug Fix, 100 per other family); 388 modern bases.",
+    "baselines": "Direct reversal and SWE-smith PR Mirror re-run under the same construction envelope (Bug Fix only); RepoLaunch discussed as complement, not baseline.",
+    "models": "Construction: Claude Code + Opus 4.8. Evaluation: Codex CLI/GPT-5.5, Claude Code/Sonnet 5, Gemini CLI/Gemini 3.1 Pro, GitHub Copilot/GPT-5.6 Terra. Semantic audit: Kimi K3, DeepSeek V4 Pro.",
+    "variance": "One clean run per agent per branch; Wilson CIs on recovery, paired CI and McNemar on agreement. No repeated-run variance.",
+    "ablations": "Construction-level breakdown (L1 95, L2 190, L3 615 tasks) is descriptive, not randomized.",
+    "contamination_controls": "Original tasks come from public benchmarks likely in pretraining data; modern re-hosting may partly mitigate but contamination is not measured.",
+    "languages": "Python and Java (App. A)."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint (15 pages incl. appendices); no venue listed.",
+    "limitations_section": true,
+    "artifacts": "No code or dataset URL found in the text; prompts and protocols given in appendices only.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "cherry_picked_examples", "detail": "Abstract reports 'up to 98.0%' agreement (best cell) rather than the 89.7% aggregate."},
+    {"type": "self_evaluation", "detail": "Authors' system compared to an authors' re-implementation of SWE-smith PR Mirror under their own envelope; fidelity metric and weights chosen by authors."},
+    {"type": "closed_artifacts", "detail": "No release of tool or 900-task corpus stated."},
+    {"type": "contamination_risk", "detail": "Source tasks drawn from widely published benchmarks (SWE-bench etc.)."},
+    {"type": "no_variance_reported", "detail": "Single run per agent per branch."},
+    {"type": "selection_bias_participants", "detail": "Recovery rates are conditional on pre-filtered 'construction-eligible' changes with healthy descendants and executable checks."}
+  ],
+  "coi": {
+    "affiliations": "Microsoft (several authors incl. Qingwei Lin, Saravan Rajmohan, Dongmei Zhang per header), University of California San Diego, Zhejiang University, Xi'an Jiaotong University, Nanjing University.",
+    "vendor_products_evaluated": "GitHub Copilot (Microsoft-owned) is one of four evaluated agents and is among the highest solve rates; also Claude Code, Codex CLI, Gemini CLI.",
+    "funding": "Not stated.",
+    "severity": "low",
+    "detail": "Vendor-affiliated; Copilot appears favourably but the paper's claims concern branch agreement, not agent ranking, so promotional incentive is limited."
+  },
+  "scores": {"rigor": 4, "reproducibility": 2, "generalizability": 3, "relevance": 3, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Large, well-instrumented study with proper paired statistics and multiple agents; abstract cherry-picks the agreement maximum, the baseline is author-reimplemented, single runs per agent, and no artifacts are released.",
+  "applicability": "Directly useful as a recipe for building an internal, continuously refreshable eval set for the team's own harness: mine merged PRs from the ≥4 ingestion/delivery repos, re-host them on current main, and verify healthy -> task -> restored with Maven/Gradle tests, then compare agent hosts (Claude Code, Codex, Copilot, Gemini CLI all appear here) on the same tasks. Covers Java and an API-migration family, which maps to library/framework upgrades in a Java backend. Limits: tasks are single-repo; cross-repo changes (e.g. a content schema change spanning ingestion and delivery services) fall outside its eligibility conditions, and the paper notes distributed-service and UI behaviours need project-specific oracles—exactly where front-end delivery contracts live. No tool release, so the team would have to re-implement.",
+  "conflicts_with": []
+}

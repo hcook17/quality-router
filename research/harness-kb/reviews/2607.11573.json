@@ -1,0 +1,56 @@
+{
+  "arxiv_id": "2607.11573",
+  "contribution_type": "system",
+  "summary": "KITE abstracts 1,325 reviewed bug mechanisms from historical Java real-bug records (Bears, Bugs.jar, GitBug-Java, GHRB, non-benchmark Defects4J projects), recalls mechanisms that structurally/semantically fit a focal method, injects them as compilable synthetic bugs, and uses those injected methods as kill targets to iteratively strengthen LLM-generated unit tests. On 172 single-method Defects4J bugs with GPT-5.4 it reports a 72.67% real-bug detection rate versus 52.33% for the best baseline (MutGen).",
+  "claims": [
+    {"claim": "KITE reaches 72.67% real-bug detection rate (RBDR), +20.34 pp over MutGen and +24.41 pp over CoverUp", "evidence": "Table II: RBDR KITE 72.67, MutGen 52.33, CoverUp 48.26, KTester 47.09, ChatUniTest 45.35, Direct 23.26, EvoSuite 29.07; Table III gains on all five projects (+12.96 to +28.12 pp). Single run, one model, no CIs; with n=172 one task is ~0.58 pp.", "strength": "moderate", "location": "§III-B, Tables II-III"},
+    {"claim": "Coverage and mutation score do not predict real-bug detection", "evidence": "Table II: KTester has highest MS (56.72) and BC (74.24) but RBDR 47.09; KITE MS 52.90 with RBDR 72.67.", "strength": "moderate", "location": "§III-B2, Table II"},
+    {"claim": "Synthetic-bug feedback is the main contributor", "evidence": "Table IV: removing SBF drops RBDR 72.67 -> 52.91 (-19.76 pp); context retrieval -2.32, structural or semantic recall -4.07 each.", "strength": "moderate", "location": "§III-C, Table IV"},
+    {"claim": "KITE finds 19 bugs no other method detects", "evidence": "Fig. 6 overlap: KITE 125 detections, 19 unique; next best unique count 3.", "strength": "moderate", "location": "§III-E, Fig. 6"},
+    {"claim": "Cost is acceptable", "evidence": "Table II: 0.177M tokens per focal method vs 0.105-0.107M for MutGen/CoverUp; no dollar or wall-clock numbers; baselines not budget-matched.", "strength": "weak", "location": "§III-B2, Table II"}
+  ],
+  "patterns": [
+    {"id": "P16", "stance": "supports", "note": "Execution against injected synthetic bugs is a stronger feedback signal than coverage or generic mutants for real-bug detection."},
+    {"id": "P15", "stance": "supports", "note": "Iterative test enhancement driven by executable kill targets; tests are generated against the correct version only."},
+    {"id": "P06", "stance": "introduces", "note": "Semantic recall of bug mechanisms from a knowledge base; ablation -4.07 pp."},
+    {"id": "P05", "stance": "introduces", "note": "Structural recall over AST-derived structure index records; ablation -4.07 pp."},
+    {"id": "P31", "stance": "neutral", "note": "Defects4J-only evaluation."}
+  ],
+  "methodology": {
+    "sample": "172 single-method real bugs from five Defects4J projects (Cli, Compress, Csv, JacksonDatabind, Jsoup), filtered from 305",
+    "baselines": "Direct LLM, ChatUniTest, CoverUp, MutGen, KTester, EvoSuite; some reimplemented by the authors from paper descriptions ('otherwise reproduce the core workflow')",
+    "models": "GPT-5.4 only, temperature 0.1",
+    "variance": "None; single run",
+    "ablations": "Four component removals",
+    "contamination_controls": "Knowledge base excludes benchmark projects (project-level leakage control); no control for GPT-5.4 memorization of well-known Defects4J bugs",
+    "languages": "Java only"
+  },
+  "standards": {
+    "peer_review": "Preprint (12 pages), no venue",
+    "limitations_section": true,
+    "artifacts": "No code or data link found in the text",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "contamination_risk", "detail": "Defects4J bugs and fixes are public and likely in GPT-5.4 training data; mechanism-recall prompting may surface memorized fixes more than baselines do."},
+    {"type": "single_model", "detail": "GPT-5.4 only."},
+    {"type": "no_variance_reported", "detail": "Single run at temperature 0.1."},
+    {"type": "strawman_baseline", "detail": "Some baselines reimplemented by the authors; not budget-matched (KITE uses ~70% more tokens than MutGen)."},
+    {"type": "closed_artifacts", "detail": "No artifact link."},
+    {"type": "toy_tasks", "detail": "Restricted to bugs localized to a single method; multi-method and cross-file bugs excluded (§V)."}
+  ],
+  "coi": {
+    "affiliations": "Zhejiang University (all authors)",
+    "vendor_products_evaluated": "None",
+    "funding": "None stated",
+    "severity": "none",
+    "detail": "Academic authors evaluating their own method."
+  },
+  "scores": {"rigor": 3, "reproducibility": 1, "generalizability": 2, "relevance": 3, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Clear Java evaluation with a meaningful primary metric (real-bug detection rather than coverage), useful ablation and overlap analysis; weakened by single model/single run, Defects4J memorization risk, partly reimplemented and non-budget-matched baselines, and no artifacts.",
+  "applicability": "Relevant to the Java team's test-generation loop: it argues against gating agent-written tests on line coverage or generic mutation score alone, and for seeding tests with the team's own historical defect classes (e.g. content-schema edge cases, encoding/escaping, null/empty sections in healthcare course content) turned into executable 'should-fail' variants. A cheap version is a curated bug-mechanism catalogue per ingestion repository plus PIT custom mutators. It is single-method and single-repo, so it says nothing about cross-repo contract bugs between ingestion services and front-end delivery, and it costs roughly 0.18M tokens per method, which matters at the scale of four or more repositories.",
+  "conflicts_with": [
+    {"arxiv_id": "2607.09101", "detail": "TestAgent uses mutation score as its main fault-detection evidence (83.69%); KITE shows mutation score does not track real-bug detection (KTester highest MS but 25.58 pp lower RBDR)."}
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "arxiv_id": "2608.12375",
+  "contribution_type": "theory",
+  "summary": "Pipeline Denotational Design (PDD) is a design-first methodology for data pipelines: pipelines are composed in a typed algebra (PDA, ~30 operations with contracts) where well-typed compositions are 'grain-correct by construction', with remaining data-dependent obligations emitted as SQL/PySpark verification queries and optional Agda/Lean 4 mechanization. A proprietary toolchain (Claude skills /pdd, /build-ddl, /build-pip, /build-jobs plus a typed PySpark framework) is said to be in enterprise production. The arXiv comment and §8 state the experimental evaluation is in progress; no quantitative results are reported.",
+  "claims": [
+    {"claim": "Grain, behavioral-class and contract-derivable correctness are established at design time at zero cost, collapsing runtime checks to a single input-boundary check.", "evidence": "Theorems 3.1, 3.2, 5.1, 6.1-6.6 with proof sketches; full proofs deferred to Appendix A; builds on author's own companion grain-theory paper (arXiv:2601.00995). No independent check; 'zero cost' refers to no data access, not engineering effort.", "strength": "weak", "location": "§3, §5.3, §6, Appendix A"},
+    {"claim": "PDD prevents the defects that agentic coding ships (fan/chasm traps, grain mismatch) better than an agent coding directly from requirements.", "evidence": "Only an evaluation design (§8: RQ1-RQ7, three arms A/B/C, five case studies, seeded-fault catalog). 'The measurement campaign is in progress and the quantitative results will appear in a later revision' (§8). No data.", "strength": "unsupported", "location": "§8, §8.2"},
+    {"claim": "PDD-Toolchain is in production use on an enterprise data-engineering program.", "evidence": "Asserted in §7; deployment figures explicitly 'treated as context, never as measured results'; engine is proprietary, unnamed enterprise.", "strength": "unsupported", "location": "§7"},
+    {"claim": "Mechanized end-to-end in Agda/Lean 4 on a real pipeline.", "evidence": "Claimed in contributions (PDL, §10) and §6.7; artifact described as 'sanitized' but no repository URL found in the text/signals.", "strength": "weak", "location": "§1 Contributions, §6.7, §10"}
+  ],
+  "patterns": [
+    {"id": "P14", "stance": "introduces", "note": "Design/spec-first: human validates a compact formal design, agent compiles it to code; no measured evidence yet."},
+    {"id": "P35", "stance": "introduces", "note": "Type-level checker and optional Agda/Lean proofs for pipeline correctness."},
+    {"id": "P02", "stance": "neutral", "note": "Toolchain delivered as Claude skills (/pdd, /build-ddl, /build-pip, /build-jobs)."},
+    {"id": "P34", "stance": "introduces", "note": "Operation contracts and FOL obligations as structured acceptance criteria, compiled to SQL verification queries."},
+    {"id": "P28", "stance": "introduces", "note": "Pre-verified pipeline patterns instantiated deterministically rather than free-form generation."}
+  ],
+  "methodology": {
+    "sample": "None executed; planned five sanitized production case studies (Table 15).",
+    "baselines": "Planned: agent without design (Arm C), ad-hoc hand-written PySpark/SQL, Great Expectations/Deequ. Not run.",
+    "models": "Unspecified LLM ('the same LLM'); toolchain uses Claude skills.",
+    "variance": "n/a (no results).",
+    "ablations": "n/a.",
+    "contamination_controls": "n/a.",
+    "languages": "SQL, PySpark; Agda/Lean 4 for proofs."
+  },
+  "standards": {"peer_review": "arXiv preprint; 'extended version of a work-in-progress paper; the experimental evaluation is in progress'", "limitations_section": true, "artifacts": "Claimed sanitized artifact (designs, evidence documents, generated queries, obligation ledgers, seeded-fault catalog); no URL found; executable framework is proprietary.", "preregistration": "Evaluation design stated before results (§8), which functions somewhat like a pre-registration, but not registered externally."},
+  "biases": [
+    {"type": "hype_language", "detail": "'Correct by construction at zero cost', 'not a proof of concept', 'bugs become unrepresentable' without any measured outcome."},
+    {"type": "self_reported_numbers", "detail": "Production use asserted for an unnamed enterprise with a proprietary engine; no measured deployment data."},
+    {"type": "closed_artifacts", "detail": "EDB framework and toolchain are proprietary; only method outputs promised."},
+    {"type": "self_evaluation", "detail": "Single author designs theory, toolchain, case studies, seeded-fault catalog and planned evaluation; cites own companion theory paper as foundation."},
+    {"type": "other:threats_without_results", "detail": "§8.4 Threats to Validity describes mitigations (blind grading, differential testing) as if the study were done, while §8 says it is not."}
+  ],
+  "coi": {"affiliations": "Independent (Athens, Greece), single author.", "vendor_products_evaluated": "Author's own proprietary PDD-Toolchain, promoted as production-ready; no evaluation.", "funding": "None stated.", "severity": "medium", "detail": "Not a vendor in the usual sense, but the paper promotes the author's own proprietary toolchain with no independent or even self-run measurement."},
+  "scores": {"rigor": 1, "reproducibility": 1, "generalizability": 1, "relevance": 3, "coi_risk": 2},
+  "verdict": "reject",
+  "verdict_reason": "No empirical evaluation: the paper's own comment and §8 state results are pending. Formal theorems rest on proof sketches and the author's own companion paper; production claims are unmeasured. Re-review when the evaluation revision appears.",
+  "applicability": "Conceptually relevant but not yet evidence. The team's healthcare-education content ingestion across 4+ repos is a data-pipeline problem, and PDD's idea (agent compiles a human-checked typed design; data-dependent obligations become generated verification queries) is a concrete form of spec-driven development for ingestion: specify grain/keys/contracts per ingestion stage and have the harness emit and run validation queries on each repo's outputs. However it targets SQL/PySpark, not Java services; tooling is proprietary and Claude-skill-specific (mixed hosts would need a portable CLI equivalent); and no results show it prevents agent-introduced defects. Treat as a design idea to prototype, not a validated pattern.",
+  "conflicts_with": []
+}

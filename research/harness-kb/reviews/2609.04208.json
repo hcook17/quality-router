@@ -1,0 +1,50 @@
+{
+  "arxiv_id": "2609.04208",
+  "contribution_type": "empirical",
+  "summary": "A Stage 1 registered report (accepted at ESEM 2026) from University of Southern Denmark, Oulu and Hawaii authors. It plans a large mining study: revert issues from the SQuaD dataset (450 OSS projects, 628k candidate issues, commits before 2021) to their pre-fix state, have an OpenCode agent with GLM-5, Qwen3.5-397b or Kimi K2.5 re-implement each fix, and compare agent and human commits on localization accuracy (package/class/method) and SonarQube/CodeScene/Understand maintainability and technical-debt metrics. Release-level 'counterfactual' TD trajectories are also planned. There are no results yet.",
+  "claims": [
+    {"claim": "Agent localization accuracy will decrease at finer granularity (package > class > method).", "evidence": "Stated as hypothesis H11 with a planned test; no data collected.", "strength": "unsupported", "location": "§2.1 RQ1"},
+    {"claim": "Agent-generated commits will introduce more TD than human commits and drive steeper TD growth across releases.", "evidence": "Hypotheses H02b/H03 with planned Friedman/Wilcoxon/mixed-effects analyses; no results. The title ('AI Writes Code, Humans Pay the Debt') asserts the expected outcome before data exist.", "strength": "unsupported", "location": "§2.1 RQ2-RQ3, §2.4"},
+    {"claim": "Restricting to pre-2021 commits avoids contamination.", "evidence": "It avoids AI-authored human baselines, but not the larger risk that the tested LLMs were trained on these Apache/Mozilla repos and their actual fix commits, which would inflate localization accuracy. This risk is not discussed.", "strength": "weak", "location": "§2.3 step 1, §3 External Validity"}
+  ],
+  "patterns": [
+    {"id": "P17", "stance": "neutral", "note": "Plans to use SonarQube/CodeScene/Understand static analysis as the TD measuring instrument for agent output; no evidence yet."},
+    {"id": "P05", "stance": "neutral", "note": "Localization measured via tree-sitter-java AST mapping and FQN normalisation."},
+    {"id": "P32", "stance": "introduces", "note": "Planned large-scale real-project (OSS) comparison of agent vs human fixes."}
+  ],
+  "methodology": {
+    "sample": "Planned: SQuaD (450 projects, 63,586 releases, ~628k candidate issues), with stratified sampling expected for cost reasons; issues linked to commits via regex.",
+    "baselines": "Human-implemented fix commits treated as a 'pragmatic' ground truth; divergent cases are to be manually sampled.",
+    "models": "Planned: GLM-5, Qwen3.5-397b, Kimi K2.5 via a single OpenCode harness, chosen by median rank across three public leaderboards (March 2026).",
+    "variance": "Not yet applicable; repeated-measures statistics planned. Repeated runs per issue are not specified.",
+    "ablations": "Per-model sensitivity analysis planned; harness held fixed (acknowledged).",
+    "contamination_controls": "Pre-2021 cutoff for human commits; no control for model training-data overlap with the target repos/fixes.",
+    "languages": "Java-oriented (tree-sitter-java, Java 8-21, CK/JaSoMe), although SQuaD also contains C/C++ projects."
+  },
+  "standards": {
+    "peer_review": "Accepted registered report (Stage 1) at ESEM 2026 per arXiv comment.",
+    "limitations_section": true,
+    "artifacts": "FAIR replication package on Zenodo promised; none yet.",
+    "preregistration": "Yes: Stage 1 registered report with hypotheses and analysis plan."
+  },
+  "biases": [
+    {"type": "other:no_results", "detail": "Protocol only; every finding is a hypothesis."},
+    {"type": "contamination_risk", "detail": "Pre-2021 OSS repos and fixes are likely in the LLMs' training data; this inflates localization accuracy and could make agent fixes resemble human ones."},
+    {"type": "metric_mismatch", "detail": "Agent patches are only parse-checked (tree-sitter), not compiled or tested. TD would be compared between possibly incorrect agent patches and correct human ones, and the static-analysis proxies are not validated against developer-perceived debt (acknowledged)."},
+    {"type": "hype_language", "detail": "The title presupposes the outcome the study is designed to test."},
+    {"type": "other:single_harness", "detail": "Only OpenCode as harness, acknowledged; results won't distinguish model from harness effects."},
+    {"type": "other:counterfactual_additivity", "detail": "Release trajectories assume additive, independent per-issue metric deltas (acknowledged as a first-order approximation)."}
+  ],
+  "coi": {
+    "affiliations": "University of Southern Denmark (Coppola, Lenarduzzi), University of Oulu (Esposito), University of Hawaii (Kazman).",
+    "vendor_products_evaluated": "Planned: open-weight models GLM-5, Qwen3.5, Kimi K2.5; SonarQube/CodeScene as instruments. No vendor authors.",
+    "funding": "No acknowledgments or funding section found.",
+    "severity": "low",
+    "detail": "Academic authors. They reuse their own SQuaD dataset and earlier pipeline (Robredo et al.), a mild self-reliance rather than a commercial conflict."
+  },
+  "scores": {"rigor": 1, "reproducibility": 1, "generalizability": 3, "relevance": 3, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "The pre-registered design is sound and relevant: Java, real OSS history, Sonar-family metrics, and a Stage 1 ESEM acceptance. But there are no results, so it carries no evidence. Agent patches are not functionally validated, and training-data contamination is unaddressed. Track it for the Stage 2 report rather than cite findings.",
+  "applicability": "No findings yet, but the design is a ready-made template for the team's own measurement. Re-implement a sample of closed Jira issues from the ≥4 ingestion repos with the team's agent hosts, then compare agent and human diffs with the local SonarQube instance (complexity, duplication, code smells, maintainability rating) and FQN-level localization. Unlike this protocol, also require the agent patch to compile and pass existing tests before comparing TD. That gives an internal, host-agnostic baseline for whether spec-driven agent changes add debt, measured with tools the team already runs. Do not use it to justify policy until the Stage 2 results exist.",
+  "conflicts_with": []
+}

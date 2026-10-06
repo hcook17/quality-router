@@ -1,0 +1,27 @@
+{
+  "arxiv_id": "2606.28403",
+  "contribution_type": "survey",
+  "summary": "PRISMA-style systematic review of 21 primary studies (2015-2026) that apply reinforcement learning to software vulnerability analysis, with emphasis on C/C++ and static analysis. Most studies use RL for fuzzing/exploration (15), few for detection (3) or statement-level localization (1). The authors identify the gap of RL agents using source-level CFGs as states.",
+  "claims": [
+    {"claim": "21 primary studies were identified; 15 focus on fuzzing/guided exploration, 3 on direct detection, 1 on statement-level localization.", "evidence": "Table 2 and Fig. 1 PRISMA flow total 147 retrieved -> 83 after dedup -> 30 post-screen -> 29 full-text -> 21 included; RQ1 text names the 3 detection works (ProRLearn, DeepEXE, RLFD). The §2.4 prose says screening 'left 18 articles', which is inconsistent with the table's 30 post-screen.", "strength": "moderate", "location": "§2.4, Table 2, §3.2 RQ1"},
+    {"claim": "Static structural representations (CFG/AST) are rarely used as agent state; no study uses source-level CFGs as state for detection/localization.", "evidence": "RQ4 and Table 4: CFGs mostly from binaries (DeepEXE via IDA Pro); a single source-level CFG (Syzballer via SVF) is used to guide fuzzing. Bounded by a small search (four databases, ACM DL and arXiv not searched).", "strength": "moderate", "location": "§3.2 RQ4"},
+    {"claim": "Benchmarks are heterogeneous and weakly comparable; few cross-project/unseen-CWE evaluations.", "evidence": "RQ5/RQ6 qualitative synthesis over Table 5 datasets (LAVA-M, DARPA CGC, Juliet, Reveal, BigVul); no quantitative meta-analysis.", "strength": "moderate", "location": "§3.2 RQ5-RQ6"}
+  ],
+  "patterns": [
+    {"id": "P25", "stance": "neutral", "note": "Surveys classic RL (DQN, PPO, bandits) for fuzzing and vulnerability detection, not RL for LLM coding agents."},
+    {"id": "P17", "stance": "neutral", "note": "Argues static-analysis-derived structure (CFG/AST) is underused as RL state; no evaluation."}
+  ],
+  "methodology": {"sample": "147 records from Scopus, Web of Science, Taylor & Francis, IEEE Xplore and citation search; 21 included.", "baselines": "n/a (secondary study); Table 7 positions against prior reviews qualitatively.", "models": "n/a; RL algorithms surveyed (DQN variants in 8 studies, PPO in 3, UCB/MAB ~6, REINFORCE/VPG).", "variance": "n/a.", "ablations": "n/a.", "contamination_controls": "n/a.", "languages": "C/C++ focus, with some binaries and multi-language datasets."},
+  "standards": {"peer_review": "Submitted to CIARP 2026 (not yet accepted per arXiv comment).", "limitations_section": false, "artifacts": "No screening sheets, extraction forms or replication package released.", "preregistration": "No registered protocol mentioned despite PRISMA claim."},
+  "biases": [
+    {"type": "small_sample", "detail": "21 studies from a 147-record search; ACM Digital Library, arXiv and major security venues' proceedings are not listed as sources."},
+    {"type": "other:no_inter_rater_reliability", "detail": "No description of multiple independent screeners or agreement statistics; no threats-to-validity section for the review itself."},
+    {"type": "other:reporting_inconsistency", "detail": "§2.4 prose ('left 18 articles') disagrees with Table 2 (30 post-screen)."}
+  ],
+  "coi": {"affiliations": "Universidad del Bío-Bío, Chile (master's student and two faculty).", "vendor_products_evaluated": "None.", "funding": "No acknowledgments/funding section found.", "severity": "none", "detail": "Academic secondary study, no vendor ties."},
+  "scores": {"rigor": 2, "reproducibility": 1, "generalizability": 1, "relevance": 0, "coi_risk": 0},
+  "verdict": "reject",
+  "verdict_reason": "off-topic: classic RL for C/C++ fuzzing and vulnerability detection, not LLM agents or agent harnesses. It is also a small, unreplicable search with a prose/table count inconsistency and no threats section.",
+  "applicability": "Does not transfer. The team works on Java backend ingestion and delivery with LLM coding agents, while this paper covers DQN/PPO fuzzers and detectors for C/C++ binaries and sources. It informs no decision about instruction files, verifier loops, multi-repo coordination, mixed hosts or spec-driven development. At most it suggests that off-the-shelf static analyzers (not RL detectors) remain the practical security check for the team.",
+  "conflicts_with": []
+}

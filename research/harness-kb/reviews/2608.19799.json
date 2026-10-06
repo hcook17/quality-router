@@ -1,0 +1,33 @@
+{
+  "arxiv_id": "2608.19799",
+  "contribution_type": "benchmark",
+  "summary": "SWE-bench Science is a repository-level benchmark of 119 manually constructed tasks from 98 scientific GitHub repositories (20 domains) in three paradigms (Issue-driven, Expert-exploratory, Engineering-integration). Each task has public reproduction materials plus hidden validators that check semantic generalization and reject hard-coded fixes. Eight model+harness configurations (Codex, Claude Code, Kimi Code) are evaluated; the best overall Pass@1 is 47.90% (Claude-Opus-5 in Claude Code). A two-model ablation removes scientific auxiliary information on 91 tasks.",
+  "claims": [
+    {"claim": "Even the best agent (Claude Code + Opus-5 max) has Pass@1 below 50%.", "evidence": "Table 2: Claude-Opus-5 47.90% overall Pass@1; GPT-5.6-sol 40.34%, DeepSeek-V4-Pro 42.02%; Qwen3.5-397B 14.29%. Numbers match abstract.", "strength": "strong", "location": "§5.1, Table 2"},
+    {"claim": "Visible/public tests vastly overstate correctness relative to hidden validators.", "evidence": "Table 2: public scores 93.28-100.00% vs Pass@1 14.29-47.90%; e.g., Claude-Opus-5 96.64% public vs 47.90% Pass@1 (§8).", "strength": "strong", "location": "Table 2, §8"},
+    {"claim": "Four recurring failure mechanisms (knowledge/abstraction, misguided exploration/surface repair, incomplete coverage/integration, failed generalization) explain unsuccessful repairs.", "evidence": "Table 3 counts per agent. The annotation procedure (who labeled, how many annotators, agreement) is not described in the sections read; categories are mutually exclusive by construction.", "strength": "weak", "location": "§6.1, Table 3"},
+    {"claim": "Scientific auxiliary information is not uniformly beneficial.", "evidence": "§6.2 Fig. 6/7, 91-task subset, two models only: GPT-5.6-sol Pass@1 36.26% -> 31.87% with info (8 tasks gained, 12 lost); DeepSeek-V4-flash 16.48% -> 23.08% (9 gained, 3 lost). Authors state the differences are descriptive and not statistically significant.", "strength": "weak", "location": "§6.2, Figs. 6-7"}
+  ],
+  "patterns": [
+    {"id": "P31", "stance": "introduces", "note": "New SWE-bench-style benchmark with hidden validators and anti-hard-coding checks for scientific repos."},
+    {"id": "P16", "stance": "mixed", "note": "Agents pass public reproduction tests (~93-100%) but fail hidden ones; execution feedback on visible tests alone is a weak oracle."},
+    {"id": "P02", "stance": "mixed", "note": "Supplying extra domain documentation helps a weaker model and hurts a stronger one (anchoring); context should be grounded rather than maximal."},
+    {"id": "P24", "stance": "neutral", "note": "Reports mean input/output tokens per task (Fig. 5); token volume does not track Pass@1."},
+    {"id": "P27", "stance": "neutral", "note": "Engineering-integration tasks require cross-module (not cross-repo) contract-preserving changes; incomplete integration is a top failure category."}
+  ],
+  "methodology": {"sample": "119 tasks / 98 repos / 20 domains; 91 tasks in the scientific-information ablation.", "baselines": "Eight frontier model+harness pairings; no non-agent baseline and no human baseline.", "models": "GPT-5.6-sol, Claude-Opus-5, Kimi-K3, GLM-5.2, Nex N2, DeepSeek-V4-flash, Qwen3.5-397B, DeepSeek-V4-Pro across Codex, Claude Code, Kimi Code harnesses.", "variance": "Pass@1 appears to be one attempt per task; no seeds, repeated runs or CIs; ablation explicitly not significance-tested.", "ablations": "Scientific-information removal on 91 tasks for two models.", "contamination_controls": "Snapshots frozen before fix, solution hints removed, hidden validators with reverse checks for hard-coding; but tasks derive from public historical issues/PRs, so upstream fixes may be in training data (not quantified).", "languages": "Not summarized in the text read; repositories in the task table appear predominantly Python (e.g., biopython, mne-python, pvlib-python, climada_python)."},
+  "standards": {"peer_review": "None stated (comment: 26 pages, 7 figures).", "limitations_section": true, "artifacts": "Code (github.com/OpenMOSS/SWE-bench-Science), data (Hugging Face OpenMOSS-Team), leaderboard; per-task annotation table in appendix.", "preregistration": "n/a"},
+  "biases": [
+    {"type": "no_variance_reported", "detail": "Single-attempt Pass@1 over 119 tasks; a one-task change is ~0.84 pp, so rank gaps of a few points are within noise."},
+    {"type": "other:harness_model_confound", "detail": "Each model is paired with one harness (e.g., GLM-5.2 with Codex, DeepSeek with Claude Code), so harness and model effects cannot be separated."},
+    {"type": "contamination_risk", "detail": "Tasks come from public scientific repos' historical issues and PRs."},
+    {"type": "small_sample", "detail": "Ablation compares two models on 91 tasks with 8-12 task flips; the paper itself says no significance."},
+    {"type": "other:unspecified_annotation", "detail": "Failure-mechanism labeling process and inter-rater reliability not reported."}
+  ],
+  "coi": {"affiliations": "Shanghai Innovation Institute; Fudan University (OpenMOSS team).", "vendor_products_evaluated": "Third-party models and harnesses; no model from the authors' group is evaluated.", "funding": "Not stated.", "severity": "none", "detail": "Benchmark authors do not ship a ranked system."},
+  "scores": {"rigor": 3, "reproducibility": 4, "generalizability": 2, "relevance": 2, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Carefully constructed benchmark with hidden validators, broad frontier-agent coverage, and released artifacts. Headline numbers are supported, but results are single-attempt with no variance, model and harness are confounded, failure annotation is undocumented, and the knowledge ablation is admittedly non-significant.",
+  "applicability": "The domain (scientific computing, mostly Python) does not match a Java content-ingestion backend, but two findings carry over. First, the gap between public-test scores (~97%) and hidden-validator Pass@1 (<50%) argues for keeping held-out contract and acceptance tests outside the agent's workspace in the team's harness, especially for medical or educational correctness rules that a visible fixture can be overfit to. Second, giving agents more domain documentation (for example, clinical or educational content standards) can anchor strong models and lower exact success, so domain context should be targeted and paired with executable checks, not dumped in. Results across Codex, Claude Code, and Kimi Code also show harness choice shifts outcomes, so mixed-host teams should benchmark per host rather than assume parity.",
+  "conflicts_with": []
+}

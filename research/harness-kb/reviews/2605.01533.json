@@ -1,0 +1,24 @@
+{
+  "arxiv_id": "2605.01533",
+  "contribution_type": "system",
+  "summary": "AutoSLO uses genetic programming to evolve formulas that set Kubernetes replica counts for bottleneck microservices, scored by an offline Random Forest surrogate that predicts SLO outcomes. It is evaluated against Kubernetes HPA and a random-search variant on Google's Boutique Shop demo and an LLaMA-3 chatbot. There are no LLM agents and no software-engineering automation; the 'self-adaptive' loop is a runtime controller.",
+  "claims": [
+    {"claim": "AutoSLO cuts average pod usage by 50.65% (Boutique Shop) and 46.4% (Chatbot) vs HPA", "evidence": "Table 2: 12.36 vs 25.05 pods and 1.57 vs 2.93 pods, Wilcoxon p<1e-15, A12 large, 10 runs. But HPA had 0 violations while AutoSLO had 2.6 / 2.8, so this is a cost-vs-SLO trade-off rather than strict dominance; HPA is a single fixed CPU-80% config.", "strength": "moderate", "location": "§4, Table 2"},
+    {"claim": "GP beats random search (AutoSLO-Ran)", "evidence": "Table 2: pods 12.36 vs 12.35 on Boutique Shop (p=0.76, negligible); 1.57 vs 1.79 on Chatbot (p=9e-6 but A12=0.44, negligible). Violation reductions (3.0->2.6, 3.0->2.8) are not significant (p=0.078, 0.168).", "strength": "weak", "location": "§4, Table 2"},
+    {"claim": "All violations are resolved within two control-loop cycles (<2 min)", "evidence": "Figures 3-4 time series; the paper says the bound comes from the 1-min loop plus pod rollout latency.", "strength": "moderate", "location": "§4 Results"}
+  ],
+  "patterns": [],
+  "methodology": {"sample": "2 case-study systems (11-service Boutique Shop demo; 1-bottleneck LLM chatbot capped at 3 pods), ~1 h dynamic workload, 10 repetitions", "baselines": "Kubernetes HPA (CPU 80%, untuned single config) and a random-search ablation", "models": "No LLM in the method; the chatbot under test uses LLaMA-3", "variance": "10 runs, Wilcoxon rank-sum + Vargha-Delaney A12", "ablations": "GP vs random search only", "contamination_controls": "n/a", "languages": "Python implementation; n/a for code generation"},
+  "standards": {"peer_review": "Accepted at SSBSE 2026 (arXiv comment)", "limitations_section": true, "artifacts": "Code, scripts and data stated available online (ref [4]); not verified", "preregistration": "n/a"},
+  "biases": [
+    {"type": "strawman_baseline", "detail": "HPA is a single untuned CPU-threshold configuration; no comparison with other SLO-aware autoscalers (e.g. PBScaler, which it builds on)."},
+    {"type": "small_sample", "detail": "Two systems, one of them a demo app; the chatbot's bottleneck is a single service capped at 3 pods."},
+    {"type": "metric_mismatch", "detail": "The headline pod reduction comes with more SLO violations than HPA (2.6-2.8 vs 0)."}
+  ],
+  "coi": {"affiliations": "University of Ottawa (all three authors)", "vendor_products_evaluated": "None (Kubernetes HPA as baseline)", "funding": "Mitacs Accelerate and NSERC Discovery", "severity": "none", "detail": "Academic authors; Mitacs Accelerate usually implies an industry partner, but none is named."},
+  "scores": {"rigor": 3, "reproducibility": 3, "generalizability": 1, "relevance": 1, "coi_risk": 0},
+  "verdict": "reject",
+  "verdict_reason": "off-topic: runtime microservice auto-scaling with genetic programming. No LLM agents, coding harness, or SE-automation content. The evaluation is reasonable for SSBSE, but GP vs random search is mostly not significant.",
+  "applicability": "Does not transfer to harness decisions. At most it is tangential ops background if the team's content-delivery services run on Kubernetes; it says nothing about multi-repo ingestion, agent hosts, or spec-driven development.",
+  "conflicts_with": []
+}

@@ -1,0 +1,31 @@
+{
+  "arxiv_id": "2605.29226",
+  "contribution_type": "position",
+  "summary": "Summary report of a one-day Chatham-House-rule S3C2 summit (15 Sept 2025) with 10 practitioners from 8 unnamed companies on vulnerable dependencies, component/container choice, malicious commits, build infrastructure, culture, and LLMs in the supply chain. It lists continued themes and new ideas per topic; new LLM-related ideas include tiered agent permissions by developer seniority, agents as first-class identities, and MCP connectors as hidden supply-chain surfaces.",
+  "claims": [
+    {"claim": "Some organizations block or tightly limit MCP connectors by default because they quietly expand the supply chain into internal repos/documents.", "evidence": "§7.2 'MCP-driven expansion of hidden supply-chain surfaces'; unattributed, 'some organizations', no count.", "strength": "weak", "location": "§7.2"},
+    {"claim": "Practitioners propose tiered agent access: high-impact agent actions (code changes, workflow coordination) restricted to experienced developers; juniors read-only; agents given explicit identities.", "evidence": "§7.2 'Identity-aware agentic workflows with tiered access'; proposal from panelists, not an observed practice with outcomes.", "strength": "weak", "location": "§7.2"},
+    {"claim": "Network-isolated CI builds (no egress after dependency fetch) are seen as a more reliable safeguard than reputation scores.", "evidence": "§3.2 narrative.", "strength": "weak", "location": "§3.2"},
+    {"claim": "Heavy AI-assisted coding by juniors is widening skill gaps and weakening review culture.", "evidence": "§6.2 participant opinion; no data.", "strength": "weak", "location": "§6.2"}
+  ],
+  "patterns": [
+    {"id": "P21", "stance": "introduces", "note": "Tiered, identity-aware agent permissions (read-only for juniors) proposed by practitioners (§7.2)."},
+    {"id": "P04", "stance": "neutral", "note": "MCP connectors flagged as a supply-chain/data-exfiltration surface; some orgs default-deny (§7.2)."},
+    {"id": "P20", "stance": "neutral", "note": "Network-isolated builds and isolated environments for LLM use mentioned (§3.2, §7.1)."},
+    {"id": "P30", "stance": "neutral", "note": "Provenance/attestation for agent actions and inference-time provenance (SLSA/GUAC extension) proposed (§5.2, §7.2)."},
+    {"id": "P19", "stance": "neutral", "note": "Concern that reliance on model output weakens human review (§6.2, §7.1)."}
+  ],
+  "methodology": {"sample": "10 practitioners from 8 companies, one day; identities withheld.", "baselines": "n/a (qualitative); narrative comparison to prior S3C2 summits.", "models": "n/a", "variance": "n/a; no frequencies of agreement.", "ablations": "n/a", "contamination_controls": "n/a", "languages": "n/a"},
+  "standards": {"peer_review": "None indicated; report reviewed by participants and S3C2 researchers (§1).", "limitations_section": false, "artifacts": "Discussion prompts in appendix only.", "preregistration": "n/a"},
+  "biases": [
+    {"type": "small_sample", "detail": "10 participants, 8 companies, single session."},
+    {"type": "selection_bias_participants", "detail": "Invited companies 'actively engaged in software security'; topics voted by participants."},
+    {"type": "other:no_qualitative_method", "detail": "Researcher notes drafted into themes by a PhD student; no coding protocol, agreement measure, or counts."}
+  ],
+  "coi": {"affiliations": "NC State, Paderborn/George Washington, U. Maryland, CMU (S3C2).", "vendor_products_evaluated": "None.", "funding": "NSF grants 2207008, 2206859, 2206865, 2206921 (§9).", "severity": "none", "detail": "Academic organizers; no product evaluated."},
+  "scores": {"rigor": 1, "reproducibility": 1, "generalizability": 1, "relevance": 2, "coi_risk": 0},
+  "verdict": "reject",
+  "verdict_reason": "Practitioner-opinion summary with no systematic method; useful as an idea list (MCP default-deny, agent identities, tiered agent permissions) but provides no evidence that any of these controls work. Fails the rigor floor for a knowledge base meant to weight evidence.",
+  "applicability": "Idea-level only. For the Java team: treat MCP connectors that can read the ≥4 ingestion repos or internal docs as supply-chain surfaces (default-deny, explicit allow-list per repo), give agent runs distinct identities in CI so provenance of agent-authored commits is auditable across hosts (Cursor/Claude Code/Codex/Hermes), and consider read-only agent modes for less experienced contributors. Healthcare-adjacent data argues for zero-retention provider settings (§7.1). None of this is tested here; nothing on spec-driven development.",
+  "conflicts_with": []
+}

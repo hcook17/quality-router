@@ -1,0 +1,54 @@
+{
+  "arxiv_id": "2609.22222",
+  "contribution_type": "empirical",
+  "summary": "Single-author controlled study of one coding model (Claude Sonnet 5, Python) generating Eurostat-querying code for 30 tasks under four conditions: task only, plus a frozen metadata card, plus a 3-attempt repair loop with sanitized diagnostics, and plus the same 3-attempt budget with no diagnostics. Metadata and the retry budget both help; diagnostics add nothing beyond the extra attempts. A companion run shows an under-specified output contract understated accuracy by 23.4 points.",
+  "claims": [
+    {"claim": "A frozen dataset metadata card raises exact correctness from 27.8% to 51.1% and nearly eliminates wrong-filter errors.", "evidence": "Table 2: A 25/90 (27.8%), B 46/90 (51.1%); Table 3: A vs B +23.3pp, cluster CI 8.9-37.8, Holm p=0.0049; Table 4 wrong filters 39 -> 4.", "strength": "moderate", "location": "§4.1, Tables 2-4"},
+    {"claim": "Sanitized execution diagnostics contribute nothing beyond the retry budget they come with (C = D = 76.7%).", "evidence": "Table 3: C vs D 12/12 discordant pairs, +0.0pp (CI -12.2 to 13.3), p=1.000. Only 30 task clusters, so effects under ~12pp cannot be excluded (acknowledged §5, §6). Diagnostics still raise executability 100% vs 96.7%.", "strength": "moderate", "location": "§4.1-4.2, Table 3"},
+    {"claim": "An under-specified output contract understated condition C by 23.4 points and flipped the significance of the C-vs-B comparison.", "evidence": "Table 6: C 48/90 (53.3%) original vs 69/90 (76.7%) specified; §4.3 adjusted p=0.2153 vs 0.0013; rescoring original run with lenient ranking key gives 74.4%. Between-run comparison on consecutive days, not within one randomised design (§6).", "strength": "moderate", "location": "§3.4, §4.3, Table 6"},
+    {"claim": "Even in the best condition, about one in five executable answers is silently wrong.", "evidence": "Table 2: silent error among executable 21/90 (23.3%) in C, 18/87 (20.7%) in D.", "strength": "strong", "location": "§4.2, Table 2"}
+  ],
+  "patterns": [
+    {"id": "P16", "stance": "mixed", "note": "Execution/schema-check retry loop helps (B->C/D +25.6pp), but the gain comes from resampling, not from feeding diagnostics back; execution success is a poor proxy for semantic correctness (20-23% silent errors)."},
+    {"id": "P34", "stance": "supports", "note": "Fully specified output contract changed measured accuracy by 23.4pp; argues for machine-checkable acceptance contracts."},
+    {"id": "P14", "stance": "supports", "note": "Recommends semantic validation against frozen, machine-readable task specifications; evidence is indirect (contract-completeness experiment)."},
+    {"id": "P20", "stance": "neutral", "note": "Static import checker + subprocess isolation + network restricted to Eurostat endpoint; authors note it is not a general sandbox. Static checker rejected 15 B runs (importing sys), a harness artifact."},
+    {"id": "P24", "stance": "neutral", "note": "Reports 397 API calls, ~689k input / 510k output tokens, ~USD 6.48 for 360 task-runs."}
+  ],
+  "methodology": {
+    "sample": "30 tasks, 7 Eurostat datasets, 4 difficulty tiers (tier 3 = 17 tasks dominates); 4 conditions x 3 replicates = 360 task-runs; plus a companion run under the original contract (A-C only).",
+    "baselines": "Internal ablation conditions (A/B/C/D); D is a well-designed resampling control. No other agents or self-repair methods compared.",
+    "models": "Claude Sonnet 5 only, thinking disabled, default sampling.",
+    "variance": "3 replicates; Wilson CIs, exact McNemar with Holm correction, task-cluster bootstrap (50,000 resamples, recorded seed).",
+    "ablations": "C vs D isolates diagnostics from attempt budget; contract completeness treated as a factor.",
+    "contamination_controls": "Gold from frozen snapshots never shown to model; live-vs-snapshot alignment audit for all 30 tasks. Public Eurostat API could be in pretraining but gold values are snapshot-specific.",
+    "languages": "Python generated code only."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint; no venue in comment or journal_ref.",
+    "limitations_section": true,
+    "artifacts": "Zenodo replication package (DOI 10.5281/zenodo.22253054): tasks, both contracts, metadata cards, snapshots, generated programs, raw records, scoring scripts, seeds; MIT / CC BY 4.0.",
+    "preregistration": "none; the original-contract run was retained and reported rather than silently rescored, which partially mitigates."
+  },
+  "biases": [
+    {"type": "single_model", "detail": "Only Claude Sonnet 5; author acknowledges results are not a ranking of LLMs (§6)."},
+    {"type": "small_sample", "detail": "30 independent task clusters; C-vs-D null cannot exclude effects up to ~12pp; tier/domain subgroups of 6-21 runs."},
+    {"type": "single_language_python", "detail": "All generated programs are Python against one REST API."},
+    {"type": "metric_mismatch", "detail": "Static-checker rejections (15 in B for importing sys) count as failures, so part of the B-vs-C/D gap is harness behaviour, not model reasoning (acknowledged §6)."},
+    {"type": "toy_tasks", "detail": "Dataset is named in each task; no discovery, clarification, or multi-step agent workflow; 'coding agent' is single-shot generation plus retry."}
+  ],
+  "coi": {
+    "affiliations": "Sabina-Cristiana Necula, Alexandru Ioan Cuza University of Iași (single author).",
+    "vendor_products_evaluated": "Claude Sonnet 5 used as the sole model; not compared favourably against competitors.",
+    "funding": "No acknowledgments or funding statement in text.",
+    "severity": "none",
+    "detail": "Academic author, no vendor affiliation; the paper's main finding (diagnostics add nothing) is not self-promotional."
+  },
+  "scores": {"rigor": 3, "reproducibility": 4, "generalizability": 1, "relevance": 3, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Unusually careful statistics for its size (paired tests, cluster bootstrap, a proper resampling control, full replication package, honest reporting of the flawed first run), but it covers one model, 30 Python tasks and a single API, and the null for diagnostics is bounded only to about ±12pp.",
+  "applicability": "Directly relevant as harness design evidence despite the domain. For the Java healthcare-education ingestion team: (1) give the agent compact, authoritative schema/metadata cards for each content source (the biggest single gain here); (2) define fully specified output contracts (JSON Schema/OpenAPI for content delivered to front ends) because unstated serialisation details get scored as model error; (3) budget retries and add a semantic validator against frozen golden content rather than investing in richer compiler/test-error feedback plumbing. Caveats: Java compile/test diagnostics are richer than these sanitized messages, so the 'diagnostics add nothing' result may not carry over (compare the Java feedback replication 2609.00362). Single Anthropic model means it says nothing about mixed agent hosts. For ≥4 ingestion repos, the output-contract lesson maps to shared, versioned contracts between repos.",
+  "conflicts_with": [
+    {"arxiv_id": "2609.00362", "detail": "That replication finds feedback type matters (test feedback strongest in Python, though not distinct in Java); this paper finds sanitized execution diagnostics add nothing over a resampling control. Different feedback richness and no resampling control in the other study."}
+  ]
+}

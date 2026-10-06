@@ -1,0 +1,64 @@
+{
+  "arxiv_id": "2609.32459",
+  "contribution_type": "empirical",
+  "summary": "Academic empirical study of how the agent harness (not the model) affects SE-agent results. It compares mini-SWE-agent vs OpenCode with ten Qwen/DeepSeek open-weight models on SWE-bench Pro, ProgramBench and GitTaskBench, then builds NanoHarness (mini-SWE-agent plus switchable tool registry, context compression, todo planning, general/task-specific subagents, lazy SKILL.md skills) and ablates each component on ProgramBench with two models.",
+  "claims": [
+    {"claim": "Marginal benefit of a complex harness shrinks as model capability rises on SWE-style issue repair.", "evidence": "Table 3 (SWE-bench Verified leaderboard, not the authors' runs): OpenHands gain +13.60 -> +5.47 pp, SWE-agent +9.60 -> +4.07 pp from Claude 3.7 to Claude 4 Sonnet. Own runs on 300-instance SWE-bench Pro sample: Qwen OpenCode advantage ~6 pp -> 2.67 pp (Fig. 5); DeepSeek non-monotonic, V4-Pro 34.3 vs 33.7 (Fig. 6). Single run per cell, no CIs; DeepSeek pattern only partly fits the claim.", "strength": "moderate", "location": "§5.1.1, Table 3, Figs 5-6"},
+    {"claim": "On newer open-ended repository tasks (ProgramBench, GitTaskBench) complex harnesses help stronger models more (capability amplifier).", "evidence": "Figs 7-10 only (no numeric tables in text); N=70 ProgramBench sample and N=54 GitTaskBench, single run each; turning points stated qualitatively.", "strength": "weak", "location": "§5.1.2, Figs 7-10"},
+    {"claim": "Tool registry and task-specific subagents give the most stable component gains; context compression and general subagents hurt.", "evidence": "§5.2.1 text: tools +4.57 / +3.54 pp, task-specific subagents +5.91 / +4.46 pp, context compression -4.86 / -3.85 pp (Qwen3.7-Max / DeepSeek-V4-Pro) on full 200-task ProgramBench. Two models, one run each, no variance; compression is one particular LLM-summarize-at-350K implementation; task-specific subagents (behavior analysis, differential testing, submission review) were designed for ProgramBench's reference-binary setting.", "strength": "moderate", "location": "§5.2.1, Figs 11-12"},
+    {"claim": "Full NanoHarness improves over mini-SWE-agent by 7.37 and 6.21 pp and recovers most of the gap to product harnesses.", "evidence": "Table 6: 42.88 -> 50.25 (Qwen3.7-Max), 45.14 -> 51.35 (DeepSeek-V4-Pro); OpenCode 51.68/52.48, Claude Code 52.33/52.76. Numbers match the abstract (Table 6 mislabels pp gains as '%'). No variance, so 1-2 pp gaps to product harnesses are within plausible run-to-run noise; designed and evaluated on the same benchmark.", "strength": "moderate", "location": "§5.2.2, Table 6"},
+    {"claim": "Gains come from structured interaction, not more prompt budget.", "evidence": "Table 7: NanoHarness tool calls +131.18% / +83.58% but prompt tokens +16.37% / +7.26%; context compression cuts prompt tokens 54.29% / 77.02% while scores drop. Supported as a token accounting; causal 'regularized exploration' story rests on Fig. 13 distribution plus two hand-picked cases (jq, calcurse).", "strength": "moderate", "location": "§5.3, Table 7, Fig. 13"}
+  ],
+  "patterns": [
+    {"id": "P08", "stance": "contradicts", "note": "LLM-summarization context compression (350K budget, keep last 20 messages) reduced ProgramBench score by 4.86 / 3.85 pp despite 54-77% prompt-token savings."},
+    {"id": "P12", "stance": "mixed", "note": "Task-specific subagents with restricted tool whitelists and fresh history: largest single gain (+5.91 / +4.46 pp); generic SDLC-role subagents hurt."},
+    {"id": "P11", "stance": "contradicts", "note": "Generic role-based subagents (requirement_analysis, architecture_design, code_generation, test_generation, defect_repair) degraded performance for both models."},
+    {"id": "P02", "stance": "mixed", "note": "Lazy-loaded SKILL.md catalog with load_skill(): small/model-dependent gains, larger for DeepSeek-V4-Pro than Qwen3.7-Max."},
+    {"id": "P13", "stance": "mixed", "note": "TodoWrite-style planning gave small gains only, at +21% prompt tokens for Qwen."},
+    {"id": "P33", "stance": "contradicts", "note": "Bash-only mini-SWE-agent loop was beaten by adding structured native tools (read/write/edit/glob) by 3.5-4.6 pp on ProgramBench, i.e. pure shell-as-action was not optimal here."},
+    {"id": "P10", "stance": "mixed", "note": "Minimal single-loop harness is within 0.6-2.7 pp of OpenCode on SWE-bench Pro for the strongest models, but trails by 7-9 pp on ProgramBench."},
+    {"id": "P31", "stance": "neutral", "note": "All evidence is benchmark-based (SWE-bench Pro, ProgramBench, GitTaskBench) plus leaderboard-scraped SWE-bench Verified numbers."},
+    {"id": "P24", "stance": "neutral", "note": "Reports per-config token usage and total cost (> $7,000; >10B/20B prompt tokens); step caps reduced to 300 on ProgramBench."},
+    {"id": "P20", "stance": "neutral", "note": "Docker with --network none, resource limits, SYS_PTRACE disabled for evaluation."}
+  ],
+  "methodology": {
+    "sample": "RQ1: 300-instance random sample of SWE-bench Pro (731), 70 of 200 ProgramBench, all 54 GitTaskBench; RQ2/3: full 200 ProgramBench, 2 models x 8 configs.",
+    "baselines": "mini-SWE-agent (minimal) and OpenCode (product-level); Claude Code added only in Table 6. Baselines are current, untuned by authors.",
+    "models": "10 open-weight models (5 Qwen: Qwen3-Max..Qwen3.7-Max; 5 DeepSeek: R1..V4-Pro), non-thinking mode; no closed models in own runs.",
+    "variance": "Temperature 0, apparently one run per configuration; no seeds, CIs or significance tests.",
+    "ablations": "Single-component add-ons and all-on; no leave-one-out from the full configuration, so interactions are not isolated.",
+    "contamination_controls": "None; authors themselves suggest SWE-style task-specific training may explain smaller harness dependence on SWE-bench Pro (§5.1.2).",
+    "languages": "SWE-bench Pro: Python, JS/TS, Go; ProgramBench: Rust, Go, C/C++, Java, Haskell; GitTaskBench: Python. No per-language breakdown."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint; no venue in comment or journal_ref.",
+    "limitations_section": true,
+    "artifacts": "No code or data link for NanoHarness, prompts, or trajectories found in the text; only OpenCode's repo cited.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "no_variance_reported", "detail": "Single temperature-0 run per cell; 1-2 pp gaps (NanoHarness vs OpenCode/Claude Code) and several component deltas are reported without any uncertainty."},
+    {"type": "benchmark_overfit", "detail": "Task-specific subagents (behavior analysis, differential testing vs reference binary) and skills like CLI Fuzzing are tailored to ProgramBench, then evaluated on ProgramBench with no held-out benchmark for the component study."},
+    {"type": "self_evaluation", "detail": "NanoHarness is the authors' own harness, built and scored by the authors on the same benchmark used to design it."},
+    {"type": "metric_mismatch", "detail": "RQ1.1 harness-vs-capability trend partly relies on SWE-bench Verified leaderboard numbers (Table 3) from heterogeneous third-party submissions, not controlled runs."},
+    {"type": "cherry_picked_examples", "detail": "Failure-mode analysis illustrated with two selected instances (jqlang__jq, lfos__calcurse)."},
+    {"type": "closed_artifacts", "detail": "No release of NanoHarness code, prompts, or trajectories despite claiming a reusable modular harness."},
+    {"type": "other:open_weight_only", "detail": "Only Qwen and DeepSeek families in own runs; frontier closed models (Claude/GPT) appear only via leaderboard numbers."}
+  ],
+  "coi": {
+    "affiliations": "Nanjing University of Science and Technology, Technical University of Munich, Nanjing University (all academic).",
+    "vendor_products_evaluated": "OpenCode, Claude Code, mini-SWE-agent harnesses; Qwen and DeepSeek models. Authors not affiliated with any of them.",
+    "funding": "No acknowledgments or funding statement found.",
+    "severity": "none",
+    "detail": "No vendor affiliation; only intellectual interest in favoring their own NanoHarness."
+  },
+  "scores": {"rigor": 3, "reproducibility": 1, "generalizability": 3, "relevance": 5, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Headline numbers (7.37/6.21 pp, component deltas) are present in Table 6 and §5.2, and the 10-model x 3-benchmark matrix with two harnesses is broader than most harness papers. But every cell is a single run without variance, the component study is designed and tested on one benchmark (ProgramBench), and no NanoHarness artifact is released, so treat component rankings as directional.",
+  "applicability": "Directly informs harness decisions. For a Java backend team: (1) give agents structured read/edit/glob tools rather than raw bash only; (2) prefer narrowly scoped, task-specific subagents (e.g. an ingestion-contract checker, a differential tester comparing new vs old ingestion output for healthcare-education content, a pre-submission reviewer) over generic 'architect/coder/tester' role agents, which hurt here; (3) be cautious with automatic LLM summarization compaction on long multi-repo ingestion tasks where specs and interface constraints must survive the whole run—keep the spec in a re-readable file instead; (4) lazy skills are cheap but give modest gains. Caveats: Java is only one of five ProgramBench languages with no per-language breakdown, nothing is cross-repository (≥4 repos), and the 'model capability shrinks harness gains' finding means harness tuning done for one agent host/model in a mixed-host shop may not transfer. Spec-driven development is not tested, though the compression result supports keeping specs as persistent artifacts outside conversational context.",
+  "conflicts_with": [
+    {"arxiv_id": "2609.08318", "detail": "AttnCompress argues trajectory compression can preserve SE-task evidence while cutting context; here generic compression cut tokens 54-77% but reduced ProgramBench scores by ~4-5 pp."},
+    {"arxiv_id": "2609.37590", "detail": "FOCUS claims decision-preserving compression helps agents; this paper finds compression hurts on long repository-generation tasks (different compression method)."},
+    {"arxiv_id": "2607.22585", "detail": "Scaffold Effect finds within-model pass-rate differences across harnesses of 0-8 pp with paired bootstrap CIs mostly including zero, versus this paper's uncertainty-free claims of meaningful 1-9 pp harness/component effects."}
+  ]
+}

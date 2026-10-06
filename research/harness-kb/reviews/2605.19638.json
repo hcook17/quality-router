@@ -1,0 +1,36 @@
+{
+  "arxiv_id": "2605.19638",
+  "contribution_type": "position",
+  "summary": "Proposes an 'Accessibility Capability Boundary' formalism: a constraint vector over latency, cognitive load, infrastructure dependency, and similar factors, with a linear utility function. It argues that LLM-generated single-file HTML tools push accessibility outward. The argument is illustrated with two author-built prototypes: a Claude-generated interface for one blind user in Nepal and an open-source webcam alignment assistant.",
+  "claims": [
+    {"claim": "AI-generated browser-native systems reduce deployment latency and infrastructure dependency (Propositions 1-2 'validated').", "evidence": "Table 2: 10 runs per profile of load time and latency under Chrome DevTools throttling, for one app. These measure the webcam app's performance, not anything about AI generation, so the claimed validation of the propositions does not follow.", "strength": "weak", "location": "§7.1 Table 2"},
+    {"claim": "The system improves task completion and cognitive load for visually impaired users.", "evidence": "§7.2: 'preliminary heuristic evaluation by the authors'. No participants and no SUS or NASA-TLX data; these are stated as future targets.", "strength": "unsupported", "location": "§7.2, §6.4"},
+    {"claim": "Automated accessibility audits are insufficient for dynamic interfaces.", "evidence": "§7.3: axe-core and Lighthouse scored 100%, but manual screen-reader testing found that live-region flooding required a 4000 ms debounce. This is a single anecdote.", "strength": "weak", "location": "§7.3"}
+  ],
+  "patterns": [
+    {"id": "P19", "stance": "neutral", "note": "Argues human-in-the-loop verification is needed because automated a11y audits miss dynamic issues (§7.3). Anecdotal."}
+  ],
+  "methodology": {
+    "sample": "Two prototypes; one app benchmarked over 10 runs x 3 simulated device profiles; no human participants.",
+    "baselines": "None measured. The comparative matrix (§10) is author-assigned.",
+    "models": "Claude (version unspecified) used to generate Probe 1.",
+    "variance": "Means only.",
+    "ablations": "None.",
+    "contamination_controls": "n/a",
+    "languages": "HTML/JavaScript."
+  },
+  "standards": {"peer_review": "None stated (21 pages, 4 figures).", "limitations_section": true, "artifacts": "Webcam assistant open-sourced at github.com/Kiara-02-Lab-Social/cam-guide-for-blind.", "preregistration": "A pilot protocol is proposed but not run."},
+  "biases": [
+    {"type": "self_evaluation", "detail": "Authors heuristically evaluate their own prototype (§7.2)."},
+    {"type": "small_sample", "detail": "One user anecdote (Nepal) and one benchmarked app."},
+    {"type": "metric_mismatch", "detail": "App runtime benchmarks are presented as validating propositions about AI-generated systems."},
+    {"type": "hype_language", "detail": "'may dramatically shift the ACB outward' and 'near-zero' deployment friction, with no measured comparison."},
+    {"type": "other:off_topic", "detail": "Accessibility HCI; no agent harness or software-engineering-process content."}
+  ],
+  "coi": {"affiliations": "NUST Business School (Pakistan); Kiara Inc. (Tokyo). The prototype repo is under a Kiara GitHub organization.", "vendor_products_evaluated": "The authors' own open-source prototype.", "funding": "Not stated.", "severity": "low", "detail": "A company co-author evaluates the company-hosted open-source artifact, but it is not a commercial product."},
+  "scores": {"rigor": 1, "reproducibility": 2, "generalizability": 0, "relevance": 1, "coi_risk": 1},
+  "verdict": "reject",
+  "verdict_reason": "Off-topic: an accessibility HCI position paper about LLM-generated single-file HTML tools, not about agent harnesses or software engineering with agents. Its empirical content is one app's throttled-browser timings and author heuristic checks, with no participants.",
+  "applicability": "Does not transfer to a backend Java ingestion team's harness decisions. The only tangential point, for front-end delivery of healthcare education content, is that automated audits (axe-core, Lighthouse at 100%) missed screen-reader overload on dynamic content. Any delivery-side accessibility acceptance criteria in specs should include manual assistive-technology checks, not only automated audit scores. This rests on a single anecdote.",
+  "conflicts_with": []
+}

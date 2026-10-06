@@ -1,0 +1,54 @@
+{
+  "arxiv_id": "2605.15425",
+  "contribution_type": "system",
+  "summary": "Proposes runtime-structured task decomposition (RSTD): deterministic code owns orchestration/branching, LLM calls are narrow judgment operators with schema-validated outputs, and validated intermediate state is persisted so only a failed subtask is retried. Implemented on the Mellea framework and compared with a monolithic prompt and a static fixed-sequence decomposition on two hand-built tasks (a 2-file Python debugging task and one Kubernetes OOMKill RCA scenario), 10 runs each, under one injected failure.",
+  "claims": [
+    {"claim": "RSTD reduces retry cost by 51.7% vs monolithic and 73.2% vs static decomposition.", "evidence": "Table 2 (UC2 K8s RCA): retry tokens 904±17 mono, 1,632±145 static, 436±132 RSTD. Numbers match abstract. But retry cost is measured under a single simulated malformed-input failure (§3.1), not natural failures, and on one scenario.", "strength": "weak", "location": "§3.3, Table 2"},
+    {"claim": "Static decomposition alone can increase retry cost over monolithic because downstream subtasks are rerun.", "evidence": "Table 1: 933±93 static vs 703±49 mono (UC1); Table 2: 1,632 vs 904 (UC2). Mechanistically obvious given the static baseline was defined to rerun all downstream subtasks.", "strength": "moderate", "location": "§3.2–3.3"},
+    {"claim": "The approach improves efficiency and operational reliability.", "evidence": "Contradicted by own tables for normal execution: RSTD total tokens 2,225±270 vs 703±49 mono (UC1, ~3.2x) and 2,716±424 vs 904±17 (UC2, ~3x); latency also higher in UC2 (28.78s vs 10.41s). Correctness is 100% for all three configs, so no reliability difference is shown. Natural schema failure rate 0% (UC1) and 2% (UC2), so retry savings rarely amortize the overhead; authors concede net savings depend on unmeasured failure rates.", "strength": "unsupported", "location": "Tables 1–2, §3.1, §5 Limitations"},
+    {"claim": "Framework overhead is ~18% of wall time, enabling per-subtask model substitution.", "evidence": "Table 2 framework 4.10–5.18s; model substitution is asserted, never tested.", "strength": "weak", "location": "§3.3–3.4"}
+  ],
+  "patterns": [
+    {"id": "P13", "stance": "mixed", "note": "Deterministic code-driven orchestration with selective retry cuts recovery tokens under injected failure but ~3x baseline token cost; no accuracy gain."},
+    {"id": "P16", "stance": "introduces", "note": "Schema validation gate between subtasks blocks malformed state; validation is JSON-shape only, not execution-based."},
+    {"id": "P30", "stance": "introduces", "note": "Subtask boundaries as instrumentation points for AgentOps; asserted, not evaluated."},
+    {"id": "P23", "stance": "neutral", "note": "Per-subtask model substitution mentioned as structurally possible; not tested."},
+    {"id": "P24", "stance": "neutral", "note": "Reports token cost per configuration; no budget enforcement."}
+  ],
+  "methodology": {
+    "sample": "2 hand-constructed tasks (two-file Python pipeline with 3 seeded bugs; one synthetic K8s OOMKill scenario); 10 runs per config.",
+    "baselines": "Monolithic AutoGen AssistantAgent and a replica of fuzzylabs/sre-agent prompt; static decomposition defined by authors to rerun all downstream subtasks (constructed to lose on retry).",
+    "models": "gpt-4 only, temperature 0.",
+    "variance": "mean±sd over 10 runs reported; sd attributed to API nondeterminism. No significance tests.",
+    "ablations": "Static vs runtime decomposition is the only ablation.",
+    "contamination_controls": "None; tasks authored by the authors.",
+    "languages": "Python code task; K8s logs/YAML."
+  },
+  "standards": {
+    "peer_review": "Workshop paper (ACM CAIS 2026 Agentic Software Engineering workshop).",
+    "limitations_section": true,
+    "artifacts": "No code/data release stated for RSTD agents or tasks; baselines link to public repos (autogen, fuzzylabs/sre-agent).",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "toy_tasks", "detail": "One 2-file Python debugging task and one synthetic RCA scenario; all configs reach 100% correctness so the tasks don't discriminate."},
+    {"type": "strawman_baseline", "detail": "Static baseline is designed to rerun all downstream subtasks; a checkpointing static pipeline (e.g., LangGraph with persisted state) is not tested."},
+    {"type": "single_model", "detail": "gpt-4 only."},
+    {"type": "metric_mismatch", "detail": "Headline 'retry cost' is measured under one injected failure, while total cost and latency (where RSTD is ~3x worse) are not the headline; 'reliability' claimed with no reliability difference observed."},
+    {"type": "small_sample", "detail": "Two tasks, 10 runs each."},
+    {"type": "closed_artifacts", "detail": "No release of the RSTD agent code or task fixtures."},
+    {"type": "novelty_inflation", "detail": "Selective retry over checkpointed, schema-validated pipeline steps is standard workflow-engine practice."}
+  ],
+  "coi": {
+    "affiliations": "4 of 5 authors IBM Research (San Jose, Bengaluru, Yorktown); 1 author at Zoom, work done while at IBM.",
+    "vendor_products_evaluated": "Built on the open-source Mellea framework (cited as 'Mellea Contributors, 2025', mellea.ai); the paper does not state who maintains Mellea — reviewers should check whether it is an IBM-affiliated project before weighting.",
+    "funding": "No acknowledgments or funding section.",
+    "severity": "low",
+    "detail": "Vendor-affiliated authors; framework provenance undisclosed. No commercial product is graded against competitors."
+  },
+  "scores": {"rigor": 2, "reproducibility": 1, "generalizability": 1, "relevance": 3, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "The architectural idea (deterministic orchestration, schema-gated state, selective retry) is sound and relevant, and the abstract numbers do appear in Tables 1–2. However, evidence is two toy tasks, one model, injected failures, and the paper's own tables show ~3x token cost and no correctness gain in normal operation, so the 'efficiency/reliability' framing is not supported.",
+  "applicability": "For a Java team building an ingestion harness across ≥4 repos, the transferable lesson is design-level: put orchestration in deterministic code (e.g., a Java workflow/state machine), keep LLM calls narrow with schema-validated outputs (JSON Schema/records), and checkpoint validated intermediate state so a failed step retries alone — this matches spec-driven development where schemas are the contract. Do not cite the 51.7%/73.2% numbers as expected savings: they are from Python/K8s toy tasks under a forced failure, and baseline cost rose ~3x. Host-agnostic, so fine for mixed agent hosts, but nothing here addresses cross-repo coordination or healthcare content.",
+  "conflicts_with": []
+}

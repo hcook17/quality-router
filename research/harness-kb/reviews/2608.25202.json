@@ -1,0 +1,48 @@
+{
+  "arxiv_id": "2608.25202",
+  "contribution_type": "dataset",
+  "summary": "SpecMine (MSR 2027 Mining Challenge dataset) captures spec-driven development (SDD) artifacts in public GitHub repos through two censuses. The broad census has 470,795 spec.md/specs.md files in 73,030 repos, attributed to 17 tools by path fingerprint. The Kiro census has 98,574 requirements/design/tasks files in 12,910 repos. A PR layer covers 5,992 spec-touching PRs from 581 repos with ≥10 stars, and a traceability index holds 2,421,323 typed references. It describes the data and proposes research questions; it does not evaluate whether SDD works.",
+  "claims": [
+    {"claim": "Corpus scale: 470,795 spec files / 73,030 repos; Kiro 98,574 / 12,910; 5,992 spec-touching PRs / 581 repos; 2.42M references.", "evidence": "Table I and §I-B; construction via adaptive size partitioning of code search, verified idempotent (App. B); reachable set may be a strict subset.", "strength": "strong", "location": "§I-B, §I-C, Table I, App. B"},
+    {"claim": "Tool attribution by path fingerprint is accurate.", "evidence": "Manual check of 30 specs across 10 tools, all correct; 7 tools and ad-hoc buckets unchecked; no precision estimate at scale.", "strength": "weak", "location": "§I-B"},
+    {"claim": "Spec and implementation commonly change together (81.2% of spec-touching PRs also modify code).", "evidence": "Table I; the authors call co-change a heuristic, not ground truth, and the PR layer is a ≥10-star subsample whose sampling excludes implementation PRs that do not touch specs.", "strength": "moderate", "location": "Table I, App. B 'co-change heuristic'"},
+    {"claim": "SDD spans >70,000 repos and is becoming the primary artifact developers write.", "evidence": "Repo counts support breadth, but only 923 of 73,030 repos have ≥100 stars and the corpus mixes tutorials and template clones; caffeine.ai auto-generated apps lead repo counts. 'Primary artifact' is not measured.", "strength": "weak", "location": "§I-A, App. B"}
+  ],
+  "patterns": [
+    {"id": "P14", "stance": "neutral", "note": "Describes SDD adoption footprint (Kiro, Spec Kit, OpenSpec lead among developer tools) without evidence on effectiveness."},
+    {"id": "P34", "stance": "neutral", "note": "Parses EARS and Gherkin requirement-template markers as structural features."},
+    {"id": "P30", "stance": "neutral", "note": "Traceability index links spec→PR/issue/code paths, a basis for spec-to-code audit trails."}
+  ],
+  "methodology": {
+    "sample": "Census of public GitHub spec files (July 2026 snapshot), PR sweep on 949 repos with ≥10 stars across 11 tools.",
+    "baselines": "n/a (dataset).",
+    "models": "n/a",
+    "variance": "n/a",
+    "ablations": "n/a",
+    "contamination_controls": "n/a; filters for package caches, vendored trees and pre-2024 specs; flags for forks, templates, tiny/lorem files.",
+    "languages": "Spec prose (natural language); repository programming languages recorded as metadata but not analysed."
+  },
+  "standards": {
+    "peer_review": "MSR 2027 Mining Challenge dataset paper (per §V); no journal_ref.",
+    "limitations_section": false,
+    "artifacts": "Zenodo DOI 10.5281/zenodo.22102779 (MySQL dump, CSV/Parquet, JSONL), HF mirror ShyAgarwal/specmine, GitHub specmine-official with schema, loaders, 500-repo sample; CC BY 4.0.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "survivorship", "detail": "Public GitHub only, dominated by new low-star repos and template scaffolds; enterprise SDD use is invisible."},
+    {"type": "selection_bias_participants", "detail": "PR layer limited to ≥10-star repos and to PRs that touch a spec file."},
+    {"type": "hype_language", "detail": "'The spec, rather than the code, is becoming the primary artifact' is asserted, not measured."}
+  ],
+  "coi": {
+    "affiliations": "Carnegie Mellon University (all four authors).",
+    "vendor_products_evaluated": "None; Kiro (AWS), Spec Kit (GitHub), OpenSpec are catalogued, not evaluated.",
+    "funding": "Not stated.",
+    "severity": "none",
+    "detail": "Academic dataset."
+  },
+  "scores": {"rigor": 2, "reproducibility": 5, "generalizability": 3, "relevance": 3, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "A solid, openly released, reproducible dataset with candid notes on construction limits. It makes no claim about whether SDD works, so its rigor for harness decisions is low, and attribution accuracy rests on a 30-file check.",
+  "applicability": "Useful as reference material, not evidence. Before choosing an SDD layout (Spec Kit vs OpenSpec vs Kiro-style requirements/design/tasks), the team can mine SpecMine for real templates, how specs evolve across commits, and how often specs and code change in the same PR. That informs a portable, host-neutral spec format for the ≥4 ingestion repos. Filter to Java repos and non-template specs (fork/template/is_tiny flags) first. The OpenSpec task→code-path resolution is a model for a qr check that every spec task names files that exist and are touched. It says nothing about outcomes (defects, velocity), so it cannot justify SDD adoption by itself.",
+  "conflicts_with": []
+}

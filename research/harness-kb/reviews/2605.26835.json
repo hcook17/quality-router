@@ -1,0 +1,40 @@
+{
+  "arxiv_id": "2605.26835",
+  "contribution_type": "system",
+  "summary": "Helicase is a planner/web-search/reasoning/coding multi-agent system (Qwen3-Next-80B-A3B Thinking/Instruct) that iteratively builds query-specific supply-chain knowledge graphs from web sources, with action/trajectory/memory-layer uncertainty scores per fact. On the authors' new 80-query SCQA benchmark (four 20-query quadrants) it reports 0.95 single-hop accuracy and 0.85 Graph-F1 on multi-hop low-visibility queries, versus at most 0.63 for baselines.",
+  "claims": [
+    {"claim": "Helicase outperforms frontier LLMs and agentic search baselines across all quadrants (G-F1 0.85 on Q4).", "evidence": "Table 2: Q4 G-F1 0.85 vs Claude Opus 4.6 0.63 (no web search), ToT 0.39, ReAct 0.32; Q3 Acc 1.00. 20 queries per quadrant, single run, no CIs.", "strength": "moderate", "location": "§5, Table 2"},
+    {"claim": "Three-layer uncertainty yields calibrated per-fact confidence.", "evidence": "Q4 UCE 0.25 with no baseline UCE to compare (all '–'); a 25-point gap between mean confidence and accuracy is not obviously 'calibrated'.", "strength": "weak", "location": "§5.6, Table 2, §9"},
+    {"claim": "Multi-agent specialisation is the largest driver of performance.", "evidence": "Table 3 ablation on 20 Q4 queries: one-agent loop G-F1 0.45 vs 0.85. The single-agent variant's prompt/budget parity is not described.", "strength": "weak", "location": "§5.7, Table 3"},
+    {"claim": "Cost is comparable to baselines ($0.20-0.45/query).", "evidence": "Table 4: estimates from list prices; logs 'will be released'.", "strength": "weak", "location": "§5.8, Table 4"}
+  ],
+  "patterns": [
+    {"id": "P11", "stance": "supports", "note": "Role-specialized agents beat a one-agent loop in their ablation (Table 3), on a 20-query non-code task with an LLM judge."},
+    {"id": "P13", "stance": "introduces", "note": "Planner decomposes the query, prioritizes actions by uncertainty, and checks convergence."},
+    {"id": "P07", "stance": "introduces", "note": "Builds a knowledge graph incrementally as the agent's working memory/output."},
+    {"id": "P18", "stance": "neutral", "note": "All metrics judged by 'ChatGPT 5.5'; audited on 20 queries with >90% expert agreement."}
+  ],
+  "methodology": {
+    "sample": "80 SCQA queries (20 per quadrant) built by the authors with two-stage human annotation.",
+    "baselines": "Four frontier LLMs zero-shot without web access; ReAct (8 steps) and ToT with Qwen3-235B and the same search tools. No frontier model with web search or deep-research agent as baseline.",
+    "models": "Helicase: Qwen3-Next-80B-A3B Thinking + Instruct; baselines as listed.",
+    "variance": "Single run per system (temperature 0 for zero-shot); no CIs on 20-query quadrants.",
+    "ablations": "Four component ablations on Q4 only (Table 3).",
+    "contamination_controls": "None; web content and model knowledge may overlap with ground truth.",
+    "languages": "n/a (natural-language web research)."
+  },
+  "standards": {"peer_review": "None stated (no arXiv comment).", "limitations_section": true, "artifacts": "Code link github.com/Yunbo-max/Helicase; SCQA data 'will be made openly available upon publication'.", "preregistration": "n/a"},
+  "biases": [
+    {"type": "strawman_baseline", "detail": "Frontier LLMs denied web search; agentic baselines use a weaker Qwen3-235B loop capped at 8 steps; no web-enabled frontier or deep-research baseline."},
+    {"type": "small_sample", "detail": "20 queries per quadrant; ablation on 20 queries."},
+    {"type": "self_evaluation", "detail": "Authors built the benchmark, the ground truth and the system, and report it as best on every metric."},
+    {"type": "llm_judge_unvalidated", "detail": "LLM judge audited on only 20 queries; UCE correctness labels also come from the judge."},
+    {"type": "no_variance_reported", "detail": "Single runs."}
+  ],
+  "coi": {"affiliations": "University of Cambridge, Dept. of Engineering; The Alan Turing Institute.", "vendor_products_evaluated": "None owned by authors.", "funding": "Not stated.", "severity": "low", "detail": "Academic; benchmark and system come from the same authors (self-evaluation), not commercial COI."},
+  "scores": {"rigor": 2, "reproducibility": 2, "generalizability": 1, "relevance": 1, "coi_risk": 1},
+  "verdict": "reject",
+  "verdict_reason": "off-topic: supply-chain web research and knowledge-graph construction, not software engineering or coding harnesses. The evidence is also weak: an author-built 80-query benchmark, baselines without web search, single runs and an LLM judge.",
+  "applicability": "Does not transfer to a Java backend harness. A loosely related idea for content ingestion: attach per-fact provenance and confidence to extracted healthcare education facts and route low-confidence items to human review. But the paper's own limitations note that consensus across recycled web sources inflates confidence, which is exactly the risk for medical content. Nothing here informs repo, agent-host or spec-driven decisions.",
+  "conflicts_with": []
+}

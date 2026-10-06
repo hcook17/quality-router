@@ -1,0 +1,48 @@
+{
+  "arxiv_id": "2608.24913",
+  "contribution_type": "empirical",
+  "summary": "A Chrome extension condenses a page's CSS into a 10,000-token budget and asks a small local model (via Ollama) for additive CSS addressing 18 WCAG/cognitive-accessibility metrics. Six 7B-14B open models were tested on 10 violation-rich and 10 accessible live sites, scored manually by a single evaluator. Unverified edits improved 24 and regressed 20 of 100 trials, with no significant effects. The authors then built an audit-inject-verify loop (axe-core plus custom probes) on a 42-page seeded trilingual benchmark, validated only with stub generators, not models.",
+  "claims": [
+    {"claim": "Unverified small-model CSS repair improves and regresses pages at similar rates.", "evidence": "Table 3/§5.2: 24 improvements vs 20 regressions over 100 trials of five producing models; 56/100 trials no net change; t tests p .62-1.0, no sign test below .219; StarCoder2 produced no valid CSS in 20/20.", "strength": "moderate", "location": "§5.2-5.3, Tables 3-4"},
+    {"claim": "Verified repair loop detects 57/57 seeded violations with no false positives and rejects 126/126 harmful candidates.", "evidence": "Table 5, real Chromium, but with ground-truth and adversarial stub generators, not any LLM; the guarantee covers only the auditor's own CSS-decidable checks.", "strength": "moderate", "location": "§7.1-7.2, Table 5"},
+    {"claim": "Regression on automated checks is impossible by construction.", "evidence": "Accept rule: violations must strictly decrease with no new violation type, else rollback. True by construction for the checked subset; regressions outside the auditor's checks are not covered.", "strength": "strong", "location": "§7.2"}
+  ],
+  "patterns": [
+    {"id": "P16", "stance": "introduces", "note": "Audit-inject-verify accept/rollback gate; validated as an instrument but not yet run with any model."},
+    {"id": "P19", "stance": "neutral", "note": "Human-triggered, reversible changes; human spot checks retained."}
+  ],
+  "methodology": {
+    "sample": "Study 1: 6 models x 20 live sites = 120 planned trials, single manual scorer; Study 2: 42 seeded local pages (3 locales).",
+    "baselines": "None beyond before/after; no larger-model or rule-based fixer comparison.",
+    "models": "Qwen2.5-Coder 7B, DeepSeek-R1 8B, StarCoder2 7B, Gemma 3 12B, Code Llama 13B, Phi-4 14B (Ollama default quantization).",
+    "variance": "One trial per model-site; sign and Fisher tests; sensitivity |d|≈1.0.",
+    "ablations": "None.",
+    "contamination_controls": "n/a",
+    "languages": "CSS; English, Danish, German sites."
+  },
+  "standards": {
+    "peer_review": "Accepted at ICMI 2026 companion proceedings (comment says ICME/ICMI, ACM).",
+    "limitations_section": true,
+    "artifacts": "Figshare replication package (extension, prompts, rubric, benchmark, harness, summary data); trial-level live-site records available on request only.",
+    "preregistration": "Directional hypotheses set at α=.05 a priori; no registry."
+  },
+  "biases": [
+    {"type": "small_sample", "detail": "10 sites per condition per model; single evaluator, no inter-rater reliability."},
+    {"type": "self_evaluation", "detail": "Verification instrument validated only on the authors' own seeded benchmark with stub generators."},
+    {"type": "metric_mismatch", "detail": "The 'verified repair' headline characterises the checker, not repair by any model."}
+  ],
+  "coi": {
+    "affiliations": "University of Southern Denmark (all five authors).",
+    "vendor_products_evaluated": "None.",
+    "funding": "Not stated.",
+    "severity": "none",
+    "detail": "Academic, open models only."
+  },
+  "scores": {"rigor": 2, "reproducibility": 3, "generalizability": 1, "relevance": 1, "coi_risk": 0},
+  "verdict": "reject",
+  "verdict_reason": "Off-topic for this knowledge base: a user-side browser CSS-repair agent with small local models, not a software-engineering agent harness. The verified loop was never run with a model, and Study 1 is a small single-rater null result.",
+  "applicability": "Does not transfer to backend Java ingestion or harness design. The only generic lesson is to accept agent edits only when a deterministic checker shows strict improvement with no new violation types, and roll back otherwise; that is already the execution-verifier pattern. If the team's front ends need accessibility checks for healthcare education content, an axe-core gate in the front-end CI is the relevant takeaway, and it belongs to the front-end teams, not this harness.",
+  "conflicts_with": [
+    {"arxiv_id": "2605.27716", "detail": "Reports LLM (Kimi K2.5) accessibility fixes improving compliance in 80.2% of instances, versus near-parity improve/regress here with 7-14B local models. The gap likely reflects model scale and source-level vs user-side CSS repair."}
+  ]
+}

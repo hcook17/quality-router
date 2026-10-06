@@ -1,0 +1,40 @@
+{
+  "arxiv_id": "2605.26132",
+  "contribution_type": "empirical",
+  "summary": "Self-Verified Distillation samples n candidate solutions to unlabeled OpenThoughts seed questions, filters them with the same model through a UQ-style prompt cascade (cycle-consistency, factuality, correctness; unanimous votes at strength v), and SFTs on the survivors. Qwen3-0.6B/4B/8B improve on held-out math (AIME26, HMMT), science (GPQA-D, HLE) and code (LiveCodeBench v5/v6) without teachers, tools or ground truth, and mostly beat spending the same verifier at test time.",
+  "claims": [
+    {"claim": "For Qwen3-4B, aggregate held-out pass@1 improves +16.7 (math), +11.1 (science), +8.3 (coding).", "evidence": "Table 2 reports Mean Δ +8.4 / +5.6 / +4.2. The abstract figures are sums of two benchmark deltas (10.0+6.7, 9.6+1.5, 3.9+4.4), roughly doubling the apparent effect. §4.2 text cites code +4.2/+6.7, which does not match Table 2 (+3.9/+4.4).", "strength": "weak", "location": "Abstract, §4.2, §4.4 Table 2"},
+    {"claim": "Filtering is necessary; unfiltered self-generated code data hurts.", "evidence": "Fig. 3: NoFilter below initial model on LCBv5/v6, verified data above.", "strength": "moderate", "location": "§4.2, Fig. 3"},
+    {"claim": "Multi-stage UQ verifier beats a simple correctness prompt.", "evidence": "Table 1: Mean Δ +8.4 vs +4.9 on math, Qwen3-4B, one training run each.", "strength": "moderate", "location": "§4.3, Table 1"},
+    {"claim": "Training on verified data beats test-time verification (UQ-TTC) in most settings at 1 vs up to 168 inference calls.", "evidence": "Table 3: better in 5 of 6 math comparisons; 8B AIME26 UQ-TTC wins 67.7 vs 64.7. Data-construction compute is not reported in comparable units.", "strength": "moderate", "location": "§4.5, Table 3"}
+  ],
+  "patterns": [
+    {"id": "P25", "stance": "supports", "note": "Self-training/SFT on self-verified data improves small Qwen3 models; no RL."},
+    {"id": "P18", "stance": "mixed", "note": "Prompt-based self-verification is useful as a data filter (Table 1), but the authors warn it may accept incorrect solutions; precision of the filter is never measured against ground truth."}
+  ],
+  "methodology": {
+    "sample": "Seed questions: 53,125 math, 26,041 science, 9,168 code from OpenThoughts; held-out tests AIME26, HMMT 02/25, GPQA Diamond, HLE, LCBv5, LCBv6.",
+    "baselines": "Initial model; NoFilter; simple verifier; UQ-TTC. No comparison with other self-training methods (e.g. STaR-style with answer checking, majority-vote pseudo-labels) or teacher distillation.",
+    "models": "Qwen3-0.6B, 4B, 8B only (single family).",
+    "variance": "Evaluation averaged over 3-10 sampling seeds per benchmark; a single training run per configuration; no CIs on deltas.",
+    "ablations": "n x v grid; verifier type; selection policy (App. C.4); model scale.",
+    "contamination_controls": "Uses recent AIME26/HMMT and later LCB windows as held-out tests; no explicit decontamination of OpenThoughts seeds against tests.",
+    "languages": "Code tasks are LiveCodeBench (competitive programming, predominantly Python)."
+  },
+  "standards": {"peer_review": "None stated (no arXiv comment).", "limitations_section": false, "artifacts": "No code/data URL found; prompts in App. B-C. Part of the Marin Project.", "preregistration": "n/a"},
+  "biases": [
+    {"type": "hype_language", "detail": "Abstract reports summed two-benchmark deltas as 'aggregate' gains, double the per-benchmark mean in Table 2; title framing 'Secretly Its Own Synthetic Data Pipeline'."},
+    {"type": "single_model", "detail": "Only the Qwen3 family."},
+    {"type": "no_variance_reported", "detail": "One training run per config; HLE gains of +1.5 on low single-digit base scores are likely within noise."},
+    {"type": "missing_cost_reporting", "detail": "Training-time generation and verification compute (n=8, v=5 cascade over ~88k seeds) not quantified against the UQ-TTC comparison."},
+    {"type": "other:internal_inconsistency", "detail": "Code gains quoted in §4.2 (+4.2/+6.7) differ from Table 2 (+3.9/+4.4)."}
+  ],
+  "coi": {"affiliations": "Stanford University (Tony Lee, Percy Liang).", "vendor_products_evaluated": "Qwen3 (Alibaba) open models; no author affiliation with Alibaba.", "funding": "Schmidt Sciences; compute from Google TPU Research Cloud; Marin Project.", "severity": "none", "detail": "Academic; compute grant from Google does not bear on the evaluated product."},
+  "scores": {"rigor": 3, "reproducibility": 2, "generalizability": 2, "relevance": 1, "coi_risk": 0},
+  "verdict": "reject",
+  "verdict_reason": "off-topic: LLM post-training on math/science/competitive-programming, not agents or software-engineering harnesses. The study is also weakened by an abstract that doubles reported gains, a single model family and single training runs.",
+  "applicability": "No direct transfer: a Java backend team adopting agent hosts will not fine-tune models. The only harness-relevant lesson is indirect. A decomposed verifier (back-translate the solution to the question, then check facts, then correctness) beat a single 'is this correct?' prompt. If the team uses an LLM to check generated healthcare education content against its source or spec, a structured multi-check cascade is preferable to one judge prompt, but deterministic checks should still gate.",
+  "conflicts_with": [
+    {"arxiv_id": "2607.24300", "detail": "That paper (per its abstract) finds self-authored verification unreliable in self-improving agents, with self-scores near perfect while real performance degrades. Here self-verification is reported to improve held-out results, though the filter's precision is never measured."}
+  ]
+}

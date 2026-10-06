@@ -1,0 +1,54 @@
+{
+  "arxiv_id": "2605.15569",
+  "contribution_type": "system",
+  "summary": "Neo is an agentic program-analysis framework that finds privilege-escalation bugs across polyglot microservices: an LLM agent plans analyses and judges semantics (which operations are privileged, whether authN/authZ checks are adequate) while CodeQL-backed, language-agnostic 'code search primitives' (AST, flow, call-graph, inter-service channel queries over REST/gRPC/Kafka/etc.) retrieve precise context. Evaluated on 25 open-source microservice apps (7 languages, Java-heavy), it reports 24 zero-day privilege escalations plus 18 other zero-days and beats CodeQL, MScan and the EnIGMA bash-based agent.",
+  "claims": [
+    {"claim": "81.0% precision and 85.0% recall on a ground-truth dataset.", "evidence": "§VI-B and Table VI: 17 TP / 4 FP over 20 verified vulns in 4 apps. Caveat: 2 of the 20 ground-truth vulns were found by Neo itself (Table III), which mildly inflates recall; 18 are prior CVEs. Single default config (Claude 3.7 Sonnet, T=0.2).", "strength": "moderate", "location": "§VI-A Table III, §VI-B, Table VI"},
+    {"claim": "Neo found 24 zero-day privilege escalation vulnerabilities (42 total incl. extensibility study), responsibly disclosed.", "evidence": "§VI-B: 39 TP of 51 reports, 24 new; manual verification with PoC exploits; §VI-H: 18 of 42 acknowledged, 8 patched at submission. Externally checkable via disclosure.", "strength": "strong", "location": "§VI-B, §VI-F, §VI-H"},
+    {"claim": "Outperforms classic and agentic baselines.", "evidence": "§VI-D: on a 44-vuln union set, Neo 39, EnIGMA 15 (14 FP), CodeQL* 7 (53.8% prec.), MScan*+Sinks 16 vs Neo 19 on Java subset. Baselines are augmented with Neo's validator (fairer), EnIGMA given same prompt/docs/10h budget. Union-of-detections ground truth is standard but biased toward the tool that contributes most findings; EnIGMA still found 2 Neo missed.", "strength": "moderate", "location": "§VI-D, Table VII, Fig. 7"},
+    {"claim": "Structured code-search primitives (vs raw bash/file reading) are essential; without them most vulns are missed.", "evidence": "§VI-C ablations: application-specific privileged ops raise recall 33.3%→92.9%; validation removes 62.2% of FPs (135→51 flows); EnIGMA failures attributed to context exhaustion (DeathStarBench flows spanning >35 functions).", "strength": "moderate", "location": "§VI-C, §VI-D4"},
+    {"claim": "Practical cost: ~1.6 h and ~18 USD per application.", "evidence": "§VI-E: 38.9 h total for 25 apps; EnIGMA ~3.4 h, ~25 USD.", "strength": "moderate", "location": "§VI-E"}
+  ],
+  "patterns": [
+    {"id": "P05", "stance": "supports", "note": "Deterministic static-analysis (CodeQL) retrieval primitives beat bash/grep file-reading agent (EnIGMA) on large polyglot codebases; ablation shows primitives essential."},
+    {"id": "P07", "stance": "supports", "note": "Call graphs, data-flow graphs and inter-service channel graphs are the context substrate; evidence from ablation and baseline comparison."},
+    {"id": "P27", "stance": "supports", "note": "Cross-service (cross-repo-like) flow tracing via channel identifiers (URLs, topics) across REST/gRPC/Kafka/RabbitMQ/Dubbo; 25 apps."},
+    {"id": "P17", "stance": "supports", "note": "Static-analysis output drives the agent loop; LLM handles semantics, analysis handles structure."},
+    {"id": "P35", "stance": "mixed", "note": "LLM-generated SMT-LIB path constraints pruned 15 of 135 flows (all true negatives on manual check); constraints generated for only 28 flows."},
+    {"id": "P18", "stance": "mixed", "note": "LLM authZ validation removed 69 flows; only 10 sampled for manual audit (all correct) — small validation sample."},
+    {"id": "P32", "stance": "supports", "note": "Real open-source applications with responsibly disclosed, partially patched findings."}
+  ],
+  "methodology": {
+    "sample": "25 open-source microservice apps (21 evaluation corpus with ≥500 stars, 4 ground-truth apps with 20 vulns), 6.2M LoC, 7 languages.",
+    "baselines": "CodeQL default critical suite, MScan (Java only), EnIGMA (SWE-agent-based security agent); baselines augmented with Neo's validation for fairness.",
+    "models": "Claude 3.7 Sonnet default (T=0.2); sensitivity on ground-truth set with Gemini 2.5 Flash and GPT-5 mini across T∈{0..1}.",
+    "variance": "No repeated runs/seeds on the main evaluation; temperature sweep shows high sensitivity (Fig. 5) but single run per point.",
+    "ablations": "Privileged-op identification, search primitives vs direct CodeQL, validation strategies, prompting (few-shot/CoT) — Tables V–VI, Fig. 6.",
+    "contamination_controls": "In-context examples drawn from apps outside the dataset; no control for prior CVEs being in model training data (ground-truth CVEs are public).",
+    "languages": "Go, Java, JS, Python, C#, C, C++; Java dominant in corpus and ground truth."
+  },
+  "standards": {
+    "peer_review": "Accepted at IEEE S&P 2026 (meta-review included in appendix).",
+    "limitations_section": true,
+    "artifacts": "Code and prompts at github.com/columbia/neo (stated in §V).",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "self_evaluation", "detail": "Authors manually verify their own tool's reports and construct the union comparison set; 2 of 20 ground-truth vulns are Neo's own finds."},
+    {"type": "no_variance_reported", "detail": "Main results are single runs at T=0.2 despite Fig. 5 showing strong temperature/model sensitivity."},
+    {"type": "contamination_risk", "detail": "Ground-truth vulns are public CVEs that may be in model pretraining data; recall on them may overstate zero-day capability."},
+    {"type": "llm_judge_unvalidated", "detail": "LLM authN/authZ validator that discards 69 flows validated on only 10 sampled cases."}
+  ],
+  "coi": {
+    "affiliations": "Columbia University (3), Johns Hopkins University (1).",
+    "vendor_products_evaluated": "Claude 3.7 Sonnet (default), Gemini 2.5 Flash, GPT-5 mini as backbones; CodeQL as substrate. No author vendor affiliation.",
+    "funding": "NSF grants CNS-21-54404 and CNS-20-46361, gifts from Google, Columbia funds.",
+    "severity": "low",
+    "detail": "Google gift funding while Gemini is one of three models in a sensitivity study (not favored; default is Claude). Academic authors evaluating their own tool, as is standard."
+  },
+  "scores": {"rigor": 4, "reproducibility": 4, "generalizability": 4, "relevance": 3, "coi_risk": 1},
+  "verdict": "admit",
+  "verdict_reason": "Peer-reviewed at a top venue, real polyglot (Java-heavy) codebases, externally verifiable disclosed zero-days, reasonable baselines including a bash-based agent, ablations, and released code/prompts. Weaknesses (single runs, union ground truth, small LLM-validator audit) are typical and disclosed, not fatal.",
+  "applicability": "Strongly relevant as architecture evidence even though the task is security: a Java backend team whose ingestion spans ≥4 services/repos benefits from the same split — deterministic, compiler-grade code queries (CodeQL/LSP/static analysis) exposed as a few typed tools to the agent, with cross-service links resolved from channel identifiers (REST paths, Kafka topics). It argues against relying on grep/file-reading alone in a multi-repo Java estate. Directly reusable as a security gate for healthcare content services (authZ on content-publishing endpoints). Caveats: needs per-repo CodeQL databases (build step per Java repo), 10-hour budgets, and ~18 USD/app; host-agnostic Python orchestration so it fits mixed agent hosts as an offline job rather than an in-editor tool. Says nothing about spec-driven development.",
+  "conflicts_with": []
+}

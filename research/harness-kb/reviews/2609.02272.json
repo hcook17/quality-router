@@ -1,0 +1,54 @@
+{
+  "arxiv_id": "2609.02272",
+  "contribution_type": "system",
+  "summary": "NTU Singapore authors propose PaperCompiler, a paper-to-code pipeline. It first grounds implementation evidence from an ML paper with provenance labels (paper-supported, inferred, delegated, unresolved). It then 'compiles' that evidence into repository-level specifications: reconciled requirements with non-degradation constraints, file ownership, cross-file dependencies and per-file contracts. Finally it generates files under those contracts. On 90 Paper2CodeBench papers with o3-mini generation and o3-mini-high judging, it scores higher than PaperCoder, ChatDev and MetaGPT on three LLM-judged 1-5 fidelity protocols.",
+  "claims": [
+    {"claim": "PaperCompiler improves reference-based fidelity by 13.8% (3.647 -> 4.152) over PaperCoder, plus smaller reference-free (4.562 -> 4.777) and P2C-Ex (4.535 -> 4.728) gains.", "evidence": "Table 1, 90 papers in three 30-paper conference subsets; per-paper win ratios in Fig. 4. Every score is an o3-mini-high LLM judgment on a 1-5 scale; no generated repository is executed or tested against reported results (Appendix A). The judge is not validated against human ratings in this paper.", "strength": "moderate", "location": "§4.1, Table 1, Fig. 4"},
+    {"claim": "High-severity evaluator critiques fall from 13.2% to 6.1%.", "evidence": "Table 3: 337/2561 vs 162/2649 items. The severities are assigned by the LLM evaluator; humans assigned the failure categories. API/schema mismatches rise from 2.3% to 4.0%.", "strength": "moderate", "location": "§4.3, Table 3"},
+    {"claim": "PaperCompiler beats end-to-end systems AutoP2C and AutoReproduce.", "evidence": "Table 2 on a 10-paper random subset: ref-based 4.263 vs PaperCoder 3.825, AutoReproduce 2.650, AutoP2C 2.088. Small sample; uses 1.71M tokens vs PaperCoder's 0.98M.", "strength": "weak", "location": "§4.2, Table 2"},
+    {"claim": "Each component (reconciliation, context slicing, contracting) contributes.", "evidence": "Table 4 (9 papers, one generation each): only reference-based scores favour the full system (4.38 vs 3.86-4.11). On ref-free and P2C-Ex, ablations match or beat it (w/o Context Slicing 4.72/4.74 vs 4.57/4.42). The authors then choose to focus on the metric that supports them.", "strength": "weak", "location": "§4.4, Table 4"}
+  ],
+  "patterns": [
+    {"id": "P14", "stance": "supports", "note": "Persistent, structured specifications that bind each requirement to an implementing file beat free-form plans as the hand-off between stages (LLM-judged)."},
+    {"id": "P34", "stance": "supports", "note": "Explicit requirement reconciliation with provenance and non-degradation constraints; removing it costs most on reference-based fidelity (Table 4)."},
+    {"id": "P27", "stance": "introduces", "note": "Ownership graph and cross-file dependency contracts, within a single repository; API/schema mismatches actually rose."},
+    {"id": "P13", "stance": "neutral", "note": "Staged grounding -> compilation -> generation pipeline."},
+    {"id": "P18", "stance": "neutral", "note": "Entire evaluation rests on an LLM judge (o3-mini-high) with no human validation reported."}
+  ],
+  "methodology": {
+    "sample": "90 papers (ICLR/ICML/NeurIPS 2024, 30 each) from Paper2CodeBench; 10-paper subset for end-to-end comparisons; 9-paper ablation.",
+    "baselines": "PaperCoder (re-run under matched settings), ChatDev and MetaGPT (likely carried over from the PaperCoder paper and not re-run), AutoP2C, AutoReproduce.",
+    "models": "o3-mini generation, o3-mini-high evaluation; a single, now-dated backbone.",
+    "variance": "Std. across papers reported; multiple sampled judge outputs averaged (8 in ablation). One generation per paper, with no variance across generation seeds (acknowledged).",
+    "ablations": "w/o reconciliation, context slicing, contracting (9 papers).",
+    "contamination_controls": "None discussed; author repositories from 2024 are likely in training data.",
+    "languages": "Python ML research repositories only."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint (9 pages); no venue.",
+    "limitations_section": true,
+    "artifacts": "No code link in text or metadata; prompt excerpts and example outputs in Appendices E-F.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "llm_judge_unvalidated", "detail": "All fidelity scores and severities come from o3-mini-high, with no human agreement check or execution-based validation."},
+    {"type": "metric_mismatch", "detail": "'Faithful' implementation is claimed, but nothing is executed and reported results are not reproduced (Appendix A)."},
+    {"type": "single_model", "detail": "o3-mini only for generation."},
+    {"type": "single_language_python", "detail": "ML research repositories in Python."},
+    {"type": "small_sample", "detail": "10-paper end-to-end comparison and 9-paper ablation, each generated once."},
+    {"type": "cherry_picked_examples", "detail": "The ablation discussion discounts the two metrics where ablations win and focuses on reference-based scores."},
+    {"type": "closed_artifacts", "detail": "No code release."}
+  ],
+  "coi": {
+    "affiliations": "NTU Singapore (all three authors).",
+    "vendor_products_evaluated": "OpenAI o3-mini as backbone and judge; no author vendor ties.",
+    "funding": "No acknowledgments or funding section found.",
+    "severity": "none",
+    "detail": "Academic authors evaluating their own method with an LLM judge; intellectual self-evaluation, no commercial COI."
+  },
+  "scores": {"rigor": 2, "reproducibility": 2, "generalizability": 1, "relevance": 3, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "The idea of persistent, file-level specs with provenance is relevant to SDD, and the abstract numbers match Tables 1 and 3. But all evidence is an unvalidated o3-mini-high judge, nothing is executed, generation is single-backbone and single-run, the domain is Python ML papers only, the ablation is mixed, and there is no code.",
+  "applicability": "A concrete design hint for spec-driven development, not proven practice. The idea that transfers is to compile a feature spec into per-module contracts: requirement -> owning module/class, interfaces it must expose, cross-module dependencies, and 'must not simplify' constraints, each tagged with provenance (spec-stated vs inferred vs unresolved). Then hand each generation step only its slice. For the Java ingestion team this maps onto a spec -> per-repo/per-service contract (OpenAPI/JSON Schema, ownership in CODEOWNERS-like metadata) across the ≥4 repos. The explicit 'unresolved' bucket is a good trigger for human consultation on healthcare-content rules. Caveats: one repo, Python, LLM-judged only, and API/schema mismatches actually increased. A Java team should pair any such contracts with compile and contract tests rather than rely on judge scores. Host-agnostic, since the contracts are plain files.",
+  "conflicts_with": []
+}

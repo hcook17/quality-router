@@ -1,0 +1,53 @@
+{
+  "arxiv_id": "2608.08453",
+  "contribution_type": "empirical",
+  "summary": "A mining study of 138,133 deduplicated public SKILL.md files from 20,556 repositories, scored by 31 regex/structural detectors in a two-tier taxonomy (14 spec-conformance checks, 17 best-practice checks covering routing, body, resources, content, safety, portability, scope). It reports that 91.8% have at least one detected defect, runs a BM25 routing stress test on 20,000 skills, compares platforms and AI-marked vs unmarked skills, and proposes a lint-repair-gate workflow backed by a small GPT-4o-mini repair experiment.",
+  "claims": [
+    {"claim": "91.8% of public skills contain at least one detected defect (89.3% violate the official spec), stable at 88.8-94.6% across thresholds.", "evidence": "§4.2 and Fig. 2; threshold sensitivity on a 10,000-skill sample (§3.3). Detectors validated only by paired synthetic fixtures; no manual precision audit on real skills (admitted §6). The figure bundles cosmetic defects such as name-as-heading (44.3%).", "strength": "moderate", "location": "§3.3, §4.2, §6"},
+    {"claim": "Routing-metadata defects reduce discoverability.", "evidence": "Table 1 BM25 over descriptions: R1-clean 88.5% hit@1 / 0.906 MRR vs R1-defective 82.6% / 0.855 (metadata queries); 26.7% vs 24.3% (name/path queries). Lexical proxy only; authors note production hosts use LLM selectors. Effect is 2-6 points.", "strength": "weak", "location": "§3.4, §4.3, Table 1"},
+    {"claim": "Spec-aware skills have fewer defects; AI-marked skills have more safety and portability defects.", "evidence": "§4.4: spec-aware 1.83 vs 3.00 defects (Cliff's δ=-0.40); AI-marked 3.23 vs 2.34 (δ=+0.28), R5 18.9% vs 8.2%, R6 12.8% vs 4.6%. Correlational; authors flag confounding of marker self-disclosure; spec-awareness partly overlaps with the detectors themselves.", "strength": "moderate", "location": "§4.4, Figs. 3-4"},
+    {"claim": "A three-rule linter (G1 trigger description, G4, G7) covers 71.9% of observed defect instances; LLM repair fixes 58.4% of detected defects.", "evidence": "§5 Fig. 5 simulated enforcement over the same detector output (circular: coverage of the authors' own defect definitions); repair on 200 skills with GPT-4o-mini, measured by the same detectors, 0% fix for bypass/injection on small subsamples.", "strength": "weak", "location": "§5"}
+  ],
+  "patterns": [
+    {"id": "P02", "stance": "supports", "note": "Progressive disclosure depends on routable descriptions; skills missing 'Use when' triggers are retrieved less reliably (weak BM25 evidence) and bloated bodies waste context."},
+    {"id": "P17", "stance": "introduces", "note": "Proposes deterministic linting of SKILL.md (three-rule elbow) as a gate before publish; effect on agent task success not measured."},
+    {"id": "P21", "stance": "introduces", "note": "Non-bypassable safety gate for skills (credentials, bypasses, destructive commands) since LLM repair failed on these."},
+    {"id": "P01", "stance": "neutral", "note": "Exemplar skills encode project-specific conventions, the same content class as repo instruction files."}
+  ],
+  "methodology": {
+    "sample": "138,133 unique SKILL.md files from 20,556 repos (one repo contributes 12.9%); 761 GitHub issues from 12 agent-platform repos; 20,000-skill routing sample; 200-skill repair sample; 419 zero-defect exemplars from ≥10k-star repos.",
+    "baselines": "None for detectors (no comparison to agnix or skills-ref validator); R1-clean vs R1-defective in stress test.",
+    "models": "BM25 for routing; GPT-4o-mini for repair only.",
+    "variance": "Threshold sensitivity range reported; statistical tests (Kruskal-Wallis, Mann-Whitney with Bonferroni, chi-square, Cliff's delta) for group comparisons; no CIs on repair.",
+    "ablations": "Lenient/baseline/strict thresholds; progressive enforcement simulation.",
+    "contamination_controls": "n/a",
+    "languages": "Natural-language SKILL.md artifacts; language-agnostic."
+  },
+  "standards": {
+    "peer_review": "First Workshop on Agent Skills (May 26, 2026, San Jose) per text; workshop-level review.",
+    "limitations_section": true,
+    "artifacts": "Dataset (CC-BY-4.0) and analysis scripts at huggingface.co/datasets/FayeZC/SkillMD-138K.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "metric_mismatch", "detail": "Defects are static regex findings; no evidence they reduce agent task success except a lexical retrieval proxy."},
+    {"type": "self_evaluation", "detail": "Linter coverage and repair success are measured by the same detectors that define the defects."},
+    {"type": "other:unvalidated_detectors", "detail": "No manual precision audit on real skills; R5/R7 rates are upper bounds by the authors' own admission."},
+    {"type": "survivorship", "detail": "Public GitHub only; enterprise/private skills unobserved, and exemplars selected by ≥10k-star repos."},
+    {"type": "small_sample", "detail": "Repair experiment 200 skills with one small model; per-category fix rates on small subsamples."}
+  ],
+  "coi": {
+    "affiliations": "CUNY Graduate Center, Ohio State University, Hunter College (CUNY).",
+    "vendor_products_evaluated": "Platform comparison (Cursor, Claude Code, OpenClaw, generic) based on file paths; no author ties to these vendors.",
+    "funding": "No acknowledgments or funding statement found.",
+    "severity": "none",
+    "detail": "Academic authors with no product stake."
+  },
+  "scores": {"rigor": 3, "reproducibility": 4, "generalizability": 3, "relevance": 4, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Large, open, transparently caveated ecosystem measurement with useful authoring guidance, but defect counts are unvalidated static heuristics and the functional evidence (BM25 routing, self-scored repair) is weak.",
+  "applicability": "Directly useful for a team sharing skills across mixed agent hosts. Concretely: (1) require 'Use when ...' trigger descriptions and keep SKILL.md bodies short and imperative, moving reference material to resource files; (2) lint skills in CI with a few deterministic rules (trigger description present, no name-as-heading, no inline code bloat) plus a hard gate for credentials, hard-coded model names, platform-specific paths and destructive commands, since portability defects are what break skills when moved between Claude Code, Cursor, Codex and others; (3) put ingestion-specific procedures (content schema validation, how the ≥4 ingestion repos hand off artifacts) in skills rather than generic Java advice, matching the 'project-specific knowledge' trait of exemplars; (4) do not trust LLM-generated skills without review. None of this is shown to improve task success, so measure it on the team's own tasks.",
+  "conflicts_with": [
+    {"arxiv_id": "2607.01456", "detail": "Reports >99% of SKILL.md files with at least one 'skill smell' using a different detector set; the prevalence gap (99% vs 91.8%) shows headline rates depend on detector definitions, not a stable ecosystem property."}
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "arxiv_id": "2607.13339",
+  "contribution_type": "position",
+  "summary": "Design/experience paper from Bauplan Labs describing 'SDK 2.0' for their lakehouse: Python/SQL pipeline nodes carry Pydantic-style schema annotations (types, Required, enums, docs, lineage) that are enforced at three points (local type checker, control-plane DAG composition check against the catalog, worker runtime validation before persistence). Annotations are persisted to Iceberg metadata so agents can retrieve semantics via an MCP server for text-to-SQL. Illustrated on a three-node Titanic DAG; no quantitative evaluation.",
+  "claims": [
+    {"claim": "Schema mismatches at node boundaries are a recurring, operationally important failure class across millions of production jobs", "evidence": "§2.2 asserts this from operating experience with citations; no failure counts, rates, or job statistics from Bauplan are reported anywhere in the paper.", "strength": "unsupported", "location": "§2.2"},
+    {"claim": "DAG-type contracts give each common failure (dropped column, nulls, type change, shifting semantics) a direct solution", "evidence": "§4.1 walks through the four hand-constructed Titanic scenarios and states which enforcement step rejects them; illustration by construction, no measured catch rate or before/after comparison.", "strength": "weak", "location": "§4.1, Listings 4-10"},
+    {"claim": "Persisting annotations in Iceberg metadata enables accurate agent SQL generation via MCP", "evidence": "§4.2 and Fig. 3 describe the flow; no text-to-SQL accuracy experiment is reported.", "strength": "unsupported", "location": "§4.2"},
+    {"claim": "Contracts compose across engines via Arrow types", "evidence": "§4.4 design argument referencing connector docs; no cross-engine demonstration.", "strength": "weak", "location": "§4.4"}
+  ],
+  "patterns": [
+    {"id": "P27", "stance": "introduces", "note": "Typed data contracts at pipeline-node boundaries, checked pre-execution against catalog state; analogous to cross-repo interface contracts, but argued not measured."},
+    {"id": "P14", "stance": "introduces", "note": "Contract/schema declared in code before execution and enforced 'shift left'; spec-as-type, no evidence of effect on agents."},
+    {"id": "P17", "stance": "introduces", "note": "Local type checker plus control-plane static composition check as early feedback; no measurement."},
+    {"id": "P04", "stance": "neutral", "note": "MCP server exposing Iceberg metadata for agent text-to-SQL is described only."}
+  ],
+  "methodology": {"sample": "one illustrative three-node Titanic DAG; no dataset or task set", "baselines": "none; related work (dbt contracts, Dagster asset checks, Pandera, Great Expectations) compared qualitatively", "models": "none evaluated", "variance": "n/a", "ablations": "none", "contamination_controls": "n/a", "languages": "Python and SQL pipeline nodes"},
+  "standards": {"peer_review": "accepted at CDMS workshop @ VLDB 2026 (workshop, short)", "limitations_section": false, "artifacts": "repo github.com/BauplanLabs/long_abstracts_and_other_stories listed; SDK client side said to be open source, SDK 2.0 in beta; server-side enforcement is proprietary", "preregistration": "n/a"},
+  "biases": [
+    {"type": "self_reported_numbers", "detail": "'Millions of jobs' and recurring failure claims are operator assertions with no reported statistics."},
+    {"type": "cherry_picked_examples", "detail": "Only hand-built Titanic failure scenarios, each designed to be caught by the new annotations."},
+    {"type": "hype_language", "detail": "'correct-by-design', 'pioneered', 'easily portable', 'easily generalizable' without evidence."},
+    {"type": "novelty_inflation", "detail": "Schema contracts on DAG nodes overlap heavily with dbt model contracts, Pandera, Pydantic; novelty is cross-language + catalog-aware composition, not measured."},
+    {"type": "other:no_evaluation", "detail": "No quantitative evaluation of any claim."}
+  ],
+  "coi": {"affiliations": "Bauplan Labs (all four authors; corresponding author is PI)", "vendor_products_evaluated": "Bauplan lakehouse SDK 2.0 (their own product)", "funding": "not stated", "severity": "high", "detail": "Product design announcement by the vendor presenting its own SDK favorably, with no independent or even internal quantitative check."},
+  "scores": {"rigor": 1, "reproducibility": 1, "generalizability": 1, "relevance": 2, "coi_risk": 4},
+  "verdict": "reject",
+  "verdict_reason": "Vendor design write-up with zero quantitative evidence; useful as a pattern description (typed contracts at pipeline boundaries, fail-fast at three stages) but cannot count as evidence in the KB.",
+  "applicability": "The idea transfers conceptually, not as evidence: for a Java team whose content ingestion spans >=4 repositories, declaring the payload schema at each repo boundary (e.g., shared JSON Schema/Avro/OpenAPI or Java record types in a contracts module) and checking it at build time, in CI against the consumer's expectations, and at runtime before persisting or delivering to front ends is the same 'shift-left contract' pattern, and fits spec-driven development. The Python/Arrow/Iceberg implementation and Bauplan-specific MCP flow do not transfer; there is no data on whether contracts reduce agent errors, so the team would need its own measurement.",
+  "conflicts_with": []
+}

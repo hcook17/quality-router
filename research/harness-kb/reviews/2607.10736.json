@@ -1,0 +1,50 @@
+{
+  "arxiv_id": "2607.10736",
+  "contribution_type": "empirical",
+  "summary": "Communication researchers compare four agent architectures (a custom monolithic Claude agent, a five-stage LangChain chain, a three-role CrewAI crew, and AutoGPT), all on Claude Sonnet 4 with the same web-search tools, across 50 journalism research tasks run once each (200 trials). They report architecture effects on duration and step counts, a non-significant accuracy difference, and different transparency profiles, interpreted through gatekeeping theory.",
+  "claims": [
+    {"claim": "Multi-agent collaboration achieved the highest accuracy (84.7%)", "evidence": "§4.1 Table 2: CrewAI 84.7% vs 76.9/75.5/70.6%, but one-way ANOVA F(3,196)=2.43, p=.066, eta^2=.04, i.e. not significant; the abstract omits this. Accuracy is keyword matching/semantic similarity against author-written ground truth.", "strength": "weak", "location": "§4.1, Table 2"},
+    {"claim": "Architecture explains 82% of variance in computational strategy", "evidence": "Step counts are largely fixed by framework design (LangChain 15.0 steps with zero variance, §3.1), so eta^2=.82 is close to tautological rather than a behavioural finding.", "strength": "weak", "location": "§3.1, §4.1"},
+    {"claim": "Monolithic agent rejects 71.7% of consulted sources, mirroring human gatekeeping; framework systems hide filtering", "evidence": "§4.2: only the custom Claude agent logged consultation; other frameworks' search wrappers did not log, so no comparison is possible. This is an instrumentation artifact of the authors' implementation.", "strength": "weak", "location": "§4.2, Fig. 4"},
+    {"claim": "Transparency is an architectural choice", "evidence": "§4.3: composite transparency differences are small (F(3,196)=2.89, p=.036, eta^2=.04); dimension weights (0.30/0.25/0.20/0.25) chosen by authors; scoring procedure for dimensions not validated.", "strength": "weak", "location": "§4.3"}
+  ],
+  "patterns": [
+    {"id": "P11", "stance": "mixed", "note": "Three-role CrewAI crew had highest mean accuracy at ~2x duration, but the difference was not statistically significant."},
+    {"id": "P10", "stance": "neutral", "note": "Monolithic single-model agent comparable on accuracy and best on logging visibility."},
+    {"id": "P30", "stance": "introduces", "note": "Argues framework abstraction layers obscure decision traces; based on missing logging in the authors' own integration."}
+  ],
+  "methodology": {
+    "sample": "50 tasks (10 per difficulty level) x 4 architectures x 1 repetition = 200 trials",
+    "baselines": "Architectures compared to each other; framework versions LangChain v0.1.0, CrewAI v0.1.0, AutoGPT v0.5.0",
+    "models": "Claude Sonnet 4 only",
+    "variance": "SDs reported across tasks; no repeated runs; ANOVA treats same tasks across agents as independent groups rather than repeated measures",
+    "ablations": "None",
+    "contamination_controls": "None; live web search",
+    "languages": "n/a (not code)"
+  },
+  "standards": {
+    "peer_review": "arXiv preprint (12 pages), no venue",
+    "limitations_section": true,
+    "artifacts": "No code, prompts, tasks or ground truth released (none found in text)",
+    "preregistration": "none"
+  },
+  "biases": [
+    {"type": "single_model", "detail": "Claude Sonnet 4 only (acknowledged §5.3)."},
+    {"type": "metric_mismatch", "detail": "Accuracy by keyword/similarity matching; step-count variance is determined by framework design."},
+    {"type": "hype_language", "detail": "Abstract headlines 84.7% accuracy for multi-agent without stating the effect was non-significant."},
+    {"type": "small_sample", "detail": "One run per task-architecture; 10 tasks per difficulty level."},
+    {"type": "closed_artifacts", "detail": "No tasks, ground truth, or implementations released."}
+  ],
+  "coi": {
+    "affiliations": "College of Media and Communication, Texas Tech University (all authors)",
+    "vendor_products_evaluated": "Open-source frameworks and Claude; no author affiliation with them",
+    "funding": "None stated",
+    "severity": "none",
+    "detail": "Independent academic study."
+  },
+  "scores": {"rigor": 1, "reproducibility": 0, "generalizability": 1, "relevance": 1, "coi_risk": 0},
+  "verdict": "reject",
+  "verdict_reason": "off-topic: journalism research agents, not software engineering; and the headline multi-agent accuracy advantage is not statistically significant (p=.066), with a single model, single runs and no artifacts.",
+  "applicability": "Does not transfer to the Java ingestion harness. The only usable point is a caution: wrapping tools inside agent frameworks can hide the decision trace (which sources/inputs were consulted and dropped), so if the team adopts a framework or mixed agent hosts it should require tool-call-level logging independent of the framework. The paper provides no evidence that role-based multi-agent setups improve outcome quality.",
+  "conflicts_with": []
+}

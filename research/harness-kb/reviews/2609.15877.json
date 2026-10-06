@@ -1,0 +1,58 @@
+{
+  "arxiv_id": "2609.15877",
+  "contribution_type": "empirical",
+  "summary": "Design-science study at Ericsson: a Kiro CLI orchestrator dispatches four parallel sub-agents (readability, maintainability, reliability, performance), each with its own skill document and antipattern catalog, fed by a context builder that pulls diffs from a GitLab MCP server and dependency structure from a code-knowledge-graph MCP server. Run on 7 commits from 4 Python projects, it produced 206 issues; the commits' developers rated 197 (96%) correct and 69% of those medium/high importance.",
+  "claims": [
+    {"claim": "The solution achieves 96% accuracy in identifying issues.", "evidence": "Table 7: 197/206 correct. This is precision as judged by the commits' own developers; recall (issues missed) is not measured; 5 raters, one of whom rated 96 of 206 issues (§3.3); no inter-rater agreement.", "strength": "moderate", "location": "§5.2, Table 7, §3.3"},
+    {"claim": "About 69% of correct issues are important (33% must-fix, 36% should-fix).", "evidence": "Table 8: 65 high, 70 medium, 62 minor of 197.", "strength": "moderate", "location": "§5.3, Table 8"},
+    {"claim": "Contextual grounding via the code knowledge graph explains the low false-positive rate.", "evidence": "Attribution only; §5.1 states no ablation or comparison with alternative designs was performed, so this is feasibility evidence.", "strength": "unsupported", "location": "§5.1, §6"},
+    {"claim": "Decomposing review into dimension-specific agents yields broader coverage than a single-dimension review.", "evidence": "Table 6 distribution (reliability 31.1%, readability 28.2%, maintainability 24.3%, performance 16.5%); no single-agent multi-dimension baseline was run, so the claim that one review 'would have covered at most about a third' is tautological.", "strength": "weak", "location": "§5.1, Table 6"}
+  ],
+  "patterns": [
+    {"id": "P18", "stance": "supports", "note": "LLM reviewer findings were mostly judged correct and important by developers in an industrial setting; precision only, no recall or comparison with human review."},
+    {"id": "P11", "stance": "introduces", "note": "Role-specialized review agents; no ablation against a single agent."},
+    {"id": "P12", "stance": "neutral", "note": "Specialist agents run as parallel sub-agents each receiving a tailored context view."},
+    {"id": "P02", "stance": "neutral", "note": "Agent Skills documents carry each agent's antipattern checklist."},
+    {"id": "P04", "stance": "neutral", "note": "GitLab and code-knowledge-graph access via containerized MCP servers."},
+    {"id": "P07", "stance": "introduces", "note": "Code knowledge graph (imports, DEFINES edges, fan-in/fan-out, cross-repo search) supplies structural context; benefit asserted, not isolated."},
+    {"id": "P32", "stance": "supports", "note": "Real industrial commits rated by their developers, albeit tiny sample."}
+  ],
+  "methodology": {
+    "sample": "7 commits from 4 projects (2 small, 2 large) at one company; 206 issues; 5 senior-developer raters; 3 practitioners in problem identification.",
+    "baselines": "None (no human-review, single-agent, or no-context baseline).",
+    "models": "Single LLM: Kiro CLI's default model (not named).",
+    "variance": "Not measured; non-determinism acknowledged as a threat.",
+    "ablations": "None, explicitly acknowledged.",
+    "contamination_controls": "n/a (proprietary code).",
+    "languages": "Python only."
+  },
+  "standards": {
+    "peer_review": "Accepted at PROFES 2026 (27th Int. Conf. on Product-Focused Software Process Improvement).",
+    "limitations_section": true,
+    "artifacts": "Antipattern catalogs and feedback template reported in paper; commits, reviews, and agent configs proprietary.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "small_sample", "detail": "7 commits, 4 projects, 5 raters; one rater covers 47% of issues."},
+    {"type": "single_model", "detail": "Unnamed Kiro CLI default model only."},
+    {"type": "metric_mismatch", "detail": "'Accuracy' is precision; recall and missed defects are not assessed."},
+    {"type": "selection_bias_participants", "detail": "Raters are the code authors, who may be lenient or strict; no inter-rater reliability; Ericsson co-author on the paper."},
+    {"type": "closed_artifacts", "detail": "Code, reviews and configurations proprietary."},
+    {"type": "missing_cost_reporting", "detail": "No token, time or cost data for four parallel agents plus orchestration."},
+    {"type": "cherry_picked_examples", "detail": "Qualitative feedback limited to two positive quotes."}
+  ],
+  "coi": {
+    "affiliations": "Blekinge Institute of Technology (Laiq, Usman, Britto, Badampudi); Ericsson AB (Britto, Saini).",
+    "vendor_products_evaluated": "Authors' own in-house prototype built on Kiro CLI (third-party AWS tool), evaluated at their own company.",
+    "funding": "Knowledge Foundation, InScale project (20230095) at BTH; no competing interests declared.",
+    "severity": "low",
+    "detail": "Industry-academic collaboration evaluating its own prototype internally; no commercial product being promoted."
+  },
+  "scores": {"rigor": 2, "reproducibility": 1, "generalizability": 1, "relevance": 3, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Peer-reviewed real industrial evaluation with honest threats section, but tiny sample, precision-only metric, no baseline or ablation, one unnamed model, Python only, and closed artifacts.",
+  "applicability": "Relevant as an architectural template, weak as evidence. The setup (orchestrator + per-dimension review sub-agents defined declaratively as skills + GitLab MCP + a cross-repository code-graph MCP) maps closely to what a Java team could run across its ≥4 ingestion repos, and the declarative JSON+markdown agent definitions are host-portable in spirit (Kiro here; similar skills work in Claude Code/Cursor), which suits mixed hosts. But the 96% figure is precision on Python commits rated by their authors; the team should expect to re-measure on Java with recall (seeded defects or past incidents) before trusting it as a gate, and should keep LLM review advisory behind deterministic checks (tests, Sonar/Semgrep) under spec-driven development.",
+  "conflicts_with": [
+    {"arxiv_id": "2606.13175", "detail": "That paper argues coding agents supersede human inspection; this study keeps humans as the judges of AI review findings and measures only precision, so it does not support replacing human review."}
+  ]
+}

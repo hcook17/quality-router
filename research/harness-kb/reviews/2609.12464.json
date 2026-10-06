@@ -1,0 +1,57 @@
+{
+  "arxiv_id": "2609.12464",
+  "contribution_type": "system",
+  "summary": "Google Cloud authors migrate one small Spring sample app (spring-petclinic-genai) from Java to Python with Gemini 2.5 Pro, comparing a vector-RAG baseline (800-char chunks, top-5) against a tree-sitter AST graph in Spanner Property Graph, a context-cached 'architecture skeleton', and parent-first topological ordering. On seven author-defined AST metrics, the graph pipeline lowers a custom hallucination rate and improves dependency/inheritance scores but worsens cyclomatic consistency and docstring preservation; CodeBLEU is ~91% for both.",
+  "claims": [
+    {"claim": "Graph RAG cuts API hallucination rate from 56.4% to 16.2%.", "evidence": "Table 1 (Avg Hallucination Rate 56.4% vs 16.2%). The hallucination metric uses a 'Global Lookup' symbol table (§5.3) introduced specifically because the file-level check penalised Graph RAG; one repository, one run at T=0, file count not stated, no variance.", "strength": "weak", "location": "§6, Table 1, §5.3"},
+    {"claim": "DRQ improves 34.8% -> 65.9% and PCC 26.7% -> 45.5%.", "evidence": "Table 1 matches abstract. DRQ is an import-resolvability check against stdlib + a whitelist; PCC compares regex-extracted Java extends/implements to Python bases (§5.2). Author-defined metrics, not executed tests.", "strength": "weak", "location": "Table 1, §5.2"},
+    {"claim": "CodeBLEU masks structural failures (both ~91%).", "evidence": "Table 1: 90.6% vs 91.1% while custom metrics diverge. Plausible and consistent with known CodeBLEU criticism, but shown on a single repo.", "strength": "moderate", "location": "Table 1, §6.2"},
+    {"claim": "Standard RAG leads to high compilation failure rates; Graph RAG yields compilable, functional code.", "evidence": "No compilation, test execution or runtime check is reported; linter StaQ is 100% for both (Table 1). 'Functional' and 'compilable' are unsupported.", "strength": "unsupported", "location": "Abstract, §6.2, §7"},
+    {"claim": "Graph context causes 'defensive over-engineering' (CCC 71.6% -> 46.7%) and 'attention dilution' (DP 67% -> 61%).", "evidence": "Table 1 numbers present; causal explanations are speculation with no analysis of generated code beyond one file (OwnerController CCC 18% vs 84%).", "strength": "weak", "location": "§6.2, §6.3"}
+  ],
+  "patterns": [
+    {"id": "P07", "stance": "supports", "note": "AST-derived code graph context improved dependency/inheritance metrics over naive vector chunks on one Java repo; weak evidence (one repo, custom metrics)."},
+    {"id": "P06", "stance": "contradicts", "note": "Naive 800-char chunk vector retrieval lost parent classes and cross-file APIs for controllers; but baseline is untuned and given far less context than the graph arm."},
+    {"id": "P05", "stance": "neutral", "note": "tree-sitter AST extraction is the deterministic backbone of the graph."},
+    {"id": "P28", "stance": "neutral", "note": "Topological parent-first migration ordering is a deterministic orchestration step around LLM translation, not a codemod."}
+  ],
+  "methodology": {
+    "sample": "One repository (spring-petclinic-genai, a sample app); number of files not stated; Tables 2-3 show 6 individual files.",
+    "baselines": "Standard RAG with recursive 800-char chunks, 150 overlap, text-embedding-004, top-k=5; graph arm also gets a full architecture skeleton, translated parent code and vector fallback, so context volume is confounded.",
+    "models": "Gemini 2.5 Pro only, T=0.",
+    "variance": "Single run per arm; none reported.",
+    "ablations": "None (skeleton cache, topological ordering, graph traversal and vector fallback are not separated).",
+    "contamination_controls": "None; spring-petclinic is a widely mirrored public repo likely in training data.",
+    "languages": "Java (+ .proto) source to Python target."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint (11 pages); no venue.",
+    "limitations_section": false,
+    "artifacts": "Only the input repo URL; no pipeline code, prompts, or metric scripts released.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "self_evaluation", "detail": "Seven custom metrics and a weighted Migration Quality composite (40/30/20/10) defined by the authors; the hallucination metric was modified after observing it penalised the proposed method."},
+    {"type": "strawman_baseline", "detail": "Untuned naive chunking with k=5 vs a graph arm with whole-repo skeleton plus parent code; no AST-chunked or hybrid baseline."},
+    {"type": "small_sample", "detail": "One small sample repository."},
+    {"type": "single_model", "detail": "Gemini 2.5 Pro only."},
+    {"type": "no_variance_reported", "detail": "Single run, no CIs."},
+    {"type": "metric_mismatch", "detail": "Claims about compilation/functional viability measured by static import/inheritance checks with no test execution."},
+    {"type": "contamination_risk", "detail": "spring-petclinic is a famous public repo."},
+    {"type": "hype_language", "detail": "'decisively', 'mathematically proves', 'only viable path'."},
+    {"type": "closed_artifacts", "detail": "No code or prompts released."},
+    {"type": "missing_cost_reporting", "detail": "Context caching is motivated by cost/latency but no token, cost or latency numbers are reported."}
+  ],
+  "coi": {
+    "affiliations": "All authors list google.com emails / Google Cloud (Jaiswal, Shukla, Malhotra, Agrawal, Garg, Bhaumik, Puri).",
+    "vendor_products_evaluated": "Google Cloud Spanner Property Graph, Vertex AI Context Caching, Gemini 2.5 Pro, Vertex AI embeddings.",
+    "funding": "None stated.",
+    "severity": "medium",
+    "detail": "Vendor employees showcasing a pipeline built entirely on their own cloud products; the comparison is method-vs-method on the same stack rather than against a competitor, and the text claims platform-agnosticism, but no independent replication or non-Google implementation."
+  },
+  "scores": {"rigor": 2, "reproducibility": 0, "generalizability": 1, "relevance": 3, "coi_risk": 3},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Directionally plausible (graph/AST context helps cross-file Java dependencies; CodeBLEU is a poor migration metric) but n=1 repo, single run, untuned confounded baseline, author-invented metrics with no tests, no artifacts, and Google-stack showcasing by Google employees.",
+  "applicability": "Moderately relevant: it is one of few corpus papers on Java code. For the team, the takeaway is that structural context (AST/graph of inheritance, imports, calls - obtainable via a code graph tool like Gortex or LSP, no Spanner needed) matters more than embedding chunks for cross-file Java work, and that parent-first ordering of dependent changes is a cheap deterministic orchestration trick. It does not show anything about multi-repo graphs (single repo), runtime correctness (no tests ran), or mixed hosts (single Gemini pipeline). Under spec-driven development, treat its metrics as a warning: define acceptance via executed tests/contracts, not CodeBLEU or bespoke static scores.",
+  "conflicts_with": []
+}

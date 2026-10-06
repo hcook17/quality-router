@@ -1,0 +1,34 @@
+{
+  "arxiv_id": "2607.18555",
+  "contribution_type": "empirical",
+  "summary": "Exploratory two-library case study: GPT-4o generates Alloy specs separately from a README and from source code, then pytest tests from each spec, with no manual correction and three runs per prompt. On Flipper (feature flags) the README-derived spec models name uniqueness as a checkable predicate and yields a test exposing that create() accepts duplicate names, which a direct README-to-pytest baseline (37 passing tests, 68% branch coverage) never catches; on Cerberus the code-derived spec captures a sized-type abstraction giving two extra tests.",
+  "claims": [
+    {"claim": "GPT-4o produced syntactically valid Alloy and executable tests in every run without manual correction", "evidence": "§III-C/D and §IV; 2 libraries x 2 sources x 3 runs = 12 spec generations; Alloy Analyzer checks not detailed beyond validity statement.", "strength": "moderate", "location": "§III-C, §III-D, §VI"},
+    {"claim": "The Alloy pipeline found a genuine Flipper bug (duplicate names accepted) the existing suite and direct baseline missed", "evidence": "§IV-B-IV-D, Table I: README spec 1 failing test in all 3 runs; baseline 0/3. 'Genuine bug' is the authors' reading of one README sentence; not yet reported to or confirmed by maintainers (§V-C). Single defect.", "strength": "weak", "location": "§IV-C, §IV-D, §V-C"},
+    {"claim": "A formal intermediate representation surfaces constraint-level defects that coverage-oriented generation misses", "evidence": "Generalization from one bug in one library; baseline prompt was not instructed to test documented invariants, so the comparison partly measures prompt focus.", "strength": "weak", "location": "§IV-D, §V-B"},
+    {"claim": "Code-derived specs give lower test-count variance (mean SD 2.15 vs 5.0)", "evidence": "Table II over 3 runs x 2 libraries; test count is acknowledged as a weak metric; authors flag generalization as open.", "strength": "weak", "location": "§IV-F, Table II"},
+    {"claim": "Doc- and code-derived specs are complementary (pred vs fact divergence signals drift)", "evidence": "Flipper pred/fact divergence (§IV-B) and Cerberus SizedVal abstraction producing two extra tests (§IV-E); anecdotal.", "strength": "weak", "location": "§IV-B, §IV-E, §V-A"}
+  ],
+  "patterns": [
+    {"id": "P35", "stance": "introduces", "note": "LLM-generated Alloy specs as an intermediate for test derivation; proof-of-concept on two libraries."},
+    {"id": "P14", "stance": "introduces", "note": "Spec-first test derivation from requirements documentation; spec-vs-code divergence as drift signal."},
+    {"id": "P34", "stance": "supports", "note": "Making a documented requirement an explicit checkable predicate is what exposed the defect; weak (single case)."},
+    {"id": "P15", "stance": "neutral", "note": "Tests derived from spec rather than implementation; not a TDD loop."}
+  ],
+  "methodology": {"sample": "2 Python libraries (Flipper, Cerberus), selected for constraints that translate naturally into Alloy; 3 runs per prompt", "baselines": "one direct README-to-pytest prompt (Flipper only); existing test suites", "models": "GPT-4o only", "variance": "3 runs; SD of test counts reported (Table II)", "ablations": "README-spec vs code-spec 'micro ablation' on Flipper (Table I)", "contamination_controls": "none; both libraries and READMEs are public and possibly in training data", "languages": "Python (Alloy as spec language)"},
+  "standards": {"peer_review": "none stated", "limitations_section": true, "artifacts": "prompts printed in paper; no pipeline code or generated specs/tests repository found", "preregistration": "n/a"},
+  "biases": [
+    {"type": "small_sample", "detail": "Two libraries, one bug, three runs."},
+    {"type": "single_model", "detail": "GPT-4o only."},
+    {"type": "single_language_python", "detail": "Only Python libraries and pytest."},
+    {"type": "cherry_picked_examples", "detail": "Subjects chosen for 'clear and localised validation logic' that maps naturally to Alloy."},
+    {"type": "strawman_baseline", "detail": "Direct baseline not asked to test documented invariants; no comparison to property-based testing or a structured-requirements prompt without Alloy."},
+    {"type": "other:unconfirmed_bug", "detail": "Duplicate-name 'bug' not confirmed by maintainers; could be intended overwrite semantics."}
+  ],
+  "coi": {"affiliations": "North Dakota State University (both authors)", "vendor_products_evaluated": "GPT-4o used as a tool", "funding": "not stated", "severity": "none", "detail": "Academic; no product promoted."},
+  "scores": {"rigor": 1, "reproducibility": 2, "generalizability": 1, "relevance": 3, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Interesting idea honestly framed as proof-of-concept, but evidence is one unconfirmed bug in one library, one model, Python only, and a weak baseline; the deterministic gate will reject at rigor 1, which is appropriate.",
+  "applicability": "Conceptually relevant to spec-driven development: deriving tests from the written requirement (not the implementation) and comparing a doc-derived spec with a code-derived one to detect drift. For a Java ingestion/delivery team, the lighter-weight transfer is to have agents turn each documented invariant (unique content IDs, required metadata fields, valid enum values across the >=4 ingestion repos) into an explicit checkable predicate and a JUnit test, without necessarily adopting Alloy. Evidence is far too thin to justify adding a formal-methods step to the harness.",
+  "conflicts_with": []
+}

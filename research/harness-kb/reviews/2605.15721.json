@@ -1,0 +1,47 @@
+{
+  "arxiv_id": "2605.15721",
+  "contribution_type": "empirical",
+  "summary": "NCCE frames prompt/context optimization as recommendation: it builds a catalog of context strategies (cluster-wise MIPROv2 warm-up, then LLM-reflector evolution) and trains a neural collaborative-filtering router that picks a context per input instance. Evaluated with GPT-4o-mini on three NLP reasoning/QA datasets (HoVer, SCONE, HotpotQA) against global prompt optimizers (APE, OPRO, EvoPrompt, TextGrad, MIPROv2, GEPA, OpenEvolve, POLCA).",
+  "claims": [
+    {"claim": "Instance-wise context routing beats global context optimizers.", "evidence": "Table 1 test accuracy: NCCE avg 74.8 vs best baseline POLCA 71.5; SCONE 89.7 vs GEPA-Merge 86.2; HoVer 74.7 vs OpenEvolve 73.8; asterisks denote p<0.05 but test type and number of runs not described in the main text.", "strength": "moderate", "location": "§4.2, Table 1"},
+    {"claim": "Theoretical PAC bound justifies instance-wise routing.", "evidence": "Theorem 1 under a Cluster Lipschitz Preference assumption (§3.4, App. B); assumption is not empirically checked.", "strength": "weak", "location": "§3.4, App. B"},
+    {"claim": "Improvement generalizes across LLMs.", "evidence": "Not tested: Appendix E admits experiments use a single base LLM (GPT-4o-mini) and cross-model transfer is open.", "strength": "unsupported", "location": "App. E"}
+  ],
+  "patterns": [
+    {"id": "P26", "stance": "introduces", "note": "Searched/evolved context catalog with a learned router; evidence only on NLP QA, not coding agents."},
+    {"id": "P23", "stance": "neutral", "note": "Routes inputs to contexts rather than models; conceptually adjacent to routing."}
+  ],
+  "methodology": {
+    "sample": "HoVer 1,520 test / SCONE 1,200 test / HotpotQA 2,000 test, with 500 train and 500 dev each (App. F Table 3).",
+    "baselines": "APE, OPRO, EvoPrompt, TextGrad, MIPROv2, GEPA, GEPA-Merge, OpenEvolve, POLCA — current and reasonably strong prompt optimizers.",
+    "models": "GPT-4o-mini task model, GPT-4o reflector, all-MiniLM-L6-v2 embeddings; single task LLM.",
+    "variance": "Significance markers (p<0.05) in Table 1; seeds/number of runs not clearly reported.",
+    "ablations": "Component ablation (Table 2), cluster number, data density, co-evolution rounds.",
+    "contamination_controls": "Random held-out test split; no control for public QA datasets in GPT-4o-mini pretraining.",
+    "languages": "Natural-language QA/fact verification; no code."
+  },
+  "standards": {
+    "peer_review": "None indicated (no arXiv comment); includes a NeurIPS checklist, suggesting submission.",
+    "limitations_section": true,
+    "artifacts": "Text states 'Our code is publicly available' but no URL was extractable from the text; checklist claims open code.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "single_model", "detail": "One task LLM (GPT-4o-mini), acknowledged in App. E."},
+    {"type": "missing_cost_reporting", "detail": "Optimization costs ~16k–105k API calls per dataset (Table 4) but accuracy-per-cost vs baselines is not compared."},
+    {"type": "hype_language", "detail": "'paradigm shift' framing for per-instance prompt selection."},
+    {"type": "other:off_topic", "detail": "No software-engineering or agent task evaluated."}
+  ],
+  "coi": {
+    "affiliations": "Shanghai Jiao Tong University (majority), University College London, Carnegie Mellon University, Hong Kong Polytechnic University.",
+    "vendor_products_evaluated": "OpenAI GPT-4o-mini/GPT-4o used as backbones; none favored commercially.",
+    "funding": "No acknowledgments section found.",
+    "severity": "none",
+    "detail": "Academic authors; no vendor interest identified."
+  },
+  "scores": {"rigor": 3, "reproducibility": 2, "generalizability": 1, "relevance": 1, "coi_risk": 0},
+  "verdict": "reject",
+  "verdict_reason": "off-topic: per-instance prompt/context optimization evaluated only on NLP QA and fact-verification datasets with one model; no coding, agent, or harness evaluation, so it does not inform a software-engineering harness decision.",
+  "applicability": "Does not transfer directly. A Java ingestion/delivery team would need tens of thousands of labeled evaluations per task to train such a router, and nothing shows the gains carry to multi-step coding agents, multi-repo work, or spec-driven workflows. At most, it is a weak hint that one global AGENTS.md/system prompt may underperform per-task context selection (which progressive-disclosure skills already approximate).",
+  "conflicts_with": []
+}

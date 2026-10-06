@@ -1,0 +1,30 @@
+{
+  "arxiv_id": "2606.07866",
+  "contribution_type": "system",
+  "summary": "Proposes the Regulatory Context Protocol (RCP), an A2A domain profile for regulator-applicant agent communication in nuclear licensing, with typed messages, classification labels, signed append-only context stream and human-on-the-loop gates. It analyzes 1,236 NRC docket documents with gpt-oss-120b, demonstrates a mock review scenario, and projects 50-77% cost and 65% timeline reductions from a parametric model.",
+  "claims": [
+    {"claim": "RCP cuts licensing review cost by 50-77% ($21M-44M vs $89M) and time by 65% (42 -> 15 months).", "evidence": "§4.1 parametric model: 4,000 RAIs, $250/hr blended rate, per-tier automation rates that are 'author estimates calibrated against the published productivity-gain literature' (Table 2). Not measured on any real review.", "strength": "unsupported", "location": "§4.1.1-4.1.3, Table 2"},
+    {"claim": "95% of documents proceed without blocking issues, the target for automation.", "evidence": "§3.1.2 from LLM-extracted (gpt-oss-120b) fields on 1,236 documents; no accuracy check of the extraction reported.", "strength": "weak", "location": "§3.1"},
+    {"claim": "Extrapolation to $210-330B/year US savings (~1% GDP).", "evidence": "§5 multiplies projected percentage by a $426.5B paperwork-burden estimate.", "strength": "unsupported", "location": "Abstract, §5"}
+  ],
+  "patterns": [
+    {"id": "P19", "stance": "introduces", "note": "HOTL checkpoints on binding regulatory actions."},
+    {"id": "P30", "stance": "introduces", "note": "Signed append-only context stream for audit."},
+    {"id": "P04", "stance": "neutral", "note": "MCP used for internal private-knowledge access."},
+    {"id": "P11", "stance": "neutral", "note": "Liaison-specialist agent topology in the pilot."}
+  ],
+  "methodology": {"sample": "1,236 NRC ADAMS documents for corpus analysis; one hypothetical demonstration scenario (PRO-AID on METL).", "baselines": "Modelled 'Reconstructed Baseline' and 'Standalone Agents' paradigms, not run.", "models": "gpt-oss-120b for corpus extraction; pilot agent models not evaluated.", "variance": "Scenario ranges (conservative/moderate/optimistic) only.", "ablations": "None.", "contamination_controls": "n/a", "languages": "n/a"},
+  "standards": {"peer_review": "arXiv preprint (26 pages); no venue.", "limitations_section": false, "artifacts": "None found.", "preregistration": "n/a"},
+  "biases": [
+    {"type": "other:modelled_not_measured", "detail": "Headline savings are outputs of author-chosen automation-rate assumptions."},
+    {"type": "toy_tasks", "detail": "Demonstration is a single mock scenario."},
+    {"type": "hype_language", "detail": "'approaching 1 percent of US GDP' extrapolation."},
+    {"type": "self_evaluation", "detail": "Authors design the protocol and the cost model that evaluates it."}
+  ],
+  "coi": {"affiliations": "Argonne National Laboratory; Idaho National Laboratory.", "vendor_products_evaluated": "None commercial; authors' own protocol.", "funding": "DOE Regulatory Framework Modernization program.", "severity": "low", "detail": "Funded by a program whose goal aligns with the conclusion; no commercial product."},
+  "scores": {"rigor": 1, "reproducibility": 0, "generalizability": 0, "relevance": 1, "coi_risk": 1},
+  "verdict": "reject",
+  "verdict_reason": "off-topic: nuclear regulatory inter-organizational agent protocol, not software engineering or coding-agent harnesses; additionally, the quantitative claims are modelled from author-estimated automation rates rather than measured.",
+  "applicability": "Does not transfer to a Java team's coding-agent harness. The only loosely related ideas for a healthcare-education context are typed, classification-labelled messages and an append-only audit log with human gates, which are generic and better supported elsewhere.",
+  "conflicts_with": []
+}

@@ -1,0 +1,37 @@
+{
+  "arxiv_id": "2607.16617",
+  "contribution_type": "system",
+  "summary": "DataFlow-Harness wraps Claude Code with (a) an MCP layer exposing the DataFlow operator registry and current pipeline state, (b) typed incremental DAG mutations that are committed only if the graph stays acyclic and adjacent schemas are compatible, (c) procedural 'DataFlow-Skills', and (d) a WebUI that syncs chat with a visual DAG editor. On the authors' own 12-task benchmark (10 runs each, Claude Opus 4.7 only) it reaches 93.3% pass vs 94.2% for Claude Code given the raw codebase and 83.3% for MCP-only, at lower token cost; Skills mainly help 3 procedurally complex tasks.",
+  "claims": [
+    {"claim": "DataFlow-Harness achieves 93.3% E2E pass, within 0.9 pp of Context-Aware CC", "evidence": "Table 1: Harness 93.3, Context-Aware CC 94.2, Vanilla CC 91.7, MCP-only 83.3 over 120 runs (12 tasks x 10). Note the best pass rate is the Context-Aware script baseline, not the harness; authors explicitly do not claim statistical equivalence and report no CIs.", "strength": "moderate", "location": "§4.2, Table 1"},
+    {"claim": "Cost reduced 72.5% vs Vanilla CC and 42.8% vs Context-Aware CC; latency reduced 49.9%", "evidence": "Table 1: $0.950 -> $0.261 and 190.7s -> 95.5s vs Vanilla; $0.456 -> $0.261 vs Context-Aware. Arithmetic checks out. Cost is estimated from list prices; limitations admit token-class breakdown needed under prompt caching. Action spaces differ (operator composition vs arbitrary Python), so cost gap partly reflects a smaller task.", "strength": "moderate", "location": "§4.3, Table 1, §5 Limitations"},
+    {"claim": "Skills are most useful when construction depends on implicit procedural knowledge", "evidence": "Table 3: tasks 1a/1b/3b go 18/30 -> 29/30 runs with Skills; 4 trivial tasks 10/10 both; others mixed (2b favors MCP-only). Three tasks carry most of the gain; post-hoc grouping of tasks.", "strength": "moderate", "location": "§4.5, Table 3"},
+    {"claim": "Harness yields higher Textbook-to-VQA precision (0.972) and coverage (0.873)", "evidence": "Table 2; single run per method, annotation protocol not specified; authors note repeated runs and a specified protocol are required.", "strength": "weak", "location": "§4.4, Table 2"},
+    {"claim": "Grounded pipelines produce data that trains better models", "evidence": "Tables 4-5: avg 49.9 -> 51.6 (1 epoch), 54.5 -> 55.7 (2 epochs), 61.5 -> 63.8; single pipeline per arm, single seed; Vanilla CC wins MATH, GSM8K, Gaokao in Table 4. Authors disclaim causal interpretation.", "strength": "weak", "location": "§4.6, Tables 4-5"}
+  ],
+  "patterns": [
+    {"id": "P02", "stance": "mixed", "note": "Procedural Skills lift MCP-only from 83.3% to 93.3%, concentrated on 3 of 12 tasks; slight harm on some tasks with multiple valid strategies (Table 3)."},
+    {"id": "P04", "stance": "supports", "note": "MCP exposing live operator registry and pipeline state reduces tokens vs giving the raw codebase (Table 1), but MCP alone lowers pass rate to 83.3%."},
+    {"id": "P16", "stance": "introduces", "note": "Request-Validate-Commit with DAG acyclicity and schema compatibility checks; validation contribution not isolated by ablation (§4.5)."},
+    {"id": "P24", "stance": "supports", "note": "Cost, tokens and latency reported per configuration (Table 1)."},
+    {"id": "P19", "stance": "neutral", "note": "Visual DAG editor lets humans edit agent proposals; not evaluated."}
+  ],
+  "methodology": {"sample": "12 author-built tasks across 6 data-processing scenarios, 10 runs each (120 runs per method); one Textbook-to-VQA task; two downstream-training case studies", "baselines": "Vanilla Claude Code, Claude Code with raw DataFlow codebase in context, MCP-only; no other workflow-synthesis system (e.g., AutoFlow) compared", "models": "Claude Opus 4.7 only (agent); Qwen2.5-32B-Instruct / Qwen2.5-7B-Base for downstream SFT", "variance": "10 trials per task, counts reported per task; no CIs or significance tests; downstream experiments single seed", "ablations": "MCP-only vs full harness (Skills); validation not separately ablated", "contamination_controls": "none; benchmark is authors' own and unpublished in detail", "languages": "Python data pipelines (DataFlow operators)"},
+  "standards": {"peer_review": "technical report, not peer-reviewed", "limitations_section": true, "artifacts": "DataFlow-WebUI code on GitHub and documentation site; benchmark tasks/acceptance criteria release not clearly stated", "preregistration": "n/a"},
+  "biases": [
+    {"type": "self_evaluation", "detail": "Authors' own platform (DataFlow, from the same group) evaluated on authors' own 12-task benchmark with authors' acceptance criteria."},
+    {"type": "single_model", "detail": "Only Claude Opus 4.7 / Claude Code; limitations acknowledge one agent and model family."},
+    {"type": "small_sample", "detail": "12 tasks; headline 0.9 pp gap is about one run out of 120; Skills effect driven by 3 tasks."},
+    {"type": "no_variance_reported", "detail": "No CIs; downstream SFT single seed and single pipeline per arm."},
+    {"type": "metric_mismatch", "detail": "Different action spaces: harness composes pre-built operators while baselines write arbitrary Python, so cost/latency savings partly reflect a constrained problem rather than a better agent."},
+    {"type": "hype_language", "detail": "§4.4 calls a single-run case study 'concrete evidence'."}
+  ],
+  "coi": {"affiliations": "Peking University; Institute for Advanced Algorithms Research, Shanghai; Zhongguancun Academy", "vendor_products_evaluated": "DataFlow / DataFlow-WebUI (authors' own open-source platform); Claude Code used as agent", "funding": "not stated", "severity": "medium", "detail": "Academic group promoting its own platform on its own benchmark; no commercial vendor evaluating its own model, but no independent replication."},
+  "scores": {"rigor": 2, "reproducibility": 3, "generalizability": 1, "relevance": 3, "coi_risk": 2},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Repeated runs and honest hedging, but a 12-task self-built benchmark, single model, no CIs, and the script baseline with codebase context still edges out the harness on pass rate. The finding that is useful: constraining agents to typed, validated mutations over a live registry cuts tokens/cost with small reliability loss, and Skills mainly help procedurally tricky tasks.",
+  "applicability": "Directly analogous to an ingestion platform: instead of letting agents write ad-hoc Java ingestion code across 4+ repos, expose the existing ingestion steps/transformers as a registry through MCP and let the agent compose them via typed, validated mutations (schema compatibility at each edge), with a human-editable artifact. Expect lower cost per task, but also expect a reliability drop unless you ship procedural skill docs for the non-obvious steps (MCP-only lost ~10 pp here). The evidence is Python-only and Claude-only, so a mixed-host team must re-measure on its own hosts; the schema-compatibility check maps naturally to spec-driven contracts between ingestion and delivery repos.",
+  "conflicts_with": [
+    {"arxiv_id": "2607.13339", "detail": "Both use schema contracts at pipeline-node boundaries for agents; 2607.13339 asserts it without data, this paper shows structural validation does not guarantee semantic correctness (tasks 4a/4b fail with valid DAGs)."}
+  ]
+}
