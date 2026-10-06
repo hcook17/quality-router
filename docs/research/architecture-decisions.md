@@ -110,21 +110,43 @@ Ollama weights in this tree.
 
 ## Sibling hosts (not this repo)
 
+Each citation below passed the KB date audit (v1 in 2026-05…10) and was
+reviewed through both KB gates. Status: **E** evidence, **H** hypothesis
+only, **—** no contribution. A sentence with no E citation is
+engineering judgment.
+
 A 27B director that calls a frontier coding agent as a tool is Faraday
-[2608.13331](https://arxiv.org/abs/2608.13331). A 7B orchestrator with
-executor cost profiles is EASY [2608.04588](https://arxiv.org/abs/2608.04588).
-A cheap-first tutoring cascade with evaluator threshold τ is FairTutor
-[2606.20713](https://arxiv.org/abs/2606.20713). SWE papers invert the
-split: small explorer, frontier still solves (FastContext
-[2606.14066](https://arxiv.org/abs/2606.14066), CodeGrep
-[2608.05886](https://arxiv.org/abs/2608.05886), SWE-Pruner Pro
-[2607.18213](https://arxiv.org/abs/2607.18213)). Pre-answer routers
-recover 7.5–14.4% of a certified 9.7–30.7 pp oracle gap
-([2608.08265](https://arxiv.org/abs/2608.08265)). MCP expose-all still
-fails (SkillWeaver [2606.18051](https://arxiv.org/abs/2606.18051);
-Haiku cliff 10–15 tools, Rodrigues & Vas
-[2606.30317](https://arxiv.org/abs/2606.30317)). A cloud gateway that
-breaks direct-connect ([2607.15593](https://arxiv.org/abs/2607.15593))
+[2608.13331](https://arxiv.org/abs/2608.13331) (E). A 7B orchestrator
+with executor cost profiles is E³-Orch
+[2608.04588](https://arxiv.org/abs/2608.04588) (—: no coding tasks,
+one-model executor pool, self-declared WIP). A cheap-first tutoring
+cascade with evaluator threshold τ is FairTutor
+[2606.20713](https://arxiv.org/abs/2606.20713) (H). Both are sibling-host
+shapes, not `qr` features.
+
+Small-explorer SWE papers do not show "small explorer, frontier still
+solves". CodeGrep [2608.05886](https://arxiv.org/abs/2608.05886) (E)
+supports the narrower point: pre-injected candidates are distractors
+unless file precision is high (≥~0.65); its resolve lift is within
+noise. SWE-Pruner Pro [2607.18213](https://arxiv.org/abs/2607.18213)
+(H) needs an open-weight, self-served backbone, and its coding-efficiency
+claims did not hold on review. FastContext (2606.14066) is withdrawn and
+is no longer cited.
+
+Pre-answer routers recover 7.5–14.4% of a certified 9.7–30.7 pp oracle
+gap ([2608.08265](https://arxiv.org/abs/2608.08265), E): oracle gaps are
+upper bounds. Per-sub-task tool retrieval fails mainly by mis-splitting
+the task (SkillWeaver [2606.18051](https://arxiv.org/abs/2606.18051), E).
+At ~15 inlined tools, selection still holds at ~92%, and stateful MCP
+behind a gateway makes session affinity the dominant cost
+([2607.15593](https://arxiv.org/abs/2607.15593), E, Alibaba, high COI).
+The "10–15 tool cliff" (Rodrigues & Vas
+[2606.30317](https://arxiv.org/abs/2606.30317), H) is Haiku-only
+telemetry, and that paper *recommends* a scoped proxy aggregator. The
+lock's refusal of an aggregator therefore rests on the invariants in
+`AGENTS.md` (removable constituents, no secrets in a shared hop), not on
+that paper. Keep the catalog small because 2607.15593 shows no gain
+from retrieval at that size. A cloud gateway that breaks direct-connect
 is refused here.
 
 ## Consumer profile: multi-repo Java backend
@@ -148,18 +170,29 @@ harness for that team is host-agnostic; `qr` stays Job B inside it.
   installs/stamps Semgrep, Spectral and local Sonar; it does not run
   Maven/Gradle or relay their output.
 - **Code intelligence:** at most one JDT-LS-backed MCP per host,
-  counted against the ~10–15 tool cliff. ripgrep/LSP over code RAG
-  ([2609.00006](https://arxiv.org/abs/2609.00006) §16: 0/11 harnesses
-  embed code).
+  counted against a small catalog (~15 tools). ripgrep/glob retrieval;
+  LSP for post-write diagnostics and reference queries
+  ([2609.00006](https://arxiv.org/abs/2609.00006) §16: 0/11 production
+  harnesses embed code; [2607.25431](https://arxiv.org/abs/2607.25431):
+  static definitions, live-LSP references). 2609.00006 is an inventory,
+  not a performance comparison, so "no code RAG" is a default, not a
+  measured win.
 - Still refused here: a cross-repo MCP aggregator, a `qr` multi-repo
   orchestrator, worktree sync across repos.
 - **Evidence base:** `research/harness-kb/` holds data, not a memo. It
-  covers 228 adversarially reviewed arXiv papers from 2026-05 to
-  2026-10. Its synthesis is in `FINDINGS.md`, regenerated from the KB.
-  The KB finds that deterministic sensors are supported and that
-  instruction-file prose and spec-driven development as a methodology
-  are not. It finds no studies of a team coordinating changes across
-  its own repos (P27).
+  holds 240 adversarially reviewed arXiv papers whose **first**
+  submission falls between 2026-05-01 and 2026-10-06; withdrawn and
+  pre-window papers are rejected by code. A second gate keeps only
+  papers that add a transferable heuristic, nuance, pattern,
+  anti-pattern, constraint or test practice on at least moderate
+  evidence. That leaves 96 evidence papers; 30 are hypotheses and 39
+  were dropped as volume. Its synthesis is in `FINDINGS.md`, and the
+  ledger of contributions is in `kb_contributions.md`, both regenerated
+  from the KB. The KB finds that deterministic sensors are supported,
+  that instruction-file prose has no evidence either way, and that
+  spec-driven development as a methodology is unsupported while
+  specific acceptance practices are supported. It finds no studies of a
+  team coordinating changes across its own repos (P27).
 - **Harness gates (phase 3):** `qr` ships the supported findings as
   deterministic predicates over build artifacts: diff coverage,
   assertion strength, instruction lint, spec trace, contract diff and

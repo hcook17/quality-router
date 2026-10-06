@@ -1,10 +1,11 @@
 """Portable agent policy: one JSON file, enforced through host hooks by a deterministic CLI.
 
-Evidence: 2608.23550 (only ~4.4% of CLAUDE.md security rules have an
+Evidence: 2608.23550 (only about 4-16% of CLAUDE.md security rules have an
 enforcing control: prose is "write-only"), 2609.22259 (declared forbidden
-operations stopped all mutating SQL), 2609.08149 (code-host egress blocking
-closes leakage), 2609.09798 (classifier guardrails get bypassed -> decide
-deterministically). The LLM proposes; `qr policy` allows or denies.
+operations stopped mutating SQL), 2609.08149 (code-host egress blocking
+closes leakage), 2607.07405 (a read-only deterministic predicate in front of
+writes; audit each gate's precision). The LLM proposes; `qr policy` allows or
+denies.
 """
 
 from __future__ import annotations

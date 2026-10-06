@@ -1,9 +1,10 @@
 """Lint agent instruction files (AGENTS.md, CLAUDE.md, copilot/cursor rules).
 
-Evidence: 2607.27250 (context files: no detectable correctness effect, some
-process gains -> keep them short and operational), 2606.15828 (configuration
-smells), 2606.09090 (23% of repos reference stale code), 2608.23550 (~4.4% of
-CLAUDE.md security rules have an enforcing control -> prose is not policy).
+Evidence: 2608.23550 (about 4-16% of CLAUDE.md security rules have an
+enforcing host control -> prose is not policy), 2606.21926 (always-on standards
+text did worse than no guidance; selective loading did best -> keep the file
+short). The stale-reference and bloat checks rest on hypothesis-only papers
+(2606.09090, 2606.15828, 2607.27250): cheap and deterministic, not proven.
 """
 
 from __future__ import annotations

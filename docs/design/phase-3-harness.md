@@ -56,15 +56,19 @@ findings[]}`. `--strict` (where offered) also fails on warnings.
 
 ## Evidence map
 
+Only KB evidence papers are cited: papers that passed the date audit,
+the review gate and the contribution gate (`research/harness-kb/`).
+Hypothesis-only support is labelled as such.
+
 | Gate | Finding it encodes |
 | --- | --- |
-| diff-coverage | 2607.18057: tests executed 61.5% of agent-changed Java lines; 86% of changed catch lines never ran. A green `mvn test` is not evidence the change executed. |
-| test-oracles | 2606.18168: most agent-written test patches carry weak or no assertions; strong multi-type oracles track merge. 2608.16742 / 2608.19799: self-consistent wrong tests. |
-| lint instructions | 2607.27250 (context files: no correctness gain, cost tokens), 2606.15828 (configuration smells), 2606.09090 (stale references), 2608.23550 (~4.4% of CLAUDE.md security rules have an enforcing control). |
-| spec trace | Structured acceptance criteria help (P34); 2605.06445 constraint decay (more prose constraints, worse backend agents). SDD as a methodology is unsupported; the trace makes the spec checkable. |
-| contracts | No direct evidence on agents coordinating across a team's own repos (P27). Closest: verify mechanically, never trust a version bump (2605.24397, 2608.20167, 2606.24446). |
-| policy | 2608.23550 (prose is not policy), 2609.22259 (declared forbidden operations stopped mutating SQL), 2609.08149 (egress blocking closes leakage), 2609.09798 (classifier guardrails get bypassed, so decide deterministically). |
-| eval | 2607.03691 (one harness across 35 releases: 52–131% token swings, 12.3% flips), 2606.12344 / 2607.22585 (harness choice moves resolve rate ~24 pp), 2609.08149 (future git objects and visible tests inflate scores). |
+| diff-coverage | 2607.18057: tests executed 61.5% of agent-changed Java lines. A green `mvn test` is not evidence the change executed. 2608.25939: an agentic harness raised pass rate while direct invocation of the focal method fell from 98.9% to 27.6%. |
+| test-oracles | 2606.18168: 80% of agent test-file patches carry weak or no oracle. 2608.20167: catch-all try/catch tests missed breaking changes. 2608.16742 / 2608.19799: self-consistent wrong tests; keep hidden validators. |
+| lint instructions | Enforcement: 2608.23550 (about 4–16% of CLAUDE.md security rules have an enforcing control). Brevity: 2606.21926 (always-on standards text did worse than no guidance). The stale-reference and bloat checks are **hypothesis only** (2606.09090, 2606.15828, 2607.27250): cheap and deterministic, not proven to help. |
+| spec trace | Per-target acceptance tests (2605.15846); acceptance tests kept as regression obligations (2608.00267); restate frozen criteria at completion (2607.17937). 2605.06445: constraint decay. SDD as a methodology is unsupported; the trace makes the spec checkable. |
+| contracts | No direct evidence on agents coordinating across a team's own repos (P27). Closest: verify mechanically. A static API diff catches 95% of what LLM-written client tests catch (2608.20167); AST edits validated against the target artifact (2606.24446, 2608.30497). |
+| policy | 2608.23550 (prose is not policy), 2609.22259 (declared forbidden operations stopped mutating SQL), 2609.08149 (egress blocking closes leakage), 2607.07405 (deterministic predicate before writes; audit gate precision). |
+| eval | 2607.03691 (one harness across releases: ~70% token rise with no resolve gain; 12.3% flips, so a small probe detects cost regressions only), 2606.12344 (mature harnesses within ~2 pp; a weak one lost up to 24 pp), 2609.08149 / 2606.12344 (future git objects and visible tests inflate scores), 2607.08964 (weighted sub-checks, not binary pass). |
 
 ## Invariants (must hold)
 
