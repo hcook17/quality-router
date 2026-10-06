@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import pytest
+
 from quality_router.harness.coverage_gate import (
     _match_report,
     is_test_path,
@@ -188,6 +190,57 @@ class TestSpringOracles:
         assert verdict.kind == "strong" and verdict.custom == 0
         assert kind("flux.as(StepVerifier::create).expectNextCount(2).verifyComplete();") \
             == "strong"
+
+    def test_openapi_validator_matcher_is_strong(self) -> None:
+        assert kind("mvc.perform(get( )).andExpect(openApi().isValid( ));") == "strong"
+
+
+class TestJUnit4AndRestAssuredOracles:
+    """Idioms from a real Boot 2.7 / JUnit 4 service (RestAssuredMockMvc, ExpectedException)."""
+
+    def test_rest_assured_status_only_is_weak(self) -> None:
+        assert kind("given().contentType(ContentType.JSON).body(dto).post(url)"
+                    ".then().statusCode(HttpStatus.OK.value());") == "weak"
+        assert kind("given().when().get( ).then().statusCode(200).contentType(JSON);") == "weak"
+
+    def test_rest_assured_body_matcher_or_contract_is_strong(self) -> None:
+        verdict = classify(method("given().when().get( ).then().statusCode(200)"
+                                  ".body( , equalTo( ));"))
+        assert verdict.kind == "strong" and verdict.custom == 0
+        assert kind("given().when().get( ).then().expect(openApi().isValid(SPEC))"
+                    ".statusCode(404);") == "strong"
+        assert kind("given().when().get( ).then().body( , notNullValue());") == "weak"
+
+    def test_rest_assured_extract_then_assert(self) -> None:
+        body = ("Item item = given().when().get( ).then().statusCode(200)"
+                ".extract().body().as(Item.class); assertEquals(1, item.count());")
+        assert kind(body) == "strong"
+        assert kind(body.replace("assertEquals(1, item.count())", "assertNotNull(item)")) \
+            == "weak"
+
+    def test_mockito_then_answer_is_not_rest_assured(self) -> None:
+        assert kind("when(repo.find(1)).then(inv -> null); svc.run();") == "none"
+
+    def test_expected_exception_rule(self) -> None:
+        assert kind("expectedException.expect(ItemNotFoundException.class); svc.save(x);") \
+            == "strong"
+        assert kind("thrown.expect(IllegalStateException.class);") == "strong"
+
+    @pytest.mark.parametrize("body, expected", [
+        ("assertTrue(router.isBookOrganized());", "strong"),
+        ("assertFalse(  , question.isCorrect(answers));", "strong"),
+        ("assertTrue(actual.containsKey( ),   );", "strong"),
+        ("assertTrue(!list.isEmpty());", "strong"),
+        ("assertTrue(Boolean.TRUE.equals(svc.flag(a)));", "strong"),
+        ("assertTrue(  , list.size() > 0);", "weak"),
+        ("assertTrue(a.isX() && b.isY());", "weak"),
+        ("assertTrue(x != null);", "weak"),
+        ("assertFalse(  , actual);", "weak"),
+        ("assertTrue(flag);", "weak"),
+        ("assertTrue(a.isX(), b.isY(), c);", "weak"),
+    ])
+    def test_boolean_predicate_assertions(self, body: str, expected: str) -> None:
+        assert kind(body) == expected
 
     def test_context_loads_has_no_oracle(self) -> None:
         assert kind("") == "none"

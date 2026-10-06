@@ -76,6 +76,19 @@ STEP_STRONG = ("expectNext", "expectNextMatches", "expectNextSequence", "expectN
                "expectErrorMatches", "expectErrorSatisfies", "verifyError",
                "verifyErrorMessage", "verifyErrorMatches", "verifyErrorSatisfies",
                "expectRecordedMatches", "consumeErrorWith")
+# REST Assured (incl. RestAssuredMockMvc): judged after `.then()`. statusCode/contentType
+# alone is weak; a body(path, matcher) value check or an OpenAPI contract check is strong.
+_RA_THEN = re.compile(r"\.\s*then\s*\(\s*\)")
+_RA_BODY = re.compile(r"\.\s*body\s*\(")
+# Atlassian swagger-request-validator: response validated against the OpenAPI contract.
+_OPENAPI_VALID = re.compile(r"\bopenApi\s*\(\s*\)\s*\.\s*isValid\s*\(")
+# JUnit 4 ExpectedException rule: thrown.expect(X.class) is an exception oracle.
+_EXPECTED_EXCEPTION = re.compile(r"\b\w+\s*\.\s*expect\s*\(\s*[\w.]+\s*\.\s*class\s*\)")
+# assertTrue/assertFalse on one boolean call of the code under test fully specifies it,
+# like AssertJ isEmpty()/contains(); comparisons and bare variables stay weak.
+_PREDICATE = re.compile(r"!?\s*[\w$]+(?:\s*\([^;]*?\))?(?:\s*\.\s*[\w$]+\s*(?:\([^;]*?\))?)*"
+                        r"\s*\.\s*(?:is|has|can|should|contains|equals|exists|matches|starts"
+                        r"|ends)\w*\s*\([^;]*\)")
 
 
 @dataclass(frozen=True)
@@ -98,12 +111,17 @@ class OracleVerdict:
 
 def classify(method: TestMethod, helpers: tuple[str, ...] = ()) -> OracleVerdict:
     body = method.body
-    names = [m.group(1) for m in _CALL.finditer(body)]
+    calls = list(_CALL.finditer(body))
+    names = [m.group(1) for m in calls]
     strong = sum(1 for n in names if n in STRONG_CALLS)
-    weak = sum(1 for n in names if n in WEAK_CALLS)
+    predicates = sum(1 for m in calls if m.group(1) in ("assertTrue", "assertFalse")
+                     and _is_predicate(body, m.end() - 1))
+    strong += predicates
+    weak = sum(1 for n in names if n in WEAK_CALLS) - predicates
     strong += sum(1 for n in names if n in helpers)
     if re.search(r"\bexpected\s*=", method.annotation_args):
         strong += 1
+    strong += len(_EXPECTED_EXCEPTION.findall(body))
     if re.search(r"\bfail\s*\(", body) and re.search(r"\bcatch\s*\(", body):
         strong += 1
     for match in _ASSERT_THAT.finditer(body):
@@ -127,6 +145,18 @@ def classify(method: TestMethod, helpers: tuple[str, ...] = ()) -> OracleVerdict
                  and not m.group(1).startswith("assertThat")
                  and not any(s <= m.start() < e for s, e in handled))
     return OracleVerdict(strong=strong, weak=weak, mocks=mocks, custom=custom)
+
+
+def _is_predicate(body: str, open_index: int) -> bool:
+    args = _split_args(body[open_index + 1:_matching_paren(body, open_index)])
+    # JUnit 4 puts the message first, Jupiter last; literals are blanked to spaces.
+    candidates = [a for a in args if a.strip()]
+    if len(candidates) != 1:
+        return False
+    arg = candidates[0].strip()
+    if re.search(r"[<>]|[=!]=|&&|\|\|", arg):
+        return False
+    return bool(_PREDICATE.fullmatch(arg))
 
 
 def _statements(body: str) -> list[tuple[int, int]]:
@@ -165,7 +195,7 @@ def _names(text: str) -> set[str]:
 
 
 def _spring_oracles(body: str) -> tuple[int, int, list[tuple[int, int]]]:
-    """MockMvc andExpect, WebTestClient/RestTestClient exchanges, Reactor StepVerifier."""
+    """MockMvc andExpect, WebTestClient/RestTestClient, StepVerifier, REST Assured."""
     strong = weak = 0
     handled: list[tuple[int, int]] = []
     for start, end in _statements(body):
@@ -173,17 +203,25 @@ def _spring_oracles(body: str) -> tuple[int, int, list[tuple[int, int]]]:
         mvc = list(_MVC_EXPECT.finditer(statement))
         exchange = _EXCHANGE.search(statement)
         steps = _STEP_VERIFIER.search(statement)
-        if not (mvc or exchange or steps):
+        rest = _RA_THEN.search(statement)
+        if not (mvc or exchange or steps or rest):
             continue
         handled.append((start, end))
         for match in mvc:
             close = _matching_paren(statement, match.end() - 1)
             for matcher in _split_args(statement[match.end():close]):
                 status_only = _MVC_STATUS.match(matcher)
-                if status_only or not _names(matcher) & set(MVC_STRONG):
+                if _OPENAPI_VALID.search(matcher):
+                    strong += 1
+                elif status_only or not _names(matcher) & set(MVC_STRONG):
                     weak += 1
                 else:
                     strong += 1
+        if rest:
+            if _rest_assured_strong(statement[rest.end():]):
+                strong += 1
+            else:
+                weak += 1
         if exchange:
             names = _names(statement[exchange.start():])
             if names & set(EXCHANGE_STRONG):
@@ -196,6 +234,16 @@ def _spring_oracles(body: str) -> tuple[int, int, list[tuple[int, int]]]:
             else:
                 weak += 1
     return strong, weak, handled
+
+
+def _rest_assured_strong(tail: str) -> bool:
+    if _OPENAPI_VALID.search(tail):
+        return True
+    for match in _RA_BODY.finditer(tail):
+        args = tail[match.end():_matching_paren(tail, match.end() - 1)]
+        if any(re.search(r"\b" + re.escape(h), args) for h in HAMCREST_STRONG):
+            return True
+    return False
 
 
 def _matching_paren(text: str, open_index: int) -> int:
