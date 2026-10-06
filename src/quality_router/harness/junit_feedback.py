@@ -29,6 +29,8 @@ _EXPECTED = re.compile(r"expected:\s*<(.*?)>\s*but was:\s*<(.*?)>", re.DOTALL)
 _EXPECTED_BARE = re.compile(r"expected:\s*(.*?)\s+but was:\s*(.*)", re.DOTALL)
 _INVOCATION = re.compile(r"\[(\d+)\]")
 _TEXT_BLOCK = re.compile(r'textBlock\s*=\s*"""')
+_VALUE_ARRAY = re.compile(r"@CsvSource\s*\(.*\bvalue\s*=\s*\{\s*$")
+_JAVA_STRING = re.compile(r'"((?:[^"\\]|\\.)*)"\s*,?\s*$')
 
 
 @dataclass
@@ -120,18 +122,30 @@ def _source_for(classname: str, roots: list[Path]) -> Path | None:
 
 
 def _csv_row(lines: list[str], start: int, end: int, invocation: int) -> str:
+    """Row `invocation` of a @CsvSource text block or one-row-per-line `value = {...}` array."""
     rows: list[str] = []
-    inside = False
+    mode = ""
     for line in lines[start - 1:end]:
-        if not inside:
-            inside = bool(_TEXT_BLOCK.search(line))
+        if not mode:
+            mode = "block" if _TEXT_BLOCK.search(line) else "array" if _VALUE_ARRAY.search(
+                line) else ""
             continue
         text = line.strip()
-        if text.startswith('"""'):
+        if mode == "block":
+            if text.startswith('"""'):
+                break
+            if text and not text.startswith("#"):
+                rows.append(text)
+            continue
+        literal = _JAVA_STRING.match(text)
+        if literal is None:
             break
-        if text and not text.startswith("#"):
-            rows.append(text)
+        rows.append(_unescape_java(literal.group(1)))
     return rows[invocation - 1] if 0 < invocation <= len(rows) else ""
+
+
+def _unescape_java(text: str) -> str:
+    return re.sub(r"\\(.)", lambda m: {"n": "\n", "t": "\t"}.get(m.group(1), m.group(1)), text)
 
 
 def enrich(failures: list[Failure], sources: list[Path], specs: list[SpecDoc],

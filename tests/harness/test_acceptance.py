@@ -317,3 +317,11 @@ class TestJunitFeedback:
         assert _frames("at java.lang.X(X.java:1)\n", 5) == []
         lines = ['textBlock = """', "a | b", '"""']
         assert _csv_row(lines, 1, 3, 1) == "a | b" and _csv_row(lines, 1, 3, 2) == ""
+
+    def test_csv_row_array_form(self) -> None:
+        lines = ["@CsvSource(delimiter = '|', nullValues = \"(null)\", value = {",
+                 '        "a | b",', '        "say \\"hi\\" | back\\\\slash \\t"', "})",
+                 "void ac_1(String a, String b) {"]
+        assert _csv_row(lines, 1, 5, 1) == "a | b"
+        assert _csv_row(lines, 1, 5, 2) == 'say "hi" | back\\slash \t'
+        assert _csv_row(lines, 1, 5, 3) == ""

@@ -96,8 +96,30 @@ class TestSpecCommands:
         assert scaffold("--force", "--ac", "AC-1") == EXIT_PASS
         assert "unbound" not in capsys.readouterr().out
 
+    def test_scaffold_java_release_from_build_and_spring(self, svc: Path, capsys) -> None:
+        (svc / "pom.xml").write_text("<project><properties><java.version>11</java.version>"
+                                     "</properties></project>")
+        assert scaffold("--spring-boot-test", "--field", "@Autowired Svc svc",
+                        "--import", "demo.app.Svc") == EXIT_PASS
+        out = capsys.readouterr().out
+        assert "java_release=11  # from " in out and "pom.xml" in out
+        src = (svc / OUT).read_text()
+        assert "value = {" in src and "textBlock" not in src
+        assert "@SpringBootTest\nclass ItemAcceptanceTest" in src
+        assert "    @Autowired Svc svc;" in src and "import demo.app.Svc;" in src
+        assert scaffold("--force", "--java-release", "21",
+                        "--class-annotation", '@ActiveProfiles("test")') == EXIT_PASS
+        assert "java_release=21  # --java-release" in capsys.readouterr().out
+        src = (svc / OUT).read_text()
+        assert 'textBlock = """' in src and '@ActiveProfiles("test")\nclass' in src
+
+    def test_scaffold_java_release_default(self, svc: Path, capsys) -> None:
+        assert scaffold() == EXIT_PASS
+        assert "java_release=17  # default" in capsys.readouterr().out
+
     @pytest.mark.parametrize("extra", [
         ["--bind", "AC-1"], ["--class", "1Bad"], ["--ac", "AC-9"], ["--id-pattern", "("],
+        ["--java-release", "7"], ["--class-annotation", "NoAt"], ["--import", "a b"],
     ])
     def test_scaffold_usage(self, svc: Path, extra: list[str]) -> None:
         assert scaffold(*extra) == EXIT_USAGE

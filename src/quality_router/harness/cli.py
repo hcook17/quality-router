@@ -17,6 +17,7 @@ from quality_router.harness import (
     coverage_gate,
     evalkit,
     instructions,
+    javabuild,
     junit_feedback,
     oracles,
     scaffold,
@@ -26,6 +27,8 @@ from quality_router.harness import (
 from quality_router.harness import policy as policy_mod
 from quality_router.harness.gitdiff import load_diff
 from quality_router.harness.report import EXIT_FAIL, EXIT_PASS, EXIT_USAGE, GateResult
+
+DEFAULT_JAVA_RELEASE = 17
 
 GATE_EPILOG = textwrap.dedent(
     """\
@@ -54,6 +57,10 @@ SPEC_EPILOG = textwrap.dedent(
       qr spec scaffold --spec specs/content-item-v2.md --package com.acme.normalize \\
           --class ContentItemV2AcceptanceTest --ac AC-1 --ac AC-2 \\
           --bind 'AC-1=new Normalizer().title(input)' \\
+          --out src/test/java/com/acme/normalize/ContentItemV2AcceptanceTest.java
+      qr spec scaffold --spec specs/content-item-v2.md --package com.acme.normalize \\
+          --spring-boot-test --field '@Autowired ContentNormalizer normalizer' \\
+          --bind 'AC-1=normalizer.title(title)' --java-release 11 \\
           --out src/test/java/com/acme/normalize/ContentItemV2AcceptanceTest.java
       qr spec lock --spec specs/content-item-v2.md \\
           --tests src/test/java/com/acme/normalize/ContentItemV2AcceptanceTest.java
@@ -220,7 +227,7 @@ def _spec(subparsers) -> None:
     _common(lint)
     lint.set_defaults(handler=cmd_spec_lint)
 
-    scaf = _sub(specs, "scaffold", "JUnit 5 acceptance tests from the spec's example tables.",
+    scaf = _sub(specs, "scaffold", "JUnit 5/6 acceptance tests from the spec's example tables.",
                 SPEC_EPILOG)
     scaf.add_argument("--spec", required=True, help="Spec markdown file.")
     scaf.add_argument("--out", required=True, help="Java file to write.")
@@ -235,6 +242,22 @@ def _spec(subparsers) -> None:
     scaf.add_argument("--root", action="append", default=[],
                       help="Extra directory to resolve Contract: paths.")
     scaf.add_argument("--id-pattern", default=specdoc.DEFAULT_ID_PATTERN)
+    scaf.add_argument("--java-release", type=int, default=None,
+                      help="Java release the test compiles for (default: read from the nearest "
+                           "pom.xml/build.gradle, else 17). Below 15 rows use value = {...} "
+                           "instead of a text block (Spring Boot 2.7 on Java 8/11).")
+    scaf.add_argument("--spring-boot-test", action="store_true",
+                      help="Annotate the class @SpringBootTest and import @Autowired, so binds "
+                           "can call injected beans (Boot 2.7-4.x).")
+    scaf.add_argument("--class-annotation", action="append", default=[],
+                      help="Class annotation, e.g. '@SpringBootTest(classes = App.class)' or "
+                           "'@ActiveProfiles(\"test\")' (repeatable).")
+    scaf.add_argument("--field", action="append", default=[],
+                      help="Field declaration, e.g. '@Autowired ContentNormalizer normalizer' "
+                           "(repeatable).")
+    scaf.add_argument("--import", dest="imports", action="append", default=[],
+                      help="Extra import, e.g. com.acme.normalize.ContentNormalizer "
+                           "(repeatable).")
     scaf.add_argument("--force", action="store_true", help="Overwrite an existing file.")
     scaf.add_argument("--dry-run", action="store_true", help="Print the source; write nothing.")
     scaf.set_defaults(handler=cmd_spec_scaffold)
@@ -480,6 +503,16 @@ def _lint_errors(result: GateResult) -> list[str]:
     return [f.render() for f in result.findings if f.level == "error"]
 
 
+def _java_release(flag: int | None, out: Path) -> tuple[int, str]:
+    if flag is not None:
+        return flag, "--java-release"
+    found = javabuild.detect_java_release(out)
+    if found is None:
+        return DEFAULT_JAVA_RELEASE, "default; no release in a pom.xml/build.gradle above --out"
+    release, build = found
+    return release, f"from {build}"
+
+
 def cmd_spec_scaffold(args: Namespace) -> int:
     spec, out = Path(args.spec), Path(args.out)
     example = ("qr spec scaffold --spec specs/x.md --class XAcceptanceTest "
@@ -503,9 +536,13 @@ def cmd_spec_scaffold(args: Namespace) -> int:
         for line in _lint_errors(lint):
             print(f"  {line}", file=sys.stderr)
         return EXIT_FAIL
+    release, release_from = _java_release(args.java_release, out)
+    parts = (tuple(args.class_annotation), tuple(args.field), tuple(args.imports))
+    context = (scaffold.TestContext.spring_boot_test(*parts) if args.spring_boot_test
+               else scaffold.TestContext(*parts))
     try:
         made = scaffold.scaffold_tests(specdoc.parse_spec(spec, args.id_pattern), args.package,
-                                       class_name, binds, args.ac or None)
+                                       class_name, binds, args.ac or None, release, context)
     except scaffold.ScaffoldError as exc:
         return _usage(str(exc), example)
     if args.dry_run:
@@ -514,6 +551,7 @@ def cmd_spec_scaffold(args: Namespace) -> int:
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(made.source, encoding="utf-8")
     print(f"wrote={out}")
+    print(f"java_release={release}  # {release_from}")
     print(f"criteria={','.join(made.criteria)}")
     if made.unbound:
         print(f"unbound={','.join(made.unbound)}  # fill in the bind lines; they fail until then")
