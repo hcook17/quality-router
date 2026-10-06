@@ -211,6 +211,19 @@ class TestJUnit4AndRestAssuredOracles:
                     ".statusCode(404);") == "strong"
         assert kind("given().when().get( ).then().body( , notNullValue());") == "weak"
 
+    @pytest.mark.parametrize("body, expected", [
+        ("given().when().get( ).then().assertThat(status().isOk());", "weak"),
+        ("given().when().get( ).then().assertThat(status().isOk())"
+         ".expect(jsonPath( ).value(1));", "strong"),
+        ("given().when().get( ).then().expect(content().string( ));", "strong"),
+        ("given().when().get( ).then().statusCode(200)"
+         ".expect(authenticated().withUsername( ));", "strong"),
+        ("given().when().get( ).then().spec(okSpec);", "weak"),
+    ])
+    def test_rest_assured_mockmvc_result_matchers(self, body: str, expected: str) -> None:
+        verdict = classify(method(body))
+        assert verdict.kind == expected and verdict.strong + verdict.weak == 1
+
     def test_rest_assured_extract_then_assert(self) -> None:
         body = ("Item item = given().when().get( ).then().statusCode(200)"
                 ".extract().body().as(Item.class); assertEquals(1, item.count());")

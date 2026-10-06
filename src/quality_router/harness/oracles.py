@@ -63,7 +63,8 @@ MVC_STRONG = ("value", "json", "string", "xml", "bytes", "attribute", "name", "r
               "forwardedUrl", "redirectedUrlPattern", "forwardedUrlPattern", "equalTo", "is",
               "isEqualTo", "containsString", "hasSize", "hasItem", "contains",
               "containsInAnyOrder", "startsWith", "endsWith", "attributeHasFieldErrors",
-              "attributeHasErrors", "dateValue", "longValue")
+              "attributeHasErrors", "dateValue", "longValue", "withUsername", "withRoles",
+              "withAuthorities")
 _EXCHANGE = re.compile(r"\.\s*(expectStatus|expectBody|expectBodyList|expectHeader|expectCookie)"
                        r"\s*\(")
 EXCHANGE_STRONG = ("isEqualTo", "value", "valueEquals", "json", "xml", "consumeWith",
@@ -80,6 +81,7 @@ STEP_STRONG = ("expectNext", "expectNextMatches", "expectNextSequence", "expectN
 # alone is weak; a body(path, matcher) value check or an OpenAPI contract check is strong.
 _RA_THEN = re.compile(r"\.\s*then\s*\(\s*\)")
 _RA_BODY = re.compile(r"\.\s*body\s*\(")
+_RA_RESULT_MATCHER = re.compile(r"\.\s*(?:expect|assertThat)\s*\(")
 # Atlassian swagger-request-validator: response validated against the OpenAPI contract.
 _OPENAPI_VALID = re.compile(r"\bopenApi\s*\(\s*\)\s*\.\s*isValid\s*\(")
 # JUnit 4 ExpectedException rule: thrown.expect(X.class) is an exception oracle.
@@ -124,7 +126,11 @@ def classify(method: TestMethod, helpers: tuple[str, ...] = ()) -> OracleVerdict
     strong += len(_EXPECTED_EXCEPTION.findall(body))
     if re.search(r"\bfail\s*\(", body) and re.search(r"\bcatch\s*\(", body):
         strong += 1
+    spring_strong, spring_weak, handled = _spring_oracles(body)
     for match in _ASSERT_THAT.finditer(body):
+        member = body[:match.start()].rstrip().endswith(".")
+        if member and any(s <= match.start() < e for s, e in handled):
+            continue
         close = _matching_paren(body, match.end() - 1)
         args = body[match.end():close]
         statement_end = body.find(";", close)
@@ -136,7 +142,6 @@ def classify(method: TestMethod, helpers: tuple[str, ...] = ()) -> OracleVerdict
             strong += 1
         else:
             weak += 1
-    spring_strong, spring_weak, handled = _spring_oracles(body)
     strong += spring_strong
     weak += spring_weak
     mocks = len(_VERIFY.findall(body)) + len(_BDD_THEN_SHOULD.findall(body))
@@ -210,13 +215,10 @@ def _spring_oracles(body: str) -> tuple[int, int, list[tuple[int, int]]]:
         for match in mvc:
             close = _matching_paren(statement, match.end() - 1)
             for matcher in _split_args(statement[match.end():close]):
-                status_only = _MVC_STATUS.match(matcher)
-                if _OPENAPI_VALID.search(matcher):
+                if _result_matcher_strong(matcher):
                     strong += 1
-                elif status_only or not _names(matcher) & set(MVC_STRONG):
-                    weak += 1
                 else:
-                    strong += 1
+                    weak += 1
         if rest:
             if _rest_assured_strong(statement[rest.end():]):
                 strong += 1
@@ -236,12 +238,22 @@ def _spring_oracles(body: str) -> tuple[int, int, list[tuple[int, int]]]:
     return strong, weak, handled
 
 
-def _rest_assured_strong(tail: str) -> bool:
-    if _OPENAPI_VALID.search(tail):
+def _result_matcher_strong(matcher: str) -> bool:
+    """A Spring ResultMatcher: status() alone is weak; a value or contract check is strong."""
+    if _OPENAPI_VALID.search(matcher):
         return True
+    return not _MVC_STATUS.match(matcher) and bool(_names(matcher) & set(MVC_STRONG))
+
+
+def _rest_assured_strong(tail: str) -> bool:
     for match in _RA_BODY.finditer(tail):
         args = tail[match.end():_matching_paren(tail, match.end() - 1)]
         if any(re.search(r"\b" + re.escape(h), args) for h in HAMCREST_STRONG):
+            return True
+    # RestAssuredMockMvc takes Spring ResultMatchers via expect(...) / assertThat(...).
+    for match in _RA_RESULT_MATCHER.finditer(tail):
+        args = tail[match.end():_matching_paren(tail, match.end() - 1)]
+        if any(_result_matcher_strong(m) for m in _split_args(args)):
             return True
     return False
 
