@@ -447,10 +447,12 @@ def cmd_diff_coverage(args: Namespace) -> int:
 
 def cmd_api_compat(args: Namespace) -> int:
     cwd = Path(args.cwd)
-    paths = _expand(args.report, cwd)
-    missing = [str(p) for p in paths if not p.is_file()]
-    if not paths or missing:
-        return _usage(f"japicmp report not found: {missing or args.report}",
+    expanded = {pattern: _expand([pattern], cwd) for pattern in args.report}
+    paths = [p for matched in expanded.values() for p in matched]
+    missing = [pattern for pattern, matched in expanded.items() if not matched]
+    missing += [str(p) for p in paths if not p.is_file()]
+    if missing:
+        return _usage(f"japicmp report not found: {missing}",
                       "mvn -B verify  # with japicmp-maven-plugin, or japicmp --xml-file <path>")
     try:
         reports = [api_compat.parse_japicmp(p) for p in paths]
