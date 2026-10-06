@@ -7,6 +7,7 @@ Optional --graph gortex constituent note. Idempotent. No tokens. No mcp.json.
 from __future__ import annotations
 
 import os
+import re
 import shutil
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -110,20 +111,57 @@ Run `.quality-router/hooks.ps1` (Windows) or `.quality-router/hooks.sh` (POSIX) 
 Disabled. Do not set GITNEXUS_HOOKS=0.
 """
 
-GORTEX_YAML_TEMPLATE = """\
-# Gortex workspace (quality-router constituent)
-workspace: {workspace}
-{cross_deps}
+GORTEX_YAML_HEADER = """\
+# Written by `qr init --graph gortex`. qr never overwrites this file.
+# Settings follow research/harness-kb/implementations.md (quality-router):
+#   embedding off: embedding indexes are poisonable and localize Java poorly
+#   facade-v1 in hide mode: about 15 inlined tools still select well
+#   Java Kafka boundaries declared: Gortex does not detect them for Java
 """
 
-GORTEX_YAML_DEPS_HEADER = """\
-  cross_workspace_deps:
+GORTEX_YAML_BODY = """\
+embedding:
+  enabled: false
+mcp:
+  tools:
+    preset: facade-v1
+    mode: hide
+index:
+  event_bus:
+    - name: kafka
+      type: producer
+      callee: kafkaTemplate.send
+      topic_arg: "0"
+    - name: kafka
+      type: consumer
+      decorator: KafkaListener
+      topic_arg: topics
 """
 
-GORTEX_YAML_DEP_ITEM = """\
-    - workspace: {dep_slug}
-      module: {module_path}
+GORTEX_NEXT_STEPS = """\
+next: gortex install --hook-mode=enrich   # hooks add graph context, never deny Read/Grep
+next: gortex init --no-skills             # no generated SKILL.md routing files
+next: install jdtls so Gortex confirms Java edges over LSP
+next: full reindex before trusting a cross-repo contract result in CI
 """
+
+GORTEX_DISCONNECTED = (
+    "gortex not on PATH; .gortex.yaml not written. Install a signed package "
+    "(brew install zzet/tap/gortex, scoop, .deb/.rpm), then re-run."
+)
+
+GORTEX_OLDER_SHAPE = (
+    "warning: .gortex.yaml was written by an older qr and Gortex rejects it "
+    "(indented cross_workspace_deps / `module:`). Delete it and re-run qr init --graph gortex."
+)
+
+_SLUG = re.compile(r"[A-Za-z0-9][A-Za-z0-9._-]*")
+_MODULE = re.compile(r"[A-Za-z0-9._/@:-]+")
+_OLDER_SHAPE = re.compile(r"^(\s+cross_workspace_deps:|\s*-?\s*module:)", re.MULTILINE)
+
+
+class InitError(ValueError):
+    pass
 
 
 # --------------------------------------------------------------------------- #
@@ -197,9 +235,12 @@ class InitConfig:
 # Main init logic
 # --------------------------------------------------------------------------- #
 
-def run_init(config: InitConfig) -> None:
-    """Stamp portable and optional host/graph stamps into cwd."""
+def run_init(config: InitConfig) -> str | None:
+    """Stamp portable and optional host/graph stamps into cwd; return the gortex status."""
     cwd = config.cwd
+    gortex_status = None
+    if config.graph == "gortex":
+        validate_gortex(config)
 
     # 1. Portable stamps (always)
     _write_portable_stamps(cwd)
@@ -210,7 +251,7 @@ def run_init(config: InitConfig) -> None:
 
     # 3. Gortex graph stamps (optional, no-op if gortex not on PATH)
     if config.graph == "gortex":
-        _write_gortex_config(cwd, config.workspace, config.workspace_deps)
+        gortex_status = _write_gortex_config(cwd, config.workspace, config.workspace_deps)
 
     # 4. Agent policy + host hook wiring (optional)
     if config.policy:
@@ -221,6 +262,31 @@ def run_init(config: InitConfig) -> None:
     # 5. CI template (optional)
     if config.ci:
         stamp_ci(cwd, config.ci, config.ci_java)
+    return gortex_status
+
+
+def validate_gortex(config: InitConfig) -> None:
+    """Reject values that are not plain slugs/module names before anything is written."""
+    if config.workspace is not None and not _SLUG.fullmatch(config.workspace):
+        raise InitError(f"--workspace {config.workspace!r} is not a slug "
+                        "(letters, digits, '.', '_', '-')")
+    for dep, module in config.workspace_deps:
+        if not _SLUG.fullmatch(dep):
+            raise InitError(f"--workspace-dep {dep!r} is not a slug "
+                            "(letters, digits, '.', '_', '-')")
+        if not _MODULE.fullmatch(module):
+            raise InitError(f"--module {module!r} has characters outside [A-Za-z0-9._/@:-]")
+    slug = config.workspace or config.cwd.name
+    if config.workspace is None and shutil.which("gortex") and not _SLUG.fullmatch(slug):
+        raise InitError(f"directory name {slug!r} is not a slug; pass --workspace <slug>")
+    if any(dep == slug for dep, _ in config.workspace_deps):
+        raise InitError(f"--workspace-dep {slug!r} is this workspace")
+
+
+def older_gortex_shape(cwd: Path) -> bool:
+    path = cwd / ".gortex.yaml"
+    return path.is_file() and bool(_OLDER_SHAPE.search(path.read_text(encoding="utf-8",
+                                                                       errors="replace")))
 
 
 def _write_portable_stamps(cwd: Path) -> None:
@@ -250,22 +316,31 @@ def _write_portable_stamps(cwd: Path) -> None:
         gitnexus_off.write_text("", encoding="utf-8")
 
 
-def _write_gortex_config(cwd: Path, workspace: str | None, deps: list[tuple[str, str]]) -> None:
-    """Write .gortex.yaml if gortex is on PATH. No-op if disconnected."""
+def _write_gortex_config(cwd: Path, workspace: str | None,
+                         deps: list[tuple[str, str]]) -> str:
+    """Write .gortex.yaml if gortex is on PATH. Never overwrites; no-op if disconnected."""
     if not shutil.which("gortex"):
-        return  # disconnected constituent → no-op
-
-    slug = workspace or cwd.name
+        return "disconnected"
     gortex_yaml = cwd / ".gortex.yaml"
+    if gortex_yaml.exists():
+        return "exists"
+    modules: dict[str, list[str]] = {}
+    for dep, module in deps:
+        listed = modules.setdefault(dep, [])
+        if module not in listed:
+            listed.append(module)
+    lines = [f"workspace: {_quoted(workspace or cwd.name)}"]
+    if modules:
+        lines.append("cross_workspace_deps:")
+        for dep, listed in modules.items():
+            lines.append(f"  - workspace: {_quoted(dep)}")
+            lines.append("    modules:")
+            lines.extend(f"      - {_quoted(m)}" for m in listed)
+            lines.append("    mode: read-only")
+    gortex_yaml.write_text(GORTEX_YAML_HEADER + "\n".join(lines) + "\n" + GORTEX_YAML_BODY,
+                           encoding="utf-8")
+    return "written"
 
-    if not gortex_yaml.exists():
-        cross_deps_list = ""
-        if deps:
-            items = "\n".join(
-                GORTEX_YAML_DEP_ITEM.format(dep_slug=s, module_path=m)
-                for s, m in deps
-            )
-            cross_deps_list = GORTEX_YAML_DEPS_HEADER + items
 
-        content = GORTEX_YAML_TEMPLATE.format(workspace=slug, cross_deps=cross_deps_list)
-        gortex_yaml.write_text(content, encoding="utf-8")
+def _quoted(value: str) -> str:
+    return '"' + value.replace("\\", "\\\\").replace('"', '\\"') + '"'
