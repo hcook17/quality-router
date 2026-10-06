@@ -235,6 +235,14 @@ class TestScaffoldJavaReleaseAndContext:
         assert '@SpringBootTest(classes = App.class)\n@ActiveProfiles("test")\nclass T' in src
         assert "\n@SpringBootTest\n" not in src
 
+    def test_indent_matches_house_style(self, good: Path) -> None:
+        src = scaffold_tests(parse_spec(good), "", "T", {}, indent=2).source
+        assert "\n  @ParameterizedTest(" in src and "\n      '  Intro  ' | Intro\n" in src
+        assert "\n    assertEquals(" in src and "\n  }\n" in src and "\n    " not in src.split(
+            "@ParameterizedTest")[0]
+        with pytest.raises(ScaffoldError, match="--indent"):
+            scaffold_tests(parse_spec(good), "", "T", {}, indent=0)
+
     @pytest.mark.parametrize("context, message", [
         (TestContext(imports=("com.acme; drop",)), "--import"),
         (TestContext(annotations=("SpringBootTest",)), "--class-annotation"),

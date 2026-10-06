@@ -173,10 +173,12 @@ def _imports(context: TestContext) -> list[str]:
 
 def scaffold_tests(doc: SpecDoc, package: str, class_name: str, binds: dict[str, str],
                    only: list[str] | None = None, java_release: int = 17,
-                   context: TestContext | None = None) -> Scaffold:
+                   context: TestContext | None = None, indent: int = 4) -> Scaffold:
     """Acceptance test source. java_release < 15 uses `value = {...}` instead of a text block."""
     if java_release < MIN_JAVA_RELEASE:
         raise ScaffoldError(f"--java-release must be >= {MIN_JAVA_RELEASE} (JUnit 5 baseline)")
+    if not 1 <= indent <= 8:
+        raise ScaffoldError("--indent must be 1-8 spaces")
     context = context or TestContext()
     context.validate()
     wanted = [c for c in doc.criteria if not only or c.id in only]
@@ -215,4 +217,7 @@ def scaffold_tests(doc: SpecDoc, package: str, class_name: str, binds: dict[str,
         "}",
         "",
     ])
+    if indent != 4:
+        source = re.sub(r"(?m)^((?:    )+)",
+                        lambda m: " " * (len(m.group(1)) // 4 * indent), source)
     return Scaffold(source=source, criteria=[c.id for c in with_rows], unbound=unbound)

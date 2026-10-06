@@ -258,6 +258,8 @@ def _spec(subparsers) -> None:
     scaf.add_argument("--import", dest="imports", action="append", default=[],
                       help="Extra import, e.g. com.acme.normalize.ContentNormalizer "
                            "(repeatable).")
+    scaf.add_argument("--indent", type=int, default=4,
+                      help="Spaces per indent level, to match the repo's formatter (default 4).")
     scaf.add_argument("--force", action="store_true", help="Overwrite an existing file.")
     scaf.add_argument("--dry-run", action="store_true", help="Print the source; write nothing.")
     scaf.set_defaults(handler=cmd_spec_scaffold)
@@ -542,7 +544,8 @@ def cmd_spec_scaffold(args: Namespace) -> int:
                else scaffold.TestContext(*parts))
     try:
         made = scaffold.scaffold_tests(specdoc.parse_spec(spec, args.id_pattern), args.package,
-                                       class_name, binds, args.ac or None, release, context)
+                                       class_name, binds, args.ac or None, release, context,
+                                       args.indent)
     except scaffold.ScaffoldError as exc:
         return _usage(str(exc), example)
     if args.dry_run:
@@ -555,7 +558,8 @@ def cmd_spec_scaffold(args: Namespace) -> int:
     print(f"criteria={','.join(made.criteria)}")
     if made.unbound:
         print(f"unbound={','.join(made.unbound)}  # fill in the bind lines; they fail until then")
-    print("next=review the file, then `qr spec lock` in a spec-only change")
+    print("next=review and format the file (e.g. spotlessApply), then `qr spec lock` in a "
+          "spec-only change; reformatting after the lock fails `qr gate acceptance`")
     return EXIT_PASS
 
 
