@@ -105,6 +105,9 @@ class TestDiffCoverage:
         assert is_test_path("src/test/java/A.java")
         assert is_test_path("svc/src/it/java/A.java")
         assert not is_test_path("src/main/java/test/A.java")
+        assert is_test_path("svc/src/integrationTest/java/A.java")
+        assert is_test_path("src/testFixtures/java/A.java")
+        assert not is_test_path("src/main/java/integrationTest/A.java")
 
 
 def method(body: str, args: str = "") -> TestMethod:
@@ -136,6 +139,59 @@ class TestOracleClassify:
         assert verdict.kind == "strong" and verdict.custom == 1
         helped = classify(method("checkItem(item);"), helpers=("checkItem",))
         assert helped.strong == 1 and helped.custom == 0
+
+    def test_bdd_mockito_then_should_is_mock(self) -> None:
+        assert classify(method("svc.run(); then(repo).should().save(any());")).kind == "mock_only"
+
+
+def kind(body: str) -> str:
+    return classify(method(body)).kind
+
+
+class TestSpringOracles:
+    """Spring Boot 2.7-4.x web and reactive test idioms (bodies are pre-blanked by javasrc)."""
+
+    def test_mockmvc_status_only_is_weak(self) -> None:
+        assert kind("mvc.perform(get( )).andExpect(status().isOk());") == "weak"
+        assert kind("mvc.perform(get( )).andExpect(MockMvcResultMatchers.status().is(404));") \
+            == "weak"
+        assert kind("mvc.perform(get( )).andExpect(jsonPath( ).exists());") == "weak"
+        assert kind("mvc.perform(get( ))"
+                    ".andExpectAll(status().isOk(), content().contentType(JSON));") == "weak"
+
+    def test_mockmvc_body_matchers_are_strong(self) -> None:
+        assert kind("mvc.perform(get( )).andExpect(status().isOk())"
+                    ".andExpect(jsonPath( ).value( ));") == "strong"
+        assert kind("mvc.perform(get( )).andExpect(content().json( ));") == "strong"
+        assert kind("mvc.perform(get( )).andExpectAll(status().isOk(), "
+                    "jsonPath( , is( )));") == "strong"
+        assert kind("mvc.perform(post( )).andExpect(redirectedUrl( ));") == "strong"
+
+    def test_web_and_rest_test_client(self) -> None:
+        assert kind("client.get().uri( ).exchange().expectStatus().isOk();") == "weak"
+        assert kind("client.get().uri( ).exchange().expectStatus().isOk()"
+                    ".expectBody().jsonPath( ).isEqualTo( );") == "strong"
+        assert kind("client.get().exchange().expectBody(String.class).isEqualTo( );") == "strong"
+        verdict = classify(method("client.get().exchange().expectBody(Item.class)"
+                                  ".consumeWith(r -> { assertThat(r.id()).isEqualTo( ); });"))
+        assert verdict.kind == "strong" and verdict.custom == 0
+
+    def test_mockmvc_tester(self) -> None:
+        assert kind("assertThat(mvc.get().uri( )).hasStatusOk();") == "weak"
+        assert kind("assertThat(mvc.get().uri( )).hasStatusOk().bodyJson()"
+                    ".extractingPath( ).isEqualTo( );") == "strong"
+        assert kind("assertThat(mvc.get().uri( )).bodyJson().isLenientlyEqualTo( );") == "strong"
+
+    def test_step_verifier(self) -> None:
+        assert kind("StepVerifier.create(flux).verifyComplete();") == "weak"
+        verdict = classify(method("StepVerifier.create(flux).expectNext( ).verifyComplete();"))
+        assert verdict.kind == "strong" and verdict.custom == 0
+        assert kind("flux.as(StepVerifier::create).expectNextCount(2).verifyComplete();") \
+            == "strong"
+
+    def test_context_loads_has_no_oracle(self) -> None:
+        assert kind("") == "none"
+        assert kind("if (x) { f(); }") == "none"
 
 
 TEST_FILE = """\

@@ -3,6 +3,12 @@
 Evidence: 2606.18168 (most agent-authored test patches carry weak or no
 assertions; strong multi-type oracles correlate with merge), 2608.16742 /
 2608.19799 (self-consistent wrong tests, public-pass/hidden-fail).
+
+Spring Boot 2.7-4.x web and reactive tests are judged per chain: MockMvc
+`andExpect`, WebTestClient / RestTestClient (Boot 4) `expect*` exchanges,
+MockMvcTester (Boot 3.4+) AssertJ chains and Reactor StepVerifier. A status,
+content-type or existence check alone is weak; asserting a body, value,
+header value, view or redirect is strong.
 """
 
 from __future__ import annotations
@@ -33,6 +39,9 @@ ASSERTJ_STRONG = (
     "isInstanceOf", "hasFieldOrPropertyWithValue", "usingRecursiveComparison", "extracting",
     "satisfies", "allSatisfy", "anySatisfy", "isSameAs", "isIn", "isNotIn", "hasValue",
     "isPresent", "isEmptyOptional", "hasCauseInstanceOf", "isSorted", "hasToString",
+    # Spring MockMvcTester (Boot 3.4+) and AssertJ JSON assertions.
+    "hasBodyTextEqualTo", "isLenientlyEqualTo", "isStrictlyEqualTo", "hasViewName",
+    "hasRedirectedUrl", "hasForwardedUrl", "hasHeader", "hasPathSatisfying", "hasFailed",
 )
 HAMCREST_STRONG = ("equalTo", "is(", "contains(", "containsInAnyOrder", "hasItem", "hasSize",
                    "hasEntry", "closeTo", "greaterThan", "lessThan", "instanceOf", "sameInstance",
@@ -44,6 +53,29 @@ MOCKITO_VERIFY = ("verify", "verifyNoMoreInteractions", "verifyNoInteractions",
                   "verifyZeroInteractions")
 _VERIFY = re.compile(r"\b(?:" + "|".join(MOCKITO_VERIFY) + r")\s*\(")
 _CUSTOM_ASSERT = re.compile(r"\b(assert[A-Z]\w*|verify[A-Z]\w*|expect[A-Z]\w*)\s*\(")
+_BDD_THEN_SHOULD = re.compile(r"\bthen\s*\([^;]*?\)\s*\.\s*should\w*\s*\(")
+
+# Spring test idioms, judged per chain: a status/type/existence check alone is weak,
+# a body, value, header value, view or redirect check is strong.
+_MVC_EXPECT = re.compile(r"\.\s*andExpect(?:All)?\s*\(")
+_MVC_STATUS = re.compile(r"\s*(?:\w+\s*\.\s*)*status\s*\(")
+MVC_STRONG = ("value", "json", "string", "xml", "bytes", "attribute", "name", "redirectedUrl",
+              "forwardedUrl", "redirectedUrlPattern", "forwardedUrlPattern", "equalTo", "is",
+              "isEqualTo", "containsString", "hasSize", "hasItem", "contains",
+              "containsInAnyOrder", "startsWith", "endsWith", "attributeHasFieldErrors",
+              "attributeHasErrors", "dateValue", "longValue")
+_EXCHANGE = re.compile(r"\.\s*(expectStatus|expectBody|expectBodyList|expectHeader|expectCookie)"
+                       r"\s*\(")
+EXCHANGE_STRONG = ("isEqualTo", "value", "valueEquals", "json", "xml", "consumeWith",
+                   "hasSize", "contains", "containsExactly", "doesNotContain", "isEmpty",
+                   "valueMatches", "isLenientlyEqualTo", "isStrictlyEqualTo", "isNotEqualTo")
+_STEP_VERIFIER = re.compile(r"\bStepVerifier\s*\.\s*(?:create|withVirtualTime)\b"
+                            r"|\bStepVerifier\s*::\s*create\b")
+STEP_STRONG = ("expectNext", "expectNextMatches", "expectNextSequence", "expectNextCount",
+               "assertNext", "consumeNextWith", "expectError", "expectErrorMessage",
+               "expectErrorMatches", "expectErrorSatisfies", "verifyError",
+               "verifyErrorMessage", "verifyErrorMatches", "verifyErrorSatisfies",
+               "expectRecordedMatches", "consumeErrorWith")
 
 
 @dataclass(frozen=True)
@@ -86,11 +118,84 @@ def classify(method: TestMethod, helpers: tuple[str, ...] = ()) -> OracleVerdict
             strong += 1
         else:
             weak += 1
-    mocks = len(_VERIFY.findall(body))
+    spring_strong, spring_weak, handled = _spring_oracles(body)
+    strong += spring_strong
+    weak += spring_weak
+    mocks = len(_VERIFY.findall(body)) + len(_BDD_THEN_SHOULD.findall(body))
     known = set(STRONG_CALLS) | set(WEAK_CALLS) | set(helpers) | set(MOCKITO_VERIFY)
     custom = sum(1 for m in _CUSTOM_ASSERT.finditer(body) if m.group(1) not in known
-                 and not m.group(1).startswith("assertThat"))
+                 and not m.group(1).startswith("assertThat")
+                 and not any(s <= m.start() < e for s, e in handled))
     return OracleVerdict(strong=strong, weak=weak, mocks=mocks, custom=custom)
+
+
+def _statements(body: str) -> list[tuple[int, int]]:
+    """Spans of top-level statements; parenthesised lambdas stay inside their statement."""
+    spans: list[tuple[int, int]] = []
+    depth, start = 0, 0
+    for i, ch in enumerate(body):
+        if ch == "(":
+            depth += 1
+        elif ch == ")":
+            depth = max(depth - 1, 0)
+        elif depth == 0 and ch in ";{}":
+            spans.append((start, i))
+            start = i + 1
+    spans.append((start, len(body)))
+    return [(s, e) for s, e in spans if body[s:e].strip()]
+
+
+def _split_args(args: str) -> list[str]:
+    parts: list[str] = []
+    depth, start = 0, 0
+    for i, ch in enumerate(args):
+        if ch in "({":
+            depth += 1
+        elif ch in ")}":
+            depth -= 1
+        elif ch == "," and depth == 0:
+            parts.append(args[start:i])
+            start = i + 1
+    parts.append(args[start:])
+    return [p for p in parts if p.strip()]
+
+
+def _names(text: str) -> set[str]:
+    return {m.group(1) for m in _CALL.finditer(text)}
+
+
+def _spring_oracles(body: str) -> tuple[int, int, list[tuple[int, int]]]:
+    """MockMvc andExpect, WebTestClient/RestTestClient exchanges, Reactor StepVerifier."""
+    strong = weak = 0
+    handled: list[tuple[int, int]] = []
+    for start, end in _statements(body):
+        statement = body[start:end]
+        mvc = list(_MVC_EXPECT.finditer(statement))
+        exchange = _EXCHANGE.search(statement)
+        steps = _STEP_VERIFIER.search(statement)
+        if not (mvc or exchange or steps):
+            continue
+        handled.append((start, end))
+        for match in mvc:
+            close = _matching_paren(statement, match.end() - 1)
+            for matcher in _split_args(statement[match.end():close]):
+                status_only = _MVC_STATUS.match(matcher)
+                if status_only or not _names(matcher) & set(MVC_STRONG):
+                    weak += 1
+                else:
+                    strong += 1
+        if exchange:
+            names = _names(statement[exchange.start():])
+            if names & set(EXCHANGE_STRONG):
+                strong += 1
+            else:
+                weak += 1
+        if steps:
+            if _names(statement) & set(STEP_STRONG):
+                strong += 1
+            else:
+                weak += 1
+    return strong, weak, handled
 
 
 def _matching_paren(text: str, open_index: int) -> int:

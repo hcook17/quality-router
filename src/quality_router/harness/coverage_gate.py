@@ -6,6 +6,7 @@ catch lines unexecuted). "mvn test is green" is not evidence the change ran.
 
 from __future__ import annotations
 
+import re
 import xml.etree.ElementTree as ET
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -62,9 +63,14 @@ def _module_root(xml_path: Path, cwd: Path) -> str:
     return ""
 
 
+# Gradle JVM test suites and test fixtures: src/integrationTest/, src/functionalTest/, ...
+_GRADLE_TEST_SET = re.compile(r"(?:^|/)src/(?:\w+Test|testFixtures)/")
+
+
 def is_test_path(path: str) -> bool:
-    return any(marker in path if marker.startswith("/") else path.startswith(marker)
-               for marker in TEST_DIR_MARKERS)
+    return (any(marker in path if marker.startswith("/") else path.startswith(marker)
+                for marker in TEST_DIR_MARKERS)
+            or bool(_GRADLE_TEST_SET.search(path)))
 
 
 def _match_report(path: str, reports: list[JacocoReport]) -> tuple[JacocoReport, str] | None:
