@@ -3,7 +3,8 @@
 Status: in progress. Branch `cursor/japicmp-gortex-tdd-5429`, on top of the
 KB contribution gate.
 
-Contract: `src/quality_router/harness/api_compat.py`
+Contract: `src/quality_router/harness/report.py` (the gate result shape both
+parts reuse; new module API in section A).
 
 Problem: shared internal Java libraries cross the team's 4+ repos, and no
 `qr` gate catches a binary or source break before a consumer pulls it. A
