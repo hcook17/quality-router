@@ -28,7 +28,7 @@ DEFAULT_POLICY: dict[str, Any] = {
         {"pattern": r"\bgit\s+reset\s+--hard\s+origin/", "reason": "discards remote-tracked work"},
         {"pattern": r"\brm\s+-[a-zA-Z]*r[a-zA-Z]*f[a-zA-Z]*\s+(/|~|\$HOME)(\s|$)",
          "reason": "recursive delete of a root or home directory"},
-        {"pattern": r"\b(mvn|gradlew?|\./gradlew)\b.*\b(deploy|publish)\b",
+        {"pattern": r"\b(mvnw?|gradlew?)\b.*\b(deploy|publish)\b",
          "reason": "artifact publish belongs to CI, not the agent"},
         {"pattern": r"\b(kubectl|helm)\b.*\b(apply|delete|upgrade|install)\b",
          "reason": "cluster mutation belongs to CI/CD"},
@@ -173,6 +173,12 @@ class HookEvent:
     cwd: str = ""
 
 
+def _payload_cwd(payload: dict[str, Any]) -> str:
+    roots = payload.get("workspace_roots")
+    first_root = roots[0] if isinstance(roots, list) and roots else ""
+    return str(payload.get("cwd") or first_root or "")
+
+
 def parse_hook_event(payload: dict[str, Any]) -> HookEvent | None:
     """Normalize Claude Code PreToolUse and Cursor hook payloads."""
     if "tool_name" in payload:
@@ -183,7 +189,9 @@ def parse_hook_event(payload: dict[str, Any]) -> HookEvent | None:
                 raw = json.loads(raw)
             except json.JSONDecodeError:
                 raw = {"command": raw}
-        cwd = str(payload.get("cwd") or raw.get("working_directory") or "")
+        if not isinstance(raw, dict):
+            raw = {}
+        cwd = str(raw.get("working_directory") or _payload_cwd(payload))
         if tool in SHELL_TOOLS and "command" in raw:
             return HookEvent("command", str(raw["command"]), cwd)
         if tool in FILE_TOOLS:
@@ -192,9 +200,9 @@ def parse_hook_event(payload: dict[str, Any]) -> HookEvent | None:
                     return HookEvent("path", str(raw[key]), cwd)
         return None
     if "command" in payload and "mcp_server_name" not in payload:
-        return HookEvent("command", str(payload["command"]), str(payload.get("cwd") or ""))
+        return HookEvent("command", str(payload["command"]), _payload_cwd(payload))
     if "file_path" in payload:
-        return HookEvent("path", str(payload["file_path"]))
+        return HookEvent("path", str(payload["file_path"]), _payload_cwd(payload))
     return None
 
 

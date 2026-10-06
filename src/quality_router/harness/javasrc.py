@@ -117,6 +117,8 @@ def _signature(text: str, start: int) -> tuple[str, int] | None:
 
 @dataclass(frozen=True)
 class TestMethod:
+    __test__ = False
+
     name: str
     start_line: int
     end_line: int

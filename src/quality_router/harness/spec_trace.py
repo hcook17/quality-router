@@ -53,7 +53,7 @@ def trace_spec(
                 continue
             if in_fence:
                 continue
-            ids = ac_re.findall(line)
+            ids = [m.group(0) for m in ac_re.finditer(line)]
             for ac in ids:
                 defined.setdefault(ac, (str(spec), nr))
             if _CONSTRAINT.search(line):

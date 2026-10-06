@@ -411,20 +411,26 @@ class _AvroDiff:
             self._readable(writer=new, reader=old, ptr="#", direction="forward")
         return self.changes
 
-    def _register(self, node: Json, table: dict[str, Json]) -> None:
+    def _register(self, node: Json, table: dict[str, Json], namespace: str = "") -> None:
         if isinstance(node, list):
             for branch in node:
-                self._register(branch, table)
+                self._register(branch, table, namespace)
         elif isinstance(node, dict):
             if node.get("type") in ("record", "enum", "fixed") and "name" in node:
-                table[node["name"]] = node
-                if "namespace" in node:
-                    table[f"{node['namespace']}.{node['name']}"] = node
+                name = str(node["name"])
+                if "." in name:
+                    namespace = name.rsplit(".", 1)[0]
+                else:
+                    namespace = str(node.get("namespace", namespace))
+                short = name.rsplit(".", 1)[-1]
+                table[short] = node
+                if namespace:
+                    table[f"{namespace}.{short}"] = node
             for field_ in node.get("fields") or []:
-                self._register(field_.get("type"), table)
+                self._register(field_.get("type"), table, namespace)
             for key in ("items", "values"):
                 if key in node:
-                    self._register(node[key], table)
+                    self._register(node[key], table, namespace)
 
     def _deref(self, node: Json, table: dict[str, Json]) -> Json:
         if isinstance(node, str) and node in table:

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import glob
 import json
+import re
 import sys
 import textwrap
 from argparse import ArgumentParser, Namespace, RawDescriptionHelpFormatter
@@ -322,6 +323,10 @@ def cmd_spec_trace(args: Namespace) -> int:
         return _usage(f"spec not found: {missing or args.spec}",
                       "qr spec trace --spec specs/feature.md --tests .")
     tests = [Path(t) for t in args.tests]
+    try:
+        re.compile(args.id_pattern)
+    except re.error as exc:
+        return _usage(f"bad --id-pattern: {exc}", "qr spec trace --id-pattern 'AC-\\d+' ...")
     result = spec_trace.trace_spec(specs, tests, args.id_pattern, args.max_constraints,
                                    args.strict)
     return _emit(result, args)

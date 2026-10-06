@@ -40,7 +40,9 @@ HAMCREST_STRONG = ("equalTo", "is(", "contains(", "containsInAnyOrder", "hasItem
 
 _CALL = re.compile(r"\b(\w+)\s*\(")
 _ASSERT_THAT = re.compile(r"\bassertThat\s*\(")
-_VERIFY = re.compile(r"\bverify\s*\(")
+MOCKITO_VERIFY = ("verify", "verifyNoMoreInteractions", "verifyNoInteractions",
+                  "verifyZeroInteractions")
+_VERIFY = re.compile(r"\b(?:" + "|".join(MOCKITO_VERIFY) + r")\s*\(")
 _CUSTOM_ASSERT = re.compile(r"\b(assert[A-Z]\w*|verify[A-Z]\w*|expect[A-Z]\w*)\s*\(")
 
 
@@ -85,7 +87,7 @@ def classify(method: TestMethod, helpers: tuple[str, ...] = ()) -> OracleVerdict
         else:
             weak += 1
     mocks = len(_VERIFY.findall(body))
-    known = set(STRONG_CALLS) | set(WEAK_CALLS) | set(helpers)
+    known = set(STRONG_CALLS) | set(WEAK_CALLS) | set(helpers) | set(MOCKITO_VERIFY)
     custom = sum(1 for m in _CUSTOM_ASSERT.finditer(body) if m.group(1) not in known
                  and not m.group(1).startswith("assertThat"))
     return OracleVerdict(strong=strong, weak=weak, mocks=mocks, custom=custom)
