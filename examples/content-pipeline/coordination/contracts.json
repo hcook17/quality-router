@@ -1,0 +1,25 @@
+{
+  "repos": {
+    "content-ingest": "content-ingest",
+    "content-normalize": "content-normalize",
+    "content-store": "content-store",
+    "content-delivery": "content-delivery"
+  },
+  "contracts": [
+    {
+      "name": "raw-package",
+      "role": "output",
+      "provider": {"repo": "content-ingest", "path": "contracts/raw-package.schema.json"},
+      "consumers": [{"repo": "content-normalize", "path": "contracts/raw-package.schema.json"}]
+    },
+    {
+      "name": "content-item",
+      "role": "output",
+      "provider": {"repo": "content-normalize", "path": "contracts/content-item.schema.json"},
+      "consumers": [
+        {"repo": "content-store", "path": "contracts/content-item.schema.json"},
+        {"repo": "content-delivery", "path": "contracts/content-item.schema.json"}
+      ]
+    }
+  ]
+}

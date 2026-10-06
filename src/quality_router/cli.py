@@ -11,6 +11,8 @@ from collections.abc import Sequence
 from pathlib import Path
 
 from quality_router import __version__
+from quality_router.harness.ci import TEMPLATES as CI_TEMPLATES
+from quality_router.harness.cli import register as register_harness
 from quality_router.host_bind import bind_host
 from quality_router.init import ADAPTERS, InitConfig, run_init
 from quality_router.install_wrap import (
@@ -27,6 +29,16 @@ ROOT_EPILOG = textwrap.dedent(
       qr status
       qr install --sonar --dry-run
       qr install --sonar --hooks --no-gitnexus
+      qr init --host claude-code --policy --ci github-maven
+      qr gate diff-coverage --base origin/main --jacoco '**/target/site/jacoco/jacoco.xml'
+      qr gate test-oracles --base origin/main
+      qr lint instructions
+      qr spec trace --spec specs/feature.md --tests .
+      qr contracts check --manifest ../coordination/contracts.json
+      qr eval report --runs runs.jsonl
+
+    Gates read CI artifacts (JaCoCo XML, diffs, sources, contracts); qr never
+    runs Maven/Gradle. Cross-repo commands read other checkouts and write nothing.
 
     Constituents stay removable. A disconnected constituent no-ops.
     Local Sonar only. Do not irm|iex. Tokens stay in the environment.
@@ -77,6 +89,7 @@ def build_parser() -> ArgumentParser:
     _add_status_parser(subparsers)
     _add_install_parser(subparsers)
     _add_init_parser(subparsers)
+    register_harness(subparsers)
     return parser
 
 
@@ -160,9 +173,14 @@ INIT_EPILOG = textwrap.dedent(
       qr init --graph gortex
       qr init --graph gortex --workspace my-service
       qr init --graph gortex --workspace-dep other-svc --module services/shared
+      qr init --policy --host cursor
+      qr init --policy --host claude-code --ci github-maven
 
     Stamps a portable quality rule, hooks runner, and gitnexus off-marker.
     Optional --host adapters stamp that host's rule/hooks files only.
+    --policy writes .quality-router/policy.json; with --host cursor|claude-code
+    it also merges `qr policy hook` into that host's hook file.
+    --ci github-maven writes .github/workflows/qr-harness.yml (never overwrites).
     Optional --graph gortex writes .gortex.yaml (no-op if gortex not on PATH).
     Does not write mcp.json. Does not set GITNEXUS_HOOKS=0. Idempotent.
     """
@@ -211,6 +229,17 @@ def _add_init_parser(subparsers) -> None:
         "--no-gitnexus",
         action="store_true",
         help="Write the gitnexus off-marker. Does not set GITNEXUS_HOOKS=0.",
+    )
+    parser.add_argument(
+        "--policy",
+        action="store_true",
+        help="Stamp .quality-router/policy.json and wire `qr policy hook` for --host.",
+    )
+    parser.add_argument(
+        "--ci",
+        choices=list(CI_TEMPLATES.keys()),
+        default=None,
+        help="Stamp a CI workflow that builds, then runs the qr gates on its reports.",
     )
     parser.set_defaults(handler=cmd_init)
 
@@ -269,6 +298,8 @@ def cmd_init(args: Namespace) -> int:
         workspace=args.workspace,
         workspace_deps=deps,
         no_gitnexus=args.no_gitnexus,
+        policy=args.policy,
+        ci=args.ci,
     )
     run_init(config)
     return 0
