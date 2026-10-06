@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://contracts.acme.edu/content-item.schema.json",
+  "title": "ContentItem",
+  "type": "object",
+  "required": ["id", "title", "format", "legacyCode"],
+  "properties": {
+    "id": {"type": "string", "minLength": 1},
+    "title": {"type": "string"},
+    "format": {"type": "string", "enum": ["scorm", "xapi", "video", "pdf"]},
+    "legacyCode": {"type": "string"}
+  }
+}

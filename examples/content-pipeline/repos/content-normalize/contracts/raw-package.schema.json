@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RawPackage",
+  "type": "object",
+  "required": ["id", "format", "manifest"],
+  "properties": {
+    "id": {"type": "string"},
+    "title": {"type": "string"},
+    "format": {"type": "string"},
+    "manifest": {"type": "string"}
+  }
+}
