@@ -93,5 +93,7 @@ findings[]}`. `--strict` (where offered) also fails on warnings.
 ## Verify
 
 - `uv run pytest --cov` (floor 98.7%), `uv run ruff check src tests`.
-- `examples/content-pipeline/run-demo.sh`: the agent PR fails all six
-  gates for distinct reasons; the review fix passes all six.
+- `examples/content-pipeline/run-demo.sh`: the review fix passes every
+  gate. Since phase 4 the agent PR fails five of seven (the scaffolded
+  acceptance tests now cover its catch path, so diff coverage passes, and
+  every criterion is traced); see `phase-4-acceptance-first-sdd.md`.

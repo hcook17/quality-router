@@ -37,6 +37,23 @@ qr eval report --runs runs.jsonl --baseline 'claude-code@2.1.0/sonnet-5'
 
 Spec and evidence map: `docs/design/phase-3-harness.md`. Four-repo demo (ingest → normalize → store → delivery): `examples/content-pipeline/run-demo.sh --qr "uv run qr"`.
 
+## Acceptance-first SDD (phase 4)
+
+The research supports structured acceptance criteria with a precise contract, not SDD as a methodology. So the Spec stage produces examples, and those examples become locked tests that the implementing agent can read but cannot edit.
+
+```text
+qr spec new --title 'Content item v2' --out specs/content-item-v2.md
+qr spec lint --spec specs/content-item-v2.md                  # examples, contract, no TBD/vague terms
+qr spec scaffold --spec specs/content-item-v2.md --package edu.acme.normalize \
+  --bind '*=new Normalizer().normalize(new RawPackage("p", "t", "PDF", manifest)).licenseId()' \
+  --out src/test/java/edu/acme/normalize/ContentItemV2AcceptanceTest.java
+qr spec lock --spec specs/content-item-v2.md --tests 'src/test/java/**/*AcceptanceTest.java' --approved-by qa-lead
+qr gate acceptance --base origin/main                         # locked files unchanged; approved before implemented
+qr feedback junit --reports 'target/surefire-reports/*.xml' --sources src/test/java --spec specs/content-item-v2.md
+```
+
+The steer for each stage, the evidence and the pilot plan are in `docs/design/phase-4-acceptance-first-sdd.md`.
+
 ## Layout
 
 | Path | Role |
@@ -46,8 +63,9 @@ Spec and evidence map: `docs/design/phase-3-harness.md`. Four-repo demo (ingest 
 | `docs/design/phase-1-cli.md` | Spec SoT for Phase 1 |
 | `docs/design/phase-2-init.md` | Spec SoT for `qr init` |
 | `docs/design/phase-3-harness.md` | Spec SoT for the harness gates |
+| `docs/design/phase-4-acceptance-first-sdd.md` | Spec SoT for the acceptance-first Spec stage and the SDD steer |
 | `docs/research/architecture-decisions.md` | C4 + three-job lock |
-| `src/quality_router/harness/` | Gate, lint, spec, contracts, policy, eval commands |
+| `src/quality_router/harness/` | Gate, lint, spec, feedback, contracts, policy, eval commands |
 | `examples/content-pipeline/` | Four-repo Java fixture + `run-demo.sh` |
 | `research/harness-kb/` | Reviewed arXiv KB (May–Oct 2026) and `FINDINGS.md` |
 
