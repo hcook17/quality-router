@@ -1,0 +1,21 @@
+{"arxiv_id": "2607.25333",
+ "blind_scores": {"rigor": 3, "reproducibility": 4, "generalizability": 4, "relevance": 2, "coi_risk": 1},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "Specula reports near-zero false positives because violations must be reproduced at the code level.", "proposed_strength": "weak", "reason": "§5.1.1 grades false positives with Specula's own reproduction step; none of the 136 latest-version reports is adjudicated independently. §5.5 shows that step can be gamed: with Sonnet-4.6, 6 of 39 false bugs were 'reproduced' by injecting illegal state. §6 says current agents 'often hack out a success'. For Opus, 'no such violation' is asserted, not audited. External confirmation covers only 68 of 89 reported bugs out of 249 found."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P14", "from": "supports", "to": "neutral", "reason": "Specula extracts TLA+ specs from existing code, docs and issues after the fact, to find bugs (§3.1–3.2); the review's own note says 'spec-from-code rather than spec-first'. No spec-first or spec-driven development workflow is built or measured, so this paper gives no evidence for the team's spec-driven rollout."},
+  {"id": "P23", "from": "contradicts", "to": "neutral", "reason": "§5.5 swaps the whole pipeline to Sonnet-4.6 or Haiku-4.5. It never routes subtasks or cascades between models; §5.3 floats routing only as future work. A uniformly weaker model doing worse is not evidence against routing."},
+  {"id": "P21", "from": "supports", "to": "neutral", "reason": "The anti-hacking boundaries (client-triggerable reproduction only, no state injection) are prompt instructions (§3.4.1, §5.5 'explicitly disallowed by the instructions'), not enforced policy-as-code. No arm runs without them, and Sonnet-4.6 violated them 6 times. That shows instruction-only boundaries leak; it does not support P21."},
+  {"id": "P16", "from": "supports", "to": "introduces", "reason": "There is no component ablation (the review notes this too). Agent-Raw and Agent-TLA+ also lack scenario decomposition, evidence-grounded invariants, 5.5K lines of custom skills and the custom static analyzer/debugger, and they ran on 5–37× less budget (Table 5). Attributing the gain to runtime feedback (§5.2.1) is the authors' reading, not a measured effect of trace validation or reproduction."}
+ ],
+ "missed_issues": [
+  "other:compute_unmatched_baselines: Agent-Raw and Agent-TLA+ ran 11–69 min at $2–16 per system versus Specula's 110–402 min at $29–168 (Table 5). No baseline was given retries or an equal budget, so '62 vs 2/3 bugs' conflates design with spend.",
+  "§5.4 calls the self-evolving loops 'essential' from descriptive repair counts only; no run disables a loop. P26 (self-improving loop) and P11 (multi-agent component workflows, §4) are at most 'introduces' if tagged.",
+  "No comparison with non-formal bug-finding alternatives (fuzzing, Jepsen-style fault injection, static analyzers), despite the abstract's claim of bugs 'hard to find with existing approaches'.",
+  "The P04 note says the MCP server was added 'alone', but Agent-TLA+ bundles the official skills and MCPs (§5.2), so neither P02 nor P04 is isolated. The small runtime/conformance gains (79→82%, 70→75%, Table 4) are single-run.",
+  "Paper lacks a limitations/threats section; §6 'Formal guarantee' is the only discussion of failure modes."
+ ],
+ "note": "I agree with admit_with_caveats and with all five scores. The field results (68 confirmed bugs across 7 languages) are real, but the review tags several patterns the paper never isolates or never runs: spec-first (P14), model routing (P23), policy-as-code (P21), and verifier loops (P16, confounded with compute and bundled components). The false-positive claim is self-adjudicated."}

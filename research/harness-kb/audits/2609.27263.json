@@ -1,0 +1,14 @@
+{"arxiv_id": "2609.27263",
+ "blind_scores": {"rigor": 3, "reproducibility": 4, "generalizability": 3, "relevance": 3, "coi_risk": 1},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "agree",
+ "claims_disputed": [
+  {"claim": "Maintenance concentrates early and more often touches frontmatter than the instruction body", "proposed_strength": "weak", "reason": "The 'concentrates early' half is the reading the paper explicitly warns against. Only size-normalized churn drops (31.2 -> 5.6 per 100 lines, month 1 to 2). The share of project commits touching these workflows shows no significant month-to-month change (all adjusted p >= .561, Fig. 6b), and §IV-B says the churn drop 'should not be taken as evidence that workflow maintenance declines independently of overall project activity'. The 78.2%-updated-in-month-4 figure appears only in the abstract, intro and discussion, never in the RQ2 results text. It is also partly built in by the selection rule (first-to-last observed change >= 120 days). The frontmatter half holds: project medians are 74.5% vs 50.0%, and pooled it is 62.1% vs 55.1% once both-region edits are counted in each."}
+ ],
+ "pattern_stance_changes": [],
+ "missed_issues": [
+  "Methodology field says 'Wilcoxon-type test for churn'. The paper uses project-paired sign tests with Holm correction across 12 comparisons (§IV-B).",
+  "The RQ4 kappa of 0.715 pools every file-label pair, including labels absent from both prediction and reference. Per-label reliability is uneven: Domain Context is kappa 0.414 with 83 false positives, Rule Conformance 0.447 (Table V). 'Reliably' holds in aggregate, not for every label.",
+  "The RQ2 cohort (348 files, 43 projects) is selected on a >= 120-day first-to-last-change span, which guarantees ongoing edits. The selection effect is broader than survivorship of files, and it inflates any 'still maintained' rate."
+ ],
+ "note": "I agree with admit_with_caveats and with every score. The P36 neutral stance is right: the paper counts how often prose step orders and branches appear (88.2% / 87.2%) but never compares an enforced graph against prose or an open loop. The applicability text's 'cheap middle ground' framing is the reviewer's inference, not a finding. The one disputed claim conflates normalized-churn decline with maintenance decline, which the authors themselves rule out."}

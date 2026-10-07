@@ -1,0 +1,177 @@
+{
+ "arxiv_id": "2605.18697",
+ "fulltext_chars": 79790,
+ "fulltext_lines": 1566,
+ "authors_block": "Stephen Mell Affiliation: Carnegie Mellon University, Pittsburgh, Pennsylvania, USA email: stephenmell@cmu.edu , David Mell Affiliation: Independent Researcher, Juneau, Alaska, USA email: zraexy@gmail.com , Harry Y. H. Li Affiliation: University of Pennsylvania, Philadelphia, Pennsylvania, USA email: flandia@engineering.upenn.edu , Zhihao Jia Affiliation: Carnegie Mellon University, Pittsburgh, Pennsylvania, USA email: zhihao@cmu.edu , Konstantinos Kallas Affiliation: University of California, Los Angeles, Los Angeles, California, USA email: kkallas@ucla.edu , Steve Zdancewic Affiliation: University of Pennsylvania, Philadelphia, Pennsylvania, USA email: stevez@engineering.upenn.edu and Osbert Bastani Affiliation: University of Pennsylvania, Philadelphia, Pennsylvania, USA email: obastani@engineering.upenn.edu",
+ "vendor_affiliation_hits": [],
+ "n_authors": 7,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/anthropics/claude-code",
+  "https://github.com/apache/hamilton",
+  "https://github.com/deepset-ai/haystack",
+  "https://github.com/google/adk-python",
+  "https://github.com/langchain-ai/langgraph",
+  "https://github.com/microsoft/agent-framework",
+  "https://github.com/run-llama/llama_index"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   24,
+   "# PopPy: Opportunistically Exploiting Parallelism in Python Agentic Workflows"
+  ],
+  [
+   74,
+   "###### Abstract."
+  ],
+  [
+   82,
+   "## 1. Introduction"
+  ],
+  [
+   143,
+   "## 2. Motivating Example"
+  ],
+  [
+   148,
+   "### 2.1. Agentic Workflows"
+  ],
+  [
+   213,
+   "# In Ocelot library:"
+  ],
+  [
+   307,
+   "### 2.2. Parallelizing with PopPy"
+  ],
+  [
+   354,
+   "## 3. System Overview"
+  ],
+  [
+   370,
+   "### 3.1. Extracting Parallelism with \\lambda^{O}"
+  ],
+  [
+   377,
+   "### 3.2. Challenge: Python Complexity (§5)"
+  ],
+  [
+   385,
+   "### 3.3. Challenge: Dynamic Dispatch (§6)"
+  ],
+  [
+   392,
+   "### 3.4. Challenge: Variable Scoping and Mutation (§7)"
+  ],
+  [
+   402,
+   "## 4. Python Fragment and Correctness"
+  ],
+  [
+   406,
+   "### 4.1. Python Fragment for Internal Code"
+  ],
+  [
+   413,
+   "### 4.2. Correctness Guarantee"
+  ],
+  [
+   418,
+   "###### Proposition 1 (Soundness)."
+  ],
+  [
+   422,
+   "###### Proof sketch."
+  ],
+  [
+   431,
+   "## 5. Compiler"
+  ],
+  [
+   448,
+   "### 5.1. Compiling PopPy to Bezoar"
+  ],
+  [
+   477,
+   "### 5.2. Bezoar to \\lambda^{O}"
+  ],
+  [
+   588,
+   "## 6. External Calls and Concurrency Control"
+  ],
+  [
+   595,
+   "### 6.1. Annotations and Library"
+  ],
+  [
+   609,
+   "### 6.2. Dynamic Concurrency Control"
+  ],
+  [
+   626,
+   "## 7. Optimizing Variable Mutation"
+  ],
+  [
+   639,
+   "## 8. Evaluation"
+  ],
+  [
+   678,
+   "### 8.1. Benchmarks"
+  ],
+  [
+   685,
+   "#"
+  ],
+  [
+   775,
+   "### 8.2. Overall Performance"
+  ],
+  [
+   809,
+   "### 8.3. Overheads"
+  ],
+  [
+   862,
+   "### 8.4. Scaling"
+  ],
+  [
+   879,
+   "## 9. Related Work"
+  ],
+  [
+   913,
+   "## 10. Conclusion"
+  ],
+  [
+   918,
+   "## References"
+  ],
+  [
+   1566,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 5,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 1,
+  "java": 0,
+  "industrial": 2
+ },
+ "fulltext_source": "html"
+}

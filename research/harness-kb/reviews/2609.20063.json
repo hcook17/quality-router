@@ -1,0 +1,35 @@
+{
+  "arxiv_id": "2609.20063",
+  "contribution_type": "system",
+  "summary": "ROGUE (Fordham and IBM Research) builds audio-deepfake detection workflows by having an LLM policy agent sequentially pick detection tools (metadata heuristics up to large detectors) while a perturbation agent samples audio corruptions; the two are optimized adversarially with a cost penalty. The 'policy learning' is DSPy-style prompt optimization of GPT-5 (Claude Sonnet 4.6 and Gemini 3 Pro in the appendix), not weight updates. Trained on WaveFake/LJSpeech and evaluated on perturbed test splits and other datasets, ROGUE averages 0.91 robustness accuracy vs 0.89 for DF_Arena and 0.88 for a DSPy baseline (Table 1), but trails DF_Arena 1B/500M on cross-dataset generalization (0.95 vs 0.97, Table 2), despite the abstract claiming it consistently outperforms baselines on both. A permutation study shows the learned workflow amounts to a fixed coarse-to-fine cascade. The paper is about audio forensics, not coding agents.",
+  "claims": [
+    {"claim": "ROGUE consistently outperforms strong baselines in both robustness and generalization", "evidence": "Robustness: Table 1 average 0.91 vs DF_Arena 0.89 and DSPy 0.88, single run, no sample sizes or variance. Generalization: Table 2 average 0.95, below DF_Arena 1B and 500M at 0.97, so the paper's own table contradicts the generalization half of the claim.", "strength": "weak", "location": "Abstract, §4.1-4.2, Tables 1-2"},
+    {"claim": "Adversarial training yields perturbation-aware tool selection and adaptive execution", "evidence": "Stage-wise and perturbation analyses (Tables 3-5) are descriptive. The full-workflow number differs across tables (0.95 in Tables 4 and 6 vs 0.91 in Table 1), and Table 3's 0.74 is an unlabeled mean over five hard perturbations, so the figures cannot be reconciled from the text.", "strength": "weak", "location": "§4.3-4.4, Tables 3-6"},
+    {"claim": "The workflow structure itself matters beyond the individual detectors", "evidence": "Table 6 shows 'representative' permutations (6 of 24 orderings of four stages); the proposed coarse-to-fine order is best. This shows a fixed cheap-to-expensive cascade works, not that per-input adaptive generation is needed; no fixed-cascade baseline is reported as such.", "strength": "weak", "location": "§4.4, Table 6"},
+    {"claim": "ROGUE incurs only a modest, controllable increase in computational cost", "evidence": "Stated in §5 with no runtime, token or tool-call numbers anywhere.", "strength": "unsupported", "location": "§5"}
+  ],
+  "patterns": [
+    {"id": "P26", "stance": "mixed", "note": "Workflow found by adversarial prompt optimization (DSPy-style) beats a plain DSPy-optimized workflow on robustness (0.91 vs 0.88, Table 1) but loses to the DF_Arena detectors on cross-dataset generalization (0.95 vs 0.97, Table 2). Single run, no sample counts or variance, and the 'RL' framing overstates what is prompt search."},
+    {"id": "P36", "stance": "neutral", "note": "The permutation study (Table 6, 6 of 24 orders) implies the learned workflows reduce to a fixed coarse-to-fine cascade, which suggests a static graph would capture most of the benefit. No explicit static-cascade vs learned-workflow comparison is reported, and the domain is audio classification."},
+    {"id": "P23", "stance": "introduces", "note": "Cheap detectors first, escalate hard samples to expensive ones, with a cost term in the objective; the cost saving is never quantified."}
+  ],
+  "methodology": {"sample": "WaveFake train/test with LJSpeech real audio (1:1); additional datasets for cross-dataset tests; sample counts not reported", "baselines": "Single detectors including DF_Arena 1B/500M; DSPy-optimized workflow without the adversarial agent; stage-wise and permutation variants", "models": "GPT-5 as workflow generator (main); Claude Sonnet 4.6 and Gemini 3 Pro in the appendix", "variance": "None reported", "ablations": "Stage-wise standalone results, perturbation importance, 6 of 24 stage permutations", "contamination_controls": "Not discussed; several baselines and perturbations come from the authors' prior work", "languages": "Not applicable (audio)"},
+  "standards": {"peer_review": "arXiv preprint; formatted for a speech venue, none stated", "limitations_section": true, "artifacts": "No code, prompts or trained workflows released", "preregistration": "n/a"},
+  "biases": [
+    {"type": "no_variance_reported", "detail": "Single run, no sample sizes, no CIs; average gaps of 0.02-0.03 are uninterpretable."},
+    {"type": "cherry_picked_examples", "detail": "Table 6 shows 'representative' permutations, 6 of 24."},
+    {"type": "missing_cost_reporting", "detail": "The cost penalty is central to the objective, but no runtime or token numbers are reported."},
+    {"type": "closed_artifacts", "detail": "Nothing released."},
+    {"type": "novelty_inflation", "detail": "Prompt optimization is presented as adversarial reinforcement learning."},
+    {"type": "other:internal_inconsistency", "detail": "The full-workflow accuracy is 0.91 in Table 1 but 0.95 in Tables 4 and 6; Table 3's 0.74 is unlabeled."},
+    {"type": "other:claim_contradicted_by_own_table", "detail": "The abstract's generalization claim is contradicted by Table 2 (0.95 vs 0.97)."}
+  ],
+  "coi": {"affiliations": "Fordham University; IBM Research", "vendor_products_evaluated": "GPT-5, Claude Sonnet 4.6, Gemini 3 Pro as backbones; no IBM product evaluated", "funding": "Not stated", "severity": "low", "detail": "One vendor affiliation; no vendor product is graded. Several baselines and perturbation sets are self-cited."},
+  "scores": {"rigor": 2, "reproducibility": 1, "generalizability": 1, "relevance": 1, "coi_risk": 1},
+  "verdict": "reject",
+  "verdict_reason": "Off-topic for coding-agent harnesses: the subject is audio deepfake detection. Beyond relevance, the abstract's 'consistently outperforms' claim is contradicted by the paper's own generalization table, the numbers are inconsistent across tables, and there is no variance, sample size, cost data or code.",
+  "applicability": "Does not transfer to the Java team. The one reusable idea is generic: if an ordering of cheap-to-expensive checks is found by search, check whether a fixed cascade gives the same result before adopting a learned or generated workflow. Here the permutation study suggests a fixed coarse-to-fine order does most of the work.",
+  "conflicts_with": [
+    {"arxiv_id": "2609.38294", "detail": "Same batch, opposite emphasis: MoFlow credits searched workflow graphs with gains over hand-designed ones (small hypervolume margins), while ROGUE's own permutation evidence suggests its searched workflow mostly reproduces a fixed coarse-to-fine cascade."}
+  ]
+}

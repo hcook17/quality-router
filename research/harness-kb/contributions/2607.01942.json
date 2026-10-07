@@ -1,0 +1,18 @@
+{"arxiv_id": "2607.01942",
+ "contributions": [
+  {"kind": "design_pattern",
+   "statement": "When a multi-step agent plan fails at one step, record each step's inputs, outputs and status and redo only the failed step and its downstream dependents (keeping the step's input/output interface fixed) instead of replanning the whole task.",
+   "evidence": "§4.3, Fig. 4 ablation: removing minimal-subgraph repair costs about 6-8 points on Mistral-7B (ALFWorld 7.72, ScienceWorld 6.48) and similar on Llama-3-8B; figure only, single runs, 7-8B models, text-game environments, no code.",
+   "strength": "weak", "novelty": "refines",
+   "relative_to": ["workflow-engine retry of a failed task plus its downstream (Airflow/Make-style incremental re-execution)", "LLMCompiler/ADaPT-style local replanning", "2608.04588 milestone DAG replanning"],
+   "transfers": "indirect"},
+  {"kind": "design_pattern",
+   "statement": "Have the model simulate a compiled plan (tool choice, dependencies, interfaces) before executing it and repair flagged steps first.",
+   "evidence": "§5.3, Fig. 6: flags 19-27% of plans as risky with reported precision >74% (ground truth undefined); Fig. 4: removing it costs about 4-5 points on Mistral-7B.",
+   "strength": "weak", "novelty": "restates_known",
+   "relative_to": ["LLM self-critique / plan verification before acting (Self-Refine, plan-and-check)"],
+   "transfers": "indirect"}
+ ],
+ "quantity_flags": [],
+ "proposed": "hypothesis_only",
+ "reason": "Localized subgraph repair adds only a weak magnitude (figure-only ablation, 7-8B models, text games) to a known checkpoint/re-execute practice, so it stays an open hypothesis. The headline DAG-vs-ReAct gains are unreleased, not compute-matched and not coding, and they cannot back a gate for a frontier-model Java team."}

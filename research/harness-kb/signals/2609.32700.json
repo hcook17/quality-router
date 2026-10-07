@@ -1,0 +1,339 @@
+{
+ "arxiv_id": "2609.32700",
+ "fulltext_chars": 83993,
+ "fulltext_lines": 2344,
+ "authors_block": "Zuyao Xu Yuyang Jia Junwei Guan Xiang Li Kaiwen Shen§ Zhiqiang Dong Affiliation: Nankai University Tencent Security Yunding Lab § Tsinghua University Email: mailto:xuzuyao@mail.nankai.edu.cnxuzuyao@mail.nankai.edu.cnmailto:lixiang@nankai.edu.cnlixiang@nankai.edu.cn",
+ "vendor_affiliation_hits": [
+  "Tencent"
+ ],
+ "n_authors": 6,
+ "comment": "27 pages, 10 figures, 4 tables",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/Yeti-791/Tsec-Hackathon.",
+  "https://github.com/openai/plugins",
+  "https://github.com/oritera/Cairn."
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# CAIRN: Dynamic Fact–Intent DAGs for Multi-Agent Exploration"
+  ],
+  [
+   28,
+   "###### Abstract"
+  ],
+  [
+   45,
+   "## 1 Introduction"
+  ],
+  [
+   178,
+   "## 2 CAIRN: Exploration through fact–intent DAGs"
+  ],
+  [
+   185,
+   "### 2.1 Task solving as graph construction"
+  ],
+  [
+   219,
+   "### 2.2 Coordination through a shared graph"
+  ],
+  [
+   232,
+   "### 2.3 Inspectable trajectories and revision"
+  ],
+  [
+   243,
+   "## 3 Experiment Setup"
+  ],
+  [
+   260,
+   "#### Benchmarks."
+  ],
+  [
+   275,
+   "#### Systems setup."
+  ],
+  [
+   284,
+   "## 4 Results"
+  ],
+  [
+   416,
+   "### 4.1 Benchmark-level results"
+  ],
+  [
+   424,
+   "### 4.2 Task-dependent performance"
+  ],
+  [
+   457,
+   "#### Interpreting benchmark-level differences."
+  ],
+  [
+   471,
+   "### 4.3 Concurrency analysis"
+  ],
+  [
+   509,
+   "### 4.4 Execution trace analysis"
+  ],
+  [
+   525,
+   "## 5 Related Work"
+  ],
+  [
+   535,
+   "## 6 Conclusion"
+  ],
+  [
+   541,
+   "### AI use statement"
+  ],
+  [
+   548,
+   "### Ethics statement"
+  ],
+  [
+   555,
+   "### Reproducibility statement"
+  ],
+  [
+   561,
+   "## References"
+  ],
+  [
+   900,
+   "## Appendix A Algorithms and Graph Properties"
+  ],
+  [
+   906,
+   "### A.1 State and graph invariants"
+  ],
+  [
+   942,
+   "#### Acyclicity."
+  ],
+  [
+   952,
+   "### A.2 Asynchronous scheduling"
+  ],
+  [
+   1076,
+   "### A.3 Reasoner and worker decisions"
+  ],
+  [
+   1334,
+   "### A.4 Atomic submissions and receipt recovery"
+  ],
+  [
+   1422,
+   "## Appendix B Agent Prompts"
+  ],
+  [
+   1429,
+   "### B.1 Prompt construction"
+  ],
+  [
+   1501,
+   "## Time budget"
+  ],
+  [
+   1514,
+   "### B.2 Reasoner working prompt"
+  ],
+  [
+   1519,
+   "# Reason over the project graph"
+  ],
+  [
+   1639,
+   "## Submission protocol"
+  ],
+  [
+   1673,
+   "## Worker capacity at dispatch"
+  ],
+  [
+   1701,
+   "## Intent progress at dispatch"
+  ],
+  [
+   1729,
+   "## Graph"
+  ],
+  [
+   1733,
+   "## Valid facts"
+  ],
+  [
+   1737,
+   "## Open intents"
+  ],
+  [
+   1741,
+   "### B.3 Worker working prompt"
+  ],
+  [
+   1745,
+   "# Explore the assigned Intent"
+  ],
+  [
+   1773,
+   "## Submission protocol"
+  ],
+  [
+   1807,
+   "## Required completion"
+  ],
+  [
+   1837,
+   "## Graph"
+  ],
+  [
+   1841,
+   "## Current Intent"
+  ],
+  [
+   1845,
+   "## Intent description"
+  ],
+  [
+   1849,
+   "### B.4 Reasoner conclusion prompt"
+  ],
+  [
+   1853,
+   "# Conclude this Reason review"
+  ],
+  [
+   1923,
+   "## Worker capacity at dispatch"
+  ],
+  [
+   1937,
+   "## Intent progress at dispatch"
+  ],
+  [
+   1965,
+   "## Graph"
+  ],
+  [
+   1969,
+   "## Valid facts"
+  ],
+  [
+   1973,
+   "## Open intents"
+  ],
+  [
+   1977,
+   "### B.5 Worker conclusion prompt"
+  ],
+  [
+   1981,
+   "# Conclude the current Intent"
+  ],
+  [
+   2009,
+   "## Submission protocol"
+  ],
+  [
+   2043,
+   "## Required completion"
+  ],
+  [
+   2073,
+   "## Graph"
+  ],
+  [
+   2077,
+   "## Current Intent"
+  ],
+  [
+   2081,
+   "## Intent description"
+  ],
+  [
+   2085,
+   "## Appendix C Tool Interface and Execution Protocol"
+  ],
+  [
+   2091,
+   "### C.1 Graph records and data flow"
+  ],
+  [
+   2112,
+   "### C.2 Role-scoped tools"
+  ],
+  [
+   2232,
+   "### C.3 Ownership and transactional submissions"
+  ],
+  [
+   2252,
+   "### C.4 Example graph records"
+  ],
+  [
+   2277,
+   "### C.5 Revision and cancellation"
+  ],
+  [
+   2289,
+   "## Appendix D Experimental Setup and Reproducibility"
+  ],
+  [
+   2291,
+   "### D.1 Task interfaces and verification"
+  ],
+  [
+   2296,
+   "#### FrontierMath."
+  ],
+  [
+   2305,
+   "#### Cybench."
+  ],
+  [
+   2312,
+   "### D.2 Agent configuration and prompt composition"
+  ],
+  [
+   2321,
+   "#### Submission instructions."
+  ],
+  [
+   2329,
+   "#### Execution environment."
+  ],
+  [
+   2336,
+   "### D.3 Deadlines and measurement"
+  ],
+  [
+   2344,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "",
+ "ethics_coi": "### Ethics statement\n\nWe evaluate security agents only on authorized benchmark tasks in controlled environments.\nAll agents operate in isolated containers with no access to the public Internet or any third-party systems.\nWe do not use any private or sensitive data in our evaluation, and we do not deploy agents on live systems.\nAll results are reproducible using publicly available benchmarks, open-source agent implementations, and the shared model.\n\n### Reproducibility statement\n\nReaders can follow the evaluation from Cairn’s graph protocol and execution architecture (Section 2), through the experimental conditions (Section 3), to the reported results (Section 4).\nAppendices A–D then give the algorithms, role prompts, tool protocol, and detailed setup behind those runs.\nWe will also submit anonymized source code and configuration files in the supplementary material, including the Cairn implementation, evaluation scripts, and benchmark images to support independent reproduction of the reported results.\n\n## References\n\nAbramovich et al. (2025)\n\nTalor Abramovich, Meet Udeshi, Minghao Shao, Kilian Lieret, Haoran Xi, Kimberly\nMilner, Sofija Jancheska, John Yang, Carlos E. Jimenez, Farshad Khorrami,\nPrashanth Krishnamurthy, Brendan Dolan-Gavitt, Muhammad Shafique, Karthik R.\nNarasimhan, Ramesh Karri, and Ofir Press.\n\nEnIGMA: Interactive tools substantially assist lm agents in finding\nsecurity vulnerabilities.",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 4,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

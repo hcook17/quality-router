@@ -1,0 +1,15 @@
+{"arxiv_id": "2606.11864",
+ "blind_scores": {"rigor": 3, "reproducibility": 4, "generalizability": 4, "relevance": 3, "coi_risk": 2},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "medium",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "Level-3 labels capture functionally useful context, not just textual relatedness", "proposed_strength": "weak", "reason": "Algorithm 1 (App. E) initialises Q(3) with Q(2), so the L3 allowlist is always a strict superset of the L2 allowlist. Table 11 therefore compares an agent allowed to read more files against one allowed to read fewer, with no size-matched control (L2 plus random or BM25-matched chunks). A higher resolve rate shows that extra access helps, not that the extra labels are precise. Labels and validation also come from the same mini-SWE-agent/Qwen3.5 setup, with no human audit."}
+ ],
+ "pattern_stance_changes": [],
+ "missed_issues": [
+  "Per-language anomaly in Table 4: Qwen3-4B-SFT scores 92.0 NDCG@10 on Swift L2 (vs 60.5 for the 8B SFT), while most third-party baselines (CodeRankEmbed, bge-m3, gte-Qwen2, jina-code, Qwen3-4B, e5-mistral, SweRankEmbed) score exactly 0.0 on Swift. This points to a tiny Swift sample and/or truncation or encoding failures for some models; per-language query counts are not reported, so the per-language claims (including Java) lack denominators.",
+  "L3 qrels are mined from cat/grep/head/sed browse traces of a lexical-exploring agent (§3.2.3), so the 'broader context' label set is shaped by what grep-style exploration reaches. This matters for any dense-vs-lexical (P05/P06) reading of L3.",
+  "L1 and L2/L3 are not like-for-like: relevant docs per query are 4.8 / 10.42 / 41.27 and query lengths differ 2-3x (Table 1). Part of the 'sharp drop' reflects different metric ceilings and target densities, not only a capability gap; the moderate L1-L2 correlation (Fig. 4) is the cleaner evidence.",
+  "SFT data are built with the same L2 pipeline (PR description as query, patch-aligned chunks, repo-local negatives; App. B), so the SFT gain partly reflects format alignment with the benchmark's labelling rule, not general repository-search skill."
+ ],
+ "note": "I agree with admit_with_caveats and medium COI; the review already found the likely undisclosed Qwen3-Embedding authorship and the SFT regression on L1. I downgrade the L3 label-validity claim to weak because the validation allowlist is a superset by construction and has no size-matched control. I also note an unexplained Swift anomaly in the per-language table."}

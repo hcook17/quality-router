@@ -1,0 +1,48 @@
+{
+  "arxiv_id": "2606.15874",
+  "contribution_type": "position",
+  "summary": "A workshop position paper arguing that 'LLM-as-Orchestrator' agents commit a category error by sampling deterministic control flow (loops, branching, sequencing, termination). It proposes 'Agentic Programming': ordinary code owns the workflow and calls the LLM only at leaf judgments. Context follows the call tree, giving a DAG bounded by call depth, and self-improvements are committed as tested code. The only quantitative evidence is one OSWorld GUI-agent table that compares the authors' agent on three self-selected domains, in 15 steps, against leaderboard numbers for other systems at 100 steps. There is no controlled same-harness comparison and no ablation.",
+  "claims": [
+    {"claim": "LLM-orchestrated control flow is structurally unreliable (per-step error compounds), so known-structure workflows should be written as programs.", "evidence": "Argument plus an illustrative 8-URL figure (Fig. 1) and citations on long-context degradation and rule-following (Mu et al. 2023; Jiang et al. 2024; Liu et al. 2024). No measurement of control-flow error rates in the paper.", "strength": "weak", "location": "§2.1-2.3; Fig. 1"},
+    {"claim": "Program-owned control reaches 86.8% on OSWorld in 15 steps versus 80.4% for the strongest system at 100 steps.", "evidence": "Tables 1-2. Baselines are copied from the public leaderboard (accessed 2026-06-02), not re-run. Table 2 shows the agent covers only the 'three OSWorld domains our GUI automation agent targets' (Chrome, Multi-Apps, OS). A task-weighted mean of its three cells reproduces 86.8. The same weighting gives the baselines 60-72, not their listed Overall of 66.0-80.4, so the Overall column mixes a three-domain subset (Ours) with full-benchmark scores (baselines). Per-domain margins do favour Ours (Chrome 93.5 vs 78.5, Multi-Apps 80.0 vs 65.7, OS 100 vs 95.8), but the workflows were hand-coded for these public task families with no held-out split, and step definitions and prompts differ.", "strength": "weak", "location": "§3.4 Table 1; App. E Table 2"},
+    {"claim": "DAG-structured context keeps input length O(depth) rather than O(steps).", "evidence": "Follows from the design (returned calls collapse to a one-line summary, Fig. 2). No measured context sizes, token counts or quality impact.", "strength": "weak", "location": "§3.2, Fig. 2"},
+    {"claim": "Two production agents (GUI automation; overnight research pipeline) bear the claim out.", "evidence": "Only the GUI agent has numbers. The research pipeline is described without any metric.", "strength": "unsupported", "location": "§3.4; App. E"}
+  ],
+  "patterns": [
+    {"id": "P36", "stance": "mixed", "note": "The thesis is P36 in its strongest form: code owns sequencing and the LLM fills leaves. It contrasts itself with LangGraph only in that its call graph is unfolded at runtime by recursion rather than pre-declared (App. A). Comparison: the closest same-model contrast is the leaderboard 'claude-sonnet-4-6' plain loop (72.1 overall, 100 steps) vs 'LLM-as-Code w/ Claude Sonnet 4.6' (86.8, 15 steps). It is not re-run, not budget-matched, covers only three author-chosen domains against full-benchmark baselines, and uses hand-written per-domain workflow code. Directional, not isolating."},
+    {"id": "P37", "stance": "neutral", "note": "Argues against plan-and-execute because 'the plan is still LLM-generated and therefore still sampled' (App. A), but measures no LLM-generated plan. The 'DAG' here is the runtime call tree used for context scoping, not a planner-emitted task graph."},
+    {"id": "P08", "stance": "introduces", "note": "Call-scope context folding: returned subcalls collapse to their return value. No token or quality measurement."},
+    {"id": "P10", "stance": "neutral", "note": "Argues the single-agent orchestrator loop fails structurally. The only evidence is the uncontrolled leaderboard comparison above."},
+    {"id": "P33", "stance": "neutral", "note": "Positions itself as one layer beyond CodeAct: code should own the loop, not just be the action. No comparison."},
+    {"id": "P26", "stance": "introduces", "note": "'Self-programmed evolution' commits LLM-proposed functions as code only after they pass the caller's tests (§3.4, App. D walkthrough). No evaluation."},
+    {"id": "P11", "stance": "introduces", "note": "Claims multi-agent collaboration 'follows for free' because agents are functions; no evidence."}
+  ],
+  "methodology": {
+    "sample": "OSWorld Chrome, Multi-Apps and OS domains only (3 of ~10 domains), for the authors' agent.",
+    "baselines": "Leaderboard numbers for 10 systems at 100 steps; none re-run by the authors and none on the same three-domain basis.",
+    "models": "Claude Sonnet 4.6 for the authors' agent (Table 1); leaderboard models for baselines.",
+    "variance": "None reported.",
+    "ablations": "None. No same-model plain-loop run within the authors' harness, and no variant with code-owned control removed.",
+    "contamination_controls": "None. Workflows are hand-coded for public OSWorld task families with no held-out tasks.",
+    "languages": "Python agents; GUI tasks (not code generation)."
+  },
+  "standards": {"peer_review": "Accepted at the KDD 2026 AgenticSE workshop (workshop peer review).", "limitations_section": false, "artifacts": "No code released. The only GitHub link is to LangGraph documentation.", "preregistration": "n/a"},
+  "biases": [
+    {"type": "metric_mismatch", "detail": "The 'Overall' column compares a three-domain subset score (Ours) with full-benchmark leaderboard scores (baselines)."},
+    {"type": "self_reported_numbers", "detail": "All baseline figures are leaderboard entries, not reproduced under the authors' conditions."},
+    {"type": "benchmark_overfit", "detail": "Per-domain workflows are written in code by the authors for public OSWorld task families, with no held-out evaluation."},
+    {"type": "cherry_picked_examples", "detail": "Evaluation is restricted to the three domains the agent targets. Fig. 1's failure trace is illustrative, not measured."},
+    {"type": "novelty_inflation", "detail": "'Program owns control, LLM at the leaves' restates the familiar workflows-vs-agents distinction and existing code-first LLM pipelines (LangGraph, DSPy, which the paper itself discusses)."},
+    {"type": "hype_language", "detail": "Calls the orchestrator model a 'category error' whose failures 'will not be resolved by scaling alone', with no measured scaling analysis."},
+    {"type": "closed_artifacts", "detail": "No code for the GUI agent or the research pipeline."}
+  ],
+  "coi": {"affiliations": "City University of Hong Kong; Tencent Jarvis Lab.", "vendor_products_evaluated": "None from Tencent. Claude Sonnet 4.6 is the backbone.", "funding": "Not stated.", "severity": "low", "detail": "Vendor co-affiliation, but no vendor product is graded favourably."},
+  "scores": {"rigor": 1, "reproducibility": 0, "generalizability": 1, "relevance": 3, "coi_risk": 1},
+  "verdict": "reject",
+  "verdict_reason": "A position paper whose single quantitative claim is an uncontrolled leaderboard comparison: baselines are not re-run, the step budget differs, a three-domain subset is set against full-benchmark scores under one 'Overall' label, workflows are hand-coded for the benchmark, and there is no ablation. The design argument is relevant and clearly written, but the KB should not weight it as evidence that code-owned control beats an agent loop.",
+  "applicability": "For the Java multi-repo team this is a clear statement of the 'write known structure as code' heuristic, not evidence for it. The argument does map onto the team's situation. Steps that must always happen in order (resolve the spec, touch each of the 4+ ingestion repos, run each repo's build, run contract tests, open linked PRs) can live in a script or CI workflow rather than a prompt, with the agent invoked per repository or per step. That keeps control host-agnostic across Cursor, Claude Code, Codex and Hermes. The call-scope context idea (a finished sub-step leaves only its return value) is a cheap form of compaction worth trying. Do not cite the OSWorld number as proof; validate by running the same model with and without the scripted outer loop on the team's own tasks.",
+  "conflicts_with": [
+    {"arxiv_id": "2609.00050", "detail": "That paper's same-model ablation found model-determined progression nearly as reliable as hard-coded gating (99.0% vs 100% of 420 perturbed runs), which is much weaker support for the 'sampled control is structurally unreliable' thesis than this paper asserts."},
+    {"arxiv_id": "2609.00006", "detail": "Production coding harnesses surveyed there are all LLM-driven iterative loops, the 'orchestrator' design this paper calls a category error, and they remain the deployed default."}
+  ]
+}

@@ -1,0 +1,17 @@
+{"arxiv_id": "2607.11573",
+ "blind_scores": {"rigor": 3, "reproducibility": 1, "generalizability": 2, "relevance": 3, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "Coverage and mutation score do not predict real-bug detection", "proposed_strength": "weak", "reason": "The evidence is a ranking across 7 methods in Table II, and the metrics have different denominators (§III-B1). BC, LC and MS are averaged on the common-success subset, while RBDR uses all 172 tasks, so methods with low generation success (Direct GS 50.58%, KTester 73.26%) have RBDR depressed by failures, not by weak tests. Even so, MS and RBDR rank broadly together (the top two MS methods include the second-best RBDR; EvoSuite and Direct are low on both). No per-task correlation is computed. The data support 'imperfect proxy', not 'do not predict'."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P15", "from": "supports", "to": "neutral", "reason": "KITE generates and strengthens tests after the production code exists, against the correct version (§II-D, §III-A1). There is no test-first or red-green workflow and no comparison with one, so the paper says nothing about TDD with agents."}
+ ],
+ "missed_issues": [
+  "Enhancement budget is not matched. KITE runs up to five enhancement rounds per accepted injected method, at an average of 6.98 injected methods per task (§III-A3, Table V), while baselines use their original iteration budgets. Token cost is reported (0.177M vs 0.105M for MutGen), but no budget-matched baseline separates 'better feedback' from 'more rounds'.",
+  "The three smaller ablation deltas (-2.32, -4.07, -4.07 pp; Table IV) are 4 to 7 tasks out of 172 in a single run, within plausible run-to-run variation. Only w/o SBF (-19.76 pp) is clearly beyond noise.",
+  "Mechanism groups are 'reviewed for validity' (§II-A1) by an unstated reviewer, human or LLM. The quality of the 1,325-mechanism knowledge base is therefore unaudited.",
+  "P16 'supports' is kept: Direct (no feedback, 23.26) vs ChatUniTest (execution feedback, 45.35) vs coverage, mutation and synthetic-bug feedback (Table II) is a real comparison of feedback loops in the same evaluator, with one model and one run."
+ ],
+ "note": "I agree with admit_with_caveats; this is one of the few Java-native evaluations and its RBDR metric is the right one. However, P15 'supports' mislabels post-hoc test generation as test-first, and the 'coverage/mutation do not predict detection' claim rests on metrics computed over different denominators."}

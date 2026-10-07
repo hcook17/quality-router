@@ -15,7 +15,8 @@
     {"id": "P08", "stance": "contradicts", "note": "Expanding context-management logic associated with worse token efficiency (Finding 15); correlational."},
     {"id": "P03", "stance": "supports", "note": "Growth of system prompt and tool schemas compounds per turn (Finding 8)."},
     {"id": "P31", "stance": "neutral", "note": "Uses a 50-task SWE-bench Verified subset as the regression probe."},
-    {"id": "P10", "stance": "neutral", "note": "Single-agent CLI loop studied across versions."}
+    {"id": "P10", "stance": "neutral", "note": "Single-agent CLI loop studied across versions."},
+    {"id": "P36", "stance": "neutral", "note": "[retag 2026-10-07] Mention only: Agentless is cited as a 'lightweight, non-agentic' point in the design space (§1, §10.1), and the 'State Machine' in the reference architecture (App. A.2) tracks loop execution states, not developer-defined task steps. All 35 Qwen Code releases are the same single-agent ReAct loop, so there is no fixed-workflow comparison."}
   ],
   "methodology": {
     "sample": "35 releases x 50 SWE-bench Verified tasks (20 easy, 25 medium, 5 hard) x 2 runs = 3,500 executions; RQ0: 5 harness repos",

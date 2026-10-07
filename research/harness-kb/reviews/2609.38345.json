@@ -16,7 +16,8 @@
     {"id": "P30", "stance": "supports", "note": "Event streams expose the declared-vs-realized gap that outcome metrics hide, and caught 10 leaked-answer attempts on Terminal-Bench (App. B.1.2)."},
     {"id": "P24", "stance": "supports", "note": "Per-role token allowances enforced by pre-call gates. The budget ablation shows 0.5M per role cuts Pass@1 to 44.4%."},
     {"id": "P21", "stance": "neutral", "note": "Tool-set restriction (read-only, no edit) is the strongest lever for forcing delegation."},
-    {"id": "P31", "stance": "neutral", "note": "SWE-bench Pro, Terminal-Bench 2.1 and DeepSWE subsets."}
+    {"id": "P31", "stance": "neutral", "note": "SWE-bench Pro, Terminal-Bench 2.1 and DeepSWE subsets."},
+    {"id": "P36", "stance": "mixed", "note": "[retag 2026-10-07] OpenCollab (Duo) is a code-scripted Workflow: fixed order, two coders in separate environments, rule-based selection with a read-only adjudicator fallback (§3.2, App. B.1.3, C.1). Same model (GPT-5.6-Luna) and tools as single-agent Base: DeepSWE 69.91 vs 55.75% (21 vs 5 discordant, p=0.0025), Terminal-Bench 2.1 83.15 vs 79.78% (p=0.51), SWE-bench Pro 64.25 vs 63.21% (Tables 2, 9). But Duo spends 1.7-3.0x Base's tokens (DeepSWE 26.11M vs 11.95M), there is no compute-matched best-of-2 baseline, and each config runs once. A model-directed Team realized its declared organization in only 47.2% of runs at defaults (Table 3); the script guarantees handoffs by construction."}
   ],
   "methodology": {
     "sample": "Adherence experiment: 36 random SWE-bench Pro tasks per configuration. Cross-harness: 193 SWE-bench Pro, 89 Terminal-Bench 2.1, 113 DeepSWE tasks.",

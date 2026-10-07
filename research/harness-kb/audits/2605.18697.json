@@ -1,0 +1,14 @@
+{"arxiv_id": "2605.18697",
+ "blind_scores": {"rigor": 3, "reproducibility": 1, "generalizability": 2, "relevance": 1, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "agree",
+ "claims_disputed": [],
+ "pattern_stance_changes": [],
+ "missed_issues": [
+  "Production applicability: internal (@ocelot) code cannot handle exceptions (§4.1). Any external exception terminates the run, so retries, fallbacks and partial-failure handling must live in external code. That is a material restriction for real LLM pipelines with flaky providers, and the review does not mention it.",
+  "The 30 LLM-generated programs gain much less than the headline. A 1.8x geomean over all 35 with 3.9x on the 5 human-written workflows implies about 1.6x geomean for the CaMeL/ViperGPT suites, which are compared only with sequential Python. SecAssistant was also filtered to programs that run without error.",
+  "Table 1 credits LangGraph, ADK and LlamaIndex Workflows with parallel map. Their 2.0-2.1x deficit therefore reflects structure-preserving ports, where loops stay sequential inside a node, not an inability to express fan-out. The comparison measures restructuring effort as much as framework capability. This sharpens the review's strawman_baseline note.",
+  "Per-workflow framework results appear only in Figure 7. The text gives geomeans, so per-benchmark effect sizes and the ReliableRagQA regression cannot be checked numerically.",
+  "No provider rate-limit, 429 or cost behaviour is reported as concurrency rises. Speedups of up to 10.8x at fan-out 20 assume unconstrained API concurrency."
+ ],
+ "note": "I agree with admit_with_caveats and with the P36 'mixed' stance. This is the batch's only same-model, same-calls comparison. Graph frameworks beat naive sequential code but lose to concurrent dispatch of the same calls. The outcome is latency only, with one model and no artifact. I would put relevance at 1-2 for a Java coding-agent harness because the subject is LLM-orchestration latency, not coding-agent workflow design."}

@@ -1,0 +1,197 @@
+{
+ "arxiv_id": "2607.01942",
+ "fulltext_chars": 46414,
+ "fulltext_lines": 1009,
+ "authors_block": "Yue Zhang ††thanks: Equal contribution. Affiliation: South China University of Technology Sihan Chen11footnotemark: 1 Affiliation: South China University of Technology Ziwen Huang11footnotemark: 1 Affiliation: South China University of Technology Hanyun Cui Affiliation: Tsinghua Shenzhen International Graduate School, Tsinghua University Kangye Ji Affiliation: Tsinghua Shenzhen International Graduate School, Tsinghua University Zhi Wang ††thanks: Corresponding author. Affiliation: Tsinghua Shenzhen International Graduate School, Tsinghua University",
+ "vendor_affiliation_hits": [],
+ "n_authors": 6,
+ "comment": "14 pages, 7 figures",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Atomic Task Graph: A Unified Framework for Agentic Planning and Execution"
+  ],
+  [
+   48,
+   "###### Abstract"
+  ],
+  [
+   55,
+   "## 1 Introduction"
+  ],
+  [
+   88,
+   "## 2 Related Work"
+  ],
+  [
+   90,
+   "#### LLM Agents."
+  ],
+  [
+   94,
+   "#### Agentic Control Framework."
+  ],
+  [
+   100,
+   "## 3 Problem Formulation"
+  ],
+  [
+   102,
+   "#### Definition 1: Task."
+  ],
+  [
+   106,
+   "#### Definition 2: Tools."
+  ],
+  [
+   110,
+   "#### Definition 3: Agent."
+  ],
+  [
+   115,
+   "#### Core Problem."
+  ],
+  [
+   119,
+   "## 4 Method"
+  ],
+  [
+   126,
+   "### 4.1 Interface-Preserving Recursive Graph Compilation"
+  ],
+  [
+   132,
+   "#### Recursive Graph Compilation."
+  ],
+  [
+   136,
+   "#### Interface preservation."
+  ],
+  [
+   140,
+   "#### Termination."
+  ],
+  [
+   144,
+   "#### Refinement history."
+  ],
+  [
+   148,
+   "### 4.2 Dependency-Aware Execution"
+  ],
+  [
+   152,
+   "#### Thought experiment."
+  ],
+  [
+   157,
+   "#### Execution order."
+  ],
+  [
+   162,
+   "#### State recording."
+  ],
+  [
+   166,
+   "### 4.3 Minimal Necessary Subgraph Repair"
+  ],
+  [
+   170,
+   "#### Failure localization."
+  ],
+  [
+   174,
+   "#### Minimal Necessary Subgraph Repair."
+  ],
+  [
+   178,
+   "## 5 Experiments"
+  ],
+  [
+   180,
+   "### 5.1 Experimental Settings"
+  ],
+  [
+   182,
+   "#### Datasets and Metrics."
+  ],
+  [
+   186,
+   "#### Models and Baselines."
+  ],
+  [
+   190,
+   "#### Implementation and Evaluation Protocol."
+  ],
+  [
+   198,
+   "### 5.2 Results"
+  ],
+  [
+   200,
+   "#### Main Results."
+  ],
+  [
+   319,
+   "#### Approach Ablations."
+  ],
+  [
+   383,
+   "### 5.3 Analysis"
+  ],
+  [
+   385,
+   "#### Dependency-aware execution reduces execution steps."
+  ],
+  [
+   396,
+   "#### ATG reduces hallucinatory actions."
+  ],
+  [
+   408,
+   "#### Pre-execution thought experiment catches failures early."
+  ],
+  [
+   417,
+   "#### ATG scales consistently across backbones."
+  ],
+  [
+   429,
+   "## 6 Conclusion and Future Work"
+  ],
+  [
+   433,
+   "## 7 Limitation"
+  ],
+  [
+   437,
+   "## References"
+  ],
+  [
+   1009,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 7 Limitation\n\nATG has several limitations. It depends on the backbone LLM’s decomposition ability, and failure localization can be difficult under noisy observations or long-range dependencies. Our experiments focus on text-based benchmarks, while multimodal and real-world settings require further validation. ATG also introduces extra overhead for simple tasks.\n\n## References\n\n[1]\nL. Wang, C. Ma, X. Feng, Z. Zhang, H. Yang, J. Zhang, Z. Chen, J. Tang, X. Chen, Y. Lin, W. X. Zhao, Z. Wei, and J. Wen (2024)\n\nA survey on large language model based autonomous agents.\n\nFrontiers Comput. Sci. 18 (6), pp. 186345.\n\nExternal Links: Link,\nDocument\n\nCited by: §1,\n§2.\n\n[2]\nX. Li (2025)\n\nA review of prominent paradigms for llm-based agents: tool use, planning (including rag), and feedback learning.\n\nIn Proceedings of the 31st International Conference on Computational\nLinguistics, COLING 2025, Abu Dhabi, UAE, January 19-24, 2025, O. Rambow, L. Wanner, M. Apidianaki, H. Al-Khalifa, B. D. Eugenio, and S. Schockaert (Eds.),\n\npp. 9760–9779.\n\nExternal Links: Link\n\nCited by: §1,\n§2.\n\n[3]\nT. Schick, J. Dwivedi-Yu, R. Dessì, R. Raileanu, M. Lomeli, L. Zettlemoyer, N. Cancedda, and T. Scialom (2023)\n\nToolformer: language models can teach themselves to use tools.\n\narXiv preprint arXiv:2302.04761.",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 6,
+  "seeds_or_runs": 0,
+  "swe_bench": 1,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

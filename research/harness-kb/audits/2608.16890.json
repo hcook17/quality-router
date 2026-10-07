@@ -1,0 +1,18 @@
+{"arxiv_id": "2608.16890",
+ "blind_scores": {"rigor": 2, "reproducibility": 1, "generalizability": 1, "relevance": 3, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "Single-shot LLM generation fails universally: none of 11 attempts with five frontier models produces a valid ADSL", "proposed_strength": "weak", "reason": "Only 4 single-shot model/architecture cells per model appear in Table 2, and only Sonnet and GPT-4.1 SingleAgent rows. The Haiku 4.5, GPT-4o and Gemini single-shot attempts that make up 'five frontier models' are not reported anywhere; neither are the retry/metadata variants behind the body's 16. Each cell is n=1 with no execution feedback. The error-category split (~40/30/15/15%) comes from manual inspection of 11 failures with no coding protocol."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P36", "from": "mixed", "to": "introduces", "reason": "No comparison isolates the static graph in either direction. Wins are only against single calls without execution feedback, retries or schema injection. Topology-only at 0% (Table 3) has no matched no-topology arm with the same generic content and feedback, so it is not evidence against the graph either. The graph is used and described, not tested against a fair alternative."},
+  {"id": "P34", "from": "supports", "to": "introduces", "reason": "The 45.6%->100% A2 step bundles three changes: spec text, expected output variable names, and anti-hallucination hints written against observed failures on this same dataset (App. D). Its metric counts the variable names the treatment supplies, and value accuracy for the ablation arms is not reported. So it does not isolate structured acceptance criteria as improving correctness."}
+ ],
+ "missed_issues": [
+  "Internal inconsistency in the headline metric: the per-node output variables in Appendix A (Table 6) cover only 45 of the 49 ground-truth names in Appendix B (Table 7). No node produces AVGDD, CUESSION, DISESSION or VIESSION, yet 49/49 is reported for every Claude run. Three of those names do not match standard CDISCPilot01 ADSL variables (e.g. CUMDOSE, DISONSDT, VISNUMEN exist). Either the appendix tables are wrong or the ground-truth list is, and in both cases the 100% figure cannot be checked from the paper.",
+  "Appendix A lists HEIGHTBL, WEIGHTBL, BMIBL and BMIBLGR1 as outputs of both derive_demographics and derive_baselines, so the '2-5 new variables per node' decomposition overlaps. That is a possible source of the numeric-precision errors reported for BMIBL and HEIGHTBL in §5.6, and it is never discussed.",
+  "The per-node 'success' check validates that the output contains expected columns (§3.1), so node-completion rates in Tables 3-5 also depend on the expected-name list. That list is withheld from the topology-only and hints-only A2 arms, which biases those arms' node completion downward.",
+  "Retry lift (A5) compares first-attempt success with final success inside the same runs. Downstream nodes in those runs consumed retried upstream outputs, so a genuine no-retry run would cascade differently. The +9.7 pp is a lower-bound-style estimate, not a matched counterfactual."
+ ],
+ "note": "I agree with admit_with_caveats and with the review's main critique: strawman baselines, a name-coverage metric, tuning on the evaluation data, and topology-only at 0%. I move P36 and P34 to introduces because neither has an isolating comparison. I also add an appendix inconsistency, 45 of 49 target variables produced by any listed node, which means the 49/49 headline cannot be verified. The retry and schema-injection findings are the only usable within-system signals."}

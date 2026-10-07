@@ -1,0 +1,16 @@
+{"arxiv_id": "2609.27624",
+ "blind_scores": {"rigor": 3, "reproducibility": 4, "generalizability": 3, "relevance": 2, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "Safe A2A-compatible designs exist; remediation is implementation-level.", "proposed_strength": "moderate", "reason": "The seven negative controls in §6.2 / Table 3 are source inspections ('We also reviewed 7 paths'; caption 'Negative-control designs on inspected paths'), not executed collision tests like those behind Table 1. The paper notes the controls 'were not identical' and that suffixing (python-a2a) 'can create unstable aliases'. The only executed remediation evidence is the first-party sample test, where duplicate rejection stopped dispatch (§3.2, §8)."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P11", "from": "contradicts", "to": "neutral", "reason": "The paper shows an implementation vulnerability in how some hosts resolve remote A2A agent names. It explicitly says the issue is 'not a universal A2A protocol exploit' and that safe conforming implementations exist (§6.2, §7, §11). It measures nothing about whether multi-agent or role-based teams work for software tasks, so it is not evidence against the pattern."}
+ ],
+ "missed_issues": [
+  "P21 stance kept as supports, because the first-party sample test is a direct A/B: fail-open paths selected B, while duplicate rejection stopped dispatch and a distinct-name control restored A. But the review's note 'negative controls show this works' overstates. Those controls are inspected rather than tested, and the mapping to P21 (policy-as-code permissions) is loose, since the defense is identity binding at dispatch.",
+  "Results are pinned to revisions retrieved around 9 September 2026 (§3.2, Appendix A). The paper reports no present-tense status, and with no disclosure statement a reader cannot tell whether the listed versions have since been fixed.",
+  "Applicability detail: the Any-Agent path depends on OpenAI Agents SDK 0.20.0's default 'warn' collision policy, which keeps the last tool with a duplicate name (§4.2). This is the closest analogue for a harness that merges tool catalogs from several MCP servers across mixed hosts. It argues for a deterministic duplicate-tool-name check at stamp or registration time."
+ ],
+ "note": "I agree with admit_with_caveats and with every score. This is a carefully bounded security study with hashed reproducers. I removed the multi-agent-teams (P11) contradicts stance, because an avoidable implementation flaw in A2A name resolution is not evidence against multi-agent teams. I also downgraded the remediation claim, since its negative controls are code inspections rather than executed tests."}

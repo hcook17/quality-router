@@ -1,0 +1,15 @@
+{"arxiv_id": "2605.22534",
+ "blind_scores": {"rigor": 3, "reproducibility": 4, "generalizability": 3, "relevance": 3, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [],
+ "pattern_stance_changes": [
+  {"id": "P19", "from": "supports", "to": "neutral", "reason": "Every PR in the sample went through a human merge or close decision, so there is no ungated arm and no counterfactual outcome. Table 3 only describes how often reviewers intervened (15.4%), and 79.1% of merges show no observable interaction. Whether the gate prevented defects is never measured."},
+  {"id": "P32", "from": "supports", "to": "mixed", "reason": "This is a field study whose main finding undercuts the usual field metric. Merge/reject labels misattribute outcomes: only 35.7% of rejections are agent failures and 33.1% are unexplained (Table 2). Interaction-aware coding recovers rationale for about two thirds of cases. The pattern does not 'win' against an alternative; the result shows both the value and the limits of field evidence."}
+ ],
+ "missed_issues": [
+  "Internal contradiction: §3 removes 1,249 PRs 'without any human comments' to keep only human-reviewed PRs, yet §5 attributes the Unknown rejections to 'PRs closed without comments', and §7 says 33.1% of rejected PRs 'exhibited no observable comments or CI failures'. Either the filter does not work as described or 'human comment' includes non-decision text, which clouds the Unknown category behind the headline.",
+  "The repository distribution and language mix of the 717 coded PRs are not reported, and there is no clustering by repository. A few repositories with strict workflows could produce the Devin/Copilot 'workflow-driven' pattern, which §7 itself suspects.",
+  "The 'Non-AF' category includes 'incorrect submission context' and 'test PRs' (§5). Arguably these are agent or operator failures, so the AF/Non-AF boundary that drives the 35.7% headline is debatable."
+ ],
+ "note": "I agree with admit_with_caveats and with the review's claim grades; the review already caught the balanced-sampling mismatch and the self-merge confound. The P19 and P32 supports stances are inferences from descriptive counts with no comparison arm. There is also an unflagged contradiction between the human-comment filter and the 'closed without comments' explanation."}

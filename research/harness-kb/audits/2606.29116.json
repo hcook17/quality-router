@@ -1,0 +1,14 @@
+{"arxiv_id": "2606.29116",
+ "blind_scores": {"rigor": 2, "reproducibility": 2, "generalizability": 2, "relevance": 1, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "agree",
+ "claims_disputed": [],
+ "pattern_stance_changes": [],
+ "missed_issues": [
+  "The 'logic_control' category (Table 2) includes pure data-shaping nodes such as Set, Edit Fields, Split Out, Split In Batches, Item Lists, Aggregate and Wait. 'Logic-gated automation' (41.80%) therefore counts any transformation between an LLM and an action as mediation. It is not evidence of validation, which undercuts Takeaway 4 and any reading of these paths as containment.",
+  "RQ4's priority rule labels a workflow human_gated if any single LLM-to-action path is human-mediated, and logic_gated if any path is mediated, even when other paths from the same workflow are direct. The 2.78% is thus an upper bound on fully gated workflows, and the 26.52% automated_action share understates direct coupling.",
+  "The RQ4 downstream search is capped at six hops. Longer LLM-to-action paths fall into low_autonomy (22.71%), so action coupling may be undercounted in large workflows.",
+  "The RQ1 200-sample manual check does not state how many annotators labelled it. The 96% is single-rater agreement with an LLM labeller.",
+  "Takeaways 1-5 each come from one hand-picked template (#13849 and #7773). They are positions, not findings derived from the 6,003-workflow analysis."
+ ],
+ "note": "I agree with admit_with_caveats and with the neutral stances on P36, P19 and P21. Reproducibility is arguably 2: a site exists and the validation samples are said to be in the online artefact, but nothing is archival yet. For the DAG question this is a census of what static LLM workflow graphs look like, with no outcome data. Its 'mediation' construct is looser than the review's conflict notes assume."}

@@ -1,0 +1,18 @@
+{"arxiv_id": "2608.05886",
+ "blind_scores": {"rigor": 3, "reproducibility": 2, "generalizability": 2, "relevance": 2, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "Downstream utility follows a precision threshold: low-precision injection hurts, mid is neutral, high buys efficiency", "proposed_strength": "weak", "reason": "Precision is confounded with how many files each retriever returns and how it retrieves. BM25 and Jina are fixed at top-2 (App. E 'Top-K selection'), while CodeGrep returns a variable list averaging 1.31 files and is agentic. Each of the three points is a single temperature-0 run on one downstream model (§4.1, Table 3), and the BM25 resolve drop of 0.6 pp is 3 instances. The data show an ordering of three systems, not a precision effect."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P12", "from": "supports", "to": "mixed", "reason": "The win is measured only on the downstream agent's own tokens and rounds: paired −15% tokens / −9% rounds on 96 instances (§5.3), one run, and resolve +1.2 pp is within noise (Table 3). The explorer is a dense 14B model running up to 4 turns × 8 reads with a 4096-token generation cap (§3.2, App. A.4), and its tokens and latency are never added to the totals. The downstream model has only 3B active parameters, so the net cost benefit, which is the point of the pattern, is not measured."}
+ ],
+ "missed_issues": [
+  "missing_cost_reporting: CodeGrep's own inference tokens, turns and latency are excluded from the 'tokens on resolved instances' comparison in Table 3 and §5.3.",
+  "No prompted (un-RL'd) Qwen3-14B retriever baseline. The gain over BM25/Jina cannot be attributed to GRPO training as opposed to agentic grep retrieval in general.",
+  "Label inconsistency: §4.2 says retrieval is scored on held-out swe-rebench instances with CATM labels audited by the team (size not given), but App. E 'Scoring' says predictions are compared with the SWE-Bench gold-patch file set. It is unclear which labels Table 2 uses for BM25.",
+  "The 'limitations section' is a single sentence on resolve rate (§7). It does not discuss threats from the single downstream model, the single run, Python-only grep (--include=*.py, App. A.1), or label noise from the GLM-5.1 judge, which defaults ambiguous outputs to RELEVANT (App. A.2).",
+  "The review's generalizability of 1 is slightly harsh: SWE-Bench Verified spans 12 Python repos, which the rubric rates 2 (several repos, one language)."
+ ],
+ "note": "I agree with admit_with_caveats and with most of the review, which already flags the noise-level resolve lift and the pooled-vs-paired selection effect. I disagree that it supports P12: the explorer's own cost is never counted, so a net efficiency gain is not shown. The 'precision threshold' is confounded with output cardinality."}

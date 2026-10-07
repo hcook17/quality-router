@@ -1,10 +1,11 @@
 """Breaking-change detection for JSON Schema, Avro and OpenAPI (JSON or generated YAML).
 
 The research has no direct evidence for cross-repo agent coordination (P27);
-the closest evidence says verify deterministically: a static API diff catches
-95% of what LLM-written client tests catch (2608.20167), and agent edits must
-be AST operations validated against the target artifact (2606.24446,
-2608.30497). So contracts are the seam: every
+the closest evidence says verify deterministically: 95% of what LLM-written
+client tests caught on dependency bumps was crash-type breakage (missing
+classes and methods), which a static diff finds without running tests
+(2608.20167), and agent edits must be AST operations validated against the
+target artifact (2606.24446, 2608.30497). So contracts are the seam: every
 change is classified mechanically, and consumers are checked against providers.
 
 Roles (JSON Schema / OpenAPI):

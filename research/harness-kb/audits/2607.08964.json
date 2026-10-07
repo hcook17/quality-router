@@ -1,0 +1,18 @@
+{"arxiv_id": "2607.08964",
+ "blind_scores": {"rigor": 2, "reproducibility": 3, "generalizability": 2, "relevance": 2, "coi_risk": 1},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "Dense subtask grading is necessary to rank models (10 of 17 models pass zero tasks at R=1.0; 62.8% of runs make partial progress)", "proposed_strength": "moderate", "reason": "The counts in parentheses are solid (Fig. 4, §3.2). 'Necessary to rank' is not tested. Each model runs once (§3), so nobody checks that mean-reward rankings are stable across repeats, which is the property that would make them better than ties. Subtask weights are author-chosen and never validated. No comparison is made with other ways of breaking ties, such as repeated trials / pass@k or the R≥0.9 threshold already shown in Fig. 3. ρ=0.74 (§3.2) shows the two metrics differ, not that dense reward is the more valid one."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P16", "from": "supports", "to": "neutral", "reason": "The hidden verifier is the benchmark's end-of-run grader (§2.2) and is never fed back to the agent. No harness with an execution-verifier loop is compared against one without. The 14 'false finishes' (§3.5) motivate external checks but do not measure whether such a loop helps."},
+  {"id": "P31", "from": "mixed", "to": "introduces", "reason": "The paper proposes a new benchmark with partial-credit grading. Its only evidence about benchmark evaluation itself is that binary thresholds produce tie groups at this difficulty (§3.2). That is a property of its own task set, not mixed evidence on whether SWE-bench-style evaluation works."}
+ ],
+ "missed_issues": [
+  "Table 1 lists Hy3 (the Tencent model; corresponding authors are at Tencent) at 176.1 min per task and 435 episodes, while the paper says all runs use a 90-minute timeout (§1, Fig. 6). Either the authors' own model got a different budget or the timing is wrong. Either way, Hy3's placement as the 'low-cost anchor of the Pareto frontier' (§3.3, Fig. 5) cannot be compared like-for-like.",
+  "Harness confound: GPT-5.3 Codex runs under the Codex harness, while the other 16 models use Terminus-2 (§3). Its row is not a model-only comparison.",
+  "The 90-minute cap was set together with tasks calibrated to be hard at 1.5 h for DeepSeek-V4-Pro (§2.3). The '79% timeouts, so horizon budgeting is the binding constraint' finding is therefore partly built in by design.",
+  "There is no limitations or threats-to-validity section, and no validation that subtasks correspond to meaningful progress (no human or expert rating of partial-credit runs)."
+ ],
+ "note": "I agree with admit_with_caveats and with the review's catch of the abstract/body mismatch. However, it treats 'dense grading is necessary to rank models' as strong without any repeat-run stability check, and it credits P16 for a verifier that is only a grader. Hy3 running about 176 minutes under a 90-minute cap is an unflagged anomaly that touches the vendor's own model."}

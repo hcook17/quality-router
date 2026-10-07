@@ -1,0 +1,15 @@
+{"arxiv_id": "2605.29737",
+ "blind_scores": {"rigor": 3, "reproducibility": 4, "generalizability": 3, "relevance": 2, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [],
+ "pattern_stance_changes": [
+  {"id": "P17", "from": "supports", "to": "neutral", "reason": "No static analysis or linter is used anywhere. Security is judged by CWEval's execution-based oracles (§3.1), and the mitigation the paper proposes is hidden-state probes or decoding-time intervention (§5), not SAST. The review's note admits the stance is an inference ('Indirect')."},
+  {"id": "P16", "from": "supports", "to": "neutral", "reason": "The functional and security test oracles are the benchmark's measurement instrument (§3.1). The model never receives test feedback, and no verifier loop is compared with an alternative."},
+  {"id": "P14", "from": "mixed", "to": "neutral", "reason": "The 'spec' is the CWEval task docstring. The paper only shows that mid-docstring character noise is the most harmful perturbation (§4.3, Fig. 3); it never compares spec-first and non-spec workflows, so no evidence for or against P14 is measured."}
+ ],
+ "missed_issues": [
+  "The main analysis uses one greedy (T=0) generation per mutated prompt (§3.3). The App. A.3 T=0.8 check counts a CWE as affected if at least one of roughly 18 × 100–146 token-position mutations is BH-significant (Fig. 11). That is a lenient breadth criterion, and the paper reports no effect sizes at T=0.8.",
+  "The mutations are random ASCII substitutions that produce non-words ('otherwiseV', 'path'→'LotY'), not realistic keyboard-adjacent typos or paraphrases. The ethics section's framing ('the kind that arise from ordinary developer inattention') therefore overstates how realistic the threat model is."
+ ],
+ "note": "I agree with admit_with_caveats, the scores and the claim grades. The headline fragility finding is reasonably supported, and the review correctly flags the post hoc CWE grouping. The three harness-pattern stances (P17, P16, P14) are inferred recommendations or measurement instruments, not tested patterns, so they should be neutral."}

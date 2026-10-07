@@ -1,0 +1,12 @@
+{"arxiv_id": "2608.02680",
+ "blind_scores": {"rigor": 2, "reproducibility": 3, "generalizability": 1, "relevance": 2, "coi_risk": 1},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "agree",
+ "claims_disputed": [],
+ "pattern_stance_changes": [],
+ "missed_issues": [
+  "Table 2's rows see different inputs. The order-based baselines read only tool order, while the argument-level rows also read masked co-reference 'which this corpus supplies for free' (authors' caption). The 0.936 vs 0.711 F1 gap therefore measures the value of reading logged arguments, not of the admission rule's design. Combined with Table 3 (recency does the work), the lesson is 'use argument data flow plus most-recent producer', not 'use the exclusion test'.",
+  "The paper never reports whether the source ReAct agent's own trajectories pass the AppWorld state tests. The compiled workflow's 15/21 therefore has no loop baseline: the paper cannot say whether compiling raised or lowered task success relative to the agent it replaces.",
+  "The removable-call census comes from one ReAct agent whose prompts drive heavy api_docs lookups. Pooled, 71.4% of removable calls are byte-identical repeats concentrated in a few scenarios that re-read one resource hundreds of times. The median 51.4% is partly a property of that agent's looping, not of recurring intents in general."
+ ],
+ "note": "I agree with admit_with_caveats and with every claim strength and stance. The authors' own retractions already do most of the adversarial work. P36 'introduces' is right: there is no task-success or end-to-end cost comparison between the compiled workflow and the general agent on the same requests. P37 neutral is right. What survives is a measurement on synthetic data: order-derived DAG edges are ~42% spurious, while argument data flow plus recency is ~93% precise."}

@@ -1,0 +1,12 @@
+{"arxiv_id": "2609.01139",
+ "blind_scores": {"rigor": 3, "reproducibility": 2, "generalizability": 2, "relevance": 2, "coi_risk": 1},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "agree",
+ "claims_disputed": [],
+ "pattern_stance_changes": [],
+ "missed_issues": [
+  "The 'no human labels' Direct Prediction rows are not label-free. §4 says the direct prompt includes 'five ICL examples showcasing human evaluations at low, medium, and high scores', yet Table 1 separates 'Direct Prediction' from 'Direct Prediction (+ICL)' without saying which human-scored examples each uses. The comparison with CheckEval (zero labels) is therefore not label-matched, and the §4 vs Table 1 description is internally inconsistent.",
+  "App. C Table 3 widens the SummEval gap in favour of decomposition (AOI 0.608, ICL 0.594, L1-agnostic 0.579 vs Direct 0.566 ρ), while TopicalChat favours Direct (0.704 vs 0.60–0.62). With no significance tests, the evidence is dataset-dependent rather than 'no evidence' of gains (Abstract, §7).",
+  "The alt-test uses only three annotators, so WR takes coarse values (0.5, 0.58, 0.75, 1.0). 'WR 1.0 = human-level' rests on beating three individual annotators, averaged over criteria."
+ ],
+ "note": "I agree with admit_with_caveats, the identical scores and the P18 mixed stance. The review already flags the SummEval counter-evidence and test-set regressor selection. I add that the 'no human labels' direct baseline still sees human-scored ICL examples. Relevance to the Java team is limited to LLM-judge design."}

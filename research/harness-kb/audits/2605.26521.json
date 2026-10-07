@@ -1,0 +1,11 @@
+{"arxiv_id": "2605.26521",
+ "blind_scores": {"rigor": 3, "reproducibility": 1, "generalizability": 2, "relevance": 2, "coi_risk": 1},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "agree",
+ "claims_disputed": [],
+ "pattern_stance_changes": [],
+ "missed_issues": [
+  "The complement-derived restricted set makes the restricted criterion quadratic and cost-dominant: there are 248 restricted obligations vs 65 allowed and 41 delegation, and §Cost-and-scale reports ~39,216 s (~11 h) and 3,637 realizer round-trips for ten demo workflows, with octagon_vc_agents alone at 132 restricted edges / 2,285 round-trips. So the restricted criterion is both mis-specified (review's metric_mismatch) and the most expensive to run, which the review flagged as an artifact but not as a scalability problem.",
+  "Coverage 'misses' conflate two different causes: the bounded DSPy realizer failing to steer a scenario within N=5, and the declared edge genuinely not being routed. The paper's own internal-validity note concedes realizer reach, so a low coverage number is not cleanly a workflow regression signal; the 'useful adequacy layer' claim needs a code-routed or unguided-generator baseline to separate generator weakness from structural reality, which is absent."
+ ],
+ "note": "I agree with admit_with_caveats, the COI (low), and all pattern stances (P36 introduces, P21/P11/P30/P31 neutral, P16 introduces). The review is sharper than my blind pass on two correct points I under-weighted: the abstract's headline 54/75 and 36/48 appear nowhere in the body (Table II and RQ2 report 45/65 and 31/41 against totals of 65 and 41), and the restricted set is the complement of allowed edges exposed as recording stubs, so the 23/248 'violations' measure the LLM's willingness to call a visible undeclared tool, not a production failure. Those justify the review's rigor 2 over my blind 3 (I had already flagged no baseline, single run, and single model, but not the number mismatch), and the merge takes the lower. My other four blind scores match the review."}

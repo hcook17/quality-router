@@ -1,0 +1,13 @@
+{"arxiv_id": "2609.00050",
+ "blind_scores": {"rigor": 2, "reproducibility": 0, "generalizability": 2, "relevance": 2, "coi_risk": 1},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "agree",
+ "claims_disputed": [],
+ "pattern_stance_changes": [],
+ "missed_issues": [
+  "other:unspecified_oracles_and_perturbations: RepoValid, DeployVerified and RuntimeVerified are never specified per task, and the injected repository/deployment/runtime faults are not described (§4.2 says only 'a controlled failure'). VTCR and RSR are therefore only as meaningful as unpublished, author-chosen predicates, and the repository > deployment > runtime recovery ordering in Table 5 may reflect how the faults were designed rather than intrinsic stage difficulty.",
+  "Ablation 1 implies that at least 115 of 140 'nominal' tasks hit a natural verification failure. Its counterfactual stops at the first failed check, so it measures retry versus no retry, not this loop's design (separate Reflection/Diagnosis and Repair/Re-plan agents) against a generation agent that simply retries on test output.",
+  "Ablation 2's 'model-determined progression' still runs inside the same author-defined graph, with the same verification steps and evidence handed to the model. It isolates who decides the transition, not a workflow graph versus an open agent loop, so P36-vs-P10 remains untested.",
+  "hype_language: the conclusion claims the framework 'enables production-grade autonomous cloud engineering', while §6.3 lists production evaluation under real incidents as future work, and the main text reports only RQ1 (everything else is in the appendix)."
+ ],
+ "note": "I agree with the review's admit_with_caveats, its claim grades and its P36 'mixed' stance. Ablation 2 is a fair same-model comparison, but its 0 vs 4/420 gap is directional and non-significant, and it contradicts nothing. I would score reproducibility 0 (nothing released) and relevance 2 rather than 1 and 3, which is minor. The main gaps the review missed are the unspecified verification predicates and injected faults, which limit what VTCR and RSR mean."}

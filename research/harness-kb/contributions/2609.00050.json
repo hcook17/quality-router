@@ -1,0 +1,16 @@
+{
+  "arxiv_id": "2609.00050",
+  "contributions": [
+    {"kind": "nuance",
+     "statement": "Treat a hard, developer-defined evidence gate between pipeline stages (build/tests, deploy verified, runtime check green) as a backstop against rare premature 'done' transitions, not as what drives completion: with a strong model given the same evidence, model-decided progression crossed an unmet gate in 4 of 420 runs (3 at runtime verification) versus 0 with the hard gate.",
+     "evidence": "§6.2 Ablation 2, Table 9: GPT-5.6 Sol, same tasks, evidence and budgets; EGER 420/420 vs 416/420 (0/140 repository, 1/140 deployment, 3/140 runtime). One model, one run, Fisher p≈0.12 (review), downstream effect of the 4 crossings unreported, and the comparator stays inside the same graph.",
+     "strength": "weak", "novelty": "refines", "relative_to": ["2606.15874", "2607.07405"], "transfers": "indirect"},
+    {"kind": "heuristic",
+     "statement": "Inside each workflow stage, give the agent a bounded diagnose-repair-reverify loop with explicit attempt, time, token and tool-call caps, since stopping at the first failed check dropped verified completion from 95.0% to 12.9%.",
+     "evidence": "§6.2 Ablation 1, Table 9: GPT-5.6 Sol, 140 nominal tasks, graph and harness held fixed. The counterfactual is no retry at all, one model, one run, on an unreleased author-built benchmark.",
+     "strength": "moderate", "novelty": "restates_known", "relative_to": ["P16 execution-based verifier loop", "2609.07201", "2605.17242"], "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "hypothesis_only",
+  "reason": "The only P36-specific contribution, that a static evidence gate adds about 1 point of safety over model-decided transitions, rests on a non-significant single-model ablation, so it stays a hypothesis. The repair-loop ablation is large but restates established practice against a no-retry counterfactual. The rest is a system tour with metrics that are deterministic by construction."
+}

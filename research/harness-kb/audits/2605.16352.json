@@ -1,0 +1,18 @@
+{"arxiv_id": "2605.16352",
+ "blind_scores": {"rigor": 2, "reproducibility": 1, "generalizability": 2, "relevance": 3, "coi_risk": 1},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "Graph expansion is the main source of gain; delivering graph evidence inline beats separate graph tools.", "proposed_strength": "weak", "reason": "The first half rests on one MuLocBench Acc@5 ablation without variance (Table 3). The second half, inline vs separate tools, is never tested in a controlled way: no arm exposes the same sidecar graph as a separate tool. CoSIL and LocAgent are different systems with their own scaffolds, and the LocAgent reproduction looks broken (App. B Table 4: function-level Acc@1 5.0 and Acc@5 11.7 against file-level Acc@1 56.0), so the cross-system gap cannot be attributed to the interface."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P05", "from": "supports", "to": "mixed", "reason": "The lexical-only arm loses: 'w/o All modules' scores 46.8 vs 55.7 Acc@5 (Table 3), and Fig. 1 shows recall rising when graph augmentation is switched on. Lexical anchoring is never compared with another anchoring method. Lexical CLI agents do beat the graph-tool agents in Table 1, but across uncontrolled systems. Lexical search is necessary but not sufficient here, which makes the evidence mixed rather than a win for P05."},
+  {"id": "P03", "from": "supports", "to": "introduces", "reason": "Keeping the tool catalog unchanged is a design property of LARGER (§4, App. E.4). No experiment varies catalog size or compares the same graph exposed through a new tool."}
+ ],
+ "missed_issues": [
+  "Internal inconsistency: OpenHands scores differ between Table 1 and App. B for the same metrics. On LocBench, Table 1 gives Acc@1/Acc@5/Rec@5 of 57.7/67.5/75.3, while Table 4 gives 31.1/35.9/40.1. On MuLocBench, Table 1 gives 27.3/43.7/57.6, while Table 5 gives 16.3/26.4/33.7.",
+  "App. B.1: 186 of 560 LocBench instances 'failed with API authentication errors and are excluded' from LARGER's telemetry. The paper does not say whether Table 1's LocBench accuracy and the 60.0 s vs 129.2 s runtime comparison use 374 or 560 instances. If 374, the headline +11.8 compares different instance sets.",
+  "novelty_inflation: Theorems 1–2 and Proposition 1 are near-tautological. A superset context has at least the recall under an assumed fixed query stream, an assumption the paper itself says is violated in practice (§4.3 remark).",
+  "The host CLI agent for LARGER is never named; App. B.1 mentions 'step_finish' telemetry and run names like 'enhanced_nexus_v2'. The same-harness no-graph baseline appears only as one ablation number (MuLocBench Acc@5 46.8), not in Table 1. Codex and Claude Code run 'under their native interfaces' (Table 6), so prompts and runtimes are not matched with LARGER's localization prompt."
+ ],
+ "note": "I agree with admit_with_caveats and with P07 supports, which the on/off toggles and the graph-expansion ablation back. The 'inline beats graph tools' thesis rests on uncontrolled cross-system comparisons with a likely broken LocAgent run. Inconsistent OpenHands tables and partial LocBench coverage further lower rigor."}

@@ -1,0 +1,17 @@
+{"arxiv_id": "2608.19854",
+ "blind_scores": {"rigor": 3, "reproducibility": 4, "generalizability": 2, "relevance": 2, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "Treating architecture as continuously evolving state rather than a one-shot plan is the source of the gains ('a paradigm shift')", "proposed_strength": "weak", "reason": "What was tested is metric-gated refinement of the plan before coding: the architecture is frozen at convergence (§II-D). The size of that effect on statsmodels is +12.0 pp pass in Table III but +3.6 pp in RQ3 (81.90 -> 85.51) for what the text describes as the same 'initial architecture used as fixed' condition. Against RPG, evolution is bundled with the Dual-DAG and requirement context, so 'the source of the gains' is not isolated."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P10", "from": "contradicts", "to": "neutral", "reason": "§III-E: each method only constructs the repository structure, then 'all methods share the same downstream code-generation, validation, and repair scaffold'. mini-SWE-agent is therefore scored as a structure producer feeding Repo0's own TDD pipeline, not as an open coding loop, and its budget is unreported. The paper gives no evidence on a single-agent loop used as the coding harness."}
+ ],
+ "missed_issues": [
+  "Second internal inconsistency: RQ3 reports statsmodels/GPT-5 mini 'w/o evolution' at coverage 75.90, pass 81.90, voting 93.00 (§IV-C). Table III 'w/o Structural Evolution' for the same repo is 75.35, 73.51 and 93.65. Both are described as using the initial architecture as fixed, and the structural-evolution pass-rate gain is 3.6 pp or 12.0 pp depending on which is believed.",
+  "Measured against Table II's django Repo0 coverage (80.50), three of the four Table III ablations have higher django coverage (81.58-83.56). The django coverage deltas therefore change sign depending on which Repo0 row is used, not just in magnitude.",
+  "For the DAG-vs-loop question: because the shared scaffold does all coding, the headline comparisons are between planners (structure producers), not between a DAG pipeline and an open agent loop. The large margins over mini-SWE-agent (e.g. 0.00 vs 85.51 pass on statsmodels) measure what structure the loop leaves behind for someone else's TDD scaffold.",
+  "RQ3 values for the LLM-decided 1/3/5-round variants appear only in Figure 4, with no numbers in the text, so the size of the deterministic-gate advantage cannot be read from the paper."
+ ],
+ "note": "I agree with admit_with_caveats and with the review's P37 and P36 supports, both weak. The ordering ablation and RQ3 are genuine same-model isolating comparisons. I move P10 to neutral because the protocol never runs the plain loop as the coding harness, and I downgrade the 'continuous evolution is the source' claim, since the RQ3 and Table III numbers for the no-evolution condition disagree (3.6 vs 12.0 pp)."}

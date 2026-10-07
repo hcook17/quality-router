@@ -617,6 +617,43 @@
         "WCAG",
         "web accessibility"
       ]
+    },
+    {
+      "id": "T59",
+      "cluster": "C04",
+      "name": "DAG and task-graph planning for agents",
+      "phrases": [
+        "directed acyclic graph",
+        "task graph",
+        "DAG",
+        "parallel function calling",
+        "dependency-aware planning"
+      ]
+    },
+    {
+      "id": "T60",
+      "cluster": "C04",
+      "name": "Workflow graphs, state machines and graph runtimes",
+      "phrases": [
+        "agentic workflow",
+        "workflow orchestration",
+        "state machine",
+        "LangGraph",
+        "graph-based orchestration",
+        "deterministic workflow"
+      ]
+    },
+    {
+      "id": "T61",
+      "cluster": "C04",
+      "name": "Automated workflow generation and optimization",
+      "phrases": [
+        "workflow generation",
+        "workflow optimization",
+        "automated workflow design",
+        "agentic workflow search",
+        "AFlow"
+      ]
     }
   ],
   "patterns": {
@@ -654,6 +691,8 @@
     "P32": "Field/industrial evaluation",
     "P33": "CodeAct / code-as-action / CLI-first tools",
     "P34": "Structured requirements / acceptance criteria",
-    "P35": "Formal methods / verified generation"
+    "P35": "Formal methods / verified generation",
+    "P36": "Static workflow graph / state machine (developer-defined steps and gates)",
+    "P37": "LLM-generated task DAG (planner emits dependencies; parallel execution)"
   }
 }

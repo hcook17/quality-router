@@ -1,0 +1,21 @@
+{
+  "arxiv_id": "2608.24188",
+  "blind_scores": {"rigor": 3, "reproducibility": 4, "generalizability": 2, "relevance": 2, "coi_risk": 4},
+  "blind_verdict": "admit_with_caveats",
+  "blind_coi_severity": "high",
+  "agreement": "minor_disagreement",
+  "claims_disputed": [],
+  "pattern_stance_changes": [
+    {"id": "P24", "from": "supports", "to": "neutral", "reason": "No token budget or cap is enforced or compared. Table 10 is arithmetic over list prices and the measured rates, and C_self is unmeasured (§6.3). The one budget mechanism in the design, per-level target ratios L0-L3, did not survive distillation and collapsed to two bands (§4.1, Table 4)."},
+    {"id": "P23", "from": "supports", "to": "neutral", "reason": "There is no routing or cascade decision. Every request goes through the same compressor and the same claude-sonnet-4-5 solver (§6.2). The cheap-vs-frontier compressor comparison is not a win either: gpt-5 retains more quality (93.6% vs 86.5%, not separable at n=300), and Paritok's cost advantage holds only if the unmeasured C_self < $1.94/M (§6.3)."}
+  ],
+  "missed_issues": [
+    "Table 9's raw-source ratios (86.5%, 85.6%, 93.6%) cannot all come from one uncompressed baseline count; no baseline between 30 and 300 resolved instances gives all three at one-decimal rounding. 86.5% is not k/122 either. The raw-source baseline resolve count is never reported, so the review's 122-vs-109 paired evidence covers only the line-numbered 89.3%. The raw-source and GPT-compressor rows have no paired test, and the release can re-derive only the line-numbered rates from its cache (Reproducibility).",
+    "There is no zero-context (issue-only) arm. With oracle file context and a frontier solver on public, pre-cutoff SWE-bench Lite, nothing shows how much of the 122/300 needs the context at all. A high issue-only floor would make any compressor look near parity.",
+    "The title mechanism, intent-conditioning, is measured only on the teacher's targets (§4.2: the student inheritance probe 'we have not run'). No no-intent ablation of the shipped student exists.",
+    "The 'no degradation in identifier retention vs the teacher' result is not budget-matched. On the holdout the student's CR is 0.236 vs the teacher's 0.162 (Table 8 caption), so the student keeps about 46% more tokens, and on the 39 both-kept segments the CI crosses zero.",
+    "§7 attributes the 2x harder compression to 'stale L3 context the current intent does not touch'. The end-to-end harness compresses every segment at level L1 (§6.2) and the level scheme collapsed (§4.1), so the measured setting does not support that explanation.",
+    "The GPT-compressor baselines are specified in one sentence ('the same task given to ... as prompt-based compressors', §6.2), with no prompt, segmenting, level or intent input stated. The '2.0x/2.4x harder' comparison therefore rests on an undocumented baseline configuration."
+  ],
+  "note": "I agree with the verdict, the high COI and the P08 mixed stance; the paper's statistics check out (exact McNemar p=0.0789 on 17/47, sign test 22 vs 11 p=0.08, Table 10 arithmetic). Both supports stances credit things the paper only reasons about or uses: cost arithmetic and a fixed small-model preprocessing step. Neither is a measured budget or routing comparison. The raw-source headline 86.5% has no reported baseline count or paired test."
+}

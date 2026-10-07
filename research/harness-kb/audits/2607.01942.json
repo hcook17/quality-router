@@ -1,0 +1,18 @@
+{"arxiv_id": "2607.01942",
+ "blind_scores": {"rigor": 2, "reproducibility": 1, "generalizability": 1, "relevance": 1, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "Dependency-aware parallel execution improves execution efficiency.", "proposed_strength": "unsupported", "reason": "Nothing isolates parallel execution: there is no ATG-without-parallelism ablation, and Table 2 has one unlabelled row per method. ATG's lower step count is equally explained by fewer invalid actions (Table 3: 12% vs 43% of trajectories), and in single-agent stateful ALFWorld/WebShop the 'parallel' branches cannot run concurrently. Compile, check and repair LLM calls are excluded from the count."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P37", "from": "mixed", "to": "supports", "reason": "Same checkpoint, decoding config and action budget (§5.1): ATG beats ReAct/Reflexion in 9/9 backbone-benchmark cells, and so does PoG, a second LLM-DAG planner. Nothing in the paper points the other way; the only loss is to GPT-4 ReAct, a cross-model comparison. The weak, uncompute-matched, unreleased evidence is already captured by claim strength (all weak). 'mixed' would count this paper toward 'contested' without any contrary data."},
+  {"id": "P13", "from": "mixed", "to": "supports", "reason": "Same evidence as P37 (recursive decomposition then execution vs flat same-model loops); the review itself says 'same caveats as P37'. Direction is uniformly positive, strength weak."}
+ ],
+ "missed_issues": [
+  "The PoG baseline is itself an LLM-generated parallel DAG planner, and it beats ReAct and Reflexion in all 9 cells (e.g. Mistral ALFWorld 23.72 vs 6.57). That is a second same-model DAG-vs-loop result. It also shows the DAG alone is not what gives ATG its 20-50 point lead over PoG.",
+  "ATG scores are nearly backbone-invariant (ALFWorld 55.7/58.7/63.7; WebShop 62.8/64.9/68.4) while every baseline swings widely across backbones (Gemma WebShop: ReAct 5.93, PoG 12.56). The per-environment 'atomic tool' set (Definition 2 allows task-specific functions) is never listed, so ATG may get higher-level actions or task-specific prompts that the baselines lack.",
+  "Fig. 6 reports 'failure precision' >74% and 'repair success rate' with no stated ground truth for a 'risky plan' and no sample size.",
+  "Test-set sizes are never stated for any benchmark."
+ ],
+ "note": "I agree with admit_with_caveats at low weight. I credit the stance more than the review did: two different LLM-DAG planners beat same-model linear loops everywhere, so the direction is clear for 7-8B models in text environments. I discount the magnitude more: the ATG numbers barely depend on the backbone, the tools and prompts are unreleased, and no claim exceeds weak. Nothing here bears on frontier-model coding agents."}

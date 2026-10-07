@@ -1,0 +1,30 @@
+{
+  "arxiv_id": "2608.02001",
+  "blind_scores": {
+    "rigor": 2,
+    "reproducibility": 1,
+    "generalizability": 2,
+    "relevance": 2,
+    "coi_risk": 1
+  },
+  "blind_verdict": "admit_with_caveats",
+  "blind_coi_severity": "low",
+  "agreement": "minor_disagreement",
+  "claims_disputed": [],
+  "pattern_stance_changes": [
+    {
+      "id": "P05",
+      "from": "mixed",
+      "to": "neutral",
+      "reason": "Lexical tooling (grep/rg/find/cat) is the fixed experimental condition for every configuration (\u00a7Agentic Scaffolds); no embedding, graph or LSP retrieval arm is compared. Fig. 6 action shares and the 56.5% file/line-miss rate (Fig. 5) describe failure modes under one condition, so there is no evidence on either side for 'mixed'."
+    }
+  ],
+  "missed_issues": [
+    "The read-only tool restriction is given in the prompt, not enforced: the trajectory analysis defines 'Other' as 'actions beyond those explicitly provided to the agent in the prompt', and MiniSWE shows a larger share of them (\u00a7Agent Trajectory Analysis, Fig. 6). Effective tool sets therefore differ by scaffold, which confounds the scaffold-LLM comparison. It is also a small piece of P21-relevant evidence that prompt-only tool policies leak; this matters for mixed agent hosts.",
+    "Claude Code is driven by DeepSeek/GLM/MiniMax models, which requires an unstated API-compatibility layer. The 'scaffold' effect in Table 2 is confounded with that adapter and with Claude Code being run off its native model.",
+    "T2 and T3 are not symmetric tasks: T3 asks for 'all COs reachable' from an oracle EP, while T2 asks for EPs leading to an oracle CO (\u00a7Oracle-Conditioned Tasks). Target counts and search spaces differ, so 'EP identification is harder than CO localization' compares unequal task definitions as well as capabilities.",
+    "Oracle-conditioned subtasks and frontier-model runs are reported only on the Hard subset; the scaling series uses only Claude Code. The '4B outperforms 9B on Easy' non-monotonicity rests on a single run each.",
+    "Cohen's kappa 0.87 measures agreement on Correct/Repair/Incorrect/Unsolved labels for pipeline-generated records, not on whether the annotated trace is the unique or canonical path. Combined with the k=5 line window and Levenshtein ES, valid alternative traces are scored as misses."
+  ],
+  "note": "Close agreement: identical blind scores, verdict and COI, and the review's claim strengths are already well calibrated (scaffold-compatibility and cost claims correctly marked weak). The only change is P05 mixed\u2192neutral, because grep-only retrieval is never compared with an alternative. The review also misses that the read-only restriction was prompt-level and leaked."
+}

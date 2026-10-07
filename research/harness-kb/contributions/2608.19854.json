@@ -1,0 +1,26 @@
+{
+  "arxiv_id": "2608.19854",
+  "contributions": [
+    {"kind": "design_pattern",
+     "statement": "When agents scaffold a new module or service from requirements, have the planner emit an explicit requirement-to-component map and a component dependency graph, refine it against rule-based cohesion/overlap checks before any code is written, then freeze it and generate per component; with the same downstream TDD scaffold this beat a one-shot planning graph by 7.6-29.7 pp pass rate.",
+     "evidence": "Table II (3 Python repos x GPT-5 mini and DeepSeek V3.2; Repo0 mean of 3 runs, no variance; baseline run counts unstated): pass rate vs RPG +7.61 to +29.74 pp, coverage +4.55 to +20.08 pp, with all methods sharing the code-generation/validation/repair scaffold (§III-E). The gain bundles structural evolution, the Dual-DAG and requirement context.",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["planner-executor (P13)", "LLM-generated task DAG (P37)", "RPG repository planning graph (2025)"],
+     "transfers": "indirect"},
+    {"kind": "heuristic",
+     "statement": "If an LLM may restructure a plan, let deterministic rules decide when to act and when to stop (here: split when requirement-edge cohesion < 2/3, merge when responsibility Jaccard > 0.7, stop when no rule fires) instead of giving it free restructuring rounds, which degraded results after one round.",
+     "evidence": "§IV-C, Fig. 4: statsmodels, GPT-5 mini only. Metric-gated convergence beats LLM-decided restructuring at 1/3/5 rounds on coverage, pass and voting; LLM-decided variants degrade after round one. Thresholds were picked on two held-out Commit0 Lite repos. Values for the LLM-decided arms are only in the figure.",
+     "strength": "weak", "novelty": "refines",
+     "relative_to": ["deterministic gates over LLM decisions (2607.07405, 2606.10106)"],
+     "transfers": "indirect"},
+    {"kind": "nuance",
+     "statement": "Generating components in the order of an explicit dependency graph helped a lot on one repository and not at all on another, so measure it on your own cross-module changes before mandating dependency-ordered agent execution.",
+     "evidence": "Table III, w/o Component-Graph Ordering: pass rate 0.00 change on requests, -30.00 on statsmodels, -6.66 on django; one backbone, no variance.",
+     "strength": "weak", "novelty": "refines",
+     "relative_to": ["2608.00267"],
+     "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "The planner comparison under a shared execution scaffold is a moderate, same-backbone result that a team scaffolding new modules can use. Python greenfield only, and it compares planners, not a DAG pipeline against an open coding loop. The gate and ordering findings are single-repo and kept as weak refinements."
+}

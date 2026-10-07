@@ -1,0 +1,18 @@
+{"arxiv_id": "2606.18051",
+ "blind_scores": {"rigor": 2, "reproducibility": 1, "generalizability": 1, "relevance": 2, "coi_risk": 1},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "major_disagreement",
+ "claims_disputed": [
+  {"claim": "Task decomposition granularity, not retrieval, is the primary bottleneck in compositional skill routing", "proposed_strength": "weak", "reason": "The paper's own causal test contradicts the wording. §7.6's oracle step-count prompt (DA 99.3%) raises CatR@1 only from 34.2% to 39.8% (+5.6 pp), while the top-1 vs top-10 gap stays ~39 pp (39.8% vs 79.1%); §8 concedes reranking, 'not better decomposition', is the next bottleneck. The 41.2% 'DA=1-conditioned' figure is a selection effect on an easier, non-random subset. Retrieval is the larger measured gate."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P03", "from": "supports", "to": "introduces", "reason": "The two pieces of evidence behind 'supports' are ones the review itself grades weak. The LLM-Direct comparison uses qwen-max on 50 queries with 100 bare skill names vs 7B on 300 queries (§7.3). The 99% context reduction is arithmetic at an assumed 400 tokens per skill, not a measurement (Table 3). There is no expose-all or small-catalog run with task outcomes, and only 7.3% of queries get every step's category right (Table 2 Chain_cat). The system uses retrieval-narrowed tool exposure but never shows it beats a reasonable alternative."},
+  {"id": "P02", "from": "mixed", "to": "neutral", "reason": "The 'skills' are awesome-mcp-servers registry entries (name plus one-line description, §5.1, App. H), not SKILL.md packages with bodies loaded on demand. No progressive-disclosure alternative is compared. Low top-1 retrieval says something about tool retrieval at a 2,209-entry scale, not about skills as a context pattern."}
+ ],
+ "missed_issues": [
+  "The 'end-to-end viability' evidence cited in §1 and §4.3 (App. I, 76.7% chain completion) comes from mock executors with hard-coded per-category success rates of 80-95%, apparently independent of whether the routed skill is correct. Table 2 shows that only 4.0% (vanilla) to 7.3% (SAD) of queries have every step routed to the right category, so the plans are mostly wrong even when 'executed'.",
+  "Chain_cat is defined inconsistently: §5.3 says 'average fraction of steps per query' with the correct category; the Table 2 caption says 'fraction of queries where all steps' are correct. The 0.04-0.07 values only fit the latter.",
+  "The DAG/compose stage (dependency detection via linguistic markers, Eq. 4) is never evaluated (§4.3, 'Scope of current evaluation'), so the paper provides no evidence for P37 (LLM-generated task DAG) despite the abstract advertising a 'dependency-aware DAG planner'.",
+  "All decomposers are Alibaba Qwen models (Qwen2.5-7B/14B, qwen-max) and the 'human-style' queries are written by qwen-max. Generalization across model vendors is untested, not just across sizes."
+ ],
+ "note": "Same verdict (admit_with_caveats), but two load-bearing items are wrong. P03 'supports' rests on a mismatched baseline and arithmetic the review itself rates weak. The headline 'decomposition is the primary bottleneck' is contradicted by the paper's own oracle step-count control. The 76.7% end-to-end figure comes from mock executors, while true all-steps-correct routing is 7.3%."}

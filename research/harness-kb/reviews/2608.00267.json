@@ -16,7 +16,9 @@
     {"id": "P12", "stance": "supports", "note": "Claude dynamic workflows with narrower worker contexts reach the best RQ3 resolve rate (24.11%) vs single-transcript goal modes; single configuration runs."},
     {"id": "P08", "stance": "mixed", "note": "Compaction/context renewal counts differ widely across loops (13-98 rounds/run); renewal does not remove regression pressure (Fig. 5 compaction sensitivity)."},
     {"id": "P10", "stance": "contradicts", "note": "Open-source linear-control-flow harnesses (OpenHands, SWE-agent, mini-swe-agent) form near-chain plans and resolve the fewest tasks under the same model."},
-    {"id": "P24", "stance": "neutral", "note": "Billed tokens per task reported in App. J."}
+    {"id": "P24", "stance": "neutral", "note": "Billed tokens per task reported in App. J."},
+    {"id": "P36", "stance": "neutral", "note": "[retag 2026-10-07] The fixed source-recovered task DAG with topological test-release gates (§2.4, §2.6) is evaluator-side only: the gate 'affects scoring rather than editing permission' and the loop chooses its own order. No agent workflow is driven by a static graph and none is compared with an open loop."},
+    {"id": "P37", "stance": "mixed", "note": "[retag 2026-10-07] RQ2 requires every loop to emit a plan DAG (plan.json nodes/edges/layers, App. P). Table 3: plan Edge F1 vs reference DAG only 0.27-0.71; closed harnesses over-parallelize (Width Ratio 1.08-1.14), open ones form near-chains (0.24-0.39). Table 4: Claude dynamic workflows (run-time task-specific workers) get the best RR, 24.11% vs 20.59/17.65/7.84% (Codex goal, Claude Code goal, Ralph), but the most regressions (0.36/run). Single runs with a different model per loop (App. N.2 run ids: gpt-5.5, opus-4.6, opus-4.7, opus-4.8) and 102 vs 112 scheduled tasks, so not isolated."}
   ],
   "methodology": {
     "sample": "112 tasks, >5,300 development units, 8 programming languages, 9 domains; median dependency depth 6.",

@@ -1,0 +1,115 @@
+{
+  "arxiv_id": "2608.22551",
+  "contribution_type": "system",
+  "summary": "DAGSmith optimizes the cost of dbt-style SQL data pipelines, where the DAG is the user's graph of SQL models, not an agent workflow. Deterministic dataflow analysis picks up to 20 bounded subgraphs (at most 60 nodes each). A fixed four-role GPT-5.4 loop (proposer, critic, rewriter, verifier) rewrites each subgraph and checks it with LLM-written SQL counterexample queries run against the warehouse, with up to 3 attempts. A learned cost model plus an ILP then retune table/view materialization and select compatible rewrites, and refresh frequencies are re-aligned. On BigQuery it cuts frequency-weighted slot-time by 67.7% on Tuva's 255-model claims module (synthetic 10K patients) and 54.8% on a 65-model Stripe project, against 37.9% and 9.3% for the best baselines. Handing the whole DAG to the LLM under the same budget produced no runnable project.",
+  "claims": [
+    {
+      "claim": "DAGSmith reduces Tuva elapsed time by 42.6% and warehouse compute (slot-time) by 67.7%, and leads every metric on both projects",
+      "evidence": "Table 2, median of three runs with no dispersion, on two projects, one warehouse and one LLM. Frequency-weighted figures depend on synthetic refresh profiles whose cadences are assigned at random, with leaves deliberately skewed faster than roots to create the over-scheduling the frequency dimension exploits (§4.1). Tuva runs on a synthetic patient population.",
+      "strength": "moderate",
+      "location": "Abstract, §4.1, §4.2, Table 2"
+    },
+    {
+      "claim": "These reductions are 22.8%/83.0% larger than materialization-only tuning and 98.1%/348.3% larger than state-of-the-art single-query rewriting",
+      "evidence": "The arithmetic is right, but these are ratios of percentage reductions (67.7 vs 15.1 slot). The 'state-of-the-art' comparator is GenRewrite, the authors' own prior system (Liu and Mozafari 2026). The strongest baseline, CSE at 37.9%, is a heuristic AST-level re-implementation by the authors and is not the headline comparison.",
+      "strength": "moderate",
+      "location": "Abstract, §1, Tables 2-3"
+    },
+    {
+      "claim": "Whole-DAG LLM refactoring fails, and dataflow-guided targeting spends a fixed LLM budget better than random subgraphs (51.1% vs 43.1% single-run slot reduction)",
+      "evidence": "Table 5 holds subgraph count, size cap and attempts fixed. The whole-DAG arm finds most opportunities but never yields a runnable project (truncated output, inconsistent cross-model references; the correction scope shrinks 51 to 35 to 8 models). Tuva only.",
+      "strength": "moderate",
+      "location": "§4.3.2, Table 5"
+    },
+    {
+      "claim": "The equivalence-verification loop reliably rejects unsafe rewrites without being a dead end",
+      "evidence": "Of 12 Tuva subgraphs, 3 pass on the first attempt and all 12 within two (Table 6). The checks are SQL queries written by the verifier LLM and run on the project's data (synthetic for Tuva). There is no seeded-fault or mutation test, so the rate of unsafe rewrites that slip through is unmeasured. The authors concede there is no equivalence proof and still require a human check before deployment (§3.2).",
+      "strength": "weak",
+      "location": "§3.2, §4.4.1, Table 6"
+    },
+    {
+      "claim": "LLM cost is small and one-time: $11.51 and 2.4M tokens for 'Tuva's 375 models', about $0.03 per model",
+      "evidence": "Inconsistent with the setup, which uses a 255-model module of an 842-model project (§4.1); at 255 models the per-model cost is about $0.045. A one-time cost only holds if the pipeline does not change; re-optimization after edits is not discussed.",
+      "strength": "weak",
+      "location": "§4.1, §4.4.2, Table 7"
+    },
+    {
+      "claim": "The learned cost model is accurate enough for its ranking decisions (slot-time R2=0.74 from static features)",
+      "evidence": "Fit per project on 156 instrumented Tuva models; whether R2 is in-sample is not stated, and cardinality R2 is 0.28. No ranking-accuracy metric is reported, though ranking is the stated requirement.",
+      "strength": "weak",
+      "location": "§4.4.3"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P36",
+      "stance": "supports",
+      "note": "Narrow and secondary: the agentic part is a fixed four-role loop over deterministically selected, size-capped subgraphs. With the same LLM-call budget, deterministic dataflow targeting beats random subgraph selection (51.1 vs 43.1 single-run, 67.7 vs 58.0 frequency-weighted slot reduction), and an unscoped whole-DAG LLM pass produced no runnable output (Table 5). One project, one model, no dispersion."
+    },
+    {
+      "id": "P37",
+      "stance": "neutral",
+      "note": "No LLM-generated task DAG. The DAG is the user's existing dbt pipeline, an input to optimize; the LLM rewrites nodes and may add models, but never plans the agent's own work as a dependency graph."
+    },
+    {
+      "id": "P11",
+      "stance": "introduces",
+      "note": "Proposer, critic, rewriter and verifier roles separate generation from scrutiny; the role split is not ablated."
+    },
+    {
+      "id": "P16",
+      "stance": "mixed",
+      "note": "Execution-backed checks against warehouse data catch grain-collapse and algorithm-substitution errors (9/12 subgraphs fail first). The checks are LLM-written and run on synthetic data, with no measure of missed unsafe rewrites."
+    },
+    {
+      "id": "P18",
+      "stance": "introduces",
+      "note": "An LLM critic filters slow or unsafe proposals before rewriting; its precision is not measured."
+    },
+    {
+      "id": "P24",
+      "stance": "neutral",
+      "note": "Reports the one-time LLM cost ($11.51) and holds the LLM-call budget fixed in the targeting ablation; the model-count denominator is inconsistent."
+    },
+    {
+      "id": "P19",
+      "stance": "neutral",
+      "note": "Adopted rewrites are 'meant for a final human check before deployment'; the gate is not evaluated."
+    }
+  ],
+  "methodology": {
+    "sample": "Two dbt projects: Tuva claims-preprocessing module (255 of 842 models, synthetic 10K-patient data) and Stripe payments analytics (65 models); three synthetic refresh profiles per project.",
+    "baselines": "LearnedRewrite (rule-based per-query), GenRewrite (LLM per-query, the authors' own prior work), CSE (cross-model common subexpressions, re-implemented heuristically at AST level). Internal ablations: R/M/F subsets, whole-DAG and random-subgraph targeting.",
+    "models": "OpenAI GPT-5.4 for every LLM call.",
+    "variance": "Median of three runs; no spread or significance reported.",
+    "ablations": "All R/M/F dimension subsets on Tuva (Table 3); targeting rule under fixed LLM budget (Table 5). Stripe is not ablated.",
+    "contamination_controls": "Not discussed; largely irrelevant because outcomes are measured warehouse costs, though both projects are public.",
+    "languages": "SQL (BigQuery dialect) in dbt projects"
+  },
+  "standards": {
+    "peer_review": "None stated (arXiv preprint)",
+    "limitations_section": false,
+    "artifacts": "None linked: no code, prompts, rewritten pipelines or frequency profiles released.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "single_model", "detail": "Every LLM role uses GPT-5.4."},
+    {"type": "small_sample", "detail": "Two projects; ablations on one; 12 verified subgraphs."},
+    {"type": "closed_artifacts", "detail": "No code or data release for a system whose gains depend on prompts, thresholds and a learned cost model."},
+    {"type": "self_evaluation", "detail": "The headline relative comparison is against the authors' own prior system, and the strongest baseline is the authors' re-implementation."},
+    {"type": "other:synthetic_workload_assumptions", "detail": "Refresh cadences are randomly assigned with leaves skewed faster than roots, which builds in the over-scheduling the frequency dimension removes; Tuva data are synthetic."},
+    {"type": "hype_language", "detail": "'348.3% larger' ratio-of-ratios framing and 'first holistic' novelty claims."}
+  ],
+  "coi": {
+    "affiliations": "University of Michigan, Ann Arbor",
+    "vendor_products_evaluated": "None (BigQuery used as the testbed; GPT-5.4 as the LLM)",
+    "funding": "Not stated",
+    "severity": "none",
+    "detail": "Academic authors. Comparing against their own prior system is a self-evaluation issue, not a financial conflict."
+  },
+  "scores": {"rigor": 3, "reproducibility": 1, "generalizability": 2, "relevance": 1, "coi_risk": 0},
+  "verdict": "reject",
+  "verdict_reason": "Off-topic for this KB. The paper is about cutting warehouse cost in SQL data pipelines; its 'DAG' is the dbt model graph being optimized, not an agent workflow graph or an LLM-generated task DAG, and it says nothing about coding-agent harness design for a Java team. As an optimizer paper it is reasonably evaluated (baselines, ablations, fixed-budget targeting) but closed, single-model, on two projects, with inflated relative framing and a model-count inconsistency. The one harness-relevant finding, that bounded deterministic scoping beats a whole-graph LLM pass, is a side result on one project.",
+  "applicability": "Not applicable to the team's DAG question about agent workflows. Only if the team's ingestion stack includes dbt or SQL transformation pipelines (Tuva itself is a healthcare claims dbt package) would DAGSmith matter, and then as a warehouse-cost tool, not harness design. One transferable observation: when an LLM edits a large interdependent graph of artifacts (here SQL models; for the team, maybe modules across four repos), a deterministic step that selects small, verifiable subgraphs worked where a single whole-graph pass under the same budget produced nothing runnable. Each scoped change was then checked against data before adoption, with a human check left before deployment.",
+  "conflicts_with": []
+}

@@ -19,7 +19,8 @@
     {"id": "P10", "stance": "mixed", "note": "Minimal single-loop harness is within 0.6-2.7 pp of OpenCode on SWE-bench Pro for the strongest models, but trails by 7-9 pp on ProgramBench."},
     {"id": "P31", "stance": "neutral", "note": "All evidence is benchmark-based (SWE-bench Pro, ProgramBench, GitTaskBench) plus leaderboard-scraped SWE-bench Verified numbers."},
     {"id": "P24", "stance": "neutral", "note": "Reports per-config token usage and total cost (> $7,000; >10B/20B prompt tokens); step caps reduced to 300 on ProgramBench."},
-    {"id": "P20", "stance": "neutral", "note": "Docker with --network none, resource limits, SYS_PTRACE disabled for evaluation."}
+    {"id": "P20", "stance": "neutral", "note": "Docker with --network none, resource limits, SYS_PTRACE disabled for evaluation."},
+    {"id": "P36", "stance": "neutral", "note": "[retag 2026-10-07] No fixed workflow is evaluated. The SDLC-ordered general subagents (requirement_analysis ... defect_repair) are invoked on demand by the parent loop (§3), so their ProgramBench loss for both models (§5.2.1) is not evidence about a fixed lifecycle pipeline. Agentless-style localization-repair-validation pipelines appear only in related work (§6.2), and §5.1.2 calls SWE-bench Pro's task workflow 'relatively fixed'."}
   ],
   "methodology": {
     "sample": "RQ1: 300-instance random sample of SWE-bench Pro (731), 70 of 200 ProgramBench, all 54 GitTaskBench; RQ2/3: full 200 ProgramBench, 2 models x 8 configs.",

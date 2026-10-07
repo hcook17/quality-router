@@ -1,0 +1,19 @@
+{"arxiv_id": "2605.11229",
+ "blind_scores": {"rigor": 3, "reproducibility": 4, "generalizability": 4, "relevance": 3, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "Each component (trigger synthesis, prompt provenance, capability profiling) contributes, with the largest gains from triggers and capability-aware reasoning.", "proposed_strength": "weak", "reason": "The ablation is cumulative, and Table 3 contradicts the claim for prompt provenance. JAW-NoPromptProv (trigger, no provenance) fails the code level on 1/9 pairs (run-gemini-cli Pro only). JAW-NoCapProf is the same variant plus provenance, and it fails on 4/9 (ask-bonk Sonnet 4.5, Haiku 4.5, Gemini 2.5 Flash, and run-gemini-cli Flash). Adding provenance made code-level success worse on four pairs and better on one, and the paper never discusses this. Only the trigger and capability-profiling gains are visible, and all of it rests on 3 workflows x 3 trials."},
+  {"claim": "Disclosures produced acknowledgements, fixes and bug bounties from GitHub, Google, Anthropic and others.", "proposed_strength": "moderate", "reason": "Author-reported, with no advisory IDs, CVEs or links. Table 2 marks bounties only for streamlit/Cursor CLI (a Snowflake repo), liam-hq/claude-code-security-review and run-gemini-cli. No row shows a GitHub bounty, which appears only in the abstract and introduction. The ethics appendix gives 7 acknowledgements and 7 mitigations. This is plausible and partly traceable, but not 'strong' by the rubric's own standard for abstract numbers absent from the body."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P36", "from": "mixed", "to": "neutral", "reason": "The paper never compares a declared workflow graph with an open agent deployment, as the review note itself concedes. The 'for' side (SMT path enumeration makes ecosystem audits possible) is a demonstrated analysis capability, not a measured win over an alternative. The 'against' side (attacker-satisfiable mention or label guards, TOCTOU) follows from treating attacker-controlled content as authorization. That applies equally to a mention-triggered open-loop agent, so the graph is not isolated as the cause."}
+ ],
+ "missed_issues": [
+  "Ablation non-monotonicity: adding prompt provenance (NoPromptProv to NoCapProf) raised code-level failures from 1/9 to 4/9 (see disputed claim). The cumulative ablation design cannot isolate provenance's own contribution.",
+  "The baselines' information access is unstated. Both generic baselines succeeded against ask-bonk, so they must have received at least a triggering event. The review's 'baselines get no trigger' is therefore an inference, and the information gap may be narrower than claimed. The single-trajectory search baseline remains under-budgeted.",
+  "All exploitation ran on author-controlled self-hosted runners with synthetic secrets. Process layout, procfs visibility and token scoping on GitHub-hosted runners may differ, and only the vendor-confirmed cases show real-world exploitability.",
+  "No limitations or threats-to-validity section. Unknown paths ('unsupported code, unresolved dynamic execution') are excluded from the count, but how many there were is never reported.",
+  "Calibrating upward: the success oracle is concrete and non-LLM (exact secret match after deterministic decoding, or an observed side effect). That is stronger evidence per exploit than author-judged exploitability in comparable workflow-security papers."
+ ],
+ "note": "I agree with admit_with_caveats and with the P22 'contradicts' and P21 'mixed' stances. P21 has a real with/without contrast: generic attacks pass code-level defences only on ask-bonk, which has none. The ecosystem count is weak, the per-exploit evidence is strong, and the ablation does not support the provenance component. Nothing here bears on task success of graph versus loop."}

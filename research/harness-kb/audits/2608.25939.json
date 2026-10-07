@@ -1,0 +1,16 @@
+{"arxiv_id": "2608.25939",
+ "blind_scores": {"rigor": 3, "reproducibility": 4, "generalizability": 3, "relevance": 2, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "Contamination is unlikely to dominate.", "proposed_strength": "unsupported", "reason": "App. C Table A.3 contradicts the paper's own conclusion. XRepoTest test code has LOWER perplexity than the external TestGenEval benchmark for Go (3.76/3.52 vs 5.44/6.92), PHP (4.53/4.81) and Julia (4.51/4.40) under both proxy models. Only Ruby is high. The proxies are two small code models, not the 14 evaluated models, and 'scores are low' is not a memorization test."}
+ ],
+ "pattern_stance_changes": [],
+ "missed_issues": [
+  "other:subset_selection: the agentic subset is stratified into easy/hard 'based on Claude 4.5 Sonnet's results' (App. F), and the agent is Claude Code on the same model family. The subset's 'passive' TPRs (Go 42.6, PHP 48.3) are far above the full-benchmark numbers (Table 2), so the 1.2–2.6× ratio is specific to this selected subset.",
+  "The iterative-repair 'Pre' values (Table A.7, GPT-OSS: Go 25.9, PHP 6.3, Julia 9.5) match no GPT-OSS row in Table 2 or Table 3 (standard Go 19.26, PHP 3.41), so the subset or context setting is unspecified. There is also no 'second attempt without feedback' control, so the +9–26 pp cannot be fully attributed to the feedback signal.",
+  "Possible transcription error: Table 2 gives GPT-5.2 an identical TPR of 25.78 for both Go and Ruby. Table 3 repeats it.",
+  "Counter-example to 'file-level context is most consistently effective': in Table 3, GPT-5.2 Ruby TPR halves under file context (25.78→13.04), and GPT-OSS Julia does better with dense retrieval (10.09) than with file context (9.50).",
+  "hype_language: App. H.3 says 'the context augmentation effect is confirmed across all five languages', while §5.2 itself reports mixed, language- and model-dependent effects."
+ ],
+ "note": "I agree with admit_with_caveats and with all six pattern stances. P16 supports holds because the one-round repair is measured against single-shot generation and wins, though the baseline is weak. The review's contamination claim should be unsupported, not weak: the paper's own perplexity table shows lower perplexity than TestGenEval in three of five languages."}

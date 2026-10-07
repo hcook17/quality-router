@@ -1,0 +1,17 @@
+{"arxiv_id": "2609.00006",
+ "blind_scores": {"rigor": 2, "reproducibility": 3, "generalizability": 3, "relevance": 4, "coi_risk": 1},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "major_disagreement",
+ "claims_disputed": [],
+ "pattern_stance_changes": [
+  {"id": "P05", "from": "supports", "to": "neutral", "reason": "§15.6: 'The analysis rests on source-code reading, not runtime measurement.' Table 13 and §13.2 count adoption (11/11 use ripgrep/glob/tree-sitter). No retrieval quality or task success is compared against an alternative, as the review's own note admits ('Adoption evidence, not effectiveness'). The review tags equivalent adoption counts for P04 (8/11) and P08 (7/11) as neutral."},
+  {"id": "P06", "from": "contradicts", "to": "neutral", "reason": "'0/11 harnesses embed code' is non-adoption, not evidence that embedding retrieval fails or hurts. The paper runs no comparison, and Rec. 16 itself asks readers to 'first prove it improves over ripgrep+tree-sitter on a held-out task set'. The review's note concedes 'Absence of adoption is not measured inferiority.'"},
+  {"id": "P02", "from": "supports", "to": "neutral", "reason": "'Eight of nine skill adopters load bodies on demand' (§12.5) is an inventory count. No context-size, cost or success measurement compares on-demand loading with eager loading."}
+ ],
+ "missed_issues": [
+  "other:corpus_selection: the corpus is terminal/CLI harnesses plus OpenHands. IDE-integrated agents that publicly describe embedding-based codebase indexing (e.g., Cursor, Copilot) are outside it. Cursor appears only as an Omnigent-wrapped backend. '0/11 use code RAG' is therefore partly an artifact of corpus choice, which weakens Rec. 8/16 further.",
+  "Observation 1 / §17.1 ('loop sophistication does not predict benchmark performance') rests on self-reported SWE-bench numbers from different models and dates (footnote to §2.4), so it is unsupported. Rec. 1 cites this as 'Observation 5', which is actually the persistent-memory observation (internal citation error). Mini-SWE-Agent is described as both '100 lines' and a '50-line linear loop'.",
+  "Provenance: the Claude Code analysis uses a 'circulated source snapshot' from a March 2026 'source exposure' (§3.7, §15.6). That raises an ethics/licensing question beyond reproducibility. Its inventory is also four months older than the July pins of the other ten systems, while the paper reports the Claude Code binary as 2.1.206 (July).",
+  "The §3.7 landscape facts (acquisitions, Gemini CLI end of service, star counts) are vendor announcements that the paper itself flags as not source-verified, yet they feed the 'platform turn' thesis."
+ ],
+ "note": "I agree with admit_with_caveats and with the review's own caveat that adoption is not effectiveness. But the review then tags P05 and P02 as supports and P06 as contradicts from inventory counts alone, which breaks the supports/contradicts rule and is inconsistent with its own neutral tags for P04 and P08. Those stances are load-bearing for the KB's retrieval guidance, so they should all be neutral."}

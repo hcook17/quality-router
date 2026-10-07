@@ -1,0 +1,20 @@
+{
+  "arxiv_id": "2608.27790",
+  "contributions": [
+    {"kind": "test_practice",
+     "statement": "Before rolling out an agent workflow or harness that was tuned or searched on one task set (one repo's tickets, one content type), evaluate it on a structurally different split against an untuned baseline, because searched harnesses lost 25-30 points off-distribution and one fell below the untuned baseline.",
+     "evidence": "§3.3: Meta-Harness-searched polyreason harness 72% in-distribution vs 47% cross-distribution; searched math harness 67% vs 37%, below the brief-only compile (39.6). The drop is partly selection on the in-distribution split, and there are no intervals; QA/reasoning workloads, not coding.",
+     "strength": "weak", "novelty": "refines",
+     "relative_to": ["self-improving harness with held-out evaluation (P26, 2610.05300)"],
+     "transfers": "indirect"},
+    {"kind": "design_pattern",
+     "statement": "Keep a tuned LLM workflow as a typed declarative description (step DAG, named branch signals, rules that pick model/parameters from those signals, prompt templates) with provenance, from which runnable code can be regenerated.",
+     "evidence": "Table 2: recover-then-compile matched the original harness within ±0.011 accuracy and ±0.013 ¢/q on 100 questions (3 harnesses x 3 replicates per domain), for about $2.5 per round trip. Aggregate match only, with no per-question agreement.",
+     "strength": "moderate", "novelty": "restates_known",
+     "relative_to": ["declarative LLM pipelines (DSPy, LOTUS)", "static workflow graph (P36)"],
+     "transfers": "indirect"}
+  ],
+  "quantity_flags": ["self_declared_incomplete"],
+  "proposed": "hypothesis_only",
+  "reason": "The paper's evaluation is self-described as preliminary, and its workloads are QA and reasoning, not coding. Keeping workflows declarative is established practice. The only refinement is a weak, selection-confounded caution that searched harnesses drop sharply off-distribution."
+}

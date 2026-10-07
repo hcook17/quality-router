@@ -1,0 +1,17 @@
+{"arxiv_id": "2607.02882",
+ "blind_scores": {"rigor": 2, "reproducibility": 1, "generalizability": 2, "relevance": 2, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "Failure attribution improves 4.8-33.1 points and root-cause accuracy 15.3-38.8 points.", "proposed_strength": "weak", "reason": "Both leads depend on inputs the baselines do not get. Without the root-cause taxonomy, which comes from the same authors' AgentFail label scheme (ref [34]), RCA falls to 54.4%, below every baseline except SWE-agent (Table III). Without cross-case accumulated experience, learned over the evaluation cases with no held-out split, FAA falls to 62.5%, below DoVer (79.6), ReCreate, GEPA, Scope, SelfHeal and AgentFixer. The FAA margin over DoVer is 4.8 pp, with no spread and no per-dataset split."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P30", "from": "mixed", "to": "supports", "reason": "Table III is a same-model ablation that isolates the per-node structured trace plus assertions against reasoning over the raw trajectory, with the experience pool and taxonomy held equal. It raises FAA from 59.8 to 84.4 and RCA from 58.3 to 87.9 on 443 human-labelled cases. Nothing points the other way; the lack of variance is a strength issue (weak), not mixed evidence."}
+ ],
+ "missed_issues": [
+  "FlowFixer's whole lead depends on components learned from, or co-designed with, the evaluation data. Without the pool, RSR is 41.7%, below all six repair baselines (43.7-59.4%). Without experience, FAA is 62.5%, below DoVer and four of six repair baselines. Without the taxonomy, RCA is 54.4%. On the dimensions a new adopter would start with, the symbolic machinery alone does not beat the baselines.",
+  "The suspiciousness score adds a structural prior that 'nodes located earlier in the workflow ... are more likely to be the origin of failures' (§III-C1). The paper does not analyse position bias against where the annotated root nodes actually sit, so FAA may partly reward an early-node prior.",
+  "Table II labels absolute percentage-point gaps as 'relative improvement'.",
+  "The 'Offset Rationality' patch filter uses an unstated size threshold, and the 99.7%/84.6% pre-check precision/recall have no candidate counts."
+ ],
+ "note": "I agree with admit_with_caveats. The review's COI 'low' is right: AgentFail and its taxonomy come from the same first author (ref [34]), which I could not see blind. The paper presupposes P36 workflow graphs and never compares one against an agent loop, so P36 stays neutral. The one isolating result is that structured per-node traces with node contracts localize failures far better than raw logs."}

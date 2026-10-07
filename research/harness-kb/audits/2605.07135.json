@@ -1,0 +1,18 @@
+{"arxiv_id": "2605.07135",
+ "blind_scores": {"rigor": 3, "reproducibility": 1, "generalizability": 4, "relevance": 3, "coi_risk": 1},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "agree",
+ "claims_disputed": [],
+ "pattern_stance_changes": [
+  {"id": "P36", "from": "mixed", "to": "neutral", "reason": "The paper never compares a declared workflow graph with an open agent loop, as the review's own note admits. Its 'in favour' point (cheap ecosystem-wide static analysis) is an observation about analyzability, not a measured win over an alternative. Its 'against' point (P2S 84.5%) comes from privileged code consuming free-form agent output. An open loop that runs gh/git itself is exposed through P2A instead, so the graph structure is not isolated as the cause. Workflows are the object of study, not an evaluated pattern."},
+  {"id": "P22", "from": "mixed", "to": "introduces", "reason": "The paper has no counter-evidence against injection defences, so 'mixed' misreads it. The detector comparison is self-referential (claim graded weak), the guards counted as blocking 41.1% of paths are sanitizers by the analyzer's own definition and were never attacked, and the recommended mitigations (pass the issue number, typed or allowlisted outputs) are not evaluated. The paper proposes defences but has no isolating evidence that they work."}
+ ],
+ "missed_issues": [
+  "No severity stratification: 393/496 confirmed cases (79.2%) are actions/ai-inference summary or triage workflows whose P2S effect is mostly posting a comment or applying a label. 'Exploitable' therefore mixes low-impact GitHub writes with the 307 shell/tool-execution cases.",
+  "The impact sentence 'fixed or accepted cases affect 23 unique repositories with over 130K GitHub stars' only reaches 23 repos and 130K stars by including openai/codex (75,373) and run-gemini-cli (1,974), which Table IV lists as 'Acknowledged', not fixed or accepted. The 21 fixed/accepted repos total about 57K stars. The review flags the codex concentration but not that the sentence itself is wrong.",
+  "Review evidence for the disclosure claim says 'Most fixed repos have <20 stars'. Table IV shows 12 of the 24 fixed/accepted rows under 20 stars, so half, not most. Two CVEs are assigned and seven are pending.",
+  "Recall is unmeasured beyond baseline-only alerts. The false-negative estimate samples only paths some baseline flagged, so paths no tool models (e.g., cross-file scripts, dynamically built commands) are invisible.",
+  "Calibrating upward: the 400-alert sample of baseline-only reports found only 13 TaintAWI false negatives. That implies most of the baselines' 831-2,079 alerts are noise under this threat model. It is fairer evidence of a precision advantage than the '418 more TPs' figure, but the review does not credit it.",
+  "The LLM used to infer action properties is not named."
+ ],
+ "note": "I agree with admit_with_caveats and the claim grades. Generalizability is arguably 4 (10,792 real repositories, and workflow YAML is language-agnostic), but that does not change the verdict. The two stance changes remove 'mixed' labels that imply counter-evidence the paper does not contain. On the DAG question it shows that a declared CI graph is not a trust boundary, not that graphs beat or lose to open loops."}

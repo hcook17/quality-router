@@ -1,0 +1,15 @@
+{"arxiv_id": "2609.03086",
+ "blind_scores": {"rigor": 2, "reproducibility": 3, "generalizability": 1, "relevance": 2, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "major_disagreement",
+ "claims_disputed": [],
+ "pattern_stance_changes": [
+  {"id": "P35", "from": "supports", "to": "introduces", "reason": "No condition runs without the formal verifier. §5 says every attempt, including the first, 'included the initial verification, prompting the model with the verification result', and AutoProof also defines success. The review's own methodology notes 'No comparison with ... a no-verifier condition'. The tool uses verified generation throughout but does not measure it against an alternative. The attempt curve (Fig. 7) measures loop depth, which is already credited under P16."},
+  {"id": "P17", "from": "supports", "to": "introduces", "reason": "The only evidence on verifier-message feedback is the full vs minimal ablation (§5.3). Minimal also removes the syntax guide, the verbatim template and the variable list, so the +6.4 pp cannot be attributed to static-analysis feedback. The review grades that claim 'weak' and its own note says 'only via the confounded ablation', which does not meet the supports bar."}
+ ],
+ "missed_issues": [
+  "Model comparison and cost comparison are confounded by reasoning settings. Sonnet 4.6 ran with reasoning disabled while GPT-5 Nano and Laguna XS had reasoning enabled (§6), so the 5× cost and 2× speed ratios and the model ranking are not like-for-like.",
+  "'Fixed' means 'verifies against the dataset's contracts'. No hidden tests or comparison with the original ground-truth fixes check that verified bodies match intent. The intro concedes 'errors in specifications can lead to invalid but correct programs'.",
+  "Failed fixes are carried into the next attempt ('it is kept and the next attempt starts with the previously suggested fix', §5). Diminishing returns may partly reflect drift away from the original code, and the protocol has no restart-from-original control."
+ ],
+ "note": "I agree with the scores and admit_with_caveats for a small Eiffel workshop tool paper. The review credits three patterns as supports from one uncontrolled loop: there is no verifier-free condition (P35) and the feedback ablation is confounded (P17). Only P16, iteration depth with diminishing returns, is actually measured."}

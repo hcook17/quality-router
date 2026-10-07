@@ -137,17 +137,16 @@ Pre-answer routers recover 7.5–14.4% of a certified 9.7–30.7 pp oracle
 gap ([2608.08265](https://arxiv.org/abs/2608.08265), E): oracle gaps are
 upper bounds. Per-sub-task tool retrieval fails mainly by mis-splitting
 the task (SkillWeaver [2606.18051](https://arxiv.org/abs/2606.18051), E).
-At ~15 inlined tools, selection still holds at ~92%, and stateful MCP
-behind a gateway makes session affinity the dominant cost
-([2607.15593](https://arxiv.org/abs/2607.15593), E, Alibaba, high COI).
-The "10–15 tool cliff" (Rodrigues & Vas
-[2606.30317](https://arxiv.org/abs/2606.30317), H) is Haiku-only
-telemetry, and that paper *recommends* a scoped proxy aggregator. The
-lock's refusal of an aggregator therefore rests on the invariants in
-`AGENTS.md` (removable constituents, no secrets in a shared hop), not on
-that paper. Keep the catalog small because 2607.15593 shows no gain
-from retrieval at that size. A cloud gateway that breaks direct-connect
-is refused here.
+The paper that measured selection at ~15 inlined tools and session
+affinity behind a gateway, [2607.15593](https://arxiv.org/abs/2607.15593),
+was rejected in the full audit: rigor 2 with high COI. It also measured
+stateful MCP, which revision `2026-07-28` removed. The "10–15 tool
+cliff" (Rodrigues & Vas [2606.30317](https://arxiv.org/abs/2606.30317),
+H) is Haiku-only telemetry, and that paper *recommends* a scoped proxy
+aggregator. So the small catalog and the refusal of an aggregator both
+rest on the invariants in `AGENTS.md`, not on evidence: removable
+constituents, no secrets in a shared hop, and the ~10–15 tool cap. A
+cloud gateway that breaks direct-connect is refused here.
 
 ## Consumer profile: multi-repo Java backend
 
@@ -180,19 +179,31 @@ harness for that team is host-agnostic; `qr` stays Job B inside it.
 - Still refused here: a cross-repo MCP aggregator, a `qr` multi-repo
   orchestrator, worktree sync across repos.
 - **Evidence base:** `research/harness-kb/` holds data, not a memo. It
-  holds 240 adversarially reviewed arXiv papers whose **first**
+  holds 278 adversarially reviewed arXiv papers whose **first**
   submission falls between 2026-05-01 and 2026-10-06; withdrawn and
   pre-window papers are rejected by code. A second gate keeps only
   papers that add a transferable heuristic, nuance, pattern,
   anti-pattern, constraint or test practice on at least moderate
-  evidence. That leaves 96 evidence papers; 30 are hypotheses and 39
-  were dropped as volume. Its synthesis is in `FINDINGS.md`, and the
-  ledger of contributions is in `kb_contributions.md`, both regenerated
-  from the KB. The KB finds that deterministic sensors are supported,
-  that instruction-file prose has no evidence either way, and that
-  spec-driven development as a methodology is unsupported while
-  specific acceptance practices are supported. It finds no studies of a
-  team coordinating changes across its own repos (P27).
+  evidence. That leaves 112 evidence papers, every one blind-audited;
+  36 are hypotheses and 40 were dropped as volume.
+  - **Where to read it:** the synthesis is in `FINDINGS.md`, the
+    contribution ledger in `kb_contributions.md` and the stress tests in
+    `kb_robustness.md`, all regenerated from the KB. `ADVERSARIAL_REVIEW.md`
+    records what the full audit changed.
+  - **What it supports:** policy-as-code and structured acceptance
+    criteria (consensus). Execution verifiers only when the verifier is
+    independent of the implementation and covers the change
+    (conditional).
+  - **What it doesn't:** instruction-file prose has no evidence either
+    way. Spec-driven development as a methodology is unresolved, while
+    specific acceptance practices are supported. There are no studies
+    of a team coordinating changes across its own repos (P27).
+- **Workflow graphs:** the outer workflow stays a fixed, deterministic
+  graph in git and CI: the SDD stages, the gates and provider-first
+  merge order. Each node is a bounded agent loop. Static graphs are
+  conditional in the KB and model-drawn task DAGs only leaning, so
+  there is no graph runtime and no `qr` orchestrator
+  (`research/harness-kb/dag.md`).
 - **Harness gates (phase 3):** `qr` ships the supported findings as
   deterministic predicates over build artifacts: diff coverage,
   assertion strength, instruction lint, spec trace, contract diff and

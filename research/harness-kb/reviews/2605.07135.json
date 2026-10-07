@@ -1,0 +1,53 @@
+{
+  "arxiv_id": "2605.07135",
+  "contribution_type": "empirical",
+  "summary": "Defines Agentic Workflow Injection (AWI) in GitHub Actions: untrusted issue/PR/comment text reaches an agent prompt (Prompt-to-Agent, P2A) or flows through the agent's output into later workflow steps such as gh/git shell commands (Prompt-to-Script, P2S). Characterises 1,033 AI-assisted actions (only 21 have caller-identity access control) and builds TaintAWI, a static taint analyzer over a workflow dependency graph. On 13,392 workflows it reports 519 issues, 496 judged exploitable by the authors, 343 zero-days, 24 accepted or fixed after disclosure.",
+  "claims": [
+    {"claim": "TaintAWI reaches 95.6% precision: 496 of 519 reports are exploitable, 343 previously unknown.", "evidence": "§VI-B: all 519 reports manually reviewed by the authors against their threat model; no dynamic exploit runs, no second-rater agreement, and 'exploitable' means attacker-reachable under the static model rather than demonstrated.", "strength": "moderate", "location": "§VI-B, §VI-C"},
+    {"claim": "TaintAWI covers 418 more true positives than the strongest existing tool.", "evidence": "Table V: coverage is measured only over TaintAWI's own 496 confirmed cases, and Argus/CodeQL were deliberately not given derived-output (P2S) specs, so their P2S coverage is 0 by construction. A 400-report sample of baseline-only alerts found 13 TaintAWI false negatives.", "strength": "weak", "location": "§VI-B Table V, §VI-C"},
+    {"claim": "Prompt-to-Script (agent output consumed by downstream workflow logic) is the dominant AWI pattern.", "evidence": "Table VII: P2S in 419/496 (84.5%) vs P2A 103 (20.8%). But 393/496 (79.2%) of cases come from actions/ai-inference, a plain LLM action, so the P2S share largely reflects one action's usage.", "strength": "moderate", "location": "§VI-D Table VII"},
+    {"claim": "Action-level access control is rare (21 of 1,033 actions) and workflow authors rarely add their own guard.", "evidence": "Table I (LLM-inferred properties, 95.9% field agreement on 100 manually checked records); §VII-A: only 56 of 881 tainted workflows (6.4%) have an effective workflow-level guard.", "strength": "moderate", "location": "§IV-C Table I, §VI-D, §VII-A"},
+    {"claim": "Responsible disclosure led to 24 accepted or fixed cases, including CVEs.", "evidence": "Table IV lists 26 responding cases (24 accepted/fixed, 2 acknowledged incl. openai/codex). Of 187 'prioritised' zero-days only 85 were formally reported; 102 repos had no private channel. Most fixed repos have <20 stars.", "strength": "strong", "location": "§VI-B Table IV"}
+  ],
+  "patterns": [
+    {"id": "P36", "stance": "mixed", "note": "GitHub Actions jobs/needs/if form a developer-authored static stage graph with agent nodes. In its favour: because the graph is declared, ecosystem-wide static taint analysis is cheap (13,392 workflows in 12.3 min), and identity guards on the graph blocked 41.1% of tainted paths. Against it: edges that pass free-form agent output to later deterministic steps are the main injection channel (P2S 84.5%), and only 6.4% of tainted workflows add a workflow-level gate. No comparison with a non-graph agent setup; the evidence concerns security, not task success."},
+    {"id": "P22", "stance": "mixed", "note": "Detection-side defence. TaintAWI finds far more injection paths than four existing scanners, but scored only on its own confirmed set and without running exploits. Recommended mitigations (pass issue number not body, typed/allowlisted outputs) are not evaluated."},
+    {"id": "P21", "stance": "neutral", "note": "Action-level allowlists and non-write-user switches are treated as sanitisers by the analyzer's own definition; not adversarially tested."},
+    {"id": "P19", "stance": "neutral", "note": "Maintainer approval gates and trusted labels recommended for public triggers; not measured."}
+  ],
+  "methodology": {
+    "sample": "1,033 AI-assisted actions; 13,392 agentic workflows from 10,792 repositories; 519 reports manually reviewed; 400 sampled baseline-only alerts reviewed for false negatives.",
+    "baselines": "Prompt Injection Scanner and Aikido OpenGrep rules (unmodified); Argus and CodeQL given TaintAWI's P2A sink specs but no P2S modelling.",
+    "models": "An unnamed LLM infers action properties (validated on 100 records). No agent models are executed.",
+    "variance": "Deterministic static analysis; no inter-rater agreement reported for exploitability judgments.",
+    "ablations": "Table VI: without output bridging, workflow bridges, script analysis, or guard analysis (computed on the TP set only).",
+    "contamination_controls": "n/a",
+    "languages": "GitHub Actions YAML, shell run steps, inline JavaScript (github-script); analyzer in Python."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint (cs.CR), no venue listed.",
+    "limitations_section": true,
+    "artifacts": "No code, dataset or rule release mentioned.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "self_evaluation", "detail": "Authors alone decide which reports are 'exploitable'; no dynamic proof-of-concept or independent audit."},
+    {"type": "metric_mismatch", "detail": "Baseline coverage is computed over TaintAWI's own true-positive set, and baselines are structurally barred from P2S, so '418 more TPs' partly restates the design choice."},
+    {"type": "closed_artifacts", "detail": "Analyzer, taint specs and the vulnerable-workflow list are not released."},
+    {"type": "other:concentration", "detail": "79.2% of confirmed cases involve actions/ai-inference; impact headline (130K stars) is dominated by openai/codex, which was only acknowledged, not fixed."}
+  ],
+  "coi": {
+    "affiliations": "Huazhong University of Science and Technology; 360 AI Security Lab; Macquarie University.",
+    "vendor_products_evaluated": "Anthropic claude-code-action, OpenAI codex-action, Google run-gemini-cli, GitHub actions/ai-inference, all evaluated unfavourably.",
+    "funding": "Not stated.",
+    "severity": "low",
+    "detail": "Security-vendor co-authors, but no product of theirs is evaluated or promoted."
+  },
+  "scores": {"rigor": 3, "reproducibility": 1, "generalizability": 3, "relevance": 3, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Large real-world corpus with ablations and a false-negative estimate, and the vulnerability class is confirmed by maintainer fixes and CVEs. Exploitability is author-judged, the baseline comparison is self-referential, and nothing is released.",
+  "applicability": "For the DAG question this is a security caveat on static workflow graphs, not evidence that they help. If the team wires Claude Code, Codex or Gemini steps into CI stage graphs across its 4+ repos, the graph is not a trust boundary: any edge that carries free-form agent output into a later shell, gh or git step is an injection channel. Concretely: (1) never interpolate issue/PR bodies or third-party course content into prompts; pass an identifier and let the agent fetch it through a constrained command. (2) Make agent-to-next-step edges typed (schema or allowlist) and validate them in a deterministic step before any write. (3) Put actor-permission guards at the workflow level, not only inside the action. (4) Because the graph is declared, lint workflow YAML in every repo with taint-style checks (the paper shows CodeQL can cover P2A if given sink specs). Language-agnostic, so it transfers to a Java shop.",
+  "conflicts_with": [
+    {"arxiv_id": "2606.29116", "detail": "The n8n study presents logic-mediated LLM-to-action paths (41.8% of workflows) as reliability containment (Takeaway 4). TaintAWI finds downstream workflow logic consuming agent output is the dominant injection path (P2S 84.5%), so logic mediation is not a safety property unless outputs are typed and validated."}
+  ]
+}

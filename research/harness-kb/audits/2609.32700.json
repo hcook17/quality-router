@@ -1,0 +1,15 @@
+{"arxiv_id": "2609.32700",
+ "blind_scores": {"rigor": 2, "reproducibility": 3, "generalizability": 2, "relevance": 2, "coi_risk": 2},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "As task effort increases, time gains grow while relative token overhead declines", "proposed_strength": "weak", "reason": "Both ratios contain the stratifying variable. Effort is Direct's own mean token use on the same runs. The token ratio is C/D, so dividing by a quantity used to sort tasks makes the ratio fall as D rises even if CAIRN's cost were flat or random. The time ratio is D/C, and Direct's time is strongly tied to Direct's tokens, with timeouts scored as 300 min. Higher-effort strata therefore pick up Direct's slow or unlucky runs, and Cybench has one run per task, so its noise is never averaged out. The log-log fit and its 1.24M break-even (Fig. 7) inherit the same coupling. A difficulty measure independent of the baseline would be needed, such as FrontierMath tier, which appears only in the 8/12 aside in §4.1, or a held-out run of Direct."}
+ ],
+ "pattern_stance_changes": [],
+ "missed_issues": [
+  "contamination_risk: the review says 'FrontierMath is held-out by design', but the paper uses 'the twelve publicly available sample problems' (§3) and builds local checkers 'from the public reference material' (App. D.1). The public samples have published answers, so contamination is possible for GLM-5.1. The FrontierMath half of the high-effort result is the part most exposed.",
+  "The '3.08x' maximum speedup is in the abstract and intro only; no table or body sentence reports it (it may be in a figure).",
+  "Reproducibility is overstated at 4. The paper says it 'will also submit anonymized source code ... evaluation scripts, and benchmark images' as supplementary material. The cited oritera/Cairn repository is described as 'an open-source implementation of this paradigm', not as the evaluated code or harness.",
+  "Wall-clock speedup is measured with up to six concurrent execution slots against one. Part of the time advantage is parallel hardware, separate from coordination quality, and is not normalized (e.g., time x slots)."
+ ],
+ "note": "I agree with admit_with_caveats and with P37 mixed. The review already names the missing compute-matched parallel baseline and the post-hoc stratification. I would push one step further: the 'overhead declines with effort' trend is partly an artifact of using the baseline's tokens as both the x-axis and the ratio denominator. The cleanest signal is FrontierMath tier (all five Tier-3/4 problems faster with 3 runs each), and those are public sample problems. Rigor is 2 rather than 3: one model, 52 tasks, single-run Cybench, success never reported separately."}

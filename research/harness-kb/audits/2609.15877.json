@@ -1,0 +1,17 @@
+{"arxiv_id": "2609.15877",
+ "blind_scores": {"rigor": 2, "reproducibility": 1, "generalizability": 2, "relevance": 3, "coi_risk": 1},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [],
+ "pattern_stance_changes": [
+  {"id": "P18", "from": "supports", "to": "introduces", "reason": "The only measurement is developer-rated precision of the system's own findings (Table 7, 197/206) and importance (Table 8). Nothing is compared: there is no human-only review, no static-analysis baseline and no single-prompt reviewer, and §5.1 states that 'neither an ablation nor a comparison with alternative designs was performed'. The paper uses an AI reviewer; it does not show the reviewer beats an alternative."},
+  {"id": "P32", "from": "supports", "to": "neutral", "reason": "The paper is itself an industrial evaluation (7 commits at Ericsson, §3.3). That makes it field evidence, not evidence that field evaluation as a practice works better than an alternative."}
+ ],
+ "missed_issues": [
+  "hype_language: the abstract and §8 conclude that the study 'provide[s] empirical evidence ... that combining specialized agent skills with context-specific knowledge yields accurate, practically useful code reviews'. That contradicts §5.1's own disclaimer that the design observations are 'feasibility evidence rather than controlled comparative proof'.",
+  "metric_mismatch: usefulness is the rater's self-reported importance on a 3-point scale (Table 1, Part II B). The study does not track whether any of the 135 medium/high findings were actually fixed or merged, which would be the behavioral check of 'must be fixed'.",
+  "No breakdown of correctness or importance by dimension, commit or rater. With one rater covering 96 of 206 issues (§3.3), the aggregate 96% and 69% figures cannot be separated from that rater's leniency.",
+  "Applicability note the review missed: several antipattern catalogs are Java-derived even though evaluation was on Python. Table 4 (exception-handling antipatterns: 'Ignoring InterruptedException', 'Throws Kitchen Sink', 'Throws Generic', from De Padua & Shang) and Table 2 (readability, from a Java readability study [25]) transfer to a Java team more directly than the Python results suggest. The reported precision has not been measured on Java, though.",
+  "The 'Disclosure of Interests' declares no competing interests, although two authors are Ericsson employees evaluating an internal prototype at Ericsson. This is consistent with the review's low severity, but the self-declaration should not be taken as independence."
+ ],
+ "note": "I agree with admit_with_caveats and the scores, except generalizability: four industrial projects merit 2. The AI-reviewer and field-evaluation stances overstate the evidence. This is a precision-only, no-baseline design-science report, so P18 is a system that introduces the pattern rather than evidence that it beats an alternative."}

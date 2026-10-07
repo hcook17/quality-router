@@ -1,0 +1,20 @@
+{"arxiv_id": "2607.19653",
+ "blind_scores": {"rigor": 3, "reproducibility": 2, "generalizability": 2, "relevance": 2, "coi_risk": 1},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "Prompting the agent with profiler instructions is not a substitute for a harness-run curated profiler", "proposed_strength": "weak", "reason": "§IV-E3 does not say whether A_P runs inside the 5-iteration controller. In Table VII, A_P (GSO hack-adj 16.7) scores below the loop-only A_L (29.4, Table II) and below one-shot OpenHands (19.6). That points to A_P lacking the loop, or the instructions actively hurting. Either way, the 16.7 vs 39.2 gap does not isolate 'harness-run profiler vs prompted profiler'; the fair comparison would be A_P-in-loop vs A_L+Profiler (34.4). Single run."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P16", "from": "supports", "to": "mixed", "reason": "The cross-harness comparisons (OpenHands one-shot, OpenHands best@5) favour the whole loop, but the test-verifier component that defines P16 was isolated in Table II: A_L+Tests lowers GSO Opt@1 33.3→24.5 (hack-adj 29.4→20.6) and leaves SWE-fficiency-Lite flat (46→46). It helps only when combined with the profiler (34.4→39.2; 57→74). The review's own claim 3 ('tests alone do not help') conflicts with 'supports'."},
+  {"id": "P10", "from": "supports", "to": "neutral", "reason": "No multi-agent or non-linear alternative is evaluated. All arms (OpenHands, Codex, Mini-SWE-Agent variants) are single-agent loops, so the paper uses P10 as a base and provides no evidence for it over alternatives."},
+  {"id": "P05", "from": "supports", "to": "neutral", "reason": "The profiler summary is dynamic runtime analysis (py-spy samples) condensed by a separate LLM call (§III-B, Fig. 2), not lexical/AST/LSP code retrieval. The only comparison offered (Table VII, A_P) is confounded (see disputed claim)."}
+ ],
+ "missed_issues": [
+  "other:harness_confound: Table II has no plain one-shot Mini-SWE-Agent row, so the OpenHands→PerfAgent gain mixes the base-harness swap (Mini-SWE-Agent, and an added OpenHands edit tool for Kimi-K2, §IV-A) with the workflow itself; §VI concedes gains were never measured on OpenHands or Codex as base.",
+  "Best@5 baseline is more correct than PerfAgent (99.0 vs 96.1 on GSO; 99 vs 90 on SWE-fficiency-Lite, Table VI). Per-run OpenHands cost is about $2.2 ($11.01/5) vs PerfAgent's $2.88, so 'costing over 3x less' compares against five baseline runs, not one.",
+  "Best-patch selection uses speedup on the provided workload. On GSO, 3 of the 7 OpenHands wins are PerfAgent patches that overfit the provided workload and lose on the hidden perf tests (App. D), so the selector itself encourages workload overfitting.",
+  "P36 (static workflow graph): the controller is a fixed, developer-defined build→test→profile→retry sequence with a best-patch gate. The A_P comparison is the paper's only (confounded) test of harness-driven vs agent-decided tool use, so the stance should be at most 'introduces' if tagged later.",
+  "Domain mismatch: repository-level performance optimization of Python scientific libraries with native extensions is far from Java content-ingestion work; the transferable lessons are the controller pattern and the reward-hacking warning."
+ ],
+ "note": "I agree with admit_with_caveats and the scores (I'd put relevance at 2, not 3). The ablation and the oracle best@5 are useful, but the review rates three patterns as 'supports' without a matching comparison. The core test-verifier component hurts or is flat on its own, so P16 is 'mixed'; P10 and P05 are not tested against any alternative."}

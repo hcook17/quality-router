@@ -1,0 +1,97 @@
+{
+  "arxiv_id": "2607.21859",
+  "contribution_type": "system",
+  "summary": "EviDAG is a browser-based tool from MGH/Harvard for drafting causal DAGs (the epidemiology kind, not task graphs) from biomedical literature. A fixed staged pipeline resolves study variables (optionally to UMLS), builds a frozen PubMed snapshot per concept pair, has Claude Sonnet 4.6 issue per-pair causal judgments with verbatim cited snippets, and assembles a constraint-checked DAG with confidence, provenance and adjustment sets. On 7 small synthetic and 3 published literature DAGs it has higher recall but lower precision and F1 than simply asking the same model for the whole graph. Unlike that baseline, every citation is verifiable.",
+  "claims": [
+    {
+      "claim": "EviDAG achieves high edge recall on the literature-based cohort.",
+      "evidence": "Table 1/4: literature cohort recall 0.87 cold / 0.91 with context vs direct-LLM baseline 0.78 / 0.83. Three reference DAGs only; medians of three temperature-0 runs, baselines single pass. PubMed cutoff set before each source study's publication to prevent retrieving the reference paper.",
+      "strength": "moderate",
+      "location": "§4, Tables 1, 4"
+    },
+    {
+      "claim": "EviDAG retains verifiable evidence trails absent from LLM-only baselines.",
+      "evidence": "App. A: 0 of 211 (direct) and 0 of 812 (pairwise) baseline quotes appear verbatim in the cited abstract; EviDAG citations are extracted spans by construction. 116/161 literature-cohort pairs are literature-backed, 45 prior-only.",
+      "strength": "strong",
+      "location": "App. A, Tables 4-5"
+    },
+    {
+      "claim": "Implied by the abstract: EviDAG is a better DAG author than LLM-only baselines; it 'reduces the burden of causal DAG curation'.",
+      "evidence": "Table 4: the same model prompted once for the whole graph has higher directed F1 on the literature cohort (0.78 vs 0.66 cold; 0.80 vs 0.71 with context) and ties on synthetic DAGs (0.89 vs 0.88). The abstract omits this. No user study measures curation burden; §4 lists it as future work.",
+      "strength": "unsupported",
+      "location": "§4, Table 4"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P36",
+      "stance": "mixed",
+      "note": "A fixed staged pipeline (orchestrator, deterministic constraints, review pauses, typed artifacts) is compared with the same model and a single direct prompt. The pipeline wins recall and auditability, loses precision and F1 on literature DAGs, and ties on small DAGs. A pairwise-decomposed baseline (one prompt per pair plus deterministic assembly) is worse than the single prompt (F1 0.70 vs 0.78), so finer decomposition alone hurt. The domain is causal-graph authoring, not coding, and the DAG here is the output artifact, not a task graph."
+    },
+    {
+      "id": "P30",
+      "stance": "introduces",
+      "note": "Per-edge provenance channels, frozen literature snapshot and audit replay; strong on verifiability, no user evaluation."
+    },
+    {
+      "id": "P19",
+      "stance": "neutral",
+      "note": "Configured review pauses before downstream stages; not evaluated."
+    }
+  ],
+  "methodology": {
+    "sample": "7 synthetic compact DAGs (66 concept pairs) and 3 published literature DAGs (161 pairs).",
+    "baselines": "Same model (Claude Sonnet 4.6) prompted directly for the whole DAG, and per-pair with deterministic assembly; no prior LLM-causal-discovery systems.",
+    "models": "Claude Sonnet 4.6 only.",
+    "variance": "Medians of three temperature-0 runs for EviDAG; baselines single pass; no spread reported.",
+    "ablations": "Confidence-tier inclusion policies; cold vs study-context input.",
+    "contamination_controls": "PubMed cutoff the day before each reference study's publication; model prior knowledge of the published DAGs not controlled.",
+    "languages": "n/a (biomedical text)."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint, no venue.",
+    "limitations_section": true,
+    "artifacts": "No code or data link found; configuration described in App. A.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {
+      "type": "small_sample",
+      "detail": "Three literature DAGs carry the headline recall claim."
+    },
+    {
+      "type": "metric_mismatch",
+      "detail": "Abstract emphasises recall; F1 and precision, where the plain-prompt baseline wins, are moved to Table 4 discussion."
+    },
+    {
+      "type": "single_model",
+      "detail": "Claude Sonnet 4.6 only."
+    },
+    {
+      "type": "other:no_user_study",
+      "detail": "Abstract claims reduced curation burden with no user evaluation."
+    },
+    {
+      "type": "closed_artifacts",
+      "detail": "No code release found."
+    }
+  ],
+  "coi": {
+    "affiliations": "Massachusetts General Hospital; Harvard University; Northeastern University.",
+    "vendor_products_evaluated": "Claude Sonnet 4.6 used as backbone (no affiliation).",
+    "funding": "Not stated.",
+    "severity": "none",
+    "detail": "Academic clinical-research authors; no vendor tie."
+  },
+  "scores": {
+    "rigor": 2,
+    "reproducibility": 1,
+    "generalizability": 1,
+    "relevance": 1,
+    "coi_risk": 0
+  },
+  "verdict": "reject",
+  "verdict_reason": "Off-topic for this KB. The 'DAG' is a causal graph for epidemiological analysis, not a task or workflow graph, and the system is a literature-curation tool, not a coding-agent harness. The evaluation is also thin (three literature DAGs, one model), and the abstract's framing hides that a single direct prompt beats the pipeline on F1.",
+  "applicability": "This does not transfer to the DAG-workflow question; the shared word 'DAG' is coincidental. One tangential point for a healthcare-education ingestion team: when an LLM step must cite sources, extracting and verifying verbatim spans against a frozen snapshot made every citation checkable. The unconstrained baselines produced 0 verifiable quotes out of 1,023 and mostly cited the wrong PubMed IDs. That argues for deterministic citation verification in any content-ingestion step that attributes clinical claims, independent of how the workflow is structured.",
+  "conflicts_with": []
+}

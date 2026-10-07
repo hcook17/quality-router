@@ -1,0 +1,21 @@
+{"arxiv_id": "2608.09277",
+ "blind_scores": {"rigor": 3, "reproducibility": 4, "generalizability": 2, "relevance": 2, "coi_risk": 1},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "Joint planning (not just planning) is the source of the gain: +3.3 to +8.3 pp over implementation-only planning.", "proposed_strength": "weak", "reason": "Table 3 is one backend (Opus-4.7) with one run per cell. Plan-Seq 'runs the program-then-proof pipeline' (§5.1), while P3's skill also carries an external plan-gate verifier subagent, an instruction-compliance verifier subagent, per-target edit/tactic caps and pivot rules (App. E). The ablation therefore does not isolate joint planning from the rest of the skill. The AlgoVeri Plan-Seq cell (44.8%) cannot be obtained with n=77 (34/77=44.2, 35/77=45.5)."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P35", "from": "supports", "to": "neutral", "reason": "All arms (Plain, Seq, Plan-Seq, P3) do Lean-verified generation with the same checker (§5.1). Formal verification is the shared setting, not a variable, so the paper gives no evidence for or against using formal methods compared with an alternative."},
+  {"id": "P14", "from": "supports", "to": "neutral", "reason": "Every arm receives the same formal spec plus the same added algorithmic instruction (§5.1). Spec-first is never varied; the review's note is an inference ('result implies'), not a measurement."},
+  {"id": "P16", "from": "supports", "to": "neutral", "reason": "Lean-feedback repair runs in every arm and is never ablated. The Appendix K restart data, if anything, show that the patch-and-retry loop alone is costly. Most Table 6 percentages cannot be obtained as k/n for one run per task (e.g. Verina 11.7, 24.2, 7.8 of 189; nearly all AlgoVeri cells of 77), so that evidence is unreliable as reported."}
+ ],
+ "missed_issues": [
+  "Numerical inconsistency: with one run per task (§5.1), 9 of 12 Verina, 11 of 12 AlgoVeri and 10 of 12 Lean4Commit0 full-restart rates in Table 6, and the Table 3 AlgoVeri Plan-Seq cell, cannot be obtained from the stated task counts. Table 2 values are all consistent. The trace-labeling method for 'full restart' is also not described (App. K).",
+  "Bundle confound: P3 is a six-phase skill with exit gates, LLM verifier subagents (lean_plan_verify, lean-verifier-instruction), hard edit caps and optional cheaper-subagent dispatch (App. E). The gain is attributed to 'joint planning', but a static gated workflow (P36) is what is really compared. This fits P36 better than P13 alone and is worth noting in the KB.",
+  "The scoring rule says a task is solved only if it 'satisfies the instruction' (Table 2 caption), but the paper does not say who or what judges instruction compliance. P3 has its own instruction-compliance gate (App. E Phase 6), so it may be optimised for the evaluation criterion; the baselines' gates are not described.",
+  "Efficiency on the solved intersection (App. L, Table 7) is mixed rather than 'broadly comparable'. P3 is slower or costlier in several cells, e.g. AlgoVeri Opus-4.7 $2.86/36.9 min vs Seq $2.31/26.6 min, and Lean4Commit0 Codex time 18.4 vs Plain 14.2.",
+  "Plan-retention and failure attribution (App. I) cover only Verina with Opus-4.7 and are author-coded.",
+  "Reproducibility of 3 is slightly low: the figshare snapshot reportedly has the harness, prompts, benchmark, scripts, pinned environment and run metadata (§5.1, App. E), so it rates 4 under the rubric. The backends are closed."
+ ],
+ "note": "I agree with admit_with_caveats and with P13 supports: there are consistent gains in 12 of 12 cells across four backends. The P35, P14 and P16 'supports' stances are inflated: they tag the shared experimental setting, which never varies, rather than a tested intervention. The ablation does not isolate joint planning from the rest of the gated skill. Some appendix percentages cannot be obtained from the stated task counts."}

@@ -1,0 +1,17 @@
+{"arxiv_id": "2608.08265",
+ "blind_scores": {"rigor": 4, "reproducibility": 2, "generalizability": 1, "relevance": 1, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "major_disagreement",
+ "claims_disputed": [],
+ "pattern_stance_changes": [
+  {"id": "P23", "from": "contradicts", "to": "mixed", "reason": "The paper shows no certified routing gain, which is not evidence that routing hurts. The review's own claim note says 'A lower limit of zero is absence of certified gain, not evidence of no gain'. Every K-way prompt router's point estimate is at or above the frozen best model; for example, the fine-tuned K-head encoder scores .719 vs .699 (Table 4). Cost-aware routers and cascades match or slightly beat the best fixed model at 62–78% relative cost (Table 8, e.g. FrugalGPT .700 at 0.62). The only significant harm is a post-inference max-confidence selector on GSM8K (Table 15), which is not a pre-answer router."}
+ ],
+ "missed_issues": [
+  "Declared but unreported settings: §6 and Table 5 list a code-generation pass@1 setting and a factual-QA setting (500 items each), but no table or figure reports results for either. The review's methodology lists them as part of the sample. The only coding-relevant evidence is therefore absent.",
+  "Several described robustness analyses have no results in the paper: three predeclared prompt templates with a hierarchical bootstrap (App. D.4), 'ten router seeds' (App. D.5), and constrained label generation (D.4). It is unclear whether the 'confirmatory' design was fully executed.",
+  "Inconsistent headline: the abstract says 'strong routers beat the best fixed model', but Table 2 shows the best of 11 policies is not certified above the best fixed model on any dataset (G_Π lower limit .000). The abstract statement rests on point estimates.",
+  "Table 3 'best gain' takes the strongest router after seeing test results, the same post-hoc selection the paper warns against. The recovered fractions are optimistic upper estimates, although this only strengthens the negative reading.",
+  "Cost in Table 8 is an unbatched single-stream A10G latency ratio on the multiple-choice path (App. D.8), not tokens or dollars, and has no intervals.",
+  "Reproducibility of 3 is generous: the artifact is referenced (App. F, D.3) but no repository URL appears anywhere, so per the rubric it is closer to 2."
+ ],
+ "note": "I agree with admit_with_caveats and with the review's claim grading; the statistical method is the real contribution. P23 should be mixed, not contradicts: the paper shows uncertified small gains and cheaper equal-accuracy cascades, not that routing fails. Its single code setting is declared but never reported."}

@@ -1,0 +1,18 @@
+{
+  "arxiv_id": "2609.08040",
+  "blind_scores": {"rigor": 3, "reproducibility": 4, "generalizability": 3, "relevance": 3, "coi_risk": 1},
+  "blind_verdict": "admit_with_caveats",
+  "blind_coi_severity": "low",
+  "agreement": "agree",
+  "claims_disputed": [],
+  "pattern_stance_changes": [],
+  "missed_issues": [
+    "Justification accuracy <= status accuracy holds by construction: for affected cases a correct status implies the correct 'vulnerable' justification, and for not-affected cases a correct justification implies a correct status. So 'justification is harder than status for every configuration' is mechanical; the informative quantity (justification accuracy conditional on a correct not-affected call) is not reported.",
+    "Status metrics rest on 22 affected cases (recall SD 6.9 pp is about 1.5 cases). No CIs or significance tests, so the ordering among the top configurations (Opus 81.6 +/- 3.8 vs GPT-5.5 79.9 +/- 8.0; Sonnet/Kimi/DeepSeek-Pro/GLM at 70.3-72.5) is not established.",
+    "Label reliability: Fleiss' kappa 0.667 comes from only 15 calibration cases. In the scaling phase each case had one annotator plus a non-blind reviewer, so the 88.3% 'confirmed without revision' rate is anchored reviewer agreement, not independent inter-annotator agreement.",
+    "Web access was enabled during evaluation, with no web-off ablation and no audit of agents' search traces. Downstream advisories or issue threads could reveal affected status even though the expert labels are private. Appendix C only probes memorisation of source PRs (19 PRs, 2 of 9 models).",
+    "Timeouts at the 10-minute cap count as failures (MiniMax-M2.7 12.0%, Kimi K2.6 3.1%), so these models' low scores partly reflect the runtime limit. The harness ablation (Fig. 7) has no run-to-run variance, so 'Codex consistently outperforms OpenCode' for GPT-5.5 may be within noise.",
+    "Applicability slips: (a) Java is the largest subset by median LOC, not by cases (Go has 30, Java 25); (b) the paper names pom.xml/Maven only, not Gradle; (c) agent status precision ranges 62.7-88.7 (Sonnet 68.4, DeepSeek-V4-Flash 62.7), not '~75-89'. Per-language Java numbers are given only in Fig. 5 for four configurations, and the 'multi-module Java' explanation is speculative."
+  ],
+  "note": "The review matches my blind scores, verdict and COI exactly, and it already catches the 70.7% majority-class floor, the by-construction SCA precision problem, the harness/model confound and precedence-label ambiguity. No claim or stance needs to change; additions are the tautological status-vs-justification gap, weak independent label agreement, untested web-access leakage, and small factual slips in the applicability text."
+}

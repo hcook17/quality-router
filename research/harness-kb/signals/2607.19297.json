@@ -1,0 +1,151 @@
+{
+ "arxiv_id": "2607.19297",
+ "fulltext_chars": 48629,
+ "fulltext_lines": 1094,
+ "authors_block": "Daniel Pearson Affiliation: Dhillon School of Business, University of Lethbridge Affiliation: Lethbridge, Alberta, Canada Affiliation: Sidney Shapiro Affiliation: Dhillon School of Business, University of Lethbridge Affiliation: Lethbridge, Alberta, Canada Affiliation: Emiliano Sebastian Gonzalez Venegas Affiliation: Universidad de Guadalajara Affiliation: Guadalajara, Jalisco, Mexico Affiliation: Sanad Al-Khatib Affiliation: Al Hussein Technical University Affiliation: Amman, Jordan Affiliation: Aurora Pinzón Arzola Affiliation: Universidad de Guanajuato Affiliation: León, Guanajuato, Mexico",
+ "vendor_affiliation_hits": [],
+ "n_authors": 5,
+ "comment": "25 pages, 2 figures. With ancillary code",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/langchain-ai/langgraphSource"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Graph-Based Agentic AI with LangGraph: Workflow Pathways for Long-Running Stateful Business Processes"
+  ],
+  [
+   52,
+   "###### Abstract"
+  ],
+  [
+   56,
+   "## 1 Introduction"
+  ],
+  [
+   70,
+   "## 2 When LangGraph Fits"
+  ],
+  [
+   76,
+   "### 2.1 Decision flow"
+  ],
+  [
+   135,
+   "### 2.2 Alternatives at a glance"
+  ],
+  [
+   171,
+   "## 3 Graph Anatomy and Repository Layout"
+  ],
+  [
+   175,
+   "### 3.1 Core recipe parts"
+  ],
+  [
+   207,
+   "### 3.2 Use cases and pattern coverage"
+  ],
+  [
+   273,
+   "### 3.3 Repository layout"
+  ],
+  [
+   281,
+   "## 4 Three Pathway Recipes"
+  ],
+  [
+   360,
+   "### 4.1 SQL analytics repair loop"
+  ],
+  [
+   386,
+   "### 4.2 Agentic RAG evidence loop"
+  ],
+  [
+   412,
+   "### 4.3 HITL policy review with interrupt and checkpoint"
+  ],
+  [
+   451,
+   "## 5 Python Workflow Examples"
+  ],
+  [
+   455,
+   "### 5.1 SQL analytics: validate, repair, execute"
+  ],
+  [
+   533,
+   "### 5.2 Agentic RAG: retrieve, grade, verify citations"
+  ],
+  [
+   615,
+   "### 5.3 HITL policy review: interrupt, resume, checkpoint"
+  ],
+  [
+   703,
+   "### 5.4 Route functions should stay small"
+  ],
+  [
+   741,
+   "## 6 Trade-offs and Testing"
+  ],
+  [
+   759,
+   "## 7 Related Work"
+  ],
+  [
+   771,
+   "## 8 Practical Implications"
+  ],
+  [
+   805,
+   "## 9 Scope and Availability"
+  ],
+  [
+   809,
+   "### 9.1 Availability"
+  ],
+  [
+   813,
+   "### 9.2 Limitations"
+  ],
+  [
+   817,
+   "## 10 Conclusion"
+  ],
+  [
+   821,
+   "## Appendix A Runnable Examples"
+  ],
+  [
+   857,
+   "## References"
+  ],
+  [
+   1094,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "### 9.2 Limitations\n\nThree executable recipes cover SQL repair, agentic RAG, and HITL policy review (Table 4). They deliberately omit multi-agent supervisor–worker subgraphs, customer-support escalation playbooks, and cross-session memory stores; those appear in Table 4 as adjacent use cases rather than demonstrated pathways. The code examples use typed in-graph state and, for HITL, an in-memory checkpointer suitable for local development; production deployments should swap in a durable checkpointer (for example SQLite or Postgres) when pause/resume must survive process restarts. We do not evaluate streaming UX, observability backends, deployment topology, or operational cost. Schema-first validation and DSPy-style prompt optimization can complement LangGraph inside individual nodes; combining stacks is noted in Section 8 but not shown as a fourth recipe.\n\n## 10 Conclusion\n\nWe presented three executable LangGraph workflow pathways for long-running business processes: SQL analytics with repair loops, agentic RAG with evidence loops, and HITL policy review with interrupt/checkpoint recovery. The point is not that LangGraph improves model quality. The point is that graph orchestration gives developers explicit places to store state, route failures, pause for review, resume after interruption, and explain what happened. LangGraph is not a universal replacement for every LLM application stack. Choose by problem class: a plain SDK or ReAct-style loop for simple tool use, schema-first tools for structured extraction and validation, DSPy when prompt or program optimization is the main goal, and LangGraph when stateful branching, recovery, human review, and long-running coordination are product requirements.\n\n## Appendix A Runnable Examples\n\nMinimal local setup after downloading and extracting the complete arXiv source package (mock mode; no provider keys):\n\ncd anc\n\npython3.10 -m venv .venv\n\nsource .venv/bin/activate\n\npip install -e \".[dev]\"\n\nexport LANGGRAPH_STUDY_MODE=mock\n\npython -m pytest tests/test_recipes.py -q\n\nThe same fixture IDs used in the pathway recipes are available as case tasks (for example sql_tool_failure, rag_weak_evidence, and hitl_high_risk under benchmarks/datasets/). Happy-path tests above exercise the three graphs; failure and review cases assert repair, refuse/retry, and interrupt/resume routes rather than model quality.\n\nThe three LangGraph pathway implementations are intentionally small and inspectable: SQL analytics in src/langgraph_study/workflows/sql_analytics/graph.py, agentic RAG in src/langgraph_study/workflows/agentic_rag/graph.py, and HITL policy review in src/langgraph_study/workflows/hitl_policy_review/graph.py.\n\nEach pathway follows the same shape:\n\nbuilder = StateGraph(TypedState)\n\nbuilder.add_node(\"node_name\", node_fn)\n\nbuilder.add_edge(START, \"first_node\")\n\nbuilder.add_conditional_edges(\"route_node\", route_fn, route_map)\n\nbuilder.add_edge(\"terminal_node\", END)",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 1
+ },
+ "fulltext_source": "html"
+}

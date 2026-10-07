@@ -1,0 +1,19 @@
+{"arxiv_id": "2606.22902",
+ "blind_scores": {"rigor": 3, "reproducibility": 4, "generalizability": 2, "relevance": 2, "coi_risk": 2},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "The routing bottleneck is information deficit, not reasoning: adding per-dimension performance stats gives a +15.3% relative gain to an LLM router.", "proposed_strength": "weak", "reason": "The +Perf-stats ablation exists for one router model only (Sonnet 4.6, Table 1). App. C.1 / Table 7 does not repeat it: it runs only 0-shot, 3-shot and agent-memory variants. Table 7 Panel A also shows that changing the router model alone, with no extra information, moves 0-shot AvgPerf from 39.27 (Opus) and 41.41 (Sonnet) to 46.87 (Qwen3.5-Plus). So most of Sonnet's 'deficit' closes by swapping the reasoner, which argues against 'not reasoning'. The 'exceeds DimensionBest' margin is 47.74 vs 47.50, a single run with no variance."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P09", "from": "supports", "to": "mixed", "reason": "No ACRouter-minus-Memory ablation exists; the bandit and static baselines differ in more than memory. The paper's one direct memory test (Table 7 Panel B: cosine-kNN memory under verifier feedback vs the same router LLM 0-shot) lowers AvgPerf for 5 of 7 routers (GPT-5.4 45.91 to 40.95, Qwen3.5-Plus 46.87 to 43.98, Kimi 46.29 to 42.70, Qwen3-Max 46.60 to 44.92, GLM-5 45.42 to 45.21) and raises it only for MiniMax and Sonnet. App. C.1.2 itself calls this 'mixed'."},
+  {"id": "P16", "from": "supports", "to": "introduces", "reason": "The Verifier never drives a repair or retry loop on the task. It only scores the chosen model's output so that Memory can store it (§3.3, App. A.1). Its contribution is never isolated by an ablation, so the paper gives no evidence that execution-based verification loops improve outcomes."}
+ ],
+ "missed_issues": [
+  "metric_mismatch / data hygiene: the score matrix uses a 'missing-as-0' convention, and GLM-5 (~14.5%) and Qwen3.5-Plus (~10.7%) have missing tasks (App. D.2, Table 9). So the oracle, DimensionBest and every router are partly scored on API or infrastructure gaps rather than on coding ability.",
+  "strawman_baseline by omission: Always-GPT-5.4 is absent from the single-model rows of Table 3, both ID and OOD. On OOD it resolves 75.00% at $41.04 (Table 14), against ACRouter's 62.50% at $52.97 (Table 13), so it dominates the router on both quality and cost. The OOD oracle (75.89%) comes from the 'original' bundle, while the GPT-5.4 figure is an updated run, so the regret numbers are not computed on the same matrix.",
+  "§3.4 says the decomposed policies 'naturally set up the ablation study', but they are separate methods, not ACRouter with one module removed. The ID +2.48-pt gain cannot be attributed to the Orchestrator, Verifier or Memory individually.",
+  "The OOD agentic split uses a 40-step cap instead of 250. The Limitations section asserts that the 'relative router comparison is unaffected' without evidence, and the cap likely penalises models that use many steps (Opus averages 19 calls per task).",
+  "single_language_python: the ID sources are dominated by Python function-level benchmarks (HumanEval+, MBPP+, BigCodeBench, DS-1000), and the OOD split is SWE-bench-derived. Only the Multi-Language dimension (HumanEval-X/MultiPL-E) touches Java."
+ ],
+ "note": "I agree with admit_with_caveats, and the review correctly flags the GPT-5.4 OOD problem. But its P09 and P16 'supports' stances are not backed by any component ablation, and the paper's own memory test in Table 7 Panel B is mostly negative. The headline 'information deficit, not reasoning' rests on one router model and is weakened by Table 7 Panel A."}

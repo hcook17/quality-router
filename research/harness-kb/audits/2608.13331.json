@@ -1,0 +1,17 @@
+{"arxiv_id": "2608.13331",
+ "blind_scores": {"rigor": 3, "reproducibility": 1, "generalizability": 1, "relevance": 2, "coi_risk": 3},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "medium",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [],
+ "pattern_stance_changes": [
+  {"id": "P13", "from": "supports", "to": "mixed", "reason": "The director-over-coding-agent arrangement does not help by itself. Base Qwen3.6-27B in the same harness with the same Codex tool is 'the weakest of all' agents (§4.2, Fig. 2), below Codex alone. The win over Codex appears only after RL post-training, which is P25's evidence, not P13's. The only architecture ablation, no-tool training (App. B.2), is a single training run that collapses, so it compares stability rather than the arrangement."}
+ ],
+ "missed_issues": [
+  "The 'in-distribution' result (Faraday beats Claude and Codex on 73% of tasks) is measured on the 242 Replica training tasks Faraday was RL-trained on (§3.1, Fig. 2 left, App. C.2). It reflects fit to the training set, not generalisation, and should not be cited as performance.",
+  "The evaluation metric is the RL reward: the same Codex GPT-5.5 rubric judge, with Claude-written rubrics, scores both training and evaluation (§3.2, §4.2). No independent judge family is used at evaluation, so reward over-optimisation cannot be ruled out. The selected human study (App. F.2) only partly addresses this.",
+  "Compute and inference budgets are not matched: Faraday can run several Codex GPT-5.5 xhigh agents in parallel (§3.4) on top of its own 27B policy, while the baselines run one native harness. Only wall-clock time (60 min) and the GPU slice are equal.",
+  "'6% / 8% improvement' (§1) does not say whether it is relative or absolute on the 0–1 judge scale, and the main comparison has no significance test.",
+  "P26 not tagged: 24 generations of automated prompt optimisation on Codex, with judge feedback, gave no meaningful gain (Fig. 5 left). This is weak evidence against searched prompts and harnesses, from one optimiser and one run.",
+  "The task set changed during training: the final stage 'fixes to task captions in 17% of tasks' (Table D.1). It is unclear whether any of these were test tasks."
+ ],
+ "note": "I agree with admit_with_caveats, medium COI and most claim grades. P25 supports is justified by the same-harness base-model comparison and the prompt-optimisation control. P13 is not, because the untrained director plus Codex is the weakest agent. The 73% headline is on the training tasks."}

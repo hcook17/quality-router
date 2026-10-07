@@ -1,0 +1,15 @@
+{"arxiv_id": "2610.07851",
+ "blind_scores": {"rigor": 3, "reproducibility": 1, "generalizability": 2, "relevance": 2, "coi_risk": 1},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "agree",
+ "claims_disputed": [],
+ "pattern_stance_changes": [
+  {"id": "P37", "from": "mixed", "to": "neutral", "reason": "Nothing in the paper is an LLM-emitted task DAG. The 'Decomposition' probe is a single-turn decompose-then-solve prompt. In the search interpreter, 'plan' is one JSON flag in a fixed plan -> candidates -> selection -> refinement chain (App. C.4), with no dependency edges and no parallel execution of sub-tasks. The per-probe numbers (0.3254 / 0.6343 / 0.055, Table 6) have no CIs, and the SWE collapse is attributed to output-format conflicts with Agentless localization rather than to planning. That speaks to prompt-format compatibility, not to P37."}
+ ],
+ "missed_issues": [
+  "The guided bank (§3.3, Table 5: Guided-B 0.3358) ran on the official OpenAI endpoint in September. Table 1's arms (D, train-selected probe 0.3481, A/B) are July runs on an NEC endpoint. Cross-table comparisons, including the review's 'fixed probe beats every RA-MoWE arm', mix endpoints and dates for the guided arms.",
+  "The guided search is not an independent selection. Proposals and acceptance reuse the same search-validation outcomes, and the optimizer's marginal-value table includes local-holdout members (App. C.4). The deployed bank was also built in a different clustering than the recorded routes, bridged by a Hungarian mapping whose test assignments agree on only 80.33% of queries. The only accepted edit (C3) passed 'at the 2/28 acceptance boundary'.",
+  "The applicability text's 'best workflow did not transfer across regimes (rank correlation -0.45)' overstates. The Spearman rho is -0.449 with p=0.143 over twelve coordinates (App. C.8); the paper's own wording is 'no evidence supporting direct transfer'.",
+  "The P36 note calls self-consistency 'a clear win over a plain call', but it is not compute-matched (several samples vs one call) and it reverses on SWE-bench Verified (0.190 vs Direct 0.200, Table 6)."
+ ],
+ "note": "I agree with admit_with_caveats and all scores. The review reads the paper's candour correctly. Its prespecified primary contrast is null in every regime, the text router collapses, and the generated bank ties a single CoT call while using 2.1x the calls. Only oracle (test-outcome) assignment reaches significance, against a global comparator that is itself below Direct. The one stance I change is P37, which this paper does not test."}

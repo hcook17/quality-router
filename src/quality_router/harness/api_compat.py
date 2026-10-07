@@ -1,7 +1,9 @@
 """Java API compatibility gate over japicmp XML reports (read-only).
 
-Evidence: 2608.20167 (a static API diff finds 95% of what LLM-written client
-tests catch on dependency bumps). japicmp computes the diff in the build;
+Evidence: 2608.20167 (95% of what LLM-written client tests caught on
+dependency bumps was crash-type breakage: missing classes and methods, the
+class of break japicmp reports; japicmp itself was not measured). japicmp
+computes the diff in the build;
 this gate reads its JAXB XML and decides. Each `compatibilityChange` counts
 once, at its nearest class/member owner; the aggregate compatibility
 attributes on classes and members are derived from those changes and are not

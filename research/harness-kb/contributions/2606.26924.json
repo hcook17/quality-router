@@ -1,0 +1,20 @@
+{
+  "arxiv_id": "2606.26924",
+  "contributions": [
+    {"kind": "nuance",
+     "statement": "Treat repo instruction/agent-config files (AGENTS.md, CLAUDE.md, .cursorrules, copilot-instructions) as owned, periodically-reviewed artifacts, not write-once setup: across 10,008 public repos 58% had a single commit and, age-normalized, they were revised less often than CI workflows (0.4 vs 0.6-0.75 commits/month), so in practice this guidance fossilizes after creation while the code it steers keeps moving.",
+     "evidence": "§7.2 Tables 10-11 (claim 2, graded moderate): 58.45% single-commit (CI 57.2-59.7%), 74.26% <=2 commits, median 1 commit; cohort-matched 0.4 vs 0.75 commits/month partly bounds the age confound. Caveat: file-level CIs ignore clustering of 6,145 files within 846 repos; selection is the 'already adopted agents' population; staleness is not shown to harm agent outcomes.",
+     "strength": "moderate", "novelty": "refines", "relative_to": ["2606.15828", "2606.09090"], "transfers": "direct"},
+    {"kind": "design_pattern",
+     "statement": "Let a deterministic CLI own phase/lifecycle state and hard-code gate predicates that refuse to advance a work item whose receipts are missing (spec-review recorded, security scan clean, every acceptance criterion linked to code and a test), but have each gate verify from git diff and CI output rather than from agent-reported state files, because receipts and trace calls supplied by the coding agent are an honor-system surface a non-compliant or prompt-injected agent bypasses (detected after the fact, not prevented).",
+     "evidence": "§4.5 gate predicates (end_phase ordering/delegation/review/security-scan) and the §4.5 trust-boundary note; Appendix D (N=1): the Phase-8 gate caught one AC implemented without a registered test, surfaced post-hoc. No effectiveness or adversarial evaluation; conformance tests only confirm hand-written detectors fire on inputs built to trigger them; the one Cursor-vs-governed comparator was withheld (Appendix D.4).",
+     "strength": "weak", "novelty": "refines", "relative_to": ["2609.00050", "2607.07405"], "transfers": "direct"},
+    {"kind": "design_pattern",
+     "statement": "For a mixed-agent-host team, keep one canonical agent definition and compile it to each host's format (Cursor, Claude Code, Codex, VS Code, ...) rather than hand-maintaining per-host files, but do not assume the emitted permission tier is enforced at runtime: several hosts (Codex, Windsurf, OpenCode, Kiro) ignore the declared tool allowlist, so runtime enforcement must be audited per host.",
+     "evidence": "§4.6 and Appendix B (compiler as a pure function of the canonical definition D; 237 definitions compiled across 7 targets with no schema violation, §6.2); §4.6/§8 concede runtime enforcement varies and four targets impose none. Governance-preservation is an argument, not a measured property; no outcome evaluation.",
+     "strength": "weak", "novelty": "refines", "relative_to": ["infrastructure-as-code / define-once config management", "P27 cross-repo coordination / contracts"], "transfers": "direct"}
+  ],
+  "quantity_flags": ["system_description_only"],
+  "proposed": "keep",
+  "reason": "The completed prevalence study yields one qualifying, actionable nuance: agent-config files fossilize in practice (quantifying a staleness smell already noted qualitatively in 2606.15828/2606.09090), which a Java multi-repo team can act on by assigning ownership and review. The architecture itself is an unevaluated system tour (conformance tests are tautological by the author's admission and the only comparator was withheld), so the deterministic-gate and compile-to-many design patterns stay weak/hypothesis-level: useful as a design reference and consistent with qr's 'LLM proposes, CLI verifies', but with the sharp caveat that gates reading agent-reported state are bypassable."
+}

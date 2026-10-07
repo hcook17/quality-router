@@ -1,0 +1,18 @@
+{"arxiv_id": "2605.20630",
+ "blind_scores": {"rigor": 2, "reproducibility": 1, "generalizability": 1, "relevance": 2, "coi_risk": 1},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "The two layers are additive and the cache never makes the miss path slower.", "proposed_strength": "weak", "reason": "Appendix B shows the cache alone adds a median of +2.23 s on every miss. 'Never makes the miss path slower' is therefore false for the cache and holds only net of the separate MCP-layer gain (-3.30 s on 44 combined-run misses). Additivity is never tested: MCP-only (18 IoT queries), cache-only (50 stratified rows) and combined (80 paraphrases) run on different query sets, with no 2x2 design on a common set."},
+  {"claim": "The temporal semantic cache achieves a 30.6x median speedup on cache hits (3.48x end-to-end on 80 queries).", "proposed_strength": "weak", "reason": "The hit speedup counts wrong answers: hit precision is 0.667 in the cache-only run and 0.75 in the combined run, so 9 of 36 combined hits returned another query's answer. The 3.48x end-to-end figure comes from a test set built 60/40 warm/cold. The authors themselves estimate a 15-30% achievable hit rate on the real corpus versus the 45% obtained here, so the end-to-end number does not describe any real workload."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P37", "from": "mixed", "to": "introduces", "reason": "The paper has no evidence against planner-DAG execution, so 'mixed' implies counter-evidence that does not exist. The only comparison bundles Kahn-layer parallelism with a persistent server pool against a subprocess-per-call sequential baseline (claim graded weak). Per-server locks also serialize same-server steps, so much of the 1.99x execution gain may be pooling. Dependency correctness and answer quality are never measured. The pattern is used without an isolating comparison."}
+ ],
+ "missed_issues": [
+  "The 2.06 s planning-phase drop (10.3 s to 8.2 s) cannot be caused by discovery caching, pooling or parallel execution. It is about 9% of the claimed 22.7 s MCP-layer saving and indicates provider noise of that order with only 3 runs per query.",
+  "Per-server asyncio locks serialize concurrent calls to the same MCP server, and the MCP experiment uses IoT queries. Parallelism exists only where a plan's independent steps target different servers, which the paper never reports per query. That strengthens the pooling-versus-DAG confound.",
+  "Run accounting does not match: '120 total profiled runs' for 18 queries x 3 runs x 2 modes (108). The 20 selected queries, including the two that timed out, would give 120. It is unclear whether the timed-out runs entered any aggregate.",
+  "There is no 2x2 design (MCP on/off x cache on/off) on a common query set, so the 'additive' conclusion is inferred across different samples (see disputed claim)."
+ ],
+ "note": "My blind scores and verdict match the review exactly. The disagreement is in grading: two latency claims rest on counting wrong cache hits or on a cache-overhead result the paper's own appendix contradicts, and P37 is 'introduces', not 'mixed'. The one robust finding is the cache's failure mode: embedding plus reranker gating returns other queries' answers on parameter-shifted queries."}

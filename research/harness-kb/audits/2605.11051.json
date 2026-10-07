@@ -1,0 +1,15 @@
+{"arxiv_id": "2605.11051",
+ "blind_scores": {"rigor": 3, "reproducibility": 4, "generalizability": 2, "relevance": 2, "coi_risk": 1},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [],
+ "pattern_stance_changes": [
+  {"id": "P25", "from": "neutral", "to": "supports", "reason": "Table 1 directly measures fine-tuning against the un-tuned model on the same scaffold. Full SFT of Qwen3-8B on SWE-smith expert trajectories resolves 86 vs 19 SWE-bench Verified issues; on RepoQA Pass@0.8 the LoRA SFT scores 0.85 vs 0.65. This is a side baseline and the SFT run's variance is not reported (App. B covers only Base vs ICAE), but a +67-issue gap from a measured comparison clears the 'supports' bar."}
+ ],
+ "missed_issues": [
+  "The 'ICAE beats Base on single-shot' result is confounded by task fine-tuning. The ICAE encoder is fine-tuned on the SQuAD/RepoQA training data (§3) while Base is not, so the gain reflects tuning, not compression. Against SFT, the fair no-compression comparison, compression always costs accuracy (RepoQA Pass@0.8 0.69 vs 0.85; SQuAD EM 0.67 vs 0.70).",
+  "Floor effect: with thinking disabled and a 32k context, Base resolves only 19/500 (3.8%). The 12-issue gap may not transfer to frontier hosted models.",
+  "The '40% longer trajectories' are measured to a 32k context limit with no step limit (App. C). With a lower resolve rate, extra steps may be looping, as in the repeated README views in App. D, rather than useful work, so presenting them as an efficiency gain is questionable.",
+  "cherry_picked_examples: the App. D success demo is 'hand-crafted' and its environment was 'manually simulated by one of the authors'."
+ ],
+ "note": "I agree with admit_with_caveats and the P08 'contradicts' stance, which applies only to learned latent compression, not host-side summarization. The single-shot 'gains' come from fine-tuning, not compression. The un-tuned vs SFT gap is genuine measured evidence for fine-tuning (P25)."}

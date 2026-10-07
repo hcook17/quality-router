@@ -1,0 +1,53 @@
+{
+  "arxiv_id": "2605.08399",
+  "contribution_type": "system",
+  "summary": "CoCoDA organises a tool library for small Qwen3 models as a DAG of primitive and composite Python tools (edges are invocation dependencies), each with a typed signature, description, pre/post-conditions and examples. Retrieval prunes candidates by type, then description, spec and examples, so the planner sees few tools. During GRPO training, successful trajectories are folded into validated composite tools by a 32B teacher, and the planner is rewarded for using composites. Evaluated on GSM8K, MATH, WikiTableQuestions, FinQA, HumanEval+ and MBPP.",
+  "claims": [
+    {"claim": "An 8B student matches or exceeds the 32B teacher on GSM8K and MATH.", "evidence": "Table 1: 93.67 vs 93.40 (GSM8K) and 63.18 vs 61.62 (MATH). Means of 3 seeds with SD up to 0.4 (App. I), so the GSM8K gap is within about one SD. The teacher is run as no-tool CoT, so the comparison mixes tool access with model size; ReTool-8B also beats the teacher on MATH (61.84).", "strength": "weak", "location": "§4.2 Table 1, App. I"},
+    {"claim": "CoCoDA wins every (size, benchmark) cell over strong tool-use and library-learning baselines.", "evidence": "Table 1 means: margins over ReTool are 0.1-2.0 points, several within the reported SD (e.g. 4B WTQ +0.11, FinQA +0.11). Not stated whether baselines are also 3-seed means. ReAct, CREATOR and TroVE score below plain CoT in every block, which suggests weakly configured baselines.", "strength": "weak", "location": "§4.2 Table 1, App. C"},
+    {"claim": "Typed DAG Retrieval keeps prompt cost sublinear in library size.", "evidence": "Fig. 2(b): with the library fixed, flat retrieval costs about 11.4x and RAPTOR-style text hierarchy about 4.7x the tokens at 1,600 nodes. Synthetic library-size sweep; no variance.", "strength": "moderate", "location": "§4.3 Fig. 2(b)"},
+    {"claim": "Each structural component contributes.", "evidence": "Table 2 (4B): without the DAG -3.49 mean, without typed retrieval -1.79, without graph-aware reward -1.40, all removed -5.18. Single-run ablations, no SD.", "strength": "moderate", "location": "§4.4 Table 2"},
+    {"claim": "Theory guarantees retrieval cost reduction and monotone co-evolution.", "evidence": "Theorems 1-4 and Corollaries 2, 5 (App. L) rest on assumptions such as the LLM spec check having 'no false positives under faithful specification reading'.", "strength": "weak", "location": "§3.4, App. L"}
+  ],
+  "patterns": [
+    {"id": "P37", "stance": "neutral", "note": "Not a task DAG. The planner emits an ordered list of 1-5 typed sub-goals (App. D.3) with no dependency edges and no parallel scheduling; the 'DAG' is a tool-composition call graph used for retrieval."},
+    {"id": "P03", "stance": "supports", "note": "Same model and library, flat dense retrieval vs typed cascade: -1.79 mean accuracy and about 11.4x tokens for flat retrieval at 1,600 tools. Toy math/table tasks, one model family."},
+    {"id": "P09", "stance": "mixed", "note": "A co-evolving skill library beats frozen-library ReTool by at most 2 points; the flat library-learning baselines (CREATOR, TroVE) score below plain CoT."},
+    {"id": "P25", "stance": "neutral", "note": "GRPO is shared with the strongest baseline (ReTool); the shaped reward adds 1.4 points in ablation."}
+  ],
+  "methodology": {
+    "sample": "Six public benchmarks: GSM8K 1,319, MATH 5,000, WTQ 4,344, FinQA 1,147, HumanEval+ 164, MBPP 500 test items.",
+    "baselines": "Student and teacher CoT, ReAct, ToRL, ReTool, CREATOR, TroVE on the same Qwen3 backbone.",
+    "models": "Qwen3 0.6B, 1.7B, 4B and 8B students; Qwen3-32B teacher.",
+    "variance": "Main-table means over 3 seeds with SD at most 0.4 to 0.7; no SD for ablations or baselines.",
+    "ablations": "Table 2 removes DAG, typed retrieval, graph-aware reward, and combinations.",
+    "contamination_controls": "None discussed; GSM8K, MATH and HumanEval are widely contaminated public sets.",
+    "languages": "Python tools; function-level Python code tasks."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint, no venue.",
+    "limitations_section": false,
+    "artifacts": "Anonymous code link (anonymous.4open.science); prompts and hyperparameters in appendices.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "metric_mismatch", "detail": "Headline 'student matches teacher' compares a tool-augmented student with a no-tool teacher."},
+    {"type": "strawman_baseline", "detail": "ReAct, CREATOR and TroVE fall below plain CoT on almost every cell."},
+    {"type": "single_model", "detail": "Only the Qwen3 family."},
+    {"type": "toy_tasks", "detail": "Grade-school/competition math, table QA and function-level code."},
+    {"type": "contamination_risk", "detail": "Public benchmarks with no contamination check."},
+    {"type": "no_variance_reported", "detail": "Ablations and baselines lack variance; many winning margins are within the main-table SD."}
+  ],
+  "coi": {
+    "affiliations": "Emory University; Beijing Normal-Hong Kong Baptist University.",
+    "vendor_products_evaluated": "None.",
+    "funding": "Not stated.",
+    "severity": "none",
+    "detail": "Academic authors; no vendor product evaluated."
+  },
+  "scores": {"rigor": 3, "reproducibility": 3, "generalizability": 1, "relevance": 1, "coi_risk": 0},
+  "verdict": "reject",
+  "verdict_reason": "Off-topic for the DAG question. The DAG is a tool-library call graph for RL-training small models on math, table QA and function-level code, not a workflow or task graph. Its headline (8B matches 32B) rests on a within-noise gap against a no-tool teacher.",
+  "applicability": "Does not transfer. The team uses hosted agent hosts and does not train planner models, and the 'DAG' says nothing about workflow graphs or LLM-generated task DAGs. The only portable idea is minor: if a team's MCP or skill catalog grows large, pre-filter tools by typed signature before showing descriptions to the model.",
+  "conflicts_with": []
+}

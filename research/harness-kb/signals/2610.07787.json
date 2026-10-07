@@ -1,0 +1,205 @@
+{
+ "arxiv_id": "2610.07787",
+ "fulltext_chars": 42625,
+ "fulltext_lines": 741,
+ "authors_block": "Qi Cheng Affiliation: Rutgers University Affiliation: New Brunswick, NJ Email: q.cheng@rutgers.edu Shengyu Chen Affiliation: University of Pittsburgh Affiliation: Pittsburgh, PA Email: shc160@pitt.edu Wei Cheng Affiliation: NEC Labs America Affiliation: Princeton, NJ Email: weicheng@nec-labs.com Yiqun Xie Affiliation: University of Maryland Affiliation: College Park, MD Email: xie@umd.edu Xiaowei Jia Affiliation: Rutgers University Affiliation: New Brunswick, NJ Email: xj159@cs.rutgers.edu Haoyu Wang Affiliation: NEC Labs America Affiliation: Princeton, NJ Email: haoyu@nec-labs.com Haifeng Chen Affiliation: NEC Labs America Affiliation: Princeton, NJ Email: haifeng@nec-labs.com",
+ "vendor_affiliation_hits": [],
+ "n_authors": 7,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# OOPMAS: Object-Oriented Multi-Agent Systems for Query-Level Workflow Generation"
+  ],
+  [
+   78,
+   "###### Abstract"
+  ],
+  [
+   82,
+   "## 1 Introduction"
+  ],
+  [
+   111,
+   "## 2 Related Work"
+  ],
+  [
+   113,
+   "#### Multi-agent systems with LLMs."
+  ],
+  [
+   117,
+   "#### Automated MAS generation at the task level."
+  ],
+  [
+   121,
+   "#### Query-level adaptation."
+  ],
+  [
+   125,
+   "#### Skill libraries and self-improvement."
+  ],
+  [
+   129,
+   "#### Benchmarks for MAS evaluation."
+  ],
+  [
+   135,
+   "## 3 Method"
+  ],
+  [
+   146,
+   "### 3.1 Problem Formulation"
+  ],
+  [
+   148,
+   "#### Multi-Agent System."
+  ],
+  [
+   152,
+   "#### Query-Level Workflow Optimization."
+  ],
+  [
+   162,
+   "### 3.2 Dynamic Agent Generation"
+  ],
+  [
+   166,
+   "#### OOP Agent Representation."
+  ],
+  [
+   170,
+   "#### Agent Pool Generation."
+  ],
+  [
+   174,
+   "#### Per-Query Coverage Verification."
+  ],
+  [
+   178,
+   "### 3.3 Workflow Generation and Optimisation"
+  ],
+  [
+   182,
+   "#### Workflow generation and execution."
+  ],
+  [
+   186,
+   "#### Optimisation via the skill library."
+  ],
+  [
+   280,
+   "## 4 Experiments"
+  ],
+  [
+   284,
+   "### 4.1 Experimental Setup"
+  ],
+  [
+   286,
+   "#### Mixed-Task Benchmark."
+  ],
+  [
+   290,
+   "#### Hard Mixed-Task Benchmark."
+  ],
+  [
+   294,
+   "#### Baselines."
+  ],
+  [
+   298,
+   "#### Evaluation Metrics."
+  ],
+  [
+   302,
+   "#### Implementation Details."
+  ],
+  [
+   306,
+   "### 4.2 Mixed-Task Benchmark Results"
+  ],
+  [
+   375,
+   "### 4.3 Hard Mixed-Task Benchmark"
+  ],
+  [
+   381,
+   "### 4.4 Component Ablation"
+  ],
+  [
+   387,
+   "### 4.5 Model Swap Study"
+  ],
+  [
+   393,
+   "### 4.6 Cost–Accuracy Trade-off"
+  ],
+  [
+   399,
+   "## 5 Conclusion"
+  ],
+  [
+   401,
+   "## 6 Conclusion"
+  ],
+  [
+   405,
+   "#### Limitation."
+  ],
+  [
+   409,
+   "## References"
+  ],
+  [
+   705,
+   "## Technical Appendices"
+  ],
+  [
+   707,
+   "## Appendix A Reproducibility Details"
+  ],
+  [
+   709,
+   "#### Hardware and runtime."
+  ],
+  [
+   713,
+   "#### Evaluation specifics."
+  ],
+  [
+   717,
+   "## Appendix B Per-Stage Cost Breakdown"
+  ],
+  [
+   723,
+   "## Appendix C Skill Library Examples"
+  ],
+  [
+   741,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "#### Limitation.\n\nSeveral limitations remain. First, OOPMAS depends on a strong meta-agent. When the backbone is weak, the system may fail to synthesize reliable agent classes or executable workflows, and fixed scaffolds such as AFlow can be more robust. Second, the current skill library is run-local: it improves workflow generation within an optimization run but does not yet persist across deployments, domains, or future query streams. Third, per-query generation increases inference cost substantially compared with fixed-workflow baselines, especially on hard problems that require multiple repair attempts. Finally, while Mixed and Hard Mixed cover diverse domains and formats, they remain benchmark-based evaluations; broader deployment settings may introduce tool-use, long-context, safety, privacy, and distribution-shift challenges not fully captured here.\n\n## References\n\nAustin et al. (2021)\nJ. Austin, A. Odena, M. Nye, M. Bosma, H. Michalewski, D. Dohan, E. Jiang, C. Cai, M. Terry, Q. Le, et al.\n\nProgram synthesis with large language models.\n\narXiv preprint arXiv:2108.07732.\n\nCited by: §2,\n§4.1.\n\nChen et al. (2021)\nM. Chen, J. Tworek, H. Jun, Q. Yuan, H. P. de Oliveira Pinto, J. Kaplan, H. Edwards, Y. Burda, N. Joseph, G. Brockman, A. Ray, R. Puri, G. Krueger, M. Petrov, H. Khlaaf, G. Sastry, P. Mishkin, B. Chan, S. Gray, N. Ryder, M. Pavlov, A. Power, L. Kaiser, M. Bavarian, C. Winter, P. Tillet, F. P. Such, D. Cummings, M. Plappert, F. Chantzis, E. Barnes, A. Herbert-Voss, W. H. Guss, A. Nichol, A. Paino, N. Tezak, J. Tang, I. Babuschkin, S. Balaji, S. Jain, W. Saunders, C. Hesse, A. N. Carr, J. Leike, J. Achiam, V. Misra, E. Morikawa, A. Radford, M. Knight, M. Brundage, M. Murati, K. Mayer, P. Welinder, B. McGrew, D. Amodei, S. McCandlish, I. Sutskever, and W. Zaremba\n\nEvaluating large language models trained on code.\n\nExternal Links: 2107.03374,\nLink\n\nCited by: §1,\n§2,\n§4.1.\n\nCobbe et al. (2021)\nK. Cobbe, V. Kosaraju, M. Bavarian, M. Chen, H. Jun, L. Kaiser, M. Plappert, J. Tworek, J. Hilton, R. Nakano, C. Hesse, and J. Schulman\n\nTraining verifiers to solve math word problems.\n\narXiv preprint arXiv:2110.14168.\n\nCited by: §1,\n§2,\n§4.1.\n\nDua et al. (2019)",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 2,
+  "seeds_or_runs": 1,
+  "swe_bench": 0,
+  "contamination": 2,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

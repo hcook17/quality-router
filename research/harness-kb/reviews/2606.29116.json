@@ -1,0 +1,54 @@
+{
+  "arxiv_id": "2606.29116",
+  "contribution_type": "empirical",
+  "summary": "Static, design-level study of 6,003 public n8n workflow templates that include LLM nodes. RQ1 labels the primary LLM task with deepseek-v4-flash (96% agreement on 200 manual labels; keyword and NLI baselines 40.5% and 14.5%). RQ2 classifies graph topology (23.27% linear, 22.32% branch/merge, 18.92% cyclic, 18.74% multi-component). RQ3 finds 1,829 workflows with any platform error handling, 684 traceable to LLM outputs, mostly node-local settings (retry_on_fail, on_error_control). RQ4 traces LLM-to-external-action paths: 41.80% logic-gated, 26.52% direct, 2.78% human-gated. Ten findings and five takeaways; no runtime execution or outcome data.",
+  "claims": [
+    {"claim": "LLM workflows are structurally diverse; only 23.27% are strict linear chains.", "evidence": "Static graph analysis of n8n JSON (Table 1, §3.3). The four named categories sum to 83.25%; the remaining 16.75% is not explained. 'Cyclic' (18.92%) is not separated into item loops vs retry/repair cycles.", "strength": "moderate", "location": "§3.3 Finding 1"},
+    {"claim": "Only 167 workflows (2.78%) have a human-mediated path before an external action; 68.32% couple LLM output to external actions through logic or directly.", "evidence": "BFS from LLM nodes to action nodes over a role-annotated graph (Table 6). Validation on 200 manually inspected workflows is reported only as 'confirmed ... correctly captured', with no accuracy or per-class numbers.", "strength": "moderate", "location": "§3.5 Table 6, Findings 9-10"},
+    {"claim": "Only 684 of 6,003 workflows contain error handling that can be linked to LLM outputs, and it is mostly lightweight node-local configuration.", "evidence": "Two-step anchor detection plus backward traversal (Tables 3-5): 1,123 of 5,383 anchors have an upstream LLM. The traversal heuristic is not validated against manual labels, and presence of a setting says nothing about whether it handles LLM failures at runtime.", "strength": "moderate", "location": "§3.4 Findings 5-8"},
+    {"claim": "Text generation (31.1%), information extraction and planning/agentic execution dominate LLM tasks in n8n.", "evidence": "deepseek-v4-flash labels with 96% agreement on a 200-sample single-rater check; no inter-annotator agreement.", "strength": "moderate", "location": "§3.2 Fig. 2"},
+    {"claim": "Explicit reliability mechanisms such as structured fallback paths, repair loops, failure-specific alerts and human approval gates are relatively uncommon.", "evidence": "Only human approval gates (2.78%) and generic error anchors are quantified. Repair loops and structured fallback paths are never measured or defined in the body, and failure-specific alerts are only indirectly covered by error_trigger counts. The headline lists more than the analysis supports.", "strength": "unsupported", "location": "Abstract vs §3.4-3.5"}
+  ],
+  "patterns": [
+    {"id": "P36", "stance": "neutral", "note": "Describes how practitioners embed LLM nodes in developer-authored static workflow graphs (n8n). Purely descriptive: no runtime outcomes, no comparison of graph-structured vs free-form agents, and public templates are not production systems. Useful as a census of what static-graph users actually build, not as evidence that graphs help."},
+    {"id": "P19", "stance": "neutral", "note": "Human approval gates before external actions appear in 2.78% of templates; Takeaway 2 recommends approval nodes that also handle timeout and no-response cases. Prevalence only, no effect measured."},
+    {"id": "P21", "stance": "neutral", "note": "41.80% route LLM output through parse/validate/logic nodes before actions; Takeaway 5 notes such checks address format, not semantic correctness. 'Logic-gated' includes any control node, so it is not a policy guarantee."}
+  ],
+  "methodology": {
+    "sample": "6,003 public n8n templates (142,181 nodes); 200-workflow manual samples for RQ1 and RQ4 validation.",
+    "baselines": "Keyword and NLI classifiers vs LLM annotation for RQ1 only; no baselines for structural findings.",
+    "models": "deepseek-v4-flash as task annotator; templates themselves use many LLMs, not executed.",
+    "variance": "n/a (census); no confidence intervals or inter-rater agreement.",
+    "ablations": "n/a",
+    "contamination_controls": "n/a",
+    "languages": "n8n workflow JSON (language-agnostic low-code)."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint in journal template (Received/Accepted placeholders), no venue confirmed.",
+    "limitations_section": true,
+    "artifacts": "Scripts, identifiers and derived data promised 'upon acceptance'; current link is a Google Sites page, not an archival repository.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "survivorship", "detail": "Public gallery templates skew toward tutorials and demos; the authors acknowledge production workflows are private, so prevalence of safeguards may be understated or overstated."},
+    {"type": "other:unquantified_validation", "detail": "RQ4's 200-workflow manual audit reports no accuracy figure, and RQ3's LLM-linkage heuristic has no validation at all."},
+    {"type": "metric_mismatch", "detail": "Static presence of nodes or settings is used to discuss reliability and safety, which are runtime properties; the paper concedes this for RQ4 but the abstract and takeaways do not."},
+    {"type": "novelty_inflation", "detail": "Claims the first large-scale study of LLM workflows in low-code platforms, while concurrent work (2605.11229) already scanned 9,154 n8n templates for agent hijacking."},
+    {"type": "closed_artifacts", "detail": "Data and analysis code are not yet released; promised on acceptance."}
+  ],
+  "coi": {
+    "affiliations": "University of Glasgow; Nanjing University; University of Sydney.",
+    "vendor_products_evaluated": "n8n platform (descriptive, not promoted); DeepSeek model used only as annotator.",
+    "funding": "National Natural Science Foundation of China (62572226), partial.",
+    "severity": "none",
+    "detail": "Academic authors; declares no conflict of interest."
+  },
+  "scores": {"rigor": 2, "reproducibility": 1, "generalizability": 2, "relevance": 2, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "A large, clearly scoped census with a validated task labeller and an honest threats-to-validity section. Validation for the structural and autonomy classifiers is unquantified, there are no runtime or outcome data, artifacts are unreleased, and the abstract's 'repair loops / fallback paths' headline is not measured.",
+  "applicability": "For the DAG question this is a census of how people build static LLM workflow graphs, not evidence that such graphs improve results. Use it as a review checklist if the team builds n8n-style or code-defined workflow graphs for content ingestion: (1) every LLM-to-external-action edge (write to a course store, publish, ticket, email) should pass through typed parsing and schema validation in a deterministic node; (2) approval nodes need explicit timeout, reject and no-response branches; (3) error handling should be an explicit graph path with an alert, not only node-local retry settings, which is what most public templates rely on; (4) format checks do not establish semantic correctness of extracted healthcare-education content, so add source-grounded checks where accuracy matters. None of this is specific to graphs or to Java, and the paper gives no numbers on whether these practices change failure rates.",
+  "conflicts_with": [
+    {"arxiv_id": "2605.07135", "detail": "This paper treats logic-mediated LLM-to-action paths (41.80%) as containment. TaintAWI shows downstream workflow logic consuming agent output is the dominant injection channel (P2S 84.5% of confirmed GitHub Actions cases), so logic mediation without typed outputs is not a safety property."},
+    {"arxiv_id": "2605.11229", "detail": "JAW already analysed 9,154 n8n templates and found hijackable ones via chat-triggered SQL and shell nodes, undercutting the 'first large-scale study' claim, and shows that declared guards and human review can be bypassed (trigger synthesis, TOCTOU)."}
+  ]
+}

@@ -1,0 +1,169 @@
+{
+ "arxiv_id": "2606.29116",
+ "fulltext_chars": 80860,
+ "fulltext_lines": 1078,
+ "authors_block": "Yutian Tang Yuming Zhou Huaming Chen Affiliation: School of Computing Science, University of Glasgow Y.Tang is the corresponding author E-mail: Yutian.Tang@glasgow.ac.uk Affiliation: School of Computer Science, Nanjing University E-mail: zhouyuming@nju.edu.cn Affiliation: The University of Sydney E-mail: huaming.chen@sydney.edu.au Received: date / Accepted: date",
+ "vendor_affiliation_hits": [],
+ "n_authors": 3,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   22,
+   "# Characterizing Large Language Model Agentic Workflows: A Study on N8n Ecosystem"
+  ],
+  [
+   46,
+   "###### Abstract"
+  ],
+  [
+   52,
+   "###### Keywords:"
+  ],
+  [
+   58,
+   "## 1 Introduction"
+  ],
+  [
+   88,
+   "## 2 Background"
+  ],
+  [
+   150,
+   "## 3 Empirical Study and Finding"
+  ],
+  [
+   152,
+   "### 3.1 Dataset"
+  ],
+  [
+   174,
+   "### 3.2 RQ1: Tasks of LLMs"
+  ],
+  [
+   223,
+   "### 3.3 RQ2: Structural and Tool-Use Patterns of LLM-Based Workflows"
+  ],
+  [
+   376,
+   "### 3.4 RQ3: Failure Handling"
+  ],
+  [
+   506,
+   "### 3.5 RQ4: Action Coupling and Human Control"
+  ],
+  [
+   566,
+   "## 4 Case Study"
+  ],
+  [
+   570,
+   "### 4.1 Case Study 1: Production AI Playbook: Human Oversight"
+  ],
+  [
+   582,
+   "### 4.2 Case Study 2: Invoice Payment Tracking with LLM Based Extraction and Post Processing"
+  ],
+  [
+   602,
+   "## 5 Discussion"
+  ],
+  [
+   604,
+   "### 5.1 Threats to Construct Validity"
+  ],
+  [
+   608,
+   "### 5.2 Threats to Internal Validity"
+  ],
+  [
+   614,
+   "### 5.3 Threats to External Validity"
+  ],
+  [
+   618,
+   "## 6 Related Work"
+  ],
+  [
+   620,
+   "### 6.1 LLM Agents and Tool Use"
+  ],
+  [
+   626,
+   "### 6.2 Workflow Orchestration and Low-Code Automation"
+  ],
+  [
+   632,
+   "### 6.3 Benchmarks for Realistic Agent Behavior"
+  ],
+  [
+   638,
+   "### 6.4 Human Control, Autonomy, and Governance"
+  ],
+  [
+   644,
+   "### 6.5 Summary and Positioning"
+  ],
+  [
+   649,
+   "## 7 Conclusion"
+  ],
+  [
+   655,
+   "## Declarations"
+  ],
+  [
+   657,
+   "### Funding"
+  ],
+  [
+   661,
+   "### Ethical approval"
+  ],
+  [
+   665,
+   "### Informed consent"
+  ],
+  [
+   669,
+   "### Author Contributions"
+  ],
+  [
+   673,
+   "### Data Availability Statement"
+  ],
+  [
+   679,
+   "### Conflict of Interest"
+  ],
+  [
+   683,
+   "## References"
+  ],
+  [
+   1078,
+   "##"
+  ]
+ ],
+ "acknowledgments": "### Funding\n\nZhou’s work is partially supported by the National Natural Science Foundation of China (62572226).\n\n### Ethical approval\n\nNot applicable.\n\n### Informed consent\n\nNot applicable.\n\n### Author Contributions\n\nYutian Tang contributed to conceptualization, methodology, data collection, data analysis, and manuscript writing. Yuming Zhou contributed to methodology, implementation, data analysis, and manuscript revision. Huaming Chen contributed to methodology, interpretation of results, and manuscript revision. All authors read and approved the final manuscript.\n\n### Data Availability Statement\n\nThe dataset used in this study is derived from publicly available n8n workflow templates. To support reproducibility, we will release the data collection scripts, filtering scripts, analysis scripts, workflow identifiers, derived metadata, and aggregated result files in an archival repository upon acceptance. The released artifacts can be found: \n\nhttps://sites.google.com/view/n8n-empirical-study/home\n\n### Conflict of Interest\n\nThe authors declare that they have no conflict of interest.",
+ "limitations": "",
+ "ethics_coi": "### Ethical approval\n\nNot applicable.\n\n### Informed consent\n\nNot applicable.\n\n### Author Contributions\n\nYutian Tang contributed to conceptualization, methodology, data collection, data analysis, and manuscript writing. Yuming Zhou contributed to methodology, implementation, data analysis, and manuscript revision. Huaming Chen contributed to methodology, interpretation of results, and manuscript revision. All authors read and approved the final manuscript.\n\n### Data Availability Statement\n\nThe dataset used in this study is derived from publicly available n8n workflow templates. To support reproducibility, we will release the data collection scripts, filtering scripts, analysis scripts, workflow identifiers, derived metadata, and aggregated result files in an archival repository upon acceptance. The released artifacts can be found: \n\nhttps://sites.google.com/view/n8n-empirical-study/home\n\n### Conflict of Interest\n\nThe authors declare that they have no conflict of interest.\n\n## References\n\nBai et al. (2022)",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 1,
+  "p_value_or_ci": 2,
+  "seeds_or_runs": 0,
+  "swe_bench": 2,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

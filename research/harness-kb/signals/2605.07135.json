@@ -1,0 +1,236 @@
+{
+ "arxiv_id": "2605.07135",
+ "fulltext_chars": 91931,
+ "fulltext_lines": 2246,
+ "authors_block": "Shenao Wang∗,§, Xinyi Hou∗,§, Zhao Liu†, Yanjie Zhao∗, Xiao Cheng‡, Quanchen Zou†, Xiangzheng Zhang†, and Haoyu Wang∗ Affiliation: ∗Huazhong University of Science and Technology, †360 AI Security Lab, ‡Macquarie University Affiliation: {shenaowang, xinyihou, yanjie_zhao, haoyuwang}@hust.edu.cn, {liuzhao3, zouquanchen, zhangxiangzheng}@360.cn, xiao.cheng@mq.edu.au",
+ "vendor_affiliation_hits": [],
+ "n_authors": 8,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/AikidoSec/opengrep-rulesAccessed",
+  "https://github.com/alexh-scrt/prompt-injection-scannerAccessed",
+  "https://github.com/anthropics/claude-code-action",
+  "https://github.com/github/codeql",
+  "https://github.com/openai/codex-action",
+  "https://github.com/trailofbits/skills"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Demystifying and Detecting Agentic Workflow Injection Vulnerabilities in GitHub Actions"
+  ],
+  [
+   43,
+   "###### Abstract"
+  ],
+  [
+   50,
+   "## I Introduction"
+  ],
+  [
+   80,
+   "## II Background"
+  ],
+  [
+   82,
+   "### II-A GitHub Actions Execution Model"
+  ],
+  [
+   101,
+   "### II-B Agentic Actions and Workflows"
+  ],
+  [
+   112,
+   "## III Problem Statement"
+  ],
+  [
+   119,
+   "### III-A Definition of AWI"
+  ],
+  [
+   124,
+   "### III-B Threat Model and Scope"
+  ],
+  [
+   135,
+   "### III-C Motivating Example"
+  ],
+  [
+   150,
+   "## IV Agentic Action Security Analysis"
+  ],
+  [
+   154,
+   "### IV-A Security Properties"
+  ],
+  [
+   176,
+   "# Actions"
+  ],
+  [
+   234,
+   "#Workflow"
+  ],
+  [
+   235,
+   "#Stars"
+  ],
+  [
+   422,
+   "### IV-B Characterizing Agentic Actions in the Wild"
+  ],
+  [
+   429,
+   "### IV-C Key Findings"
+  ],
+  [
+   442,
+   "## V Design of TaintAWI"
+  ],
+  [
+   450,
+   "### V-A AWI Taint Specification"
+  ],
+  [
+   530,
+   "### V-B Workflow IR Construction"
+  ],
+  [
+   602,
+   "### V-C Agentic Workflow Dependency Graph Generation"
+  ],
+  [
+   621,
+   "### V-D Taint Propagation and Vulnerability Detection"
+  ],
+  [
+   715,
+   "## VI Evaluation"
+  ],
+  [
+   721,
+   "#Stars"
+  ],
+  [
+   945,
+   "### VI-A Experimental Setup"
+  ],
+  [
+   960,
+   "### VI-B RQ1: Zero-day Vulnerabilities"
+  ],
+  [
+   971,
+   "#Alerts"
+  ],
+  [
+   972,
+   "#TP Cov."
+  ],
+  [
+   973,
+   "#P2A"
+  ],
+  [
+   974,
+   "#P2S"
+  ],
+  [
+   975,
+   "#Missed"
+  ],
+  [
+   1021,
+   "### VI-C RQ2: Effectiveness"
+  ],
+  [
+   1037,
+   "#Report"
+  ],
+  [
+   1038,
+   "#Covered"
+  ],
+  [
+   1039,
+   "#P2A"
+  ],
+  [
+   1040,
+   "#P2S"
+  ],
+  [
+   1082,
+   "### VI-D RQ3: Characteristics"
+  ],
+  [
+   1090,
+   "#Count"
+  ],
+  [
+   1219,
+   "## VII Discussion"
+  ],
+  [
+   1221,
+   "### VII-A Security Implications"
+  ],
+  [
+   1231,
+   "### VII-B Limitations"
+  ],
+  [
+   1242,
+   "## VIII Related Work"
+  ],
+  [
+   1250,
+   "## IX Conclusion"
+  ],
+  [
+   1254,
+   "## References"
+  ],
+  [
+   1822,
+   "## X Appendix"
+  ],
+  [
+   1824,
+   "### X-A Dataset Collection and Property Inference"
+  ],
+  [
+   1893,
+   "### X-B AWI Taint Specification Patterns"
+  ],
+  [
+   1957,
+   "### X-C Case Studies"
+  ],
+  [
+   2246,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "### VII-B Limitations\n\nStatic Over-approximation.\nTaintAWI is a static analyzer and therefore over-approximates possible workflow executions. It may report paths that are syntactically feasible but difficult to exploit in practice due to repository-specific policies, unavailable secrets, failed workflow runs, or undocumented runtime behavior of third-party actions. We mitigate this issue with reachability analysis and manual validation for reported cases, but fully modeling GitHub’s runtime behavior and each action’s internal implementation remains challenging.\n\nIncomplete Action Semantics.\nTaintAWI relies on action-level taint specifications, including prompt inputs, derived outputs, access-control options, and agentic capabilities. In this work, we focus on popular agentic actions that appear in real-world workflows. However, the GitHub Actions ecosystem evolves quickly, and long-tail or newly released actions may expose prompt or output interfaces that are not yet modeled. Missing or outdated specifications can lead to false negatives.\n\nLimited Embedded-script Analysis.\nGitHub workflows can embed or invoke scripts written in multiple languages. TaintAWI currently performs lightweight analysis for common shell run steps and uses YASA to analyze inline JavaScript in actions/github-script. This design is sufficient to recover many practical AWI paths, but it does not provide complete data flow analysis. In particular, complex shell semantics, cross-file scripts, and dynamically generated commands may be missed. We view more complete multi-language script analysis as important future work.\n\n## VIII Related Work\n\nSecurity of GitHub Actions and CI/CD Workflow.\nExisting work on GitHub Actions security has focused on workflow misconfiguration, injection risks, and automated analysis. Koishybayev et al. [21] characterized the security properties of GitHub CI workflows and showed that over-privileged permissions, untrusted triggers, and third-party action dependencies are widespread in practice. Benedetti et al. [23] demonstrated the prevalence of workflow security weaknesses through automated assessment, while Muralee et al. [24] introduced ARGUS, a staged static taint analysis framework for detecting code-injection vulnerabilities in GitHub workflows and actions. Recent work revisited workflow security practices over time [22], compared the scope and effectiveness of workflow scanners [25], and analyzed failed workflow executions to build a taxonomy of failure causes [2]. Practitioner guidance from GitHub Security Lab, GitHub Docs, OpenSSF, and Ken Muse documented concrete attack vectors such as pwn requests, untrusted input expansion, and shell-script injection [16, 32, 15, 17, 18]. Most of this literature studies traditional, deterministic workflows. Recent incident reports such as PromptPwnd and Clinejection show that introducing agentic capabilities can expose new vulnerabilities in GitHub workflows [8, 9]. However, these reports are case-driven and do not provide a systematic understanding of the real-world prevalence and impact of this vulnerability class.\n\nEmerging Attack Surfaces in LLM-Integrated Systems.\nLLM integration allows untrusted natural-language input to influence tool calls, code execution, and other external actions [42, 43, 44, 45]. Empirical studies have identified prompt-to-code execution [13], prompt-to-SQL injection [11], prompt-to-anything vulnerabilities [12], and broader taint-style attacks in tool-using agents [10]. Follow-up work further studied prompt injection in tool selection [14], cross-tool harvesting and pollution [20], and multi-tool vulnerabilities in LLM agents [19], while benchmarks and auditing frameworks began to systematize agent security evaluation [46, 47]. Emerging auditing and scanning tools also reflect growing practical concern about this class of risks [48, 37, 38]. However, existing studies primarily examine LLM-integrated applications and agents in general settings, leaving their",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

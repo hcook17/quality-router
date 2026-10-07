@@ -1,0 +1,13 @@
+{"arxiv_id": "2608.27790",
+ "blind_scores": {"rigor": 2, "reproducibility": 1, "generalizability": 2, "relevance": 1, "coi_risk": 0},
+ "blind_verdict": "reject", "blind_coi_severity": "none",
+ "agreement": "major_disagreement",
+ "claims_disputed": [],
+ "pattern_stance_changes": [],
+ "missed_issues": [
+  "The transfer reference point is itself degraded. 'Within run-to-run variation of the searched harness' (legal->finance 28.3 vs 27.7) and 'recovering 76% of the distance' (finance->legal) are measured against the target's own searched harness on the cross-distribution split. §3.3 shows searched harnesses lose 25-30 points there; the searched math harness falls below brief-only. Matching or approaching that reference is a weak bar.",
+  "Off-topic for the KB's scope: every workload is document QA or math/logic reasoning run by gemma workers. No coding task, repository or software-engineering harness is evaluated, so none of the numbers bear on a coding-agent harness.",
+  "The round trip has no description-ablated control on the source split, such as compiling from the brief alone on in-distribution data. The brief-only arm exists only in the transfer experiment, so the in-distribution evidence that the description, not the compiler model's priors, carries the behaviour is indirect.",
+  "There is no limitations or threats-to-validity section, and the evaluation is explicitly preliminary ('Preliminary Results', §3), framed as a research agenda for the database community."
+ ],
+ "note": "The review's analysis is accurate and I dispute none of its claim grades or stances. I differ on admission. This is a preliminary vision paper about recovering declarative structure from searched QA/reasoning harnesses. It has no artifacts, an unvalidated judge, transfer that helps in 2 of 4 cases against a reference that itself overfits, and no coding tasks. Its only bearing on the DAG question is an argument for storing workflow structure declaratively, which it does not test against any alternative. I would exclude it from load-bearing conclusions; at most it is a P26 caution about off-distribution drops of searched harnesses."}

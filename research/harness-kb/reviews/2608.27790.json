@@ -1,0 +1,106 @@
+{
+  "arxiv_id": "2608.27790",
+  "contribution_type": "system",
+  "summary": "Vision paper with preliminary results. Credo takes an LLM harness found by Meta-Harness search and has claude-opus-4-7 recover a typed declarative description: a DAG 'skeleton' of named steps, typed 'beliefs' (runtime signals), 'policies' that pick a physical implementation (model, k, strategy) from beliefs, and prompt templates. Each primitive is tagged functional or source-specific and catalogued with provenance; a compiler binds catalogued primitives into a new harness.py for an unseen target. On four QA/reasoning workloads (finance, legal, math, polyreason) with gemma3-12b/gemma4-31b workers and a gpt-5-mini judge, recover-then-compile reproduces the source harness within ±0.011 accuracy and ±0.013 ¢/q on 100 questions. Cross-domain compilation helps two retrieval transfers (15.7 to 28.3; 43.4 to 66.3), modestly helps math, and hurts polyreason relative to brief-only (38.7/34.9 vs 43.3).",
+  "claims": [
+    {
+      "claim": "A recovered declarative description preserves the behaviour of the searched harness: round-trip accuracy within ±0.011 and per-question cost within ±0.013 ¢/q across four domains",
+      "evidence": "Table 2: 3 source harnesses per domain x 3 compile replicates on a 100-question in-distribution split. Matching cost as well as accuracy is a sensible guard against the compiler solving the task its own way. But with n=100 the per-run accuracy standard error is about 0.045-0.05, no per-question agreement or trace comparison is reported, and aggregate matches cannot show that the same method was reconstructed.",
+      "strength": "moderate",
+      "location": "§2.2, §3.2, Table 2"
+    },
+    {
+      "claim": "Every recovered skeleton step is functional (0 source-specific steps), so logical plans transfer cleanly",
+      "evidence": "Table 3 counts come from the LLM level-tagger's own labels; no human or behavioural validation of the tags. Transfer results show plans do not always transfer usefully (math to polyreason lands below brief-only).",
+      "strength": "weak",
+      "location": "§3.1, Table 3"
+    },
+    {
+      "claim": "Catalogued primitives compile into working harnesses for unseen targets without re-searching",
+      "evidence": "Fig. 3, cross-distribution splits (300 queries), same models and judge. legal to finance 15.7 to 28.3 (searched 27.7); finance to legal 43.4 to 66.3 (searched 73.4); polyreason to math 39.6 to 44.6/45.4; math to polyreason 38.7/34.9 vs brief-only 43.3, a regression. Two of four transfers clearly help. Replicate counts and intervals for Fig. 3 are not given.",
+      "strength": "weak",
+      "location": "§3.3, Fig. 3"
+    },
+    {
+      "claim": "Searched harnesses overfit to the source domain while Credo-compiled harnesses do not",
+      "evidence": "Searched polyreason falls 72 to 47 and math 67 to 37 from in-distribution to cross-distribution. Compiled harnesses are reported only on the target cross-distribution split, so 'do not exhibit these drops' compares different quantities. The searched harness was selected on the in-distribution split, which predicts some drop.",
+      "strength": "weak",
+      "location": "§3.3"
+    },
+    {
+      "claim": "The approach achieves more than an order of magnitude in cost savings over agentic harness search",
+      "evidence": "One recover-and-compile call costs $2.3-2.8 against $43-72 for a 10-iteration Meta-Harness search (Table 2). But the catalog only exists because the source domains were searched first, so savings apply to later targets and are not net. In 2 of 4 transfers the compiled harness is below the searched one or below brief-only.",
+      "strength": "weak",
+      "location": "§1, §3.2, §3.3, Table 2"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P26",
+      "stance": "mixed",
+      "note": "Compares search-from-scratch (Meta-Harness) with compile-from-catalog on the same workers, judge and splits. The catalog is far cheaper per new target and matches search on legal to finance. It recovers 76% of the gap on finance to legal and hurts on math to polyreason. Searched harnesses lose 25-30 points off-distribution, a caution for any searched or self-improving harness."
+    },
+    {
+      "id": "P36",
+      "stance": "introduces",
+      "note": "Proposes representing a harness as a declarative static workflow: a DAG skeleton of named steps, typed beliefs computed at declared plan points, and belief-conditioned policies selecting implementations, compiled to a fixed harness.py. No comparison of declarative-compiled against imperative or agent-loop harnesses on the same budget; the round trip only shows the representation loses little."
+    },
+    {
+      "id": "P37",
+      "stance": "neutral",
+      "note": "An LLM (the abstractor) emits the step DAG, but it does so offline, from existing code, to build a reusable description. It is not a runtime task planner and there is no parallel scheduling; DAG accuracy is not evaluated and no planner-DAG baseline is run."
+    },
+    {
+      "id": "P23",
+      "stance": "neutral",
+      "note": "Searched harnesses include small-to-large cascades and the compiler reliably picks routing primitives for retrieval targets; routing is never isolated. Transferred policies carry the source's cost operating point, which hurt math to polyreason."
+    },
+    {
+      "id": "P30",
+      "stance": "introduces",
+      "note": "Typed, named beliefs and per-primitive provenance make branch conditions loggable and comparable across runs; belief-selectivity drift is proposed as a staleness signal. Not evaluated."
+    },
+    {
+      "id": "P18",
+      "stance": "neutral",
+      "note": "All accuracy is graded by a gpt-5-mini judge with per-dataset rules; no agreement check against gold labels or humans is reported, even where exact-match answers exist."
+    }
+  ],
+  "methodology": {
+    "sample": "Four constructed workloads (finance and legal retrieval over document pools; math and polyreason reasoning), each with 100 search, 100 in-distribution and 300 cross-distribution questions; 3 searched source harnesses per domain; four source-to-target transfers.",
+    "baselines": "Original searched harness (round trip); brief-only compile, single-domain catalog, open-library catalog and the target's own searched harness (transfer).",
+    "models": "gemma3-12b / gemma4-31b workers (vLLM); claude-opus-4-7 for search proposer, abstractor and compiler; gpt-5-mini judge.",
+    "variance": "Round trip: 3 seeds x 3 compile replicates, means only. Transfer: 'within run-to-run variation' asserted, intervals not shown.",
+    "ablations": "Catalog access (none, single-domain, open-library). No ablation of primitive types (skeleton vs beliefs vs policies vs templates).",
+    "contamination_controls": "Sandbox prevents evaluation leakage during search; public benchmarks may be known to models.",
+    "languages": "Python harness programs; tasks are QA and reasoning, not code generation"
+  },
+  "standards": {
+    "peer_review": "None stated (vision / preliminary-results preprint)",
+    "limitations_section": false,
+    "artifacts": "None for Credo. Only Meta-Harness (third-party searcher) is linked.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "small_sample", "detail": "100-question fidelity split, 3 source harnesses per domain, 4 transfers."},
+    {"type": "llm_judge_unvalidated", "detail": "Accuracy everywhere comes from one LLM judge without validation."},
+    {"type": "metric_mismatch", "detail": "Behavioural fidelity is inferred from aggregate accuracy and cost, not per-question agreement or trace equivalence."},
+    {"type": "self_evaluation", "detail": "Authors evaluate their own system against a harness search they configured; compiler and abstractor use the same frontier model as the searcher."},
+    {"type": "closed_artifacts", "detail": "No code, prompts, catalogs or compiled harnesses released."},
+    {"type": "hype_language", "detail": "'More than an order of magnitude in cost savings' ignores that the catalog requires prior searches and that half the transfers trail the searched or brief-only harness."}
+  ],
+  "coi": {
+    "affiliations": "Brown University; Northwestern University",
+    "vendor_products_evaluated": "None",
+    "funding": "Not stated",
+    "severity": "none",
+    "detail": "Academic authors; builds on their own earlier Credo system."
+  },
+  "scores": {"rigor": 2, "reproducibility": 1, "generalizability": 1, "relevance": 2, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "A clear idea with sensible checks (cost as well as accuracy in the round trip, explicit brief-only and searched references in transfer), but it is a preliminary vision paper. The samples are small, the judge is unvalidated, nothing is released, and transfer helps only 2 of 4 times. The cost-saving headline omits the searches the catalog depends on, and the paper concerns QA/reasoning harnesses, not coding agents.",
+  "applicability": "Indirect. For the team's DAG question, Credo argues that whatever workflow structure exists (step DAG, branch signals, model-choice rules, prompt templates) should be kept as a typed, declarative, provenance-tagged artifact that can be reviewed and reused, not buried in one host's code. That fits keeping workflow definitions in committed, host-neutral files that qr can verify. The evidence suggests reuse works between like tasks (retrieval to retrieval) and can hurt when the source's cost/accuracy policies do not fit the target, so primitives shared across the four repos would need per-repo evaluation rather than blind import. Searched or tuned workflows lost 25-30 points off-distribution, a warning against tuning a workflow DAG on one repo's tasks and rolling it out to the others. It does not show that a declarative DAG beats a plain agent loop, and no coding tasks were tested.",
+  "conflicts_with": [
+    {"arxiv_id": "2610.05300", "detail": "MESH-Harness reports that searched modular harnesses beat Meta-Harness on held-out test splits at lower search and test cost. Credo finds Meta-Harness-searched harnesses fall 25-30 points on cross-distribution splits. MESH's test sets are disjoint from validation but drawn from the same task distribution, so the two results are compatible only if searched-harness gains are distribution-bound. MESH's cross-model transfer test does not cover cross-distribution shift."}
+  ]
+}

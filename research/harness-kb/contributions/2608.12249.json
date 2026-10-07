@@ -1,0 +1,32 @@
+{
+  "arxiv_id": "2608.12249",
+  "contributions": [
+    {"kind": "test_practice",
+     "statement": "In an agent-driven migration, capture behavioural goldens once from the pre-migration build under the final build configuration (same compiler/JVM flags and profiles), never regenerate them in the same pipeline run as the migrated artifact, and keep at least one layer anchored to an externally maintained expected-value suite, because a differential check cannot detect an error in the procedure that generates both of its sides.",
+     "evidence": "§V-A4: unit-test goldens for three converted files were captured before -fdefault-integer-8 was standardized; golden and binary shared the missing flag, so diffs were empty while wrong (26, 36 and 105 changed line pairs once regenerated). Only a later build standardization exposed it. The standard tests (captured once from a reference build) and Jenkins (maintainers' shipped expected values) did not share that mode. One observed instance plus a general argument.",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["2608.16742", "2607.28928", "differential/golden-master testing"],
+     "transfers": "direct"},
+    {"kind": "test_practice",
+     "statement": "Do not accept agent-written synthetic or randomized unit drivers as the equivalence oracle for a migration; also replay realistic end-to-end workloads, because paths gated by accumulated state are not reached by synthetic inputs.",
+     "evidence": "§III-C1, §V-A2: about 255,000 synthetic shell quartets passed, yet the escaped IX retyping defect lived behind buffer-overflow logic reached only under sustained enumeration; the standard test exam01 caught it on the first run.",
+     "strength": "moderate", "novelty": "restates_known",
+     "relative_to": ["end-to-end regression tests complement unit tests (P16)"],
+     "transfers": "direct"},
+    {"kind": "heuristic",
+     "statement": "When migration agents may defer work, require a machine-checked invariant that the number of deferral annotations equals the number of deferred constructs and that unit counts (classes/methods) are preserved, so silently skipped work fails a gate rather than relying on review.",
+     "evidence": "Table I and §IV-A: the review role checks that COMMON TODO markers equal the COMMON statement count; 1,066 COMMON statements and all 225 subroutines were preserved. No instance is reported where the check caught a skip, so its value is argued, not measured.",
+     "strength": "weak", "novelty": "refines",
+     "relative_to": ["static analysis / linter feedback in loop (P17)"],
+     "transfers": "direct"},
+    {"kind": "design_pattern",
+     "statement": "For a large same-language migration with an exact oracle, a developer-prescribed per-unit loop (branch, transform, strict compile, diff against pre-migration golden, full regression, human merge) with a fixed per-unit artifact contract (code, change log, test driver, golden) was enough; no planner-generated DAG was needed.",
+     "evidence": "§III-A4, Table II, §IV-B: 12/12 files pass the 51-test bit-exact battery and Jenkins; 9/12 needed no post-conversion correction. No comparison with an unprescribed agent loop, a rule-based tool or a human conversion, so the loop's contribution is not isolated.",
+     "strength": "weak", "novelty": "refines",
+     "relative_to": ["static workflow graph (P36)", "2605.17535"],
+     "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "The common-mode analysis of self-captured goldens is a specific, mechanism-backed verification rule that a Java migration pipeline can adopt directly. Everything else is either known testing practice or an uncontrolled description of the authors' own static per-file loop."
+}

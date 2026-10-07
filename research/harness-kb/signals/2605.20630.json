@@ -1,0 +1,301 @@
+{
+ "arxiv_id": "2605.20630",
+ "fulltext_chars": 44447,
+ "fulltext_lines": 716,
+ "authors_block": "Alimurtaza Merchant ††thanks: Equal contribution. Affiliation: Columbia University Email: amm2640@columbia.edu Krish Veera11footnotemark: 1 Affiliation: Columbia University Email: krv2123@columbia.edu Sajal Kumar Goyla11footnotemark: 1 Affiliation: Columbia University Email: sg4607@columbia.edu Shambhawi Bhure11footnotemark: 1 Affiliation: Columbia University Email: sb5185@columbia.edu Dhaval Patel Affiliation: IBM Email: pateldha@us.ibm.com Kaoutar El Maghraoui Affiliation: IBM Research Email: kelmaghr@us.ibm.com",
+ "vendor_affiliation_hits": [
+  "IBM"
+ ],
+ "n_authors": 6,
+ "comment": "13 pages, 8 figures, 3 appendices",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/BerriAI/litellmAccessed"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Evaluating Temporal Semantic Caching and Workflow Optimization in Agentic Plan-Execute Pipelines"
+  ],
+  [
+   61,
+   "###### Abstract"
+  ],
+  [
+   65,
+   "## 1 Introduction"
+  ],
+  [
+   73,
+   "#### Our approach."
+  ],
+  [
+   77,
+   "#### Contributions."
+  ],
+  [
+   95,
+   "## 2 Background and Motivation"
+  ],
+  [
+   97,
+   "### 2.1 AssetOpsBench and MCP-backed Plan-Execute Agents"
+  ],
+  [
+   107,
+   "### 2.2 LLM Caching for Agents: Methods and Limitations"
+  ],
+  [
+   119,
+   "### 2.3 Related Work"
+  ],
+  [
+   121,
+   "#### Agent memory and plan reuse."
+  ],
+  [
+   125,
+   "#### LLM serving infrastructure."
+  ],
+  [
+   129,
+   "#### Multi-agent orchestration and benchmarks."
+  ],
+  [
+   133,
+   "## 3 The Optimization Framework"
+  ],
+  [
+   135,
+   "### 3.1 Overview"
+  ],
+  [
+   141,
+   "### 3.2 Cache Layer Design Choices"
+  ],
+  [
+   143,
+   "#### Why temporal classification?"
+  ],
+  [
+   147,
+   "#### Anchored windows over relative phrases."
+  ],
+  [
+   151,
+   "#### Embedding plus reranker, not similarity alone."
+  ],
+  [
+   155,
+   "### 3.3 MCP Workflow Optimizations"
+  ],
+  [
+   157,
+   "#### Discovery-phase caching."
+  ],
+  [
+   161,
+   "#### Parallel step execution."
+  ],
+  [
+   178,
+   "## 4 Results and Evaluation"
+  ],
+  [
+   198,
+   "### 4.1 Experiment Setup"
+  ],
+  [
+   200,
+   "#### Benchmark workload."
+  ],
+  [
+   204,
+   "#### Baselines."
+  ],
+  [
+   208,
+   "#### Metrics."
+  ],
+  [
+   212,
+   "#### Implementation."
+  ],
+  [
+   216,
+   "### 4.2 MCP Workflow Optimization Results"
+  ],
+  [
+   264,
+   "#### Phase-level effects are surgical."
+  ],
+  [
+   268,
+   "#### Per-query gains correlate with parallelism."
+  ],
+  [
+   272,
+   "### 4.3 End-to-End Combined Pipeline"
+  ],
+  [
+   276,
+   "#### Latency."
+  ],
+  [
+   280,
+   "#### Miss path is still faster."
+  ],
+  [
+   286,
+   "#### Cache decision quality and the parameter-sensitivity ceiling."
+  ],
+  [
+   290,
+   "#### The two layers are additive."
+  ],
+  [
+   294,
+   "## 5 Limitations and Failure Modes"
+  ],
+  [
+   298,
+   "#### Parameter-collision false positives."
+  ],
+  [
+   302,
+   "#### Judger inconsistency on legitimate paraphrases."
+  ],
+  [
+   306,
+   "#### Workload structure caps the achievable hit rate."
+  ],
+  [
+   310,
+   "#### Excluded queries and provider variance."
+  ],
+  [
+   314,
+   "#### Window grammar and natural-date handling."
+  ],
+  [
+   318,
+   "#### Single-machine evaluation, no persistence."
+  ],
+  [
+   322,
+   "## 6 Future Work"
+  ],
+  [
+   326,
+   "#### Parameter-aware caching."
+  ],
+  [
+   330,
+   "#### Hybrid retrieval at the lookup layer."
+  ],
+  [
+   334,
+   "#### A larger or domain-adapted reranker."
+  ],
+  [
+   338,
+   "#### Richer natural-date grammar."
+  ],
+  [
+   342,
+   "#### Cache persistence."
+  ],
+  [
+   346,
+   "#### Online judge threshold recalibration."
+  ],
+  [
+   350,
+   "#### Scaling the evaluation."
+  ],
+  [
+   354,
+   "#### Integration with serving infrastructure."
+  ],
+  [
+   358,
+   "## 7 Conclusion"
+  ],
+  [
+   364,
+   "## Acknowledgments"
+  ],
+  [
+   368,
+   "## References"
+  ],
+  [
+   664,
+   "## Appendix A Implementation Parameters"
+  ],
+  [
+   666,
+   "#### Discovery cache."
+  ],
+  [
+   670,
+   "#### Parallel executor."
+  ],
+  [
+   674,
+   "#### Semantic cache models and thresholds."
+  ],
+  [
+   678,
+   "#### LLM backend."
+  ],
+  [
+   682,
+   "#### Hardware."
+  ],
+  [
+   686,
+   "## Appendix B Cache-Only Configuration: Decision Breakdown"
+  ],
+  [
+   694,
+   "## Appendix C Per-Query Speedup and Structural Comparison"
+  ],
+  [
+   706,
+   "## Appendix D Broader Impact and Societal Implications"
+  ],
+  [
+   708,
+   "#### Positive impacts."
+  ],
+  [
+   712,
+   "#### Potential negative impacts."
+  ],
+  [
+   716,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgments\n\nWe thank Dhaval Patel and the IBM team for providing access to AssetOpsBench and for their guidance throughout this work. We thank Kaoutar El Maghraoui for her instruction and mentorship over the course of this project.\n\n## References\n\nAnthropic (2024)\nAnthropic\n\nModel Context Protocol (MCP) specification.\n\nNote: https://modelcontextprotocol.io\n\nCited by: §1,\n§2.1.\n\nBang (2023)\nF. Bang\n\nGPTCache: an open-source semantic cache for LLM applications enabling faster answers and cost savings.\n\nIn Proceedings of the 3rd Workshop for Natural Language Processing Open Source Software (NLP-OSS),\n\npp. 212–218.",
+ "limitations": "### 2.2 LLM Caching for Agents: Methods and Limitations\n\nCaching is one of the most widely adopted techniques for reducing LLM serving cost. Context caching (6; 26; 8; 10) stores key-value pairs from the prefill phase and reuses them when prompt prefixes recur. Semantic caching (2; 21) stores (input, output) pairs and matches new queries by embedding similarity, exploiting the fact that paraphrases share underlying intent. Plan caching (28) caches plan templates extracted from completed agent executions and adapts them to new queries with a lightweight model. We find that all three families have limitations specific to MCP-backed industrial agent benchmarks like AOB:\n\n1) Static-Output Assumption. Semantic caching assumes that outputs depend only on the input prompt (2; 21). This holds for chatbots but fails in AOB, where outputs depend on external state queried at run time. For example, “what is the status of work order WO-1234” returns a different answer depending on whether the order is open or closed, but the query text and its embedding are identical each time. A cache that keys on the input alone cannot detect that the stored answer is stale.\n\n2) Parameter Insensitivity. Embedding-based retrieval captures the linguistic structure of a query but is insensitive to its operational parameters. “Failure modes detectable by Chiller 6 Efficiency sensor” and “Failure modes detectable by Chiller 9 Efficiency sensor” embed close together because they share the same sentence frame, yet they require disjoint tool calls and produce disjoint answers. Threshold tuning trades false positives against false negatives but does not eliminate this structural mismatch between what the embedding encodes and what determines a correct answer (21).\n\n3) Temporal Blindness. Many AOB queries contain explicit or relative time expressions: “last week,” “yesterday,” “the past 24 hours.” Pure embedding similarity treats two such queries as equivalent regardless of their resolved windows, which is incorrect when the underlying telemetry has changed. Existing semantic caching frameworks (2; 21) do not expose a mechanism to distinguish queries that differ only in their resolved temporal anchor.\n\nThese limitations motivate a temporal-aware cache that distinguishes semantic relatedness from safe answer reuse, combined with workflow-level optimizations that reduce per-query overhead even on cache misses.\n\n### 2.3 Related Work\n\n#### Agent memory and plan reuse.\n\nSeveral recent systems augment LLM agents with external memory (14; 25; 22). Agent Workflow Memory (24) extracts and reuses workflow patterns to improve task success rates. Asteria (19) provides the semantic-cache primitives we build on (ANN over query embeddings, a reranker-based judger, LCFU eviction, and Markov prefetching) for general agentic LLM tool access. Agentic Plan Caching (28) extends agent-side reuse to a serving-cost objective by caching plan templates and adapting them with a small LM. Our work differs in two ways: we target MCP-backed industrial benchmarks where temporal validity is central, and we add a temporal classification layer in front of Asteria-style retrieval to handle relative time expressions and live-state queries.\n\n#### LLM serving infrastructure.\n\nModern LLM serving systems such as vLLM (9) and SGLang (29) optimize inference at the engine level through KV-cache management and structured generation. Our optimizations sit one layer up: they target the agent orchestration loop and are compatible with any underlying serving engine.\n\n#### Multi-agent orchestration and benchmarks.\n\nMulti-agent collaboration has been studied in systems such as Mixture-of-Agents (23) and surveyed broadly in (7; 15). Agent benchmarks like GAIA (12) and Minions (13) evaluate task success and cost; AOB (16) extends this to industrial operations with MCP-exposed tooling. Our contribution is a refinement of the AOB evaluation setup itself, making at-scale paraphrase-tier ablations practical.\n\n## 3 The ",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 18
+ },
+ "fulltext_source": "html"
+}

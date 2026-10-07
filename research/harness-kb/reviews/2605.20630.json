@@ -1,0 +1,57 @@
+{
+  "arxiv_id": "2605.20630",
+  "contribution_type": "empirical",
+  "summary": "Latency optimisations for the AssetOpsBench (AOB) plan-execute pipeline, where a planner LLM emits a multi-step tool plan over four MCP servers. Two layers: (1) MCP workflow changes, namely a disk-backed tool-discovery cache, executing the plan as a DAG in Kahn topological layers with asyncio.gather, and a persistent per-server session pool replacing subprocess-per-call; (2) a temporal semantic answer cache that classifies queries as Volatile/Static/Relative/Anchored before embedding retrieval plus a reranker judge. Reports 1.67x end-to-end on 18 IoT queries, 3.48x median on 80 LLM-generated paraphrases, 30.6x on cache hits, and argues semantic caching is unsound for parameter-rich queries (F1 0.64). No answer-correctness or task-success metric is reported.",
+  "claims": [
+    {"claim": "MCP workflow optimisations give a 1.67x end-to-end speedup and about 40% lower median latency.", "evidence": "Table 1: 56.9 s to 34.2 s, 18 IoT queries x 3 runs, paired. The 20 queries were purposively selected for having at least two parallelisable branches (a 'stress test, not a representative slice'), and Q5/Q19 timed out in both modes and were dropped. Two of 18 regress (Q11 0.67x). Planning drops 10.3 s to 8.2 s yet is called 'no statistically significant change' with no test reported.", "strength": "moderate", "location": "§4.2 Table 1, Appendix C Figure 7"},
+    {"claim": "Dependency-aware parallel DAG execution reduces execution time 1.99x.", "evidence": "The execution-phase comparison bundles parallel layers with the persistent server pool; the baseline spawns a fresh MCP subprocess for every step. Per-server locks serialise calls to the same server, so parallelism is only across servers. No ablation separates DAG layering from connection reuse (e.g. Q6: 152.9 s to 50.5 s, mostly step time).", "strength": "weak", "location": "§3.3, §4.2, Appendix A, Appendix C Figure 8"},
+    {"claim": "The temporal semantic cache achieves a 30.6x median speedup on cache hits (3.48x end-to-end on 80 queries).", "evidence": "Appendix B: 50 rows, 36% hit rate, precision 0.667, so about one third of 'hits' return another query's answer. Combined run: 36 hits at precision 0.75, so 9 of 36 hits are wrong, yet all count toward the 31.87x and 3.48x medians. The 80-row tier is LLM-generated and 60/40 warm/cold by construction; authors estimate 15-30% achievable hit rate on the real corpus.", "strength": "moderate", "location": "Abstract, §4.3, §5, Appendix B"},
+    {"claim": "Pure semantic similarity is not a sound proxy for answer validity in parameter-rich queries; hit-decision F1 is capped near 0.64-0.67.", "evidence": "Confusion matrices on 80 and 50 rows (precision 0.75, recall 0.5625; and 0.667/0.667) and a concrete cross-parameter false positive with judger score 0.97. Small, LLM-generated test set, single embedding/reranker size (0.6B), but the failure mode is directly demonstrated.", "strength": "moderate", "location": "§4.3, §5"},
+    {"claim": "The two layers are additive and the cache never makes the miss path slower.", "evidence": "On 44 miss rows the median latency difference vs the unoptimised baseline is -3.30 s, but that saving comes from the MCP layer; Appendix B shows cache lookup alone adds +2.23 s per miss. 'Never' is asserted from one run.", "strength": "moderate", "location": "§4.3, Appendix B"}
+  ],
+  "patterns": [
+    {"id": "P37", "stance": "mixed", "note": "The planner LLM's plan is treated as a task DAG and executed in topological layers (Kahn + asyncio.gather). Comparison: sequential execution that also spawns a subprocess per tool call, so the 1.99x execution gain is confounded with connection pooling (strawman-ish baseline, no isolating ablation). Planner dependency correctness is assumed, never checked, and no answer-quality metric is reported, so it is unknown whether parallel layering changed results. Same model in both arms."},
+    {"id": "P13", "stance": "neutral", "note": "AOB is a plan-then-execute pipeline; the paper optimises its latency and does not compare it with an interleaved loop."},
+    {"id": "P09", "stance": "mixed", "note": "Cross-query answer reuse via semantic cache: large latency savings on hits but 25-33% of hits return a different query's answer; authors conclude semantic matching is unsafe for parameterised queries and propose exact parameter keys."},
+    {"id": "P24", "stance": "neutral", "note": "Latency only. Claims reduced API cost in the impact statement, but no token or dollar cost is measured."},
+    {"id": "P04", "stance": "neutral", "note": "Caching MCP list_tools() catalogs with a source-hash key cuts discovery from 2.1 s to 0.007 s per query; a simple engineering fix for stdio servers spawned per request."}
+  ],
+  "methodology": {
+    "sample": "18 IoT queries (of 20 purposively selected from 152) x 3 runs for the MCP layer; 80 LLM-generated paraphrases of 20 seed queries for the combined run; 50-row stratified sample for cache-only.",
+    "baselines": "Unmodified AOB pipeline (discovery per query, sequential steps, subprocess per call); workflow-optimised pipeline with cache disabled for the cache experiment.",
+    "models": "Llama-3.3-70B-Instruct via LiteLLM on IBM watsonx for planning, argument resolution and summarisation; Qwen3-Embedding-0.6B and Qwen3-Reranker-0.6B for the cache.",
+    "variance": "Medians of per-row ratios and 5%-trimmed means; ranges shown; no confidence intervals or significance tests despite a 'not statistically significant' claim.",
+    "ablations": "MCP layer alone vs combined; cache-only in Appendix B. No ablation of DAG layering vs connection pooling.",
+    "contamination_controls": "n/a; however the paraphrase test set and hit labels are LLM-generated from parents.",
+    "languages": "Python (AOB, MCP stdio servers)."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint (13 pages); appears to be a student project with IBM mentors, no venue stated.",
+    "limitations_section": true,
+    "artifacts": "No code, test set or harness release mentioned.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "cherry_picked_examples", "detail": "MCP-layer queries were selected for having at least two parallel branches; the authors say this is not representative, but the abstract's 1.67x/40% is presented without that qualifier."},
+    {"type": "small_sample", "detail": "18 queries x 3 runs; 80 and 50 paraphrase rows; one machine."},
+    {"type": "single_model", "detail": "One planner LLM on one provider endpoint, one embedding/reranker size."},
+    {"type": "metric_mismatch", "detail": "Speedup on cache hits counts incorrect hits (precision 0.667-0.75), and there is no answer-correctness or task-success metric anywhere, so latency gains are not tied to valid outputs."},
+    {"type": "missing_cost_reporting", "detail": "Impact statement claims reduced API cost; no tokens or dollars reported."},
+    {"type": "closed_artifacts", "detail": "No code or paraphrase set released."},
+    {"type": "strawman_baseline", "detail": "The parallel-execution baseline also spawns a new subprocess per tool call, inflating the apparent DAG-execution gain."}
+  ],
+  "coi": {
+    "affiliations": "Columbia University (student authors); IBM and IBM Research (one co-author is an AssetOpsBench author).",
+    "vendor_products_evaluated": "IBM AssetOpsBench pipeline; IBM watsonx as LLM endpoint.",
+    "funding": "Not stated; acknowledges IBM for benchmark access and mentorship.",
+    "severity": "low",
+    "detail": "IBM co-authors on a paper optimising IBM's benchmark on IBM's endpoint; results are not a product comparison and are partly critical of the benchmark pipeline."
+  },
+  "scores": {"rigor": 2, "reproducibility": 1, "generalizability": 1, "relevance": 2, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Paired latency measurements and an honest, demonstrated failure analysis of semantic caching. But the query set is purposively selected, DAG layering is confounded with connection pooling, hit speedups count wrong answers, and no correctness metric exists. Admit only for the narrow lessons (cache tool catalogs; never reuse LLM answers by embedding similarity on parameterised queries).",
+  "applicability": "For the DAG question: executing a planner-emitted task DAG in topological layers is a cheap latency win only when the plan really has independent branches and those branches hit different backends; this paper cannot show how much comes from the DAG versus simply not respawning tool servers, and it never checks that the planner's dependency edges are right. For a Java team ingesting healthcare-education content, the transferable parts are: (1) cache MCP tool catalogs keyed by server version instead of re-listing per request; (2) if an LLM plan is parallelised, validate its dependency edges deterministically (e.g. an ingest step that writes a module must precede the step that indexes it) before dispatch; (3) reuse LLM outputs only on exact keys such as course/module ID plus content version or hash, never on embedding similarity, because near-identical queries about different modules or editions collide. Clinical-adjacent content makes a wrong cache hit a correctness defect, not a latency trade-off.",
+  "conflicts_with": [
+    {"arxiv_id": "2608.00267", "detail": "LoopsBench finds agent-produced plan DAGs recover only part of the reference prerequisite graph (Edge F1 0.27-0.71) and closed harnesses over-parallelise serial requirements. This paper parallelises planner-emitted DAGs on the assumption that the planner's dependencies are correct and measures no correctness, so its speedup could come partly from running dependent steps concurrently."}
+  ]
+}

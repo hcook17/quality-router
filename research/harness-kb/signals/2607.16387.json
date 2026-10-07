@@ -1,0 +1,472 @@
+{
+ "arxiv_id": "2607.16387",
+ "fulltext_chars": 125183,
+ "fulltext_lines": 2496,
+ "authors_block": "Mert Cemri Andrei Cojocaru Melissa Pan Affiliation: University of California, Berkeley Shu Liu Affiliation: University of California, Berkeley Shubham Agarwal Affiliation: University of California, Berkeley Alexander Krentsel Affiliation: University of California, Berkeley Jay Tang Affiliation: Apple Kannan Ramchandran Affiliation: University of California, Berkeley Joseph E. Gonzalez Affiliation: University of California, Berkeley Matei Zaharia Affiliation: University of California, Berkeley Alex Dimakis Affiliation: University of California, Berkeley Affiliation: Bespoke Labs Ion Stoica Affiliation: University of California, Berkeley",
+ "vendor_affiliation_hits": [],
+ "n_authors": 12,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/multi-agent-systems-failure-taxonomy/AdaMAST.",
+  "https://github.com/tailcallhq/forgecode"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   26,
+   "# Fantastic Adaptive Taxonomies and How to Use Them"
+  ],
+  [
+   74,
+   "###### Abstract"
+  ],
+  [
+   83,
+   "## 1 Introduction"
+  ],
+  [
+   96,
+   "##### Contributions."
+  ],
+  [
+   110,
+   "## 2 Related Work"
+  ],
+  [
+   112,
+   "##### Failure taxonomies for agent systems."
+  ],
+  [
+   117,
+   "##### Improving agents from execution traces."
+  ],
+  [
+   121,
+   "##### Search-based optimization of agent systems."
+  ],
+  [
+   125,
+   "## 3 Method"
+  ],
+  [
+   187,
+   "### 3.1 Generating the taxonomy"
+  ],
+  [
+   250,
+   "### 3.2 Applying the taxonomy"
+  ],
+  [
+   266,
+   "### 3.3 AdaMAST for agent-system search"
+  ],
+  [
+   291,
+   "### 3.4 AdaMAST for runtime monitoring"
+  ],
+  [
+   297,
+   "### 3.5 AdaMAST for trajectory selection"
+  ],
+  [
+   324,
+   "## 4 Experiments"
+  ],
+  [
+   328,
+   "### 4.1 Setup"
+  ],
+  [
+   330,
+   "##### Benchmarks and integration settings."
+  ],
+  [
+   337,
+   "##### Models."
+  ],
+  [
+   341,
+   "##### Matched comparisons."
+  ],
+  [
+   345,
+   "### 4.2 Agent-system search across reasoning benchmarks"
+  ],
+  [
+   389,
+   "##### Search improves across domains."
+  ],
+  [
+   393,
+   "##### Case study: evolution on OlympiadBench."
+  ],
+  [
+   429,
+   "### 4.3 Runtime monitoring on SWE-bench Verified Mini"
+  ],
+  [
+   458,
+   "##### Claude Code: an anchored vocabulary raises resolution on a harness that can already verify its work."
+  ],
+  [
+   462,
+   "##### SWE-agent: under an identical checkpoint scaffold, the induced vocabulary is the strongest anchor."
+  ],
+  [
+   466,
+   "##### Cross-domain transfer to OfficeQA."
+  ],
+  [
+   480,
+   "### 4.4 Trajectory selection on Terminal-Bench 2.0"
+  ],
+  [
+   519,
+   "##### Failure codes discriminate passing from failing trajectories."
+  ],
+  [
+   525,
+   "##### Selection is substrate-sensitive."
+  ],
+  [
+   531,
+   "## 5 Taxonomy Validation and Analysis"
+  ],
+  [
+   535,
+   "### 5.1 Human-anchored validation on TRAIL"
+  ],
+  [
+   539,
+   "##### Agreement with expert labels."
+  ],
+  [
+   543,
+   "##### Vocabulary isolation."
+  ],
+  [
+   565,
+   "### 5.2 Cross-domain taxonomy variation"
+  ],
+  [
+   569,
+   "### 5.3 Failure modes over search"
+  ],
+  [
+   573,
+   "### 5.4 Codes as a compressed failure representation"
+  ],
+  [
+   579,
+   "## 6 Conclusion"
+  ],
+  [
+   583,
+   "## References"
+  ],
+  [
+   943,
+   "## Appendix A Generated Taxonomy Examples"
+  ],
+  [
+   947,
+   "### A.1 TheoremQA Taxonomy (13 codes)"
+  ],
+  [
+   953,
+   "### A.2 Frontier-CS Taxonomy (25 codes)"
+  ],
+  [
+   959,
+   "### A.3 OlympiadBench Taxonomy (36 codes)"
+  ],
+  [
+   1001,
+   "### A.4 Terminal-Bench Taxonomy"
+  ],
+  [
+   1037,
+   "### A.5 SWE-bench Taxonomy (30 codes)"
+  ],
+  [
+   1043,
+   "### A.6 Cross-domain taxonomy comparison"
+  ],
+  [
+   1107,
+   "### A.7 Long-tail structure of induced codes"
+  ],
+  [
+   1170,
+   "## Appendix B Taxonomy Generation and Implementation Details"
+  ],
+  [
+   1172,
+   "### B.1 Taxonomy generation pipeline"
+  ],
+  [
+   1178,
+   "#### Taxonomy-generation audit"
+  ],
+  [
+   1248,
+   "### B.2 Inter-annotator agreement gate"
+  ],
+  [
+   1252,
+   "### B.3 Models and prompts"
+  ],
+  [
+   1256,
+   "##### Hyperparameters."
+  ],
+  [
+   1300,
+   "##### Seed architecture."
+  ],
+  [
+   1304,
+   "### B.4 Benchmark splits and evaluation budgets"
+  ],
+  [
+   1306,
+   "##### Search benchmarks."
+  ],
+  [
+   1310,
+   "##### Runtime benchmark."
+  ],
+  [
+   1314,
+   "##### Selection benchmark."
+  ],
+  [
+   1318,
+   "##### TRAIL."
+  ],
+  [
+   1322,
+   "### B.5 Cost accounting"
+  ],
+  [
+   1326,
+   "##### Search-time overhead."
+  ],
+  [
+   1330,
+   "##### Runtime overhead."
+  ],
+  [
+   1334,
+   "##### Selection overhead."
+  ],
+  [
+   1338,
+   "##### Per-arm runtime cost."
+  ],
+  [
+   1342,
+   "## Appendix C Search Ablations and Replications"
+  ],
+  [
+   1346,
+   "### C.1 Multi-seed stability on small benchmarks"
+  ],
+  [
+   1369,
+   "### C.2 Wrong-domain taxonomy transfer in search"
+  ],
+  [
+   1393,
+   "### C.3 Sample efficiency of taxonomy induction"
+  ],
+  [
+   1425,
+   "### C.4 Cross-model search replication"
+  ],
+  [
+   1458,
+   "## Appendix D Selection Ablations"
+  ],
+  [
+   1462,
+   "### D.1 Wrong-domain taxonomy transfer"
+  ],
+  [
+   1500,
+   "### D.2 Cheaper verifier"
+  ],
+  [
+   1520,
+   "### D.3 Top- K taxonomy truncation"
+  ],
+  [
+   1540,
+   "### D.4 Token-matched context"
+  ],
+  [
+   1568,
+   "### D.5 Cross-verifier replication"
+  ],
+  [
+   1572,
+   "## Appendix E Compression Measurement and Functional Substitution"
+  ],
+  [
+   1574,
+   "### E.1 Compression ratios and entropy"
+  ],
+  [
+   1580,
+   "### E.2 Functional substitution: protocol and full results"
+  ],
+  [
+   1748,
+   "## Appendix F TRAIL Faithfulness Protocol"
+  ],
+  [
+   1752,
+   "### F.1 Dataset and protocol"
+  ],
+  [
+   1756,
+   "### F.2 Panel composition"
+  ],
+  [
+   1760,
+   "### F.3 Agreement metrics"
+  ],
+  [
+   1814,
+   "### F.4 Vocabulary comparison"
+  ],
+  [
+   1832,
+   "### F.5 Leaf-level diagnostics"
+  ],
+  [
+   1896,
+   "### F.6 Mapping induced codes to TRAIL categories"
+  ],
+  [
+   1926,
+   "## Appendix G OlympiadBench Mechanism Details"
+  ],
+  [
+   1930,
+   "### G.1 Raw score trajectory"
+  ],
+  [
+   1936,
+   "### G.2 Breakthrough judge outputs"
+  ],
+  [
+   1940,
+   "##### Iteration-43 judge output (on the lineage of the iter-69 breakthrough, dev 0.40\\to 0.50 )."
+  ],
+  [
+   1971,
+   "##### Iteration-60 judge output (on the lineage of the iter-89 breakthrough, dev 0.50\\to 0.55 )."
+  ],
+  [
+   1992,
+   "### G.3 Non-breakthrough base rates"
+  ],
+  [
+   2000,
+   "### G.4 Failure burden over evolution"
+  ],
+  [
+   2014,
+   "### G.5 Post-hoc four-arm failure profile"
+  ],
+  [
+   2092,
+   "### G.6 Architecture diffs"
+  ],
+  [
+   2100,
+   "## Appendix H Runtime Monitoring Details"
+  ],
+  [
+   2104,
+   "### H.1 SWE-agent checkpoint protocol"
+  ],
+  [
+   2110,
+   "### H.2 Main SWE-agent result"
+  ],
+  [
+   2120,
+   "### H.3 Secondary Claude Code harness"
+  ],
+  [
+   2126,
+   "##### Harness and solver."
+  ],
+  [
+   2130,
+   "##### Three arms."
+  ],
+  [
+   2134,
+   "##### Checkpoint delivery."
+  ],
+  [
+   2160,
+   "##### 32-code Claude Code SWE-bench taxonomy."
+  ],
+  [
+   2303,
+   "##### Blind-judge contamination scrubbing."
+  ],
+  [
+   2311,
+   "##### Cross-arm instance structure."
+  ],
+  [
+   2317,
+   "##### Per-(arm, code) primary firing counts."
+  ],
+  [
+   2418,
+   "### H.4 Cross-domain runtime evaluation on OfficeQA Pro"
+  ],
+  [
+   2448,
+   "## Appendix I Extended Design Ablations"
+  ],
+  [
+   2450,
+   "### I.1 Injection-location ablation"
+  ],
+  [
+   2470,
+   "### I.2 Feedback-form diagnostic"
+  ],
+  [
+   2496,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 2,
+  "p_value_or_ci": 10,
+  "seeds_or_runs": 30,
+  "swe_bench": 26,
+  "contamination": 3,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 2
+ },
+ "fulltext_source": "html"
+}

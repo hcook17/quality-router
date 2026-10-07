@@ -1,0 +1,24 @@
+{
+  "arxiv_id": "2606.21926",
+  "blind_scores": {"rigor": 3, "reproducibility": 4, "generalizability": 3, "relevance": 3, "coi_risk": 1},
+  "blind_verdict": "admit_with_caveats",
+  "blind_coi_severity": "low",
+  "agreement": "minor_disagreement",
+  "claims_disputed": [
+    {"claim": "Selective WCAG retrieval beats both no-knowledge and always-on injection.", "proposed_strength": "weak", "reason": "The 'beats no-knowledge' half rests on a single-run +3.21-point delta on 10 Lite repos (Table 4: 78.15% vs 74.94%), with no variance reported. The always-on collapse (58.74%, 16 points below no-knowledge) contradicts the paper's other always-on evidence. In §3.2.3 Table 2, always-on WCAG raises OpenHands from 61.53% to 69.23% and cuts side effects from 28 to 7. In Table 3, GUIRepair-W (71.66%) is close to GUIRepair-I (73.19%). The always-on variant's construction is not described."}
+  ],
+  "pattern_stance_changes": [
+    {"id": "P06", "from": "supports", "to": "mixed", "reason": "The paper measures RAG twice with opposite outcomes. Feature retrieval beats chat-only by 8.5 points (Table 4: 78.15% vs 69.64%). Always-on WCAG RAG, which §3.2.3 explicitly frames as RAG, loses to no knowledge by 16.2 points (58.74% vs 74.94%). The feature-retrieval gain also cannot be credited to embeddings specifically: the ablated module is lexical DOM-attribute symbol matching followed by embedding re-ranking (§4.2.1), and the Fig. 12 case credits the attribute features."},
+    {"id": "P16", "from": "mixed", "to": "introduces", "reason": "The execution-style gate, per-patch rebuild-and-render acceptance (§4.2.2), is never ablated: §6.2 explicitly excludes patch-generation strategies. The checker re-check gains (Table 7) are already credited to P17. The 6 silent regressions (Table 8) are blind spots of the oracle, not a measured loss against an alternative, so nothing supports 'mixed'."}
+  ],
+  "missed_issues": [
+    "Design-on-test overlap: all five motivating-study repos (algorithms, carbon-design, tailwindcss, lynx, electron; §3.1.3) are in A11YBench-Lite. Lite is the set used for RQ1 (Table 3), every ablation (Table 4) and the cross-model study (Table 5). Full still contains the Lite repos, and results on the 50 unseen repos are not reported separately.",
+    "The Full-set comparison (Table 6) omits GUIRepair-W. The +16.68-point margin is therefore only against GUIRepair-I, while GUIRepair-W beats A11YRepair on several Lite repos.",
+    "COI should be low, not none. The authors built A11YBench and ship its top system, and the primary baseline GUIRepair is their own prior system (Huang, Zhang, Xie, Chen 2025). The rubric treats benchmark authors shipping the top system as a COI signal.",
+    "The manual audit (Table 8) covers only the Gemini-2.5-flash Turn-3 output on Lite, is done by the authors, and reports no inter-annotator agreement. It does not validate the o4-mini headline numbers or any baseline comparison. It also discards 189 of 2622 checker violations (about 7%) as checker false positives.",
+    "Table 5 reports an identical cost ($21.03) for GPT-4.1 mini and GPT-5 mini, which is likely a copy error.",
+    "The core divide-and-conquer decomposition (hierarchical grouping by component, criterion and situation, closest to P13) is untagged, although it is the measured contribution: Basic, Iterative and A11YRepair are compared in Tables 3 and 6, plus the granularity ablation in Table 4. The component-level variant (59.01%) is worse than per-violation GUIRepair-I (73.19%), so only the finest grouping wins.",
+    "The P17 'supports' note cites only the checker's use as an oracle. The qualifying evidence is Table 7: checker-feedback rounds versus a single pass (75.41% to 87.49%, side effects 171 to 55), on one model with single runs."
+  ],
+  "note": "I agree with the verdict and most claim strengths. P02 supports (selective beats always-on by 19 points) and P17 supports (Table 7 checker-feedback rounds) both meet the bar and are kept. P06 should be mixed, because the paper's own always-on RAG result loses to no knowledge, and P16 has no measured comparison. Unflagged caveats are the overlap between motivating-study repos and the Lite evaluation set, and the missing GUIRepair-W comparison on Full."
+}

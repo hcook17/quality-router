@@ -1,0 +1,32 @@
+{
+  "arxiv_id": "2608.30250",
+  "contributions": [
+    {"kind": "heuristic",
+     "statement": "When an agent must author a large graph-shaped artifact (pipeline or workflow definition, routing table, mapping JSON), have it emit a compact intermediate form that states each value once and let deterministic code expand cross-products, chaining and boolean normalization into the final format, rather than having the model write the dense JSON directly.",
+     "evidence": "§4.2, §5.3-5.4, Tables 1 and 4: IR-only (one call plus compiler) vs monolithic JSON gives 0 uncompilable outputs and 99-100% valid JSON on all four models. Judge validity +20.8 pp on GPT-5.3-chat (p<0.001) and +2.5/+4.7 on GPT-5.2/Opus, but -1.6 n.s. on GPT-4.1. On dense rules (13-15 condition-action pairs) GPT-5.3-chat monolithic exact-conditions accuracy is ~0% while the compiler pipeline holds ~55% (Fig. 1). Single greedy run, synthetic templated rules, rule-level tests.",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["2605.15425", "LLM-as-compiler / grammar-constrained decoding"],
+     "transfers": "indirect"},
+    {"kind": "nuance",
+     "statement": "Expect an LLM to choose the right nodes of a generated graph but drop attributes and mis-wire edges as the number of interdependent nodes in one emission grows, so validate edges and node parameters deterministically and keep each emission small.",
+     "evidence": "App. B, Table 3: node-set accuracy 98.4-100% for GPT-5.2/Opus vs node-exact 86-92%. §5.3, Fig. 1: accuracy falls with branch-grid density for every configuration. App. E: ordering (edge-direction) errors are the largest residual category (49.5%), keyword-coded from judge rationales.",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["2608.00267"],
+     "transfers": "indirect"},
+    {"kind": "nuance",
+     "statement": "Do not assume a structured pipeline lifts every model: here the large gain was confined to the one model that under-produced on the long monolithic prompt, strong models gained at most ~5 pp, and the weakest model gained nothing, so measure per model before standardizing a pipeline across hosts.",
+     "evidence": "Table 4: Selector+IR vs monolithic judge validity -2.2 (n.s.) GPT-4.1, +24.3 GPT-5.3-chat, +4.3 GPT-5.2, +4.7 Opus 4.6; TOST equivalence to GPT-5.2 for GPT-5.3-chat only (App. D).",
+     "strength": "weak", "novelty": "refines",
+     "relative_to": ["2605.17535", "2608.16890"],
+     "transfers": "indirect"},
+    {"kind": "anti_pattern",
+     "statement": "Splitting one dense generation into plan-then-expand steps moved the node-dropping failure into the expand step instead of removing it; reduce what each step must emit rather than adding steps.",
+     "evidence": "§7 'Lessons Learned': stated without configurations, numbers or tables.",
+     "strength": "unsupported", "novelty": "refines",
+     "relative_to": ["planner-executor (P13)", "static workflow graph (P36)"],
+     "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "The 'emit a compact IR, compile deterministically' rule has same-model paired evidence and a clear mechanism (emission density). It transfers to any agent-authored graph or config artifact. The DAG-wiring caution adds magnitude to an existing KB finding. Everything is closed and single-run on synthetic rules, so magnitudes are indicative."
+}

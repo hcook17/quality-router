@@ -1,0 +1,17 @@
+{"arxiv_id": "2605.27716",
+ "blind_scores": {"rigor": 2, "reproducibility": 4, "generalizability": 2, "relevance": 2, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [],
+ "pattern_stance_changes": [
+  {"id": "P24", "from": "supports", "to": "neutral", "reason": "Tables VII–VIII report cost, tokens and calls, but no budget or cap mechanism is tested. The retry cap is fixed at 3 and never varied. Reporting cost is not evidence that budgets or caps work."},
+  {"id": "P10", "from": "supports", "to": "neutral", "reason": "Both arms are single-agent (§VII-B). The comparison is single-pass generation vs a validator-driven retry loop, not single-agent vs multi-agent or orchestrated designs. Equal quality comes from one model and one run with a confounded loop (§IX-B), so it says nothing about P10."},
+  {"id": "P17", "from": "mixed", "to": "neutral", "reason": "§IX-B says the loop received 'general structural feedback' rather than the specific checker output (node-level Axe findings), so linter or static-analysis feedback in the loop was never actually tested. The hybrid LLM-plus-rule-engine design the paper recommends is not run. No measured evidence points either way."}
+ ],
+ "missed_issues": [
+  "The provenance of the negatives is inconsistent. Table I labels the sets 'scraped_sites' and 'scraped_sites_fixed', and §VI-C says residual violations remain 'due to limitations in automated remediation', which suggests automatically produced fixes. §VII-A instead says the negatives are AccessGuru snippets 'corrected by authors with frontend expertise'. The detection ground truth is therefore of unclear origin.",
+  "Table X ('sample before–after rule table') uses generic filenames (site_home.html, checkout.html, dashboard.html) that do not match the dataset's naming (arstechnica_com_*, act-rules_github_io_* in Tables XI–XII), and its deltas are nearly uniform (−3 to −5). It looks illustrative rather than measured, while Table XI's real pages show mostly zero or positive deltas.",
+  "Table III gives rule-based detection rates of 45% (syntax) and 40% (layout), which is hard to reconcile with Axe-Core recall of 0.93 in Table II; the category framing is not explained.",
+  "Repair is evaluated on 308 of the 331 violating pages with no account of the missing 23."
+ ],
+ "note": "I agree with admit_with_caveats and with the review's claim grading and its P16 'contradicts' stance, which is properly caveated as a weak-feedback loop. Three peripheral stances (P24, P10, P17) credit evidence the paper never measures. Data provenance and an apparently illustrative Table X add to the integrity concerns."}

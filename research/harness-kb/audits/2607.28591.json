@@ -1,0 +1,14 @@
+{"arxiv_id": "2607.28591",
+ "blind_scores": {"rigor": 3, "reproducibility": 2, "generalizability": 3, "relevance": 3, "coi_risk": 1},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [],
+ "pattern_stance_changes": [],
+ "missed_issues": [
+  "No test-retest reference: each agent gets one run per branch (App. D.1). Without a same-branch rerun, the 89.7% cross-branch agreement (App. G) cannot be split into reconstruction drift versus ordinary agent stochasticity. The exactly balanced discordance (186 vs 186) and identical solved totals (1,478 each) cannot be checked because no artifacts are released.",
+  "Java coverage is overstated in the review's applicability ('Covers Java and an API-migration family'). Per App. B Table 5, Java appears only as 16 Security Repair tasks (Vul4J 15, VJBench 1) out of 900. The API Migration family is PyMigBench (Python), and Bug Fix, Feature Addition and Test Generation all come from Python SWE-bench-family sources.",
+  "P16's 'supports' should rest on Table 1 / App. C.3: an execution-feedback construction loop beats one-shot PR Mirror under matched token, time and candidate budgets (500 vs 387). The lifecycle gate cited in the review is just the evaluation oracle. That win also bundles Code Mapping with verifier feedback, and it is about task construction, not evaluation-agent harnesses.",
+  "Cost result (App. H.2, Table 15) depends on author-set prices ($0.3333/h compute, $0.0484/GB). Model-call spend roughly doubles ($567 → $1,183), so the 10.8% net saving is sensitive to the price assumptions and to the 2.32 tasks-per-base reuse density.",
+  "End-to-end yield from raw source records is 900/1,783 (50.5%, App. B Table 4); the headline 79.6% is conditional on an already filtered pool, which the review notes."
+ ],
+ "note": "I agree with admit_with_caveats and with the pattern stances and claim grades. I'd put rigor at 3, not 4: single runs with no test-retest baseline, a self-defined fidelity metric, and no artifacts. For this team, the key correction is that Java is a 16-task sliver, so the PR-to-task recipe is unvalidated on Maven/Gradle builds."}

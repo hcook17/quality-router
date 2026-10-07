@@ -1,0 +1,153 @@
+{
+ "arxiv_id": "2607.05139",
+ "fulltext_chars": 68576,
+ "fulltext_lines": 1118,
+ "authors_block": "Michael Konstantinou Affiliation: SnT, University of Luxembourg Luxembourg michael.konstantinou@uni.lu Florian Tambon Affiliation: SnT, University of Luxembourg Luxembourg florian.tambon@uni.lu Mike Papadakis Affiliation: SnT, University of Luxembourg Luxembourg michail.papadakis@uni.lu",
+ "vendor_affiliation_hits": [],
+ "n_authors": 3,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# On the risk of coding before testing: An empirical study on LLM-based test generation workflow"
+  ],
+  [
+   46,
+   "###### Abstract"
+  ],
+  [
+   50,
+   "###### Index Terms:"
+  ],
+  [
+   53,
+   "## I Introduction"
+  ],
+  [
+   82,
+   "## II Background"
+  ],
+  [
+   84,
+   "### II-A Agentic systems"
+  ],
+  [
+   88,
+   "### II-B LLM-Based test generation"
+  ],
+  [
+   92,
+   "## III Research questions"
+  ],
+  [
+   114,
+   "## IV Experimental setup"
+  ],
+  [
+   116,
+   "### IV-A Methodology"
+  ],
+  [
+   152,
+   "### IV-B Benchmarks"
+  ],
+  [
+   168,
+   "### IV-C Models"
+  ],
+  [
+   198,
+   "### IV-D Test generation strategies"
+  ],
+  [
+   215,
+   "### IV-E Metrics"
+  ],
+  [
+   227,
+   "## V Research protocol"
+  ],
+  [
+   241,
+   "## VI Results"
+  ],
+  [
+   243,
+   "### VI-A RQ1: Implementation influence"
+  ],
+  [
+   289,
+   "### VI-B RQ2: Prompting"
+  ],
+  [
+   329,
+   "### VI-C RQ3: Workflows"
+  ],
+  [
+   359,
+   "## VII Controlling for Under-specified prompts, coverage, fault triggering and number of tests"
+  ],
+  [
+   361,
+   "### VII-A Qualitative analysis"
+  ],
+  [
+   491,
+   "### VII-B Fault detection using Under-specified prompts"
+  ],
+  [
+   509,
+   "## VIII Related Work"
+  ],
+  [
+   513,
+   "### VIII-A Empirical study on test generations"
+  ],
+  [
+   521,
+   "### VIII-B LLMs for Code Generation"
+  ],
+  [
+   525,
+   "### VIII-C Test-First and Test-Driven Development"
+  ],
+  [
+   531,
+   "## IX Threats to Validity"
+  ],
+  [
+   539,
+   "## X Conclusion"
+  ],
+  [
+   551,
+   "## References"
+  ],
+  [
+   1118,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## IX Threats to Validity\n\nA primary threat stems from the non-deterministic nature of LLMs, which may produce different implementations and test suites across executions. To mitigate this threat, we use low-temperature settings whenever possible and repeat generation ten times when higher temperatures are required.\n\nThe generalizability of our findings may be limited by the choice of tasks, models, and experimental settings. The benchmark problems used in our study may not fully represent the diversity and complexity of real-world software engineering projects. Industrial systems often involve larger codebases, evolving requirements, domain-specific constraints, and extensive human oversight, which could affect the interaction between generated implementations and generated tests.\n\nAdditionally, our results are based on a specific set of large language models and prompting strategies, designed to reflect realistic software development workflows. Alternative prompting strategies and workflows could lead to different behaviors and therefore different conclusions. For instance, test first generation, iterative refinement, agent-based verification, or workflows involving multiple independent models, may yield different outcomes and should not be assumed to exhibit the same limitations identified in this work.\n\n## X Conclusion\n\nLarge language models are increasingly being integrated into software development workflows, where they are used not only to generate code but also to generate the tests intended to validate that code. While this workflow offers substantial productivity benefits, it raises a fundamental concern: does generating tests after code lead to tests that validate the implementation rather than the intended specification?\n\nIn this paper, we conducted an empirical study of the LLM-based code-before-test workflow and investigated its impact on the effectiveness of generated test suites. Our results indicate that tests generated after implementation are often strongly influenced by the code they observe, resulting in a tendency to reinforce implementation assumptions and overlook defects. Consequently, high test pass rates and code coverage do not necessarily imply that the generated implementation conforms to the original specification. Instead, such tests may provide a false sense of correctness by validating the same interpretation adopted during code generation.\n\nThe findings highlight a previously underexplored risk of LLM-assisted development: the loss of independence between implementation and verification. This issue becomes particularly problematic when task descriptions are ambiguous or underspecified, as both the generated code and the generated tests may converge to the same incorrect interpretation. In such cases, the testing process fails to serve its primary purpose of identifying behavioral deviations from the intended requirements.\n\nOur study contributes empirical evidence that the ordering of code and test generation matters in LLM-driven software engineering workflows. The results suggest that practitioners should exercise caution when relying exclusively on post-hoc LLM-generated tests as correctness oracles and should prefer workflows that preserve a degree of separation between specification, implementation, and validation.\n\nFuture work can explore techniques to mitigate this risk, including specification-first prompting, independent test generation models, adversarial test generation, and human-in-the-loop validation strategies. More broadly, we believe that understanding the interactions between multiple LLM-generated artifacts will be essential for building trustworthy AI-assisted software engineering processes. As LLMs continue to assume greater responsibility in development workflows, ensuring that testing remains an independent and effective mechanism for quality assurance will be critical in realizing their potential.\n\n## References\n\n[1]\nP. Ammann and J. Offutt (2008)\n\nIntroduction to softw",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 38,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 1
+ },
+ "fulltext_source": "html"
+}

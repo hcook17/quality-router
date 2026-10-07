@@ -1,0 +1,15 @@
+{"arxiv_id": "2607.07405",
+ "blind_scores": {"rigor": 3, "reproducibility": 2, "generalizability": 2, "relevance": 3, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "The lift is carried by where gates fire, and mostly by one high-precision gate", "proposed_strength": "weak", "reason": "The firing-stratum half holds (Table 3). The 'mostly one gate' half does not follow from the paper's own removal analysis. In Table 6, dropping cancellation_eligibility changes pass1 by only -2, against a headline lift of +31 trials / +12.4 pp. Every other gate has a positive removal delta (+3, +3, +4, +6), i.e. the bundle does better without it. The removal deltas are also computed on a five-gate bundle that includes the non-promoted basic_economy gate, not on the four-gate headline suite. The attribution rests on precision and fire counts, not on a measured causal share."}
+ ],
+ "pattern_stance_changes": [],
+ "missed_issues": [
+  "Table 6 shows that three of the four headline gates (must_read_before_write +3, baggage_allowance +3, passenger_count +4) have positive removal deltas. The promoted suite therefore contains gates that lower pass1 on this distribution, and the paper does not report the success of a cancellation-only configuration.",
+  "Suite selection happened on the budget tier with the same 50 tasks (§3.3), on top of gate authoring against those tasks (§7 item 8). The seed replication rules out sampling luck but not selection on the evaluation set.",
+  "The 'evaluation-replay scrub' (§4.1) changes how the benchmark's evaluator replays action history for gated runs only. It is plausibly needed, but there is no check (e.g. on a sample of runs) that it does not itself flip outcomes in the gated condition's favour.",
+  "P21 'supports' is kept: the vanilla arm already carries the natural-language policy in the prompt, so this is a fair comparison of policy-in-prompt against policy-as-code, replicated with CIs. It holds for one simulated customer-service domain, not code-writing agents."
+ ],
+ "note": "I agree with admit_with_caveats and P21 'supports'. The statistics (paired bootstrap, disjoint-seed replication, firing stratification) are better than most of the corpus. The one overreach is attributing the lift 'mostly' to the cancellation gate, which Table 6's minus-one deltas do not show; those deltas also imply the headline suite contains net-harmful gates."}
