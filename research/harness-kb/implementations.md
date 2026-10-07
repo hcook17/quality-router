@@ -48,6 +48,13 @@ evidence. Retrieval-level gains do not predict end-to-end results
 - **Avro / AsyncAPI:** not contract types in Gortex.
   `qr contracts check` stays the schema gate.
 
+`qr init --graph gortex` stamps the adopt/no verdicts above that live in
+`.gortex.yaml` (embedding off, `facade-v1` in hide mode, read-only
+`cross_workspace_deps`, `@KafkaListener` / `kafkaTemplate.send`
+boundaries) and prints the install-time ones (`--hook-mode=enrich`,
+`--no-skills`, jdtls). The Kafka producer matches the `kafkaTemplate.send`
+call suffix only; add an `event_bus` entry for another field name.
+
 **Pilot before relying on it.** Run `qr eval` with Gortex on and off,
 on the same host, version and model, over your own Java tasks. Record
 resolve rate and tokens (2607.03691), because Gortex has published
@@ -78,7 +85,7 @@ evidence papers from the window name them as the mechanism.
 
 | Tool | Paper (E) | Finding | In `qr` today |
 | --- | --- | --- | --- |
-| japicmp / revapi | 2608.20167 | A static API diff finds 95% of what LLM-written client tests catch on dependency bumps | **No.** Gap for shared internal Java libraries across the 4+ repos |
+| japicmp / revapi | 2608.20167 | A static API diff finds 95% of what LLM-written client tests catch on dependency bumps | `qr gate api-compat` reads japicmp XML (revapi not read) |
 | JavaParser | 2606.24446 | Agent codemods have a higher verified fix rate on JavaParser than on Spoon | Docs only |
 | PIT with custom mutators | 2607.11573 | Generic mutation score misranks; build mutators from historical bug classes | Docs only |
 | Jazzer / jqwik | 2605.27531 | Fuzzing rejected 8% of unit-test-passing inferred contracts | jqwik recognised by the oracle gate |

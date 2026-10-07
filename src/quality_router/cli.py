@@ -14,7 +14,16 @@ from quality_router import __version__
 from quality_router.harness.ci import TEMPLATES as CI_TEMPLATES
 from quality_router.harness.cli import register as register_harness
 from quality_router.host_bind import bind_host
-from quality_router.init import ADAPTERS, InitConfig, run_init
+from quality_router.init import (
+    ADAPTERS,
+    GORTEX_DISCONNECTED,
+    GORTEX_NEXT_STEPS,
+    GORTEX_OLDER_SHAPE,
+    InitConfig,
+    InitError,
+    older_gortex_shape,
+    run_init,
+)
 from quality_router.install_wrap import (
     build_installer_argv,
     invoke_installer,
@@ -176,7 +185,7 @@ INIT_EPILOG = textwrap.dedent(
       qr init --host cursor --no-gitnexus
       qr init --graph gortex
       qr init --graph gortex --workspace my-service
-      qr init --graph gortex --workspace-dep other-svc --module services/shared
+      qr init --graph gortex --workspace-dep content-model --module edu.acme:content-model
       qr init --policy --host cursor
       qr init --policy --host claude-code --ci github-maven
       qr init --ci github-gradle --ci-java 11
@@ -187,7 +196,8 @@ INIT_EPILOG = textwrap.dedent(
     it also merges `qr policy hook` into that host's hook file.
     --ci github-maven|github-gradle writes .github/workflows/qr-harness.yml
     (never overwrites); its JDK comes from --ci-java, else the build file.
-    Optional --graph gortex writes .gortex.yaml (no-op if gortex not on PATH).
+    Optional --graph gortex writes .gortex.yaml (no-op if gortex not on PATH,
+    never overwrites) and prints the gortex install/init flags; qr never runs gortex.
     Does not write mcp.json. Does not set GITNEXUS_HOOKS=0. Idempotent.
     """
 )
@@ -229,7 +239,8 @@ def _add_init_parser(subparsers) -> None:
     parser.add_argument(
         "--module",
         default=None,
-        help="Module path paired with the preceding --workspace-dep.",
+        action="append",
+        help="Module for --workspace-dep, paired by position (repeatable; default: .).",
     )
     parser.add_argument(
         "--no-gitnexus",
@@ -297,11 +308,15 @@ def cmd_install(args: Namespace) -> int:
 
 def cmd_init(args: Namespace) -> int:
     """Stamp portable + optional host/graph stamps into cwd."""
-    # Collect workspace deps (repeatable --workspace-dep with --module)
-    deps: list[tuple[str, str]] = []
-    if args.workspace_dep:
-        for dep_slug in args.workspace_dep:
-            deps.append((dep_slug, args.module or "."))
+    dep_slugs = args.workspace_dep or []
+    modules = args.module or []
+    if modules and len(modules) != len(dep_slugs):
+        print(f"Error: {len(modules)} --module for {len(dep_slugs)} --workspace-dep; "
+              "pair each --workspace-dep with one --module, or give none", file=sys.stderr)
+        print("  qr init --graph gortex --workspace-dep content-model --module edu.acme:model",
+              file=sys.stderr)
+        return 2
+    deps = list(zip(dep_slugs, modules or ["."] * len(dep_slugs), strict=True))
 
     config = InitConfig(
         cwd=Path.cwd(),
@@ -314,7 +329,20 @@ def cmd_init(args: Namespace) -> int:
         ci=args.ci,
         ci_java=args.ci_java,
     )
-    run_init(config)
+    try:
+        status = run_init(config)
+    except InitError as exc:
+        print(f"Error: {exc}", file=sys.stderr)
+        print("  qr init --graph gortex --workspace my-service", file=sys.stderr)
+        return 2
+    if status is not None:
+        print(f"gortex_config={status}")
+        if status == "disconnected":
+            print(GORTEX_DISCONNECTED, file=sys.stderr)
+        else:
+            if older_gortex_shape(config.cwd):
+                print(GORTEX_OLDER_SHAPE, file=sys.stderr)
+            sys.stderr.write(GORTEX_NEXT_STEPS)
     return 0
 
 

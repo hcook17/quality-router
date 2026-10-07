@@ -177,7 +177,7 @@ class TestGortexConfig:
         yaml = init_workspace / ".gortex.yaml"
         assert yaml.is_file()
         content = yaml.read_text(encoding="utf-8")
-        assert "workspace: my-service" in content
+        assert 'workspace: "my-service"' in content
 
     def test_uses_directory_basename_when_no_workspace_flag(
         self, init_workspace: Path, monkeypatch: pytest.MonkeyPatch
@@ -192,7 +192,7 @@ class TestGortexConfig:
 
         yaml = init_workspace / ".gortex.yaml"
         content = yaml.read_text(encoding="utf-8")
-        assert "workspace: init-workspace" in content
+        assert 'workspace: "init-workspace"' in content
 
     def test_writes_workspace_deps(
         self, init_workspace: Path, monkeypatch: pytest.MonkeyPatch
@@ -211,10 +211,11 @@ class TestGortexConfig:
 
         yaml = init_workspace / ".gortex.yaml"
         content = yaml.read_text(encoding="utf-8")
-        assert "workspace: my-svc" in content
-        assert "cross_workspace_deps:" in content
-        assert "workspace: other-svc" in content
-        assert "module: services/shared" in content
+        assert 'workspace: "my-svc"' in content
+        assert "\ncross_workspace_deps:\n" in content
+        assert '  - workspace: "other-svc"' in content
+        assert '    modules:\n      - "services/shared"\n' in content
+        assert "module:" not in content
 
 
 # --------------------------------------------------------------------------- #
@@ -382,8 +383,8 @@ class TestGortexBranchExits:
 
             # Should not be overwritten
             content = yaml_path.read_text(encoding="utf-8")
-            assert "workspace: test-svc" in content
-            assert "workspace: other-svc" not in content
+            assert 'workspace: "test-svc"' in content
+            assert 'workspace: "other-svc"' not in content
 
     def test_cursor_adapter_idempotent_second_stamp_exits_early(
         self, init_workspace: Path

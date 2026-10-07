@@ -1,0 +1,100 @@
+{
+  "approved_by": "test-author subagent bc-71bccebd (spec-only input)",
+  "id_pattern": "AC-\\d+(?:\\.\\d+)?",
+  "locked_at": "2026-10-06T23:46:05+00:00",
+  "owned": [
+    "AC-1",
+    "AC-2",
+    "AC-3",
+    "AC-4",
+    "AC-5",
+    "AC-6",
+    "AC-7",
+    "AC-8",
+    "AC-9",
+    "AC-10",
+    "AC-11",
+    "AC-12",
+    "AC-13",
+    "AC-14",
+    "AC-15",
+    "AC-16",
+    "AC-17",
+    "AC-18",
+    "AC-19",
+    "AC-20",
+    "AC-21",
+    "AC-22",
+    "AC-23"
+  ],
+  "specs": {
+    "docs/design/phase-6-api-compat-and-gortex.md": {
+      "criteria": [
+        "AC-1",
+        "AC-2",
+        "AC-3",
+        "AC-4",
+        "AC-5",
+        "AC-6",
+        "AC-7",
+        "AC-8",
+        "AC-9",
+        "AC-10",
+        "AC-11",
+        "AC-12",
+        "AC-13",
+        "AC-14",
+        "AC-15",
+        "AC-16",
+        "AC-17",
+        "AC-18",
+        "AC-19",
+        "AC-20",
+        "AC-21",
+        "AC-22",
+        "AC-23"
+      ],
+      "sha256": "1911737ca611583b463019b9943051c94401b58c4ef1939cfbbc376473803f1a"
+    }
+  },
+  "tests": {
+    "tests/harness/test_api_compat.py": {
+      "criteria": [
+        "AC-1",
+        "AC-10",
+        "AC-11",
+        "AC-12",
+        "AC-13",
+        "AC-14",
+        "AC-2",
+        "AC-3",
+        "AC-4",
+        "AC-5",
+        "AC-6",
+        "AC-7",
+        "AC-8",
+        "AC-9"
+      ],
+      "sha256": "e702622739aeae871b12b09d59e477a12617c62ed314e0a56110a7f555bb02d2"
+    },
+    "tests/test_init.py": {
+      "criteria": [],
+      "sha256": "2b212f32997475dff84e749d7e997019de22b1e91389a1d64dec15a8a9533c55"
+    },
+    "tests/test_init_gortex.py": {
+      "criteria": [
+        "AC-15",
+        "AC-16",
+        "AC-17",
+        "AC-18",
+        "AC-19",
+        "AC-20",
+        "AC-21",
+        "AC-22",
+        "AC-23"
+      ],
+      "sha256": "5287aadab57fe6ea4cdb04519def77496389f911cecb5d7a5dd72b8ee8e9d736"
+    }
+  },
+  "version": 1
+}
