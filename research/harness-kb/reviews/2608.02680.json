@@ -1,0 +1,127 @@
+{
+  "arxiv_id": "2608.02680",
+  "contribution_type": "system",
+  "summary": "TraceCompiler clusters repeated tool-using agent traces by intent and strips retries, schema-discovery lookups and dead reads. It admits a dependency edge only when a consumer argument holds a value attributable to exactly one earlier producer, then emits a typed, mostly deterministic workflow graph with residual LLM nodes, falling back to the general agent for unmatched requests. On synthetic T1 dialogues a mechanized rule recovers def-use edges at 0.928/0.943 precision/recall against 0.711 F1 for adjacency, but the paper's own ablation shows recency, not the exclusion test, carries that accuracy. End-to-end evidence is one AppWorld intent (34 observed calls to 11 runtime calls, 15/21 state tests under leave-one-out) and one correct refusal to compile.",
+  "claims": [
+    {
+      "claim": "An argument-level dependency rule recovers producer-consumer edges at 0.928 precision / 0.943 recall over 15,775 T1 def-use edges, versus 0.711 F1 for adjacency and 0.712 for a frequency-thresholded directly-follows measure",
+      "evidence": "Table 2 with Wilson intervals on identical masked data. But Table 3 shows the exclusion filter is nearly vacuous (mean 8.2 surviving candidates) and 'most recent survivor' does the work; token presence is an almost perfect dependency signal, so detection is trivial and only producer attribution is tested. Synthetic template data, training split only (least structurally diverse quarter).",
+      "strength": "moderate",
+      "location": "§6.5, Tables 2-3"
+    },
+    {
+      "claim": "The compiler skill run blind reaches 0.992 precision and recall on 250 edges",
+      "evidence": "One run of an unpinned, unrecorded LLM over five hand-chosen clusters (1.6% of edges); per-edge predictions not released and the released prompt does not reconstruct the sample. Authors call it a reported observation, not an auditable measurement.",
+      "strength": "weak",
+      "location": "§6.5"
+    },
+    {
+      "claim": "On AppWorld the opaque-value rule attributes session tokens at 0.993 precision against a replay-built reference (563 edges)",
+      "evidence": "Authors withdraw independence: replay injection prefers same-application login tokens, the same assumption the rule uses; all 563 edges are login tokens and no identifier edges were recovered. Self-consistency check only.",
+      "strength": "weak",
+      "location": "§6.6, Tables 4-5"
+    },
+    {
+      "claim": "A compiled Venmo money-request workflow cuts 34 observed API calls to 11 runtime calls and passes 15/21 state tests on withheld instances",
+      "evidence": "One intent, three instances, one application pair. The skeleton was hand-transcribed into simulator calls (no IR runtime exists), the residual recipient-resolution LLM node was replaced by hand-written per-intent parsing rules, and the failing fold escalates by design. No compile cost, no routing-accuracy evaluation, no comparison with the general agent's success on the same requests.",
+      "strength": "weak",
+      "location": "§6.1, §6.3, Figure 4"
+    },
+    {
+      "claim": "The compiler correctly refuses to compile an under-determined irreversible side effect (Spotify/Todoist add vs remove)",
+      "evidence": "Single case study; no compile/decline rate over the 56 scenarios, which the authors call the adoption-relevant number.",
+      "strength": "weak",
+      "location": "§6.1, §6.3"
+    },
+    {
+      "claim": "Across 56 recurring AppWorld scenarios a median 51.4% of calls are removable schema lookups or byte-identical repeats",
+      "evidence": "Census of 14,128 calls with IQR 41.9-74.1%. Authors note it both under-counts (jittering retries, pagination) and over-counts (read-after-write), and that removability is not a realized saving.",
+      "strength": "moderate",
+      "location": "§6.2"
+    },
+    {
+      "claim": "Unsupervised intent discovery is behaviorally consistent with T1 domain labels (purity 0.930, ARI 0.235)",
+      "evidence": "Authors state Table 1 does not reproduce from the released corpus: the closest re-run gives 12 clusters at purity 0.548. Coverage is 0.496 of dialogues.",
+      "strength": "weak",
+      "location": "§6.4, Table 1"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P36",
+      "stance": "introduces",
+      "note": "Compiles recurring agent traces into a fixed typed workflow graph: only evidence-backed hard edges constrain order, open choices stay as LLM nodes, and a conservative router falls back to the general agent. There is no isolating comparison of task success or end-to-end cost against the general ReAct agent on the same requests. The only end-to-end numbers are call counts and 15/21 state tests on one intent, with no compile-cost accounting."
+    },
+    {
+      "id": "P37",
+      "stance": "neutral",
+      "note": "Positions itself against LLMCompiler-style plan-time DAGs that are never verified against behaviour. Table 2 is a useful caution for any DAG-edge inference: edges taken from observed adjacency have 0.584 precision on T1, so about 42% are incidental ordering. Not a runtime planner; no P37 comparison is run."
+    },
+    {
+      "id": "P26",
+      "stance": "introduces",
+      "note": "Offline workflow induction from past traces (spend frontier-model effort once, amortize over reuse). Amortization is a stated design premise; compile cost and break-even are not measured."
+    },
+    {
+      "id": "P24",
+      "stance": "neutral",
+      "note": "Reports call reduction (34 to 11 on one intent) but explicitly claims no net efficiency result because offline compilation cost is unmeasured."
+    },
+    {
+      "id": "P16",
+      "stance": "neutral",
+      "note": "Execution against AppWorld state tests falsified two of the authors' own claims (branch necessity and its first correction); they recommend execution-checked sufficiency as a compile-time obligation and warn the execution harness is itself an inference instrument. Anecdotal, n=1 intent."
+    },
+    {
+      "id": "P30",
+      "stance": "introduces",
+      "note": "Every hard edge carries an auditable evidence tuple (consumer, argument path, value, producer, exclusions). Auditability is structural only; no reviewer study."
+    },
+    {
+      "id": "P19",
+      "stance": "neutral",
+      "note": "A HUMAN node type is specified for irreversible effects with unresolved bindings but is never emitted; on the Venmo intent a runtime model chooses the money-request recipient. Authors say irreversible deployments need approval gating beyond what they evaluate."
+    },
+    {
+      "id": "P02",
+      "stance": "neutral",
+      "note": "The compiler is a versioned agent skill (instruction package plus helper scripts). The 'frozen after five audit passes' status of v1.0.0 is author testimony, not a checkable property."
+    }
+  ],
+  "methodology": {
+    "sample": "T1 training split: 3,350 template-generated travel dialogues with 15,775 deduplicated def-use edges. AppWorld: 168 released ReAct trajectories over 56 scenarios (replay reference of 563 token edges). Two compiled intents of three instances each. Hermes-Function-Calling single-turn corpus as a negative transfer result.",
+    "baselines": "Adjacency, all-pairs, and a recurrence (directly-follows thresholding, theta swept) measure on identical data, plus attribution-policy ablations. No competing system (AWM, SKILL-DISCO, PreAct, NSI) is run end to end, and there is no comparison with the general agent on task success or cost.",
+    "models": "An unrecorded frontier LLM agent runs the skill and the case studies; all-mpnet-base-v2 embeddings for clustering; the mechanized rule is model-free.",
+    "variance": "Wilson 95% intervals on precision/recall; authors note template clustering makes them too narrow. Skill results are single runs of a stochastic procedure; no repeated compilations.",
+    "ablations": "Attribution-policy ablation (Table 3) and token-attribution rule ablation (Table 5). No clustering threshold sensitivity sweep.",
+    "contamination_controls": "Variable references masked to opaque tokens; T1 test split untouched; authors concede the AppWorld replay reference is not independent of the rule.",
+    "languages": "Not applicable (JSON tool-call traces in travel and app-API domains)"
+  },
+  "standards": {
+    "peer_review": "None stated (arXiv preprint, 17 pages)",
+    "limitations_section": true,
+    "artifacts": "Skill package v1.1.0, deterministic scoring scripts and masked corpus released. The T1 adapter that builds the edge ground truth is not released, the 250 skill predictions are not released, the clustering partition does not reproduce, and AppWorld traces are regenerable only.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "toy_tasks", "detail": "Corpus-wide accuracy comes from synthetic template-generated dialogues whose plans and dialogues share one generator; authors note incidental regularities are more systematic than in real agent traces."},
+    {"type": "small_sample", "detail": "End-to-end execution evidence is one intent over three instances, plus one refusal to compile."},
+    {"type": "metric_mismatch", "detail": "The headline 0.928 measures producer attribution under co-reference, where recency does the work; it does not test the exclusion-based admission rule the paper argues for (§7)."},
+    {"type": "self_evaluation", "detail": "The AppWorld replay reference shares the same-application-login assumption with the rule it scores."},
+    {"type": "missing_cost_reporting", "detail": "Offline compilation cost is not measured, so amortization and break-even are unknown."},
+    {"type": "single_model", "detail": "All AppWorld traces come from one ReAct agent; skill runs used one unrecorded model."},
+    {"type": "closed_artifacts", "detail": "The T1 adapter that computes def-use ground truth, the step most worth auditing, is not released."}
+  ],
+  "coi": {
+    "affiliations": "EPFL; Binome Technologies (London)",
+    "vendor_products_evaluated": "None",
+    "funding": "Authors declare no external funding and no competing interests",
+    "severity": "low",
+    "detail": "One author is at a company that could commercialize trace compilation, but no product is evaluated and the paper is unusually self-critical, withdrawing several of its own earlier claims."
+  },
+  "scores": {"rigor": 2, "reproducibility": 3, "generalizability": 1, "relevance": 2, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Careful, candid measurement of dependency inference with real baselines and ablations, but on synthetic data, and the central accuracy number turns out to rest on recency rather than the proposed exclusion test. The system claim (compiling traces into executable deterministic workflows) rests on one intent and one refusal, with no compile cost and no task-success comparison against the agent it would replace.",
+  "applicability": "For the team's DAG question this describes one route to static graphs: let agents run freely first, then compile only recurring, evidence-backed procedures into a fixed workflow, route matching requests to it, and fall back to the agent otherwise. Transferable rules: never derive DAG edges from observed order (about 42% of adjacency edges were spurious on T1); admit an edge only where a value flows from producer to consumer; refuse to compile irreversible steps whose branch is under-determined. Compiled workflows that drop schema-discovery calls turn API drift into silent wrong behaviour, so they need contract monitoring and invalidation. Candidates for the team would be repetitive ingestion runbooks (for example re-running an import across the four repos), not open-ended coding. Traces from Cursor, Claude Code, Codex and Hermes differ in format, so a host-neutral trace schema would be a prerequisite. The evidence is too thin to justify building a trace compiler now.",
+  "conflicts_with": []
+}

@@ -1,0 +1,138 @@
+{
+  "arxiv_id": "2608.12249",
+  "contribution_type": "empirical",
+  "summary": "Case study converting the two-electron-integral core of GAMESS (12 files, 56,448 lines, 225 subroutines) from fixed-form Fortran 77 to Fortran 2008 with three prompt-specialized Claude Code roles (conversion, testing, review) in separate git worktrees. They work under an agent-authored, version-controlled specification (CLAUDE.md, STYLE_GUIDE.md, AGENT_GUIDE.md) that prescribes a fixed per-file loop, with humans holding shell-approval, adjudication and merge gates. Every file reproduces the 51-test battery bit-for-bit against F77 goldens (612 runs) and passes the maintainers' tolerance-based Jenkins suite. One escaped defect class (a 6-line REAL-to-INTEGER retyping of a packed-label array) was missed by agent-written unit tests and caught by the standard tests; a common-mode blind spot in self-captured goldens was found only by a human-driven build standardization. There is no baseline, cost or human-effort measurement.",
+  "claims": [
+    {
+      "claim": "All twelve modernized files reproduce the 49 standard GAMESS tests plus two added calculations bit-for-bit (zero chemistry-relevant differences across 612 runs), pass the Jenkins CI suite, and the union build of all 12 also passes",
+      "evidence": "Table II and §IV-B. The oracle is exact and externally anchored: goldens come from the F77 production build, and Jenkins compares against the expected values GAMESS ships. Limits stated in §V-C: desktop workstation only, extended test suites not run, not integrated into production GAMESS.",
+      "strength": "strong",
+      "location": "§IV-B, Table II"
+    },
+    {
+      "claim": "A supervised agentic workflow can carry out legacy scientific-code modernization 'at production scale'",
+      "evidence": "Scope is 12 files, about 5% of a package that 'exceeds a million lines', converted one file at a time with COMMON-block migration explicitly deferred. Nothing is merged to production, and the extended suites and HPC runs are pending (§V-C).",
+      "strength": "weak",
+      "location": "Abstract, §I, §VI"
+    },
+    {
+      "claim": "Human effort did not scale with code volume; it concentrated at configuration reconciliation, adjudication and merge decisions",
+      "evidence": "No human hours, review time or intervention counts are reported. The only timing is the 7 h 29 min sequential validation sweep (about 37 min/file, dominated by the 25-minute standard tests). Who drove each role, which governs the independence the role split is meant to provide (§III-A2), is not stated.",
+      "strength": "unsupported",
+      "location": "§IV-C, §V-B2, Table III"
+    },
+    {
+      "claim": "Competence lives in the specification, not the model: work spanned Opus 4.6, Sonnet 4.6, Opus 4.7 and Opus 4.8 with no rework when the model changed",
+      "evidence": "Author testimony only. No mapping of files to models, no per-model success rates, no other model family or runtime; the authors themselves call cross-family portability a conjecture.",
+      "strength": "weak",
+      "location": "§III-A1, §V-B3"
+    },
+    {
+      "claim": "Defects that survive a strict compiler are few, tightly clustered and semantically deep; 6 wrong lines out of 55,916, found immediately by running the standard tests",
+      "evidence": "One escaped defect class: IX retyped REAL(real64) instead of INTEGER(int64), caught on exam01, localized by an agent-written bisection harness over 38 subroutines in five rounds, then generalized into a STYLE_GUIDE audit clause that found two more instances. 11/12 files were arithmetically correct and 11/12 compiled cleanly on first attempt. Authors caution that one project cannot establish an error rate.",
+      "strength": "moderate",
+      "location": "§IV-B, §V-A2, §V-A3"
+    },
+    {
+      "claim": "Differential checks are blind along their common mode: goldens regenerated alongside the artifact under test cannot catch errors in the procedure that builds both sides",
+      "evidence": "Three unit-test drivers captured before -fdefault-integer-8 was standardized passed while wrong (26, 36 and 105 changed line pairs once regenerated). The issue was surfaced by a later build standardization, not by any check. Three defects were also found in the oracle tooling itself (timing regex, csh argument parsing, input staging). A concrete mechanism, observed once.",
+      "strength": "moderate",
+      "location": "§V-A4, §V-A5"
+    },
+    {
+      "claim": "The agentic contribution lies in the 'comprehension minority' (IMPLICIT NONE type inference, INTENT, irreducible GO TO retention, cross-file USE placement) where rule-based transformers fail",
+      "evidence": "Argued from examples (718 annotated retained GO TOs, circular-dependency avoidance in the eftei family). The authors concede plusFORT/SPAG handle a 'substantial share' of the edits and were not run (§II-B), and that a rule-based tool would have made the same IX mistake. There is no measured comparison.",
+      "strength": "weak",
+      "location": "§II-B, §III-B2 to §III-B4, §V-A2"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P36",
+      "stance": "introduces",
+      "note": "The specification prescribes a fixed per-file sequence: branch, read original, write .f90 + change log + unit-test driver, compile dependencies in a fixed order, capture the F77 golden, compile under -std=f2008 and diff, build the full binary and run 51 standard + Jenkins tests, then human review. Each file must produce a four-artifact contract. The authors say outright that 'the per-file loop is prescribed by the specification rather than planned per file'. There is no comparison with an unprescribed Claude Code loop or with a rule-based tool."
+    },
+    {
+      "id": "P37",
+      "stance": "neutral",
+      "note": "No LLM-generated task DAG. File order and dependency compilation order are fixed by humans and the build; agents plan only within a file (which constructs to restructure, how to sequence declaration inference)."
+    },
+    {
+      "id": "P16",
+      "stance": "mixed",
+      "note": "Exact, externally anchored execution oracle gates every merge and caught the one escaped defect. Agent-written synthetic unit tests (about 255,000 quartets) missed it because the faulty path only fires under sustained enumeration, and self-captured goldens had a common-mode blind spot. The verifier helps only to the extent that at least one layer is anchored to a reference not regenerated alongside the artifact."
+    },
+    {
+      "id": "P14",
+      "stance": "introduces",
+      "note": "Three agent-authored, human-approved specification files govern the work; one audit rule was added by an agent after diagnosing its own defect and retroactively found two more instances. No comparison with an unspecified or human-written specification."
+    },
+    {
+      "id": "P01",
+      "stance": "introduces",
+      "note": "CLAUDE.md auto-loaded every session, pointing to the other two documents; an agent trimmed it from 243 to 176 lines to save context. Host-specific (Claude Code convention)."
+    },
+    {
+      "id": "P17",
+      "stance": "introduces",
+      "note": "Strict -std=f2008 compilation caught interface and literal-form defects cheaply, and the review role runs grep-style style checks (Table I), including a COMMON-count check that makes silently skipped deferrals mechanically detectable."
+    },
+    {
+      "id": "P19",
+      "stance": "introduces",
+      "note": "Humans approve side-effecting shell commands, reconcile build configuration, adjudicate results and give two approvals per merge plus CI. The common-mode blind spot was found by human-driven cross-checking. No measurement of gate load or of what the gates caught beyond that anecdote."
+    },
+    {
+      "id": "P11",
+      "stance": "neutral",
+      "note": "Three roles are prompt specializations of one tool, explicitly 'not a multi-agent system in the coordination sense'. Their value is independent checking, which the paper notes is weakened if one operator drives all three; who drove them is not reported."
+    },
+    {
+      "id": "P29",
+      "stance": "neutral",
+      "note": "Each role uses its own git worktree and they coordinate only through the shared repository. Isolation is for independence, not parallel throughput; the validation sweep ran sequentially."
+    },
+    {
+      "id": "P28",
+      "stance": "neutral",
+      "note": "Concedes that rule-based restructuring tools (plusFORT/SPAG) already cover the mechanical majority of edits, but none was run, so the split between deterministic and agent work is asserted rather than measured."
+    }
+  ],
+  "methodology": {
+    "sample": "One codebase: 12 GAMESS source files (8 int2 + 4 eftei), 56,448 F77 lines, 225 subroutines; 51-test battery x 12 files = 612 runs, plus Jenkins (49 tests per file) and a union build.",
+    "baselines": "None. No rule-based converter, no human conversion, and no differently structured agent setup.",
+    "models": "Claude Code with Claude Opus 4.6, Sonnet 4.6, Opus 4.7 and Opus 4.8; no other runtime or model family.",
+    "variance": "Not applicable to the bit-exact verdicts; no repeated conversions of the same file to measure run-to-run variation.",
+    "ablations": "None. The specification, role split and human gates are never removed or varied.",
+    "contamination_controls": "Not discussed. GAMESS source is downloadable, but correctness is judged by exact reproduction of physical outputs, so memorization cannot inflate the verdict.",
+    "languages": "Fortran 77 to Fortran 2008 (in-language)"
+  },
+  "standards": {
+    "peer_review": "None stated (arXiv preprint)",
+    "limitations_section": true,
+    "artifacts": "Two GitHub repositories (gms-bbg/test-validation; shenyuzhong/gamess-modernization-paper). The modernized GAMESS source cannot be shipped because of licensing; whether the specification files and prompts are included is not stated in the paper.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "small_sample", "detail": "One codebase, 12 files, one escaped defect class; error-profile conclusions rest on n=1."},
+    {"type": "single_model", "detail": "Only Anthropic models and the Claude Code runtime; model portability is asserted within one vendor family."},
+    {"type": "self_evaluation", "detail": "Agents wrote the unit tests and captured the goldens they were checked against. The authors include the GAMESS maintainers, so the team evaluating the workflow also adjudicates acceptance."},
+    {"type": "missing_cost_reporting", "detail": "No token, dollar or human-hour figures, so the claim that human effort did not scale with code volume cannot be checked."},
+    {"type": "other:no_baseline", "detail": "Rule-based tools the paper says cover most edits were not run, and no human or unprescribed-agent conversion is compared."},
+    {"type": "hype_language", "detail": "'Production scale' for an unmerged 12-file subset of a million-line package; 'difficult to describe as anything but agentic work' for an agent trimming its context file."}
+  ],
+  "coi": {
+    "affiliations": "Old Dominion University; Iowa State University and Ames National Laboratory (GAMESS maintainers)",
+    "vendor_products_evaluated": "Anthropic Claude Code and Claude models are used but are not the object of evaluation; no author affiliation with Anthropic",
+    "funding": "U.S. Department of Education grant P116S230016; AFOSR FA9550-18-1-0321",
+    "severity": "none",
+    "detail": "Academic authors with no commercial interest. The GAMESS maintainers both run and judge the conversion, which is an evaluation-independence issue rather than a financial conflict."
+  },
+  "scores": {"rigor": 2, "reproducibility": 2, "generalizability": 1, "relevance": 3, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "The bit-exact outcome on a hard, real codebase is credible because the oracle is exact and anchored outside the agents, and the defect and common-mode analysis is careful and useful. But it is a single uncontrolled case study: no baseline (including the rule-based tools the paper concedes do most of the edits), no cost or human-effort data behind the 'effort did not scale' claim, anecdotal model portability, and an unmerged 12-file subset described as production scale.",
+  "applicability": "For the team's DAG question, this is evidence that a fixed per-unit loop written into the specification (read, transform, compile strictly, check against a golden, integrate, human merge), driven by an ordinary agent host, was enough for a large mechanical-plus-judgement migration. No LLM-generated DAG was needed: unit order and dependency compile order were fixed by humans and the build, and cross-file reasoning happened inside the loop. It is not evidence that the fixed loop beat an unconstrained agent. The transferable parts for a Java team running something like a Spring Boot or jakarta migration across four repos are: (1) a per-module artifact contract (change, change log, test, golden); (2) strict compiler and linter settings as a cheap first gate; (3) at least one oracle anchored to outputs captured once from the old production build, such as recorded ingestion outputs or contract tests, never regenerated alongside the change; (4) mechanical counts (for example every deferred item annotated) so skipped work is detectable; (5) deterministic recipes (OpenRewrite) for the mechanical majority, which this paper concedes but did not test. The specification here is CLAUDE.md-bound; for mixed hosts the same contract belongs in a portable AGENTS.md plus CI checks. It transfers only where an exact or strong reference oracle exists, which healthcare-education content ingestion can approximate with golden snapshots.",
+  "conflicts_with": [
+    {"arxiv_id": "2605.17535", "detail": "AgentModernize's structured multi-agent modernization pipeline reaches about 23% behavioural equivalence and loses to a single prompt for stronger models. Here a spec-prescribed per-file loop with frontier models reaches 100% bit-exact equivalence. The two differ in language pair (cross-language COBOL/PL-SQL to Python vs in-language F77 to F2008), in models, and in the oracle, which is exact and externally anchored here."}
+  ]
+}

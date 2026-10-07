@@ -1,0 +1,56 @@
+{
+  "arxiv_id": "2606.30704",
+  "contribution_type": "system",
+  "summary": "MetaFlow trains Qwen3-8B to emit a task-level workflow (MetaGPT-style Python code composing operators such as Generate, Revise, Ensemble, Programmer, Decompose) from a task description and an operator list. Stage 1: LoRA SFT on about 1,300 Qwen-Max-generated workflows for GSM8K, DROP, MBPP, HumanEval. Stage 2: GRPO with common random numbers for 137 steps on the same tasks, rewarding execution accuracy (executor Qwen-Turbo), checkpoint at step 100. At evaluation it samples 20 workflows per task, picks the best on 50 validation instances, and runs it with GPT-4o-mini. Reports 78.8 average vs ScoreFlow 82.5 and AFlow 78.3 (baseline numbers copied from ScoreFlow), plus best-of-k results on HotpotQA with an unseen VectorSearch operator.",
+  "claims": [
+    {"claim": "MetaFlow achieves performance comparable to state-of-the-art baselines on in-domain tasks with single inference.", "evidence": "Table A1: 78.8 average vs ScoreFlow 82.5 (MetaFlow is lower on all four tasks) and AFlow 78.3 (lower on DROP and MBPP). DROP 82.8 is below plain CoT and CoT-SC (83.2) despite the 'matches or exceeds manually designed workflows' text. All baseline scores are copied from the ScoreFlow paper rather than rerun. §5.4 actually generates 20 workflows per task and selects the best on 50 validation instances, so 'single inference' is not the evaluated protocol. HotpotQA and HumanEval are listed in the setup but absent from the table.", "strength": "weak", "location": "Abstract, §5.4, Table A1"},
+    {"claim": "Remarkable zero-shot generalisation to an unseen operator (VectorSearch) and domain (HotpotQA).", "evidence": "Figure 4: of 100 sampled workflows, 31% score 0; mean 0.29 vs the CoT+RAG baseline's 0.46; best-of-k only overtakes the baseline at k=76 and peaks at 0.74, with selection and scoring on the same 100 validation instances. The test-set result is described only as 'the same trend', with no number.", "strength": "weak", "location": "§5.3 Figure 4"},
+    {"claim": "Generalises to novel operator combinations never seen in training (Decompose, Programmer) for out-of-distribution testing.", "evidence": "§5.1 and Appendix D state that Programmer and Decompose were introduced in the four RLVR operator sets during training; §5.4 then calls them 'novel operators ... for OOD testing'. The body contradicts the claim.", "strength": "unsupported", "location": "§5.1, §5.4, Appendix D"},
+    {"claim": "New operators (SelfConsistency) can be integrated without retraining.", "evidence": "§5.2 and Listing 13 show one generated GSM8K workflow that calls the new operator. No accuracy, failure rate or comparison is reported.", "strength": "weak", "location": "§5.2, Listing 13"},
+    {"claim": "RLVR with GRPO and common random numbers is effective, raising average reward from 0.67 to about 0.88.", "evidence": "Figure 3 training curve on the training tasks only; no ablation of RLVR vs SFT-only, of CRN, or of the operator-set mixing on held-out performance. The 'ablation' in Appendix E compares two randomly selected workflows qualitatively.", "strength": "weak", "location": "§5.1 Figure 3, Appendix E"}
+  ],
+  "patterns": [
+    {"id": "P37", "stance": "mixed", "note": "An LLM generates the workflow program (operator call graph) once per task. Comparison: hand-designed workflows (CoT, CoT-SC, Self-Refine) and searched workflows (ADAS, AFlow, ScoreFlow) on the same GPT-4o-mini executor, but every baseline number is copied from ScoreFlow and MetaFlow gets best-of-20 selection on validation data, so budgets differ. It beats manual workflows on 3 of 4 tasks, trails ScoreFlow everywhere, and on the OOD case 31% of generated workflows fail outright."},
+    {"id": "P26", "stance": "mixed", "note": "Amortises workflow search into a trained generator; cheaper per task than AFlow/ScoreFlow per the authors, but no measured cost comparison and lower accuracy than the instance-level searched method."},
+    {"id": "P36", "stance": "neutral", "note": "The output is a fixed task-level workflow reused across instances, i.e. a generated static graph. The paper's own explanation for trailing ScoreFlow is that a single static workflow per task fails all instances when it is malformed, whereas per-instance workflows fail locally. Not isolated experimentally."},
+    {"id": "P25", "stance": "introduces", "note": "GRPO with common random numbers on workflow-execution reward for an 8B planner; only the training reward curve is shown, no held-out ablation."},
+    {"id": "P24", "stance": "neutral", "note": "Asserts '<$1' marginal sampling cost and 'orders of magnitude lower' than search methods; executor costs of validating 20-100 workflows are not reported."}
+  ],
+  "methodology": {
+    "sample": "DROP and GSM8K 1,000 instances each, MBPP and HumanEval full sets, MATH level-5, 1:4 train-test split following ScoreFlow; HotpotQA 100 validation + 100 test instances for the OOD case.",
+    "baselines": "IO, CoT, CoT-SC, MedPrompt, MultiPersona, Self-Refine, ADAS, AFlow, ScoreFlow, all copied from the ScoreFlow paper; CoT+RAG for HotpotQA (run by the authors with Qwen-Turbo).",
+    "models": "Planner Qwen3-8B (LoRA SFT + GRPO); SFT teacher Qwen-Max; training executor Qwen-Turbo; evaluation executor and judge GPT-4o-mini-0718.",
+    "variance": "None reported for Table A1; a single training run; best-of-k curve from one set of 100 samples.",
+    "ablations": "None quantitative; Appendix E compares two randomly chosen workflows before and after training.",
+    "contamination_controls": "None. DROP, MBPP, GSM8K and HumanEval are both training and evaluation tasks (split by instance), and the Qwen-Max teacher may have seen these public benchmarks.",
+    "languages": "Python workflow code (MetaGPT); math, QA and Python code-generation benchmarks."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint (cs.LG, 35 pages), no venue stated.",
+    "limitations_section": false,
+    "artifacts": "No code, weights or generated-workflow release mentioned.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "no_variance_reported", "detail": "Table A1 is a single number per cell from one checkpoint of one training run."},
+    {"type": "self_reported_numbers", "detail": "All nine baseline rows are copied from ScoreFlow, not rerun under the authors' harness."},
+    {"type": "metric_mismatch", "detail": "Headline says 'single inference' while the evaluated protocol is best-of-20 with validation selection; the OOD best-of-k is selected and scored on the same 100 instances."},
+    {"type": "cherry_picked_examples", "detail": "OOD success is illustrated with the single highest-scoring of 100 workflows (Listing 14); the operator-integration claim rests on one listing."},
+    {"type": "hype_language", "detail": "'Remarkable zero-shot generalization' for a method whose mean OOD score (0.29) is below a CoT+RAG baseline (0.46)."},
+    {"type": "toy_tasks", "detail": "GSM8K, MATH, DROP, MBPP, HumanEval are short single-answer benchmarks, far from multi-repo engineering work."},
+    {"type": "single_language_python", "detail": "Workflows, operators and code tasks are Python-only."},
+    {"type": "contamination_risk", "detail": "Same benchmarks used for SFT, RLVR and evaluation, and public benchmarks are likely in teacher and executor pretraining data."}
+  ],
+  "coi": {
+    "affiliations": "Peking University (School of Mathematical Sciences) for the two first authors; affiliations of Bing Dong and Wotao Yin are not stated in the paper (Wotao Yin is publicly associated with Alibaba DAMO Academy, which the paper does not disclose).",
+    "vendor_products_evaluated": "Alibaba Qwen3-8B, Qwen-Max and Qwen-Turbo used throughout; OpenAI GPT-4o-mini as evaluation executor.",
+    "funding": "National Natural Science Foundation of China (625B1012).",
+    "severity": "low",
+    "detail": "Possible undisclosed vendor affiliation of a senior author with the model provider used for every training component; no product is directly promoted."
+  },
+  "scores": {"rigor": 2, "reproducibility": 1, "generalizability": 1, "relevance": 1, "coi_risk": 1},
+  "verdict": "reject",
+  "verdict_reason": "The headline claims are not supported by the body: 'single inference' is really best-of-20 with validation selection, 'remarkable zero-shot' has a mean below the baseline and selects on the evaluation set, and the 'novel' OOD operators were in the RLVR training sets. Baselines are copied rather than rerun, there is no variance or ablation, no artifacts, and the tasks are toy benchmarks. Little transfers to a Java multi-repo team.",
+  "applicability": "For the DAG question this is weak evidence about LLM-generated workflows and does not transfer. The lesson that survives scrutiny is negative: a workflow generated once per task fails across the board when it is malformed (31% of zero-shot generations scored 0), and good results required sampling many candidate workflows and selecting on labelled validation data. If the team lets an LLM propose an ingestion or migration workflow, treat it as a candidate: validate its structure deterministically (known operators, schema-checked edges), dry-run it on a labelled sample from the real repos, and only then promote it to a fixed workflow. Training a dedicated workflow-generator model, as MetaFlow does, is out of scope for a backend team.",
+  "conflicts_with": []
+}

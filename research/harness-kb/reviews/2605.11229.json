@@ -1,0 +1,54 @@
+{
+  "arxiv_id": "2605.11229",
+  "contribution_type": "tool",
+  "summary": "Defines agentic workflow hijacking (AWH): attacker-controlled platform inputs (issue comments, PR bodies, labels, n8n chat/webhook payloads) steer an LLM agent embedded in a GitHub Actions or n8n workflow into misusing the workflow's credentials and tools. JAW lowers workflows into a Guarded Workflow Graph (guard- and transfer-labelled edges), solves trigger-to-agent path conditions with SMT, traces canary-marked inputs into the model request at runtime, probes the agent's usable tools, then evolves payloads with Claude Sonnet 4.5 as mutator. On 112,568 workflows from 55,684 repos and 9,154 n8n templates it reports 4,174 hijackable GitHub workflows and 8 n8n templates across 15 actions and 2 nodes, with vendor fixes and bounties.",
+  "claims": [
+    {"claim": "4,174 GitHub workflows and eight n8n templates can be successfully hijacked.", "evidence": "§5.1 states the count once. A zero-day requires an end-to-end exploit, but there is no stage funnel (how many workflows had a feasible path, reached dynamic tracing, entered evolution, timed out under the unstated 'time limit'), no per-action breakdown, and no false-positive audit. Table 2 is explicitly 'a selective list' of 11. All findings fall under 15 actions, so the workflow count largely multiplies a small number of action-level flaws by reuse.", "strength": "weak", "location": "§5.1, Table 2, §5.4"},
+    {"claim": "Disclosures produced acknowledgements, fixes and bug bounties from GitHub, Google, Anthropic and others.", "evidence": "Table 2 status column (bounties for streamlit/Cursor CLI, liam-hq/claude-code-security-review, run-gemini-cli); Ethics appendix reports seven acknowledgements and seven mitigations or fixes. Externally verifiable outcomes, though a small number relative to 4,174.", "strength": "strong", "location": "Table 2, Appendix (Ethics)"},
+    {"claim": "Generic jailbreak search (AutoDAN-Turbo, OpenEvolve-based search) cannot overcome code-level safeguards, while JAW consistently can.", "evidence": "Table 3: 3 workflows, 9 model–action pairs, 3 trials, at most 10 iterations, mean±SD reported. JAW beats code-level defences on 9/9 pairs; both baselines succeed at the code level only on ask-bonk, which lacks code-level protection. Baselines get no trigger or provenance information and the search baseline runs a single trajectory 'due to computational constraints', so part of the gap is information and budget, not method.", "strength": "moderate", "location": "§5.3 Table 3"},
+    {"claim": "Each component (trigger synthesis, prompt provenance, capability profiling) contributes, with the largest gains from triggers and capability-aware reasoning.", "evidence": "Table 3: JAW-NoTrigger fails the code level on 8/9 pairs; JAW-NoCapProf fails the code level on 4/9 (all three ask-bonk models and run-gemini-cli Gemini Flash). Only 3 workflows, so the ablation is narrow.", "strength": "moderate", "location": "§5.2 Table 3"},
+    {"claim": "Prompt-level warnings do not provide guarantees and partial code-level restrictions (allowlists, denylists, environment filters, file sandboxes) are brittle.", "evidence": "Motivating example: an allowlist that blocks printenv still allows reading parent-process credentials through procfs; Table 2 includes hijacks of workflows with both prompt and code defences (modelcontextprotocol/servers, run-gemini-cli, qwen-code-action). Case-based, not a systematic defence evaluation.", "strength": "moderate", "location": "§2.2, §6 Defense, Table 2"}
+  ],
+  "patterns": [
+    {"id": "P36", "stance": "mixed", "note": "GitHub Actions and n8n workflows are developer-authored static graphs with agent nodes; JAW models them as a Guarded Workflow Graph. For the graph: because routes and guards are declared, attack paths are statically enumerable and solvable with SMT, which is what makes ecosystem-scale auditing possible. Against: content-based edge guards (trigger prefixes such as '@gemini-cli', label checks) are attacker-satisfiable, and the solver synthesises inputs that pass them; TOCTOU lets content change after a check passes. No comparison with a non-graph agent deployment, and nothing on task success."},
+    {"id": "P22", "stance": "contradicts", "note": "Prompt-level injection warnings and model alignment were bypassed on every evaluated pair (Table 3, M.P. columns); the paper's case is that injection defence must sit outside the LLM context."},
+    {"id": "P21", "stance": "mixed", "note": "Code-level policies (command allowlists, env filtering) stop generic jailbreak search but are defeated by capability-aware payloads (procfs credential read). Policy helps only when it covers the full path: invocation, credentials, tools and output channels."},
+    {"id": "P19", "stance": "neutral", "note": "Recommends maintainer approval before external input triggers privileged agent runs, but also shows TOCTOU (benign content passes review, then is edited before the agent reads it) and invisible-prompt vectors that undermine naive human review. Not measured."},
+    {"id": "P20", "stance": "neutral", "note": "Notes file-only sandboxes that leave network and comment channels open are insufficient; recommends network sandboxing. Not evaluated."}
+  ],
+  "methodology": {
+    "sample": "112,568 GitHub workflows (55,684 active repos, March 2026) and 9,154 public n8n templates; Table 3 uses 3 workflows / 9 model–action pairs.",
+    "baselines": "AutoDAN-Turbo and an OpenEvolve-based LLM-mutation search (single trajectory) for the jailbreak comparison; three ablated JAW variants. No comparison against existing workflow scanners for detection.",
+    "models": "Mutator: Claude Sonnet 4.5. Targets in Table 3: Qwen-3-Max/32B/8B, Claude Sonnet 4.5, Claude Haiku 4.5, Gemini 2.5 Pro/Flash/Flash-Lite. Table 2 cases include Codex-5.3, Sonnet 4/4.6, Qwen3-Coder-480B, Gemini-2.0-flash.",
+    "variance": "Table 3 reports mean±SD over 3 trials; no variance for the ecosystem count.",
+    "ablations": "NoTrigger, NoPromptProv, NoCapProf (Table 3).",
+    "contamination_controls": "n/a (security exploitation; success judged by an exfiltration oracle in author-controlled runners).",
+    "languages": "GitHub Actions YAML, inline shell/Python/JavaScript, n8n node parameters; JAW implemented in Python."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint (cs.CR) with an anonymised submission artifact link; venue not stated.",
+    "limitations_section": false,
+    "artifacts": "Anonymous repository with JAW implementation, confirmed-vulnerable workflow dataset and payloads (details withheld for undisclosed cases), and isolated-runner scripts.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "self_evaluation", "detail": "The authors define 'hijackable', run the oracle on their own self-hosted runners with synthetic secrets, and count successes; no independent replication beyond the vendor acknowledgements."},
+    {"type": "small_sample", "detail": "Baseline comparison and ablation cover 3 workflows (9 model–action pairs) with 3 trials each."},
+    {"type": "strawman_baseline", "detail": "Jailbreak baselines are denied the trigger/provenance context JAW computes, and the search baseline is cut to one trajectory for compute; the comparison shows context matters more than it shows JAW's search is better."},
+    {"type": "cherry_picked_examples", "detail": "Table 2 is a self-described 'selective list' of 11 cases from 4,174, chosen for popularity and vendor prominence; the distribution of the remainder is not shown."}
+  ],
+  "coi": {
+    "affiliations": "Johns Hopkins University; Johns Hopkins University Applied Physics Lab; Wyze Labs.",
+    "vendor_products_evaluated": "Anthropic claude-code-action and claude-code-security-review, Google run-gemini-cli, Cursor CLI, Qwen Code, OpenCode, OpenHands, n8n nodes, all evaluated unfavourably.",
+    "funding": "Not stated.",
+    "severity": "none",
+    "detail": "No author affiliation sells an agent host or workflow product; bounties received are a minor incentive toward finding vulnerabilities, not toward a product."
+  },
+  "scores": {"rigor": 3, "reproducibility": 3, "generalizability": 3, "relevance": 3, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Real exploits with vendor fixes and bounties, a released artifact, and an ablation that isolates the value of trigger and capability context. The 4,174 headline has no funnel or false-positive audit, the comparison and ablation rest on 3 workflows, and baselines are under-informed. Security evidence only; it says nothing about whether workflow graphs improve task outcomes.",
+  "applicability": "For the DAG question: a static workflow graph is not a trust boundary. If the team builds CI or n8n-style graphs that call Claude Code, Codex or Cursor CLI on issue/PR events across its 4+ repos, the graph's edge guards (mention prefixes, labels, event types) are satisfiable by an outsider and must not be treated as authorisation. What transfers: (1) gate agent nodes on actor identity or permission, not on comment content; (2) give agent steps least-privilege tokens and no long-lived secrets in the process environment (procfs reads defeat env filtering); (3) close exfiltration channels with network egress limits and constrained comment/write outputs; (4) re-fetch and pin content at the moment of agent use to avoid TOCTOU between a human approval and the agent read. The upside the paper shows is auditability: a declared graph can be scanned with path-feasibility analysis before rollout, which an ad hoc agent loop cannot. Language-agnostic; transfers to a Java team's CI as-is.",
+  "conflicts_with": [
+    {"arxiv_id": "2606.29116", "detail": "The n8n template study presents its large-scale analysis of LLM workflow structure as the first of its kind and treats logic-mediated LLM paths and human gates as reliability safeguards. JAW had already scanned 9,154 n8n templates and shows that declared guards and review gates are attacker-satisfiable (trigger prefixes, TOCTOU), so structural gating is not a safety property by itself."}
+  ]
+}

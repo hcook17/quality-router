@@ -1,0 +1,126 @@
+{
+  "arxiv_id": "2607.16387",
+  "contribution_type": "system",
+  "summary": "AdaMAST induces a compact, system-specific failure taxonomy from an agent system's own traces. Codes are organized under three fixed axes (system-level, role-specific, domain-specific) and gated by four-LLM inter-annotator agreement. The taxonomy is fed to three consumers: the mutation prompt of an evolutionary agent-architecture search (AdaEvolve), runtime self-check checkpoints in Claude Code and SWE-agent, and a best-of-5 trajectory verifier on Terminal-Bench 2.0. It reports gains over free-form reflection and the authors' earlier fixed MAST taxonomy, and higher agreement with TRAIL expert labels than TRAIL's own taxonomy.",
+  "claims": [
+    {
+      "claim": "Taxonomy-coded diagnoses beat free-form reflection in agent-system search on all five benchmarks (+3.5 to +7.5 pp).",
+      "evidence": "Table 1. Frontier-CS (132 unseen) and OlympiadBench (655 held-out) are single runs; MMLU-Pro (40 items) has 2 seeds; TheoremQA (30) and DROP (30) have 4-5 seeds with overlapping SDs (60.0+-6.1 vs 65.0+-4.3). The authors' own I.2 diagnostic holds judge content fixed and finds structured codes 56.7% vs a prose summary of the same judge output 61.1% vs raw excerpts 56.7%. The gain therefore comes from having a failure-diagnosing judge, not from the taxonomy form. The TheoremQA 'vanilla' baseline also varies across appendices (60.0% in Table 12, ~46.7% in C.3).",
+      "strength": "moderate",
+      "location": "§4.2, Table 1, App. C.1, C.3, I.2"
+    },
+    {
+      "claim": "Runtime taxonomy feedback raises SWE-agent from 60% (free-text reflection) to 70% and Claude Code from 64.0% to 70.7% on SWE-bench Verified Mini.",
+      "evidence": "Table 3 / H.2. SWE-agent is one seed of 50 instances: 25/30/34/35 resolved for Base/Reflexion/MAST/AdaMAST, so AdaMAST beats MAST by one instance. Claude Code with Haiku 4.5 uses 3 seeds x 50 (per-seed gains over Base +10/+8/+2 pp; +3.3 pp over MAST is 5 of 150 sessions), at similar cost ($27.24 vs $26.38). The SWE-bench taxonomies were induced from base-arm traces on Verified Mini itself, i.e. the evaluation instances (in-sample). Repos are Django and Sphinx only.",
+      "strength": "weak",
+      "location": "§4.3, Table 3, App. A.5, H.1-H.3"
+    },
+    {
+      "claim": "AdaMAST-Judge improves best-of-5 accuracy on Terminal-Bench 2.0 by 8-15 pp over Pass@1.",
+      "evidence": "Table 4 numbers match the abstract, but the headline baseline is no selection at all. Against an unconditioned LLM-as-a-Verifier the margins are +1.8/+11.2/+3.4. D.4 token-matched ablation: taxonomy text 72.3%, prose summary 72.3%, raw excerpts 72.3-75.3%. D.5: the learned selector and heuristics carry most of the effect. Swing tasks 17-35 per configuration, no CIs.",
+      "strength": "weak",
+      "location": "§4.4, Table 4, App. D.4-D.5"
+    },
+    {
+      "claim": "The induced vocabulary is human-faithful: closer to expert TRAIL labels than TRAIL's own hand-crafted vocabulary.",
+      "evidence": "Table 5: area-level kappa 0.682 vs 0.516 with matched four-LLM panel and prompts on 117 traces; 0.725 with full protocol. TRAIL labels not used in induction. The comparison is at failure-area level only; leaf-level results are relegated to the appendix.",
+      "strength": "moderate",
+      "location": "§5.1, Table 5, App. F"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P26",
+      "stance": "supports",
+      "note": "The evolved multi-agent architectures beat the fixed hand-written seed workflow on held-out sets (OlympiadBench 84.6% to 87.9-91.9% on 655 held-out problems; Frontier-CS 20.8% to 26.0-32.7% on 132 unseen), under the same search backbone and budget, with a cross-model replication (App. C.4). Which feedback format drives the search matters less than the paper claims (App. I.2)."
+    },
+    {
+      "id": "P36",
+      "stance": "neutral",
+      "note": "Search starts from a static sequential analyzer, solver, verifier workflow and ships a static Python program with no runtime search. This is evidence that authored static workflows benefit from trace-driven revision. There is no static-graph versus agent-loop comparison."
+    },
+    {
+      "id": "P18",
+      "stance": "mixed",
+      "note": "A failure-code-conditioned verifier beats Pass@1 and, mostly, an unconditioned LLM verifier on Terminal-Bench. Token-matched and cross-verifier ablations show the selector substrate, not the vocabulary, carries most of the effect."
+    },
+    {
+      "id": "P30",
+      "stance": "mixed",
+      "note": "Traces distilled into named codes compress failure content about 18x and substitute for the raw trace pool in success prediction at 95x fewer tokens (App. E). In downstream search, prose summaries and raw excerpts are within noise of the codes."
+    },
+    {
+      "id": "P02",
+      "stance": "neutral",
+      "note": "Taxonomy delivered as a Claude Code project-local skill with hook-driven checkpoints. Shows the mechanism ports to a host's skill system; the gain over the fixed MAST skill is 5/150 sessions."
+    },
+    {
+      "id": "P31",
+      "stance": "neutral",
+      "note": "SWE-bench Verified Mini (Django/Sphinx, Python) and Terminal-Bench 2.0; small subsets."
+    }
+  ],
+  "methodology": {
+    "sample": "Search: Frontier-CS 132, OlympiadBench 655 held-out (20-problem dev), MMLU-Pro 40, TheoremQA 30, DROP 30. Runtime: SWE-bench Verified Mini 50 instances, plus OfficeQA Pro 133 single run. Selection: Terminal-Bench 2.0 89 tasks, 17-35 swing tasks per configuration. Validation: TRAIL 117 traces.",
+    "baselines": "Free-form LLM reflection (AdaEvolve default), Reflexion, fixed MAST taxonomy (authors' prior work), unconditioned LLM-as-a-Verifier, Pass@1, TRAIL hand-crafted vocabulary. Reasonable and matched within each setting.",
+    "models": "GPT-5.4-mini (search), Gemini-3-flash replication; Claude Haiku 4.5 in Claude Code; GPT-5 in SWE-agent; GPT-5.4 and Claude Sonnet 4.6 verifiers; Qwen3.5 consumers and Llama-3.3-70B induction in App. E.",
+    "variance": "Mixed: 3-5 seeds on small search benchmarks and Claude Code; single runs for Frontier-CS, OlympiadBench, SWE-agent; no CIs on most main tables; some permutation p-values in App. E.",
+    "ablations": "Wrong-domain taxonomy, sample efficiency, cross-model search, top-K codes, cheaper verifier, token-matched context, injection location, feedback form, flat vs three-axis granularity.",
+    "contamination_controls": "TRAIL labels not used for induction; Terminal-Bench 5-fold held-out regeneration check. SWE-bench taxonomies are induced from traces on the same 50 evaluation instances; model contamination on SWE-bench not discussed.",
+    "languages": "Python (SWE-bench Django/Sphinx, competitive programming), shell (Terminal-Bench), text QA."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint (v2), no venue.",
+    "limitations_section": false,
+    "artifacts": "Code released (github.com/multi-agent-systems-failure-taxonomy/AdaMAST); prompts, taxonomies and hyperparameters in appendices.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {
+      "type": "small_sample",
+      "detail": "SWE-agent headline is 35 vs 34 vs 30 resolved out of 50, one seed; MMLU-Pro 40, TheoremQA/DROP 30 items; selection on 17-35 swing tasks."
+    },
+    {
+      "type": "contamination_risk",
+      "detail": "Runtime SWE-bench taxonomies induced from base-arm traces on the same Verified Mini instances they are evaluated on."
+    },
+    {
+      "type": "metric_mismatch",
+      "detail": "Abstract credits the induced taxonomy, but the authors' token-matched (D.4) and feedback-form (I.2) controls show prose summaries or raw excerpts match or beat the codes; the 'amortization' benefit offered instead is not measured."
+    },
+    {
+      "type": "self_evaluation",
+      "detail": "Baselines MAST and the AdaEvolve substrate come from the same group; LLM annotators validate the taxonomy."
+    },
+    {
+      "type": "hype_language",
+      "detail": "Selection headline quoted against Pass@1 (no selection) rather than against the LLM-verifier baseline."
+    },
+    {
+      "type": "single_language_python",
+      "detail": "Coding evaluations are Python SWE-bench (two repos) and shell tasks."
+    },
+    {
+      "type": "other:no_limitations_section",
+      "detail": "No limitations or threats-to-validity section; caveats scattered through appendices."
+    }
+  ],
+  "coi": {
+    "affiliations": "UC Berkeley (Sky lab); one author Apple; one author also Bespoke Labs.",
+    "vendor_products_evaluated": "Claude Code and SWE-agent used as harnesses (no affiliation); no Apple or Bespoke product evaluated.",
+    "funding": "Not stated.",
+    "severity": "low",
+    "detail": "Vendor affiliations are incidental. The main baselines (MAST, AdaEvolve) are the authors' own prior systems, which is a self-evaluation concern rather than a commercial COI."
+  },
+  "scores": {
+    "rigor": 3,
+    "reproducibility": 4,
+    "generalizability": 3,
+    "relevance": 3,
+    "coi_risk": 1
+  },
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Broad, matched comparisons with released code, multiple models and many ablations, including ones that cut against the authors. It is caveated because the coding results are small (50 instances, one-instance margins over MAST), the SWE-bench taxonomies were induced in-sample, and the authors' own token-matched and format controls show the taxonomy form is not what drives the gains.",
+  "applicability": "This paper does not settle the DAG question. It does carry one practical lesson for a team that authors static workflows: whatever the workflow graph, mine the failed runs into a small set of named failure modes and feed those back, either into revisions of the graph or as a pre-submit checklist in the agent host. For mixed hosts the delivery ports: Claude Code skill plus hooks, or in-prompt checkpoints with a submit gate where hooks are missing (SWE-agent). That fits a portable rule and hook-runner approach. Expect modest gains (a few points on 50 Python instances). Prose failure summaries appear to work about as well as formal codes, so a lightweight per-repository failure log is a cheaper first step than a full taxonomy pipeline. Nothing here is Java or multi-repository.",
+  "conflicts_with": []
+}

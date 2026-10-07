@@ -1,0 +1,106 @@
+{
+  "arxiv_id": "2607.15845",
+  "contribution_type": "system",
+  "summary": "The authors scrape about 10,000 ComfyUI image-generation workflows and curate 912. They use LLMs to 'invert' each workflow into pseudo-code, a skeleton, a strategy and a synthetic task instruction, then LoRA-fine-tune Qwen3-14B to map task to strategy and strategy to skeleton pseudo-code. A pretrained model fills in parameters, rule-based code rebuilds the ComfyUI JSON graph, and GPT-5 self-refines. On 30 in-house test tasks plus 20 ComfyBench and 30 FlowBench tasks it reports far higher structural scores and execution pass rates than GPT-5 prompting baselines and ComfyAgent.",
+  "claims": [
+    {
+      "claim": "Higher execution success than existing systems (Pass 86.9% vs 36.4% for ComfyAgent; Resolve 61.1% vs 29.4%).",
+      "evidence": "Table 2 on 30 in-house test tasks (12/8/10 per category). The 'Average' is an unweighted mean of category percentages. Pass/Resolve were judged by manual execution and human inspection, with no rater count, blinding or agreement reported. On external benchmarks the gap shrinks: ComfyBench (20 tasks) gives 50% vs 35-40% Pass and 25% vs 20-25% Resolve (a tie with RAG); FlowBench (30 tasks) gives 66.7% vs 46.7% Pass.",
+      "strength": "weak",
+      "location": "§4.3, Tables 2-4"
+    },
+    {
+      "claim": "Hierarchical knowledge injection beats direct end-to-end training.",
+      "evidence": "Table 6: SFT Qwen3-14B hierarchical 86.9% Pass vs SFT Qwen3-32B direct instruction-to-pseudocode 56.7%, on the same 30 tasks. This is the only fair same-data comparison. Single run, no variance.",
+      "strength": "moderate",
+      "location": "§4.3, Table 6"
+    },
+    {
+      "claim": "Workflows are structurally more complete and task-consistent.",
+      "evidence": "Tables 1, 3, 4: NodeComp and LinkComp are identical for every baseline in every table (e.g. 36.7/36.7, 56.7/56.7), which suggests near-binary per-workflow metrics. GPT-5 zero-shot scores exactly 0 on all metrics. TaskCons uses an LLM judge. Under Gemini-2.5, ComfyAgent drops from 55.1 to 40.8 and falls below RAG, so the 'ranking largely unchanged' claim is overstated.",
+      "strength": "weak",
+      "location": "§4.2-4.3, Tables 1, 3-5"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P37",
+      "stance": "neutral",
+      "note": "In form, the model emits an executable dependency graph (a ComfyUI DAG) that an engine runs. The domain is image-generation pipelines, not coding tasks. The only isolating comparison is hierarchical versus direct generation of the same DAG; no non-DAG alternative is tested."
+    },
+    {
+      "id": "P36",
+      "stance": "neutral",
+      "note": "Human-authored static ComfyUI graphs are the training data; static graphs themselves are not evaluated against anything."
+    },
+    {
+      "id": "P25",
+      "stance": "mixed",
+      "note": "SFT on 882 in-domain workflows beats prompted GPT-5. The comparison mixes training with no training, and the external-benchmark gains are small."
+    },
+    {
+      "id": "P13",
+      "stance": "neutral",
+      "note": "Strategy planner, then skeleton generator, then rule-based reconstruction; a hierarchical generation pipeline rather than agent orchestration."
+    }
+  ],
+  "methodology": {
+    "sample": "912 curated workflows (882 train, 30 test); external 20 ComfyBench and 30 FlowBench tasks.",
+    "baselines": "GPT-5 zero-shot/few-shot/CoT/CoT-SC/RAG and ComfyAgent (all untrained prompting); Qwen3-32B direct SFT (Table 6).",
+    "models": "Qwen3-14B (LoRA SFT), GPT-5 for refinement and baselines; GPT-4o for dedup; GPT-5/Gemini-2.5 judges.",
+    "variance": "None.",
+    "ablations": "Hierarchical vs direct SFT only; no ablation of self-refinement or of individual inversion levels.",
+    "contamination_controls": "None stated; train and test drawn from the same scraped pool, GPT-judged similarity split; no overlap check against ComfyBench/FlowBench.",
+    "languages": "ComfyUI JSON graphs; not code."
+  },
+  "standards": {
+    "peer_review": "Accepted to ECCV 2026 (per arXiv comment).",
+    "limitations_section": true,
+    "artifacts": "No code, model or curated dataset release found (only the upstream ComfyUI repo is linked).",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {
+      "type": "strawman_baseline",
+      "detail": "Untrained GPT-5 prompting baselines, including a zero-shot arm scoring 0 on every metric, against a model fine-tuned on in-domain workflows."
+    },
+    {
+      "type": "small_sample",
+      "detail": "30/20/30 test tasks; category cells of 8-12 tasks."
+    },
+    {
+      "type": "self_evaluation",
+      "detail": "Pass/Resolve judged by unblinded manual inspection, presumably by the authors."
+    },
+    {
+      "type": "contamination_risk",
+      "detail": "Internet-scraped training data; no decontamination against test or external benchmarks."
+    },
+    {
+      "type": "no_variance_reported",
+      "detail": "Single runs throughout."
+    },
+    {
+      "type": "closed_artifacts",
+      "detail": "No release of model, data or code."
+    }
+  ],
+  "coi": {
+    "affiliations": "INSAIT (Sofia University); Adobe Research (one co-author).",
+    "vendor_products_evaluated": "None (ComfyUI is open source; GPT-5 used as baseline).",
+    "funding": "Bulgarian Ministry of Education and Science; partially supported by Adobe Research.",
+    "severity": "low",
+    "detail": "One co-author and partial funding from Adobe Research; no Adobe product is evaluated."
+  },
+  "scores": {
+    "rigor": 2,
+    "reproducibility": 1,
+    "generalizability": 1,
+    "relevance": 1,
+    "coi_risk": 1
+  },
+  "verdict": "reject",
+  "verdict_reason": "Off-topic: this is generation of image-generation workflows (ComfyUI), not agentic coding harness design. It does not inform a backend Java team's choice between DAG workflows and agent loops. The evaluation is also weak: 30 in-house tasks judged by unblinded manual inspection, untrained prompting baselines, and no variance or artifacts.",
+  "applicability": "This does not transfer to the Java multi-repo team. The only loosely transferable observation is that having a model emit an intermediate skeleton and letting deterministic code expand it into the final graph or config gave more executable output than emitting the full JSON directly (Table 6). That is a weak argument for generating pipeline or workflow configs through a validated intermediate form if the team ever lets a model author a workflow graph.",
+  "conflicts_with": []
+}

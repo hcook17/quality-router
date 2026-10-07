@@ -1,0 +1,131 @@
+{
+  "arxiv_id": "2607.02882",
+  "contribution_type": "system",
+  "summary": "FlowFixer repairs failed low-code agentic workflows (Dify, Coze, n8n node graphs). It normalizes the failed run into a per-node 'symbolic trace', has GPT-5.2 write per-node assertions in a small DSL (existence, ordering and causal constraints), scores nodes by assertion violations plus upstream position to find the culprit, labels a root cause from a 16-type taxonomy, and generates node-level edit patches. Patches are filtered by an LLM pre-execution check, then re-run, and an experience pool accumulates fixes across cases. On 443 failure cases it reports 71.3% repair success versus 43.7-59.4% for six baselines.",
+  "claims": [
+    {
+      "claim": "FlowFixer achieves a 71.3% repair success rate, outperforming baselines by 11.9-27.6 points.",
+      "evidence": "Table II matches the abstract. 'Repair success' means the patched workflow 'passes dynamic verification', i.e. 'executes successfully' on the original input. For free-text outputs (itineraries, Q&A) the paper never says who or what judges task correctness, so the oracle is undefined. Baseline backbones and adaptations (SWE-agent and RepairAgent on low-code JSON workflows) are not described. Results are pooled across the two datasets 'since methods have similar results', with no per-dataset table. Three repetitions are averaged with no spread.",
+      "strength": "weak",
+      "location": "§IV-D, §V-A, Table II"
+    },
+    {
+      "claim": "Failure attribution improves 4.8-33.1 points and root-cause accuracy 15.3-38.8 points.",
+      "evidence": "Table II: FAA 84.4% vs DoVer 79.6%; RCA 87.9%. RCA is computed only over cases where attribution was correct, so denominators differ by method. Labels come from the authors' own AgentFail annotation pipeline, and the 16-type root-cause taxonomy FlowFixer is prompted with is drawn from the same prior work.",
+      "strength": "moderate",
+      "location": "§V-B, Table II"
+    },
+    {
+      "claim": "Symbolic modeling, knowledge and experience pool each contribute.",
+      "evidence": "Table III: w/o symbol 47.0% RSR; w/o pool 41.7%, below SWE-agent. Accumulated experience is distilled 'from historical cases' with no train/test separation, so part of the gain may come from fixes learned on other cases from the same ten source systems.",
+      "strength": "weak",
+      "location": "§V-C, Table III"
+    },
+    {
+      "claim": "Pre-execution assessment filters invalid patches with 99.7% precision and 84.6% recall at competitive cost (17K tokens per repair).",
+      "evidence": "§VII-A/C give percentages with no counts or confusion matrix. Token figures are self-reported averages; SWE-agent's 38K is the highest.",
+      "strength": "weak",
+      "location": "§VII-A, §VII-C"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P36",
+      "stance": "neutral",
+      "note": "This paper presupposes developer-authored static workflow graphs (Dify/Coze/n8n) and studies how they break: 47% of repairs touch LLM/agent nodes, 20% code/template nodes, 11% logic/control nodes. It never compares a static graph against an agent loop. The ablation removes the normalized trace format, not the graph."
+    },
+    {
+      "id": "P26",
+      "stance": "mixed",
+      "note": "Automatic diagnosis-driven workflow rewriting beats GEPA, ReCreate, Scope and SelfHeal. Against that: the dataset and taxonomy are the authors' own, the success oracle is undefined, baseline configurations are unspecified, and the experience pool has no held-out split."
+    },
+    {
+      "id": "P30",
+      "stance": "mixed",
+      "note": "Per-node normalized traces plus assertions raise attribution from 59.8% (raw trajectory) to 84.4% in the internal ablation. Single model, no variance."
+    },
+    {
+      "id": "P18",
+      "stance": "mixed",
+      "note": "LLM checks for semantic and behavioural consistency gate patches. They are validated against re-execution outcomes (99.7% precision, 84.6% recall), but counts are not reported."
+    },
+    {
+      "id": "P09",
+      "stance": "mixed",
+      "note": "Experience pool removal costs 29.6 RSR points, but accumulation over the evaluation set itself risks leakage."
+    },
+    {
+      "id": "P16",
+      "stance": "neutral",
+      "note": "Dynamic re-execution is the final acceptance step; 'success' criterion unspecified."
+    }
+  ],
+  "methodology": {
+    "sample": "443 failure cases: 307 from AgentFail (10 Dify/Coze systems, the authors' prior dataset) plus 136 n8n cases collected and annotated by the authors.",
+    "baselines": "SWE-agent, RepairAgent (code repair), ReCreate, GEPA, Scope, SelfHeal (agent improvement), FAMAS, DoVer, AgentFixer (attribution). Adaptation and backbone for baselines not described.",
+    "models": "GPT-5.2 for FlowFixer; baseline models unstated.",
+    "variance": "Each case repaired three times and averaged; no SD or CI.",
+    "ablations": "Symbolization, taxonomy, repair knowledge, online feedback, accumulated experience (Table III).",
+    "contamination_controls": "None; experience pool built from cases in the evaluation set; taxonomy and annotations by the same authors.",
+    "languages": "Low-code workflow JSON/YAML with embedded prompts and code nodes; no Java."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint, no venue.",
+    "limitations_section": false,
+    "artifacts": "AgentFail is public from prior work; n8n cases, FlowFixer code and prompts not released.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {
+      "type": "self_evaluation",
+      "detail": "Authors' own AgentFail dataset, own root-cause taxonomy (also fed to FlowFixer), and own n8n annotations."
+    },
+    {
+      "type": "metric_mismatch",
+      "detail": "Repair success = 'executes successfully' on the original input; no stated task-correctness oracle for free-text outputs."
+    },
+    {
+      "type": "contamination_risk",
+      "detail": "Experience pool accumulates repair knowledge across evaluation cases with no held-out split; removing it drops RSR 29.6 points."
+    },
+    {
+      "type": "strawman_baseline",
+      "detail": "SWE-agent and RepairAgent are source-code repair agents applied to low-code workflows without described adaptation."
+    },
+    {
+      "type": "no_variance_reported",
+      "detail": "Three repetitions averaged; no spread; datasets pooled without per-dataset results."
+    },
+    {
+      "type": "closed_artifacts",
+      "detail": "No code, prompts or new dataset released."
+    },
+    {
+      "type": "single_model",
+      "detail": "GPT-5.2 only for FlowFixer."
+    }
+  ],
+  "coi": {
+    "affiliations": "Institute of Software, Chinese Academy of Sciences; Singapore Management University.",
+    "vendor_products_evaluated": "Dify, Coze, n8n workflows (no affiliation).",
+    "funding": "Not stated.",
+    "severity": "low",
+    "detail": "No vendor tie. The benchmark (AgentFail) and its root-cause taxonomy were built by the same authors, who also ship the top-ranked system."
+  },
+  "scores": {
+    "rigor": 2,
+    "reproducibility": 1,
+    "generalizability": 2,
+    "relevance": 2,
+    "coi_risk": 1
+  },
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "This is a reasonable diagnosis-and-repair design for authored workflow graphs, evaluated on 443 real failure cases from three platforms. It is caveated because the success oracle is undefined, the dataset and taxonomy are the authors' own, the baseline adaptations are unspecified, results are pooled without spread, and the experience pool may leak across evaluation cases.",
+  "applicability": "This is indirect evidence for the team's DAG question. If the team builds static workflow graphs (for example an ingestion pipeline with LLM nodes for content classification or summarisation), this paper describes how they fail: most faults sit in LLM-node prompts and configuration, followed by code/template and data-dependency errors, and a failure often surfaces downstream of its cause. The practical lesson is that a static graph makes faults attributable only if each node records structured inputs, outputs and status, ideally with per-node contract checks. That fits spec-driven development: node contracts can come from the spec instead of being LLM-inferred. Automated repair of the graph by an LLM is not shown to be safe without a real acceptance test. The platforms are Dify/Coze/n8n, not Java, and the method does not transfer to code repositories directly.",
+  "conflicts_with": [
+    {
+      "arxiv_id": "2607.24300",
+      "detail": "SEAL shows self-improving loops whose acceptance signal is self-authored regress on hidden evaluation. FlowFixer accepts patches on 'executes successfully' plus its own LLM consistency checks, with no exogenous correctness oracle described, so its 71.3% may be inflated in the way SEAL warns about."
+    }
+  ]
+}

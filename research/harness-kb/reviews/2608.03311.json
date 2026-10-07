@@ -1,0 +1,140 @@
+{
+  "arxiv_id": "2608.03311",
+  "contribution_type": "empirical",
+  "summary": "IBM industry-track study of natural-language-to-low-code workflow generation in IBM Concert Workflows. Six open-weight models (granite-4-h-small, mistral-small/medium, gpt-oss-120b, llama-3.3-70b, llama-4-maverick) are run on 29 real compliance/IT-automation prompts, 8 runs each, through two pipelines: v1, a ReAct+RAG loop with the planner as a tool and a monolithic JSON generation call, and v2, a fixed node sequence that calls the planner deterministically first, adds retrieval sources and an update-plan step, splits generation into variables, base blocks and nested blocks, and adds a programmatic fix before the JSON-patch loop. Structural (schema/UI) success rises from 31.5-82.8% to 74.1-97.8% for every model, at +8 to +75 s latency for five of six. A Claude Sonnet 4.5 judge finds at most 55.2% of prompts satisfied, and the structurally best model (gpt-oss-120b) falls to 6.9% on v2 by emitting schema-valid stub workflows.",
+  "claims": [
+    {
+      "claim": "Redesigning the pipeline (v2) raises structural success from 31.5-82.8% to 74.1-97.8% across all six models, with four of six above a 90% production-viability threshold",
+      "evidence": "Tables II-IV: 232 attempts per model per pipeline on identical prompts and inference infrastructure; every model gains (+15.0 to +62.5 pp). The comparison is between two bundles: v2 changes planner placement, retrieval sources (chunked data, human-readables, user documents), plan revision, staged generation and programmatic repair at once, with no ablation. No confidence intervals or significance tests (§IV-B).",
+      "strength": "moderate",
+      "location": "§III-B, §V, Tables II-IV"
+    },
+    {
+      "claim": "Piecewise decomposition enables cheaper small models (mistral-small, 95.7% at $0.01/workflow) to reach production viability, removing dependency on expensive frontier models",
+      "evidence": "Decomposition is never isolated from the other v2 changes, and no frontier generator is run, so 'removing dependency on frontier models' has no comparison behind it. 'Production viability' is defined by structural success; the same mistral-small v2 configuration satisfies the user's request on only 34.5% of prompts under the paper's own judge (Table V).",
+      "strength": "unsupported",
+      "location": "Abstract, §VIII, Table V"
+    },
+    {
+      "claim": "v2 places four models in the production-viable quadrant (>90% structural success, <60 s), and latency stays under 50 s for interactive use",
+      "evidence": "Table III supports three, not four: mistral-small (95.7%, 42.6 s), mistral-medium (96.1%, 46.7 s) and llama-4-maverick (90.5%, 33.6 s). gpt-oss-120b is at 66.2 s and granite at 84.1%. Only those same three are under 50 s; granite (52.5 s), gpt-oss (66.2 s) and llama-3.3 (151.4 s) are not.",
+      "strength": "weak",
+      "location": "Abstract, §V, Table III"
+    },
+    {
+      "claim": "v2 raises mean semantic score for five of six models, and the gains 'corroborate the structural finding from a fully independent angle'",
+      "evidence": "Table V, 29 prompts x 3 gradings per cell with standard errors. The judge (Claude Sonnet 4.5, temperature 0) is not validated against human or gold labels (§IX lists that as future work). Only structurally valid runs are graded, and three of eight runs are picked by a size threshold and generation order, so v1 cells are graded on a far smaller and differently selected pool (e.g. mistral-small v1 had 77/232 valid runs). Satisfaction falls for granite (27.6 to 17.2%) and gpt-oss (24.1 to 6.9%); each prompt is about 3.4 pp.",
+      "strength": "weak",
+      "location": "§VI-A to §VI-D, Table V"
+    },
+    {
+      "claim": "Structural validity is not semantic correctness: gpt-oss-120b leads every structural metric on v2 yet ranks last semantically because it emits schema-valid stub workflows declaring integrations unavailable",
+      "evidence": "Table V (58.9 to 44.9 mean, 6.9% satisfied) plus the judge's rationales. A concrete, checkable failure mode, but diagnosed through the unvalidated judge's reasoning, without counting stubs directly.",
+      "strength": "moderate",
+      "location": "§VI-D, §VII-F"
+    },
+    {
+      "claim": "No model exceeds 55.2% majority-vote prompt satisfaction, so human review before execution remains necessary",
+      "evidence": "Table V. The direction is robust: even with an unvalidated and possibly lenient judge, the best cell fails on nearly half of prompts.",
+      "strength": "moderate",
+      "location": "§VI-D, §VIII"
+    },
+    {
+      "claim": "The 8-run methodology provides a replicable baseline for tracking progress",
+      "evidence": "The pipeline is proprietary and run in a modified internal form. The prompt list is said to be 'in the project repository' but no repository URL is given in the paper or metadata, and the judge rubric is described only at a high level.",
+      "strength": "unsupported",
+      "location": "§IV-A, §VIII"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P36",
+      "stance": "mixed",
+      "note": "v2 is a developer-defined node sequence (classifier, deterministic early planner, bounded ReAct retrieval, update-plan, three fixed generation stages, fact-checker, programmatic fix, JSON-patch loop). The comparison is v1 vs v2 on the same six models, 29 prompts and 8 runs, and v1 is itself a pipeline (planner as an in-loop tool plus a monolithic generation call), not a plain agent loop. v2 wins structurally for every model and on mean semantic score for 5/6, but also adds retrieval sources, so the fixed staging is never isolated. Satisfaction drops for 2/6 models (gpt-oss 24.1 to 6.9%) and latency rises 8-75 s for 5/6."
+    },
+    {
+      "id": "P37",
+      "stance": "neutral",
+      "note": "The workflow graph is the product the LLM emits (a low-code JSON automation), not a task DAG the agent schedules for itself, and there is no parallel execution. Transferable caution for LLM-emitted graphs: a schema-valid graph is often wrong. Satisfaction is at most 55.2%, and the structurally best model emits valid but empty stubs."
+    },
+    {
+      "id": "P13",
+      "stance": "mixed",
+      "note": "Moving the planner from a tool inside the ReAct loop to a fixed first call, with a later update-plan step, is credited as the most important change, but it is never ablated against the other v2 changes. Outcomes improve for most models and regress semantically for two."
+    },
+    {
+      "id": "P17",
+      "stance": "introduces",
+      "note": "Deterministic fact-checker (Zod schema, block existence, input types, mapped to JSON lines) feeds a cheap programmatic fix and then a bounded (default 2) LLM JSON-patch loop. The checker exists in both versions; the programmatic-fix step is unablated."
+    },
+    {
+      "id": "P18",
+      "stance": "neutral",
+      "note": "An external LLM judge is used offline and proposed as an in-pipeline gate. It is not validated against humans, and its family-independence is asserted as 'eliminating any concern' of bias, which does not address leniency or rubric validity."
+    },
+    {
+      "id": "P23",
+      "stance": "neutral",
+      "note": "Per-model recommendations (mistral-small for cost, llama-4-maverick for semantics, mistral-medium as fallback) amount to a manual routing table. No router or cascade is built or tested."
+    },
+    {
+      "id": "P24",
+      "stance": "neutral",
+      "note": "Per-workflow cost ($0.008-$0.197) and token counts are reported per model and pipeline; v2 roughly doubles to quadruples input tokens. No budget or cap mechanism."
+    },
+    {
+      "id": "P19",
+      "stance": "neutral",
+      "note": "Concludes human review before execution remains necessary, matching current platform practice; no gate is evaluated."
+    },
+    {
+      "id": "P06",
+      "stance": "neutral",
+      "note": "Block, workflow, chunk and document semantic search are expanded in v2; their contribution is confounded with the staging change."
+    },
+    {
+      "id": "P32",
+      "stance": "neutral",
+      "note": "Prompts come from real user requests to a production product, but evaluation is an offline benchmark on a modified pipeline. No deployment outcomes or user acceptance rates are reported."
+    }
+  ],
+  "methodology": {
+    "sample": "29 compliance/IT-automation prompts drawn from real user requests; 6 models x 2 pipelines x 8 runs = 2,784 generations; semantic grading of 3 structurally valid runs per prompt-model-pipeline cell (1,044 gradings).",
+    "baselines": "v1 pipeline vs v2 pipeline on the same models and infrastructure. No plain single-call or plain agent-loop baseline, no frontier-model generator, no human-authored reference workflows.",
+    "models": "granite-4-h-small, llama-3.3-70b-instruct, llama-4-maverick-17b-128e-instruct-fp8, mistral-small-3.1-24b, mistral-medium-2505, gpt-oss-120b; Claude Sonnet 4.5 as judge.",
+    "variance": "8 runs per cell aggregated to point estimates; no confidence intervals or significance tests for structural metrics (§IV-B). Semantic scores report standard errors across the 29 prompts.",
+    "ablations": "None. v2 changes planner placement, retrieval sources, plan revision, staged generation and programmatic repair together.",
+    "contamination_controls": "None discussed; the retrieval corpus includes previously built user workflows, and its overlap with the 29 benchmark prompts is not reported.",
+    "languages": "Not applicable (low-code JSON workflows for IT/cloud automation)"
+  },
+  "standards": {
+    "peer_review": "Accepted at IEEE IC2E 2026, Industry Track (per arXiv comment)",
+    "limitations_section": true,
+    "artifacts": "None linked. The pipeline is proprietary; the prompt list is said to be in a project repository that is not identified.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "self_evaluation", "detail": "IBM authors benchmark and recommend configurations of IBM's own product on IBM-selected prompts."},
+    {"type": "metric_mismatch", "detail": "Headline 'production viability' is defined on schema validity and UI renderability; the paper's own semantic measure shows at most 55.2% of requests satisfied."},
+    {"type": "llm_judge_unvalidated", "detail": "Semantic accuracy rests on a single LLM judge with no human agreement study."},
+    {"type": "other:confounded_ablation", "detail": "Gains are attributed to piecewise decomposition, but v2 changes five components at once, including new retrieval sources."},
+    {"type": "no_variance_reported", "detail": "No intervals or tests on structural success, latency or cost; a 3-prompt difference moves satisfaction by about 10 pp."},
+    {"type": "small_sample", "detail": "29 prompts from one product and one domain."},
+    {"type": "closed_artifacts", "detail": "Pipeline, prompts, judge rubric and outputs are not released."},
+    {"type": "hype_language", "detail": "Abstract says the work 'provides a solution for model-agnostic, scalable automation' and removes frontier dependency, neither of which is tested; the text also miscounts models in the production-viable quadrant (four claimed, three in Table III)."}
+  ],
+  "coi": {
+    "affiliations": "IBM (all six authors)",
+    "vendor_products_evaluated": "IBM Concert Workflows (AI generation pipeline v1 and v2); IBM granite-4-h-small among the models",
+    "funding": "Not stated (IBM internal work)",
+    "severity": "high",
+    "detail": "A vendor evaluates its own product's redesign with its own prompts and internal infrastructure, with no independent replication and no released artifacts. Mitigated somewhat by reporting unflattering results (at most 55.2% satisfaction, the gpt-oss regression, granite's satisfaction drop) and by using an external-family judge."
+  },
+  "scores": {"rigor": 3, "reproducibility": 1, "generalizability": 2, "relevance": 3, "coi_risk": 4},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "A controlled, multi-model, multi-run industrial comparison with honest negative findings: schema validity is not correctness, and a pipeline change can break one model while helping others. But the v1-to-v2 gain is a bundle with no ablation, the central 'decomposition removes frontier dependency' claim has no frontier arm and fails on the paper's own semantic measure, the semantic numbers rest on an unvalidated judge over differently selected samples, there is a quadrant-count inconsistency, and the vendor graded its own product with nothing released.",
+  "applicability": "Applies to the team only where an agent must emit a structured artifact (for example a spec, an OpenAPI or ingestion-mapping file, or a migration plan) rather than free-form code. There the evidence favours a fixed staged pipeline: retrieve real schemas first, generate the scaffold, then top-level parts, then nested parts, then check deterministically. It does not show that a static graph beats a plain agent loop, because v1 was already a pipeline and v2 changed five things at once. The stronger lesson for the team's DAG question is about gates: schema validity carried a 97.8%-structural model to 6.9% task satisfaction, so any DAG node that only checks shape needs a semantic or execution check behind it. Re-validate when the model changes, because the same graph helped five models and broke one. For mixed hosts, the pattern of a fixed planner node plus deterministic validators can live in a host-neutral CLI or CI step rather than inside one host's agent loop.",
+  "conflicts_with": [
+    {"arxiv_id": "2605.17535", "detail": "AgentModernize finds its multi-stage pipeline beats a single prompt only for the weakest model, while stronger models do better with one prompt. Here the v2 staged pipeline improves structural success for every model including the strongest. Semantically, the strongest v1 model (gpt-oss-120b) regresses under v2, which partly agrees with AgentModernize."}
+  ]
+}

@@ -1,0 +1,141 @@
+{
+  "arxiv_id": "2608.16890",
+  "contribution_type": "system",
+  "summary": "Single-author system paper. GxP-Agent hand-encodes the CDISC ADaM derivation order for ADSL as a fixed 15-node linear DAG: each node adds 2-5 variables to an .rds file, with upstream-schema injection, node-type prompts, pinned pharmaverse skills, up to 2 traceback retries and 12 R validation assertions. It is evaluated on CDISC-Bench, built from the public FDA CDISCPilot01 submission. Claude Sonnet 4.6 (3 runs) and Opus 4.6 (1 run) reach 100% 'structural match', defined as the share of the 49 ground-truth variable names present; value-level column accuracy is 73.7%. Comparators are single-call or concatenated-call generators without execution feedback, mostly run once; the best, Keyword-RAG with Sonnet, reaches 59.2% in 65 s versus 662 s for the DAG. The evaluated DAG calls LLMs directly per node, not through the described LangGraph agent loop. The paper's own ablation shows the topology alone gives 0%.",
+  "claims": [
+    {
+      "claim": "Single-shot LLM generation fails universally: none of 11 attempts with five frontier models produces a valid ADSL",
+      "evidence": "Table 2: SingleAgent/FlatMulti/Embedding-RAG score 0% with 1 run each. The body counts 16 attempts (11 base plus retry/metadata variants), the abstract 11. None of the baselines gets the execution feedback, retries or schema injection the DAG gets, and Keyword-RAG+Sonnet, also single-shot, reaches 59.2% (29/49, 254 records), so 'fails universally' needs the qualifier 'except the best baseline'.",
+      "strength": "moderate",
+      "location": "Abstract, §1, §5.2, Table 2"
+    },
+    {
+      "claim": "DAG topology is decisive: encoding process knowledge as graph topology rather than LLM reasoning is the key enabler",
+      "evidence": "The paper's own A2 ablation (Table 3, Sonnet, 2-3 runs) contradicts the headline. The same 15-node topology with generic prompts gives 0% structural match, like single-shot. Adding node-type hints and skills gives 45.6%, below the single-shot Keyword-RAG baseline. 100% appears only after adding specification text, expected output variables and anti-hallucination hints. The authors concede (§9) these were not disentangled factorially. Fisher p=0.011 pools DAG vs non-DAG cells of 1-3 runs across models.",
+      "strength": "weak",
+      "location": "Abstract, §5.2(2), §6 A1-A2, Table 3, §9(1)"
+    },
+    {
+      "claim": "GxP-Agent with Claude Sonnet 4.6 achieves 100% structural match (49/49 variables, 254 records) across three independent runs, i.e. reliable, GxP-compliant programming",
+      "evidence": "True as measured, but structural match counts variable names present, and the full-DAG prompts list each node's expected output variables, so the metric largely checks that instructions were followed. Value-level L5 column accuracy is 73.7% (Opus 26/49 columns exact; Sonnet 72.1-74.9%), with failures in multi-step conditional flags (COMP8FL, DCSREAS). No GxP validation, audit or human-programmer comparison is performed (App. E(8)).",
+      "strength": "weak",
+      "location": "Abstract, §4.2, §5.6, App. E"
+    },
+    {
+      "claim": "DAG decomposition enables weaker models and benefits them disproportionately: GPT-4.1 reaches 59.2% under the DAG versus 0% under every other architecture",
+      "evidence": "The gains are largest for the strongest models (Sonnet 0 to 100 pp; GPT-4.1 0 to 59.2; GPT-4o 33.3; Gemini 2.5 Pro 0% under the DAG, failing at validate). The v3-v4 anti-hallucination hints were written against GPT-4.1's observed failures on the same evaluation data (App. D). Only Keyword-RAG and the DAG were run for GPT-4.1 with retrieval.",
+      "strength": "unsupported",
+      "location": "Abstract, §1, §5.2(3), §6 A4, §7, Table 4, App. D"
+    },
+    {
+      "claim": "The approach generalizes to ADAE (9-node branching DAG, 55 variables, 1,191 records), reaching 100% structural match on the first attempt",
+      "evidence": "Two Sonnet runs on the same pilot study; L5 column accuracy 67.6% (23/55 exact). ADAE's DAG was also hand-designed. It shows the hand-built-DAG approach can be repeated for a second dataset of the same study, not generalization across studies (§9(3)).",
+      "strength": "weak",
+      "location": "Abstract, §5.4"
+    },
+    {
+      "claim": "Retry with the error traceback adds +9.7 pp node completion (64.8% to 74.5% of 165 node executions)",
+      "evidence": "Table 5, within-condition first-attempt vs final comparison on the same runs; model-dependent (+13.3 Sonnet, +20.0 GPT-4.1, 0 GPT-4o). Small but isolating.",
+      "strength": "moderate",
+      "location": "§6 A5, Table 5"
+    },
+    {
+      "claim": "Runtime schema introspection drives +42.9 pp with topology held constant",
+      "evidence": "One Sonnet run each of DAG v1 vs v2 (9 nodes); GPT-4.1 gains nothing (0% to 0%). Both were iterations of prompt design on the evaluation dataset.",
+      "strength": "weak",
+      "location": "§5.5, §6 A3, App. D"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P36",
+      "stance": "mixed",
+      "note": "Hand-designed static 15-node linear DAG (about 40 h of manual design) with retry edges and validation gates, compiled into a LangGraph StateGraph. The evaluated version calls LLMs directly per node with pre-injected schema and does not run the agent loop. The comparison is strawman: baselines are one LLM call (or concatenated per-section calls) with no execution feedback, mostly n=1, while the DAG gets 15 calls, retries and runtime schema. No plain agent loop with R execution and retries is run on the same model and budget. Same topology with generic prompts scores 0% (Table 3), so content rather than graph shape carries most of the gain. Costs about 5x per run and 10x latency (662 s vs 65 s)."
+    },
+    {
+      "id": "P37",
+      "stance": "neutral",
+      "note": "§1 poses the question 'does encoding that structure as agent topology outperform letting LLMs plan their own decomposition?' but no LLM-planner or LLM-generated-DAG condition is run, so the paper cannot answer it. The PM agent only selects one of 11 pre-built DAGs (L1 routing 87.5%)."
+    },
+    {
+      "id": "P10",
+      "stance": "neutral",
+      "note": "'SingleAgent' is one LLM call that writes the whole R script, not an agent loop with tools; no single-agent loop is evaluated."
+    },
+    {
+      "id": "P16",
+      "stance": "supports",
+      "note": "Retry with the R traceback appended lifts node completion +9.7 pp overall (+13.3 Sonnet, +20.0 GPT-4.1) against first-attempt results of the same runs (Table 5). Node-level output-column checks and 12 business-rule assertions act as gates. n is small (165 node executions)."
+    },
+    {
+      "id": "P34",
+      "stance": "supports",
+      "note": "Same DAG and model: adding specification text and expected output variables per node lifts structural match from 45.6% to 100% and records from 2/3 to 3/3 runs (Table 3, n=3 vs 3). The caveat is that the metric counts the very variable names the treatment supplies, and value accuracy for the ablation arms is not reported."
+    },
+    {
+      "id": "P02",
+      "stance": "neutral",
+      "note": "Pinned pharmaverse skill documents per node; never ablated on their own (bundled with node-type hints in A2). Embedding-RAG over the same documentation fails 0% in one run."
+    },
+    {
+      "id": "P11",
+      "stance": "neutral",
+      "note": "Called multi-agent, but the evaluated system is a sequence of independent per-node LLM calls with no inter-agent interaction; 'FlatMulti' is concatenated per-section calls."
+    },
+    {
+      "id": "P30",
+      "stance": "introduces",
+      "note": "Per-node .rds artifacts and logs are offered as a GxP audit trail and a resume-from-failure point; asserted, not evaluated with auditors."
+    },
+    {
+      "id": "P31",
+      "stance": "introduces",
+      "note": "CDISC-Bench: an execution-based, five-level benchmark built from one public FDA pilot study. Only L3/L4 are evaluated systematically; L5 is spot checks plus one column-accuracy pass."
+    },
+    {
+      "id": "P24",
+      "stance": "neutral",
+      "note": "Reports per-run cost (about $0.05 single-shot, $0.25 DAG+Sonnet, $1.35 DAG+Opus) and latency, but baselines are not given matched budget or retries."
+    }
+  ],
+  "methodology": {
+    "sample": "One public clinical study (CDISCPilot01): ADSL (254 subjects, 49 variables) and ADAE (1,191 records, 55 variables). 1-3 runs per configuration, about 50 runs in total including development iterations.",
+    "baselines": "SingleAgent (one call), FlatMulti (one call per spec section, concatenated), Keyword-RAG and Embedding-RAG single-shot. No agent loop with execution feedback, no LLM planner, no human programmer.",
+    "models": "Claude Opus 4.6, Claude Sonnet 4.6, Claude Haiku 4.5 (baselines only), GPT-4.1, GPT-4o, Gemini 2.5 Pro.",
+    "variance": "3 runs for Sonnet, GPT-4.1 and GPT-4o DAG cells, 1 run elsewhere. Wilson CI on pooled node completion; L5 SD across 4 Claude runs.",
+    "ablations": "Prompt-specificity ablation on a fixed topology (A2), schema introspection v1 vs v2 (A3), model tier (A4), retry (A5). No factorial design (§9(1)); no topology variation at fixed prompt content (for example a single node given the same spec and expected variables).",
+    "contamination_controls": "None. CDISCPilot01 and its ADaM outputs are the standard public pharmaverse example, and the author concedes Claude's lead may reflect training exposure (§9(4)). DAG prompts and hints were iterated v1 to v5 on the evaluation data.",
+    "languages": "R (admiral, metacore, metatools, xportr)"
+  },
+  "standards": {
+    "peer_review": "None stated (preprint)",
+    "limitations_section": true,
+    "artifacts": "Benchmark and 'anonymized code' said to be in supplementary material; full code and data promised on publication. No public repository URL.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "strawman_baseline", "detail": "Baselines are single LLM calls without execution feedback, retries or schema injection, mostly one run, against a 15-call DAG with retries."},
+    {"type": "benchmark_overfit", "detail": "DAG node count, prompts and anti-hallucination hints were iterated over five versions on the same evaluation dataset, with hints targeted at GPT-4.1's observed failures."},
+    {"type": "metric_mismatch", "detail": "Headline 'structural match' counts variable names that the full-DAG prompts list; value-level accuracy is 73.7% (ADSL) and 67.6% (ADAE)."},
+    {"type": "contamination_risk", "detail": "Public pilot study whose ADaM outputs are widely reproduced in pharmaverse materials; acknowledged in §9(4)."},
+    {"type": "small_sample", "detail": "One study, two datasets, 1-3 runs per cell."},
+    {"type": "self_evaluation", "detail": "Single author designs the system, builds the benchmark, defines the metric and runs all comparisons."},
+    {"type": "hype_language", "detail": "'Reliable, GxP-compliant clinical trial programming' and 'DAG topology is decisive', where the paper's ablation shows topology alone gives 0% and no compliance validation is done."},
+    {"type": "closed_artifacts", "detail": "Code only as anonymized supplementary material, with full release deferred to publication."}
+  ],
+  "coi": {
+    "affiliations": "Single author: 'Data Science Researcher'; Harrisburg University of Science and Technology",
+    "vendor_products_evaluated": "None (Anthropic, OpenAI and Google models are evaluated as workers, not promoted)",
+    "funding": "Not stated",
+    "severity": "low",
+    "detail": "No vendor or product interest is evident. The employer behind the 'Data Science Researcher' role is unstated, and the author evaluates their own system on their own benchmark."
+  },
+  "scores": {"rigor": 2, "reproducibility": 1, "generalizability": 1, "relevance": 3, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Admitted only as a worked example of a hand-designed static DAG in a regulated data-transformation domain, with useful within-system ablations on retry and on supplying expected outputs per node. The headline 'topology is decisive' is contradicted by the paper's own topology-only ablation (0%). The baselines are strawmen with no execution feedback, the 100% metric counts names the prompts supply, value accuracy is about 74%, prompts were tuned on the evaluation data, the dataset is public and probably seen in training, and most cells have one run.",
+  "applicability": "Closest in shape to the team's ingestion work: a regulated, specification-driven transformation with a known dependency order (here SDTM to ADaM; for the team, source content through normalization and enrichment to delivery models). On the DAG question, a fixed node order is useful mainly as a vehicle for per-step inputs: each step gets a narrow slice of the spec, its expected output fields, the actual upstream schema, and a validation gate with traceback retry. Those contents, not the graph, moved the result from 0% to 100%. The paper does not show that a fixed DAG beats a single agent loop that has the same spec slices, schema introspection and execution checks; it never ran one. A low-risk first step is to write the ordered steps and per-step acceptance fields into the spec and enforce them with deterministic gates in CI, letting any host's agent loop execute against them, before building a graph runtime. Count field values, not just field presence, as the gate metric, or a 100% headline can hide about 26% wrong columns. Hand-designing the graph took about 40 hours for one dataset. Each new content type or repo needs that again, and the graph has to be kept in step with spec changes.",
+  "conflicts_with": [
+    {"arxiv_id": "2606.00579", "detail": "Agent-Omni's fixed multi-agent graph trails an open Codex coding loop on the same GPT-5.4 backbone on all four benchmarks, which cuts against 'topology is decisive'. GxP-Agent never compares against an agent loop, only against single-shot calls, so the two results do not directly collide but the headline generalization is contested."},
+    {"arxiv_id": "2605.17535", "detail": "AgentModernize's staged pipeline beats a single prompt only for the weakest model, and stronger models do better single-shot. Here the strongest models gain most from the DAG (Sonnet 0 to 100 pp), while the paper claims weaker models benefit disproportionately. Neither paper compares against an agent loop with execution feedback."}
+  ]
+}

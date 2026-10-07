@@ -1,0 +1,108 @@
+{
+  "arxiv_id": "2607.19297",
+  "contribution_type": "position",
+  "summary": "A practitioner guide that positions LangGraph (typed shared state, nodes, conditional edges, checkpointers, interrupt/resume) by 'workflow-complexity fit'. It gives a decision table for when to prefer a plain SDK/ReAct loop, a schema-first agent, or DSPy, and three small Python recipes: SQL generate-validate-execute-repair, agentic RAG with evidence grading and citation verification, and human-in-the-loop policy review with interrupt and checkpoint. Ancillary code runs in mock mode with fixture-based route tests. The authors state it is not an empirical benchmark and measures no accuracy, latency or cost.",
+  "claims": [
+    {
+      "claim": "Graph orchestration is worth its overhead when state must survive steps, routes depend on explicit state, failures need repair paths, humans must pause/resume the process, or route history is needed for audit; otherwise a plain SDK/ReAct loop, schema-first tools or DSPy are better.",
+      "evidence": "Tables 1-2 and §2 present this as a selection guide supported by citations to LangGraph docs, ReAct, DSPy, JSONSchemaBench, not by any measurement. Table 2 itself says 'not an empirical ranking'.",
+      "strength": "unsupported",
+      "location": "§2, Tables 1-2"
+    },
+    {
+      "claim": "The three recipes show how typed state, conditional routing, retries, interrupts and checkpoints fit together.",
+      "evidence": "§4-5 code and ancillary package with three graph implementations and fixture tests that assert routes (retry on SQL error, refuse on weak evidence, interrupt on high risk). This demonstrates the mechanics; it does not show the routes improve outcomes.",
+      "strength": "moderate",
+      "location": "§4-5, App. A"
+    },
+    {
+      "claim": "Removing the checkpointer or review gate breaks durable pause/resume and decision-record fidelity.",
+      "evidence": "§4.3 'Design warnings' asserts these failure modes; no reported run or test output.",
+      "strength": "weak",
+      "location": "§4.3"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P36",
+      "stance": "introduces",
+      "note": "This is a static workflow graph with authored edges: developer-defined nodes, route functions over typed state, bounded retry loops, fail-closed terminals. The authors advocate it with explicit when-not-to-use criteria. There is no comparison against an agent loop or a plain pipeline, and the authors say they do not evaluate accuracy, latency or cost."
+    },
+    {
+      "id": "P19",
+      "stance": "introduces",
+      "note": "Interrupt plus checkpointer as a durable human-review gate for high-risk decisions; demonstrated with an in-memory checkpointer only."
+    },
+    {
+      "id": "P16",
+      "stance": "neutral",
+      "note": "SQL recipe routes validation/execution errors back to generation with an attempt budget."
+    },
+    {
+      "id": "P30",
+      "stance": "neutral",
+      "note": "Recommends persisting route-relevant state fields as audit trace; not evaluated."
+    },
+    {
+      "id": "P10",
+      "stance": "neutral",
+      "note": "Recommends a plain SDK/ReAct loop for linear tool use; asserted, not measured."
+    }
+  ],
+  "methodology": {
+    "sample": "Three illustrative recipes with small fixture cases; no evaluation set.",
+    "baselines": "None.",
+    "models": "Mock responses by default; live providers optional and unspecified.",
+    "variance": "n/a",
+    "ablations": "None.",
+    "contamination_controls": "n/a",
+    "languages": "Python (LangGraph)."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint, no venue.",
+    "limitations_section": true,
+    "artifacts": "Ancillary code (LangGraph package source, prompts, fixtures, three workflow tests, mock mode). A 'legacy benchmark-result archive' is explicitly excluded.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {
+      "type": "other:no_evaluation",
+      "detail": "Self-declared recipe guide; no accuracy, latency, cost or developer-effort measurement backs the decision table."
+    },
+    {
+      "type": "other:withheld_results",
+      "detail": "§9.1 says the arXiv package excludes 'the legacy benchmark-result archive', and the code ships benchmark datasets. Results apparently existed but are not reported, so it is unknown whether they favoured graphs."
+    },
+    {
+      "type": "novelty_inflation",
+      "detail": "Recipes restate LangGraph documentation patterns (state graph, conditional edges, interrupt/checkpoint) without new technique."
+    },
+    {
+      "type": "toy_tasks",
+      "detail": "Recipes run on mock fixtures; production concerns (durable checkpointer, streaming, observability) acknowledged as out of scope."
+    }
+  ],
+  "coi": {
+    "affiliations": "University of Lethbridge (business school); Universidad de Guadalajara; Al Hussein Technical University; Universidad de Guanajuato.",
+    "vendor_products_evaluated": "LangGraph (LangChain) is recommended but no affiliation is disclosed.",
+    "funding": "Not stated.",
+    "severity": "none",
+    "detail": "No vendor affiliation found; the guide is balanced about alternatives."
+  },
+  "scores": {
+    "rigor": 1,
+    "reproducibility": 3,
+    "generalizability": 1,
+    "relevance": 2,
+    "coi_risk": 0
+  },
+  "verdict": "reject",
+  "verdict_reason": "There is no evaluation; the authors say it is a recipe guide, not a benchmark. The decision heuristics are sensible but unmeasured, and benchmark results that apparently existed were withheld. Useful as a practitioner reference, but it adds no evidence to the static-workflow-graph question.",
+  "applicability": "The decision table is a reasonable checklist for the team: use an authored graph or state machine only where state must survive steps, routes depend on explicit state (validation result, evidence grade, risk), failures need bounded repair, a human must pause and resume the process (for example clinical-content review), or route history is needed for audit. Otherwise use a plain loop. For healthcare-education ingestion, the HITL-review and evidence-gating recipes map to content-approval and source-grounding steps, and the route-level contract tests ('weak evidence must not reach finalize') fit spec-driven development. Caveats: this is Python LangGraph guidance for LLM applications, not coding-agent harnesses; nothing is measured; a Java team would implement the same pattern with its own workflow engine or state machine. The KB's evidence (2605.15425) suggests deterministic orchestration may cost about 3x tokens with no accuracy gain.",
+  "conflicts_with": [
+    {
+      "arxiv_id": "2605.15425",
+      "detail": "RSTD measured deterministic code-owned orchestration with per-subtask retry against a monolithic prompt and a static fixed sequence. It cut recovery tokens under injected failure but cost about 3x baseline tokens with no accuracy gain. This guide presents graph structure as costing only 'concepts' and never prices the extra LLM calls that grading, verification and retry nodes add."
+    }
+  ]
+}

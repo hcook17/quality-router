@@ -1,0 +1,134 @@
+{
+  "arxiv_id": "2607.01942",
+  "contribution_type": "system",
+  "summary": "Atomic Task Graph (ATG) is a prompting-only control framework. The LLM recursively decomposes a task into a DAG of atomic tool calls whose parent input/output interfaces are preserved, runs a pre-execution 'thought experiment' check, executes ready nodes in topological order (independent branches in parallel), and on failure repairs only the smallest affected subgraph, located through the refinement history. On ALFWorld, WebShop and ScienceWorld with Mistral-7B, Gemma-7B and Llama-3-8B it reports 30-55 point gains over ReAct, Reflexion, CAMEL, ToT and Plan-over-Graph run on the same checkpoints.",
+  "claims": [
+    {
+      "claim": "ATG consistently outperforms strong baselines in success rate across three benchmarks using only 7B-8B backbones.",
+      "evidence": "Table 1: ATG beats every same-backbone baseline in all 9 backbone x benchmark cells, e.g. Mistral-7B ALFWorld 55.73 vs ReAct 6.57 and PoG 23.72; Gemma-7B goes from 4.38 (ReAct) to 58.71. The averages in Fig. 7 recompute correctly from Table 1. There are no seeds, variance or CIs, and no code. The only 'strong' baseline, GPT-4 ReAct, scores 41.24 on ALFWorld, far below commonly reported GPT-4 results, which points to under-tuned prompts. ATG never beats GPT-4 ReAct on ScienceWorld (49.81/52.03/56.79 vs 66.16), and Mistral-ATG trails it on WebShop (62.75 vs 64.34).",
+      "strength": "weak",
+      "location": "§5.2, Table 1, Fig. 7"
+    },
+    {
+      "claim": "Dependency-aware parallel execution improves execution efficiency.",
+      "evidence": "Table 2 reports a single row per method with the backbone unstated (ATG 18.36 vs ReAct 31.42 steps on ALFWorld), and counts parallel ATG branches as one step. ALFWorld and WebShop are single-agent, single-environment and stateful, so 'parallel' environment actions are not physically concurrent. LLM calls for recursive compilation, the thought experiment and repair are not counted. No tokens, LLM calls or wall-clock are reported, so the efficiency claim rests on a metric defined in ATG's favour.",
+      "strength": "weak",
+      "location": "§5.3, Table 2"
+    },
+    {
+      "claim": "Thought experiment and minimal subgraph repair are each important.",
+      "evidence": "Fig. 4 (figure only; the text quotes a few numbers). Removing the thought experiment costs about 4-5 points and removing repair about 6-8 points on Mistral-7B. Together these explain roughly 12 of ATG's 32-point lead over PoG. No ablation isolates the DAG itself, for example the same compiler emitting a linear plan, or ReAct with the same repair loop.",
+      "strength": "weak",
+      "location": "§5.2 Approach Ablations, Fig. 4"
+    },
+    {
+      "claim": "ATG reduces hallucinated actions.",
+      "evidence": "Table 3: 12.14% vs 42.86% (ReAct) of ALFWorld trajectories contain invalid actions. The rates imply n=140 (60/140, 17/140), i.e. one ALFWorld split, although main results aggregate seen and unseen. Backbone unstated; single run.",
+      "strength": "weak",
+      "location": "§5.3, Table 3"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P37",
+      "stance": "mixed",
+      "note": "This is the core of the paper: an LLM emits a dependency DAG and an executor schedules it. There is a same-model, same-action-budget comparison against a plain agent loop (ReAct) and against another graph planner (PoG), and ATG wins by 30-55 points. The comparison is not compute-matched, because ATG's extra LLM calls (recursive compilation, thought experiment, repair) are uncounted. The GPT-4 ReAct number sits well below literature, which suggests weak baseline prompts. There is no variance and no code, and no ablation separates the DAG from the repair and checking machinery. Domains are embodied, web-shopping and science text games, not coding."
+    },
+    {
+      "id": "P13",
+      "stance": "mixed",
+      "note": "Hierarchical planner-executor (recursive refinement, then execution) beats linear loops on paper, with the same caveats as P37."
+    },
+    {
+      "id": "P10",
+      "stance": "neutral",
+      "note": "ReAct and Reflexion with 7B instruct models score 3-27 here. Small models failing at ReAct on these benchmarks is long known and the comparison is not compute-matched, so this says little about single-agent loops with frontier models."
+    },
+    {
+      "id": "P16",
+      "stance": "neutral",
+      "note": "Runtime failures detected from environment feedback trigger localized repair; the pre-execution 'thought experiment' is an LLM self-check, not an execution verifier."
+    },
+    {
+      "id": "P24",
+      "stance": "neutral",
+      "note": "No token, LLM-call or latency accounting despite efficiency claims."
+    }
+  ],
+  "methodology": {
+    "sample": "ALFWorld, WebShop, ScienceWorld full test sets (sizes not stated); seen and unseen aggregated.",
+    "baselines": "ReAct, Reflexion, CAMEL, ToT, Plan-over-Graph on the same 7B/8B checkpoints and action budget; GPT-3.5/GPT-4 with ReAct. Baselines date from 2023-2025, the GPT-4 ReAct number is low relative to literature, and prompts are not released.",
+    "models": "Mistral-7B-Instruct-v0.2, Gemma-1.1-7B-it, Llama-3-8B-Instruct (all 2023-2024 models).",
+    "variance": "None; single numbers, no seeds or CIs.",
+    "ablations": "Removal of thought experiment and of subgraph repair (Fig. 4). No graph-vs-linear-plan ablation, no compute-matched comparison.",
+    "contamination_controls": "None discussed.",
+    "languages": "Text environments; no code generation."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint, no venue.",
+    "limitations_section": true,
+    "artifacts": "No code, prompts or trajectories released.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {
+      "type": "strawman_baseline",
+      "detail": "GPT-4 ReAct at 41.24 on ALFWorld is well below commonly reported figures; ReAct prompts for 7B models are unpublished and likely untuned."
+    },
+    {
+      "type": "metric_mismatch",
+      "detail": "Efficiency is measured as environment steps with parallel branches counted as one step; planning, check and repair LLM calls are excluded."
+    },
+    {
+      "type": "missing_cost_reporting",
+      "detail": "No tokens, LLM-call counts or wall-clock despite a multi-call compile/check/repair pipeline."
+    },
+    {
+      "type": "no_variance_reported",
+      "detail": "Single runs, no seeds or CIs on 30-55 point differences."
+    },
+    {
+      "type": "closed_artifacts",
+      "detail": "No code or prompts released; results cannot be checked."
+    },
+    {
+      "type": "toy_tasks",
+      "detail": "Text games and simulated shopping; no software-engineering tasks."
+    },
+    {
+      "type": "hype_language",
+      "detail": "Abstract says 'consistently outperforms strong baselines' while ATG loses to GPT-4 ReAct on ScienceWorld for all backbones."
+    }
+  ],
+  "coi": {
+    "affiliations": "South China University of Technology; Tsinghua Shenzhen International Graduate School.",
+    "vendor_products_evaluated": "None.",
+    "funding": "Not stated.",
+    "severity": "none",
+    "detail": "Academic authors; no vendor product evaluated."
+  },
+  "scores": {
+    "rigor": 2,
+    "reproducibility": 0,
+    "generalizability": 1,
+    "relevance": 2,
+    "coi_risk": 0
+  },
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "It is a direct, same-model test of an LLM-generated task DAG against a plain agent loop, which is on point for the DAG question, so it is admitted at low weight. The evidence is weak: gains of 30-55 points rest on single unreleased runs with 2023-era 7B models, uncounted planning and repair LLM calls, an efficiency metric that counts parallel branches as one step, and a GPT-4 baseline well below literature. The ablations do not isolate the DAG from the repair loop.",
+  "applicability": "For the Java multi-repo team this is at most a hypothesis, not evidence. The transferable idea is the bookkeeping, not the DAG planner: record each node's inputs, outputs and status, keep interfaces fixed when refining a step, and on failure redo only the downstream region instead of re-running the whole plan. In an ingestion pipeline spanning four or more repositories, that maps to a static stage graph with per-stage artifacts and resumable retries, which the team can build deterministically without letting a model generate the graph. Nothing here shows that a model-generated DAG beats a frontier-model agent loop on coding tasks. The tested models are 7B, the domains are text games, and parallel 'branches' in one stateful environment are not real concurrency.",
+  "conflicts_with": [
+    {
+      "arxiv_id": "2608.00267",
+      "detail": "LoopsBench finds that even frontier closed harnesses plan dependency structures poorly (over-parallelizing serial requirements; Edge F1 against reference DAGs far from perfect). ATG implies that 7B models can compile reliable executable DAGs that yield 30-55 point gains."
+    },
+    {
+      "arxiv_id": "2608.04588",
+      "detail": "E3-Orch's milestone DAG planner beats flat orchestration by small margins. ATG reports 30-55 point gains for a similar DAG-plus-parallel-execution design, an order-of-magnitude discrepancy that suggests baseline weakness here."
+    },
+    {
+      "arxiv_id": "2609.32459",
+      "detail": "A minimal single-loop harness comes within 0.6-2.7 pp of a richer harness on SWE-bench Pro for strong models. ATG claims linear loops are fundamentally insufficient, but only tests 7B models."
+    }
+  ]
+}

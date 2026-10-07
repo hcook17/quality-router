@@ -1,0 +1,43 @@
+{
+  "arxiv_id": "2609.05529",
+  "contribution_type": "system",
+  "summary": "DART (Michigan Tech) combines an LLM orchestrator whose DAG Scheduler Agent turns a consolidated plan into a dependency DAG with reputation-, capability- and workload-aware agent selection, incentive and penalty updates, and a blockchain/IPFS layer that records agent behaviour for accountability. Four evaluations, all on GPT-4o: (1) Pass@1 on MBPP, HumanEval, MATH and GSM8K against MetaGPT, CAMEL, AgentVerse, AutoGen and MegaAgent; (2) one Gobang game-building task scored on four author-defined functional criteria plus wall time; (3) a 150-round simulated allocation study with six component ablations over five seeds; (4) an injected-adversary containment study. DART is best only on GSM8K (93.6 vs 93.0) and trails the best baseline on MBPP, HumanEval and MATH by 5.5-11.2 points. No experiment removes the DAG or compares it with a plain agent loop, so the DAG's contribution is never measured.",
+  "claims": [
+    {"claim": "DART achieves 93.6% Pass@1 on GSM8K, outperforming centralized baselines", "evidence": "Table II: GSM8K 93.6 vs MegaAgent 93.0 (one run at T=0, a 0.6-point gap). The same table shows DART losing on the other three benchmarks: MBPP 81.0 vs 92.2, HumanEval 88.0 vs 93.3 (MegaAgent), MATH 64.0 vs 69.5 (AutoGen). The abstract reports only the one winning benchmark. MetaGPT's '-' cells hint that baseline numbers were copied from prior work despite the stated identical-prompt protocol.", "strength": "weak", "location": "Abstract, §5.12, Table II"},
+    {"claim": "DART builds a full-stack application in 142 s with two agents, an 82.2% latency reduction vs MegaAgent's 800 s with seven agents", "evidence": "One Gobang task, one run, pass/fail on four author-defined criteria (C1-C4) judged by the authors. Table IV's stage-wise breakdown of the same run totals 160 s, not 142 s. No variance and no cost comparison against baselines.", "strength": "weak", "location": "§5.23, Table III, Table IV"},
+    {"claim": "Full DART achieves 93.33 +/- 2.26% task success, consistently outperforming its ablated configurations", "evidence": "Five 150-round simulation runs. Capability-only 89.07 +/- 2.14 vs Full 93.33 +/- 2.26; adjacent variants have overlapping SDs and no significance tests. Output quality is scored by GPT-4o with no validation. All ablations remove allocation/incentive components; the DAG is never ablated.", "strength": "weak", "location": "§5.31-5.32, Table VI"},
+    {"claim": "DAG-based hierarchical scheduling streamlines dependencies and maximizes concurrent execution (RQ2)", "evidence": "No DAG vs no-DAG or DAG vs sequential comparison exists. The only evidence is the single Gobang wall-time comparison against other frameworks, which differ in agent count, prompts and architecture.", "strength": "unsupported", "location": "§5.2, §6.1"},
+    {"claim": "DART isolates malicious agents with 99.3% output containment and restores success to 99.8%", "evidence": "Simulated adversaries with fixed corruption rates (100%, 70%, 60%) caught by a verification signal built into the simulator; §6.3 concedes adaptive, threshold-aware adversaries are not evaluated.", "strength": "weak", "location": "§5.4, Table VII, §6.3"}
+  ],
+  "patterns": [
+    {"id": "P37", "stance": "introduces", "note": "An LLM DAG Scheduler Agent converts the plan into a dependency DAG and runs independent tasks in parallel (§3.1). There is no isolating comparison: no ablation removes the DAG, and no same-model plain-loop or sequential baseline is run. The single Gobang timing differs from baselines in agent count and architecture, and its two reported totals disagree (142 s vs 160 s)."},
+    {"id": "P11", "stance": "introduces", "note": "Reputation- and incentive-weighted multi-agent allocation. Against other multi-agent frameworks on the same GPT-4o it loses 3 of 4 benchmarks (Table II); no single-agent baseline."},
+    {"id": "P30", "stance": "introduces", "note": "Agent behaviour recorded on-chain with IPFS artifacts for accountability; latency and gas reported (Table VIII), but no audit or debugging use is demonstrated."},
+    {"id": "P18", "stance": "neutral", "note": "GPT-4o scores output quality in the simulation without any human agreement check."}
+  ],
+  "methodology": {"sample": "Four public benchmarks (subset sizes not stated); one Gobang build task; five 150-round simulated allocation runs; one simulated adversarial scenario", "baselines": "MetaGPT, CAMEL, AgentVerse, AutoGen, MegaAgent (some numbers appear copied); internal component ablations; no single-agent or no-DAG baseline", "models": "GPT-4o via Azure, temperature 0", "variance": "None for benchmarks or Gobang; SDs over five seeds for the simulation, no significance tests", "ablations": "Allocation, reputation, workload, incentive and anomaly components only; DAG not ablated", "contamination_controls": "None; MBPP, HumanEval, GSM8K and MATH are widely contaminated for GPT-4o", "languages": "Python benchmarks; Gobang web app"},
+  "standards": {"peer_review": "arXiv preprint; no venue stated", "limitations_section": true, "artifacts": "No code, prompts or simulator released", "preregistration": "n/a"},
+  "biases": [
+    {"type": "cherry_picked_examples", "detail": "The abstract reports the one benchmark DART wins (GSM8K, +0.6) and omits three losses of 5.5-11.2 points."},
+    {"type": "small_sample", "detail": "The coordination claim rests on one Gobang task run once."},
+    {"type": "single_model", "detail": "GPT-4o only."},
+    {"type": "toy_tasks", "detail": "Gobang game, grade-school and competition math, single-function Python synthesis, and a synthetic allocation simulator with robotics-style capability tags."},
+    {"type": "self_evaluation", "detail": "Authors define and judge the Gobang C1-C4 criteria."},
+    {"type": "llm_judge_unvalidated", "detail": "GPT-4o output-quality scores in the simulation have no human agreement check."},
+    {"type": "strawman_baseline", "detail": "Ablations start from a capability-only allocator; no plain single-agent or sequential baseline tests whether the DAG or multi-agent machinery adds value."},
+    {"type": "hype_language", "detail": "'Seamlessly unifies' and 'outperforming centralized baselines' against results that mostly lose."},
+    {"type": "closed_artifacts", "detail": "No code or simulator."},
+    {"type": "missing_cost_reporting", "detail": "Token use is given for DART's own Gobang run only; no cost comparison with baselines."},
+    {"type": "other:internal_inconsistency", "detail": "142 s headline vs Table IV total of 160 s for the same run; the claimed identical-protocol baselines include missing cells that suggest copied numbers."}
+  ],
+  "coi": {"affiliations": "Michigan Technological University", "vendor_products_evaluated": "GPT-4o as backbone; no vendor product promoted", "funding": "Not stated", "severity": "none", "detail": "Academic authors evaluating their own framework; no commercial interest identified."},
+  "scores": {"rigor": 1, "reproducibility": 0, "generalizability": 1, "relevance": 1, "coi_risk": 0},
+  "verdict": "reject",
+  "verdict_reason": "The headline numbers are selective (one winning benchmark out of four), the coordination claim rests on one run of one task with inconsistent timings, and the DAG, the paper's titular mechanism, is never ablated or compared with a plain loop. Nothing is released. The paper provides no usable evidence on whether DAG orchestration helps.",
+  "applicability": "Nothing here transfers to the Java multi-repo team's DAG decision. The blockchain and reputation machinery addresses untrusted agent marketplaces, not a team's own agents across Cursor, Claude Code, Codex and Hermes, and the DAG's effect is unmeasured. At most it is a cautionary example: a task-DAG framework that loses to simpler multi-agent systems on code benchmarks while claiming coordination gains.",
+  "conflicts_with": [
+    {"arxiv_id": "2609.32459", "detail": "That study found generic role-based subagents degraded performance and a minimal single loop competitive; DART assumes added agent structure helps but never tests against a single loop."},
+    {"arxiv_id": "2609.38345", "detail": "OpenCollab measured that model-directed teams realize their declared organization in only 47.2% of runs; DART claims DAG-governed coordination without checking whether the declared schedule was followed."},
+    {"arxiv_id": "2609.39154", "detail": "Same batch: DAGent's ablation shows a single upfront LLM plan DAG performs about the same as a plain ReAct loop (43.7 vs ~43.0); DART's DAG is also built upfront from a consolidated plan, and it offers no ablation to the contrary."}
+  ]
+}

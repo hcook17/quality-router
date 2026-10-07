@@ -1,0 +1,128 @@
+{
+  "arxiv_id": "2608.19854",
+  "contribution_type": "system",
+  "summary": "Repo0 generates whole Python repositories from natural-language requirements. It keeps an LLM-built Dual-DAG: a requirement DAG with LLM-labelled 'logically follows' edges, a component DAG with LLM-inferred implementation dependencies, and an alignment relation between them. Deterministic cohesion and coupling thresholds decide when components are split or merged, with the LLM carrying out the rewrite and validating merges, and the loop stops when no metric-triggered action remains. The converged component DAG then sets dependency-ordered TDD generation inside a downstream scaffold shared by all methods. On three of six RepoCraft repositories in the body (requests, statsmodels, django; the rest in a supplementary PDF), with GPT-5 mini and DeepSeek V3.2, it beats mini-SWE-agent, Paper2Code and RPG on coverage and pass rate everywhere (vs RPG: +4.55 to +20.08 coverage, +7.61 to +29.74 pass). Ablations remove each component, and RQ3 compares metric-gated against LLM-decided restructuring on statsmodels.",
+  "claims": [
+    {
+      "claim": "Repo0 achieves the highest Functionality Coverage and Pass Rate across all settings, improving over RPG by up to 20.08 pp coverage and 29.74 pp pass rate",
+      "evidence": "Table II supports this for 3 repos x 2 backbones; the other three repos are only in a supplementary PDF, which is not part of the paper body. Repo0 is averaged over 3 runs at temperature 0, the number of baseline runs is not stated, and there are no SDs or tests. All methods share the downstream TDD/repair scaffold, which helps isolate planning, but how the iterative mini-SWE-agent was fitted into a 'method-specific structure then shared scaffold' protocol is not explained.",
+      "strength": "moderate",
+      "location": "Abstract, §III-C, §III-E, §IV-A, Table II"
+    },
+    {
+      "claim": "Each of the four design components contributes, with Structural Evolution giving the largest gain",
+      "evidence": "Table III: removing structural evolution lowers coverage (-5.3 to -5.9) and pass rate (-8.5 to -13.3) on all three repos. Other ablations are uneven: ordering gives 0 on requests and -30 pass on statsmodels; requirement context gives 0 pass on statsmodels; the unified graph gives 0 pass on statsmodels. The backbone used is not stated (the numbers match GPT-5 mini). The django Repo0 row in Table III (87.50 coverage, 100.00 voting) disagrees with Table II (80.50, 97.12).",
+      "strength": "moderate",
+      "location": "§IV-B, Table III"
+    },
+    {
+      "claim": "Dependency-aware generation order from the component DAG matters more as repositories grow",
+      "evidence": "w/o Component-Graph Ordering: pass rate 0.00 change on requests, -30.00 on statsmodels, -6.66 on django. Three points do not show a monotone trend with size (django is the largest and drops least), and there is no variance.",
+      "strength": "weak",
+      "location": "§IV-B, Table III"
+    },
+    {
+      "claim": "Metric-gated structural convergence beats unconstrained LLM-decided structural actions even when the LLM gets more rounds; LLM-decided evolution over-decomposes",
+      "evidence": "Figure 4: statsmodels with GPT-5 mini only, comparing w/o evolution, LLM-decided at 1/3/5 rounds, and Repo0. Repo0 beats w/o evolution on all four metrics (e.g. pass 81.90 to 85.51), and LLM-decided variants degrade after one round. The over-decomposition explanation is not measured (no component counts reported). Thresholds were tuned on two held-out Commit0 Lite repos, by manual comparison with gold architectures.",
+      "strength": "weak",
+      "location": "§III-E, §IV-C, Fig. 4"
+    },
+    {
+      "claim": "Repo0 maintains lower end-to-end cost than RPG in most settings, because better modularity reduces TDD repair iterations",
+      "evidence": "DeepSeek V3.2 dollar figures against RPG only (Repo0 is cheaper on requests and statsmodels, dearer by $8.83 on django). GPT-5 mini costs are described but not tabulated in the body; mini-SWE-agent and Paper2Code costs are not reported. The repair-iteration mechanism is asserted without repair counts.",
+      "strength": "weak",
+      "location": "§V"
+    },
+    {
+      "claim": "Treating architecture as continuously evolving state rather than a one-shot plan is the source of the gains ('a paradigm shift')",
+      "evidence": "Supported to the extent that w/o Structural Evolution (initial architecture used as fixed) loses 5-13 pp pass rate under the same pipeline. But evolution stops before coding: after convergence 'the repository architecture is fixed', so this is plan refinement before execution, not evolution during generation as Fig. 1 suggests.",
+      "strength": "moderate",
+      "location": "§I, §II-D, §IV-B"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P37",
+      "stance": "supports",
+      "note": "The LLM emits the requirement DAG edges and the component dependency DAG, and the component DAG fixes package layout, exported symbols and dependency-ordered generation. Comparisons on the same backbone and shared downstream scaffold: vs RPG (a one-shot LLM planning graph), Paper2Code (staged planning) and mini-SWE-agent (plain loop), Repo0 wins coverage and pass on 3 repos x 2 models. The ordering ablation isolates the DAG's scheduling role (-30 pass on statsmodels, -6.7 django, 0 requests). Caveats: Python only, no variance, budget parity with mini-SWE-agent unreported, half the repos only in the supplement, and no parallel execution of DAG nodes."
+    },
+    {
+      "id": "P36",
+      "stance": "supports",
+      "note": "Narrow: the developer-defined part is the control logic, a fixed three-phase pipeline whose restructuring is triggered and terminated by deterministic cohesion/coupling thresholds. RQ3 compares this with the same model doing LLM-decided restructuring for 1/3/5 rounds, and the deterministic gate wins on all metrics. One repository, one backbone, no variance."
+    },
+    {
+      "id": "P10",
+      "stance": "contradicts",
+      "note": "mini-SWE-agent on the same backbones has the lowest or near-lowest pass rate in every Table II cell (e.g. 0.00 on statsmodels with GPT-5 mini). Its step and token budgets and its fit into the shared TDD scaffold are not reported, so this is weaker than a budget-matched comparison."
+    },
+    {
+      "id": "P13",
+      "stance": "supports",
+      "note": "Plan (requirement and component DAGs, convergence) then execute (TDD per component) beats both a plain loop and a one-shot planning graph on the same backbones and shared execution scaffold, with the planning-stage ablation (w/o Structural Evolution) losing 5-13 pp pass."
+    },
+    {
+      "id": "P34",
+      "stance": "supports",
+      "note": "Structured requirement decomposition with an explicit requirement-to-component alignment: removing neighbouring requirement context lowers pass rate on 2 of 3 repos (-10.0 django, -5.6 requests, 0 statsmodels) and coverage on all three (-4.6 to -12.8)."
+    },
+    {
+      "id": "P15",
+      "stance": "neutral",
+      "note": "Skeleton then tests then implementation per component, but all methods share the same TDD protocol, so test-first itself is not tested."
+    },
+    {
+      "id": "P16",
+      "stance": "neutral",
+      "note": "Import/interface/pytest checks drive localized repair in the shared scaffold for every method; not ablated."
+    },
+    {
+      "id": "P24",
+      "stance": "neutral",
+      "note": "Dollar costs are given against RPG only, and evaluation cost (up to $72.82 on django) dominates generation cost."
+    },
+    {
+      "id": "P31",
+      "stance": "neutral",
+      "note": "RepoCraft with paraphrased repository names; pass rate uses LLM-adapted ground-truth tests, cross-model between the two backbones. The Gold Project reaches only 94-96% pass, a measure of adaptation noise."
+    }
+  ],
+  "methodology": {
+    "sample": "RepoCraft: 6 Python repositories (requests, statsmodels, django in the body; scikit-learn, pandas, sympy in the supplement), with 50-236 evaluation tasks each; task descriptions revised by two engineers to remove structural cues.",
+    "baselines": "mini-SWE-agent (plain loop), Paper2Code (staged multi-agent), RPG (static repository planning graph, prior SOTA), Gold Project reference. Same backbones; shared downstream code-generation/TDD scaffold.",
+    "models": "GPT-5 mini and DeepSeek V3.2, temperature 0; each evaluates the other's outputs (cross-model semantic voting and test rewriting).",
+    "variance": "Repo0 averaged over 3 runs; no SD, CI or significance test; baseline run counts not stated.",
+    "ablations": "Four component ablations on 3 repos (one backbone, not stated); RQ3 metric-gated vs LLM-decided restructuring at 1/3/5 rounds on statsmodels/GPT-5 mini; a controlled check on action distributions (supplement).",
+    "contamination_controls": "Paraphrased repository names (inherited from RPG) and engineer-revised descriptions. The underlying projects (requests, django, pandas, ...) are among the most memorized Python codebases.",
+    "languages": "Python only"
+  },
+  "standards": {
+    "peer_review": "None stated (arXiv preprint)",
+    "limitations_section": true,
+    "artifacts": "Code, data, prompts and supplementary results at github.com/cslsolow/Repo0.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "single_language_python", "detail": "All six repositories are Python; the generality claim for other ecosystems is argued, not tested (§VI)."},
+    {"type": "contamination_risk", "detail": "Benchmark repositories are famous open-source projects; renaming reduces but does not remove leakage."},
+    {"type": "no_variance_reported", "detail": "Three-run means with no dispersion; several ablation deltas of 0-3 pp are within plausible run-to-run noise."},
+    {"type": "llm_judge_unvalidated", "detail": "Coverage matching, voting rate and test adaptation are LLM-performed; cross-model assignment mitigates self-preference but there is no human agreement check."},
+    {"type": "other:internal_inconsistency", "detail": "The django Repo0 row differs between Table II (80.50 coverage / 97.12 voting) and Table III (87.50 / 100.00)."},
+    {"type": "missing_cost_reporting", "detail": "Costs are only compared with RPG; the plain-loop baseline's cost and step budget are not reported."},
+    {"type": "hype_language", "detail": "'Paradigm shift', and 'continuous structural evolution' although the architecture is frozen before code generation."}
+  ],
+  "coi": {
+    "affiliations": "Shanghai Jiao Tong University; Chongqing University",
+    "vendor_products_evaluated": "None",
+    "funding": "Not stated",
+    "severity": "none",
+    "detail": "Academic authors evaluating their own method against academic baselines; no product interest."
+  },
+  "scores": {"rigor": 3, "reproducibility": 3, "generalizability": 2, "relevance": 2, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "The best DAG evidence in this batch. It has an LLM-generated dependency DAG, a same-backbone comparison against a plain loop and a strong one-shot planning graph with a shared execution scaffold, per-component ablations, and an isolating test of deterministic versus LLM-decided restructuring, with code released. Caveats: Python greenfield only, no variance, half the repositories outside the paper body, a table inconsistency, LLM-adapted evaluation, unreported budget parity for the plain-loop baseline, and RQ3 on a single repo and model.",
+  "applicability": "Greenfield generation of a whole repository is not the team's main work, which is evolving four existing Java repositories. The transferable answer to the DAG question is a division of labour. The LLM is useful for proposing the dependency DAG: requirement units, components, and which must exist before which. Deterministic rules should decide when that structure is accepted or changed: thresholds, a stop condition when no rule fires, and an explicit freeze before coding. Unconstrained LLM restructuring degraded results after one round. That matches qr's rule that the LLM proposes and a deterministic CLI verifies, commits or rejects. Dependency order mattered a lot on one repo and not at all on another, so the team should test it on its own cross-repo changes (for example shared model library before ingestion services before delivery API) before mandating it. The requirement-to-component alignment map fits spec-driven rollout as traceability from spec items to modules. For mixed hosts, the DAG and gates can live in committed files checked by CI rather than in any one host's runtime.",
+  "conflicts_with": [
+    {"arxiv_id": "2608.00267", "detail": "LoopsBench finds LLM-emitted plan DAGs match reference task DAGs poorly (Edge F1 0.27-0.71). Repo0 relies on LLM-labelled dependency edges and gains from ordering by them, but never measures the edges' accuracy against a reference graph, so its ordering gains may come despite noisy edges."}
+  ]
+}

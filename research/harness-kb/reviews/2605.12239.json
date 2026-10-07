@@ -1,0 +1,46 @@
+{
+  "arxiv_id": "2605.12239",
+  "contribution_type": "theory",
+  "summary": "A single-author preprint mapping the 'four pillars of agent externalization' (memory, skills, protocols, harness) onto the categorical Architecture triple (G, Know, Φ) from ArchAgents. Structural guarantees (integrity gates, quality-based escalation, convergence checks) are treated as Know-level certificates that survive compilation to Swarms, DeerFlow, Ralph, Scion and LangGraph by identity and verifier replay. The reference implementation is Operon (MIT). Evidence comes in three parts: certificate identity is preserved 3/3 on four compilers (by construction); one escalation run (Phi-3 Mini to Gemma 4 on a single code-review task) fires as designed; and a same-model SWE-bench-lite comparison of a direct prompt vs a three-stage workflow vs its LangGraph compilation resolves 0/10 in every arm with two local 8B models.",
+  "claims": [
+    {"claim": "The Architecture triple formalises harness engineering; the four externalisation pillars map onto its components.", "evidence": "A definitional correspondence (§3: memory as coalgebraic state, skills as operad-composed objects, protocols as wiring G, harness as the triple). No falsifiable prediction is derived or tested.", "strength": "weak", "location": "§3"},
+    {"claim": "Structural certificates are preserved under compilation to five frameworks.", "evidence": "§6.3 table: 3/3 certificates preserved across Swarms, DeerFlow, Ralph, Scion. The check is 'identity and verifier replay, not output-layer correctness or model behavior' (abstract), i.e. that the compiler copies theorem, parameters and source. LangGraph preserves them because every node calls the same run_single_stage() (§4.2). True by construction; it shows no behavioural property.", "strength": "moderate", "location": "§4.2-4.3; §6.3"},
+    {"claim": "The quality-based escalation control path is model-parametric (harness-level).", "evidence": "§6.2: one task (hard_par_08), two models, one run. The Gemma 4 judge scored Phi-3 Mini 0.50, below the 0.6 threshold, so ESCALATE fired. But the 'independent validation' in the same section scores Phi-3 Mini 0.72, above threshold, at which escalation would not have fired. The judge is the same model as the escalation target and is not validated. n=1.", "strength": "weak", "location": "§6.2"},
+    {"claim": "At 8B, diff-format discipline, not file selection, is the ceiling; a three-stage decomposition does not relax it, and reason-coded retry recovers nothing.", "evidence": "§6.4/6.4.1: 10 SWE-bench-lite instances (astropy, django) in the official Docker harness. Gemma 4 8B: baseline 1/10 evaluated, organism 0/10, LangGraph 0/10, 0 resolved. deepseek-r1:8b with retry: 0/30 evaluated, 0 retry-recovered, 26/30 empty_extraction. An honest negative, explicitly flagged as under-powered for comparing architectures.", "strength": "moderate", "location": "§6.4, §6.4.1; §7.2"}
+  ],
+  "patterns": [
+    {"id": "P36", "stance": "mixed", "note": "Formalises static workflow graphs (stages, gates, watcher interventions, fork/join parallel groups) and compiles one definition to five frameworks, with structural certificates preserved by construction. Same-model outcome comparison (§6.4): direct single prompt vs a three-stage localize->edit->verify workflow vs the same workflow as a LangGraph StateGraph, gemma4 8B, 10 SWE-bench-lite instances. 0 resolved in every arm. The plain prompt produced the only harness-reaching patch (1 vs 0), and in the earlier run the staged workflow added 4 empty patches (a 'discipline tax'). There is a floor effect and the authors call it under-powered, but the static graph does not beat the plain prompt at matched model and budget."},
+    {"id": "P23", "stance": "introduces", "note": "Verifier-threshold escalation from a fast to a deep model is a cascade primitive. Single-task, single-run demonstration whose judge score (0.50) conflicts with the paper's own independent score (0.72) for the same model."},
+    {"id": "P18", "stance": "neutral", "note": "A rubric-based Gemma 4 judge gates escalation to Gemma 4 itself. Unvalidated, with possible self-preference, and inconsistent with the paper's independent scoring."},
+    {"id": "P17", "stance": "contradicts", "note": "Static diff sanitizer plus a reason-coded retry (placeholder_hunk, path_not_found, ...) recovered 0 of 30 rejected submissions with deepseek-r1:8b. The authors scope this to 8B local models that 'cannot format at all'; stronger models are untested."},
+    {"id": "P30", "stance": "neutral", "note": "Per-stage LangGraph nodes give LangGraph Studio observability without reimplementing logic."},
+    {"id": "P31", "stance": "neutral", "note": "SWE-bench-lite, 10 Python instances, used only as an end-to-end probe; null result."}
+  ],
+  "methodology": {
+    "sample": "Certificate check: 3 certificates x 4 compilers. Escalation: 1 task. SWE-bench-lite: 10 Python instances (astropy, django) x 3 conditions x 2 models.",
+    "baselines": "Direct single prompt for SWE-bench-lite (reasonable, same model). None for escalation or certificate preservation.",
+    "models": "Phi-3 Mini 3.8B and Gemma 4 for escalation; gemma4 8B Q4_K_M and deepseek-r1:8b Q4_K_M via Ollama for SWE-bench-lite, with pinned digests.",
+    "variance": "Single runs; no repeats or CIs.",
+    "ablations": "Grounding/sanitizer on vs off (2026-04-16 run vs rerun); retry on (Phase C).",
+    "contamination_controls": "None discussed; floor-level results make contamination moot here.",
+    "languages": "Python only (SWE-bench-lite); the framework is Python."
+  },
+  "standards": {"peer_review": "None (preprint, 'feedback welcome').", "limitations_section": true, "artifacts": "Operon open source (MIT, github.com/coredipper/operon, operon-ai on PyPI); SWE-bench result JSONs and model digests recorded.", "preregistration": "n/a"},
+  "biases": [
+    {"type": "small_sample", "detail": "Escalation is n=1 task; SWE-bench-lite is 10 instances."},
+    {"type": "self_evaluation", "detail": "Single author, single reference implementation (Operon), with the author's own certificate checks."},
+    {"type": "llm_judge_unvalidated", "detail": "The Gemma 4 judge decides escalation to Gemma 4. Its 0.50 score for Phi-3 Mini disagrees with the paper's own 0.72 independent score."},
+    {"type": "metric_mismatch", "detail": "'Certificate preservation' checks identity/replay of theorem, parameters and source, which the compilers copy by construction. It says nothing about agent behaviour."},
+    {"type": "toy_tasks", "detail": "One code-review task for the escalation claim; local 8B models that resolve no SWE-bench-lite instance."},
+    {"type": "no_variance_reported", "detail": "Every experiment is a single run."},
+    {"type": "single_language_python", "detail": "SWE-bench-lite Python repositories only."}
+  ],
+  "coi": {"affiliations": "Single independent author.", "vendor_products_evaluated": "The author's own open-source Operon framework.", "funding": "Not stated.", "severity": "low", "detail": "No vendor interest. The author grades his own framework, partly offset by publishing a negative end-to-end result."},
+  "scores": {"rigor": 1, "reproducibility": 3, "generalizability": 1, "relevance": 2, "coi_risk": 1},
+  "verdict": "reject",
+  "verdict_reason": "The paper's formal correspondence is definitional, and its empirical support is thin: certificate preservation holds by construction, the escalation claim rests on one task and one run with a judge score the paper's own independent validation contradicts, and the only end-to-end comparison is a 0/10 floor result. The abstract's 'positions categorical architecture as the formal theory behind harness engineering' is not earned by this evidence. The SWE-bench-lite negative is honest and worth noting, but it is about 8B format capability, not about harness theory.",
+  "applicability": "For the Java team's DAG question the useful content is engineering, not theory. First, define a workflow once and compile it to each framework or host, with every graph node calling the same per-stage function. The author's first attempt to reimplement stage logic natively in LangGraph took 10 review rounds to reach parity. For mixed hosts (Cursor, Claude Code, Codex, Hermes), that argues for one canonical stage runner with thin host adapters, not a per-host graph. Second, at matched model and budget, a three-stage localize/edit/verify graph did not beat a direct prompt on SWE-bench-lite, and decomposition added a format 'tax' with weak models. A static graph is not a free win; measure it against a plain agent on the team's Java tasks. Third, formatting retry loops do not rescue a model below the capability line. Pick a model that can already produce clean diffs before adding retry scaffolding.",
+  "conflicts_with": [
+    {"arxiv_id": "2609.00050", "detail": "That paper reports large completion gains from an author-defined graph plus bounded repair loop with frontier models. Here a static three-stage graph gives no gain over a direct prompt at 8B, which suggests the benefit of a static workflow depends on model capability (consistent with RA-MoWE and OOPMAS, where fixed vs generated rankings also flip with model strength)."}
+  ]
+}
