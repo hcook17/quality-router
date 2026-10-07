@@ -1,0 +1,13 @@
+{"arxiv_id": "2607.16387",
+ "blind_scores": {"rigor": 3, "reproducibility": 4, "generalizability": 2, "relevance": 3, "coi_risk": 1},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "agree",
+ "claims_disputed": [],
+ "pattern_stance_changes": [],
+ "missed_issues": [
+  "The AdaMAST arm itself drifts across experiments by as much as the claimed effect. On TheoremQA it scores 65.0±4.3 in Table 1/C.1 but 56.7% (3 seeds) in the I.2 feedback-form diagnostic, below the free-form-reflection mean of 60.0 in C.1. The review noted only the baseline drifting (60.0 vs ~46.7). Budgets differ across appendices, so only within-experiment paired gaps are comparable.",
+  "App. E.2 has a significant negative result the review omits. Forcing the consumer LLM to apply the taxonomy code-by-code before its verdict lowers balanced accuracy by 0.13-0.24 (p≤.006, both consumers, every N), because it calls successful runs failures. Ranking is preserved (AUC 0.87-0.92). This is direct evidence about checklist-driven LLM judging (P18), and it justifies keeping P18 at mixed.",
+  "Naming a failure mode in the runtime checklist did not suppress it. The most frequent Claude Code code, B.7 'Verify partial run misreported as success', fired 23/50 under AdaMAST vs 21/50 under Base, and B.2 'patch lacks test updates' rose 7→11 (Table 32, single seed). Under SWE-agent, C.1 'ad-hoc validation only' persisted (14 vs 12). The runtime gain comes from fewer verification-phase slips such as syntax and import errors, not from the dominant failure modes.",
+  "The Claude Code gain is a reliability gain, not new capability. No instance is resolved by AdaMAST in all three seeds while Base resolves it in none, and the reliably resolved set is 28 vs 27 (H.3). No paired test is reported for the 3-seed result. The one test given, for OfficeQA, is p≈0.10."
+ ],
+ "note": "I agree with admit_with_caveats and with every claim strength. The search-feedback claim stays moderate on the strength of within-experiment paired gaps across 5 benchmarks and a Gemini replication, despite single runs on the two large sets. I would rate generalizability 2 rather than 3, since the coding evidence is two Python repositories plus shell tasks. There are no stance changes. P26 supports holds on held-out sets. P18 mixed is warranted by App. E.2. P36 neutral is correct: the paper starts from a static workflow but never compares it with a loop."}

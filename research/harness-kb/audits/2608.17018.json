@@ -1,0 +1,28 @@
+{
+  "arxiv_id": "2608.17018",
+  "blind_scores": {"rigor": 3, "reproducibility": 1, "generalizability": 3, "relevance": 2, "coi_risk": 0},
+  "blind_verdict": "admit_with_caveats",
+  "blind_coi_severity": "none",
+  "agreement": "minor_disagreement",
+  "claims_disputed": [
+    {
+      "claim": "ORCA outperforms all baselines on synthetic code and configuration faults.",
+      "proposed_strength": "weak",
+      "reason": "Table II does not support the blanket form. On OB-Python ORCA ties AutoCodeRover on C1 (96 vs 96) and leads C2 by 58 vs 56 in a single T=0 run (§V-D1 itself says only 'matches' on validity). On config, File hit is 207 for ORCA vs 218 Direct / 215 One-Shot. The validity gaps vs Direct/One-Shot/ReAct (1-41 valid diffs despite 149-218 File hits) mostly reflect ORCA's exact-match search/replace edit format (§IV). Agentless scores 0 valid because its edits target paths that do not match the injection workspace (§V-D1), which is an integration failure. mini-SWE-agent emits only 63/200 code patches at low reasoning effort with an SWE-bench prompt (§V-B). The config margin over mini-SWE-agent (213 vs 177 C1, 210 vs 174 C4m) is the only part that clearly holds."
+    }
+  ],
+  "pattern_stance_changes": [
+    {"id": "P16", "from": "supports", "to": "neutral", "reason": "TGPV runs once after Merge (Algorithm 1, line 6), and its result is neither fed back to any agent nor used to choose among candidates. It is the evaluation instrument that produces C1-C4 for every arm, so no verifier-loop vs no-verifier comparison exists."},
+    {"id": "P30", "from": "supports", "to": "mixed", "reason": "All baselines receive the same fault signature (§V-B), so the cross-system results do not vary telemetry. The only test, the §V-H ablation, removes the signature and the issue context together (File hit 49->8, C1 113->40). §V-D1 reports that TT-Java value faults show no separable telemetry difference. As a verifier signal, telemetry replay credits 14/45 mitigations the authors do not confirm, and C4-mitigated passes on any decrease (§IV)."},
+    {"id": "P13", "from": "supports", "to": "neutral", "reason": "There is no planner. Routing is a fixed rule-based dispatcher (Algorithm 1, tau=0.60 on SBFL score), which is the P36 static-workflow pattern the review already tags with the same mini-SWE-agent comparison. Keeping P13 as supports counts one result twice."},
+    {"id": "P24", "from": "supports", "to": "neutral", "reason": "Tokens and time are reported per case, but no budget or cap is varied as a mechanism. The one cost knob tested, Exploration run count N (§V-F, 40 cases), shows a trade-off: N=1 is 2.8x cheaper but File hit drops 10->4 and C1 35->28. The bounded-call vs open-loop cost gap belongs to the P36 comparison."}
+  ],
+  "missed_issues": [
+    "Synthetic config localization is near-trivial: Direct (fault signature only, no candidates, one call) gets 218/225 File hits vs ORCA's 207 (Table II). ORCA's config advantage is producing applicable edits, not telemetry-grounded localization.",
+    "C2 on OB-Python only checks that the patch restores the mutated method against the pre-injection reference (§IV). This is an inverse-of-mutation match, not a behavioural test, and it is the main code-correctness metric for half the code subset.",
+    "C4-mitigated passes if the patch applies, deploys and the failure-side signature decreases at all (§IV). This is the cross-baseline headline telemetry metric, and the manual 31/45 'fault-addressing' check was done by the authors with no second rater or agreement statistic.",
+    "On synthetic code, 123/200 cases are routed to the Exploration agent, an interactive tool loop with a 15-step budget (§V-D1). For code faults ORCA is therefore mostly an agent loop seeded with SBFL candidates, and the bounded-single-call story applies to 77/200.",
+    "Multi-run voting (§V-F) raises File hit 4->11 and C1 28->35 on the 40 exploration-routed cases, but C4 stays flat at 7-8. Extra exploration improves localization proxies without improving telemetry mitigation."
+  ],
+  "note": "The verdict and scores mostly match the blind read; the review's P36 retag holds, since it is measured against an open mini-SWE-agent loop on the same model and inputs and wins with caveats. P30, P16, P13 and P24 were tagged supports for features the paper only uses, reports, or tests jointly with issue text. The synthetic 'outperforms all baselines' claim fails on OB-Python vs AutoCodeRover and on config File hit."
+}

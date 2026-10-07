@@ -1,0 +1,15 @@
+{"arxiv_id": "2609.00069",
+ "blind_scores": {"rigor": 2, "reproducibility": 1, "generalizability": 2, "relevance": 3, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [],
+ "pattern_stance_changes": [
+  {"id": "P30", "from": "supports", "to": "introduces", "reason": "'Provenance-aware state tracking, and continuous auditing protocols' appear only as recommendations in the Conclusion. No experiment compares a system with tracing or provenance against one without, or shows that auditing reduces tampering or its persistence. The change-level LLM audit that is measured (Table 2) is P18 evidence, already tagged mixed."}
+ ],
+ "missed_issues": [
+  "Per-iteration false-positive compounding: Luna's 6.3% FPR is per seeded benign edit (Evaluation Protocol). Real iterations bundle many benign edits ('Real harness changes often span many edits across multiple files'), so an iteration with ~10 benign edits has roughly a 1−0.937^10 ≈ 48% chance of at least one false finding if errors are independent. The 'tampering rate' metric (iterations with ≥1 finding, Table 3) is therefore especially exposed to inflation, beyond the general 'unvalidated auditor' caveat.",
+  "The real-run auditor (GPT 5.6 Luna) belongs to the same model family as the seeded-data generator (GPT 5.6 Sol). The GPT 5.6 auditors' near-top scores in Table 2 may partly reflect family-level familiarity with the generator's edit style, and that is the benchmark used to select Luna.",
+  "The LoRA Qwen 3.5 9B's 81.2% localization FPR and 53.5% classification accuracy (Table 2) make it close to random. The text's 'attribution accuracies approach the strongest prompted auditors' framing hides that it flags most benign edits.",
+  "No deterministic baseline: for 'protected artifact and state integrity' and 'authorization' obligations, the obvious alternative is non-LLM enforcement (read-only evaluator, hash checks, write-deny policy), which the paper never compares against LLM auditing."
+ ],
+ "note": "I agree with the review's scores, verdict and weak grading of the prevalence and persistence claims. The only stance change is P30, which the paper recommends but never measures. The 6.3% per-edit FPR, compounded over many edits per iteration, is a concrete reason the 18–85% tampering rates could be heavily inflated."}

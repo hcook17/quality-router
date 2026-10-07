@@ -1,0 +1,18 @@
+{"arxiv_id": "2608.16742",
+ "blind_scores": {"rigor": 3, "reproducibility": 3, "generalizability": 2, "relevance": 3, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [],
+ "pattern_stance_changes": [
+  {"id": "P16", "from": "supports", "to": "mixed", "reason": "The review credits 'Reflect' to execution feedback, but the Reflect arm has no run_tests tool and gets no execution feedback at all (Table 16 prompt). The arm that adds an execution loop over frozen self-written tests, Single-track (Table 17), scores below no-execution Reflect on GPT (70.11 vs 72.09) and DeepSeek (79.56 vs 81.53) (Table 4). The loop helps only once the agent may also rewrite its tests, and the dominant failure is a self-consistent but wrong code/test pair (Fig. 6)."},
+  {"id": "P10", "from": "supports", "to": "neutral", "reason": "No multi-agent or role-split baseline is run (AgentCoder is only cited, §1). The agent baseline, mini-SWE-agent, is itself a single-agent linear loop (§3.3). The paper therefore never compares a single-agent loop with an alternative architecture; it only uses one."}
+ ],
+ "missed_issues": [
+  "The 'credit assignment problem rate' (3.0–8.1%, App. C Table 11) has no stated detection procedure: who decided that the agent fixed correct code to pass a hallucinated test, or the reverse, and how. The '<10%' half of the failure claim is unverifiable.",
+  "There is no test-after arm (code first, then co-refined tests). The ordering in 'test-first' is never isolated from 'having mutable executable tests in the loop', and the only ordering evidence is TDD-iter1 vs Vanilla (+1.5 to +2.9, single run).",
+  "Iteration budgets for the Reflect and Single-track arms are not stated (Tables 16–17 just say 'iteratively'), so the Table 4 gaps may partly reflect different numbers of rounds.",
+  "The mini-SWE-agent baseline looks misconfigured for GPT-5-mini (61.31 vs 84.18 with DeepSeek; App. A sets reasoning_effort=minimal, max_tokens=4096). The paper does not say whether its bash tool could read or run the repository's own tests, which TDD-Agent is barred from (§2.2).",
+  "Wall-clock overhead is large: 48.4 s vs 26.7 s per task on Qwen (+81%, App. C Table 10). The review cites only the token parity at iter5.",
+  "Generalizability of 1 is slightly harsh: 8 Python repos with 455 problems is 'several repos, one language' (2)."
+ ],
+ "note": "I agree with admit_with_caveats and with the review's sharp reading that the tool-equipped Vanilla already beats mini-SWE-agent. P16 should be mixed, because Reflect has no execution feedback and frozen-test execution loses to it on two of three models. P10 has no multi-agent comparison."}

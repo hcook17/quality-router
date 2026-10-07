@@ -1,0 +1,17 @@
+{"arxiv_id": "2605.08927",
+ "blind_scores": {"rigor": 2, "reproducibility": 1, "generalizability": 1, "relevance": 1, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [],
+ "pattern_stance_changes": [
+  {"id": "P35", "from": "supports", "to": "mixed", "reason": "Both arms are formal methods; there is no non-formal alternative (e.g., test-only acceptance) for the pattern to beat. Within P35 the paper finds that full verified generation costs ~8–25× more agent time and tokens (Table 1), produces slower code (Table 2: VF vs CC opt) and makes the agent repeatedly cut optimization scope (§5.1–5.2). The paper shows feasibility plus measured costs, which is mixed rather than a win."},
+  {"id": "P16", "from": "supports", "to": "mixed", "reason": "The 'cheap path' is a formal certificate checker (translation validation), not a test/compile feedback loop, and it is compared only with full proofs at n=1. Counting the proof-bearing checker updates (CU rows) cuts the effort advantage to 3.5–4.3× (§4.1). Certificate checking also dominates compile time on every Livermore kernel (Table 2 chk), and the checker rejected correct certificates until it was patched (§5.1). No arm uses no checker or test-only checks."}
+ ],
+ "missed_issues": [
+  "other:order_confound: §3 implements the CC version of each optimization before the VF version, and VF sessions include supervisor-directed removal of agent scope cuts (§5). VF effort therefore reflects supervisor policy as well as proof difficulty, and the VF arm reuses an algorithm already worked out in the CC arm.",
+  "The §11 initial prompts do not match the conditions. The 'CP VF' prompt repeats the CP CC prompt word for word ('uses credible compilation… generates a certificate'), and the 'UCE+DAE CC' prompt says 'The current pass is verified; verify the correctness of the updated pass'. Either the prompts are mislabeled or the conditions were not set up as described.",
+  "The arms are not functionally equivalent: UCE+DAE VF in Table 2 does not remove transitively dead assignments, while CC does (§3, §5.2). The effort comparison therefore covers different functionality.",
+  "Effort metrics count agent-side 'active time' only. The human supervisor's wall-clock time is not measured, although the headline says verification 'required substantially more supervision'. Only the prompt counts reflect supervisor effort.",
+  "§4 says these optimizations give no runtime speedup in isolation, so Table 2 measures compile-time overhead only, not the quality of the optimized code."
+ ],
+ "note": "I agree with admit_with_caveats and with the review's claim grades. The two supports stances are inflated: each 'win' is one formal variant beating another at n=1, with costs on both sides, and the appendix prompts are mislabeled, which weakens the condition labels. For the Java team this is at most an analogy (cheap trusted checker over untrusted agent output)."}

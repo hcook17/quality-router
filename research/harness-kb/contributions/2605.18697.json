@@ -1,0 +1,20 @@
+{
+  "arxiv_id": "2605.18697",
+  "contributions": [
+    {"kind": "nuance",
+     "statement": "Do not adopt a graph or state-machine agent framework to get parallelism. Such frameworks only parallelize fan-out that you restructure into explicit parallel nodes, so a loop-heavy orchestration ported as-is ran about 2-3x slower than the same calls dispatched concurrently from ordinary code. Choose a workflow graph for checkpointing, gates or audit, and run independent per-item LLM or retrieval calls on a bounded executor in plain code.",
+     "evidence": "§8.2 Fig. 7 with Tables 1-2: on 5 human-written workflows (gpt-5.6-luna, medians of 10 trials), PopPy's geomean speedup over LangGraph, ADK, LlamaIndex Workflows/Query Pipelines, MAF, Haystack and Hamilton was 2.0-3.2x, and hand-written asyncio was 17.2% faster than PopPy. Frameworks matched or slightly beat PopPy only on ReliableRagQA, whose parallelism is a static fan-out. Audit: framework versions are the authors' structure-preserving ports, latency is the only outcome, and there is one model and no artifact.",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["P36 static workflow graph frameworks", "concurrent dispatch of independent I/O-bound calls (pre-2026 practice)"],
+     "transfers": "indirect"},
+    {"kind": "design_pattern",
+     "statement": "When parallelizing an LLM orchestration, classify every external call as unordered (LLM, embedding, stateless HTTP), read-only, or sequential (store writes, git, tickets, logs), and treat any unclassified call as sequential. Independent calls can then run as soon as their inputs are ready while side effects keep their original order.",
+     "evidence": "§6.1-6.2: @unordered/@readonly/@sequential annotations with runtime concurrency controllers, and unannotated calls default to sequential. §8.4 Fig. 9: speedup rises from 1.5x to 10.8x (MedicalAdvice) and from 2.4x to 9.8x (MathSolver) as fan-out grows from 1 to 20. The semantics guarantee is a proof sketch over a prior calculus, and the empirical equivalence check is not described.",
+     "strength": "weak", "novelty": "refines",
+     "relative_to": ["effect annotations for safe parallelization in PaSh/POSH-style systems (pre-2026)"],
+     "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "One measured boundary condition on P36 survives: graph frameworks do not buy latency unless the work is restructured into explicit fan-out, and plain concurrent dispatch is faster. It is Python-only, latency-only and based on author-ported baselines, so it transfers indirectly. The annotation pattern is sound practice but weakly evidenced."
+}

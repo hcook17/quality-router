@@ -1,0 +1,17 @@
+{"arxiv_id": "2607.00555",
+ "blind_scores": {"rigor": 2, "reproducibility": 1, "generalizability": 1, "relevance": 1, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [],
+ "pattern_stance_changes": [
+  {"id": "P17", "from": "supports", "to": "neutral", "reason": "P17 is static or linter feedback inside an agent loop. Phoenix is a standalone LLM bug-finder whose alarms go to human triage (§III-E, §IV-D), and no coding agent consumes its output. The only static comparison is against Bandit and the Clang Static Analyzer (Table II), and those conventional analyzers score 99-100% FP on this bug class. So the paper gives no evidence on in-loop static feedback, and if anything it shows generic linters are useless here."}
+ ],
+ "missed_issues": [
+  "P05 'supports' is kept, but its ablation (Table IV, w/o ERG) compares grounded retrieval with no code context at all. It shows that grounding cuts hallucinated bridges; it says nothing about lexical versus embedding or graph retrieval, which is the harness decision P05 informs.",
+  "The ablation counts are single runs. The 10 SBIR repeats per item (§IV-A) widen sampling rather than measure variance, so small deltas such as w/o summary 27 vs 31 bugs cannot be separated from LLM nondeterminism.",
+  "hype_language: the abstract says '31 real new bugs', but only 26 are maintainer-confirmed (Table III). The other 5 are 'real' on the first two authors' judgment, which makes the 13.89% FP rate a lower bound (10/36 = 27.8% if the unconfirmed are counted as false).",
+  "Fuzzer comparison (Fig. 7): there is no time or compute budget, no version window, and no statement on whether fuzzer-found bugs were triaged or confirmed by the same standard. The overlap analysis may therefore compare unequal efforts.",
+  "Total SBIRs generated (56 items × 10) and how they were deduplicated into 36 alarms are not reported, so the work behind each alarm is unknown.",
+  "Scope: this is DL-framework bug finding, not agentic coding-harness design, which limits its weight for harness decisions."
+ ],
+ "note": "I agree with admit_with_caveats; the maintainer-confirmed, merged patches are real external evidence. However, P17 'supports' misreads a standalone LLM bug-finder as in-loop static feedback, and P05's ablation tests grounding against nothing rather than against another retrieval method."}

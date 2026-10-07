@@ -1,0 +1,15 @@
+{"arxiv_id": "2609.39154",
+ "blind_scores": {"rigor": 4, "reproducibility": 4, "generalizability": 3, "relevance": 2, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [],
+ "pattern_stance_changes": [
+  {"id": "P08", "from": "supports", "to": "mixed", "reason": "The in-architecture evidence is one greedy pass of an ablation the paper never defines. Table 2 lists 'w/o QueryDoc' and 'w/o Selective Propagation', but no section says what replaces the QueryDoc (full transcript, bare sub-answer, or nothing), so it is unknown whether this tests compaction against full context. The paper's own linear baselines cut the other way. Same backbone and tools, the Summary agent (32K x N) beats ReAct-109K at Qwen3-8B but loses on GAIA and xbench at 32B (36.9 vs 39.8, 55.0 vs 58.0) and at 235B (52.4 vs 57.3, 60.0 vs 64.0) (Table 1)."}
+ ],
+ "missed_issues": [
+  "The applicability text merges two variants. 'Committing a full DAG from the spec upfront performed no better than a plain agent loop' is the single-upfront-plan ablation (43.7 overall, Table 2), and its token cost is never reported. 'Wasted 40% more tokens than incremental growth' is the Plan-then-Patch variant (Table 10), which scored 51.2, above every plain loop. No variant was measured as both no better than a loop and 40% costlier.",
+  "The upfront-plan DAG (43.7 overall at Qwen3-32B) is slightly below the best linear context-managed agents on the same backbone: Fold 46.3 and Flash-Searcher 47.1 by the same unweighted mean. So an LLM-planned DAG without evidence-conditioned growth is at best a wash against a good linear loop.",
+  "GAIA is scored with an LLM equivalence prompt that replaces GAIA's quasi-exact-match (App. C.5). That compounds the cross-paper problem in the GPT-5 comparison (Fig. 4), where baseline GAIA numbers come from other papers' scoring.",
+  "In the Plan-then-Patch variant every patch node is wired to the answer node by construction (App. D.2). Its higher off-chain ratio is therefore partly a construction artifact, as the authors concede, not a measured planning inefficiency."
+ ],
+ "note": "Minor disagreement. I would keep admit_with_caveats rather than admit: every training-free number, including the planning-policy ablation that carries the DAG-vs-loop story, is one greedy pass on 100-150 items, and loop-baseline costs are missing. P37 supports is right when scoped. On the same backbone and tool stack, incremental DAG growth beats plain, summary and fold loops by 5-16 points, with the sign replicated across six backbones. The key nuance the KB should carry is that the DAG itself is not the win: the upfront-planned DAG ties a linear loop, and only evidence-conditioned growth pulls ahead."}

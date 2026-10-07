@@ -1,0 +1,17 @@
+{"arxiv_id": "2606.05339",
+ "blind_scores": {"rigor": 3, "reproducibility": 4, "generalizability": 3, "relevance": 2, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "Taxonomy of 11 categories / 27 subcategories / 73 leaf types from 833 fault threads.", "proposed_strength": "moderate", "reason": "§4.6: kappa 0.938 was measured only in Round 5, after the same two coders had jointly built and reconciled the codebook over four rounds; there was no independent third coder. 'No new structural categories emerged' comes from reclassifying already-coded threads, not an incremental saturation analysis. §5 exemplars also include projects that are not MCP servers (apache/apisix logging plugin, cherry-studio client, langgraphjs stream.stop, browser-use timeouts, openinference tracing), and 'Model Provider Integration' is a host/client concern, so the 'MCP server runtime fault' boundary is blurred."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P04", "from": "mixed", "to": "neutral", "reason": "This is a descriptive fault taxonomy of MCP-related repositories, with no comparison against another integration approach and no measurement of agent outcomes. Nothing in it is positive evidence for MCP as an integration layer, so 'mixed' implies a balance that is absent."}
+ ],
+ "missed_issues": [
+  "A second internal inconsistency: §6 'Risk-based prioritization' cites Schema Compatibility practitioner confirmation as 69%, but Table 1 gives 58%. State & Configuration is reported as both 17.1% and 17.2% of 833.",
+  "Table 1 Yes% values average 43.5%, i.e. ~11.7 of 27 subcategories per respondent. This confirms the abstract's '20 of 27' cannot come from Table 1 as presented.",
+  "Survey items are yes/no recognition prompts with no distractor/control items, so a ≥25% recognition floor cannot discriminate real fault classes from plausible-sounding ones (acquiescence bias).",
+  "Corpus scope creep: 'MCP server' repositories include gateways, clients, tracing libraries and agent frameworks (§5 exemplars), so some categories (Model Provider Integration, Configuration Handling via apisix) may not be MCP-server faults."
+ ],
+ "note": "I agree with admit_with_caveats and with marking the abstract's survey claim unsupported. I downgrade the taxonomy-construction claim from strong to moderate because kappa was measured after joint consensus rounds and the corpus scope is blurred. P04 should be neutral: this is a fault catalogue, not evidence for or against MCP."}

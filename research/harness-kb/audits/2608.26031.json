@@ -1,0 +1,13 @@
+{"arxiv_id": "2608.26031",
+ "blind_scores": {"rigor": 3, "reproducibility": 1, "generalizability": 3, "relevance": 2, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "agree",
+ "claims_disputed": [],
+ "pattern_stance_changes": [],
+ "missed_issues": [
+  "Reporting inconsistency: Table 10 lists RepoQA as 200 queries in Python, C++ and Java, and §4.5 text says 'across Python, C++, and Java'. Yet Table 5 reports five languages, including Rust and TypeScript, with values such as 99%. The per-language sample size behind the LLM-transfer claim is therefore unclear, and plausibly ≤100 items per cell, single run.",
+  "The review's applicability advice to 'prefer deterministic lexical/AST/LSP retrieval' as the safer primary source is not tested here. No lexical retriever is evaluated, and the query-token-similarity term (§3.4, Table 7) deliberately injects query-like vocabulary into identifiers, which would plausibly raise BM25/grep scores too. The paper supports 'embedding retrieval is poisonable', not 'lexical retrieval is safer'.",
+  "Threat-model strength: the per-query attacks assume the attacker knows the target query and can place code in the indexed corpus. App. E.4 tests paraphrase transfer only. For a private first-party Java corpus, this needs a malicious committer or a poisoned dependency, which limits direct risk to the team.",
+  "The attack output is best-of-5 iterations plus the original, selected on the surrogate (§4 preamble), so the surrogate-side 'improved' counts are non-negative by construction. The transfer rows are the informative ones."
+ ],
+ "note": "I agree with admit_with_caveats and with all scores within one point (I rate reproducibility 1 because the attack code is withheld). The P06 contradicts stance is fair as robustness evidence. The applicability's recommendation of lexical retrieval goes beyond the evidence, and the RepoQA sample is inconsistently described."}

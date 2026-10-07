@@ -1,0 +1,31 @@
+{
+  "arxiv_id": "2609.38294",
+  "contributions": [
+    {
+      "kind": "heuristic",
+      "statement": "Search or pick one workflow per task type offline and serve it to every request rather than searching a workflow per incoming request: per-request search returned workflows costing 1.1-11.6x the tokens and 1.1-6.6x the sequential calls per problem with no better best-case quality, and it overfit the request's own paraphrases.",
+      "evidence": "§5 / Table 5, six benchmarks, same base model and search budget: query-level vs task-level inference cost (e.g. SWE-Bench 115.3k vs 102.7k tokens, 7.36 vs 6.53 calls; MBPP 20.1k vs 2.1k tokens); rho_HV as low as 0.28 vs >=0.66, though the two modes use different held-out notions (audit). Fig. 6 compares the best value over 11 served workflows per mode, a max-over-set (audit). Echoes Wang et al. 2026b.",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": [
+        "2606.22902 static best-per-task-category table performs about as well as an LLM router",
+        "Wang et al. 2026b: a few top-ranked task-level workflows cover as many queries as a per-query generator"
+      ],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "test_practice",
+      "statement": "When certifying an LLM workflow, measure paraphrase robustness and repeated-run consistency as separate checks, since one did not reliably predict the other outside code repair.",
+      "evidence": "§4 Objectives and metrics: correlation between robustness and consistency over 132 served workflows is 0.63 overall, ranging from -0.13 on GPQA to 0.87 on SWE-Bench; for code repair the two tracked closely, so the gain for a coding team is limited.",
+      "strength": "weak",
+      "novelty": "refines",
+      "relative_to": [
+        "2608.11386 measure repeated-run consistency (pass^k), not only pass rate"
+      ],
+      "transfers": "indirect"
+    }
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "The Pareto-search method itself is a benchmark contribution, but its side-by-side of per-request versus per-task workflow search gives a measured cost penalty for generating workflows per request, which bears directly on whether to let a planner emit a fresh DAG per ticket."
+}

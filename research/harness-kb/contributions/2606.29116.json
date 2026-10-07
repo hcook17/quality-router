@@ -1,0 +1,26 @@
+{
+  "arxiv_id": "2606.29116",
+  "contributions": [
+    {"kind": "heuristic",
+     "statement": "When adopting a public n8n-style workflow template that calls an LLM, assume it has no human gate and no LLM-specific error path before external writes, and add both before use.",
+     "evidence": "§3.4-3.5 Tables 5-6: 68.32% of 6,003 public templates let LLM output reach an external action through logic or directly, 2.78% have a detected human-mediated path, and 684 have error handling traceable to an LLM node. The detector's validation is unquantified, and 'logic' includes data-shaping nodes. Prevalence only, with no effect on failures measured.",
+     "strength": "moderate", "novelty": "restates_known",
+     "relative_to": ["P19 human approval before side-effecting actions (pre-2026 practice)", "review third-party automation before deployment"],
+     "transfers": "indirect"},
+    {"kind": "design_pattern",
+     "statement": "Give every approval step for LLM-generated output explicit approved, rejected and timed-out branches, with escalation on timeout.",
+     "evidence": "§4.1 Takeaway 2, drawn from a single public template (#13849). Not measured.",
+     "strength": "unsupported", "novelty": "restates_known",
+     "relative_to": ["BPM approval-task timeout and escalation patterns (pre-2026)"],
+     "transfers": "indirect"},
+    {"kind": "nuance",
+     "statement": "JSON repair, schema normalisation and duplicate checks after LLM extraction contain malformed output but do not establish that extracted values match the source.",
+     "evidence": "§4.2 Takeaway 5, from one invoice-extraction template (#7773). Not measured.",
+     "strength": "unsupported", "novelty": "duplicates",
+     "relative_to": ["2609.22222 schema-valid executable answers were silently wrong about one in five times"],
+     "transfers": "indirect"}
+  ],
+  "quantity_flags": ["numbers_without_mechanism", "position_without_evidence"],
+  "proposed": "drop",
+  "reason": "The census measures how often public templates contain gates and error paths, but never whether they change failures. Its actionable advice (gate side effects, add timeouts, do not trust schema checks for correctness) is established practice or already shown better elsewhere in the KB. Nothing here changes a harness decision for the team."
+}

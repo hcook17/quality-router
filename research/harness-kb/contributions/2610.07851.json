@@ -1,0 +1,43 @@
+{
+  "arxiv_id": "2610.07851",
+  "contributions": [
+    {
+      "kind": "test_practice",
+      "statement": "Before adopting a multi-step or routed workflow bank, run a single-call chain-of-thought control with the same executor on the same queries: here the generated bank at 2.1 calls per query tied single-call CoT, and the searched global workflow scored below a direct prompt in every regime.",
+      "evidence": "§3.3 Fig. 3 / Table 5: Guided-B 0.3358 at 2.113 calls/query vs single-call CoT 0.3295 at 1 call, gap CI [-0.0158, 0.0289]. Table 1: global comparator D .2722/.5381/.1750 and AFlow .2722/.5381/.1900 vs Direct .2872/.5694/.2000. Guided bank ran on a different endpoint than Table 1 and reused validation outcomes (audit).",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": [
+        "2608.08265 report the router's held-out gain over the best single model",
+        "2609.38345 equal-budget single-agent baseline before crediting a multi-agent design"
+      ],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "nuance",
+      "statement": "A text-only predictor that routes each request to a workflow can collapse onto one choice, so check the assignment distribution before trusting oracle-routed gains: here it sent 277/300 queries to one cluster and chose Direct for all 200 SWE instances, realizing about 0.34 against a 0.4961 observed oracle and below the best fixed expert (0.3567).",
+      "evidence": "§3.2: measured/predicted cluster agreement 37.7% (GPT-4o-mini) and 12.0% (Haiku); SWE predictor picks direct for 200/200. §3.3 and C.10: observed per-query oracle 0.4961 vs test-selected best fixed expert 0.3567 vs realized routing ~0.34; 194/300 queries score identically for all six experts.",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": [
+        "2608.08265 oracle gap across a pool is an upper bound; best router recovered 7.5-14.4%"
+      ],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "anti_pattern",
+      "statement": "Do not add a generic decomposition or planning step in front of a structured-output coding step (such as file:line localization) without checking it against the downstream output contract: a decomposition prompt that helped mixed reasoning tasks cut Agentless resolve rate from 0.200 to 0.055 through format conflicts.",
+      "evidence": "Table 6: decomposition probe .3254 vs Direct .2872 on mixed GPT-4o-mini but .055 vs .200 on SWE; C.8 attributes it to conflicts with SWE localization formatting. SWE entries are single-turn Agentless analogues, not multi-turn agents.",
+      "strength": "weak",
+      "novelty": "refines",
+      "relative_to": [
+        "2605.11378 bare plan-then-implement did not help",
+        "2609.22222 specify the full output contract"
+      ],
+      "transfers": "indirect"
+    }
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "The headline workflow-bank gain does not survive its own single-call CoT control, but the paper's controls and routing diagnostics give measured reasons to require a cheap single-call baseline and to inspect routing collapse before adopting generated or routed workflows."
+}

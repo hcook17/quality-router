@@ -1,0 +1,18 @@
+{
+  "arxiv_id": "2606.19235",
+  "blind_scores": {"rigor": 2, "reproducibility": 1, "generalizability": 2, "relevance": 2, "coi_risk": 0},
+  "blind_verdict": "admit_with_caveats",
+  "blind_coi_severity": "none",
+  "agreement": "agree",
+  "claims_disputed": [],
+  "pattern_stance_changes": [],
+  "missed_issues": [
+    "Table 9's 'original' value of 0.82 matches the Figure 2 AUROC (0.82), not the 0.80 F1 in Table 1. So Table 9 is most likely AUROC, as its caption says, and the adaptive-attack floor of 0.62 is an AUROC close to chance (0.5). F1 under adaptive attack is effectively unreported, which weakens the 'holds' framing beyond the labelling inconsistency.",
+    "The utility evaluation in Table 3 uses 'Before' baselines of 100.00 (HumanEval Pass@1, RepoBench EM and BLEU-4). This implies the sanitized code is scored against the unsanitized or reference code, not against a downstream LLM's task success. End-to-end completion utility after sanitization is never measured, and the abstract and conclusion omit the -32.67 EM cost.",
+    "The ASR success criterion is never defined: there is no oracle or judge description across six heterogeneous attack families, and Table 2 compares only no-defense against CodeSentinel on the hosted models.",
+    "Leave-one-attack-out (Table 8) shows exactly 0.000 change on three of six families, and Flashboom improves (+0.075) when it is held out of threshold selection. That pattern is hard to reconcile with real held-out tuning. The 'modest average drop' (-0.037) hides drops of -0.127 and -0.140 on the semantic-rewrite families (XOXO, ITGen).",
+    "Table 7's targeted setting optimizes attacks against DePA, not against CodeSentinel, so the smaller CodeSentinel drop is favourable by construction.",
+    "The RQ2 heading says 'all three layers are necessary', but the evidence is a cumulative ablation on an unspecified 'ablation subset' (Fig. 3). Figure 9 says Layer 3 alone is strongest, and no Layer-3-only versus full-pipeline F1 is reported."
+  ],
+  "note": "I agree with the verdict, the claim strengths and the P22 supports stance. The paper measures defended versus undefended ASR and beats three prior defenses on node-level F1 and DePA on transferred ASR. The added caveats are that the adaptive-attack table is probably AUROC near chance, utility is measured against the reference code rather than downstream task success, and the ASR oracle is undefined."
+}

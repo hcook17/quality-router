@@ -1,0 +1,16 @@
+{
+  "arxiv_id": "2609.07344",
+  "contributions": [
+    {"kind": "nuance",
+     "statement": "A tactical-recommendation retrieval layer over externalized task state is an efficiency lever, not a capability lever: budget it to cut steps/cost on tasks the agent could already solve, and measure solvable-set coverage separately, since removing it left the solvable set unchanged while cutting successful-task rounds ~33% (medium) and ~48% (hard).",
+     "evidence": "§5.4 Table 3 (Intentest vs Intentest-noIntent, same system, DAG and scheduler retained): identical success set; successful-task rounds 7.2->10.8 medium, 9.4->18.3 hard. Single model (DeepSeek V4 Pro), one run, ~34-task CTF benchmark, security domain; efficiency is prior-coverage-dependent (§6.3).",
+     "strength": "moderate", "novelty": "refines", "relative_to": ["P06 embedding/RAG retrieval", "P09 persistent agent memory", "2607.26072"], "transfers": "indirect"},
+    {"kind": "design_pattern",
+     "statement": "For long-horizon multi-repo agent runs, hold verified facts (which build passed, which contract/schema version is current) as immutable nodes in a persistent store outside the context window and gate the next action on being grounded in those facts, to curb the context-forgetting and state-confusion failures that dominate long runs.",
+     "evidence": "§6.1 failure analysis: baselines fail via premature-success (F1), host/role-state confusion (F2), missed signals in long output (F3). §6.2 triangulation of noIntent ablation + VulnBot contrast (44.1% vs 88.2%) + failure patterns. Authors call this 'corroborating rather than conclusive'; the DAG itself is never ablated (§7), so the solvability attribution is cross-system and confounded.",
+     "strength": "weak", "novelty": "refines", "relative_to": ["2609.00050", "P36 static workflow graph / state machine", "P09 persistent agent memory"], "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "One contribution qualifies: the cleanly-ablated finding that the retrieval layer buys efficiency, not new solvable tasks, which a Java lead can act on when scoping a 'next-step' layer over repo memory. The persistent-fact-state design pattern stays weak because the graph's solvability benefit is only cross-system/structural, never isolated (authors concede the DAG cannot be ablated). The headline injection-defense and 88.2% success claims are domain-specific and confounded, so they do not back a gate."
+}

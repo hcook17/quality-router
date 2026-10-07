@@ -1,0 +1,13 @@
+{"arxiv_id": "2609.38294",
+ "blind_scores": {"rigor": 3, "reproducibility": 4, "generalizability": 2, "relevance": 2, "coi_risk": 1},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "agree",
+ "claims_disputed": [],
+ "pattern_stance_changes": [],
+ "missed_issues": [
+  "Offline vs online is not trial-matched either. Offline runs a 300-trial budget with no early stop; online stops once the 10-trial hypervolume gain is under 1%, which halted every run between trials 40 and 50 (Table 6, App. B). The offline variant's 'slightly better hypervolume' therefore comes with roughly 6x the trials as well as reused execution data.",
+  "The action-selection ablation (Table 4) reports in-sample hypervolume on the build set, not held-out, for one benchmark and one model.",
+  "The overfitting contrast between query-level and task-level search (rho_HV 0.28 vs >= 0.66) compares different held-out notions. For a query tree, held-out means unseen paraphrases of the same query; for a task tree, it means different problems from the held-out split (App. A.2). The ratios are not like-for-like. The per-problem token and call multipliers in Table 5 are the directly measured part.",
+  "Figure 1 and the 'matches or beats on nearly every objective' claim use the best value a method reaches on each objective across its eleven served workflows. That max-over-set reading rewards spread, and no single deployable workflow need attain it."
+ ],
+ "note": "I agree on verdict, scores and stances. The paper never compares a searched or static workflow with a plain agent loop or a single call, so it adds nothing to P36 vs open-loop. Its only DAG-relevant signal is that per-query graph construction cost 1.1-11.6x the tokens per problem for no measured gain over one per-task graph. That signal comes from one seed, rests on a figure for the 'no gain' half, and uses mismatched held-out definitions for the overfitting half. The review's moderate grade on that claim is at the upper edge but defensible because the cost multipliers are tabulated."}

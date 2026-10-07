@@ -1,0 +1,17 @@
+{"arxiv_id": "2609.25911",
+ "blind_scores": {"rigor": 2, "reproducibility": 1, "generalizability": 2, "relevance": 3, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [],
+ "pattern_stance_changes": [
+  {"id": "P23", "from": "supports", "to": "mixed", "reason": "The router clearly beats random routing at the same budget (Table 2: 37 vs 14.4 expected repairs). Against the realistic status quo, route-all, it trades away 35 of 72 repairs (recall 0.514) for 80% fewer calls. In the only measured LLM pilot (Table 3), the router keeps 4 of 5 true-positive escalations, n=5. The 'expensive path' is a single DeepSeek diagnosis prompt, not a repair agent, so the paper shows a budget–recall trade-off on historical labels rather than a routing win on agent outcomes."},
+  {"id": "P24", "from": "supports", "to": "neutral", "reason": "The 'budget' is the top-k% routing threshold, i.e. the same evidence already counted under P23. The pilot's 66.7% call and 66.1% token reductions follow from evaluating 20 of 60 PRs, one call each (§4.3). No cap or budget on agent spend is tested against an uncapped alternative."}
+ ],
+ "missed_issues": [
+  "Noise floor: the richer initial-PR T0 regime, which has strictly more information than creation-time, scores lower (top-20% recall 0.472 vs 0.514, 34 vs 37 repairs; Tables 1–2). Differences of a few positives are within noise at n=72, yet no fold variance or CIs are reported. The creation-time result was also picked from an exploratory model search without nested selection (§5).",
+  "The labels may be coupled to the features. One annotator labeled each PR while reading its record, including the title and commits (§4.1). The creation-time router then predicts those labels from the title, so annotator cues and title wording are not independent.",
+  "Transfer to production streams is overstated by the enriched pool. Candidates were retrieved with repair-like search terms ('fix, test, build, pin, rollback, API'; §4.1). In a natural Dependabot/Renovate stream, the base rate and therefore precision@20% would be lower and calls per repair higher than 2.68.",
+  "The pilot's four arms are disjoint PR pools (top, random, bottom; §4.3). 'All-agent' is the union of the three samples, not a matched run of the same PRs, and TP counts of 5, 4, 1 and 0 cannot support a retention rate.",
+  "A strong, cheap, deterministic alternative is never compared: escalating only PRs whose own CI build or tests fail on the update. The review's applicability raises it, but its absence also weakens the routing claim itself."
+ ],
+ "note": "I agree with admit_with_caveats as a preliminary short paper with a sound hindsight-leakage protocol. The routing (P23) supports stance overstates a budget–recall trade-off measured on historical labels and a 60-PR, single-prompt pilot. The cost-budget (P24) stance double-counts the same routing knob."}

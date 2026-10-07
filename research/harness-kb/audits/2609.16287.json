@@ -1,0 +1,18 @@
+{"arxiv_id": "2609.16287",
+ "blind_scores": {"rigor": 3, "reproducibility": 2, "generalizability": 1, "relevance": 3, "coi_risk": 1},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [],
+ "pattern_stance_changes": [
+  {"id": "P02", "from": "supports", "to": "introduces", "reason": "On-demand loading through 5 routing entries (§3.4, §4.1) is never compared with loading all 15 guardrails at once, or with a flat rule list. The only comparison is guarded vs raw Claude Code (Table 2), and Table 5's overhead covers the whole package. Progressive disclosure is used, not shown to beat an alternative; the review's own note concedes 'No comparison with loading all rules at once.'"},
+  {"id": "P19", "from": "mixed", "to": "neutral", "reason": "The study has no human approval gate. Clarification and refusal (CAR, ORR in §4.3–4.4) are agent behaviors scored by reviewers after the fact, and no human ever approves or rejects an action during execution. Whether over-refusal 'shifts work back to humans' is an inference, not a measurement of approval gates."}
+ ],
+ "missed_issues": [
+  "The 'automatically learns' claim (abstract, §1 contributions) is not substantiated as automation. §3.2–3.3 and Algorithm 1 describe the induction and consolidation steps (extract finding, map to When/DoNot/Unless/Instead/ApplyAt, merge, subsume, validate), but name no model, prompt or tool that performs them, and give no measure of how much was manual. 461 findings collapsed to 15 rules (§4.1) could be largely author curation, which would make this hand-written rules informed by traces.",
+  "metric_mismatch: every evaluation task contains one injected adversarial step (§4.1–4.2). The +13.3 pp Success gain is therefore driven mostly by CAR (adversarial-step handling, 25.0%→62.7%). The component that reflects ordinary work, CBR, fell 49.0%→42.0% (n.s.). On a stream of mostly benign tasks, the net effect could be dominated by the 19.3% over-refusal and was not measured.",
+  "ORR is shown as '–' for raw Claude Code in Table 2, while §5.1 says it is 'zero under CC'. It is unclear whether over-refusal was scored symmetrically in both conditions or defined only relative to the guardrails. Combined with unblinded raters, this makes the ORR contrast less reliable than its CI suggests.",
+  "Table 4's per-trace 'safety gain / benign loss' attribution compares stochastic runs across conditions. The paper does not say how guarded run i is paired with baseline run i, so 'attributed effect' categories rest on an unexplained pairing and unblinded judgment.",
+  "Held out by task only, not by repository or generator: construction and evaluation tasks come from the same ABTest pool. Evaluation runs on one Click snapshot (§4.2), so the 15 rules may encode Click- and ABTest-specific failure modes.",
+  "P21 stance kept as supports, but the evidence is for advisory natural-language rules injected into context. §3.4 states they 'do not change tool permissions or intercept actions'. It is not evidence for enforced policy-as-code permissions."
+ ],
+ "note": "I agree with admit_with_caveats. The headline AER and Success effects are well powered within this setup, but the setup is one weak model, one repo and the authors' own adversarial benchmark. I removed the progressive-disclosure (P02) supports because the routing was never ablated, and the human-approval-gate (P19) mixed because no approval gate exists in the study. The 'automatic' guardrail learning is asserted rather than shown."}

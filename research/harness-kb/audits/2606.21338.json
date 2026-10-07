@@ -1,0 +1,22 @@
+{
+  "arxiv_id": "2606.21338",
+  "blind_scores": {"rigor": 2, "reproducibility": 2, "generalizability": 3, "relevance": 2, "coi_risk": 0},
+  "blind_verdict": "admit_with_caveats",
+  "blind_coi_severity": "none",
+  "agreement": "major_disagreement",
+  "claims_disputed": [
+    {"claim": "Leakage is protocol-induced via implicit sinks (tool return values, exceptions, logs) that existing tools miss.", "proposed_strength": "unsupported", "reason": "The paper's own rule distribution contradicts the 'protocol-induced' half. Table 2 and Fig. 7 show local cleartext logging (L3 = 1110 servers, L2 = 628) driving almost all detections. The only rules with tool-return or outbound sinks, L5 and L6, fire on 10 and 43 servers, about 0.5% of 10,655. The 'existing tools miss' half is never tested: §4 runs no secret scanner, Semgrep or default CodeQL query."}
+  ],
+  "pattern_stance_changes": [
+    {"id": "P04", "from": "contradicts", "to": "neutral", "reason": "The paper never compares MCP with an alternative integration path (direct API or CLI tools), so the harm is not attributed to MCP. The dominant findings (L2 and L3 cleartext logging, §4.3 and Table 2) are generic logging weaknesses, not MCP-specific. The MCP-specific tool-return flows are a marginal share (L5 and L6 together about 53 servers)."},
+    {"id": "P17", "from": "supports", "to": "introduces", "reason": "The paper builds a CodeQL taint analyzer but runs it offline, not as feedback in an agent loop. It is never measured against an alternative: §4 has no baseline scanners and no ablation of the context-aware filter. The only accuracy evidence is precision on 200 positives (§4.2). That is a system using the pattern, so introduces, not supports."}
+  ],
+  "missed_issues": [
+    "§4.2 calls 8/200 flagged servers a '4.0% false positive rate', but that figure is a false discovery rate on positives. With n=200, its 95% CI is roughly 1.7% to 7.7%. The true FPR and the recall are both unmeasured.",
+    "The title and abstract framing ('leaks globally', crossing the local/LLM boundary) rests on rules L2 and L3, which flag local print or log calls. The paper does not distinguish stderr or local log files, which never reach the LLM, from tool-response content.",
+    "The paper never reports how many of the 10,655 servers produced a usable CodeQL database (build or extraction failures), and gives no per-language denominators. The 19.1% Java rate therefore has unknown n.",
+    "§4.1 says only 'a small number' of servers fall in the Unknown category, but Table 3 lists about 689 (e.g. Pulse MCP 56 L / 362 NL, MCP.io 39 L / 196 NL).",
+    "The manual verification protocol (who checked, what criteria define a 'genuine privacy leak') is unspecified. That matters because Case Study 2 shows the authors count intended API-key use as a leak."
+  ],
+  "note": "The verdict matches (admit_with_caveats), and the review correctly flags the positives-only validation and the over-broad leak definition. Both directional stances fail the stance rule: P04 contradicts has no alternative to MCP and rests mostly on generic logging findings, and P17 supports has no baseline scanner or ablation. The headline 'protocol-induced leakage that existing tools miss' claim is contradicted by the paper's own rule distribution and its tool comparison is untested."
+}

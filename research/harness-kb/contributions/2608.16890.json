@@ -1,0 +1,26 @@
+{
+  "arxiv_id": "2608.16890",
+  "contributions": [
+    {"kind": "nuance",
+     "statement": "Before building a fixed step-graph runtime for a multi-field data transformation, give each step its spec slice, expected output fields and the actual upstream schema; the same 15-step topology with generic per-step prompts produced 0% of target fields, so the graph shape alone does not carry the gain.",
+     "evidence": "§6 A2, Table 3 (Claude Sonnet, 2-3 runs per arm): topology-only 0% structural match and 0 records; plus node-type hints 45.6%; plus spec text, expected variables and hints 100%. A3: upstream-schema injection v1 to v2 0% to 42.9% (one run each; GPT-4.1 no gain). Arms bundle several changes, were tuned on the evaluation data, and are scored by a name-coverage metric.",
+     "strength": "weak", "novelty": "refines",
+     "relative_to": ["static workflow graph (P36)", "2605.15425"],
+     "transfers": "indirect"},
+    {"kind": "heuristic",
+     "statement": "Retry a failed generation step up to twice with the full error traceback appended, but expect no lift for a model whose failures are systematic rather than incidental.",
+     "evidence": "§6 A5, Table 5: first-attempt to final node completion 64.8% to 74.5% over 165 node executions; +13.3 pp Sonnet, +20.0 pp GPT-4.1, 0 pp GPT-4o.",
+     "strength": "moderate", "novelty": "restates_known",
+     "relative_to": ["execution-feedback self-debugging (P16)", "2605.15425"],
+     "transfers": "indirect"},
+    {"kind": "test_practice",
+     "statement": "Gate generated data pipelines on field values against a reference dataset, not on field presence, because full field-name coverage coincided with about 74% column-value accuracy.",
+     "evidence": "§5.6: 100% structural match on all Claude runs vs 73.7% mean column accuracy (26/49 exact for Opus); ADAE 100% vs 67.6% (§5.4).",
+     "strength": "weak", "novelty": "duplicates",
+     "relative_to": ["2609.22222"],
+     "transfers": "direct"}
+  ],
+  "quantity_flags": [],
+  "proposed": "hypothesis_only",
+  "reason": "The headline 'DAG topology is decisive' rests on single-call baselines without execution feedback, tuning on the test data, and a name-coverage metric whose 49/49 cannot be reconciled with the paper's own node table. What survives is a weak, single-dataset hint that per-step content, not graph shape, moved the result. That is worth keeping only as a hypothesis."
+}

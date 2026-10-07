@@ -1,0 +1,16 @@
+{
+  "arxiv_id": "2605.26521",
+  "contributions": [
+    {"kind": "anti_pattern",
+     "statement": "If you declare a multi-agent workflow graph but let the LLM route its handoffs and tool calls, do not assume the declared edges are followed: author the transitions in deterministic code and enforce tool allowlists in the harness, because an LLM-routed SDK graph left ~31% of allowed-tool edges (20/65) and ~24% of delegation edges (10/41) unexercised within a 5-attempt budget, with misses concentrated on multi-hop and overlapping-specialist routes, and agents attempted off-edge tools when those tools were visible.",
+     "evidence": "§IV-E Table II (45/65 allowed, 31/41 delegation; single-hop 7/7, fan-out 19/23, multi-hop stubs miss) and §IV-F (23/248 off-edge attempts). Confounds: one model (gpt-4.1-mini) is both the test generator and the system under test, single run, mocked tool backends, demo-scale, and misses conflate realizer reach with structural reality.",
+     "strength": "weak", "novelty": "refines", "relative_to": ["2609.38345", "2609.32459"], "transfers": "indirect"},
+    {"kind": "test_practice",
+     "statement": "For a declared agent workflow, derive one coverage obligation per edge (each reachable agent, each allowed agent->tool edge, each delegation edge) and assert from execution traces that each was actually exercised, as an adequacy layer on top of end-to-end task success; but do not treat structural coverage as a correctness oracle, because a mechanical witness passes semantically wrong output (a malformed tool payload produced a plausible-but-wrong reply the witness still accepted).",
+     "evidence": "§III formal coverage model (C1-C4) + §IV-D/IV-E feasibility on 10 workflows; §IV-G Table V malformed-payload case accepted by the structural witness. No mutation/regression study or baseline generator (deferred to §VI), so adequacy value is unproven.",
+     "strength": "weak", "novelty": "new", "relative_to": [], "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "hypothesis_only",
+  "reason": "Nothing qualifies: the coverage model is clearly specified and the pipeline demonstrably produces per-edge witnesses, but the adequacy claim has no baseline or mutation study, the restricted criterion is a mis-specified complement exposed as stubs, and the one model plays both tester and testee on single runs. The transferable idea is the negative finding—LLM-routed declared edges are not reliably followed, so code-route transitions and enforce allowlists—but that is cleaner in 2609.38345, so it stays an open hypothesis rather than a steer."
+}

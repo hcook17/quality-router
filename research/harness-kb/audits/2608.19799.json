@@ -1,0 +1,26 @@
+{
+  "arxiv_id": "2608.19799",
+  "blind_scores": {"rigor": 3, "reproducibility": 4, "generalizability": 3, "relevance": 2, "coi_risk": 1},
+  "blind_verdict": "admit_with_caveats",
+  "blind_coi_severity": "none",
+  "agreement": "minor_disagreement",
+  "claims_disputed": [
+    {
+      "claim": "Visible/public tests vastly overstate correctness relative to hidden validators.",
+      "proposed_strength": "moderate",
+      "reason": "The cited gap pits PublicScore, a mean over public test cases, against Pass@1, which requires every private test to pass (§5 Evaluation), so the gap mixes two different metrics. The like-for-like gap, PublicScore vs PrivateScore in Table 2, is about 21-45 pp (e.g. Claude-Opus-5 96.64% vs 75.11%). That gap is large, but it is partly built in: public materials are a reproduction script plus minimal diagnostics (Fig. 3 shows 1 public check vs 10 private cases), and hidden validators are deliberately built to defeat overfitting (§4 step 4, §4.1). Each configuration is also a single attempt."
+    }
+  ],
+  "pattern_stance_changes": [
+    {"id": "P16", "from": "mixed", "to": "neutral", "reason": "Every configuration has the same public tests and can run them (§3.1, Fig. 3). There is no arm without an execution loop or with a different verifier. The public/private gap describes how weak this benchmark's public tests are, not a measured effect of the verifier loop."},
+    {"id": "P02", "from": "mixed", "to": "neutral", "reason": "The §4.2/§6.2 ablation adds or removes static scientific guidance in the task materials. Nothing is disclosed progressively or loaded on demand, so progressive disclosure is not tested. The opposite-sign Pass@1 changes (8 vs 12 and 9 vs 3 discordant tasks, Fig. 7) are also not significant, as the authors state."}
+  ],
+  "missed_issues": [
+    "The applicability text says 'harness choice shifts outcomes', which contradicts the review's own harness_model_confound bias. Each model runs in exactly one harness (§5), so the paper cannot tell mixed-host teams anything about Codex vs Claude Code vs Kimi Code parity.",
+    "The ablation runs GPT-5.6-sol at xhigh and DeepSeek-V4-flash at high (§6.2), while Table 2 uses max. The 'with info' arm is therefore not the main condition, and ablation numbers cannot be compared with Table 2.",
+    "'Weaker models may benefit more from external scientific guidance' (§6.2) is extrapolated from two models with non-significant changes.",
+    "The evaluator metadata includes a 'contamination tier' field (§3.1), but no contamination analysis or tier-stratified result is reported, although many Issue-driven tasks have public upstream fixes.",
+    "No wall-clock, step or cost limits are reported for the agent runs, and all frontier configurations run at max effort. Token use varies widely (Fig. 5), so the Pass@1 ranking is not at matched budget."
+  ],
+  "note": "I agree with the verdict and most scores; the benchmark is careful and its Table 2 and Table 3 counts check out exactly as k/n. The review has no supports stances. Its two mixed stances are for patterns no arm varies or that don't match the ablation, so they are neutral. The public-vs-hidden headline uses mismatched metrics and is partly built into the benchmark, so it is moderate rather than strong."
+}

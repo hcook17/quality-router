@@ -1,0 +1,20 @@
+{"arxiv_id": "2607.17619",
+ "blind_scores": {"rigor": 3, "reproducibility": 3, "generalizability": 3, "relevance": 3, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "Warning-rate increases lag vulnerability increases (5.4-14.0 pp gap); models rarely disclose memory influence (MRR 2.3% ChatGPT, 10.3% Gemini)", "proposed_strength": "weak", "reason": "§5.4 defines WR as the share of *vulnerable* generations with a warning, but Table 7 reports WR 4.6% for ChatGPT w/o memory where Vul@k is 0%, so the denominator is inconsistent. Either way, the 'gap' in Table 3 (VR +11.0 minus WR +5.6) subtracts rates on different denominators. If WR is conditional, it actually rose (22.0→27.6%), which argues against 'memory suppresses warnings'. The MRR half (Table 3 row 5) is fine at moderate; the load-bearing gap number is not."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P21", "from": "mixed", "to": "introduces", "reason": "No evidence against the memory-write filter is reported; it is only unvalidated. Detection is tested on 29/28 known-insecure entries with no benign set (§6.4, Fig. 16), and the mitigation prompts were selected so that w/o-memory Vul@k = 0% (Table 7). Blocking the entry therefore restores 0% by construction. That is a proposal with tautological evidence, not mixed evidence."},
+  {"id": "P18", "from": "mixed", "to": "introduces", "reason": "Same LLM filter as P21: recall measured only on the authors' positives, and no precision or false-positive measurement (§6.4). Nothing in the paper counts against it, so 'mixed' overstates how much was measured."}
+ ],
+ "missed_issues": [
+  "metric_mismatch: WR is defined as conditional on vulnerable outputs (§5.4) but used inconsistently (Table 7 non-zero WR at 0% Vul); the 'risk-warning gap' headline (abstract, Finding 4) rests on subtracting quantities with different bases.",
+  "other:interface_confound: RQ2.2 runs the system-prompt arm through the API while the memory arm uses web UIs (§6.2.2). The w/o-memory baselines differ (VR 53.0% vs 50.3% for ChatGPT, Table 3), and the 3–8 pp memory-vs-prompt VR differences on 300 outputs carry no significance test. Yet the abstract and conclusion claim memory degrades safety 'more covertly than equivalent prompt-level instructions'.",
+  "selection_bias: the paraphrase test (§6.3.2) uses only the 17/14 prompts that flipped to vulnerable with memory, so Vul@3 = 100% under paraphrase partly reflects how the prompts were chosen.",
+  "No neutral-memory or secure-memory control in RQ1: the comparison is 'insecure targeted preference stored' vs 'memory disabled', so storage-in-memory is not separated from 'model follows an explicit insecure instruction'.",
+  "Model staleness: ChatGPT (GPT-4o) and Gemini 2.5 Flash were measured Jul–Aug 2025, a year before Qwen/Grok (Mar–May 2026), so cross-model comparisons span different service generations.",
+  "Minor: the body cites 'Table 2' for the Pass/Vul results that are in Table 1, and the intro says 2.6% where the abstract says 2.7 pp."
+ ],
+ "note": "I agree with admit_with_caveats and the scores; the review already flags task-targeted injection and the recall-only filter. Two corrections: the warning-gap claim rests on an inconsistently defined WR metric (weak, not moderate), and the guardrail/LLM-filter stances should be 'introduces', not 'mixed', because the paper shows no counter-evidence, only absent validation."}

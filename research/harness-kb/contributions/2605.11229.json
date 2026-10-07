@@ -1,0 +1,25 @@
+{
+  "arxiv_id": "2605.11229",
+  "contributions": [
+    {"kind": "constraint",
+     "statement": "A command allowlist or environment-variable filter on a CI agent's shell tool does not protect secrets held by the agent's own process. Keep long-lived secrets out of any job that runs Claude Code, Codex, Gemini or Cursor CLI on externally triggered events, give the agent only a minimally scoped short-lived token, and block network and comment exfiltration channels.",
+     "evidence": "§2.2 and Fig. 1: run-gemini-cli restricted the shell to cat/grep and filtered the child environment, but a payload read the parent agent process's credentials through procfs and posted them in an issue comment. Google fixed it and paid a bounty. Table 3: context-grounded payloads passed code-level defences on 9/9 model-action pairs; generic jailbreak search passed only on ask-bonk, which has no code-level protection. Audit: 3 workflows, 3 trials, author-controlled runners.",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["least privilege for CI secrets (pre-2026)", "2608.23550 compile security rules into deny and egress controls", "2606.19235 keep sandboxing and permissions behind content filters"],
+     "transfers": "direct"},
+    {"kind": "test_practice",
+     "statement": "Before enabling an agent workflow on public triggers, red-team it with payloads built from the workflow's actual prompt template and the agent's probed tool permissions, and have the harness verify the planned tool-call chain against code-level restrictions, because generic jailbreak search can pass prompt and model defences yet misses the code-level bypasses that capability-aware attacks find.",
+     "evidence": "§5.3 Table 3: AutoDAN-Turbo and an OpenEvolve-style search failed the code level on every pair that had code-level protection. JAW, using capability profiling and VerifyChain, succeeded on 9/9 within at most 10 iterations (mean +/- SD over 3 trials). Audit: the search baseline ran a single trajectory, and the provenance component did not help in the ablation.",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["adaptive-attacker evaluation of injection defences (Nasr et al., 2025)", "2609.36817 prompt-level injection defenses are insufficient"],
+     "transfers": "indirect"},
+    {"kind": "nuance",
+     "statement": "A maintainer label or approval that triggers an agent on outsider-authored issue or PR content is not an injection defence. The reviewer may not see hidden content (HTML comments, collapsed Markdown, zero-width characters), and the content can be edited after approval. If approval-gated agent runs are kept, pin the exact revision that was approved and strip non-rendered content before the agent reads it.",
+     "evidence": "§2.4 threat model defines invisible-prompt and TOCTOU vectors under indirect triggering. Table 2: streamlit's Cursor CLI workflow, triggered by a maintainer applying a label, was hijacked to exfiltrate credentials (bounty). No measurement of how often approvals are bypassed, and the vector used in that case is not detailed.",
+     "strength": "weak", "novelty": "new", "relative_to": [],
+     "transfers": "direct"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "The procfs/allowlist bypass and the with/without code-defence contrast in Table 3 give a concrete, transferable limit on in-agent restrictions for CI agents, and the red-teaming practice is supported at moderate strength. The approval-gate nuance is new but only case-backed. The 4,174 ecosystem count adds volume, not evidence."
+}

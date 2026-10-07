@@ -1,0 +1,17 @@
+{"arxiv_id": "2609.01861",
+ "blind_scores": {"rigor": 3, "reproducibility": 2, "generalizability": 3, "relevance": 2, "coi_risk": 1},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "major_disagreement",
+ "claims_disputed": [
+  {"claim": "BCO reaches higher train and held-out passrate than a matched control lacking only the world model, on all five benchmarks.", "proposed_strength": "weak", "reason": "'All five' is selection-dependent. App. C: Spider2-lite was run and excluded because 'the method ordering changes across campaigns' (Table 5: bco 0.635/0.558/0.567 vs vanilla 0.577/0.587 held-out). The AppWorld/TB2 train subsets were chosen after inspecting initial-scaffold behaviour. Each remaining comparison is a single trajectory (§7), and the Table 3 run-to-run ranges (0.07–0.13) exceed the TB2 (+0.022) and AppWorld (+0.030) gaps. Only GAIA and LoCoMo show gaps clearly above that noise."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P26", "from": "supports", "to": "mixed", "reason": "Scaffold search beats the initial scaffold on held-out only on the screened splits (Table 1). On the uncurated TB2 split, held-out was initial 0.470, bco 0.463, vanilla 0.455 (App. C), so search did not help. After the target swap (App. D Table 6), optimized scaffolds fall below the unoptimized initial one in GAIA/high (vanilla 0.475 vs 0.586) and AppWorld/high (bco 0.516 vs 0.556). The gains are conditional on benchmark screening and on keeping the target model fixed."},
+  {"id": "P08", "from": "contradicts", "to": "neutral", "reason": "The AppWorld overrun (§4.3) is incidental, not a compaction experiment. The bco and vanilla scaffolds differ in many evolved edits, not only in context bounding. To the extent it says anything, an unbounded scratchpad overflowing while a 16-exchange sliding window completes points toward bounding context, the opposite of 'contradicts'. The review's own note calls it 'negative evidence for no compaction'."}
+ ],
+ "missed_issues": [
+  "The review's methodology says 'Held-out splits not used for selection', but §4.1 and App. C state the two memory rows report the best held-out score among three top-train candidates ('selects partly on the held-out split'). This affects LME and LoCoMo, two of the larger gaps.",
+  "other:benchmark_exclusion: Spider2-lite was run for three bco and two vanilla campaigns with a flipping ordering and then excluded from the main five (App. C). Its initial-scaffold repeats ranged 0.462–0.577 on 104 tasks, which quantifies a noise floor larger than several reported gaps.",
+  "The RQ3 offline ablation uses LLM judges (Kimi-K2.6, DeepSeek-V4-Flash) from the same model families as the proposer and target, and the run-level sign test is p=0.125 with only four runs, so the minimum achievable p is 0.125."
+ ],
+ "note": "I agree with admit_with_caveats and with nearly all scores. However, the main P26 supports stance does not survive the appendix: on the unscreened Terminal-Bench split and after the target swap, optimized scaffolds do not beat the initial one. The P08 contradicts stance points the wrong way. The 'all five benchmarks' claim is weak once the excluded Spider2-lite runs are counted."}

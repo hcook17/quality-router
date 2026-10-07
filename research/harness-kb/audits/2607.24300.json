@@ -1,0 +1,16 @@
+{"arxiv_id": "2607.24300",
+ "blind_scores": {"rigor": 3, "reproducibility": 1, "generalizability": 1, "relevance": 2, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [],
+ "pattern_stance_changes": [
+  {"id": "P26", "from": "contradicts", "to": "mixed", "reason": "Every condition in Tables 5–7 is a self-improving loop, and no non-self-improving arm or initial-policy score is reported. Under SEAL, self-improvement reaches 30.0 on Breakout for Gemini-3-Flash (human reference 30.5, Table 4) and gains in 9 of 12 cross-game cells (Table 7). The evidence says self-improvement fails without an external acceptance gate and works with one: mixed, not contradicts."},
+  {"id": "P15", "from": "mixed", "to": "contradicts", "reason": "No condition shows agent-authored tests contributing positively. Self-scores saturate (≥0.70 in 35/35 cells, Table 4), monotone test strengthening falls below 'none' for 4 of 6 models (Table 5), and SEAL never ablates the self-tests it retains. The only evidence bearing on agent-maintained tests as acceptance is negative. Scope: the paper does not test human-written tests-first, so this concerns agent-authored tests only."}
+ ],
+ "missed_issues": [
+  "other:gap_by_construction: deployment truth uses dynamics shifts (sticky actions / repeat-action probability) the agent cannot observe (§Experimental Setup). Part of the verifier–deployment gap is therefore unseen distribution shift rather than self-grading. The audit dynamics D_A are not stated relative to that shift; if D_A mirrors deployment, SEAL's edge is access to the target distribution, not exogeneity as such.",
+  "Table 6 (compute-matched pilot): endo-gate, a self-test gate with rollback and no exogenous audit, recovers most of the gain (mean 7.7→13.9 vs SEAL 15.4; peak-to-final loss 0.5 vs 0.4). Conservative retention, not exogeneity, explains most of the compute-matched improvement, which weakens the abstract's conclusion that a signal 'outside the agent's control' is required.",
+  "selection_bias: Table 7 drops Seaquest and three of the seven models (Qwen3.6-Plus, Kimi-K2.5, Doubao) without explanation; Pong 'ties' are both at the −21 floor.",
+  "The information-limit bound (Eq. 1) is a generic total-variation inequality whose proof is deferred to a supplement that is not available; it adds framing, not evidence."
+ ],
+ "note": "I agree with admit_with_caveats and with the review's claim grades, which are already appropriately weak. Two stances should move: the evidence on self-improvement is mixed (it works when gated), and on agent-authored tests it is negative, not mixed. The review also missed that endo-gate captures most of SEAL's compute-matched gain."}

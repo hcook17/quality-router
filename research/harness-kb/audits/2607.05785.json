@@ -1,0 +1,18 @@
+{"arxiv_id": "2607.05785",
+ "blind_scores": {"rigor": 3, "reproducibility": 1, "generalizability": 3, "relevance": 3, "coi_risk": 1},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "Agents recover placement better than diagnostic content; explicit instructions cause over-generation", "proposed_strength": "weak", "reason": "The 'placement better than content' half compares two metrics on different scales (§III-B5). Position F1 is a binary per-bucket presence score. KeyBag F1 is lexical token overlap computed only on buckets where both sides already log, so it will be lower almost by construction. The Position-vs-KeyBag gap in Table II therefore does not show that content is harder than placement. The over-generation half (4.9 vs 2.1 statements, KeyBag P 0.33 to 0.20, Fig. 4) is supported, but only as GPT-5.5 means with no spread."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P32", "from": "supports", "to": "neutral", "reason": "The 8 industrial repositories are just part of the RQ1 dataset. Results are never split by OSS vs industrial (Table II pools all 1,223 instances), and field evaluation is never compared with an alternative. This is industrial data, not evidence that field evaluation as a practice works."}
+ ],
+ "missed_issues": [
+  "No reference baseline for RQ2: the paper never measures FSR on human-written microservices under the same 13 faults, even though it already uses human-written demos (train-ticket, microservices-demo, eShop) in RQ1. 'Only 4.95-13.99%' has no yardstick, and faults such as time-skew (1.26%) or CPU stress (1.44%) may be just as silent in human-written logs.",
+  "The RQ3 baselines differ by level. The static 'w/o skill' row in Table V equals the few-shot row of Table II, so the skill is stacked on few-shot. At runtime the baseline is plain generation. The skill text (derived from ~200 internal incident commits, §III-D) is only summarised, so the intervention cannot be reproduced.",
+  "P02 'mixed' is kept, but the experiment tests whether guidance content is present at all, not progressive or on-demand loading against always-in-context guidance.",
+  "FSR's denominator is a fixed 1,615 'intended' fault instances, while runnable services vary by model (136-154 of 200, Table III), and per-fault totals range from 51 to 600 depending on which dependencies the generated architectures include (Table IV). The cross-model FSR comparison is therefore confounded by deployability and architecture choice.",
+  "The language or stack of the 200 generated systems is never reported. RQ1 results are not broken down by language, so Java-specific transfer cannot be assessed."
+ ],
+ "note": "I agree with admit_with_caveats and with most of the review. Two corrections: P32 'supports' credits the paper for being industrial data rather than for testing anything, and the headline 'placement is easier than content' rests on comparing metrics with different scales. The biggest missing piece is a human-written runtime baseline for FSR."}

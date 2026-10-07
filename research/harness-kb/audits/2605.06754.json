@@ -1,0 +1,18 @@
+{"arxiv_id": "2605.06754",
+ "blind_scores": {"rigor": 3, "reproducibility": 4, "generalizability": 3, "relevance": 4, "coi_risk": 1},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "Only one of 204 tasks yields a fully behaviorally equivalent target", "proposed_strength": "weak", "reason": "The count appears only in the abstract, §1 (Finding 1) and §7. No table or appendix gives per-task full-suite passes: App. C Tables 7–8 report pooled smoke-test totals per direction. The wording also shifts between 'one of the 204 directed tasks' and 'only one agent-produced migration' out of 5 agents × 2 conditions × 204 tasks."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P16", "from": "supports", "to": "neutral", "reason": "The compile→deploy→test stages are the benchmark's scoring oracle (§4), not a verifier loop given to the agent and compared with a no-verifier alternative. The finding that compile/deploy success overstates behavioral correctness (Finding 2, App. C) concerns evaluation proxies; it is circular as evidence that a test loop helps, because the tests are the ground truth. Both prompt conditions already tell the agent to build/compile (App. E.2/E.3), so no verifier ablation exists."}
+ ],
+ "missed_issues": [
+  "other:confounded_ablation: §4 frames skills vs single prompt as 'prompt organization', but App. E.2/E.3 show the conditions differ in content and instructions. Skills add direction-specific dependency-, config- and code-mapping reference files and a 'compile and fix until build succeeds' workflow. The single prompt instead asks the agent to generate its own smoke tests, build a Docker image and run them. The P02 result therefore cannot be attributed to progressive disclosure.",
+  "Model identity is not pinned (App. E.4, Table 12): Codex runs used the 'Codex CLI default' model rather than an explicit GPT-5.4 flag; gemini-* declares gemini-2.5-pro but invokes gemini-3.1-pro-preview; qwen-with-skills declares Qwen3-Coder-480B but invokes Qwen3.5-397B.",
+  "App. F says 'harness false positives' (runs the harness flagged as failed although they succeeded) were excluded from the failure heatmap, but the paper never says how many there were or whether pass rates were corrected. That makes the oracle's reliability unclear.",
+  "App. D: costs for 'missing runs' were imputed from the upper observed cost, so some runs were incomplete, and their number and handling in Table 2 are not reported. Skills runs cost less than half as much as single-prompt runs ($1.48K vs $3.48K), which suggests different agent behaviour beyond packaging.",
+  "Effects of skills are inconsistent across agents (Table 2): Claude Code focused test pass is 12 without skills and 7 with them; Codex whole-app compile is 40 without and 27 with. No variance is reported, so these reversals cannot be separated from noise."
+ ],
+ "note": "I agree with admit_with_caveats. The oracle design and Java enterprise scope are valuable, but the skills-vs-monolithic comparison is confounded by different content and instructions, and the staged gate is an evaluation metric rather than evidence for an in-loop verifier. Relevance is high but not 5: the team ingests content and does not migrate frameworks."}

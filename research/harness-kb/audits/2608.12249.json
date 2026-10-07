@@ -1,0 +1,15 @@
+{"arxiv_id": "2608.12249",
+ "blind_scores": {"rigor": 2, "reproducibility": 2, "generalizability": 2, "relevance": 3, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "agree",
+ "claims_disputed": [],
+ "pattern_stance_changes": [
+  {"id": "P11", "from": "neutral", "to": "introduces", "reason": "The workflow does use three role-specialized agents (conversion, testing, review), each with its own prompt and worktree, and the paper says independent checking is why they exist (§III-A2). That is using a role-based pattern without an isolating comparison, so the stance is introduces. 'Not multi-agent in the coordination sense' rules out negotiation, not roles."}
+ ],
+ "missed_issues": [
+  "Untagged pattern P26 (introduces): after the IX defect, an agent wrote a new audit clause into STYLE_GUIDE.md that changed every later session and retroactively found two more instances (§V-A3). Agents also restructured CLAUDE.md from 243 to 176 lines. This is agent self-revision of the harness, with n=1 and no comparison.",
+  "Total conversion effort is never reported. The only time figure (7 h 29 min) covers the validation sweep, not the conversions, the bisection or the specification revisions. Per-file agent session time, token use and the number of human interventions are all missing, so the per-file cost of the static loop cannot be compared with any alternative.",
+  "The 'bit-for-bit' verdict is computed on logs filtered by a classifier, and the paper reports that classifier itself had a regex defect that produced false failures (§V-A5). False passes from the filter are not ruled out explicitly. The external Jenkins check mitigates this.",
+  "The models that converted each file are not mapped, so 11/12 first-pass arithmetic correctness cannot be attributed to the workflow rather than to the strongest model generation used."
+ ],
+ "note": "I agree with admit_with_caveats and with the claim grades. The exact, externally anchored oracle makes the outcome credible, but nothing isolates the fixed per-file loop (P36), the role split or the agent-authored specification. The most transferable content is the verification analysis: the common-mode blind spot of self-captured goldens, and agent-written synthetic tests missing a path that only real workloads reach."}

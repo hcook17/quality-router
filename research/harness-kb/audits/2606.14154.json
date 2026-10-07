@@ -1,0 +1,18 @@
+{"arxiv_id": "2606.14154",
+ "blind_scores": {"rigor": 3, "reproducibility": 3, "generalizability": 2, "relevance": 2, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "Open-source and commercial skill scanners detect only 2-8% and 9-17% of cross-modal attacks", "proposed_strength": "weak", "reason": "Beyond the acknowledged adaptive-evasion setup (§IV-C, forbidden-pattern list copied from skill-security-scan, App. A-C), the paper never executes or manually audits the refined mutations to confirm they still implement a working malicious behaviour (§III scopes evaluation to install-time flagging only). Under evasion pressure the oracle often refuses or partially refuses (Table III: 23.5% / 42.9% / 9.2% final-iteration refusals; 10 and 7 'partial refusal' cases still counted as evaluable), so some 'misses' may be watered-down mutations that are correctly not flagged."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P02", "from": "contradicts", "to": "neutral", "reason": "The paper measures only whether scanners flag mutated skill packages before loading. It never loads them into an agent host to show harm (§III: 'not whether an agent follows a malicious instruction after loading'), and never compares on-demand skills with another way of supplying instructions. It identifies a third-party supply-chain risk but gives no evidence that progressive disclosure itself fails or hurts."},
+  {"id": "P17", "from": "contradicts", "to": "neutral", "reason": "The failing tools are install-time SAST/SCA security scanners, scored against mutations explicitly refined to evade them with their rule list in the prompt (§IV-C, App. A-C). That says nothing about static-analysis or linter feedback inside a coding agent's loop, which is what P17 denotes. The only held-out rule-based scanner (SkillScan) is a single commercial tool."}
+ ],
+ "missed_issues": [
+  "Asymmetric selection in favour of the student: the refinement loop regenerated any mutation caught by 'an LLM semantic scanner' whose model is never specified (§IV-C), whereas the distilled student was never in the loop. If that scanner is GPT-family, the evaluation set was filtered to evade the proprietary comparators but not the student.",
+  "The main-text metric is structurally recall-only: LLM scanners are credited only when a judge matches the report to the injected content (Fig. 7), so a false alarm can never count against them. Table X shows the fine-tuned scanner raises findings on 17/17 unmodified skills (mean 7.4, max 22), i.e. every clean skill would be flagged under an 'any finding' install gate.",
+  "Artifact statements conflict: §I says the benchmark dataset and code are publicly released at an anonymous 4open link, while §VIII says mutated skills will be released only on research-purpose request.",
+  "GPT-5.4 is the attack oracle, the teacher whose traces are distilled, and the primary judge. The Claude-Opus-4.7 judge reduces but does not remove a shared-style advantage for a student trained on GPT-5.4 traces and GPT-5.4 mutations (other:generator_teacher_judge_overlap)."
+ ],
+ "note": "I agree with admit_with_caveats; the review already catches the one-scenario margin over GPT-5.4, the in-distribution training and the appendix-only precision. It misses that the attacks are never executed, so 'scanners miss 2-17%' is weak evidence. P02 and P17 should be neutral rather than contradicts, because no runtime harm is shown and install-time security scanning is not in-loop linting."}

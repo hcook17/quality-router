@@ -1,0 +1,26 @@
+{
+  "arxiv_id": "2605.20630",
+  "contributions": [
+    {"kind": "anti_pattern",
+     "statement": "Do not reuse LLM or agent answers on embedding similarity when the request carries identifying parameters (course or module ID, content edition, asset, date window). Key any answer cache on the exact extracted parameters plus the source content version, because similarity retrieval plus a strict reranker judge still returned another request's answer for a quarter to a third of hits.",
+     "evidence": "§4.3 and Appendix B: hit precision 0.75 (combined, 80 rows) and 0.667 (cache-only, 50 rows), F1 0.64-0.67. §5: a cross-parameter query (different sensor, equipment scope and time window) passed a 0.92 judge threshold with a score of 0.97 and received the wrong cached answer. Errors concentrate on parameter-shifted paraphrases. Small LLM-generated test set, and one 0.6B embedding/reranker pair.",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["semantic-cache false-positive risk known from GPTCache-style caching (pre-2026)"],
+     "transfers": "indirect"},
+    {"kind": "heuristic",
+     "statement": "Do not spawn stdio MCP servers and call list_tools() per request. Keep one session per server for the life of a plan and cache the tool catalog under a key derived from server source, registration and dependency versions, plus a TTL.",
+     "evidence": "§3.3 and Appendix A, Table 1: discovery fell from 2.096 s to 0.007 s per query. The key is an MD5 over server paths, source mtimes and pyproject.toml with a 24 h TTL. Execution-phase gains are confounded with DAG parallelism.",
+     "strength": "moderate", "novelty": "restates_known",
+     "relative_to": ["connection pooling and metadata caching (standard practice)"],
+     "transfers": "direct"},
+    {"kind": "design_pattern",
+     "statement": "If a planner's step list is executed in parallel, group steps into topological layers (Kahn), run each layer concurrently with per-backend locks, and let one branch fail without cancelling its siblings. Expect gains only when a plan has independent steps that target different backends.",
+     "evidence": "§3.3 and Appendix A/C: the execution phase was 1.99x faster on 18 queries chosen for having at least two parallel branches (Q16 5.06x, Q6 3.03x, two regressions). The baseline also respawned a subprocess per step, so the parallelism gain is not isolated, and dependency correctness and answer quality are unmeasured.",
+     "strength": "weak", "novelty": "duplicates",
+     "relative_to": ["2608.04588 plan subtasks as a DAG and run independent subtasks in parallel"],
+     "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "Only the measured failure mode of similarity-keyed answer reuse qualifies. It is moderate and refines a known risk with a concrete magnitude and mechanism. The MCP catalog caching is standard practice, and the planner-DAG speedup is confounded with server pooling, so it adds nothing beyond existing KB entries on P37."
+}

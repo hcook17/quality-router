@@ -1,0 +1,31 @@
+{
+  "arxiv_id": "2609.27263",
+  "contributions": [
+    {
+      "kind": "heuristic",
+      "statement": "When a repo's agent workflow is compiled from a Markdown prompt file that lives in another repo, treat that file as a versioned dependency: pin the source commit and, before recompiling, diff its frontmatter (permissions, tools, triggers, safe-outputs, network) explicitly rather than trusting file size, because shared sources keep changing and most edits land in execution settings rather than instructions.",
+      "evidence": "§III-B/§V-A: 108 of 365 gh-aw projects (29.6%) reference Markdown from another repository. §IV-B Finding #4: project-median 74.5% of maintenance changes touch frontmatter vs 50.0% body (pooled 62.1% vs 55.1%; frontmatter-only share 36.7% -> 71.7% from month 1 to 4). §V-A: one-third of content-changing events leave line count unchanged. Descriptive mining of 348 files in 43 repos selected for >=120-day spans (audit); no breakage or incident outcome is measured.",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": [
+        "pin third-party GitHub Actions / reusable workflows to a commit SHA (known supply-chain practice)",
+        "2607.03691 pin agent-host versions and re-probe before upgrade"
+      ],
+      "transfers": "direct"
+    },
+    {
+      "kind": "heuristic",
+      "statement": "Put firm limits (comment counts, write targets, tool access) in the workflow's enforced configuration and use the prompt body only to explain them, keeping the two consistent when either changes.",
+      "evidence": "§V-A(3): dotnet/aspnetcore example where the body says 'post at most one comment' and frontmatter sets safe-outputs add-comment max: 1. One illustrative case; prevalence of duplicated or conflicting rules is not measured.",
+      "strength": "weak",
+      "novelty": "duplicates",
+      "relative_to": [
+        "2608.23550 treat prose security rules as unenforced; compile them into host controls"
+      ],
+      "transfers": "direct"
+    }
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "A descriptive mining study with no outcome data, but its cross-repo reuse rate and frontmatter-dominated churn give a specific review target for teams sharing agent workflow sources across repos; the enforcement-vs-prose advice is already in the KB."
+}

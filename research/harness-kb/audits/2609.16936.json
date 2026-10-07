@@ -1,0 +1,17 @@
+{"arxiv_id": "2609.16936",
+ "blind_scores": {"rigor": 3, "reproducibility": 1, "generalizability": 2, "relevance": 3, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [
+  {"claim": "Each component (budget, visual and textual channels, adaptive layout, state-aware refresh) contributes.", "proposed_strength": "weak", "reason": "Table 3 uses one model (Qwen), and no variance is reported for any row, even though each configuration was run three times (§5.1). Five of six ablated variants score below the plain mini-SWE-agent baseline in Table 2 (60.8): per-call refresh 51.0, no refresh 58.4, w/o textual 59.2, w/o budget 59.8, w/o adaptive layout 60.4. The five removal ablations alone (excluding per-call refresh) sum to 16.5 pp of drops, against a full-system gain of 2.3 pp over mini-SWE-agent. That pattern points to strong interactions or run-to-run noise, not to separable per-component contributions."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P08", "from": "supports", "to": "introduces", "reason": "Keeping only the current image and replacing it on refresh (§4.4) is a design choice that is never ablated. No variant accumulates views for comparison. 'No refresh' and 'per-call refresh' (Table 3) test refresh frequency, not compaction or summarization of context, so the paper uses this context-management choice without measuring it against an alternative."}
+ ],
+ "missed_issues": [
+  "The review's applicability says the textual source-location index 'matters more than the picture', but Table 3 does not support a text-only takeaway. 'w/o visual channel', i.e. text-only RepoAtlas, scores 61.2 on Qwen. That is +0.4 over mini-SWE-agent (60.8) and below LocAgent (61.5) in Table 2. The measured gain appears only when both channels are present, so a host-portable, text-only graph view has essentially no demonstrated benefit here.",
+  "Only the Qwen model has ablation or selection evidence. Generalization of the components to MiMo and Kimi is assumed from the end-to-end Table 2 alone.",
+  "The SeeRepo reproduction produced a view in only 40.5% of instances (§5.2) and performs at the mini-SWE-agent level, so the multimodal-graph comparison may be against an under-triggered baseline. The headline '+2.4 vs strongest multimodal graph baseline' inherits that weakness.",
+  "No limitations or threats section. Calibration details, selection implementation, per-run results and sensitivity analysis are all deferred to an appendix absent from the text, so the budget (B_V=15, B_E=20) and refresh thresholds cannot be checked for tuning on the test set."
+ ],
+ "note": "I agree with admit_with_caveats. The code-graph (P07) supports stance survives as modest, consistent across three models against both text-only and textual-graph baselines. The component ablation is weaker than the review grades it, and replacing the view image is not measured. For a mixed-host Java team, the text-only variant shows almost no gain, which the review's applicability overlooks."}

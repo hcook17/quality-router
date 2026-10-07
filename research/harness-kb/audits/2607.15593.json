@@ -1,0 +1,19 @@
+{"arxiv_id": "2607.15593",
+ "blind_scores": {"rigor": 2, "reproducibility": 1, "generalizability": 2, "relevance": 3, "coi_risk": 3},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "medium",
+ "agreement": "minor_disagreement",
+ "claims_disputed": [],
+ "pattern_stance_changes": [
+  {"id": "P05", "from": "supports", "to": "mixed", "reason": "Run alone, lexical retrieval is the worst method on the vendor catalog: BM25 67.7% Recall@15 vs dense 83.1% and hybrid 98.2% at N=3,616 (§6.3, Fig. 9a). It adds value only when fused with dense retrieval, and on ToolBench the fusion gain is 2 pp (97.5 vs 95.5). This is also tool-catalog retrieval, not the code retrieval P05 is defined over."},
+  {"id": "P04", "from": "mixed", "to": "introduces", "reason": "The paper never compares MCP with an alternative integration layer, such as direct OpenAPI or function calling without MCP. It describes the extra infrastructure MCP needs at scale (§2.3, §3) and measures the gateway's own overhead (§6.4). That is a system built on the pattern, not mixed evidence about it."}
+ ],
+ "missed_issues": [
+  "The production evaluation never states how many queries each trace contains or how ground-truth tools were labelled (§6.1). Recall@15 and selection accuracy on the proprietary catalog therefore cannot be judged for sample size or label quality.",
+  "The operating point is tuned on the test data: k=15 is chosen by sweeping k on the same N=3,616 catalog used for the headline (App. E), so the 98.2% Recall@15 is selected in-sample.",
+  "The selection model is inconsistent: Fig. 9 uses Qwen3.6-plus, while Tables 3-4 (8.9× time, 23.8× tokens) use Qwen3-Plus, and the end-to-end experiment reports no selection accuracy for the Top-15 vs 372-tool conditions.",
+  "Lesson 4's query rewriting (80.8% to 99.7%, one trace, Fig. 22) adds an LLM Rewrite-Agent in front of retrieval, contradicting the 'deterministic, no-LLM' recommendation design (§3.3). Its latency and token cost are not reported.",
+  "Lesson 6 (App. A) says a Controller-Worker split 'improves the agent's task success rate' with no numbers. It should not be used as evidence for P11/P12.",
+  "P06 is untagged although dense retrieval is half of the hybrid and beats BM25 and ToolLLM on the vendor catalog (Fig. 9a). The same single-model, no-variance caveats apply.",
+  "COI: I would rate severity medium rather than high. The retriever is a generic dense+BM25+RRF recipe compared with public baselines, part of the comparison is on public ToolBench, and the paper reports a negative result about its own stateful routing. It is still vendor self-evaluation on proprietary data."
+ ],
+ "note": "I agree with admit_with_caveats and with the review's handling of the strawman 372-tool baseline. P05 'supports' overstates lexical retrieval, which is the weakest method on its own and only helps in fusion. P04 has no non-MCP comparison. Selecting k in-sample and leaving query counts and labels undescribed weaken the 98% recall headline further."}
