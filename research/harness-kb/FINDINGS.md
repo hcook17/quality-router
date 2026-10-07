@@ -59,10 +59,12 @@ help.
      - existing tests execute only 61.5% of the Java lines agents
        change (2607.18057);
      - 80% of agent test patches carry weak or no oracle (2606.18168);
-     - an agentic harness raised pass rate while direct invocation of
-       the focal method fell from 98.9% to 27.6% (2608.25939);
-     - catch-all try/catch tests were the largest single reason
-       generated tests missed breaking changes (2608.20167);
+     - an agentic harness raised pass rate while, on PHP, direct
+       invocation of the focal method fell from 98.9% to 27.6%
+       (2608.25939);
+     - most generated tests that missed a breaking change never loaded
+       the changed class. Among those that did, silent null fallbacks
+       and catch blocks hid the break (2608.20167);
      - agents at about 97% on visible tests pass hidden validators
        less than half the time (2608.19799);
      - with frontier models, compile gates catch almost nothing (4–15%
@@ -113,8 +115,10 @@ help.
      microservices (2605.15569);
    - grounding each contract-bug alarm in grep-retrieved code
      (2607.00555);
-   - japicmp-style static API diffs, which catch 95% of what
-     LLM-written client tests catch (2608.20167).
+   - static API diffs: 95% of what LLM-written client tests caught on
+     dependency bumps was crash-type breakage (missing classes and
+     methods), the class japicmp targets. japicmp itself was not
+     measured (2608.20167).
 6. **Healthcare and education content is still a research gap.**
    - T56 has 1 evidence paper and T57 has none.
    - Reviewers agreed with 91–94% of an agent's NFR assessments, which
@@ -133,8 +137,9 @@ help.
      upfront DAG tied ReAct (43.7 vs 43.0); growing it from evaluated
      results scored 55.9 (2609.39154). Model-drawn edges were
      unreliable (edge F1 0.27–0.71, 2608.00267).
-   - **Graph frameworks add no speed:** they ran 2.0–3.2× slower than
-     plain concurrent code (2605.18697).
+   - **Graph frameworks add no speed:** an auto-parallelizing compiler
+     ran the same workflows 2.0–3.2× faster than seven frameworks
+     (2605.18697).
    - **Isolation is the edge that matters most:** tests generated after
      seeing the code lost 8–18 points of fault detection (2607.05139).
    - Details are in `dag.md`.
@@ -151,7 +156,7 @@ help.
 | Pre-review signals | Vendor affiliations, artifact URLs, and limitations/ethics/acknowledgment sections, extracted deterministically |
 | Adversarial review | Each paper reviewed against `REVIEW_RUBRIC.md`: 5 scores (0–5), bias codes, COI severity, claim strength, per-pattern stance |
 | Blind audit | 138 papers, including every one of the 112 evidence papers. Each was re-reviewed before reading the first review. Merged conservatively: lowest score, strictest verdict, weakest claim strength and the auditor's stance changes win |
-| Hallucination check | 4,815 numbers cited in the first 240 reviews matched against the paper text; 53 (1.1%) not found, mostly derived values. Not rerun for the 38 DAG-batch reviews |
+| Hallucination check | 4,815 numbers cited in the first 240 reviews matched against the paper text; 53 (1.1%) not found, mostly derived values. The script was not committed and was not rerun for the 38 DAG-batch reviews. A separate agent checked the numbers in this file, `dag.md` and `ADVERSARIAL_REVIEW.md` against the texts (`ADVERSARIAL_REVIEW.md` §9) |
 | Review gate | Deterministic code (`etl.py admission`), not LLM judgment |
 | Contribution gate | Each review-passing paper classified against `CONTRIBUTION_RUBRIC.md`, then gated by code (`etl.py contribution_gate`). Strength is capped at the paper's strongest audited claim. A paper with no assessment loads as `unassessed`, not evidence |
 | Pattern labels | Fixed rule (`pattern_label`), stress-tested on subsets in `kb_robustness.md` |
@@ -269,7 +274,7 @@ not a harness choice.
 | P14 Spec-driven development as a methodology | 1 / 0 / 2 | Unresolved. The specific spec practices under P34 carry the evidence; SDD adoption has none. |
 | P27 Cross-repo coordination | 0 / 0 / 3 | Unresolved on 5 reviewed of 59 harvested papers. |
 | P28 Deterministic codemods | 1 / 0 / 2 | Unresolved. One paper (2606.24446), but it is Java-specific and direct. |
-| P10 Single-agent loop, P19 human approval gates, P23 model routing, P31 benchmark evaluation, P04 MCP | 0–1 / 0 / 2–4 | Unresolved: mixed evidence only. |
+| P10 Single-agent loop, P19 human approval gates, P23 model routing, P31 benchmark evaluation, P04 MCP | 0–1 / 0 / 2–4 | Unresolved: mixed papers outnumber supporting ones. |
 | P20 OS sandboxing, P29 parallel worktrees | 1 / 0 / 0–1 | Leaning, one paper each. |
 | P01 Instruction files, P03 small tool catalog | 0 / 0 / 0 | No evidence paper. P03's only support (2607.15593) was rejected in the full audit (rigor 2, high COI). |
 
@@ -288,7 +293,7 @@ are plausible and cheap to try, but they are not evidence.
 | Normalise token accounting before comparing host cost | 2607.22585 | Single-trial, non-comparable measurements |
 | Scoped MCP proxy, and a 10–15 tool cliff | 2606.30317 | Position paper with Haiku-only telemetry |
 | Per-node structured traces with contracts localize workflow faults (59.8% → 84.4%) | 2607.02882 | Overall lead depends on parts learned from the test data |
-| Route handoffs in code; model-declared edges go unexercised (10/41 delegations) | 2605.26521 | Restricted-edge counts inflated by construction |
+| Route handoffs in code; declared handoff edges went unwitnessed by generated tests (10/41 delegations) | 2605.26521 | Restricted-edge counts inflated by construction |
 | Hard evidence gates between stages, plus a bounded repair loop | 2609.00050 | Gate effect not significant (0 vs 4 bad transitions of 420); one cloud, greenfield |
 | Model-generated atomic task graph beats ReAct | 2607.01942 | 7B models on text games; extra calls not counted |
 | Require graded predictions before accepting a harness change | 2609.01861 | Gains vanish on the unscreened split and after a target-model swap |
@@ -342,7 +347,8 @@ Bias codes across the 278 reviewed papers:
 
 - **Conflicts of interest.**
   - 11 papers had a high COI: 8 rejected, 1 hypothesis, 2 evidence.
-  - 19 had a medium COI: 7 rejected, 7 evidence.
+  - 19 had a medium COI: 7 rejected, 5 hypothesis or no contribution,
+    7 evidence.
   - High- and medium-COI papers averaged rigor of about 1.9, against
     about 2.3 for low or no COI.
 - **Claim strength.** Of 1,206 claims extracted, 62 (5%) were rated
@@ -350,12 +356,14 @@ Bias codes across the 278 reviewed papers:
   evidence.
 - **Contribution type predicts quality.** Of 16 position papers, 15
   were rejected and one is a hypothesis. Surveys fared little better: 4
-  of 6 that passed review were dropped. Benchmark papers were the most
-  likely to contribute (19 of 25 that passed review).
+  of 6 that passed review were dropped. Of the larger types, benchmark
+  papers were the most likely to contribute (19 of 25 that passed
+  review).
 - **Language skew.** SWE-bench appears in 22.2% of coding-agent
   abstracts, Python in 8.3% and Java in 2.9%. 21 of the 112 evidence
-  papers mention Java at least 5 times. On that subset only P16 and P32
-  keep a label (`kb_robustness.md`).
+  papers mention Java at least 5 times. On that subset only P16
+  (conditional) and P32 (consensus) keep a consensus or conditional
+  label (`kb_robustness.md`).
 - **Auditor calibration.** Blind auditors changed 63% of first-pass
   `supports` stances (139 of 219): 63 to neutral, 47 to mixed and 29 to
   introduces. The contribution checker merges the audit before capping
@@ -426,7 +434,8 @@ engineering judgment that fills a gap in the research.
   - direct invocation of the changed method (2608.25939);
   - at least one value or exception assertion per new test
     (2606.18168);
-  - no catch-all try/catch around the call under test (2608.20167);
+  - no catch-all try/catch or null fallback hiding the call under
+    test (2608.20167);
   - containerized behavioural tests for Spring config, DI or
     packaging changes (2605.06754);
   - data-layer tests against the real engine (2605.06445).

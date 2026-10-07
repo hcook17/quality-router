@@ -15,11 +15,12 @@ never searched for. Every fix below is committed and reproducible.
 
 ## 1. Single reviews overstated support
 
-Before this pass, only 59 of 240 reviews (26%) had a blind second
+Before this pass, only 59 of 240 reviews (25%) had a blind second
 opinion. Across all 138 audits now on file, the auditor changed 139 of
 219 `supports` stances (63%): 63 to neutral, 47 to mixed and 29 to
-introduces. The first 59 audits and the 79 new ones moved supports at
-the same 63% rate. The usual reason was that the paper used the
+introduces. The rate was nearly the same in both rounds: 73 of 116
+(63%) in the first 59 audits, and 66 of 103 (64%) in the 79 new ones.
+The usual reason was that the paper used the
 pattern in every arm, or changed several things at once, so it could
 not isolate the effect.
 
@@ -77,11 +78,14 @@ claim that "tests pass" is a good verifier on its own.
 ## 3. The harvest could not see whole topics
 
 - **DAGs.** None of the 58 topics targeted DAG or workflow-graph
-  orchestration. 132 harvested abstracts used those terms, but only 12
-  were reviewed, for other topics. The KB could not answer the DAG
+  orchestration. I scanned the 5,589 abstracts of the earlier harvest
+  for DAG, directed acyclic, task graph, workflow graph, LangGraph,
+  state machine, topological order and agentic workflow. 132 matched,
+  and only 12 of those had been reviewed, all for other topics. The
+  count depends on the term list. The KB could not answer the DAG
   question until T59–T61 and 8 supplementary picks were added: 38
   papers, of which 18 are evidence, 5 hypothesis, 1 no contribution and
-  14 rejected (10 off-topic).
+  14 rejected (9 off-topic, relevance ≤ 1).
 - **Cross-repo coordination (P27), the team's core problem.** It is
   "unstudied" on 5 reviewed papers out of 59 harvested for T33.
   "Unstudied" may partly mean "not reviewed deeply enough". This is the
@@ -92,9 +96,12 @@ claim that "tests pass" is a good verifier on its own.
 - **Java:** 21 of 112 evidence papers mention Java at least 5 times. On
   that subset, P16 stays conditional and P32 consensus. Every other
   consensus pattern loses its label: P17 falls to leaning, P30 to
-  unresolved, and P13, P21, P24 and P34 to none.
-- **SWE-bench:** 38 of 112 rely on it. Without them, P17 falls to
-  leaning, P30 to none and P36 to unresolved.
+  unresolved, and P13, P21, P24, P25 and P34 to none.
+- **SWE-bench:** 38 of 112 rely on it. Without them:
+  - P17 and P25 fall to leaning, P30 to none, and P02 and P36 to
+    unresolved;
+  - P05 rises to consensus (3/0/2), because most of its mixed papers
+    are SWE-bench studies.
 - **Human participants:** 11 of 112. **Industrial settings:** 18 of 112.
 
 ## 5. Dates, and "as of September 2026"
@@ -137,9 +144,11 @@ claim that "tests pass" is a good verifier on its own.
   - metrics that don't measure the claim in 46%;
   - small samples in 46%;
   - mostly preprints, with no replications.
-- **Number-matching not rerun.** The check of reviewers' cited numbers
-  against the paper text (1.1% unmatched) has not been rerun for the 38
-  new reviews.
+- **Number-matching not reproducible.** The earlier check of reviewers'
+  cited numbers against the paper text (1.1% unmatched) was not
+  committed as a script, and it was not rerun for the 38 new reviews.
+  An independent pass over this review's own documents found 22 wrong
+  or overstated numbers and framings, all corrected (section 9).
 
 ## 8. Citations that no longer hold
 
@@ -161,7 +170,38 @@ claim that "tests pass" is a good verifier on its own.
   survive the appendix, so its "graded predictions for harness changes"
   citation in `FINDINGS.md` is marked as a hypothesis.
 
-## 9. Standards as of 30 September 2026
+## 9. Numbers corrected by an independent check
+
+A separate agent recomputed every aggregate in this file, `dag.md` and
+`FINDINGS.md` with its own SQL, and checked paper-level numbers against
+the full texts. All aggregates matched. Several paper claims were
+overstated, and three of them had been repeated in `qr`'s docs and
+docstrings since phase 3:
+
+| Claim as written | What the paper shows | Where it was used |
+| --- | --- | --- |
+| Direct invocation of the focal method fell from 98.9% to 27.6% (2608.25939) | On PHP only. Go, Rust and Julia held or rose; Ruby fell from 84.3 to 68.6 | `FINDINGS.md`, phase-3 evidence map (diff-coverage) |
+| Catch-all try/catch was the largest single reason generated tests missed breaking changes (2608.20167) | 78% of the tests that missed never loaded the changed class. Of 80 sampled from the rest, a silent null-object fallback (37) and catch blocks (32) hid the break | `FINDINGS.md`, phase-3 evidence map (test-oracles) |
+| A static API diff catches 95% of what LLM-written client tests catch (2608.20167) | 95.1% of the tests that detected a break failed with a runtime error (missing class or method). That is crash-type breakage, the class japicmp targets. japicmp itself was not run | `FINDINGS.md`, `implementations.md`, phase-3 evidence map, `contracts.py`, `api_compat.py`, and the problem statement of the locked phase-6 spec |
+
+The gates still stand. Executed changed lines, value oracles and a
+static API diff each target a measured failure, but the citations now
+say what was measured.
+
+The locked phase-6 spec (`docs/design/phase-6-api-compat-and-gortex.md`)
+keeps the old 95% wording, and so does the `.gortex.yaml` header (section
+8). Editing either breaks `qr gate acceptance` until the spec owner
+re-locks, so both are listed for that review rather than changed here.
+
+The other corrections were in this review's own new text:
+- **ORCA:** its baseline did see the fault signature.
+- **PopPy's 2.0–3.2×** compares graph frameworks with an
+  auto-parallelizing compiler, not with plain concurrent code.
+- **2605.26521's edges** are developer-declared, and were unwitnessed
+  by generated tests rather than unused.
+- **Off-topic rejects** in the DAG batch number 9, not 10.
+
+## 10. Standards as of 30 September 2026
 
 Sources were checked on 2026-10-06/07 against primary pages. Facts
 marked (2nd) rest on secondary sources.

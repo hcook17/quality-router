@@ -85,7 +85,7 @@ evidence papers from the window name them as the mechanism.
 
 | Tool | Paper (E) | Finding | In `qr` today |
 | --- | --- | --- | --- |
-| japicmp / revapi | 2608.20167 | A static API diff finds 95% of what LLM-written client tests catch on dependency bumps | `qr gate api-compat` reads japicmp XML (revapi not read) |
+| japicmp / revapi | 2608.20167 | 95% of what LLM-written client tests caught on dependency bumps was crash-type breakage (missing classes and methods), the class japicmp reports; japicmp itself was not measured | `qr gate api-compat` reads japicmp XML (revapi not read) |
 | JavaParser | 2606.24446 | Agent codemods have a higher verified fix rate on JavaParser than on Spoon | Docs only |
 | PIT with custom mutators | 2607.11573 | Generic mutation score misranks; build mutators from historical bug classes | Docs only |
 | Jazzer / jqwik | 2605.27531 | Fuzzing rejected 8% of unit-test-passing inferred contracts | jqwik recognised by the oracle gate |

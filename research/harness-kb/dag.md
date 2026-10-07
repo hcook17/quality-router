@@ -22,8 +22,11 @@ etl.py robustness`. Status after both gates: **E** evidence,
 | P10 Single-agent loop (for comparison) | 0 / 0 / 4 | unresolved |
 
 Neither DAG pattern is consensus. Both labels survive the September 30
-cutoff unchanged. No paper tests either on Java or across a team's own
-repositories.
+cutoff unchanged. No paper tests either across a team's own
+repositories. Only one paper touches Java: ORCA (2608.17018) includes
+100 synthetic Train-Ticket Java faults, where the telemetry signal is
+weak and the authors ask for caution. On Java, P36 rests on that one
+paper, and P37 has no Java evidence.
 
 ## "DAG" means four different things here
 
@@ -31,18 +34,19 @@ repositories.
 
 What the evidence says:
 
-- **It wins when the stages carry domain signals or deterministic
-  rules.** ORCA (2608.17018, E) runs a fixed pipeline:
-  telemetry → fault localization → bounded repair → a four-check
-  verifier. It beat an open agent loop on the same model: 113 vs 74
-  valid patches, at 26k vs 640k tokens. The baseline never saw the
-  telemetry, and the benchmark is the authors' own. In Repo0
-  (2608.19854, E), deterministic cohesion and coupling thresholds
-  decide when to restructure. That beat letting the model decide.
+- **It wins when deterministic steps do the narrowing.** ORCA
+  (2608.17018, E) runs a fixed pipeline: fault signature → fault
+  localization → bounded repair → a four-check verifier. It beat an
+  open agent loop on the same model: 113 vs 74 valid patches on 150
+  real incidents, at 26k vs 640k tokens. Both got the same fault
+  signature. However, the baseline ran with a generic SWE-bench-style
+  setup, and the benchmark is the authors' own. In Repo0 (2608.19854,
+  E), deterministic cohesion and coupling thresholds decide when to
+  restructure. That beat letting the model decide.
 - **It loses on open-ended, multi-file work.** On one model, an
-  Agentless-style pipeline matched agent loops on single-file
-  localization (Acc@5 68.9 vs 70.7) but fell far behind on multi-file
-  (28.9 vs 46.6), at about a third of the cost (2605.16352, E). A fixed
+  Agentless-style pipeline matched agent loops on LocBench (Acc@5 68.9
+  vs 70.7) but fell far behind on multi-file MuLocBench (28.9 vs 46.6),
+  at roughly half to a third of the estimated cost (2605.16352, E). A fixed
   repair pipeline solved more web-accessibility bugs (72.7% vs 61.5%
   and 59.0%) but caused more side effects (41 vs 28 and 13)
   (2606.21926, E).
@@ -68,19 +72,21 @@ What the evidence says:
 ### 2. A task DAG that the model draws at run time (P37)
 
 - **Drawn upfront, it is no better than a loop.** A full upfront DAG
-  scored 43.7 against 43.0 for plain ReAct. Growing the DAG a few nodes
-  at a time from evaluated results scored 55.9, on the same model and
-  tools (2609.39154, E; deep-research tasks, not code).
+  scored 43.7, against 43.0 for plain ReAct averaged over three
+  benchmarks. Growing the DAG a few nodes at a time from evaluated
+  results scored 55.9, on the same model and tools (2609.39154, E;
+  deep-research tasks, not code).
 - **Model-drawn edges are unreliable.**
   - Agent plan DAGs recovered the reference dependencies with edge F1
-    of 0.27–0.71. Closed harnesses over-parallelized and open ones
-    collapsed to chains (2608.00267, E).
-  - Models pick the right nodes but get edges wrong as graphs grow
-    (2608.30250, E).
+    of 0.27–0.71. Closed harnesses stayed near the concurrency budget,
+    and open ones collapsed to chains (2608.00267, E).
+  - Models picked the right nodes but mis-emitted attributes and
+    boolean structure as graphs got denser (2608.30250, E).
   - Inferring edges from call order was wrong for about 42% of adjacent
     pairs (2608.02680, E).
-  - Declared edges were often not exercised at run time: 10 of 41
-    delegations and 20 of 65 tool edges (2605.26521, H).
+- **Declared edges also need checking.** Generated tests never
+  exercised many developer-declared handoff edges: 10 of 41 delegations
+  and 20 of 65 tool edges (2605.26521, H).
 - **Parallel DAG workers pay off only on very long tasks.** Below
   about 1M single-agent tokens, a model-grown DAG was slower and used
   about 9–15× the tokens. Above it, wall-clock time roughly halved at
@@ -88,15 +94,19 @@ What the evidence says:
   parallel single agents at equal budget.
 - **The test step must not see the implementation.** Generating tests
   after the same model saw its own code cut fault detection by about
-  8–18 points across 5 models. Adding the spec alongside the code did
-  not recover it (2607.05139, E, strongest claim in this set). In any
-  graph, an edge from implementation to test generation is a defect.
+  8–18 points across 5 models. With the prompt plus the code, the drop
+  was 9.1–18.2 points, a claim rated strong. Adding the spec alongside
+  the code did not recover it (2607.05139, E). In any graph, an edge
+  from implementation to test generation is a defect.
 
 ### 3. A graph framework (LangGraph, n8n, Dify) as the harness
 
-- **No speed advantage.** Seven graph frameworks ran 2.0–3.2× slower
-  than plain code that dispatches the same calls concurrently
-  (2605.18697, E). In Java, use `CompletableFuture` or virtual threads.
+- **No speed advantage.** An auto-parallelizing compiler ran the same
+  5 workflows 2.0–3.2× faster (geometric mean) than seven graph
+  frameworks. Part of the gain came from parallelism the framework
+  versions never expressed, and hand-parallelized code was faster still
+  (2605.18697, E). Concurrency belongs in ordinary code: in Java,
+  `CompletableFuture` or virtual threads.
 - **A declared graph is auditable, but it is not a trust boundary.**
   - In 84.5% of 496 confirmed injection cases, an edge passed
     free-form agent output into a later shell, gh or git step
