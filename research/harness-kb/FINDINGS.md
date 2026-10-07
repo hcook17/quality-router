@@ -21,6 +21,13 @@ moderate evidence, that is not already known). Papers that pass review
 but only add volume are listed as hypotheses or dropped. They never
 carry weight.
 
+Every evidence paper has a blind second opinion, merged conservatively.
+Pattern labels come from a fixed rule (`etl.py robustness`), not from
+judgment. `ADVERSARIAL_REVIEW.md` records what changed when the KB was
+stress-tested: single reviews overstated support, and four consensus
+labels fell. `dag.md` answers whether DAG-structured workflows would
+help.
+
 ## Bottom line
 
 1. **Evaluate the harness, not just the model, but don't over-read
@@ -38,10 +45,16 @@ carry weight.
    - The advantage of a complex harness over a minimal loop shrank by
      more than half as models improved (2609.32459). Re-measure custom
      components at every model upgrade.
-2. **Deterministic sensors are the best-supported investment, and
-   "tests pass" is weaker than teams assume.**
-   - The execution-verifier loop (P16) has 21 supporting evidence
-     papers against 1 contradicting (weighted 5.88 vs 0.22).
+2. **Deterministic sensors are the best-supported investment, but only
+   when the sensor is trustworthy. "Tests pass" is weaker than teams
+   assume.**
+   - After a full blind audit, the execution-verifier loop (P16) is
+     *conditional*: 10 supporting evidence papers, 1 contradicting and 14
+     mixed. Before the audit it showed 21 supporting. The mixed papers
+     name the conditions: tests independent of the implementation,
+     coverage of the changed lines, strong oracles, feedback that beats a
+     blind redraw. Policy-as-code (P21: 6/0/2) and static analysis in the
+     loop (P17: 3/0/1) remain consensus.
    - The same papers show how "green" misleads:
      - existing tests execute only 61.5% of the Java lines agents
        change (2607.18057);
@@ -89,7 +102,9 @@ carry weight.
        opaque host memory (2607.17619).
 5. **Cross-repo coordination (P27), your core problem, remains
    unstudied.** No evidence paper supports or contradicts a cross-repo
-   orchestration pattern. The transferable pieces are narrower:
+   orchestration pattern. This rests on 5 reviewed papers out of 59
+   harvested for the topic, so it is the next topic to deepen. The
+   transferable pieces are narrower:
    - agent-authored AST codemods, targeting JavaParser rather than
      Spoon, with regex and pom edits rejected (2606.24446);
    - validating every old→new API mapping against the target artifact
@@ -107,35 +122,52 @@ carry weight.
      shows agent requirement-to-code links reach about 0.2 F1 on Java.
    - Agent accessibility repair fully fixed fewer than 26% of files
      and altered the structure of about 30% (2605.27716).
+7. **DAG-structured workflows: keep the outer graph fixed and
+   deterministic, and let each node run a bounded agent loop.**
+   - **Static workflow graphs (P36) are conditional (2/0/8).** They won
+     where the stages carried domain signals: an incident-repair
+     pipeline beat an open loop on one model at 4% of the tokens
+     (2608.17018). They fell behind on multi-file work (28.9 vs 46.6,
+     2605.16352).
+   - **Model-drawn task DAGs (P37) are only leaning (2/0/2).** An
+     upfront DAG tied ReAct (43.7 vs 43.0); growing it from evaluated
+     results scored 55.9 (2609.39154). Model-drawn edges were
+     unreliable (edge F1 0.27–0.71, 2608.00267).
+   - **Graph frameworks add no speed:** they ran 2.0–3.2× slower than
+     plain concurrent code (2605.18697).
+   - **Isolation is the edge that matters most:** tests generated after
+     seeing the code lost 8–18 points of fault detection (2607.05139).
+   - Details are in `dag.md`.
 
 ## Method
 
 | Stage | Result |
 | --- | --- |
-| Research topics | 58 topics in 11 clusters (`taxonomy.json`), each with phrase queries across 11 arXiv categories |
-| Harvest | 5,589 unique papers in the window; 3,989 passed the relevance gate |
-| Selection | 228 candidates (4 per topic, ranked by relevance; T26/T57 had only 2) plus 12 papers cited by the architecture lock (`etl.py add --reason lock-citation`) |
-| Date audit | v1 date and ID prefix both inside the window, rechecked live against arXiv; withdrawn papers rejected (see below) |
+| Research topics | 61 topics in 11 clusters (`taxonomy.json`), each with phrase queries across 11 arXiv categories. T59–T61 (DAGs, workflow graphs, workflow generation) were added for the DAG question |
+| Harvest | 5,926 unique papers in the window; 4,219 passed the relevance gate |
+| Selection | 278 candidates: 228 from the first 58 topics (4 per topic, ranked by relevance; T26/T57 had only 2), 12 cited by the architecture lock, 30 for T59–T61 (10 per topic) and 8 DAG-relevant software-engineering papers the ranking missed (`etl.py add --reason dag-supplement`) |
+| Date audit | v1 `published` date inside the window, rechecked live against arXiv for all 278 (`etl.py recheck`); withdrawn papers rejected (see below) |
 | Full text | Read from arXiv HTML, with a pdftotext fallback |
 | Pre-review signals | Vendor affiliations, artifact URLs, and limitations/ethics/acknowledgment sections, extracted deterministically |
-| Adversarial review | Each paper reviewed against `REVIEW_RUBRIC.md`: 5 scores (0–5), 25 bias codes, COI severity, claim strength, per-pattern stance |
-| Blind audit | 59 papers (26% of the harvest selection) independently re-reviewed without seeing the first review. Merged conservatively: lowest score and strictest verdict win |
-| Hallucination check | 4,815 numbers cited by reviewers matched against the paper text; 53 (1.1%) not found, mostly derived values |
+| Adversarial review | Each paper reviewed against `REVIEW_RUBRIC.md`: 5 scores (0–5), bias codes, COI severity, claim strength, per-pattern stance |
+| Blind audit | 138 papers, including every one of the 112 evidence papers. Each was re-reviewed before reading the first review. Merged conservatively: lowest score, strictest verdict, weakest claim strength and the auditor's stance changes win |
+| Hallucination check | 4,815 numbers cited in the first 240 reviews matched against the paper text; 53 (1.1%) not found, mostly derived values. Not rerun for the 38 DAG-batch reviews |
 | Review gate | Deterministic code (`etl.py admission`), not LLM judgment |
-| Contribution gate | Each review-passing paper classified against `CONTRIBUTION_RUBRIC.md`, then gated by code (`etl.py contribution_gate`). Contribution strength is capped at the paper's strongest audited claim; the reviewer can only tighten the outcome |
+| Contribution gate | Each review-passing paper classified against `CONTRIBUTION_RUBRIC.md`, then gated by code (`etl.py contribution_gate`). Strength is capped at the paper's strongest audited claim. A paper with no assessment loads as `unassessed`, not evidence |
+| Pattern labels | Fixed rule (`pattern_label`), stress-tested on subsets in `kb_robustness.md` |
 
-Outcome for the 240 reviews:
+Outcome for the 278 reviews:
 
 | Status | Papers | Mean rigor | Meaning |
 | --- | --- | --- | --- |
-| Evidence (caveated) | 96 | 2.89 | Passed both gates |
-| Hypothesis | 30 | 2.43 | A transferable idea, but on weak evidence, or the paper is self-declared preliminary |
-| No contribution | 39 | 2.49 | Restates known practice, duplicates a stronger paper, or does not transfer |
-| Rejected | 75 | 1.49 | Failed review: 39 off-topic, 35 on quality, 1 withdrawn |
+| Evidence (caveated) | 112 | 2.80 | Passed both gates |
+| Hypothesis | 36 | 2.39 | A transferable idea, but on weak evidence, or the paper is self-declared preliminary |
+| No contribution | 40 | 2.48 | Restates known practice, duplicates a stronger paper, or does not transfer |
+| Rejected | 90 | 1.53 | Failed review: 54 with relevance ≤ 1 (off-topic), the rest on quality; 1 withdrawn |
 
 No paper cleared every check cleanly, and the best scored rigor 4 of
 5. Rigor alone does not separate volume papers from useful ones:
-dropped papers averaged rigor 2.49, close to the hypotheses. Most were
+dropped papers averaged rigor 2.48, close to the hypotheses. Most were
 competent work that told this team nothing new. Treat everything below
 as directional evidence, not settled science.
 
@@ -148,82 +180,98 @@ highest weight in the KB is 0.48.
 
 The window applies to the **first** submission. A paper first posted
 before May 2026 and only revised inside the window does not qualify.
-`admission` checks the v1 `published` date, and arXiv IDs encode the
-v1 month.
+`admission` checks the v1 `published` date.
 
 | Check | Result |
 | --- | --- |
-| v1 dates of the 240 reviewed papers | 2026-05-02 … 2026-10-05 |
+| v1 dates of the 278 reviewed papers | 2026-05-02 … 2026-10-06 |
 | v1 before 2026-05-01 | 0 |
-| Revised on arXiv since we reviewed them (live recheck) | 0 |
+| Revised on arXiv since we reviewed them (live recheck of all 278, 2026-10-07) | 0 |
 | Withdrawn | 1: 2606.14066, a lock citation, now rejected |
-| Self-declared extensions of earlier work | 1, already rejected on quality |
-| Self-declared work in progress | 7 flagged `self_declared_incomplete`; capped at hypothesis |
+| `published` month earlier than the ID month | 363 of 5,926 harvested (6%), never later; consistent with arXiv moderation holds. `published` is the stricter check |
+| Evidence papers first posted after 2026-09-30 | 3 (2610.02932, 2610.02952, 2610.07851). Dropping them changes one label (P28) |
+| Self-declared work in progress | 8 flagged `self_declared_incomplete`; capped at hypothesis |
 
 ### Contribution audit
 
-Of the 165 papers that passed review, 69 (42%) added nothing the team
+Of the 188 papers that passed review, 76 (40%) added nothing the team
 can use on adequate evidence. Quantity-over-quality flags:
 
 | Flag | Papers | What it catches |
 | --- | --- | --- |
-| numbers_without_mechanism | 18 | Gains reported without the ablation that says why |
-| system_description_only | 9 | "We built X" with no outcome measure |
+| numbers_without_mechanism | 19 | Gains reported without the ablation that says why |
+| system_description_only | 10 | "We built X" with no outcome measure |
 | leaderboard_only | 8 | Rankings with no transferable lesson |
+| self_declared_incomplete | 8 | Authors call it preliminary or WIP |
 | survey_restatement | 7 | Reorganises known advice |
-| self_declared_incomplete | 7 | Authors call it preliminary or WIP |
-| position_without_evidence | 5 | Argument only |
+| position_without_evidence | 6 | Argument only |
 | renamed_known_idea | 4 | A new name for established practice |
 
-Qualifying contributions from the 96 evidence papers: 38 test
-practices, 32 nuances, 24 heuristics, 17 constraints, 16 design
-patterns and 15 anti-patterns. Each one is listed in
+Qualifying contributions from the 112 evidence papers: 43 test
+practices, 42 nuances, 28 heuristics, 17 design patterns, 17
+anti-patterns and 16 constraints. Each one is listed in
 `kb_contributions.md`.
 
 ## Where each pattern lands
 
-Counts are evidence papers only, after the audit merge. "Supp" and
-"Contra" are paper counts.
+Counts are evidence papers only, after the audit merge, written as
+supports / contradicts / mixed. Labels come from the fixed rule in
+`kb_robustness.md`. That file also shows which labels hold on the Java,
+non-SWE-bench, no-COI and pre-October subsets, and without each
+pattern's top paper.
 
 ### Consensus: build these
 
-| Pattern | Supp / Contra | What the evidence actually says |
+| Pattern | S / C / M | What the evidence actually says |
 | --- | --- | --- |
-| P16 Execution verifier loop | 21 / 1 | Strongest pattern overall. Feed raw javac diagnostics, not LLM-written explanations (2609.00362). Accept a defect claim only with a reproducing failing test (2606.22263). Cap repair retries at about 3 (2609.03086). Benchmark any error-feedback loop against a blind redraw with the same budget: sanitized diagnostics added nothing over resampling in one study (2609.22222). |
-| P17 Static analysis in the loop | 7 / 1 | Rule-based compile repair beat LLM repair loops for Java test generation (2607.19682, Huawei, medium COI). Typed CodeQL queries handle cross-service Java flows (2605.15569). Grounding contract alarms in retrieved code cut false positives from 60.5% to 13.9% (2607.00555). |
-| P05 Lexical/deterministic retrieval | 8 / 0 | Production harnesses retrieve with ripgrep, glob and tree-sitter, and use LSP for post-write diagnostics (2609.00006). Serve definitions from a static graph and references from a live LSP (2607.25431). Expand grep hits to structural neighbours rather than going graph-first (2605.16352). |
-| P21 Policy-as-code guardrails | 7 / 0 | Declared forbidden operations stopped mutating SQL (2609.22259). Blocking egress closed leakage channels (2609.08149). Put a deterministic predicate in front of write tools, and audit each gate's precision by minus-one removal (2607.07405). Route by enrolled IDs, never display names (2609.27624). |
-| P24 Token and cost budgets | 7 / 0 | Output tokens cost 30–1,000x more energy than input on self-hosted models (2605.27787). Do the break-even arithmetic before adding a paid compressor (2608.24188) or codifying a procedure (2610.02932). |
-| P34 Structured acceptance criteria | 4 / 0 | A fully specified output contract (2609.22222). Acceptance-test-first repair, keeping the best checkpoint (2605.17242). Under-specified defaults (2609.08149, 2609.22259). Per-target acceptance tests (2605.15846). |
-| P30 Observability and audit | 5 / 0 | Merge rate is a confounded KPI: record closure reasons and reviewer touch (2605.22534). Count the invoking developer as the author: 40.1% of agent PRs get no independent review (2607.07980). Log whether a declared multi-agent workflow actually happened (2609.38345). |
-| P13 Planner-executor | 6 / 0 | Plan verification together with implementation (2608.09277). A plan → develop → independent-test loop beat plain continuation at fewer tokens (2609.01481). Hand off through artifact files, not transcripts (2608.25457). |
-| P35 Formal and independent checkers | 6 / 0 | Gate agent transforms with a small trusted checker (2605.08927). Fuzz agent-inferred contracts and reject trivially true ones (2605.27531). Run differential campaigns against a reference (2607.28928). |
-| P12 Task-specific subagents | 2 / 0 | A persistent lookup-only search subagent returning file:line pointers (2605.27787). Pre-inject retrieved files only when retriever precision is high (2608.05886). |
+| P21 Policy-as-code guardrails | 6 / 0 / 2 | Declared forbidden operations stopped mutating SQL (2609.22259). Blocking egress closed leakage channels (2609.08149). Put a deterministic predicate in front of write tools, and audit each gate's precision by minus-one removal (2607.07405). Route by enrolled IDs, never display names (2609.27624). |
+| P34 Structured acceptance criteria | 5 / 0 / 4 | A fully specified output contract (2609.22222). Acceptance-test-first repair, keeping the best checkpoint (2605.17242). Under-specified defaults (2609.08149, 2609.22259). A requirement-to-component map (2608.19854). |
+| P13 Planner-executor | 5 / 0 / 5 | Plan verification together with implementation (2608.09277). A plan → develop → independent-test loop beat plain continuation at fewer tokens (2609.01481). Hand off through artifact files, not transcripts (2608.25457). A hard stage break with a structured handoff beat a prompt-described pipeline (2606.22263). Falls to conditional without its top paper (2608.19854). |
+| P24 Token and cost budgets | 4 / 0 / 2 | An explicit cumulative budget capped worst-case overspend (2610.02932). Billed cost cross-checked against provider dashboards (2606.22263). On one model, a selector plus intermediate form used 0.55× the tokens at equal or better validity (2608.30250). |
+| P17 Static analysis in the loop | 3 / 0 / 1 | Rule-based compile repair beat LLM repair loops for Java test generation (2607.19682, Huawei, medium COI). Static-analysis output drives the loop on cross-service Java flows (2605.15569). A deterministic checker as the repair oracle (2606.21926). Thin: falls to leaning on the Java and no-SWE-bench subsets. |
+| P30 Observability and audit | 3 / 0 / 2 | Functional CI passed while token cost rose 52–131% (2607.03691). Trajectory audits exposed reward hacking (2609.08149). Event streams show whether a declared workflow actually happened (2609.38345). |
+
+P25 (RL fine-tuning, 4/0/1) and P32 (field evaluation, 5/0/1) also reach
+the bar. P25 belongs to the agent host (Job A). P32 is a study method,
+not a harness choice.
+
+### Conditional: works where measured, if its conditions hold
+
+| Pattern | S / C / M | Conditions the mixed papers name |
+| --- | --- | --- |
+| P16 Execution verifier loop | 10 / 1 / 14 | Only as good as the verifier. The tests must not come from the code they check: tests written after seeing the code lost 8–18 points (2607.05139), and same-agent tests agree on wrong behaviour (2608.16742). They must execute the changed lines (2607.18057) and carry a value oracle (2606.18168). Feedback must beat a blind redraw at the same budget (2609.22222). JUnit 4 test feedback was no better than "code is wrong" in Java, while raw javac diagnostics helped (2609.00362). Accept a defect claim only with a reproducing failing test (2606.22263). Cap repair retries at about 3 (2609.03086). |
+| P05 Lexical/deterministic retrieval | 3 / 0 / 7 | Deterministic AST/PSI or CodeQL retrieval beat model inference of context (2607.19682, 2605.15569). Lexical grounding cut contract-alarm false positives from 60.5% to 13.9% (2607.00555). Alone, lexical search is the weakest retriever; it helps in fusion or anchored to structure (2605.16352). |
+| P02 Skills loaded on demand | 2 / 0 / 7 | Selective loading of standards text beat always-on (2606.21926). Procedural skills recovered pass rate at lower cost (2607.16617). |
+| P36 Static workflow graph | 2 / 0 / 8 | Wins when stages carry domain signals or deterministic rules (2608.17018, 2608.19854). Cheap but behind open loops on multi-file work (2605.16352); more side effects (2606.21926). See `dag.md`. |
 
 ### Contested: use narrowly and measure
 
-| Pattern | Supp / Contra | Why it is contested |
+| Pattern | S / C / M | Why it is contested |
 | --- | --- | --- |
-| P18 LLM-as-judge or AI reviewer | 3 / 2 (12 mixed) | Mean judge accuracy is 0.56 on long-form outputs. Golden references help; rubrics on top of them don't (2606.01629). Style edits raised judge scores in more than 65% of attempts (2605.26156). Per-task hidden rubrics reached τ≈0.19 against experts (2608.13331). Ericsson's per-dimension reviewers reached 96% author-rated precision on few commits (2609.15877). Advisory only. |
-| P08 Context compaction | 1 / 3 (8 mixed) | Single-shot retention scores do not predict end-to-end runs: 7 vs 19 resolved (2605.11051). If you compress, keep it extractive and keep a byte-exact read path for files being edited (2608.24188). Refresh repo maps only when focus shifts (2609.16936). |
-| P11 Multi-agent role teams | 0 / 2 (4 mixed) | Generic role teams hurt (2609.32459). An orchestrator with full tools never delegated, so give it read-only tools (2609.38345). The two-agent ceiling (2608.23740) is a hypothesis only. |
-| P06 Embedding RAG over code | 3 / 2 | No pinned production harness uses code embeddings (2609.00006). Snippet leaderboards do not predict localization, and BM25 beats several dense models on Java (2606.11864). Code embedding indexes are poisonable (2608.26031). |
-| P02 Skills and progressive disclosure | 4 / 1 (9 mixed) | Selective loading beats always-on (2606.21926). Lint AI-written SKILL.md files for portability and safety (2608.08453). Scanners miss split-intent skill attacks (2606.14154). A registry needs procedural skills alongside it (2607.16617). |
-| P23 Model routing | 3 / 2 | Per-stage routing works (2606.22263). Cheaper models faked 6 of 39 reproductions (2607.25333). Oracle-gap numbers are upper bounds (2608.08265). A static best-model table built from your own outcomes matches an LLM router (2606.22902). Routing remains the host's decision (see AGENTS.md). |
-| P15 TDD with agents | 2 / 0 (3 mixed) | The main failure is code and self-written tests agreeing on the same wrong behaviour: keep a hidden oracle (2608.16742). Mutation score is not bug finding: the top mutation scorer found 25.6 pp fewer real bugs (2607.11573). |
-| P26 Self-improving harness | 1 / 2 | Self-authored verification is unreliable (2607.24300). Agents tamper with their own harness (2609.00069). Require graded predictions for harness changes (2609.01861). |
-| P04 MCP | 1 / 1 | About 10% of tool descriptions misrepresent the code (2606.04769). Conformance-test in-house servers (2606.05339). Taint-scan for leaks (2606.21338). Check the host's tool-name collision policy (2609.27624). |
+| P15 TDD with agents | 2 / 1 / 2 | Tests written first from the spec, or by an author isolated from the implementation, help (2605.17242, 2607.05139). Agent-authored tests did not help in any condition, and self-scores saturated (2607.24300). The separation is what works, not "tests first" as a prompt. |
+| P18 LLM-as-judge or AI reviewer | 1 / 2 / 12 | Mean judge accuracy is 0.56 on long-form outputs (2606.01629). Style edits raise judge scores (2605.26156). Advisory only. |
+| P08 Context compaction | 0 / 2 / 9 | Learned compression hurt resolution (2605.11051). Native compaction lost an exact 256-entry contract (2607.17937). If you compress, keep it extractive with a byte-exact read path (2608.24188). |
+| P11 Multi-agent role teams | 0 / 1 / 5 | Generic role teams hurt (2609.32459). A model-directed team realized its declared organization in only 47.2% of runs (2609.38345). |
+| P06 Embedding RAG over code | 2 / 1 / 4 | Code embedding indexes are poisonable (2608.26031). Dense eager candidates helped one repair setup (2607.25431). |
+| P07 Code/knowledge graph context | 3 / 1 / 1 | Graph context helps injected into a lexical loop (2605.16352, 2609.16936). A temporal knowledge graph fragmented specification facts (2607.26072). |
+| P09 Persistent memory | 0 / 1 / 5 | Memory can carry insecure preferences across sessions (2607.17619). Keep durable preferences in committed files. |
+| P22 Prompt-injection defenses | 1 / 1 / 3 | Tree-sitter sanitization cut injection about 3× (2606.19235). Prompt-level warnings were bypassed on every pair tested (2605.11229). Defenses must sit outside the model context. |
+| P26 Self-improving harness | 1 / 1 / 3 | Agents tamper with their own harness (2609.00069). Evolved workflows beat a hand-written seed on held-out sets (2607.16387). Require graded predictions for harness changes (2609.01861, hypothesis only). |
+| P33 CLI-first / code-as-action | 1 / 1 / 4 | Adding native read/write/edit tools beat a bash-only loop by 3.5–4.6 pp (2609.32459). |
 
-### Unsupported or unstudied: do not budget for these as quality levers
+### Unsupported, unresolved or unstudied: do not budget for these as quality levers
 
-| Pattern | Supp / Contra | Status |
+| Pattern | S / C / M | Status |
 | --- | --- | --- |
-| P01 Instruction files | 0 / 0 | No evidence paper. All three AGENTS.md papers are hypotheses. Treat the files as operational hints only. |
-| P14 Spec-driven development as a methodology | 2 / 0 (3 mixed) | The two supports are about verification planning (2608.09277) and specification-guided model checking (2607.25333), not SDD adoption. The Google contracts paper (2608.17177, medium COI) shows gains only at k≥4 attempts, for about 38% more tokens. |
-| P27 Cross-repo coordination | 0 / 0 (3 mixed) | No direct evidence. |
-| P29 Parallel agents in worktrees | 1 / 0 | Thin. |
-| P22 Prompt-injection defenses | 1 / 0 | Tree-sitter neutralisation of untrusted code cut injection about 3x but left 6–8% (2606.19235). Never write "follow the instructions in this document" for untrusted content (2608.06477). |
-| P28 Deterministic codemods | 1 / 0 | One paper (2606.24446), but it is Java-specific and direct. |
+| P37 Model-generated task DAG | 2 / 0 / 2 | Leaning. Only when grown from evaluated results (2609.39154) or checked by deterministic rules (2608.19854). See `dag.md`. |
+| P35 Formal and independent checkers | 2 / 0 / 2 | Leaning (was consensus before the full audit). TLA+ model checking found real bugs (2607.25333). Fuzz agent-inferred contracts (2605.27531). |
+| P12 Task-specific subagents | 1 / 0 / 5 | Unresolved (was consensus). A persistent lookup-only search subagent (2605.27787). Pre-inject retrieved files only when retriever precision is high (2608.05886). |
+| P14 Spec-driven development as a methodology | 1 / 0 / 2 | Unresolved. The specific spec practices under P34 carry the evidence; SDD adoption has none. |
+| P27 Cross-repo coordination | 0 / 0 / 3 | Unresolved on 5 reviewed of 59 harvested papers. |
+| P28 Deterministic codemods | 1 / 0 / 2 | Unresolved. One paper (2606.24446), but it is Java-specific and direct. |
+| P10 Single-agent loop, P19 human approval gates, P23 model routing, P31 benchmark evaluation, P04 MCP | 0–1 / 0 / 2–4 | Unresolved: mixed evidence only. |
+| P20 OS sandboxing, P29 parallel worktrees | 1 / 0 / 0–1 | Leaning, one paper each. |
+| P01 Instruction files, P03 small tool catalog | 0 / 0 / 0 | No evidence paper. P03's only support (2607.15593) was rejected in the full audit (rigor 2, high COI). |
 
 ## Hypotheses worth testing locally
 
@@ -239,6 +287,11 @@ are plausible and cheap to try, but they are not evidence.
 | At most two concurrent agents per codebase | 2608.23740 | Every claim weak after audit |
 | Normalise token accounting before comparing host cost | 2607.22585 | Single-trial, non-comparable measurements |
 | Scoped MCP proxy, and a 10–15 tool cliff | 2606.30317 | Position paper with Haiku-only telemetry |
+| Per-node structured traces with contracts localize workflow faults (59.8% → 84.4%) | 2607.02882 | Overall lead depends on parts learned from the test data |
+| Route handoffs in code; model-declared edges go unexercised (10/41 delegations) | 2605.26521 | Restricted-edge counts inflated by construction |
+| Hard evidence gates between stages, plus a bounded repair loop | 2609.00050 | Gate effect not significant (0 vs 4 bad transitions of 420); one cloud, greenfield |
+| Model-generated atomic task graph beats ReAct | 2607.01942 | 7B models on text games; extra calls not counted |
+| Require graded predictions before accepting a harness change | 2609.01861 | Gains vanish on the unscreened split and after a target-model swap |
 
 Full list: `kb_tables.md` → "Hypotheses (not evidence)".
 
@@ -272,42 +325,41 @@ Full list: `kb_tables.md` → "Hypotheses (not evidence)".
 
 ## Biases and conflicts of interest in the literature
 
-Bias codes across the 240 reviewed papers:
+Bias codes across the 278 reviewed papers:
 
 | Bias | Papers | Share |
 | --- | --- | --- |
-| No variance reported | 117 | 49% |
-| Small sample | 107 | 45% |
-| Self-evaluation (authors' own system and metric) | 107 | 45% |
-| Metric does not measure the claim | 103 | 43% |
-| Closed artifacts | 80 | 33% |
-| Hype language | 66 | 28% |
-| Single model | 61 | 25% |
-| Strawman baseline | 57 | 24% |
-| Contamination risk | 57 | 24% |
-| Unvalidated LLM judge | 56 | 23% |
+| No variance reported | 135 | 49% |
+| Self-evaluation (authors' own system and metric) | 129 | 46% |
+| Metric does not measure the claim | 128 | 46% |
+| Small sample | 127 | 46% |
+| Closed artifacts | 105 | 38% |
+| Hype language | 79 | 28% |
+| Single model | 74 | 27% |
+| Strawman baseline | 70 | 25% |
+| Contamination risk | 67 | 24% |
+| Toy tasks | 61 | 22% |
 
 - **Conflicts of interest.**
-  - 10 papers had a high COI: 7 rejected, 1 hypothesis, 2 evidence.
-  - 17 had a medium COI: 7 rejected, 5 hypothesis or no
-    contribution, 5 evidence.
-  - High- and medium-COI papers averaged rigor of about 1.8, against
-    about 2.4 for low or no COI.
-- **Claim strength.** Of 1,014 claims extracted, 58 (6%) were rated
-  strong, 462 moderate, 405 weak and 89 unsupported by the paper's own
+  - 11 papers had a high COI: 8 rejected, 1 hypothesis, 2 evidence.
+  - 19 had a medium COI: 7 rejected, 7 evidence.
+  - High- and medium-COI papers averaged rigor of about 1.9, against
+    about 2.3 for low or no COI.
+- **Claim strength.** Of 1,206 claims extracted, 62 (5%) were rated
+  strong, 510 moderate, 520 weak and 114 unsupported by the paper's own
   evidence.
-- **Contribution type predicts quality.** All 14 position papers
-  failed. 13 were rejected and one is a hypothesis. Surveys fared
-  little better: 4 of 6 that passed review were dropped as
-  restatements. Benchmark papers were the most likely to contribute
-  (19 of 25 that passed review).
-- **Language skew.** SWE-bench appears in 22.3% of coding-agent
-  abstracts, Python in 8.4% and Java in 2.9%. Java-specific evidence
-  exists (2609.00362, 2607.18057, 2606.24446, 2605.06754, 2607.19682,
-  2606.13298, 2608.20167, 2608.30497, 2607.11573) but is thin.
-- **Auditor calibration.** Blind auditors were stricter than
-  first-pass reviewers. The contribution checker therefore merges the
-  audit before capping strength.
+- **Contribution type predicts quality.** Of 16 position papers, 15
+  were rejected and one is a hypothesis. Surveys fared little better: 4
+  of 6 that passed review were dropped. Benchmark papers were the most
+  likely to contribute (19 of 25 that passed review).
+- **Language skew.** SWE-bench appears in 22.2% of coding-agent
+  abstracts, Python in 8.3% and Java in 2.9%. 21 of the 112 evidence
+  papers mention Java at least 5 times. On that subset only P16 and P32
+  keep a label (`kb_robustness.md`).
+- **Auditor calibration.** Blind auditors changed 63% of first-pass
+  `supports` stances (139 of 219): 63 to neutral, 47 to mixed and 29 to
+  introduces. The contribution checker merges the audit before capping
+  strength.
 
 ## Conflicts between papers
 
@@ -319,6 +371,7 @@ Bias codes across the 240 reviewed papers:
 | Do specs help? | Acceptance contracts help (2609.22222, 2605.17242, 2605.15846) | More constraints hurt (2605.06445); wording flips security outcomes (2605.29737) | Short executable specs, not long prose. |
 | Does mutation score measure test quality? | Kill targets from historical bug classes help (2607.11573) | The top mutation scorer found fewer real bugs (same paper) | Do not gate on generic mutation score. |
 | Does feeding errors back help? | Raw javac diagnostics help on compile errors (2609.00362) | Sanitized diagnostics = blind resampling (2609.22222) | Feed raw compiler output. Spend effort on validators. |
+| Fixed workflow or open agent loop? | Fixed incident-repair pipeline beat an open loop at 4% of the tokens (2608.17018); fixed repair solved more accessibility bugs (2606.21926) | Agentless-style pipeline far behind on multi-file localization (2605.16352); more side effects (2606.21926) | Fix the outer stages and gates; leave the code change to a bounded loop (`dag.md`). |
 
 ## Implications for the Java multi-repo healthcare-content team
 
@@ -380,6 +433,10 @@ engineering judgment that fills a gap in the research.
 - **[E]** Keep acceptance validators that the agent never sees, and
   vary scale, boundaries and order (2608.19799). Re-run every earlier
   unit's acceptance tests at each checkpoint (2608.00267).
+- **[E]** Generate tests from the spec, in a context that cannot see
+  the implementation or the coding agent's conversation. Tests written
+  right after the code lost 8–18 points of fault detection on 5 of 5
+  models (2607.05139).
 - **[E]** Compliance NFRs (learner and patient data privacy, no PHI in
   logs) must be executable checks. Agent self-assessment does not
   count (2606.24834). Write security requirements as exploit tests,
@@ -405,25 +462,44 @@ engineering judgment that fills a gap in the research.
   commands, module test shortcuts, where contracts live. Lint it in CI
   for stale references (2607.27250, 2606.09090, 2606.15828). This is
   cheap, but it is not proven.
-- **[E]** Prefer narrow subagents over role teams (2609.32459). Give
-  an orchestrator read-only tools (2609.38345). Hand off through
-  artifact files (2608.25457). **[H]** Use at most 2 parallel agents
-  per task (2608.23740).
+- **[E]** Avoid generic role teams (2609.32459). Script handoffs in
+  code if they must happen: a model-directed team realized its declared
+  organization in 47.2% of runs (2609.38345). Hand off through artifact
+  files (2608.25457). Subagents for exploration (P12) are unresolved
+  after the full audit (1 supporting, 5 mixed), so use them for context
+  isolation, not as a quality lever. **[H]** Use at most 2 parallel
+  agents per task (2608.23740).
+- **[E]** Keep the workflow graph fixed, deterministic and in CI: SDD
+  stages, gates, provider-first merge order. Each node runs a bounded
+  agent loop, and edges are files such as the spec, the lock and
+  reports. Validate agent output before any shell or git step reads it
+  (2605.07135). Don't adopt a graph runtime for coding: no speed gain
+  (2605.18697), and no production harness uses one (2609.00006). See
+  `dag.md`.
 - **[E]** Avoid summarization compaction on long multi-repo tasks. If
   you compress, keep it extractive with a byte-exact read path
   (2608.24188, 2605.11051).
-- **[E]** Keep the MCP catalog small and vetted (2606.04769,
-  2606.14154). Selection holds at about 15 inlined tools, so tool
-  retrieval is unwarranted for a small catalog (2607.15593, Alibaba,
-  high COI).
+- **[E]** Vet the MCP catalog: about 10% of tool descriptions
+  misrepresent the code (2606.04769), and scanners miss split-intent
+  skill attacks (2606.14154). **[J]** Keep it small. The ~10–15 tool cap
+  in `AGENTS.md` is policy. The paper that measured selection at about
+  15 tools (2607.15593) was rejected in the full audit.
 
 ## Limitations of this KB
 
 - **Harvest bias.** Selection used our own topic queries, ranked by
-  relevance with 4 papers per topic. This is not a systematic review.
+  relevance with 4 papers per topic (10 for T59–T61). This is not a
+  systematic review. A topic not queried is invisible: DAG workflows
+  were until T59–T61 were added, and P27 has only 5 reviewed papers of
+  59 harvested.
 - **Reviewers are LLMs.** Each review and contribution classification
-  is one LLM pass. Only 26% of reviews were blind-audited. The gates
+  is one LLM pass. All 112 evidence papers have a blind audit, but
+  reviewer and auditor are the same model family, so shared blind spots
+  remain. Agreement is lowest on relevance (66 of 138 exact). The gates
   are deterministic, but their inputs are not.
+- **Vote counting.** Pattern labels count papers and weight them by an
+  ad hoc formula. This is not a meta-analysis. `kb_robustness.md` shows
+  which labels rest on one paper or one subset.
 - **Contribution is relative to this team.** "Does not transfer" and
   "restates known" are judged against a Java multi-repo backend team.
   A paper dropped here may matter to a different team.

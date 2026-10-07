@@ -27,7 +27,7 @@ evidence. Retrieval-level gains do not predict end-to-end results
 | Cross-repo contracts: Spring `@*Mapping` routes ↔ RestTemplate/WebClient calls, OpenAPI paths, orphan and mismatch check | P27 has none; deterministic sensors are the supported frame | **adopt** as a read-only cross-repo sensor next to `qr contracts`, which owns the schema diff |
 | `verify_change`: signature change vs all callers and implementors | 2608.20167, 2606.24446: verify mechanically | **adopt** |
 | jdtls confirms or rebinds edges via references/definition | 2607.25431: live LSP for references (static matched only 64%) | **adopt** (install jdtls) |
-| `facade-v1`: 21 tools, ≤15 KB `tools/list` | 2607.15593: ~15 inlined tools still select well | **adopt** the facade; do not expose the 178-tool preset |
+| `facade-v1`: 21 tools, ≤15 KB `tools/list` | No evidence paper: 2607.15593 (~15 inlined tools still select well) was rejected in the full audit; the small catalog is `AGENTS.md` policy | **adopt** the facade on policy grounds; do not expose the 178-tool preset |
 | Hook mode `deny` (default): blocks Read/Grep/Glob/Bash and redirects to Gortex | 2605.16352: anchor on lexical hits; 2608.24188: keep a byte-exact read path; 2609.00006: production hosts retrieve lexically | **no**. Use `--hook-mode=enrich` |
 | Semantic search on by default (GloVe + BM25 fusion) | 2608.26031: code embedding indexes are poisonable; 2606.11864: snippet embedders localize poorly on Java | **no**. Set it to `off` (BM25/FTS5 only) |
 | `gortex init --skills` (on by default): per-community SKILL.md plus routing in instruction files | 2606.21926: always-on injection did worse than none; `phase-2-init.md` forbids skill packs | **no**. Turn it off |
