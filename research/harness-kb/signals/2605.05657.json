@@ -1,0 +1,451 @@
+{
+ "arxiv_id": "2605.05657",
+ "fulltext_chars": 92885,
+ "fulltext_lines": 2858,
+ "authors_block": "Abhijit Talluri Affiliation: Independent Researcher Email: talluri.abhijit@gmail.com Raghavendra Chilukuri Affiliation: Independent Researcher Email: raghubt.2020@gmail.com Pujith Anne Affiliation: Independent Researcher Email: annep.devops@gmail.com Bhagavan Choudary Pendiyala Affiliation: Independent Researcher Email: bhagavanchoudary@gmail.com",
+ "vendor_affiliation_hits": [],
+ "n_authors": 4,
+ "comment": "30 pages, 9 figures. NeurIPS 2026 Evaluations and Datasets Track Submission Under review",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/Significant-Gravitas/AutoGPT",
+  "https://github.com/VectifyAI/PageIndex",
+  "https://github.com/langchain-ai/langgraph",
+  "https://github.com/openai/openai-agents-python",
+  "https://github.com/scaleapi/SWE-bench_Pro-os"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   22,
+   "# Retrieval-Conditioned Topology Selection with Provable Budget Conservation for Multi-Agent Code Generation"
+  ],
+  [
+   48,
+   "###### Abstract"
+  ],
+  [
+   52,
+   "## 1 Introduction"
+  ],
+  [
+   114,
+   "## 2 Related Work"
+  ],
+  [
+   116,
+   "#### Topology routing for multi-agent LLMs."
+  ],
+  [
+   131,
+   "#### Formal budget algebras."
+  ],
+  [
+   147,
+   "#### Cost-aware LLM routing and code retrieval."
+  ],
+  [
+   158,
+   "#### Composition novelty."
+  ],
+  [
+   166,
+   "## 3 System Architecture"
+  ],
+  [
+   197,
+   "#### Runtime surface."
+  ],
+  [
+   225,
+   "### 3.1 Contract-Based Sub-Agent Abstraction"
+  ],
+  [
+   286,
+   "### 3.2 Swarm Orchestration"
+  ],
+  [
+   308,
+   "### 3.3 Hierarchical Code Retrieval"
+  ],
+  [
+   346,
+   "### 3.4 Retrieval-Guided Adaptive Orchestration (RGAO)"
+  ],
+  [
+   379,
+   "### 3.5 Budget Algebra"
+  ],
+  [
+   381,
+   "###### Definition 1 (Budget vector and composition)."
+  ],
+  [
+   391,
+   "###### Theorem 1 (Conservation)."
+  ],
+  [
+   399,
+   "###### Proof sketch."
+  ],
+  [
+   414,
+   "## 4 Theoretical Analysis"
+  ],
+  [
+   450,
+   "###### Proposition 1 (Compositional budget safety)."
+  ],
+  [
+   460,
+   "#### Why neither component suffices."
+  ],
+  [
+   469,
+   "###### Definition 2 (Joint property P )."
+  ],
+  [
+   480,
+   "###### Proposition 2 (Composition necessity)."
+  ],
+  [
+   488,
+   "###### Proof sketch."
+  ],
+  [
+   511,
+   "## 5 Empirical Evaluation"
+  ],
+  [
+   513,
+   "#### Evaluation scope."
+  ],
+  [
+   528,
+   "### 5.1 Routing Evaluation (Headline)"
+  ],
+  [
+   559,
+   "### 5.2 Microbenchmarks"
+  ],
+  [
+   589,
+   "### 5.3 Multi-Step Pipeline Correctness"
+  ],
+  [
+   619,
+   "### 5.4 State-of-the-Art Proxy Comparison"
+  ],
+  [
+   634,
+   "## 6 Discussion, Limitations, and Broader Impact"
+  ],
+  [
+   636,
+   "#### Limitations."
+  ],
+  [
+   664,
+   "#### Concurrent 2025–2026 work."
+  ],
+  [
+   708,
+   "#### Production safety in the released system."
+  ],
+  [
+   732,
+   "#### Broader Impact."
+  ],
+  [
+   765,
+   "## 7 Conclusion"
+  ],
+  [
+   775,
+   "## References"
+  ],
+  [
+   1321,
+   "## Appendix A Algorithms: Sub-Agent and Swarm Executors"
+  ],
+  [
+   1323,
+   "### A.1 Sub-Agent Execution with Dual Guard Rails"
+  ],
+  [
+   1421,
+   "### A.2 Swarm Execution with Three-Gate Protocol"
+  ],
+  [
+   1539,
+   "#### Intervention policy."
+  ],
+  [
+   1551,
+   "## Appendix B Contract Detail: \\langle\\mathcal{I},\\mathcal{C},\\mathcal{T},\\mathcal{M}\\rangle Components, Presets, Tool Lattice"
+  ],
+  [
+   1553,
+   "### B.1 Full Component Descriptions"
+  ],
+  [
+   1618,
+   "### B.2 Chattiness Detection and Handoff Validation"
+  ],
+  [
+   1636,
+   "## Appendix C Retrieval Detail: Query Types, RRF, Seven-Signal Scorer"
+  ],
+  [
+   1638,
+   "### C.1 Bottom-Up Summarisation Modes"
+  ],
+  [
+   1660,
+   "### C.2 Query-Adaptive Retrieval Strategies"
+  ],
+  [
+   1695,
+   "### C.3 Reciprocal Rank Fusion"
+  ],
+  [
+   1708,
+   "### C.4 Seven-Signal Value Scorer"
+  ],
+  [
+   1781,
+   "## Appendix D Hyperparameters and Configuration"
+  ],
+  [
+   1783,
+   "### D.1 RGAO Router Thresholds"
+  ],
+  [
+   1826,
+   "### D.2 LATTICE Retrieval"
+  ],
+  [
+   1849,
+   "### D.3 Seven-Signal Ablation"
+  ],
+  [
+   1904,
+   "### D.4 Model Snapshots and Sampling"
+  ],
+  [
+   1927,
+   "## Appendix E Compute Resources"
+  ],
+  [
+   1929,
+   "### E.1 Hardware"
+  ],
+  [
+   1958,
+   "### E.2 Wall-Clock and API Spend"
+  ],
+  [
+   1988,
+   "### E.3 Deferred for a Follow-up Evaluation Pass"
+  ],
+  [
+   1995,
+   "## Appendix F Licenses of Existing Assets"
+  ],
+  [
+   2071,
+   "### F.1 LLM Inference Services"
+  ],
+  [
+   2080,
+   "## Appendix G Model / Data Card: New Assets"
+  ],
+  [
+   2084,
+   "### G.1 Code-Agent Framework (Code)"
+  ],
+  [
+   2107,
+   "### G.2 Routing Evaluation Label Set"
+  ],
+  [
+   2142,
+   "### G.3 Contract-Factory Microbenchmark"
+  ],
+  [
+   2168,
+   "## Appendix H Full Proof of Theorem 1"
+  ],
+  [
+   2173,
+   "### H.1 Formal Setup"
+  ],
+  [
+   2175,
+   "#### Assumptions."
+  ],
+  [
+   2203,
+   "#### Delegation constraint (D)."
+  ],
+  [
+   2209,
+   "#### Budget-tracker invariant (T)."
+  ],
+  [
+   2217,
+   "### H.2 Proof by Structural Induction"
+  ],
+  [
+   2219,
+   "###### Theorem 2 (Budget Conservation, restated)."
+  ],
+  [
+   2227,
+   "###### Proof."
+  ],
+  [
+   2238,
+   "#### Base case: leaf agents."
+  ],
+  [
+   2244,
+   "#### Inductive step: internal agents."
+  ],
+  [
+   2290,
+   "#### Intervention robustness."
+  ],
+  [
+   2302,
+   "### H.3 Discussion"
+  ],
+  [
+   2304,
+   "#### Tightness."
+  ],
+  [
+   2313,
+   "#### Robustness under stochastic costs."
+  ],
+  [
+   2344,
+   "### H.4 Composition Necessity — Full Case Analysis"
+  ],
+  [
+   2349,
+   "#### (1) Static, query-text-only routing fails clause (i)."
+  ],
+  [
+   2368,
+   "#### (2) Runtime-only conservation fails clause (ii)."
+  ],
+  [
+   2384,
+   "#### Tightness of the separation."
+  ],
+  [
+   2395,
+   "#### Relation to prior work."
+  ],
+  [
+   2412,
+   "## Appendix I Robustness Under Retrieval-Distribution Shift"
+  ],
+  [
+   2452,
+   "## Appendix J Extended Benchmark Figures and Tables"
+  ],
+  [
+   2489,
+   "### J.1 Chattiness Detection Results"
+  ],
+  [
+   2521,
+   "### J.2 Qualitative Comparison Across Architectural Dimensions"
+  ],
+  [
+   2571,
+   "## Appendix K Extended Related Work"
+  ],
+  [
+   2588,
+   "### K.1 Where the field agrees"
+  ],
+  [
+   2609,
+   "### K.2 Where the field disagrees, and why"
+  ],
+  [
+   2661,
+   "### K.3 Gaps motivating Code-Agent"
+  ],
+  [
+   2708,
+   "### K.4 Methodological observations"
+  ],
+  [
+   2733,
+   "### K.5 Shared assumptions"
+  ],
+  [
+   2755,
+   "### K.6 Synthesis and open questions"
+  ],
+  [
+   2796,
+   "## Appendix L Reproduction Instructions"
+  ],
+  [
+   2802,
+   "### L.1 Environment Setup"
+  ],
+  [
+   2809,
+   "### L.2 Microbenchmarks (reproduce Table 1)"
+  ],
+  [
+   2819,
+   "### L.3 Routing Evaluation (reproduce §5.1)"
+  ],
+  [
+   2830,
+   "### L.4 Tree Indexer Scalability (reproduce"
+  ],
+  [
+   2837,
+   "### L.5 End-to-End Wiring Test"
+  ],
+  [
+   2846,
+   "### L.6 Lint + Type-Check (CI gates)"
+  ],
+  [
+   2854,
+   "### L.7 Full Test Suite"
+  ],
+  [
+   2858,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 6 Discussion, Limitations, and Broader Impact\n\n#### Limitations.\n\nThe conservation result of Theorem 1 holds under\nassumptions A1–A3 in §3.5: deterministic tool\ncosts, bounded retrieval depth, and a finite action space. Under\nstochastic costs — non-zero sampling temperatures, non-deterministic\ntool execution — the same argument yields an expected-budget\nguarantee, and an Azuma–Hoeffding tail bound under bounded per-step\ncosts is sketched in Appendix H; a tighter\nBernstein-style bound exploiting per-step variance is left for future\nwork. RGAO’s routing classifier uses hand-tuned thresholds, listed\nin Appendix D; a learned successor (logistic\nregression or a small MLP over \\mathbf{c} and the query embedding)\nawaits enough labelled training data to avoid overfitting the\n250-instance routing set. Our empirical numbers come from\nevals/swebench_proxy.py, and the decision to leave full\nSWE-bench Verified and Pro runs to a follow-up evaluation pass is\ndriven by the same contamination concern that makes the proxy\ninformative in the first place — plus the \\sim\\!220 GPU-hours a\nclean replication costs. Under distribution shift — unfamiliar repositories, languages\noutside our tree-sitter grammars — the complexity vector degrades\nand RGAO’s advantage narrows; we quantify this in\nAppendix I. Finally, the 5-D \\mathbf{c} is\ndeliberately lightweight, and it omits at least three signals we know\nare informative: cyclomatic complexity, test-coverage density, and\nlanguage-specific idioms (e.g. C++ template depth). These are\nstraightforward to add and are the natural follow-up ablation.\n\n#### Concurrent 2025–2026 work.\n\nThe closest concurrent systems split along two axes: what\nsignal drives the routing decision, and when the resource\nguarantee is enforced. On the first axis,\nMasRouter Yue et al. (2025) cascades through three text-derived\nselectors (mode, role, LLM); AgentConductor Wang et al. (2026)\nlearns an RL policy that evolves topology over an episode budget;\nAdaptOrch Yu (2026) routes at the LLM level by\nscaling-law cost; AFlow Zhang et al. (2025) and",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 3,
+  "seeds_or_runs": 6,
+  "swe_bench": 29,
+  "contamination": 10,
+  "human_study": 1,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

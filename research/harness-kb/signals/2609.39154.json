@@ -1,0 +1,390 @@
+{
+ "arxiv_id": "2609.39154",
+ "fulltext_chars": 113257,
+ "fulltext_lines": 2795,
+ "authors_block": "for Deep Research Agents Hanwen Liu Affiliation: New York University Affiliation: New York University Shanghai Email: hl6825@nyu.edu Yuanfu Sun Affiliation: New York University Affiliation: New York University Shanghai Email: ys6310@nyu.edu Qiaoyu Tan ††thanks: Corresponding author. Affiliation: New York University Shanghai Email: qt2097@nyu.edu",
+ "vendor_affiliation_hits": [],
+ "n_authors": 3,
+ "comment": "Accepted at NeurIPS 2026",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/ByteDance-Seed/seed-oss",
+  "https://github.com/hanwenliu6825/DAGent.",
+  "https://github.com/xbench-ai/xbench-evals",
+  "https://github.com/zai-org/GLM-4"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# DAGent: Evaluate-then-Grow Planning"
+  ],
+  [
+   46,
+   "###### Abstract"
+  ],
+  [
+   50,
+   "### 1 Introduction"
+  ],
+  [
+   78,
+   "### 2 Related Work"
+  ],
+  [
+   80,
+   "#### 2.1 Deep Research Agents"
+  ],
+  [
+   84,
+   "#### 2.2 Structure-Aware RL-Based Optimization for LLM Agents"
+  ],
+  [
+   88,
+   "### 3 Method"
+  ],
+  [
+   94,
+   "#### 3.1 Evaluate-then-Grow Incremental Planning"
+  ],
+  [
+   98,
+   "##### DAG State and Node-Level Evidence."
+  ],
+  [
+   102,
+   "##### Per-Node Evidence."
+  ],
+  [
+   120,
+   "##### Evaluate-then-Grow DAG Expansion."
+  ],
+  [
+   130,
+   "##### Hierarchical Context Propagation."
+  ],
+  [
+   140,
+   "##### Remark."
+  ],
+  [
+   144,
+   "#### 3.2 DAGRPO: DAG-Conditioned Reinforcement Learning"
+  ],
+  [
+   149,
+   "##### Learning Objective."
+  ],
+  [
+   167,
+   "##### Topology-Conditioned Credit."
+  ],
+  [
+   171,
+   "##### Structural Compliance Regularization."
+  ],
+  [
+   177,
+   "##### Remark."
+  ],
+  [
+   181,
+   "### 4 Experiments"
+  ],
+  [
+   185,
+   "#### 4.1 Experimental Setup"
+  ],
+  [
+   187,
+   "##### Benchmarks."
+  ],
+  [
+   191,
+   "##### Baselines."
+  ],
+  [
+   195,
+   "##### Implementation."
+  ],
+  [
+   199,
+   "#### 4.2 Main Results (RQ1, RQ2)"
+  ],
+  [
+   622,
+   "#### 4.3 Ablation Study (RQ3)"
+  ],
+  [
+   735,
+   "#### 4.4 Efficiency Analysis (RQ4)"
+  ],
+  [
+   749,
+   "### 5 Conclusion"
+  ],
+  [
+   753,
+   "### References"
+  ],
+  [
+   1411,
+   "## Appendix"
+  ],
+  [
+   1413,
+   "### Appendix A DAGent Algorithm"
+  ],
+  [
+   1487,
+   "### Appendix B Design Decisions"
+  ],
+  [
+   1491,
+   "#### B.1 Evaluate-then-Grow versus Plan-then-Patch"
+  ],
+  [
+   1495,
+   "#### B.2 DAGRPO"
+  ],
+  [
+   1497,
+   "##### Role-separated normalization."
+  ],
+  [
+   1501,
+   "##### Multiplicative off-chain attenuation."
+  ],
+  [
+   1505,
+   "##### The answer-inclusive closure as a structural proxy."
+  ],
+  [
+   1509,
+   "##### Trajectory-level structural penalty."
+  ],
+  [
+   1513,
+   "#### B.3 Relation to Concurrent Credit-Assignment Methods"
+  ],
+  [
+   1517,
+   "### Appendix C Implementation Details"
+  ],
+  [
+   1519,
+   "#### C.1 Benchmarks, Tool Stack, and Judge"
+  ],
+  [
+   1559,
+   "#### C.2 DAGent Framework Parameters"
+  ],
+  [
+   1605,
+   "#### C.3 Baseline Configurations and Caps"
+  ],
+  [
+   1656,
+   "#### C.4 RL Training Hyperparameters"
+  ],
+  [
+   1701,
+   "#### C.5 Human Agreement Study on the LLM Judge"
+  ],
+  [
+   1705,
+   "##### Setup."
+  ],
+  [
+   1744,
+   "### Appendix D Additional Training-Free Results"
+  ],
+  [
+   1748,
+   "#### D.1 Cross-Backbone and Frontier-Scale Details"
+  ],
+  [
+   1752,
+   "##### Frontier-scale baselines."
+  ],
+  [
+   1756,
+   "##### Multi-modal extension for the GAIA full validation set."
+  ],
+  [
+   2051,
+   "#### D.2 Plan-then-Patch Variant Details"
+  ],
+  [
+   2055,
+   "##### Planning and patching protocol."
+  ],
+  [
+   2059,
+   "##### Absolute per-task footprints."
+  ],
+  [
+   2063,
+   "##### Where the off-chain nodes come from."
+  ],
+  [
+   2067,
+   "#### D.3 Extended Efficiency Comparison"
+  ],
+  [
+   2071,
+   "##### Setting."
+  ],
+  [
+   2227,
+   "##### Overall accuracy of the Plan-then-Patch systems."
+  ],
+  [
+   2231,
+   "#### D.4 Behavioral Statistics of the Evaluate-then-Grow Loop"
+  ],
+  [
+   2239,
+   "##### RecallTool usage."
+  ],
+  [
+   2243,
+   "##### Evaluation outcomes and the first batch."
+  ],
+  [
+   2247,
+   "##### Structural violations and accuracy."
+  ],
+  [
+   2251,
+   "### Appendix E Additional RL Results"
+  ],
+  [
+   2255,
+   "#### E.1 Per-Seed Training Results"
+  ],
+  [
+   2264,
+   "#### E.2 DAGRPO Training Dynamics"
+  ],
+  [
+   2273,
+   "#### E.3 Efficiency as a Byproduct of RL Training"
+  ],
+  [
+   2366,
+   "### Appendix F Limitations"
+  ],
+  [
+   2370,
+   "### Appendix G Prompts"
+  ],
+  [
+   2374,
+   "#### G.1 Orchestrator System Prompt"
+  ],
+  [
+   2381,
+   "## Overall Goal"
+  ],
+  [
+   2391,
+   "## How This System Works"
+  ],
+  [
+   2396,
+   "## Core Responsibilities"
+  ],
+  [
+   2398,
+   "### 1. Evaluate (output: `node_statuses`)"
+  ],
+  [
+   2408,
+   "### 2. Plan (output: `nodes`)"
+  ],
+  [
+   2478,
+   "## Output Format"
+  ],
+  [
+   2482,
+   "### Part 1: Thinking"
+  ],
+  [
+   2510,
+   "### Part 2: JSON Plan"
+  ],
+  [
+   2531,
+   "#### G.2 ReAct Executor System Prompt"
+  ],
+  [
+   2550,
+   "### Phase 1: Deconstruction & Strategy"
+  ],
+  [
+   2565,
+   "### Phase 2: Iterative Research & Discovery"
+  ],
+  [
+   2595,
+   "### Phase 3: Synthesis & Analysis"
+  ],
+  [
+   2607,
+   "### Phase 4: Verification & Final Report Formulation"
+  ],
+  [
+   2684,
+   "#### G.3 Recall Extraction Prompt"
+  ],
+  [
+   2691,
+   "## Input Context"
+  ],
+  [
+   2699,
+   "## Extraction Rules"
+  ],
+  [
+   2711,
+   "## Output Format"
+  ],
+  [
+   2714,
+   "### 1. Summary"
+  ],
+  [
+   2718,
+   "### 2. Relevant Content"
+  ],
+  [
+   2722,
+   "#### G.4 LLM Judge Prompts"
+  ],
+  [
+   2795,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "### Appendix F Limitations\n\nDAGent is text-native. The multi-modal extension used for the full GAIA validation set (Appendix D.1) converts attachments into text before planning begins; handling multi-modal evidence inside the loop would require changes to how the Orchestrator evaluates evidence and how the Executor represents its transcript, not only additional tools. DAGent also plans over the evidence that its tools return and cannot create evidence that the retriever never retrieves, so its accuracy depends on search-engine, retrieval-embedding, and page-extraction quality. The answer-inclusive closure is a structural proxy for contribution rather than a causal attribution, and the association between structural compliance and accuracy that we report is correlational (Appendices B and D.4); per-node causal attribution in DAG-based multi-agent systems remains open. The three benchmarks have closed-form answers that an LLM judge can verify, so open-ended report generation is outside the evidence presented here. Finally, the RL experiments train one backbone (Qwen3-8B) with LoRA for 21 update steps over three seeds; whether the DAGRPO gains persist at larger training scales, longer schedules, or full fine-tuning is not established by this paper.\n\n### Appendix G Prompts\n\nThis appendix lists, verbatim, the prompts of the three DAGent roles and the three LLM judge prompts. Inside a listing, section headings are set in bold in the color of the role, and template slots that are filled at run time, such as {goal}, are set in orange. The Orchestrator prompt is shown with the Overall Goal of one BrowseComp-Plus task filled in.\n\n#### G.1 Orchestrator System Prompt\n\nOrchestrator System Prompt\n\nYou are a world-class orchestrator for deep research. You plan search tasks for a ReAct agent,\nevaluate its results, and iterate until the Overall Goal is answered.\n\n## Overall Goal\nAn individual was encouraged to use a different tool for their work during the year between the\nassassinations of John F. Kennedy and his brother, Senator Robert F. Kennedy. Up until 2014, they\nhave continued to use this tool. This person first studied at a university in Africa, then in the\nUnited Kingdom, and later in the United States. They taught and held the positions of head of\ndepartment and dean at the university where they studied in Africa until a year in the last decade\nof the 20th century. They also built a venue to showcase their own work as well as the work of\nother people. This venue celebrated its 25th anniversary in a year between 2015 and 2020. What is\nthe name of this individual?\n\n## How This System Works\nYou manage nodes in a task graph. Your conversation history contains all previous planning turns.\nEach new user message only contains NEW execution results and a compact status ledger. Review your\nhistory to recall earlier node details.\n\n## Core Responsibilities\n\n### 1. Evaluate (output: `node_statuses`)\nFor each node listed as \"Awaiting Evaluation\" in the user message, evaluate its execution result\nand assign status:\n- **Success**: information retrieved with high confidence, grounded in actual search results.\n- **Uncertain**: information found but verification needed (triggers refine).\n- **Not Found**: search executed correctly but yielded no results (triggers refine).\n\nEvery id listed under \"Nodes to evaluate this turn\" MUST appear in `node_statuses`. Do NOT include",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 2,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 34,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

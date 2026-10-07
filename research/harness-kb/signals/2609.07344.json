@@ -1,0 +1,210 @@
+{
+ "arxiv_id": "2609.07344",
+ "fulltext_chars": 100648,
+ "fulltext_lines": 1267,
+ "authors_block": "Journal: arxiv Weizhe Wang Affiliation: Tianjin University, Tianjin, 300072, China Yitong Zhang Affiliation: Tianjin University, Tianjin, 300072, China Yao Zhang Corresponding author: Corresponding author Affiliation: Tianjin University, Tianjin, 300072, China Xiaoqiang Di Affiliation: Changchun University of Science and Technology, Changchun, 130022, China Affiliation: Jilin Province Key Laboratory of Network and Information Security, Changchun, 130022, China Zhigang Li Affiliation: Shihezi University, Shihezi, 832061, China Bin Wu Affiliation: Tianjin University, Tianjin, 300072, China Guangquan Xu Affiliation: Tianjin University, Tianjin, 300072, China Affiliation: Shihezi University, Shihezi, 832061, China",
+ "vendor_affiliation_hits": [],
+ "n_authors": 7,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/affaan-m/ECCGitHub",
+  "https://github.com/anmolksachan/AI-ML-Free-Resources-for-Security-and-Prompt-InjectionGitHub",
+  "https://github.com/oritera/CairnGitHub",
+  "https://github.com/projectdiscovery/vulnxGitHub"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Staying on the Attack Path: Structured State for Long-Horizon Automated Penetration Testing"
+  ],
+  [
+   58,
+   "###### Abstract"
+  ],
+  [
+   62,
+   "###### Keywords:"
+  ],
+  [
+   66,
+   "## 1 Introduction"
+  ],
+  [
+   104,
+   "## 2 Background and Related Work"
+  ],
+  [
+   108,
+   "### 2.1 Evolution of automated penetration testing architectures"
+  ],
+  [
+   120,
+   "### 2.2 Agent alignment and dynamic trajectory generation"
+  ],
+  [
+   129,
+   "## 3 Motivation and Challenges"
+  ],
+  [
+   151,
+   "## 4 Design of Intentest"
+  ],
+  [
+   153,
+   "### 4.1 Overview"
+  ],
+  [
+   159,
+   "### 4.2 Fact-Intent DAG Mapping"
+  ],
+  [
+   174,
+   "###### Definition 1 (Fact-Intent DAG)"
+  ],
+  [
+   179,
+   "###### Definition 2 (Four-State FSM of Intent Nodes)"
+  ],
+  [
+   194,
+   "### 4.3 Task Scheduling and Allocation Mechanism"
+  ],
+  [
+   315,
+   "### 4.4 Intent-Graph Construction and Retrieval Prediction"
+  ],
+  [
+   484,
+   "## 5 Experimental Evaluation"
+  ],
+  [
+   486,
+   "### 5.1 Experimental Setup"
+  ],
+  [
+   488,
+   "##### Environment"
+  ],
+  [
+   492,
+   "##### Dataset"
+  ],
+  [
+   496,
+   "##### Baselines"
+  ],
+  [
+   504,
+   "##### Research questions"
+  ],
+  [
+   520,
+   "### 5.2 RQ1: Task Success Rate"
+  ],
+  [
+   586,
+   "### 5.3 RQ2: Exploration Efficiency"
+  ],
+  [
+   658,
+   "### 5.4 RQ3: Ablation Study"
+  ],
+  [
+   710,
+   "### 5.5 Case Studies"
+  ],
+  [
+   717,
+   "#### 5.5.1 Medium-difficulty SQL injection case"
+  ],
+  [
+   723,
+   "#### 5.5.2 Hard-difficulty SQL injection case"
+  ],
+  [
+   732,
+   "## 6 Discussion"
+  ],
+  [
+   734,
+   "### 6.1 Failure Analysis"
+  ],
+  [
+   760,
+   "### 6.2 Evidence for the Necessity of Graph State"
+  ],
+  [
+   766,
+   "### 6.3 Role and Applicability Boundary of the Intent Graph"
+  ],
+  [
+   772,
+   "## 7 Threats to Validity"
+  ],
+  [
+   774,
+   "##### Internal validity"
+  ],
+  [
+   778,
+   "##### External validity"
+  ],
+  [
+   783,
+   "##### Construct validity"
+  ],
+  [
+   787,
+   "##### Ablation design"
+  ],
+  [
+   791,
+   "##### Data contamination and leakage"
+  ],
+  [
+   796,
+   "##### Scalability"
+  ],
+  [
+   800,
+   "##### Adversarial contamination and security boundary"
+  ],
+  [
+   804,
+   "## 8 Conclusion and Future Work"
+  ],
+  [
+   810,
+   "## Acknowledgment"
+  ],
+  [
+   815,
+   "## References"
+  ],
+  [
+   1267,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgment\n\nThis work is supported in part by Hainan Province Science and Technology Special Fund (Grant No. ZDYF2024GXJS008), in part by the National Science Foundation of China under Grants U22B2027, U2468204, and U25A20424, the Joint Special Project of Beijing-Tianjin-Hebei Natural Science Foundation under Grant 25JJJJC0033, the Tianjin Special Fund Project for High-quality Development of Manufacturing Industry under Grant 20251148, and Tianjin Science and Technology Plan Project under Grant 23YDPYGX00140.\nWe also thank the authors and contributors of Cairn for their open-source project, which provided valuable support for this work.\n\n## References\n\n[1]\nAffaan (2026)\n\nECC: the agent harness performance optimization system.\n\nNote: https://github.com/affaan-m/ECCGitHub repository. Accessed: July 29, 2026\n\nCited by: §5.1.\n\n[2]\nAnthropic (2025)\n\nClaude code.\n\nNote: https://docs.anthropic.com/en/docs/claude-codeAccessed: July 28, 2026\n\nCited by: §2.1,\n§5.1.",
+ "limitations": "## 7 Threats to Validity\n\n##### Internal validity\n\nAll agents in our experiments invoke the same LLM, DeepSeek V4 Pro, through its API, which controls for model-level confounds across methods. However, the configuration of the baselines may introduce variance: Claude Code, a general-purpose agent, requires a task-specific prompt and the ECC Skills plugin, and the exact prompt design may influence its performance. PentestGPT depends on a human expert to execute its suggested operations, and the expert’s operational style may vary. In addition, the stochastic nature of LLM inference may add noise to the round counts reported in this study.\n\n##### External validity\n\nThe benchmark is built from records of real CTF competitions, and the challenges involve vulnerabilities of real web application systems. Nevertheless, several gaps separate this setting from production environments. First, the benchmark consists of a limited set of CTF challenges, far smaller than the asset scale of production networks, and the coarse three-level difficulty binning may not capture the full spectrum of task complexity. Second, CTF challenges typically involve single applications or small network segments, whereas production enterprise intranets contain large-scale topologies and heterogeneous services, where intranet traversal and cross-segment lateral movement play a central role. Third, the defense mechanisms embedded in CTF challenges, such as WAFs and honeypots, differ from the dynamic defenses of production environments, such as EDR, IDS, micro-segmentation, and dynamically changing network policies, which may alter the cost and success probability of specific attack steps. Fourth, production testing is further constrained by business continuity and compliance requirements: aggressive operations that are acceptable in a CTF environment, such as repeated brute-forcing or privilege escalation attempts, are restricted in production engagements, so the operational envelope of the agent in practice differs from the benchmark. Finally, the size of the benchmark is constrained by the data and computational resources available for this study, and expanding it to a wider set of scenarios remains future work.\nIn summary, the reported results support the effectiveness of Intentest within web-based CTF environments. The generalization of Intentest to production enterprise intranet environments and to vulnerability types and protocols not covered by the benchmark remains to be validated in future work.\n\n##### Construct validity\n\nTask success rate and the average number of rounds per task are standard and objective metrics, but they are coarse proxies for the effectiveness and efficiency of penetration testing agents. Other dimensions such as the severity of the exploited vulnerabilities, the practicality of the obtained access, or the time and API cost of the agents are not directly measured. The round counts of failed tasks reflect the exploration performed until termination, which is affected by the termination policy of the scheduler and the task budget.\n\n##### Ablation design\n\nA fully controlled ablation of the fact-intent DAG itself is not feasible: the DAG is the architectural substrate of Intentest, and removing it would amount to rebuilding the system rather than disabling a module. We therefore provide evidence for the necessity of graph state through three complementary routes: (1) the Intentest–noIntent ablation, which isolates the contribution of the intent retrieval module while retaining the DAG. (2) The comparison with VulnBot, a multi-agent system with plain-text shared memory but no graph state, whose markedly lower success rate (44.1% vs. 88.2% overall, 25.0% vs. 75.0% on hard tasks) and failure patterns (Sect. 6.1) approximate the behavior of a system without graph state. (3) The failure-pattern analysis, which traces the failures of the baselines to state and reasoning defects that the DAG is designed to prevent. We acknowledge that the Vu",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 19,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 2,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 5
+ },
+ "fulltext_source": "html"
+}

@@ -1,0 +1,181 @@
+{
+ "arxiv_id": "2608.30250",
+ "fulltext_chars": 50078,
+ "fulltext_lines": 1217,
+ "authors_block": "Anand Iyer Bhanu Khetharpal Srinivas Upadhya Ramkumar Rajagopal",
+ "vendor_affiliation_hits": [],
+ "n_authors": 4,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Generating Workflow DAGs from Natural Language with Non-Reasoning LLMs"
+  ],
+  [
+   30,
+   "###### Abstract"
+  ],
+  [
+   69,
+   "## 1 Introduction"
+  ],
+  [
+   169,
+   "## 2 Task and Domain"
+  ],
+  [
+   217,
+   "## 3 Related Work"
+  ],
+  [
+   248,
+   "## 4 Method"
+  ],
+  [
+   272,
+   "### 4.1 Monolithic baseline"
+  ],
+  [
+   283,
+   "### 4.2 Intermediate representation and a target-agnostic compiler"
+  ],
+  [
+   304,
+   "### 4.3 Localizing the failure: the emission-density diagnostic"
+  ],
+  [
+   326,
+   "### 4.4 The scaling front-end: learned registry selection"
+  ],
+  [
+   347,
+   "### 4.5 Full system"
+  ],
+  [
+   353,
+   "### 4.6 Why it works: a division of labor"
+  ],
+  [
+   383,
+   "## 5 Evaluation"
+  ],
+  [
+   385,
+   "### 5.1 Setup"
+  ],
+  [
+   451,
+   "### 5.2 Headline results"
+  ],
+  [
+   483,
+   "### 5.3 The emission-density curve"
+  ],
+  [
+   499,
+   "### 5.4 Validity by construction"
+  ],
+  [
+   509,
+   "### 5.5 Paired significance"
+  ],
+  [
+   529,
+   "### 5.6 Bridging non-reasoning and reasoning models"
+  ],
+  [
+   594,
+   "### 5.7 Token efficiency"
+  ],
+  [
+   611,
+   "### 5.8 Error analysis"
+  ],
+  [
+   618,
+   "### 5.9 What structure fixes, and what it does not"
+  ],
+  [
+   640,
+   "## 6 Deployment Status and Path"
+  ],
+  [
+   682,
+   "## 7 Lessons Learned"
+  ],
+  [
+   701,
+   "## 8 Conclusion"
+  ],
+  [
+   718,
+   "## Data Availability"
+  ],
+  [
+   726,
+   "## Appendix A Self-preference bias — full argument (supports Sec. 5.1)"
+  ],
+  [
+   748,
+   "## Appendix B Node-set / node-exact accuracy, per model (supports"
+  ],
+  [
+   794,
+   "## Appendix C Compile-failure breakdown (supports Sec. 5.5)"
+  ],
+  [
+   808,
+   "## Appendix D Full paired-significance table (supports Sec. 5.5)"
+  ],
+  [
+   850,
+   "### Equivalence tests (TOST) for the bridging claim"
+  ],
+  [
+   909,
+   "## Appendix E Error-taxonomy coding method and per-category numbers (supports"
+  ],
+  [
+   925,
+   "## Appendix F Two further evaluation lessons (supports Sec. 7)"
+  ],
+  [
+   939,
+   "## Appendix G Full per-config token breakdown (supports Sec. 5.7)"
+  ],
+  [
+   1004,
+   "## Appendix H Blind human-agreement study (supports Sec. 5.1,"
+  ],
+  [
+   1050,
+   "## References"
+  ],
+  [
+   1217,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 6,
+  "p_value_or_ci": 6,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 3
+ },
+ "fulltext_source": "html"
+}

@@ -1,0 +1,176 @@
+{
+ "arxiv_id": "2608.19854",
+ "fulltext_chars": 74390,
+ "fulltext_lines": 1318,
+ "authors_block": "Silin Chen1,*, Haoyi Teng1,*, Xiaodong Gu1, \\dagger , Yuling Shi1, Jiale Huang1, Yongpan Wang1, Hongyu Zhang2, Haibing Guan1 Affiliation: 1Shanghai Jiao Tong University 2Chongqing University",
+ "vendor_affiliation_hits": [],
+ "n_authors": 8,
+ "comment": "Our code and data are available at https://github.com/cslsolow/Repo0",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/cslsolow/Repo0",
+  "https://github.com/cslsolow/Repo0."
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Repo0: Design-Driven Zero-to-All Code Generation"
+  ],
+  [
+   30,
+   "###### Abstract"
+  ],
+  [
+   39,
+   "###### Index Terms:"
+  ],
+  [
+   44,
+   "## I Introduction"
+  ],
+  [
+   77,
+   "## II Methodology"
+  ],
+  [
+   79,
+   "### II-A Problem Formulation"
+  ],
+  [
+   93,
+   "### II-B Phase I: Requirement Decomposition and Initial Architecture"
+  ],
+  [
+   110,
+   "### II-C Phase II: Modularity-Guided Structural Evolution Loop"
+  ],
+  [
+   133,
+   "#### Responsibility"
+  ],
+  [
+   143,
+   "#### Cohesion"
+  ],
+  [
+   158,
+   "#### Coupling"
+  ],
+  [
+   166,
+   "#### Connectivity"
+  ],
+  [
+   176,
+   "### II-D Phase III: Code Generation"
+  ],
+  [
+   183,
+   "## III Experimental Setup"
+  ],
+  [
+   185,
+   "### III-A Research Questions"
+  ],
+  [
+   195,
+   "### III-B Datasets"
+  ],
+  [
+   204,
+   "#Files"
+  ],
+  [
+   250,
+   "### III-C Baseline Methods"
+  ],
+  [
+   270,
+   "### III-D Metrics"
+  ],
+  [
+   402,
+   "### III-E Implementation Details"
+  ],
+  [
+   419,
+   "## IV Results"
+  ],
+  [
+   421,
+   "### IV-A RQ1: The effectiveness of Repo0"
+  ],
+  [
+   437,
+   "### IV-B RQ2: Ablation Study"
+  ],
+  [
+   541,
+   "### IV-C RQ3: Structural Convergence Analysis"
+  ],
+  [
+   543,
+   "#### Metrics-Guided Convergence"
+  ],
+  [
+   555,
+   "#### Action Distribution"
+  ],
+  [
+   574,
+   "### IV-D Case Study"
+  ],
+  [
+   580,
+   "## V Cost Analysis"
+  ],
+  [
+   599,
+   "## VI Threats to Validity"
+  ],
+  [
+   607,
+   "## VII Related Work"
+  ],
+  [
+   609,
+   "### VII-A Benchmarks for Repository Generation"
+  ],
+  [
+   615,
+   "### VII-B Agents for Repository Generation"
+  ],
+  [
+   622,
+   "## VIII Conclusion"
+  ],
+  [
+   629,
+   "## References"
+  ],
+  [
+   1318,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## VI Threats to Validity\n\nInternal Validity.\nA potential threat is that the quality of structural updates depends on the architectural reasoning capability of the backbone LLM. Although the modularity metrics select candidate split and merge actions, the LLM still instantiates these actions over the current architectural state by rewriting component boundaries, responsibility descriptions, alignment entries, and interface assumptions. This threat is partially mitigated by the iterative structural evolution loop: later evolution rounds can re-evaluate the component-level DAG and the alignment relation under the same metrics, while boundary-preserving revise actions can update component descriptions or interface assumptions without changing component boundaries. During TDD-based code generation, validation feedback can further expose inaccurate component descriptions or interface assumptions, triggering localized repair within the fixed repository architecture.\n\nExternal Validity.\nOur experiments are conducted on six Python repositories from RepoCraft, covering diverse domains and repository scales, but they remain limited to a single programming language and benchmark. The effectiveness of structural evolution on other language ecosystems remains to be investigated. Nevertheless, the proposed architectural state, component-level structural actions, and modularity metrics operate at the level of repository architecture rather than language-specific syntax, suggesting that the framework is not inherently restricted to Python. Evaluating this generality on additional languages and benchmarks is left to future work.\n\n## VII Related Work\n\n### VII-A Benchmarks for Repository Generation\n\nRepository generation [31, 32, 33, 34, 35, 36, 37, 38] has recently emerged as a distinct benchmark setting beyond function-level code synthesis. DevBench evaluates broader software-engineering workflows, including implementation, testing, and debugging, but does not primarily target zero-to-repository generation [25, 39, 40]. Commit0 and NL2Repo-Bench move closer to repository-scale tasks, yet both still provide clear structural priors: Commit0 asks agents to complete missing code within a predefined repository architecture, file layout, and function interfaces [10], while NL2Repo-Bench includes the golden repository architecture and detailed module organization in its input specifications [14].\nRepoCraft, introduced together with RPG, tightens the setting toward complete repository construction from high-level natural language requirements while reducing direct exposure to repository-specific implementation structure [11, 41]. RepoGenesis extends this line to multilingual microservice systems [12], and ProjDevBench studies end-to-end project development by modern coding agents [15]. These benchmarks progressively reduce structural priors available to repository-generation agents, highlighting the need for methods that can organize and refine repository architectures directly from high-level requirements.\nOur work contributes to this line by using modularity principles to drive iterative optimization of repository architecture during generation.\n\n### VII-B Agents for Repository Generation\n\nRepository-generation agents [42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62] have evolved from role-based workflows toward increasingly explicit structural reasoning. Early systems such as ChatDev, MetaGPT, and SoA coordinate specialized agents across staged development phases, but still rely primarily on natural language or predefined workflows as the carrier of intermediate planning [6, 63, 16, 17, 18, 64, 7].\nLater work introduces more structured planning representations. CodeS decomposes repository generation into repository-, file-, and function-level sketches, enabling hierarchical repository construction through progressively refined planning artifacts [47]. Similarly, Paper2Code employs a multi-stage planning process th",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 1,
+  "swe_bench": 3,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

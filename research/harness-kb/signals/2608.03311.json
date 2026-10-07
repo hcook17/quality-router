@@ -1,0 +1,175 @@
+{
+ "arxiv_id": "2608.03311",
+ "fulltext_chars": 47040,
+ "fulltext_lines": 1142,
+ "authors_block": "Xavier Wrenn Affiliation: IBM xavier.wrenn1@ibm.com Radoslav Raykov Affiliation: IBM Radoslav.Raykov@ibm.com Aleksandar Angelov Affiliation: IBM Aleksandar.Angelov1@ibm.com Hirokuni Kitahara Affiliation: IBM hirokuni.kitahara1@ibm.com Affiliation: Yuji Watanabe Affiliation: IBM muew@jp.ibm.com Anca Sailer Affiliation: IBM ancas@us.ibm.com",
+ "vendor_affiliation_hits": [
+  "IBM"
+ ],
+ "n_authors": 6,
+ "comment": "10 pages, 3 figures, 5 tables. Accepted at the 14th IEEE International Conference on Cloud Engineering (IC2E 2026), Industry Track",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Evaluating LLM Trade-offs for Enterprise Automation: Lessons from Workflow Generation in a Production Enterprise Platform"
+  ],
+  [
+   60,
+   "###### Abstract"
+  ],
+  [
+   90,
+   "###### Index Terms:"
+  ],
+  [
+   93,
+   "## I Introduction"
+  ],
+  [
+   130,
+   "## II Related Work"
+  ],
+  [
+   160,
+   "## III Pipeline Evolution and Motivation"
+  ],
+  [
+   177,
+   "### III-A Architecture of Initial Pipeline (v1)"
+  ],
+  [
+   187,
+   "#### III-A1 Data Sources"
+  ],
+  [
+   210,
+   "#### III-A2 Nodes"
+  ],
+  [
+   265,
+   "#### III-A3 Overview"
+  ],
+  [
+   286,
+   "### III-B Architecture of the Advanced Pipeline (v2)"
+  ],
+  [
+   299,
+   "#### III-B1 Additional Data Sources"
+  ],
+  [
+   318,
+   "#### III-B2 Nodes"
+  ],
+  [
+   366,
+   "#### III-B3 Overview"
+  ],
+  [
+   404,
+   "## IV Method"
+  ],
+  [
+   406,
+   "### IV-A Experimental Setup"
+  ],
+  [
+   503,
+   "### IV-B Limitations"
+  ],
+  [
+   516,
+   "## V Results"
+  ],
+  [
+   781,
+   "## VI Semantic Accuracy Evaluation"
+  ],
+  [
+   791,
+   "### VI-A Judge Configuration"
+  ],
+  [
+   803,
+   "### VI-B Protocol"
+  ],
+  [
+   816,
+   "### VI-C Results"
+  ],
+  [
+   882,
+   "### VI-D Key Findings"
+  ],
+  [
+   919,
+   "## VII Analysis"
+  ],
+  [
+   925,
+   "### VII-A granite-4-h-small"
+  ],
+  [
+   939,
+   "### VII-B llama-3-3-70b-instruct"
+  ],
+  [
+   951,
+   "### VII-C llama-4-maverick-17b-128e-instruct-fp8"
+  ],
+  [
+   964,
+   "### VII-D mistral-small-3-1-24b-instruct-2503"
+  ],
+  [
+   976,
+   "### VII-E mistral-medium-2505"
+  ],
+  [
+   988,
+   "### VII-F gpt-oss-120b"
+  ],
+  [
+   1002,
+   "## VIII Conclusion"
+  ],
+  [
+   1025,
+   "## IX Future Work"
+  ],
+  [
+   1051,
+   "## Acknowledgments"
+  ],
+  [
+   1055,
+   "## References"
+  ],
+  [
+   1142,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgments\n\nThe authors used Claude (Anthropic) as an AI writing assistant for proofreading and editorial shortening of this manuscript. AI assistance was applied to the Abstract, Introduction, Related Work, Conclusion, and Future Work sections for grammar validation and length reduction. All evaluation methodology, experimental design, data collection, numerical results, and analytical conclusions are entirely the work of the authors; no AI system was used to generate or interpret any experimental content.\n\n## References\n\n[1]\nS. Yao, J. Zhao, D. Yu, N. Du, I. Shafran, K. Narasimhan, and Y. Cao (2023)\n\nReAct: synergizing reasoning and acting in language models.\n\nIn International Conference on Learning Representations (ICLR),\n\nExternal Links: Link\n\nCited by: §II.\n\n[2]\nP. Lewis, E. Perez, A. Piktus, F. Petroni, V. Karpukhin, N. Goyal, H. Küttler, M. Lewis, W. Yih, T. Rocktäschel, S. Riedel, and D. Kiela (2020)\n\nRetrieval-augmented generation for knowledge-intensive NLP tasks.\n\nIn Advances in Neural Information Processing Systems (NeurIPS),\n\nExternal Links: Link",
+ "limitations": "### IV-B Limitations\n\nReported rates are point estimates aggregated over 8 runs per cell; per-cell\nconfidence intervals and significance tests are not yet computed and are left to\nfuture work. Structural success measures JSON schema validity and UI renderability\nonly—semantic correctness is addressed separately in Section VI\nbut not yet integrated into the pipeline as a blocking validation step. The\ngpt-oss-120b vLLM infrastructure was held constant across both pipeline versions in\nthis experiment, removing the infrastructure confound present in the prior\nsingle-run pilot; however, the stub-workflow failure mode identified in\nSection VI suggests a model-specific sensitivity to the v2 prompt\nstructure that warrants targeted follow-up.\n\n## V Results\n\nTables II–IV summarize structural success rates,\ngeneration time, cost, and token consumption across both pipeline versions. Under v1,\nperformance varied widely: gpt-oss-120b led at 82.8% structural success while\ngranite-4-h-small and mistral-small fell below 35%. Under v2, all models improved\nsubstantially—structural success rates rose to 74.1–97.8%, with four of six\nmodels exceeding the 90% production-viability threshold, compared to zero under v1.\n\nSeveral cross-cutting patterns emerge (Table IV). Every model\ngained structural success under v2, validating the piecewise generation architecture\nacross the model size spectrum. The primary cost of this gain is latency: v2 requires\nmore sequential LLM calls, driving input token consumption higher for most models and\nincreasing average generation times by 8–75 seconds. gpt-oss-120b is the sole\nexception—latency fell 33 seconds between versions. llama-3-3-70b-instruct is the\nsole model whose generation rate declined (95.3% \\to 81.5%), and it\ncarries the worst latency (151.39s) and cost ($0.0785) of any v2 model. No model in\nthis 8-run evaluation reaches 100% structural success.\n\nTo understand the production implications of costs, consider 1,000 workflows per day\n(365,000/year): mistral-small \\approx $3,700/yr, llama-4-maverick\n \\approx $8,900/yr, gpt-oss-120b \\approx $6,000/yr, mistral-medium\n \\approx $71,900/yr.\n\nFigures 1–3 illustrate the success/latency and cost\ndistributions. The v2 pipeline places four models in the production-viable upper-left\nquadrant ( {>} 90% success, {<} 60s), compared to zero under v1. The approximately linear relationship between input tokens and generation time",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 1,
+  "p_value_or_ci": 4,
+  "seeds_or_runs": 3,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 7
+ },
+ "fulltext_source": "html"
+}

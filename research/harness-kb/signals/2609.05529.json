@@ -1,0 +1,220 @@
+{
+ "arxiv_id": "2609.05529",
+ "fulltext_chars": 71708,
+ "fulltext_lines": 1574,
+ "authors_block": "Manoj Kumala, Xinyun Liua, Ronghua Xua1 Affiliation: Affiliation: aDepartment of Applied Computing, Michigan Technological University, Houghton, MI 49931, USA {mkumal, xinyunl, ronghuax}@mtu.edu",
+ "vendor_affiliation_hits": [],
+ "n_authors": 3,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/Significant-Gravitas/AutoGPT.",
+  "https://github.com/yoheinakajima/babyagi."
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Dart: A DAG-Based Reputation and Incentive Framework via Blockchain-Enabled Governance for Trustworthy LLM Multi-Agent Collaboration"
+  ],
+  [
+   30,
+   "###### Abstract"
+  ],
+  [
+   44,
+   "###### Index Terms:"
+  ],
+  [
+   47,
+   "## 1 Introduction"
+  ],
+  [
+   176,
+   "## 2 Related Work"
+  ],
+  [
+   178,
+   "### 2.1 LLM-Based Multi-Agent Systems"
+  ],
+  [
+   193,
+   "### 2.2 Blockchain-Based Multi-Agent Systems"
+  ],
+  [
+   203,
+   "### 2.3 Incentive-Penalties and Reputation Mechanism"
+  ],
+  [
+   215,
+   "## 3 Dart Framework Overview"
+  ],
+  [
+   233,
+   "### 3.1 Orchestrator Layer"
+  ],
+  [
+   257,
+   "### 3.2 Blockchain Layer"
+  ],
+  [
+   282,
+   "## 4 Reputation-Based Regulation Mechanism"
+  ],
+  [
+   397,
+   "### 4.1 System Modeling and State Representation"
+  ],
+  [
+   421,
+   "### 4.2 Utility-Based Suitability and Task Allocation"
+  ],
+  [
+   446,
+   "### 4.3 Behavioral Anomaly and Verification Assessment"
+  ],
+  [
+   481,
+   "### 4.4 Incentive Formulation and Reputation Update"
+  ],
+  [
+   525,
+   "## 5 Experimental Results"
+  ],
+  [
+   548,
+   "### 5.1 RQ1: Evaluation on Standard Benchmarks"
+  ],
+  [
+   550,
+   "#### 5.11 Experimental Setup"
+  ],
+  [
+   554,
+   "#### 5.12 Results and Comparative Analysis"
+  ],
+  [
+   607,
+   "### 5.2 RQ2: Complex Multi-Agent Coordination via Gobang Game Development"
+  ],
+  [
+   611,
+   "#### 5.21 Experiment Setup"
+  ],
+  [
+   618,
+   "#### 5.22 Evaluation Criteria"
+  ],
+  [
+   640,
+   "#### 5.23 Experimental Results and Comparative Analysis"
+  ],
+  [
+   658,
+   "#Agents"
+  ],
+  [
+   736,
+   "#### 5.24 Ablation and Resource Cost Analysis"
+  ],
+  [
+   778,
+   "### 5.3 RQ3: Incentive Alignment and System Trustworthiness"
+  ],
+  [
+   783,
+   "#### 5.31 Experimental Setup"
+  ],
+  [
+   835,
+   "#### 5.32 Results and Comparative Analysis"
+  ],
+  [
+   936,
+   "##### Task Execution Fidelity and Failure Suppression"
+  ],
+  [
+   944,
+   "##### Solution Quality and Outcome Consistency"
+  ],
+  [
+   951,
+   "##### Incentive and Reputation Dynamics"
+  ],
+  [
+   959,
+   "##### Scheduling Overhead and Workload Balance"
+  ],
+  [
+   964,
+   "#### 5.33 Domain-Specific Reputation Dynamics"
+  ],
+  [
+   983,
+   "### 5.4 RQ4: Adversarial Robustness and Anomaly Isolation"
+  ],
+  [
+   987,
+   "#### 5.41 Experiment Setup"
+  ],
+  [
+   1010,
+   "#### 5.42 Evaluation Metrics"
+  ],
+  [
+   1042,
+   "#### 5.43 Experimental Results and Robustness Analysis"
+  ],
+  [
+   1111,
+   "### 5.5 Blockchain and Storage Overhead Analysis"
+  ],
+  [
+   1166,
+   "## 6 Discussions and Limitations"
+  ],
+  [
+   1168,
+   "### 6.1 Discussion of Key Findings"
+  ],
+  [
+   1172,
+   "### 6.2 Parameter Sensitivity and Hyperparameter Calibration"
+  ],
+  [
+   1178,
+   "### 6.3 Limitations of Adversarial Evaluation"
+  ],
+  [
+   1185,
+   "## 7 Conclusions"
+  ],
+  [
+   1192,
+   "## References"
+  ],
+  [
+   1574,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 6 Discussions and Limitations\n\n### 6.1 Discussion of Key Findings\n\nDart maintains competitive performance on standard benchmarks (RQ1) while supporting multi-stage multi-agent coordination. In RQ2, DAG-based execution reduced the reported application completion time relative to the centralized baseline. In RQ3, the five-run ablation study showed that Full Dart achieved the strongest overall performance across task success, output quality, retry rate, and allocation delay. In RQ4, Dart isolated the evaluated persistent and intermittent adversaries while maintaining a low false-positive rate and recovering system performance after isolation. Finally, local EVM/IPFS measurements demonstrate the feasibility of the hybrid implementation, while public-network scalability remains future work.\n\n### 6.2 Parameter Sensitivity and Hyperparameter Calibration\n\nTo assess DART’s robustness to hyperparameter choices, we conduct a controlled sensitivity analysis of the principal parameters governing agent allocation and behavioral anomaly detection. We vary the anomaly sliding-window size W , detection threshold \\theta_{\\mathrm{detect}} , and allocation weights (\\lambda_{1},\\lambda_{2},\\lambda_{3}) while fixing all other parameters at their default values. Each configuration uses a synthetic simulation with the same agent population and task structure as the main pipeline. Results are averaged over N independent seeds to isolate hyperparameter effects from LLM-inference variance.\nThe results reveal predictable parameter trade-offs rather than dependence on a narrowly tuned configuration. Increasing W increases detection delay from 6.1 rounds at W=3 to 48.0 rounds at W=20 , reflecting the trade-off between rapid detection and stable reputation estimates. Similarly, \\theta_{\\mathrm{detect}}=0.35 reduces detection delay to 7.3 rounds but yields a 13.2% false-quarantine rate, whereas \\theta_{\\mathrm{detect}}\\geq 0.55 eliminates false quarantines at the cost of slower detection, reaching 15.7 rounds. In contrast, allocation performance is comparatively insensitive to the exact (\\lambda_{1},\\lambda_{2},\\lambda_{3}) allocation, with composite scores across the evaluated configurations spanning less than 1.5% of the observed range; balanced weighting performs marginally best.\nOverall, these results indicate that DART is comparatively robust to allocation-weight choices while exhibiting predictable detection responsiveness to W and \\theta_{\\mathrm{detect}} . Although the evaluated ranges do not indicate dependence on a single narrowly tuned configuration, optimal settings may vary across workloads and threat models, motivating adaptive calibration as a direction for future work.\n\n### 6.3 Limitations of Adversarial Evaluation\n\nOur adversarial evaluation considers three canonical attack profiles: one persistent adversary with 100% output corruption and two intermittent adversaries with 70% and 60% corruption.\nThese profiles validate Dart’s baseline containment mechanism but do not capture fully adaptive, threshold-aware adversaries.\nSpecifically, an attacker with knowledge of the reputation dynamics could regulate its attack frequency or interleave malicious and benign executions to remain below the quarantine threshold and evade detection.\nEvaluating Dart against such adaptive adversaries remains an important direction for future work.\n\n## 7 Conclusions\n\nThis paper presented Dart, a hybrid DAG-based agent reputation and incentive framework designed to establish trustworthy and accountable collaboration in LLM-based multi-agent systems.\nDart addresses trust and accountability limitations associated with centralized orchestration by combining DAG-based workflow coordination with blockchain-enabled decentralized governance. While operational planning, scheduling, task allocation, and execution coordination remain managed by the orchestrator, the blockchain layer provides tamper-resistant reputation management, incentive settlement, and immutable executi",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 6,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 1
+ },
+ "fulltext_source": "html"
+}

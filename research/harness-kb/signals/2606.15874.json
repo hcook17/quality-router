@@ -1,0 +1,161 @@
+{
+ "arxiv_id": "2606.15874",
+ "fulltext_chars": 43919,
+ "fulltext_lines": 899,
+ "authors_block": "CCS: Software and its engineering Development frameworks and environmentsCCS: Computing methodologies Natural language processing Junjia Qi Note: Equal contributions. Affiliation: City University of Hong Kong, China email: junjiaqi2-c@my.cityu.edu.hk , Zichuan Fu Affiliation: City University of Hong Kong, China email: zc.fu@my.cityu.edu.hk , Jingtong Gao Affiliation: City University of Hong Kong, China email: jt.g@my.cityu.edu.hk , Wenlin Zhang Affiliation: City University of Hong Kong, China email: wl.z@my.cityu.edu.hk , Hanyu Yan Affiliation: City University of Hong Kong, China email: hanyuyan4-c@my.cityu.edu.hk , Xian Wu Affiliation: Tencent Jarvis Lab, China email: kevinxwu@tencent.com and Xiangyu Zhao Affiliation: City University of Hong Kong, China email: xianzhao@cityu.edu.hk © none",
+ "vendor_affiliation_hits": [
+  "Tencent"
+ ],
+ "n_authors": 7,
+ "comment": "Accepted at the KDD 2026 Workshop on Agentic Software Engineering (AgenticSE)",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/langchain-ai/langgraphAccessed"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# LLM-as-Code: Agentic Programming for Agent Harness"
+  ],
+  [
+   76,
+   "###### Abstract."
+  ],
+  [
+   86,
+   "###### Keywords:"
+  ],
+  [
+   91,
+   "## 1. Introduction"
+  ],
+  [
+   120,
+   "## 2. Why LLM Orchestrator Fails"
+  ],
+  [
+   126,
+   "### 2.1. Deterministic vs. Probabilistic Workflow"
+  ],
+  [
+   155,
+   "### 2.2. Unguaranteed Compliance"
+  ],
+  [
+   175,
+   "### 2.3. Context Overflow"
+  ],
+  [
+   181,
+   "#### Hard limit: the window does not fit."
+  ],
+  [
+   188,
+   "#### Soft cost: reasoning degrades long before the window fills."
+  ],
+  [
+   195,
+   "## 3. Agentic Programming"
+  ],
+  [
+   202,
+   "### 3.1. Code-driven agent workflow"
+  ],
+  [
+   218,
+   "### 3.2. DAG-structured context"
+  ],
+  [
+   241,
+   "### 3.3. Multi-agent collaboration"
+  ],
+  [
+   254,
+   "### 3.4. Self-programmed evolution"
+  ],
+  [
+   290,
+   "## 4. Conclusion"
+  ],
+  [
+   296,
+   "## References"
+  ],
+  [
+   574,
+   "## Appendix A Why Standard Patches Miss"
+  ],
+  [
+   579,
+   "#### Bigger context windows and smarter compaction."
+  ],
+  [
+   585,
+   "#### Self-reflection and retry (ReAct (Yao et al., 2023), Reflexion (Shinn et al., 2023))."
+  ],
+  [
+   590,
+   "#### Constrained and structured decoding."
+  ],
+  [
+   595,
+   "#### Code as the action representation (e.g., CodeAct (Wang et al., 2024b))."
+  ],
+  [
+   601,
+   "#### Plan-and-execute."
+  ],
+  [
+   606,
+   "#### Code-defined state graphs (e.g., LangGraph (Chase and Campos, 2024))."
+  ],
+  [
+   614,
+   "#### Prompt-compiled pipelines (e.g., DSPy (Khattab et al., 2024))."
+  ],
+  [
+   620,
+   "#### Adding structured state to the orchestrator."
+  ],
+  [
+   632,
+   "## Appendix B An Example Skill"
+  ],
+  [
+   684,
+   "## Appendix C Agentic Function Calling"
+  ],
+  [
+   735,
+   "## Appendix D A Self-Evolution Walkthrough"
+  ],
+  [
+   790,
+   "## Appendix E Empirical Evidence"
+  ],
+  [
+   899,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 0,
+  "swe_bench": 1,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

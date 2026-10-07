@@ -1,0 +1,287 @@
+{
+ "arxiv_id": "2606.26924",
+ "fulltext_chars": 92319,
+ "fulltext_lines": 2952,
+ "authors_block": "Padmaraj Madatha \\ Happiest Minds Technologies (AIP Centre of Excellence) June 2026",
+ "vendor_affiliation_hits": [],
+ "n_authors": 1,
+ "comment": "45 pages, 9 figures, 13 tables. Dataset and reproduction scripts: Zenodo DOI 10.5281/zenodo.20780913. Ancillary files include report.json, organizations.txt, and figure-reproduction scripts",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/guardrails-ai/guardrails"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# A Deterministic Control Plane for LLM Coding Agents"
+  ],
+  [
+   27,
+   "###### Abstract"
+  ],
+  [
+   68,
+   "## 1. Introduction"
+  ],
+  [
+   70,
+   "### 1.1 The thin governance"
+  ],
+  [
+   143,
+   "### 1.2 Thesis"
+  ],
+  [
+   161,
+   "### 1.3 Contributions"
+  ],
+  [
+   286,
+   "## 2. Background and Related"
+  ],
+  [
+   292,
+   "### 2.1 LLM coding harnesses"
+  ],
+  [
+   395,
+   "### 2.2 Orchestration frameworks and Autonomous"
+  ],
+  [
+   420,
+   "### 2.3 Agent Observability and"
+  ],
+  [
+   462,
+   "### 2.4 Software supply-chain security and"
+  ],
+  [
+   496,
+   "### 2.5 Prefix caching and prompt"
+  ],
+  [
+   509,
+   "### 2.6 Capability-based security and least-privilege"
+  ],
+  [
+   519,
+   "### 2.7 Configuration management and infrastructure as"
+  ],
+  [
+   530,
+   "### 2.8 Stage-gate models and formal workflow"
+  ],
+  [
+   539,
+   "### 2.9 Tamper-evident logging and"
+  ],
+  [
+   548,
+   "### 2.10 Reference currency"
+  ],
+  [
+   556,
+   "## 3. System Architecture"
+  ],
+  [
+   590,
+   "### 3.1 The Five Resource"
+  ],
+  [
+   623,
+   "### 3.2 Reference"
+  ],
+  [
+   640,
+   "### 3.3 Runtime Artifacts"
+  ],
+  [
+   691,
+   "## 4. Governance Mechanisms"
+  ],
+  [
+   697,
+   "### 4.1 Agent definitions as a managed supply"
+  ],
+  [
+   733,
+   "### 4.2 Deterministic permission"
+  ],
+  [
+   825,
+   "### 4.3 Attack-derived command and path"
+  ],
+  [
+   921,
+   "### 4.4 Tokenisation normalisation and drift"
+  ],
+  [
+   1044,
+   "### 4.5 Deterministic phase-gated lifecycle with hard"
+  ],
+  [
+   1127,
+   "#### Lifecycle design rationale"
+  ],
+  [
+   1164,
+   "#### Trust boundary: cooperative trace"
+  ],
+  [
+   1202,
+   "### 4.6 Define once, compile to many"
+  ],
+  [
+   1240,
+   "## 5. Threat Model"
+  ],
+  [
+   1348,
+   "### 5.1 Compliance and Supply-Chain"
+  ],
+  [
+   1478,
+   "## 6. Implementation Conformance"
+  ],
+  [
+   1490,
+   "### 6.1 Conformance Corpus and"
+  ],
+  [
+   1512,
+   "### 6.2 Conformance results"
+  ],
+  [
+   1536,
+   "## 7. Empirical Prevalence"
+  ],
+  [
+   1550,
+   "### 7.1 Corpus and methodology"
+  ],
+  [
+   1621,
+   "### 7.2 Results"
+  ],
+  [
+   1799,
+   "#### 7.2.1 Age-normalized version-control"
+  ],
+  [
+   1883,
+   "### 7.3 Interpretation"
+  ],
+  [
+   1915,
+   "### 7.4 Limitations of the"
+  ],
+  [
+   1974,
+   "## 8. Limitations"
+  ],
+  [
+   2053,
+   "## 9. Future Work"
+  ],
+  [
+   2060,
+   "### 9.1 Drift vs. behaviour"
+  ],
+  [
+   2072,
+   "### 9.2 Developer study: overhead"
+  ],
+  [
+   2086,
+   "### 9.3 Corpus completion"
+  ],
+  [
+   2097,
+   "## 10. Conclusion"
+  ],
+  [
+   2123,
+   "## Data and Artifact"
+  ],
+  [
+   2138,
+   "## Appendix A. Prevalence Study Reproduction"
+  ],
+  [
+   2210,
+   "## Appendix B. Governance-Preservation Compilation Argument"
+  ],
+  [
+   2218,
+   "### B.1 Definitions"
+  ],
+  [
+   2242,
+   "### B.2 Assumptions"
+  ],
+  [
+   2261,
+   "### B.3 Lemmas"
+  ],
+  [
+   2270,
+   "### B.4 Conditional property-preservation"
+  ],
+  [
+   2283,
+   "### B.5 Runtime caveat"
+  ],
+  [
+   2294,
+   "## Appendix C. Phase State Machine"
+  ],
+  [
+   2366,
+   "## Appendix D. Illustrative DRIFT-Detection Walkthrough (N=1,"
+  ],
+  [
+   2384,
+   "### D.1 Build context"
+  ],
+  [
+   2391,
+   "### D.2 DRIFT-detection"
+  ],
+  [
+   2426,
+   "### D.3 Mechanism"
+  ],
+  [
+   2451,
+   "### D.4 Vignette scope"
+  ],
+  [
+   2477,
+   "## References"
+  ],
+  [
+   2952,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "### 7.4 Limitations of the\nstudy\n\n• \n\nSample size: 10,008 repositories analysed, meeting the\n10,000-repository target (§9.3); adequacy is adequate.\n\n• \n\nFork metadata and duplicate rates: Fork flags were backfilled\nfor 8,988/10,008 completed repos (fork metadata unavailable for the\nremaining 1,020). Headline exact-duplicate prevalence uses a\nfork-adjusted rate (10.1%; groups requiring ≥2\nnon-fork repositories) with the raw rate (18.75%,\nincluding fork-network copies) reported alongside. Cross-organisation\nclone-pair rate (75.5%) and cluster counts (702 exact clusters ≥2\norgs) are computed on raw pairs and not fork-filtered. Residual fork\nambiguity may remain where forks share content under different\nowner/repo names without a recorded parent link\n[Kalliamvakou et al., 2014].\n\n• \n\nSelection bias: the corpus comprises public repositories\ndiscovered through configuration-file presence; findings characterise\nthe “already adopted AI agents” population, not all of GitHub.\n\n• \n\nCredential scanner: regex-only detection; reported prevalence\nis a lower-bound estimate with possible false positives; manual\nvalidation sample deferred to §9.3.\n\n• \n\nArtifact-age confound: Agent-configuration file types are\nyounger than GitHub Actions workflows (median first-commit age 4 vs 17\nmonths; §7.2.1). Raw commit-depth comparisons (Figure 8) understate\nActions’ maturity advantage. §7.2.1 reports commits-per-month and a",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 1,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 4,
+  "seeds_or_runs": 0,
+  "swe_bench": 1,
+  "contamination": 0,
+  "human_study": 1,
+  "java": 1,
+  "industrial": 3
+ },
+ "fulltext_source": "html"
+}

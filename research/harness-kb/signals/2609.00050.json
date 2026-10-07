@@ -1,0 +1,157 @@
+{
+ "arxiv_id": "2609.00050",
+ "fulltext_chars": 63967,
+ "fulltext_lines": 1211,
+ "authors_block": "Sagar Srinivas Sakhinana Affiliation: sagar.sakhinana@tcs.com, venkat.runkana@tcs.com Venkataramana Runkana Affiliation: Tata Research Development and Design Centre",
+ "vendor_affiliation_hits": [],
+ "n_authors": 2,
+ "comment": "Nil",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Towards Agentic Cloud Engineering: Graph and Loop Engineering with a Zero-Trust Agent Harness"
+  ],
+  [
+   30,
+   "###### Abstract"
+  ],
+  [
+   34,
+   "## 1 Introduction"
+  ],
+  [
+   329,
+   "## 2 Problem Formulation"
+  ],
+  [
+   340,
+   "## 3 Overall Framework"
+  ],
+  [
+   345,
+   "## 4 Experiments"
+  ],
+  [
+   347,
+   "### 4.1 Experimental Methodology"
+  ],
+  [
+   351,
+   "### 4.2 Benchmark Suite"
+  ],
+  [
+   355,
+   "### 4.3 Experimental Setup"
+  ],
+  [
+   446,
+   "### 4.4 Evaluation Metrics"
+  ],
+  [
+   450,
+   "### 4.5 Results and Analysis"
+  ],
+  [
+   478,
+   "## 5 Conclusion"
+  ],
+  [
+   482,
+   "## References"
+  ],
+  [
+   813,
+   "## 6 Technical Appendix"
+  ],
+  [
+   815,
+   "### 6.1 Additional Results"
+  ],
+  [
+   817,
+   "#### RQ2: Evidence-Gated Progression."
+  ],
+  [
+   843,
+   "#### RQ3: Bounded Recovery."
+  ],
+  [
+   896,
+   "#### RQ4: Per-Action Authorization and Policy Enforcement."
+  ],
+  [
+   922,
+   "#### RQ5: Bounded Termination."
+  ],
+  [
+   948,
+   "#### RQ6: Cross-Domain Applicability."
+  ],
+  [
+   998,
+   "### 6.2 Ablation Study"
+  ],
+  [
+   1002,
+   "#### Ablation 1: Recovery Loop."
+  ],
+  [
+   1006,
+   "#### Ablation 2: Verification-Gated Progression."
+  ],
+  [
+   1029,
+   "### 6.3 Limitations and Future Work"
+  ],
+  [
+   1033,
+   "### 6.4 Cross-Domain Cloud-Engineering Tasks"
+  ],
+  [
+   1100,
+   "### 6.5 Engineering Abstractions"
+  ],
+  [
+   1105,
+   "#### Graph Engineering."
+  ],
+  [
+   1119,
+   "#### Loop Engineering."
+  ],
+  [
+   1132,
+   "#### Agent Harness Engineering."
+  ],
+  [
+   1157,
+   "### 6.6 Unified Graph–Loop–Harness Architecture"
+  ],
+  [
+   1211,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "### 6.3 Limitations and Future Work\n\nThe current evaluation is limited to Google Cloud, controlled failure conditions, fixed recovery budgets, predefined verification predicates, and limited adversarial testing. Future work will extend the framework through (a) multi-cloud validation on AWS and Azure; (b) long-running production evaluation under real incidents, workload drift, cascading failures, and evolving infrastructure state; (c) adaptive recovery that dynamically allocates retry, token, time, cost, and tool-call budgets based on task risk and execution state; (d) stronger verification using richer repository, deployment, runtime, security, and compliance predicates with formal validation of evidence-gated transitions; and (e) adversarial robustness against compromised tools, malicious inputs, policy-bypass attempts, poisoned evidence, privilege escalation, and cross-tenant attacks.\n\n### 6.4 Cross-Domain Cloud-Engineering Tasks\n\nAgentic Cloud Workflow Engineering supports synthesis, deployment, verification, and bounded repair of cloud-engineering implementations. Table 10 summarizes representative tasks across domains. Future work will extend the framework to the modification, operation, and recovery of existing cloud deployments across heterogeneous engineering domains.\nAcross these domains, the common execution pattern is natural-language specification or observed system state \\rightarrow graph-controlled engineering \\rightarrow authorized action \\rightarrow verification \\rightarrow bounded adaptation or completion.\n\nTable 10: Representative system-synthesis and operational tasks supported across cloud-engineering domains.\n\nDomain\n\nGenerate / Synthesize New System\n\nModify / Operate Existing System\n\nDevOps\n\nGenerate application code, tests, CI/CD pipelines, and build and release configurations.\n\nFix failing tests, repair code, rebuild, scan, and release.\n\nCloudOps\n\nGenerate Terraform, Kubernetes manifests, and cloud-infrastructure configurations.\n\nProvision, modify, scale, or repair Kubernetes and cloud infrastructure.\n\nSRE/AIOps\n\nGenerate monitoring rules, remediation workflows, runbooks, and recovery automation.\n\nDetect incidents, diagnose failures, remediate, and verify recovery.\n\nSecOps\n\nGenerate security policies, detection rules, hardening configurations, and remediation artifacts.\n\nInvestigate vulnerabilities, perform authorized containment, and verify remediation.",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 1
+ },
+ "fulltext_source": "html"
+}

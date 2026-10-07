@@ -1,0 +1,141 @@
+{
+ "arxiv_id": "2607.24162",
+ "fulltext_chars": 39906,
+ "fulltext_lines": 966,
+ "authors_block": "Agentic workflows have emerged as a powerful paradigm for automating complex, multi-step tasks through the orchestration of large language models (LLMs) with external tools, retrieval mechanisms, and decision-making modules. Unlike single-turn prompting, agentic systems exhibit iterative reasoning, stateful execution, and dynamic adaptation—capabilities that are essential for applications such as retrieval-augmented generation (RAG), code assistance, scientific reasoning, and autonomous software agents. A fundamental challenge in deploying agentic workflows is optimization: selecting the optimal workflow configuration of discrete components that govern agent behavior. In a RAG agent, for example, the workflow comprises components such as chunking strategy, embedding model, retrieval top- k , reranking method, generation prompt, and reflection schedule. Each component offers discrete choices, and the full configuration space grows combinatorially as the product of these options. Even moderately sized pipelines (e.g., 5 components with 3–5 options each) yield hundreds to thousands of candidate configurations. Evaluating a single agentic workflow configuration is expensive. Each evaluation requires executing the agent across multiple benchmarks or tasks, involving repeated LLM inference calls, retrieval operations, and tool invocations. A single forward pass can take seconds to minutes, and systematic optimization over thousands of configurations becomes computationally prohibit",
+ "vendor_affiliation_hits": [],
+ "n_authors": 11,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   48,
+   "###### Abstract"
+  ],
+  [
+   52,
+   "## Introduction"
+  ],
+  [
+   80,
+   "## Related Work"
+  ],
+  [
+   82,
+   "### RAG Optimization"
+  ],
+  [
+   90,
+   "### Tree search and cost of transformer"
+  ],
+  [
+   98,
+   "### Reproducible Agentic workflow"
+  ],
+  [
+   110,
+   "## Method"
+  ],
+  [
+   147,
+   "### Problem Setup"
+  ],
+  [
+   149,
+   "#### Search Formulation"
+  ],
+  [
+   162,
+   "#### Benchmark Clusters"
+  ],
+  [
+   181,
+   "#### WTB, AgentGit and Prefix Reuse"
+  ],
+  [
+   222,
+   "### UCT with Prefix-State Reuse"
+  ],
+  [
+   300,
+   "### Adaptive Item-Level Cost Estimation"
+  ],
+  [
+   435,
+   "## Experiments"
+  ],
+  [
+   481,
+   "### Experimental Setup"
+  ],
+  [
+   503,
+   "### Configuration Effectiveness and Generalization"
+  ],
+  [
+   507,
+   "#### Objective-Specific Configuration Discovery"
+  ],
+  [
+   562,
+   "#### Out-of-sample Effectiveness"
+  ],
+  [
+   672,
+   "### Search Effectiveness and Cost Efficiency"
+  ],
+  [
+   674,
+   "#### Search Efficiency via Sampling"
+  ],
+  [
+   775,
+   "#### Efficiency from Bipartite Prefix Reuse"
+  ],
+  [
+   780,
+   "### Component-Level Attribution Analysis"
+  ],
+  [
+   829,
+   "## Discussion and Limitations"
+  ],
+  [
+   835,
+   "## Conclusion"
+  ],
+  [
+   845,
+   "## Acknowledgments"
+  ],
+  [
+   849,
+   "## References"
+  ],
+  [
+   966,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgments\n\nWe thank the funding support from NSFC-RGC N_HKU7115/22 (T2261160400) and TRS T32-615_24-R.\n\n## References\n\nAsai et al. (2024)\nA. Asai, Z. Wu, Y. Wang, A. Sil, and H. Hajishirzi\n\nSelf-RAG: learning to retrieve, generate, and critique through self-reflection.\n\nIn Proceedings of the International Conference on Learning Representations,\n\npp. 9112–9141.\n\nCited by: RAG Optimization.\n\nAuer et al. (2002)\nP. Auer, N. Cesa-Bianchi, and P. Fischer\n\nFinite-time analysis of the multiarmed bandit problem.\n\nMachine Learning 47 (2), pp. 235–256.\n\nCited by: Tree search and cost of transformer.",
+ "limitations": "## Discussion and Limitations\n\nThis work demonstrates WTB-based reuse at the question level and the RAG-workflow level, which is sufficient to show how intermediate states can be traced and reused during Agent-UCT search. However, the current experiments do not fully exercise WTB’s support for more complex file-system-like execution structures. Since WTB adopts a Git-like abstraction, its reuse mechanism can naturally extend from workflow states to finer-grained units such as folders, files, artifacts, and dependency nodes. Future work will explore directory-level and artifact-level caching, with the goal of extending Agent-UCT from RAG pipeline optimization to broader agentic workflow optimization problems.\n\nOur study has several limitations. First, due to the high computational cost of evaluating agentic workflows, we use stratified subsets of HotpotQA and UltraDomain rather than full benchmarks. Second, all experiments use openai/gpt-5.4-nano as the backbone LLM, which enables controlled comparison but does not characterize how Agent-UCT behaves across different model capacities. Third, the search space is limited to components drawn from LongRAG, LightRAG, and Self-RAG. While this provides a controlled setting for cross-framework recombination, it does not exhaust the broader design space of RAG components and workflow structures. Finally, UltraDomain requires long-form answers, but our automatic reward uses token-level F1. This metric may be sensitive to answer length and lexical overlap, and may not fully capture factuality or completeness.\n\n## Conclusion\n\nWe presented a cost-aware framework for optimizing agentic RAG workflows.\nAt the algorithmic level, Agent-UCT performs path-reuse regularized UCT search to identify high-reward RAG configurations under limited evaluation budgets. At the system level, RAGSpace defines a unified five-dimensional configuration space that supports cross-framework recombination of LongRAG, LightRAG, and Self-RAG components. At the evaluation level, WTB supports reproducible workflow execution, intermediate-state caching, and systematic comparison of candidate configurations.\n\nExperiments on HotpotQA and UltraDomain show that Agent-UCT\nidentifies configurations with the strongest out-of-sample\nperformance, outperforming the evaluated fixed presets with statistically significant gains in most comparisons.\nSampling reduces measured wall-clock time, token consumption, and API costs, while bipartite prefix reuse reduces search cost. Post-hoc attribution assigns the greatest importance to generation and retrieval across both evaluation protocols. Together, Agent-UCT, RAGSpace, and WTB provide a unified framework for cost-aware search, cross-framework configuration, and reusable workflow execution.\n\n## Acknowledgments\n\nWe thank the funding support from NSFC-RGC N_HKU7115/22 (T2261160400) and TRS T32-615_24-R.\n\n## References\n\nAsai et al. (2024)\nA. Asai, Z. Wu, Y. Wang, A. Sil, and H. Hajishirzi\n\nSelf-RAG: learning to retrieve, generate, and critique through self-reflection.\n\nIn Proceedings of the International Conference on Learning Representations,\n\npp. 9112–9141.\n\nCited by: RAG Optimization.\n\nAuer et al. (2002)\nP. Auer, N. Cesa-Bianchi, and P. Fischer\n\nFinite-time analysis of the multiarmed bandit problem.\n\nMachine Learning 47 (2), pp. 235–256.",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 3,
+  "seeds_or_runs": 1,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

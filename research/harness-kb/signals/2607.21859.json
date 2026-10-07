@@ -1,0 +1,165 @@
+{
+ "arxiv_id": "2607.21859",
+ "fulltext_chars": 41108,
+ "fulltext_lines": 1064,
+ "authors_block": "Yi-han Sheu Affiliation: Massachusetts General Hospital, USA Affiliation: Harvard University, USA Email: *ysheu@mgh.harvard.edu Michael R. Steigman Affiliation: Massachusetts General Hospital, USA Yu Zhou Affiliation: Massachusetts General Hospital, USA Bo Wang Affiliation: Massachusetts General Hospital, USA Affiliation: Harvard University, USA Fan-Yu Yen Affiliation: Northeastern University, USA Jordan W. Smoller Affiliation: Massachusetts General Hospital, USA Affiliation: Harvard University, USA",
+ "vendor_affiliation_hits": [],
+ "n_authors": 6,
+ "comment": "10 pages, 2 figures",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# EviDAG: Auditable Causal DAG Authoring with Biomedical Literature"
+  ],
+  [
+   54,
+   "###### Abstract"
+  ],
+  [
+   61,
+   "## 1 Introduction"
+  ],
+  [
+   113,
+   "## 2 System Architecture"
+  ],
+  [
+   127,
+   "### Terminology."
+  ],
+  [
+   137,
+   "### Concept resolution."
+  ],
+  [
+   148,
+   "### Literature search."
+  ],
+  [
+   161,
+   "### Pairwise causal reasoning."
+  ],
+  [
+   170,
+   "### Graph assembly and identification."
+  ],
+  [
+   201,
+   "### Orchestration and audit."
+  ],
+  [
+   208,
+   "## 3 User Interface and Workflow"
+  ],
+  [
+   216,
+   "### Study submission and review."
+  ],
+  [
+   223,
+   "### Graph inspection and analysis."
+  ],
+  [
+   232,
+   "### Evaluation console."
+  ],
+  [
+   240,
+   "## 4 Experiments and Evaluation"
+  ],
+  [
+   313,
+   "## 5 Related Work"
+  ],
+  [
+   317,
+   "### Causal DAG tooling."
+  ],
+  [
+   327,
+   "### LLM-assisted causal graph construction."
+  ],
+  [
+   340,
+   "### Biomedical ontologies and literature infrastructure."
+  ],
+  [
+   357,
+   "### Retrieval-grounded LLM workflows."
+  ],
+  [
+   368,
+   "## 6 Conclusion"
+  ],
+  [
+   384,
+   "## Limitations"
+  ],
+  [
+   399,
+   "## Ethics and Broader Impact Statement"
+  ],
+  [
+   413,
+   "## References"
+  ],
+  [
+   716,
+   "## Appendix A Evaluation and Reproducibility Details"
+  ],
+  [
+   718,
+   "### Standard evaluation configuration."
+  ],
+  [
+   734,
+   "### Full benchmark table."
+  ],
+  [
+   854,
+   "### Inclusion-policy comparison."
+  ],
+  [
+   929,
+   "### LLM-only baselines."
+  ],
+  [
+   948,
+   "### Evidence grounding per DAG."
+  ],
+  [
+   1039,
+   "### Scoring-rule rationale."
+  ],
+  [
+   1050,
+   "### Error-analysis edges."
+  ],
+  [
+   1064,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## Limitations\n\nEviDAG has several limitations. First, its evidence coverage is constrained: it relies on PubMed\nabstracts rather than full text, UMLS coverage is uneven for specialized or temporally qualified\nvariables, and PubMed relevance ranking determines which records survive retrieval caps.\n\nSecond, LLM judgments remain fallible and model-dependent. Model priors may overstate familiar\nrelations, miss niche findings, or conflate total, direct, and mediated effects. Structured outputs,\ncitation grounding, deterministic constraints, and expert review make these errors inspectable but do\nnot guarantee causal correctness.\n\nFinally, exhaustive concept-pair search and per-pair synthesis make retrieval and LLM cost grow\nquadratically with variable count. Higher-dimensional use will require candidate-pair pruning, caching,\nbatching, and scalable graph interfaces.\n\n## Ethics and Broader Impact Statement\n\nEviDAG is intended as a research-support tool for drafting and auditing causal assumptions. Generated\nDAGs do not establish causal validity and should not replace domain-expert reasoning. The interface keeps\nexperts in the loop by exposing concept mappings, retrieved evidence, pairwise judgments, graph operations,\nand adjustment artifacts for review.\n\nA central ethical risk is misplaced trust in fluent model-generated rationales. EviDAG addresses\nthis by separating literature-grounded, ontology-grounded, prior-only, constraint-derived, and\nsolver-selected claims; preserving citations and audit records; and distinguishing low-evidence pairs\nfrom confident null relationships. These mechanisms improve accountability, but they do not eliminate\nthe possibility of biased literature, incomplete retrieval, or erroneous LLM synthesis. We therefore\npresent generated DAGs as inspectable hypotheses for expert review, not as final causal conclusions.\n\n## References\n\nBarakati et al. (2025)\nK. Barakati, A. Molak, C. Nelson, X. Zhang, I. Takeuchi, and S. V. Kalinin\n\nCausal discovery from data assisted by large language models.\n\nExternal Links: 2503.13833,\nDocument,\nLink",
+ "ethics_coi": "## Ethics and Broader Impact Statement\n\nEviDAG is intended as a research-support tool for drafting and auditing causal assumptions. Generated\nDAGs do not establish causal validity and should not replace domain-expert reasoning. The interface keeps\nexperts in the loop by exposing concept mappings, retrieved evidence, pairwise judgments, graph operations,\nand adjustment artifacts for review.\n\nA central ethical risk is misplaced trust in fluent model-generated rationales. EviDAG addresses\nthis by separating literature-grounded, ontology-grounded, prior-only, constraint-derived, and\nsolver-selected claims; preserving citations and audit records; and distinguishing low-evidence pairs\nfrom confident null relationships. These mechanisms improve accountability, but they do not eliminate\nthe possibility of biased literature, incomplete retrieval, or erroneous LLM synthesis. We therefore\npresent generated DAGs as inspectable hypotheses for expert review, not as final causal conclusions.\n\n## References\n\nBarakati et al. (2025)\nK. Barakati, A. Molak, C. Nelson, X. Zhang, I. Takeuchi, and S. V. Kalinin\n\nCausal discovery from data assisted by large language models.\n\nExternal Links: 2503.13833,\nDocument,\nLink",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 4,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 1,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

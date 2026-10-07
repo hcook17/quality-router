@@ -1,0 +1,381 @@
+{
+ "arxiv_id": "2605.08399",
+ "fulltext_chars": 98348,
+ "fulltext_lines": 2785,
+ "authors_block": "Ziyang Yu1 Qiyue Li2 Liang Zhao1 1Emory University 2Beijing Normal-Hong Kong Baptist University",
+ "vendor_affiliation_hits": [],
+ "n_authors": 3,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   26,
+   "# CoCoDA: Co-evolving Compositional DAG for Tool-Augmented Agents"
+  ],
+  [
+   32,
+   "###### Abstract"
+  ],
+  [
+   36,
+   "## 1 Introduction"
+  ],
+  [
+   52,
+   "## 2 Related Works"
+  ],
+  [
+   54,
+   "### 2.1 Tool-Augmented Language Models"
+  ],
+  [
+   74,
+   "### 2.2 Skill Library Learning and Agent Memory"
+  ],
+  [
+   111,
+   "### 2.3 Policy–Memory Co-Evolution"
+  ],
+  [
+   126,
+   "## 3 Proposed Method"
+  ],
+  [
+   128,
+   "### 3.1 Problem Formulation"
+  ],
+  [
+   242,
+   "### 3.2 Typed DAG Retrieval: Approximating the Retrieval-Cost Block"
+  ],
+  [
+   250,
+   "#### L1: symbolic signature pruning."
+  ],
+  [
+   261,
+   "#### L2: edge-guided semantic expansion."
+  ],
+  [
+   272,
+   "#### L3: specification filtering."
+  ],
+  [
+   285,
+   "#### L4: example-based reranking."
+  ],
+  [
+   297,
+   "#### Co-evolution tightens the cascade."
+  ],
+  [
+   308,
+   "### 3.3 Co-Evolution as a Coupled Update on the Joint Objective"
+  ],
+  [
+   327,
+   "#### Surrogate Reward"
+  ],
+  [
+   372,
+   "#### Coupled Update Rule"
+  ],
+  [
+   404,
+   "### 3.4 Theoretical Analysis"
+  ],
+  [
+   414,
+   "###### Theorem 1 (Retrieval Cost Reduction)."
+  ],
+  [
+   425,
+   "###### Corollary 2 (Sublinear Retrieval Time)."
+  ],
+  [
+   433,
+   "###### Remark (Co-Evolution Tightens the Prompt Budget)."
+  ],
+  [
+   444,
+   "###### Theorem 3 (Compositional Advantage under Graph-Aware GRPO)."
+  ],
+  [
+   453,
+   "###### Theorem 4 (Monotone Co-Evolution)."
+  ],
+  [
+   462,
+   "###### Corollary 5 (DAG Well-Formedness and Complexity)."
+  ],
+  [
+   471,
+   "## 4 Experiments"
+  ],
+  [
+   475,
+   "### 4.1 Experimental Settings"
+  ],
+  [
+   481,
+   "### 4.2 Main Results."
+  ],
+  [
+   740,
+   "### 4.3 Scalability and Efficiency Analysis"
+  ],
+  [
+   742,
+   "#### Library Growth."
+  ],
+  [
+   751,
+   "#### Context Cost vs. Library Size: Code Hierarchy vs. Text Hierarchy."
+  ],
+  [
+   772,
+   "#### Scaling Analysis."
+  ],
+  [
+   779,
+   "### 4.4 Ablation Studies"
+  ],
+  [
+   867,
+   "## 5 Conclusion"
+  ],
+  [
+   871,
+   "## References"
+  ],
+  [
+   1256,
+   "## Appendix A Algorithms"
+  ],
+  [
+   1521,
+   "## Appendix B Datasets"
+  ],
+  [
+   1539,
+   "## Appendix C Baseline Methods"
+  ],
+  [
+   1543,
+   "#### No-tool chain-of-thought baselines."
+  ],
+  [
+   1547,
+   "#### Fixed-library tool-augmented methods."
+  ],
+  [
+   1551,
+   "#### Library-learning methods."
+  ],
+  [
+   1560,
+   "#Test"
+  ],
+  [
+   1592,
+   "## Appendix D Prompts"
+  ],
+  [
+   1603,
+   "### D.1 Teacher Tool-Abstraction Prompt"
+  ],
+  [
+   1653,
+   "### D.2 Teacher Cold-Start SFT Prompt"
+  ],
+  [
+   1695,
+   "### D.3 Task-Decomposition Prompt (Planner)"
+  ],
+  [
+   1729,
+   "### D.4 L2 Semantic-Ranker Prompt"
+  ],
+  [
+   1761,
+   "### D.5 L3 Constraint-Check Prompt"
+  ],
+  [
+   1812,
+   "### D.6 L4 Example-Based Reranking Prompt"
+  ],
+  [
+   1848,
+   "### D.7 Planner System Prompt for Tool-Augmented Rollouts"
+  ],
+  [
+   1885,
+   "### D.8 InsertTool Semantic-Deduplication Prompt"
+  ],
+  [
+   1925,
+   "## Appendix E Hyperparameters"
+  ],
+  [
+   2048,
+   "## Appendix F Tool Library Data"
+  ],
+  [
+   2055,
+   "### F.1 Example Primitive Tool Record"
+  ],
+  [
+   2069,
+   "### F.2 Example Compositional Tool Record"
+  ],
+  [
+   2103,
+   "### F.3 Compositional Tool DAG Snapshot (Math Domain)"
+  ],
+  [
+   2114,
+   "### F.4 End-of-Training Library Statistics"
+  ],
+  [
+   2129,
+   "# rejected by InsertTool"
+  ],
+  [
+   2173,
+   "## Appendix G Dataset Details"
+  ],
+  [
+   2186,
+   "#train"
+  ],
+  [
+   2187,
+   "#test"
+  ],
+  [
+   2226,
+   "## Appendix H Case Studies"
+  ],
+  [
+   2228,
+   "### H.1 Cascaded Retrieval on a GSM8K Query"
+  ],
+  [
+   2259,
+   "### H.2 A Tool Created from Success and Later Reused"
+  ],
+  [
+   2271,
+   "### H.3 Rejected Candidates"
+  ],
+  [
+   2299,
+   "## Appendix I Compute and Reproducibility"
+  ],
+  [
+   2344,
+   "## Appendix J Ablation Implementation Details"
+  ],
+  [
+   2395,
+   "## Appendix K Sensitivity Sweeps"
+  ],
+  [
+   2397,
+   "#### Reward coefficient \\lambda ."
+  ],
+  [
+   2425,
+   "#### Shortlist size k_{2} ."
+  ],
+  [
+   2431,
+   "#### Success threshold \\rho ."
+  ],
+  [
+   2440,
+   "## Appendix L Theoretical Proofs"
+  ],
+  [
+   2446,
+   "### L.1 Assumptions"
+  ],
+  [
+   2448,
+   "###### Assumption 1 (Level Cost Ordering)."
+  ],
+  [
+   2458,
+   "###### Assumption 2 (Bounded Rewards and Verifier)."
+  ],
+  [
+   2465,
+   "###### Assumption 3 (Retrieval Consistency)."
+  ],
+  [
+   2477,
+   "### L.2 Proof of Theorem 1"
+  ],
+  [
+   2479,
+   "###### Proof."
+  ],
+  [
+   2538,
+   "### L.3 Proof of Corollary 2"
+  ],
+  [
+   2540,
+   "###### Proof."
+  ],
+  [
+   2623,
+   "### L.4 Proof of Theorem 3"
+  ],
+  [
+   2625,
+   "###### Proof."
+  ],
+  [
+   2690,
+   "### L.5 Proof of Theorem 4"
+  ],
+  [
+   2692,
+   "###### Proof."
+  ],
+  [
+   2762,
+   "### L.6 Proof of Corollary 5"
+  ],
+  [
+   2764,
+   "###### Proof."
+  ],
+  [
+   2785,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 1,
+  "p_value_or_ci": 4,
+  "seeds_or_runs": 5,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

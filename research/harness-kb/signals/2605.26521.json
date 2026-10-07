@@ -1,0 +1,269 @@
+{
+ "arxiv_id": "2605.26521",
+ "fulltext_chars": 79943,
+ "fulltext_lines": 1401,
+ "authors_block": "Nafiseh Kahani Mojtaba Bagherzadeh ††thanks: First Author is with the Department of Systems and Computer Engineering, Carleton University, Ottawa, Canada. Email: nafisehkahani@cunet.carleton.ca††thanks: Second Author is with the Cisco Systems, Ottawa, Canada. Email: mbagherz@cisco.com",
+ "vendor_affiliation_hits": [],
+ "n_authors": 2,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   24,
+   "# Testing Agentic Workflows with Structural Coverage Criteria"
+  ],
+  [
+   31,
+   "###### Abstract"
+  ],
+  [
+   35,
+   "###### Index Terms:"
+  ],
+  [
+   38,
+   "## I Introduction"
+  ],
+  [
+   76,
+   "## II Multi-Agent Workflow Specifications"
+  ],
+  [
+   102,
+   "### II-A Running Example: oai_customer_service"
+  ],
+  [
+   184,
+   "### II-B DSPy for Test Scenario Realization"
+  ],
+  [
+   192,
+   "## III Approach"
+  ],
+  [
+   230,
+   "### III-A Formal Coverage Model"
+  ],
+  [
+   272,
+   "#### C1. Agent coverage"
+  ],
+  [
+   278,
+   "#### C2. Allowed-tool coverage"
+  ],
+  [
+   284,
+   "#### C3. Restricted-tool coverage"
+  ],
+  [
+   295,
+   "#### C4. Delegation coverage"
+  ],
+  [
+   303,
+   "### III-B Coverage-Driven Test Generation"
+  ],
+  [
+   337,
+   "#### Witness objectives"
+  ],
+  [
+   345,
+   "#### Objective construction rules"
+  ],
+  [
+   367,
+   "#### Merging."
+  ],
+  [
+   373,
+   "### III-C DSPy-Based Scenario Realization"
+  ],
+  [
+   377,
+   "#### One signature per criterion"
+  ],
+  [
+   399,
+   "#### Bounded refinement with an execution-grounded reward"
+  ],
+  [
+   595,
+   "### III-D Execution and Observation"
+  ],
+  [
+   601,
+   "## IV Evaluation"
+  ],
+  [
+   611,
+   "### IV-A Research Questions"
+  ],
+  [
+   629,
+   "### IV-B Benchmarks"
+  ],
+  [
+   631,
+   "#### Source and extraction"
+  ],
+  [
+   635,
+   "#### Benchmarks"
+  ],
+  [
+   739,
+   "#### Instrumented benchmark"
+  ],
+  [
+   743,
+   "#### Benchmark construction notes"
+  ],
+  [
+   747,
+   "### IV-C Experimental Setup"
+  ],
+  [
+   755,
+   "#### Runtime witness accounting"
+  ],
+  [
+   759,
+   "### IV-D RQ1: Obligation Extraction and Scenario Realization"
+  ],
+  [
+   761,
+   "#### Setup"
+  ],
+  [
+   765,
+   "#### Results"
+  ],
+  [
+   771,
+   "#### Behaviour of the bounded refinement loop"
+  ],
+  [
+   779,
+   "### IV-E RQ2: Allowed-Tool and Delegation Witnesses"
+  ],
+  [
+   781,
+   "#### Setup"
+  ],
+  [
+   785,
+   "#### Cross-benchmark results"
+  ],
+  [
+   885,
+   "#### Allowed-tool findings ( C_{2} )"
+  ],
+  [
+   893,
+   "#### Delegation findings ( C_{4} )"
+  ],
+  [
+   923,
+   "### IV-F RQ3: Restricted-Tool Adversarial Witnesses"
+  ],
+  [
+   925,
+   "#### Setup"
+  ],
+  [
+   931,
+   "#### Results"
+  ],
+  [
+   935,
+   "#### No violation elicited within budget"
+  ],
+  [
+   968,
+   "#### Elicited restricted-call violations"
+  ],
+  [
+   978,
+   "### IV-G RQ4: Fault-Injection Robustness"
+  ],
+  [
+   980,
+   "#### Setup"
+  ],
+  [
+   984,
+   "#### Results"
+  ],
+  [
+   1009,
+   "### IV-H Synthesis"
+  ],
+  [
+   1021,
+   "### IV-I Threats to Validity"
+  ],
+  [
+   1041,
+   "## V Related Work"
+  ],
+  [
+   1043,
+   "#### Structural coverage and mutation testing"
+  ],
+  [
+   1060,
+   "#### Specification-based testing and model-based testing"
+  ],
+  [
+   1076,
+   "#### Automated test generation"
+  ],
+  [
+   1089,
+   "#### LLM and agent evaluation"
+  ],
+  [
+   1105,
+   "#### Prompt, tool, and workflow testing"
+  ],
+  [
+   1121,
+   "#### Positioning"
+  ],
+  [
+   1131,
+   "## VI Discussion and Conclusion"
+  ],
+  [
+   1153,
+   "## References"
+  ],
+  [
+   1401,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "### IV-I Threats to Validity\n\nExternal validity.\nThe evaluation covers ten workflows, but all are OpenAI Agents SDK-style systems and most are demo-scale or research-scale projects rather than production deployments. We therefore do not claim that the measured pass rates generalize to other frameworks, closed-source systems, or much larger workflows. The graph model is intended to be framework-agnostic, but the extractor and runtime adapter evaluated here are SDK-specific.\n\nConstruct validity.\nThe witness predicates measure structural evidence: agents observed, tools invoked, restricted-call attempts recorded, and delegation edges traversed. They do not measure semantic correctness of the final answer, user satisfaction, policy compliance beyond the tested structural relation, or factual accuracy. A suite can achieve high structural coverage while still producing poor natural-language responses. The fault-injection study makes this limitation explicit: the malformed-output case can produce plausible but semantically questionable replies that the mechanical witness still accepts.\n\nInternal validity.\nThe runtime layer uses mocked tool backends. This isolates structural behavior from external service variability, but it means the evaluation measures whether the agent attempts the intended tool or delegation, not whether the real tool would return a correct result. A second internal-validity concern is realizer reach: the bounded DSPy realizer does not always steer the conversation through multi-hop delegation chains within N{=}5 attempts. We report such misses as part of the diagnostic outcome rather than treating them as noise.\n\nReproducibility.\nBoth the realizer and the agent under test are LLM-backed, so repeated runs may produce different surface prompts and occasionally different traces. We reduce this risk by using a fixed configuration, recording structural traces, and evaluating witnesses mechanically from those traces. However, the evaluation is single-run; a multi-run reliability study would be needed to estimate variance.\n\nBenchmark normalization.\nSome source projects use orchestration styles that are not directly represented as static SDK handoff declarations. For these, the extraction layer normalizes the published control flow into graph edges so that reachability and coverage can be computed. These adaptations do not add new agents, tools, or prompts, but they can affect the graph shape and therefore the obligation set. We document them because they are part of the benchmark construction process.\n\nCost and scale.\nThe ten-benchmark runtime evaluation required roughly 39,216 seconds of wall-clock time and 3,637 realizer LM round-trips. This is manageable for the benchmark sizes studied here, but larger workflows may require more aggressive objective merging, path-aware realization, or staged execution to control cost.\n\n## V Related Work\n\n#### Structural coverage and mutation testing\n\nOur work is most directly inspired by classical software testing notions of\nstructural adequacy, including statement, branch, and related coverage\ncriteria, as well as mutation testing\n[13, 1, 6]. The key difference\nis that our coverage obligations are defined over a multi-agent\nworkflow graph rather than over program control flow. In that sense, the\nproposed criteria are closer in spirit to artifact-level adequacy measures:\nthey ask whether declared agents, allowed tool edges, restricted tool edges,\nand delegation edges have been exercised. Mutation analysis along the same\nlines (injecting structural faults into the workflow specification) is a\nnatural extension of the present work and is discussed as future work in\nSection VI. The main distinction is not the evaluation\nlogic of coverage itself, but the decision to treat the multi-agent workflow\nspecification as the primary testable artifact.\n\n#### Specification-based testing and model-based testing",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 1,
+  "p_value_or_ci": 2,
+  "seeds_or_runs": 0,
+  "swe_bench": 1,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

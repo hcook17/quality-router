@@ -1,0 +1,157 @@
+{
+ "arxiv_id": "2608.16890",
+ "fulltext_chars": 39765,
+ "fulltext_lines": 1404,
+ "authors_block": "Jaime Yan Affiliation: Data Science Researcher Affiliation: Harrisburg University of Science and Technology Affiliation: ORCID: 0009-0007-1786-7259",
+ "vendor_affiliation_hits": [],
+ "n_authors": 1,
+ "comment": "Preprint. 9 pages main text, 3 figures, plus references and appendix",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# GxP-Agent: Process-DAG Topology for Reliable Clinical Trial Programming with LLM Agents"
+  ],
+  [
+   30,
+   "###### Abstract"
+  ],
+  [
+   39,
+   "## 1 Introduction"
+  ],
+  [
+   71,
+   "## 2 Background"
+  ],
+  [
+   87,
+   "## 3 System Design"
+  ],
+  [
+   89,
+   "### 3.1 Architecture Overview"
+  ],
+  [
+   111,
+   "### 3.2 ADSL DAG Design"
+  ],
+  [
+   128,
+   "### 3.3 Design Rationale"
+  ],
+  [
+   136,
+   "## 4 CDISC-Bench"
+  ],
+  [
+   138,
+   "### 4.1 Benchmark Construction"
+  ],
+  [
+   149,
+   "### 4.2 Evaluation Framework"
+  ],
+  [
+   196,
+   "## 5 Experiments"
+  ],
+  [
+   198,
+   "### 5.1 Experimental Setup"
+  ],
+  [
+   222,
+   "### 5.2 Main Results"
+  ],
+  [
+   360,
+   "### 5.3 Per-Node Analysis"
+  ],
+  [
+   503,
+   "### 5.4 Generalizability: ADAE"
+  ],
+  [
+   511,
+   "### 5.5 DAG Design Iteration"
+  ],
+  [
+   524,
+   "### 5.6 Statistical Summary"
+  ],
+  [
+   535,
+   "## 6 Ablation Studies"
+  ],
+  [
+   683,
+   "## 7 Discussion"
+  ],
+  [
+   702,
+   "## 8 Related Work"
+  ],
+  [
+   718,
+   "## 9 Limitations"
+  ],
+  [
+   729,
+   "## 10 Conclusion"
+  ],
+  [
+   736,
+   "## References"
+  ],
+  [
+   1072,
+   "## Appendix A ADSL DAG Node Descriptions"
+  ],
+  [
+   1078,
+   "#"
+  ],
+  [
+   1174,
+   "## Appendix B CDISC-Bench Ground-Truth Variables"
+  ],
+  [
+   1234,
+   "## Appendix C Per-Node Success Rates"
+  ],
+  [
+   1376,
+   "## Appendix D Extended DAG Version Changelog"
+  ],
+  [
+   1398,
+   "## Appendix E Additional Limitations"
+  ],
+  [
+   1404,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 9 Limitations\n\n(1) The topology-only ablation (A2) shows a 0% \\to 100% gradient but the full DAG combines multiple prompt choices not disentangled via factorial design.\n(2) Stronger retrieval baselines might narrow the gap.\n(3) All experiments use CDISCPilot01 (ADSL/ADAE); generalization to other studies or datasets is untested.\n(4) Claude’s 100% vs. GPT-4.1’s 59% may partly reflect differential training data exposure.\n(5) DAG requires 15 sequential LLM calls (662s vs. 65s for Keyword-RAG).\n(6) With 1–3 runs per configuration, confidence intervals remain wide (74.5%, 95% CI: 67.5–80.5%).\n(7) The 15-node DAG was manually designed ( \\sim 40 hours); automated generation is future work.\nAdditional limitations are in Appendix E.\n\n## 10 Conclusion\n\nWe presented GxP-Agent, a multi-agent system encoding regulatory process ordering as DAG topology for clinical trial programming.\nOn CDISC-Bench, GxP-Agent achieves 100% structural match on ADSL with Claude (1 Opus + 3 Sonnet runs, 0% variance)—a task where all single-shot approaches score 0% and the best retrieval-augmented baseline achieves 59.2%.\nThe core insight is that clinical trial programming is a compliance task: the correct decomposition and ordering of derivation steps can be determined from domain specifications a priori and encoded as graph topology, reducing the LLM’s role to generating correct R code for narrow, well-scoped subtasks.\nWe release CDISC-Bench and anonymized code as supplementary material to enable further research; full code and data will be released upon publication.\n\n## References\n\n[1]\nAnthropic (2024)\n\nThe claude 3 model family: opus, sonnet, haiku.\n\nTechnical report\n\n Anthropic.\n\nExternal Links: Link\n\nCited by: §5.1.\n\n[2]\nD. Arora, A. Sonwane, N. Wadhwa, A. Mehrotra, S. Utpala, R. Bairi, A. Kanade, and N. Natarajan (2024)\n\nMASAI: modular architecture for software-engineering AI agents.\n\narXiv preprint arXiv:2406.11638.",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 4,
+  "seeds_or_runs": 1,
+  "swe_bench": 2,
+  "contamination": 1,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

@@ -1,0 +1,261 @@
+{
+ "arxiv_id": "2606.30704",
+ "fulltext_chars": 99211,
+ "fulltext_lines": 2386,
+ "authors_block": "Gan Luo ††thanks: Equal contribution. Gan Luo and Zihan Qin are with School of Mathematics Science, Peking University (luogan@stu.pku.edu.cn, 2601110072@stu.pku.edu.cn), Zihan Qin* Bing Dong Wotao Yin",
+ "vendor_affiliation_hits": [],
+ "n_authors": 4,
+ "comment": "35 pages, 8 figures",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# From Search to Synthesis: Training LLMs as Zero-Shot Workflow Generators"
+  ],
+  [
+   31,
+   "###### Abstract"
+  ],
+  [
+   35,
+   "## 1 Introduction"
+  ],
+  [
+   70,
+   "## 2 Related Works"
+  ],
+  [
+   72,
+   "### 2.1 Agentic Workflow"
+  ],
+  [
+   76,
+   "### 2.2 Automatic Workflow Generation"
+  ],
+  [
+   84,
+   "## 3 Problem Definition"
+  ],
+  [
+   150,
+   "## 4 Methodology"
+  ],
+  [
+   154,
+   "### 4.1 MetaFlow Architecture"
+  ],
+  [
+   172,
+   "### 4.2 Training Algorithm"
+  ],
+  [
+   176,
+   "#### 4.2.1 Phase One: SFT Initialization"
+  ],
+  [
+   180,
+   "#### 4.2.2 Phase Two: RLVR Optimization"
+  ],
+  [
+   273,
+   "## 5 Experiments"
+  ],
+  [
+   277,
+   "### 5.1 Training Configuration"
+  ],
+  [
+   286,
+   "### 5.2 Low-Cost Operator Integration: Continuous Library Expansion"
+  ],
+  [
+   294,
+   "### 5.3 Zero-Shot Generalization to Novel Operators"
+  ],
+  [
+   302,
+   "### 5.4 Main Results and Analysis"
+  ],
+  [
+   310,
+   "## 6 Conclusion"
+  ],
+  [
+   314,
+   "## Acknowledgements"
+  ],
+  [
+   318,
+   "## References"
+  ],
+  [
+   726,
+   "## Appendix A Main Results"
+  ],
+  [
+   807,
+   "## Appendix B Metaflow Architecture"
+  ],
+  [
+   809,
+   "### B.1 Operators Design"
+  ],
+  [
+   1305,
+   "### B.2 Input and Output of the Model"
+  ],
+  [
+   1311,
+   "### Problem Domain Overview"
+  ],
+  [
+   1315,
+   "#### Key Characteristics & Requirements"
+  ],
+  [
+   1327,
+   "#### Common Problem Types & Solution Strategies"
+  ],
+  [
+   1339,
+   "#### Workflow Focus Points"
+  ],
+  [
+   1351,
+   "#### Input Format"
+  ],
+  [
+   1374,
+   "### Available Operators & Building Blocks"
+  ],
+  [
+   1378,
+   "#### **Core Operators**"
+  ],
+  [
+   1412,
+   "# --- DO NOT IMPORT HERE ---"
+  ],
+  [
+   1450,
+   "## Appendix C Details of Supervised Fine-Tuning"
+  ],
+  [
+   1474,
+   "### C.1 Dataset Construction Examples"
+  ],
+  [
+   1480,
+   "### 1. Problem Domain Overview"
+  ],
+  [
+   1484,
+   "#### Key Characteristics & Requirements"
+  ],
+  [
+   1496,
+   "#### Common Problem Types & Solution Strategies"
+  ],
+  [
+   1508,
+   "#### Workflow Focus Points"
+  ],
+  [
+   1520,
+   "### 2. Available Operators & Building Blocks"
+  ],
+  [
+   1524,
+   "#### **Core Operators**"
+  ],
+  [
+   1550,
+   "#### Input Format"
+  ],
+  [
+   1566,
+   "### 3. Your Task: Complete the ‘run_workflow‘ Method"
+  ],
+  [
+   1576,
+   "# --- DO NOT IMPORT HERE ---"
+  ],
+  [
+   1626,
+   "# --- DO NOT IMPORT HERE ---"
+  ],
+  [
+   1758,
+   "# --- DO NOT IMPORT HERE ---"
+  ],
+  [
+   1856,
+   "### C.2 LoRA Configuration"
+  ],
+  [
+   1866,
+   "## Appendix D Details of Reinforcement Learning with Verifiable Rewards"
+  ],
+  [
+   1888,
+   "## Appendix E Case Study: Workflow Design Transformation After Training"
+  ],
+  [
+   1890,
+   "### E.1 Overview"
+  ],
+  [
+   1894,
+   "### E.2 Impact of Training on Workflow Generation Behavior"
+  ],
+  [
+   2144,
+   "## Appendix F Self Consistency Operator: Low-Cost Integration Example"
+  ],
+  [
+   2150,
+   "# --- DO NOT IMPORT HERE ---"
+  ],
+  [
+   2253,
+   "## Appendix G Case Study: Zero-Shot Workflow Generation with Novel VectorSearch Operator"
+  ],
+  [
+   2259,
+   "# --- DO NOT IMPORT HERE ---"
+  ],
+  [
+   2378,
+   "### Analysis and Performance"
+  ],
+  [
+   2382,
+   "### Note on Comparability with Baselines"
+  ],
+  [
+   2386,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgements\n\nThis work was supported by the National Natural Science Foundation of China (Grant No. 625B1012).\n\n## References\n\nAustin et al. (2021)\nJ. Austin, A. Odena, M. Nye, M. Bosma, H. Michalewski, D. Dohan, E. Jiang, C. Cai, M. Terry, Q. Le, et al.\n\nProgram synthesis with large language models.\n\narXiv preprint arXiv:2108.07732.\n\nCited by: §1,\n§2.1.\n\nChen et al. (2023)\nG. Chen, S. Dong, Y. Shu, G. Zhang, J. Sesay, B. F. Karlsson, J. Fu, and Y. Shi\n\nAutoagents: a framework for automatic agent generation.\n\narXiv preprint arXiv:2309.17288.\n\nCited by: §2.2.",
+ "limitations": "",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 2,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

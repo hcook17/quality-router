@@ -1,0 +1,286 @@
+{
+ "arxiv_id": "2609.38294",
+ "fulltext_chars": 91459,
+ "fulltext_lines": 1800,
+ "authors_block": "Yining Lu ††thanks: Work done during an internship at IBM Affiliation: University of Notre Dame Aurelie Lozano Affiliation: IBM Xi Yang Affiliation: IBM Naoki Abe Affiliation: IBM Yu Deng Affiliation: IBM Meng Jiang Affiliation: University of Notre Dame",
+ "vendor_affiliation_hits": [
+  "IBM"
+ ],
+ "n_authors": 6,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/BerriAI/litellm",
+  "https://github.com/yining610/MoFlow."
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# MoFlow: Multi-Objective Agentic Workflow Generation"
+  ],
+  [
+   46,
+   "###### Abstract"
+  ],
+  [
+   54,
+   "## 1 Introduction"
+  ],
+  [
+   73,
+   "## 2 Related Work"
+  ],
+  [
+   147,
+   "### 2.1 Automatic Workflow Generation"
+  ],
+  [
+   151,
+   "#### Monolithic workflow generation."
+  ],
+  [
+   155,
+   "#### Constructive workflow generation."
+  ],
+  [
+   159,
+   "#### Evolutionary workflow generation."
+  ],
+  [
+   165,
+   "### 2.2 Tree Search for Multi-Objective Reinforcement Learning"
+  ],
+  [
+   169,
+   "## 3 MoFlow: Multi-Objective Agentic Workflow Generation"
+  ],
+  [
+   171,
+   "### 3.1 Workflow Construction as a Multi-Objective MDP"
+  ],
+  [
+   175,
+   "###### Definition 1 (Pareto dominance and Pareto front)."
+  ],
+  [
+   237,
+   "### 3.2 MoFlow Search and Inference"
+  ],
+  [
+   243,
+   "###### Definition 2 (Decision node)."
+  ],
+  [
+   247,
+   "###### Definition 3 (Chance node)."
+  ],
+  [
+   271,
+   "### 3.3 Contextual Zooming for Trees"
+  ],
+  [
+   287,
+   "## 4 Experimental Setup"
+  ],
+  [
+   289,
+   "#### Benchmarks."
+  ],
+  [
+   296,
+   "#### Objectives and metrics."
+  ],
+  [
+   303,
+   "#### Baselines."
+  ],
+  [
+   307,
+   "#### Models and prompts."
+  ],
+  [
+   311,
+   "## 5 Experimental Results and Analysis"
+  ],
+  [
+   396,
+   "#### Example."
+  ],
+  [
+   400,
+   "#### Main results."
+  ],
+  [
+   408,
+   "#### Online and offline MoFlow."
+  ],
+  [
+   412,
+   "#### MoFlow outperforms on nearly every objective, not just in hypervolume."
+  ],
+  [
+   416,
+   "### 5.1 Ablation Study"
+  ],
+  [
+   484,
+   "#### MoFlow is generalizable across models."
+  ],
+  [
+   510,
+   "#### Preference-conditioned selection matters."
+  ],
+  [
+   514,
+   "#### Query-level search does not generate a better workflow than task-level search."
+  ],
+  [
+   518,
+   "## 6 Conclusion"
+  ],
+  [
+   522,
+   "## References"
+  ],
+  [
+   1404,
+   "## Appendix"
+  ],
+  [
+   1406,
+   "## Appendix A Additional Results"
+  ],
+  [
+   1408,
+   "### A.1 Accuracy-Cost Pareto Fronts"
+  ],
+  [
+   1414,
+   "### A.2 Task-Level versus Query-Level Search"
+  ],
+  [
+   1503,
+   "### A.3 Full Search Tree Visualizations"
+  ],
+  [
+   1513,
+   "## Appendix B Limitations"
+  ],
+  [
+   1517,
+   "## Appendix C MoFlow Details"
+  ],
+  [
+   1521,
+   "### C.1 Construction MOMDP and Prompt Templates"
+  ],
+  [
+   1523,
+   "#### State representation."
+  ],
+  [
+   1527,
+   "#### Action space."
+  ],
+  [
+   1545,
+   "#### Operator pools."
+  ],
+  [
+   1571,
+   "#### Prompt templates."
+  ],
+  [
+   1623,
+   "### C.2 MoFlow Search Procedure"
+  ],
+  [
+   1625,
+   "#### Set operations."
+  ],
+  [
+   1629,
+   "#### Optimistic chance backup."
+  ],
+  [
+   1633,
+   "#### CZT metric."
+  ],
+  [
+   1637,
+   "#### Selection and zooming."
+  ],
+  [
+   1641,
+   "## Appendix D Implementation Details"
+  ],
+  [
+   1645,
+   "#### Dataset and evaluation."
+  ],
+  [
+   1649,
+   "#### Reference point."
+  ],
+  [
+   1653,
+   "#### Baseline adaptation."
+  ],
+  [
+   1657,
+   "#### Uncertainty-gated objective evaluation."
+  ],
+  [
+   1667,
+   "#### Total cost."
+  ],
+  [
+   1762,
+   "## Appendix E MoFlow Search Complexity Analysis"
+  ],
+  [
+   1766,
+   "#### Cost of one trial."
+  ],
+  [
+   1776,
+   "#### Derivation of Eq. 6."
+  ],
+  [
+   1780,
+   "#### Task-level search."
+  ],
+  [
+   1788,
+   "#### Query-level search."
+  ],
+  [
+   1796,
+   "#### Comparison with the baselines."
+  ],
+  [
+   1800,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## Appendix B Limitations\n\nWe note three limitations of MoFlow. First, it compares value vectors through the linear score {\\bm{w}}^{\\top}{\\bm{v}} , so it covers the convex hull of the Pareto front but not its concave regions, which only nonlinear scalarizations (e.g., Chebyshev) can reach. Second, like AFlow (Zhang et al., 2025d), it requires a manually designed operator pool for each task. With a large open pool, the trial budget alone could not substitute for a stronger proposer. Third, to save cost, every online search stops early once the hypervolume of the executed front plateaus (Appendix D), a rule that halted all reported runs between trials 40 and 50, so we never observe MoFlow (online) under a substantially larger budget. Moreover, the fixed operator pool and horizon bound the structurally distinct workflows the search can reach (even though free-form roles leave the raw workflow set unbounded), so additional trials would likely revisit the front rather than extend it.\n\n## Appendix C MoFlow Details\n\nAppendix C.1 gives the state and action spaces of the MOMDP together with the prompt templates, and Appendix C.2 the full search procedure.\n\n### C.1 Construction MOMDP and Prompt Templates\n\n#### State representation.\n\nA state is an immutable WorkflowGraph. Two partial workflows with the same structure share a canonical key and map to the same node, so a workflow reachable by different edit sequences is visited only once.\n\n#### Action space.\n\nAn action is one of three atomic edits.\n\n• \n\nAddOperator( o , width, role) appends operator o from the task’s operator pool (below). The role is a free-text label that names the node’s prompt archetype (e.g., “step-by-step solver” or “code verifier”).\n\n• \n\nAddControl(branch | loop, width) wraps an operator in a control structure: branch runs width parallel attempts and keeps the best, while loop refines sequentially for width rounds.\n\n• \n\nTerminate closes the workflow.\n\nRoles are not edited independently. The proposer assigns an initial role when it proposes each node-adding edit, and the realizer rewrites that role into up to N_{r} distinct specializations when the edit is instantiated (realizer prompt below). An edit is legal only if it yields a valid workflow: a terminal workflow cannot be extended, Terminate requires a non-empty graph whose last operator emits an answer (e.g., Generate or Ensemble), widths are bounded, and depth cannot exceed the horizon H . These constraints define the legal action set A(s) .\n\n#### Operator pools.\n\nBelow we show the operators we defined for each benchmark.\n\n• \n\nAIME 2026, MATH-Hard: Generate, Ensemble, Programmer, StepProgrammer;",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 4,
+  "seeds_or_runs": 1,
+  "swe_bench": 14,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 1
+ },
+ "fulltext_source": "html"
+}

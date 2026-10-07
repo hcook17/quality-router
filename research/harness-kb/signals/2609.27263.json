@@ -1,0 +1,174 @@
+{
+ "arxiv_id": "2609.27263",
+ "fulltext_chars": 95524,
+ "fulltext_lines": 2654,
+ "authors_block": "Jasem Khelifi Issam Oukhay Ali Ouni Mohammed Sayagh and Mohamed Aymen Saied ††thanks: J. Khelifi, I. Oukhay, A. Ouni, and M. Sayagh are with École de technologie supérieure (ÉTS), University of Quebec, Montreal, Quebec, Canada. E-mail: jasem.khelifi.1@ens.etsmtl.ca, issam.oukhay.1@ens.etsmtl.ca, ali.ouni@etsmtl.ca, mohammed.sayagh@etsmtl.ca.††thanks: M. A. Saied is with Université Laval, Quebec City, Quebec, Canada. E-mail: mohamed-aymen.saied@ift.ulaval.ca.††thanks: This work was supported by LLM token credits from the Google Research Credits program.",
+ "vendor_affiliation_hits": [
+  "Google"
+ ],
+ "n_authors": 5,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/Activiti/Activiti",
+  "https://github.com/Mimino666/langdetectVersion",
+  "https://github.com/dotnet/aspnetcore",
+  "https://github.com/dotnet/runtime",
+  "https://github.com/drehelis/gcp-emulator-ui",
+  "https://github.com/github/awesome-copilot",
+  "https://github.com/github/gh-aw-mcpg",
+  "https://github.com/github/gh-awAccessed",
+  "https://github.com/pydantic/pydantic-ai",
+  "https://github.com/stilab-ets/ghawAccessed"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Specifying and Maintaining Agentic Workflows: An Empirical Study of GitHub Agentic Workflows"
+  ],
+  [
+   39,
+   "###### Abstract"
+  ],
+  [
+   55,
+   "###### Index Terms:"
+  ],
+  [
+   59,
+   "## I Introduction"
+  ],
+  [
+   157,
+   "### I-A Novelty statement"
+  ],
+  [
+   178,
+   "### I-B Open Science"
+  ],
+  [
+   184,
+   "## II Background"
+  ],
+  [
+   200,
+   "# Auto-Triage Workflow - adds triage/accepted when Copilot is assigned to an issue"
+  ],
+  [
+   272,
+   "### II-A Motivating Example"
+  ],
+  [
+   343,
+   "## III Study Design"
+  ],
+  [
+   353,
+   "### III-A Project Selection"
+  ],
+  [
+   380,
+   "### III-B Data Collection"
+  ],
+  [
+   402,
+   "### III-C Data Cleaning"
+  ],
+  [
+   432,
+   "### III-D Instruction Taxonomy"
+  ],
+  [
+   473,
+   "## IV Results"
+  ],
+  [
+   477,
+   "### IV-A RQ1: What are the characteristics of GitHub Agentic Workflows?"
+  ],
+  [
+   630,
+   "### IV-B RQ2: How are GitHub Agentic Workflows maintained over time?"
+  ],
+  [
+   717,
+   "### IV-C RQ3: What agentic instructions do developers set in GitHub Agentic Workflows?"
+  ],
+  [
+   1370,
+   "### Haiku"
+  ],
+  [
+   1386,
+   "# Example: Count DIFC events in JSONL"
+  ],
+  [
+   1497,
+   "### IV-D RQ4: Can LLMs assign instruction labels in GitHub Agentic Workflows?"
+  ],
+  [
+   1739,
+   "## V Discussion and Implications"
+  ],
+  [
+   1743,
+   "### V-A For Developers"
+  ],
+  [
+   1798,
+   "### V-B For Researchers"
+  ],
+  [
+   1826,
+   "## VI Threats to Validity"
+  ],
+  [
+   1873,
+   "## VII Related Work"
+  ],
+  [
+   1875,
+   "### VII-A GitHub Actions Workflows"
+  ],
+  [
+   1906,
+   "### VII-B Agent Instructions and Context Files"
+  ],
+  [
+   1945,
+   "## VIII Conclusion"
+  ],
+  [
+   1982,
+   "## Acknowledgment"
+  ],
+  [
+   1989,
+   "## References"
+  ],
+  [
+   2654,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgment\n\nThis work was supported by the Fonds de recherche du Québec – Nature et technologies (FRQNT) and the Natural Sciences and Engineering Research Council of Canada (NSERC). Additionally, we thank the Google Research Credits program for providing credits to run the RQ4 experiments on Vertex AI.\n\nWe declare that AI solutions (i.e., Grammarly and OpenAI’s Codex) were used for grammar checking and rephrasing. We declare\nthat the content of this article and the whole research procedure were developed and fully conducted by the authors, taking full responsibility for the publication’s content.\n\n## References\n\n[1]\nJ. Yang, C. E. Jimenez, A. Wettig, K. Lieret, S. Yao, K. Narasimhan, and O. Press (2024)\n\nSWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering.\n\nIn Advances in Neural Information Processing Systems, A. Globerson, L. Mackey, D. Belgrave, A. Fan, U. Paquet, J. Tomczak, and C. Zhang (Eds.),\n\nVol. 37, pp. 50528–50652.\n\nExternal Links: Document,\nLink\n\nCited by: §I.\n\n[2]\nN. Carlini (2026)",
+ "limitations": "## VI Threats to Validity\n\nInternal Validity: Instruction types can be interpreted differently\nby coders. To reduce this risk, two authors calibrated their coding on 30 files,\nused shared definitions, assessed agreement before resolution, and reconciled\ndisagreements against the Markdown bodies. For automatic labeling, examples from\nthe target could reveal its assignments. We excluded the target and identical-body\ncopies from its examples and kept the prompt and examples consistent across models.\n\nConstruct Validity: FRE is designed for prose, whereas our full-body\nscores include code, Markdown syntax, and template expressions. We therefore\nreport these as descriptive formula outputs, not validated measures of human\nor agent comprehension, and document the input text and preprocessing.\nFor instruction classification, mentioning a technical concept does not necessarily\nsupply domain context, as illustrated by the RQ4 disagreement example. We required\nexplicit textual support for labels rather than inferring instructions from\nterminology or frontmatter. Similarly, unchanged file size does not imply unchanged\ninstructions, as the RQ2 command-replacement example shows. We compared consecutive\nsnapshots to measure additions, deletions, and affected regions rather than relying\non net size changes. Events whose regions could not be reliably compared were\nleft unclassified.\n\nConclusion Validity: Repository activity declined during our\nobservation window, so fewer Markdown commits alone would not establish a\nworkflow-specific slowdown. We compared maintenance commits with overall\nrepository commits in the same months. Moreover, we used non-cumulative activity\nand size-normalized churn to distinguish monthly editing from accumulated changes\nand file growth. Statistical tests paired projects rather than treating their\nfiles as independent, with Holm correction for multiple comparisons.\nFor automatic labeling, agreement includes labels absent from both predictions\nand human annotations. We therefore also reported Cohen’s \\kappa , precision,\nrecall, and F_{1} , and inspected the largest label disagreements. We describe\nmodel rankings as observed results, not statistical superiority across repeated\nruns. GPT-OSS recovery requests changed generation settings, so the comparison\nconcerns the tested configurations rather than an identical reasoning budget.\n\nExternal Validity: GitHub’s search limit could restrict corpus\ncoverage. We split searches into size buckets and retrieved all pages from buckets\nbelow that limit, then randomly sampled collected Markdown files for RQ3.\nThese steps reduce missing search results and bias from choosing particular files,",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 3,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

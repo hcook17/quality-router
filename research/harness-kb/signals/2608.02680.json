@@ -1,0 +1,313 @@
+{
+ "arxiv_id": "2608.02680",
+ "fulltext_chars": 85251,
+ "fulltext_lines": 1734,
+ "authors_block": "Tool-using language-model agents repeatedly pay to rediscover procedures they have already executed. A recurring intent — listing open tickets, requesting a payment — is issued again and again, and on each occurrence the agent re-derives the same tool sequence: it re-resolves stable identity and configuration, retries equivalent calls with modified parameters, reads tool documentation it has read before, and carries an expanding reasoning history. Most of this is not intrinsic to the task; it is the cost of treating every request as new. Recent serving-time work reinforces the premise, profitably predicting agents’ upcoming tool calls within a session [20, 30]: the regularity such systems exploit transiently is what compilation can capture persistently. An exploratory trace contains both reusable procedure and accidental execution history. The reusable part includes the necessary tools, true data dependencies, branch conditions, stable configuration, and value transformations. The accidental part includes retries, abandoned exploration, stylistic ordering, schema-discovery lookups, and repeated resolution of facts stable across requests. Replaying preserves both; summarizing as textual guidance still asks an LLM to reinterpret the procedure at runtime. We ask instead whether repeated traces can be compiled into an executable workflow in which decisions supported by evidence leave the model’s runtime responsibility (Figure 1). This differs from conventional process discovery. ",
+ "vendor_affiliation_hits": [],
+ "n_authors": 2,
+ "comment": "17 pages, 4 figures, 5 tables",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/StonyBrookNLP/appworld"
+ ],
+ "hf_urls": [
+  "https://huggingface.co/datasets/NousResearch"
+ ],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   57,
+   "## 1 Introduction"
+  ],
+  [
+   111,
+   "#### Contributions."
+  ],
+  [
+   138,
+   "## 2 Problem Definition"
+  ],
+  [
+   146,
+   "#### Partial observability."
+  ],
+  [
+   155,
+   "#### Intent clusters."
+  ],
+  [
+   166,
+   "#### Output workflow."
+  ],
+  [
+   181,
+   "#### Desired properties, and which we measure."
+  ],
+  [
+   205,
+   "## 3 Method"
+  ],
+  [
+   207,
+   "### 3.1 Intent discovery"
+  ],
+  [
+   228,
+   "### 3.2 Normalization and behavioral denoising"
+  ],
+  [
+   255,
+   "### 3.3 Argument-level dependency verification"
+  ],
+  [
+   285,
+   "### 3.4 Provenance and static context"
+  ],
+  [
+   309,
+   "### 3.5 Compilation, validation, and runtime"
+  ],
+  [
+   328,
+   "## 4 The Compiler Skill"
+  ],
+  [
+   353,
+   "## 5 Experimental Setup"
+  ],
+  [
+   355,
+   "#### Data."
+  ],
+  [
+   384,
+   "#### What is model-dependent."
+  ],
+  [
+   397,
+   "#### Discovery parameters."
+  ],
+  [
+   407,
+   "#### Uncertainty."
+  ],
+  [
+   420,
+   "#### Research questions."
+  ],
+  [
+   435,
+   "## 6 Results"
+  ],
+  [
+   437,
+   "### 6.1 Compiling open AppWorld intents"
+  ],
+  [
+   446,
+   "#### Intent 1: request money on Venmo (Figure 2)."
+  ],
+  [
+   500,
+   "#### Intent 2: apply a to-do list’s songs to a playlist"
+  ],
+  [
+   549,
+   "### 6.2 How much of a trace is removable, corpus-wide"
+  ],
+  [
+   568,
+   "#### Determinism, measured."
+  ],
+  [
+   577,
+   "### 6.3 End-to-end execution on withheld instances"
+  ],
+  [
+   597,
+   "#### A claim we withdraw, and an error in how we withdrew it."
+  ],
+  [
+   621,
+   "#### Scope."
+  ],
+  [
+   638,
+   "#### Why two scenarios and not fifty-six."
+  ],
+  [
+   661,
+   "### 6.4 Intent discovery against reference labels"
+  ],
+  [
+   663,
+   "#### Read this section knowing the table does not reproduce."
+  ],
+  [
+   727,
+   "### 6.5 Dependency accuracy against reference plans"
+  ],
+  [
+   739,
+   "#### Two measurements."
+  ],
+  [
+   764,
+   "#### The mechanized rule, against three baselines."
+  ],
+  [
+   845,
+   "#### What this corpus cannot test."
+  ],
+  [
+   942,
+   "### 6.6 Token attribution on AppWorld"
+  ],
+  [
+   951,
+   "#### This reference is not independent of the rule."
+  ],
+  [
+   976,
+   "#### Protocol and results."
+  ],
+  [
+   992,
+   "#### How much cross-corpus agreement this shows."
+  ],
+  [
+   1066,
+   "## 7 Discussion and Limitations"
+  ],
+  [
+   1068,
+   "#### Economics, and what is not guaranteed."
+  ],
+  [
+   1086,
+   "#### When not to compile, and who authorizes."
+  ],
+  [
+   1101,
+   "#### Transfer, and a negative result."
+  ],
+  [
+   1120,
+   "#### What the mechanization does and does not stand in for."
+  ],
+  [
+   1138,
+   "#### Variance, and what our own errors show."
+  ],
+  [
+   1151,
+   "#### Reproducibility and scope."
+  ],
+  [
+   1196,
+   "## 8 Related Work"
+  ],
+  [
+   1198,
+   "#### Process mining, including data- and object-aware."
+  ],
+  [
+   1232,
+   "#### Process mining and provenance over agent traces."
+  ],
+  [
+   1251,
+   "#### Workflow memories, reuse, and skill compilation."
+  ],
+  [
+   1287,
+   "#### Dependency DAGs from specifications, and by demonstration."
+  ],
+  [
+   1306,
+   "## 9 Conclusion"
+  ],
+  [
+   1341,
+   "## Ethics statement"
+  ],
+  [
+   1357,
+   "## References"
+  ],
+  [
+   1631,
+   "## Appendix A The Compiler Skill (Condensed)"
+  ],
+  [
+   1640,
+   "#### Input contract."
+  ],
+  [
+   1647,
+   "#### Step 0 — Validate and de-identify."
+  ],
+  [
+   1651,
+   "#### Step 1 — Contamination pass."
+  ],
+  [
+   1657,
+   "#### Step 2 — Cluster coherence."
+  ],
+  [
+   1664,
+   "#### Step 3 — Normalize and compare arguments."
+  ],
+  [
+   1670,
+   "#### Step 4 — Event roles."
+  ],
+  [
+   1679,
+   "#### Step 4bis — Argument-level dependency verification."
+  ],
+  [
+   1691,
+   "#### Step 5 — Provenance."
+  ],
+  [
+   1698,
+   "#### Step 6 — Static-context injection."
+  ],
+  [
+   1705,
+   "#### Steps 7–9 — Graph, IR, validation."
+  ],
+  [
+   1712,
+   "#### Stop conditions."
+  ],
+  [
+   1724,
+   "#### Vocabulary note."
+  ],
+  [
+   1734,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 7 Discussion and Limitations\n\n#### Economics, and what is not guaranteed.\n\nThe economics rest on an asymmetry: a capable model may spend effort analyzing a\ncluster once, provided the workflow amortizes it over repeated executions. We\nmeasure call reduction but not offline compilation cost, so we report no\nbreak-even point. No semantics-preservation property is established either:\nvalidation is schema and structural conformance plus state tests on one intent,\nand differential replay at scale is future work. A further exposure we do not\naddress: removing schema-discovery calls and forbidding injected values’\ndiscovery tools converts an API change from a self-healing event into a\nsilent-wrong-behavior one. We have no workflow versioning, invalidation, or\ncontract monitoring, and the value-level escape hatch covers stale values rather\nthan changed schemas, so artifact lifetime under drift is unmeasured — leaving\nboth sides of the amortization argument unconstrained. Aggressive\ncanonicalization is the other cost: merging reads and writes of one resource, or\ndropping identifier-shaped arguments, can erase the evidence a hard edge needs,\nso we recommend canonicalizing conservatively.\n\n#### When not to compile, and who authorizes.\n\nSeveral signals correctly keep intents out of the compiled set: insufficient\nrecurrence, no coherent argument structure, bindings that are all per-request\ncontent, and — demonstrated on AppWorld — an irreversible effect whose\ndirection the traces leave under-determined. We do not report how often the\ncompiler declines, which is the adoption-relevant rate. The authorization\nboundary also deserves sharper statement: on the Venmo intent the recipient\nselection resolves to llm_or_dynamic, so no HUMAN node is due and a\nmodel decides the recipient of a money request at runtime; “escalate” meanwhile\ndenotes three different things here (fall back to the general agent, stop at\ncompile time, emit no request). Deployments taking irreversible actions warrant\napproval gating beyond what we evaluate, and BPM’s answer of compensating\ntransactions is unmodelled because these APIs admit no reversal.\n\n#### Transfer, and a negative result.\n\nWe also applied the pipeline to single-turn\nHermes-Function-Calling-v1 [15], whose per-example tool vocabularies\nand varying argument schemas stress canonicalization at argument-path level. It",
+ "ethics_coi": "## Ethics statement\n\nThis work analyzes three public corpora and introduces no human-subjects data.\nT1 [3] and Hermes-Function-Calling-v1 [15] are template- or\nmodel-generated; AppWorld [22] is a simulator with synthetic personal\ndata, and all side-effecting executions reported here ran against that simulator,\nnever a live service or real account. The compiled workflows include an\nirreversible money-movement operation, and the compiler’s abstention and\nescalation on such operations is a deliberate safety property:\nSection 6.1 reports a case where it declines to compile, and\nSection 6.3 reports escalation in place of acting on an\nunresolved recipient. Deploying compiled workflows that take irreversible actions\non real accounts warrants approval gating beyond what this paper evaluates. The\nauthors declare no competing interests and no external funding supported this\nwork.\n\n## References\n\n[1]\n\nVaggelis Atlidakis, Patrice Godefroid, and Marina Polishchuk.\n\nRESTler: Stateful REST API fuzzing.\n\nIn Proceedings of the 41st International Conference on Software Engineering (ICSE), pages 748–758, 2019.",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 4,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 2,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

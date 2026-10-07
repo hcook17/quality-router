@@ -1,0 +1,333 @@
+{
+ "arxiv_id": "2610.07851",
+ "fulltext_chars": 108180,
+ "fulltext_lines": 2017,
+ "authors_block": "for Query Clustering and Agentic Workflow Generation Qi Cheng Affiliation: Rutgers University Affiliation: New Brunswick, NJ Email: q.cheng@rutgers.edu Shengyu Chen Affiliation: University of Pittsburgh Affiliation: Pittsburgh, PA Email: shc160@pitt.edu Wei Cheng Affiliation: NEC Labs America Affiliation: Princeton, NJ Email: weicheng@nec-labs.com Yiqun Xie Affiliation: University of Maryland Affiliation: College Park, MD Email: xie@umd.edu Haoyu Wang Affiliation: NEC Labs America Affiliation: Princeton, NJ Email: haoyu@nec-labs.com Haifeng Chen Affiliation: NEC Labs America Affiliation: Princeton, NJ Email: haifeng@nec-labs.com Xiaowei Jia Affiliation: Rutgers University Affiliation: New Brunswick, NJ Email: xj159@cs.rutgers.edu",
+ "vendor_affiliation_hits": [],
+ "n_authors": 7,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# RA-MoWE: Workflow-Affinity Embeddings"
+  ],
+  [
+   82,
+   "###### Abstract"
+  ],
+  [
+   86,
+   "## 1 Introduction"
+  ],
+  [
+   124,
+   "## 2 RA-MoWE: embedding-guided workflow generation"
+  ],
+  [
+   130,
+   "### 2.1 Workflow-affinity embeddings for query clustering"
+  ],
+  [
+   145,
+   "### 2.2 Embedding-guided expert generation"
+  ],
+  [
+   223,
+   "### 2.3 Learning the embedding encoder"
+  ],
+  [
+   243,
+   "## 3 Empirical evaluation"
+  ],
+  [
+   247,
+   "#### Tasks and evaluation."
+  ],
+  [
+   331,
+   "#### Comparisons test grouping and construction choices."
+  ],
+  [
+   335,
+   "### 3.1 Workflow affinity captures reusable specialization"
+  ],
+  [
+   337,
+   "#### Probe preferences persist across executions."
+  ],
+  [
+   341,
+   "#### Affinity-defined specialists improve the global comparator."
+  ],
+  [
+   347,
+   "### 3.2 Text prediction connects the embedding to deployment"
+  ],
+  [
+   353,
+   "### 3.3 Embedding-guided search generates effective workflows"
+  ],
+  [
+   359,
+   "#### Generated workflows improve on Direct and routed probes."
+  ],
+  [
+   365,
+   "## 4 Related work"
+  ],
+  [
+   367,
+   "#### Learning representations for computational decisions."
+  ],
+  [
+   371,
+   "#### Allocating workflow construction effort."
+  ],
+  [
+   375,
+   "#### Selecting models and orchestrating agents."
+  ],
+  [
+   379,
+   "## 5 Discussion and conclusion"
+  ],
+  [
+   383,
+   "## References"
+  ],
+  [
+   815,
+   "## Appendix A Proofs and effective boundaries"
+  ],
+  [
+   828,
+   "### A.1 Probability space and fixed-protocol convention"
+  ],
+  [
+   858,
+   "### A.2 Measurement accuracy and the information in a finite panel"
+  ],
+  [
+   860,
+   "###### Proposition 1 (Affinity estimation preserves probe decisions)."
+  ],
+  [
+   870,
+   "###### Proof of Proposition 1."
+  ],
+  [
+   917,
+   "#### Standardization changes both noise and the decision geometry."
+  ],
+  [
+   941,
+   "###### Proposition 2 (Finite-panel indistinguishability)."
+  ],
+  [
+   948,
+   "###### Proof."
+  ],
+  [
+   974,
+   "### A.3 Route stability and the information available to an encoder"
+  ],
+  [
+   976,
+   "###### Proposition 3 (A margin condition for faithful assignment)."
+  ],
+  [
+   990,
+   "###### Proof of Proposition 3."
+  ],
+  [
+   1028,
+   "#### Measured and population routes differ."
+  ],
+  [
+   1046,
+   "###### Proposition 4 (Prediction noise and conditional information)."
+  ],
+  [
+   1064,
+   "###### Proof."
+  ],
+  [
+   1092,
+   "### A.4 From measured probe preference to an executable seed"
+  ],
+  [
+   1094,
+   "###### Proposition 5 (Utility of an affinity-derived initialization)."
+  ],
+  [
+   1105,
+   "###### Proof of Proposition 5."
+  ],
+  [
+   1146,
+   "#### Sampling a cluster profile."
+  ],
+  [
+   1166,
+   "### A.5 What validation and operator priors can guarantee"
+  ],
+  [
+   1168,
+   "###### Lemma 1 (Seed retention under accurate selection)."
+  ],
+  [
+   1179,
+   "###### Proof."
+  ],
+  [
+   1208,
+   "#### A hard prior introduces an exclusion cost."
+  ],
+  [
+   1228,
+   "### A.6 A conditional bound for the complete pipeline"
+  ],
+  [
+   1248,
+   "###### Theorem 1 (Conditional composition relative to the probe oracle)."
+  ],
+  [
+   1274,
+   "###### Proof."
+  ],
+  [
+   1304,
+   "## Appendix B Implementation and design rationale"
+  ],
+  [
+   1306,
+   "### B.1 Probe panel and its interpretation"
+  ],
+  [
+   1394,
+   "### B.2 Encoder and cluster construction"
+  ],
+  [
+   1457,
+   "### B.3 Construction backends and their experimental roles"
+  ],
+  [
+   1463,
+   "### B.4 Expert language for embedding-guided search"
+  ],
+  [
+   1590,
+   "#### Selection independence."
+  ],
+  [
+   1594,
+   "### B.5 Why the design choices remain ablations"
+  ],
+  [
+   1600,
+   "## Appendix C Experimental protocol and additional evidence"
+  ],
+  [
+   1602,
+   "### C.1 Data, scores, and information access"
+  ],
+  [
+   1608,
+   "### C.2 Historical probe measurements and cross-repeat analysis"
+  ],
+  [
+   1622,
+   "### C.3 Encoder and representation ablations"
+  ],
+  [
+   1668,
+   "### C.4 Guided construction, splits, and executable semantics"
+  ],
+  [
+   1729,
+   "### C.5 September controlled comparisons and cost accounting"
+  ],
+  [
+   1779,
+   "### C.6 Expert-bank and software-engineering boundary checks"
+  ],
+  [
+   1785,
+   "### C.7 Baseline definitions and adaptations"
+  ],
+  [
+   1789,
+   "#### Global and cluster-conditioned AFlow."
+  ],
+  [
+   1793,
+   "#### ADAS."
+  ],
+  [
+   1797,
+   "#### ScoreFlow."
+  ],
+  [
+   1801,
+   "#### FlowReasoner."
+  ],
+  [
+   1805,
+   "#### Policy routing on SWE."
+  ],
+  [
+   1809,
+   "### C.8 The full probe panel and repeated-execution evidence"
+  ],
+  [
+   1900,
+   "### C.9 Operator and panel ablations"
+  ],
+  [
+   1951,
+   "### C.10 Label-free outcomes and additional diagnostic controls"
+  ],
+  [
+   1959,
+   "### C.11 Heterogeneous-model routing and cost-quality comparisons"
+  ],
+  [
+   2005,
+   "#### Measurement, construction, and serving costs."
+  ],
+  [
+   2009,
+   "### C.12 Statistical families and scope of baseline comparisons"
+  ],
+  [
+   2013,
+   "### C.13 Reproducibility and outstanding attribution"
+  ],
+  [
+   2017,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 19,
+  "seeds_or_runs": 4,
+  "swe_bench": 4,
+  "contamination": 1,
+  "human_study": 2,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

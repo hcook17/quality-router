@@ -1,0 +1,240 @@
+{
+ "arxiv_id": "2605.12239",
+ "fulltext_chars": 47912,
+ "fulltext_lines": 803,
+ "authors_block": "Structural Guarantees Are Harness-Level Properties Preprint – Feedback Welcome Bogdan Banu Email: bogdan@banu.be April 2026",
+ "vendor_affiliation_hits": [],
+ "n_authors": 1,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/Gloriaameng/Awesome-Agent-Harness.",
+  "https://github.com/coredipper/operon"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   26,
+   "# Harness Engineering as Categorical Architecture"
+  ],
+  [
+   38,
+   "###### Abstract"
+  ],
+  [
+   42,
+   "## 1 Introduction"
+  ],
+  [
+   76,
+   "## 2 Background"
+  ],
+  [
+   78,
+   "### 2.1 Agent Externalization"
+  ],
+  [
+   100,
+   "### 2.2 The ArchAgents Category"
+  ],
+  [
+   120,
+   "### 2.3 Alternative Formalizations"
+  ],
+  [
+   128,
+   "### 2.4 Cross-Domain Corroboration"
+  ],
+  [
+   134,
+   "### 2.5 Enumerative and Categorical Views"
+  ],
+  [
+   140,
+   "### 2.6 The Gap"
+  ],
+  [
+   144,
+   "## 3 The Correspondence"
+  ],
+  [
+   148,
+   "### 3.1 Memory as Coalgebraic State"
+  ],
+  [
+   156,
+   "### 3.2 Skills as Operad-Composed Objects"
+  ],
+  [
+   176,
+   "### 3.3 Protocols as Syntactic Wiring G"
+  ],
+  [
+   182,
+   "### 3.4 Harness as Full Architecture (G,\\mathrm{Know},\\Phi)"
+  ],
+  [
+   186,
+   "###### Definition 1 (Structural Guarantee as Certificate)."
+  ],
+  [
+   206,
+   "### 3.5 The Deployment Map \\Phi"
+  ],
+  [
+   210,
+   "###### Definition 2 (Deployment Map)."
+  ],
+  [
+   216,
+   "## 4 Certificate Preservation"
+  ],
+  [
+   220,
+   "### 4.1 Compiler Functors"
+  ],
+  [
+   258,
+   "### 4.2 The LangGraph Compiler"
+  ],
+  [
+   264,
+   "##### Implementation invariant (per-stage certificate replay)."
+  ],
+  [
+   270,
+   "##### Parallel stage groups."
+  ],
+  [
+   276,
+   "### 4.3 Empirical Verification"
+  ],
+  [
+   312,
+   "## 5 Atomic Skills as Operad Composition"
+  ],
+  [
+   354,
+   "## 6 Implementation and Experiments"
+  ],
+  [
+   356,
+   "### 6.1 Reference Implementation"
+  ],
+  [
+   380,
+   "### 6.2 Escalation Experiment"
+  ],
+  [
+   384,
+   "##### Setup."
+  ],
+  [
+   410,
+   "##### Results."
+  ],
+  [
+   439,
+   "##### Discrimination."
+  ],
+  [
+   443,
+   "### 6.3 Certificate Preservation Measurement"
+  ],
+  [
+   469,
+   "### 6.4 SWE-bench-lite: 8B Format Discipline Is the Ceiling"
+  ],
+  [
+   473,
+   "##### Setup."
+  ],
+  [
+   499,
+   "##### Results (per-condition outcome distribution, 10 instances per condition)."
+  ],
+  [
+   537,
+   "##### Comparison with the 2026-04-16 run."
+  ],
+  [
+   541,
+   "##### Interpretation: 8B format discipline, not file selection, is the ceiling."
+  ],
+  [
+   547,
+   "##### Latency cost of grounding."
+  ],
+  [
+   551,
+   "##### What this rerun does and does not say."
+  ],
+  [
+   557,
+   "#### 6.4.1 Phase C: Cross-Model Check with Format-Correction Retry"
+  ],
+  [
+   561,
+   "##### Setup."
+  ],
+  [
+   565,
+   "##### Results (deepseek-r1 with retry, per-condition, 10 instances each)."
+  ],
+  [
+   601,
+   "##### Comparison with gemma4 v0.34.5."
+  ],
+  [
+   640,
+   "##### What Phase C does and does not say."
+  ],
+  [
+   644,
+   "## 7 Discussion and Conclusion"
+  ],
+  [
+   646,
+   "### 7.1 What the Correspondence Provides"
+  ],
+  [
+   666,
+   "### 7.2 Limitations"
+  ],
+  [
+   690,
+   "### 7.3 Conclusion"
+  ],
+  [
+   696,
+   "##### Availability."
+  ],
+  [
+   700,
+   "## References"
+  ],
+  [
+   803,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "### 7.2 Limitations\n\nThis work has several honest limitations:\n\n• \n\nStatic framework: The Architecture triple is a snapshot. We do not model how harnesses evolve over time (e.g., learning from experience, adapting to distribution shift). Dynamic harness evolution is an open problem.\n\n• \n\nSingle reference implementation: All validation uses one codebase (Operon). The correspondence needs independent implementations to confirm generality.\n\n• \n\nCertificate scope: Current certificates cover structural invariants (priority gating, convergence bounds) but not behavioral properties (“the agent never hallucinates”). Extending \\mathrm{Know} to behavioral certificates is future work.\n\n• \n\nEscalation experiment scale: The escalation experiment uses two models on one task. Scaling to diverse tasks and model families would strengthen the claim.\n\n• \n\nSWE-bench-lite ceiling at 8B, confirmed cross-model: Section 6.4 reports 0 resolved instances across baseline, organism, and LangGraph on 10 SWE-bench-lite instances with Gemma 4 (8B / Q4_K_M), under a grounded rerun where each prompt contains the relevant files from the target repository at base_commit and the model output is sanitized before submission. Section 6.4.1 reruns the same instances against a second locally-available 8B model (deepseek-r1:8b, DeepSeek-R1 distilled onto Qwen3-8B, Q4_K_M), with a format-correction retry loop active: when the sanitizer rejects, the runner re-prompts once with the specific reason code and the failed output embedded. Result: 0/30 evaluated, zero retry-recovered patches across all 30 submissions. Gemma4’s one sanitizer-crossing instance (django-11001 baseline, unresolved) was gemma4-specific; deepseek-r1 could not produce a git apply-clean diff for it either. The 8B-class format-discipline ceiling is not a single-model artifact, and retry-with-targeted-guidance is the wrong lever for a capability ceiling (it helps models that occasionally misformat, not models that cannot format at all). Consequently, our demonstrated transfer value in this paper is preservation (Section 4) and primitive reuse (the escalation experiment); task-resolution gains on SWE-bench-lite require a substantially stronger model, outside this paper’s local-only scope.\n\n### 7.3 Conclusion\n\nHarness engineering is not ad hoc—it has a categorical formalization. The Architecture triple (G,\\mathrm{Know},\\Phi) from the ArchAgents framework is the formal theory behind the harness concept that the LangChain ecosystem has converged on empirically. Structural guarantees are \\mathrm{Know} -level replay artifacts preserved in the tested compiler suite by explicit identity and verifier-replay checks. Atomic skills compose via the operad under closure conditions. The model is selected by \\Phi ; changing it changes the deployment map, while supported certificates remain tied to preserved hooks and parameters.\n\nThe practical implication: before building a harness, define its certificates. Before compiling to a new framework, verify preservation. Before composing skills, check type compatibility. The categorical machinery provides the tools; the correspondence provides the vocabulary.\n\n##### Availability.\n\nThe reference implementation is open source at https://github.com/coredipper/operon (operon-ai on PyPI, MIT license). The five compiler functors, atomic skills catalog, and certificate framework are all included.\n\n## References\n\n[1]\n\nZhiyu Chen et al.",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 2,
+  "seeds_or_runs": 0,
+  "swe_bench": 12,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}
