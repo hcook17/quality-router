@@ -92,6 +92,7 @@ Built test-first, with tests written by a separate agent and locked before imple
 | `docs/design/phase-2-init.md` | Spec SoT for `qr init` |
 | `docs/design/phase-3-harness.md` | Spec SoT for the harness gates |
 | `docs/design/phase-4-acceptance-first-sdd.md` | Spec SoT for the acceptance-first Spec stage and the SDD steer |
+| `docs/design/phase-6-api-compat-and-gortex.md` | Locked criteria for `qr gate api-compat` and the Gortex stamp |
 | `docs/research/architecture-decisions.md` | C4 + three-job lock |
 | `src/quality_router/harness/` | Gate, lint, spec, feedback, contracts, policy, eval commands |
 | `examples/content-pipeline/` | Four-repo Java fixture + `run-demo.sh` |

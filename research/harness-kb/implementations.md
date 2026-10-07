@@ -48,6 +48,13 @@ evidence. Retrieval-level gains do not predict end-to-end results
 - **Avro / AsyncAPI:** not contract types in Gortex.
   `qr contracts check` stays the schema gate.
 
+`qr init --graph gortex` stamps the adopt/no verdicts above that live in
+`.gortex.yaml` (embedding off, `facade-v1` in hide mode, read-only
+`cross_workspace_deps`, `@KafkaListener` / `kafkaTemplate.send`
+boundaries) and prints the install-time ones (`--hook-mode=enrich`,
+`--no-skills`, jdtls). The Kafka producer matches the `kafkaTemplate.send`
+call suffix only; add an `event_bus` entry for another field name.
+
 **Pilot before relying on it.** Run `qr eval` with Gortex on and off,
 on the same host, version and model, over your own Java tasks. Record
 resolve rate and tokens (2607.03691), because Gortex has published
