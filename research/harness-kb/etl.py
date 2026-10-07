@@ -162,6 +162,8 @@ def cmd_transform(args: argparse.Namespace) -> None:
             if prev is None or api_rank < prev["api_rank"]:
                 cur["topic_hits"][tid] = {"api_rank": api_rank, "relevance": rel}
     out = ROOT / "papers.jsonl"
+    for prev in load_jsonl(out):
+        papers.setdefault(prev["arxiv_id"], prev)
     with out.open("w") as fh:
         for p in sorted(papers.values(), key=lambda x: x["arxiv_id"]):
             fh.write(json.dumps(p, ensure_ascii=False) + "\n")
@@ -174,10 +176,15 @@ def load_jsonl(path: Path) -> list[dict]:
 
 
 def cmd_select(args: argparse.Namespace) -> None:
+    """Top papers per topic. With --only, add those topics' picks to the existing candidates."""
     papers = load_jsonl(ROOT / "papers.jsonl")
     chosen: dict[str, dict] = {}
+    if args.only:
+        chosen = {c["arxiv_id"]: c for c in load_jsonl(ROOT / "candidates.jsonl")}
     for topic in TAXONOMY["topics"]:
         tid = topic["id"]
+        if args.only and tid not in args.only:
+            continue
         pool = [p for p in papers if p["topic_hits"].get(tid, {}).get("relevance", 0) > 0]
         pool.sort(key=lambda p: (-(p["topic_hits"][tid]["relevance"] - 0.02 * p["topic_hits"][tid]["api_rank"]),))
         n = 0
@@ -185,7 +192,8 @@ def cmd_select(args: argparse.Namespace) -> None:
             if n >= args.per_topic:
                 break
             if p["arxiv_id"] in chosen:
-                chosen[p["arxiv_id"]]["selected_for"].append(tid)
+                if tid not in chosen[p["arxiv_id"]]["selected_for"]:
+                    chosen[p["arxiv_id"]]["selected_for"].append(tid)
                 continue
             chosen[p["arxiv_id"]] = {"arxiv_id": p["arxiv_id"], "version": p["version"],
                                      "title": p["title"], "selected_for": [tid]}
@@ -640,6 +648,8 @@ def cmd_load(args: argparse.Namespace) -> None:
                     db.execute("INSERT INTO quantity_flags VALUES(?,?)", (r["arxiv_id"], flag))
                 if review_status != "rejected" and contribution != "contributes":
                     status = contribution
+        elif review_status != "rejected":
+            status = "unassessed"
         counts[status] = counts.get(status, 0) + 1
         s = r["scores"]
         db.execute("INSERT INTO reviews VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", (
@@ -933,6 +943,214 @@ def cmd_check_contrib(args: argparse.Namespace) -> None:
         print(f"ok {path.name} -> {outcome} (cap={max_claim})")
 
 
+def cmd_recheck(args: argparse.Namespace) -> None:
+    """Live arXiv metadata (current version, comment) for every reviewed paper."""
+    out = AUDITS / "recheck" / "arxiv_current.json"
+    current = json.loads(out.read_text()) if out.exists() else {}
+    ids = sorted(f.stem for f in REVIEWS.glob("*.json"))
+    for i in range(0, len(ids), 40):
+        chunk = ids[i:i + 40]
+        data = _get(API + "?" + urllib.parse.urlencode({"id_list": ",".join(chunk),
+                                                       "max_results": len(chunk)}))
+        for e in ET.fromstring(data).findall("a:entry", NS):
+            p = _parse_entry(e)
+            current[p["arxiv_id"]] = {
+                "current_version": p["version"],
+                "published": e.findtext("a:published", default="", namespaces=NS),
+                "updated": e.findtext("a:updated", default="", namespaces=NS),
+                "comment": e.findtext("arxiv:comment", default=None, namespaces=NS),
+                "title": p["title"]}
+        time.sleep(ARXIV_DELAY_S)
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(dict(sorted(current.items())), indent=1, ensure_ascii=False) + "\n")
+    print(f"rechecked {len(ids)} reviewed papers -> {out.relative_to(ROOT)}")
+
+
+def pattern_label(n_s: int, n_c: int, n_m: int, ws: float, wc: float) -> str:
+    """Deterministic label from evidence-paper stances (supports/contradicts/mixed only)."""
+    if n_s + n_c + n_m == 0:
+        return "none"
+    if n_c and wc * 3 >= ws:
+        return "contested"
+    if n_m > n_s:
+        return "conditional" if n_s >= 2 else "unresolved"
+    if n_s >= 3 and ws >= 3 * wc:
+        return "consensus"
+    return "leaning" if n_s else "unresolved"
+
+
+def _hand_labels() -> dict[str, str]:
+    """The labels FINDINGS.md assigns by hand, read from its three pattern tables."""
+    labels, current = {}, None
+    names = {"### Consensus": "consensus", "### Conditional": "conditional",
+             "### Contested": "contested", "### Unsupported": "thin"}
+    for line in (ROOT / "FINDINGS.md").read_text().splitlines():
+        for head, label in names.items():
+            if line.startswith(head):
+                current = label
+        if line.startswith("## ") and current:
+            current = None
+        m = re.match(r"\|\s*(P\d\d)\b", line)
+        if m and current:
+            labels[m.group(1)] = current
+    return labels
+
+
+def _signal_counts(pid: str) -> dict:
+    f = SIGNALS / f"{pid}.json"
+    return json.loads(f.read_text()).get("counts", {}) if f.exists() else {}
+
+
+def cmd_robustness(args: argparse.Namespace) -> None:
+    db = sqlite3.connect(ROOT / "kb.sqlite")
+    q = db.execute
+    rows = q(f"""SELECT pe.pattern_id, pe.arxiv_id, pe.stance, r.weight, r.coi_severity,
+                        p.published, a.arxiv_id IS NOT NULL
+                 FROM pattern_evidence pe JOIN reviews r USING(arxiv_id)
+                 JOIN papers p USING(arxiv_id) LEFT JOIN audits a USING(arxiv_id)
+                 WHERE r.status IN {EVIDENCE}""").fetchall()
+    counts = {a: _signal_counts(a) for a in {r[1] for r in rows}}
+    scenarios = {
+        "base": lambda r: True,
+        f"v1 ≤ {args.cutoff}": lambda r: r[5][:10] <= args.cutoff,
+        "no vendor COI": lambda r: r[4] not in ("medium", "high"),
+        "audited only": lambda r: bool(r[6]),
+        "Java-evaluated": lambda r: counts[r[1]].get("java", 0) >= 5,
+        "no SWE-bench": lambda r: counts[r[1]].get("swe_bench", 0) < 3,
+    }
+    hand = _hand_labels()
+    names = dict(q("SELECT id, name FROM patterns"))
+
+    def label(sel: list) -> tuple[str, int, int, int, float, float]:
+        n_s = sum(1 for r in sel if r[2] == "supports")
+        n_c = sum(1 for r in sel if r[2] == "contradicts")
+        n_m = sum(1 for r in sel if r[2] == "mixed")
+        ws = sum(r[3] for r in sel if r[2] == "supports")
+        wc = sum(r[3] for r in sel if r[2] == "contradicts")
+        return pattern_label(n_s, n_c, n_m, ws, wc), n_s, n_c, n_m, ws, wc
+
+    out = ["# Robustness of the pattern verdicts", "",
+           "Regenerate with `python3 etl.py load && python3 etl.py robustness`.", "",
+           "Each pattern is relabelled by a fixed rule (`pattern_label` in `etl.py`) from",
+           "evidence-paper stances:", "",
+           "- `contested`: a contradiction weighing at least a third of the support.",
+           "- `conditional`: more mixed than supporting papers, at least 2 supporting. It",
+           "  works where measured, and most papers name a condition it needs.",
+           "- `unresolved`: more mixed than supporting papers, at most 1 supporting.",
+           "- `consensus`: at least 3 supporting papers, weighted support at least 3x the",
+           "  weighted contradiction, mixed not above supports.",
+           "- `leaning`: support below the consensus bar. `none`: no evidence paper.", "",
+           "`introduces` stances are excluded (a proposal is not evidence), unlike the",
+           "weighted-support column in `kb_tables.md`.",
+           "Then the label is recomputed on subsets of the evidence. A verdict that flips",
+           "under a subset rests on that subset.", "",
+           "| Pattern | FINDINGS.md | Rule | " + " | ".join(list(scenarios)[1:])
+           + " | Without top paper | Flips |",
+           "| --- | --- | --- | " + " | ".join("---" for _ in list(scenarios)[1:])
+           + " | --- | --- |"]
+    flips_total, disagree = 0, []
+    for pid in sorted(names):
+        sel = [r for r in rows if r[0] == pid and r[2] != "neutral"]
+        if not sel:
+            continue
+        base = label(sel)
+        cells = []
+        for name, keep in list(scenarios.items())[1:]:
+            cells.append(label([r for r in sel if keep(r)])[0])
+        supp = sorted((r for r in sel if r[2] == "supports"), key=lambda r: -r[3])
+        loo = label([r for r in sel if not supp or r is not supp[0]])[0]
+        cells.append(loo)
+        flips = sum(1 for c in cells if c != base[0])
+        flips_total += bool(flips)
+        h = hand.get(pid, "-")
+        if h != "-" and (h == "consensus") != (base[0] == "consensus"):
+            disagree.append((pid, h, base[0], base[1:4]))
+        out.append(f"| {pid} {names[pid][:40]} | {h} | {base[0]} ({base[1]}/{base[2]}/{base[3]}) | "
+                   + " | ".join(cells) + f" | {flips} |")
+    ev_ids = {r[1]: r for r in rows}
+    sizes = ", ".join(f"{name}: {sum(1 for r in ev_ids.values() if keep(r))}"
+                      for name, keep in scenarios.items())
+    out += ["", f"Evidence papers per subset: {sizes}. Small subsets (audited, Java) lose",
+            "labels to sample size as well as to disagreement; read their flips as \"this",
+            "subset alone would not support the verdict\", not as a reversal.", "",
+            f"Patterns whose label changes under at least one subset: {flips_total}.", "",
+            "Counts in the Rule column are supports/contradicts/mixed evidence papers.", "",
+            "## Consensus labels the rule does not reproduce", "",
+            "Where `FINDINGS.md` and the rule disagree on consensus versus not.", "",
+            "| Pattern | FINDINGS.md | Rule | Supports/contradicts/mixed |",
+            "| --- | --- | --- | --- |"]
+    out += ([f"| {p} | {h} | {b} | {n[0]}/{n[1]}/{n[2]} |" for p, h, b, n in disagree]
+            or ["| none | | | |"])
+
+    intro = q(f"""SELECT pe.pattern_id, SUM(r.weight) FROM pattern_evidence pe
+                  JOIN reviews r USING(arxiv_id) WHERE r.status IN {EVIDENCE}
+                  AND pe.stance='introduces' GROUP BY 1 ORDER BY 2 DESC LIMIT 8""").fetchall()
+    out += ["", "## Weighted support that is only a proposal", "",
+            "`kb_tables.md` adds `introduces` stances to weighted support. These patterns",
+            "carry the most proposal-only weight:", "", "| Pattern | Introduces weight |",
+            "| --- | --- |"] + [f"| {p} | {w:.2f} |" for p, w in intro]
+
+    ev = q(f"SELECT arxiv_id FROM reviews WHERE status IN {EVIDENCE}").fetchall()
+    ev_counts = [_signal_counts(a) for (a,) in ev]
+    def share(key: str, n: int) -> str:
+        return f"{sum(1 for c in ev_counts if c.get(key, 0) >= n)}/{len(ev_counts)}"
+    out += ["", "## What the evidence base is made of", "",
+            "Full-text signal counts (`signals/*.json`), evidence papers only:", "",
+            "| Signal | Papers |", "| --- | --- |",
+            f"| Mentions Java at least 5 times | {share('java', 5)} |",
+            f"| Uses SWE-bench (at least 3 mentions) | {share('swe_bench', 3)} |",
+            f"| Human participants (at least 3 mentions) | {share('human_study', 3)} |",
+            f"| Reports a statistical test or CI | {share('p_value_or_ci', 1)} |",
+            f"| Industrial setting (at least 3 mentions) | {share('industrial', 3)} |"]
+
+    audits = q("""SELECT a.arxiv_id, a.agreement, a.blind_json FROM audits a""").fetchall()
+    deltas: dict[str, list[int]] = {k: [] for k in ("rigor", "reproducibility", "generalizability",
+                                                       "relevance", "coi_risk")}
+    tightened = 0
+    for a_id, _, blind in audits:
+        orig = json.loads((REVIEWS / f"{a_id}.json").read_text())
+        b = json.loads(blind)
+        for k in deltas:
+            if isinstance(b.get("blind_scores", {}).get(k), int):
+                deltas[k].append(b["blind_scores"][k] - orig["scores"][k])
+        if _VORDER.get(b.get("blind_verdict"), 0) > _VORDER[orig["verdict"]]:
+            tightened += 1
+    supports_seen = moved = 0
+    moved_to: dict[str, int] = {}
+    for a_id, _, blind in audits:
+        orig = json.loads((REVIEWS / f"{a_id}.json").read_text())
+        changes = {c.get("id"): c.get("to")
+                   for c in json.loads(blind).get("pattern_stance_changes", [])}
+        for p in orig["patterns"]:
+            if p["stance"] != "supports":
+                continue
+            supports_seen += 1
+            to = changes.get(p["id"])
+            if to in STANCE and to != "supports":
+                moved += 1
+                moved_to[to] = moved_to.get(to, 0) + 1
+    agree = dict(q("SELECT agreement, COUNT(*) FROM audits GROUP BY 1").fetchall())
+    out += ["", "## Reviewer reliability (blind second opinions)", "",
+            f"Audited papers: {len(audits)}. Agreement: {agree}. Verdict tightened by the audit: "
+            f"{tightened}.", "", "| Score | Mean blind − original | Exact agreement |",
+            "| --- | --- | --- |"]
+    for k, v in deltas.items():
+        if v:
+            out.append(f"| {k} | {sum(v) / len(v):+.2f} | {sum(1 for x in v if x == 0)}/{len(v)} |")
+    rate = moved / supports_seen if supports_seen else 0.0
+    unaudited = q(f"""SELECT COUNT(*) FROM reviews r LEFT JOIN audits a USING(arxiv_id)
+                      WHERE r.status IN {EVIDENCE} AND a.arxiv_id IS NULL""").fetchone()[0]
+    out += ["", f"`supports` stances in audited reviews: {supports_seen}. The blind audit moved "
+            f"{moved} ({rate:.0%}) of them: {dict(sorted(moved_to.items()))}.",
+            f"Evidence papers without a blind audit: {unaudited}. A single review's `supports`",
+            "stance is not reliable on its own; every stance counted above has been through",
+            "the conservative audit merge." if not unaudited else
+            "Their `supports` counts are likely inflated by a similar share."]
+    (ROOT / "kb_robustness.md").write_text("\n".join(out) + "\n")
+    print(f"wrote kb_robustness.md ({flips_total} patterns flip under a subset; "
+          f"{len(disagree)} hand labels not reproduced)")
+
+
 def cmd_query(args: argparse.Namespace) -> None:
     db = sqlite3.connect(ROOT / "kb.sqlite")
     for row in db.execute(args.sql):
@@ -953,6 +1171,10 @@ def main() -> None:
     sub.add_parser("transform")
     s = sub.add_parser("select")
     s.add_argument("--per-topic", type=int, default=4)
+    s.add_argument("--only", nargs="*")
+    sub.add_parser("recheck")
+    rb = sub.add_parser("robustness")
+    rb.add_argument("--cutoff", default="2026-09-30")
     f = sub.add_parser("fulltext")
     f.add_argument("--force", action="store_true")
     sub.add_parser("resignal")
@@ -971,7 +1193,8 @@ def main() -> None:
     {"harvest": cmd_harvest, "add": cmd_add, "transform": cmd_transform, "select": cmd_select,
      "fulltext": cmd_fulltext, "resignal": cmd_resignal, "batches": cmd_batches,
      "landscape": cmd_landscape, "check": cmd_check, "check-contrib": cmd_check_contrib,
-     "load": cmd_load, "report": cmd_report, "query": cmd_query}[a.cmd](a)
+     "load": cmd_load, "report": cmd_report, "query": cmd_query, "recheck": cmd_recheck,
+     "robustness": cmd_robustness}[a.cmd](a)
 
 
 if __name__ == "__main__":
