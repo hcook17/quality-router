@@ -10,6 +10,7 @@ def isolate_host_env(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.delenv("SONARQUBE_URL", raising=False)
     monkeypatch.delenv("GITNEXUS_HOOKS", raising=False)
     monkeypatch.delenv("QUALITY_ROUTER_SECRETS", raising=False)
+    monkeypatch.delenv("QR_ROLE", raising=False)
 
 
 @pytest.fixture
