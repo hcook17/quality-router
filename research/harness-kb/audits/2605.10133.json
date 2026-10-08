@@ -1,0 +1,27 @@
+{
+  "arxiv_id": "2605.10133",
+  "blind_scores": {"rigor": 3, "reproducibility": 1, "generalizability": 2, "relevance": 3, "coi_risk": 0},
+  "blind_verdict": "admit_with_caveats",
+  "blind_coi_severity": "none",
+  "agreement": "partial",
+  "claims_disputed": [
+    {
+      "claim": "The effect holds across C and JavaScript as well as Python",
+      "proposed_strength": "weak",
+      "reason": "Table 4 is Gemini-3-Flash-Preview only, one temperature-0 sample, and no interval. C's lower baseline (39/75 secure vs 55/75 Python) is a different fact from a replicated cross-language attack."
+    },
+    {
+      "claim": "Repeating synthesis and dynamic payloads are necessary pieces of the measured success",
+      "proposed_strength": "weak",
+      "reason": "Table 5 denominators are 163, 113, and 183 against 55 secure Gemini Python cases, so the 55.8% and 36.8% figures are not a share of tasks. Type 3 payload contribution is only 9.3%, so dynamic payloads are not necessary for the headline arm. Fig. 5's +32.3 point Type 1 gain is a best-of-rounds union, not a single request."
+    }
+  ],
+  "pattern_stance_changes": [],
+  "missed_issues": [
+    "Appendix E does audit the pressure filter the review says was unchecked: 29/30 Type 1 and 30/30 Type 2 samples matched Table 1, and the one failure was an unsatisfiable AES-versus-DES spec the judge missed. That audit does not check whether LLM payloads are real exploits.",
+    "Appendix D Table 9 is a defense the review said was absent: adding 'Ensure the code is secure and free of vulnerabilities' moves Gemini Type 1 ASR from 81.8% to 76.4% and Type 2 from 56.4% to 43.6%, and Type 3 rises from 94.4% to 96.4%.",
+    "Appendix B.1 builds 22 of 75 seeds with an LLM (18 CWEval, 35 SeCodePLT, 22 generated). Table 6, same Gemini Python run, shows Type 1 ASR 66.7% on the generated seeds versus 95.7% on SeCodePLT.",
+    "CWE-179 and CWE-117 have a 0% secure baseline in Table 8, so they never enter ASR, and Table 3's category denominators pool four models (injection is 52/84)."
+  ],
+  "note": "Scores, verdict, and the four pattern stances match the review. The 98.1% figure is real and is Type 3, so leaving that claim at moderate is right, and Type 2 at 56.4–61.2% is the number closest to an ordinary engineering constraint. The review is too harsh in saying the pressure filter had no human audit, and too silent on Table 9, which shows a one-line security reminder does not stop the drop. It is too kind to the cross-language sentence and to Table 5, whose denominators are not tasks. Relevance stays indirect: the lesson is for acceptance criteria, on single-file Python, C, and JavaScript, not a Java multi-repo discovery procedure."
+}

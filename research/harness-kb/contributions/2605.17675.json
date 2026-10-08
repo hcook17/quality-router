@@ -1,0 +1,19 @@
+{"arxiv_id": "2605.17675",
+ "contributions": [
+  {"kind": "heuristic",
+   "statement": "Enforce non-negotiable provenance rules (issue link, AI-involvement trailer, session-log capture) in git pre-commit hooks and CI rather than only in AGENTS.md, because agents obeyed the file at session start but neglected documented instructions as sessions grew.",
+   "evidence": "§4.3: the agent neglected explicitly documented AGENTS.md instructions in extended sessions and struggled to run tests as case 2's discussion grew; the authors moved session-log commits into a hook. There are no compliance counts and no with/without-hook comparison, across two cases with different hosts and developers.",
+   "strength": "weak", "novelty": "duplicates", "relative_to": ["2608.23550"], "transfers": "direct"},
+  {"kind": "anti_pattern",
+   "statement": "Do not accept an AI-generated summary of an agent session as the audit record for a change; commit the raw session log, or require the summary to preserve the decision points and key prompts, because generated summaries abbreviated or obscured the agent's actual decisions.",
+   "evidence": "§4.4: the authors observed that AI-generated human-readable summaries of the .jsonl logs 'abbreviated or obscured the agent's actual decision-making in notable ways'. This is a qualitative observation from two validation cases, with no count of omitted decisions.",
+   "strength": "weak", "novelty": "new", "relative_to": [], "transfers": "direct"},
+  {"kind": "nuance",
+   "statement": "When a developer without domain knowledge has an agent implement from a domain source document, a 'read it and explain it back' step before planning does not catch errors or omissions in the source itself; have a domain owner check the implementation against the domain, not against the agent's paraphrase.",
+   "evidence": "§3.1 and §4.2: after the structured comprehension questions, the agent still left out the defect-annihilation term that was ambiguous in Kobayashi et al.; it was caught by human review plus testing. The developer had 'limited prior familiarity' with the model (§4.1). This is a single incident.",
+   "strength": "weak", "novelty": "refines", "relative_to": ["2608.12249", "pre-spec knowledge discovery by explain-back (P38)"], "transfers": "indirect"}
+ ],
+ "quantity_flags": ["position_without_evidence"],
+ "proposed": "hypothesis_only",
+ "reason": "The governance framework itself (disclosure metadata, issue links, the NQA-1 mapping) is argued, not measured, and its one comparative-sounding claim (AGENTS.md reduced hallucination) is unsupported. What survives is anecdotal field observation: hooks over instructions, which 2608.23550 already shows with better evidence; AI log summaries hiding decisions; and explain-back missing omissions in the source. All are hypotheses."
+}

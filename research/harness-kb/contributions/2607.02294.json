@@ -1,0 +1,32 @@
+{
+  "arxiv_id": "2607.02294",
+  "contributions": [
+    {"kind": "heuristic",
+     "statement": "Before an agent acts on repositories, branches, environments or other shared resources, require the exact target identifier in the task (which repo, which branch, which environment) and block or force a question rather than letting the agent pick when several candidates match, because acted-run safe success fell from 67.9% with a unique target to 8.6% with an ambiguous one, while wrong-target actions rose from 9.6% to 75.1%.",
+     "evidence": "§V-C and Fig. 6: controlled B-axis degradation within 69 DevOps task families, deterministic side-effect oracles; intent vagueness (S) degraded quality less (50.9% to 29.4%). Audit caveats: pooled acted-run rates are weighted toward DeepSeek-v4, one run per prompt, small-tier models only, and wrong targets at B3 are partly by construction.",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["2605.09698 (agents silently commit to a plausible wrong framing under ambiguity)", "P34 structured requirements / acceptance criteria"],
+     "transfers": "indirect"},
+    {"kind": "nuance",
+     "statement": "Put destructive operations on shared control planes (deployments, config, quotas, retention) behind an enforced approval or permission rule rather than relying on words like 'production' or 'shared' in the prompt to make an agent cautious, because blast-radius wording left action rate (65.5% vs 64.0%) and acted-run safe success (42.4% vs 43.0%) essentially unchanged.",
+     "evidence": "§V-B Table III and §V-C Fig. 6: flat R-axis slope across all five configurations; refusals 0.5% vs 1.0%. OverScope on runtime surfaces 59.8-77.2% vs 14.4-37.6% on bounded-object surfaces (Fig. 8). Caveats: R is a two-level, wording-only cue with no manipulation check; gating itself is recommended, not tested (all runs are full-auto).",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["P19 human approval gates and P21 policy-as-code permissions for destructive operations (least privilege)"],
+     "transfers": "indirect"},
+    {"kind": "nuance",
+     "statement": "Do not assume that a host which makes the agent ask more often will make it act more safely: with the same model, one harness asked three times as often (31.8% vs 10.5% of runs) with no drop in boundary violations (32.6% vs 32.2%) and lower safe success (15.5% vs 25.3%).",
+     "evidence": "Table II, Codex + Codex-5.1-mini vs OpenCode + Codex-5.1-mini. Single model pair, one run per prompt, no CIs; the paper itself draws the opposite recommendation (§VI-A).",
+     "strength": "weak", "novelty": "refines",
+     "relative_to": ["2607.21217 (larger question budgets did not raise pass rates)"],
+     "transfers": "indirect"},
+    {"kind": "test_practice",
+     "statement": "When evaluating agents on operational or repository-mutating tasks, score each run with a before/after state diff against an intended-object set and a must-not-touch set, not by task completion, because completion scoring counts wrong-target and over-broad actions as success.",
+     "evidence": "§III-C, §IV and Fig. 1: deterministic per-task oracles separate Safe Success from Wrong Target and OverScope; Overstep exceeds Safe Success in every configuration (Table II).",
+     "strength": "moderate", "novelty": "restates_known",
+     "relative_to": ["state-based final-database comparison in tau-bench (arXiv 2406.12045)"],
+     "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "Two actionable items survive: name the exact target before an agent mutates shared resources, and enforce gates rather than relying on blast-radius wording. Both come from a controlled instruction matrix with deterministic oracles, but small models, single runs and DevOps-only tasks keep them indirect and moderate. The harness ask-rate result is too thin to back a steer."
+}

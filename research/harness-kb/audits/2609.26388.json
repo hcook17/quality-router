@@ -1,0 +1,22 @@
+{"arxiv_id": "2609.26388",
+ "blind_scores": {"rigor": 3, "reproducibility": 1, "generalizability": 2, "relevance": 2, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "partial",
+ "claims_disputed": [
+  {"claim": "Performance drops as identifier information is removed or made misleading, across models and tasks",
+   "proposed_strength": "moderate",
+   "reason": "The 'misleading' half is robust: Confusing is lowest in every cell of Tables 2-5 and 9. The 'removed' half is not uniform. In Table 5, Anonymous beats Perturbative for all four models, and DeepSeek-Coder-V2 improves under Anonymous (86.22 -> 89.37). In Table 4, GPT-3.5 and CodeBERT score higher under Anonymous than Perturbative. In Table 9, Anonymous leaves 3 of 4 models unchanged. The type-inference control (Table 8) finds no significant Anonymous effect. All main tables are single-run without CIs, and the models are 2023-2024 generation. The review's evidence text overstates this as a 'consistent Original > Perturbative > Anonymous > Confusing ordering across 9 models and 4 tasks'. Strong is not warranted."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P43", "from": "mixed", "to": "neutral",
+   "reason": "The review's own note says 'Not an agent study'. No codebase QA or exploration agent is run, and no comparison isolates P43 against an alternative. Snippet-level summarization and matching under renaming only implies a risk for QA agents. 'Mixed' needs a split isolating comparison, and there is none here."},
+  {"id": "P06", "from": "mixed", "to": "neutral",
+   "reason": "The code-search experiment (Table 3) varies naming quality with the retriever held fixed. It never compares embedding retrieval with a lexical or structural alternative under the same renaming, so it cannot show P06 winning or losing. It characterizes name-dependence of embedders, which 2608.26031 already records as a constraint."}
+ ],
+ "missed_issues": [
+  "The completion set is never sized. Pass@1 values are multiples of 1/254 (e.g. 170/254 = 66.93%, 227/254 = 89.37%), so the filtered and truncated HumanEval set (§3.4) has about 254 items. The Anonymous deltas in Table 5 (-1.6 to +3.2 pp) are 4-11 items, within one to two standard errors with no CI.",
+  "Summarization is scored by ROUGE-L against CodeSearchNet docstrings (absolute values 9.7-22.6, Table 4). §3.3 keeps parameter words in the reference prose while renaming them in the code, so part of the renaming drop is the metric losing token overlap rather than the model losing comprehension. This is metric mismatch, and the review did not flag it. Only the subject-function name is synchronized, and it appears in 2 of 600 references.",
+  "The directional result most useful to an onboarding harness is in Table 9 and the review does not draw it out. Placeholder names cost 0-0.35% for three of four models in two-choice code-description selection, while donor (misleading) names cost 20.5-43.6%. The risk is names that point to the wrong behaviour, not terse names.",
+  "§6.1 and Fig. 8 report that telling the model names may be misleading and having it anonymize first changes Original-condition scores little while recovering part of the Confusing gap. The values are only in the figure, not the text, so the magnitude cannot be checked."
+ ],
+ "note": "My blind scores match the review exactly (rigor 3, reproducibility 1, generalizability 2, relevance 2, COI none), and I agree with admit_with_caveats and with its weak grading of the 'current LLMs' claim. I disagree on the strongest claim: the misleading-name drop is robust, but the removed-name drop has several exceptions in Tables 4, 5, 8 and 9, so 'strong' should be 'moderate'. Both 'mixed' pattern stances are over-called under the stance rule, because neither P43 nor P06 is compared against an alternative here. Both should be 'neutral'. The review also missed that the summarization metric rewards retained parameter words and that the completion set is about 254 unreported items, which makes the Anonymous completion deltas noise-level."}

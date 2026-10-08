@@ -1,0 +1,17 @@
+{"arxiv_id": "2609.29208",
+ "blind_scores": {"rigor": 2, "reproducibility": 4, "generalizability": 2, "relevance": 3, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "partial",
+ "claims_disputed": [
+  {"claim": "Different smell categories (semantic, syntactic, lexical) have similar effects.",
+   "proposed_strength": "unsupported",
+   "reason": "The only evidence is non-significant chi-square tests with 2-4 smells per category per game (§4.3). The paper's own conclusion-validity section (§6) says 'non-significant results should not be interpreted as evidence of the absence of an effect'. One cell has a large effect size (DeepSeek-V3 lexical on Snake, V=0.577). The data cannot tell 'similar' from 'different', so the abstract's 'had similar effects' has no support. 'Weak' overstates it."}
+ ],
+ "pattern_stance_changes": [],
+ "missed_issues": [
+  "Several injected 'smells' are not intent-preserving wording changes: they remove or contradict information the test oracle checks. In Table 4, ID 12 replaces the numeric threshold 'above 11' with 'sufficient to win' while test 12 checks the threshold, and ID 14 drops 'but not 2', which makes the requirement contradict the preceding sentence (2 is even, so it would be both tripled and halved). The manipulation therefore mixes missing information with degraded wording. That weakens the review's reconciliation with 2608.09072 ('missing information versus degraded wording') and its applicability reading that 'intent-preserving' smells are not a dominant driver.",
+  "Run-to-run variance at temperature 0 is as large as the effects being tested. GPT-4o on the clean Scopa requirements averaged 72.5% with SD 15.0 pp over five runs (§4.1), about the size of the largest density drop (GPT-4o Scopa 72.5 -> 57.5). Five runs per cell cannot separate a smell effect of this size from sampling noise. The paper's 'deterministic but replicable' description of temperature 0 (§3.5) is contradicted by its own data.",
+  "Each prompt generates the whole program for all requirements (§3.5), so requirement-level test outcomes within a run are clustered: one wrong shared method fails several tests. The chi-square tests in §4.3 treat requirement outcomes as independent, so their p-values are anti-conservative. The nulls still hold, but the reported Cramér's V values are not per-requirement effects.",
+  "The 'best of five runs' metric (Fig. 2-3) is reported beside the average with equal prominence. A best-of-k score hides exactly the variance that decides whether a smell matters in single-shot use."
+ ],
+ "note": "I agree with the review's verdict, COI none, rigor 2, reproducibility 4, relevance 3, all three pattern stances (P34 mixed, P14 and P42 neutral), and its weak grades on the density and cross-task claims. My blind pass reached the same reading. Generalizability is 2 in my blind pass against the review's 1 (Java, but four toy games). The merge takes 1, which I accept. I lower the smell-category claim to unsupported, because the paper's own §6 disowns reading non-significance as similarity. The review missed that some 'intent-preserving' smells delete or contradict oracle-relevant facts. It also missed that temperature-0 run-to-run SD (15 pp for GPT-4o on Scopa) is as large as the largest smell effect."}

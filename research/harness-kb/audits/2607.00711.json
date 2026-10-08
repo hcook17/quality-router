@@ -1,0 +1,25 @@
+{"arxiv_id": "2607.00711",
+ "blind_scores": {"rigor": 2, "reproducibility": 3, "generalizability": 1, "relevance": 3, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "partial",
+ "claims_disputed": [
+  {"claim": "Performance degrades sharply as the number of simultaneous ambiguities rises.",
+   "proposed_strength": "weak",
+   "reason": "Fig. 7 reports all-hit rates (D_n-H_m), not a per-ambiguity rate. If each key question were hit independently about 30% of the time, all-hit rates would already be about 0.09 for two and 0.03 for three, which is what the figure shows (best D2-H2 0.08, D3-H3 near 0). So the data do not show that each extra ambiguity is harder to ask about, only that needing every question is harder. The values are figure-only, from one temperature-0 run, and the three-ambiguity bucket has 51 tasks."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P40", "from": "mixed", "to": "supports",
+   "reason": "The only isolating comparison of asking versus not asking is Fig. 2 (ambiguous vs interactive clarification), and the text says interactive clarification improves over the ambiguous prompt with no exception. Low TKQR and negative Diff show that models ask too rarely when left to decide. That measures how well the pattern is carried out, not a comparison in which asking loses, so it does not make the result split. The comparison is weak (figure-only, no numbers in the text, oracle simulated user), but its direction favours the pattern."},
+  {"id": "P18", "from": "neutral", "to": "introduces",
+   "reason": "The GPT-4o judge is not just mentioned. It is the scoring instrument for every TKQR, ORA and hit-rate number (three samples, majority vote), and there is no comparison against another scorer, so the paper uses the pattern without isolating it."}
+ ],
+ "missed_issues": [
+  "The pass@1 (Full) column in Table 3 cannot have been computed on the 419 tasks. Four of its seven values (35.0, 43.8, 48.8, 50.0) are not any count out of 419, while all seven are exact multiples of 1/80 and the ambiguous-column values do fit 419. The stated 7.8-19.8 point drops therefore compare different task sets or sample counts, and the paper never explains this.",
+  "Table 3 has no no-clarification arm. 'pass@1 (Ambig.)' is the post-clarification interactive run (§5.1), so the review's methodology line ('ambiguous (no-clarification) runs per model') is wrong. The only ask-versus-guess comparison is Fig. 2, which gives no numbers in the text and does not state its task sample.",
+  "TKQR normalises by IDCG over min(n,K) turns (eq. 2). A model that asks one correct question on a three-ambiguity task and then writes code scores 1.0, and n=0 is undefined. The metric therefore does not penalise under-asking, which is the dominant failure here, and it flatters the low-turn models (Claude-Sonnet-4.5 at 0.24-0.29 questions per task, Qwen3 at 0.46).",
+  "ORA sets the optimum at K=|Q|+1 but counts n as question-asking rounds only (§3.3.2). A model that asks exactly the one needed question on a one-ambiguity task gets ORA of about 0.5, and the maximum requires one unneeded question. Table 4's Diff uses |Q| instead (Turns minus Diff is 1.64-1.65 in every row, matching 690 key questions over 419 tasks), so the two metrics disagree on what the optimum is.",
+  "GPT-4o is both the judge and one of the seven evaluated configurations, so whether its own questions match the key questions is judged by itself. The kappa of 0.89 against humans comes from a subset of unstated size.",
+  "The system prompt already says 'If the requirement is unclear, do not guess. Ask exactly one critical clarification question' (§3.4). The under-asking (6 of 7 configurations below the required question count) therefore happens despite an explicit instruction to ask, which is the most transferable fact in the paper and the review does not draw it out.",
+  "The per-type hit rates behind Finding 3 (Fig. 6: 100.0%, 66.7%, 16.7%, 12.5%) look like fractions of a few instances per type. The text gives no per-type counts, and only non-thinking models are shown, so the type ranking has no stated sample size."
+ ],
+ "note": "I agree with the review's verdict, its scores apart from rigor, and its handling of the reasoning-paradox, capability-decoupling and placeholder claims. I rate rigor lower because both new metrics are mis-specified: TKQR does not penalise asking too few questions, and ORA's optimum counts the code round, so asking exactly the needed questions scores about 0.5. In addition, the full-specification pass@1 column is not computed on the 419 tasks, which undercuts the stated 7.8-19.8 point gap. I lower the ambiguity-count claim to weak because Fig. 7 is what independent per-question hit rates would produce. I move P40 to supports because the review's 'mixed' rests on models asking too rarely, which is not a comparison in which asking loses, and P18 to introduces because the judge is the scoring instrument. The usable fact is that models under-ask even when the prompt tells them not to guess."}

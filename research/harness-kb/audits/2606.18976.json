@@ -1,0 +1,14 @@
+{"arxiv_id": "2606.18976",
+ "blind_scores": {"rigor": 2, "reproducibility": 2, "generalizability": 1, "relevance": 2, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "agree",
+ "claims_disputed": [],
+ "pattern_stance_changes": [],
+ "missed_issues": [
+  "§6 says the high pass rate on C2 (recommendation specificity) confirms 'that deterministic grounding is an effective way to curb LLM hallucinations'. But §3.3 applies anchoring only to SpecificationAuditor and TestAuditor findings, which is exactly what C1 grades, and C1 is the lowest criterion (65% lenient, 50% strict, Table 3). The paper's own table points against its conclusion.",
+  "The penalty arithmetic in §3.3 makes the stated leniency mostly illusory. A missing quote halves confidence, so with any initial confidence of 1.0 or less it always falls below the 0.65 filter and is dropped. A short quote (x0.7) survives only if initial confidence is at least 0.93. 'Not immediately discarded' is therefore effectively 'discarded', and no count of discarded findings is reported to show either effect.",
+  "Anchoring checks that the cited quote exists in the PDF, not that the critique about it is right. At the 0.45 normalized-similarity discard threshold, a quote that differs from every source window by up to 55% of its characters still passes. An LLM can quote correctly and still make a wrong claim.",
+  "The thresholds (0.45, 0.65, 0.27 trigram) were 'determined empirically through preliminary experiments' (§7), and nothing says that data was disjoint from the 10 evaluation reports. Tuning on the test set cannot be ruled out.",
+  "The replication package's code is a Java/Spring AI re-implementation, not the evaluated pipeline, and 9 of 10 evaluation inputs are withheld (§8). Neither the system numbers nor the ratings can be reproduced from the release."
+ ],
+ "note": "I agree with the review on every score within one point, on the verdict, and on all five pattern stances. The κ misattribution, the unmeasured anchoring claim and the ceiling-level B1 result are the right headline caveats, and I found nothing graded too strong. What the review missed are internal inconsistencies that make the anchoring claim worse than 'unmeasured'. The discussion credits anchoring for a criterion it never touches, while the criterion it does feed (C1) scores lowest. The penalty rules as written discard every unquoted finding regardless of the stated leniency. The released Java code is a re-implementation, so the release does not reproduce the reported numbers."}

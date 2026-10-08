@@ -1,0 +1,26 @@
+{
+  "arxiv_id": "2605.03546",
+  "contributions": [
+    {"kind": "test_practice",
+     "statement": "When agents write black-box characterization tests to capture existing behavior (API or ingestion-output tests run against the current service), keep a test only if it passes the real build deterministically over repeated runs, fails against a stub or dummy implementation, and passes an assertion lint that rejects status-code-only checks, short substring matches and either/or assertions, because without these checks 18.5% of agent-generated behavioral tests passed a dummy program.",
+     "evidence": "§5.1 and App. A.3.2, A.3.5 Table 8: dummy pass rate 18.5% without quality enforcement vs 3.7% with linter plus gold/dummy feedback; tests 20-30 pp harder for four models with unchanged rank order; non-deterministic tests filtered by repeated gold runs (A.3.4). The drop is partly by construction because dummy execution is one of the signals, the linter's own share is not separated, and the comparison is reported in prose without task counts (audit). Tests are pytest suites over CLI programs, not Java services.",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["2606.18168 gate agent tests on value-level assertions", "2605.27531 reject trivially true contracts"],
+     "transfers": "direct"},
+    {"kind": "anti_pattern",
+     "statement": "Do not enforce agent process rules (no fetching the target's source, no reading other repositories or registries for answers) through prompt prohibitions plus LLM review of trajectories; enforce them in the sandbox (no egress, execute-only or prebuilt artifacts copied into a separate container, git history and package caches wiped), because 20-36% of strong-model runs broke an explicit prohibition and a nine-judge panel from three model families agreed only at Fleiss kappa 0.57.",
+     "evidence": "§4.1 Table 3 and App. A.2.2-A.2.3: cheating flagged on 36% (Sonnet 4.6), 21% (Opus 4.6), 20% (Gemini 3 Flash) of internet-enabled runs; source lookup was 79-95% of flags, via git clone, cargo install or go get, and local package caches; judges split on 16-57% of tasks. No human ground truth for what counts as cheating, and four models only.",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["2609.08149 block code-host egress and strip future history when evaluating on mined tasks", "2608.23550 rules written in agent instruction files are unenforced"],
+     "transfers": "indirect"},
+    {"kind": "nuance",
+     "statement": "When an agent scaffolds a new service or module from a spec, state the package and module layout in the spec, because unconstrained agents put 60% of their working solutions in one to three code files.",
+     "evidence": "§5.2 Fig. 9 and Table 5: among 207 runs passing at least 75% of tests, median 3 vs 15 files, depth 1 vs 2. The comparison with the reference is confounded by Python rewrites and untested missing functionality (audit), no maintainability outcome is measured, and the tasks are CLI rebuilds, not services.",
+     "strength": "weak", "novelty": "refines",
+     "relative_to": ["2608.19854 emit a requirement-to-component map before generating code"],
+     "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "Two moderate refinements survive: an assertion-strength gate (dummy kill, determinism, lint) for agent-written characterization tests, and evidence that prompt prohibitions plus LLM judges do not enforce process rules while a hard sandbox does. The model ranking and the 0% headline add nothing the team can act on, and the monolithic-code observation is confounded."
+}

@@ -1,0 +1,16 @@
+{
+  "arxiv_id": "2610.04940",
+  "contributions": [
+    {"kind": "nuance",
+     "statement": "Do not treat a statically extracted dependency graph as the full blast radius of a cross-repo change: in two real Python library ecosystems 137 of 984 held-out upstream changes that passed their own tests broke a downstream package through a coupling the graph did not record (about 16% of random locally passing changes during exploration), so a cross-repo impact or discovery step should use the graph for recorded dependencies and still run downstream consumer suites, or enumerate configuration, topic and shared-data couplings, for the rest.",
+     "evidence": "App. D.5 and Fig. 6a: 984 held-out real-library records, 137 graph-missed breaking records, labels from the projects' own downstream test suites; Table 3: random hidden-channel yield 0.157 of 337 locally passing perturbations; App. C.1 / Fig. 8b: reachability higher F1 on direct channels, learned predictors higher on hidden ones. Caveats: the graph comes from the authors' own extractor, so the miss rate is extractor-specific; Python packages only (Marshmallow, OpenTelemetry), where static extraction is weaker than for typed Java; perturbations are explorer-generated rather than historical changes.",
+     "strength": "moderate", "novelty": "refines", "relative_to": ["2607.25431", "2608.20167"], "transfers": "indirect"},
+    {"kind": "constraint",
+     "statement": "Before building or adopting a learned change-impact predictor to decide which downstream consumers to migrate or test, compare it with simply running every consumer's checks: at check costs up to about 8% of a break's cost, exhaustive checks (return 0.826 at 0.01 per check, 0.780 at 0.02) and an always-run canary (0.823) beat a GRPO-trained predictor's belief plan (0.757) and typed reachability (0.685).",
+     "evidence": "App. C.3 Fig. 9a-b on 40 held-out synthetic migration tasks, learned rows averaged over three seeds; App. D.9 concedes exhaustive checking wins at these prices. Caveats: toy worlds of 4-7 services, author-chosen prices (0.25 per break, 0.05 per migration), so the result is largely arithmetic at small consumer counts; no experiment tests the expensive-check regime where prediction might pay.",
+     "strength": "weak", "novelty": "refines", "relative_to": ["predictive test selection: prediction pays only when running tests is expensive (Machalica et al. 2019, cited)"], "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "The method itself (resettable executable worlds plus GRPO-trained 0.5B/3B predictors) will not be built by the team, and its headline gains are against weak comparators. What survives is a measured boundary on static impact analysis: real downstream suites caught breaks the extracted graph missed in about 14-16% of locally passing changes, which refines the KB's static-graph and API-diff findings for cross-repo discovery. The 'cheap checks beat prediction' result stays weak because it follows from author-chosen prices on toy worlds."
+}

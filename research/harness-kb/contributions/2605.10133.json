@@ -1,0 +1,26 @@
+{
+  "arxiv_id": "2605.10133",
+  "contributions": [
+    {
+      "kind": "heuristic",
+      "statement": "When an agent has already produced a secure function and the next request adds a feature, simplicity, or latency constraint, restate the security property in the acceptance criteria before generating: on the Python slice that implementation-style pressure flipped 56.4–61.2% of previously secure solutions, and appending one line that says to keep the code secure only moved Gemini's rate from 56.4% to 43.6%.",
+      "evidence": "Table 2 Type 2 ASR on four models (56.4–61.2% of the already-secure subset, 37–55 of 75 tasks); Appendix D Table 9, Gemini Python, Type 2 56.4% to 43.6% and Type 3 94.4% to 96.4%. Caveats: single-file JSON scripts, not Java repos; ASR is after up to three synthesis rounds; 22/75 seeds are LLM-written; 36.8% of Type 1 detections in Table 5 depend on an unvalidated model payload, and that table's denominators are not tasks.",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": ["known result that coding models drop implicit security under a competing objective", "2607.23088 security guidance itself can regress previously secure outputs (up to 19%) when the request conflicts with secure practice"],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "nuance",
+      "statement": "Do not treat a near-100% attack rate as the risk of an ordinary feature request: the 98.1% figure is the arm that explicitly tells the model to prefer flexibility over the original security control, and that arm often disables the control outright.",
+      "evidence": "Table 1 Type 3 definition; Table 2 GPT-5.2-chat Type 3 ASR 98.1% of 54/75 secure baselines; §5.4 says Type 3 prompts often disable a security feature and need dynamic payloads for only 9.3% of detections. Type 1, which the authors claim still has a secure solution, is 81.8–85.7% and was not the headline.",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": ["UPAttack headline ASR as if it were a bland usability request"],
+      "transfers": "indirect"
+    }
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "What survives is a magnitude for a spec rule: an explicit simplicity or latency line, without restating the security property, flips more than half of solutions a model had just gotten secure, and a one-line reminder does not stop it. The 98% figure is a different, explicit trade-off arm. Tasks are tiny and non-Java, so this informs acceptance criteria and does not set a repository gate."
+}

@@ -1,0 +1,20 @@
+{
+  "arxiv_id": "2605.00803",
+  "contributions": [
+    {"kind": "nuance",
+     "statement": "When an agent must run a long, multi-tool pipeline (hours of execution, external toolchains, partial docs), do not adopt a fixed phased workflow (read-only plan, deterministic dependency-ordered execution with LLM failure diagnosis and capped retries, then result extraction) expecting higher success than a free-form agent loop on the same model; expect about equal success (44.7% ties, wins and losses balanced over 85 paired tasks), and choose it for auditability and more cautious reporting while keeping a free-form repair path, since the fixed executor loses opportunistic repair.",
+     "evidence": "§5.2 Fig. 6 and App. J Table 12: orchestrated agent vs Claude Code, both on Sonnet 4.6, 85 paired claims, one run each; no dimension significant two-sided, the scientific-rigor edge (one-sided p=0.038) does not survive correction for five dimensions (audit). Fewer overconfidence labels for the orchestrated agent rest on failure labels with evaluator-SME F1 0.61 (Table 11). Scientific HPC workflows in Python, not Java services.",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["2609.39154 a single upfront DAG scored no better than a ReAct loop on the same model", "P36 static workflow graph"],
+     "transfers": "indirect"},
+    {"kind": "nuance",
+     "statement": "In pre-spec discovery or onboarding for an ingestion pipeline, have the agent or new developer execute the real artifacts (sample runs, fixtures, configs) rather than only read docs and code, because a read-only reader understood the target result (4.88/5) but missed execution-critical parameters on 28 of 85 tasks.",
+     "evidence": "App. I: Opus 4.6 no-execution baseline, claim comprehension 4.88/5, parameter fidelity 3.83/5, 28/85 high comprehension with low method/parameter scores. Single model, scores from an LLM evaluator not calibrated for this setting, and no comparison with an executing discovery step on the same claims. Fig. 5's from-paper vs from-artifact gap points the same way but is confounded by subdomain and by judge bias (audit).",
+     "strength": "weak", "novelty": "refines",
+     "relative_to": ["P38 pre-spec knowledge discovery", "P16 execution-based verification"],
+     "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "One qualifying nuance survives: a same-backbone paired null for a fixed phased workflow on long execution-heavy tasks, which adds a long-horizon condition to the KB's existing evidence that fixed plans do not beat a free agent loop. The read-only-discovery finding is suggestive for P38 but rests on one model and an uncalibrated judge, so it stays a hypothesis."
+}

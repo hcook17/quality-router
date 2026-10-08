@@ -1,0 +1,22 @@
+{"arxiv_id": "2607.01929",
+ "blind_scores": {"rigor": 3, "reproducibility": 2, "generalizability": 3, "relevance": 4, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "partial",
+ "claims_disputed": [
+   {"claim": "Visual graphs beat an equivalent textual serialization, and both modalities together are best. Each of the four views helps, and all four together help more than any one.",
+    "proposed_strength": "weak",
+    "reason": "Table V is one run on an undescribed 150-task subset with OpenCode and Kimi K2.5. Text-only is 71 versus base 69, a 2-task gap, and image-only 78 versus text 71 is 7 tasks, the same size as the vuls drop of 6 in Table II. Single views at 72–75 are not separated from noise, and no subset seed or instance list is given."}
+ ],
+ "pattern_stance_changes": [
+   {"id": "P43", "from": "supports", "to": "mixed",
+    "reason": "The on/off comparison raises the three SWE-bench Pro totals (Table II: +20, +35, +46 of 731) but loses inside the same table, including vuls 33 to 27 and flipt 30 to 29 under mini-SWE-agent. One run, so the aggregate win and the repo losses are not separated."},
+   {"id": "P07", "from": "supports", "to": "mixed",
+    "reason": "Table V gives the same four graphs as text only +2 resolved tasks over the base (71 vs 69). The larger jump is the image (78) and the combination (81), so graph context as text does not win; the picture does, on one unreplicated subset."}
+ ],
+ "missed_issues": [
+   "Section II-A builds every view from a precomputed code index. Tables II and IV report a $0.04–$0.05 per-instance saving and never charge index construction or refresh, which is the cost DeepDiscovery-style comparisons treat as part of method quality.",
+   "Under mini-SWE-agent with Claude 4.5 Sonnet the clear regressions are both Go repositories (vuls 33 to 27, flipt 30 to 29), while the Python rows in that column go up (ansible 51 to 55, openlibrary 47 to 54, qutebrowser 49 to 51). The paper does not test a language interaction.",
+   "Table III lists SWE-agent at 319 resolved with cost N/A, while every author-run system has a dollar cost. That row may be a leaderboard figure rather than a re-run under the paper's setup.",
+   "A text-only backbone cannot use the visual path. Table V's text-only condition, which is what that backbone would receive, is +2 of 150 over the base agent, so the Pro gains should not be copied onto a text-only host."
+ ],
+ "note": "The review already catches the right limits: one run, repository-level sign flips, graph calls of only 1.8–3.7 per task, RepoGraph and CodeGraph numbers that never appear outside Figure 5, and a Verified table that pairs DualView only with Gemini 3 Flash (379/500 to 399/500). Scores, the none conflict rating, and the moderate grade on the three aggregate Pro deltas match what the tables support. I lower the modality claim and both support stances because the isolating comparison is split: totals go up, several repositories go down, and a text serialization of the same graphs barely moves the 150-task subset. University authors on public benchmarks are not a vendor conflict."}

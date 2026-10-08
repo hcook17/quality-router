@@ -1,0 +1,44 @@
+{
+  "arxiv_id": "2607.16708",
+  "contributions": [
+    {
+      "kind": "nuance",
+      "statement": "When a spec-driven pipeline emits requirement-to-artifact links at generation time, trust them only where the spec maps one requirement to one target element; check domain-concept links (requirement id to entity or DTO class) with a deterministic resolvability check or by review, because concept-level links reached only 0.53-0.72 F1 while 1:1 transition links were exact.",
+      "evidence": "§4.6: requirement-to-transition links F1 1.00 for all three models over 18 transitions, but the requirement model was written one element per transition (§4.2). Requirement-to-concept micro-F1 0.53-0.72, and behaviour-link resolvability 0.73 for Sonnet 4.6. One AUV case study scored against an author-written reference, with no single-agent or post-hoc recovery comparator.",
+      "strength": "weak",
+      "novelty": "refines",
+      "relative_to": ["2606.24834 agent-produced requirement-to-code links need deterministic confirmation (code-location F1 about 0.2)"],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "heuristic",
+      "statement": "Record a content hash of each requirement on every trace link and mark the linked downstream artifacts as suspect when the hash changes, so a requirement edit lists which generated files, tests and models need re-review.",
+      "evidence": "§3.3 and §4.6: hash-versus-version comparison on Bifrost ExternalReferences; change-impact F1 1.00 over 180 injected behaviour-requirement changes per model, which holds by construction because the impact set is read off the same links.",
+      "strength": "weak",
+      "novelty": "restates_known",
+      "relative_to": ["suspect-link flagging in requirements-management tools (e.g. DOORS, Jama Connect, which the paper cites)"],
+      "transfers": "direct"
+    },
+    {
+      "kind": "test_practice",
+      "statement": "When an LLM generates a structured artifact in a niche language (metamodel source, model-construction script), run the real parser or conformance checker and feed failures to a repair step; one-shot calls produced unparseable or non-conformant output in 50-100% of runs for two of three models.",
+      "evidence": "Table 2, §4.5: DSML syntax-valid 0.50 -> 1.00 (DeepSeek-V4) and 0.00 -> 0.80 (Qwen3-max); conformant EOL 0/10 -> 10/10 (DeepSeek-V4). The baseline lacks both the agent roles and the gate, so the gain is not attributed to either alone.",
+      "strength": "moderate",
+      "novelty": "restates_known",
+      "relative_to": ["compile/parse-and-repair verifier loop (P16)", "2605.15846 compile/build gate catches weaker-model failures"],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "nuance",
+      "statement": "Adding checker and refactorer agent roles can lower the precision of generated design artifacts on some models, so score precision against a reference before adopting extra reviewer roles; Sonnet 4.6's metamodel class F1 fell from 0.92 to 0.86 because its check/refactor loop over-produced elements.",
+      "evidence": "§4.5, Fig. 4: Sonnet 4.6 DSML class F1 0.92 -> 0.86 (Mann-Whitney p=1.1e-3); Qwen3-max concept F1 0.84 -> 0.80 (not significant). One model, one metamodel, one case study.",
+      "strength": "weak",
+      "novelty": "refines",
+      "relative_to": ["2609.38345 multi-agent gains must be checked against single-agent controls"],
+      "transfers": "indirect"
+    }
+  ],
+  "quantity_flags": [],
+  "proposed": "hypothesis_only",
+  "reason": "The only moderately supported finding, parse-and-repair beats one-shot generation, is established practice. The transferable traceability nuance, exact links for 1:1 spec elements versus 0.53-0.72 F1 for concept links, rests on one 18-transition case study with an author-written reference, so it stays a hypothesis."
+}

@@ -1,0 +1,25 @@
+{"arxiv_id": "2607.13548",
+ "blind_scores": {"rigor": 2, "reproducibility": 1, "generalizability": 2, "relevance": 2, "coi_risk": 1},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "partial",
+ "claims_disputed": [
+  {"claim": "Automatically mined domain knowledge beats hand-curated knowledge.",
+   "proposed_strength": "weak",
+   "reason": "One comparison on one 'held-out' cloudbed, but Appendix A-A says CB1 and CB2 share the same topology and fault vocabulary, so this is a second deployment of the same system, not a new domain. The margin is 35.90 vs 24.36 Full (Table III), about 9 of roughly 78 windows, in a single GPT-5.2 run. The mining substrate is the reverse-reasoning reports from an unvalidated, ground-truth-aware LLM, and §VI admits the mined rules are 'not verified to discriminate a fault from its neighbors'. Mined rules were not tested on Bank or Telecom."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P36", "from": "mixed", "to": "introduces",
+   "reason": "The DK-OFF pipeline vs OpenRCA agent comparison does not isolate the fixed workflow: the two differ in precomputed anomaly thresholds (Phases 1-2), injected topology metadata and tools. The only closer contrast, the 'simple LLM call' (12 vs 17.14 Full on CB1, §V-C), appears only in the text and also confounds metadata and tools. The paper uses a fixed staged workflow without an isolating comparison."},
+  {"id": "P11", "from": "neutral", "to": "introduces",
+   "reason": "Although the core is one structured call, the system does use additional agents (config agent; mesh and runtime sub-agents and investigation tools on demand, §I and §III-B). It uses the pattern without any single- vs multi-agent comparison, which is 'introduces', not 'neutral'."},
+  {"id": "P18", "from": "neutral", "to": "introduces",
+   "reason": "An LLM judge (the reverse-reasoning agent) is central to the paper. It produces Table VII, the 'reasoning not data is the bottleneck' conclusion, and the substrate for rule mining. Using the pattern without validation is 'introduces'; the lack of human agreement belongs in the claim grade, which the review already set to weak."}
+ ],
+ "missed_issues": [
+  "The abstract's conclusion that 'scaffold engineering and better data pipelines alone cannot close this gap; progress requires improvements at the model level' is contradicted by the paper's own Table III. Mined domain knowledge, a non-model change, raised CB2 Full from 14.10 to 35.90, larger than any model-level effect shown (the only second-model table is empty).",
+  "Window counts per domain are never stated except n=70 for CB1 (Table VII). The percentages imply about 78 (CB2), 68 (Bank) and 51 (Telecom), so one window moves Telecom Full by about 2 points. Table VI's held-out subsets give no n at all.",
+  "All five classical causal-discovery methods score 0 even at Accuracy@10 (Table II), on CB1 only. A zero top-10 hit rate for every method suggests an evaluation or naming mismatch (as the review found for RCLAgent) rather than method failure.",
+  "Table VI omits CB2, and the text does not say which cloudbeds' windows were used to curate the Market DK. The curated-vs-mined comparison on CB2 may therefore be confounded in either direction.",
+  "There is no ablation of the five Stage 1 steps (Enumerate, Cluster, Analyze, Select, Reflect), so nothing shows which part of the structured prompt matters."
+ ],
+ "note": "I agree with the review's scores (within one point), verdict, P39 'supports' and its weak/unsupported grades on 'outperforms in both modes', 'reasoning is the bottleneck' and 'model-limited'. I lower mined-beats-curated to weak because CB1 and CB2 are the same system, the margin is about 9 windows in a single run, and the rules come from an unvalidated LLM. On stances I go both ways: P36 'mixed' has no isolating comparison, while P11 and P18 are used and so should be 'introduces', not 'neutral'. The controlled DK ON/OFF ablation with a held-out re-check is the one thing worth keeping."}

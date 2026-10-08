@@ -1,0 +1,33 @@
+{
+  "arxiv_id": "2607.09054",
+  "blind_scores": {"rigor": 3, "reproducibility": 2, "generalizability": 3, "relevance": 2, "coi_risk": 1},
+  "blind_verdict": "admit_with_caveats",
+  "blind_coi_severity": "low",
+  "agreement": "partial",
+  "claims_disputed": [
+    {
+      "claim": "TypeUp outperforms the state-of-the-art type-inference approach TypeGen by 41.9%",
+      "proposed_strength": "weak",
+      "reason": "Table 2's 359 versus 253 correct updates is real, but §4.2 says every baseline infers types from post-change code only and never sees the diff or the old annotation. Table 4's updating prompt with both extra agents removed already reaches 303, so most of the 41.9% is a different task, not TypeUp's retrieval design."
+    },
+    {
+      "claim": "20 of 25 generated updates were confirmed by developers",
+      "proposed_strength": "weak",
+      "reason": "Table 5 is 18 merged, 2 changed, 5 rejected. The two Electricitymaps cases were rewritten by the authors to PEP 604 syntax before they counted as confirmed (§5.2). The 25 inputs were also prefiltered by Pyre plus manual review (§5.1), so 20/25 is not the hit rate on unfiltered stale hints."
+    }
+  ],
+  "pattern_stance_changes": [
+    {
+      "id": "P06",
+      "from": "supports",
+      "to": "mixed",
+      "reason": "Table 4's no-retrieval run only falls from 359 to 334 correct (exact-match precision 0.761 to 0.747), while Fig. 5's zero-example point is 0.471. §4.5–4.6 never reconcile those ablations, so retrieval does not have a stable win."
+    }
+  ],
+  "missed_issues": [
+    "§6.1 says the 36,796-sample set keeps only same-commit code and type co-changes, which is not the forgotten-annotation scenario the tool is for. The 41.9% figure therefore does not measure just-in-time repair of stale hints; only the 25 Pyre cases do.",
+    "§6.1 claims the model 'can be easily applied' to other languages with no non-Python experiment. The test split is a random 500 drawn from the same 450 repositories as the retrieval index (§4.1), not a held-out project split.",
+    "The review does not tag P39. Type hints are the machine-readable contract being maintained, but the paper never measures whether fresher hints change comprehension or defect rates, so that pattern is proposed rather than shown."
+  ],
+  "note": "The review correctly flags inference-only baselines, a single GPT-3.5-turbo run, k chosen on the test split, and the Fig. 5 versus Table 4 inconsistency. Those points support lowering the 41.9% and the 20-of-25 claims from moderate to weak; the Pyre precision-up, coverage-down result in Table 6 can stay moderate. Relevance 1 is a notch harsh: the transferable piece is co-change of contracts the compiler does not check, which is in scope even though Java signatures are not. Reproducibility 3 assumes a replication package whose URL is stripped from the extract. The CCF-Tencent fund does not evaluate a Tencent product; severity none is fair, and the blind low score is only the named sponsor."
+}

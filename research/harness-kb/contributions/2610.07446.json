@@ -1,0 +1,12 @@
+{
+  "arxiv_id": "2610.07446",
+  "contributions": [
+    {"kind": "nuance",
+     "statement": "If a code model is ever fine-tuned on a few hundred examples, compare a sparse layer-selected LoRA against all-layer LoRA and the untuned model before trusting the all-layer result, because restricting updates to about 6 of 48 blocks scored 22.9-29.7% vs 18.9% pass@1 for all-block LoRA on 175 LiveCodeBench tasks.",
+     "evidence": "Table 1: Qwen-LCB Rand-K6 22.86, Model-Only 24.00, CKA-K6 24.57, CogAdapt 29.71 vs Regular FT 18.86; smaller and mixed on BigCodeBench (CKA-K6 32.73 below Regular FT 36.36). Caveats: single pass per condition, no untuned base reported, two MoE models, Python only; the team does not train models.",
+     "strength": "weak", "novelty": "refines", "relative_to": ["LISA and CKA-based layer-wise LoRA selection (Pan et al. 2024; Ogawa et al. 2026)"], "transfers": "no"}
+  ],
+  "quantity_flags": ["renamed_known_idea"],
+  "proposed": "drop",
+  "reason": "A weight fine-tuning method for MoE code models has no use for a team that drives hosted models through agent hosts. The 'EEG prior' reduces to a ridge regression over static code-size metrics, sparsity alone explains about half of the headline gain, and every number is one pass without an untuned base. Nothing here informs a harness, spec or onboarding decision."
+}

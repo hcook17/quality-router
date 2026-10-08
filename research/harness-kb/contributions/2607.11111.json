@@ -1,0 +1,26 @@
+{
+  "arxiv_id": "2607.11111",
+  "contributions": [
+    {
+      "kind": "heuristic",
+      "statement": "Before an agent edits, prepend two cited repository answers from a read-only pass and do not prepend a single root-cause proposal: on SWE-bench Verified, two questions raised Pass@1 by 3.8 points with GPT-5-mini (58.4 to 62.2) and by 4.4 points with DeepSeek-V3.2 (66.4 to 70.8), while one proposal dropped DeepSeek to 66.0, below the 66.4 agent with no preamble.",
+      "evidence": "Table I (§V-A) and Table II (§V-C, DeepSeek only). Caveats: one run; Python repositories only; N=2 and the four-category template were chosen on this benchmark family, including 116 SWE-bench Lite oracle questions built with gold patches; the margin over the next pre-repair method is about 2 points.",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": ["2608.01507", "2608.24221"],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "nuance",
+      "statement": "Keep those two answers advisory rather than instructions, because the DeepSeek run that gained 4.4 points also failed 22 of the 500 tasks the base agent had solved, and the authors judged 5 of those 22 as the answer steering the edit toward a plausible but non-gold mechanism.",
+      "evidence": "§V-B1 (44 fail-to-pass, 22 pass-to-fail) and §V-B3. Caveat: the misleading label is the authors' trajectory reading, and 9 of the 10 answers in those 5 cases were still marked factually supported.",
+      "strength": "weak",
+      "novelty": "refines",
+      "relative_to": ["2608.01507"],
+      "transfers": "indirect"
+    }
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "The unchanged resolver plus the proposal ablation is an actionable pre-edit step with a measured gain and a measured regression rate; it is still one Python benchmark and one run."
+}

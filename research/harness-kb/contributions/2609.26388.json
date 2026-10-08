@@ -1,0 +1,20 @@
+{
+  "arxiv_id": "2609.26388",
+  "contributions": [
+    {"kind": "nuance",
+     "statement": "When an agent explains or summarizes existing code for a new developer (walkthroughs, code cards, glossary entries), treat identifiers whose meaning has drifted from the behaviour as the main risk, not terse names. Check such explanations against tests, traces or data flow before storing them as domain knowledge: in two-choice code-description selection, placeholder names cost 0-0.35% for three of four models, while names borrowed from unrelated code cut accuracy by 20-44% and pulled summaries toward the borrowed meaning.",
+     "evidence": "§5.1 Table 9 (Anonymous vs Confusing two-choice selection, four LLMs) and Fig. 6 (donor-reference similarity above random-pair). §4.3 Table 8 boundary: when the answer is locally recoverable, renaming the target changed type-inference accuracy by only -3.2 to +2.2 pp, none significant. Caveats: 2023-2024 models (GPT-3.5, GPT-4o-mini, Llama3-70B, DeepSeek-Coder-V2); isolated snippets with no repository context or tools; Python where stated; single runs on the main tables.",
+     "strength": "moderate", "novelty": "refines", "relative_to": ["identifier-renaming robustness literature (ALERT, MHM; Yang et al. 2024)", "2606.31725", "2608.26031"], "transfers": "indirect"},
+    {"kind": "heuristic",
+     "statement": "In code-explanation prompts, tell the model that identifiers may be misleading and to reason from operations and data flow; this narrowed the gap on misleadingly named code without lowering scores on well-named code, but did not close it.",
+     "evidence": "§6.1 Fig. 8 (perturbed examples and sanitize-by-anonymizing instructions). Values are only in the figure; dated models; summarization scored by ROUGE-L.",
+     "strength": "weak", "novelty": "refines", "relative_to": ["2606.31725"], "transfers": "indirect"},
+    {"kind": "constraint",
+     "statement": "Embedding-based code search depends on identifier names: text-embedding-3 MRR fell from 91.5 to 72.2 with placeholder names and to 47.2 with misleading ones.",
+     "evidence": "§4.1.2 Table 3; 600 CodeSearchNet snippets; no lexical or structural retriever compared.",
+     "strength": "moderate", "novelty": "duplicates", "relative_to": ["2608.26031"], "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "One nuance qualifies. Misleading identifiers, not missing ones, are what steer LLM code explanations: placeholders cost about nothing in selection while donor names cost 20-44%, and a locally-determined control shows a small effect. That refines the known identifier-robustness work into a concrete rule for onboarding walkthroughs and code cards. The embedding-search drop duplicates 2608.26031, and the prompt mitigation is figure-only, so it stays a hypothesis."
+}

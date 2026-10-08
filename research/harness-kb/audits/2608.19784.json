@@ -1,0 +1,30 @@
+{"arxiv_id": "2608.19784",
+ "blind_scores": {"rigor": 4, "reproducibility": 3, "generalizability": 3, "relevance": 4, "coi_risk": 1},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "partial",
+ "claims_disputed": [
+  {"claim": "PRAXIS outperforms agentic-search agents and experience/skill-evolution methods (Pass@1 +16.7% relative over the best baseline)",
+   "proposed_strength": "weak",
+   "reason": "Table I: 32.06 versus 27.48 is about six of ~131 tasks, one greedy run, on the authors' own KoCo-Bench, and the runner-up (OpenCollab) is their earlier system. The paired t-test in the §IV-B footnote is on AvgPassRatio, not on the Pass@1 headline, and SWE-Exp at 7.83 sits below the raw model (10.69)."},
+  {"claim": "Tacit knowledge is not recoverable by reading code; practice-based extraction is required",
+   "proposed_strength": "weak",
+   "reason": "Table II: replacing practice with direct extraction from source leaves Pass@1 at 27.48, equal to the best non-PRAXIS baseline and well above OpenHands at 19.08. The drop to 32.06 is about six tasks with no test, and §III-D still shows the ground-truth body to the extractor when differential testing fails, so this is not reading-free discovery."},
+  {"claim": "Missing tacit knowledge is the root cause of domain-code failures, and the extracted units are high quality",
+   "proposed_strength": "unsupported",
+   "reason": "§II gives one illustrated case and no count of how often the two contract types occur. Table V's means (4.28, 4.24, 3.62) come from two volunteers on 75 units with no inter-rater agreement, and the 82% / 87.8% utilization figures are the authors' own read of 50 trajectories."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P38", "from": "supports", "to": "mixed",
+   "reason": "Table II's practice-versus-source gap is about six of ~131 tasks on one greedy run, and §III-C builds the practice task from the hidden function body. That is not a clean win for pre-spec exploration of code, docs, and people, and no spec is written."},
+  {"id": "P09", "from": "supports", "to": "introduces",
+   "reason": "The 32.06 versus 7.83 (SWE-Exp) and 25.19 (Trace2Skill) gaps compare whole systems. SWE-Exp falls below the raw model, and no ablation turns persistent memory off while holding extraction and injection fixed."},
+  {"id": "P43", "from": "contradicts", "to": "mixed",
+   "reason": "OpenHands at 19.08 still beats the raw model at 10.69 (Table I), so repository exploration is not shown to hurt. It loses to practice-derived injection, and the paper never evaluates a question-answering agent."}
+ ],
+ "missed_issues": [
+  "§III-D does not only test against the existing body: if the agent still fails after R_max rounds, the ground-truth implementation is given to the extractor. The units can be a summary of source the agent was not supposed to need, and the pipeline cannot be run on a method that does not already exist.",
+  "RQ6 (§IV-D) processes evaluation tasks in order and writes knowledge from earlier tasks into the store used for later ones. That is test-set reuse inside the evolution plot, separate from the footnote that offline practice excludes evaluation code.",
+  "The 87.8% 'meaningful contribution' rate is the authors judging 50 of their own trajectories. Table V reports no agreement between the two volunteer raters, so the quality means are not a validated measurement.",
+  "I do not upgrade P39 or P07. Table II's format gap (32.06 to 29.01) and graph gap (32.06 to 28.25, with AvgPassRatio 56.01 to 48.80) point the right way, but each is one greedy run, and 'w/o graph' removes propagation, deduplication, and conflict resolution together."
+ ],
+ "note": "The review is right to treat the component gaps as noise and to keep P39, P07, and P06 at mixed; my blind pass over-called the card format and the graph as supports. It over-called P38 and P09 as supports and P43 as contradicts: exploration still beats the raw model, and the memory comparison is not an on/off ablation. I lower the Pass@1 headline and the 'reading cannot recover this' claim to weak, and the root-cause-plus-quality claim to unsupported, because the t-test is on a different metric and the quality study has no rater agreement. Medium COI is the right severity for authors topping their own benchmark; it is not a vendor product. The mechanism (entity-linked units injected at the tool call) is still the part a harness team should trial, not adopt from these point estimates."}

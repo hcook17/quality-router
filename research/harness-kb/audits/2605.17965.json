@@ -1,0 +1,34 @@
+{
+  "arxiv_id": "2605.17965",
+  "blind_scores": {"rigor": 4, "reproducibility": 4, "generalizability": 3, "relevance": 4, "coi_risk": 0},
+  "blind_verdict": "admit_with_caveats",
+  "blind_coi_severity": "none",
+  "agreement": "partial",
+  "claims_disputed": [
+    {
+      "claim": "Path-augmented AST chunking and dual query rewriting improve retrieval, and bounded agentic reranking improves on one-shot RAG",
+      "proposed_strength": "moderate",
+      "reason": "Tables 3 and 5 support the retrieval half (path-aware dense MRR 0.553 vs 0.473 AST-only; structural query 0.680 vs 0.553). Table 4 does not support a strong agentic gain: Phase-1 ReAct Top-1 is 0.685 versus basic RAG 0.673, and the jump to 0.762 is the single Phase-2 prompt. Both query rewrites move Phase-1 MRR only from 0.769 to 0.795. Localization is one temperature-0.7 pass (§7)."
+    },
+    {
+      "claim": "BLAgent is more than 18 times cheaper than LocAgent under the same Claude model",
+      "proposed_strength": "weak",
+      "reason": "§5.1 gets 'more than 18×' by dividing the $300 cap by 182 attempts ($1.65) against BLAgent's $0.09. The same paragraph's completed LocAgent runs average $0.89, about 10×, and that average still drops timed-out runs. The stated ratio is not the completed-run ratio."
+    }
+  ],
+  "pattern_stance_changes": [
+    {
+      "id": "P10",
+      "from": "supports",
+      "to": "mixed",
+      "reason": "Table 4's gain over one-shot RAG is Phase 2 (Top-1 0.762), not the linear ReAct loop (0.685 vs RAG 0.673). Table 12 ablates Phase-2 context size, not the loop. A bounded single-agent loop is used; it is not what wins."
+    }
+  ],
+  "missed_issues": [
+    "Table 8 counts a function-level hit if any predicted method name appears in any ground-truth method string, not as file::method. The '88%' Top-1 gain is 0.726 versus LocAgent Claude-4.6 at 0.386, down from that system's Claude-3.5 Top-1 of 0.554, and the table does not say whether LocAgent was on the 182-instance budget subset.",
+    "§4.3.1 sets the line-level match threshold at similarity 0.6 after inspecting a small sample, and Fig. 15's 'correct line produces the right patch' result is one Django issue.",
+    "Table 7: Qwen3-32B with Phase 2 reaches Top-1 0.797, above the GPT-OSS-120B headline of 0.786. The open-model number in the abstract is not the best open model they ran.",
+    "Ten of 14 retrieval failures are sympy (§3.2.3). In 9 of those 10 the retriever still names the patch directory, so the miss is lexical, not a failure of the reranker."
+  ],
+  "note": "The within-pipeline retrieval results and the Agentless swap are the part to keep, and the review already hedges the unmatched leaderboard and the best-of-three repair table. Calling the bundled reranking claim strong over-weights a ReAct pass that barely moves Top-1; the path prefix and the structural query are the large, isolated effects. The 18× cost line does not survive the paper's own completed-run arithmetic. P43 and P06 staying at supports is fair: same-model Agentless Top-1 moves from 0.623 to 0.786, and path-prefixed chunks beat text and AST-only chunks. Blind generalizability is 3 because SWE-bench-Lite is several real repositories in one language; the review's 2 is harsher than that anchor, and the loader will keep the lower score. Re-measure on Java before using the file list as a cross-repo triage policy."
+}

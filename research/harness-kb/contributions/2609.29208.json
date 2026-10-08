@@ -1,0 +1,20 @@
+{
+  "arxiv_id": "2609.29208",
+  "contributions": [
+    {"kind": "nuance",
+     "statement": "Do not make a wording-level requirement-smell linter (passive voice, weak verbs, vague phrasing) a blocking pre-generation gate on the expectation of large correctness gains. Spend the gate on missing or contradictory facts (thresholds, exceptions) instead: across 74 Java requirements and two models, smell density gave descriptive drops of 0-15 pp that never survived correction, and the largest drops involved smells that deleted a threshold or created a contradiction.",
+     "evidence": "§4.2 Fig. 2(b): Spearman on five density points per cell, none significant after Bonferroni. §4.3 chi-square by category, none significant. Table 4 shows some injected smells remove oracle-relevant facts. Caveats: toy games, GPT-4o and DeepSeek-V3 only, single-shot whole-program generation with a fixed skeleton, low power. The fact-versus-wording split is my reading of Table 4 and was not tested by the authors.",
+     "strength": "weak", "novelty": "refines", "relative_to": ["P34 structured requirements", "2608.09072"], "transfers": "indirect"},
+    {"kind": "nuance",
+     "statement": "When testing whether a spec-quality change helps Java code generation, run each condition several times even at temperature 0: GPT-4o's pass rate on the same clean Scopa spec had an SD of 15 pp over five runs, as large as the biggest smell effect measured.",
+     "evidence": "§4.1 Fig. 2(a), RQ1 variance; a single model and game. Snake had zero variance, so the size of the noise depends on the task.",
+     "strength": "weak", "novelty": "duplicates", "relative_to": ["2607.03691"], "transfers": "direct"},
+    {"kind": "test_practice",
+     "statement": "Give each requirement its own skeleton method and requirement-level JUnit test so failures can be attributed per requirement; failures on clean specs clustered where several requirements shared one method or depended on ordering.",
+     "evidence": "§3.5 test design; §4.1 qualitative requirement-level inspection, with no counts. The shared-method confound was not manipulated.",
+     "strength": "weak", "novelty": "duplicates", "relative_to": ["2605.15846"], "transfers": "direct"}
+  ],
+  "quantity_flags": [],
+  "proposed": "hypothesis_only",
+  "reason": "This is an honest but underpowered null in Java: wording-level requirement smells did not measurably change correctness after correction. Nothing reaches moderate. The variance and per-requirement-test lessons duplicate 2607.03691 and 2605.15846. What remains is a hypothesis: prioritize missing or contradictory facts over prose style in pre-spec checks."
+}

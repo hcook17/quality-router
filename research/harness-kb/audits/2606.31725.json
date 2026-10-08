@@ -1,0 +1,21 @@
+{"arxiv_id": "2606.31725",
+ "blind_scores": {"rigor": 2, "reproducibility": 3, "generalizability": 1, "relevance": 1, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "agree",
+ "claims_disputed": [
+  {"claim": "Accuracy declines with control-flow flattening in proportion to dispatcher complexity",
+   "proposed_strength": "weak",
+   "reason": "§V-A reports r=-0.196 with q=3.08e-23. That q needs thousands of observations, so the correlation is computed over individual runs, while Dataset A has only 10 Python and 10 JavaScript snippets per tier (§II-B). The dispatcher count is a per-program property, so the effective n is about 20 programs per language: pseudo-replication. r=-0.196 explains about 4% of variance, so 'in proportion' is overstated. Table II also shows L1b (renaming, no dispatcher) costing about as much as L2 for DS-R1-Qwen-7B (51.8 vs 57.0) and SmolLM3-3B (34.2 vs 37.6)."},
+  {"claim": "Chain-of-thought trace length tracks task difficulty",
+   "proposed_strength": "weak",
+   "reason": "The supporting correlation (Fig. 9, rho=-0.52) is across about 50 question means pooled over models, prompts and tiers, with no control for snippet length, which drives both trace length and difficulty. Once snippet and model are controlled, correct and incorrect answers do not differ in length (§VII, p=0.33). Fig. 12 defines 'easy' and 'hard' by CoT-length tercile and then reports that hard tasks have long traces, which is circular."}
+ ],
+ "pattern_stance_changes": [],
+ "missed_issues": [
+  "The reasoning vs coder/instruct split is confounded with model generation: all four 'reasoning' models in Table IV were released in 2025, while the coder models and Qwen-7B are from 2023-24 (Table I), and only the reasoning models emit long CoT. The 'type' effect cannot be separated from recency or from the output format.",
+  "Table VII shows 0% baseline accuracy for Qwen3-0.6B, Phi-4-mini and DS-Coder-6.7B at almost every tier, rising to 15-65% with a one-shot prompt. That pattern suggests exact-match answer-format failures rather than comprehension failures, and it inflates the floor effects that the alignment analysis rests on.",
+  "Table II's 'Max Diff' column uses inconsistent definitions across rows: DS-R1-Qwen-7B is listed as +0.4 although L1b is 12 points below L0, and other rows use L1−L0 or L3−L0.",
+  "The human expert subgroup size is never reported. Cells such as 55.56% and 44.00% (Table II) imply single-digit or low-double-digit denominators, so the 'expert inversion under L1b' that models fail to reproduce is itself fragile.",
+  "Which of the 21 prompt conditions feed Table IV's per-task correlations, and over what unit (snippet, or snippet × tier), is not stated."
+ ],
+ "note": "I agree with admit_with_caveats, no COI, both neutral pattern stances, and the review's weak grading of the alignment claims, including its point about Phi-4-mini's highest rho at 3-6% accuracy. I lower the two claims it rated moderate. The dispatcher-complexity correlation is pseudo-replicated over runs from about 20 programs per language, and the CoT-length claim does not survive the paper's own controlled test (p=0.33) and relies on a circular tercile figure. The review's rigor of 3 is generous given those two problems and the model-generation confound; I scored 2."}

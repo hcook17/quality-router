@@ -1,0 +1,20 @@
+{"arxiv_id": "2607.18886",
+ "blind_scores": {"rigor": 2, "reproducibility": 4, "generalizability": 2, "relevance": 3, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "agree",
+ "claims_disputed": [
+  {"claim": "Success rate 53.63% on eTour and 56.82% on SMOS, beating baselines by up to 186.63% and 340.80%",
+   "proposed_strength": "weak",
+   "reason": "Under §4.3.1, success is computed only on test cases that first pass the DeepSeek-V3.2 semantic judge, after which they are 'adapted' to the generated code by a procedure the paper does not describe. Success is therefore a judge-gated metric and not an independent functional check, and the unvalidated judge is also a generator arm. The test oracle itself is LLM-written from the ground-truth code (§4.1, Fig. 7). Every cell is a single run with framework-specific temperatures (§4.4), and the relative figures come from dividing by the weakest 2023 baseline (56.82/12.89)."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P14", "from": "supports", "to": "introduces",
+   "reason": "The Designer ablation (Fig. 8, success 47.19 -> 36.79) removes the UML design intermediate. Both arms still take the same structured use case as input, so spec-first development is not the varied factor. No arm compares spec-driven input with an unstructured request. The ablation bears on a design/plan intermediate, not on P14."}
+ ],
+ "missed_issues": [
+  "The code layer of the traceability graph has one node per generated file (Algorithm 2, line 3). Design-to-code links therefore confirm that a matching name appears somewhere in a file, not that the method implementing a flow step exists or is correct. That is too coarse to back the 'automated detection of unimplemented or incorrectly implemented requirements' claim in §1.",
+  "TraceDev emits about 12-15 files and 400+ LOC per use case versus about 4-5 files for the baselines (Table 2). The semantic-coverage judge asks whether the code 'implements the target functionality' and is not normalised for volume, so larger outputs may simply give the judge more surface to match. The no-Designer arm (196.67 LOC, success 36.79) is consistent with that confound.",
+  "A design-before-code intermediate (P13-style planning: PlantUML class and sequence diagrams) is the factor the Designer ablation actually isolates. That ablation is single-run, on eTour with DeepSeek only, so it would at most add a weak data point to that pattern.",
+  "'Time effectiveness' (success rate divided by seconds, §5.3) is a ratio of two incomparable quantities that the authors defined. It favours any system with a higher success rate regardless of cost, so 'highest time effectiveness across all settings' adds nothing beyond the success-rate comparison."
+ ],
+ "note": "I agree with admit_with_caveats and with nearly all of the review's diagnosis: weak 2023 baselines, an LLM-built and LLM-adapted oracle, single runs, an unvalidated judge that is also a generator, and trace links that are never scored despite gold matrices in eTour and SMOS. I lower the headline success claim to weak because success is computed only on judge-passed tests, so it cannot corroborate the judge. I move P14 to introduces because the Designer ablation varies the design intermediate, not spec-first input. I keep the review's 'supports' on P42, P34 and P16. Each has an isolating per-agent ablation in which the component wins, but every one is a single run on one dataset and one model, so the patterns gain direction, not magnitude."}

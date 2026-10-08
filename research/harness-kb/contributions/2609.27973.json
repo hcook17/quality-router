@@ -1,0 +1,16 @@
+{
+  "arxiv_id": "2609.27973",
+  "contributions": [
+    {"kind": "heuristic",
+     "statement": "Make verification of AI-generated code (review checklist, developer explains the change back) an explicit part of onboarding for junior engineers, because 41 of 75 surveyed novices said university taught them little or nothing about LLM use and most learned it on the job.",
+     "evidence": "§V-D: counts from open-ended answers, where non-response is counted toward the gap; §VI-B implications are not evaluated. Self-reported, Prolific convenience sample, chat-dominant usage, no outcome measured.",
+     "strength": "weak", "novelty": "restates_known", "relative_to": ["2607.26375", "structured onboarding with mentorship and AI-aware code review"], "transfers": "indirect"},
+    {"kind": "nuance",
+     "statement": "Junior engineers mostly use LLMs through chat for bounded tasks; only 8 of 75 described agent-oriented or repository-wide workflows.",
+     "evidence": "§V-B Behaviour categories (single-label coding). Self-report; tells nothing about behaviour inside an agent harness.",
+     "strength": "weak", "novelty": "restates_known", "relative_to": ["developer surveys of AI-assistant usage (e.g. Stack Overflow / JetBrains developer surveys)"], "transfers": "indirect"}
+  ],
+  "quantity_flags": ["survey_restatement", "position_without_evidence"],
+  "proposed": "drop",
+  "reason": "Nothing survives. The findings are self-reported perceptions that, by the paper's own account (§VI-A), align with existing literature. The onboarding and mentorship implications are proposed without any measurement. The KB already holds observed evidence on junior comprehension of agent-written code (2607.26375) that contradicts these self-reports."
+}

@@ -1,0 +1,45 @@
+{
+  "arxiv_id": "2605.14563",
+  "blind_scores": {"rigor": 2, "reproducibility": 4, "generalizability": 2, "relevance": 3, "coi_risk": 0},
+  "blind_verdict": "admit_with_caveats",
+  "blind_coi_severity": "none",
+  "agreement": "partial",
+  "claims_disputed": [
+    {
+      "claim": "MemDocAgent achieves the best completeness, truthfulness and helpfulness over open- and closed-source baselines.",
+      "proposed_strength": "weak",
+      "reason": "Table 2a, Qwen3-Coder helpfulness is 0.690, below DeepWiki 0.755 and Claude Code /init 0.696, so the §6.1 claim of best utility over closed systems fails on that backbone. Completeness averages section presence, which §5.1 defines as MemDocAgent's own prescribed sections, with closed systems defaulted to 1.0. Truthfulness and helpfulness are one Claude Haiku 4.5 judge with no human agreement in the extracted text. Open-source wins on matched backbones are real but single-run."
+    },
+    {
+      "claim": "Memory eliminates redundant retrieval and reduces cross-document inconsistency by 75.5%.",
+      "proposed_strength": "weak",
+      "reason": "Fig. 4 shows a reduction, not elimination: read time 23.44 s to 13.76 s and read calls 3.79 to 2.62 per component versus DocAgent, on all 20 repos. Fig. 1's 75.5% inconsistency cut is a post-hoc Claude Haiku 4.5 judgment with no human agreement, and the caption's 'eliminates repeated retrieval' contradicts those remaining reads."
+    }
+  ],
+  "pattern_stance_changes": [
+    {
+      "id": "P09",
+      "from": "mixed",
+      "to": "introduces",
+      "reason": "Table 3's w/o memory arm clears a stateless cache after every unit (§6.2), which also drops the verified reference set used by conflict checks and the child docs module synthesis reads. That is not an ablation that isolates persistent memory, so a directional drop cannot carry a mixed or supports stance."
+    },
+    {
+      "id": "P38",
+      "from": "introduces",
+      "to": "neutral",
+      "reason": "The paper generates hierarchical documentation. It never proposes or measures exploring code, docs, or people before writing a spec, and no planning or discovery task uses the pages."
+    },
+    {
+      "id": "P18",
+      "from": "neutral",
+      "to": "introduces",
+      "reason": "Verify is an in-loop LLM self-score: Table 4 has the same agent emit CONSISTENCY, COMPLETENESS, and HELPFULNESS. §6.5 Fig. 6 treats those scores as evidence that revision works. There is no comparison to a human rater or to tests."
+    }
+  ],
+  "missed_issues": [
+    "Table 4 both orders the agent to write enough for a developer to reconstruct a functional implementation from scratch and, in the helpfulness rubric, deducts points for narrating implementation line by line. The regeneration metric and the helpfulness score are pulled in opposite directions by the same prompt.",
+    "Fig. 6 (63.8% pass on the first Verify attempt, the rest within three) is the agent's own self-evaluation rising, not an external check. The limitation's 0.08% failure-to-meet-threshold figure is a different denominator and does not validate those scores.",
+    "Algorithm 2 is a fixed developer-defined traversal (leaves, then modules, then the repo). The contents list a traversal-order ablation, a cross-language study, and numeric information-sufficiency tables, but the extracted text ends inside Appendix A.2, so those results cannot be audited. The review did not tag this fixed workflow."
+  ],
+  "note": "I agree with admit_with_caveats, with the Python-only single-run limits, and with weak grades on regeneration and the component ablation. I lower the headline quality claim because Qwen helpfulness loses to both closed baselines and half of completeness is the authors' own section checklist. I lower the memory claim because Fig. 4 is a 41% read-time cut with 2.62 reads still happening, and the 75.5% inconsistency figure is an unvalidated judge. P09 stays a proposal: the cache-clear ablation also removes conflict references and child docs. P38 does not apply. The in-loop self-score is a use of an LLM judge, which the review had left at neutral."
+}

@@ -1,0 +1,20 @@
+{
+  "arxiv_id": "2608.30572",
+  "contributions": [
+    {"kind": "nuance",
+     "statement": "When a spec-driven workflow's investigate-plan-implement-review phases exist only in an instructions file and template folders, expect the non-code phases to be skipped: 1 of 4 teams hardly used the pre-plan investigation and planning phases and all 4 made little use of the AI review phase, while all 4 used the agent for implementation and debugging. Have the harness check that an investigation report and a plan exist before implementation starts, rather than trusting the process document.",
+     "evidence": "§3.2, Figs. 1-2: the workflow is encoded in copilot-instructions.md with docs/reports/{investigate,done,review}, specs.md and tasks.md. §4.1, Fig. 4: weekly self-reported 0-4 use by phase for 14 students in 4 teams; Team 25D hardly used investigation and planning; review use was low for all teams. Figure-only, self-reported, the scale mixes use with perceived helpfulness, and the repositories were not checked for reports. The harness check is the team's inference and was not tested.",
+     "strength": "weak", "novelty": "refines",
+     "relative_to": ["P14 spec-driven workflows (Kiro-style requirements-design-tasks phases)", "2608.09072 (spec templates should state constraints and verification)", "2606.26924 (instruction files are rarely revised after creation)"],
+     "transfers": "indirect"},
+    {"kind": "nuance",
+     "statement": "Do not expect a weekly 'explain the code you committed' check to prevent comprehension loss during heavy agent use. With checks running every week from lec07, three of four teams still dipped on a 0-3 instructor rating in lec09, the week their agent use peaked, so treat the check as a detector that triggers follow-up, not as a safeguard.",
+     "evidence": "§4.3 and Fig. 6b: one-on-one comprehension checks weekly from lec07; dips in Teams 25A, 25B and 25D at lec09 coincide with peak self-reported implementation use (Fig. 4); recoveries at lec08 and lec10. Fourteen students, unblinded ratings by the instructors, no rubric, no group without checks, and the AI-use/comprehension association is not significant (§5.1).",
+     "strength": "weak", "novelty": "refines",
+     "relative_to": ["2607.26375 (require an owner walkthrough of agent-written code)", "P41 comprehension safeguards"],
+     "transfers": "indirect"}
+  ],
+  "quantity_flags": ["position_without_evidence"],
+  "proposed": "hypothesis_only",
+  "reason": "Nothing in this course report is shown to work. The throughput rise is a 2024 cohort effect that 2025 never exceeds, the comprehension link is non-significant and rated unblinded, and the 'essential' instructor-check recommendation has no arm without the checks. Two weak, team-relevant observations from 14 students survive as hypotheses: the non-code SDD phases were the ones skipped, and weekly explain-your-code checks detected but did not prevent a comprehension dip in the week of peak agent use."
+}

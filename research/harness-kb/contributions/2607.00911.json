@@ -1,0 +1,35 @@
+{
+  "arxiv_id": "2607.00911",
+  "contributions": [
+    {
+      "kind": "heuristic",
+      "statement": "When the same skill or domain note is copied into more than one repo, pin the upstream version and fail the build when it moves: 1,841 of 2,462 linked copies (74.8%) landed near-verbatim, and 40.2% of the 1,295 copies that were never edited locally had already missed an upstream change.",
+      "evidence": "§IV and §VI-A. Similarity ≥ 0.99 counts as near-verbatim. The 52.6% never-edited rate is right-censored (history to 4 May 2026, no time-since-adoption adjustment, §VIII). Link audit is 30 pairs in [0.1, 0.3) plus 30 below 0.1. Public repos with ≥10 stars and skills.sh skills with ≥20 installs only. No agent-outcome measure.",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": ["2606.26924 agent-config files fossilize after creation", "2608.10906 about half of public SKILL.md files are exact copies"],
+      "transfers": "direct"
+    },
+    {
+      "kind": "nuance",
+      "statement": "Schedule a pruning review for locally maintained skill files, because on first-to-last diffs additions outnumbered removals 6.1:1 during evolution and 2.7:1 overall (586 vs 221), while adoption-time edits were nearly balanced (1.1:1).",
+      "evidence": "§VII-A, from the 444 coded endpoint diffs (188 linked, 256 unlinked) after a 340-line churn fence. Endpoint diffs hide add-then-remove churn (§III-D, §VIII). The add/remove labels have no reported kappa.",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": ["documentation maintenance accretes rather than prunes (Aghajani et al. 2019, cited §VII-A)", "2606.26924"],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "nuance",
+      "statement": "Do not treat rarely edited user-interaction, monitoring, and failure-handling sections as a checked behavioural contract: those labels appeared in 1.6%/1.2%, 0.5%/0.0%, and 5.9%/7.1% of coded diffs, and the coders published no agreement statistic for that field.",
+      "evidence": "§VII-A and §III-D. Rates are on the stratified 444-diff sample, not the corpus. Low edit frequency does not show the rules are correct.",
+      "strength": "weak",
+      "novelty": "refines",
+      "relative_to": ["2608.08453 lint shared SKILL.md files before they move across hosts"],
+      "transfers": "indirect"
+    }
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "The missed-upstream rate on near-verbatim copies is a sync rule for skills shared across repos, and the 6.1:1 addition skew is a pruning rule on top of known documentation accretion. Neither result says a better-maintained skill makes an agent more correct."
+}

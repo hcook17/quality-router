@@ -1,0 +1,16 @@
+{"arxiv_id": "2607.23088",
+ "blind_scores": {"rigor": 1, "reproducibility": 0, "generalizability": 2, "relevance": 1, "coi_risk": 0},
+ "blind_verdict": "reject", "blind_coi_severity": "none",
+ "agreement": "partial",
+ "claims_disputed": [],
+ "pattern_stance_changes": [
+  {"id": "P34", "from": "mixed", "to": "supports",
+   "reason": "The paired within-prompt design is an isolating comparison: the same functional request with and without explicit security requirements. Per §3.3, vulnerability falls for all eight models and net gain stays positive in every scenario, including the hardest (SC3: regression 19%, NetG 0.12). Regressions inside a net-positive comparison are churn, not a split result. The evidence behind this direction is weak (figure-only, opaque labels, no functionality check), which the reject verdict already accounts for."}
+ ],
+ "missed_issues": [
+  "The review's sample size is doubled. §2.1 gives 50 prompt pairs per scenario-language cell, so 3 x 9 x 50 = 1,350 pairs, or 2,700 prompts. Outputs are therefore about 108,000 (2,700 x 5 samples x 8 models), not 216,000, which is still implausible for the described expert review without a sampling protocol.",
+  "No functional-correctness check is reported for either round. For SC3, the security-aware variant 'reformulates' the request to align with secure practice (§2.1), so a 'secure' label can go to code that no longer does what was asked. 2607.17619 found that appending security requirements cut one model's pass rate by 15.9 pp.",
+  "'Security-aware prompting' is three different treatments: generic guidance (SC1), added environment assumptions (SC2) and a rewritten request (SC3). The cross-scenario comparison of mitigation effectiveness therefore confounds scenario with treatment type.",
+  "Part of the prompt set comes from 'anonymized internal developer logs' (§2, §2.1) of unstated origin, with no breakdown by source and no ethics or consent statement. The realism claim cannot be checked, and the dataset is not released."
+ ],
+ "note": "I agree with every weakness the review lists: figure-only results, an undescribed GPT-5-assisted expert-review protocol at implausible scale, no artifacts, and a 'mitigation' that is really a more complete specification. My difference is the verdict. With labels that cannot be audited, no released data, no functionality check and no per-CWE mechanism, none of the headline numbers can be relied on even as weak corroboration, so I reject. The direction (explicit security requirements reduce vulnerabilities) is already established in the KB with better evidence. I upgrade P34 to supports because the paired comparison is net-positive in every scenario; the regressions are not a split result."}

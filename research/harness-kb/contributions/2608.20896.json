@@ -1,0 +1,18 @@
+{"arxiv_id": "2608.20896",
+ "contributions": [
+  {"kind": "test_practice",
+   "statement": "When you pilot an explanation, walkthrough or learning-mode feature for new developers, judge it on whether they then make a correct change (fix rate, time to a correct change), not on clarity or cognitive-load ratings, because LLM rewrites lowered rated intrinsic load (p=0.0017) without a tested gain in fix rate.",
+   "evidence": "§4.1.2 and Figs. 6-9 (Kruskal-Wallis plus Holm-adjusted Dunn on Likert items) against §4.1.1 and Table 3 (fix rate 68/82/90% experts and 46/54/42% novices, standard/pragmatic/contingent, no inferential test). Caveats: N=103 crowdworkers, 4 synthetic Python snippets of at most 60 lines, one 8B model, cells of 3-6 people. The objective null is underpowered and the expert trend favours the rewrites.",
+   "strength": "weak", "novelty": "restates_known",
+   "relative_to": ["Santos and Becker 2024 (cited in §2.3): LLM-enhanced programming error messages ineffective in practice", "2607.08885: LLM explanatory comments did not improve programmers' judgement accuracy (pre-registered, 66% professional participants)", "HCI practice: measure task performance, not satisfaction"],
+   "transfers": "indirect"},
+  {"kind": "nuance",
+   "statement": "Do not set explanation depth for a developer from a one-off proficiency score alone; longer scaffolded explanations did not raise lower-proficiency fix rates (42% vs 46% with the plain message, 12-13 people per arm).",
+   "evidence": "Table 3 and §5.2: contingent vs standard for 38 lower-proficiency participants, descriptive only. Table 4 cells hold 3-4 people. The proficiency split rests on a new 8-item test (§3.1.1, Appendix A) that has not been validated externally. The proposed alternative, adapting to the observed repair trajectory, is not tested.",
+   "strength": "weak", "novelty": "refines",
+   "relative_to": ["expertise reversal effect (Kalyuga 2007, cited in §2.4)"],
+   "transfers": "indirect"}
+ ],
+ "quantity_flags": ["position_without_evidence"],
+ "proposed": "hypothesis_only",
+ "reason": "The paper's main point, that perceived clarity is not debugging effectiveness, is already known from its own cited prior work and from sibling 2607.08885 with better evidence. Here it rests on an underpowered null with no fix-rate test. What remains is a weak hint that static skill-targeted scaffolding does not help novices, plus an untested recommendation to adapt explanations to the user's repair trajectory. Both stay open hypotheses that cannot back a gate."}

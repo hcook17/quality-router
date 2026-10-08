@@ -1,0 +1,25 @@
+{
+  "arxiv_id": "2607.01810",
+  "contributions": [
+    {"kind": "nuance",
+     "statement": "When rolling out coding agents across repositories, plan for a modest per-function complexity rise (about +3% cyclomatic across languages and +11% cognitive in Python after removing pre-existing trends), not the +41% from a Cursor-only study, and track per-method complexity on changed code so the cost stays visible rather than assuming it is zero.",
+     "evidence": "§V-B Table IV: cyclomatic +4.3% raw / +3.3% trend-robust on 581 treated vs 577 control projects; cognitive (Python only, 128 vs 407) +18.5% raw / +10.8% trend-robust. Caveats: adoption is the first .cursorrules/CLAUDE.md commit, not usage; the cyclomatic placebo is itself +1.6% (p=.026); Java share unquantified; complexity gating is suggested in §VI-B but not tested.",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["He et al. arXiv:2511.04427 (Cursor adoption raised cognitive complexity ~41%)"],
+     "transfers": "indirect"},
+    {"kind": "anti_pattern",
+     "statement": "When measuring the effect of an agent rollout on team metrics, compare against non-adopting repositories with parallel pre-trends instead of a naive before/after or pooling repositories with under six months of pre-rollout history, because pooling here produced a spurious -11% to -16% effect that disappeared once a real pre-period was required.",
+     "evidence": "§V-D and Fig. 1: the full 1,887-project panel gives BJS -11.1% (CS -10.3% to -17.8%), pre-trend Wald test rejects, and the decline sits entirely in the 1,284 born-with-the-tool projects; the identified 603-project sample restores parallel trends. Caveat: this is standard difference-in-differences practice, demonstrated on OSS newcomer counts.",
+     "strength": "moderate", "novelty": "restates_known",
+     "relative_to": ["standard DiD practice: parallel-trends testing and staggered-adoption estimators (Roth et al. 2023; Callaway and Sant'Anna 2021)"],
+     "transfers": "indirect"},
+    {"kind": "nuance",
+     "statement": "Do not expect visible agent adoption to reduce volunteer newcomer inflow or 3- and 6-month retention in established open-source projects (inflow -1.5% to +5.3% across specifications, retention +1.4/+2.2 pp, n.s.), though this says nothing about onboarding assigned employees.",
+     "evidence": "§V-A Table III, Figs. 2-3; MDE 3.4% inflow and 4.8-4.9 pp retention (§VII). Caveats: the positive point estimate is not trend-robust, honest-DiD at M=0.5 admits -10%, and two-thirds of adopters are excluded.",
+     "strength": "weak", "novelty": "new", "relative_to": [],
+     "transfers": "no"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "The only thing that survives for a Java backend team is a field magnitude for the readability cost of agent adoption (trend-robust +3% cyclomatic), which refines a much larger prior estimate and is backed by a careful staggered-DiD design. The newcomer result is OSS-volunteer-specific and does not transfer, and the methodological lesson restates known DiD practice."
+}

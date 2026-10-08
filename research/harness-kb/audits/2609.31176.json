@@ -1,0 +1,41 @@
+{
+  "arxiv_id": "2609.31176",
+  "blind_scores": {"rigor": 4, "reproducibility": 1, "generalizability": 3, "relevance": 4, "coi_risk": 0},
+  "blind_verdict": "admit_with_caveats",
+  "blind_coi_severity": "none",
+  "agreement": "partial",
+  "claims_disputed": [
+    {
+      "claim": "SemNav ranks first on all seven SWE-Explore evidence-quality metrics, raising line-level precision from 53.35% to 79.99%.",
+      "proposed_strength": "unsupported",
+      "reason": "Table 2 prints SemNav's nDCG and First Useful Hit as the same 86.96, and Agentless and LocAgent share First Useful Hit 58.79. Those duplicated cells make a seven-metric ranking untrustworthy, and RepoSearcher, present in Table 1, is absent. The precision pair is printed, but it cannot carry an 'all seven' claim."
+    }
+  ],
+  "pattern_stance_changes": [
+    {
+      "id": "P05",
+      "from": "supports",
+      "to": "mixed",
+      "reason": "Removing online language-server resolution costs 7.00 File Hit@10 with output size unchanged (Figure 3, Gemma 4B, one run), which favors resolved navigation. Removing the BM25 seed is split: Function Recall@10 falls 13.20 points, while Hit@1 slightly improves. Deterministic seeding does not uniformly win."
+    },
+    {
+      "id": "P08",
+      "from": "supports",
+      "to": "mixed",
+      "reason": "The fixed-trajectory replay (Figure 3c) shows a 48.2% smaller working context than full source and total tokens 25.4% below full source, but only 4.8% above truncation, and it does not measure accuracy. The 6.00-point File Hit@10 drop removes issue-conditioned card text, not length alone, so compaction is not isolated as the cause of the gain."
+    },
+    {
+      "id": "P39",
+      "from": "neutral",
+      "to": "supports",
+      "reason": "The card ablation is the isolating comparison: without Semantic Cards, File Hit@10 drops 6.00 points and the average output size stays the same (Figure 3, Gemma 4B). The taxonomy includes cards. They are issue-scoped and cached per snapshot, not a standing glossary, but the accuracy result is still a win for that card, not a mere mention."
+    }
+  ],
+  "missed_issues": [
+    "Submit fills any shortfall under K with the highest-ranked unverified seed candidates, so File Hit@10 counts locations the agent never marked plausible.",
+    "Search weights alpha, beta, and gamma, and the cutoffs L, M, and K, are never given as numbers, and no prompt or trajectory is released, so the BM25-plus-graph seed cannot be rebuilt from the paper.",
+    "PLocBench (821 issues) and SWE-Explore (368 instances) are Gemma 4B only. The abstract's claim across model scales is SWE-bench Lite only, where the File Hit@10 gap shrinks from 14.3 points at 4B to 0.67 points at Qwen3.5 35B.",
+    "The paper says language-server queries may stay unresolved for dynamic calls, but it never reports an unresolved-edge rate. That hole is the Java case of interface dispatch and dependency injection, and Pyright-on-Python does not measure it."
+  ],
+  "note": "The review is harsher than the blind pass on rigor and generalizability, and about right to keep the headline off strong. Three models, five baselines, and component ablations are more than a one-model sketch, which is why blind rigor is 4 and generalizability is 3, but single runs, collapsed baselines, and no release keep the verdict caveated. I leave the overall localization claim and the repair claim at moderate, and the ablation claim at weak. I lower the seven-metric SWE-Explore claim to unsupported because Table 2 repeats 86.96 for two SemNav metrics and 58.79 for two baselines. P43 can stay supports. P05 and P08 should be mixed, and P39 should be supports, because the card ablation is an accuracy result while the token replay does not show that shorter context caused it, and the BM25 seed helps recall while slightly hurting Hit@1."
+}

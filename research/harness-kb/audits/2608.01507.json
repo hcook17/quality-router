@@ -1,0 +1,59 @@
+{
+  "arxiv_id": "2608.01507",
+  "blind_scores": {
+    "rigor": 3,
+    "reproducibility": 2,
+    "generalizability": 2,
+    "relevance": 4,
+    "coi_risk": 1
+  },
+  "blind_verdict": "admit_with_caveats",
+  "blind_coi_severity": "low",
+  "agreement": "partial",
+  "claims_disputed": [
+    {
+      "claim": "Retrieval produced each correct answer at less than half the cost",
+      "proposed_strength": "moderate",
+      "reason": "Holds pooled ($0.32 vs $0.74) and in direction for every model, but the per-model cost-per-Pass ratio in Table 3 ranges from 1.46x for Gemini 2.5 Pro ($1.048 vs $1.526) through 2.0x and 4.8x to 24x for Qwen3-235B ($0.012 vs $0.291), so 'less than half' fails for one of four models and the pooled 2.3x is a cost-weighted mix. Median latency runs the other way for the Gemini 2.5 pair (Deep 106 s vs 329 s and 152 s vs 400 s)."
+    },
+    {
+      "claim": "For read-only questions over an indexable repository, retrieval is the stronger and cheaper option, and this bears on Claude Code, Codex and Antigravity-style designs",
+      "proposed_strength": "weak",
+      "reason": "The evidence is one LangChain harness per paradigm, run with defaults, with retrieval tool, orchestration and todo planning changed together, no flat grep agent and no compute-matched arm (the authors list the latter as future work). That supports a statement about this pair of agents, not about the retrieval paradigm or about named products, none of which were run; the review's own evidence column says the product framing exceeds the evidence."
+    }
+  ],
+  "pattern_stance_changes": [
+    {
+      "id": "P43",
+      "from": "mixed",
+      "to": "introduces",
+      "reason": "Both arms are codebase QA agents and, as the review's own note says, there is no no-agent, direct-prompting or human-developer baseline, so the pattern is never compared against its absence; the 40-89% pass range describes the agents rather than a split isolating result."
+    },
+    {
+      "id": "P06",
+      "from": "mixed",
+      "to": "introduces",
+      "reason": "The only comparison is bundled (embedding index plus flat ReAct versus grep plus delegation plus todo planning). The failure-count contrast (338 vs 242 localization misses) is not a controlled comparison either: a sub-agent search miss could have been coded as a coordination breakdown, so neither the bundle win nor the 'retrieval was worse' reading isolates the index."
+    },
+    {
+      "id": "P12",
+      "from": "contradicts",
+      "to": "introduces",
+      "reason": "Delegation changes together with dropping the index and adding a todo planner, with no flat grep arm. The 483 Deep runs that never delegated (2,878 minus 2,395) are not compared with the delegating runs. The 41.8% coordination-breakdown share is LLM-coded mechanism evidence, not an isolating loss. KB 2605.27787 found a sub-agent returning file:line pointers non-inferior, so the loss may come from the condensed-prose hand-off rather than from delegation itself."
+    },
+    {
+      "id": "P05",
+      "from": "neutral",
+      "to": "introduces",
+      "reason": "grep, glob and ls are the Deep arm's working tools (text search is 29.1% of its calls and most of the 68.8% of calls made inside sub-agents), so the pattern is used, not merely mentioned. It is still never isolated."
+    }
+  ],
+  "missed_issues": [
+    "The paper has an unexploited within-arm contrast: 483 of 2,878 Deep runs never delegated. Comparing their pass rate with the delegating runs (confounded by question difficulty) is the closest available test of the delegation attribution, and it is not reported.",
+    "P13 is untagged. The Deep arm is a planner-executor design: task-list writing is the planner's most frequent action and 10.9% of all Deep calls. Planning changes together with delegation and is used without isolation (introduces).",
+    "P24 is untagged. The 900 s and 80-step caps are part of the measured outcome, because runs that hit a bound count as Fail. 24.2% of Deep failures are no-answer vs 12.7% for Semantic, and non-terminating loops score a mean of 3.3, so cap policy moves the gap and no cap sweep was run (introduces).",
+    "The failure coder is the same model as the judge (Claude Sonnet 4.6) and its input record includes the judge's rationale, so the mechanism coding is not independent of the grading. The 0.82 agreement with author consensus on 400 failures limits but does not remove this.",
+    "Median latency favors the Deep arm for both Gemini 2.5 models (106 vs 329 s, 152 vs 400 s), and Semantic's input tokens are close to Deep's for Gemini 2.5 Pro (404k vs 466k). The cost advantage is driven mainly by Gemini 3 Flash and Qwen3-235B."
+  ],
+  "note": "The review's direction is sound: on 720 paired SWE-QA questions the flat index-backed agent beats the LangChain delegating Deep Agent for all four models, and the judge and failure coding are human-validated. I score rigor 3 rather than 4 because this is one run per condition, the losing arm is an untuned default with step and time caps that count as failures, and no arm isolates retrieval, delegation or planning. Under the stance rule, none of P43, P06, P12 or P05 gets an isolating win or loss, so all four move to introduces; the coordination-breakdown evidence remains a strong hint against prose hand-offs, not a test of delegation. The cost claim holds in direction but not at 'less than half' for Gemini 2.5 Pro, and latency reverses for the Gemini 2.5 pair. For the team, this is good evidence that a cheap embedding index plus file reads is a reasonable default for read-only codebase questions, and that a delegated explorer's summary must not be trusted without evidence; it says nothing yet about Java or cross-repo questions."
+}

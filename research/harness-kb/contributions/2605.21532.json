@@ -1,0 +1,23 @@
+{"arxiv_id": "2605.21532",
+ "contributions": [
+  {"kind": "nuance",
+   "statement": "Do not expect a machine-readable interface contract (allowed outbound calls, call order) placed in the prompt to change what the agent writes when well-named headers or interfaces are already in context; use the contract as a deterministic post-generation check instead.",
+   "evidence": "Table 8 and §7.5: Sonnet 4.6 with versus without the IS contract gave identical critic outcomes on both modules (SGMM passed every critic both ways; SFLD passed VerNFR but timed out in Wp both ways), and the authors attribute this to the headers. That is two paired single runs from an unstated 'representative subset', so it is a null result on a tiny sample.",
+   "strength": "weak", "novelty": "refines", "relative_to": ["2609.22259", "machine-readable domain context as agent input (P39)"], "transfers": "indirect"},
+  {"kind": "heuristic",
+   "statement": "Before agents generate code from natural-language requirements, have a domain owner turn the implicit house conventions those requirements assume (e.g. status-field semantics, which shared services a module may call) into an explicit spec or glossary, because spec writers could only resolve them by reading existing code an agent would not be given.",
+   "evidence": "§8: SFLD's requirements were of poor quality and assumed Scania conventions such as RTDB status fields; the authors resolved this by studying the reference implementation and harvested permitted calls from it. This is an observation from two modules, with no measurement of the effect on agent output.",
+   "strength": "weak", "novelty": "refines", "relative_to": ["pre-spec knowledge discovery (P38)", "2609.22259"], "transfers": "indirect"},
+  {"kind": "design_pattern",
+   "statement": "Gate agent-written modules on a machine-checked list of permitted cross-module calls and module-private declarations (in Java, ArchUnit or Spring Modulith rules) in addition to functional checks.",
+   "evidence": "§3-§6, Tables 2-4 and 7: rules and the VerNFR checker; it passes the reference and generated code, but its only shown rejection is a toy example, and the call-order rule is unimplemented.",
+   "strength": "weak", "novelty": "restates_known", "relative_to": ["architecture conformance tests (ArchUnit, module boundaries)"], "transfers": "direct"},
+  {"kind": "nuance",
+   "statement": "Tailor off-the-shelf static rule sets to the codebase's accepted deviations before using them as hard gates on agent code, because stock MISRA checks rejected the company's own accepted production modules.",
+   "evidence": "Table 7: Cppcheck MISRA-C reported 6 required violations in the SGMM reference module, plus 4 required and 2 advisory in SFLD's included headers; §8 attributes these to Scania's tailored rules.",
+   "strength": "weak", "novelty": "restates_known", "relative_to": ["static-analysis baselines and deviation records (standard MISRA/Sonar practice)"], "transfers": "indirect"}
+ ],
+ "quantity_flags": ["self_declared_incomplete"],
+ "proposed": "hypothesis_only",
+ "reason": "The paper is a v1 checker that does not yet implement its central call-order rule, run on two tiny modules whose contracts were derived from the code being checked, with 'preliminary' LLM runs. The interface-contract gate restates architecture-conformance testing. Two weak refinements could become hypotheses: contract-as-context showed no effect, and implicit house conventions block spec writing."
+}

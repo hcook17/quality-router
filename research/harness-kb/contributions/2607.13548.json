@@ -1,0 +1,20 @@
+{
+  "arxiv_id": "2607.13548",
+  "contributions": [
+    {"kind": "heuristic",
+     "statement": "When an agent diagnoses failures (ingestion errors, incident telemetry), give it a versioned fault taxonomy plus explicit symptom-to-cause inference rules as context, not only system topology, which here gained 8.6-21.6 Full-match points for the same model and pipeline across four systems, with most of the gain holding on windows not used to write the rules.",
+     "evidence": "Table III DK ON vs DK OFF (CB1 25.71 vs 17.14, CB2 24.36 vs 14.10, Bank 36.76 vs 27.94, Telecom 56.86 vs 35.29); Table VI held-out re-check (Telecom -5.3, CB1 -2.2, Bank +1.4). Caveats: GPT-5.2 only, single run, roughly 50-80 windows per domain, curated rules written against labelled windows, telemetry RCA rather than code.",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["P39 machine-readable domain context", "2607.27250 (AGENTS.md conventions showed no correctness effect on coding tasks)"],
+     "transfers": "indirect"},
+    {"kind": "design_pattern",
+     "statement": "Build the agent's diagnostic rules by mining labelled past incidents (for each failed run, have an analysis pass reconstruct the evidence path to the known cause and keep only rules that cite a concrete evidence row) and test the consolidated rules on a held-out system or time window before loading them; here mined rules raised held-out Full-match from 14.10 (no rules) to 35.90.",
+     "evidence": "§III-E, §IV-G, Table III mined-DK row on CB2, Appendix C worked example (support 8). Caveats: CB2 shares topology and fault vocabulary with CB1, one split, single run, rules not checked for discrimination (§VI), mining substrate from an unvalidated ground-truth-aware LLM.",
+     "strength": "weak", "novelty": "refines",
+     "relative_to": ["experience/insight extraction from past agent trajectories (ExpeL, Reflexion)", "P26 self-improving harness"],
+     "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "Only the controlled DK ON/OFF ablation, rechecked on held-out windows, survives at moderate: explicit fault taxonomies and inference rules materially help a diagnosis agent. Rule mining from past incidents is a promising but single-split, single-run hypothesis. The 'reasoning not data' and 'model-limited' conclusions rest on an unvalidated LLM judge and an empty table, so nothing from them is kept."
+}

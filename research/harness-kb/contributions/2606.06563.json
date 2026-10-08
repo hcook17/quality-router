@@ -1,0 +1,18 @@
+{"arxiv_id": "2606.06563",
+ "contributions": [
+  {"kind": "heuristic",
+   "statement": "When clarified requirements will drive test generation, write them as ID-bearing conditionals or acceptance criteria (EARS, cause-effect, Given/When/Then) rather than free prose, because only structured-input pipelines in this corpus produced tests linked back to requirement IDs (industrial pipelines regenerated 56% of 604 and 71.8% of 578 manually written tests).",
+   "evidence": "§IV-C and §VI-D, citing SPECMATE (2020) and CiRA (2023). These are secondhand numbers from primary studies with no comparison of their own. The traceability contrast rests on coding 'none reported' as Low (Table IV).",
+   "strength": "weak", "novelty": "restates_known",
+   "relative_to": ["acceptance-test-driven development / Gherkin acceptance criteria", "2607.17686 (machine-readable V&V specifications linking requirements to tests)"],
+   "transfers": "indirect"},
+  {"kind": "nuance",
+   "statement": "Do not read 'LLM-generated tests run' as 'LLM-generated tests cover the requirement's logic': six general-purpose LLMs on 25 requirements produced ~97% executable tests but at most 50.2% MC/DC coverage.",
+   "evidence": "§V-B Fig. 4, restating Korraprolu et al. (ISEC 2025): 25 requirements, single study, no variance. The survey adds nothing to the primary result.",
+   "strength": "weak", "novelty": "restates_known",
+   "relative_to": ["Korraprolu et al. 2025 (primary study)", "2606.18168 (agent tests lack value-level oracles)"],
+   "transfers": "indirect"}
+ ],
+ "quantity_flags": ["survey_restatement", "position_without_evidence"],
+ "proposed": "drop",
+ "reason": "Every quantitative statement is a secondhand restatement of a pre-2026 primary study. The four recommendations (hallucination benchmark, traceability matrix pipeline, stratified benchmark, deployment blueprints) are proposals with no artifact or evaluation. Its value is as a pointer list, not as evidence."}

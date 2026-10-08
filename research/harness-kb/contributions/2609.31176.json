@@ -1,0 +1,26 @@
+{
+  "arxiv_id": "2609.31176",
+  "contributions": [
+    {
+      "kind": "nuance",
+      "statement": "When the repair model is held fixed and sees only the localizer's context, budget localization quality rather than assuming it will not move resolve rate: one deterministic SWE-bench Lite attempt rose from 44.00% to 52.33% resolved with Qwen3.5 35B repair and from 23.33% to 27.67% with Gemma 4B repair, both localized by Gemma 4B.",
+      "evidence": "Table 3, Downstream Repair Utility. The repair prompt, budget, and test harness are held fixed; each arm is one attempt. Oracle files still reach 67.00% and 39.00%. File Hit@10 at Qwen3.5 35B moves only from 89.33% to 90.00% (Table 1). Python only, no repeat, no released code. The SWE-Explore precision story in Table 2 is not usable (duplicated cells).",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": ["2608.05886: better file localization raised resolve rate by about 0.4 points and mostly shortened rollouts"],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "heuristic",
+      "statement": "Keep a BM25-plus-identifier seed as a revisable candidate list and do not paste that list into the prompt as the final context: on Gemma 4B, dropping the seed cut Function Recall@10 by 13.20 points while slightly raising Hit@1, and seed-only retrieval trailed the full agent by 25.33 File Hit@1 points.",
+      "evidence": "Component Contributions, Figure 3, SWE-bench Lite, Gemma 4B, one run. Removing the Candidate Workspace also drops Function Recall@10 by 19.20 points, but mean output falls from 9.96 to 1.50 functions, so that recall drop is mostly list length. Submit still backfills top-K with unverified seed items.",
+      "strength": "weak",
+      "novelty": "refines",
+      "relative_to": ["2608.05886: injecting BM25 candidates at about 0.38 precision into the prompt raised tokens and did not help resolve rate"],
+      "transfers": "indirect"
+    }
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "The held-fixed repair comparison is the part a lead can use: localization context moved one-shot resolve by about 8 points here, against a near-zero resolve effect in 2608.05886. The seed-versus-agent split, card faithfulness, and the seven-metric evidence table do not clear the same bar."
+}

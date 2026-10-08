@@ -1,0 +1,34 @@
+{
+  "arxiv_id": "2605.21943",
+  "blind_scores": {"rigor": 3, "reproducibility": 2, "generalizability": 3, "relevance": 4, "coi_risk": 0},
+  "blind_verdict": "admit_with_caveats",
+  "blind_coi_severity": "none",
+  "agreement": "partial",
+  "claims_disputed": [
+    {
+      "claim": "The same ordering holds across all nine design patterns",
+      "proposed_strength": "weak",
+      "reason": "Table 5 has only 10–29 files per pattern. SWUM’s BERTScore F1 is higher than Mixtral on Observer (0.8853 vs 0.8805) and Visitor (0.8784 vs 0.8762). Table 6 also swaps second and third place for Visitor and Decorator, so the three-way order is not stable even though Mixtral is usually first."
+    }
+  ],
+  "pattern_stance_changes": [
+    {
+      "id": "P18",
+      "from": "neutral",
+      "to": "introduces",
+      "reason": "Llama 3 70B is the only instrument for the five RQ2 ranks in Table 3, and §5.2.1 correlates that judge with its own aggregate. The paper uses an unvalidated judge; it does not merely mention one."
+    },
+    {
+      "id": "P41",
+      "from": "neutral",
+      "to": "introduces",
+      "reason": "§6 recommends LLM summaries for onboarding documentation and design-rationale reading. That proposes a comprehension aid. No developer task measures it, so it is not support, but it is more than a mention."
+    }
+  ],
+  "missed_issues": [
+    "Mixtral never sees Java source. The §4.2.2 prompt says to use only the supplied structural facts, so Table 2 compares three realisers of the same JavaParser JSON. It does not show that an LLM reading raw repository code writes a better onboarding summary.",
+    "The best mean cosine similarity is 0.3351 (Table 2). The gap versus NLG (0.1657) can be significant and still leave the summary far from the human reference in absolute overlap.",
+    "Results are not split by repository. Two of the three sources are teaching repos, and the Spring sample size is never stated, so the industrial slice of the 150-file mean cannot be checked."
+  ],
+  "note": "I agree that the length-target experiment is missing, that the Llama rubric was never checked against developers, that the Table 1 SWUM lines are a weak realiser, and that the conciseness lead does not survive Bonferroni. The cosine gap versus NLG on 150 paired files is real and worth a moderate grade. I score generalizability 3 rather than 2 because three Java repositories, one of them Spring, meet the several-repos one-language anchor; the files are still pattern-picked single classes. P18 and P41 are a method and a recommendation, not side mentions. The result is a comparison of JSON realisers, not evidence that a new developer understands the class."
+}

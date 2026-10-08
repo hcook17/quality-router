@@ -1,0 +1,31 @@
+{
+  "arxiv_id": "2607.00911",
+  "blind_scores": {"rigor": 3, "reproducibility": 4, "generalizability": 2, "relevance": 2, "coi_risk": 0},
+  "blind_verdict": "admit_with_caveats",
+  "blind_coi_severity": "none",
+  "agreement": "partial",
+  "claims_disputed": [
+    {
+      "claim": "Skills are mostly copied once and not maintained: most linked copies are near-verbatim and never updated locally, and many miss upstream updates.",
+      "proposed_strength": "moderate",
+      "reason": "The counts are real (§VI-A): 1,841/2,462 links at similarity ≥ 0.99, 1,295/2,462 (52.6%) with no local commit after adoption, and 40.2% of that never-edited subset missing a later upstream change. The 52.6% is right-censored: history ends 4 May 2026 in a registry months old, with no time-since-adoption adjustment (§VIII). The 62.3% (429/689) 'diverged independently' flag is almost mechanical, because any local edit drops body similarity under the 0.99 threshold at the first upstream update."
+    },
+    {
+      "claim": "Customisation primarily adapts skills to local environments, while evolution accumulates domain knowledge.",
+      "proposed_strength": "weak",
+      "reason": "Table III's most common customisation edit is reformatting (92/188, 48.9%, h=0.61), not environment setup (24/188, 12.8%, h=0.08, not significant). Repackaging is 23/188 (12.2%). Inline knowledge is 37/188 versus 83/256 (19.7% vs 32.5%). §III-D and §VIII compare an adoption diff on linked skills with an initial-to-final diff on unlinked skills, so the operation is confounded with the population. §VI-B5 prints h=0.72 for repackaging; the table prints 0.71."
+    },
+    {
+      "claim": "The behavioural contract (user interaction, monitoring, failure handling) is rarely edited.",
+      "proposed_strength": "weak",
+      "reason": "§VII-A gives 1.6%/1.2%, 0.5%/0.0%, and 5.9%/7.1%, but §III-D states the authors did not compute Cohen's kappa for this content-type field. Low edit rates on 444 endpoint diffs show the labels were rare, not that the rules are adequate or stable under a longer history."
+    }
+  ],
+  "pattern_stance_changes": [],
+  "missed_issues": [
+    "In §IV, Non-SE is 28.5% of registry skills and 29.8% of personal-use skills, larger than Software Construction's 22.1% personal-use share. 'Dominates both populations' holds only after Non-SE is removed, and §III-B warns the kappa 0.82 gold set is stratified by the model's own predicted label, so corpus-level accuracy is unknown.",
+    "Table II rates, including grounding domain knowledge at 85% and interacting with the user at 63%, come from 10 skills per knowledge area (180 documents). §V says those frequencies describe the stratified sample, not the corpus.",
+    "§III-D says the Fisher tests with Benjamini-Hochberg correction ignore repository clustering and dependence among theme labels. The review records the tests and effect sizes without that limitation."
+  ],
+  "note": "I agree with admit_with_caveats, with neutral stances on every tagged pattern, and with moderate grades for additive edits and for Software Construction being the largest SE area. I lower the copy-once claim from strong to moderate because 'never updated' is right-censored and the 62.3% divergence rate is nearly implied by the 0.99 cutoff; the verbatim share and the 40.2% missed-upstream rate still stand. I lower the customisation-versus-evolution claim because reformatting, not environment adaptation, is the modal adoption edit and the two arms are different populations. I lower the behavioural-contract claim because that field has no agreement statistic. Nothing here measures whether a skill changes agent success, which the review already flags."
+}

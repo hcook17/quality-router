@@ -1,0 +1,26 @@
+{
+  "arxiv_id": "2608.23619",
+  "contributions": [
+    {
+      "kind": "test_practice",
+      "statement": "When an agent migrates or rewrites a repository, do not accept an alignment or migration-outcome score as the gate: this paper's mean outcome index is 93.1%, and roots-fortran scores 97.0% while failing all 7 Fortran-oracle probes.",
+      "evidence": "Table 5 mean outcome 93.1%; Table E.1 roots-fortran outcome 97.0% and Beh. 0/7; Appendix D.4 names the same repository's formula error and quadpack kernel disagreements. Appendix C.7 puts 60% of the index on an LLM alignment score, and the refinement loop optimizes structural alignment to that diagram. Probes are author-curated small inputs, one run at temperature 0.3, Fortran to Python only.",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": ["2605.06754", "2608.12249", "2605.14634"],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "nuance",
+      "statement": "If a declarative diagram is inserted before repository generation, expect more planned behaviors to become runnable, not a higher chance that a runnable behavior is numerically right: here the diagram made 382 of 382 probes runnable and passed 327, while direct translation made 99 runnable and passed 83 of those (83.8%).",
+      "evidence": "Table 4, including the runnable-only column (85.6% vs 83.8% and 84.7%). Caveats: 34 probes on lapack (16), elmerfem (8), and cp2k (10) were never attempted for the baselines (§4.2, Table E.3) and count as missing targets; the two no-diagram ablations fall below plain direct translation (11.0% and 3.7%), so they do not cleanly isolate the diagram.",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": ["2605.14634", "spec-first generation conditioned on an intermediate description (P14)"],
+      "transfers": "indirect"
+    }
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "What survives is a measured split, not a Java porting method: oracle probes show the diagram's gain is coverage of planned behaviors, and a 97% outcome index can sit on 0/7 probe passes. Conditional correctness ties direct translation. The unevaluated human checkpoint and the Fortran-to-Python setting stay out of the gate."
+}

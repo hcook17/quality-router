@@ -1,0 +1,25 @@
+{"arxiv_id": "2605.30353",
+ "blind_scores": {"rigor": 1, "reproducibility": 2, "generalizability": 1, "relevance": 2, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "agree",
+ "claims_disputed": [
+  {"claim": "An explicit no-fudge-factor rule, operationalized as a limiting-case probe plus the supervisor's question, caught a test-passing calibrated patch within the same session.",
+   "proposed_strength": "weak",
+   "reason": "One event (App. A rows 13-14), and the paper gives two different accounts of what caught it. §3.2 credits the supervisor's question ('what does alpha correspond to...?') and the supervisor supplying the anisotropic tree-level formula. §4.1 P1 credits an alpha=0 limiting-case probe and says the probe was ad hoc, not a gate. The written rule itself did not stop the commit: the agent 'followed the literal rule' and committed alpha=0.27 with a green suite. A single episode with an unclear mechanism is weak, not moderate."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P39", "from": "introduces", "to": "neutral",
+   "reason": "The paper neither proposes nor uses machine-readable domain context. The decisive physics concept was typed into the conversation by the supervisor (§3.2). The remedies it proposes in §4.1 are retrieval over the reference code and 'physics audit' prompting, not cards or glossaries. The glossary idea comes from the review's applicability note, not from the paper."},
+  {"id": "P41", "from": "introduces", "to": "neutral",
+   "reason": "No walkthrough, explanation, or learning mode is proposed or used. The paper relies on the author's existing expertise and argues it is irreplaceable (§4.1 P3, §4.2). The 'supervision log as provenance' recommendation (§4.2) is an audit-trail practice, not a comprehension safeguard."},
+  {"id": "P29", "from": "neutral", "to": "introduces",
+   "reason": "§2.2 item 4: the protocol actually uses parallel sessions in git worktrees to explore competing hypotheses. That is use without an isolating comparison, which is 'introduces', not a passing mention."}
+ ],
+ "missed_issues": [
+  "Table 1 reports hexadecapole max error 1.43%, above the '≲1% accuracy' headline in the abstract and §2.1. All Table 1 numbers are at the single Planck 2018 fiducial cosmology at z=0.38. No accuracy numbers are reported at the 'varied cosmological parameters' that the abstract credits as a critical practice.",
+  "The agent's unprompted reconnaissance of both class-pt branches (§3.1, §3.2) is what supports the claim that discovery was not the bottleneck (P38). It cannot be checked: §4.3 says the session transcripts were deleted, and App. A says attribution rests on the supervisor's recall.",
+  "The stall-escalation heuristic (5-10 sessions without monotonic improvement, §4.1 P2) is fitted to the one stall it is said to catch ('would have caught the RSD crisis at session 30'). No false-alarm rate is estimated. Fig. 2 shows erratic error during sessions 24-56, so any 'monotonic improvement' rule would also fire on noise.",
+  "The generic 'reconsider the architecture' prompt was tried once, with one wording, at an unreported session and with an unreported model (Sonnet vs Opus is never split). That one failure is the only basis for the claim that process scaffolding loses to concept injection.",
+  "Python/JAX only and a complete reference implementation as oracle. The review lists Python/JAX under languages but tags no single-language bias, and the oracle precondition rarely holds for the team's ingestion code."
+ ],
+ "note": "I agree with the review's verdict, its scores within one point, and its main criticisms: the protocol-over-capability headline is untested, the 10/2/3 split does not reconcile with Table 2, and the abstract credits catches that §4.1 says came from elsewhere. I go further on the one claim the review graded moderate. The fudge-factor catch is a single episode, and the paper attributes it to two different mechanisms, so it is weak. On patterns, the review stretched P39 and P41 by reading its own applicability ideas into the paper. P29 should be 'introduces' because worktree parallelism is part of the protocol that was used. The Table 1 accuracy and fiducial-only validation details also undercut the '≲1%, validated across parameter points' framing."}

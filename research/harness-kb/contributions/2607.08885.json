@@ -1,0 +1,30 @@
+{
+  "arxiv_id": "2607.08885",
+  "contributions": [
+    {"kind": "test_practice",
+     "statement": "Do not let an agent-written assertion, test oracle or acceptance criterion become a gate on a reviewer's sign-off alone; run it against known-good and known-bad inputs (or mutation testing) first, because reviewers caught only about half of incorrect postconditions (49% vs 74% acceptance of correct ones) with the same high confidence.",
+     "evidence": "§6.1: 86 programmers, mixed-effects model with participant and stimulus random effects, OR 2.94, p<0.001; confidence 3.98-4.14 regardless of correctness. Caveats: RQ1 exploratory, 26 HumanEval functions with GPT-3.5-era postconditions, read-only judgement, effect reverses for some functions (Fig. 5).",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["automation/acceptance bias toward AI code suggestions (Eladawy et al., cited §6.1)", "2608.16742 (keep a hidden oracle and review agent-written expected values against the spec)"],
+     "transfers": "indirect"},
+    {"kind": "nuance",
+     "statement": "Do not count agent-written prose explanations of generated tests or specifications as a comprehension safeguard for developers new to the domain: in a pre-registered comparison, adding a natural-language explanation (even an exact one) did not improve accuracy at judging assertion correctness over no explanation (p>0.1).",
+     "evidence": "§6.2: pre-registered RQ2 (OSF), mixed-effects model controlling for postcondition correctness; exact comments also took longer (114.5 s vs 94.3 s) without improving accuracy. Caveats: null result without a reported power analysis; Python toy functions; GPT-3.5 comments.",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["2605.16933 and 2608.20896 (LLM explanations for learners: speed gains but no clear comprehension gain)", "P41 comprehension safeguards"],
+     "transfers": "indirect"},
+    {"kind": "anti_pattern",
+     "statement": "Avoid explanations that omit a condition of the artifact they describe: under-specified comments lowered reviewer accuracy compared with exact ones (OR 0.58) and raised confidence compared with no comment (4.25 vs 3.99 of 5).",
+     "evidence": "§6.2: p=0.037 and p=0.005 against different reference groups, one of four comment types, no multiple-comparison correction; the accuracy drop against no comment (54.3% vs 62.7%) is not tested.",
+     "strength": "weak", "novelty": "new", "relative_to": [],
+     "transfers": "indirect"},
+    {"kind": "heuristic",
+     "statement": "Write agent-generated acceptance assertions as atomic clauses that map one-to-one to spec lines, avoiding implications and element-property quantifiers where possible, because type checks and arithmetic equalities were judged correctly about twice as often (OR 2.10 and 2.07) while implications did worse (OR 0.69).",
+     "evidence": "§6.3 exploratory chi-square tests (uncorrected; implication p=0.05, element-property p=0.07) and §6.4 think-aloud: clause comparison accompanied the easier items.",
+     "strength": "weak", "novelty": "new", "relative_to": [],
+     "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "Two items survive at moderate strength: reviewer sign-off is not verification for agent-written oracles, and prose explanations are not a comprehension safeguard. Both come from a controlled, partly pre-registered human study with open data, but on toy Python and read-only review, so they transfer indirectly."
+}

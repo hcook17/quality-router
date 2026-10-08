@@ -1,0 +1,35 @@
+{
+  "arxiv_id": "2608.23619",
+  "blind_scores": {"rigor": 4, "reproducibility": 4, "generalizability": 3, "relevance": 3, "coi_risk": 0},
+  "blind_verdict": "admit_with_caveats",
+  "blind_coi_severity": "none",
+  "agreement": "partial",
+  "claims_disputed": [],
+  "pattern_stance_changes": [
+    {
+      "id": "P14",
+      "from": "supports",
+      "to": "mixed",
+      "reason": "Table 4 runnable-only agreement is 85.6% for ADFD-Migrate versus 83.8% and 84.7% for the two direct baselines, so the diagram does not win on correctness once code runs. The coverage win is confounded: the no-ADFD ablations score 11.0% and 3.7%, below plain direct translation, and they do not receive the same regeneration loop."
+    },
+    {
+      "id": "P39",
+      "from": "introduces",
+      "to": "mixed",
+      "reason": "The ADFD is not only proposed. On the same 47 repositories it is compared with a static profile and with call-graph chunking (Appendix C.2). The split result is more planned behaviors becoming runnable (Table 4: 382/382 versus 69 and 30) without a gain in conditional correctness, and the ablations look under-built."
+    },
+    {
+      "id": "P41",
+      "from": "neutral",
+      "to": "introduces",
+      "reason": "Figure 1 and Appendix D.8 propose RATIFY, REFUTE, REVISE, and REJECT on the ADFD as a developer checkpoint, and D.4 says that checkpoint is where an expert would catch formula errors. It is a proposed comprehension aid, not a passing mention, and no developer used it in any reported run."
+    }
+  ],
+  "missed_issues": [
+    "Table E.1 scores roots-fortran at a 97.0% outcome index with behavioral agreement 0/7. Appendix D.4 pairs that with quadpack kernel disagreements. A high migration index can accompany total probe failure, which the claim grades do not record as a number.",
+    "Appendix D.3 reports 1,205 of 1,206 non-skipped generated pytest executions passing (99.9%), while C.8 says those expected values come from the target side or generic patterns, not from the Fortran oracle. That suite is not evidence the port matches the source.",
+    "Table D.1's oracle pass rate is higher on the complex tier (101/113, 89.4%) than on the low tier (116/142, 81.7%). The complexity advantage in Table 5 (+58.5 points of outcome index on 7 repositories) is not in the oracle metric, and the complex tier uses Claude Sonnet 4.5 while the low tier uses a local 30B model.",
+    "Table 5 import success is 72.5–79.8% by tier (75.9% overall) while syntax validity is 98–100%. The 93.1% outcome index hides that about one generated module in four does not import. Appendix D.3's reconciliation pass only moves mean import success from 79.7% to 82.3%."
+  ],
+  "note": "The review's reading of Table 4 is the right one and I do not lower those claims: 327/382 is a real Fortran-oracle result, the 3.9x gap is coverage (99 and 98 runnable for the baselines), and the outcome index is correctly weak because 60% of it is an LLM alignment score the loop is built to chase. The 34 probes on lapack, elmerfem, and cp2k that the baselines never ran are already in the review and do not erase the coverage gap on the other 348. I do change stances: P14 is mixed rather than supports because conditional correctness ties, and P39 is mixed rather than introduces because a no-ADFD comparison exists and splits. P41 is a proposed, unevaluated human checkpoint. The released f2x50 artifacts justify the review's reproducibility 4. Relevance to a Java ingestion team is the metric lesson and the idea of checking a recovered module list against a static inventory, not the Fortran-to-Python percentages."
+}

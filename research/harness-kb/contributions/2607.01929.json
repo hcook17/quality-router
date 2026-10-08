@@ -1,0 +1,18 @@
+{"arxiv_id": "2607.01929",
+ "contributions": [
+   {"kind": "nuance",
+    "statement": "If you add on-demand code-graph tools to an issue-resolution agent, budget only a few calls and score the result per repository: DualView issued 1.8–3.7 graph calls per SWE-bench Pro task and raised resolved counts by 20, 35, and 46 of 731, but mini-SWE-agent lost 6 resolved instances on the Go repository vuls (33 to 27).",
+    "evidence": "Tables II and IV, §IV-A. Steps also fell (mini-SWE-agent 71.2 to 62.7) and average cost fell by $0.04–$0.05. Caveats: one run per instance, no interval, the §II-A index build is not in the cost, and the dependence front end in §II-A4 is Python, Go, JavaScript, and TypeScript, not Java.",
+    "strength": "moderate", "novelty": "refines",
+    "relative_to": ["2605.16352: expand lexical hits to call, import, and type-hierarchy neighbors", "2605.15569: expose a few typed static-analysis queries as agent tools", "2609.16936: injecting a repository map on every turn can cut resolve rate"],
+    "transfers": "indirect"},
+   {"kind": "nuance",
+    "statement": "Do not expect a text edge list of a code graph to deliver the repair gain of a picture of that same graph: on the 150-task subset, four views as text resolved 71 versus 69 with no graphs, while images alone resolved 78 and both modalities resolved 81.",
+    "evidence": "Table V, §IV-B2, OpenCode with Kimi K2.5, one run. The subset is described only as random, with no seed or instance list. A 7-task image-versus-text gap is the same order as the vuls regression in Table II.",
+    "strength": "weak", "novelty": "refines",
+    "relative_to": ["2607.15205: visual evidence there is issue screenshots, not rendered dependence graphs", "2607.29637: source rendered as images for token cost, not graph topology"],
+    "transfers": "indirect"}
+ ],
+ "quantity_flags": [],
+ "proposed": "keep",
+ "reason": "The steer is operational: a couple of on-demand graph probes can move aggregate SWE-bench Pro resolution and can also regress a repository, so log both. The claim that the picture, rather than the edge list, is what works is only a single 150-task run and stays a hypothesis. There is no Java dependence front end to copy."}

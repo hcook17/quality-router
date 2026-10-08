@@ -1,0 +1,19 @@
+{
+  "arxiv_id": "2607.02748",
+  "contributions": [
+    {"kind": "nuance",
+     "statement": "When a checker's raw rejection is opaque (a generic errno or one message covering many causes), put a deterministic post-processor in front of the repair agent that names the violated invariant, the line where it was lost and the source span (one-shot repair rose from 22 to 38 and from 28 to 38 of 75 tasks for two mid-size models), but not for tools whose raw errors already name the cause, such as javac, where raw diagnostics did as well or better in other KB studies.",
+     "evidence": "§5.2 Fig. 6 and Table 3: one-shot repair on 75 eBPF tasks rose 22 to 38 (Qwen3.6 27B), 28 to 38 (GLM 5.2) and 0 to 8 (Qwen2.5 3B), with fewer verifier-load failures. §2.4: 47% of raw rejections return only EINVAL and one template maps to nine root causes. Caveats: own tool on own benchmark (40/75 author-built), single run, no ablation of localization vs help text, success oracle partly author-written.",
+     "strength": "weak", "novelty": "refines",
+     "relative_to": ["2609.00362 (raw javac diagnostics beat LLM-written explanations)", "2609.22222 (sanitized diagnostics no better than resampling)", "P17 static-analysis feedback in the loop"],
+     "transfers": "indirect"},
+    {"kind": "constraint",
+     "statement": "Do not infer the root cause of an eBPF verifier rejection from its terminal message: 47% return only EINVAL, 15 of 82 normalized templates span several root causes (one spans nine), and 19% of rejections are correct source rejected because of the compiler, environment or verifier.",
+     "evidence": "§2.3-2.4, Tables 1-2: 235 reproduced rejections from 936 candidates on kernel 6.15.11 / clang 18. Root-cause labels have no reported inter-rater check.",
+     "strength": "moderate", "novelty": "new", "relative_to": [],
+     "transfers": "no"}
+  ],
+  "quantity_flags": [],
+  "proposed": "hypothesis_only",
+  "reason": "The eBPF characterisation is solid but irrelevant to a Java backend. The only transferable idea, deterministic localization of opaque checker output before the agent sees it, rests on the authors' own tool and benchmark with single runs and no ablation, and it conflicts with KB evidence on javac. It stays an open hypothesis."
+}

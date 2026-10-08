@@ -1,0 +1,18 @@
+{"arxiv_id": "2607.02294",
+ "blind_scores": {"rigor": 3, "reproducibility": 2, "generalizability": 3, "relevance": 3, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "agree",
+ "claims_disputed": [
+  {"claim": "Underspecifying the target object drives wrong-target and over-scope actions.",
+   "proposed_strength": "moderate",
+   "reason": "The direction is robust, but 'strong' overstates it. (1) The §V-C acted-run figures (Safe 67.9% to 8.6%, Wrong 9.6% to 75.1%) are pooled and run-weighted, and §V-B admits pooled rates tilt toward OpenCode+DeepSeek-v4, which acts in 83% of runs versus about 48% for the Haiku configurations; per-configuration B-axis quality numbers are not given in the text. (2) Conditioning on acted runs compares different populations at B0 and B3, because the action rate falls with B. (3) B3 references are built to match several candidates (§III-B), so a wrong target after a guess is largely by construction. There is one run per prompt and no CIs, and only small-tier models were tested."}
+ ],
+ "pattern_stance_changes": [],
+ "missed_issues": [
+  "The paper's only same-model harness contrast cuts against its own advice to 'choose a harness with a first-class Ask-User affordance' (§VI-A). Codex-5.1-mini asks 3x more under the Codex harness (31.8% vs 10.5%), yet Overstep is unchanged (32.6% vs 32.2%), Wrong Target is higher (24.3% vs 20.3%) and Safe Success is lower (15.5% vs 25.3%) (Table II). More asking did not buy safety in that pair.",
+  "Blast radius R is a wording-only manipulation: §III-B holds the environment and oracle fixed, so 'production' is signaled only in the instruction text. There is no manipulation check that R1 cues were salient, so 'agents ignore blast radius' may partly reflect a weak cue rather than agent indifference.",
+  "Fully specified variants already overstep: acted-run OverScope is 31.4% at B0 and 47.3% at S0 (§V-C). Either the hand-written minimal-scope oracle is strict or the S0/B0 baseline is not unambiguous, and no human check of oracle minimal scope is reported.",
+  "The non-action judge was validated by a single human annotator on 100 items (§V-D, 'The annotator'), with no inter-human agreement.",
+  "The review's summary calls the axes Subject/Bound/Restriction; the paper defines S as intent clarity, B as target certainty and R as blast radius, and states that the ABAC subject is held fixed (§III-B)."
+ ],
+ "note": "I agree with the scores, the verdict and every pattern stance. The review already caught the abstract's denominator error (55.8-67.8% is of acted runs; of all runs it is 27.0-46.3%), the Table II partition inconsistency and the 7-versus-3 infrastructure-family mismatch. I lower the target-underspecification claim to moderate because the pooled acted-run numbers are dominated by one model, conditioning on action changes the population, and the B3 wrong-target outcome is partly by design. The review's P40 'mixed' is right, and Table II makes it more so: the harness that elicited 3x more questions did not reduce overstepping."}

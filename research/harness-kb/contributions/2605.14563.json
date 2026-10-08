@@ -1,0 +1,35 @@
+{
+  "arxiv_id": "2605.14563",
+  "contributions": [
+    {
+      "kind": "heuristic",
+      "statement": "When an agent documents a repository in one pass, write callees before callers and keep each accepted page for later module and repository pages to read; clearing that store after every unit dropped regeneration Pass@1 from 0.461 to 0.324 and CodeBLEU from 0.419 to 0.190.",
+      "evidence": "Table 3, Qwen3-Coder only, one run, 564 DevEval functions. §6.2's w/o memory arm also removes the conflict-check reference set and the child documents used to write module pages, so the drop is not memory alone. Python only.",
+      "strength": "weak",
+      "novelty": "refines",
+      "relative_to": ["DocAgent topological component order, cited in §4.1", "2607.26072 score a memory layer on whether the needed facts return"],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "nuance",
+      "statement": "Do not treat 'an LLM regenerated the function from the doc' as evidence a new developer understood the module: the system prompt tells the agent to write enough to reconstruct the implementation, and those longer pages beat human docstrings on that metric because the human text is a short summary.",
+      "evidence": "Table 4 objectives and component section; §6.1. Fig. 3's baseline and C / C+M / C+M+R numbers are not printed, and no developer comprehension task is run. Pass@1 0.461 in Table 3 is the full system only.",
+      "strength": "weak",
+      "novelty": "refines",
+      "relative_to": ["2607.26375 task success and measured comprehension can diverge"],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "constraint",
+      "statement": "Budget a shared documentation store as a partial cut in re-reads, about 41% less read time, not as their removal: against DocAgent, mean read time fell from 23.44 s to 13.76 s and read calls from 3.79 to 2.62 per component, on all 20 repositories.",
+      "evidence": "Fig. 4. Fig. 1's claim that repeated retrieval is eliminated, and the 75.5% inconsistency reduction, are a separate unvalidated Claude Haiku 4.5 judgment.",
+      "strength": "weak",
+      "novelty": "refines",
+      "relative_to": ["per-component documentation agents re-fetch the same files (DocAgent, cited as the comparison in §6.3)"],
+      "transfers": "indirect"
+    }
+  ],
+  "quantity_flags": [],
+  "proposed": "hypothesis_only",
+  "reason": "The leaf-first shared store, the regeneration-versus-comprehension gap, and the 41% read-time cut are specific, but each rests on one Python run, an unvalidated judge, or a confounded ablation. They are hypotheses for a Java multi-repo documentation pass, not a gate."
+}

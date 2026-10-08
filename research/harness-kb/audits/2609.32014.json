@@ -1,0 +1,34 @@
+{
+  "arxiv_id": "2609.32014",
+  "blind_scores": {"rigor": 4, "reproducibility": 4, "generalizability": 3, "relevance": 5, "coi_risk": 1},
+  "blind_verdict": "admit_with_caveats",
+  "blind_coi_severity": "low",
+  "agreement": "partial",
+  "claims_disputed": [
+    {
+      "claim": "Population prevalence of at least one harness mechanism is 21.7%, versus 65.3% in the most visible repositories, and every mechanism declines monotonically with visibility.",
+      "proposed_strength": "weak",
+      "reason": "Table 5's 'Any' column mixes agent-era rule files with pre-agent CODEOWNERS (H8) and pull-request templates (H7). H1 alone is 51.2% in the popular stratum and 16.2% reweighted, not 65.3% and 21.7%. §4.2.2 also says the gradient may be team presence rather than harness adoption, and H2's intervals overlap across G1–G3 so 'every mechanism' is not a resolved decline."
+    },
+    {
+      "claim": "Structured consultation (an agent pausing to ask a bounded question) is 'real and frequent' in PR comments.",
+      "proposed_strength": "unsupported",
+      "reason": "Table 10's 53 coder-confirmed consultations all come from the classifier-flagged blocks (236 texts read in full). The sample of the other blocks, 300 texts out of about 56,312, confirmed zero. That is consistent with rare, not frequent, and §5's 'frequent' is the opposite reading of the same table. The detector recall of 0.491 was correctly excluded."
+    }
+  ],
+  "pattern_stance_changes": [
+    {
+      "id": "P40",
+      "from": "neutral",
+      "to": "introduces",
+      "reason": "The paper does not only mention clarifying questions. Two coders confirmed 53 structured consultations in PR comments (κ=0.681 on the overlap, §4.2.6), and rule files prescribe a stop-and-ask policy in 5–20% of the qualitative sample (M6, Table 15). There is no outcome comparison, so the stance is introduces, not neutral and not supports."
+    }
+  ],
+  "missed_issues": [
+    "Results are not split by programming language. §3.2.8 measures the natural language of rule files, not whether the repository is Java, so the 21.7% figure is not a rate for this team's stack.",
+    "H2 only matches docs/adr, docs/decisions, adr, and .specify/memory (Table 2). Combined with §5's point that MCP memory stores sit outside git, the 1.9% popular-stratum figure is not evidence that teams skip decision records.",
+    "§7 says the study tests the framework's thesis, while §5 states that no outcome was measured and no efficacy claim can be drawn. The conclusion is stronger than the design.",
+    "Breadth and the 2.6% 'four or five mechanisms' figure are computed on five detectors after H4, H5, and H6 were removed. A repository can reach three mechanisms with a rule file, a pull-request template, and CODEOWNERS and still have no spec and no decision record."
+  ],
+  "note": "This is the careful descriptive study the review says it is, and the integrated-configuration count in Table 8 should stay strong. I lower the 21.7% versus 65.3% claim to weak because 'any mechanism' mixes rule files with pre-agent CODEOWNERS and pull-request templates, and I lower 'real and frequent' consultation to unsupported because Table 10's confirmations sit in the classifier-flagged slice. P01, P09, P14, and P19 as neutral are right for presence without an effect. P40 should be introduces: coders confirmed the behavior and some rule files prescribe it, which is use without an outcome test. The review's rigor 3 and relevance 3 are harsher than the design deserves, and coi severity none is slightly generous because Díaz and Pérez are testing their own framework and §6.3 treats the E1/E2 ratio as evidence for its thesis; the blind pass records rigor 4, relevance 5, and low COI."
+}

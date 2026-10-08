@@ -1,0 +1,12 @@
+{
+  "arxiv_id": "2609.12576",
+  "contributions": [
+    {"kind": "nuance",
+     "statement": "Do not replace a domain expert with a retrieval-grounded stakeholder bot, and do not credit retrieval for the score gap: with 19 graduate students the bot condition had fewer interview-mistake points (2.52 versus 3.63) and higher feature scores (3.75 versus 2.62), but features were graded against the same roughly 700-word brief the bot was locked to while the human stakeholders extended it, and retrieval was never compared with placing that brief in the prompt.",
+     "evidence": "§4.2.2 Figs. 8-9, all 13 rubric items p<=.002, ICC .74, within-subjects n=19. §3.6: top-4 chunks of a ~700-word scenario, out-of-scope answers are 'I don't know'; no prompt-only arm. §5.1: invited stakeholders extend requirements as students ask. Experiment 1 (n=50) rated the human higher on realism (4.45 versus 3.71) and Experiment 2 did not repeat that gap. No pre/post learning measure.",
+     "strength": "weak", "novelty": "refines", "relative_to": ["retrieval grounding reduces hallucination", "2608.21531: do not accept model-drafted requirements without a check against the source text"], "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "hypothesis_only",
+  "reason": "The study shows a classroom score gap between a document-locked bot and a human role-player, not that retrieval caused it or that students learned elicitation. It can only warn the team not to treat that gap as a reason to drop the human stakeholder."
+}

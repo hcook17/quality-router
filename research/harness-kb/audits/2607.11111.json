@@ -1,0 +1,33 @@
+{
+  "arxiv_id": "2607.11111",
+  "blind_scores": {"rigor": 4, "reproducibility": 4, "generalizability": 3, "relevance": 4, "coi_risk": 0},
+  "blind_verdict": "admit_with_caveats",
+  "blind_coi_severity": "none",
+  "agreement": "partial",
+  "claims_disputed": [
+    {
+      "claim": "The gains come at modest additional cost and time",
+      "proposed_strength": "weak",
+      "reason": "Table I: GPT-5-mini goes from $0.024 and 187 s to $0.054 and 302 s (2.25× cost). DeepSeek-V3.2 is closer to modest ($0.055 to $0.073, 815 s to 1042 s). Both stay far below LingmaAgent and SWE-Debate, but the word modest does not hold for the cheaper backbone."
+    },
+    {
+      "claim": "The acquired QA knowledge is factually reliable (99.1% supported)",
+      "proposed_strength": "weak",
+      "reason": "§V-B1: 98 of 232 pairs (42.2%) are fully accurate. The 99.1% figure counts 132 pairs whose line numbers or function ownership are wrong as Supported. There is no agreement statistic, and the four master's reviewers are not identified as independent of the author list."
+    }
+  ],
+  "pattern_stance_changes": [
+    {
+      "id": "P12",
+      "from": "mixed",
+      "to": "introduces",
+      "reason": "§V-C removes the question template or replaces QA with a proposal. It never turns parallel isolated Answerers off against one Answerer, so there is no split result on sub-agent isolation. The proposal arm hurting does not isolate that pattern."
+    }
+  ],
+  "missed_issues": [
+    "§II fits the four categories on 116 SWE-bench Lite failures using the gold test patch, and the resulting mix is 70.7% mechanism, 18.1% design, 7.8% location, and 3.4% ecosystem. 'Complementary coverage' is not what that oracle distribution shows, and Lite overlaps the Verified set used for the main numbers.",
+    "The factual audit and the five-student taxonomy pass do not name the reviewers. Disagreements were resolved by discussion, so the 99.1% and the category list can be an in-group reading.",
+    "§V-D: Pass@1 peaks at N=2 (70.8%) and falls to 69.0% at N=3 while cost keeps rising. A third answer is measured as extra context that does not help, on one model and one run."
+  ],
+  "note": "The review is right that the unchanged Mini-SWE-Agent resolver makes the Table I gains attributable to the injected QA, and that the proposal ablation (66.0, below the 66.4 baseline) is a real alternative that loses. The +4.4 point claim can stay moderate: it is 22 net tasks, with 44 recoveries and 22 regressions, on one run. 'Modest cost' and '99.1% supported' are over-called. Generalizability 2 is slightly harsh for 500 issues across the SWE-bench repositories; the limit is one language, which the rubric treats as several repositories in one language. P38 and P43 as supports match the comparisons that exist. Academic authors, and the shared SWE-Debate baseline loses, so conflict severity stays none."
+}

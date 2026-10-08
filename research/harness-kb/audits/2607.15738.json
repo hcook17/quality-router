@@ -1,0 +1,35 @@
+{
+  "arxiv_id": "2607.15738",
+  "blind_scores": {"rigor": 3, "reproducibility": 1, "generalizability": 1, "relevance": 3, "coi_risk": 0},
+  "blind_verdict": "admit_with_caveats",
+  "blind_coi_severity": "none",
+  "agreement": "partial",
+  "claims_disputed": [
+    {
+      "claim": "On BILearn-CS, EduGuard has the best correctness (90.1%), grounding (89.4%), and rubric alignment (90.8%), and the lowest hallucination (4.9%) and leakage (9.8%).",
+      "proposed_strength": "weak",
+      "reason": "Table 2 correctness intervals overlap RAG+Self-Check (90.1 [87.6, 92.4] vs 88.1 [85.3, 90.6]), and rubric alignment nearly does (90.8 [88.3, 93.0] vs 86.8 [83.9, 89.4]). The three TAs who scored correctness and rubric alignment also wrote the items (§3.1, §3.6). Grounding is the only headline cell whose interval clears the next system (89.4 [86.9, 91.6] vs 83.5 [80.6, 86.2])."
+    },
+    {
+      "claim": "In a 10-student pilot, EduGuard raises post-test accuracy from 68.4% to 81.2% and cuts overreliance from 38.0% to 17.0% relative to a GPT-4o-mini tutor.",
+      "proposed_strength": "unsupported",
+      "reason": "Table 4 post-test intervals overlap (81.2 [74.4, 87.6] vs 74.2 [67.0, 81.0]) and overreliance intervals overlap (17 [8, 29] vs 38 [25, 52]). The 68.4-to-81.2 change is EduGuard's own pre/post, not the contrast with the other tutor, and the Wilcoxon test promised in §3.6 is not reported."
+    }
+  ],
+  "pattern_stance_changes": [
+    {
+      "id": "P21",
+      "from": "supports",
+      "to": "mixed",
+      "reason": "Table 5 leakage falls from 18.8 [14.5, 23.4] to 9.8 [6.6, 13.5] when rubric constraints are restored, but §5.2 says policy-based leakage is defined from the same instructor assistance labels the rubric encodes, and the separate rule-based check is never reported alone. The ablation does not isolate the guardrail from its own label."
+    }
+  ],
+  "missed_issues": [
+    "Table 6 picks τ=0.20 as the best balance on the same 600-query set as the headline, so the 4.9% hallucination figure is the tuned operating point. Over-refusal at that point is 9.7% [6.6, 13.3], and a stricter 0.10 threshold drops hallucination to 3.8% while raising over-refusal to 18.6%.",
+    "Equations 3 and 4 make grounding and hallucination near-complements of the same claim split. Table 2's 89.4% grounding and 4.9% hallucination are not two independent wins.",
+    "LPITutor-style RAG is a prompt imitation of Liu et al. 2025 (§3.5), not a run of that system, so the named baseline is not a reproduction.",
+    "P39 and P40 are untagged. Instructor-approved chunks and rubric labels are a machine-readable assistance policy (P39), and the selector's hint and refuse actions are the paper's version of clarifying questions (P40). Neither is isolated on a development task; both are proposals (introduces), not measured supports.",
+    "§3.3.2 writes the strategy selector as a formula and never says whether intent classification is rules, a trained classifier, or another model call, so the ablation cannot be reimplemented from the paper."
+  ],
+  "note": "The review is right about the part worth keeping: Table 5's non-overlapping intervals show that removing the verifier raises hallucination from 4.9% [3.4, 6.7] to 10.0% [7.6, 12.7] and removing the strategy selector raises leakage from 9.8% [6.6, 13.5] to 27.0% [21.8, 32.4], on a test the authors wrote. I lower the bundled Table 2 headline to weak because correctness and rubric alignment do not clear the next system and the raters helped write the items, and I lower the pilot claim to unsupported because both contrasts overlap at N=10. P21 moves from supports to mixed because the leakage label can be the policy being tested. P06 and P18 as mixed, and P41 as mixed rather than a learning win, match the tables. Nothing is released, the domain is introductory programming, and the pilot must not be used as an onboarding effect."
+}

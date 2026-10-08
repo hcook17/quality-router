@@ -1,0 +1,20 @@
+{
+  "arxiv_id": "2607.29637",
+  "contributions": [
+    {"kind": "anti_pattern",
+     "statement": "Do not put a generic text-token prompt compressor (LLMLingua, LongLLMLingua, LLMLingua-2, or even code-aware LongCodeZip) in front of code that a model must answer questions about or compare: at 25-39% token reduction Python snippet-QA accuracy fell from 81.0% to 60-63% and LLMLingua-2 clone-detection F1 collapsed to 3.9%, while completion edit similarity moved by only about 1 point.",
+     "evidence": "Tables I-II baseline rows against the text-only reference on the same reader (Python QA 300 items, clone 200 pairs, completion 200 per language; Java completion LLMLingua ES 57.3 vs 58.1). Caveats: incidental to the paper's purpose, single seed, snippet-level inputs rather than agent context, and baselines run by the authors with default settings.",
+     "strength": "moderate", "novelty": "refines", "relative_to": ["2605.11051", "2608.24188"], "transfers": "indirect"},
+    {"kind": "heuristic",
+     "statement": "If code is rendered as images for a multimodal model, strip indentation and blank lines and encode structure with explicit markers; this raised code-QA accuracy by up to 17 points at 8x compression on GPT-5-mini, though it lost about 5 points at 1x on that model.",
+     "evidence": "§V-C Table III: three models, 1-8x, five-run averages without spread. Not applicable to text-based agent hosts.",
+     "strength": "moderate", "novelty": "new", "relative_to": [], "transfers": "no"},
+    {"kind": "heuristic",
+     "statement": "Choose image-compression settings per input with a small learned policy rather than one fixed ratio.",
+     "evidence": "§V-D Table IV 'w/o ACC' (Python QA 81.5 to 75.0; Java clone 70.5 to 64.5) against an unspecified fixed configuration, single seed; a per-task-tuned fixed setting was not tested.",
+     "strength": "weak", "novelty": "new", "relative_to": [], "transfers": "no"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "The method itself (code rendered as images, attention-based pruning that needs model internals, an RL config agent) does not transfer to a text-based agent harness. What survives is an incidental but clean measurement: generic text-token compressors badly damage code question answering and clone judgments while barely touching completion. That refines the KB's existing warnings about context compression."
+}

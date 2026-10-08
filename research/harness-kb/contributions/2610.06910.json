@@ -1,0 +1,20 @@
+{
+  "arxiv_id": "2610.06910",
+  "contributions": [
+    {"kind": "heuristic",
+     "statement": "When a spec-first flow produces a long spec (thousands of tokens), trial handing the coding agent a short brief distilled from it (a few hundred tokens keeping identity, interfaces and controls, ordered dependencies and failure handling, sized to task complexity) against handing over the whole spec, keeping the full spec as the reference artifact, because a median 235-token brief beat its 9,136-token PRD in 85.7% of non-tied human judgments.",
+     "evidence": "§5.4.1, Table 2, Fig. 7, App D/F/G: 124 held-out greenfield React browser-game tasks, one undisclosed teacher, one rollout per condition, six blinded raters (487/176/81 pooled judgments, raw agreement 81.7%), no intervals; brief length scaled 52/235/339 tokens for Easy/Medium/Hard. Caveats: games are judged against the original seed, so dropping LLM-invented PRD detail costs nothing; the brief fully keeps only 12.1% of sampled clauses; the mechanism (instruction following vs budget exhaustion) is unmeasured; test-verified work finds that omitted constants and implicit requirements cause failures.",
+     "strength": "weak", "novelty": "refines", "relative_to": ["2605.06445"], "transfers": "indirect"},
+    {"kind": "nuance",
+     "statement": "Run the spec step (resolve flow, failure and restart states, interfaces) before writing the agent's prompt even if the prompt stays short, because at matched length (median 235 vs 227.5 tokens) a brief distilled from a full spec beat a one-shot rewrite of the raw request in 86.6% of non-tied judgments (606/44/94).",
+     "evidence": "§5.4.1, Table 2, App D. Caveats: the rewrite was produced by a different model (DeepSeek-V4-Flash-Vision-Exp) without the validator and revision loop the brief received, so pipeline effort is confounded with spec-first planning; one teacher, one rollout, creative domain, human preference rather than tests.",
+     "strength": "weak", "novelty": "refines", "relative_to": ["2606.05920"], "transfers": "indirect"},
+    {"kind": "anti_pattern",
+     "statement": "Do not accept a spec-to-brief compression on a compression or 'density per token' ratio; audit each brief against the spec's acceptance clauses and report absent clauses, because GameGo's 44x compression reported a 3.79x density gain while 25.7% of sampled clauses were absent, 62.2% only partial, and 56 of 124 tasks kept no clause completely.",
+     "evidence": "App G, Table 6: AI-assisted audit of 927 sampled PRD clauses (one annotator pass, no human validation of labels); density counts only complete clauses, so heavy compression alone pushes the ratio above 1 (68/124 tasks). Caveat: in this domain the omissions did not hurt human preference, so the cost of omissions is shown only in other, test-verified studies.",
+     "strength": "weak", "novelty": "refines", "relative_to": ["2605.11051"], "transfers": "direct"}
+  ],
+  "quantity_flags": ["numbers_without_mechanism"],
+  "proposed": "hypothesis_only",
+  "reason": "The fine-tuning recipe and benchmark gains do not transfer to a team that does not train models. The one transferable signal is the 124-task representation ablation: a short brief distilled from a long LLM-written spec beat both the spec and a same-length rewrite. It comes from greenfield game generation judged by preference against the seed, with one undisclosed teacher, one rollout and no failure analysis. It refines the KB's over-specification finding but should be trialled with an omission audit, not used as a gate, because test-verified studies show omitted parameters cause failures."
+}

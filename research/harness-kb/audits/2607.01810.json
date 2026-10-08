@@ -1,0 +1,22 @@
+{"arxiv_id": "2607.01810",
+ "blind_scores": {"rigor": 4, "reproducibility": 2, "generalizability": 3, "relevance": 2, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "partial",
+ "claims_disputed": [
+  {"claim": "Agent adoption does not crowd out newcomers; inflow rises modestly.",
+   "proposed_strength": "weak",
+   "reason": "The 'inflow rises' half is disclaimed by the paper itself: §V-A says the authors 'stop short of asserting a positive causal effect', the per-project-trend specification gives -1.5% (n.s.), and honest-DiD at M=0.5 spans [-10.3%, +18.3%]. The 'no crowding-out' half alone would be moderate, but the claim as worded asserts an increase the evidence does not support."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P17", "from": "introduces", "to": "neutral",
+   "reason": "Readability linting appears only as one suggested 'lever' in the §VI-B tool-builder paragraph. Nothing is built, configured or used in the study, so this is a mention, not an introduction."}
+ ],
+ "missed_issues": [
+  "The §VI-B claim that the complexity cost is 'tunable, not fixed' because of a 'fourfold gap that lives in setting and usage, which a vendor can influence' is unsupported: it compares this paper's +10.8% with He et al.'s +41% across different corpora, filters and metric implementations, which §II-A and §VI-A admit may contribute.",
+  "RQ3 'decoupling' (§V-C) is not a mediation or dose-response test. It re-estimates average newcomer effects on the same units but never relates each project's complexity change to its newcomer change, so heterogeneity (projects with large complexity rises losing newcomers) is not excluded.",
+  "The power statement (§VII, 3.4% inflow MDE, 4.8-4.9 pp retention MDE) is for the 603-project identified sample. The Python RQ3 subset has only 128 treated projects and no MDE is reported, so the Python decoupling null is much weaker than the headline power suggests.",
+  "No multiple-comparisons correction across roughly ten outcomes and three estimators (§VII admits this). The only significant beginner-task result (+27% good-first-issues) rests on 92 projects with untestable pre-trends.",
+  "The cyclomatic placebo (adoption moved 12 months early) is itself significant at +1.6% (p=.026, Table IV), so part of the all-language complexity rise predates adoption. The trend-robust +3.3% is the number to use, not the raw +4.3%.",
+  "Java share is never quantified (§IV-B ranks it seventh among primary languages) and the cognitive metric is Python-only, so the only number that covers Java is the pooled all-language cyclomatic estimate."
+ ],
+ "note": "My blind scores match the review exactly; I would caveat rather than admit outright. The DiD design is unusually careful (three staggered estimators, placebo, honest-DiD, explicit MDE), so the 'no detectable crowding-out of OSS newcomers' finding is credible within established projects. But the 'inflow rises' wording, the vendor-tunability claim and the Python RQ3 null go beyond what Tables III-IV support. P17 was only mentioned, not introduced. For this team the transferable result is the modest trend-robust complexity cost, not the newcomer finding, because the team's new developers are assigned employees, not volunteers."}

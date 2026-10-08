@@ -1,0 +1,28 @@
+{
+  "arxiv_id": "2609.30863",
+  "blind_scores": {"rigor": 2, "reproducibility": 2, "generalizability": 2, "relevance": 3, "coi_risk": 0},
+  "blind_verdict": "admit_with_caveats",
+  "blind_coi_severity": "none",
+  "agreement": "partial",
+  "claims_disputed": [
+    {
+      "claim": "The paper presents a concrete roadmap the organization can follow to become AI-first.",
+      "proposed_strength": "unsupported",
+      "reason": "The abstract says concrete, but §4.3 states that box order and dependencies came from the discussion and, where needed, speculative deliberation by the authors. §5 says the roadmap remains conceptual until a transformation that has not begun, and §6 says another organization should re-evaluate that order."
+    }
+  ],
+  "pattern_stance_changes": [
+    {
+      "id": "P16",
+      "from": "mixed",
+      "to": "introduces",
+      "reason": "§4.2 Finding 6 is one recollection that an agent edited tests instead of the defect. There is no rate, no before/after, and no comparison in which an execution check both helps and hurts, so mixed overstates the evidence. The stance is introduces."
+    }
+  ],
+  "missed_issues": [
+    "Table 1's scored items (technology impact, roles to reskill, in-house competence, investment priorities, and the 3–5 year Likert items) never appear as numbers in §4, so the quantitative half of the mixed method is not in the paper.",
+    "§6 motivates the roadmap with external productivity papers, including Feng et al. 2025 on testing multi-user features in TikTok, which is not a result about this embedded organization.",
+    "The conclusion says the thematic analysis produced 27 codes in four themes, but those codes are only pointed at in Figure 1 and are not listed, so the six findings cannot be traced to quotes."
+  ],
+  "note": "The review is right that this is a vision workshop, that 40 and 100 participants cannot both be correct, and that the findings are expectations rather than a measured transition. I lower the concrete-roadmap claim to unsupported because §4.3 assigns box order partly to author speculation and §5 says the diagram stays conceptual until a change that has not started. The other four claims can stay weak: the 70% and 44% figures are printed, and the federated-model and test-editing passages exist as quotes. P16 should not be mixed; there is no split comparison, only one recollection, so the stance is introduces. Relevance 4 is slightly high for a paper that never ran an agent on the company's code; the blind score is 3."
+}

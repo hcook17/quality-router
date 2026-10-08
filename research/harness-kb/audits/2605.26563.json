@@ -1,0 +1,31 @@
+{
+  "arxiv_id": "2605.26563",
+  "blind_scores": {"rigor": 4, "reproducibility": 4, "generalizability": 3, "relevance": 3, "coi_risk": 0},
+  "blind_verdict": "admit_with_caveats",
+  "blind_coi_severity": "none",
+  "agreement": "partial",
+  "claims_disputed": [
+    {
+      "claim": "TrajAudit beats the strongest baseline by 10.8 and 21.6 percentage points in exact step accuracy with and without a reference patch",
+      "proposed_strength": "weak",
+      "reason": "Table II scores context-window overflows as total failures (All-at-Once 3, Binary Search 2, TRAIL 1), and §VI-B feeds FAMAS extra failed traces when no successful contrast exists. The gaps are one temperature-0 run on the authors’ own filter from 500 traces to 102. They are computed correctly on that set and are not a stable effect."
+    },
+    {
+      "claim": "Both semantic saliency folding and the test-failure prior are necessary",
+      "proposed_strength": "weak",
+      "reason": "Table VII is Claude Sonnet 4.5 only, one run. Dropping the prior (−17.7 points) or the fold (−13.8 points) shows those modules help that configuration. §VII-D never compares the tool-using investigator with a single pass over the same folded trace, so “necessary” is stronger than the ablation."
+    },
+    {
+      "claim": "RootSE labels are reliable causal steps",
+      "proposed_strength": "weak",
+      "reason": "Cohen’s kappa 0.78 in §IV-C is the step index before arbitration. The 30/30 replay used repairs written by the same annotators, and 72 of 102 labels were not replayed. §IX says this does not prove the step is the only cause. The 500-to-102 filter (unambiguous task, exactly one failing test) removes the cases where a single earliest step is hardest to name."
+    }
+  ],
+  "pattern_stance_changes": [],
+  "missed_issues": [
+    "Table II shows the reference patch lowers TrajAudit from 52.0% to 49.0% while raising All-at-Once, Step-by-Step, Binary Search, and TRAIL. The abstract’s +10.8 point with-reference gap is the setting where this method is relatively worse.",
+    "§IV-D1 marks 42 of 102 failures as localization-phase, but §VII never reports exact-step accuracy by that phase. §VIII only bins by position: accuracy is 19–26% when the labelled step is in the first 20% of the trace, and 81% of misses are late by 14.5 steps on average. An early exploration or planning error is the slice the method is weakest on, and it is not scored as its own phase.",
+    "The largest ablation drop is the test-failure prior, 52.0% to 34.3% exact accuracy (Table VII), which is the execution-signal pattern the review did not tag. Folding is the smaller accuracy drop and the larger token drop."
+  ],
+  "note": "I agree that the paired gaps, the McNemar tests, and the 93.3% human check of 180 justifications are the parts that hold, and that early planning mistakes are the operational failure. My blind rigor of 4 was too high: the review’s 3 fits one run on a self-built, heavily filtered set, with baselines not re-run on the five Table VI models. I lower three claims the review left at moderate. I do not change P08 or P30; folding and the audit comparison do beat the alternatives they actually ran, on accuracy, on this set. Relevance 3 is right: this is log audit after a failed run, there is no Java, and ambiguous tasks were removed before scoring."
+}

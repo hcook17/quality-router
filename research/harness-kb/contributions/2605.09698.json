@@ -1,0 +1,20 @@
+{
+  "arxiv_id": "2605.09698",
+  "contributions": [
+    {"kind": "heuristic",
+     "statement": "Let the harness, not the agent, decide when a clarifying question is mandatory: give the spec template required framing slots (target field or entity, success metric, output form) and block implementation with a required question to the requester when a slot is empty, because agent-decided asking was miscalibrated (permissive 'ask if unsure' prompts asked on 33-100% of fully specified tasks; conservative prompts asked on 0-16% of metric-ambiguous tasks for four of five models), while one answered question recovered about 60-100% of the score lost to the missing framing.",
+     "evidence": "Table 1: Delta_ambig -0.04 to -0.29 and Delta_ask +0.03 to +0.20, paired Wilcoxon p<0.05 in all 10 cells, bootstrap CIs in Table 12. Table 13: ask rates by policy; only Gemini 3.1 Pro under the conservative policy is near-calibrated on both suites. The oracle is truthful and scoped (upper bound), runs are single per cell, the ambiguity is synthetic, and the tasks are Python data science. The deterministic slot check itself is not tested here.",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["P40 agent asks clarifying questions before implementing", "P34 structured requirements and acceptance criteria", "2607.02294 coding agents guess under underspecified DevOps tasks"],
+     "transfers": "indirect"},
+    {"kind": "nuance",
+     "statement": "Do not rely on an agent's final summary to surface the interpretation it chose for an ambiguous requirement; require an explicit assumptions section that a reviewer can override, because agents flagged their choice as overridable in at most 4% of ambiguous runs even when up to 64% of their traces explicitly noted the ambiguity.",
+     "evidence": "App. C.5 Table 10: LLM-judged recognition audit over all Ambiguous-condition runs; Target trace explicit acknowledgment 0-64% by model, overridable flag 0-4%; Objective trace acknowledgment below 10% and overridable 0% everywhere. Judge validated for the Objective framing labels (kappa 0.74 cross-family, 5.9% human override, App. C.4) but not separately for this audit, and whether a required assumptions section fixes it is untested.",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["P40 clarifying questions", "2608.09072 agent plans rarely state constraints and validation"],
+     "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "A within-task paired design shows that the missing framing information is what costs agents, and that a single answered question recovers most of the loss. Prompt-worded ask policies cannot decide when to ask, which argues for a deterministic required-slot check before implementation. The 'assumptions are silently made' finding is the second actionable item. Both transfer only indirectly from Python data-science tasks with an idealized oracle."
+}

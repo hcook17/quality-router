@@ -1,0 +1,28 @@
+{
+  "arxiv_id": "2607.11046",
+  "blind_scores": {"rigor": 4, "reproducibility": 4, "generalizability": 4, "relevance": 4, "coi_risk": 0},
+  "blind_verdict": "admit_with_caveats",
+  "blind_coi_severity": "none",
+  "agreement": "partial",
+  "claims_disputed": [
+    {
+      "claim": "In Agentless, role summaries plus ranking reach 94% Hit@6 (+4.7%)",
+      "proposed_strength": "weak",
+      "reason": "Table 8 is one SWE-bench Verified run: 0.898 to 0.918 when role summaries are added (+2.2% relative) and 0.940 only after a further ranker over up to 18 candidates. Hit@6 credits any one gold file, and the ranking calls are not costed, so +4.7% is not an isolated role-summary effect."
+    }
+  ],
+  "pattern_stance_changes": [
+    {
+      "id": "P43",
+      "from": "mixed",
+      "to": "introduces",
+      "reason": "The grid compares file representations, not an exploration agent against a non-agent control. §7.1 inserts summaries into Agentless file localization; that uses the pipeline and does not isolate it, so mixed overstates a split result."
+    }
+  ],
+  "missed_issues": [
+    "§4.2 says role-aware summaries, detailed summaries, and raw source 'show consistent gains over all models on both datasets' in the same subsection where Qwen3 role summaries tie file paths on SWE (Hit@5 0.626) and bug-report summaries lose in every cell.",
+    "§8 records ten SWE-bench file-summary runs that crashed Ollama as empty rankings and leaves them in the denominator, which pulls the summary condition down. Summary quality itself is never checked by a person; one GPT-OSS-20B model wrote every summary.",
+    "§6.1 fixes the ranking pool to the top 20 files from the path representation, so the +42% Hit@5 cannot include files that only raw source or a summary would have retrieved."
+  ],
+  "note": "The review's reading of the grid is the right one: the abstract's 40%, 31.9%, and 42.0% figures are maxima, role summaries lose to raw source on several SWE cells, fusion is often negative, and Hit@5 credits one gold file. Those claims can stay at the review's grades except the Agentless 94% line, which stacks two changes into one relative percentage. Rigor 3, generalizability 3, and relevance 3 are a bit harsh. The study covers BM25, four embedders, and three coder sizes, releases prompts and outputs, and includes 50 Java tasks in Long Code Arena, which is enough to inform what an exploration index should store even without a per-language split. Concordia authorship is independent."
+}

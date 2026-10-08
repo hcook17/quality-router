@@ -1,0 +1,29 @@
+{"arxiv_id": "2606.22906",
+ "blind_scores": {"rigor": 3, "reproducibility": 2, "generalizability": 3, "relevance": 4, "coi_risk": 2},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "partial",
+ "claims_disputed": [
+   {"claim": "Location, adaptive compression, implicit relations and metadata-first promotion each contribute, and the full pipeline is best.",
+    "proposed_strength": "weak",
+    "reason": "Table III is one unlabeled host and one point per variant. The full-pipeline 85.8% matches the Codex large DeepDiscovery mean in Table II, whose three-run band is 80.0–90.0, so the drops to 83.3, 82.2, and 81.5 sit inside ordinary run noise. Location-only at 80.0% is below that host's native 84.2%."}
+ ],
+ "pattern_stance_changes": [
+   {"id": "P39", "from": "supports", "to": "mixed",
+    "reason": "The metadata-first drop is 85.8% to 82.2% in Table III, smaller than the Codex large DeepDiscovery run band (80.0–90.0) in Table II, so the ablation does not show the cards winning."},
+   {"id": "P07", "from": "supports", "to": "mixed",
+    "reason": "Implicit relations drop full recall only 85.8% to 83.3% on one point, and Table I's edge over AST+GraphRAG (92.6% vs 90.4%) sits inside overlapping three-run ranges (88.9–96.3 vs 87.2–94.4)."},
+   {"id": "P08", "from": "supports", "to": "mixed",
+    "reason": "Removing adaptive compression drops Table III from 85.8% to 81.5% with no repeats. That gap is inside the three-run band of the matching large-set host in Table II."},
+   {"id": "P02", "from": "supports", "to": "introduces",
+    "reason": "Selective full-text promotion is not skills loaded on demand, and the only comparison is the same unreplicated metadata-first cell in Table III."},
+   {"id": "P06", "from": "contradicts", "to": "mixed",
+    "reason": "Table I RAG full recall 84.4% (81.5–88.9) meets native Claude Code at the top of its range (85.2–92.6) after a 7-hour, 2.26-billion-token index. That one offline stack loses on the mean; it does not show embedding retrieval hurts in general."}
+ ],
+ "missed_issues": [
+   "Table I's Claude Code native cell is 88.9% (85.2–92.6) on the 27 medium tasks, but Table II's Claude Code native medium cell on the same task count is 88.2% (86.4–92.2). Those are presented as the same condition and do not match.",
+   "Section V-A says coarse localization by compression takes about 70 seconds, against about 225 seconds for broad search, while Table I records DeepDiscovery task-time execution at 13.2 seconds. The two cost stories are not the same measurement.",
+   "Section IV-B gives no inter-annotator agreement for the gold file sets. It only says slight expert variation remains possible, on 135 medium and 240 large gold files.",
+   "RQ5 and Table IV treat six products as a model-robustness check, but model and scaffold are tied together. The large-set gains are +9.2 for Cline on Sonnet 4.5 and +2.5 for Claude Code on Opus 4.6, so the paper does not separate backend from agent workflow.",
+   "The Location score in §III-C includes a domain-lexicon and framework-idiom rule library aimed at this codebase's configuration and injection patterns. The internal full-recall edge over generic GraphRAG can be idiom match, which the 'annotations predate the method' sentence in §IV-B does not rule out."
+ ],
+ "note": "The review is right on the load-bearing problems: Table I ranges overlap, Table IV's medium gains disagree with Table II, the OpenCode medium 90.2% (82.6–91.2) cell cannot be a three-run mean, micro precision stays near 10%, and the SWE-bench host is unnamed while the introduction calls 70.4% the best baseline. I agree that P43 is mixed and that the paired 352/500 to 393/500 result (McNemar p<0.01) is the part worth keeping, at moderate rather than strong. I do not agree that Table III supports metadata cards, graph relations, compression, or progressive disclosure: those drops are single points inside the run band of the host they appear to match. Employer control of the labels justifies a real conflict; I would not call it high, because Qoder with Qwen is one of six hosts and not the one with the largest gain."}

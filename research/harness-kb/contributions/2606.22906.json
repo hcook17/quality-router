@@ -1,0 +1,18 @@
+{"arxiv_id": "2606.22906",
+ "contributions": [
+   {"kind": "nuance",
+    "statement": "When a change is localized to one module, do not spend the context budget on a repository-wide expansion pass: on SWE-bench Verified the matched context swap added 17 solves on django and none on matplotlib, pylint, seaborn, and flask, inside an overall move from 352/500 (70.4%) to 393/500 (78.6%).",
+    "evidence": "§IV-D RQ4 and Fig. 3, paired McNemar p<0.01. Caveats: the host agent and model are never named, there is one protocol and no repeat, and §I calls 70.4% the best baseline while §IV-B says it is the matched native context builder.",
+    "strength": "moderate", "novelty": "refines",
+    "relative_to": ["2606.07297: score repository exploration separately from end-to-end resolve", "2607.11111: pre-repair repository exploration before the patch", "2608.29675: file-set recovery as its own stage before patching"],
+    "transfers": "indirect"},
+   {"kind": "constraint",
+    "statement": "Do not accept a file-recovery plugin on full-recall alone when micro precision stays near 10%: on the 27 medium tasks every method, including DeepDiscovery at 92.6% full recall, kept a predicted set in which about nine of ten files were outside the expert gold set (micro precision 10.0–11.3%).",
+    "evidence": "Table I and §IV-C. The same band appears across six hosts in Table II (about 8.9–11.9%). Caveats: three-run min–max only, one company's tasks, gold sets average about five files (135/27), and ranges for full recall overlap the strongest baselines.",
+    "strength": "moderate", "novelty": "refines",
+    "relative_to": ["2607.26072: a retriever can look on-topic while missing the facts the task needs", "2608.29675: strict file-set recovery is a different bar from a top-k hit"],
+    "transfers": "indirect"}
+ ],
+ "quantity_flags": [],
+ "proposed": "keep",
+ "reason": "What survives is a boundary, not the abstract's point ranges. Use a structured expansion pass on cross-file tasks, and require a precision cap beside full-file recall, because every reported method sits near 10% micro precision. The component ablation and the Table IV medium deltas do not survive."}

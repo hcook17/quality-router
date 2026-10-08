@@ -1,0 +1,26 @@
+{
+  "arxiv_id": "2607.23088",
+  "contributions": [
+    {
+      "kind": "heuristic",
+      "statement": "Put explicit security and exposure requirements (authentication, credential and data handling, public vs internal exposure, framework versions) into every spec handed to a code-generating model, because requests that omit them produced vulnerable code in about two-thirds of outputs.",
+      "evidence": "§3.2 Fig. 3(b): SC1 ambiguous requirements 66% vulnerable, every model above 56%. Figure-only results, labels from GPT-5-assisted expert review with no protocol or agreement, no functional check, dataset unreleased.",
+      "strength": "weak",
+      "novelty": "restates_known",
+      "relative_to": ["2607.17619 appending security requirements cut vulnerabilities 19.7-33.6 pp", "2606.25195 write security requirements as executable negative tests rather than principle text"],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "nuance",
+      "statement": "Expect security guidance to flip some previously secure outputs to vulnerable when the request itself conflicts with secure practice (regression up to 19%, net gain 0.12), so re-run security checks after adding guidance rather than assuming monotonic improvement.",
+      "evidence": "§3.3, SC3 only: text numbers backed by a figure, same labelling caveats, and the SC3 treatment rewrites the request.",
+      "strength": "weak",
+      "novelty": "duplicates",
+      "relative_to": ["2605.29737 spec and prompt edits flip generated code between secure and vulnerable"],
+      "transfers": "indirect"
+    }
+  ],
+  "quantity_flags": ["numbers_without_mechanism"],
+  "proposed": "drop",
+  "reason": "The poster restates the established finding that under-specified prompts yield insecure code and that stating security requirements helps. Its numbers rest on unreleased data and an unauditable labelling protocol, and it gives no per-weakness mechanism, so nothing survives as a contribution."
+}

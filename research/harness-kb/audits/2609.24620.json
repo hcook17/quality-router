@@ -1,0 +1,21 @@
+{"arxiv_id": "2609.24620",
+ "blind_scores": {"rigor": 3, "reproducibility": 3, "generalizability": 2, "relevance": 3, "coi_risk": 1},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "partial",
+ "claims_disputed": [
+  {"claim": "Reflection prompting adds cost without consistent accuracy gains",
+   "proposed_strength": "weak",
+   "reason": "The cost half is measured (Table 2: +27% calls, +13% runtime). The 'no consistent gains' half rests on per-configuration differences of -4 to +9 pp, from single runs, with no per-configuration CI or test. At n=153-156 and accuracy near 75%, one standard error is about 3.5 pp, so most of these differences are inside noise. The review itself says few-point differences are uninterpretable, which contradicts grading the claim moderate. The average reflect change is about +2 pp on both schemas, which cannot be told apart from either 'no gain' or 'small gain'."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P16", "from": "mixed", "to": "introduces",
+   "reason": "No comparison isolates execution-error self-healing (with vs without repair). The note's evidence is the qualitative §6 lesson that consequential errors passed execution. That limits execution success as a correctness gate, but it is not a split isolating comparison, so the stance should be 'introduces'."}
+ ],
+ "missed_issues": [
+  "The review reads the 'no scaffold' arm (Table 2) as 'accuracy unchanged', but OMOP plain went 75% -> 84% and runtime fell in every cell (native plain 565 s -> 197 s) despite 1.5-2.1x more top-level calls. The specialized text-to-SQL tools hide nested LLM calls (Opus 4.8 / Gemini 3.6 Flash inside the service, §3.2), so per-question 'Calls' undercounts model work in the scaffolded arms. This is also evidence on P33 (agent writes raw SQL rather than calling bespoke generators), which the review did not tag: with one frontier model, raw access tied or beat the scaffold at lower latency. It is one framework and one run.",
+  "'Capable models' is a post hoc grouping (§5.2): the +26.7/+20.4 pp averages are taken over the ten Sonnet 5 and DeepSeek configurations after gpt-oss is set aside. The lower CI bounds (18.7, 13.3) are far from zero, so the direction holds. But with a weak model the agent loop can do worse than the fixed pipeline (Strands gpt-oss plain 38% vs 50% native), which the review's 'ties with gpt-oss' understates.",
+  "EpiTrap passes a response if its logic avoids one designated error (§4), and the paper itself says accuracy is an upper bound on end-to-end correctness. The 75-84% levels therefore say nothing about whether the numbers returned were right. Only the between-configuration differences are interpretable.",
+  "The trap set was built by LLM-assisted literature search, with LLM-drafted questions and rubrics edited by the authors (§4). No external epidemiologist reviewed the rubrics, so the benchmark encodes the authors' view of which errors matter.",
+  "COI calibration: the review's 'medium' overstates it. Bayer is not an AI vendor, Ascent is released openly, and every headline comparison is between configurations of the same system with third-party models. That is self-evaluation bias, which is already recorded, rather than a commercial conflict, so 'low' fits the rubric anchor ('vendor affiliation alone is low')."
+ ],
+ "note": "I agree with admit_with_caveats and with rigor 3, generalizability 2 and relevance 3. My reproducibility 3 vs the review's 2 is a judgment call: code and questions are released but the Optum data is not, and the merge takes 2. On COI I disagree: the review's medium is too harsh for an open-sourced in-house system compared only against its own configurations. The merge will keep medium. On patterns I agree with P10/P36 mixed, since my blind pass reached the same split by model capability. P16 should be 'introduces', because no with/without self-healing comparison exists. I also lower the reflection claim to weak, because its 'no consistent gain' half is single-run noise by the review's own reasoning. The review missed that the 'no scaffold' arm was faster and 9 pp better on OMOP plain, which is evidence on P33 that was never tagged."}

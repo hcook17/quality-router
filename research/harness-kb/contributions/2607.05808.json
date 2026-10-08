@@ -1,0 +1,18 @@
+{"arxiv_id": "2607.05808",
+ "contributions": [
+   {"kind": "heuristic",
+    "statement": "If new developers can dictate a task to the coding agent, require an edit of the transcript before it is sent: unedited speech had about half the odds of first-try success versus typing on two of three short problems (P1 OR 0.50, 95% CI 0.27–0.89; P2 OR 0.43, 95% CI 0.23–0.83), while edited transcripts were not separated from typing.",
+    "evidence": "Table 1 and §4.1, GPT-4o-mini unit tests, Whisper with no domain prompt. Caveats: modality was self-selected, voice cells are n=51 and n=40 against about 830 typed prompts, P1 p=0.02 does not survive a three-test Bonferroni cut, P3 is null (p=0.378), and the tasks are single C functions.",
+    "strength": "moderate", "novelty": "refines",
+    "relative_to": ["known practice: speech is less controllable than text for precise entry (Korkmaz et al. 2024, cited in §2)", "2609.27973: early-career engineers still have to check and revise LLM output"],
+    "transfers": "indirect"},
+   {"kind": "nuance",
+    "statement": "Do not treat that first-try voice gap as a failed task: on problem 1, 48 of 51 unedited-voice students still eventually passed, and mean messages until success were 1.69 versus 1.71 for text.",
+    "evidence": "Table 1, N(success) versus the immediate-success proportion, and the Messages until Success column. §6 says the tasks may be too short to compare modalities and that causality was not established.",
+    "strength": "weak", "novelty": "refines",
+    "relative_to": ["2605.16933: attempts-to-solution under different programming feedback, not input modality"],
+    "transfers": "indirect"}
+ ],
+ "quantity_flags": [],
+ "proposed": "hypothesis_only",
+ "reason": "The first-try association is real enough to remember if someone proposes dictation, and too confounded to steer the harness: students chose the modality, the tasks are toy C functions, and §5's claim that speaking would deepen learning was never measured."}

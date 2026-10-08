@@ -1,0 +1,14 @@
+{"arxiv_id": "2605.09698",
+ "blind_scores": {"rigor": 4, "reproducibility": 3, "generalizability": 2, "relevance": 3, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "agree",
+ "claims_disputed": [],
+ "pattern_stance_changes": [],
+ "missed_issues": [
+  "On the Target suite the decoy is calibrated to be indistinguishable from the true target (App. C.2), so any agent that commits without asking picks the wrong column about half the time by construction. The 39-63% alternative-target rate (Table 2) therefore measures the construction more than the agents; the informative number is the 0-4% overridable-flag rate in final answers (Table 10).",
+  "On the Objective suite the dominant silent failure for three of five models is abdication, a degenerate baseline or constant submission (GPT-5.4 Nano 49%, Gemini 3.1 Pro 33%, Claude Haiku 4.5 21%), not commitment to a plausible alternative metric (5-18%, Table 3). Ask leaves abdication almost unchanged (46% and 33% for Nano and Pro), so 'one question recovers the loss' does not cover this failure mode.",
+  "The Ask condition also forces a stop after data inspection and before modeling (§4.4). There is no control in which the agent asks and receives an empty answer, so Delta_ask bundles the oracle's information with a forced pre-modeling checkpoint, although the drop of alternative-objective runs to 4% or less under Ask points to the information as the main driver.",
+  "Full-task scores under the Ask channel are not reported, so the cost of the 33-100% unnecessary asks under the permissive policy (Table 13) is unmeasured in score, time or human effort.",
+  "P39 (machine-readable domain context) also applies: the Target manipulation removes column semantics (renaming the target to val_1/val_2 and adding a decoy), and the 0.10-0.29 score drop (Table 1) shows how much framing the column names alone carried. This is a by-construction contrast, but it is the clearest data-contract ablation in the paper."
+ ],
+ "note": "I agree with admit_with_caveats and with the review's claim grades and pattern stances; it already flags the idealized oracle, the uncharged over-asking and the by-design Target drop. My scores differ by one point each on reproducibility (prompts are printed in App. G even though no repository URL is given) and relevance (Python data-science framing rather than service specs). Where I would tighten the reading: the Target misframing rate is near chance by construction, so the robust finding is that final answers almost never flag the assumption (at most 4%). On Objective, abdication rather than misframing is the main silent failure, and a clarifying question does not fix it. P40 as 'mixed' is right: the ask channel wins on score in all ten cells, but prompt-only policies cannot decide when to use it."}

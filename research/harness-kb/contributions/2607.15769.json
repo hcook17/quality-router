@@ -1,0 +1,20 @@
+{
+  "arxiv_id": "2607.15769",
+  "contributions": [
+    {"kind": "design_pattern",
+     "statement": "For agent-prepared changes, have the agent run a deterministic path-to-risk classifier from a committed manifest and fill a structured evidence package (risk label, test command and result, gate status, maintainer review pending) that a script validates before a human confirms it, and re-run the listed commands in CI because the validator only checks that the fields are filled; in this controlled check 45 of 45 final packages carried the correct risk label, gate and review states and 41 of 45 passed strict schema validation.",
+     "evidence": "§7.5 and Supplementary S7 (Fig. S2A, validation rule, draft-to-final audit); Table S25 for the deterministic classify_risk_zone, validate_evidence_package and review-packet scripts. Caveats: 15 participants, three author-built tasks in one Python demo repository and no comparison arm. The four failures were missing command/result or boolean gate fields. The validator does not re-execute evidence (S8: not an anti-fraud guarantee). Human confirmation changed no content in any of the 45 tasks. Some agents skipped the confirmation pause unless prompted (§7.5, no count given).",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["PR templates and assurance-case evidence checklists", "P21 policy-as-code permissions / guardrails", "2608.23550 (move instruction-file rules into enforced checks and hooks)"],
+     "transfers": "indirect"},
+    {"kind": "nuance",
+     "statement": "Commit a path-to-risk map that both the reviewing agent and the human see, rather than expecting an agent-assisted reviewer to work out from the diff and PR text that a change touches authentication, dependency or CI-workflow paths: without one, reviewers rated 22 of 37 changes below the project's label (6 of 8 authentication/dependency, 7 of 7 CI-workflow) and none above, while all 7 documentation changes were rated correctly.",
+     "evidence": "Tables S36-S37 and S41 (ordinary-material arm). 11 of 37 outputs were two or more levels low, and 13 of 15 participants under-rated at least once. With the map, 37 of 38 labels were exact (§7.2), but the map supplied the label, so that arm is near-circular. Caveats: the four-level scale and reference labels are the authors' own and were not shown to the ordinary arm; five author-built tasks on one Python demo; agent tools and models uncontrolled; no prose-rules control, so a CODEOWNERS file or a CONTRIBUTING section may do as well.",
+     "strength": "weak", "novelty": "refines",
+     "relative_to": ["P39 machine-readable domain context", "path-based review routing (CODEOWNERS, protected paths)"],
+     "transfers": "indirect"}
+  ],
+  "quantity_flags": ["renamed_known_idea"],
+  "proposed": "keep",
+  "reason": "Only the contributor-side feasibility check supports a moderate, transferable result: off-the-shelf agents can fill a manifest-backed, deterministically validated evidence package correctly, provided its test evidence is re-executed elsewhere. The headline reviewer-side gain is near-circular because only the treatment arm received the labels, so all that is kept from it is the ordinary arm's one-sided under-rating of sensitive changes, as a weak nuance. The 50-repo audit adds descriptive prevalence only, and AGM largely repackages CODEOWNERS, PR templates and policy checks."
+}

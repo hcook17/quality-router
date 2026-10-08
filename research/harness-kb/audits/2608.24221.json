@@ -1,0 +1,21 @@
+{"arxiv_id": "2608.24221",
+ "blind_scores": {"rigor": 3, "reproducibility": 4, "generalizability": 2, "relevance": 3, "coi_risk": 1},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "partial",
+ "claims_disputed": [
+  {"claim": "DeepRepoQA outperforms state-of-the-art ReAct-style agents on all backbones (largest gain 7.08 over SWE-agent on Qwen3-Coder)",
+   "proposed_strength": "weak",
+   "reason": "Table 2 margins over the best agent per backbone are +0.88, +3.41, +2.10 and +4.67. They come from one run per cell with MCTS exploration at temperature 0.7, on the authors' own benchmark and rubric. App. C.4 reports a human-vs-LLM system-ranking Spearman of only 0.900 over 6 systems, so the two panels order at least one pair differently. That human check covers only GPT-5.1 answers, where SWE-agent and OpenHands sit 1.17 apart. Sub-5-point gaps are therefore not resolved by this judge, and 'outperforms on all backbones' is a point-estimate statement."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P05", "from": "neutral", "to": "introduces",
+   "reason": "AST name lookups (FindClass/FindFunction/FindCodeSnippet with file_pattern) are core actions of the proposed system (§3.1-3.2, Table 1), and the lexical-only arm keeps 63.36 of 64.43 (Table 3). The paper uses and relies on the pattern without isolating it against a semantic-only arm, which is 'introduces', not 'neutral'."}
+ ],
+ "missed_issues": [
+  "Direct prompting with no repository access already scores 50-52/100 (Table 2), and Relevance and Clarity sit at about 13-17/20 for every method including Direct. About half the 0-100 scale therefore rewards fluent generic text, and the effective spread is mostly Correctness, Completeness and Reasoning. Clarity has Krippendorff alpha 0.32-0.41 (Table C1).",
+  "The three human experts in App. C are not identified (affiliation, independence from the authors, blinding to system identity are not stated), although the benchmark, rubric and judge prompt are the authors' own.",
+  "The App. E.3 success patterns (100% of answers scoring >=73 reached the correct file within two hops; 80% used symbol-anchored lookups; ViewCode before Finish 'strongly correlated' with Correctness) come from manual inspection of selected trajectories with no denominators or test. They are outcome-selected correlations, not evidence that adding these steps raises accuracy.",
+  "Uncontrolled conflict with sibling 2608.01507 on the same SWE-QA question set: there, a ReAct agent with vector search beat a grep-plus-subagent agent on every model, while here removing SemanticSearch from the agent costs only 1.07 points. Both agree that agentic exploration beats one-shot RAG but disagree on how much embeddings matter inside the agent, and the paper does not discuss it.",
+  "Against the better RAG baseline, the plain ReAct agent OpenHands gains only +1.2 (Qwen3-Coder) and +1.4 (GPT-5.1), versus +7-8 on GLM-4.6 and Kimi K2 (Table 2). The agent-over-RAG advantage is backbone-dependent and much of DeepRepoQA's edge on strong coders comes from its evaluation step (Table 3: -3.50 without it)."
+ ],
+ "note": "I agree with the review's scores (my relevance is 3 rather than 4 because nothing tests cross-repo questions or Spring wiring), its verdict, and most stances, including P43 'supports' for exploration agents over one-shot embedding RAG. I lower the headline 'outperforms ReAct agents on all backbones' from moderate to weak. The margins are single-run point estimates below the resolution of the judge panel, which the paper's own App. C.4 ranking agreement (rho 0.900) exposes. I upgrade P05 from neutral to introduces because AST symbol lookup is a core, relied-upon component, even though it is not isolated. The review was not too harsh anywhere: the efficiency and judge-reliability claims are fairly graded moderate. What survives is the agent-over-RAG gap, about 10-14 points on the 30-question Java subset and 3.3-10.7 points for DeepRepoQA over the better RAG in Python, plus qualitative failure modes the team can turn into checks."}

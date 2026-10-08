@@ -1,0 +1,19 @@
+{"arxiv_id": "2605.00803",
+ "blind_scores": {"rigor": 3, "reproducibility": 4, "generalizability": 2, "relevance": 2, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "agree",
+ "claims_disputed": [
+  {"claim": "Reconstructing a workflow from paper text alone is the main bottleneck; executable artifacts make tasks much easier", "proposed_strength": "weak", "reason": "Table 9: the evaluator's bias is -0.60 on from-paper tasks but only -0.15 (from-artifact reproduction) and -0.17 (interpretation), so roughly 0.45 points of the 1-1.5 point mean-score gap in Fig. 5 may come from evaluator strictness on from-paper runs rather than from agent capability. Reproduction type is also fixed by what each source paper released, so it is confounded with subdomain and claim difficulty; artifact access is never manipulated within a claim. 'Main bottleneck' and 'make tasks much easier' are causal readings that the design cannot support."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P37", "from": "mixed", "to": "introduces", "reason": "The review itself notes the planner-emitted dependency DAG (App. C.4) is bundled with the four phases and not isolated. The only comparison (Fig. 6) is the whole orchestrated agent against Claude Code, so the DAG is used without an isolating comparison, which is 'introduces' under the stance rules."},
+  {"id": "P18", "from": "mixed", "to": "introduces", "reason": "The evaluator agent is validated against blinded SMEs (QWK 0.69, Table 9) but never compared with an alternative judge such as a fixed-prompt judge or a no-reference judge, so nothing isolates the tool-using design. It is also less weak than 'mixed' suggests for the headline metric: from Table 10, SME and evaluator agree on the success threshold (score 4 or higher) in 38 of 40 runs, and the five 2-point disagreements (SME 3, evaluator 1) all sit below it."}
+ ],
+ "missed_issues": [
+  "Harness and model are confounded in the 53% vs 23% headline: Claude Code/Opus and Codex/GPT-5.4 differ in both, and only the Sonnet pair (Claude Code vs the orchestrated agent) holds the model fixed. The review reports 'Codex weakest' without this caveat.",
+  "The scientific-rigor result (one-sided p=0.038, Table 12) is one of five dimensions tested with no multiplicity correction; a Bonferroni adjustment gives about 0.19, so even 'directional' overstates it.",
+  "The 'general-purpose' Claude Code and Codex settings get a domain-tuned task prompt (App. E.2: MPI --oversubscribe, GPU flags, 'run a full simulation', a ParsePDF tool), so they are partly specialized and the orchestration comparison is between two tuned setups, not tuned versus stock.",
+  "The per-type claim counts are only in Fig. 3 and never stated in the text, so the size of the from-paper subgroup behind the 'near-zero success' statement cannot be checked; the judge calibration covers only 15 from-paper runs.",
+  "P13 (planner-executor) also applies: the orchestrated agent has a read-only planning phase followed by separate execution, under the same no-overall-gain comparison as P36."
+ ],
+ "note": "I agree with admit_with_caveats and with the scores, apart from a small COI difference (I see no vendor tie; the self-curation is a task-construction bias, not a conflict of interest). The same-backbone null on the phased workflow is the most solid result, and the review grades it correctly as moderate and underpowered. I lower the from-paper vs from-artifact claim because the evaluator's bias is four times larger on from-paper runs, which could explain part of the gap. On patterns, the DAG and the judge are used without an isolating comparison, so they read as 'introduces'. In the other direction, the review undersells how well the binary success label agrees with SMEs (38/40)."}

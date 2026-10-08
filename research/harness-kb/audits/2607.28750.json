@@ -1,0 +1,18 @@
+{"arxiv_id": "2607.28750",
+ "blind_scores": {"rigor": 2, "reproducibility": 1, "generalizability": 2, "relevance": 2, "coi_risk": 2},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "agree",
+ "claims_disputed": [],
+ "pattern_stance_changes": [
+  {"id": "P32", "from": "neutral", "to": "introduces",
+   "reason": "The paper is a production deployment report: 1,013 flows gating commits in CI on two first-party apps, months of per-commit runs, and 98 high-priority bugs tracked (§5.2, §6.7). The pattern is used substantively, not merely mentioned. There is no isolating comparison (V1 vs V2 differ in flow population and model), so introduces rather than supports."}
+ ],
+ "missed_issues": [
+  "Internal inconsistency on agent-attributable failures. On a frozen build where 'no incoming code changes could introduce genuine regressions' (§5.5), the full system still fails 4.1% of runs (Table 5, 95.9% success). §5.2 attributes only ~1% of production failures to infrastructure and ~0.5% to agent errors, labelling 'the remainder' genuine regressions. Some production failures counted as regressions are probably agent failures, so the gate's false-fail rate is likely understated, not just unmeasured.",
+  "Table 1 precision@k gives no sample size, no ground-truth source, and no account of how a model that emits one JSON action per step yields top-2 and top-3 predictions. The comparison 'V1 below 50% on similar flows' has no table.",
+  "The 'w/o prompt constraints' arm does not say whether the code-level schema validation and retry of §4.3 were also removed. The 6.3-point increment may mix prompt text with deterministic output validation.",
+  "§8 admits the agent 'occasionally takes valid but unintended paths, which can mask bugs on the specific path a test owner meant to exercise'. For a regression gate this is a false-pass mechanism, and its frequency is not measured.",
+  "The $200K annual inference figure is a 'projected' cost after optimisation (§4.2), not reported spend. The 80%+ prompt-cache hit rate and the 60% inference-volume reduction come with no data.",
+  "§7 states DragonCrawl 'reaches parity with or exceeds' VisiDroid and others, based on Table 3, which mixes the authors' production pass rate with other tools' self-reported completion on different small benchmarks. The body itself concedes this is not like-for-like."
+ ],
+ "note": "I agree with the review's scores, verdict and low COI, and with its grading. Pass-rate and onboarding claims are weak (different flow populations; '96-120 hours' converts 4-5 days at 24 h/day), the 27 developer-years and velocity claims are unsupported, and the 5,065-run-per-arm ablation is moderate. I upgrade P32 from neutral to introduces, because the paper is a substantive field deployment even though nothing in it isolates the field-evaluation pattern. The review missed a quantitative contradiction: the frozen-build ablation shows about 4% agent-attributable failure, versus about 1.5% in the production failure breakdown. So the gate's false-fail rate is likely understated, on top of its false-pass rate never being measured. For the team the paper is marginal. 'Onboarding' means authoring test flows, and only the two ablated design choices transfer, indirectly."}

@@ -1,0 +1,30 @@
+{
+  "arxiv_id": "2608.29675",
+  "blind_scores": {"rigor": 4, "reproducibility": 4, "generalizability": 3, "relevance": 4, "coi_risk": 0},
+  "blind_verdict": "admit_with_caveats",
+  "blind_coi_severity": "none",
+  "agreement": "partial",
+  "claims_disputed": [],
+  "pattern_stance_changes": [
+    {
+      "id": "P05",
+      "from": "neutral",
+      "to": "introduces",
+      "reason": "Every explorer is restricted to ls, find, grep, cat, nl, and sed -n (§6.2), so lexical shell retrieval is the working interface, not a mention. It is never compared with embeddings, an LSP, or a graph, so the pattern is not isolated."
+    },
+    {
+      "id": "P24",
+      "from": "neutral",
+      "to": "introduces",
+      "reason": "§8.3 proposes candidate-count budgets and an escalation rule as allocation levers, and §8.4 decomposes the time gap into step count versus per-step cost. Neither a budget cap nor a stopping policy is tested; both are proposals sitting on top of reported trajectory cost."
+    }
+  ],
+  "missed_issues": [
+    "§7.1 says almost every prediction contains at most three files, so Hit@5 equals Hit@3 except a 0.002 gain for Qwen3-Coder on the SWE arm (0.7335 vs 0.7315, Table 2). Hit@5 is not a separate result.",
+    "§5.2 computes token averages only on instances that recorded usage, and failed trajectories often omit counts. The 84–95% token cuts are therefore not on the same rows as the quality metrics, where a timeout is zero localization credit.",
+    "Table 2 steps on the SWE arm are 27.02 for GLM-4.7-Flash versus 3.49–8.34 for the other four. The time and token gaps are mostly longer search. A stronger model stopped as early as Qwen3-4B is not measured, which §8.4 states and the review does not quantify.",
+    "Table 1's random arm averages 2.27 gold files, while GLM R@3 is 0.667 (Table 3), so a top-three hit often leaves part of a multi-file fix outside the candidate budget. Exact match for that model falls from 0.569 on the SWE arm to 0.430 on the random arm.",
+    "The review's applicability cites 2608.01507 on silent exploration hand-offs, but conflicts_with is empty. This paper never executes the ranked-file handoff, so it does not test that failure mode."
+  ],
+  "note": "I agree with the claim grades. GLM-4.7-Flash leads the point estimates, Table 5's retention band matches the abstract, the handoff-contract claim is only definitional, and separating the stage is measured as a log, not as a repair gain. Instance-level intervals exclude zero and several SWE-arm quality gaps include zero once the 12 repositories are the sampling unit (§7.2); moderate is the right grade for that split, not weak. P43, P23, and P12 are correctly introduces or mixed: there is no non-agent baseline, cheaper models win on cost and lose on Hit@3, and the handoff is never run. I upgrade P05 and P24 because the shell interface is the method and the budget policy is proposed, not merely mentioned. The review's relevance 3 is a notch low for a paper that prices the exploration stage a harness would budget; the missing repair rate and the Python SWE arm are why it should not be treated as a settled Java routing rule. No vendor conflict."
+}

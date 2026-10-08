@@ -1,0 +1,29 @@
+{
+  "arxiv_id": "2605.20456",
+  "blind_scores": {"rigor": 1, "reproducibility": 1, "generalizability": 1, "relevance": 4, "coi_risk": 0},
+  "blind_verdict": "admit_with_caveats",
+  "blind_coi_severity": "none",
+  "agreement": "partial",
+  "claims_disputed": [],
+  "pattern_stance_changes": [
+    {
+      "id": "P40",
+      "from": "neutral",
+      "to": "introduces",
+      "reason": "§VII-A assigns early conversation to clarifying requirements, and §VIII-B step 3 tells the agent to return hypotheses and missing evidence before a patch. That is the clarification step, prescribed and not measured, so it is introduces rather than a passing mention."
+    },
+    {
+      "id": "P16",
+      "from": "neutral",
+      "to": "introduces",
+      "reason": "The Prove step and Table II make tests, lint, static analysis, or simulation the acceptance condition by risk tier. The paper requires that loop. It does not ablate it, so the stance is introduces, not supports."
+    }
+  ],
+  "missed_issues": [
+    "P36 is untagged. SCOPE-V is a fixed six-step cycle with gates the developer defines, which is a static workflow rather than a planner-emitted graph. It is proposed, not run.",
+    "P34 and P39 are untagged. Table I and the §XI templates are a structured brief (acceptance criteria, non-goals, execution commands, evidence). They are not shown to beat a chat prompt; §XII lists that comparison as future work.",
+    "§III gives no count of included or excluded sources, so the 'bounded evidence synthesis' label has no denominator behind the cited 21%, 19%, and 0% pass@1 figures.",
+    "The hardware feasibility sentence rests on a prior Agile-V case study cited as [1] and not repeated here. This paper adds the name SCOPE-V and the tables, not a new hardware result."
+  ],
+  "note": "The review is right to leave the framework unsupported and to treat the Google and METR citations as other papers' results. Those two citation claims can stay moderate as a hedged reading; they are not a reanalysis, and they are not a reason to adopt SCOPE-V. The review is too harsh on P40 and P16: the bug workflow and the Prove step prescribe clarification and an execution gate, which is introduces, still short of evidence. Blind rigor is 1 because the paper runs no comparison of its own; the loader's minimum with the review's rigor 2 rejects it. The operational sentence worth keeping, as a hypothesis, is the one the paper does not test: discovery can stay in conversation, and implementation starts from a reviewed brief."
+}

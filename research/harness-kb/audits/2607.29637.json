@@ -1,0 +1,21 @@
+{"arxiv_id": "2607.29637",
+ "blind_scores": {"rigor": 2, "reproducibility": 3, "generalizability": 2, "relevance": 1, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "partial",
+ "claims_disputed": [
+  {"claim": "CodeShrink consistently outperforms text-based and visual compression baselines.",
+   "proposed_strength": "weak",
+   "reason": "Tables I-II compare a pipeline whose reader (LoRA OCR tuning) and config agent (SFT+GRPO) are both trained on samples from the same benchmarks against baselines run on an untuned reader. The comparisons are also not at matched compression. On Python completion LongCodeZip compresses more (R 30.2 vs 21.1) at equal EM (27.0 vs 27.5), a trade-off rather than dominance, so 'consistently' does not hold for all three tasks. Everything is single seed on 200-300 items."},
+  {"claim": "Per-sample adaptive configuration (ACC) is the most important component.",
+   "proposed_strength": "weak",
+   "reason": "Table IV 'w/o ACC' replaces the agent with 'a fixed compression configuration' whose values are never given (§V-D). RQ4 (Fig. 3) shows per-task optima differ sharply (1x for QA and completion, 8x for clone), so an arbitrary fixed setting can be badly mismatched for some tasks. Without a per-task-tuned fixed baseline, the 6-point drops (about 20 of 300 QA items, 12 of 200 clone pairs, single seed) cannot be attributed to per-sample adaptivity."}
+ ],
+ "pattern_stance_changes": [],
+ "missed_issues": [
+  "Possible train/test overlap. The 100 training instances per task (split 50/25/25 for reader OCR tuning, SFT and GRPO, §V-A3) and the 200-300 evaluation instances are both 'randomly sampled' from the same benchmarks, and the paper never states they are disjoint.",
+  "Dominant Token Selection reads query and key vectors from the reader's shallow attention layers (Eq. 2). The full pipeline therefore works only on self-hosted open-weight models; the hosted models (GPT-5-mini, Gemini-3-Flash) are used only in the rendering study. It cannot be applied behind a hosted agent API.",
+  "Clone-detection accuracy rises from about 63% to 70% as resolution falls to 8x (Fig. 3a). On a 200-pair balanced binary task this suggests the model uses layout or length cues rather than reading the code, so the clone results say little about code understanding.",
+  "The motivating 'dynamic selection' gain in Fig. 1(d) (QA 71.3 to 82.1, completion 52.9 to 63.8) is an oracle that picks each sample's best ratio using the test outcome. It is an upper bound, not evidence that a learned selector can reach it.",
+  "Efficiency counts only visual tokens. The config agent's forward pass, the rendering step and wall-clock latency are excluded, so the net saving over plain text input is not shown."
+ ],
+ "note": "I agree with the review's scores, verdict, no-COI call and all four pattern stances, and with weak strength for the 71.2% headline (Table II vs Table IV disagree). I lower two claims to weak. The superiority over baselines is confounded by in-task tuning of both the reader and the config agent, is not measured at matched compression, and is not 'consistent' on completion. The ACC ablation compares against an unspecified fixed setting, although the paper's own RQ4 shows per-task optima differ. Beyond the review, train/test disjointness is unstated, and DTS needs access to model internals, which rules out hosted APIs. The only finding the team can use is incidental: the paper's untuned text-compressor baselines, run on the same reader as text-only, show generic token pruning hurting code QA much more than completion."}

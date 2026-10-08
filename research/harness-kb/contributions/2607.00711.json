@@ -1,0 +1,20 @@
+{
+  "arxiv_id": "2607.00711",
+  "contributions": [
+    {"kind": "heuristic",
+     "statement": "Do not rely on a system-prompt line such as 'if the requirement is unclear, do not guess, ask' to make the agent clarify a ticket; have the harness list the open gaps and require a question or a recorded assumption for each one, because with exactly that instruction four of seven model configurations asked only 0.24-0.70 questions per task against about 1.65 needed, and turning on thinking mode did not raise asking.",
+     "evidence": "§3.4 system prompt ('If the requirement is unclear, do not guess. Ask exactly one critical clarification question'); §5.4 Table 4: Diff negative for 6 of 7 configurations, Claude-Sonnet-4.5 0.29 vs 0.24 turns without and with thinking, Qwen3 0.46, GPT-5 0.70. One prompt, one temperature-0 run, Python competitive-programming tasks with deleted sentences.",
+     "strength": "moderate", "novelty": "duplicates",
+     "relative_to": ["2605.09698 let the harness, not the agent, decide when a clarifying question is mandatory (agent-decided asking miscalibrated across prompt policies)", "2610.01769 harness-driven question selection beats model-decides asking"],
+     "transfers": "indirect"},
+    {"kind": "heuristic",
+     "statement": "Give the pre-spec clarification checklist explicit slots for processing order and atomicity (batch vs per-item, update order), comparison and tie-breaking rules, and collection membership and update rules, because models almost never asked about these on their own (Collection Semantics at or below 16.7% for every model, Comparison Rules at most 12.5%, Ordering & Atomicity 0% for three of five) while three models asked about units and numeric precision 66.7-100% of the time.",
+     "evidence": "§5.2 Fig. 6 and Finding 3: hit rates by ambiguity type for five non-thinking models. Per-type instance counts are not given and the percentages suggest only a few instances per type; one run; judge-matched hits only.",
+     "strength": "weak", "novelty": "new",
+     "relative_to": [],
+     "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "hypothesis_only",
+  "reason": "The under-asking result is consistent but duplicates Ambig-DS (2605.09698), which shows the same with more prompt policies; its one sharpening is that an explicit 'do not guess' instruction did not help. The only new item, which ambiguity types models skip, rests on unstated and apparently tiny per-type counts, so it is an open hypothesis for checklist design, not a gate."
+}

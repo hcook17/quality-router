@@ -1,0 +1,20 @@
+{"arxiv_id": "2607.05808",
+ "blind_scores": {"rigor": 3, "reproducibility": 1, "generalizability": 1, "relevance": 2, "coi_risk": 1},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "partial",
+ "claims_disputed": [
+   {"claim": "Students who try voice are not then pushed off it, but most students only use text.",
+    "proposed_strength": "weak",
+    "reason": "Section 4.2's 813/919 text-only count (88.5%) is solid description. The 'not pushed off' half is a non-significant mixed model on 62 students (OR 1.28, 95% CI 0.71–2.31, p=0.41), and the same section says within-problem persistence was too small to test. A wide interval that includes both deterrence and reinforcement is not evidence of persistence."}
+ ],
+ "pattern_stance_changes": [
+   {"id": "P41", "from": "mixed", "to": "neutral",
+    "reason": "P41 is walkthroughs, explanations, and learning modes. This study measures whether the first GPT-4o-mini completion passes unit tests on a toy C function. No safeguard, walkthrough, or learning outcome is compared, and §5's self-explanation benefit is not measured."}
+ ],
+ "missed_issues": [
+   "The authors say p-values are uncorrected across three problems (§4.1). P1's p=0.02 does not survive a Bonferroni cut of 0.05/3≈0.0167; P2's p=0.01 does; P3 is null (p=0.378). The 'two of three problems' headline depends on the uncorrected P1 test.",
+   "Table 1's messages-until-success do not favor text. On P1 they are 1.69 for unedited voice versus 1.71 for text, and eventual success is 48/51 for unedited voice versus a first-try rate of 0.35. The odds ratio is a first-shot gap, not a failure to finish the lab.",
+   "Unedited voice prompts are longer than typed ones (P1 221 versus 183 characters; P3 273 versus 227 in Table 1). The logistic models do not adjust for length, so part of the odds ratio can be a longer, noisier prompt to GPT-4o-mini.",
+   "Edited-voice 'no difference' is not an equivalence result. The P1 edited odds ratio is 0.57 with a 95% CI of 0.26–1.27 on n=26, which still allows a large harm."
+ ],
+ "note": "The review correctly treats the first-try association as the real result and the deeper-learning paragraph in §5 as unmeasured, and it is right that modality was self-selected with voice cells of 35–51 against about 830 typed prompts. I agree the conflict is low: the Prompt Programming platform is the classroom setting, not a product ranked against competitors. I score relevance, generalizability, and reproducibility lower because the tasks are single C functions, the logs are not released, and nothing here is repository comprehension or a Java onboarding path. The persistence claim is weaker than moderate, and P41 is only mentioned by the discussion, not tested."}

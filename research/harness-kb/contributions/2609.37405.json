@@ -1,0 +1,26 @@
+{
+  "arxiv_id": "2609.37405",
+  "contributions": [
+    {"kind": "heuristic",
+     "statement": "Before an agent's explanation or predicted behavior of a method is shown as fact, compute the method's cyclomatic complexity and nesting depth and, above a threshold (the paper's High band is cyclomatic 7+ or nesting 4+), require confirmation by an executed test or trace, because bare models without reasoning predicted function outputs about 13 pp less accurately on Medium than on Low functions drawn from the same benchmarks, and about 40 pp less accurately on High than on Low across benchmarks.",
+     "evidence": "Re-derived from Tables I, III and IV. Within HumanEval/MBPP/CRUXEval, Low to Medium is 93.5% -> 80.6% for DeepSeek-Coder-V2 and 87.0% -> 73.5% for CodeLlama-7B. Within LeetCode/BigCodeBench-Hard, Medium to High is 77.3% -> 52.8% and 50.0% -> 47.2% (22 Medium items). Spearman -0.33 to -0.43 (Table VI). Caveats: two 2023-2024 models with reasoning forbidden; one temperature-0 run; short Python functions; no length control. The gate is proposed in §VI but never built or evaluated.",
+     "strength": "weak", "novelty": "refines",
+     "relative_to": ["2609.26388 check agent code explanations against tests when identifiers mislead", "CodeMind (paper ref [20]): execution reasoning degrades with non-trivial control flow"],
+     "transfers": "indirect"},
+    {"kind": "heuristic",
+     "statement": "When an agent answers an edge-case question about a method (empty input, boundary values, error paths), confirm it with a test before trusting it, because edge-case answers were the least accurate question type: 80% vs 95% for purpose questions (DeepSeek-Coder-V2) and 65% vs 85% (CodeLlama), on 20 questions each.",
+     "evidence": "§V-C Table VIII; question types are roughly balanced across bands (Table VII). The differences are 3-4 items out of 20 and are not tested for significance; the questions are author-written; reasoning was forbidden.",
+     "strength": "weak", "novelty": "restates_known",
+     "relative_to": ["boundary-value analysis as standard test-design practice", "2608.19799 validators that vary boundary parameters expose what visible tests miss"],
+     "transfers": "indirect"},
+    {"kind": "test_practice",
+     "statement": "When evaluating a codebase-QA or code-explanation agent, report accuracy per complexity band and per source module instead of one aggregate, because a 78.3% aggregate hid 52.8% on High-complexity functions and band was entangled with benchmark source.",
+     "evidence": "§V-A Tables I, III, IV: DeepSeek-Coder-V2 at 78.3% overall vs 93.5/80.0/52.8% by band; High band drawn only from LeetCode and BigCodeBench-Hard.",
+     "strength": "moderate", "novelty": "restates_known",
+     "relative_to": ["difficulty-stratified reporting in code-reasoning benchmarks (CRUXEval, RE2-Bench Easy/Hard; paper refs [11], [25])"],
+     "transfers": "direct"}
+  ],
+  "quantity_flags": [],
+  "proposed": "hypothesis_only",
+  "reason": "The headline finding, that code-reasoning accuracy falls as control flow grows, restates CodeMind- and CRUXEval-era results. The usable part for the team is a deterministic complexity trigger that routes agent explanations of complex methods to an executed check. The paper proposes this trigger but never tests it, and supports it only with dated models answering Python snippets without reasoning. Re-derived within-source numbers keep about 13 pp of the effect, which is enough for a hypothesis but not for setting a gate threshold."
+}

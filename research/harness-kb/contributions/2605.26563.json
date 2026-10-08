@@ -1,0 +1,26 @@
+{
+  "arxiv_id": "2605.26563",
+  "contributions": [
+    {
+      "kind": "constraint",
+      "statement": "When a coding-agent run fails, do not auto-edit the harness from an exact earliest-step label: on this 102-trace set the best exact rate is 52.0% without a reference patch and 65.7% within three steps, and accuracy drops to 19–26% when the labelled mistake is in the first fifth of the trace.",
+      "evidence": "§VII-A Tables II and IV, one temperature-0 run on the authors' RootSE. §VIII: 81% of misses are late by 14.5 steps on average because an early plan leaves no correct-to-incorrect transition. No Java; only single-test failures after filtering 500 traces to 102.",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": ["2607.16387"],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "heuristic",
+      "statement": "If you still audit that trace automatically, give the diagnoser the failing test first and fold observations that are neither a patch nor a failure keyword, instead of prompting on the raw log: removing the prior dropped exact accuracy from 52.0% to 34.3%, and removing the fold dropped it to 38.2%, on Claude only.",
+      "evidence": "§VII-D Table VII, one backbone and one run. Folding kept full text for 5.4% of steps and raised tokens from 86.2K to 138.2K. The tool loop was not compared with a single pass over the same folded trace.",
+      "strength": "weak",
+      "novelty": "refines",
+      "relative_to": ["2607.16387", "context compaction before a long-trace read (P08)"],
+      "transfers": "indirect"
+    }
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "The usable result is a ceiling and a failure mode: exact step labels are wrong about half the time and systematically late on early plans. The folding-plus-prior recipe is only a single-model ablation on the authors' own set."
+}

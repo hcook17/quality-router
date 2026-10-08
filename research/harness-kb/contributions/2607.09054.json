@@ -1,0 +1,26 @@
+{
+  "arxiv_id": "2607.09054",
+  "contributions": [
+    {
+      "kind": "nuance",
+      "statement": "When an LLM proposes an update to a contract the compiler does not check, keep the static checker as a review hint rather than a blocking gate: wrapping TypeUp with Pyre and up to five regenerations raised exact-match precision from 0.761 to 0.840 but cut correct updates from 359 to 326 of 500, because Pyre rejected some correct user-defined types and accepted some wrong ones.",
+      "evidence": "§6 Table 6. Caveats: GPT-3.5-turbo, one run, Python parameter and return hints only; Java signatures are already compiler-checked, so the transfer is to Javadoc, OpenAPI, or JSON-schema co-changes.",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": ["2608.03311", "static-analysis feedback after an LLM edit"],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "constraint",
+      "statement": "Do not budget a 41.9% lift from TypeGen-style type inference when the goal is repairing forgotten annotations, because the 500-item score predicts the type a developer changed in the same commit (359 versus 253 correct) and the authors say that construction is not the forgotten-hint scenario.",
+      "evidence": "Table 2 and §6.1 construct validity. The 25 in-the-wild cases are the forgotten-hint test, and Table 5 shows 18 merged as generated, 2 rewritten by the authors, and 5 rejected.",
+      "strength": "weak",
+      "novelty": "refines",
+      "relative_to": ["TypeGen and other type-inference tools used as updating baselines"],
+      "transfers": "no"
+    }
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "The Pyre tradeoff is the part a lead can use on unchecked contracts; the 41.9% headline compares a different task and does not transfer to Java types."
+}

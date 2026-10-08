@@ -1,0 +1,35 @@
+{
+  "arxiv_id": "2609.32014",
+  "contributions": [
+    {
+      "kind": "constraint",
+      "statement": "Do not stop a harness rollout at an AGENTS.md or CLAUDE.md: only 2.6% of 2,732 popular repositories had four or five of the five path-detected artifacts, and across 5,435 clones a rule file sat with a spec artifact in 182 repositories and with an ADR path in 66.",
+      "evidence": "Table 8 and §4.2.3–4.2.4, Figure 3. The five artifacts are a rule file, an ADR path, a spec/OpenAPI/Gherkin path, a pull-request template, and CODEOWNERS; H4, H5, and H6 are excluded, so three of five can be a rule file plus two pre-agent governance files. Counts are lower bounds on non-canonical names. No outcome is measured. Public early-adopter GitHub, not stratified by programming language.",
+      "strength": "strong",
+      "novelty": "refines",
+      "relative_to": ["2606.26924: rule files are often a single commit and then go stale", "2609.30334: a focus group treats an integrated harness as an emerging discipline without a repository count"],
+      "transfers": "direct"
+    },
+    {
+      "kind": "heuristic",
+      "statement": "When a repository already has a rule file, add a decision record and a checkable acceptance criterion as separate artifacts: in 150 coded rule-file repositories, project guidance and a standing norm were present in 93–100% and 87–97%, while decision rationale was 10–27%, acceptance criteria 10–20%, and a written stop-and-ask rule was 5–20%.",
+      "evidence": "Table 15, conditioned on H1, after adjudication. Iteration-2 κ cleared 0.60 on a 30-item overlap only after a codebook change and five transcription corrections (Tables 13–14); M1's κ was 0.47 and passed on raw agreement. Stratum cells outside P are n=30, so the gaps between strata are noise; the near-universal versus minority split is not.",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": ["known practice: spec-driven work needs the acceptance criterion written down, not implied by a rules file", "2609.30334"],
+      "transfers": "direct"
+    },
+    {
+      "kind": "test_practice",
+      "statement": "When auditing whether an agent change was made under the harness, read the repository as of the pull-request time rather than current HEAD: in the popular stratum, 17.7% of agentic pull requests (5,954 of 33,596) look harnessed at clone time and were not harnessed when opened.",
+      "evidence": "Table 9, stratum P only. E2 is not estimated for the lower star bands. The same table's doubling ratios for H2 rest on 0.7% to 1.4% and do not show that agents compel a new layer. 58.3% of dated rule files appeared after the 30 July 2025 window.",
+      "strength": "weak",
+      "novelty": "refines",
+      "relative_to": ["known practice: attribute a control to the revision that was in force when the change was made, not to the revision on the default branch today"],
+      "transfers": "direct"
+    }
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "The repository counts are the part that survives: an orientation-plus-rules file is the common case, and specs and decision records are rare even among popular projects. That is presence, not proof that those missing artifacts improve agent results. The consultation-is-frequent sentence does not survive Table 10."
+}

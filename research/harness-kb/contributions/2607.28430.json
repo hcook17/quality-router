@@ -1,0 +1,24 @@
+{
+  "arxiv_id": "2607.28430",
+  "contributions": [
+    {"kind": "heuristic",
+     "statement": "When several agents investigate one codebase question in parallel, give them a shared thread where each posts a discovery the moment it bears on a teammate's sub-question, and surface incoming mentions between tool steps instead of only at phase boundaries; on SWE-Atlas QnA this step added 10.5 (Opus 4.6) and 11.3 (DeepSeek V4 Pro) points of fully answered questions for about 25% more spend than the same protocol with blocking receive.",
+     "evidence": "Table 1 L2 vs L3, exact McNemar 15 wins/2 losses (p=0.0023) and 17/3 (p=0.0026); Table 2 cost $15.59 to $19.45 (Opus), $1.93 to $2.46 (DeepSeek); rubric churn +47/-23 (Fig. 4). Caveats: the step also changes the Phase 3 prompt that instructs posting, there is no blocking-with-polling arm, single run on the full set, only tested inside Claude Code on read-only QA, and the authors are the coordination vendor.",
+     "strength": "moderate", "novelty": "refines", "relative_to": ["P11", "2608.23740"], "transfers": "indirect"},
+    {"kind": "nuance",
+     "statement": "For hard, cross-cutting codebase-understanding questions that a single agent mostly fails, a four-agent team that explores jointly, negotiates the split, shares findings live and cross-reviews before answering roughly doubled the fully answered rate (32.3% to 62.1% on Opus 4.6, 29.0% to 50.8% on DeepSeek V4 Pro) at about 6-7x the per-question cost, so reserve it for high-value discovery questions and keep single-agent Q&A for routine lookups.",
+     "evidence": "Table 1 (124 tasks, 11 repos, 4 non-Java languages) and Table 2 ($2.96 vs $19.45 per task on Opus, $0.42 vs $2.46 on DeepSeek); Table 3 three-run subset (30 tasks, Opus only) keeps the ordering (35.6+/-5.1 vs 64.4+/-2.0). Caveats: the compute-matched best-of-six baseline is weak (noise selection over whole runs), the Opus 4.8 comparison is an unmatched leaderboard figure, the judge is the benchmark's Opus 4.5 rubric judge, and the authors grade their own system.",
+     "strength": "moderate", "novelty": "refines", "relative_to": ["P11", "2609.32700"], "transfers": "indirect"},
+    {"kind": "anti_pattern",
+     "statement": "Do not have one agent split a cross-cutting architecture question and merge the sub-answers without review; naive division lost architecture questions on both models (15 to 13 and 14 to 13), whereas joint exploration before splitting plus a cross-review round added 12.1 and 8.1 points over naive division.",
+     "evidence": "Table 1 category rows (L1 vs B0 and L2 vs L1); Fig. 4 shows division gaining 84 and losing 59 rubrics. Caveats: the architecture regression is one or two tasks, L1 to L2 bundles three changes (joint exploration, negotiated partition, end review) with roughly 3x spend ($5.38 to $15.59), it has no significance test, and on the 3-run subset the L1 to L2 gap is only 6.6 points against SDs of 3.4-5.8.",
+     "strength": "weak", "novelty": "refines", "relative_to": ["P12", "P11"], "transfers": "indirect"},
+    {"kind": "constraint",
+     "statement": "Treat a single coding agent's answer to a deep 'how does this production system behave' question as a draft that needs cited evidence and human checking, since a single Claude Code agent fully answered only 29-32% of expert questions while passing 81-84% of individual rubric facts.",
+     "evidence": "Table 1 B0 rows (task accuracy 32.3% and 29.0%, rubric pass rate 84.2% and 81.2%). The benchmark paper 2605.08366 shows the same ceiling across more models and hosts with three trials.",
+     "strength": "moderate", "novelty": "duplicates", "relative_to": ["2605.08366"], "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "Two items survive at moderate strength: the paired, McNemar-tested gain from live mid-task messaging, and the whole-team cost/benefit on hard read-only codebase QA. Both transfer only indirectly (non-Java repos, Claude Code only, vendor-run, passive step bundled with a prompt change). The 'structure beats compute' and difficulty-gradient arguments do not survive, and the single-agent ceiling duplicates the SWE Atlas benchmark paper."
+}

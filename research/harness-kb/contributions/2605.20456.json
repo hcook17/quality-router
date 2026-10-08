@@ -1,0 +1,26 @@
+{
+  "arxiv_id": "2605.20456",
+  "contributions": [
+    {
+      "kind": "heuristic",
+      "statement": "Do not let an agent implement from a long chat; start implementation only from a reviewed brief that names non-goals, affected modules, acceptance checks, and the commands to rerun.",
+      "evidence": "§VII-B states the rule and §XII question 1 lists brief-versus-chat as future work. No team, repo, or success rate is measured in this paper. Tables I and II specify the brief and the risk tiers without an outcome.",
+      "strength": "unsupported",
+      "novelty": "restates_known",
+      "relative_to": ["spec-driven / spec-first development (P14)", "2608.30572 introducing spec-driven development with coding agents"],
+      "transfers": "direct"
+    },
+    {
+      "kind": "nuance",
+      "statement": "Keep repository instruction files short and tied to a command the agent will actually run, because the studies this paper cites disagree on whether extra context files help or raise cost and cut success.",
+      "evidence": "§II-C cites one AGENTS.md result with lower runtime and tokens, one result where extra context files reduced success and raised cost, and a factorial study with little adherence effect. This paper does not recompute those tables. §X-A repeats the short-file recommendation.",
+      "strength": "moderate",
+      "novelty": "duplicates",
+      "relative_to": ["2607.27250 AGENTS.md did not change correctness; the observed effect was fewer blind full-suite runs when the file carried an operational warning"],
+      "transfers": "indirect"
+    }
+  ],
+  "quantity_flags": ["position_without_evidence", "renamed_known_idea", "survey_restatement"],
+  "proposed": "drop",
+  "reason": "SCOPE-V and the risk tiers are an untested rename of a brief, a V-model, and a human gate. The mixed instruction-file point is already measured elsewhere, and the conversation-to-brief rule is the team's existing spec-first practice stated again without a new result."
+}

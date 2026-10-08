@@ -1,0 +1,20 @@
+{"arxiv_id": "2607.17686",
+ "blind_scores": {"rigor": 1, "reproducibility": 4, "generalizability": 1, "relevance": 2, "coi_risk": 1},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "agree",
+ "claims_disputed": [
+  {"claim": "The quality checker detects seeded requirement defects",
+   "proposed_strength": "weak",
+   "reason": "Table III's two perfect rows are rule self-tests. The escape-clause mutant appends ', where possible and as appropriate', and §III-B lists 'as appropriate' verbatim as a rule term. The missing-criteria mutant deletes the field that the rule checks for. The only structurally different defect, a packed second 'shall' clause, scored 0/36, and vague terms scored 17/36. There is no sample of real-world defective requirements and no comparison with human review, so 'detects seeded defects' holds only for the phrases the rules enumerate."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P14", "from": "neutral", "to": "introduces",
+   "reason": "The paper does more than mention spec-first work. §IV-C2 reports that VNVSpec has been developed against its own committed self-spec since v0.1.0, assessed in CI on every commit, with a stated policy that a change breaking self-assessment is rolled back rather than the spec. That is the pattern in use, without an isolating comparison, which is 'introduces'. The agent variant remains proposal-only."}
+ ],
+ "missed_issues": [
+  "auto_trace() (§III-D) creates 'verifies' edges from any requirement-ID mention in test names, docstrings or comments. A comment mention therefore counts as verification evidence even when the test asserts nothing about the requirement. Link precision is never measured, which matters for P42's 'verified links'.",
+  "Verdict roll-up treats a passing linked test as passing evidence for the requirement (§III-E). Nothing checks that the test exercises the requirement's acceptance criterion. The self-spec's 'every requirement passing' (§IV-C2) therefore measures tagging plus a green suite, not requirement satisfaction.",
+  "The checker emits 62 warnings on the authors' own 36 requirements and 186 on the 116 catalog requirements, roughly 1.6 to 1.7 warnings per requirement, all advisory (§IV-C5). Warning precision is not measured, so whether developers would act on or ignore these warnings is unknown.",
+  "The Java path is asserted, not shown. The 5,000-case JUnit XML file (§IV-C4) is synthetic, and the only foreign-runner example is Jest with a custom jest-junit property hook (Listing 3). How a requirement ID reaches Surefire or Gradle JUnit 5 XML is not demonstrated."
+ ],
+ "note": "I agree with admit_with_caveats and with the review's framing: a released, cheaply measured tool with no evidence that it improves traceability, effort or audit outcomes, and an agent extension that is future work. I score rigor one point lower because the only non-runtime experiment largely re-runs the checker's own rule list. I lower the quality-checker claim to weak for the same reason; its informative content is the negative 0/36 on compound requirements. I upgrade P14 to introduces because the authors do practise spec-first development on the tool itself. The review's applicability (requirement IDs on JUnit tests, untested means inconclusive, distinct exit codes) is a fair reading, but it is established requirements-as-code practice (Doorstop, Sphinx-needs, BDD tags), and the paper provides no evidence beyond its existence."}

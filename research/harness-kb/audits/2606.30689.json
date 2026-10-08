@@ -1,0 +1,26 @@
+{"arxiv_id": "2606.30689",
+ "blind_scores": {"rigor": 1, "reproducibility": 1, "generalizability": 1, "relevance": 3, "coi_risk": 2},
+ "blind_verdict": "reject", "blind_coi_severity": "low",
+ "agreement": "partial",
+ "claims_disputed": [
+  {"claim": "Mandatory per-line citations reduce output determinism relative to the identical uncited spec (Claude d about -0.73 to -0.76; GLM d=-0.72)",
+   "proposed_strength": "weak",
+   "reason": "§4.3 computes LSS on comment-stripped code, so the '# [REQ-..]' comments cannot themselves cause the drop, and §7.1's mechanism ('citation placement variability') contradicts the metric. What changed in the code is never shown. Each task's LSS averages two comparisons that share run_1 (run_1 vs run_2, run_1 vs run_3), so they are not independent. The numbers cannot be checked: nothing is released, and the paper has at least four internal numeric inconsistencies (abstract vs Table 2 d and p, '***' on p=0.004, 'non-overlapping' CIs for d=-0.76 vs -0.72 in §5.3, Table 3 type rates vs totals)."},
+  {"claim": "A REQ-format spec without citations gives the best determinism anchor vs Spec Kit and OpenSpec (d about 1)",
+   "proposed_strength": "weak",
+   "reason": "The Spec Kit and OpenSpec arms are the author's renderings of different spec content and format (§4.2), so format is confounded with what each spec says. The outcome is lexical similarity with correctness at a 100% ceiling in every arm (§6.4). Higher similarity on comment-stripped Python from 3 runs does not show a better spec, only a more repetitive one."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P42", "from": "mixed", "to": "introduces",
+   "reason": "No isolating comparison of verified traceability against a reasonable alternative exists. TDR is scored on author-injected fake IDs, the alternatives have no detector at all, and the accuracy of the cited links (right requirement, requirement implemented) is never measured. Cited vs uncited measures only a lexical-similarity cost, which is not a split result on the pattern's purpose."},
+  {"id": "P34", "from": "mixed", "to": "introduces",
+   "reason": "The REQ-format-vs-Spec-Kit contrast confounds spec content with format, and correctness sits at a 100% ceiling everywhere, so it is not a contradicting result. Only a lexical-similarity difference remains, which does not measure what structured requirements are for."}
+ ],
+ "missed_issues": [
+  "Table 3 is internally inconsistent: H-SCOPE, H-PRIOR and H-OVER are each detected at 100% for both models, yet the overall TDR is 86.4% (Claude) and 88.0% (GLM). The per-type and overall rates cannot both be true.",
+  "§5.3 calls the Claude (d=-0.76) and GLM (d=-0.72) confidence intervals 'non-overlapping', which is impossible for estimates 0.04 apart with n=20 and n=50. It is another unchecked statistical statement.",
+  "Subgroup claims (Fig. 4: easy tasks d=-1.85, hard d=-0.34 ns) rest on 9 easy and 13 hard tasks from one model, with no correction across the five subgroups.",
+  "§7.4's 'live, always-current traceability map' is never measured. Whether cited IDs point to the right requirement is not checked, and other KB evidence (2606.24834) shows agent-produced requirement-to-code links reach only about 0.2 F1 on a Java codebase.",
+  "The only independent observation is that 0 of 210 correct runs cited a nonexistent requirement ID (§6.3). That shows models do not invent IDs when told to cite. It says nothing about mis-citation."
+ ],
+ "note": "I agree with nearly all of the review's analysis: the circular fake-ID detection, the detector-less baselines, H1 failing its own |d|>0.5 threshold, the injection contradiction and the miscitations. I disagree on the verdict. With the headline detection result tautological, Table 3 internally contradictory, the determinism mechanism incompatible with the metric, and nothing released to check any number, I would reject rather than admit with caveats. I lower the two remaining moderate claims to weak and move P42 and P34 from mixed to introduces, because neither has an isolating comparison on the pattern's actual purpose. The narrow usable fact is that an orphan-ID grep raised no false alarms on 210 correct runs."}

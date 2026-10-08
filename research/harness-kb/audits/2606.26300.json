@@ -1,0 +1,19 @@
+{"arxiv_id": "2606.26300",
+ "blind_scores": {"rigor": 3, "reproducibility": 1, "generalizability": 3, "relevance": 2, "coi_risk": 3},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "medium",
+ "agreement": "agree",
+ "claims_disputed": [
+  {"claim": "An agentic quality judge reliably flags SWE tasks with unclear instructions or misaligned tests, and filtering improves RL",
+   "proposed_strength": "weak",
+   "reason": "Table 1 recall fractions imply only 77 positive items for instruct_clear (71/77 = 92.21%, 66/77 = 85.71%) and 47 for instruct_ut_align (37/47 = 78.72%, 41/47 = 87.23%), so config differences are 1-4 items with no interval. instruct_ut_align F1 75-81 means about one flag in four is wrong, which is not 'reliably'. The RL half rests on Fig. 4 curves from one run per arm with no final numbers, and SWE-bench Verified does not move."}
+ ],
+ "pattern_stance_changes": [],
+ "missed_issues": [
+  "Table 7 contradicts the §5.3 text: the text says prompt v4 'maintains the strongest filtering quality at θ≥8 and θ≥9', but at θ≥9 v1 scores 0.725 (n=30) and v4 0.624 (n=22), second-worst of five versions.",
+  "Table 6 prompt iteration is one run per version on Qwen-Plus, with a different number of parseable reports per version (unparseable runs dropped, all <360). §5.4 reports ±10 pp run-to-run BoN variance for Qwen 3.7 Plus, so the v4→v5 'over-specification hurts' drop (67.4→59.6) and the v2→v3 dip are inside that noise band.",
+  "No held-out split for Span-KTO: β and 'best checkpoint within 2 epochs' are chosen on SWE-bench Verified/Pro/Multilingual (App. H Table 21; the β=0.01 row is the headline 59.8). RW-SFT w_neg=0.8 is chosen the same way (Fig. 9). Even the worst β (56.35) still beats SFT (54.2) on Verified, so the direction survives but the margin is inflated.",
+  "Table 2 behaviour–success associations are tiny (|phi| ≤ 0.113 for every behaviour), so the 'clear split' between static leakage and shortcut seeking is a correlational reading of weak effects, with no hardened-vs-unhardened comparison.",
+  "Table 4 'Battle Agreement' is 34.2-41.4%, undefined, and lower for the judge with the higher Spearman (Qwen3.6-Max). The rank correlations are over only 8 models, so Kendall τ = 1.0 within a scorer family is a weak robustness test.",
+  "Table 10 RFT uses the same in-house model as generator and evaluator (self-preference risk). The filtered-vs-random gain rests on one final checkpoint (step 426, +1.91), and random sampling wins at 150 steps."
+ ],
+ "note": "I agree with admit_with_caveats, medium COI and every pattern stance; my blind tags matched the review's exactly. I lower the quality-judge claim to weak: the human benchmark is small (back-computed at 77 and 47 positives) and the RL benefit is curves only. The review missed that Table 7 contradicts the text's claim that v4 filters best, and that the prompt-iteration and Span-KTO selections were tuned on the reported benchmarks. The review was slightly harsh on rigor (2): the paper includes an Elo variance decomposition (App. E), three-run RFT averages, four evaluator backbones in which a competitor's model (Claude Opus 4.7) wins, and it reports its own negative results. For the discovery scope the only touch points are the instruction-clarity judge and the LLM-labelled 21.1% misunderstanding share."}

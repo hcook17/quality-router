@@ -1,0 +1,15 @@
+{"arxiv_id": "2605.26144",
+ "contributions": [
+  {"kind": "nuance",
+   "statement": "When you feed agents a structured artifact (a design export, schema or data contract) to improve conformance, accept it only if behavioural acceptance tests improve; in this benchmark the structured input raised structural match by about 0.09 with a free stack but left behaviour-weighted success flat (0.264 vs 0.261), and with a fixed stack it changed nothing.",
+   "evidence": "Table 3 (C2 vs C4: Loc 0.507 to 0.600, Combined 0.264 to 0.261) and App. F Table 8 against Table 3 (C1 pick A vs C3, same stack: Loc 0.622 vs 0.615, Combined 0.240 vs 0.236). Ten front-end apps, apparently one run per cell, no CI, and the model is confounded with the harness.",
+   "strength": "weak", "novelty": "refines", "relative_to": ["2605.21532", "2609.22259"], "transfers": "indirect"},
+  {"kind": "test_practice",
+   "statement": "Score agent-built applications on structural conformance and on behaviour separately, because rankings disagree: the agent best at reproducing structure and appearance was worst at working interactions.",
+   "evidence": "Table 3: GPT-5.5 has the best localization (0.602) and CLIP (0.853) but the lowest behaviour (0.283); Opus has the best behaviour (0.336) with lower CLIP (0.764). These are aggregates of roughly 70 single runs per agent, with no variance reported.",
+   "strength": "moderate", "novelty": "restates_known", "relative_to": ["visual-similarity metrics do not capture functional correctness (design-to-code evaluation practice, e.g. Design2Code)"], "transfers": "indirect"}
+ ],
+ "quantity_flags": [],
+ "proposed": "hypothesis_only",
+ "reason": "The benchmark's input-condition factorial is the only part that isolates something a team could act on. Its signal, that structured design context helps structure but not behaviour, rests on 0.003-0.09 differences from single runs on ten front-end apps. The moderate finding, that structure and behaviour metrics disagree, restates known evaluation practice, and nothing addresses a Java backend."
+}

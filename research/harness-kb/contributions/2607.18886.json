@@ -1,0 +1,44 @@
+{
+  "arxiv_id": "2607.18886",
+  "contributions": [
+    {
+      "kind": "design_pattern",
+      "statement": "After an agent generates code from a structured spec, run a completeness pass that maps every spec element (actor, precondition, flow step) to a design element and every design element to a code symbol by AST lookup, and feed each missing link back to the agent for at most about three repair rounds; removing this pass cut judged coverage from 54.8% to 39.9% and test success from 47.2% to 28.4%.",
+      "evidence": "§3.5 Algorithm 2 and §5.2 Fig. 8 ablation. Single run, eTour plus DeepSeek-V3.2 only. Coverage is judged by DeepSeek-V3.2 and success counts only judge-passed tests. The pass also adds LLM rounds (no compute-matched control). Requirement-to-design links are LLM-asserted and never scored, and code nodes are whole files.",
+      "strength": "weak",
+      "novelty": "refines",
+      "relative_to": ["2605.15846 give every spec target its own acceptance test (missing implementation about 29% of failures)", "2606.24834 confirm requirement-to-code links deterministically"],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "heuristic",
+      "statement": "Before design or code generation, have the agent normalise each use case into a fixed schema (actor, entry/exit conditions, numbered steps) with an explicit subject in every step and a parser check that forces regeneration on violations; without this step test success fell from 47.2% to 28.3%.",
+      "evidence": "§3.2 and Fig. 8: no-Refiner ablation, success 47.19 -> 28.27 and coverage 54.78 -> 43.13. Single run, one dataset and model. The Refiner infers missing subjects instead of asking, so for domain rules a guessed actor is a risk that this setup never measures.",
+      "strength": "weak",
+      "novelty": "refines",
+      "relative_to": ["2608.09072 spec templates should state constraints and verification explicitly", "2609.22259 state default and wildcard encodings explicitly in specs"],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "design_pattern",
+      "statement": "Have the agent emit a class and sequence design (for example PlantUML) from the spec before writing code; without it, output collapsed from about 15 files to 5 and test success fell from 47.2% to 36.8%.",
+      "evidence": "Fig. 8 no-Designer ablation, single run on eTour with DeepSeek-V3.2.",
+      "strength": "weak",
+      "novelty": "duplicates",
+      "relative_to": ["2608.19854 planner emits a requirement-to-component map and dependency graph before code, +7.6-29.7 pp with stronger evidence"],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "test_practice",
+      "statement": "Keep an execute-and-repair loop on agent-generated code; without the tester's run-tests-and-fix rounds, success fell from 47.2% to 13.9%.",
+      "evidence": "Fig. 8 no-Tester ablation, single run. Tests are written by the same pipeline from the use case and generated code.",
+      "strength": "weak",
+      "novelty": "restates_known",
+      "relative_to": ["execution-based verifier loop (P16)"],
+      "transfers": "indirect"
+    }
+  ],
+  "quantity_flags": [],
+  "proposed": "hypothesis_only",
+  "reason": "The traceability-completeness loop and use-case normalisation are plausible, transferable refinements, but each rests on one single-run ablation scored by a judge from the generating model family, with link accuracy never measured. They remain hypotheses. The design-first and test-loop findings duplicate or restate stronger KB evidence."
+}

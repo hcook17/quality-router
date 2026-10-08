@@ -1,0 +1,18 @@
+{"arxiv_id": "2610.04940",
+ "blind_scores": {"rigor": 3, "reproducibility": 1, "generalizability": 2, "relevance": 3, "coi_risk": 1},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "agree",
+ "claims_disputed": [
+  {"claim": "SWM more than halves candidate-ranking regret",
+   "proposed_strength": "weak",
+   "reason": "App. C.2: a noise-perturbed oracle at blast-set F1 0.213 already has regret 1.343, below reachability's 1.430, because reachability marks candidates alike and ties are averaged, so beating it on regret takes almost any graded signal. The paper's own supervised controls reach 0.165-0.258, two to three times better than SWM's 0.593. 'Halves regret' therefore says more about the comparator than about SWM."}
+ ],
+ "pattern_stance_changes": [],
+ "missed_issues": [
+  "The blind-spot acquisition rule, built to find hidden channels, gives worse real-library hidden-channel F1 (0.145) and Brier score (0.164) than adding a random round (0.161, 0.143); only consumer AUROC improves (App. A.4). With random matching decision-aware exploration at 360 synthetic records (0.772 vs 0.765, Table 7), the 'Explore' stage has no robust advantage over random sampling.",
+  "Aggregate blast-set F1 is inflated by no-break records: App. A.4 says 'the all-negative control also attains substantial aggregate F1', and one per-consumer interface scores 0.000 on extracted breaks (Table 6). The abstract's 0.431 -> 0.571 headline uses this aggregate metric.",
+  "The learned model's errors sit in the regime it is meant to fix: 482 of 565 missed positives (85%) and 353 of 366 false positives (96%) lie outside typed reachability, and outcome class is wrong in 18% of cases even when the blast set is right (App. C.1). The model invents breaks in unconnected consumers about as often as it finds hidden ones.",
+  "No experiment instantiates the cost regime the method targets: App. D.9 says SWM is for cases where checking every consumer costs more than the avoided breaks, yet at both tested check prices (0.01, 0.02 against 0.25 per break) exhaustive checking wins (0.826/0.780 vs 0.757), so no reported result shows SWM's decision value against execution.",
+  "The real-library agent comparison (Table 1, +0.160 return, the largest gain in the paper) reports no task count and no intervals (§4.1 says the intervals apply only to synthetic ablations), and both real-library worlds are Python packages (Marshmallow, OpenTelemetry semantic conventions)."
+ ],
+ "note": "I agree with the review's scores (my relevance 3 vs its 2 is immaterial after the min merge), verdict, low COI and all pattern stances; after reading it I accept P25 as mixed rather than my blind supports, because the relation/action logistic regression beats the fine-tuned model on forecast F1 and regret. The review rightly calls the 'structured outcomes matter' claim unsupported and the nine-checkpoint claim weak. I lower 'halves ranking regret' to weak, because App. C.2 shows even a near-random oracle beats reachability on regret. The review also misses that the paper's own Explore stage does no better than random on real-library hidden channels, that aggregate F1 is inflated by an all-negative baseline, and that no experiment reaches the cost regime where the method is supposed to pay off."}

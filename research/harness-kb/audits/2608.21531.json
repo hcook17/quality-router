@@ -1,0 +1,14 @@
+{"arxiv_id": "2608.21531",
+ "blind_scores": {"rigor": 2, "reproducibility": 1, "generalizability": 2, "relevance": 2, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "agree",
+ "claims_disputed": [],
+ "pattern_stance_changes": [],
+ "missed_issues": [
+  "The paper's own synthesis contradicts its tables. Table 15 names GPT-5.5 with CoT as best for traceability explanation, but Table 14 shows DeepSeek CoT best on Goal-Zulip (4.27) and ChatGPT zero-shot best on Issue-Zulip (4.35); CoT lowered ChatGPT's Issue-Zulip explanation score to 4.11. §7.2's 'CoT generally benefited traceability' is also contradicted by DeepSeek's Issue-Zulip P@5 (0.67 to 0.62, Table 13).",
+  "Study II models were used through the consumer chat web interfaces (footnotes 6-7: chatgpt.com, chat.deepseek.com), with no pinned model version, date, or API settings. The text never says how Zulip streams of up to 39,343 messages were reduced to fit a 128K window, and P@5 depends entirely on that undocumented candidate pre-filter.",
+  "RQ5 rates explanations only for links already validated as correct (§6.2.5), so explanation quality (about 4.2/5) is conditioned on the model having found a right link. Explanations for wrong links, the case that misleads a newcomer, are never scored.",
+  "Study I: few-shot examples 'come from our dataset' (§5.2.4) with no statement that they were excluded from the test reviews, and how the 1,278 and 512 test reviews were drawn from the 4,000 and 2,912 annotated ones is not described. The 'three runs to reduce stochastic variance' are at temperature 0 with a fixed seed, so they are effectively one run.",
+  "Table 8's SD is computed across the five rubric criteria within one model/prompt cell, not across the 90 samples, so it says nothing about rating variability; most cells carry the identical integer profile (3,4,3,2,4), consistent with a coarse single-rater score."
+ ],
+ "note": "I agree with the review's scores (my COI is none rather than low; the merge keeps low), verdict and pattern stances, and with marking the cross-task headline and the replication claim unsupported. The traceability and specification claims are already graded weak, which is right given nine single-run cases, no recall and a single rater. The review missed that the paper's synthesis (Table 15, §7.2) misreports its own Table 13-14 results, and that Study II ran through chat UIs with an undocumented candidate pre-filter. That makes the traceability numbers effectively unreproducible. Explanation quality was also scored only on correct links, which hides the failure mode that matters for onboarding. Nothing here supports raising any claim."}

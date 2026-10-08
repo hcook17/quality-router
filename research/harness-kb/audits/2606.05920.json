@@ -1,0 +1,22 @@
+{"arxiv_id": "2606.05920",
+ "blind_scores": {"rigor": 2, "reproducibility": 1, "generalizability": 1, "relevance": 2, "coi_risk": 1},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "agree",
+ "claims_disputed": [
+  {"claim": "The automated evaluator aligns with human judgment (93.35% accuracy, 96.52% F1).",
+   "proposed_strength": "weak",
+   "reason": "§5 RQ3's own triple (precision 97.37%, recall 95.68%, accuracy 93.35%, Pass as positive class) implies that about 96% of human labels were Pass. A constant 'Pass' rule would therefore score about 96% accuracy, above the evaluator. The implied Fail-class recall is about 32% and Fail-class precision about 22%, so the judge misses roughly two-thirds of the failures humans flag. Add single annotators (App. F) and round-3-only annotation, and the number does not show that the judge discriminates failures."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P16", "from": "mixed", "to": "supports",
+   "reason": "'Mixed' needs a split isolating comparison, and there is none. Against the one-shot baseline (round 1), browser-executed criterion feedback raises weighted task pass for every one of the 13+ configurations, by roughly 25 pp at R2 and 7-13 pp more at R3 (Table 1). The review's caveats are real but are not a split result: the feedback comes from the hidden grader, the metric is cumulative, and there is no equal-attempt resample arm. They limit what transfers (the loop works when the tests are the true acceptance criteria), so state them as caveats on 'supports'."}
+ ],
+ "missed_issues": [
+  "RQ3 agreement is near or below a trivial baseline. The reported precision, recall and accuracy imply a ~96% human Pass base rate, ~32% Fail recall and ~22% Fail precision. That base rate is also hard to reconcile with Table 1's R3 criteria pass rates for the five sampled models (60.9-95.1%), so either the 50-project sample is unrepresentative or the reported metrics are inconsistent.",
+  "The 'largely decoupled' claim (RQ2, App. E) is contradicted by the paper's own numbers. The Spearman correlation between R1 weighted Task Pass Rate (Table 1) and R2 task fix rate (Table 5) is about 0.79 on OpenHands and 0.77 on Claude Code. Kimi-K2.6 is a single outlier.",
+  "Token savings in Table 3 are 23.5% (GLM-5), 18.6% (Seed-2.0-Pro), 17.5% (MiniMax-M2.7) and 26.4% (Qwen3.5-Plus). Two of four fall outside the abstract's '23-26%' and the caption's '23-27%'.",
+  "The '10.5 pp higher task fix rate' is the mean of the R2 task column only (R3 task gains average about 6 pp). Fix-rate denominators differ by construction, because DAG's fail list excludes skipped children. The end-to-end outcome favours Flat: project completion 36/16/26/18 vs DAG 30/8/22/24, and weighted task pass higher under Flat for 3 of 4 models.",
+  "App. D concludes that 'robustness on edge cases is a property of model training rather than of agent scaffolding' from a single configuration (Sonnet on Claude Code). No framework-controlled test supports it.",
+  "The PRD arm's 9-18 pp round-1 advantage is partly circular, because the hidden criteria are generated from the same PRD. It measures the value of being given the test oracle's source, not of a team-written spec. The review notes this in a caveat but still uses the figure as the transferable number."
+ ],
+ "note": "I agree with the review's verdict, its COI read (undisclosed industry ties, mid-ranked LongCat rows), and its demotion of RQ1, RQ2, the DAG fix-rate claim and the saturation curve. I disagree on two points. The human-agreement claim should be weak, not moderate: the paper's own precision, recall and accuracy imply that a constant-Pass judge would score higher and that most human-flagged failures are missed, so the evaluator's validity is unproven. In the other direction, P16 is not 'mixed': every configuration gains from feedback rounds against the one-shot baseline. The review's caveats about leakage and the cumulative metric belong as caveats on 'supports', not as a split. I also add numeric checks the review did not run, on the RQ2 correlation, the token savings and the Flat end-to-end outcome, and each cuts against the paper's framing."}

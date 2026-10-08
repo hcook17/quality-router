@@ -1,0 +1,24 @@
+{"arxiv_id": "2607.16708",
+ "blind_scores": {"rigor": 2, "reproducibility": 4, "generalizability": 1, "relevance": 2, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "partial",
+ "claims_disputed": [
+  {"claim": "Multi-agent decomposition reliably improves syntactic validity of generated formal artefacts",
+   "proposed_strength": "weak",
+   "reason": "The claim credits the decomposition, but the single-agent arm (§4.4) is one direct call with no check gate, no parser feedback and no repair, so roles, tool feedback and extra calls are bundled. Of the two positive cells, only Qwen3-max (p=7.1e-4) survives the Bonferroni correction the paper itself invokes in §5.5 (0.05/15 = 0.0033); DeepSeek-V4's p=0.033 does not. The Qwen failure is a missing package declaration (§4.4), which any parse-error retry would fix. The evidence rests on one Emfatic metamodel from one case study."},
+  {"claim": "Executable element-level trace links with exact automated change-impact analysis",
+   "proposed_strength": "weak",
+   "reason": "§4.2 says the requirement model was written with one element per state and per transition condition, so the 18 requirement-to-transition links are close to a 1:1 copy, and F1 1.00 measures that translation rather than link recovery. The 180 change-impact cases (§4.6) inject those same behaviour requirements and read the impact set off the same links, so 1.00 holds by construction. The only non-trivial link measure, requirement-to-concept, is 0.53-0.72 micro-F1, and it reuses the concept-extraction score rather than an independent link audit."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P16", "from": "supports", "to": "introduces",
+   "reason": "No arm isolates the tool-verified check gate. The baseline lacks both the gate and the agent roles (§4.4), and the review's own note says the comparison is confounded. The paper attributes the Qwen header fix to the 'check/refactor loop' (an LLM checker inside the group chat), not to the MALCOMj gate. A gate-only arm (single generator + parser/FDR repair) would be needed for 'supports'."}
+ ],
+ "missed_issues": [
+  "Table 4's change-impact column is 'N/a' for accuracy in both arms, so the 60-minute vs 1-minute change-impact comparison has no correctness measure. Automated participants only 'check the automated results' (§4.7).",
+  "Because the behaviour requirements were authored one element per transition (§4.2), the near-perfect single-agent behaviour structural F1 (0.97-1.00, Table 2) shows that this phase is mostly transcription. It does not show that the pipeline designs behaviour from higher-level safety requirements, and the published high-level LRE requirements were not used as input.",
+  "DeepSeek-V4 and Qwen3-max ran at temperature 0.0 while Claude used the API default (§4.3.1), so the ten repetitions measure different variance regimes per model. The cross-model comparison of semantic gains (positive, neutral, absent) mixes decoding settings.",
+  "The abstract and conclusion still say the decomposition 'reliably' improves validity and call the efficiency gain 'an order of magnitude', even though §5.5 concedes that the marginal p-values are only indicative and that six participants give indicative figures. The abstract-level wording is stronger than the threats-to-validity section.",
+  "The model-dependent EOL failure (Sonnet 0/10 in both arms) is in Epsilon Object Language, a niche language with little training data. It says little about the same model's code generation in mainstream languages such as Java."
+ ],
+ "note": "I agree with admit_with_caveats and with most of the review's caveats: authoring versus reviewing in the efficiency study, the author-written reference, and the confounded baseline. I lower two claims. The syntax-validity claim credits a decomposition the baseline cannot isolate, and only one of its two positive cells survives the paper's own Bonferroni note. The 'exact' change-impact result follows from a requirement model written one element per transition plus an impact set read off the same links. P16 drops from supports to introduces because no gate-only arm exists, which is the review's own confound applied consistently. My lower relevance (2) reflects that the transferable idea, emit trace links at generation time and flag stale ones by content hash, is a known requirements-management practice shown here on an 18-transition state machine."}

@@ -1,0 +1,17 @@
+{
+  "arxiv_id": "2606.14790",
+  "contributions": [
+    {
+      "kind": "constraint",
+      "statement": "Do not treat XFlow's reported compliance gains as a reason to move agent workflow rules out of prompts into a compiled protocol, because the only readable result is author-scored tau^3-bench compliance (Qwen3.5-9B: Retail 96.5% to 100%, Airline 91.8% to 100%, Telecom 77.2% to 82.5%) against an unnamed baseline, with pass^1 admitted to drop in Retail and no task counts.",
+      "evidence": "§4.1 prose only; the results table is cut off in the local text, and CorpusQA and SWE-bench Verified numbers claimed in the abstract and §4 introduction are absent. The compliance metric is extracted from the same policy text the protocol encodes. No code is linked.",
+      "strength": "weak",
+      "novelty": "refines",
+      "relative_to": ["2605.18697", "policy-as-code commit gates and workflow audit logs"],
+      "transfers": "indirect"
+    }
+  ],
+  "quantity_flags": ["system_description_only", "position_without_evidence"],
+  "proposed": "hypothesis_only",
+  "reason": "XPF is a concrete sketch of typed symbols, human commit gates, and an audit log, but the local text does not support a measured reliability gain, and those mechanisms are already how workflow engines gate state."
+}

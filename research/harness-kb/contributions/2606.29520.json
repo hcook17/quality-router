@@ -1,0 +1,26 @@
+{
+  "arxiv_id": "2606.29520",
+  "contributions": [
+    {"kind": "nuance",
+     "statement": "Do not spend instruction-file or glossary space teaching agents textbook architecture vocabulary (GoF patterns, quality attributes, CAP-style trade-offs), because all 11 tested models already answer such questions at 89-94%; reserve that space for the team's own decisions, contracts and domain rules.",
+     "evidence": "§6.1 Table 2 and §6.2 Table 3: 2,114 author-written MCQs, one run per model at T=0. Caveats: MCQ recall is not applying a pattern in code, and the paper never tests whether adding such context helps or hurts.",
+     "strength": "moderate", "novelty": "restates_known",
+     "relative_to": ["P01/P39 practice: instruction files and domain cards should carry project-specific, non-inferable knowledge"],
+     "transfers": "indirect"},
+    {"kind": "constraint",
+     "statement": "Treat an agent's recommendation on architectural tactics or trade-offs as a proposal for review, since even frontier models missed roughly one textbook tactic question in ten (Architectural Solutions 86.6-91.1% zero-shot).",
+     "evidence": "§6.2 Table 3. Caveats: category difficulty is not calibrated against humans; about 250 items; single run.",
+     "strength": "weak", "novelty": "restates_known",
+     "relative_to": ["P19 human approval gates on architecture decisions"],
+     "transfers": "indirect"},
+    {"kind": "nuance",
+     "statement": "Longer trade-off questions lowered accuracy on Architectural Solutions (for example 94.9% to 86.6% for Claude Sonnet 4.6) while longer questions raised accuracy overall.",
+     "evidence": "§6.3 Table 5. Confounded: longer items were 'optionally enhanced via an LLM' (§4.3); about 63 items per ASO bin; no tests.",
+     "strength": "weak", "novelty": "restates_known",
+     "relative_to": ["known long-context degradation on reasoning tasks"],
+     "transfers": "indirect"}
+  ],
+  "quantity_flags": ["leaderboard_only"],
+  "proposed": "drop",
+  "reason": "A saturated multiple-choice leaderboard of textbook knowledge with no mechanism the team can act on. The only usable reading, that generic architecture vocabulary does not belong in agent context, restates known practice and was never tested by the paper."
+}

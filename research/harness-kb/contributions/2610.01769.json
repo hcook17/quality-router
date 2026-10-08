@@ -1,0 +1,20 @@
+{
+  "arxiv_id": "2610.01769",
+  "contributions": [
+    {"kind": "heuristic",
+     "statement": "If the harness lets an agent ask clarifying questions before implementing a ticket, have it draft candidate questions broadly, drop any the ticket or spec already answers (requiring a quoted span) or that do not affect required behavior, and choose each next question from the earlier answers within a cap of about five, rather than letting the model decide on its own when to ask; this raised question-match F1 by about 14 pp over the best model-decides baseline, though it did not raise correctness much.",
+     "evidence": "Tables 1-2: macro F1 41.20 vs 27.32 (Ask-or-Assume) and 25.30 (Direct Prompting), wins for all four models with the same LLM and five-question budget; Table 3 (GPT-5-mini): removing the already-resolved filter cut precision 36.20 -> 26.46, removing history-aware selection cut F1 by 8.67. Caveats: authors' own Python function-level benchmark, GPT-4o question matcher not validated here, single run; Table 4 downstream pass@1 gain only 0.6-1.2 pp on two models.",
+     "strength": "moderate", "novelty": "refines", "relative_to": ["2607.00711", "2605.09698"], "transfers": "indirect"},
+    {"kind": "nuance",
+     "statement": "Do not judge a clarification step by how well its questions match a gold list: a 14 pp gain in question F1 over other clarification methods moved pass@1 by only 0.6-1.2 pp, so measure a clarification step by whether the delivered behavior matches intent (acceptance tests) before paying its interaction and token cost.",
+     "evidence": "Table 2 vs Table 4: macro question F1 +13.88 pp, pass@1 57.32 vs 56.10 (Gemini 3.1 Pro) and 64.63 vs 64.02 (GPT-5.5). Caveats: two of four models reported, single run, no no-clarification arm, so the gap is between clarification methods rather than vs not asking.",
+     "strength": "weak", "novelty": "refines", "relative_to": ["2607.00711", "2605.09698"], "transfers": "indirect"},
+    {"kind": "design_pattern",
+     "statement": "After an agent finishes a ticket, run a separate reviewer over the working-tree diff that does not see the agent's own completion report, list unresolved implementation decisions with the implemented choice and an alternative, and keep a distinguishing test for each as a record; the agent's own report and the independent review overlapped on only 57 of 262 decisions.",
+     "evidence": "§5.3, App. B.1-B.2: 40 single-function Python commits, one run each; 116 decisions only from independent review, 89 only from the agent's report; report completeness 2.9% -> 46.3% graded by the same claude-opus-5 model that runs the review, against a 'briefly explain' baseline. No check that surfaced decisions are real or useful to developers.",
+     "strength": "weak", "novelty": "refines", "relative_to": ["agent-written change summaries / PR descriptions as the record of implementation choices"], "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "One item qualifies: the cheap filters (drop questions the ticket already answers, with a cited span; pick questions in light of earlier answers) gave consistently better question sets than model-decides-when-to-ask across four models, refining ClarifyCodeBench and Ambig-DS for the team's pre-implementation clarification step. The paper's own numbers also show better questions barely changed correctness, and the post-implementation decision report is promising for knowledge capture but untested beyond a self-graded 40-task Python study."
+}

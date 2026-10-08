@@ -1,0 +1,16 @@
+{
+  "arxiv_id": "2606.26289",
+  "contributions": [
+    {"kind": "nuance",
+     "statement": "When agent adoption is rolled out across repositories, do not treat a stable count of human authors as evidence that newcomer participation is intact: in this 2,808-repository panel the newcomer share of human pull-request authors fell 3.7 percentage points (ATT -0.037, about 10.6% below the 0.349 pre-adoption mean) with flat pre-trends, while the absolute newcomer-count outcome failed its parallel-trends check and a related count study found no significant inflow drop under a different adoption definition.",
+     "evidence": "§IV-B: newcomer-ratio ATT -0.037 (SE 0.007, p=0.001 in the body), pre-trends described as flat; log newcomer count ATT -0.044 fails parallel trends and is not treated as causal. Table V Java subsample ATT -0.067, p=0.107. Caveats: adoption is the first AIDev-recorded agent pull request, with 1,054 repositories in June 2025, and controls are 'not in AIDev' rather than verified non-adopters. The share result is not the inflow-count null in 2607.01810.",
+     "strength": "moderate", "novelty": "refines", "relative_to": ["2607.01810: no significant newcomer-inflow decline after config-file adoption in 603 established projects"], "transfers": "indirect"},
+    {"kind": "nuance",
+     "statement": "Do not cite the 1.9-point drop in human authors per pull request, or the paper's 'dilution rather than displacement' slogan, as evidence that agents displace people: the authors say that density falls partly because agent pull requests enlarge the denominator, the raw treated density rose from 0.476 to 0.577, and the newcomer ratio's denominator is human authors, not pull requests.",
+     "evidence": "§IV-A ATT -0.019 (p=0.002) on human authors per pull request, with flat pre-trends; Table III raw treated density 0.476 pre to 0.577 post under a calendar split that is not the relative-time contrast; §VI calls the density drop partly mechanical; §V attributes the newcomer-ratio drop to denominator growth even though §III-D defines that ratio as newcomers over human contributors.",
+     "strength": "weak", "novelty": "restates_known", "relative_to": ["a ratio falls when its denominator grows, which does not identify a change in the numerator"], "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "The usable result is the 3.7-point drop in newcomer share under a pre-trend that holds, which qualifies a prior null on newcomer counts taken from a different adoption definition. The density result and the dilution slogan do not identify a behavior change."
+}

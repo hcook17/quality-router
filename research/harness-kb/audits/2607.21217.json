@@ -1,0 +1,22 @@
+{"arxiv_id": "2607.21217",
+ "blind_scores": {"rigor": 3, "reproducibility": 4, "generalizability": 3, "relevance": 3, "coi_risk": 1},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "partial",
+ "claims_disputed": [
+  {"claim": "Higher constraint coverage and larger question budgets do not translate into higher pass rates",
+   "proposed_strength": "weak",
+   "reason": "Fig. 10 contradicts the budget half. Going from 8 to 16 questions raises both coverage and Overall (22.9 -> 37.4, +14.5 pp). Only the 16 -> 24 step falls (37.4 -> 34.4, -3.0), and that is one run of one model (GLM-5.1 think-8k) on 50 tasks, within plausible run-to-run noise. The coverage half compares different user-agent models (Table XI) whose reply phrasing also differs, and different frameworks (Table X), so the decoupling is confounded rather than isolated."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P34", "from": "supports", "to": "mixed",
+   "reason": "Table IX is the same intervention the review also credits to P15. §IV-C2 attributes its +24.4 pp to 'immediate execution and debugging feedback' from runnable case files, not to requirement structure, so it belongs to P15. The comparison that holds content fixed and varies structure is GroundPRD vs RecoveredPRD (Fig. 6). The coherent spec wins for 4 of 6 models, with Gemini and MiniMax as exceptions, figure-only and single-run, which is split evidence."},
+  {"id": "P38", "from": "mixed", "to": "neutral",
+   "reason": "No condition varies whether knowledge discovery happens before a spec is written, and the agent never writes a spec. The discovery that is measured is question-asking to a simulated stakeholder (P40). The coverage-versus-pass decoupling comes from comparisons across user-agent models and frameworks (Tables X-XI), not from an isolating P38 arm, and code or doc exploration is not tested."}
+ ],
+ "missed_issues": [
+  "The review's applicability advice to 'cap questions rather than raising budgets: 24 questions did worse than 16' rests on a 3-point single-run difference on 50 tasks. The same figure shows halving the budget to 8 cost 14.5 pp, so the defensible reading is to give enough questions for the open ambiguity points (about 20 per task here), not to cap them.",
+  "Which image the main runs used is inconsistent. §I and §III-B say the agent works in the provisioned ultimate image, but Table XIV lists the default GLM-5.1 result (37.4) under 'Base image', with the ultimate image at 28.4. Either the main tables used the base image or the environment ablation is mislabelled, and that affects the 'richer environment causes over-building' finding.",
+  "GroundPRD (the upper bound) is reported only on Lite and only in Fig. 6. The full split averages 35,533 golden LOC (max 2.9M), so the full-benchmark pass rates cannot separate difficulty caused by fuzziness from difficulty caused by repository scale.",
+  "Every ablation runs on the 50 smallest repositories (average 979 LOC), whose model ranking agrees with the full split only at Spearman 0.71 (§V-A). The mechanism findings (scaffolding, budget, user-agent model, environment) are therefore small-repository results for one model."
+ ],
+ "note": "I agree with admit_with_caveats and with most of the review: single runs, one model for ablations, no no-clarification arm, the Opus-4.8 construction bias, and weak critic-human agreement. The Table IX result (same examples as runnable files, 37.4 -> 61.8) is the most actionable finding, and I keep it at moderate. I lower the budget/coverage claim because the paper's own 8 -> 16 step raises pass by 14.5 pp; only a 3-point single-run dip supports 'larger budgets do not help'. P34 moves to mixed because the scaffolding gain is execution feedback, already credited to P15, and the structure-only comparison is split 4/6. P38 moves to neutral because no arm varies pre-spec discovery."}

@@ -1,0 +1,17 @@
+{
+  "arxiv_id": "2606.12425",
+  "contributions": [
+    {
+      "kind": "nuance",
+      "statement": "If an agent explains a novice mistake, emit only an expert-written message for a known error pattern and otherwise say nothing: on one intro-Python exercise that policy was more selective (95% vs 53%) and more pedagogically suitable (100% vs 47%) than GPT-4o free text, and slightly less complete (80% vs 87%).",
+      "evidence": "§5.2 Figure 8, two raters, kappa 0.84; the submission count is not stated. Insight cannot invent issues, so selectivity is partly the refusal rule. One course and one exercise. §5.1 Likert means are 2.98–3.41, and no learning gain is measured.",
+      "strength": "weak",
+      "novelty": "refines",
+      "relative_to": ["2605.16933", "2607.08885"],
+      "transfers": "indirect"
+    }
+  ],
+  "quantity_flags": [],
+  "proposed": "hypothesis_only",
+  "reason": "The only measured comparison is canned instructor text versus free GPT-4o on one intro-Python exercise, and the action space favors the tool. That is a hypothesis for explanation guardrails, not evidence a Java backend team can gate on."
+}

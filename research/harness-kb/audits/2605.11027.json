@@ -1,0 +1,35 @@
+{
+  "arxiv_id": "2605.11027",
+  "blind_scores": {"rigor": 1, "reproducibility": 1, "generalizability": 1, "relevance": 3, "coi_risk": 0},
+  "blind_verdict": "admit_with_caveats",
+  "blind_coi_severity": "none",
+  "agreement": "partial",
+  "claims_disputed": [
+    {
+      "claim": "The study is a reproducible public-discourse analysis with an auditable corpus",
+      "proposed_strength": "unsupported",
+      "reason": "Data availability says the register, codebook, matrix, and SHA-256 manifest are prepared for Zenodo and GitHub. No URL or DOI is in the paper, transcripts are withheld, and §6.9 is a single coder by design. A described protocol without the corpus is not a reproducibility result."
+    }
+  ],
+  "pattern_stance_changes": [
+    {
+      "id": "P14",
+      "from": "neutral",
+      "to": "introduces",
+      "reason": "§8.1 and §10.1 prescribe intent, constraints, and acceptance evidence as the unit of work. That is a spec-first proposal. It is not only a label for other people's remarks, and it is not a comparison, so it does not rise to supports."
+    },
+    {
+      "id": "P19",
+      "from": "neutral",
+      "to": "introduces",
+      "reason": "Table 6 stage 2 and §10.1 tell leaders to set review rules and escalation criteria for agent autonomy. That prescribes a human gate. No gated-versus-ungated comparison is run."
+    }
+  ],
+  "missed_issues": [
+    "P39 is untagged. Stage 4 and §10.2 say requirements, decision records, interface contracts, and threat models should become retrievable context for agents. That is a machine-readable-context proposal with no measurement.",
+    "P42 is untagged. Stage 4 says acceptance evidence becomes continuous and traceable. No link is checked.",
+    "Table 5's support counts (7 to 25 artifacts) have no stated corpus size, so the same artifact can sit in several themes and the counts cannot be read as coverage.",
+    "The HTML header says Journal of Systems and Software while the data note is still a planned release. The review records the empty journal_ref; the header still reads as a publication the paper does not have."
+  ],
+  "note": "The review is right that every measured-sounding sentence is an interpretation, that ordinary engineers are outside the sample, and that the maturity path is a projection. It is too harsh in marking the practice sections as mere mentions: §10 prescribes spec-first work and human escalation, which is introduces, not a tested support. It is slightly kind to the reproducibility claim, which has no artifact. Blind rigor is 1 because there is no new measurement and the corpus cannot be inspected; under the loader that minimum rejects the paper even though the review's rigor was 2. Use the section 10 checklist only as a restatement of requirements, architecture rationale, and review, not as evidence for a harness change."
+}

@@ -1,0 +1,26 @@
+{
+  "arxiv_id": "2609.30334",
+  "contributions": [
+    {
+      "kind": "heuristic",
+      "statement": "When an agent change is both uncertain and expensive to undo, require a named person to accept the architecture decision and keep the guardrail document human-edited only.",
+      "evidence": "§4.3 and §5.1: the room treated decision ownership, accountability, and human-authored rules as non-delegable, and accepted criticality as uncertainty plus cost of change. No vote, no dissent count, speaker turns were not attributed, and five self-selected participants checked the authors' writeup (§3.3, §6.4).",
+      "strength": "weak",
+      "novelty": "refines",
+      "relative_to": ["known practice: named human approval on high-cost architecture changes", "2609.32014: rule files usually state a norm but rarely spell out autonomy limits"],
+      "transfers": "direct"
+    },
+    {
+      "kind": "nuance",
+      "statement": "Do not treat a green build as proof that a new developer still understands an agent-edited area, but do not budget a cognitive-debt program on this report: the three erosion mechanisms are the authors' gloss and no later mistake was observed.",
+      "evidence": "§4.3 records the term from one participant by analogy with technical debt. §5.1 says shallow acceptance, brief engagement, and fly-by approval are the authors' extension. The paper itself links the idea to architectural knowledge vaporization.",
+      "strength": "weak",
+      "novelty": "restates_known",
+      "relative_to": ["architectural knowledge vaporization (Jansen and Bosch 2005, cited as [4] in the paper)"],
+      "transfers": "direct"
+    }
+  ],
+  "quantity_flags": ["position_without_evidence", "self_declared_incomplete"],
+  "proposed": "hypothesis_only",
+  "reason": "The plenary names oversight worries worth tracking, and §7 defers a real thematic analysis. No practice is measured against an alternative, so nothing here can back a gate."
+}

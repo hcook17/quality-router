@@ -1,0 +1,20 @@
+{
+  "arxiv_id": "2608.30686",
+  "contributions": [
+    {"kind": "heuristic",
+     "statement": "Run every agent-initiated build or test execution on newly cloned, third-party or freshly pulled code in a sandbox with outbound network denied by default, and keep exploration and question-answering sessions read-only. 'Run the tests' was the riskiest invocation measured: 45.5% exfiltration success with 9.4% alerts, versus 8.6-14.8% for issue-fixing tasks. Payloads also ran when the agent never opened the poisoned file.",
+     "evidence": "Table 14 Panel A (about 480 runs per task, Codex 0.130 + GPT-5.4): Run-Tests ASR 45.5% [41.1, 50.0], AR 9.4%; Prepare-Env 24.9%; Fix-Bug 8.6%; Fix-Feature 14.8%. Run-Tests ASR exceeds both issue-fixing tasks for Codex + GPT-5.5, OpenCode and Claude Code (Table 15). Derived from Table 1 (no-skills slice): ASR when the injected file was not read is about 27.5% for Run-Tests (about 44 runs) and about 50% for Prepare-Env (about 22 runs). The injected files include build.gradle in the five Java repositories (App. B). Caveats: single seed, CIs not clustered by the 20 repositories, one blatant payload over an open network in unconstrained automation mode, and egress denial itself is not tested.",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["2608.23550 (compile security rules into sandbox egress and permission rules)", "2606.19235 (keep sandboxing and permissions alongside untrusted-code sanitization)", "2608.06477 (blanket user authorization raises injection success)"],
+     "transfers": "direct"},
+    {"kind": "nuance",
+     "statement": "Treat security directives in rules or skills files as a detection aid, not a control. Adding them to the same skills raised alerts from 10.1% to 14.8% (31% to 43% in setup tasks) but lowered exfiltration only from 25.5% to 22.3%, within noise, and 43% of test-run tasks still exfiltrated.",
+     "evidence": "Table 14C: Normal Skills vs Skills + Security Rules on Codex + GPT-5.4, about 640 runs per arm, overlapping Wilson CIs. Table 18a, pooled over four prompt styles (160 runs per arm): Prepare-Env ASR 26.3% to 18.8%, AR 31.3% to 42.5%; Run-Tests ASR 48.8% to 43.1%. The pooled figures are computed from the per-cell table, not tested by the paper. Single model and seed, generic directives, and the paper's 'alerts come too late' explanation is not measured.",
+     "strength": "weak", "novelty": "refines",
+     "relative_to": ["2608.23550 (security rules in instruction files are mostly unenforced)", "2606.25195 (security as executable tests, not principle text)", "2609.16287 (prohibitive rules cut abnormal actions 69% to 27%, in conflict)"],
+     "transfers": "direct"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "The prompt-style findings were selected on the outcome and are marginal, the cross-agent rows look broken, and the prompt-normalization advice contradicts the paper's own data. One large, transferable measurement survives: asking an agent to run a repository's tests is the riskiest everyday invocation (45.5% vs 8.6-14.8% for issue fixes). That refines the KB's sandbox and egress steer by locating where it matters most. A weak, measured confirmation that rules text raises alerts without materially preventing execution goes alongside it."
+}

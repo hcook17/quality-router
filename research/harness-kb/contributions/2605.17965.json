@@ -1,0 +1,44 @@
+{
+  "arxiv_id": "2605.17965",
+  "contributions": [
+    {
+      "kind": "heuristic",
+      "statement": "When indexing a repository for issue localization, prepend the relative file path to each AST-bounded chunk and also issue a structural query that names modules, functions, and traceback files: path prefixes raised dense MRR from 0.473 to 0.553 and Top-10 from 0.703 to 0.873, while AST chunking alone moved MRR only from 0.459 to 0.473, and a structural rewrite then lifted dense MRR from 0.553 to 0.680.",
+      "evidence": "Table 3 and Table 5 on SWE-bench-Lite (300 Python issues), nomic-embed-text-v1, one pass. AST-only versus text is a small step. Caveats: Python only; 10 of 14 Claude retrieval misses are sympy, where the report vocabulary does not match the patch file; 2606.11864 finds Java harder than Python for issue-to-code embeddings; no BM25 arm.",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": ["P06 embedding retrieval over code", "2607.11046 path-only embeddings are a weak first stage, while raw source and role summaries often beat paths alone"],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "nuance",
+      "statement": "If path-aware retrieval already places the right file in the top 10, do not replace that list with a shorter LLM ranking: the same chunks fall from Top-10 0.873 under dense retrieval to 0.823 after one-shot reranking, even though Top-1 rises from 0.417 to 0.673.",
+      "evidence": "Table 3, code-aware chunks with file path, SWE-bench-Lite. §3.3.3 says the model often returns fewer than ten files. Single temperature-0.7 pass. This is the opposite of a ranking gain measured against a weak path-only first stage.",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": ["2607.11046 LLM re-ranking adds the largest Hit@5 gains when the first stage is path embedding"],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "nuance",
+      "statement": "Do not add a skeleton-only ReAct pass expecting a large file-rank gain: on the same retrieved candidates it moves Top-1 only from 0.673 to 0.685, and the later single prompt over five pruned files is what reaches 0.762.",
+      "evidence": "Table 4, base bug report, no query transform: dense 0.417, RAG 0.673, Phase 1 0.685, Phase 1+2 0.762 MRR 0.819. Table 12: expanding Phase 2 from 5 to 10 files drops Top-1 from 0.786 to 0.773. One run.",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": ["P10 single-agent linear loop", "P43 codebase exploration agents"],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "constraint",
+      "statement": "Do not read a file-localization Top-1 near 80% as a fix rate: swapping BLAgent into Agentless raised the best-of-three resolved count from 86/300 to 108/300 under regression tests (about 7 points, Wilcoxon p=0.014), and in the worst run 158 of 177 unresolved issues already had the correct file in the top 3.",
+      "evidence": "Table 9 best of three runs, not the mean; §4.2.3 paired Wilcoxon p=0.014; §4.3.2 and Fig. 12b, run 2, function-level failures 44.6% and line-level 26.6% of unresolved cases. Twenty-three matplotlib issues could not run the newer tests. GPT-OSS-120B only.",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": ["2608.17018 correct localization (94/100) still yielded few compiling patches (32/100)"],
+      "transfers": "indirect"
+    }
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "Four measured rules survive at moderate strength: put the path in the chunk, keep the retriever's long list when recall matters, do not expect a skeleton ReAct pass to move Top-1, and do not confuse file rank with a merged fix. All of it is Python SWE-bench-Lite, one stochastic pass for localization, so it informs a Java triage index only after a local re-measure."
+}

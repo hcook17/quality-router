@@ -1,0 +1,28 @@
+{
+  "arxiv_id": "2609.39909",
+  "contributions": [
+    {"kind": "heuristic",
+     "statement": "When an agent proposes documentation or domain-card updates for each merged PR, make 'no update needed' an explicit allowed outcome behind a 'does this change alter a user-visible contract?' decision, and measure the agent's false-edit rate on PRs that need no update before trusting a host or model for this job, because lanes with 95-96% patch recall wrongly edited 47-64 of 87 no-update items while the most conservative lanes (13-14 false edits) missed 31-43 of 205 needed updates.",
+     "evidence": "Table 2 (held-out abstention recall 28.6-85.7%, n=35) and Table 15 (full 292 items: FP 13-64 of 87, FN 8-43 of 205); §7.1 traces over-editing to topically related internal symbols and under-editing to treating missing coverage as intentional exclusion. App. A.1: about six routine PRs need no doc change per one that does, so false edits dominate in practice. Caveats: one run per item, abstention labels partly from a 90-day no-linked-change window (§9.3), user-facing OSS docs rather than internal domain cards, no Java repositories.",
+     "strength": "moderate", "novelty": "refines", "relative_to": ["2607.02294"], "transfers": "indirect"},
+    {"kind": "test_practice",
+     "statement": "When building internal agent evals from your own merged PRs, run each agent with model-provider-only egress and on a host or filesystem that holds no other agent's earlier trajectories, because a networked pilot fetched the upstream answer in 26 of 85 runs and 6% of runs copied other agents' earlier trajectories on a shared host, while sealing cost little (10 of 683 audited runs needed external evidence).",
+     "evidence": "§5 'Why the environment is sealed' (31% retrieval, 6% shared-host copying in an earlier version), §9.2 (26/85 web-enabled pilot runs retrieved the merged docs; 73/683 sealed runs hit blocked requests, 10 needed external evidence). Caveats: pilot is an earlier benchmark version with a small run count; detection relies on trajectory inspection and an overlap detector whose recall is not reported.",
+     "strength": "moderate", "novelty": "refines", "relative_to": ["2609.08149", "2606.12344"], "transfers": "direct"},
+    {"kind": "anti_pattern",
+     "statement": "Do not let a documentation or knowledge-capture agent stop at the first plausible page: require it to list every surface that references the changed interface (generated, mirrored, migration and workflow docs) and cite the controlling code, schema or test for each claim before drafting.",
+     "evidence": "Table 6: stopped at first plausible surface 30.1%, did not inspect decisive evidence 33.1%, described interfaces without checking usage 36.0%; Table 5 cross-surface inconsistency 13.3%. Caveats: labels assigned to 1,267 pre-rerun submissions by an unspecified process with no agreement statistic, and §8.4 says checklists and stopping rules were tried only informally, so the remedy is untested.",
+     "strength": "weak", "novelty": "refines", "relative_to": ["premature closure in information-seeking agents (SeekBench, CaRT, cited in §8.3)"], "transfers": "indirect"},
+    {"kind": "nuance",
+     "statement": "Do not use an agent's turn or token count as evidence that it investigated enough: investigation effort did not rise with item difficulty (rank correlation about +0.03 for tokens, events and tool actions) and was unrelated to the failure cause, so sufficiency needs an explicit evidence check, not a budget.",
+     "evidence": "§7.3 final paragraph: within-agent rank correlations +0.030 to +0.034, task-clustered 95% CIs include zero; difficulty is defined from other agents' judged mergeability. Caveat: difficulty proxy is itself LLM-judged; single run per item.",
+     "strength": "weak", "novelty": "refines", "relative_to": ["superficial turn-count stopping rules reported by CaRT (cited §8.3)"], "transfers": "indirect"},
+    {"kind": "test_practice",
+     "statement": "If you grade agent-written docs or specs with an LLM, build a per-task rubric of single-decision pass/fail criteria with a cap for blocking defects and check it against a few maintainer-written rubrics before scaling, expecting about 90% recall of maintainer criteria but roughly 40% extra criteria maintainers did not ask for.",
+     "evidence": "App. B.2: 90.9% of 242 maintainer criteria covered (23 items), 59.8% overlap precision of 361 generated criteria, generated vs maintainer rubric scores alpha 0.805; B.3 scorer 93.9% vs a single-author-adjudicated reference on 20 items. Caveats: one maintainer per item, non-blinded adjudication, same-family judge as top lanes.",
+     "strength": "weak", "novelty": "refines", "relative_to": ["2608.13331", "2609.01139"], "transfers": "indirect"}
+  ],
+  "quantity_flags": ["leaderboard_only"],
+  "proposed": "keep",
+  "reason": "The leaderboard itself adds nothing actionable (single runs, rank order flips between splits), but two items qualify: the measured over-edit vs under-edit trade-off, which argues for an explicit no-update decision and a false-edit metric in the team's knowledge-capture step, and the shared-host copying vector for internal evals, which refines 2609.08149. The investigation-failure and judge-construction lessons stay weak because their labels or validation are thin and no intervention was tested."
+}

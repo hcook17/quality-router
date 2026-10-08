@@ -1,0 +1,23 @@
+{"arxiv_id": "2610.04089",
+ "blind_scores": {"rigor": 2, "reproducibility": 4, "generalizability": 1, "relevance": 2, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "partial",
+ "claims_disputed": [
+  {"claim": "Untuned clarification behaviour is Pareto-inefficient: a budget-constrained policy achieves higher accuracy with fewer questions.",
+   "proposed_strength": "weak",
+   "reason": "The literal (q, pass@1) dominance at d1=0.75 holds for two seeds (§5), but the claim is about clarification behaviour and the accuracy half is not attributable to clarification: zero-question episodes also improve (73.7->81.1%, App. C), slack-budget runs with lambda about 0 gain too, and App. D Episodes 1-2 show baseline failures that are output-format errors (a bare '0' or '0.5 * a * h' instead of a function), which any in-distribution fine-tune fixes. The only comparator is the untrained model; no prompted or penalty baseline; one 7B model; HumanEval exposure unaddressed."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P25", "from": "mixed", "to": "supports",
+   "reason": "The review's reason for 'mixed' (slack-budget runs also gain, so much of the improvement is generic PPO) is evidence for P25, not against it: with the same model and protocol, every budget-compliant trained policy at d1>=0.5 matches or beats the untrained base, by +5.8 to +8.7 points at 0.75-1.0 with p<0.01 in both seeds. The d1<=0.25 losses come from suppressing questions under the constraint. In-distribution and Python-only, so the strength is limited even though the direction is clear."},
+  {"id": "P24", "from": "neutral", "to": "introduces",
+   "reason": "A per-episode question budget enforced by a Lagrange multiplier is the paper's core mechanism, not a mention; it is used and checked for post-hoc compliance (holds at 0.5/0.75, violated at 0.25 and by one 1.0 run) but never compared with a penalty or prompt-based cap, which fits 'introduces'."}
+ ],
+ "missed_issues": [
+  "The 'suppressing clarification hurts' result that the review's P40 note and applicability lean on ('Never asking hurt') has no reported test numbers: §5 says d1 in {0, 0.25} 'fall below baseline (details in Appendix A)', but App. A gives only a validation pass@1 of 0.481 for 0.25 and no test pass@1 for either; the d1=0 checkpoint is also not converged.",
+  "Part of the baseline's deficit is output format, not reasoning or asking: in App. D Episode 1 the baseline submits '0' and in Episode 2 a bare expression instead of a function, both scoring 0. PPO on this protocol trivially fixes format, which inflates the 'better code under ambiguity' explanation.",
+  "Every HumanEvalComm instance is degraded (§4), so the cost of asking on fully specified tasks, the main harm of over-asking in practice, is never measured; 'Pareto-efficient' here means efficient only on tasks that all need clarification.",
+  "The cost metric itself is LLM-determined: the GPT-4o-mini simulator decides how many atomic questions a turn contains (App. A/E, QUESTION_COUNT), with no validation of that count.",
+  "Budget compliance is assessed only after the fact and fails in 2 of 8 runs at d1<=1.0 (0.25: q=0.417; one 1.0 run: q=1.072, p=0.027), so the 'enforceable budget' framing holds only in expectation during training."
+ ],
+ "note": "I agree with the verdict, COI none, relevance 2, reproducibility 4 and generalizability 1, and with P40 mixed. I score rigor 2 rather than 3, and the headline Pareto claim weak rather than moderate, because the only comparator is the untrained model fine-tuned on nothing, the paper never runs the penalty-based baseline it positions itself against, and its own appendix shows format fixes and zero-question gains driving accuracy. I move P25 up to supports because generic PPO gains are evidence for the RL pattern, and P24 up to introduces because the question budget is the paper's central mechanism. The review also builds its harness advice on 'never asking hurt', which has no reported test numbers in this paper."}

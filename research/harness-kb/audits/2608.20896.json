@@ -1,0 +1,14 @@
+{"arxiv_id": "2608.20896",
+ "blind_scores": {"rigor": 2, "reproducibility": 2, "generalizability": 1, "relevance": 2, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "agree",
+ "claims_disputed": [],
+ "pattern_stance_changes": [],
+ "missed_issues": [
+  "Time-to-fix (Figs. 4-5) is computed only over participants who succeeded, so arms with different fix rates are compared on different self-selected subsets (5-7 novice successes per arm); the time comparison is survivorship-biased, not just underpowered.",
+  "Correctness of the llama-3.1-8B rewrites is never audited; only for snippet A does §4.1.1 assert the rewrite names the right line and cause. The objective null therefore cannot separate 'explanations do not help' from 'some 8B explanations were wrong or vague'.",
+  "Snippet A confound: the standard interpreter message points to a non-offending line (§4.1.1, footnote 3), so for A the LLM arms add fault re-localization, not just rephrasing. The only large objective gap (experts on A: 33% standard vs 83% pragmatic and 80% contingent, n=5-6, Table 5) comes from this different mechanism.",
+  "The outcome reported as 'authoritativeness' is a single item asking how respectful the tone is (Table 10), so 'less authoritative' is a renamed tone rating; Figs. 6-9 also star p<0.1 as a significance level.",
+  "Reporting defects: Table 11 gives 63 experts in the total column while its cells (22+22+21) and §3.3 give 65; Appendix B.4 contains unfilled placeholders ('% Insert Snippet A code here') for snippets A, C, D and every standard message. The 'supplementary material' named in Appendix E has no link, so data and analysis scripts are not actually available."
+ ],
+ "note": "I agree with the review on scores, verdict, and the P41 'mixed' stance. The study is randomized against a standard-message baseline: subjective clarity and load improve with tests that hold up (pooled intrinsic load p=0.0017, germane load p=0.0013), while the objective side is descriptive and underpowered. The review already grades the headline 'complementarity gap' as weak and the novice-scaffolding claim as weak, which I would not lower further: they are descriptive observations, not unsupported ones. What it missed matters for interpretation: time-to-fix is conditioned on success, the 8B rewrites were never checked for correctness, and the one large objective gap (snippet A) reflects fault re-localization rather than explanation style. None of this changes the verdict. It does mean the paper's design recommendation (adapt explanations to the user's repair trajectory) is untested."}

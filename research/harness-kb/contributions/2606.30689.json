@@ -1,0 +1,25 @@
+{
+  "arxiv_id": "2606.30689",
+  "contributions": [
+    {"kind": "test_practice",
+     "statement": "If specs carry stable requirement IDs and agent-written code or tests cite them, add a deterministic CI check that fails on any cited ID absent from the spec, and treat it as a fabrication lint only: it raised no false alarm on 210 correct runs, but it cannot catch out-of-scope code cited under a valid ID, uncited additions, or links to the wrong requirement.",
+     "evidence": "§6.1-6.3 Table 3: 0% FPR over 60 (Claude) and 150 (GLM) checks. The 86-88% detection rate is circular, scored on author-injected fake IDs, and Table 3's per-type 100% rates contradict the totals. Python toy tasks; nothing released.",
+     "strength": "weak", "novelty": "refines",
+     "relative_to": ["2606.24834 require requirement-to-code links that a deterministic check or a test referencing the requirement ID confirms"],
+     "transfers": "direct"},
+    {"kind": "nuance",
+     "statement": "Requiring the agent to emit a requirement-ID comment on every line changes the code it writes, not just its comments (lower run-to-run similarity on comment-stripped code, d about -0.7 on two models), so prefer requirement IDs on acceptance tests or methods over per-line annotation.",
+     "evidence": "§5.2.1 Table 2 (paired t and Wilcoxon, 20 + 50 tasks, 3 runs each). The paper's stated mechanism contradicts its comment-stripped metric, the anchor pairs share run_1, and test-level IDs are never tested.",
+     "strength": "weak", "novelty": "new", "relative_to": [],
+     "transfers": "indirect"},
+    {"kind": "nuance",
+     "statement": "Injected scope creep, unauthorised imports and decorators passed every functional test in every condition.",
+     "evidence": "§4.4, §6.4: 100% TPR everywhere. By construction, the injected code was written so as not to break tests.",
+     "strength": "weak", "novelty": "restates_known",
+     "relative_to": ["tests check required behaviour, not the absence of extra behaviour"],
+     "transfers": "indirect"}
+  ],
+  "quantity_flags": ["numbers_without_mechanism"],
+  "proposed": "hypothesis_only",
+  "reason": "The headline detection result is circular and the determinism effect has no mechanism consistent with the paper's own metric. What survives is a weak, cheap fabricated-ID lint and an untested suggestion to put requirement IDs on tests rather than on every line."
+}

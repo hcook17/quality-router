@@ -1,0 +1,20 @@
+{
+  "arxiv_id": "2609.22068",
+  "contributions": [
+    {"kind": "nuance",
+     "statement": "When instrumenting agent runs on your repos, log whether the agent ran its own checks (tests, inline runs) after its last edit and treat a missing post-edit check as a risk signal. Do not use the volume of pre-edit read/search calls as a quality signal: within the same task and checkpoint, post-edit self-checks went with +4.2 pp pass rate (95% CI 1.8-6.6), but more exploration showed no association (+0.7 pp, CI -1.9 to 3.7).",
+     "evidence": "§5.2 and App. B: within-task, within-checkpoint comparison on CodeMidas Val, with bootstrap CIs over tasks. Caveats: correlational; one RL-trained model (MiMo-V2.5); in-distribution validation set; rollouts truncated by the turn or length cap can neither verify nor pass, so the association is confounded with trajectory completion.",
+     "strength": "weak", "novelty": "refines", "relative_to": ["P16 execution-based verifier loop", "2607.17937"], "transfers": "indirect"},
+    {"kind": "test_practice",
+     "statement": "When building internal agent eval tasks by deleting implemented functionality from your own Java repos, take expected values from running the original code, strip assertions the task statement does not fix (exact message text, incidental ordering, private symbols), and require fail-on-stub and pass-on-reference across repeated fresh containers.",
+     "evidence": "§3.2-3.3 describe the recipe (2/2 starting-state fails, 4/4 reference passes). The only test of it is §5.1 filtered-5k vs unfiltered-8k, which removes all filters together, runs once, and has margins of 0.59-4.59 pp. No filter is isolated.",
+     "strength": "weak", "novelty": "duplicates", "relative_to": ["2607.28591", "2606.12344", "2609.08149"], "transfers": "indirect"},
+    {"kind": "heuristic",
+     "statement": "Prefer a smaller set of verified agent tasks over a larger unverified one when curating internal agent training or eval data.",
+     "evidence": "§5.1 Fig. 8: filtered 3k and 5k beat unfiltered 8k, single runs, one margin under 1 pp, one margin on an in-distribution validation set.",
+     "strength": "weak", "novelty": "restates_known", "relative_to": ["data quality over quantity for training data; removing broken verifiers"], "transfers": "indirect"}
+  ],
+  "quantity_flags": ["numbers_without_mechanism"],
+  "proposed": "hypothesis_only",
+  "reason": "The headline is RL gains for the vendor's own model, which the team cannot act on. The filtering comparison bundles every filter, so the gain cannot be traced to one of them, and the eval-task recipe duplicates fail-to-pass and leakage practices already in the KB (2607.28591, 2606.12344, 2609.08149). What survives is a weak, correlational nuance: post-edit self-checks track success, while pre-edit exploration volume does not. That is worth logging as a hypothesis, not a gate."
+}

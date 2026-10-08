@@ -1,0 +1,15 @@
+{"arxiv_id": "2605.14634",
+ "contributions": [
+  {"kind": "test_practice",
+   "statement": "When an agent ports or rewrites a module and also ports its tests, do not accept the agent's own ported suite as the equivalence oracle; run the original tests unchanged or a suite produced independently, because test porters silently drop tests for features the port lost (one agent's output passed 93.5% of its own ported suite but 66.2% of an independently ported one).",
+   "evidence": "§5.3 reports, as a qualitative observation with no counts, that each system's TestTranslator skipped tests for features its own translation failed to preserve. Table 2: Claude Code's output passes its own suite more often than RustPrint's suite in 8 of 8 repos (mean 93.5% vs 66.2%). Caveats: single run, suite sizes unreported, the cross-suite tests were adapted by a GPT-5.4 agent so some failures may be adaptation errors, and Claude Code's model and setup are unstated.",
+   "strength": "weak", "novelty": "refines", "relative_to": ["2608.12249", "2607.05139", "2608.16742"], "transfers": "indirect"},
+  {"kind": "design_pattern",
+   "statement": "After an agent rewrites a module, regenerate a feature-level description from the new code and diff it against the description of the old code to produce a list of possibly dropped features for human review or test writing; do not treat the diff score as proof of equivalence.",
+   "evidence": "§3.2 and Fig. 3: the documentation comparison drives repairs, and most of the FCV gain arrives in the first one or two iterations. FCV is the same LLM-judged signal being optimized, the judge has no human validation, and the same Claude Code output scores 52.5% or 48.9% depending on the judge (Fig. 2), so the measured gain is circular.",
+   "strength": "weak", "novelty": "refines", "relative_to": ["2606.22247", "2608.12249"], "transfers": "indirect"}
+ ],
+ "quantity_flags": [],
+ "proposed": "hypothesis_only",
+ "reason": "The objective results (compilation and safe rates) are by-construction stopping criteria of the pipeline, and its documentation-first idea is never ablated, so nothing about pre-translation documentation transfers as evidence. What survives is a weakly evidenced refinement of known 'do not trust self-generated oracles' practice (test porters drop tests for lost features) and a doc-diff gap checklist; both are hypotheses."
+}

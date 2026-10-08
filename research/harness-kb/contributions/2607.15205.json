@@ -1,0 +1,26 @@
+{
+  "arxiv_id": "2607.15205",
+  "contributions": [
+    {
+      "kind": "nuance",
+      "statement": "Do not add a screenshot channel to file localization because a strong tool-using agent was shown the image: on these 652 issues, OpenHands with GPT-5.2 moved from 38.65 to 38.96 file Acc@5 when images were added, and OpenHands with Claude-Sonnet-4.6 scored 0.92 points higher with the images removed.",
+      "evidence": "Table 3 §5.2. Caveats: one run; strict all-gold Acc@5; the authors' retriever does drop 4.44–4.91 File@5 without images, so indifference is for this agent harness; Java is 44 instances with OpenHands file Acc@5 39.53 (Table 10).",
+      "strength": "weak",
+      "novelty": "refines",
+      "relative_to": ["SWE-bench Multimodal", "2607.29637"],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "anti_pattern",
+      "statement": "Do not replace issue screenshots with one fixed image-to-text dump and assume file accuracy will rise: under LocAgent, that dump moved Qwen3.5-122B from 25.70 to 35.04 file Acc@5 and then to 23.35 when the raw image was restored, while the same dump moved GPT-5.2 from 19.13 to 16.12.",
+      "evidence": "Table 4 §5.3. Caveat: AgentLess with Claude rose from 25.15 to 28.53 with a pixel residual of +0.22, so the dump helps some harnesses and hurts others; Table 3's AgentLess GPT-5.2 with-image score (29.59) does not match Table 4's Original cell (28.15).",
+      "strength": "weak",
+      "novelty": "refines",
+      "relative_to": ["2607.29637", "SWE-bench Multimodal"],
+      "transfers": "indirect"
+    }
+  ],
+  "quantity_flags": [],
+  "proposed": "hypothesis_only",
+  "reason": "The paired image ablation is the usable part, and it says the strongest agent barely uses the image, but every cell is one run and the cross-benchmark gap is not identified as an image effect."
+}

@@ -1,0 +1,18 @@
+{"arxiv_id": "2608.21531",
+ "contributions": [
+  {"kind": "heuristic",
+   "statement": "When an agent mines ticket and chat history to find discussions behind a spec item, query from the concrete tracking ticket rather than the high-level roadmap goal and have a human confirm the top-5 candidates; issue-to-discussion ranking reached P@5 0.62-0.91 versus 0.53-0.73 from goals.",
+   "evidence": "§6.3 Table 13 (GPT-5.5 and DeepSeek-R1, zero-shot and CoT) and the abstraction-gap explanation in §6.4A. Caveats: 9 Rust cases, one run per configuration, precision only with no recall or ground truth, links validated by the authors (kappa 0.83 on a 10% subset), undocumented candidate pre-filter, no BM25 or embedding baseline.",
+   "strength": "weak", "novelty": "refines",
+   "relative_to": ["LLM traceability recovery with prompt engineering (TraceLLM, Alturayeif et al. 2026, cited)", "2608.00705: requirement-trace retrieval degrades as hop distance grows"],
+   "transfers": "indirect"},
+  {"kind": "anti_pattern",
+   "statement": "Do not let a small local model (7-9B) draft requirement specs or acceptance criteria from raw user feedback without a per-requirement source check, because its drafts scored 3.0/5 on fidelity and added requirements absent from the input.",
+   "evidence": "§5.3 RQ3 Table 8 (average fidelity 3.0, conciseness 2.3) and §5.4B. Caveats: 90 app reviews, rated by the first author alone with no reliability check, no human-written comparison, models from 2023-24.",
+   "strength": "weak", "novelty": "restates_known",
+   "relative_to": ["LLM hallucination in generated requirements and specifications (known before 2026)", "Mallya et al., REFSQ 2026 (the same authors' earlier publication of Study I)"],
+   "transfers": "indirect"}
+ ],
+ "quantity_flags": ["leaderboard_only"],
+ "proposed": "hypothesis_only",
+ "reason": "Study I is a ranking of dated small models and prompts on public app-review datasets, already published, and transfers nothing the team can act on. Study II's only actionable nuance is that ticket-level queries trace to discussions better than goal-level ones. It rests on nine single-run cases with no recall and no baseline, so it remains a hypothesis to test on the team's own ticket and chat history."}

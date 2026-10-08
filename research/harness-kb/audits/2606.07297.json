@@ -1,0 +1,38 @@
+{
+  "arxiv_id": "2606.07297",
+  "blind_scores": {"rigor": 4, "reproducibility": 4, "generalizability": 4, "relevance": 5, "coi_risk": 0},
+  "blind_verdict": "admit_with_caveats",
+  "blind_coi_severity": "none",
+  "agreement": "partial",
+  "claims_disputed": [
+    {
+      "claim": "Agentic explorers form a clear tier above classical retrieval on line-level exploration",
+      "proposed_strength": "weak",
+      "reason": "Table 6 is not one agentic tier. OrcaLoca’s HitRegion is 0.126, next to TF-IDF 0.121 and Potion 0.069, and AutoCodeRover’s HitFile is 0.280 against 0.64–0.68 for the general agents. The general-agent versus BM25 gap is large, but the claim covers localizers that do not clear it. One run, and §3.3 builds gold lines from successful trajectories of the same model families."
+    },
+    {
+      "claim": "Line-level coverage is the bottleneck, while file-level localization is already strong",
+      "proposed_strength": "weak",
+      "reason": "Table 6 HitFile of 0.640–0.682 means about one third of gold files are still missed, so “already strong” is not what the table shows. Line recall of 0.140–0.194 is a real gap versus those file hits, but CoSIL’s line recall of 0.788 shows the bottleneck is not uniform. No interval is reported."
+    },
+    {
+      "claim": "Missing core context hurts repair more than redundant context, once enough evidence is present",
+      "proposed_strength": "weak",
+      "reason": "Figure 5 is two stratified n=150 subsets with no test or interval. The jump between 50% and 75% of gold regions is described for the easier subset. The harder subset barely moves, full gold context still resolves only 59.7% (Table 3), and the 7–9 point redundancy hit is only at empty gold context."
+    }
+  ],
+  "pattern_stance_changes": [
+    {
+      "id": "P06",
+      "from": "contradicts",
+      "to": "mixed",
+      "reason": "Table 6 Potion HitRegion 0.069 and Table 3 RAG resolve rate 23.3% lose to multi-step agents, but Potion is a static word embedding, not a code embedder. That arm does not isolate embedding retrieval as a class. The BM25 and TF-IDF loss is the comparison that can stand."
+    }
+  ],
+  "missed_issues": [
+    "Oracle at K=5 does not recover its own label: Table 6 gives Oracle HitRegion 0.915 and line recall 0.953, because mean gold regions are 4.7 and the maximum is 15 (Table 2). The budget fixed to the mean truncates the ceiling used to validate the metric.",
+    "Figure 5 is an untagged compaction result. On the easier n=150 subset, random non-core lines cost 7–9 points only when no gold context is present, and they track the missing-context curve once 75% of core regions are visible, while the harder subset barely moves.",
+    "Table 7 is Python 547/848 and Java 30/848 (3.5%). Section 4 does not break HitFile or line recall out by language, so the exploration tier is a Python-heavy SWE-bench result."
+  ],
+  "note": "The review is right to distrust explorer-level correlations that include Oracle and Random, the solved-issue filter, and gold reads taken from the same model families later scored as explorers. I over-called rigor, generalizability, P38, and P07 in the blind pass: pre-spec discovery is not what was measured, and CoSIL’s graph is not ablated. I still think relevance 4 is one notch low, because choosing a multi-step reader over one-shot BM25 before an edit is a harness decision even with a thin Java slice. I lower three claims. P05 stays contradicts. P43 can stay supports for multi-step exploration against one-shot lexical search, with the label caveats the review already wrote."
+}

@@ -1,0 +1,22 @@
+{"arxiv_id": "2607.28430",
+ "blind_scores": {"rigor": 3, "reproducibility": 3, "generalizability": 3, "relevance": 3, "coi_risk": 3},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "medium",
+ "agreement": "partial",
+ "claims_disputed": [
+  {"claim": "The gain is structure rather than compute, and four Opus 4.6 agents beat single-agent Opus 4.8.",
+   "proposed_strength": "weak",
+   "reason": "Table 2: the compute-matched baseline B1 keeps the best of six whole single-agent runs. Table 3 puts single-agent run-to-run SD at 5.1 points, so 37.9% is about what the maximum of six noisy draws around 32-35% gives. B1 measures noise selection, not a credible alternative use of the same budget (a single agent with a self-review round, or four independent agents plus a merge-and-review step at matched spend). The Opus 4.8 half compares the whole four-agent stack with a leaderboard number from different runs whose cost is not reported. Neither half isolates structure from compute."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P43", "from": "mixed", "to": "introduces",
+   "reason": "Every configuration is a codebase-QA agent. No comparison isolates exploration agents against a non-agent alternative such as retrieval QA, human answers or documentation lookup. The 29-32% single-agent and 51-62% multi-agent resolve rates are absolute levels on a hard benchmark, not a split isolating comparison. The single-versus-team comparison belongs to P11, which the review already marks supports."}
+ ],
+ "missed_issues": [
+  "The passive-awareness step (L2 to L3) also changes the Phase 3 prompt that tells agents to post discoveries the moment they are made (contribution bullet 2). There is no blocking-with-polling arm, for example checking the mailbox every k tool calls, so the 10.5 and 11.3 points belong to 'mid-phase sharing enabled and instructed', not to backgrounding the watcher as such.",
+  "Attribution of the headline: of the 29.8-point gain credited to 'four agents organized by AgentRadio' (abstract, Fig. 1), only 10.5 points come from the passive step. The other 19.3 come from division and a negotiation-plus-review protocol that runs over blocking messages, which any shared-thread setup or host-native agent team could reproduce.",
+  "The L1 to L2 'negotiation' step also triples spend ($5.38 to $15.59 per task, Table 2) and has no significance test. On the 3-run subset (Table 3) its gap shrinks to 6.6 points (46.7 vs 53.3) against SDs of 3.4-5.8.",
+  "The variance check covers 30 tasks with Opus only. The L2 vs L3 gap there is about 3 tasks per run, and the claim that the worst L3 run beats the best of every other configuration rests on a two-task margin (63.3% vs 56.7% is 19 vs 17 of 30). DeepSeek has no repeated runs.",
+  "The setup reports 'temperature 0' with high thinking effort inside Claude Code. Claude Code does not normally expose temperature, and extended thinking is not documented as compatible with temperature changes, so the stated settings may not be what ran. Wall-clock time per configuration is not reported even though tasks take tens of minutes, and that matters for interactive onboarding Q&A.",
+  "SWE-Atlas QnA has no Java repository: per the benchmark paper 2605.08366 it covers Go, Python, TS/JS and C/C++, and both case studies (MinIO, Grafana) are Go. Message counts and phase-protocol adherence are never reported, so it is unknown how often agents actually posted mid-phase."
+ ],
+ "note": "I agree with the review on verdict, medium COI (a coordination vendor grading its own layer on a third-party benchmark with a fixed judge), moderate strength for the headline ladder and the McNemar-tested passive step, and weak strength for the difficulty-gradient mechanism. I lower 'structure rather than compute' to weak. Best-of-six whole runs is noise selection rather than a matched alternative use of compute, and the Opus 4.8 comparison is an unmatched leaderboard figure. P43 should be introduces: the paper uses QA agents throughout but never isolates them against a non-agent alternative. My relevance is 3, not 4. The evidence is read-only QA at about $19 and tens of minutes per question on four Opus agents, with no Java repos and no measured downstream effect on specs or onboarding. The review missed that the passive step bundles a prompt change with no polling baseline, and that two-thirds of the headline gain is protocol design rather than AgentRadio's passive messaging."}

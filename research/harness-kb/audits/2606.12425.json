@@ -1,0 +1,31 @@
+{
+  "arxiv_id": "2606.12425",
+  "blind_scores": {"rigor": 3, "reproducibility": 1, "generalizability": 1, "relevance": 2, "coi_risk": 0},
+  "blind_verdict": "reject",
+  "blind_coi_severity": "none",
+  "agreement": "partial",
+  "claims_disputed": [
+    {
+      "claim": "Fine-tuning SANN on synthetic code predicts correctness on a new problem better than GPT-4o, a synthetic-only model, or the pretrained model",
+      "proposed_strength": "weak",
+      "reason": "Table 1 is one held-out conditionals problem (548 submissions). Fine-tuned SANN F1 is 0.86 versus GPT-4o 0.83. The Wilcoxon test is reported at p < 0.05 with no paired unit and no effect size (§4.2). The large gap is versus the pretrained model (F1 0.41), not versus GPT-4o."
+    },
+    {
+      "claim": "Students had a positive experience in a real class",
+      "proposed_strength": "unsupported",
+      "reason": "§5.1 and Figure 7 put means between 2.98 and 3.41 on a five-point scale. Useful-suggestions agreement is 45.5% against 23.2% disagreement, and helped-understanding agreement is 31.2%. That is a midpoint survey of 69 of 80 students on one week-3 exercise. §7 reports no learning-gain measure."
+    },
+    {
+      "claim": "Instructor-authored feedback is more pedagogically suitable and more selective than GPT-4o feedback, with similar coverage of instructor-defined issues",
+      "proposed_strength": "weak",
+      "reason": "§5.2 selectivity is 95% versus 53% and pedagogical suitability 100% versus 47% on one exercise, and the submission count is not stated. Insight can only emit a canned instructor message or nothing, so it cannot invent issues the way GPT-4o can. Completeness still favors GPT-4o (87% vs 80%). Authorship is not separated from the refusal rule."
+    }
+  ],
+  "pattern_stance_changes": [],
+  "missed_issues": [
+    "The instructor misconception–feedback pairs are a small card library the review did not tag. Coverage outside that library collapses to a generic ask-the-staff message (§7), and the 97.62% precision and recall in §4.4 are only the instructor-prioritized subset, not the 63% / 23% / 14% all-error split on the same 169 submissions.",
+    "The attention highlight that the paper calls the explainable path (Figure 6) was not shown in the classroom deployment (§4.4 and §5.1), so the survey cannot speak to whether students used or trusted the subtree explanation.",
+    "GPT-4o writes the synthetic fine-tuning set, is a correctness baseline, suppresses matched messages, and is the free-text arm. The 1.2% incorrect-delivery figure after the filter is that same model agreeing with labels the authors had already marked wrong, with no second judge."
+  ],
+  "note": "I agree with the low relevance, the weak 97.62% reading, and the point that selectivity is partly built into a system that may say nothing. The review’s coi_risk of 1 sits next to a severity of none; this is academic self-evaluation, which they already list, not a vendor grading its own product, so my blind coi_risk stays 0. I lower the correctness gap, the classroom “positive experience,” and the GPT comparison. P41 mixed and P19 introduces should stand. My blind verdict is reject because the measured comparison is one intro-Python exercise whose action space favors the tool, and it does not inform a multi-repo Java harness."
+}

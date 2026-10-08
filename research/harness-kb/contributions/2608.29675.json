@@ -1,0 +1,26 @@
+{
+  "arxiv_id": "2608.29675",
+  "contributions": [
+    {
+      "kind": "heuristic",
+      "statement": "If the repair stage can still open the repository, a smaller read-only explorer can replace a stronger one at a known Hit@3 cost: against GLM-4.7-Flash, four smaller models kept 77.9–94.3% of Hit@3 while cutting tokens 83.9–95.2% and agent time 41.1–87.5% across 999 issues, and the predicted files must not be a hard gate (exact match 0.30–0.57).",
+      "evidence": "Tables 2, 3, and 5. Table 4 instance-level paired intervals for the Hit@3 gaps exclude zero; §7.2 says several of those SWE-arm gaps include zero when the 12 repositories are resampled, while the 153-repository arm does not. One run per model; the reference is a small open model with a 6.6% timeout rate on the SWE arm; repair rate is not measured.",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": ["2607.25333", "2606.11864", "2608.01507", "2606.07297"],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "nuance",
+      "statement": "Do not read an explorer's token cut as a price cut or as a cheaper forward pass: on the random-repository arm Qwen3-Coder used 83.9% fewer tokens but only 8.8% less estimated API cost, and on the SWE arm the reference's 27.02 mean steps versus 3.49–8.34 for the others is most of the time gap.",
+      "evidence": "Table 5 API-cost column and Table 2 Steps. §5.2 drops failed runs that lack token metadata from the token means. §8.4 says the totals include stopping policy and the serving stack. API figures use mid-June 2026 public rates, not invoices.",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": ["2605.27787"],
+      "transfers": "indirect"
+    }
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "The operating points are real under a fixed read-only interface: cheaper explorers keep most top-three file hits and spend far fewer tokens, with the quality drop stable at the instance level and weaker across the 12 SWE-bench repositories. That is a budget for a soft handoff, not a repair result, not a Java result, and not a reason to close the repository to the predicted files."
+}

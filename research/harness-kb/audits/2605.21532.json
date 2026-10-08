@@ -1,0 +1,18 @@
+{"arxiv_id": "2605.21532",
+ "blind_scores": {"rigor": 1, "reproducibility": 2, "generalizability": 1, "relevance": 2, "coi_risk": 1},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "agree",
+ "claims_disputed": [
+  {"claim": "VerNFR and the toolchain can specify and verify module interface contracts and ACSL contracts on real automotive modules.",
+   "proposed_strength": "weak",
+   "reason": "The specs were built from the code they are checked against. §8 says the permitted external calls were 'harvested' from the reference implementations, and §7.1 says the ACSL specs were written while 'ensuring that they are satisfied by the reference implementations', so the Table 7 passes (Wp 86/86 and 80/80, VerNFR pass) are largely by construction. VerNFR's only demonstrated rejection is the authors' toy implementation in Fig. 4(b) (§5). The call-order rule CFR2, which is condition (iii) and the distinctive part of the IS contract, is not implemented (§5). This shows feasibility on two modules of 88 and 138 LOC, not verification power."}
+ ],
+ "pattern_stance_changes": [],
+ "missed_issues": [
+  "VerNFR's detection power on real faults is unmeasured. It passes both human reference modules and every reported LLM implementation (Tables 7-8). The abstract motivates the rules with violations previously found in LLM-generated code [41], yet no such violation appears in this paper's runs.",
+  "The LLM experiment is one-shot. §7.5 compiles and checks each generation once, with no critic feedback returned to the model, so the 'critics' toolchain is never evaluated as an agent repair loop. The Wp timeouts on all three SFLD generations may also reflect the prompt not asking for helper-function and loop contracts, which §8 says modular Wp needs.",
+  "Untagged pattern P27 clearly applies. The IS contract is a cross-module interface contract (permitted calls into other modules plus call-order constraints) used as a gate (§4, Figs. 7-8), the embedded-C analogue of architecture or dependency rules between services or repositories.",
+  "The prompts were not released and the Table 8 subset criteria are unstated, so the with/without-contract comparison cannot be checked for selection. Only two paired rows exist, both with Sonnet 4.6."
+ ],
+ "note": "I agree with the review's verdict, its pattern stances, and its weak grades on the LLM, effort, requirements-quality and contract-omission claims. I disagree only on the feasibility claim, which I lower to weak: the contracts were written from the reference code, the checker's key call-order rule is unimplemented, and it never rejects anything except the authors' toy. My blind P39 stance was also 'mixed' for the same reason the review gives: as prompt context the contract changed nothing in two paired runs, so its value is as an oracle. I would add P27, because module interface contracts are the closest analogue in this batch to cross-repository contracts."
+}

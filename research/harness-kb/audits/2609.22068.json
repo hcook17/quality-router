@@ -1,0 +1,21 @@
+{"arxiv_id": "2609.22068",
+ "blind_scores": {"rigor": 2, "reproducibility": 1, "generalizability": 3, "relevance": 2, "coi_risk": 2},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "medium",
+ "agreement": "partial",
+ "claims_disputed": [
+  {"claim": "Cleaning and filtering matter more than raw task count",
+   "proposed_strength": "weak",
+   "reason": "§5.1 Fig. 8 rests on one training run per pool. Of the three margins, SWE-bench Pro is 0.59 pp, and CodeMidas Val (4.49 pp) is 200 tasks drawn from the same filtered pipeline (§4.1), so it is in-distribution for the filtered pools and not for the vanilla 8k. That leaves one independent margin (DeepSWE 4.59 pp) with no variance. The 8k pool also keeps tasks that fail the fail-to-pass check, so this shows that removing broken verifiers helps. It does not support a general quality-over-quantity rule."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P25", "from": "mixed", "to": "supports",
+   "reason": "'Mixed' needs an isolating comparison that splits. Here both isolating comparisons favour the pattern: RL vs the untrained initial policy improves 5/5 external benchmarks (Fig. 5), and filtered vs unfiltered data wins 3/3 evaluations (Fig. 8). The weaknesses (one model, one run, no rival dataset at equal compute) belong in claim strength and rigor. They are not evidence that RL fine-tuning fails."}
+ ],
+ "missed_issues": [
+  "CodeMidas Val (§4.1) is 200 tasks sampled from the authors' own filtered pipeline, including the frontier-model mixed-outcome screen. Both the learning curve (35.0 -> 44.7, Fig. 6) and the Val margins in §5.1 are therefore measured on the training distribution. Only the five external benchmarks are independent.",
+  "The contamination control is task-level only ('disjoint from ... all five external benchmark task sets', §4.1). No repo-level overlap check is reported between the 3,185 training codebases and the projects behind SWE-bench Pro, DeepSWE, ProgramBench or RepoZero. For ProgramBench (rebuild a program from scratch), training on 'delete functionality from the same project and re-implement it' would be close to direct leakage.",
+  "The ProgramBench headline (4.5 -> 21.5, abstract '+17%') uses the lenient 'Almost Solved' metric (at least 95% of tests pass, §4.1). The fully solved rate is never reported.",
+  "The self-verification association (+4.2 pp, §5.2) counts distinct verification commands after the final edit (App. B). A rollout cut off by the 500-turn or length cap cannot verify and also fails, so the association is confounded with trajectory completion. The drafting split is null too (+1.95, CI -0.04 to 3.96).",
+  "The per-stage rejection counts behind the Fig. 1 pyramid and the reviewing agent's false-positive and false-negative judgments are not given in the text. Neither the yield of the source-code-only pipeline nor the reliability of its LLM verifier review can be checked."
+ ],
+ "note": "I agree with the review's verdict, medium COI and rigor/reproducibility/generalizability scores. My blind pass reached the same picture: a Xiaomi pipeline training Xiaomi's model, compared only with the initial policy, one run, nothing released. I scored relevance 2 against the review's 1 because the assertion-review rule (§3.2) and the self-verification signal transfer to eval building. The merge takes 1, which is defensible since the team does not train models. I disagree on two points. P25 should be supports rather than mixed, because no isolating comparison splits. The filtering-beats-quantity claim should be weak rather than moderate, because one of its three margins is in-distribution, one is under 1 pp, and all are single runs. The review also missed task-level-only decontamination against public-repo benchmarks and the lenient ProgramBench metric behind the largest headline gain."}

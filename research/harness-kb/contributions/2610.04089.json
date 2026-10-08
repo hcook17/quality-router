@@ -1,0 +1,16 @@
+{
+  "arxiv_id": "2610.04089",
+  "contributions": [
+    {"kind": "heuristic",
+     "statement": "If the harness lets an agent block on clarifying questions before implementing, start with a budget of about one targeted question per ambiguous ticket and log any further open questions instead of blocking on them, because pass@1 stopped improving once trained policies reached about 0.86 questions per task.",
+     "evidence": "§5, Fig. 1: d1=0.75 -> 1.0 adds about 1-2 points, budgets 1.5 and 2.0 add nothing (lambda slack), one seed above 1.0. Caveats: one 7B model, synthetic HumanEval degradations in which every task needs clarification, a deterministic GPT-4o-mini oracle answers from the full spec, and the log curve interpolates five budgets.",
+     "strength": "weak", "novelty": "refines", "relative_to": ["2605.09698", "2610.01769"], "transfers": "indirect"},
+    {"kind": "nuance",
+     "statement": "Do not read the number of clarifying questions an agent asks as diligence: an untuned 7B model could drop about half its questions (0.856 -> 0.453 per task) with no significant accuracy change, because many of its questions confirmed facts that did not change the solution.",
+     "evidence": "§5: d1=0.5 runs pass@1 0.683 and 0.719 vs baseline 0.690 (both p>=0.10); App. D Episode 2 illustrates a question that only confirms 'high' means height. Caveats: single model, in-distribution training, no fully specified tasks, question count assigned by the LLM simulator.",
+     "strength": "weak", "novelty": "refines", "relative_to": ["2610.01769", "2605.09698"], "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "hypothesis_only",
+  "reason": "The method (PPO-Lagrangian post-training of a 7B model) does not transfer to a team that does not train models. What remains is two weak directional signals from synthetic Python tasks with a simulated user: returns flatten after about one targeted question per ambiguous task, and an untuned model's questions are often low-value. Both refine Ambig-DS and CONTRA but cannot back a gate."
+}

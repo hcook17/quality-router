@@ -1,0 +1,17 @@
+{
+  "arxiv_id": "2605.21943",
+  "contributions": [
+    {
+      "kind": "nuance",
+      "statement": "When the only input is a JavaParser fact list for one design-pattern class, do not prefer Mixtral over a conservative SWUM realiser on token overlap: cosine similarity favored Mixtral (0.3351 vs 0.2532) but BERTScore F1 did not (0.8799 vs 0.8754, median difference 0.001, not significant) on 150 paired files.",
+      "evidence": "§5.1 Table 2 and the Wilcoxon tests on 150 pairs. Absolute cosine stays about 0.33. The model is instructed to use only the DPS JSON, not source (§4.2.2). The conciseness ranking is a separate unvalidated Llama judge and does not survive Bonferroni (§5.2).",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": ["template and SWUM code summarisation", "2606.01629"],
+      "transfers": "indirect"
+    }
+  ],
+  "quantity_flags": [],
+  "proposed": "hypothesis_only",
+  "reason": "The significant separator is cosine similarity among three realisers of the same JSON, not a comprehension or multi-repo documentation result. The conciseness rule and the 20/40/60/80-word runs do not survive the tables, so this stays a metric caveat rather than a harness gate."
+}

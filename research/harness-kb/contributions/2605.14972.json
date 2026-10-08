@@ -1,0 +1,26 @@
+{
+  "arxiv_id": "2605.14972",
+  "contributions": [
+    {
+      "kind": "nuance",
+      "statement": "Do not adopt bounded-model-checking comments as an onboarding aid for agent-written Java: on 10 author-written C quizzes, fact comments beat bare code on 8 questions, including one jump from 40% to 100%, but each question was written to match one assertion and the study never compared a verified comment with an ordinary comment.",
+      "evidence": "§5.3 and Fig. 3, at least 20 MTurk workers per arm, 3 minutes, $0.50; the word 'significantly' is used for 100% vs 40% and 96s vs 82s with no test. Only assumption-free facts were shown. Caveat: 2607.08885 found natural-language explanations did not help programmers judge whether an assertion was correct.",
+      "strength": "weak",
+      "novelty": "refines",
+      "relative_to": ["2607.08885 explanations of assertions did not improve reviewer accuracy (p>0.1), including exact comments", "P41 comprehension safeguards"],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "constraint",
+      "statement": "Do not show a developer a k=5 fact comment as a guarantee about the program they will maintain, because the checker may have proved it only after an LLM rewrote loop bounds, and the comment is then pasted onto the original source.",
+      "evidence": "Algorithm 1: BoundReduce then VerifyAll on P+_k, EmbedFacts onto P0. Theorem 1 is sound for the program passed to VerifyAll. Default k=5 and 60s per assertion (§4). Table 1 mean 1.3 unverified assertions; base_addition falsifies 14 of 23.",
+      "strength": "weak",
+      "novelty": "refines",
+      "relative_to": ["bounded model checking is sound only inside the unwind bound (Clarke et al., cited Definition 3)", "P35 formal methods / verified generation"],
+      "transfers": "no"
+    }
+  ],
+  "quantity_flags": [],
+  "proposed": "hypothesis_only",
+  "reason": "The pipeline does discharge most assertions on 18 small C tasks, but the comprehension result is a quiz that can be answered from the comment, and the soundness proof does not cover the file the user reads. Neither item is strong enough to back a gate, and the method does not apply to Java services."
+}

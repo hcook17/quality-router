@@ -1,0 +1,23 @@
+{"arxiv_id": "2606.06563",
+ "blind_scores": {"rigor": 2, "reproducibility": 1, "generalizability": 2, "relevance": 2, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "agree",
+ "claims_disputed": [
+  {"claim": "Formal traceability is traded for input flexibility: only controlled-input or model-based approaches produce requirements-to-test traceability, and fully generative LLM studies produce none",
+   "proposed_strength": "weak",
+   "reason": "Table IV codes every LLM study's K4 as 'Low - none reported', so the deficit measures what papers report, not what pipelines can do. None of the nine LLM studies set out to emit a traceability matrix. The 'trade-off' (§VI-D gap finding 1) is a pattern across 8 hand-coded studies with no second coder, not a measured trade within any study. The narrow observation (no LLM study in this corpus reports a traceability artifact) holds, but the causal 'traded for' does not."},
+  {"claim": "Test-generation accuracy degrades with requirement complexity",
+   "proposed_strength": "weak",
+   "reason": "Only one cited study actually stratifies by requirement complexity: Medeshetty et al. (§V-C Table I, 95/75/60%). That is a rule-based extractor, not LLM test generation, and per-category sample sizes are not given. Korraprolu's 'MCDC <= 50.2% vs ~79% decision coverage' compares two coverage criteria on the same 25 requirements, so it measures criterion strictness, not degradation as requirements get more complex. The GPT-4 vs Mistral-7B gap is a model contrast on identical inputs."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P34", "from": "mixed", "to": "neutral",
+   "reason": "'Mixed' requires a split isolating comparison. The survey runs none, and the primary results it cites (SPECMATE 56%, CiRA 71.8%, boilerplate 10% on Npac) are not contrasts of structured vs unstructured requirements on the same task. It reports P34-adjacent results secondhand, so 'neutral'."}
+ ],
+ "missed_issues": [
+  "Ten of 26 primary studies (38%) came from outside the core database query: five by backward snowballing on Yang et al.'s reference list (§III-D, folded into the '21') and five from a later supplementary search. The PRISMA arithmetic also leaves 16 studies after eligibility (136 full texts, 120 excluded), not 21. The exact-phrase AND query therefore had poor recall, which undermines the 'first focused synthesis' and corpus-wide claims more than the review states.",
+  "Per-study quality scores (QA1-QA4) are never shown, so the claim that 'all twenty-six met the minimum threshold of 2.0' (§III-E) cannot be checked. The acknowledgments credit a non-author with 'supporting data analysis', and no inter-rater agreement is reported for screening, quality scoring or Table IV coding.",
+  "Inclusion criterion I4 excludes code-to-test and agentic test generation, so nothing in the corpus concerns coding agents writing tests in a repository. Transfer to an agent harness for a Java team is limited to the requirement-form point.",
+  "LLM4Fin's ChatGPT baseline is given as 'approximately 19 minutes' (§V-B, Fig. 5) and '20 minutes' (Table II) per generation against 6.99 seconds. The survey repeats this implausible latency contrast without asking what it measures."
+ ],
+ "note": "My blind scores match the review's exactly, and I agree with the verdict and with its grading of the gap matrix, the hallucination argument and the novelty claim as weak. I go further on the two claims the review left at moderate. The traceability 'trade-off' rests on coding 'none reported' as Low across eight hand-picked studies. The complexity-degradation claim has only one stratified primary study, and that is rule-based, while the MCDC evidence measures coverage-criterion strictness. I also move P34 from mixed to neutral because the survey makes no isolating comparison. The search-recall problem (38% of studies found outside the query) is larger than the review indicates."}

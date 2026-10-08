@@ -1,0 +1,16 @@
+{
+  "arxiv_id": "2608.19784",
+  "contributions": [
+    {"kind": "nuance",
+     "statement": "Do not replace repository instruction files with a practice-and-inject card pipeline on this result: the Pass@1 gain over the best baseline is 4.6 points (32.06 versus 27.48) on about 131 Python tasks in one greedy run on the authors' own benchmark, inside the roughly 30-point effect an instruction-file study could not rule out, and the practice stage is shown the real function body.",
+     "evidence": "Table I and §IV-B: 32.06 versus OpenCollab 27.48 and OpenHands 19.08, temperature 0, one run; the paired test is on AvgPassRatio, not Pass@1. Table II practice removal leaves 27.48. §III-C generates the practice task from the existing body and §III-D reveals that body if differential testing still fails. The 4-point proactive-versus-embedding gap (32.06 versus 28.24) is smaller than the effect 2607.27250's design could detect for instruction-file delivery.",
+     "strength": "weak", "novelty": "refines", "relative_to": ["2607.27250: always-on versus on-demand AGENTS.md did not change correctness, and the study can only exclude effects above about 30 points"], "transfers": "indirect"},
+    {"kind": "constraint",
+     "statement": "Do not schedule this kind of tacit-knowledge mining for a service method that is not already implemented: the practice task, the tests, and the fallback exemplar are all taken from the current function body, so the cards restate behavior the repository already contains.",
+     "evidence": "§III-C: an LLM writes the requirement and the test inputs from the ground-truth body, keeps only inputs with >80% line coverage of that body, then deletes the body for the agent. §III-D: if discrepancies remain after at most three rounds, the ground-truth implementation is given to the extractor. The footnote excludes evaluation-task code from offline practice; it does not remove this oracle.",
+     "strength": "weak", "novelty": "new", "relative_to": [], "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "hypothesis_only",
+  "reason": "The pipeline is a concrete way to attach short rules to code entities, but every reported gain is a single greedy run of a few tasks on the authors' benchmark and the extractor sees the implementation it claims was tacit. That is a hypothesis to re-measure, not a harness gate."
+}

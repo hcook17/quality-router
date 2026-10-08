@@ -1,0 +1,19 @@
+{"arxiv_id": "2605.03546",
+ "blind_scores": {"rigor": 3, "reproducibility": 4, "generalizability": 3, "relevance": 2, "coi_risk": 1},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "agree",
+ "claims_disputed": [
+  {"claim": "Models favor monolithic, single-file implementations that diverge from human code", "proposed_strength": "weak", "reason": "The comparison with the reference conflates design preference with two other factors. First, language switching: App. B.2 Fig. 30 shows the LoC gap is largest for C/C++ references 'consistent with models frequently rewriting these tasks in higher-level languages like Python' (36% of runs are Python, §5.2). Second, functional completeness: references are mature projects (median 7.9 years, 22 contributors, Table 1) and the hidden tests under-approximate them (§7), so a solution passing 75% of tests can omit untested features, which shrinks line, file and function counts. Only the within-solution fact (60% of solutions use 1-3 code files) is free of these confounds, and no maintainability outcome is measured."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P16", "from": "neutral", "to": "supports", "reason": "The review credits P17 with 'linter plus gold/dummy execution feedback' (App. A.3.2), but half of that bundle is execution feedback: each generated test is run against the gold binary and a dummy binary and revised when flagged. With versus without these signals, tests became 20-30 pp harder for four models with unchanged rank order. The comparison isolates the bundle from no signals, so P16 deserves the same stance as P17 (with the same caveat that the two are not separated)."}
+ ],
+ "missed_issues": [
+  "The headline test-quality number is partly circular. Dummy-binary execution is itself one of the feedback signals, so a lower dummy pass rate (18.5% to 3.7%) is expected by construction, and all remaining dummy-passing tests are deleted afterwards anyway (§5.1). Only the 20-30 pp drop in model pass rates is independent, it is reported in prose without task counts, and fault detection (for example with mutants) is never measured.",
+  "Trajectory lengths are internally inconsistent. §5.3 gives median commands of 868 (Sonnet 4.6), 157 (Opus 4.7), 92 (Gemini 3.1 Pro) and 17 (GPT-5.4); App. B.2 gives median steps of 443, a medium tier of 80-119, and 10; Table 2 gives averages of 475, 93, 94 and 16. The paper does not explain the difference.",
+  "The paper states 1,800 runs, but App. B.2 analyses use 1,788 with no account of the 12 missing runs.",
+  "'Significantly different between models' (§1) and 'significantly shorter' (§5.2) have no statistical test behind them. The different-language result (each GPT model +4.2%, Fig. 6) is a single run per cell and cannot be separated from noise.",
+  "Executable building, documentation stripping and test generation all use one model family (Claude Sonnet 4.5, §2.2), and the three top-ranked models are Claude. Whether the documentation that survives stripping, or the behaviors chosen for tests, favor that family is not checked.",
+  "Java is effectively absent: one Java task, excluded from the per-language analysis (Fig. 24)."
+ ],
+ "note": "I agree with admit_with_caveats and with every score. The review is careful and its benchmark-level claims are graded correctly. The one I lower is the monolithic-code claim, because Python rewrites and untested missing functionality explain much of the size and structure gap with the references. On patterns, I upgrade P16 to match P17, since the execution checks against gold and dummy binaries are half of the bundle that won. I also flag that the 18.5% to 3.7% dummy-pass drop is partly built into the feedback signal itself, and that the trajectory-length figures disagree across §5.3, App. B.2 and Table 2."}

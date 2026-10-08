@@ -1,0 +1,35 @@
+{
+  "arxiv_id": "2606.07297",
+  "contributions": [
+    {
+      "kind": "nuance",
+      "statement": "Score a repository explorer on line-span recall under a fixed region budget, not on file hits: with Mini-SWE-Agent held fixed, six models still land at line recall 0.052–0.185 while file hit stays 0.343–0.655, so swapping the model does not close the line-coverage gap.",
+      "evidence": "§4.3 Table 5, one run per model. Gold lines are reads from successful trajectories of overlapping model families (§3.3), and only issues with two successful runs are kept. Java is 30 of 848 instances (Table 7), with no per-language split in §4.",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": ["2606.11864", "2605.16352"],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "anti_pattern",
+      "statement": "Do not hand a patcher only the five regions from one-shot BM25 or TF-IDF and expect an exploring agent's repair rate: on the n=150 restricted-context check those retrievers resolved 12.7% and 26.0% against about 41–50% for general agents and 59.7% when the gold regions were given.",
+      "evidence": "Table 3. Gold context is what successful agents read, not a proof those lines are necessary. OrcaLoca is not in the agent tier (Table 6 HitRegion 0.126). The dense arm is a static word embedding, so this does not rule out a code embedder.",
+      "strength": "weak",
+      "novelty": "refines",
+      "relative_to": ["2606.11864"],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "nuance",
+      "statement": "Once a patcher can already see most of the core regions, do not spend the next exploration budget on stripping redundant lines: on the easier n=150 subset, resolve rate jumps between 50% and 75% of gold regions and extra random lines matter less after that, while the harder subset barely moves.",
+      "evidence": "§4.4 Figure 5, no significance test. Full gold context still resolves only 59.7% (Table 3). The 7–9 point redundancy penalty is at empty context on the easier subset only.",
+      "strength": "weak",
+      "novelty": "refines",
+      "relative_to": ["2605.11051"],
+      "transfers": "indirect"
+    }
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "The team can act on the line-recall gap that survives a model swap inside one scaffold. The BM25 gap and the missing-versus-redundant curve are directionally useful but too confounded by solved-issue labels and an easier-subset figure to gate a harness."
+}

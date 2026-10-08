@@ -1,0 +1,20 @@
+{
+  "arxiv_id": "2605.13817",
+  "contributions": [
+    {"kind": "heuristic",
+     "statement": "When a checker rejects an agent's output in a repair loop, return the concrete failing witness (the input state and the output fields that conflict with it) rather than only the violated rule's name or a generic 'rejected, retry'. With model, prompt and a five-repair budget held fixed, witness feedback repaired 97% of initially rejected answers, against 59% for rule-name-only feedback and 10-12% for generic or no feedback.",
+     "evidence": "§2.5, Fig. 4: repair success 97.1 / 59.4 / 10.0 / 12.1% and final accuracy 98.5 / 80.0 / 58.5 / 55.4% on 65 scenario questions. Caveats: one model (Sonnet 4.6), one run at T=0, and questions over an LLM-generated SMT model rather than code. 'Correct' means accepted by the same verifier that supplies the feedback; agreement with the Table 6 gold answers is not reported. The witness suffix names the conflicting answer fields (App. D), which is close to handing over the answer for Boolean fields. The requirement-only rate does not reconcile with its own accuracies (62.9% implied).",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["2609.00362 raw javac diagnostics or a bare retry beat LLM-written explanations in Java compile repair", "P16 execution-based verifier loop"],
+     "transfers": "indirect"},
+    {"kind": "heuristic",
+     "statement": "To surface ambiguous acceptance criteria before implementation, have the agent encode each criterion several times independently against one shared typed schema. Send every criterion whose encodings disagree to its owner, as a question that carries the concrete input on which the encodings differ. Do not accept the agent's own rewrite as the resolution. In this study 12 of 64 requirements (19%) split, mostly on range endpoints, and every agent rewrite silently picked a reading; one dropped a stated alternative.",
+     "evidence": "§2.7, Fig. 6, App. C Table 5: N=5 samples at T=1.0. The r23 and r24 split at exactly 200 mL/min. The r3 rewrite turns 'set rate or set volume' into 'exactly the set rate' and adds conditions. There is no human-labelled ambiguity set, so precision and recall are unknown, and requirements the model consistently misreads would not split. Table 5's 14 encodings from 5 samples and the 44% pairwise agreement are internally inconsistent. The 'ask the owner' step is never run; the paper lets the LLM rewrite.",
+     "strength": "weak", "novelty": "refines",
+     "relative_to": ["P40 agent asks clarifying questions before implementing", "2605.09698 Ambig-DS: agents silently commit to one reading and one answered question recovers most of the loss", "2607.02294 coding agents guess under underspecified DevOps tasks"],
+     "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "The only isolating result is the four-way feedback comparison. It supports returning concrete failing witnesses instead of bare rule names or generic retries, a refinement of the existing raw-diagnostics entry: here a generic retry did no better than no feedback. That comparison is single-run, single-model and self-graded, so it transfers only indirectly, as advice on what a test or checker gate should send back to the agent. The sample-disagreement ambiguity trigger is a useful hypothesis for spec review, but it is unvalidated against human labels. The paper's own clarification step lets the model choose readings, so a team should route the witness to the owner instead. The fault-detection and round-trip results show change detection and self-consistency, not defect finding, so they back nothing."
+}

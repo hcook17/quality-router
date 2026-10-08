@@ -1,0 +1,14 @@
+{"arxiv_id": "2610.01769",
+ "blind_scores": {"rigor": 3, "reproducibility": 3, "generalizability": 2, "relevance": 4, "coi_risk": 1},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "agree",
+ "claims_disputed": [],
+ "pattern_stance_changes": [],
+ "missed_issues": [
+  "Downstream pass@1 (Table 4) is reported for only two of the four models (Gemini 3.1 Pro, GPT-5.5) with no reason given for dropping GPT-5-mini and Grok 4.5, so even the 0.6-1.2 pp gain may be a favorable selection.",
+  "The §4.5 jump in precision from 21.57% to 45.42% for adaptive selection compares the whole qualified candidate set with a five-question interaction, as the paper itself concedes; part of that gain is budget truncation, not history-aware selection. Only the Table 3 'w/o AQS' row on GPT-5-mini is a like-for-like test.",
+  "In the plugin study the same model (claude-opus-5) runs the independent decision review and grades report completeness (App. B.1-B.2), so Table 6 has a self-preference risk on top of the format-by-construction problem the review notes.",
+  "The agent's own report and the independent review agree on only 57 of 262 decisions (22%; 116 only in the review, 89 only in the agent list, App. B.2). Nobody checked which decisions are real, so '44.3% of decisions were missing from the agent's report' could be partly reviewer noise rather than recall.",
+  "There is no limitations or threats-to-validity section; the cost of discovery plus six programs and at least seven inputs per candidate is reported only as relative qualification-evaluation savings for Contra-Flash (Fig. 4), never as tokens or dollars against the baselines."
+ ],
+ "note": "My blind scores, verdict, COI and pattern stances match the review exactly, and I agree with its grading: the question-F1 win is a fair same-LLM, same-budget comparison across four models (moderate), while the harness comparison, downstream correctness and plugin claims are weak. I considered lowering the component-ablation claim because the relevance and behavioral-verification contributions are about 2.8 F1 points on one model and one run, but Fig. 3 shows the same stage-wise direction on all four models, so moderate stands. The main things the review misses are possible selective reporting of the downstream table (two of four models), the non-like-for-like adaptive-selection comparison in §4.5, and the 22% overlap between the two decision sources in the plugin study, which makes the 44.3% figure ambiguous. P40 stays mixed: Contra produces better questions, but the outcome the team cares about barely moves."}

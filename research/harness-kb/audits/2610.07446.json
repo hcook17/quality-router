@@ -1,0 +1,21 @@
+{"arxiv_id": "2610.07446",
+ "blind_scores": {"rigor": 2, "reproducibility": 1, "generalizability": 1, "relevance": 0, "coi_risk": 0},
+ "blind_verdict": "reject", "blind_coi_severity": "none",
+ "agreement": "partial",
+ "claims_disputed": [
+  {"claim": "Human reading responses and MoE computation correlate at the same code regions (75.0-83.3% of regions positive)",
+   "proposed_strength": "weak",
+   "reason": "The per-region correlations are small (median rho 0.18-0.24) with the EEG-Qwen interval reaching 0.000 (Fig. 4), and they are computed across tokens against the mean of five model metrics with no control for token length, lexical frequency or position, which plausibly drive both fixation dwell and hidden-state or routing change. Only the depth-time analysis controls for program length. The caption also reports 'displayed regions', so it is not clear that all 81 regions are included. A positive fraction of 75-83% at rho of about 0.2 is what a shared token-level confound would produce."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P25", "from": "mixed", "to": "introduces",
+   "reason": "Every comparison in Table 1 is between fine-tuning variants (sparse vs all-block, which blocks, which weights), and no untuned base-model pass@1 is reported. The paper therefore never isolates whether fine-tuning the model helps or hurts, which is what P25 is about; it uses fine-tuning as the vehicle for a block-selection method, which under stance discipline is 'introduces'."}
+ ],
+ "missed_issues": [
+  "Most of the Qwen-LCB gain over Regular FT is reached without any human signal: CKA-K6 scores 24.57 and Model-Only 24.00 vs 18.86 (about 9-10 of the 19 extra tasks), and human guidance over Model-Only adds 5.71 points on Qwen-LCB but only 1.71 on GLM-LCB and 1.37 on Qwen-BCB (3 tasks each) (Table 1). The review's '0-6 tasks' for the ablation gaps understates Qwen-LCB, where Model-Only, Rand-K6 and All-Block trail by about 10, 12 and 17 tasks.",
+  "No ablation replaces the EEG prior with a plain complexity weight (for example nesting depth or line count of the reference solution), and No-EEG removes both the EEG task weighting and the EEG block-selection guidance at once, so the 'human signal' cannot be separated from 'upweight longer, more complex solutions' (§4.2.1, §5.3.2).",
+  "The depth-time maps (Fig. 5) compute five signals x 47-48 blocks x 12 reading bins of correlations over 32 programs with no multiple-comparison correction, and GLM's hidden-state shift and expert-choice change are largely negative; reading both architectures as 'structured' correspondence means almost any sign pattern would have been accepted.",
+  "LiveCodeBench has no development split (534 training solutions, 175 test tasks), and the block budget rule ('slightly more blocks' for higher-demand tasks), depth-prior weighting and weight scales are neither specified numerically nor reported as tuned on held-out data, which leaves test-set tuning possible and the method irreproducible (§4.3, §5.1.2).",
+  "The paper never reports the untuned models' pass@1, although both are public instruction-tuned checkpoints, so the reader cannot tell whether any fine-tuned condition, CogAdapt included, beats simply not fine-tuning."
+ ],
+ "note": "I agree with the review's scores on rigor and COI, with its claim grades for the method results, and with its own statement that the paper has no bearing on harness design. I disagree with admitting it: it is a weight-training method for teams that fine-tune MoE code models, and the KB rejects comparable off-topic training papers, so my verdict is reject and relevance 0. I lower the human-model correlation claim to weak because the small token-level correlations have no control for token length, frequency or position. P25 moves to introduces because no untuned base is reported, so fine-tuning itself is never compared with not fine-tuning. Beyond the review, sparsity alone explains about half of the headline LiveCodeBench gain, and no control separates the 'EEG prior' from a plain code-complexity weight."}

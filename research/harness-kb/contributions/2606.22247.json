@@ -1,0 +1,35 @@
+{
+  "arxiv_id": "2606.22247",
+  "contributions": [
+    {
+      "kind": "test_practice",
+      "statement": "Do not accept an agent-written function comment because a same-model judge says it matches the body: regenerate the body from the comment plus the rest of the file and require the existing tests to pass, since that judge was right for only 66.4% of the comments it accepted, and the generate-judge-revise loop still reached test agreement on only 127/238 functions (53.4%) versus 81/238 (34.0%) for a one-shot comment.",
+      "evidence": "Table 2 and §4.2. Ground truth is test agreement on functions with at least 50% coverage (median 9 lines, §4.1.1), so weak tests can mark a wrong body as equivalent. One model (gpt-4.1-nano), one run, Python only. Failures still emit a best-effort comment, which is included in the 53.4%.",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": ["Allamanis et al. 2024 round-trip correctness, cited in §5.2", "an unvalidated same-model judge is not an accept gate"],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "nuance",
+      "statement": "Do not ship equivalence-style comments as a comprehension aid on helpfulness ratings alone: 11 developers who could still read the source showed identical total time (6.48 vs 6.48 min) and slightly worse understanding time (2.18 vs 1.94 min), while edit correctness was never reported.",
+      "evidence": "Table 5 and §4.7. Understanding-helpfulness rose from 2.58 to 3.76 (p=0.0004); modifying-helpfulness 2.15 to 2.85 (p=0.0425) does not survive a 7-test correction. Within-subject data were tested with Mann-Whitney U. Participants were not blinded, and the treatment comment is visibly longer.",
+      "strength": "weak",
+      "novelty": "refines",
+      "relative_to": ["2607.26375 perceived help and measured comprehension diverge"],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "constraint",
+      "statement": "Do not expect a comment written so the model can rebuild the body to be shorter than the code: the length cap that worked best is 1× the function, the median function is 9 lines, and on tests the model already solves when shown the code the comment reaches 74.2% of assertions against an implicit 100% for the source.",
+      "evidence": "§2.2.4 and Fig. 15 (1× best; the figure's rates are not printed). §4.1.1 median 9 lines, range 2–168. Table 3: 356/480 assertions (74.2%) after dropping tests the model cannot solve with the implementation visible.",
+      "strength": "weak",
+      "novelty": "refines",
+      "relative_to": ["a paraphrase as long as the code does not save a reader from reading the code"],
+      "transfers": "indirect"
+    }
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "The test-checked round trip, with a same-model judge that is wrong about one time in three, is a gate a team can apply to agent-written function comments. The human-study and length results only bound that gate: perceived help did not change task time, and the comment is not a shorter substitute for the code."
+}

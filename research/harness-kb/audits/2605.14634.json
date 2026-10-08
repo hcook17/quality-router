@@ -1,0 +1,20 @@
+{"arxiv_id": "2605.14634",
+ "blind_scores": {"rigor": 2, "reproducibility": 1, "generalizability": 2, "relevance": 2, "coi_risk": 2},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "agree",
+ "claims_disputed": [
+  {"claim": "RustPrint achieves the highest safe rates (GPT-5.4: 99.41% API-level, 98.47% file-level).",
+   "proposed_strength": "weak",
+   "reason": "Fig. 4 table: at the API level 'highest' rests on 99.41 vs 99.19 (Self-Repair GPT-5.4, whose output does not compile per Table 1) and 99.09 (Claude Code), a 0.2-0.3 pp margin from a single run. Alg. 1 line 6 loops on unsafe_detect until empty, so the safe rate is the pipeline's own stopping criterion, and counting unsafe blocks says nothing about whether the safe rewrite preserved behaviour. Only the file-level gap over Claude Code (98.47 vs 91.10) is material."}
+ ],
+ "pattern_stance_changes": [],
+ "missed_issues": [
+  "Judge noise is visible in the paper's own numbers: the same single Claude Code output scores 52.52% FCV 'under Kimi-K2-Instruct evaluation' and 48.87% under GPT-5.4 (Fig. 2, §5.2), a 3.7 pp swing from changing only the judge, with no human agreement check.",
+  "Winner's-curse selection: Stage 4 keeps the best-FCV version out of up to six judged iterations (Alg. 1 line 22, K=5), so RustPrint's FCV is a max over noisy judge scores while Claude Code gets a single score.",
+  "Compilability is by construction: Alg. 1 line 6 repeats cargo_check until it returns 'Done', and §4.2 counts only cargo check (no build, link or run). Claude Code also compiles 8/8, so Table 1 does not separate the agentic approaches.",
+  "Test-suite sizes are never reported. The Table 2 percentages are consistent with small denominators (73.33% = 11/15, 35.71% = 5/14, 95.83% = 23/24), so one test can move a cell by 2-7 pp, and there is no breakdown of cross-suite failures into adaptation (copy_test agent cannot map the API) versus behavioural failures.",
+  "Fairest independent comparison in Table 2, each system on the suite it never repaired against: RustPrint-Kimi passes Claude Code's suite at 98.2% and ties or beats Claude Code's own output on that suite in 8 of 8 repos (e.g. stb 100 vs 84.62). The direction holds, but the gap is 4.7 pp, not the 15 pp headline.",
+  "Cost is large and partly hidden: Phase 5 costs $7-37 per iteration on GPT-5.4 with up to L=5 iterations (App. C, Table 4), and klib translation alone was $87.80; there is no cost or wall-clock figure for Claude Code."
+ ],
+ "note": "I agree with the review's verdict and with almost all of its claim grades: FCV is circular (optimized by Stage 4, judged by the backbone, on the authors' own CodeWikiBench), documentation is never ablated, and every configuration is a single run. I lower only the safe-rate 'highest' claim, because its API-level margin is a fraction of a point over a baseline whose code does not compile. I keep the cross-suite test claim at moderate, because RustPrint matches or beats Claude Code on Claude Code's own suite in all eight repos, but the honest gap is about 5 pp. My blind scores were slightly lower on reproducibility and relevance (code is only 'planned' for release, and C-to-Rust migration is far from a Java ingestion team). My COI risk was slightly higher because the authors' own benchmark is the oracle. All pattern stances are 'introduces' or 'neutral', which is correct since nothing is isolated."
+}

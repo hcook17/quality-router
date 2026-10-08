@@ -1,0 +1,17 @@
+{"arxiv_id": "2606.18976",
+ "contributions": [
+  {"kind": "design_pattern",
+   "statement": "When an LLM reviews long specs or design documents, require every finding to carry a verbatim quote and have deterministic code fuzzy-match it against the source (here normalized Levenshtein with a 0.45 discard threshold) before the finding is shown. Treat this as a check that the evidence exists, not that the critique is correct.",
+   "evidence": "§3.3 design. There is no ablation and no count of discarded findings. Grounded-issue quality (C1, Table 3) is the weakest criterion at 50% strict on 10 top-graded reports rated by two authors.",
+   "strength": "weak", "novelty": "duplicates",
+   "relative_to": ["2607.00555 (grounding LLM reviewer alarms in lexically retrieved code cut false positives 60.5% -> 13.9%)", "2606.24834 (require file:line citations confirmed by a deterministic check)"],
+   "transfers": "indirect"},
+  {"kind": "heuristic",
+   "statement": "To check new specs or design docs for completeness, mine a checklist of expected sections and features from a handful of exemplary past artifacts (LLM feature extraction, clustering, keep features present in at least two-thirds of exemplars) and have an agent mark each item present, partial or absent.",
+   "evidence": "§3.2 and §5.3, Table 4: 680 raw mentions from 10 top reports reduced to 7 coarse features. B1 is 100% on 10 top-graded reports, which is at ceiling and does not test detection of absent features.",
+   "strength": "weak", "novelty": "new", "relative_to": [],
+   "transfers": "indirect"}
+ ],
+ "quantity_flags": ["system_description_only"],
+ "proposed": "hypothesis_only",
+ "reason": "The evaluation rates whole-system output on 10 top-graded reports and isolates no component. The quote-verification gate is better evidenced by other KB papers. Only the exemplar-mined completeness checklist is a new, transferable idea, and it is untested beyond a ceiling result, so it stays a hypothesis."}

@@ -1,0 +1,17 @@
+{
+  "arxiv_id": "2605.11027",
+  "contributions": [
+    {
+      "kind": "heuristic",
+      "statement": "Have architects keep decision records, interface contracts, and threat models in text an agent can retrieve before implementation, because the paper's practice section says generated code will not recover design rationale that was never written down.",
+      "evidence": "§10.2 and Stage 4 of Table 6. No count of teams, no before/after, and §6.11 calls the stages a projection. Theme support in Table 5 is 7–25 artifacts with no corpus size.",
+      "strength": "weak",
+      "novelty": "restates_known",
+      "relative_to": ["Parnas information hiding and architecture rationale as operational context (Özkaya 2023, cited §5.2 and §10.2)", "P39 machine-readable domain context"],
+      "transfers": "indirect"
+    }
+  ],
+  "quantity_flags": ["survey_restatement", "position_without_evidence"],
+  "proposed": "drop",
+  "reason": "The eight themes restate that intent, architecture knowledge, verification, and human accountability matter, with no new measurement and no released corpus. Nothing here is a condition or magnitude a Java lead can apply beyond the spec-driven plan already in use."
+}

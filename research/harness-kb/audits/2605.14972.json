@@ -1,0 +1,34 @@
+{
+  "arxiv_id": "2605.14972",
+  "blind_scores": {"rigor": 2, "reproducibility": 1, "generalizability": 1, "relevance": 3, "coi_risk": 2},
+  "blind_verdict": "admit_with_caveats",
+  "blind_coi_severity": "low",
+  "agreement": "partial",
+  "claims_disputed": [
+    {
+      "claim": "Viverra efficiently generates C code together with verified assertions on diverse tasks",
+      "proposed_strength": "weak",
+      "reason": "Table 1 is one GPT-5.1 run on 18 textbook tasks. Verification takes 2077.6s on sudoku, 981.0s on connect4, and 879.3s on knapsack (mean 316.4±542.7s). base_addition falsifies 14 of 23 assertions. 'Verified' is k=5, not task correctness."
+    },
+    {
+      "claim": "Every verified property is sound within the loop-unwind bound, and conditional facts are sound under recorded assumptions",
+      "proposed_strength": "weak",
+      "reason": "Theorem 1 covers VerifyAll on the program it is given. Algorithm 1 verifies P+_k after BoundReduce, which rewrites loop-bound constants, then EmbedFacts writes the comments onto original P0. Soundness is not shown for the program the developer reads."
+    }
+  ],
+  "pattern_stance_changes": [
+    {
+      "id": "P41",
+      "from": "supports",
+      "to": "mixed",
+      "reason": "Fig. 3 is higher accuracy on 8 of 10 questions, but §5.3 says each question was written to match one verified assertion, the control is bare code rather than an unverified comment, and the text calls 100% vs 40% and 96s vs 82s significant with no test. That does not isolate verification as the thing that helps a reader."
+    }
+  ],
+  "missed_issues": [
+    "Algorithm 1 line 6 has the LLM tighten compile-time loop bounds so every loop iterates at most k=5, and line 10 embeds facts proved on that reduced program into the original P0. A comment can describe a program the user is not looking at.",
+    "The user study shows only assumption-free facts (§5.3). Conditional facts, which are the compositional half of the method, are never shown to a reader.",
+    "Prompts for elicitation, synthesis, annotation, and fact translation are printed in Appendix C. The review's closed-artifact note is right about code and the survey files, and wrong that the prompts are absent.",
+    "§5.3 uses 'significantly' for the connected-components item (100% vs 40%, 96s vs 82s). No test, interval, or distinct-worker count is reported; the abstract's 'more than 400 participants' is at least 400 HIT completions."
+  ],
+  "note": "The review is right about the title, the single model, the crowdworker quiz, and that P35 and P42 are not shown to work. It over-calls P41 as supports: the quiz can be passed by reading a comment that was written to contain the answer, which is not a comprehension safeguard winning against a real alternative. It under-calls the soundness claim by treating Theorem 1 as applying to the delivered program; bound reduction sits between the proof and the comment. Broadcom co-affiliation without a Broadcom product is low, matching the review. Blind rigor is 2 because the headline human result does not survive its own instrument. Nothing here justifies a C model checker beside Java services."
+}

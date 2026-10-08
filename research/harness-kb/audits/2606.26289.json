@@ -1,0 +1,19 @@
+{"arxiv_id": "2606.26289",
+ "blind_scores": {"rigor": 4, "reproducibility": 1, "generalizability": 4, "relevance": 3, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "partial",
+ "claims_disputed": [
+  {"claim": "AI agent adoption does not change the absolute number of human contributors (ATT 0.014, p=0.224)",
+   "proposed_strength": "unsupported",
+   "reason": "§IV-A and Fig. 1: pre-treatment coefficients drift from about -0.30 at month -12 toward zero, and the authors demote this outcome because parallel trends are only partly met. A non-significant ATT under a violated pre-trend is not evidence that the count is unchanged, and §VI says treatment-onset error biases effects toward zero."}
+ ],
+ "pattern_stance_changes": [],
+ "missed_issues": [
+  "The figure citations are crossed. §IV-A says 'Figures 2 and 2' for both RQ1 outcomes, and §IV-B cites Figure 4 for the newcomer-ratio ATT while the Fig. 4 caption is the log newcomer count, the outcome whose parallel trends fail. Fig. 3 is the ratio.",
+  "Tables III and IV define pre as January 2023–April 2025 and post as May 2025–May 2026, not each repository's relative adoption month. Early adopters' post months sit inside the 'pre' mean, so the raw 0.476 to 0.577 density rise is not the difference-in-differences contrast.",
+  "§III-C says the six propensity covariates are measured in 'the pre-adoption period' for treatment and control alike, but control repositories have no adoption date and the window used for them is never defined.",
+  "The event-study density coefficient of about -0.13 at month +12 is identified mostly from the 197 repositories that adopted before May 2025 (§III-A). The aggregate ATT of -0.019 is dominated by the June 2025 cohort (1,054 repositories) with a short post window.",
+  "The >100-star filter is applied at data-collection time, not at treatment onset (§III-A), so repositories that became popular after the first agent pull request are differentially kept.",
+  "The review's conflict list cites Monperrus (2606.13175) and not 2607.01810, which finds no significant newcomer-inflow decline under config-file adoption. The outcomes differ (share versus count) and this paper's count outcome fails parallel trends, so the two papers do not establish opposite effects on absolute inflow, but the tension should be on the record."
+ ],
+ "note": "The review is right that the 'dilution, not displacement' sentence in §V uses the wrong denominator: newcomer ratio is newcomers over human authors, so a stable human count would imply fewer newcomers, and that count is not causally identified. I lower the headline null on absolute headcount from weak to unsupported because a non-significant ATT with a drifting pre-trend does not show 'no change.' I leave the 3.7-point newcomer-share result at moderate: its pre-trends are flat and the panel is large, with the June 2025 bunching and unverified controls as caveats rather than a collapse. P41, P19, and P32 are correctly neutral. My blind rigor and relevance were higher because the design reports the failed pre-trends instead of hiding them; the construct errors the review documents are why those higher scores should not loosen the review."}

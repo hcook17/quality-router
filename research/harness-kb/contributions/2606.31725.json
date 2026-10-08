@@ -1,0 +1,26 @@
+{
+  "arxiv_id": "2606.31725",
+  "contributions": [
+    {"kind": "nuance",
+     "statement": "Do not use the length of an agent's reasoning trace as a per-answer correctness signal when it explains or traces code, because once snippet and model were controlled, correct and incorrect answers had statistically indistinguishable trace lengths.",
+     "evidence": "§VII Table VIII: incorrect answers average about 980-1,030 tokens vs about 910-976 for correct ones, ns in a GLMM (p=0.33). Caveats: small open models (8B or under), snippet output prediction, Python/JS.",
+     "strength": "weak", "novelty": "refines",
+     "relative_to": ["reasoning effort scales with task difficulty (refs [6], [40] in the paper)"],
+     "transfers": "indirect"},
+    {"kind": "nuance",
+     "statement": "When an agent explains code whose identifiers mislead (legacy or repurposed names), expect confident wrong explanations where misleading names coincide with token-level uncertainty on those identifiers, and check the explanation against an executed test.",
+     "evidence": "§VIII Tables IX-X: joint top-20% tail (n=80) at 21.25% accuracy and 10.0% high-confidence-incorrect vs 31.68% and 4.95% in the baseline; post-hoc tails, no tests; the direction is split 26/24 across tasks.",
+     "strength": "weak", "novelty": "duplicates",
+     "relative_to": ["2609.26388 misleading identifiers are the main risk in agent code explanations (moderate, larger models)"],
+     "transfers": "indirect"},
+    {"kind": "nuance",
+     "statement": "Flattened, dispatcher-style control flow lowers model output-prediction accuracy.",
+     "evidence": "§V-A: r=-0.196 between Python while-if state count and accuracy, pseudo-replicated over runs from about 10 programs per language per tier.",
+     "strength": "weak", "novelty": "duplicates",
+     "relative_to": ["2609.37405 complexity-stratified output prediction degrades with cyclomatic complexity and nesting"],
+     "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "hypothesis_only",
+  "reason": "The misleading-identifier and complexity findings duplicate stronger KB siblings (2609.26388, 2609.37405). What remains is a weak, small-model hint that reasoning-trace length is not a correctness signal, which no gate should rest on."
+}

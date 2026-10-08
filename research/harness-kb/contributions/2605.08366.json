@@ -1,0 +1,26 @@
+{
+  "arxiv_id": "2605.08366",
+  "contributions": [
+    {"kind": "test_practice",
+     "statement": "Do not accept an agent refactor because the existing tests still pass; also gate it on leftover-artifact checks (the old methods, fields, helpers and imports the refactor replaces are gone, and every call site was updated, e.g. compiler unused-symbol warnings plus a diff check of touched files against a call-site search) and a review against the refactor's goals, because test-only grading would have passed 60-80% of agent refactors while expert must-have rubrics on cleanup and maintainability passed 15-40 points fewer.",
+     "evidence": "§4.1 Fig. 2(b, d): regression-test vs rubric pass rate for 8 models on mini-SWE-agent; the gap concentrates in Code Maintainability and Artifact Cleanup. §4.4 Fig. 5: resolve rate falls with gold-patch size, and even frontier models miss gold-modified files. Rubrics are graded by an Opus 4.5 judge with kappa 0.88 against humans on 200 items from other models' outputs. Go/Python/TS/C++ repositories, no Java.",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["2605.06754 compile or deploy success is not behavioral success for agent Java migrations", "behavior-preserving refactoring verified by the existing test suite"],
+     "transfers": "direct"},
+    {"kind": "constraint",
+     "statement": "Do not publish an agent's answer to an onboarding, architecture or root-cause question into team docs, a spec, or a new developer's notes without expert review, because the best agents met every expert must-have point on only about 41% of such questions, and across the benchmark only about 29% of tasks passed in all three reruns versus 42-43% Pass@1.",
+     "evidence": "Table 1: Q&A Pass@1 40.8 (GPT-5.4/Codex) and 40.3 (Opus 4.7/Claude Code); Pass3 29.2 vs Pass@1 43.5 overall; App. F Fig. 13: Onboarding sub-category best 47.0%. Q&A is graded only by an LLM judge (audit: same family as several graded models, CIs ignore task clustering); 124 Q&A tasks over 18 open-source repositories, single-turn, no clarification.",
+     "strength": "moderate", "novelty": "refines",
+     "relative_to": ["2608.24221 repository QA agents on SWE-QA (Python, static questions)", "2608.01507 deep agentic search for repository QA (Python)"],
+     "transfers": "indirect"},
+    {"kind": "nuance",
+     "statement": "When reviewing agent-written tests, check specifically for negative-space assertions (what must not happen and what must stay unchanged) and for observable side effects that a no-op implementation would not produce, because agents mostly test the happy path and their tests often still pass when the function under test is replaced by a no-op.",
+     "evidence": "§4.3: qualitative analysis of mutation failures of top models and one worked example (GPT-5.4 asserting values that are trivially true under a no-op mutation); Fig. 2(a) and 2(c): mutation vs rubric gap of about 10-15 points, mostly in Test Comprehensiveness. No count of how many failures are negative-space omissions.",
+     "strength": "weak", "novelty": "refines",
+     "relative_to": ["2606.18168 gate agent tests on value-level assertions", "2605.03546 reject agent tests that pass a dummy implementation"],
+     "transfers": "direct"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "Two moderate items survive. Tests-pass is shown to be a weak gate for agent refactors, with the failure located in leftover artifacts and missed call sites. And the best agents' onboarding and architecture answers meet the expert checklist only about 41% of the time and are inconsistent across reruns, which argues for review before capture. The model ranking itself is a leaderboard and adds nothing actionable."
+}

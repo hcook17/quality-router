@@ -1,0 +1,19 @@
+{"arxiv_id": "2605.16933",
+ "contributions": [
+  {"kind": "heuristic",
+   "statement": "In a learning or onboarding mode that explains a new developer's failing code, default to diagnosis-only feedback (what is wrong, where, and its impact, with no fix); in this study withholding the fix cost no short-term speed compared with fix-giving hints, but measure comprehension separately because speed is not learning.",
+   "evidence": "Tables 1 and 9, against compiler/test output only: Diagnostic beta -0.194 on log time and -0.200 on attempts; General (with fixes) -0.122 and -0.175. Point estimates favour Diagnostic on both outcomes, but the intervals overlap and no pairwise or non-inferiority test is reported. One web-development course, students not professionals, GPT-4o given the sample solution, and no learning outcome.",
+   "strength": "weak", "novelty": "refines", "relative_to": ["expertise-reversal and error-localization hinting in programming education (Kalyuga 2009; Kurniawan et al. 2023)", "2607.26375"], "transfers": "indirect"},
+  {"kind": "nuance",
+   "statement": "When an assistant explains or suggests fixes for a framework version newer than the model's training data, expect fix suggestions to go stale while error localization still helps; ground explanations in the team's pinned framework versions and current internal docs, or limit them to diagnosis.",
+   "evidence": "Table 11: on post-cutoff 'New Content', fix-giving hints have no credible effect on time (General -0.054, Single-Issue -0.095) while Diagnostic still helps (-0.215 [-0.368, -0.062]); on older content the fix-giving hints help. In §4.4, 12 of 31 Poor-voted hints suggested fixes for an older version of the technology. Recency is proxied by course part, which is confounded with topic and course order, and only 45 votes were cast in total.",
+   "strength": "weak", "novelty": "refines", "relative_to": ["retrieving current library documentation for post-cutoff APIs (known practice)"], "transfers": "indirect"},
+  {"kind": "heuristic",
+   "statement": "LLM explanations of failing tests shorten time to a passing solution by roughly 11-19% compared with raw compiler and test output for learners.",
+   "evidence": "Table 9: beta -0.122 to -0.214 on log time to success, all CIs excluding zero; Table 1: attempts reduced in all three arms. Randomized per assignment-user pair, one course, one model.",
+   "strength": "moderate", "novelty": "restates_known", "relative_to": ["LLM-enhanced error messages and hints in programming courses (Leinonen et al. 2023; Pankiewicz and Baker 2023)"], "transfers": "indirect"}
+ ],
+ "quantity_flags": [],
+ "proposed": "hypothesis_only",
+ "reason": "The only moderate finding (LLM hints speed up learners compared with compiler output) restates prior classroom results. The two refinements a harness could use, diagnosis-only hints as a learning-mode default and fix staleness on post-cutoff frameworks, are weak because there is no pairwise test, recency is a confounded proxy, and comprehension is never measured."
+}

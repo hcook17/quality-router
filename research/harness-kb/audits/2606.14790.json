@@ -1,0 +1,21 @@
+{
+  "arxiv_id": "2606.14790",
+  "blind_scores": {"rigor": 1, "reproducibility": 1, "generalizability": 1, "relevance": 4, "coi_risk": 0},
+  "blind_verdict": "admit_with_caveats",
+  "blind_coi_severity": "none",
+  "agreement": "partial",
+  "claims_disputed": [],
+  "pattern_stance_changes": [
+    {
+      "id": "P14",
+      "from": "neutral",
+      "to": "introduces",
+      "reason": "§3 and the §3 takeaway make the XPF document the compiled source of the workflow ('What You Say Is What You Execute'), which proposes an executable-spec practice rather than mentioning spec-first delivery. There is still no spec-first versus code-first comparison."
+    }
+  ],
+  "missed_issues": [
+    "§4.1 reports DeepSeek-V4-Flash pass^1 only as improving or matching in Airline and Telecom, and never states the Retail pass^1, so the 'task success stayed comparable' sentence drops the domain where the Qwen backbone is already said to lose.",
+    "Every worked XPF example in §3 is a brief-writing or expense workflow. The readable text never shows a protocol for a software change, so the SWE-bench setting has neither a result nor a design."
+  ],
+  "note": "The review is right that the three-benchmark reliability claim is unsupported in the local text and that the tau^3-bench compliance numbers are weak: the metric is the authors' own reading of the same policy text the protocol encodes, the baseline is unnamed, and the table itself is missing. Relevance 2 is too low for this scope. The design is a direct proposal for moving workflow commitments out of prompts into checked state, which is the harness question, even though it is not evidence those gates improve software work. Rigor 2 is slightly high: with two of three benchmarks absent, no trial counts, and no ablation, this is closer to an unfinished evaluation than a gappy one. Academic affiliations justify coi severity none."
+}

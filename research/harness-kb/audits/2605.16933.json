@@ -1,0 +1,16 @@
+{"arxiv_id": "2605.16933",
+ "blind_scores": {"rigor": 3, "reproducibility": 1, "generalizability": 1, "relevance": 2, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "agree",
+ "claims_disputed": [],
+ "pattern_stance_changes": [],
+ "missed_issues": [
+  "Allocation is unclear. The No Feedback arm has 1,228 pairs and 206 users, against 621-665 pairs and 161-162 users per hint arm (Table 7), and §3.1 says feedback was assigned at random 'for part of the users'. The allocation ratio is never stated, and some control pairs may come from users who were never randomized, which weakens the causal reading of the headline comparison.",
+  "The text misreads its own Table 2. The novice interactions for General (+0.027) and Diagnostic (+0.007) are about zero, so novices get the same reduction in attempts from those two arms as advanced students; only Single-Issue loses its effect for novices (+0.174). The statements 'Novice Students do not benefit from a particular hint type' (§4.2) and 'feedback appearing more beneficial for Advanced Students' (§5) generalize from one arm.",
+  "The feedback prompt includes the instructor's sample solution (App. A, Fig. 4), so GPT-4o is effectively grading against a reference answer. A harness explaining a developer's own code has no such reference. Even with it, 7 of 31 Poor-voted hints found no issue despite failing tests and 4 named the wrong issue (§4.4).",
+  "There is no multiple-comparison correction across 3 RQs x 2 outcomes x 6 interaction terms. The two credible interactions (Single-Issue x Novice, Single-Issue x Old Content) are 2 of 12 interaction tests.",
+  "Practical size: beta of -0.12 to -0.21 on log time is roughly 11-19% shorter time to solution, on assignments that are mostly solved within 10 minutes even without hints (Table 6: 1,068 of 1,303 control pairs), so the absolute saving per assignment is small.",
+  "The course language is never stated. The examples (App. A, Fig. 5) are HTML, Svelte and a JavaScript request handler, so nothing here is Java or backend-service code."
+ ],
+ "note": "I agree with the review on verdict, claim grades and pattern stances. The headline (LLM hints beat compiler/test output on short-term speed) is moderate: it is randomized, uses mixed models with intervals, and points the same way on both outcomes and all three arms. Every secondary claim is weak. I would add that the control arm's allocation is unexplained and that the paper's own novice interaction terms contradict its prose for two of three arms. P41 'mixed' is right: the outcome is speed, not comprehension, and the authors say so. My blind scores match the review except reproducibility (1 vs 2), because only the prompts are released."
+}

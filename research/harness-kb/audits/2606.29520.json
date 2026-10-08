@@ -1,0 +1,18 @@
+{"arxiv_id": "2606.29520",
+ "blind_scores": {"rigor": 2, "reproducibility": 3, "generalizability": 2, "relevance": 1, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "agree",
+ "claims_disputed": [
+  {"claim": "Performance varies markedly across categories, revealing competency gaps central to professional practice",
+   "proposed_strength": "weak",
+   "reason": "Tables 3-4 show a real spread (QA 98.2% vs ASO 89.5% mean, about 250 items each), but there is no human baseline and no item-difficulty calibration, and the categories' items were written by the same three authors. A per-category accuracy gap therefore measures how hard the authors made each category's items and distractors, not a model competency gap 'central to professional practice'. The same ordering across all 11 models is what item difficulty alone would produce."}
+ ],
+ "pattern_stance_changes": [],
+ "missed_issues": [
+  "§5: when regex extraction fails the scorer 'assigns a random label', and the failure rate is never reported. With a 10-token output cap (16 for GPT), the five-shot drops (DeepSeek v3.2 −4.21 overall, SPA 78.3% in Table 4) could be formatting or extraction failures rather than lost knowledge.",
+  "The 10-token cap forbids any reasoning before the answer, so the 'reasoning-heavy category' conclusions (RQ2, RQ3) describe answer-only recall, not how the models reason when allowed to.",
+  "No check of answer-position balance or option-length cues. App. A states (c) is correct in every shown example 'for readability', but the key distribution of the full set is not reported.",
+  "Table 5's ASO bins use quartile cut points from the whole benchmark, so the number of ASO items per bin is not reported and may be uneven (about 63 on average). The 'distractor density' explanation in §6.3 is asserted, not tested.",
+  "§6.1 and §6.2 cost recommendations (Qwen3 235B 'most favorable accuracy-to-cost') use list input-token prices only. Output tokens and five-shot prompt growth are not measured."
+ ],
+ "note": "I agree with admit_with_caveats, no COI and all three pattern stances; my blind scores matched the review's exactly. I lower the category-gap claim to weak, because without a human or difficulty-calibrated baseline the gap measures item authoring as much as model competence. The review missed that extraction failures are silently replaced by random guesses under a 10-token cap, which could explain the five-shot drops it grades as weak anyway. The saturation finding (claim 1) stands as moderate."}

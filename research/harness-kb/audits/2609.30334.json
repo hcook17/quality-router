@@ -1,0 +1,34 @@
+{
+  "arxiv_id": "2609.30334",
+  "blind_scores": {"rigor": 2, "reproducibility": 1, "generalizability": 2, "relevance": 4, "coi_risk": 1},
+  "blind_verdict": "admit_with_caveats",
+  "blind_coi_severity": "low",
+  "agreement": "partial",
+  "claims_disputed": [
+    {
+      "claim": "Cognitive debt is a systemic risk: three mechanisms erode architects' understanding when they accept AI proposals without full engagement.",
+      "proposed_strength": "unsupported",
+      "reason": "§4.3 only records the phrase from one participant, by analogy with technical debt. §5.1 says the three mechanisms (shallow acceptance, brief engagement, fly-by approval) are the authors' extension. No later defect, approval log, or count of unread diffs is reported."
+    }
+  ],
+  "pattern_stance_changes": [
+    {
+      "id": "P38",
+      "from": "neutral",
+      "to": "introduces",
+      "reason": "§4.1 is reported use, not a aside: participants gather context for the agent, reverse-engineer legacy architecture, and explore an unfamiliar stack before implementation. There is no comparison with specifying from memory, so the stance is introduces rather than a bare mention."
+    },
+    {
+      "id": "P16",
+      "from": "neutral",
+      "to": "introduces",
+      "reason": "§4.2 does not merely name tests. Participants prescribe the existing CI, unit-to-end-to-end tests, and static analysis as the quality backbone for agent code. That is a proposed practice with no comparison against architectural mistakes those checks miss."
+    }
+  ],
+  "missed_issues": [
+    "Of 18 questionnaire returns, architecture experience has median 5 years and 6 people are advanced beginner or novice, while AI-tool skill is novice or intermediate for 14 of 17 answers (§3.2), so the consensus is not a senior-architect or heavy-agent-user census.",
+    "Reported tools are ChatGPT 14 and Claude 13, against Cursor 3 (§3.2). The architecture-agent discussion is mostly about chat assistants, and team size is usually under 5 (9 of 18) or 5–15 (7).",
+    "§4.4 defines the harness as everything that is not the LLM and not the chatbot, so the 'new discipline' absorbs CI, decision records, and standards the same paper treats as existing practice. §4.6's suggestion to drop programming-language breadth is an untested curriculum opinion."
+  ],
+  "note": "The review's scores match the blind pass, and the claims are correctly kept off strong and moderate: this is one 90-minute plenary, not a counted consensus. I lower only the cognitive-debt claim to unsupported, because §5.1 states that the three mechanisms are the authors' extension and no later mistake is observed. P14, P19, P21, P39, and P41 as introduces are right. P38 and P16 should be introduces rather than neutral, because participants describe pre-implementation discovery and they prescribe the existing test and static-analysis loop, which is use without a comparison. The sample limits the review already lists are real; the extra problem is who was in the room and how broadly 'harness' was defined."
+}

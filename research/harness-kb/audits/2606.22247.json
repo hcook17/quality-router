@@ -1,0 +1,40 @@
+{
+  "arxiv_id": "2606.22247",
+  "blind_scores": {"rigor": 2, "reproducibility": 3, "generalizability": 2, "relevance": 2, "coi_risk": 0},
+  "blind_verdict": "admit_with_caveats",
+  "blind_coi_severity": "none",
+  "agreement": "partial",
+  "claims_disputed": [
+    {
+      "claim": "Equivalent documentation transfers across LLMs",
+      "proposed_strength": "unsupported",
+      "reason": "§4.3 cites 'Documentary's precision of 88.9%' for gpt-4.1-nano, but Table 2 reports 66.4%. The other models (gpt-5-nano 89.6%, gemini-2.5-flash-lite 74.7%) are run only on docstrings the judge already called equivalent, with no one-shot or original-docstring control, so the comparison cannot show transfer. §2.1 also defines equivalence relative to a specific LLM, which undercuts 'persists while LLMs evolve'."
+    }
+  ],
+  "pattern_stance_changes": [
+    {
+      "id": "P39",
+      "from": "mixed",
+      "to": "neutral",
+      "reason": "The artifact is a function-length implementation restatement, capped at 1× the function (§2.2.4). Table 3's output-prediction gain is code-level behavior, not a glossary, ontology, or data contract, so the domain-context pattern is only motivated, not tested."
+    },
+    {
+      "id": "P18",
+      "from": "mixed",
+      "to": "introduces",
+      "reason": "RQ3 ablates iteration count and the length cap, not the judge. Table 2's 53.4% vs 34.0% compares the whole generate-judge-revise loop to a one-shot prompt. The 66.4% precision is a calibration of that judge against tests, not a split A/B of LLM-as-judge versus another checker."
+    },
+    {
+      "id": "P42",
+      "from": "introduces",
+      "to": "neutral",
+      "reason": "The round trip runs from an existing function body to a derived docstring and back. The paper never links a requirement to code, so requirement-to-code traceability is not proposed."
+    }
+  ],
+  "missed_issues": [
+    "§4.1.1 keeps an output-prediction test only when gpt-4.1-nano predicts every assertion correctly while seeing the implementation, so the code scores 100% by construction and the best docstring reaches 74.2% of 480 assertions (Table 3). With the 1× length cap the docstring is as long as the function (median 9 lines) and saves no context against reading the code.",
+    "Table 5 tests seven metrics with no multiplicity correction. Only understanding-helpfulness (p=0.0004) survives 0.05/7; the bold modifying-helpfulness result (p=0.0425) does not. Mann-Whitney U is the wrong test for this within-subject design, and §4.7 lets participants read the function body, so the ratings are not a documentation-only comprehension measure.",
+    "The introduction's problem is outdated documentation, but no trial changes the code and rechecks the docstring. Equivalence-optimized text restates implementation detail at function length, which is the drift surface the study never measures. §4.1.1 also notes that tasks were chosen so tests could score the edit, and Table 5 never reports that correctness."
+  ],
+  "note": "I agree that the test-checked 127/238 versus 81/238 result is the paper's real finding, that the abstract's 12.8–24.5% cannot be rebuilt from Table 3, and that the user study shows perceived help with unchanged time. I drop the transfer claim because §4.3's 88.9% precision is not the 66.4% in Table 2 and there is no baseline transfer arm. P39 and P42 are outside what was measured: these are function paraphrases, not domain cards or requirement links. The judge is used, not isolated, so P18 is a proposal plus a 66.4% calibration rather than a split result. P41 stays mixed."
+}

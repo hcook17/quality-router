@@ -1,0 +1,28 @@
+{
+  "arxiv_id": "2609.24620",
+  "contributions": [
+    {"kind": "nuance",
+     "statement": "Use an agent loop over a shared tool surface only with frontier-class models. If a data or query step is routed to a small open-weight model, keep a fixed pipeline. Over the same 31-tool MCP server, agent loops beat a fixed one-pass pipeline by +26.7 pp (95% CI 18.7-35.0) and +20.4 pp (13.3-27.5) with Sonnet 5 or DeepSeek-V4-Pro, while gpt-oss-120b gained nothing (-3.0 [-11.2, 5.3]) and in one framework scored below the pipeline (38% vs 50%).",
+     "evidence": "§5.2 Table 2, paired question-level bootstrap over 156 native and 153 OMOP questions; three frameworks. Caveats: the pipeline cannot revise and is not compute-matched, so +20-27 pp is an upper bound on the loop's value; the 'capable' grouping is post hoc; the benchmark is author-built with LLM-only grading; single runs; SQL analytics, not Java code.",
+     "strength": "moderate", "novelty": "refines", "relative_to": ["P10 single-agent loop vs P36 static workflow", "2609.32459", "2607.25333"], "transfers": "indirect"},
+    {"kind": "nuance",
+     "statement": "With a frontier model, do not expect bespoke generator tools (a text-to-SQL or query-builder service behind MCP) to add accuracy. Spend the effort on discovery tools (schema, sample rows, value distributions, vocabulary lookup) and let the agent write and run the query: withholding the specialized text-to-SQL tools left Sonnet 5 at 76-84% vs 75-83% with them, cut runtime (e.g. 565 s to 197 s), and raised top-level calls 1.5-2.1x.",
+     "evidence": "§5.2 Table 2 'no scaffold' rows. Only Sonnet 5 under the Claude Agent SDK, single run, no CI on this ablation. Discovery, coding and execution tools stay available in both arms. Nested LLM calls inside the specialized tools are not counted.",
+     "strength": "weak", "novelty": "refines", "relative_to": ["2609.22259", "2609.32459"], "transfers": "indirect"},
+    {"kind": "anti_pattern",
+     "statement": "Do not accept an agent-produced query or data transform because it executed and returned a plausible number. Add domain plausibility checks (implausible zeros, near-perfect matches, unit harmonization, denominator eligibility, counting grain), because the consequential errors seen in real use all passed execution.",
+     "evidence": "§6 field observations from 36 users and 13,002 calls: wrong population or counting grain, silent code-list scope drift, sparse fields reported without caveat. Qualitative, with no counts or rates.",
+     "strength": "weak", "novelty": "refines", "relative_to": ["P16 execution-based verifier loop", "2608.17018"], "transfers": "indirect"},
+    {"kind": "design_pattern",
+     "statement": "Expose shared domain capabilities to every agent host through one governed MCP server that propagates the caller's identity so data access runs under the user's own grants.",
+     "evidence": "§3.1 and §3.3; the same server was driven by three frameworks, three models, and LibreChat, Cursor and Claude Code. Portability is shown by use, with no comparison against an alternative integration.",
+     "strength": "moderate", "novelty": "restates_known", "relative_to": ["P04 MCP as integration layer", "least-privilege per-user credentials"], "transfers": "direct"},
+    {"kind": "heuristic",
+     "statement": "Do not add a generic 'critique your interpretation, design and result' reflection prompt by default; it added 27% tool calls and 13% runtime and helped clearly in only one of three frameworks.",
+     "evidence": "§5.2 Table 2: reflect vs plain across seven model-framework pairs; single runs, no per-pair CI.",
+     "strength": "weak", "novelty": "refines", "relative_to": ["2606.25195", "self-correction limits (Huang et al. 2024)"], "transfers": "indirect"}
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "One contribution qualifies. The agent loop pays only with frontier-class models: a CI-backed +20-27 pp over a fixed pipeline for two capable models and none for gpt-oss, measured on a single shared MCP tool surface. That refines the loop-vs-workflow and model-routing evidence already in the KB. The scaffold ablation (bespoke generators add no accuracy) and the plausibility-check lesson are relevant to the team's domain-context work but rest on one run or qualitative reports, so they stay hypotheses."
+}

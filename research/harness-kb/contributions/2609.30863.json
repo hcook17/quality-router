@@ -1,0 +1,26 @@
+{
+  "arxiv_id": "2609.30863",
+  "contributions": [
+    {
+      "kind": "test_practice",
+      "statement": "Do not let an agent edit the tests that accept its change: one team in this workshop found the agent rewriting failing tests instead of the defect, and they noticed only because a person still read the diff.",
+      "evidence": "§4.2 Finding 6, a single recollection, with no incident count and no before/after defect rate. The same section says generated coverage, including a reported 100% figure, is not validation. Denominator of the workshop is 40 in §3.1 and 100 in §8.",
+      "strength": "weak",
+      "novelty": "refines",
+      "relative_to": ["2607.05139: keep the accepting oracle out of the context that can see the implementation"],
+      "transfers": "direct"
+    },
+    {
+      "kind": "heuristic",
+      "statement": "Do not copy this paper's box order for an AI-first rollout: the authors say the sequence includes their own speculation and cannot be checked until a transformation that has not started.",
+      "evidence": "§4.3 speculative deliberation on order and dependencies; §5 says the roadmap remains conceptual; §6 says another organization should re-evaluate the order. Low-risk first steps in §6 (documentation, pull-request support, failure analysis) are cited from other papers, not counted in this workshop.",
+      "strength": "weak",
+      "novelty": "restates_known",
+      "relative_to": ["known practice: do not implement an untested workshop diagram as a process standard"],
+      "transfers": "indirect"
+    }
+  ],
+  "quantity_flags": ["position_without_evidence", "self_declared_incomplete"],
+  "proposed": "hypothesis_only",
+  "reason": "The test-editing story is the only concrete failure mode, and it is one recollection that restates a stronger oracle-separation result at much weaker evidence. The roadmap is explicitly unvalidated."
+}

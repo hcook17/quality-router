@@ -1,0 +1,17 @@
+{
+  "arxiv_id": "2607.22463",
+  "contributions": [
+    {
+      "kind": "nuance",
+      "statement": "When a new developer's Java change uses syntax or APIs the team has not taught, do not treat the diff as proof they either copied an agent or understood the change; ask what they did after the agent's answer, because a fluent submission can hide either pasting or unlogged study.",
+      "evidence": "§4.3 quotes one undergraduate co-author on notes, practice, and re-solving after an AI answer, and §4.2 quotes the same person learning Java syntax by asking a model to explain it. §5.2 says this student is highly motivated and not representative. No second student, no count of either behavior, and no class outcome.",
+      "strength": "weak",
+      "novelty": "refines",
+      "relative_to": ["2607.26375"],
+      "transfers": "indirect"
+    }
+  ],
+  "quantity_flags": ["position_without_evidence"],
+  "proposed": "hypothesis_only",
+  "reason": "The paper's accuracy claim is three authors reading their own transcripts. The only actionable sentence is a boundary on reading a fluent diff, and it restates, with weaker evidence, the existing caution that a submission is not proof of understanding. It cannot back a gate."
+}

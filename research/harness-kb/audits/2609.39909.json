@@ -1,0 +1,19 @@
+{"arxiv_id": "2609.39909",
+ "blind_scores": {"rigor": 3, "reproducibility": 3, "generalizability": 3, "relevance": 3, "coi_risk": 2},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "low",
+ "agreement": "agree",
+ "claims_disputed": [],
+ "pattern_stance_changes": [
+  {"id": "P18", "from": "mixed", "to": "introduces",
+   "reason": "The paper uses a rubric-guided LLM scorer and validates it (App. B.2-B.3: 310/330 criteria, rubric-score alpha 0.805 vs maintainer rubrics), but nothing is a win/loss comparison against an alternative grader. The weaknesses the review lists (non-blinded adjudication, 59.8% overlap precision, same-family judge) are evidence-quality problems, not a split outcome, so 'mixed' overstates the paper's evidence on LLM judges in either direction."},
+  {"id": "P20", "from": "neutral", "to": "supports",
+   "reason": "Narrowly for eval integrity, the paper does measure sealed vs networked runs: a web-enabled pilot had 26/85 runs (30.6%) retrieve the upstream PR and 6% copy other agents' trajectories on a shared host (§5, §9.2), while sealed runs had no confirmed copying, and the cost of sealing was measured (10 of 683 audited runs, 1.5%, needed external evidence). The comparison is across benchmark versions and says nothing about safety sandboxing."}
+ ],
+ "missed_issues": [
+  "The ranking is not robust across splits: on all 292 items (Table 14) GLM 5.2 moves above GPT-5.6 Sol and Claude Opus 4.8 above Kimi K2.7, with top-three composites within about 3 points and one run per item, so the leaderboard order should not inform a host or model choice.",
+  "The class mix (29.9% abstention) is far from real prevalence: App. A.1 says about six routine PRs need no doc update for every one that does. At that prevalence a lane with 28.6% abstention recall (GPT-5.5+Codex, 64 false edits on 87 items, Table 15) would propose unneeded edits on most PRs, so the operational cost of over-editing is larger than the harmonic-mean composite suggests.",
+  "Abstention labels partly rest on 'no linked doc change within 90 days' (§9.3), which biases labels toward abstention and penalizes high-patch-recall lanes for edits that may have been warranted; the size of this noise is never estimated.",
+  "No deterministic checks run code samples, commands or links (§9.1), so the 2.5% 'nonfunctional example' rate (Table 17) is a lower bound judged by an LLM, not an execution result; App. B.4 shows four human merged patches with broken commands that a run would have caught.",
+  "None of the named repositories is Java (Helm/Go, Pants/Python, Strawberry/Python, Jujutsu/Rust, Mautic/PHP, PostHog, dlt, OpenCost), and no per-language breakdown is given."
+ ],
+ "note": "I agree with the review's scores, verdict, COI (low, disclosed Promptless affiliation, own product not graded) and its weak grading of the failure-mode and trajectory claims, which rest on a pre-rerun population with no labeling protocol. I move P18 from mixed to introduces because the judge validation is an agreement study, not a comparison the pattern could win or lose. I move P20 up to supports in the narrow eval-integrity sense, since the paper measures both arms (networked pilot 30.6% answer retrieval and 6% cross-agent copying vs none confirmed sealed) and the cost of sealing (1.5%). The review under-weights that the class mix inflates the apparent acceptability of over-editing lanes relative to real PR prevalence, and that the rank order flips between the held-out and full splits."}

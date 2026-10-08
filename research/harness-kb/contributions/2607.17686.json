@@ -1,0 +1,35 @@
+{
+  "arxiv_id": "2607.17686",
+  "contributions": [
+    {
+      "kind": "test_practice",
+      "statement": "Tag each JUnit test with the requirement ID it verifies, ingest the JUnit XML report into a requirement-to-test graph in CI, and report any requirement with no linked or only skipped tests as inconclusive with its own exit code rather than as passing.",
+      "evidence": "§III-D/E and §IV-B: pytest marker and JUnit XML routes, strict verdict policy, exit codes 0-5. Shown only on the tool's own 36-requirement spec and a synthetic 5,000-case JUnit file. No comparison with manual matrices or other requirements-as-code tools, and auto-derived links are not checked for precision.",
+      "strength": "weak",
+      "novelty": "restates_known",
+      "relative_to": ["requirements-as-code tagging (Doorstop, Sphinx-needs, Cucumber/BDD tags) cited in §II-C", "2606.24834 confirm requirement links with a test referencing the requirement id"],
+      "transfers": "direct"
+    },
+    {
+      "kind": "nuance",
+      "statement": "Use a lexical requirement linter only as a pre-filter before human or agent clarification of a spec, because a GtWR-rule checker caught escape clauses and missing acceptance criteria but none of 36 compound 'shall ... and shall ...' requirements, and it masked added vague terms when the statement already had one (17/36).",
+      "evidence": "Table III, §IV-C5: 144 mutants (36 statements x 4 author-chosen operators). The two 36/36 rows re-run phrases the rules enumerate. The 0/36 is a gap in this tool's conjunction rule rather than a demonstrated limit of lexical checking, and there is no real-world defect sample.",
+      "strength": "weak",
+      "novelty": "refines",
+      "relative_to": ["requirement-smell detectors and INCOSE GtWR rule checking (known practice)", "2609.29208 requirement smells in LLM code generation"],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "constraint",
+      "statement": "A requirement-traceability gate over thousands of requirements costs well under a second per CI run apart from spec-file parsing, so CI time is not a reason to skip one.",
+      "evidence": "Table II and §IV-C4: trace graph 0.12 s and roll-up 0.002 s at 10,000 synthetic requirements, YAML load 10.2 s, plugin overhead about 0.8 ms per no-op test. Python tool on synthetic specs.",
+      "strength": "strong",
+      "novelty": "restates_known",
+      "relative_to": ["routine engineering expectation that graph construction over thousands of IDs is negligible in CI"],
+      "transfers": "indirect"
+    }
+  ],
+  "quantity_flags": ["system_description_only"],
+  "proposed": "hypothesis_only",
+  "reason": "The paper describes a released tool and measures its runtime, but it never tests whether requirement-to-test tagging, the strict verdict policy or the lexical checker improves anything against an alternative. What remains is established requirements-as-code practice plus one weakly evidenced limit of a lexical linter."
+}

@@ -1,0 +1,13 @@
+{"arxiv_id": "2609.27973",
+ "blind_scores": {"rigor": 2, "reproducibility": 3, "generalizability": 2, "relevance": 1, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "agree",
+ "claims_disputed": [],
+ "pattern_stance_changes": [],
+ "missed_issues": [
+  "The 'Usage' categories in §V-B sum to exactly 75 (21+12+10+8+7+6+6+3+2), and so do the 'Behaviour' categories (35+15+14+8+3). Each respondent was therefore given one primary code, even though the text says participants used LLMs 'across multiple stages'. Counts such as 'Documentation and Knowledge Support (n=7)' undercount multi-use, and explaining unfamiliar code is never counted on its own.",
+  "Only 8 of 75 respondents described agent-oriented or repository-wide workflows ('Exploratory and Agent-Oriented Usage', §V-B). The population's practice is mainly chat-based help on bounded tasks (ChatGPT, Copilot). Even the self-reports say little about how juniors behave inside an agent host or harness.",
+  "The AI-generated-text screen (§III-D) flagged zero of 75 open-ended Prolific responses, and the detector's accuracy is not reported. A zero hit rate on a 2026 crowd-sourced sample more likely reflects a low-sensitivity detector than clean data, so this quality control should not be credited.",
+  "Attrition is 110 -> 94 after excluding 16 mid/senior respondents, then -> 75 after quality filters (about 20% of eligible responses removed). Filtered-out responses are not characterized, so the retained sample may favour articulate respondents who describe careful, validated use."
+ ],
+ "note": "I agree with the review on verdict, COI none, rigor 2, reproducibility 3, generalizability 2 and all four neutral pattern stances. Every claim is correctly graded weak or unsupported, and its catch that the stated Likert items appear neither in Table I nor in the results is right. The only difference is relevance: I scored 1 against its 2, because nothing here is measured that an onboarding harness could act on, and the respondents mostly use chat rather than agents. The merge takes 1. I add that the usage and behaviour themes are single-label codes summing to 75, which undercounts the multi-use the paper describes. The AI-text screen with zero hits is not evidence of data quality."}

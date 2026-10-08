@@ -1,0 +1,25 @@
+{"arxiv_id": "2609.12576",
+ "blind_scores": {"rigor": 3, "reproducibility": 1, "generalizability": 1, "relevance": 2, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "partial",
+ "claims_disputed": [
+  {"claim": "The automated stakeholder led to more complete and higher-quality feature identification",
+   "proposed_strength": "unsupported",
+   "reason": "Fig. 9's 3.75 versus 2.62 is scored against a fixed feature set. §3.6 locks the bot to the same ~700-word instructor brief, and §5.1 says the human stakeholders extend requirements as students ask, so the bot condition matches the rubric by construction."},
+  {"claim": "Students perceived invited human stakeholders as more realistic and engaging",
+   "proposed_strength": "weak",
+   "reason": "The four significant items (realism 4.45 vs 3.71, engagement 4.69 vs 4.14, plus understanding and clarity) are Experiment 1 only (n=50, GPT-3). Experiment 2 replicates none of them (realism p=.063), and Appendix Table 2 item 4, one of the significant items, is worded 'The automated customer experience...' for both arms."},
+  {"claim": "Automated stakeholders are an effective instructional scaffold for early elicitation training",
+   "proposed_strength": "unsupported",
+   "reason": "§5.3 and §7 recommend a staged curriculum from in-session rubric scores. There is no pre/post test, delayed test, or later live interview, so learning was not measured. §4.2.2 is one session with 19 graduate students."}
+ ],
+ "pattern_stance_changes": [
+  {"id": "P38", "from": "mixed", "to": "neutral",
+   "reason": "Both arms are elicitation interviews before a writeup. The study never compares discovering requirements before a spec with skipping that step. The bot-versus-human split is about the interlocutor, and the artifact side of that split is confounded with the grading document."}
+ ],
+ "missed_issues": [
+  "The largest mistake-score gaps in §4.2.2 are technical questions (1.66 vs 2.74) and direct system questions (2.74 vs 4.24). A bot that stays non-technical and answers 'I don't know' outside a 700-word brief will train students to stop asking those questions. That is compliance with the bot, not evidence of better interviewing.",
+  "§6.2 says Experiment 2 was counterbalanced but reports no order-effect test. Residual learning and fatigue are admitted and then left unmeasured, on the only sample that has expert scores (n=19).",
+  "Appendix Table 2 items 3, 4, 6, and 9 are written as 'The automated customer experience...' and were still used for the human arm. Item 4 is one of the four Experiment 1 differences the paper treats as a perception result. The review notes the wording inside the claim and not as its own bias."
+ ],
+ "note": "The review is right that retrieval is untested: the brief is about 700 words, there is no prompt-only arm, and hallucination is never counted, so that claim stays unsupported. I lower feature completeness to unsupported because the rubric and the bot share one document, and I lower the realism claim to weak because Experiment 2 does not repeat it. I do not upgrade P41 from introduces to mixed: in-session mistake scores are not a learning measure, which is why the scaffold claim is unsupported. P06 stays introduces. Rigor 2 is one notch harsher than a counterbalanced study with ICC 0.74 deserves, but the objective result is still one scenario and 19 students, so the caveated verdict should stand."}

@@ -1,0 +1,26 @@
+{
+  "arxiv_id": "2607.15738",
+  "contributions": [
+    {
+      "kind": "heuristic",
+      "statement": "When an assistant must withhold a full solution, put an explicit assistance policy in front of retrieval: on this 600-query set, hybrid retrieval alone raised direct-answer leakage from 25.4% to 31.2%, and removing the strategy selector from the full pipeline raised leakage from 9.8% [6.6, 13.5] to 27.0% [21.8, 32.4].",
+      "evidence": "Table 2 (Llama Socratic leakage 25.4 vs Basic RAG 31.2) and Table 5 (no strategy selector vs full EduGuard). Caveats: the items and the assistance labels were written by the same instructional team that scored them, §5.2 notes policy-based leakage can be tautological with those labels, the rule-based leakage check is not reported separately, and correctness barely moves (86.1 vs 90.1). No artifact is released.",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": ["retrieval grounds answers but does not enforce how much help is allowed (Lewis et al. 2020, as used by course RAG)", "2605.16933"],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "heuristic",
+      "statement": "Check tutoring or onboarding answers with a model other than the generator: dropping the separate DeBERTa entailment verifier raised the unsupported-claim rate from 4.9% [3.4, 6.7] to 10.0% [7.6, 12.7] on the same 600 queries.",
+      "evidence": "Table 5, no-verifier row versus full EduGuard. The same-model self-check sits in between at 7.7% [5.6, 10.1], and that interval overlaps both neighbors, so only the full removal is cleanly separated. The verifier is textual entailment, not execution; Table 8 assigns 24% of 110 sampled errors to code traces the checker cannot see.",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": ["same-model self-critique of a generated answer (this paper's RAG+Self-Check baseline)"],
+      "transfers": "indirect"
+    }
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "Two Table 5 ablations survive at moderate strength: an assistance policy cuts leakage relative to retrieval alone, and a separate entailment checker cuts unsupported claims relative to no checker. Both are on an author-written introductory-programming set, so they transfer only as a harness caution. The 10-student post-test does not clear its own intervals and is not a contribution."
+}

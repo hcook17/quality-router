@@ -1,0 +1,35 @@
+{
+  "arxiv_id": "2607.11046",
+  "contributions": [
+    {
+      "kind": "nuance",
+      "statement": "Keep lexical search over raw source as the first-stage file index and treat a short per-file role summary as a smaller complement, not a replacement: on SWE-bench Verified, BM25 Hit@5 is 0.676 on raw source versus 0.440 on role summaries, while those summaries still beat file paths in 9 of 10 retriever-dataset cells and are 10.4× (Long Code Arena) to 20.9× (SWE-bench) smaller than raw source.",
+      "evidence": "§4.2 Table 2 (BM25 SWE raw Hit@5 0.676, role-summary 0.440; LCA footprint 102.9 versus 9.9 MTok). Caveats: one run; Hit@5 credits any one gold file; no per-language split of the 50 Java tasks; Qwen2.5-Coder 14B scores role summaries below paths (Table 5).",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": ["2606.11864", "2608.05886"],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "anti_pattern",
+      "statement": "Do not index LLM-written synthetic bug reports as the file representation for first-stage localization: those summaries lost to raw source for every BM25 and embedding model on both datasets, down to 9.4% Hit@5 for BM25 on SWE-bench Verified.",
+      "evidence": "§4.2 Table 2, BM25 SWE bug-report Hit@5 0.094 versus raw 0.676, and the same loss for every dense model. Caveat: Table 7 shows the same text can help a later re-ranker, so the ban is the first-stage index.",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": ["doc2query synthetic document expansion"],
+      "transfers": "indirect"
+    },
+    {
+      "kind": "heuristic",
+      "statement": "When a 16K-context model re-ranks a localization shortlist in one prompt, show file paths or role summaries rather than raw source: on SWE-bench Verified, raw-source ranking changed Hit@5 by −5.4% and −2.3% versus no ranking, and 83–85% of instances could show only 1–5 raw files.",
+      "evidence": "§6.3 Table 7 and Fig. 6. Caveat: the no-rank baseline is path-embedding retrieval, and path-only ranking captures most of the LCA Qwen3 gain (+39.4% versus +42.0% with role summaries).",
+      "strength": "moderate",
+      "novelty": "refines",
+      "relative_to": ["2606.11864"],
+      "transfers": "indirect"
+    }
+  ],
+  "quantity_flags": [],
+  "proposed": "keep",
+  "reason": "The grid isolates which text to index and which text to show a ranker, with raw lexical search still ahead of role summaries on SWE-bench and synthetic bug reports failing as a first-stage index."
+}

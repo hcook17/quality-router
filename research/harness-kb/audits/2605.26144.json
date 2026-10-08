@@ -1,0 +1,18 @@
+{"arxiv_id": "2605.26144",
+ "blind_scores": {"rigor": 2, "reproducibility": 4, "generalizability": 1, "relevance": 1, "coi_risk": 0},
+ "blind_verdict": "admit_with_caveats", "blind_coi_severity": "none",
+ "agreement": "agree",
+ "claims_disputed": [
+  {"claim": "Agent editing style (patch vs rewrite) is largely orthogonal to task quality.",
+   "proposed_strength": "weak",
+   "reason": "App. G gives one pooled Pearson correlation (rho = -0.145) across runs from two harnesses whose own edit tools define the score, with no n, no CI and no within-harness correlation, so a Simpson's-paradox reversal cannot be ruled out. In these greenfield builds, file creation counts as a Write (App. G), so every agent's rewrite share is 0.88-0.99 (Table 4). With so little variance in the edit score, a near-zero correlation says little about whether editing style matters."}
+ ],
+ "pattern_stance_changes": [],
+ "missed_issues": [
+  "The structured-design-input claim has the same pick-averaging problem the review found for stack freedom. §4 says adding Figma structure 'pushes localization to its top values' by comparing C3 (0.615) with the three-pick C1 average (0.577). Against the matched stack, C1 pick A (App. F, Table 8: Loc 0.622, Combined 0.240), Figma JSON adds nothing (C3: Loc 0.615, Combined 0.236). On the primary Combined metric, Figma never helps in either matched comparison (0.240 to 0.236 with a fixed stack; 0.264 to 0.261 with a free stack).",
+  "The evaluator is deterministic but its absolute validity is never checked. The localization tiers give arbitrary partial credit (0.30 for a centre within 150 px, 0.15 within 600 px, 0.10 for a text-similarity fallback; App. B, Table 6), and S is never compared with human judgments of whether the app works. §3.2.1 says agent-based annotation 'frequently mismatched' humans, but gives no numbers.",
+  "Absolute performance is near the floor. Combined is 0.22-0.26 and behaviour about 0.3 in every cell (Table 3), so agents implement roughly a quarter of annotated interactions correctly. The cross-condition deltas of 0.003-0.035 from apparently single runs are well inside any plausible run-to-run noise at that level.",
+  "The number of runs per cell is never stated in the paper; it can only be inferred as one from §4 ('runs each task once per specified stack'). Exact Claude model versions for the main table are also not given."
+ ],
+ "note": "I agree with the review's verdict, its scores within a point, and all of its pattern stances. P39 'mixed' is right and the matched comparison makes it firmer: structured Figma input never improved the primary behaviour-weighted score and only helped localization when the stack was free. I lower the edit-style orthogonality claim to weak, because it is a single pooled correlation over a score that barely varies in greenfield builds and is defined by each harness's tools. I keep 'partially decoupled' at moderate: the rank disagreement between localization or CLIP and behaviour is visible in aggregates of roughly 70 runs per agent, even without variance. The paper's main inferences about input conditions are built on 0.02-0.035 differences, and I would treat them as hypotheses."
+}
