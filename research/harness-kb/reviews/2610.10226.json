@@ -1,0 +1,119 @@
+{
+  "arxiv_id": "2610.10226",
+  "contribution_type": "position",
+  "summary": "A five-page Communications of the ACM viewpoint by a single author. It argues that coding agents make software engineering more necessary, not less. LLMs are said to have three structural properties (probabilistic generation, 'agnosticism' about method, domain and evolution, and semantic statelessness) that create a 'structural vacuum' no amount of training can fill. Filling it needs four knowledge levers (methodological knowledge, domain knowledge, design choices, process choices), each reified as persistent artifacts such as specifications, ADRs, domain constraint records and test frameworks, with the engineer as methodologist, mediator and custodian. It presents no new data; it cites existing field studies, an RCT and surveys.",
+  "claims": [
+    {
+      "claim": "Probabilistic generation, agnosticism and semantic statelessness create a structural vacuum that 'no amount of training can eliminate'.",
+      "evidence": "Pure argument (§2-3). The irreducibility of 'evaluative judgment, organizational knowledge and future trajectory' is asserted, not demonstrated, and is framed so that no result could refute it.",
+      "strength": "unsupported",
+      "location": "Abstract, §2, §3"
+    },
+    {
+      "claim": "Empirical evidence shows AI gains depend on task complexity, codebase maturity and developer seniority.",
+      "evidence": "§1 summarizes Cui et al. (+26% completed tasks, 4,867 developers), Becker et al. (19% slower, 16 experienced developers, 246 tasks), Xu et al. (core contributors' original output down 19% across 2,755 repositories) and the Stack Overflow 2025 survey. The citations are broadly accurate, but no data are analysed here. 'The discriminator is task complexity, codebase maturity and seniority' is the author's inference across studies that differ in design, population and tools.",
+      "strength": "weak",
+      "location": "§1"
+    },
+    {
+      "claim": "All four knowledge levers must be reified as persistent artifacts (specifications, ADRs, domain constraint records, agent-oriented test frameworks, per-project process definitions, design rationale records).",
+      "evidence": "A normative proposal (§3, §5) with no evaluation of whether any of these artifacts improves agent output.",
+      "strength": "unsupported",
+      "location": "§3, §5"
+    },
+    {
+      "claim": "AI makes SE artifacts cheap enough to become routine: specs become byproducts of elicitation and ADRs become the agent's substrate.",
+      "evidence": "Asserted in §4 by analogy with the failure of CASE tools; no cost or adoption data are given.",
+      "strength": "unsupported",
+      "location": "§4"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P39",
+      "stance": "introduces",
+      "note": "Proposes 'domain constraint records' that capture organization-specific domain knowledge elicited from experts as artifacts an agent can read. Argued, not tested."
+    },
+    {
+      "id": "P38",
+      "stance": "introduces",
+      "note": "Casts the engineer as mediator who elicits domain knowledge from experts and turns it into verifiable artifacts before and during specification, with specs 'byproducts of elicitation sessions'. No evaluation."
+    },
+    {
+      "id": "P40",
+      "stance": "introduces",
+      "note": "Calls for agents with SE method 'built in' that ask for specifications when missing and flag underspecified requirements. Proposed only."
+    },
+    {
+      "id": "P14",
+      "stance": "introduces",
+      "note": "Specifications are the primary artifact that gives the agent a criterion of adequacy. A position, with no evidence."
+    },
+    {
+      "id": "P09",
+      "stance": "introduces",
+      "note": "Argues that session memory stored as logs is not accumulated know-how, and that ADRs and design rationale records must carry decisions across sessions. No comparison."
+    },
+    {
+      "id": "P41",
+      "stance": "neutral",
+      "note": "Warns that developers trained only in prompting will reproduce failure modes at scale and calls for SE education. No safeguard mechanism is proposed or measured."
+    },
+    {
+      "id": "P15",
+      "stance": "neutral",
+      "note": "Says tests become 'the reference the agent generates against'. Mentioned only."
+    }
+  ],
+  "methodology": {
+    "sample": "None; a conceptual argument citing about ten external sources.",
+    "baselines": "n/a",
+    "models": "n/a",
+    "variance": "n/a",
+    "ablations": "n/a",
+    "contamination_controls": "n/a",
+    "languages": "n/a"
+  },
+  "standards": {
+    "peer_review": "Accepted for publication in Communications of the ACM (viewpoint-length, 5 pages).",
+    "limitations_section": false,
+    "artifacts": "None (no data or code to release).",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {
+      "type": "hype_language",
+      "detail": "Absolute framings such as 'no amount of training can eliminate', 'cannot be distilled from any corpus' and 'a discipline whose moment has arrived' are presented as structural facts."
+    },
+    {
+      "type": "cherry_picked_examples",
+      "detail": "A small hand-picked set of studies (one field experiment, one RCT, one diff-in-diff preprint, vendor-run surveys) chosen to support the thesis, with no search protocol."
+    },
+    {
+      "type": "novelty_inflation",
+      "detail": "Reifying specs, ADRs, tests and domain knowledge as agent context restates the spec-driven development and context-file practices already widely proposed, under new labels ('knowledge levers', 'structural vacuum')."
+    },
+    {
+      "type": "other:unfalsifiable_thesis",
+      "detail": "The irreducibility argument is defined so that any future model improvement counts only as the 'reducible surface', so no evidence could count against it."
+    }
+  ],
+  "coi": {
+    "affiliations": "Politecnico di Milano.",
+    "vendor_products_evaluated": "None.",
+    "funding": "None stated. Claude was used as a writing assistant (acknowledged).",
+    "severity": "none",
+    "detail": "No commercial stake. The author is an SE academic arguing for the importance of SE, which is a disciplinary interest rather than a vendor conflict."
+  },
+  "scores": {
+    "rigor": 1,
+    "reproducibility": 0,
+    "generalizability": 1,
+    "relevance": 2,
+    "coi_risk": 0
+  },
+  "verdict": "reject",
+  "verdict_reason": "A well-written viewpoint with no new evidence. Its central claim (a training-proof 'structural vacuum') is asserted and unfalsifiable, its empirical section is a selective summary of others' studies, and its artifact recommendations restate spec-driven and context-file practice that the KB already covers through papers with data. It is useful as vocabulary but cannot ground a harness decision.",
+  "applicability": "The argument fits the team's situation: healthcare-education content, new developers without domain knowledge, and spec-driven development. Organization-specific domain rules (clinical content constraints, accreditation or regulatory rules, ingestion contracts between repositories) exist mainly in people's heads, so an agent cannot use them until someone writes them down. The concrete suggestions are domain constraint records owned by domain experts and curated by engineers, ADRs and design-rationale records committed next to the code, and agents that ask for a spec when one is missing. These match what the team would build anyway. Cite empirical KB papers, not this one, when deciding whether and how much those artifacts help.",
+  "conflicts_with": []
+}

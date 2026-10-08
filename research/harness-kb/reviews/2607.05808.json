@@ -1,0 +1,91 @@
+{
+  "arxiv_id": "2607.05808",
+  "contribution_type": "empirical",
+  "summary": "In one introductory C course, 919 students solved three small Prompt Problems and could type or dictate the prompt that GPT-4o-mini turned into code. Unedited voice prompts were less likely to pass on the first try than typed prompts on two of the three tasks; editing the transcript before sending removed that gap. Almost nine in ten students never tried voice, most of those who commented preferred text because they could control and revise it, and the paper's suggestion that speaking might produce deeper learning is not measured.",
+  "claims": [
+    {
+      "claim": "On two of three problems, students whose first prompt was unedited speech had lower odds of immediate success than students who typed; edited transcripts did not differ from typing.",
+      "evidence": "Table 1 and §4.1. P1: text immediate success 0.52 (n=830) versus unedited voice 0.35 (n=51), OR 0.50, 95% CI 0.27–0.89, p=0.02. P2: 0.58 (n=831) versus 0.38 (n=40), OR 0.43, CI 0.23–0.83, p=0.01. Edited voice is not significant (P1 OR 0.57, p=0.17; P2 OR 0.72, p=0.38). P3 model is not significant (p=0.378). p-values are uncorrected, as the authors note. Modality was self-selected.",
+      "strength": "moderate",
+      "location": "§4.1, Table 1"
+    },
+    {
+      "claim": "Students who try voice are not then pushed off it, but most students only use text.",
+      "evidence": "Section 4.2: 813/919 text only (88.5%), 44 voice only (4.8%), 62 both (6.7%). Among the 62, previous modality does not predict the next (OR 1.28, CI 0.71–2.31, p=0.41). Within-problem persistence is described as too small to test. Preference correlates with how much voice they actually used (Spearman 0.51 and 0.60).",
+      "strength": "moderate",
+      "location": "§4.2–4.3, Fig. 2"
+    },
+    {
+      "claim": "Students prefer text because of accuracy, editability and the ability to plan, and voice may support deeper self-explanation even when it is slower to succeed.",
+      "evidence": "Table 2, consensus codes on 250 comments: input accuracy is strongly positive for text and strongly negative for voice; editability is 47 positive for text and 12 negative for voice; planning is 44 positive for text and 17 negative for voice. Inter-rater micro F1 before adjudication was 0.65. No retention, transfer or explanation-quality measure. Section 5's learning claim cites other papers, not this study's outcomes. Section 6 says the tasks were short and causality cannot be established.",
+      "strength": "weak",
+      "location": "§4.3, Table 2; §5; §6"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P41",
+      "stance": "mixed",
+      "note": "For novices generating code from a natural-language prompt, typed prompts and edited transcripts beat raw speech on first-try success in two of three tasks, and students say text lets them plan and correct. That is evidence for keeping a text, editable channel in a learning flow. The further claim that voice would protect understanding is not tested."
+    }
+  ],
+  "methodology": {
+    "sample": "Introductory C course, University of Auckland, semester 2 2025. 1038 enrolled; 919 analyzed after exclusions. Three graded Prompt Problems plus a warm-up (count negatives, sum evens, index of last zero). Qualitative analysis uses a 250-comment consensus subset. Ethics approval #25279.",
+    "baselines": "Students chose text, unedited voice, or edited voice. No assigned-modality arm.",
+    "models": "GPT-4o-mini for code generation. Whisper (whisper-1) for transcription, with no domain prompt. Category discovery used Gemini 3.0 Pro and GPT-5; aspect labels used a fine-tuned Phi-4-mini, then two human annotators.",
+    "variance": "Logistic-regression odds ratios with 95% confidence intervals and Wald tests. Uncorrected p-values. Mixed model with a per-student intercept for modality persistence. Qualitative agreement reported as micro F1 0.65 on 156 double-coded comments.",
+    "ablations": "None. Edited versus unedited voice is the closest contrast, and it is self-selected.",
+    "contamination_controls": "Not applicable. Problems are original course tasks, not a public code benchmark.",
+    "languages": "C function bodies generated from prompts. Not Java, and not repository-scale."
+  },
+  "standards": {
+    "peer_review": "ITiCSE 2026 (DOI 10.1145/3803400.3809397 in the paper header). arXiv comment: ITiCSE'26 paper. journal_ref empty.",
+    "limitations_section": true,
+    "artifacts": "Prompt Programming platform is public. Student logs are not released. The aspect-sentiment model is linked on Hugging Face. Annotation guidelines are not linked.",
+    "preregistration": "Not reported."
+  },
+  "biases": [
+    {
+      "type": "selection_bias_participants",
+      "detail": "Students chose the modality. Voice users are a small, self-selected group, so the success gap can be who chose voice rather than the modality. The authors say this directly."
+    },
+    {
+      "type": "small_sample",
+      "detail": "Unedited-voice cells are 51, 40 and 35 against about 830 typed prompts. Intervals are wide, and the third problem is null."
+    },
+    {
+      "type": "toy_tasks",
+      "detail": "Single-function array exercises. The limitations section says they may be too short to compare modalities."
+    },
+    {
+      "type": "metric_mismatch",
+      "detail": "The discussion treats lower immediate success as a possible sign of deeper learning. The study measured first-try test pass, message count, and comments, not retention or explanation quality."
+    },
+    {
+      "type": "llm_judge_unvalidated",
+      "detail": "Categories were proposed by two frontier models and first-pass labels came from a small model. Humans re-coded 250 entries with moderate pre-consensus agreement (micro F1 0.65). Table 2 is that consensus subset, not the full cohort."
+    },
+    {
+      "type": "single_model",
+      "detail": "One code model and one general-purpose transcriber, with no computing-domain prompt. Some of the voice penalty may be transcription error, which the authors also note."
+    }
+  ],
+  "coi": {
+    "affiliations": "University of Auckland, MPI-SWS, Aalto University, Abilene Christian University.",
+    "vendor_products_evaluated": "OpenAI Whisper and GPT-4o-mini as the course tools; Gemini, GPT-5 and a Phi-4-mini variant for comment coding. Authors are not those vendors. Several authors built the Prompt Problems platform used in the study.",
+    "funding": "Research Council of Finland grant #356114.",
+    "severity": "low",
+    "detail": "Academic study on the authors' own teaching platform. The platform is the setting, not a product scored against competitors. Model vendors are infrastructure."
+  },
+  "scores": {
+    "rigor": 3,
+    "reproducibility": 2,
+    "generalizability": 2,
+    "relevance": 3,
+    "coi_risk": 1
+  },
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "A real course study with intervals: raw dictated prompts did worse than typed ones on two of three tiny tasks, and editing the transcript closed the gap, while most students refused voice because they could not control it. It does not show that voice improves learning, the voice group chose itself, and the tasks are not professional work.",
+  "applicability": "For onboarding new developers onto the agent, keep the editable text channel as the default. Unedited speech is a poor way to specify even a short programming task, transcription misses technical wording, and non-native speakers in this cohort said so. A dictated draft that the person then edits matched typing here, so a speech-to-draft control is the only voice feature this study supports. Do not add a voice mode in order to 'deepen' learning: that outcome was not measured, the students were introductory C programmers, and nothing here is about reading a multi-repo Java system or writing a spec.",
+  "conflicts_with": []
+}

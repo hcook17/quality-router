@@ -1,0 +1,87 @@
+{
+  "arxiv_id": "2606.22756",
+  "contribution_type": "system",
+  "summary": "HERCULES is a Georgia Tech extension of AirSim and Cosys-AirSim on Unreal Engine 5 for running unmanned aerial and ground robots together in photorealistic outdoor worlds, with extra infrared and night-vision sensors, a shared waypoint stack, and dataset export. Experiments replay trajectories for collaborative SLAM and cooperative 3D car detection, including a sim-to-real finetune on DAIR-V2X, and run a small closed-loop exploration demo in a desert world. Nothing in the paper is about software development, coding agents, or developer learning.",
+  "claims": [
+    {
+      "claim": "HERCULES is the first open-source simulator with out-of-the-box heterogeneous multi-robot SLAM, collaborative perception, and closed-loop coordination in one framework, at kilometer scale.",
+      "evidence": "The claim is asserted in the introduction. Table 1 is an author-scored feature matrix against other simulators. Collected trajectories are 359 to 945 meters (§7.1.1), so the kilometer figure refers to world extent, not the paths that were evaluated. Dynamic agents other than birds were turned off for the SLAM collection.",
+      "strength": "weak",
+      "location": "§1, Table 1, §7.1.1"
+    },
+    {
+      "claim": "Single-robot and ROMAN multi-robot SLAM on the released sequences show that HERCULES surfaces realistic heterogeneous failure modes.",
+      "evidence": "Tables 2 and 3 report RMS absolute trajectory error for OpenVINS, ORB-SLAM3, LIO-SAM and ROMAN on four sequences. Some parameters were tuned per sequence on those same sequences (§7.1.2). Success cutoffs of 2.5 m and 5 m are author-chosen. One run per cell, no variance. Loop closure sometimes increases error sharply, which the text reports.",
+      "strength": "moderate",
+      "location": "§7.1, Tables 2–3"
+    },
+    {
+      "claim": "Pretraining PointPillars on HERCULES synthetic pairs improves DAIR-V2X late-fusion car detection by +4.11 3D AP40 at IoU 0.70.",
+      "evidence": "Table 5: from-scratch 42.62 versus FT-Frozen 46.73 (+4.11) and FT-Unfrozen 46.67 (+4.05), best validation checkpoint, same epoch budget. Table 6 repeats the direction under a second AP definition (+2.52 continuous AP). Table 7 then lists the same 46.73 late-fusion score with Δ +2.11 against from-scratch, which does not match Table 5. No seeds or intervals. Infrastructure-only gain in Table 7 is +0.06.",
+      "strength": "weak",
+      "location": "§7.2, Tables 5–7"
+    },
+    {
+      "claim": "Closed-loop complementary coverage explores more than leader-follower at equal time.",
+      "evidence": "Figure 14 and Table 8, n=8 seeds: median coverage at 60 s is 0.283 versus 0.199 with non-overlapping IQRs. The planner is a nearest-unobserved-cell heuristic using ground-truth poses, and the authors say it is only a pipeline demo (§7.3.1, §7.3.4).",
+      "strength": "moderate",
+      "location": "§7.3, Table 8, Fig. 14"
+    }
+  ],
+  "patterns": [],
+  "methodology": {
+    "sample": "Four SLAM sequences with two ground and two aerial robots; 6,000 synthetic vehicle-infrastructure frame pairs; DAIR-V2X car detection; closed-loop desert runs with 8 seeds and two coordination modes.",
+    "baselines": "OpenVINS, ORB-SLAM3, LIO-SAM, ROMAN with Kimera-RPGO; PointPillars late fusion versus vehicle-only and infrastructure-only, and from-scratch versus two finetunes. No other simulator is run head-to-head.",
+    "models": "ROMAN with FastSAM; PointPillars. No language models.",
+    "variance": "SLAM and detection are single runs. Closed-loop coverage reports median and interquartile range over 8 seeds. Detection has no seed or interval.",
+    "ablations": "ORB-SLAM3 with and without loop closure; frozen versus unfrozen finetune (0.06 AP apart). No ablation of the simulator's own sensors or sync.",
+    "contamination_controls": "Not applicable. Detection checkpoints are chosen on the validation set.",
+    "languages": "C++ and Python robotics stack, ROS 2. Not a software-engineering language study."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint (cs.RO, 2026-06-22). Comment says 19 pages, 14 figures, 12 tables. No journal_ref.",
+    "limitations_section": false,
+    "artifacts": "Code, experiment code, documentation and datasets claimed at https://lunarlab-gatech.github.io/HERCULES-website. Signals also cite the evo trajectory tool.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {
+      "type": "hype_language",
+      "detail": "Kilometer-scale operation and rich dynamic phenomena (fire, floods, pedestrians, traffic) are headlined, while the SLAM paths are under one kilometer and dynamic objects were disabled except birds."
+    },
+    {
+      "type": "no_variance_reported",
+      "detail": "SLAM tables are one run per robot and sequence, with some parameters tuned on those sequences."
+    },
+    {
+      "type": "self_reported_numbers",
+      "detail": "Table 7's +2.11 late-fusion delta contradicts Table 5's +4.11 for the same 46.73 score against the same from-scratch baseline of 42.62."
+    },
+    {
+      "type": "metric_mismatch",
+      "detail": "Closed-loop exploration builds the map from ground-truth poses, so the demo does not exercise localization, which is the failure mode the SLAM section emphasizes."
+    },
+    {
+      "type": "cherry_picked_examples",
+      "detail": "Success thresholds of 2.5 m and 5 m are not justified, and the best validation checkpoint is reported for detection."
+    }
+  ],
+  "coi": {
+    "affiliations": "Georgia Institute of Technology and Georgia Tech Research Institute.",
+    "vendor_products_evaluated": "AirSim, Cosys-AirSim, Unreal Engine 5, and public SLAM and detection codebases used as substrates. No author product is ranked against competitors.",
+    "funding": "No funding or conflict statement in the text.",
+    "severity": "none",
+    "detail": "Academic systems paper releasing a simulator. No vendor grading its own model or benchmark."
+  },
+  "scores": {
+    "rigor": 3,
+    "reproducibility": 4,
+    "generalizability": 2,
+    "relevance": 0,
+    "coi_risk": 0
+  },
+  "verdict": "reject",
+  "verdict_reason": "Off-topic. This is a robot simulator and a SLAM and 3D-detection testbed, not software development with language models or the human side of it. On its own terms the SLAM tables are single runs with per-sequence tuning, the sim-to-real gain is a few AP points on one detector with Table 5 and Table 7 disagreeing on the delta, and the closed-loop result uses ground-truth poses.",
+  "applicability": "No transfer to the Java multi-repo harness, spec writing, onboarding, or codebase exploration. The released simulator does not inform how agents should discover requirements or read a backend.",
+  "conflicts_with": []
+}

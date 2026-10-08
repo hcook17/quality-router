@@ -1,0 +1,51 @@
+{
+  "arxiv_id": "2605.29786",
+  "contribution_type": "system",
+  "summary": "Authors from Google DeepMind and several universities specify Croissant Tasks, a JSON-LD vocabulary that separates an ML benchmark's problem definition from a recorded solution. An agent extracts those files from five NeurIPS 2025 Datasets and Benchmarks papers, and another agent writes an evaluation harness from either the file or the PDF. The main tables report high field coverage and high rates of 'metrics correctly implemented', with up to three human prompts. The appendix shows reruns, missed hyperparameters, a narrower subtask, and at least one case where the structured file reproduced the published score worse than the PDF.",
+  "claims": [
+    {"claim": "The vocabulary is expressive enough that an agent covers 97.4% of fields on a first attempt", "evidence": "Table 3: Absence, MedSG, NOVA and SAGE at 100%, CoRe at 87% (three missed hyperparameters), average 97.4%, described as the first attempt. Appendix E then describes a later CoRe extraction that did capture the three fields, a MedSG pass at 23/24 field categories, and chunked reruns after instruction collapse on Absence Bench. Coverage is author-judged alignment plus SHACL validity, on five papers chosen as orals or spotlights.", "strength": "weak", "location": "§4.1, Table 3, Appendix E"},
+    {"claim": "A Croissant Tasks file alone lets an autonomous agent reproduce the evaluation, and it beats giving the agent the PDF", "evidence": "Table 4: share of metrics 'correctly implemented' is 97.1% from the file vs 90% from the PDF, each with at most three human guidance prompts, one baseline per paper. Appendix E: CoRe was run only on one subtask (n=489 of 1,584) and the file-only pipeline scored about 12.29 F1 points worse because it missed max_output_tokens. MedSG needed the authors' eval script for decoding settings absent from the paper. NOVA, after two guiding prompts, still mis-implemented three metrics and omitted BERT-score. 'Correct' allows minor numerical discrepancies and is decided by the authors.", "strength": "weak", "location": "§4.2, Table 4, Appendix E"},
+    {"claim": "Agents generate functional reproduction pipelines from scratch with a high success rate", "evidence": "The abstract and §6 say this. Both conditions in Table 4 used human prompts. The authors call §4 a feasibility demo, not a comprehensive reproducibility study. No count of fully unattended successes is given, and web access was blocked only for the paper's own code.", "strength": "unsupported", "location": "Abstract, §4.2, §6"},
+    {"claim": "Decoupling the task problem from the solution enables reuse across platforms", "evidence": "§5.1 argues that HELM, lm-evaluation-harness or Codabench could ingest the same file. No platform actually loaded a generated file, and no second implementation was scored against the first on a fixed tolerance.", "strength": "unsupported", "location": "§5.1"}
+  ],
+  "patterns": [
+    {"id": "P39", "stance": "mixed", "note": "The isolating comparison is a machine-readable task file versus the paper PDF, for an agent writing an ML evaluation harness. Table 4's author-judged implementation rate is slightly higher for the file (97.1% vs 90%), driven mainly by NOVA. On CoRe the file omitted hyperparameters and the numeric reproduction was worse. Five papers, human prompts, and author grading."},
+    {"id": "P14", "stance": "mixed", "note": "The format is a spec-first split between problem and solution for ML benchmarks. The agent still needed human guidance, and the spec was not sufficient for hyperparameters the paper itself omitted (MedSG). This is not a software-requirements spec."},
+    {"id": "P42", "stance": "neutral", "note": "TaskSolution points at TaskProblem with schema:isBasedOn. Nothing checks that generated code preserves the metric definition; Appendix E records proxy metrics that still passed a loose 'implemented' judgement."}
+  ],
+  "methodology": {
+    "sample": "Five NeurIPS 2025 Datasets and Benchmarks orals or spotlights (Absence Bench, CoRe, MedSG-Bench, NOVA, SAGE-Eval). One reported model baseline reproduced per paper",
+    "baselines": "Same coding agent given the PDF instead of the Croissant file. No comparison against running the authors' original code, and no non-agent reimplementation",
+    "models": "Appendix E names Claude 4 Sonnet (Absence), Gemini 2.5 Pro (CoRe), Gemini 2.5 Flash (NOVA tasks), and Google Antigravity with Gemini Pro 3.1 for the NOVA agent run. §4.2 also says Qwen was available. The coding agent model is not one fixed choice across papers",
+    "variance": "No repeated trials or intervals on Tables 3-4. Absence Bench reproductions report bootstrap intervals in Appendix E Table 5 only",
+    "ablations": "File-only versus PDF-only. No ablation of SHACL validation, the skill file, or the human prompts",
+    "contamination_controls": "Web access monitored so the agent would not fetch the paper's code. No check that the coding model had memorized public benchmark harnesses",
+    "languages": "Python evaluation harnesses for ML benchmarks. Not a software-engineering corpus"
+  },
+  "standards": {
+    "peer_review": "arXiv preprint; comment says 10 pages, 4 figures. No journal_ref",
+    "limitations_section": true,
+    "artifacts": "Turtle schema and both agent runbooks are in Appendices A-C. Generated files claimed at github.com/mlcommons/croissant/tree/main/tasks",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "small_sample", "detail": "Five papers, one baseline each, selected as orals or spotlights."},
+    {"type": "cherry_picked_examples", "detail": "Main tables report first-attempt coverage and a single success rate. The appendix describes failed first runs, chunked reruns, a restricted subtask, and omitted metrics."},
+    {"type": "self_evaluation", "detail": "The same group defined the schema, wrote the agent skills, and judged field coverage and metric correctness."},
+    {"type": "metric_mismatch", "detail": "Table 4 counts whether a metric was implemented, as judged by the authors, not whether the published score was recovered. Numerical mismatch is explicitly allowed."},
+    {"type": "hype_language", "detail": "Abstract says autonomous agents reproduce pipelines from scratch. The protocol allows three human guidance prompts, and several appendix runs used more steering."},
+    {"type": "no_variance_reported", "detail": "No repeat of the extraction or coding agent on Tables 3-4."}
+  ],
+  "coi": {
+    "affiliations": "Google DeepMind (several authors, corresponding author benjello@google.com); ChaLearn; Mila; Helmholtz Munich; TUM; Eindhoven University of Technology; Université Paris-Saclay; Jetty; Brickroad",
+    "vendor_products_evaluated": "Gemini models are used as the systems under reproduction and as agent backends. The artifact extends Croissant, an MLCommons format associated with these authors",
+    "funding": "Not stated beyond affiliations",
+    "severity": "low",
+    "detail": "A vendor-affiliated group proposes a metadata standard and uses Gemini in the demo. They do not publish a leaderboard that ranks a Google model first. The favourable claim is about their own format."
+  },
+  "scores": {"rigor": 2, "reproducibility": 3, "generalizability": 1, "relevance": 1, "coi_risk": 2},
+  "verdict": "reject",
+  "verdict_reason": "Off-topic. This is a metadata format for reproducing machine-learning benchmarks, not a study of software development, codebase discovery, or developer learning. The only empirical comparison is five author-selected papers, author-judged 'metrics implemented', and up to three human prompts; the appendix shows the structured spec can drop a published score when it misses a hyperparameter.",
+  "applicability": "It does not transfer to the Java multi-repo team. A declarative task file helping an agent rebuild an ML leaderboard harness is not evidence that a domain card, glossary, or data contract would help agents or new developers specify healthcare-education ingestion across four or more repositories. The paper never touches requirements, issue exploration, or documentation of an application codebase. The one caution worth keeping is negative and local to this study: a compact spec that omits a decoding limit produced a worse reproduction than the long PDF.",
+  "conflicts_with": []
+}

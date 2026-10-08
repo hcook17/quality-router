@@ -1,0 +1,55 @@
+{
+  "arxiv_id": "2606.09956",
+  "contribution_type": "empirical",
+  "summary": "An Imperial College author, partly at Recurse Ltd., adds a line-level bug/no-bug head on a frozen code LLM, with a token-to-line alignment that does not assume the newline is its own token. Trained on file-level splits of Defects4J and PyPIBugs, the best reported Defects4J Top-5 is 39.5% for a 1.7B model with a LoRA adapter. That figure matches the maximum of a hyperparameter table whose mean under the same layer setting is 0.169. A comparison to function-level agent numbers on a short-context slice is presented as parity, while the limitations section says a function-level comparison is future work. Code and models are withheld until acceptance.",
+  "claims": [
+    {"claim": "The method is state of the art for line-level bug localization with full-file context", "evidence": "Table 1, Defects4J test split of 188 files, single run: LoRA Qwen3-1.7B Top-1/3/5 = 16.3/23.3/39.5%, ahead of Ochiai 4.8/16.5/25.1% and DeepFL 14.4/24.1/34.2% taken from earlier papers, and ahead of the author's own head-only models (best frozen Top-5 is Qwen3-8B at 34.9%). Table 5, for that same 1.7B+LoRA setup, lists Top-5 max 0.395 but mean 0.169 and std 0.122 when one decoding layer is used. Ochiai and DeepFL were not re-run on this 188-file split. SFT Qwen2.5-Coder-7B scores 0% Top-1 on the test set and 21.7% Top-1 on the training set.", "strength": "weak", "location": "§5.1, Table 1, §6.2, Table 5, Appendix D"},
+    {"claim": "Performance is comparable to agentic localizers on Defects4J and PyPIBugs, at a fraction of the cost", "evidence": "Table 3 is Defects4J only, and it compares line-level Top-5 inside a 2K-token chunk (CodeGen-16B 71.4%, CodeGen-6B 42.9%) with function-level Top-5 from other papers (MemFL 73.9%, FlexFL 66.9%, AgentFL 47.3%). The limitations section and Appendix L say a function-level comparison requires future work and a different alignment. PyPIBugs Table 2 has no agent column. No measured latency or token count versus an agent is reported; the 'orders of magnitude' claim rests on 'one forward pass' versus an anecdotal 1-2 minutes.", "strength": "unsupported", "location": "Abstract, §5.3, Table 3, Limitations"},
+    {"claim": "The model generalizes to unseen Python projects", "evidence": "Table 4: train on PyPIBugs, test on BugsEval (68 files, 12 repositories, two annotators, no agreement statistic). Best Top-1 is 13.8% (several frozen Qwen sizes) against in-domain PyPIBugs Top-1 of 6.3-10.3% (Table 2). Top-5 on BugsEval is 24.6-29.2%, below the in-domain PEFT Top-5 of 37.1%. The text calls Top-1 generalization strong. Single runs. BugsEval is not released until publication.", "strength": "weak", "location": "§6.1, Table 4, Appendix K"},
+    {"claim": "A single generated token classifies every line, and sigmoid plus last-token pooling is the right head", "evidence": "The architecture scores all lines in one forward pass through a new head; it does not emit one token that encodes the file. Table 5-6: on the 1.7B model, sigmoid max Top-5 0.395 vs softmax 0.349, and last-token max 0.395 vs mean 0.372, but the means overlap (sigmoid mean 0.163±0.122, last-token mean 0.160±0.111). On Qwen3-8B the one-layer max (0.302) is below the zero-layer max (0.349). Main tables say results are single runs.", "strength": "weak", "location": "§3.2, §6.2, Tables 5-6"}
+  ],
+  "patterns": [
+    {"id": "P43", "stance": "neutral", "note": "The model ranks lines inside a file it is given. It does not search a repository, and the function-level agent numbers in Table 3 are a different task. Nothing here shows that a cheap head can replace codebase exploration."},
+    {"id": "P25", "stance": "mixed", "note": "On Defects4J, a LoRA adapter on Qwen3-1.7B (Top-1 16.3%) beats the frozen heads (best Top-1 9.3%). On PyPIBugs the same adapter's Top-1 (8.6%) loses to a frozen Qwen3-8B head (10.3%). The reported Defects4J peak is the maximum in a sweep whose mean is much lower (Table 5)."},
+    {"id": "P05", "stance": "neutral", "note": "Ochiai, a spectrum method, is cited from prior work at 4.8% Top-1 and is not re-run on this split, so the paper does not isolate learning against a current static or dynamic localizer."}
+  ],
+  "methodology": {
+    "sample": "Appendix D file counts: Defects4J v1.2 train/val/test 1499/187/188; PyPIBugs 288/19/78; BugsEval test 68 files (121 bugs, 12 projects, two annotators). Split is 80/10/10 of files, not described as project-held-out. CodeGen runs drop files longer than 2048 tokens; the remaining n is not stated",
+    "baselines": "Ochiai and DeepFL numbers copied from Yang et al. 2023; the author's SFT LoRA baseline; LLMAO CodeGen numbers and AgentFL, FlexFL, MemFL function-level numbers copied from their papers onto a chunked Defects4J slice",
+    "models": "Qwen2.5-Coder-7B, Qwen3-1.7B, Qwen3-4B, Qwen3-8B; CodeGen 2B/6B/16B for the 2K-token slice. Backbone frozen except LoRA runs. GPT-4 class agents appear only as published numbers",
+    "variance": "Main tables are single runs. Tables 5-6 report max, mean and std across hyperparameter settings, not across seeds. The published 39.5% equals the max, not the mean",
+    "ablations": "Head-only versus LoRA (LoRA only fully reported for the 1.7B model); decoding layers, pooling (sum/mean/last) and sigmoid versus softmax",
+    "contamination_controls": "None. A random file split of Defects4J can put the same project in train and test. Qwen code models may have seen Defects4J and the PyPI projects. BugsEval is described as recent GitHub bugs but is unreleased",
+    "languages": "Java (Defects4J) and Python (PyPIBugs, BugsEval). The input is one file, not a repository"
+  },
+  "standards": {
+    "peer_review": "arXiv preprint. Comment says 8 pages plus 6 pages of appendix. No venue",
+    "limitations_section": true,
+    "artifacts": "Code, models, splits and BugsEval 'will be open sourced upon acceptance'. Not available with this preprint. The SFT prompt and the alignment algorithm are in the appendix",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "cherry_picked_examples", "detail": "Table 1's 39.5% Top-5 is the max in Table 5. The mean Top-5 for that layer setting is 0.169 with std 0.122."},
+    {"type": "metric_mismatch", "detail": "Line-level Top-5 on a known file, sometimes inside a 2K-token chunk, is compared with function-level Top-5 of agents that must find the function. The paper's own limitations say these are not the same task. Top-k also counts a hit if any of the k lines is buggy."},
+    {"type": "small_sample", "detail": "188 Defects4J test files, 78 PyPIBugs test files, 19 PyPIBugs validation files, 68 BugsEval files."},
+    {"type": "no_variance_reported", "detail": "Headline tables are one run. The sweep std shows the Top-5 number moves by about ten points."},
+    {"type": "contamination_risk", "detail": "File-level 80/10/10 split with no stated project separation, on public bug datasets that code LLMs are likely to have seen."},
+    {"type": "closed_artifacts", "detail": "Release is deferred until acceptance, including the chunked set and BugsEval."},
+    {"type": "strawman_baseline", "detail": "The SFT baseline scores 0% Top-1 on the Defects4J test split while scoring 21.7% on the train split. That shows memorization, but a 0% test score also suggests a brittle prompt rather than a tuned generative localizer."},
+    {"type": "hype_language", "detail": "Abstract says state of the art and comparable to agents on both benchmarks, with orders-of-magnitude lower latency. PyPIBugs has no agent numbers, and latency is not measured."}
+  ],
+  "coi": {
+    "affiliations": "Imperial College London. Footnote: work partly done at Recurse Ltd., London",
+    "vendor_products_evaluated": "No Recurse product is in the tables. A footnote cites 'code rabbit, claude, recurse' as tools that take 1-2 minutes per file, without a measurement",
+    "funding": "Not stated. Acknowledgments deferred to the camera-ready version",
+    "severity": "low",
+    "detail": "A company in the bug-finding market is acknowledged, and its name appears in an unmeasured latency aside. The experiments do not score that product."
+  },
+  "scores": {"rigor": 2, "reproducibility": 1, "generalizability": 2, "relevance": 2, "coi_risk": 1},
+  "verdict": "reject",
+  "verdict_reason": "The task is line ranking inside a file the model is already given, and the headline Defects4J number is the maximum of a sweep whose mean is 16.9% Top-5. The agent comparison uses function-level numbers from other papers, which this paper's own limitations say are not comparable, and nothing is released. That cannot support replacing repository exploration or an agent localizer.",
+  "applicability": "A new developer on the Java team still has to find which repository and which file is wrong. This model never does that: Defects4J here is a known buggy file, and Top-5 near 40% is the best single run, not the sweep average. Even as a second stage after file localization, the unstable head, the file-level split, and the missing code make it a poor default. Do not read the 71% short-context Top-5 as matching GPT-based agents; those agents were scored at function granularity on a different protocol. Spectrum-style baselines were not re-run on this split, so there is also no case here for dropping existing Java fault-localization tooling.",
+  "conflicts_with": [
+    {"arxiv_id": "2606.07297", "detail": "SWE-Explore finds that reaching the right file is not the same as covering the right lines, and that one-shot retrieval does not replace multi-step exploration on repository issues. This paper treats line classification inside an already identified file as comparable to agentic localization. The tasks differ, and this paper's agent numbers are copied from function-level reports."}
+  ]
+}

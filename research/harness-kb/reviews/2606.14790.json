@@ -1,0 +1,131 @@
+{
+  "arxiv_id": "2606.14790",
+  "contribution_type": "system",
+  "summary": "XFlow is a protocol language (XPF) plus compiler and runtime for multi-agent LLM workflows. An XPF file is a literate document with YAML symbol declarations and derive / actor / flow / handoff blocks; it compiles to a typed intermediate representation. At runtime, actor outputs go into typed 'symbols' that move through Proposed, Validated and Committed states under source and commit policies (including requires_human), with reactive invalidation, transactions, recovery frames and an audit log. The paper claims reliability gains on tau^3-bench, CorpusQA and SWE-bench Verified. The available full text stops at the first results table, so only a prose summary of the tau^3-bench result can be checked; the CorpusQA and SWE-bench results, related work and conclusion are missing.",
+  "claims": [
+    {
+      "claim": "XFlow improves reliability by making constraints, evidence handling and process requirements explicit and enforceable, across Constrained Interaction, Long-Context Reasoning and Agentic Software Engineering.",
+      "evidence": "Only the tau^3-bench prose in §4.1 survives in the available text. The CorpusQA and SWE-bench Verified results are not present, so two of the three settings in this claim cannot be checked. No numbers for them appear anywhere in the readable text.",
+      "strength": "unsupported",
+      "location": "Abstract, §4 intro"
+    },
+    {
+      "claim": "On tau^3-bench XFlow raises policy compliance (Qwen3.5-9B: Retail 96.5 to 100.0, Airline 91.8 to 100.0, Telecom 77.2 to 82.5) while keeping task success comparable.",
+      "evidence": "§4.1 prose. 'Compliant' is the authors' own metric: they extract constraints from the benchmark's policy text and check trajectories against them. XFlow's protocol encodes those same policy constraints, so the metric partly measures whether the authors' encoding was followed, which is circular. The baseline agent is not identified in the readable text. pass^1 drops slightly in Retail and is flat in Telecom; with DeepSeek-V4-Flash, pass^1 improves or matches only in Airline and Telecom, which implies it drops in Retail. No trial counts, variance or table values are readable.",
+      "strength": "weak",
+      "location": "§4.1"
+    },
+    {
+      "claim": "Lifecycle-governed typed symbols with mediated commits keep informal semantic work inside actors while preventing unchecked outputs from spreading through prompts and transcripts.",
+      "evidence": "Design argument in §3 (symbol lifecycle, source and commit policies, reactive invalidation, recovery frames). There is no ablation that removes symbol mediation or human commit gates while keeping the rest of XFlow, so the contribution of each mechanism is not isolated.",
+      "strength": "unsupported",
+      "location": "§3"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P36",
+      "stance": "introduces",
+      "note": "The core of the paper: a developer-authored workflow program (flows, handoffs, typed state) compiled and executed by a runtime. Only a prose comparison against an unnamed baseline on tau^3-bench is readable, with no isolating ablation."
+    },
+    {
+      "id": "P21",
+      "stance": "introduces",
+      "note": "Source and commit policies on each symbol decide which actor may propose a value and what checks must pass before commit. No measurement isolates the policy layer."
+    },
+    {
+      "id": "P19",
+      "stance": "introduces",
+      "note": "Commit policy 'requires_human' blocks a symbol until a person approves; blocked gates are recorded in recovery frames. Not evaluated."
+    },
+    {
+      "id": "P30",
+      "stance": "introduces",
+      "note": "An event log records who proposed values, which checks ran and why execution is blocked. Described, not evaluated."
+    },
+    {
+      "id": "P09",
+      "stance": "introduces",
+      "note": "Session state is a symbol store plus event log plus scoped frames, so execution can resume without reconstructing context from a transcript. No resume or recovery experiment is visible."
+    },
+    {
+      "id": "P39",
+      "stance": "introduces",
+      "note": "Domain policy (eligibility rules, refund conditions, required disclosures) is turned into typed, checkable protocol constraints rather than prose in a prompt. The tau^3 compliance gain is the only evidence, and it is measured against constraints the authors themselves extracted."
+    },
+    {
+      "id": "P11",
+      "stance": "neutral",
+      "note": "Framed as a multi-agent workflow system; the actor/handoff structure is a vehicle for the protocol idea, not a tested multi-agent design."
+    },
+    {
+      "id": "P14",
+      "stance": "neutral",
+      "note": "Positions the protocol as executable specification rather than documentation ('the protocol is the source that gets compiled and run'), but this is about agent workflows, not specs for software features."
+    },
+    {
+      "id": "P31",
+      "stance": "neutral",
+      "note": "Lists SWE-bench Verified as one evaluation setting, but those results are not in the available text."
+    }
+  ],
+  "methodology": {
+    "sample": "tau^3-bench Retail, Airline and Telecom domains; CorpusQA; SWE-bench Verified. Task counts, trial counts and any subsetting are not readable in the available text.",
+    "baselines": "A baseline agent for each backbone is implied in §4.1 but not identified in the readable text. No comparison with other workflow or orchestration frameworks is visible.",
+    "models": "Qwen3.5-9B and DeepSeek-V4-Flash as backbones 'unless otherwise noted'.",
+    "variance": "None visible. pass^1 is the single-trial metric; no repeated trials, seeds or intervals are reported in the readable text.",
+    "ablations": "None visible.",
+    "contamination_controls": "None discussed. The compliance constraints are extracted from the benchmark's own policy text, the same text XFlow protocols encode.",
+    "languages": "XPF protocol language; the SWE-bench Verified setting would be Python repositories. Results for that setting are missing."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint (cs.PL); no venue, journal_ref or comment.",
+    "limitations_section": false,
+    "artifacts": "No code or protocol repository link in the signals or readable text.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {
+      "type": "self_evaluation",
+      "detail": "The headline compliance metric is built by the authors from the benchmark policy text, and their system is the one that encodes those policies as enforced constraints."
+    },
+    {
+      "type": "metric_mismatch",
+      "detail": "Reliability is reported as compliance with author-extracted constraints rather than with a benchmark-native measure, and pass^1 is reported as 'comparable' even where it drops."
+    },
+    {
+      "type": "no_variance_reported",
+      "detail": "Single-trial pass^1 with no trial counts or intervals; Telecom compliance moves 5.3 points and the other domains reach 100% with no indication of how many tasks are involved."
+    },
+    {
+      "type": "closed_artifacts",
+      "detail": "No code, compiler, runtime or protocol files are linked."
+    },
+    {
+      "type": "novelty_inflation",
+      "detail": "Typed state with validation, commit gates, transactions, recovery and audit logs are long-standing workflow-engine ideas; the paper frames them as a new position on the prompt-harness boundary without a visible comparison to existing workflow engines."
+    },
+    {
+      "type": "other:truncated_fulltext",
+      "detail": "The available text ends at the header of the first tau^3-bench table. CorpusQA, SWE-bench Verified, related work, limitations and conclusion are missing, so most headline claims could not be checked. Re-review against the full PDF before relying on any number."
+    }
+  ],
+  "coi": {
+    "affiliations": "X-LANCE Lab, Shanghai Jiao Tong University; Shanghai Innovation Institution; Jiangsu Key Lab of Language Computing; Suzhou Laboratory.",
+    "vendor_products_evaluated": "Qwen3.5-9B and DeepSeek-V4-Flash used as backbones; no author affiliation with either vendor.",
+    "funding": "No funding statement in the available text.",
+    "severity": "none",
+    "detail": "Academic and public-lab authors evaluating their own framework; the self-interest is in their own system and metric, not a commercial product."
+  },
+  "scores": {
+    "rigor": 2,
+    "reproducibility": 0,
+    "generalizability": 1,
+    "relevance": 2,
+    "coi_risk": 0
+  },
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Admitted only as a design reference for executable workflow specs with typed state, commit policies and human gates. The evidence is not usable as it stands. The readable text stops before most results; the one visible result relies on a compliance metric the authors derived from the same policy text their protocols encode; the baseline is unnamed; there is no variance and no released code. Re-review against the full PDF before citing any number.",
+  "applicability": "For the team's SDD rollout, XFlow is a concrete picture of what 'the spec is executable' could mean for an agent workflow: named, typed outputs per step, an explicit propose-validate-commit lifecycle, a requires-human commit policy, and an audit log that says why a run is blocked. Those ideas can inform how the harness gates spec approval and hands state between discovery, spec and implementation steps across repos, independent of agent host. But nothing here shows they improve outcomes for software work: the SWE-bench result is missing from the text and the tau^3 result measures compliance with rules the authors wrote. Treat it as a design sketch, not evidence.",
+  "conflicts_with": []
+}

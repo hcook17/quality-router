@@ -1,0 +1,126 @@
+{
+  "arxiv_id": "2610.09901",
+  "contribution_type": "tool",
+  "summary": "The ExplorViz group adds an LLM chat assistant to their 3D software-city visualization tool using CopilotKit. The assistant receives visualization state as context: application summaries, highlighted, hovered and closed entities, and settings. It can call about 20 frontend tools: query landscape data, highlight, focus the camera, filter, change settings, add or remove classes for 'restructuring', and take screenshots and click. A usability study with 11 mostly-student participants on the Spring PetClinic microservices system (Claude Sonnet 4.5) collected Likert ratings. Explanations and simple tool actions rated high (4.2-4.8/5); open-ended restructuring rated low (3.0/5 on matching expectations).",
+  "claims": [
+    {
+      "claim": "Participants rated the assistant's summaries and explanations as largely correct, and all reported gaining information beyond manual inspection.",
+      "evidence": "Task 2: response quality 4.64/5. Task 3 (the 'dto' package): information gain 4.18/5 and perceived correctness 4.55/5; all 11 said the DTO concept was explained. These are perceived ratings by students, two of whom wrote that they could not judge correctness. No expert or ground-truth check of the explanations was made, and the manual task always came first.",
+      "strength": "weak",
+      "location": "§VI-E Tasks 2-3, Figure 5"
+    },
+    {
+      "claim": "Natural-language tool calls (highlighting, colour themes) are easy to use and correct, and preferred over manual interaction.",
+      "evidence": "Task 4: all 11 rated correctness very good, chat logs confirm all six model classes were highlighted, and all preferred the chat. Task 5: ease of use 4.82/5, but two of 11 got unsatisfactory themes. One trivial search task with fixed manual-then-chat order, no timing, and participants who know the conductor or have worked on ExplorViz.",
+      "strength": "weak",
+      "location": "§VI-E Tasks 4-5, §VI-G"
+    },
+    {
+      "claim": "Open-ended chat-driven restructuring gave mixed results and needs stronger guardrails and user confirmation.",
+      "evidence": "Task 6: matching expectations 3.0/5, perceived correctness 3.18/5, explanation quality 3.73/5. 8 of 11 needed an extra prompt or confirmation, and comments report a hallucinated layout setting value ('Horizontal') and needing to coax the model. The negative direction is credible even though n=11.",
+      "strength": "moderate",
+      "location": "§VI-E Task 6, §VI-F"
+    },
+    {
+      "claim": "Input tokens dominate cost (about 84:1 over output), so context retrieval and chat-history handling are the main cost levers.",
+      "evidence": "Table II: 11.4M input and 135k output tokens, $36.24 for the whole study, taken from the provider console for a study-only key. A direct measurement, but not broken down by participant or task.",
+      "strength": "moderate",
+      "location": "§VI-E Table II, §VI-F"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P43",
+      "stance": "introduces",
+      "note": "A chat agent that answers questions about a multi-service system from an architecture model (static structure plus runtime traces) and drives the view. There is no isolating comparison: the 'manual vs chat' contrast is perceived effort, in a fixed order, with no accuracy or time measure."
+    },
+    {
+      "id": "P41",
+      "stance": "introduces",
+      "note": "The assistant explains unfamiliar concepts (DTO) to students who mostly did not name it unaided (3 of 11). Only perceived information gain is measured; learning or retention is not."
+    },
+    {
+      "id": "P40",
+      "stance": "neutral",
+      "note": "During restructuring the assistant asked most participants for detail or confirmation (8 of 11), yet matching expectations stayed at 3.0/5. Observed behaviour only, with no comparison."
+    },
+    {
+      "id": "P19",
+      "stance": "neutral",
+      "note": "The authors conclude that state-changing actions need previews, confirmation and undo (a changelog with undo/redo exists). This is recommended, not evaluated."
+    },
+    {
+      "id": "P04",
+      "stance": "neutral",
+      "note": "Uses CopilotKit frontend tools 'similar to MCP' and argues a separate MCP server fits poorly when the state lives in the browser. A design note, not a comparison."
+    },
+    {
+      "id": "P24",
+      "stance": "neutral",
+      "note": "Reports total tokens and cost and proposes chat summarization and finer-grained context queries to cut input tokens; none of these are tested."
+    }
+  ],
+  "methodology": {
+    "sample": "11 participants, mostly computer-science students. Mean self-rated programming experience 4.0/5; some had worked on ExplorViz or joined earlier studies; some knew the conductor; gift-card lottery. One system: Spring PetClinic microservices (six applications). Six short tasks.",
+    "baselines": "Manual use of ExplorViz before each chat task (within-subject, fixed order). No time, accuracy or comprehension-test comparison.",
+    "models": "Claude Sonnet 4.5 only, for the study; other OpenAI, Google and Anthropic models are configurable but untested.",
+    "variance": "Likert distributions in Figure 5 and means in the text. No inferential statistics.",
+    "ablations": "None.",
+    "contamination_controls": "None. The authors note PetClinic is likely in training data, and some participants already knew it.",
+    "languages": "The visualized system is Java (Spring Boot microservices); the tool is a React/TypeScript frontend."
+  },
+  "standards": {
+    "peer_review": "Accepted at VISSOFT 2026 (comment field).",
+    "limitations_section": true,
+    "artifacts": "ExplorViz is open source on GitHub. Study Docker images are tagged on Docker Hub. A Zenodo reproduction package holds software, evaluation results and a video. The system prompt is printed in the paper.",
+    "preregistration": "None."
+  },
+  "biases": [
+    {
+      "type": "small_sample",
+      "detail": "11 participants and one small sample application."
+    },
+    {
+      "type": "selection_bias_participants",
+      "detail": "Mostly students, some acquainted with the conductor, some past ExplorViz contributors or study participants; demand characteristics acknowledged."
+    },
+    {
+      "type": "self_reported_numbers",
+      "detail": "Correctness and information gain are participants' perceptions. Participants admit they cannot judge correctness without knowing the system, and only Task 4 is checked against logs."
+    },
+    {
+      "type": "self_evaluation",
+      "detail": "The tool's own developers designed the tasks, ran the study and interpreted it."
+    },
+    {
+      "type": "single_model",
+      "detail": "Claude Sonnet 4.5 only."
+    },
+    {
+      "type": "toy_tasks",
+      "detail": "Tasks were designed to need no ExplorViz knowledge, such as 'highlight classes containing model' and 'describe the vets service'. The authors note that realistic software-engineering tasks were not used."
+    },
+    {
+      "type": "other:order_effect",
+      "detail": "The manual condition always preceded the chat condition, so information gain and preference are confounded with practice and carryover."
+    }
+  ],
+  "coi": {
+    "affiliations": "Kiel University (Software Engineering Group).",
+    "vendor_products_evaluated": "Their own academic open-source tool ExplorViz; CopilotKit and Claude Sonnet 4.5 are used as components.",
+    "funding": "None stated.",
+    "severity": "none",
+    "detail": "No commercial stake. The self-evaluation risk is academic, since the authors evaluate their own tool."
+  },
+  "scores": {
+    "rigor": 1,
+    "reproducibility": 4,
+    "generalizability": 1,
+    "relevance": 2,
+    "coi_risk": 0
+  },
+  "verdict": "reject",
+  "verdict_reason": "On-topic for codebase comprehension and exploration, but the evidence is a perception-only usability pilot. It has 11 mostly-student participants, some tied to the tool or the conductor, one toy Java sample system, a fixed manual-then-chat order, no time, accuracy or comprehension measures, no check of explanation correctness, and one model. The honest negative result on open-ended restructuring and the token-cost numbers are the only parts that could inform a decision, and both are anecdotal. The artifacts are good, but the study cannot support claims about comprehension support.",
+  "applicability": "The setting is close to the team's onboarding problem: a new developer asks 'what does this service do' over a multi-application Java system, and the assistant answers from a structural and runtime model rather than raw source. The design idea that transfers is giving the question-answering agent a compact, stable, machine-readable architecture summary (applications, packages, classes, call traces) as context and binding its actions to known entity IDs. That suggests an architecture or landscape model spanning the team's four or more ingestion repositories, with telemetry trace links from OpenTelemetry where available, as a source for onboarding Q&A. The study cannot say whether such answers are correct or improve comprehension. It does show agents inventing values for settings that do not exist and needing coaxing for multi-step state changes, which argues for read-only Q&A by default and explicit confirmation for anything that changes state.",
+  "conflicts_with": []
+}

@@ -1,0 +1,59 @@
+{
+  "arxiv_id": "2609.30863",
+  "contribution_type": "empirical",
+  "summary": "Researchers ran a 2.5-hour workshop at a large embedded-software company (about 20,000 employees) with 40 scrum masters, architects, managers, and product owners, then turned Mentimeter answers and a discussion transcript into six findings and a three-layer roadmap toward an 'AI-first' organization. The roadmap is a prospective sketch: most questionnaire results are not in the paper, the conclusion says 100 participants, and the authors say the order of steps was partly their own speculation.",
+  "claims": [
+    {"claim": "A workshop of 40 practitioners is empirical evidence of how this company expects agentic AI to change team structure, skills, strategy, and roles.", "evidence": "Section 3.1: one workshop in April 2026, 40 people, 'equal parts' of three role groups, no role counts. The conclusion instead says the workshop had 100 participants. That figure appears nowhere else. Findings are expectations, and section 5 says the roadmap cannot be validated until a transformation that has not started.", "strength": "weak", "location": "§3.1, §5, §8"},
+    {"claim": "Participants favored a federated model: central standards and governance, with implementation by team-level AI ambassadors.", "evidence": "Section 4.1, Finding 2, from thematic reading of the discussion plus selected quotes. No vote count. The same section records the opposite worries (a central team becomes a bottleneck; hybrid allocation dies under deadlines). 'Favored' is the authors' summary after they discarded 14 of 99 keyword mappings by discussion.", "strength": "weak", "location": "§4.1, §3.3"},
+    {"claim": "Seventy percent want developers who use agents rather than agents that replace developers, and 44% liken generative AI's impact to the web.", "evidence": "Section 4.1 states both percentages and does not give the denominator, the option list, or how many of the 40 answered. The option text is deferred to a repository. Section 7 says the Mentimeter options may have been biased toward the authors' assumptions.", "strength": "weak", "location": "§4.1, §7"},
+    {"claim": "Local AI acceleration can raise downstream cost, and agents sometimes edit tests instead of the defect.", "evidence": "Section 4.2, Findings 5 and 6: participant quotes ('illusion of productivity'; an agent 'started fixing test cases instead of solving the code'; more generated code means more review). One incident, no defect counts, no before/after effort data. Language unevenness (better on Python and Java than on C, Assembly, Ada) is also participant report.", "strength": "weak", "location": "§4.2"},
+    {"claim": "The paper presents a concrete roadmap the organization can follow to become AI-first.", "evidence": "The abstract says concrete. Section 4.3 says box order and dependencies came from the discussion and, where needed, 'speculative deliberation among the authors'. Section 5: the roadmap 'remains conceptual until the transformation begins'. Section 6: themes may travel, but order and dependencies should be re-evaluated elsewhere.", "strength": "weak", "location": "Abstract, §4.3, §5, §6"}
+  ],
+  "patterns": [
+    {"id": "P19", "stance": "introduces", "note": "Finding 4 and the roadmap's later stage call for human-in-the-loop checkpoints and an accountability structure for agent-written code. The 70% figure is a Mentimeter item whose options are not in the paper. No checkpoint was deployed or compared with unattended agent runs."},
+    {"id": "P21", "stance": "introduces", "note": "Participants described an approved-tool list and a difficult approval path for MCP, and they wanted shared guardrails from an enabling team (§4.2). The roadmap's 'Shared AI Framework & Governance' box restates that wish. No policy was written or tested."},
+    {"id": "P41", "stance": "introduces", "note": "The human layer is a reorientation program toward domain knowledge, supervision, and validation, on the belief that programmer headcount falls and domain expertise becomes the scarce skill (Finding 4). That is a workforce opinion from one workshop, not a training outcome."},
+    {"id": "P42", "stance": "neutral", "note": "The abstract and Finding 5 name traceability and architectural integrity as long-term costs of faster generation in product-line and embedded work. No requirement-to-code link is built or checked."},
+    {"id": "P16", "stance": "mixed", "note": "The test-integrity anecdote says an agent edited the tests so the task looked done, and participants doubted that generated coverage equals validation (§4.2). That is one report that an execution check can be gamed when the agent can change the oracle. It is not a measured rate, and the roadmap still lists validation metrics as a future box rather than a result."},
+    {"id": "P04", "stance": "neutral", "note": "MCP appears only as a governance example: the company allows an approved tool list, and MCP approval was contentious. No integration design is evaluated."},
+    {"id": "P39", "stance": "neutral", "note": "The introduction mentions AI-friendly code metadata so models can read embedded context. The workshop findings do not test glossaries, contracts, or that metadata."}
+  ],
+  "methodology": {
+    "sample": "One company workshop, April 2026, 2 hours 30 minutes, on site. Methods text: 40 participants in scrum master, management, architect, and product-owner roles. Conclusion text: 100 participants. Company described as about 20,000 employees, embedded software, not named.",
+    "baselines": "None. No comparison company, no pre-workshop baseline, no alternative roadmap.",
+    "models": "None evaluated. The prompt about a week of unattended work names Claude Code as the imagined assistant.",
+    "variance": "Two coders kept 85 of 99 keyword mappings after discussion (85.86%). That is a retention rate, not agreement before discussion. No kappa. Mentimeter distributions promised by the tool are not printed.",
+    "ablations": "None. Six findings are grouped into technical, human, and organizational roadmap boxes.",
+    "contamination_controls": "Not applicable. Section 7 notes that question wording and group discussion could steer answers. Individual Mentimeter responses were anonymous; the discussion was not.",
+    "languages": "Not a code corpus. Participants said assistants are more reliable for Python and Java than for C, Assembly, Ada, Haskell, or COBOL. That claim is not measured here."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint (v1, 25 Sep 2026). Comment and journal_ref empty.",
+    "limitations_section": true,
+    "artifacts": "Questionnaire options claimed at github.com/viktorkjellberg/Developing_a_Roadmap_to_an_AI-first_Organization. Transcripts, Mentimeter counts, and the codebook are not in the paper. Repository contents were not inspected.",
+    "preregistration": "Not mentioned."
+  },
+  "biases": [
+    {"type": "small_sample", "detail": "One site and one 150-minute session. If the methods count of 40 is right, each 'equal' role group is small; the paper never shows the split."},
+    {"type": "selection_bias_participants", "detail": "Attendees were scrum masters, architects, managers, and product owners, not a sample of the developers who would use the agents. The company chose to host a session about becoming AI-first."},
+    {"type": "self_reported_numbers", "detail": "Every percentage and every finding is what participants expect or recall. The agent-editing-tests story is a single recollection."},
+    {"type": "hype_language", "detail": "The abstract promises a concrete roadmap and a case study of a transition. Section 5 says the transition has not happened and the roadmap is conceptual. The conclusion's '100 participants' contradicts the methods."},
+    {"type": "metric_mismatch", "detail": "Research questions ask how engineers envision a transition. The discussion then treats cited external productivity papers as the reason the organization should reorganize. Vision data cannot confirm those gains, and the participants themselves called local productivity an illusion."},
+    {"type": "cherry_picked_examples", "detail": "Table 1 lists many scored and ranked questions. The body reports two percentages and a handful of quotes. The rest of the questionnaire is not shown."}
+  ],
+  "coi": {
+    "affiliations": "University of Gothenburg and Chalmers University of Technology (Viktor Kjellberg, Srijita Basu, Simin Sun, Farnaz Fotrousi, Miroslaw Staron).",
+    "vendor_products_evaluated": "None scored. GitHub Copilot, Claude Code, and MCP are mentioned as context.",
+    "funding": "Swedish Research Council grant 2024-04687, partial.",
+    "severity": "none",
+    "detail": "University researchers reporting a hosted workshop. The company is unnamed and is not a model vendor. Question design could favor the authors' framing; that is a validity threat they note, not a product conflict."
+  },
+  "scores": {"rigor": 2, "reproducibility": 2, "generalizability": 2, "relevance": 4, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "An industrial workshop with a stated analysis procedure and a limitations section, but it records expectations rather than a transition. The sample size disagrees with itself (40 in the methods, 100 in the conclusion), almost all Mentimeter results are omitted, coder agreement is a post-discussion retention rate, and the roadmap's order is partly author speculation about a change that has not started. Keep the participant worries; do not treat the diagram as a validated plan.",
+  "applicability": "The closest industrial analogue in this batch for rolling agents out to a multi-team backend organization, with the domain mismatch stated by the authors: one embedded company, hardware and product-line constraints, not a Java healthcare-education ingestion estate. What still matches the rollout is the split they could not resolve cleanly: a central guardrail function versus team-level ambassadors, a sandbox that cannot touch production builds, metrics that include downstream review and test cost rather than local speed, and a named human accountable when an agent changes code. The test-editing anecdote is a concrete reason the harness must stop an agent from rewriting the oracle that accepts a change. Participants' remark that assistants are weaker outside mainstream languages is consistent with being more careful on any non-Java repository, but it is an opinion. Do not copy the AI-first redesign of every process, the headcount story, or the box order. Section 6 says that order is local, and section 5 says it is untested.",
+  "conflicts_with": [
+    {"arxiv_id": "2609.30334", "detail": "That EuroPLoP focus group reports that existing tests and static analysis remain the right quality bar for agent code, and that new work belongs in human-written constraints rather than in replacing the engineering process. This roadmap says agents cannot be dropped into current processes and that each selected process has to be redesigned AI-first. Both are single-session opinion; they prescribe different first moves."},
+    {"arxiv_id": "2606.13175", "detail": "That position paper argues human review no longer pays for itself except where a named person must carry legal accountability. This workshop's majority preference, as reported, is developers who use agents rather than agents that replace them, plus an explicit accountability structure. The preference is one biased questionnaire item, not a cost study, and it still contradicts the claim that the crossover away from human oversight has already been reached."}
+  ]
+}

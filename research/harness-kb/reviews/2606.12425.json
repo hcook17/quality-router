@@ -1,0 +1,52 @@
+{
+  "arxiv_id": "2606.12425",
+  "contribution_type": "empirical",
+  "summary": "North Carolina State and UC Berkeley authors describe Insight, a VS Code assistant for introductory Python. An attention model (SANN), fine-tuned on GPT-4o synthetic solutions, highlights AST subtrees in a wrong submission and returns the instructor's pre-written message when the subtree matches an instructor example above a similarity cutoff. A GPT-4o check can withhold the message. On one held-out problem, delivered feedback after that check is rarely judged wrong, but many errors get no message. In one week-3 class exercise, 69 students rated the tool near the midpoint of a five-point scale. Against GPT-4o free-text feedback, instructor messages were less complete and much less likely to invent issues.",
+  "claims": [
+    {"claim": "Fine-tuning SANN on synthetic code predicts correctness on a new problem better than GPT-4o, a synthetic-only model, or the pretrained model", "evidence": "Table 1, one unseen conditionals problem, 548 real submissions (168 correct, 380 incorrect): fine-tuned SANN accuracy/F1 0.89/0.86, GPT-4o 0.86/0.83, synthetic-only SANN 0.83/0.78, pretrained SANN 0.70/0.41. A Wilcoxon signed-rank test is reported at p < 0.05 against each baseline, without the paired unit or an effect size. The gap versus GPT-4o is three F1 points. Pretraining used 234 FalconCode problems and 557,377 submissions, excluding 121,763 uncompilable ones.", "strength": "moderate", "location": "§4.2, Table 1"},
+    {"claim": "The assistant gives accurate instructor-verified feedback, with precision and recall of 97.62%", "evidence": "On 169 incorrect submissions for that problem (syntax and runtime errors removed; two raters, kappa 0.89 on 10% then one rater finished): 63% of errors got a correct match, 23% an incorrect match, 14% no feedback. A GPT-4o check then reclassified mismatches and the incorrect-delivery rate fell to 1.2%. The 97.62% precision and recall are stated for instructor-prioritized misconceptions, not for all errors. Figure 5 is said to repeat the protocol on three further problems (loops, lists, strings; 100 incorrect submissions each) but the prose gives no precision or recall for them. Similarity cutoff 50% and attention cutoff 15% were chosen by the authors.", "strength": "weak", "location": "§4.4"},
+    {"claim": "Students had a positive experience in a real class", "evidence": "One week-3 exercise, 69 of 80 students, five Likert items. Means lie between 2.98 and 3.41 on a 1-5 scale. Useful suggestions: 45.5% agree, 23.2% disagree. Helped understanding: 31.2% agree. Would use again: 53.6% agree, 17.2% disagree. No learning-gain measure. The authors note that uncovered errors only produced a 'ask the staff' message, and they think that pulled ratings down. The attention highlight was not shown to these students.", "strength": "weak", "location": "§5.1, Figure 7, §7"},
+    {"claim": "Instructor-authored feedback is more pedagogically suitable and more selective than GPT-4o feedback, with similar coverage of instructor-defined issues", "evidence": "§5.2, all incorrect submissions from the same week-3 exercise, two raters kappa 0.84: completeness GPT-4o 87% vs Insight 80%; perceptivity 100% vs 100%; selectivity 95% vs 53%; pedagogical suitability 100% vs 47%. The submission count is not stated. Insight can only emit a canned instructor message or nothing, so selectivity and suitability are partly built in. One exercise, one course.", "strength": "moderate", "location": "§5.2, Figure 8"}
+  ],
+  "patterns": [
+    {"id": "P41", "stance": "mixed", "note": "Student-facing text is restricted to instructor-written messages tied to a highlighted subtree, compared with unconstrained GPT-4o on the same submissions. Insight is more selective (95% vs 53%) and more pedagogically suitable (100% vs 47%) and slightly less complete (80% vs 87%). No pre/post learning measure. Classroom means sit near neutral, and the explainability highlight was not deployed."},
+    {"id": "P18", "stance": "mixed", "note": "A GPT-4o verifier that can suppress a matched message is what drops incorrect deliveries from 23% to 1.2% on the 169-submission set. That is a refusal filter, not a better explanation, and the same model family wrote the synthetic fine-tuning data. The verifier is not compared with a second judge."},
+    {"id": "P19", "stance": "introduces", "note": "Instructors author the only feedback students can receive, and unmatched code is sent to a human. The GPT comparison confounds that authorship with subtree matching and with the option to say nothing, so the human gate itself is not isolated."}
+  ],
+  "methodology": {
+    "sample": "FalconCode Python submissions. Correctness table: 548 submissions on one held-out problem. Feedback labels: 169 incorrect programs on that problem, plus 100 incorrect submissions on each of three other problems (numbers only in Figure 5). Class: one exercise, 69 survey respondents. GPT comparison: all incorrect submissions from that exercise, n not stated",
+    "baselines": "Synthetic-only SANN, pretrained SANN without fine-tuning, and GPT-4o correctness judgements. Feedback quality compared with GPT-4o generations scored by two humans. No second classroom section without the tool",
+    "models": "SANN (authors' prior attention model); GPT-4o for synthetic students, the optional verifier, the correctness baseline, and the free-text feedback arm",
+    "variance": "One Wilcoxon test reported without an effect size. No intervals on feedback rates or Likert means. Kappa 0.89 on a 10% double-code for matching, and 0.84 for the GPT comparison",
+    "ablations": "Pretrain versus synthetic-only versus fine-tune for correctness. The GPT verifier is applied after the human labelling pass rather than as a pre-registered arm. Attention and similarity thresholds are not swept in the paper",
+    "contamination_controls": "The fine-tune problem is said to be held out of pretraining. Synthetic code was generated by GPT-4o from instructor samples, then the same model family is a baseline and a judge. No check that GPT-4o had seen FalconCode solutions",
+    "languages": "Introductory Python only"
+  },
+  "standards": {
+    "peer_review": "arXiv comment: full paper accepted to AIED 2026. No journal_ref or DOI",
+    "limitations_section": true,
+    "artifacts": "FalconCode is a public dataset. The Insight extension, authoring prompts, and synthetic set are not linked. The generation prompt is shown as a figure",
+    "preregistration": "Not reported. Classroom survey is IRB-approved"
+  },
+  "biases": [
+    {"type": "hype_language", "detail": "Abstract and conclusion say accurate feedback and a positive student experience. Likert means are about 3.0-3.4, and 23% of error matches were wrong before the model was allowed to refuse."},
+    {"type": "metric_mismatch", "detail": "97.62% precision and recall refer to instructor-prioritized misconceptions. The all-error breakdown on the same problem is 63% correct, 23% incorrect, 14% none. No learning outcome is measured."},
+    {"type": "small_sample", "detail": "Detailed feedback rates are one problem. The classroom result is one exercise in one course. Three extra problems are summarised only by a figure."},
+    {"type": "selection_bias_participants", "detail": "Syntax and runtime failures are removed before the offline feedback study, which is the population the class tool often answered with a generic help message."},
+    {"type": "self_evaluation", "detail": "The authors built SANN and Insight, chose the thresholds, and ran the expert labelling. Inter-rater kappa covers 10% of the matching set; one evaluator finished the rest."},
+    {"type": "single_language_python", "detail": "Introductory Python assignments. No Java and no professional codebase."},
+    {"type": "llm_judge_unvalidated", "detail": "GPT-4o both generates the synthetic training distribution and decides which matched messages to suppress. The 1.2% figure depends on that filter."}
+  ],
+  "coi": {
+    "affiliations": "North Carolina State University; University of California, Berkeley",
+    "vendor_products_evaluated": "GPT-4o is the generative baseline and an internal verifier. Authors are not affiliated with that vendor",
+    "funding": "US National Science Foundation grants DUE-2236195 and DUE-2331965",
+    "severity": "none",
+    "detail": "Academic education study. The system under test is the authors' own, which is a self-evaluation bias rather than a vendor conflict."
+  },
+  "scores": {"rigor": 3, "reproducibility": 1, "generalizability": 1, "relevance": 2, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "There is a real, double-coded comparison in which canned instructor feedback invents fewer issues than GPT-4o, and a correctness ablation in which synthetic fine-tuning matters. The abstract's accuracy and positive-experience claims do not match the body: a quarter of matches were wrong until a model refused them, student means sit near neutral, learning was not measured, and the result is one intro Python exercise.",
+  "applicability": "For new developers on the Java team, the transferable design is narrow. If an agent explains a mistake, prefer a short message an expert wrote for a known misconception, attached to the lines that triggered it, and say nothing when the code does not match that library. Unconstrained model feedback, on this one exercise, was complete slightly more often and introduced issues far more often. That does not show the pattern teaches anyone: this study measured agreement with instructor labels and a lukewarm survey, not skill, and the students were novices writing single-file Python. Authoring the misconception library is the cost, and coverage outside it collapsed to 'ask a person'. Do not import the 97% figure; it is not the rate across all errors.",
+  "conflicts_with": []
+}

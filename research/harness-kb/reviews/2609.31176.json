@@ -1,0 +1,141 @@
+{
+  "arxiv_id": "2609.31176",
+  "contribution_type": "system",
+  "summary": "SemNav is an issue-localization framework: a deterministic BM25 pass seeds a list of candidate files and functions, and an LLM agent then revises that list using six tools. The repository graph resolves call and reference targets on demand through a language server (Pyright). A separate builder agent writes issue-specific 'Semantic Cards' that summarize one entity at a time, and a 'Candidate Workspace' stores each candidate with a status and an evidence rationale. A separate comparison agent reranks the candidates before submission. It is evaluated on SWE-bench Lite (300 issues), PLocBench (821) and SWE-Explore (368) using only small open models (Gemma 4B, Qwen3.5 9B and Qwen3.5 35B-A3B), against five re-run baselines.",
+  "claims": [
+    {
+      "claim": "SemNav outperforms existing localization methods across benchmarks, model families and scales; the abstract headline is File Hit@10 rising from 68.33% to 82.67% with Gemma 4B.",
+      "evidence": "Table 1(a): first in 24 of 27 model-metric cells on SWE-bench Lite, second in three (File Hit@5 with both Qwen models, Function Hit@5 with Qwen 9B). Table 1(b): first on all five PLocBench metrics (Acc@5 67.36 vs 60.41 for CoSIL), Gemma 4B only. The headline comes from the weakest model, where the gap is largest (14.3 points). With Qwen 35B the same metric moves only from 89.33 to 90.00 (2 of 300 issues), and SemNav is second at File Hit@5. Function-level gains hold at 35B (Function Hit@10 74.00 vs 62.00). All numbers come from single runs.",
+      "strength": "moderate",
+      "location": "Abstract, Overall Localization Performance, Table 1"
+    },
+    {
+      "claim": "Component ablations show complementary roles for online language-server resolution, Semantic Cards, the seed and the Workspace.",
+      "evidence": "The ablations are reported only in Figure 3 and the text, with Gemma 4B on SWE-bench Lite. File Hit@10 drops 6.00 points without Cards and 7.00 without online resolution, and output size is unchanged. Removing the seed costs 13.20 points of Function Recall@10, and Seed Only loses 25.33 points of File Hit@1. Removing the Workspace drops Function Recall@10 by 19.20, but average output also falls from 9.96 to 1.50 functions, so much of that drop is a recall@10 computed over 1.5 items. There is one model, one run per variant and no variance.",
+      "strength": "weak",
+      "location": "Component Contributions, Figure 3"
+    },
+    {
+      "claim": "Semantic Cards cut the localization agent's working context by 48.2% relative to full-source reading.",
+      "evidence": "The same trajectories are replayed with only the Read observations swapped (truncated source, full source or Card), which isolates representation from exploration policy. Total tokens, including card building, are 25.4% below full-source reading and 4.8% above truncation. Only token counts are reported. The replay does not measure accuracy under each representation, and nobody checked whether the cards are faithful to the code.",
+      "strength": "moderate",
+      "location": "Component Contributions, Figure 3(c)"
+    },
+    {
+      "claim": "SemNav ranks first on all seven SWE-Explore evidence-quality metrics, raising line-level precision from 53.35% to 79.99%.",
+      "evidence": "Table 2 uses Gemma 4B only and four baselines; RepoSearcher, present in Table 1, is missing. SemNav's nDCG and First Useful Hit are both printed as 86.96, and Agentless and LocAgent share an identical FUH of 58.79, which hints at transcription errors. The precision gain over mini-swe-agent is large, and recall@500 also rises (37.83 vs 34.39).",
+      "strength": "weak",
+      "location": "Evidence Acquisition Quality, Table 2"
+    },
+    {
+      "claim": "Localization gains carry over to repair: the resolution rate rises from 44.00% to 52.33% with a Qwen3.5 35B repair model.",
+      "evidence": "Table 3: all localizers use Gemma 4B, and each repair model makes one deterministic attempt. Resolved 52.33 vs 44.00 for LocAgent (25 of 300 issues) and 27.67 vs 23.33 with Gemma repair (13 issues). Oracle files reach 67.00 and 39.00. The direction is consistent across both repair models, but there is no significance test or repeat.",
+      "strength": "moderate",
+      "location": "Downstream Repair Utility, Table 3"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P43",
+      "stance": "supports",
+      "note": "Agent-driven exploration on top of a deterministic seed is compared with retrieval alone (Seed Only: 25.33 points lower File Hit@1), a staged workflow (Agentless) and four other exploration agents, and the hybrid wins in most cells. Caveats: single runs, small models only, baselines re-run by the authors, Python only."
+    },
+    {
+      "id": "P05",
+      "stance": "supports",
+      "note": "Two isolating ablations favour deterministic retrieval and navigation. Removing on-demand language-server resolution (go-to-definition and find-references through Pyright) costs 7.00 points of File Hit@10, and removing the BM25 seed costs 13.20 points of Function Recall@10. Gemma 4B only, one run."
+    },
+    {
+      "id": "P08",
+      "stance": "supports",
+      "note": "Issue-specific LLM summaries of each entity (Semantic Cards) replace raw source in the agent context. Removing them costs 6.00 points of File Hit@10, and fixed-trajectory replay shows 48.2% less working context and 25.4% fewer total tokens than full-source reading. Card faithfulness is not validated."
+    },
+    {
+      "id": "P07",
+      "stance": "introduces",
+      "note": "A typed repository graph (contains, calls, imports, inherits, references) is used for navigation and search reranking. Only the language-server resolution layer is ablated; graph versus no graph is never isolated."
+    },
+    {
+      "id": "P12",
+      "stance": "introduces",
+      "note": "Builder and comparison agents run in separate context windows and return only compact cards or rankings to the main agent. The comparison agent and its verification-question loop are never ablated."
+    },
+    {
+      "id": "P39",
+      "stance": "neutral",
+      "note": "The 'cards' are issue-specific per-entity summaries cached per snapshot, not durable domain context such as glossaries or data contracts."
+    },
+    {
+      "id": "P31",
+      "stance": "neutral",
+      "note": "All evidence comes from SWE-bench Lite, PLocBench and SWE-Explore, with Python implementations (Pyright)."
+    }
+  ],
+  "methodology": {
+    "sample": "SWE-bench Lite: 300 issues across about 12 Python repositories. PLocBench: 821 issues. SWE-Explore: 368 instances. Downstream repair is run on SWE-bench Lite only.",
+    "baselines": "Agentless, CoSIL, LocAgent, mini-swe-agent and RepoSearcher, all re-run by the authors with the same small models. Some collapse in ways that suggest configuration or format failures rather than method limits: RepoSearcher scores 7.00 File Hit@10 with Qwen 9B, and Agentless scores 5.00 Function Hit@10 with Gemma. No frontier-model runs and no stronger commercial agent baselines.",
+    "models": "gemma-4-e4b-it (Gemma 4B) for every benchmark; Qwen3.5 9B and Qwen3.5 35B-A3B on SWE-bench Lite only. Repair uses Gemma 4B and Qwen3.5 35B-A3B.",
+    "variance": "None. Single runs with no seeds, confidence intervals or significance tests. Several headline gaps at the 35B scale are 1-3 issues out of 300.",
+    "ablations": "Without Cards, without online resolution, without seed, without Workspace, Seed Only (Gemma 4B, SWE-bench Lite, figure only), and a fixed-trajectory replay comparing context representations.",
+    "contamination_controls": "None. SWE-bench Lite issues predate 2024, and the 2026 Gemma and Qwen models were likely trained on the fixing commits. This affects all methods but inflates absolute scores.",
+    "languages": "Python only (Pyright language server); the paper does not state PLocBench's language mix."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint with no venue, comment or journal_ref.",
+    "limitations_section": false,
+    "artifacts": "No code, prompts or trajectories released or linked.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {
+      "type": "no_variance_reported",
+      "detail": "Single runs everywhere. Downstream gains of 13-25 issues and 35B-scale localization gaps of 2-3 issues come with no uncertainty."
+    },
+    {
+      "type": "cherry_picked_examples",
+      "detail": "The abstract headline (68.33 to 82.67 File Hit@10) is the largest gap in Table 1 and comes from the 4B model. At 35B the same metric gains 0.67 points, and SemNav is second on File Hit@5."
+    },
+    {
+      "type": "strawman_baseline",
+      "detail": "Baselines designed for stronger models are re-run on 4B-35B models, and several collapse (RepoSearcher 7.00 File Hit@10 with Qwen 9B; Agentless 5.00 Function Hit@10 with Gemma). Configuration details for the baselines are not given."
+    },
+    {
+      "type": "missing_cost_reporting",
+      "detail": "SemNav adds a builder agent, a comparison agent and repeated compare loops, but tokens, calls and latency are never compared with the baselines. The only cost figure compares SemNav with itself under different Read representations."
+    },
+    {
+      "type": "single_language_python",
+      "detail": "Python repositories and a Python language server only. Language-server resolution quality differs greatly in statically typed languages."
+    },
+    {
+      "type": "contamination_risk",
+      "detail": "SWE-bench Lite issues and fixes are public and predate the models used; there is no decontamination or post-cutoff split."
+    },
+    {
+      "type": "closed_artifacts",
+      "detail": "No repository, prompts or trajectories."
+    },
+    {
+      "type": "other:possible_table_errors",
+      "detail": "In Table 2, SemNav's nDCG and FUH are both printed as 86.96, and Agentless and LocAgent share an FUH of 58.79. RepoSearcher is silently dropped from Table 2."
+    }
+  ],
+  "coi": {
+    "affiliations": "Independent researcher; University of Virginia.",
+    "vendor_products_evaluated": "Open-weight Gemma and Qwen models as backbones; Pyright as the language server. No vendor product is promoted.",
+    "funding": "No acknowledgments or funding statement in the available text.",
+    "severity": "none",
+    "detail": "Academic authors evaluating their own method on public benchmarks. The usual self-evaluation risk applies (own baseline runs), but there is no commercial interest."
+  },
+  "scores": {
+    "rigor": 3,
+    "reproducibility": 1,
+    "generalizability": 2,
+    "relevance": 3,
+    "coi_risk": 0
+  },
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "A reasonable multi-benchmark evaluation with three model sizes, five baselines, component ablations and a well-isolated context-replay measurement. Function-level gains persist at 35B. But every number is a single run, only small open models are tested, several re-run baselines look broken, cost against the baselines is never reported, the abstract headline picks the largest gap, Table 2 has apparent errors, and nothing is released. The evidence is useful for exploration-agent design, not for exact effect sizes.",
+  "applicability": "Issue localization is the codebase-exploration step a new developer or an agent performs before writing a spec or a fix, so the design transfers as a pattern. Seed a broad candidate list deterministically (BM25 plus symbol and path cues from the ticket). Let the agent follow resolved definitions and references through a Java language server instead of Pyright. Keep an explicit candidate list where every entry cites its evidence and can be reviewed, and replace raw source with short per-class role summaries generated in a separate context. Java's static typing should make language-server resolution more complete than in Python. However, framework dependency injection and interface dispatch still leave 'which implementation runs' unresolved, which is exactly the ambiguity SemNav targets. SemNav is single-repository, so the team's ingestion flow across four or more repositories would need a cross-repo symbol index or contract map on top. The gains come from 4B-35B models and shrink at 35B, so expect smaller effects with the frontier models the team's agent hosts use. Before cards are shown to new developers as onboarding material, verify that they are faithful to the code; the paper never checks this.",
+  "conflicts_with": []
+}

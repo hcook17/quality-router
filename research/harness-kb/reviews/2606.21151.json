@@ -1,0 +1,137 @@
+{
+  "arxiv_id": "2606.21151",
+  "contribution_type": "system",
+  "summary": "Ericsson authors describe a telecom test-maintenance loop: a live knowledge graph of code, topology, KPIs and tests, a delta engine that flags coverage gaps, and an MCP-hosted generative agent that writes or retires Python tests and opens a GitLab merge request. Retrieval over protocol documents is described as extra context. The only evidence is one walkthrough on a small KPI-monitoring application that grows from three features to six.",
+  "claims": [
+    {
+      "claim": "Delta-conditioned generation over a live knowledge graph reduces manual test effort, improves test relevance, and shortens test cycles for evolving telecom software and networks.",
+      "evidence": "Section 6.5 states that time saved, coverage improvement and fault detection were not measured. Section 7 lists those benefits as advantages of the design. No table compares the framework to manual testing, ChatUniTest, or any other generator.",
+      "strength": "unsupported",
+      "location": "Abstract; §6.5; §7"
+    },
+    {
+      "claim": "On a Python KPI monitor in GitLab, the agent detected three new features, generated the missing tests, ran them, and opened a merge request, after which the graph showed six feature nodes with tests.",
+      "evidence": "Sections 5.1 and 6.3–6.4 narrate a single on-demand run. There is no count of tests produced, pass rate, defect found, or human edit. The pipeline is cron-style and 'triggered on demand rather than fully automated on every commit' (§6.1).",
+      "strength": "weak",
+      "location": "§5.1, §6.3–6.4"
+    },
+    {
+      "claim": "The same framework covers live-network cases (KPI anomalies, slice instantiation, AMF upgrades, Kubernetes probes, IoT probes) via O1/O2 and NETCONF adapters.",
+      "evidence": "Section 5.2 is a list of scenarios. No ingestion, delta, or generated test from a live network is reported.",
+      "strength": "unsupported",
+      "location": "§5.2"
+    },
+    {
+      "claim": "The design uniquely combines a continuous knowledge graph, delta detection, generative tests, the telecom domain, and retrieval, unlike Testim, ChatUniTest, Spirent, SeaNet, and Nayak et al.",
+      "evidence": "Table 1 is an author-filled checklist of checkmarks. It is not an experiment.",
+      "strength": "weak",
+      "location": "§8.9, Table 1"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P39",
+      "stance": "introduces",
+      "note": "Proposes one property graph, aligned in prose with TM Forum SID and 3GPP models, as the source of truth for topology, KPIs, code and tests. The prototype graph is a handful of feature and test nodes; the ontology is not shown."
+    },
+    {
+      "id": "P42",
+      "stance": "introduces",
+      "note": "TESTED_BY edges are meant to link features to tests, and a Cypher query lists features with no such edge. Links are written by the agent after it generates a test. Nothing checks that the test actually covers the feature or traces to a requirement."
+    },
+    {
+      "id": "P38",
+      "stance": "introduces",
+      "note": "Before writing tests the agent reads README.md and queries the graph. That is a discovery step in the demo, with no comparison to generating tests from the diff alone."
+    },
+    {
+      "id": "P07",
+      "stance": "introduces",
+      "note": "Impact is defined as a graph traversal from a delta. The demo only diffs a feature branch against three existing feature nodes."
+    },
+    {
+      "id": "P04",
+      "stance": "introduces",
+      "note": "MCP tools for graph query, GitLab, test execution, retrieval and graph writes are listed. No portability experiment."
+    },
+    {
+      "id": "P15",
+      "stance": "introduces",
+      "note": "Tests are generated after the feature code exists, then executed locally. This is not test-first development, and pass or fail is not reported."
+    },
+    {
+      "id": "P16",
+      "stance": "introduces",
+      "note": "A feedback loop from execution results back into the graph is specified. The demo stops at a human-approved merge."
+    },
+    {
+      "id": "P19",
+      "stance": "introduces",
+      "note": "The engineer must approve the merge request. That gate is described, not studied."
+    },
+    {
+      "id": "P06",
+      "stance": "neutral",
+      "note": "Retrieval over specifications and old tests is part of the design and is not ablated. The demo does not show a retrieved document influencing a test."
+    }
+  ],
+  "methodology": {
+    "sample": "One Python KPI application: three initial features, then three added in a feature branch. The network scenarios are not executed.",
+    "baselines": "None. Table 1 compares related systems by author-assigned feature checkmarks.",
+    "models": "An unnamed LLM. The graph store is 'Falkor DB or Neo4j'.",
+    "variance": "One narrated run. No repeats.",
+    "ablations": "None. The 'learned significance model' in the delta engine is not present in the prototype.",
+    "contamination_controls": "None.",
+    "languages": "Python tests for a Python application. Telecom protocol tests are not generated."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint (cs.SE, 2026-06-19). No venue, journal_ref or comment.",
+    "limitations_section": true,
+    "artifacts": "No code, prompts, graph dump or merge request is linked.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {
+      "type": "hype_language",
+      "detail": "The abstract says the demonstration shows reduced manual effort, better relevance and faster cycles. Section 6.5 says those quantities were not measured."
+    },
+    {
+      "type": "toy_tasks",
+      "detail": "The evaluated system is a teaching-scale KPI script with six features, not a network function or a multi-repo product."
+    },
+    {
+      "type": "cherry_picked_examples",
+      "detail": "A single successful walkthrough is the entire result. Failures, hallucinated tests and rejected merge requests are not reported."
+    },
+    {
+      "type": "closed_artifacts",
+      "detail": "No repository, model name, prompt or graph export."
+    },
+    {
+      "type": "novelty_inflation",
+      "detail": "Change-impact graphs, coverage gaps and generated unit tests are existing ideas. The paper's novelty claim is that nobody has combined them for telecom, which Table 1 asserts rather than measures."
+    },
+    {
+      "type": "missing_cost_reporting",
+      "detail": "No token, latency or graph-maintenance cost."
+    }
+  ],
+  "coi": {
+    "affiliations": "Ericsson R&D Bangalore (Gautam Prasad, Chandramohan T. N., Joy Bose).",
+    "vendor_products_evaluated": "None by name. The proposed framework is aimed at telecom testing, the authors' employer's domain. GitLab is the host forge in the demo.",
+    "funding": "No funding or competing-interest statement.",
+    "severity": "low",
+    "detail": "Vendor affiliation with no quantitative self-grading of a shipped Ericsson product. The risk is a design paper written for the employer's domain, not a leaderboard."
+  },
+  "scores": {
+    "rigor": 1,
+    "reproducibility": 0,
+    "generalizability": 1,
+    "relevance": 2,
+    "coi_risk": 2
+  },
+  "verdict": "reject",
+  "verdict_reason": "A design sketch for graph-conditioned test updates, not evidence. The abstract's claims about effort, relevance and cycle time are withdrawn by the authors' own limitations section, the only run is an unmeasured six-feature Python demo, and the network scenarios were never executed.",
+  "applicability": "The team's harness does need a maintained map from requirements and specs to tests across repositories, and a human merge gate before generated tests land. This paper names that shape (coverage edges, delta, MCP tools, merge request) and then shows it only on one small Python app, with the model, prompts and graph unspecified. It does not say whether the loop works for Java, for more than one repository, or for any defect. Do not treat the telecom scenario list or Table 1 as findings.",
+  "conflicts_with": []
+}

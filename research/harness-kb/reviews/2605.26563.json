@@ -1,0 +1,53 @@
+{
+  "arxiv_id": "2605.26563",
+  "contribution_type": "empirical",
+  "summary": "Singapore Management University authors build RootSE, 102 failed repository-level coding trajectories annotated with the earliest decisive error step, and TrajAudit, an investigator that folds low-signal observations and is primed with a guess from the test failure. On their own benchmark, with Claude Sonnet 4.5, exact step accuracy is 49.0% with a reference patch and 52.0% without, against adapted Who&When, TRAIL and FAMAS baselines. Ablations attribute most of the gain to the failure prior and the folding. Early planning errors remain hard: accuracy falls to 19-26% when the labelled step is in the first fifth of the trace.",
+  "claims": [
+    {"claim": "TrajAudit beats the strongest baseline by 10.8 and 21.6 percentage points in exact step accuracy with and without a reference patch", "evidence": "Table II: with reference 49.0% vs TRAIL 38.2% (+10.8 pp); without reference 52.0% vs TRAIL and FAMAS at 30.4% (+21.6 pp). Table III McNemar on the without-reference setting: p < 0.001 against all five baselines. One temperature-0 run. Context-window overflows are counted as failures (All-at-Once 3, Binary Search 2, TRAIL 1).", "strength": "moderate", "location": "§VII-A1, Tables II-III"},
+    {"claim": "The advantage holds under a tolerance window, on long traces, and for justification text", "evidence": "Table IV, no reference: Tol@3 65.7% vs TRAIL 50.0% and FAMAS 52.0%. Figure 6: still ahead in every length bucket, including 55.0% vs 35.0% on traces of at least 71 steps. Table V justification accuracy 52.9% vs best baseline All-at-Once 42.4%, judged by Claude Sonnet 4.5. A human check of 180 justifications (30 per method) agreed with that judge on 93.3%.", "strength": "moderate", "location": "§VII-A2 to §VII-A4, Tables IV-V"},
+    {"claim": "Both semantic saliency folding and the test-failure prior are necessary", "evidence": "Table VII, no reference, Claude only: dropping the prior cuts exact accuracy 52.0% to 34.3% and tokens 138.2K to 125.5K; dropping folding cuts exact accuracy to 38.2% and justification accuracy 52.9% to 36.0%, while tokens fall to 86.2K. Folding keeps full text for 5.4% of steps and the agent later expands 20.2% of folded steps. The investigator loop itself is not compared with a single pass over the same folded trace.", "strength": "moderate", "location": "§VII-D, Table VII"},
+    {"claim": "The gain is not specific to one backbone", "evidence": "Table VI runs TrajAudit only, not the baselines, on five models. Tol@0 ranges from Qwen3-235B 40.2% to Gemini 3.1 Pro 55.9%; justification accuracy from 32.4% to 52.9%. The weakest TrajAudit Tol@0 still exceeds the Claude-only best baseline (30.4%), which does not show what those baselines would do on Gemini or GPT-5.2.", "strength": "weak", "location": "§VII-C, Table VI"},
+    {"claim": "RootSE labels are reliable causal steps", "evidence": "Two annotators, Cohen's kappa 0.78 on the step index, third-person arbitration. A counterfactual edit of the labelled step, written by the annotators, made 30 of 30 sampled runs pass. That does not show the step is the only cause, and 72 of 102 labels were not replayed. Instances were filtered from 500 traces down to those with exactly one failing test and an unambiguous task.", "strength": "moderate", "location": "§IV-C, §IX"}
+  ],
+  "patterns": [
+    {"id": "P08", "stance": "supports", "note": "Inside the same investigator, folding observations that lack a patch or a failure keyword raises exact accuracy by 13.8 pp and justification accuracy by 16.9 pp versus keeping the raw trace (Table VII). The fold is regex and keyword matching, not a summary, and it increases total tokens because the agent then unfolds on demand."},
+    {"id": "P30", "stance": "supports", "note": "Step-level audit of a failed coding-agent trace beats full-trace prompting and an adapted spectrum method on RootSE (Tables II-III). The benchmark was built by the same authors, runs are single-shot, and 81% of remaining errors are late by 14.5 steps on average, especially when the mistake is an early plan."},
+    {"id": "P43", "stance": "neutral", "note": "Localization-phase mistakes are 42 of 102 labelled failures (41.2%). TrajAudit inspects the agent's log, not the repository, so it does not test a codebase exploration agent. It does say that an audit which waits for a visible code change will miss the exploration or planning step that sent the agent the wrong way."},
+    {"id": "P24", "stance": "mixed", "note": "Figure 7: TrajAudit is 52.0% exact accuracy at 138K tokens; FAMAS is 30.4% at 47K. Neither dominates the other on both axes. Step-by-step uses 306K tokens and is worse. A token cap is not itself the intervention."}
+  ],
+  "methodology": {
+    "sample": "RootSE: 102 failed trajectories, about 5,000 steps, filtered from 500. 35 repositories; Python 73, Go 24, JavaScript 5. Agents: SWE-agent 53, OpenHands 30, AutoCodeRover 10, Live-SWE-agent 9. About 85% bug fixes",
+    "baselines": "All-at-Once, Step-by-Step and Binary Search from Who&When; TRAIL retargeted to a single earliest step; FAMAS using at least three trajectories per case, including extra failures when no successful run exists. AgenTracer excluded because weights are unavailable. All prompts include the RootSE guideline",
+    "models": "Default Claude Sonnet 4.5 (temperature 0). Table VI also Gemini 3.1 Pro, GPT-5.2, DeepSeek V4 Pro, Qwen3-235B, for TrajAudit only. Justification judge is Claude Sonnet 4.5",
+    "variance": "Temperature 0, one run per method. McNemar on paired instance outcomes. No seeds or intervals",
+    "ablations": "Remove prior failure reasoning; remove semantic saliency folding. No ablation of the tool-using investigator versus one shot on the folded trace",
+    "contamination_controls": "Tasks come from SWE-bench, SWE-bench Pro and SWE-rebench. No split of results by whether the issue or repository was likely in the diagnoser model's training data. The diagnosis target is a newly generated trace, not the issue solution",
+    "languages": "Python 71.6%, Go 23.5%, JavaScript 4.9%. No Java"
+  },
+  "standards": {
+    "peer_review": "arXiv v3, no comment and no journal_ref",
+    "limitations_section": true,
+    "artifacts": "RootSE, implementation and reproduction artifacts claimed at github.com/LogAnalysisTech/TrajAudit. The folding keyword list and agent tools are described; full prompts are not printed in the paper",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "self_evaluation", "detail": "The system and the only test set were built by the same authors. Labels, the 30 counterfactual repairs, and the error taxonomy in §VIII are theirs."},
+    {"type": "selection_bias_participants", "detail": "Ambiguous tasks, tests that check unstated requirements, and multi-test failures were removed (500 to 102). The set under-represents the ambiguous specifications a real rollout would see."},
+    {"type": "small_sample", "detail": "102 instances. The causal check covers 30. Language slices other than Python are small (JavaScript n=5)."},
+    {"type": "no_variance_reported", "detail": "Single temperature-0 run. Backbone and ablation gaps have no repeat-run interval."},
+    {"type": "strawman_baseline", "detail": "FAMAS is fed extra failed traces when a successful contrast run does not exist, and methods that overflow the context window are scored as total failures. Baselines were not re-run on the five Table VI backbones."},
+    {"type": "survivorship", "detail": "Only failed traces with exactly one failing test are kept, so the benchmark cannot speak to partial success or multi-requirement failures."}
+  ],
+  "coi": {
+    "affiliations": "Singapore Management University",
+    "vendor_products_evaluated": "Claude, Gemini, GPT, DeepSeek and Qwen as diagnoser backbones; SWE-agent, OpenHands, AutoCodeRover and Live-SWE-agent as trace sources. Authors are not affiliated with those vendors",
+    "funding": "Not stated",
+    "severity": "none",
+    "detail": "Academic benchmark and method. No vendor product is ranked as a deployment recommendation."
+  },
+  "scores": {"rigor": 3, "reproducibility": 4, "generalizability": 3, "relevance": 3, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "The paired accuracy gaps are large, McNemar-significant, and backed by a component ablation and a small human check of the justification judge. They are still one run on a benchmark the authors built and filtered, the multi-model table does not re-run the baselines, and the method systematically misses early planning mistakes, which is where an exploration failure would sit.",
+  "applicability": "For a team rolling out coding agents, this is a log-audit design, not a way to explore the Java repositories before writing a spec. A useful piece is the split between a cheap prior from the failing test and on-demand expansion of the trace, instead of stuffing the whole tool log into the diagnoser. Do not expect it to catch the first wrong plan: when the labelled error is in the first 20% of steps, accuracy is 19-26%, and 81% of misses point too late. The traces are single-agent, mostly Python, and only single-test failures, so a multi-repo Java change with several failing checks is outside the evidence. Treat the 52% exact-step figure as a result on their own set.",
+  "conflicts_with": []
+}

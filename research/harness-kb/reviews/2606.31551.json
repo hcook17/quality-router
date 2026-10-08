@@ -1,0 +1,129 @@
+{
+  "arxiv_id": "2606.31551",
+  "contribution_type": "empirical",
+  "summary": "AutoTrainess wraps a coding agent in a fixed post-training workflow: stage rules in an AGENTS.md-style hub, LlamaFactory training scripts, data selection and validation, a canonical eval entrypoint, and an experiment log the next iteration must read. On PostTrainBench the headline Codex configuration scores 26.94 against 23.21 for a raw CLI, and a DeepSeek OpenCode pair moves from 12.13 to 19.58. The task is autonomous language-model training, not software development, and the average hides losses on AIME, on Gemma, and on HumanEval for the model used in the ablations.",
+  "claims": [
+    {
+      "claim": "AutoTrainess consistently beats CLI-only agents on PostTrainBench: 26.94 versus 23.21 for GPT-5.4 (Codex), and 19.58 versus 12.13 for DeepSeek-V4-Flash (OpenCode).",
+      "evidence": "Table 1 reports those averages. The same table shows Gemma-4B falling for GPT-5.4 Codex (24.88 to 23.88) and for GPT-5.4 OpenCode (22.32 to 21.20). Appendix Tables 3 and 9: on AIME the Codex average falls from 3.33 to 1.67, and on HumanEval the Qwen3-4B Codex cell falls from 63.41 to 47.56. The body text admits a decrease on Gemma and still calls the result consistent. Instruct-model average in Table 1 is 51.14, so 26.94 is far from a trained instruct model. No repeated runs.",
+      "strength": "moderate",
+      "location": "Abstract; §3.2; Table 1; Appendix D Tables 3 and 9"
+    },
+    {
+      "claim": "Each interface contributes: on the Qwen3-4B Codex slice, removing data, training, evaluation, or logging-and-planning drops the score by 3.5, 12.4, 8.6 and 8.5 points from 32.6.",
+      "evidence": "Table 2. Removing training falls to 20.2, below the CLI-only row of 26.7, so the ablation can destroy the loop rather than compare a fair alternative. Table 2's CLI-only 26.7 does not match Table 1's 27.09 for the same Qwen3-4B Codex CLI cell. Failure-rate and handoff counts in §3.3–3.4 are single pools of trajectories.",
+      "strength": "moderate",
+      "location": "§3.3, Table 2"
+    },
+    {
+      "claim": "Gains come from benchmark alignment and targeted correction, and the behavior taxonomy shows agents front-load format matching then synthesize benchmark-shaped data.",
+      "evidence": "Section 3.5 and Figure 8: benchmark-related data, template changes and prompt alignment are among the behaviors most often tied to improvements; DPO-style updates improve in 1 of 35 occurrences. Labels are from an unvalidated LLM judge. The data skill's own rules tell the agent to match the benchmark interface and to filter leakage, but no independent leakage audit is reported. BFCL Codex averages reach 96.75 against an instruct average of 85.00 (Appendix Table 5).",
+      "strength": "weak",
+      "location": "§3.5, Fig. 8; Appendix C; Appendix Table 5"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P01",
+      "stance": "introduces",
+      "note": "Appendix C prints an AGENTS.md with hard constraints, stage rules and stop conditions for the training repo. It is not compared to the same tools without that file."
+    },
+    {
+      "id": "P02",
+      "stance": "introduces",
+      "note": "Data, train, eval and plan skills are separate instruction files. Ablations remove whole interfaces, not the on-demand loading policy."
+    },
+    {
+      "id": "P36",
+      "stance": "supports",
+      "note": "A fixed stage order beats a raw CLI on the authors' weighted PostTrainBench average, and dropping eval or logging-and-planning hurts that average and raises eval-command failures. The win is not uniform across benchmarks or base models, and the CLI is an underspecified shell rather than another structured trainer."
+    },
+    {
+      "id": "P33",
+      "stance": "mixed",
+      "note": "The paper's point is that a raw CLI action space is a poor training harness. Constraining the agent to LlamaFactory scripts helps the weighted score and hurts some cells, including HumanEval on Qwen3-4B."
+    },
+    {
+      "id": "P09",
+      "stance": "supports",
+      "note": "Removing the experiment log and planner cuts Qwen3-4B from 32.6 to 24.1 and is described as collapsing train-to-eval handoffs from 111 to 30. That is one slice, one run pool."
+    },
+    {
+      "id": "P30",
+      "stance": "introduces",
+      "note": "Each iteration must append motivation, config, result and next action. The log is not checked for accuracy against the actual commands."
+    },
+    {
+      "id": "P25",
+      "stance": "neutral",
+      "note": "The agent runs SFT and sometimes DPO or LoRA. The paper is about the harness around training, and DPO is among the weaker behaviors in their own tally."
+    }
+  ],
+  "methodology": {
+    "sample": "PostTrainBench: 4 base models (Qwen3-1.7B, Qwen3-4B, SmolLM3-3B, Gemma-3-4B) and 7 benchmarks (AIME 2025, ArenaHard, BFCL, GPQA, GSM8K, HealthBench, HumanEval), 10-hour budget, one H20 GPU. Ablations on the Qwen3-4B Codex slice.",
+    "baselines": "CLI-only Codex and OpenCode with the same agent models. No human trainer, no fixed LlamaFactory script without an agent, and no other research-agent harness.",
+    "models": "Agent backbones GPT-5.4 (Codex and OpenCode) and DeepSeek-V4-Flash (OpenCode). Student models are the four bases above. Training backend fixed to LlamaFactory.",
+    "variance": "No seeds, repeats, or intervals. Ten-hour runs appear to be n=1 per cell. Behavior counts are pooled.",
+    "ablations": "Drop data processing, training interface, evaluation interface, or logging and planning, on Qwen3-4B with GPT-5.4 Codex.",
+    "contamination_controls": "The data skill instructs the agent to avoid leakage, and validation is supposed to reject contaminated samples. No held-out audit of training text against the seven benchmarks. The reported mechanism is deliberate benchmark-format alignment.",
+    "languages": "Python training and eval scripts. HumanEval is the only code-generation target, and it is not where the Codex gain comes from."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint (cs.CL, 2026-06-30). No venue, comment or journal_ref.",
+    "limitations_section": false,
+    "artifacts": "Code and data claimed at https://github.com/simple-agent-lab/AutoTrainess. Appendix C reproduces the workflow instructions.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {
+      "type": "hype_language",
+      "detail": "Abstract says the method consistently outperforms CLI-only. Table 1 and Appendix D show losses on Gemma-4B, on AIME, and on HumanEval for Qwen3-4B Codex."
+    },
+    {
+      "type": "benchmark_overfit",
+      "detail": "The harness tells the agent to inspect the benchmark entrypoint and build benchmark-aligned data. Section 3.5 attributes gains to that alignment. BFCL scores for Codex AutoTrainess sit above the official instruct models."
+    },
+    {
+      "type": "strawman_baseline",
+      "detail": "The only baseline is a raw shell with an underspecified prompt. A competent fixed training script is not compared. Removing the training interface drops below that shell, which suggests the ablation removed the working path."
+    },
+    {
+      "type": "no_variance_reported",
+      "detail": "Single 10-hour trajectory per model-benchmark-harness cell. The weighted headline moves about 3.7 points."
+    },
+    {
+      "type": "llm_judge_unvalidated",
+      "detail": "The 26-way behavior taxonomy is labeled by an LLM judge with no human agreement check."
+    },
+    {
+      "type": "metric_mismatch",
+      "detail": "The aggregate up-weights benchmarks where instruction tuning barely beats the base model. A reader can treat 26.94 as general post-training quality; the appendix shows the code benchmark and the math benchmark not improving."
+    },
+    {
+      "type": "self_reported_numbers",
+      "detail": "Table 2 lists CLI-only at 26.7 on Qwen3-4B; Table 1 lists 27.09 for that same cell."
+    },
+    {
+      "type": "contamination_risk",
+      "detail": "No measurement of overlap between synthesized or downloaded training data and AIME 2025, GPQA, GSM8K, BFCL or HumanEval."
+    }
+  ],
+  "coi": {
+    "affiliations": "Tsinghua University, The Chinese University of Hong Kong, and Simple Agent Lab.",
+    "vendor_products_evaluated": "GPT-5.4 via Codex and OpenCode, DeepSeek-V4-Flash via OpenCode, LlamaFactory as the training backend. The system under test is the authors' agent, released under simple-agent-lab.",
+    "funding": "No funding statement in the text.",
+    "severity": "low",
+    "detail": "Authors evaluate their own harness and host the code under Simple Agent Lab. They do not grade a commercial model they sell. Model vendors are used as backbones, not as the claimed winner."
+  },
+  "scores": {
+    "rigor": 3,
+    "reproducibility": 3,
+    "generalizability": 2,
+    "relevance": 1,
+    "coi_risk": 1
+  },
+  "verdict": "reject",
+  "verdict_reason": "Off-topic. This is an agent harness for language-model post-training, not discovery, onboarding, codebase exploration, or developer learning. On its own terms the weighted average does rise versus a raw CLI, but 'consistently' is false (Gemma, AIME, and the ablated model's HumanEval), runs are unreplicated, the baseline is a bare shell, and the winning behavior is teaching to the benchmark format.",
+  "applicability": "Do not import this as evidence for the Java spec or onboarding workflow. The only adjacent idea is that a long-horizon agent does better with a written stage contract, a fixed tool backend, and a log the next step must read, than with an open shell. That idea is already the harness's own direction, and this paper does not test it on repository work. The code-generation slice they do report gets worse for the configuration they ablate.",
+  "conflicts_with": []
+}

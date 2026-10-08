@@ -1,0 +1,54 @@
+{
+  "arxiv_id": "2605.21943",
+  "contribution_type": "empirical",
+  "summary": "Monash and Singapore Management University compare three summarisers on 150 Java files from two teaching repositories and a Spring Framework sample, covering nine design patterns. A shared JavaParser pipeline feeds a rule-based NLG realiser, a SWUM realiser, and Mixtral-8x22B (temperature 0, 50-word prompt). Summaries are scored against one existing human reference with cosine similarity and BERTScore, and ranked by Llama 3 70B on five rubric criteria. LLM summaries lead on cosine similarity and on the semantic rubric ranks; the conciseness edge for NLG does not survive correction, and a promised length-control experiment is not reported.",
+  "claims": [
+    {"claim": "Mixtral summaries align more closely with human references than the two deterministic pipelines", "evidence": "Table 2: cosine 0.3351 (LLM) vs 0.2532 (SWUM) vs 0.1657 (NLG); BERTScore F1 0.8799 vs 0.8754 vs 0.8473. Wilcoxon on 150 pairs: LLM beats NLG on both metrics and beats SWUM on cosine (median differences -0.165 and -0.085). BERTScore F1 LLM vs SWUM is not significant (median difference 0.001). The conclusion's 'large to very large effect sizes' are not given as numbers anywhere in the body.", "strength": "moderate", "location": "§5.1, Table 2"},
+    {"claim": "LLM summaries win accuracy, adequacy, code-context awareness and design-pattern fidelity, while deterministic summaries are more concise", "evidence": "Table 3 (Llama 3 70B, no ties): LLM is ranked first on accuracy 145/149, adequacy 144/150, code context 143/149 and design-pattern fidelity 133/147. NLG is first on conciseness 81/149 vs LLM 67/149. Friedman tests are significant, but the NLG-vs-LLM conciseness contrast does not survive Bonferroni (adjusted p = 0.131). The judge is not checked against developers. The reported Spearman values correlate each criterion with an aggregate of the same judge, not with a second rater.", "strength": "weak", "location": "§5.2, Table 3"},
+    {"claim": "The same ordering holds across all nine design patterns", "evidence": "Table 5: LLM has the highest cosine on every pattern (n per pattern 10-29). BERTScore F1 is close, and SWUM is slightly ahead on Observer and Visitor. Table 6 ranking counts also put LLM first on every pattern. Table 4 word-count stats are not labelled by method, so they do not show a cross-method length trade-off.", "strength": "moderate", "location": "§5.3, Tables 5-6"},
+    {"claim": "Five identical Mixtral runs keep the same aggregate ranking, so probabilistic summaries are stable enough to compare", "evidence": "Table 7: mean cosine stays about 0.329-0.334 and mean BERTScore F1 about 0.879-0.880 across five runs. Table 8 pools rubric wins (LLM 87-94% of semantic first places; NLG 62% of conciseness). No per-file disagreement rate is reported, so surface instability is asserted rather than measured. Temperature was 0 via a hosted API with no seed.", "strength": "moderate", "location": "§5.4, Tables 7-8"},
+    {"claim": "Explicit length targets of 20, 40, 60 and 80 words change LLM outputs but do not make them as controllable as deterministic summaries", "evidence": "Stated in §1 and §5.4. No table, distribution, or adherence rate for those four prompts appears in the results.", "strength": "unsupported", "location": "§1, §5.4"}
+  ],
+  "patterns": [
+    {"id": "P08", "stance": "mixed", "note": "The generation stage is isolated: the same parsed JSON feeds NLG, SWUM and Mixtral. Mixtral wins cosine similarity and the semantic rubric ranks; SWUM matches it on BERTScore F1; the conciseness advantage for NLG is not significant after correction. A hybrid (short deterministic summary plus optional LLM expansion) is recommended in §6 and not tested."},
+    {"id": "P18", "stance": "neutral", "note": "Llama 3 70B is the only judge of the five rubric criteria. It is a different model from the generator, but it is not validated against human ratings on this corpus. The consistency analysis is internal to that judge."},
+    {"id": "P41", "stance": "neutral", "note": "The introduction and §6 recommend LLM summaries for onboarding and design-rationale reading. No developer reads the summaries, and no comprehension or task outcome is measured. Similarity to an existing reference summary is not evidence that a new developer learns the code."}
+  ],
+  "methodology": {
+    "sample": "150 Java files, one human reference summary each, from the prior DPS corpus: two educational GitHub repos plus a Spring Framework sample, nine patterns (10-29 files each)",
+    "baselines": "The authors' own DPS rule-based NLG and a Java SWUM realiser on the same JSON. No current code-summarisation model (CodeT5, a prompted frontier model, or unmodified Javadoc). Table 1 shows the SWUM outputs as broken phrases, so the deterministic arm is a weak implementation",
+    "models": "Mixtral-8x22B via OpenRouter for generation (temperature 0, 512-token cap); Llama 3 70B as the sole rubric judge",
+    "variance": "Wilcoxon and Friedman tests with Bonferroni on the main comparisons. Five repeat generations for the default prompt. No confidence intervals, and the claimed effect sizes are not printed. Length-target runs are not tabulated",
+    "ablations": "Dropping the word 'concise' (Table 2, slightly worse cosine). Promised 20/40/60/80-word prompts are not reported. No ablation of the shared pattern detector, which is assumed correct",
+    "contamination_controls": "None. References come from an earlier public corpus; Mixtral's training overlap with Spring and the teaching repos is unchecked",
+    "languages": "Java only"
+  },
+  "standards": {
+    "peer_review": "Manuscript header names ESEIW/ESEM 2026; arXiv comment says 'ESEM conference'. No journal_ref or DOI",
+    "limitations_section": true,
+    "artifacts": "Corpus, three pipelines, references and scripts claimed at an anonymous.4open.science URL with no stable path. The default system prompt is printed in §4.2.2",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "llm_judge_unvalidated", "detail": "All rubric rankings are one Llama 3 70B pass. Label randomisation is the only bias control. Spearman is computed against the judge's own aggregate."},
+    {"type": "single_model", "detail": "One generator (Mixtral-8x22B) and one judge. The threats section notes that another model could change the trade-off."},
+    {"type": "strawman_baseline", "detail": "SWUM summaries in Table 1 are ungrammatical ('provides methods to create, create, check'). Beating that realiser does not show that an LLM beats a competent deterministic summariser."},
+    {"type": "metric_mismatch", "detail": "Developer usefulness is inferred from embedding similarity to one reference and from an LLM rubric. No maintainer rates the summaries or uses them in a task."},
+    {"type": "hype_language", "detail": "Abstract and conclusion call the conciseness trade-off clear and the effects large. The conciseness contrast fails Bonferroni, BERTScore F1 ties SWUM, and effect-size numbers are absent."},
+    {"type": "no_variance_reported", "detail": "Five-run means are stable, but instance-level wording changes and the length-constraint condition have no variance or adherence figures."}
+  ],
+  "coi": {
+    "affiliations": "Monash University; Singapore Management University",
+    "vendor_products_evaluated": "Mixtral via OpenRouter; Llama 3 as judge. Neither vendor employs the authors",
+    "funding": "Not stated",
+    "severity": "none",
+    "detail": "Academic comparison. The deterministic systems descend from the authors' earlier DPS work, which is a baseline here rather than a product being promoted."
+  },
+  "scores": {"rigor": 3, "reproducibility": 2, "generalizability": 2, "relevance": 4, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "The shared parser makes the generator the only moving part, the cosine gap versus NLG is large and tested on 150 paired files, and five repeats show stable means. The headline trade-off does not hold as stated: BERTScore F1 does not separate Mixtral from SWUM, conciseness loses significance after correction, the rubric judge was never checked against developers, the SWUM arm looks broken in the paper's own examples, and the length-control experiment is missing from the results.",
+  "applicability": "Useful only as a caution for Java documentation of pattern-heavy code, including a Spring sample. A fluent LLM class summary can sit closer to a human reference than a template, but this study never checked whether a new developer understands the class better, and the brevity advantage of the template is not statistically secure. Do not set a word cap and assume the model will honour it: the 20/40/60/80-word runs were not published. For review comments and in-IDE notes, keep a deterministic extraction of roles, collaborators and call relations, and treat any LLM paragraph as unverified prose. The corpus is single-file and pattern-selected, so it says nothing about summaries that must stay correct across the team's four or more repositories.",
+  "conflicts_with": [
+    {"arxiv_id": "2607.08885", "detail": "That study found LLM explanations did not improve code-comprehension accuracy and that under-specified explanations raised confidence. This paper recommends LLM summaries for onboarding and design-rationale reading on the basis of similarity to reference text and an LLM rubric, without a comprehension measure."}
+  ]
+}

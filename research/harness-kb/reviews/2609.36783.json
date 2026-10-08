@@ -1,0 +1,93 @@
+{
+  "arxiv_id": "2609.36783",
+  "contribution_type": "empirical",
+  "summary": "An interpretability study of six frozen diffusion code models (DiffuCoder-7B, Dream-Coder-7B, Stable-DiffCoder-8B, UltraLLaDA-8B, LLaDA2.0-mini, LLaDA-flash). It fits difference-of-means linear probes on pooled residual-stream activations to tell passing from failing MBPP+ attempts at the same problem, then tries to steer generation along the probe direction. Probes read correctness above chance (peak within-problem AUC about 0.67-0.82), but do not consistently beat the model's own confidence. Steering toward 'correct' does not improve pass rates, and steering the other way hurts.",
+  "claims": [
+    {
+      "claim": "Linear probes distinguish passing from failing attempts in all six diffusion models, with the strongest reads beyond the early layers.",
+      "evidence": "Figure 2 and Table A1 give peak AUCs of 0.67-0.81 in the original comparison. The reported value is the maximum over layers, chosen on the same out-of-fold scores with no separate layer-selection holdout, so the peaks are optimistic. The Figure 2 curves are 'reconstructed from result summaries' and peak at different layers than the original estimates in five of six models.",
+      "strength": "moderate",
+      "location": "§4.1, Figure 2, Appendix A Table A1"
+    },
+    {
+      "claim": "Mutation controls show the probe tracks correctness rather than surface style.",
+      "evidence": "DiffuCoder only: AUC 0.670 on 392 MBPP+ mutants and 0.692 on 334 HumanEval+ mutants, plus 0.774 on mutations of its own code. These are point estimates; the bootstrap procedure is admitted to be invalid (repeated draws merged).",
+      "strength": "moderate",
+      "location": "§4.1, Appendix B Table A2"
+    },
+    {
+      "claim": "Probes offer no consistent advantage over model confidence.",
+      "evidence": "Table 1: DiffuCoder probe 0.842 vs negative token entropy 0.838 on only 19 mixed problems (95 attempts); Qwen2.5-Coder probe 0.677 vs log-probability 0.703. The authors explicitly decline significance or equivalence claims.",
+      "strength": "moderate",
+      "location": "§4.2, Table 1, §5.3"
+    },
+    {
+      "claim": "Steering along the probe direction does not dependably improve generation, while the opposite direction degrades it.",
+      "evidence": "Fig. 4: pass@1 0.433 baseline, 0.429 random, 0.388 positive probe, 0.298 negative. Table A3 (30 tasks): baseline 15, positive global 14, negative global 5, positive conditional 15, learned direction 5. With 30 tasks, a one-task difference is noise, and repeated untreated bf16 runs had different pass counts. The negative-direction harm (5 of 30) is the only large effect.",
+      "strength": "moderate",
+      "location": "§4.4, Figure 4, Appendix D Table A3"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P18",
+      "stance": "neutral",
+      "note": "Looks at cheap internal correctness signals (probe or token confidence, AUC about 0.68-0.84) as possible verifiers. They are not LLM reviewers, and the paper shows they neither beat output confidence nor repair code. Unit tests remain the label and the arbiter."
+    }
+  ],
+  "methodology": {
+    "sample": "MBPP+ (main) and HumanEval+ (mutation controls). Cohorts per analysis range from 19 to 56 mixed problems (95-448 attempts). Steering uses 30 evaluation tasks.",
+    "baselines": "Shuffled-label nulls for probes, ten matched-norm random directions for steering, an untreated generation baseline, and model-confidence scores (token entropy, log-probability).",
+    "models": "Six diffusion code models; autoregressive comparisons with Qwen3-Coder, GLM-4.5-Air (SWE-bench-derived rollouts) and Qwen2.5-Coder (MBPP+).",
+    "variance": "Five noise seeds for three models in the perturbation study; standard deviation across ten random steering directions. The bootstrap is admitted to be invalid and the permutation test does not refit probes, so there are no valid significance claims.",
+    "ablations": "Residual noise, attention-edge removal, steering only at still-masked positions, a learned direction optimized for reference-token log-probability, and final-layer versus normalized-state probes.",
+    "contamination_controls": "None stated. MBPP+ and HumanEval+ are old public benchmarks.",
+    "languages": "Python only."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint (v2); no venue or journal_ref.",
+    "limitations_section": true,
+    "artifacts": "A project repository and supplementary package with probe and steering scripts, figure data and per-task steering outcomes. Activation arrays, capture helpers and consistently recorded model and dataset revisions are missing, so the model experiments cannot be rerun exactly.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {
+      "type": "small_sample",
+      "detail": "The confidence comparison rests on 19 mixed problems and steering on 30 tasks. Cohorts differ across analyses, so 16-step and 32-step results cannot be compared."
+    },
+    {
+      "type": "no_variance_reported",
+      "detail": "The authors themselves say the uncertainty estimates are miscalibrated (merged bootstrap draws, no refit under permutation, no holdout for layer selection), so only point estimates are reported."
+    },
+    {
+      "type": "single_language_python",
+      "detail": "MBPP+ and HumanEval+ are short Python function tasks."
+    },
+    {
+      "type": "toy_tasks",
+      "detail": "Single-function programming puzzles, unrelated to repository-scale software work."
+    },
+    {
+      "type": "other:internal_inconsistency",
+      "detail": "The reconstructed layer curves disagree with the original peak estimates in five of six models (Appendix A). Repeated untreated steering rows gave different pass counts."
+    }
+  ],
+  "coi": {
+    "affiliations": "Duke University; perseus.so; Efficient Computation Inc.",
+    "vendor_products_evaluated": "None of the authors' products are evaluated; all models are third-party open weights.",
+    "funding": "No funding statement in the available text.",
+    "severity": "none",
+    "detail": "A startup affiliation, but the paper reports mostly negative results about third-party models, with nothing to sell."
+  },
+  "scores": {
+    "rigor": 2,
+    "reproducibility": 2,
+    "generalizability": 1,
+    "relevance": 0,
+    "coi_risk": 0
+  },
+  "verdict": "reject",
+  "verdict_reason": "Off-topic: this is model-internals interpretability of diffusion language models on Python function puzzles, not software-development practice, codebase discovery, onboarding or any harness decision. On its own terms it is an honest negative result: probes read correctness, do not beat output confidence, and steering does not help. But it rests on 19-30-problem cohorts, layer selection without a holdout, admittedly miscalibrated uncertainty, and reconstructed figures that disagree with the original estimates.",
+  "applicability": "Does not transfer. A Java team using hosted frontier models through agent hosts has no access to residual-stream activations and would not use diffusion code models. The only loose takeaway is consistent with harness practice: internal or confidence-based 'is this correct?' signals are at best a weak ranking hint (AUC about 0.7-0.84 on toy tasks) and do not repair code, so executable tests and compile checks remain the verifier.",
+  "conflicts_with": []
+}

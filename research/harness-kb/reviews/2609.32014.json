@@ -1,0 +1,128 @@
+{
+  "arxiv_id": "2609.32014",
+  "contribution_type": "empirical",
+  "summary": "A descriptive repository-mining study by the authors of the 'methodological harness' framework (eight team mechanisms for agentic SE). It asks whether those mechanisms leave traces in GitHub repositories with agent-authored PRs. It draws 5,435 cloned repositories from the AIDev dataset, stratified by stars, and detects seven mechanisms through canonical file paths: rule files, ADRs, specs/OpenAPI/Gherkin, PR templates and CODEOWNERS. It also hand-codes 285 rule files from 150 repositories against the framework's categories. Reweighted to the population, 21.7% of repositories have any mechanism (65.3% of the popular stratum); multi-mechanism configurations are rare; rule files mostly orient the agent and state norms. No outcome or effect is measured.",
+  "claims": [
+    {
+      "claim": "Population prevalence of at least one harness mechanism is 21.7%, versus 65.3% in the most visible repositories, and every mechanism declines monotonically with visibility.",
+      "evidence": "Table 5 gives per-stratum Wilson intervals and a population-weighted estimate. The gradient holds with intervals separated for H1, H3, H7 and H8. Sensitivity checks barely move the figures: counting stub rule files adds 0.3 points (Table 11), and keeping only repositories with two or more agentic PRs gives 27.9% (Table 12). This is solid for what the detectors measure, but 'mechanism adoption' is operationalized as file presence: CODEOWNERS counts as graduated autonomy, a PR template as evidence-based acceptance, and any openapi.yaml or *.feature file as an executable specification. These are pre-agent artifacts, and the authors' own team-presence reading suggests the gradient partly measures team size.",
+      "strength": "moderate",
+      "location": "§4.2.1-4.2.2, Tables 5, 11, 12"
+    },
+    {
+      "claim": "The harness is adopted as isolated artifacts, not as an integrated system: multi-mechanism configurations are rare.",
+      "evidence": "Table 8: only 2.6% of the popular stratum has 4-5 of the five common mechanisms, and the mode is zero mechanisms in three of four strata. Co-occurrence: H1 with H3 appears in 182 of 5,435 repositories and H1 with H2 in 66. This is a direct count, though bounded by the same path-based detectors, which the authors say are lower bounds.",
+      "strength": "strong",
+      "location": "§4.2.3-4.2.4, Table 8, Figure 3"
+    },
+    {
+      "claim": "Rule files almost always guide the agent and state norms, while persistent knowledge, executable specifications, prescribed consultation and graduated autonomy appear only in a minority.",
+      "evidence": "Table 15 is human coding of 150 repositories (60/30/30/30 by stratum). M1 is 93-100% and M5 87-97%; M2 10-27%, M3 10-20%, M6 5-20%, M8 13-27%. Inter-coder kappa is at least 0.60 on a 30-item overlap, but only after a codebook amendment and five post-hoc 'transcription corrections' (Tables 13-14); M1 passed on raw agreement with kappa 0.47. With n=30 per stratum, the between-stratum differences are not resolvable.",
+      "strength": "moderate",
+      "location": "§4.3, Tables 13-15"
+    },
+    {
+      "claim": "Agentic-era mechanisms roughly doubled between the observed PRs and cloning, while pre-existing governance artifacts barely moved; the paper calls this 'the most direct evidence' for the framework's core thesis.",
+      "evidence": "Table 9 covers stratum P only (33,596 PRs). The E1/E2 ratio is 2.11 for H1, 2.12 for H2 and 2.00 for H3, against 1.18 for H7 and H8, and 58.3% of rule files appeared after the AIDev window. The ratios are descriptive. H2 goes from 0.7% to 1.4%, so its ratio rests on a tiny base. Rule files became common for everyone in 2025, so a doubling shows uptake, not that agents 'compel' a methodological layer.",
+      "strength": "weak",
+      "location": "§4.2.5, §6.3, Table 9"
+    },
+    {
+      "claim": "Structured consultation (an agent pausing to ask a bounded question) is 'real and frequent' in PR comments.",
+      "evidence": "Table 10: 53 confirmed consultations in 536 hand-coded comments, but the sample was drawn mostly from the blocks the classifier flagged (236 census items yielded all 53), against 0 of 300 sampled from the other 56,312 texts. That is about 53 among 56,548 agent-authored texts. 'Real' is supported; 'frequent' is not. The lexical detector had recall 0.49 and was correctly dropped.",
+      "strength": "weak",
+      "location": "§4.2.6, §5, Table 10"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P01",
+      "stance": "neutral",
+      "note": "Measures prevalence and content of AGENTS.md, CLAUDE.md, .cursorrules and similar files: 16.2% of the population and 51.2% of popular repositories. Content is mostly orientation and norms. Effectiveness is not measured."
+    },
+    {
+      "id": "P02",
+      "stance": "neutral",
+      "note": "Coded 'procedural content in always-loaded files' (skills-like how-to text inside rule files) in 17-57% of rule-file repositories, non-monotonic across strata. This is descriptive support that the procedural-versus-normative separation is often ignored, but not that separating them helps."
+    },
+    {
+      "id": "P09",
+      "stance": "neutral",
+      "note": "Persistent shared knowledge (ADRs in docs/adr, .specify/memory) is nearly absent: 0.7% of the population, 1.9% of popular repositories, and coded in 10-27% of rule files. The authors note that MCP memory services leave no trace in Git, so absence and invisibility cannot be told apart."
+    },
+    {
+      "id": "P14",
+      "stance": "neutral",
+      "note": "Spec artifacts (specs/**, .specify/specs, Gherkin, OpenAPI) are found in 1.7% of the population and 6.8% of popular repositories. Acceptance-criteria content appears in 10-20% of rule files. Adoption only, not effect."
+    },
+    {
+      "id": "P40",
+      "stance": "neutral",
+      "note": "Rule files that tell the agent when to stop and ask a human: 5-20% (M6). Hand-confirmed agent consultations in PR comments: 53 found, mostly prose questions with an implicit alternative. No comparison of outcomes with or without consultation."
+    },
+    {
+      "id": "P19",
+      "stance": "neutral",
+      "note": "Graduated autonomy is proxied by CODEOWNERS (3.7% reweighted) and coded autonomy limits in rule files (13-27%). The CODEOWNERS proxy measures reviewer assignment, not agent autonomy levels."
+    }
+  ],
+  "methodology": {
+    "sample": "AIDev revision pinned: 116,211 repositories with agent-authored PRs (December 2024 to July 2025). Census of 2,807 repositories with more than 100 stars plus 1,000 each from three lower star bands; 5,435 cloned (attrition 2.7% to 14.4% by stratum). The qualitative sample is 150 repositories with 285 rule files. H6 validation used 536 hand-coded PR texts.",
+    "baselines": "None; descriptive study with no outcome variables. Strata are compared with each other.",
+    "models": "n/a (no LLM evaluated). GenAI was used to help program the instruments and edit text.",
+    "variance": "95% Wilson intervals on every prevalence. Population-weighted aggregates. Sensitivity analyses for stub files, single-PR repositories and non-English rule files (the latter shrinks the H5 gradient by 43%).",
+    "ablations": "n/a; the sensitivity analyses play that role.",
+    "contamination_controls": "n/a. Deduplication of symlinks and byte-identical files. Trigger tests on synthetic repositories before reporting any zero.",
+    "languages": "Repositories in any programming language; the normative-clause detector is English-only, and its error is quantified."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint; no venue or journal_ref.",
+    "limitations_section": true,
+    "artifacts": "GitHub repository and Zenodo archive with scripts, codebook, all coding labels, adjudications, the H6 validation sample and content-addressed pointers to coded files. The sampling frame regenerates deterministically from the pinned dataset and seed.",
+    "preregistration": "Not preregistered. The authors argue a descriptive study needs none, and they froze the codebook and kappa threshold before coding."
+  },
+  "biases": [
+    {
+      "type": "self_evaluation",
+      "detail": "The framework's own authors chose the operationalization and interpret the results, including calling the E1/E2 ratio 'the most direct evidence in favor of the framework's core thesis'. They do report where the data fail to support it."
+    },
+    {
+      "type": "metric_mismatch",
+      "detail": "File presence stands in for mechanism adoption. CODEOWNERS counts as graduated autonomy, a PR template as evidence-based acceptance, and any OpenAPI or Gherkin file as an agent-consumable executable specification. Most of these predate agents, and they measure team process rather than agent governance."
+    },
+    {
+      "type": "survivorship",
+      "detail": "14.4% of the zero-star stratum was deleted or made private before cloning. Rule-file content is measured at clone time (August 2026), not when the agentic PRs were made, except for the E2 analysis in stratum P."
+    },
+    {
+      "type": "selection_bias_participants",
+      "detail": "AIDev samples early adopters of five specific agents on public GitHub. The authors note prevalence likely overestimates the general population, and no private or industrial repositories are included."
+    },
+    {
+      "type": "small_sample",
+      "detail": "The qualitative coding uses 30 repositories per lower stratum and a 30-item reliability overlap, so between-stratum content differences (for example M6 at 5% vs 20%) are within noise."
+    },
+    {
+      "type": "other:no_outcome_measure",
+      "detail": "The study deliberately measures presence, not effect, so it says nothing about whether any mechanism improves agent results."
+    }
+  ],
+  "coi": {
+    "affiliations": "Universidad Politécnica de Madrid (all three authors).",
+    "vendor_products_evaluated": "None. Rule-file conventions of several agent tools are detected but not compared.",
+    "funding": "Funding: not applicable. COI declared none.",
+    "severity": "none",
+    "detail": "No commercial interest. There is an intellectual stake, since the authors test their own framework, but the instrument errs toward under-counting and the paper reports where the data fail to support the framework."
+  },
+  "scores": {
+    "rigor": 3,
+    "reproducibility": 4,
+    "generalizability": 3,
+    "relevance": 3,
+    "coi_risk": 0
+  },
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "A careful descriptive repository-mining study, above average for this literature. It uses a stratified design with population weighting, Wilson intervals, sensitivity analyses, a frozen codebook with adjudicated coding, and a full replication package. The caveats are that path-based proxies stand in for several mechanisms, there are no outcome variables, the authors interpret their own framework, and 'structured consultation is frequent' and 'agents compel a new layer' go beyond the counts. Use it as evidence about what teams actually commit, not about what works.",
+  "applicability": "For a Java team rolling out spec-driven development across four or more ingestion repositories, the useful lesson is how far typical practice falls short. Most repositories that adopt anything stop at an orientation-plus-rules AGENTS.md. Decision records, committed specs with acceptance criteria, and written 'when to stop and ask' rules are rare even among popular projects, and committed domain or decision knowledge for agents is nearly absent. That supports making ADRs, a domain glossary and data contracts, explicit consultation triggers in the rule file, and executable acceptance criteria deliberate deliverables rather than assuming they emerge. It also supports keeping procedural how-to content in on-demand skills rather than the always-loaded rule file. It gives no evidence that any of these improve outcomes. The authors also show that judging repository practice from current HEAD rather than from the state when work happened overstates coverage by about 18 points; this matters if the team ever audits which changes were made under which harness version.",
+  "conflicts_with": []
+}

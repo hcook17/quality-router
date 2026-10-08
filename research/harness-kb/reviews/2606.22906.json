@@ -1,0 +1,151 @@
+{
+  "arxiv_id": "2606.22906",
+  "contribution_type": "empirical",
+  "summary": "DeepDiscovery builds a task context package by first picking a few anchor files, then expanding over explicit dependencies, rule-based implicit links and folder structure, keeping most files as metadata cards and loading full text only when a score says so. It is measured by whether the package contains every expert-labeled relevant file, inside six coding agents on one company's codebase, and by a paired SWE-bench Verified run. Mean full-recall goes up in every reported setting, but the margins are small, several table cells do not agree with each other, and the SWE-bench host model is never named.",
+  "claims": [
+    {
+      "claim": "On 27 medium tasks, DeepDiscovery has the best file-recovery quality of five methods and needs no offline index, with full recall 92.6% versus 90.4% for AST+GraphRAG and 88.9% for native Claude Code.",
+      "evidence": "Table I, three runs on Claude Code with Claude Opus 4.6. Means favor DeepDiscovery, but the ranges overlap AST+GraphRAG (87.2–94.4) and native Claude Code (85.2–92.6). No significance test. Micro precision stays about 10–11% for every method, including DeepDiscovery. Native cost is recorded as zero, so the cost comparison does not include the host's own search.",
+      "strength": "weak",
+      "location": "§IV-D RQ1, Table I"
+    },
+    {
+      "claim": "Inside six coding agents, full recall rises by 1.6 to 9.2 points on 40 large tasks and by 2.5 to 7.4 points on 27 medium tasks.",
+      "evidence": "Table II means match that abstract range, and the large-task column of Table IV matches Table II. The medium column of Table IV does not: Claude Code is +3.2 in Table II not +3.7, Codex is +2.5 not +3.7, and OpenCode is +2.5 not +4.9. OpenCode's medium DeepDiscovery cell, 90.2% (82.6–91.2) over three runs, is arithmetically impossible. Codex large micro-recall's range moves down. Ranges overlap the native agent except for Cline on the large set. Three runs, min–max only.",
+      "strength": "weak",
+      "location": "Abstract; §IV-D RQ2; Tables II and IV"
+    },
+    {
+      "claim": "Location, adaptive compression, implicit relations and metadata-first promotion each contribute, and the full pipeline is best.",
+      "evidence": "Table III, one host, no run range: full 85.8% full recall, location-only 80.0%, without compression 81.5%, without implicit relations 83.3%, without metadata-first 82.2%. The 85.8% figure equals the Codex large mean in Table II, whose native mean is 84.2%, so location-only is below the host's own search. Precision stays near 9%.",
+      "strength": "moderate",
+      "location": "§IV-D RQ3, Table III"
+    },
+    {
+      "claim": "Replacing the repository-understanding component raises SWE-bench Verified solve rate from 70.4% (352/500) to 78.6% (393/500), McNemar p<0.01, with gains concentrated on django, xarray, sympy, scikit-learn and sphinx.",
+      "evidence": "Section IV-D RQ4 and Figure 3. The comparison is a paired component swap, but the host agent and model are not named. The introduction calls 70.4% the best baseline; the methods text says it is the matched native context builder. One protocol, no repeated trials. Repository-level counts are given in prose.",
+      "strength": "moderate",
+      "location": "§I, §IV-B, §IV-D RQ4, Fig. 3"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P43",
+      "stance": "mixed",
+      "note": "Anchor-then-expand beats the named retrievers and the native context builder on mean full recall, and the paired SWE-bench swap gains 41 tasks. The same tables show overlapping run ranges, a micro-recall drop for Codex on large tasks, precision stuck near 10%, an impossible OpenCode cell, and an unnamed SWE-bench host."
+    },
+    {
+      "id": "P38",
+      "stance": "introduces",
+      "note": "The package is assembled before downstream editing, which is the right moment for pre-spec discovery, but every task is an implementation or repair task. There is no spec-writing outcome."
+    },
+    {
+      "id": "P39",
+      "stance": "supports",
+      "note": "Metadata cards (path, role, neighbors, inclusion reason) are the default context. Removing metadata-first promotion drops large-set full recall from 85.8% to 82.2% in Table III. That ablation is a single unlabeled point."
+    },
+    {
+      "id": "P07",
+      "stance": "supports",
+      "note": "Dropping implicit relations drops full recall from 85.8% to 83.3% (Table III). Task-time multi-relational expansion also edges offline GraphRAG and AST+GraphRAG on mean full recall in Table I, inside overlapping ranges, and avoids their multi-hour index build."
+    },
+    {
+      "id": "P06",
+      "stance": "contradicts",
+      "note": "The offline RAG pipeline scores 84.4% full recall, below native Claude Code at 88.9% and below the graph pipelines, after about 7 hours and 2.26 billion preprocessing tokens (Table I). That is this RAG stack, not every embedding retriever."
+    },
+    {
+      "id": "P02",
+      "stance": "supports",
+      "note": "Full text is loaded only after a metadata view. The no-metadata-first ablation is worse on recall. Promotion uses a fixed label set plus a constrained model judgment, not an open exploration step."
+    },
+    {
+      "id": "P08",
+      "stance": "supports",
+      "note": "Removing adaptive repository compression drops full recall from 85.8% to 81.5% (Table III). Compression here is a structural summary for anchor finding, not a chat-history summary."
+    },
+    {
+      "id": "P24",
+      "stance": "neutral",
+      "note": "Expansion stops on a token and step budget. The budget itself is not turned off in an ablation."
+    },
+    {
+      "id": "P31",
+      "stance": "neutral",
+      "note": "SWE-bench Verified is one downstream check. The paper's own metric is expert file-set recall, which that benchmark does not provide."
+    },
+    {
+      "id": "P32",
+      "stance": "introduces",
+      "note": "The 27+40 tasks come from one production codebase (2.67M lines, 25k+ files) with expert file labels the authors say predate the method. Outsiders get desensitized metadata, not the code."
+    }
+  ],
+  "methodology": {
+    "sample": "27 medium tasks (135 gold files) and 40 large tasks (240 gold files) from one multi-project codebase; SWE-bench Verified, 500 tasks. Three runs for file-recall settings. Ablation reported as one point.",
+    "baselines": "RQ1: DeepWiki, CodeWiki, RAG, GraphRAG, AST+GraphRAG, and native Claude Code, same host and Claude Opus 4.6. System-level: each agent's native search versus the same agent plus DeepDiscovery (Cline, Cursor, Claude Code, Codex, OpenCode, Qoder). SWE-bench: one unnamed native context builder versus the context package.",
+    "models": "Claude Sonnet 4.5 (Cline, Cursor), Claude Opus 4.6 (Claude Code and the RQ1 bake-off), GPT-5.4 (Codex, OpenCode), Qwen3.5-Plus (Qoder). The SWE-bench model is not stated.",
+    "variance": "File recall is three runs, reported as mean and min–max, no interval or test. SWE-bench is one paired run with a McNemar test. Table III has no repeats.",
+    "ablations": "Location-only, no adaptive compression, no implicit relations, no metadata-first, on the large set under one host.",
+    "contamination_controls": "Gold files are said to be hidden from the systems and written before the method existed. No check that the rule library or prompts saw those tasks. SWE-bench contamination is not discussed.",
+    "languages": "SWE-bench Verified is Python. The industrial codebase's language is not stated. Anchor priors are described as language-specific."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint (cs.SE). Comment: 12 pages, 3 figures. HTML header is v2 (14 Sep 2026). No journal_ref.",
+    "limitations_section": true,
+    "artifacts": "Desensitized code, rules, prompts and public-benchmark protocol at https://anonymous.4open.science/r/DeepDiscovery-4A4F. Industrial source and full gold sets are not released.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {
+      "type": "self_evaluation",
+      "detail": "File-recall labels and the codebase belong to the authors' organization. The public SWE-bench run does not name the agent or model, so it cannot be checked against a leaderboard."
+    },
+    {
+      "type": "no_variance_reported",
+      "detail": "Three-run min–max bands overlap the strongest baselines on the controlled comparison. No confidence interval. The component ablation is one number."
+    },
+    {
+      "type": "self_reported_numbers",
+      "detail": "OpenCode medium full recall 90.2% (82.6–91.2) cannot be the mean of three runs inside that range. Table IV's medium gains for Claude Code, Codex and OpenCode do not match Table II."
+    },
+    {
+      "type": "hype_language",
+      "detail": "The introduction says the SWE-bench result beats the best baseline by 8.2 points. The experiment is a swap against one matched context builder at 70.4%."
+    },
+    {
+      "type": "metric_mismatch",
+      "detail": "Full recall treats a task as a failure if one bridge file is missing, which is strict, but micro precision near 10% means the recovered set is about ten times the gold set. A completeness win at that precision is a large context dump that happens to cover the gold files."
+    },
+    {
+      "type": "small_sample",
+      "detail": "A 1.6 point full-recall gain on 40 tasks is less than one additional fully recovered task. The controlled gap versus AST+GraphRAG is about one task in 27."
+    },
+    {
+      "type": "closed_artifacts",
+      "detail": "Industrial tasks are only desensitized. The code link is an anonymous preprint bundle."
+    }
+  ],
+  "coi": {
+    "affiliations": "AMAP, Alibaba Group (five authors, including the corresponding author); Nanyang Technological University; Nanjing University; University of Cambridge.",
+    "vendor_products_evaluated": "The file-recall benchmark is an internal production codebase. Hosts include Cline, Cursor, Claude Code, Codex, OpenCode and Qoder. Qoder is run with Qwen3.5-Plus. DeepDiscovery is the authors' method, not a named commercial product.",
+    "funding": "No funding or competing-interest statement in the text.",
+    "severity": "medium",
+    "detail": "The employer controls the codebase, the expert labels, and what outsiders can see. One host uses the employer's model family. The favorable industrial result cannot be re-run. The method is not sold as a product, so this is not a product announcement, but it is not an independent evaluation either."
+  },
+  "scores": {
+    "rigor": 3,
+    "reproducibility": 2,
+    "generalizability": 3,
+    "relevance": 4,
+    "coi_risk": 3
+  },
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Useful as evidence that a budgeted anchor-then-expand pass with metadata cards can raise complete file recovery inside coding agents, and that swapping that package in once raised SWE-bench Verified by 41 tasks under a McNemar test. The file-recall margins are mostly inside the three-run ranges, Table II and Table IV disagree, one reported mean is impossible, precision stays near 10%, and the SWE-bench agent and model are unnamed. Use the direction, not the abstract's point ranges.",
+  "applicability": "For discovery before a spec, the transferable piece is the output shape: a small set of anchor files, explicit links plus a fixed rule library for configuration and injection bindings, and a metadata card per file so the agent does not spend the context window on full sources. That matches a multi-repo Java backend better than flat chunk retrieval, and the freshness argument (no stale offline graph) matters when several repositories move. It was not shown on Java or across organization boundaries. The industrial labels sit inside one company, and a 2-point full-recall bump on 40 tasks is not a reason to replace the host's own search. If this is piloted, score both complete-set recall and how many extra files were pulled in, and name the host model.",
+  "conflicts_with": [
+    {
+      "arxiv_id": "2607.01929",
+      "detail": "DeepDiscovery's SWE-bench Verified gain is attributed to a textual metadata-and-relation package. DualView's ablation finds that giving the agent the same graphs as text adds only 2 resolved instances out of 150, while the rendered image adds most of the gain. The textual formats differ (metadata cards versus edge lists), so both can be true, but they disagree on whether text-form structure is what moves issue resolution."
+    }
+  ]
+}

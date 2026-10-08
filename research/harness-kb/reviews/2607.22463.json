@@ -1,0 +1,52 @@
+{
+  "arxiv_id": "2607.22463",
+  "contribution_type": "empirical",
+  "summary": "Two computing instructors and one undergraduate computer science student, who are the authors, hold three reflective conversations about AI use in programming courses. The write-up says the student's account of invisible study habits changed the instructors' beliefs about disclosure, tutoring, and assessment. There is no independent coder, no second student, and no measure of whether those new beliefs are more accurate.",
+  "claims": [
+    {"claim": "Trio-ethnography produces more accurate interpretations of students' AI-supported learning than classroom observation alone.", "evidence": "Sections 4 and 6 assert accuracy. The only evidence is the authors' reading of their own transcripts. No external criterion, second student, or coded agreement is reported. Section 5.2 says the student was highly motivated and the account is not representative.", "strength": "unsupported", "location": "§1, §4, §6"},
+    {"claim": "Educators moved from treating undisclosed AI use as stigma to requiring explicit guidance on how to use AI.", "evidence": "Section 4.1 quotes R1 and R2 and then a student preference for explicit rules. The sequence is one dialogue. Confirmation is the student's agreement, not a classroom observation before and after.", "strength": "weak", "location": "§4.1"},
+    {"claim": "AI functions as a learning partner rather than an answer provider, and meaningful study after an AI answer is invisible in the submitted program.", "evidence": "Section 4.3 quotes one student on notes, practice, and re-solving. The same section says some students may still paste answers. No count of either behavior. Section 4.2's Java-syntax example is the same student.", "strength": "weak", "location": "§4.2, §4.3"},
+    {"claim": "The dialogue changed assessment and debugging instruction toward reasoning, comparison, and active recall.", "evidence": "Section 4.4 is a statement of intended future practice ('I mean to design more this kind of opportunities'). No redesigned assignment, no student outcome, and no follow-up class observation.", "strength": "weak", "location": "§4.4, §5.1"}
+  ],
+  "patterns": [
+    {"id": "P41", "stance": "introduces", "note": "The pedagogical proposal is to teach allowed AI use explicitly and to make post-answer work visible (notes, comparison with the student's own code, explanation of why a fix works) instead of grading only the submitted program. Nothing is compared with a class that does not do this. The sole student account is a motivated undergraduate learning Java syntax by asking a model to explain it."}
+  ],
+  "methodology": {
+    "sample": "Two assistant professors (computer science and information systems) and one undergraduate computer science student. Three stages: instructor dialogue, one semi-structured student interview, then instructor reconstruction. The ethics statement says the inquiry is among the authors.",
+    "baselines": "None. No alternative reflective method, no survey, no class section.",
+    "models": "None evaluated. Students' unspecified generative-AI tools are discussed.",
+    "variance": "Not applicable. No counts beyond the three participants.",
+    "ablations": "None.",
+    "contamination_controls": "Not applicable. Transcripts were produced by Otter.ai and checked by the participants.",
+    "languages": "Undergraduate programming. The student describes learning Java syntax. No repository and no professional codebase."
+  },
+  "standards": {
+    "peer_review": "No venue in the arXiv metadata. The extracted front matter still has the ACM sample rights block: blank DOI, 'June 03-05, 2018, Woodstock, NY', and a placeholder ISBN.",
+    "limitations_section": true,
+    "artifacts": "No transcript, protocol, or codebook released. Pseudonyms are used; the ethics statement identifies the conversations as the authors'.",
+    "preregistration": "Not mentioned. Consent is stated; no ethics-board identifier is given."
+  },
+  "biases": [
+    {"type": "small_sample", "detail": "One student. The limitations section says this person is highly motivated and may not resemble other programming students."},
+    {"type": "selection_bias_participants", "detail": "The trio was chosen so the two instructors would disagree and the student would be a regular AI user. All three are the authors."},
+    {"type": "self_reported_numbers", "detail": "There are no outcome numbers. Belief change is reported by the people whose beliefs changed."},
+    {"type": "cherry_picked_examples", "detail": "Results are a short set of polished quotes. No transcript excerpt is long enough to see what was left out, and no coding scheme is given."},
+    {"type": "metric_mismatch", "detail": "'More accurate interpretation' is the claim. Accuracy is never defined or scored against student behavior outside the interview."},
+    {"type": "hype_language", "detail": "The conclusion says the method 'demonstrates' more accurate understanding and reshaped instruction. The body is three conversations and a plan to change teaching later."},
+    {"type": "novelty_inflation", "detail": "Trio-ethnography is an existing dialogic method. The paper's novelty is the claim that student talk is evidence of interpretive accuracy, which is not tested."}
+  ],
+  "coi": {
+    "affiliations": "Mercer University (Jennie Ren, Jordan H. McDowell) and University of Texas at San Antonio (Kyrie Zhixuan Zhou).",
+    "vendor_products_evaluated": "None. Generative AI is discussed in general; no product is scored.",
+    "funding": "Not stated.",
+    "severity": "none",
+    "detail": "Academic experience report. The participants study their own teaching. That is a methods limit, not a vendor conflict."
+  },
+  "scores": {"rigor": 2, "reproducibility": 0, "generalizability": 1, "relevance": 2, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "On-topic as an account of how two instructors revised their reading of student AI use after talking to one student, and the limitations section admits the student is atypical. It does not show that the revised reading is more accurate, that instruction changed, or that the method outperforms ordinary reflection. The ACM template is still the 2018 Woodstock placeholder, and there is no artifact. Keep it as a labeled anecdote.",
+  "applicability": "A weak hint for onboarding, not a harness result. New Java developers may look fluent in a pull request while the reasoning happened in an unlogged chat, or they may have pasted a fix they cannot explain. The paper's suggestion is to ask for that process (what they asked the agent, what they rejected, why the failing version differed) and to state allowed AI use in writing. One motivated undergraduate's Java-syntax story does not say whether that check works for hires learning a healthcare-education ingestion system across several repositories. Do not treat submitted code, or a single self-report of note-taking, as evidence that a learning mode succeeded.",
+  "conflicts_with": [
+    {"arxiv_id": "2607.26375", "detail": "That controlled study finds students who finish a task with an editing agent understand their code worse than students limited to generic snippets, so a working submission is a poor signal of learning. This paper warns against the opposite mistake: treating an advanced submission as copy-paste when private study followed the AI answer. Both can be true for different students, but this paper's evidence is one self-report, while the measured study found a large comprehension gap (p<0.002) even when the agent explained its edits."}
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "arxiv_id": "2606.04397",
+  "contribution_type": "system",
+  "summary": "Meta authors describe Context-as-AI-Service, a tool an agent can call to search an index of source, API comments, tests, examples and upstream docs with BM25 plus a dense DRAMA index, fused by reciprocal rank fusion. On one proprietary SDK of about 200 files, Claude Sonnet 4.6 with ordinary repository tools is compared with the same agent plus this index, on two documentation tasks. The authors retain eight extra findings in the retrieval condition. Five repeats per condition show lower wall-clock time and fewer input tokens; the finding list is not shown to repeat.",
+  "claims": [
+    {"claim": "Adding the retrieval tool surfaces eight documentation defects that the same agent with file reads, keyword search and symbol navigation missed, while keeping the five local missing-doc fixes", "evidence": "Table 1: baseline 5 retained findings, all missing public-member docs; with the index, those 5 plus 2 cross-file factual errors, 2 underspecified comments, 1 tutorial bug, 1 API-idiom note and 2 missing prerequisites. Table 2 is an anonymised evidence trail. Retention rules in §4 require a gap the baseline missed, non-local context, and author judgement that the finding matters. No false-positive count, no findings the baseline had that the index condition lost, and no second rater.", "strength": "weak", "location": "§5, §6.1-6.2, Tables 1-2"},
+    {"claim": "Over five runs, the retrieval condition cuts wall-clock time by 22% and 34% and uses fewer input tokens", "evidence": "Table 3 (API-comment task): 4.1±0.7 min and 17.4±1.8K input tokens vs 3.2±0.4 min and 14.6±1.3K, with LLM calls rising from 2.4±0.5 to 17.6±0.5 and output tokens from 3.8±0.6K to 5.1±0.5K. Table 4 (tutorial): 17.2±2.1 min and 112.3±8.6K input tokens vs 11.4±1.3 min and 76.8±6.2K. (4.1-3.2)/4.1 is 22%; (17.2-11.4)/17.2 is 34%. The five runs are not scored for whether the eight findings reappear.", "strength": "moderate", "location": "§6.4, Tables 3-4"},
+    {"claim": "The comparison isolates cross-file retrieval rather than basic repository access", "evidence": "§4: both arms use Claude Code v2.1.154 and Sonnet 4.6 with the agent's native file, search and symbol tools; only the index tool is added. There is no arm that is told to trace dependencies, no large-context arm, and no BM25-only versus dense ablation. The index also contains upstream docs the baseline tools may not have opened. Two tasks, one SDK.", "strength": "weak", "location": "§4, §7 Limitations"},
+    {"claim": "Symbol-level retrieval improves precision and reduces the queries needed", "evidence": "Limitations section states this as a property of symbol-level retrieval. The evaluated index is document or file granularity. No symbol-level arm is measured.", "strength": "unsupported", "location": "Limitations"}
+  ],
+  "patterns": [
+    {"id": "P06", "stance": "mixed", "note": "Hybrid BM25 plus dense retrieval, added on top of an agent that already has lexical tools, is associated with eight author-retained cross-file findings and with faster, lower-input-token runs (Tables 1, 3, 4). Dense search is not ablated from BM25, findings were kept only when they favoured the new tool, and the corpus is closed."},
+    {"id": "P43", "stance": "introduces", "note": "The agent queries an index while reviewing or validating documentation, then opens files. That is a documentation-review loop, not a measured codebase question-answering agent. No question set, no answer accuracy, and no comparison with asking the agent to trace dependencies using only its existing tools."},
+    {"id": "P41", "stance": "neutral", "note": "The stated goal is developer documentation that does not mislead. No developer reads the revised comments or the tutorial, and there is no comprehension or task-success measure."}
+  ],
+  "methodology": {
+    "sample": "Two workflows on one production SDK of about 200 source files: documentation review of one ~900-line core file, and validation of one generated tutorial. Efficiency: five runs per arm per task",
+    "baselines": "The same Claude Code agent and prompts with native repository tools only. No second model, no prompted dependency-tracing baseline, no lexical-only index",
+    "models": "Claude Sonnet 4.6 via Claude Code v2.1.154. Embeddings are DRAMA; lexical ranker is BM25; fusion is reciprocal rank fusion",
+    "variance": "Mean and standard deviation over five runs for time and tokens only. Finding counts are a single author-curated list",
+    "ablations": "None. The limitations section says symbol-level indexing would help, without a measurement",
+    "contamination_controls": "None. Proprietary SDK; no statement about whether the model had seen related public docs",
+    "languages": "Not stated. The SDK is anonymized and the case studies never name a programming language"
+  },
+  "standards": {
+    "peer_review": "arXiv v3. Comment says 8 pages, 2 figures, 4 tables. No journal_ref",
+    "limitations_section": true,
+    "artifacts": "SDK, logs and index are proprietary and anonymised. No code, prompts or corpus release. The authors say the evidence trail cannot be reproduced from public data",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "cherry_picked_examples", "detail": "A finding is retained only if the baseline missed it, the evidence was non-local, and the authors judged it consequential. That procedure cannot find index-condition regressions or false alarms."},
+    {"type": "self_reported_numbers", "detail": "The eight findings were manually inspected by the authors. No independent annotator or agreement statistic."},
+    {"type": "small_sample", "detail": "Two tasks, one file and one tutorial, one repository."},
+    {"type": "single_model", "detail": "One agent and one model. The limitations section says so."},
+    {"type": "closed_artifacts", "detail": "Proprietary SDK and logs. Identifiers are anonymised, so the evidence trail cannot be checked."},
+    {"type": "self_evaluation", "detail": "The authors built the retrieval service, ran both arms, and decided which findings to publish."},
+    {"type": "missing_cost_reporting", "detail": "Query latency is about 1.6-1.7 s and token totals are reported, but index build cost, embedding cost and dollar cost are not."}
+  ],
+  "coi": {
+    "affiliations": "Meta Platforms, Inc.",
+    "vendor_products_evaluated": "Context-as-AI-Service, an internal retrieval layer, evaluated on the authors' own production SDK. Claude Sonnet 4.6 is the agent, not their model",
+    "funding": "Employment at Meta; no separate funding statement",
+    "severity": "high",
+    "detail": "The vendor's employees report that their own closed system finds defects the baseline missed. There is no independent replication and the corpus cannot be released."
+  },
+  "scores": {"rigor": 2, "reproducibility": 1, "generalizability": 1, "relevance": 3, "coi_risk": 5},
+  "verdict": "reject",
+  "verdict_reason": "The efficiency numbers are the only measured, repeated result, and they do not show that documentation got more correct. The eight extra findings were selected by the authors under a rule that keeps only baseline misses, on two tasks in a closed SDK, with no false-positive rate and no check that the findings survive the five repeats. That is not evidence to add a retrieval service.",
+  "applicability": "The failure mode is real for this team: an API comment or tutorial can look right in one file and be wrong once cleanup, ownership or object-construction rules live in another repository. This paper does not show that a hybrid index finds those chains reliably. The baseline already had search and symbol navigation, the extra hits were author-picked, and nothing was released to re-run. If the team trials retrieval for documentation review, score both extra true defects and new false alarms on a public or internal Java sample, with a second reader, and require the finding list to be stable across runs. Do not treat the 22-34% time cut as a quality result; output tokens and model calls went up.",
+  "conflicts_with": []
+}

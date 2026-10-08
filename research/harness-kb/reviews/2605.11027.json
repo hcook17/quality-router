@@ -1,0 +1,33 @@
+{
+  "arxiv_id": "2605.11027",
+  "contribution_type": "position",
+  "summary": "A single-author reflexive thematic analysis of public talks, essays, product posts, X posts, and software-engineering papers about generative AI and coding agents. Eight themes and a four-stage maturity path argue that producing plausible code gets cheaper while intent, architecture context, verification, and human accountability get more important. The corpus register is described and not yet released.",
+  "claims": [
+    {"claim": "GenAI lowers the cost of plausible code and raises the importance of intent specification, context, verification, security, and accountable judgment", "evidence": "§8 presents eight interpretive themes. Table 5 lists source-support counts from 7 artifacts (natural language as interface) to 25 (AI-systems convergence). The paper says these counts are traceability, not statistical weight, and §12 says the themes are propositions, not generalizable findings. Triangulation is citation of Brooks, Parnas, technical-debt reviews, SWE-bench, and pair-programming studies, not a new measurement.", "strength": "weak", "location": "§8, Table 5, §12"},
+    {"claim": "The study is a reproducible public-discourse analysis with an auditable corpus", "evidence": "§6.5 and the data-availability note describe a register, codebook, matrix, and SHA-256 manifest prepared for Zenodo and GitHub. No URL or DOI is in the paper. Full transcripts and posts are withheld. One author coded the corpus and, by RTA design, reports no second coder.", "strength": "weak", "location": "§6.5, §6.9, Data availability"},
+    {"claim": "A four-stage maturity path characterizes near-term engineering practice", "evidence": "Table 6 labels stages from 'current to near term' through later governed autonomy. §6.11 and §12 say the path is an analytic projection, not a forecast, and ordinary engineers are outside the sample.", "strength": "weak", "location": "§9, Table 6, §6.11"},
+    {"claim": "Public discourse and peer-reviewed evidence were kept in separate evidence classes", "evidence": "§6.3 and §6.12 describe the hierarchy. The manuscript does not show the audit results (how many citations were demoted, how many themes rested only on product posts). Theme narratives still mix vendor docs (Claude Code, GitHub, OpenAI, Google) with classic SE papers.", "strength": "weak", "location": "§6.3, §6.12, §8"}
+  ],
+  "patterns": [
+    {"id": "P14", "stance": "neutral", "note": "Intent specification is the paper's name for the shift away from code-centric work. It is a reading of other people's statements, not a comparison of spec-first and code-first delivery."},
+    {"id": "P38", "stance": "neutral", "note": "Context curation and architecture knowledge are named as the work that remains. No discovery procedure is tested."},
+    {"id": "P19", "stance": "neutral", "note": "Human approval and evidence gates appear as the accountability pole in Tables 4 and 6. The paper does not compare gated and ungated agent use."},
+    {"id": "P41", "stance": "neutral", "note": "Stage 2 lists uneven skill development as a risk. There is no learning measure, and the sample excludes ordinary developers by design (§6.6)."},
+    {"id": "P43", "stance": "neutral", "note": "Codebase navigation is listed as a current agent capability in Table 6, sourced from product pages, not from an evaluation."}
+  ],
+  "methodology": {"sample": "Purposive sample of named public figures (Karpathy, Ng, Ozkaya, Willison, Dohmke, Cherny, Hassabis, Dean, LeCun, Chollet, Fei-Fei Li, and others) plus peer-reviewed SE papers. Total artifact count is not stated. Per-theme support in Table 5 is 7 to 25 artifacts. No interviews.", "baselines": "None. Themes are compared with the author's reading of prior literature.", "models": "None evaluated. Generative AI was used as a writing aid.", "variance": "Not applicable. Reflexive TA explicitly declines inter-rater reliability.", "ablations": "None", "contamination_controls": "n/a", "languages": "Not a code study"},
+  "standards": {"peer_review": "Preprint dated 10 May 2026. The HTML header names Journal of Systems and Software, but journal_ref is empty and the data note is written as a planned release, so this is not an accepted article.", "limitations_section": true, "artifacts": "Supplemental package described (register, codebook, matrix, manifest) and not linked. Transcripts and posts are not redistributed.", "preregistration": "None stated"},
+  "biases": [
+    {"type": "selection_bias_participants", "detail": "Sample is prominent lab, vendor, and commentator voices. §6.11 says ordinary engineers, maintainers, QA, and security reviewers are underrepresented, which is the population the themes are about."},
+    {"type": "novelty_inflation", "detail": "Intent-centric software engineering restates requirements, architecture rationale, and verification as the essential difficulty (Brooks, Parnas), with a new label."},
+    {"type": "hype_language", "detail": "The abstract says the analysis 'shows' a professional transition. §8 and §12 correctly call the same material interpretive propositions."},
+    {"type": "closed_artifacts", "detail": "The reproducibility package is promised, not available from the paper."},
+    {"type": "cherry_picked_examples", "detail": "Inclusion is theoretical sampling of poles the author chose. There is no exclusion count in the body."}
+  ],
+  "coi": {"affiliations": "University of the Cumberlands, single author", "vendor_products_evaluated": "None. Vendor product pages are discourse data.", "funding": "None declared", "severity": "none", "detail": "The competing-interest statement says it should be updated if a vendor relationship exists. None is declared. Generative AI was used for writing support."},
+  "scores": {"rigor": 2, "reproducibility": 1, "generalizability": 2, "relevance": 3, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "The paper is on the team's problem (intent, evidence gates, accountability) but it is one researcher's reading of public figures and familiar SE citations. It does not measure whether intent-centric practice works, the corpus is not released, and the maturity stages are labeled as projections.",
+  "applicability": "Use it as a checklist of concerns already in the spec-driven plan: write intent and constraints before implementation, keep architecture rationale available to agents, and do not treat generated code as accepted work. Do not use the four stages or the theme counts to decide a harness change. The sample is not new developers on a Java ingestion system, and the paper supplies no procedure for discovery, clarification, or traceability.",
+  "conflicts_with": []
+}

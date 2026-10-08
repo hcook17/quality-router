@@ -1,0 +1,132 @@
+{
+  "arxiv_id": "2607.01929",
+  "contribution_type": "empirical",
+  "summary": "DualView gives an issue-resolution agent four on-demand code graphs (module coupling, calls, class hierarchy, and a function-level dependence graph) and returns each query as a Graphviz image plus a text slice with paths and line numbers. On SWE-bench Pro public (731 tasks), adding it to mini-SWE-agent or OpenCode raises resolved counts by 20, 35 and 46 depending on scaffold and model, with a small cost drop, in a single run. An ablation on 150 tasks says the image, not the text serialization, carries most of that gain. The dependence-graph front end is Python, Go, JavaScript and TypeScript, not Java.",
+  "claims": [
+    {
+      "claim": "DualView consistently improves issue resolution across agents and models on SWE-bench Pro: mini-SWE-agent plus Claude 4.5 Sonnet 355 to 375, OpenCode plus Claude 4.5 Sonnet 316 to 351, OpenCode plus Kimi K2.5 342 to 388, while average cost falls by $0.04 to $0.05.",
+      "evidence": "Tables II and IV, one run per instance. The three totals go up, and average steps fall (for example 71.2 to 62.7 on mini-SWE-agent). Per repository the sign flips: vuls under mini-SWE-agent falls from 33 to 27, flipt from 30 to 29, openlibrary under OpenCode plus Claude from 41 to 40, tutanota under Kimi from 12 to 11. Graph use is only 1.8 to 3.7 calls per instance. No confidence interval. The threats section says each instance was run once.",
+      "strength": "moderate",
+      "location": "§IV-A, Tables II–IV; §V"
+    },
+    {
+      "claim": "Visual graphs beat an equivalent textual serialization, and both modalities together are best. Each of the four views helps, and all four together help more than any one.",
+      "evidence": "Table V on a 150-task subset of SWE-bench Pro, OpenCode with Kimi K2.5, one run: base 69, text-only four views 71, image-only 78, both 81. Single views score 72, 74, 73 and 75. The text-only gain is +2. The subset is described as random, with no seed or instance list. Case studies in Figures 6–8 are single trajectories.",
+      "strength": "moderate",
+      "location": "§IV-B, Table V"
+    },
+    {
+      "claim": "DualView outperforms textual graph tools RepoGraph and CodeGraph at lower cost.",
+      "evidence": "Section IV-A2 and Figure 5. RepoGraph is compared on the 266 Python tasks inside mini-SWE-agent; CodeGraph on the full Pro set inside OpenCode. The prose says DualView wins and costs less. No resolved counts or costs from that figure are printed in the text.",
+      "strength": "unsupported",
+      "location": "§IV-A2, Fig. 5"
+    },
+    {
+      "claim": "The gain generalizes to SWE-bench Verified: DualView with mini-SWE-agent and Gemini 3 Flash resolves 399/500 (79.8%) versus 379/500 (75.8%), and cost falls from $0.36 to $0.18.",
+      "evidence": "Table VI. Only that one pair is a with/without comparison. The other rows are mini-SWE-agent with other models and no DualView, so 399 versus Claude Opus at 384 is not a controlled result. Single run.",
+      "strength": "moderate",
+      "location": "§IV-C, Table VI"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P43",
+      "stance": "supports",
+      "note": "Turning on the graph tools, with agent and model fixed, raises resolved counts on three Pro settings and on one Verified setting, and the 150-task ablation separates the tools from the base agent. Support is for the aggregate. Several repositories get worse, every number is one run, and the agent calls a graph only a few times per task."
+    },
+    {
+      "id": "P07",
+      "stance": "supports",
+      "note": "Module, call, hierarchy and dependence views each beat the base agent by 3 to 6 tasks on the 150-subset, and all four beat any single view (81 versus 72–75). Text serialization of those same graphs is only +2, so the graph helps when the agent can see the picture."
+    },
+    {
+      "id": "P38",
+      "stance": "introduces",
+      "note": "The module-coupling view is meant as the first orientation step before editing. The paper measures repair, not a spec or a written explanation of the repository."
+    },
+    {
+      "id": "P05",
+      "stance": "neutral",
+      "note": "Native search and file reads stay in the loop. The paper does not isolate grep or an LSP against the graphs."
+    },
+    {
+      "id": "P04",
+      "stance": "introduces",
+      "note": "OpenCode receives the graphs through an MCP server; mini-SWE-agent receives them as shell commands. The two integrations are not compared to each other."
+    },
+    {
+      "id": "P31",
+      "stance": "neutral",
+      "note": "Evaluation is SWE-bench Pro public and SWE-bench Verified. No other bug corpus."
+    },
+    {
+      "id": "P24",
+      "stance": "neutral",
+      "note": "Cost and step counts go down slightly when the tools are on. There is no budget cap under test."
+    }
+  ],
+  "methodology": {
+    "sample": "SWE-bench Pro public, 731 instances, for the main table. Ablations on an unnamed 150-instance subset. RepoGraph comparison on 266 Python Pro instances. SWE-bench Verified, 500 instances, one configuration.",
+    "baselines": "The same scaffold with the tools off. Also SWE-agent, Live-SWE-agent, RepoGraph and CodeGraph. RepoGraph and CodeGraph numbers are not in the text.",
+    "models": "Claude 4.5 Sonnet and Kimi K2.5 on Pro. Verified paired run uses Gemini 3 Flash. Table VI also lists Claude 4.5 Opus, Claude 4.6 Opus, MiniMax M2.5 and GPT-5.2 Codex without DualView.",
+    "variance": "One run per instance. Authors flag this in the threats section. No interval or paired test.",
+    "ablations": "Each graph view alone, all four as text, all four as images, and both modalities, on the 150-subset with OpenCode and Kimi K2.5.",
+    "contamination_controls": "None discussed.",
+    "languages": "Pro repositories in the per-repo table are Python, Go, JavaScript and TypeScript. Dependence graphs use Python ast and tree-sitter for Go, JavaScript and TypeScript. Java is not included."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint (cs.SE, 2026-07-02). No venue or journal_ref.",
+    "limitations_section": true,
+    "artifacts": "The paper says the implementation, tools and an MCP service are released, and references a website, but the extracted text and signals contain no DualView URL. The only concrete repository link is mini-SWE-agent.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {
+      "type": "no_variance_reported",
+      "detail": "Single runs. The smallest headline gain is 20 of 731 tasks (2.7 points), inside the noise the authors themselves flag."
+    },
+    {
+      "type": "hype_language",
+      "detail": "'Consistently' describes three aggregate totals. Table II has repository-level drops, including vuls 33 to 27 under mini-SWE-agent."
+    },
+    {
+      "type": "cherry_picked_examples",
+      "detail": "The 150-task ablation subset is undescribed beyond 'random'. Figures 6–8 are single successful traces. Table VI lines up DualView-plus-Gemini against other models that were not given DualView."
+    },
+    {
+      "type": "closed_artifacts",
+      "detail": "A release is claimed. No URL survived in the paper text or the signals file, and the subset instance list is absent."
+    },
+    {
+      "type": "metric_mismatch",
+      "detail": "The claim is better long-horizon localization. The reported metric is full-issue resolution. There is no localization accuracy, and text-only structure barely moves resolution."
+    },
+    {
+      "type": "small_sample",
+      "detail": "Modality and per-view conclusions rest on 150 tasks and gaps of 2 to 12 resolved instances, one run."
+    }
+  ],
+  "coi": {
+    "affiliations": "Nanyang Technological University and TU Munich.",
+    "vendor_products_evaluated": "Claude, Kimi, Gemini, MiniMax and GPT models as backbones; OpenCode, mini-SWE-agent, SWE-agent and Live-SWE-agent as scaffolds. No author affiliation with those vendors.",
+    "funding": "No funding or competing-interest statement in the text.",
+    "severity": "none",
+    "detail": "University authors evaluating their plugin on public benchmarks and third-party models."
+  },
+  "scores": {
+    "rigor": 3,
+    "reproducibility": 2,
+    "generalizability": 3,
+    "relevance": 4,
+    "coi_risk": 0
+  },
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "The controlled with/without comparison is the right test, and the image-versus-text ablation is the load-bearing one: rendering the graphs beats dumping them as text, and the full plugin raises Pro and Verified resolution in the reported aggregates while using fewer steps. Treat the size of the gain as uncertain. Every cell is one run, several repositories regress, the RepoGraph comparison has no numbers in the text, and the Verified table mixes in unpaired models.",
+  "applicability": "For issue localization across a large backend, an on-demand module map, call neighborhood, type hierarchy and a sliced dependence view is a concrete tool set, and the ablation says the picture matters more than another text edge list. Two gaps block a direct copy. The dependence front end does not include Java, and the Pro repos in the table are Python, Go, JavaScript and TypeScript, so Spring hierarchies, annotation wiring and multi-repo boundaries are untested. Graph calls average only a few per task, so a harness should log when the tool is actually consulted. Do not expect a uniform lift: vuls got worse under the same plugin.",
+  "conflicts_with": [
+    {
+      "arxiv_id": "2606.22906",
+      "detail": "DualView concludes that textual graph structure barely beats the base agent (+2 of 150) and that visual externalization is what improves exploration. DeepDiscovery reports an 8.2 point SWE-bench Verified gain from a textual metadata-and-relation package with no images. Different text formats, so not the same experiment, but the two papers point opposite ways on whether text-form repository structure is sufficient."
+    }
+  ]
+}
