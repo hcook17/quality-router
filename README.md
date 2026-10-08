@@ -82,6 +82,21 @@ qr init --graph gortex --workspace content-ingest \
 
 Built test-first, with tests written by a separate agent and locked before implementation. The held-out tests ran by a third agent are in `tests/holdout/`. Criteria: `docs/design/phase-6-api-compat-and-gortex.md`. Lock: `.quality-router/acceptance.lock.json`.
 
+## The spec-driven development harness (phase 7)
+
+Each SDD step runs as its own agent session, in its own worktree, with a role the policy hook enforces. The implementer is also judged by held-out tests it never sees.
+
+```text
+qr init --policy --host claude-code --ci github-gradle          # policy.json with spec-author, test-author, implementer, reviewer
+QR_ROLE=test-author claude                                      # in the tests worktree: may write test sources and specs only
+qr spec lock --spec specs/item-v2.md --tests 'src/test/java/**/*AcceptanceTest.java' \
+  --holdout src/test/java/edu/acme/ItemV2HoldoutTest.java --approved-by qa-lead   # held-out tests: hash only, never committed
+QR_ROLE=implementer cursor .                                    # in the implementation worktree: holdout hidden, locked files read-only
+qr gate holdout --base origin/main --reports '**/build/test-results/**/TEST-*.xml'   # in CI, after copying the held-out tests in
+```
+
+The policy file, role file and lock are write-protected for every role. Flow, roles, worktrees and evidence: `docs/design/phase-7-sdd-harness.md`. Criteria: `specs/phase-7-roles-holdout.md`.
+
 ## Layout
 
 | Path | Role |
@@ -93,6 +108,8 @@ Built test-first, with tests written by a separate agent and locked before imple
 | `docs/design/phase-3-harness.md` | Spec SoT for the harness gates |
 | `docs/design/phase-4-acceptance-first-sdd.md` | Spec SoT for the acceptance-first Spec stage and the SDD steer |
 | `docs/design/phase-6-api-compat-and-gortex.md` | Locked criteria for `qr gate api-compat` and the Gortex stamp |
+| `docs/design/phase-7-sdd-harness.md` | The SDD harness: steps, roles, worktrees, held-out tests |
+| `specs/phase-7-roles-holdout.md` | Locked criteria for roles and held-out tests |
 | `docs/research/architecture-decisions.md` | C4 + three-job lock |
 | `src/quality_router/harness/` | Gate, lint, spec, feedback, contracts, policy, eval commands |
 | `examples/content-pipeline/` | Four-repo Java fixture + `run-demo.sh` |

@@ -242,8 +242,17 @@ harness for that team is host-agnostic; `qr` stays Job B inside it.
    array-form scaffold, Spring context options, Spring-aware oracles,
    `github-gradle`, `--ci-java`). Spec:
    `docs/design/phase-5-spring-boot-2.7-4.x.md`.
-6. Next: run the phase-4 pilot (prose spec vs acceptance-first under
-   `qr eval`); `--json` on `status`, then `enable` / `disable`.
+6. Phase 6 shared-library API breaks and Gortex settings — **done**
+   (`gate api-compat`, evidence-aligned `.gortex.yaml`). Spec:
+   `docs/design/phase-6-api-compat-and-gortex.md`.
+7. Phase 7 SDD harness — **done** (roles in `policy.json` enforced by the
+   hook, write-protected harness files, held-out acceptance tests:
+   `spec lock --holdout`, `gate holdout`). Design:
+   `docs/design/phase-7-sdd-harness.md`; criteria:
+   `specs/phase-7-roles-holdout.md`.
+8. Next: run the phase-4 pilot (prose spec vs acceptance-first under
+   `qr eval`) with the phase-7 roles on one service repo; `--json` on
+   `status`, then `enable` / `disable`.
 
 Do not reopen Go, Wasmtime, docs MCP, RL trainer, or script intercept
 to start those.

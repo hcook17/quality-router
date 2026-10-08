@@ -13,6 +13,7 @@ from __future__ import annotations
 import json
 import re
 import shlex
+from collections.abc import Mapping
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
 from fnmatch import fnmatch
@@ -20,6 +21,12 @@ from pathlib import Path, PurePosixPath
 from typing import Any
 
 POLICY_PATH = ".quality-router/policy.json"
+ROLE_PATH = ".quality-router/role"
+ROLE_ENV = "QR_ROLE"
+HARNESS_FILES = (POLICY_PATH, ROLE_PATH, ".quality-router/acceptance.lock.json")
+HOLDOUT_READER = "test-author"
+TEST_SOURCE_GLOBS = ["**/src/test/**", "**/src/testFixtures/**", "**/src/*Test/**",
+                     "**/src/it/**"]
 
 DEFAULT_POLICY: dict[str, Any] = {
     "version": 1,
@@ -29,8 +36,9 @@ DEFAULT_POLICY: dict[str, Any] = {
         {"pattern": r"\bgit\s+reset\s+--hard\s+origin/", "reason": "discards remote-tracked work"},
         {"pattern": r"\brm\s+-[a-zA-Z]*r[a-zA-Z]*f[a-zA-Z]*\s+(/|~|\$HOME)(\s|$)",
          "reason": "recursive delete of a root or home directory"},
-        {"pattern": r"\b(mvnw?|gradlew?)\b.*\b(deploy|publish)\b",
-         "reason": "artifact publish belongs to CI, not the agent"},
+        {"pattern": r"\b(mvnw?|gradlew?)\b.*\s(?:[\w:-]*publish[\w:-]*|deploy(?::[\w-]+)?"
+                    r"|release(?::[\w-]+)?)(?=\s|$)",
+         "reason": "artifact publish or release belongs to CI, not the agent"},
         {"pattern": r"\b(kubectl|helm)\b.*\b(apply|delete|upgrade|install)\b",
          "reason": "cluster mutation belongs to CI/CD"},
         {"pattern": r"\b(psql|mysql|sqlcmd)\b.*\b(drop|truncate|delete\s+from)\b",
@@ -49,6 +57,12 @@ DEFAULT_POLICY: dict[str, Any] = {
         "repo.maven.apache.org", "repo1.maven.org", "plugins.gradle.org", "services.gradle.org",
         "localhost", "127.0.0.1", "host.docker.internal",
     ],
+    "roles": {
+        "spec-author": {"write_allow": ["specs/**", "docs/**", "**/*.md"]},
+        "test-author": {"write_allow": [*TEST_SOURCE_GLOBS, "specs/**"]},
+        "implementer": {},
+        "reviewer": {"write_allow": []},
+    },
 }
 
 SHELL_TOOLS = ("Bash", "Shell", "run_terminal_cmd", "shell")
@@ -63,6 +77,7 @@ _SPEC_LOCK_COMMAND = re.compile(r"\bqr\s+spec\s+lock\b")
 _URL = re.compile(r"\b(?:https?|ftp|ssh|git)://(?:[^@/\s]+@)?([A-Za-z0-9.-]+)")
 _SCP_LIKE = re.compile(r"(?:^|\s)[\w.-]+@([A-Za-z0-9.-]+):")
 _NETWORK_TOOLS = ("curl", "wget", "nc", "ncat", "scp", "rsync", "ssh", "ftp", "telnet")
+_SED_SCRIPT = re.compile(r"^[sy]([/|#,]).*\1.*\1[a-zA-Z0-9]*$")
 
 
 @dataclass(frozen=True)
@@ -72,26 +87,88 @@ class Decision:
     rule: str = ""
 
 
+@dataclass(frozen=True)
+class Role:
+    """What one SDD role may do. `write_allow=None`: no write limit; `[]`: no writes."""
+
+    write_allow: list[str] | None = None
+    read_deny: list[str] = field(default_factory=list)
+    deny_commands: list[tuple[re.Pattern[str], str]] = field(default_factory=list)
+
+
+def _commands(items: Any, where: str) -> list[tuple[re.Pattern[str], str]]:
+    if not isinstance(items, list):
+        raise ValueError(f"{where} must be a list")
+    commands = []
+    for item in items:
+        pattern, reason = ((item, "denied by policy") if isinstance(item, str)
+                           else (item["pattern"], item.get("reason", "denied by policy")))
+        try:
+            commands.append((re.compile(pattern, re.IGNORECASE), reason))
+        except re.error as exc:
+            raise ValueError(f"{where}: bad pattern {pattern!r}: {exc}") from exc
+    return commands
+
+
+def _globs(value: Any, where: str) -> list[str]:
+    if not isinstance(value, list):
+        raise ValueError(f"{where} must be a list of globs")
+    return [str(p) for p in value]
+
+
+def _roles(data: Any) -> dict[str, Role]:
+    if data is None:
+        return {}
+    if not isinstance(data, dict):
+        raise ValueError("roles must be an object mapping a role name to its rules")
+    roles = {}
+    for name, rules in data.items():
+        if not isinstance(rules, dict):
+            raise ValueError(f"role {name!r} must be an object")
+        write_allow = rules.get("write_allow")
+        roles[str(name)] = Role(
+            write_allow=None if write_allow is None else _globs(write_allow,
+                                                                f"{name}.write_allow"),
+            read_deny=_globs(rules.get("read_deny") or [], f"{name}.read_deny"),
+            deny_commands=_commands(rules.get("deny_commands") or [], f"{name}.deny_commands"),
+        )
+    return roles
+
+
+def _glob_match(posix: PurePosixPath, patterns: list[str]) -> str | None:
+    for pattern in patterns:
+        if posix.full_match(pattern) or posix.full_match(pattern.removeprefix("**/")):
+            return pattern
+    return None
+
+
+def _rel_posix(path: Path, root: Path) -> PurePosixPath:
+    try:
+        path = path.relative_to(root.resolve())
+    except ValueError:
+        pass
+    return PurePosixPath(path.as_posix().lstrip("/"))
+
+
 @dataclass
 class Policy:
     deny_commands: list[tuple[re.Pattern[str], str]] = field(default_factory=list)
     deny_paths: list[str] = field(default_factory=list)
     protected_branches: list[str] = field(default_factory=list)
     egress_allow: list[str] | None = None
+    roles: dict[str, Role] = field(default_factory=dict)
+    declared: bool = False
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> Policy:
-        commands = []
-        for item in data.get("deny_commands") or []:
-            pattern, reason = ((item, "denied by policy") if isinstance(item, str)
-                               else (item["pattern"], item.get("reason", "denied by policy")))
-            commands.append((re.compile(pattern, re.IGNORECASE), reason))
         egress = data.get("egress_allow")
         return cls(
-            deny_commands=commands,
+            deny_commands=_commands(data.get("deny_commands") or [], "deny_commands"),
             deny_paths=[str(p) for p in data.get("deny_paths") or []],
             protected_branches=[str(b) for b in data.get("protected_branches") or []],
             egress_allow=None if egress is None else [str(h).lower() for h in egress],
+            roles=_roles(data.get("roles")),
+            declared=True,
         )
 
     @classmethod
@@ -101,16 +178,11 @@ class Policy:
     def check_path(self, path: str, root: Path) -> Decision:
         candidate = Path(path)
         if candidate.is_absolute():
-            try:
-                candidate = candidate.resolve().relative_to(root.resolve())
-            except ValueError:
-                pass
-        posix = PurePosixPath(candidate.as_posix().lstrip("/"))
-        for pattern in self.deny_paths:
-            bare = pattern.removeprefix("**/")
-            if posix.full_match(pattern) or posix.full_match(bare):
-                return Decision(False, f"path {posix} matches deny_paths {pattern!r}",
-                                "deny_paths")
+            candidate = candidate.resolve()
+        posix = _rel_posix(candidate, root)
+        pattern = _glob_match(posix, self.deny_paths)
+        if pattern is not None:
+            return Decision(False, f"path {posix} matches deny_paths {pattern!r}", "deny_paths")
         return Decision(True)
 
     def check_command(self, command: str, root: Path) -> Decision:
@@ -162,6 +234,21 @@ def _hosts(command: str, tokens: list[str]) -> list[str]:
             if target and "://" not in target:
                 hosts.append(target.split("@")[-1].split(":")[0].lower())
     return hosts
+
+
+def resolve_role(root: Path, explicit: str | None, environ: Mapping[str, str]) -> str | None:
+    """`--role`, else `QR_ROLE`, else the first non-empty line of `.quality-router/role`."""
+    if explicit and explicit.strip():
+        return explicit.strip()
+    env = (environ.get(ROLE_ENV) or "").strip()
+    if env:
+        return env
+    path = root / ROLE_PATH
+    if path.is_file():
+        for line in path.read_text(encoding="utf-8", errors="replace").splitlines():
+            if line.strip():
+                return line.strip()
+    return None
 
 
 def load_policy(root: Path, explicit: str | None) -> tuple[Policy, Path]:
@@ -246,17 +333,187 @@ def check_locked(event: HookEvent, locked: set[Path], root: Path) -> Decision:
     return Decision(True)
 
 
+def _shell_tokens(command: str) -> list[str]:
+    try:
+        return shlex.split(command, posix=True)
+    except ValueError:
+        return command.split()
+
+
+def _operands(command: str) -> list[str]:
+    """Every non-option word, split at shell operators (for exact-path checks)."""
+    return [part for token in _shell_tokens(command) for part in re.split(r"[<>|;&]+", token)
+            if part and not part.startswith("-")]
+
+
+_WRITE_OPERANDS = {"rm", "mv", "tee", "truncate", "shred", "unlink", "patch"}
+_COPY_TO_LAST = {"cp", "install", "ln"}
+_MODE_FIRST = {"chmod", "chown", "chgrp"}
+
+
+def _segments(command: str) -> list[list[tuple[str, bool]]]:
+    """Words per command segment (split at ; | &), each flagged as a redirect target or not."""
+    segments: list[list[tuple[str, bool]]] = []
+    current: list[tuple[str, bool]] = []
+    redirect = False
+    for token in _shell_tokens(command):
+        for piece in re.split(r"([<>|;&]+)", token):
+            if not piece:
+                continue
+            if re.fullmatch(r"[<>|;&]+", piece):
+                if "<" in piece or ">" in piece:
+                    redirect = True
+                elif current:
+                    segments.append(current)
+                    current = []
+                continue
+            current.append((piece, redirect))
+            redirect = False
+    if current:
+        segments.append(current)
+    return segments
+
+
+def _shaped(word: str) -> bool:
+    return ("/" in word or word.startswith((".", "~"))) and "://" not in word \
+        and not _SED_SCRIPT.match(word)
+
+
+def _script_free(program: str, args: list[str]) -> list[str]:
+    """Operands of sed/perl without their inline scripts."""
+    operands, skip_next, script_option = [], False, False
+    for arg in args:
+        if skip_next:
+            skip_next = False
+            continue
+        if arg.startswith("-"):
+            takes_code = (arg in ("-e", "-f", "--expression", "--file") if program == "sed"
+                          else "e" in arg.lstrip("-"))
+            script_option = script_option or takes_code
+            skip_next = takes_code
+            continue
+        operands.append(arg)
+    return operands if script_option or program == "perl" else operands[1:]
+
+
+def _path_words(command: str) -> list[tuple[str, bool]]:
+    """Path arguments as (word, written).
+
+    Redirect targets and the files a write verb changes (rm, mv, tee, sed -i, the
+    destination of cp, ...) count whatever their shape; other words only when they look
+    like paths, and only as reads.
+    """
+    words: list[tuple[str, bool]] = []
+    for segment in _segments(command):
+        words += [(word, True) for word, target in segment if target]
+        plain = [word for word, target in segment if not target]
+        while plain and re.fullmatch(r"[A-Za-z_]\w*=.*", plain[0]):
+            plain.pop(0)
+        if not plain:
+            continue
+        program, args = plain[0], plain[1:]
+        if _shaped(program):
+            words.append((program, False))
+        name = PurePosixPath(program).name
+        operands = [a for a in args if not a.startswith("-")]
+        if name in _WRITE_OPERANDS:
+            words += [(a, True) for a in operands]
+        elif name in _COPY_TO_LAST:
+            words += [(a, i == len(operands) - 1) for i, a in enumerate(operands)]
+        elif name in _MODE_FIRST:
+            words += [(a, True) for a in operands[1:]]
+        elif name in ("sed", "perl"):
+            words += [(a, True) for a in _script_free(name, args)]
+        elif name == "dd":
+            words += [(a.split("=", 1)[1], a.startswith("of=")) for a in operands
+                      if a.startswith(("of=", "if="))]
+        else:
+            words += [(a, name == "git") for a in operands if _shaped(a)]
+    return words
+
+
+def _check_harness(event: HookEvent, root: Path, cwd: Path) -> Decision:
+    protected = {(root / rel).resolve() for rel in HARNESS_FILES}
+    reason = "harness file; policy, role and lock change only through a reviewed commit"
+    if event.kind == "path":
+        if event.access == "write" and _absolute(event.value, cwd) in protected:
+            return Decision(False, f"{event.value}: {reason}", "harness_file")
+        return Decision(True)
+    if _SHELL_WRITE.search(event.value):
+        for part in _operands(event.value):
+            if _absolute(part, cwd) in protected:
+                return Decision(False, f"{part}: {reason}", "harness_file")
+    return Decision(True)
+
+
+def _check_holdout(event: HookEvent, holdout: set[Path], cwd: Path) -> Decision:
+    reason = "held-out acceptance test; only the test-author role may see it"
+    values = [event.value] if event.kind == "path" else _operands(event.value)
+    for value in values:
+        if _absolute(value, cwd) in holdout:
+            return Decision(False, f"{value}: {reason}", "holdout")
+    return Decision(True)
+
+
+def _check_role(event: HookEvent, name: str, role: Role, root: Path, cwd: Path) -> Decision:
+    if event.kind == "path":
+        posix = _rel_posix(_absolute(event.value, cwd), root)
+        writes = [posix] if event.access == "write" else []
+        reads = [posix]
+    else:
+        words = _path_words(event.value)
+        reads = [_rel_posix(_absolute(w, cwd), root) for w, _ in words]
+        writes = ([_rel_posix(_absolute(w, cwd), root) for w, written in words if written]
+                  if _SHELL_WRITE.search(event.value) else [])
+    for posix in reads:
+        pattern = _glob_match(posix, role.read_deny)
+        if pattern is not None:
+            return Decision(False, f"role {name} may not read {posix} (read_deny {pattern!r})",
+                            "role_read_deny")
+    if role.write_allow is not None:
+        for posix in writes:
+            if _glob_match(posix, role.write_allow) is None:
+                return Decision(False, f"role {name} may only write {role.write_allow}; "
+                                f"{posix} is outside", "role_write_allow")
+    return Decision(True)
+
+
 def decide(event: HookEvent | None, policy: Policy, root: Path,
-           locked: set[Path] | None = None) -> Decision:
+           locked: set[Path] | None = None, role: str | None = None,
+           holdout: set[Path] | None = None) -> Decision:
     if event is None:
         return Decision(True)
+    active = None
+    if role is not None:
+        active = policy.roles.get(role)
+        if active is None:
+            return Decision(False, f"unknown role {role!r}; declare it under roles in "
+                            f"{POLICY_PATH}", "unknown_role")
+    cwd = Path(event.cwd) if event.cwd else root
     if locked:
         decision = check_locked(event, locked, root)
         if not decision.allow:
             return decision
-    if event.kind == "command":
-        return policy.check_command(event.value, root)
-    return policy.check_path(event.value, root)
+    checks = []
+    if policy.declared:
+        checks.append(lambda: _check_harness(event, root, cwd))
+    if holdout and role != HOLDOUT_READER:
+        checks.append(lambda: _check_holdout(event, holdout, cwd))
+    if active is not None:
+        checks.append(lambda: _check_role(event, role, active, root, cwd))
+    for check in checks:
+        decision = check()
+        if not decision.allow:
+            return decision
+    if event.kind == "path":
+        return policy.check_path(event.value, root)
+    decision = policy.check_command(event.value, root)
+    if decision.allow and active is not None:
+        for regex, reason in active.deny_commands:
+            if regex.search(event.value):
+                return Decision(False, f"{reason} (role {role} deny_commands {regex.pattern!r})",
+                                "role_deny_commands")
+    return decision
 
 
 def audit(path: Path, host: str, event: HookEvent | None, decision: Decision) -> None:
