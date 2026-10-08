@@ -42,7 +42,7 @@
     {
       "id": "P21",
       "stance": "neutral",
-      "note": "The threat model assumes the defensive pipeline sits between ingested artifacts and the context window and cannot be bypassed."
+      "note": "The threat model assumes the defensive pipeline sits between incoming artifacts and the context window and cannot be bypassed."
     }
   ],
   "methodology": {
@@ -106,6 +106,6 @@
   },
   "verdict": "admit_with_caveats",
   "verdict_reason": "Useful as a released red-team tool with a sensible attack x channel x defense decomposition. The empirical section is thin: an anonymized single model, about 6% baseline ASR, per-defense rankings from a few events, no CIs, no utility cost, and no limitations section.",
-  "applicability": "Practically relevant. An ingestion pipeline that pulls third-party healthcare-education content (documents, PDFs with metadata, spreadsheets, HTML) into agent context is exactly the indirect-injection surface pikit's file-mode channels model. The team could run pikit's craft()/MatrixRunner in CI against their own agent hosts, as a host-agnostic security regression, before trusting agents with ingestion repos. Do not adopt its defense ranking. The numbers come from one hidden model on the pi agent, and prompt-level defenses never reached 0%, so architectural controls (least-privilege tools, sandboxing, no network egress during ingestion runs) remain necessary. The toolkit is Python, so it would sit beside the Java services as a test harness rather than inside them.",
+  "applicability": "Practically relevant. An the pipeline that pulls third-party the domain (documents, PDFs with metadata, spreadsheets, HTML) into agent context is exactly the indirect-injection surface pikit's file-mode channels model. The team could run pikit's craft()/MatrixRunner in CI against their own agent hosts, as a host-agnostic security regression, before trusting agents with repositories. Do not adopt its defense ranking. The numbers come from one hidden model on the pi agent, and prompt-level defenses never reached 0%, so architectural controls (least-privilege tools, sandboxing, no network egress during ingestion runs) remain necessary. The toolkit is Python, so it would sit beside the Java services as a test harness rather than inside them.",
   "conflicts_with": []
 }

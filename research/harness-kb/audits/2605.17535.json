@@ -11,6 +11,6 @@
   "metric_mismatch: BER counts non-executable outputs (including a Pydantic v1/v2 incompatibility) as 0% behavioural equivalence, mixing environment failures with logic loss (§VII Reliability).",
   "The gold rule lists were enumerated by GPT-4o from the legacy code and filtered by one annotator, then compared to BSG rules from GPT-4o-mini, matched manually by that same annotator (§IV-B, §V-E). The 92.3% recall is LLM-to-LLM agreement adjudicated by the author, not independent ground truth.",
   "hype_language: the title and abstract claim 'preserving business logic', but the best configuration preserves about 23% of tested behaviour and S3 is 0% for every method. The abstract's regulated-industry audit-trail claim is unevaluated.",
-  "Relevance is overstated at 3: COBOL/PL-SQL to Python/FastAPI modernization of single-file 195–310 LOC toys does not inform a Java ingestion/delivery team's harness decisions beyond the generic warning about feedback-loop regressions."
+  "Relevance is overstated at 3: COBOL/PL-SQL to Python/FastAPI modernization of single-file 195–310 LOC toys does not inform a Java services/delivery team's harness decisions beyond the generic warning about feedback-loop regressions."
  ],
  "note": "The first review's analysis is good and candid, but its own findings (per-method LLM-generated oracles, 8 single-annotator toy scenarios, the effect reversing on stronger models, numeric inconsistencies) argue for exclusion from load-bearing conclusions rather than admission. If it is kept, it should only be cited as a negative anecdote."}

@@ -25,7 +25,7 @@
     "variance": "Paired one-sided Wilcoxon and 10k-resample bootstrap 95% CIs over apps; single run per app/condition.",
     "ablations": "Three TDD implementations × agents × backbones; feedback-model swap (Qwen dev + Sonnet tester).",
     "contamination_controls": "None discussed; WebGen-Bench is public.",
-    "languages": "Full-stack web apps (JS/TS front ends with backends); no Java."
+    "languages": "Full-stack web apps (JS/TS callers with backends); no Java."
   },
   "standards": {
     "peer_review": "Accepted at ASE 2026 (IEEE/ACM).",
@@ -50,6 +50,6 @@
   "scores": {"rigor": 4, "reproducibility": 4, "generalizability": 2, "relevance": 4, "coi_risk": 0},
   "verdict": "admit_with_caveats",
   "verdict_reason": "Peer-reviewed (ASE'26), factorial design across agents/backbones with significance tests and CIs, released code, and a useful negative result on weak testers. Caveats: the in-loop acceptance tests equal the oracle tests, the oracle is an LLM tester with modest validation, 20 small greenfield web apps, single runs.",
-  "applicability": "Directly relevant to the team's spec-driven rollout: derive executable acceptance tests from the spec, have a human approve them, then let the agent loop against them — the paper shows this pays off only if the verifier is reliable. For a Java backend, the verifier should be deterministic (JUnit/REST-assured/contract tests against the ingestion and delivery APIs) rather than an LLM browser agent, which removes the paper's main weakness. Packaging start/test/stop as an MCP server is a host-neutral way to give the same loop to Cursor, Claude Code, Codex, etc. Whole-Project loops amortize context cost best. Does not address changes spanning ≥4 existing repos or healthcare content correctness; front-end delivery checks could reuse the browser-testing idea.",
+  "applicability": "Directly relevant to the team's spec-driven rollout: derive executable acceptance tests from the spec, have a human approve them, then let the agent loop against them — the paper shows this pays off only if the verifier is reliable. For a Java backend, the verifier should be deterministic (JUnit/REST-assured/contract tests against the ingestion and delivery APIs) rather than an LLM browser agent, which removes the paper's main weakness. Packaging start/test/stop as an MCP server is a host-neutral way to give the same loop to Cursor, Claude Code, Codex, etc. Whole-Project loops amortize context cost best. Does not address changes spanning ≥4 existing repos or domain content correctness; downstream checks could reuse the browser-testing idea.",
   "conflicts_with": []
 }

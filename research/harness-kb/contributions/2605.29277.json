@@ -1,7 +1,7 @@
 {"arxiv_id": "2605.29277",
  "contributions": [
   {"kind": "test_practice",
-   "statement": "Before writing agent-facing documentation in bulk for the ingestion repos, measure it with a paired ablation on the team's own codebase questions (same agent and same system prompt, doc comments, comments and doc files stripped vs present, scored per question), split by whether the answer lives in code or only in docs, because here docs added +0.05 to +0.09 (0-1 judged score, 100 questions) on doc-sourced questions and about 0 on code-answerable ones.",
+   "statement": "Before writing agent-facing documentation in bulk for the repositories, measure it with a paired ablation on the team's own codebase questions (same agent and same system prompt, doc comments, comments and doc files stripped vs present, scored per question), split by whether the answer lives in code or only in docs, because here docs added +0.05 to +0.09 (0-1 judged score, 100 questions) on doc-sourced questions and about 0 on code-answerable ones.",
    "evidence": "§5.1 Table 3 (closed-book / code-only / documented arms). Table 5 (doc-dependent Δdoc +0.053 to +0.091, all four models). Table 6 (code-derivable mean Δdoc +0.006; Claude +0.026, Gemini -0.018). App. H paired bootstrap over tasks. Caveats: doc-dependent gold answers were written from the docs (§4.5), so the documented arm is favoured by construction; the documented arm also got a 'search docs first' prompt (§6.1); one unvalidated GPT-5.4 judge; one run per cell; Python-only AST stripping.",
    "strength": "weak", "novelty": "refines",
    "relative_to": ["2607.27250 AGENTS.md present/absent ablation on patch tasks found no correctness effect", "2609.22259 documented semantic content is what moves accuracy"],

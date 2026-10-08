@@ -2,7 +2,7 @@
   "arxiv_id": "2608.02001",
   "contributions": [
     {"kind": "constraint",
-     "statement": "Do not use a read-only coding agent as the vulnerability gate for ingestion endpoints; even when given the advisory, agents found the sink (critical operation) more often than the entry point (51% vs 30% file-level) and produced incomplete traces, so keep deterministic SAST as the gate and supply entry points explicitly when asking an agent to triage.",
+     "statement": "Do not use a read-only coding agent as the vulnerability gate for service endpoints; even when given the advisory, agents found the sink (critical operation) more often than the entry point (51% vs 30% file-level) and produced incomplete traces, so keep deterministic SAST as the gate and supply entry points explicitly when asking an agent to triage.",
      "evidence": "Table 3 oracle-conditioned analysis, 43 Hard items, 9 configs: CO FR max 51.16% vs EP FR 30.23%; max trace ES 36.37%. Table 2 end-to-end best 7/31 advisories. Single run, no execution allowed.",
      "strength": "moderate", "novelty": "refines", "relative_to": ["LLM vulnerability detection is unreliable; keep SAST as gate (known)"], "transfers": "indirect"}
   ],

@@ -41,6 +41,6 @@
   "scores": {"rigor": 2, "reproducibility": 3, "generalizability": 1, "relevance": 0, "coi_risk": 1},
   "verdict": "reject",
   "verdict_reason": "off-topic: model post-training/distillation method for small open models; no bearing on agent harness design, and evaluation lacks seeds with config apparently tuned on test benchmark.",
-  "applicability": "Does not transfer. A Java backend team building a healthcare-education ingestion harness across ≥4 repos on mixed hosted agent hosts will not post-train Qwen3-scale models; harness, spec-driven, and cross-repo decisions are unaffected. Only tangential idea: showing an agent prior failed and successful attempts as context - but this paper tests it as a training signal, not as a prompt-time harness technique.",
+  "applicability": "Does not transfer. A Java backend team building a cross-repository work harness across several repositories on mixed hosted agent hosts will not post-train Qwen3-scale models; harness, spec-driven, and cross-repo decisions are unaffected. Only tangential idea: showing an agent prior failed and successful attempts as context - but this paper tests it as a training signal, not as a prompt-time harness technique.",
   "conflicts_with": []
 }

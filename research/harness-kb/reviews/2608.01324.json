@@ -46,6 +46,6 @@
   "scores": {"rigor": 3, "reproducibility": 1, "generalizability": 1, "relevance": 1, "coi_risk": 1},
   "verdict": "reject",
   "verdict_reason": "off-topic: open-web deep-search QA agent training, not coding agents or software engineering; additionally relies on unvalidated LLM judging and copied baseline numbers.",
-  "applicability": "Does not transfer to a Java backend team's coding-agent harness: the tasks are multi-hop web questions, not repository edits, and there is no code, test, or multi-repo setting. The only loosely portable idea is replacing an ever-growing transcript with a compact structured state between rounds (a form of context compaction), which the team would need to validate on its own ingestion/delivery tasks rather than borrow from these results.",
+  "applicability": "Does not transfer to a Java backend team's coding-agent harness: the tasks are multi-hop web questions, not repository edits, and there is no code, test, or multi-repo setting. The only loosely portable idea is replacing an ever-growing transcript with a compact structured state between rounds (a form of context compaction), which the team would need to validate on its own service tasks rather than borrow from these results.",
   "conflicts_with": []
 }

@@ -24,6 +24,6 @@
   "scores": {"rigor": 1, "reproducibility": 1, "generalizability": 1, "relevance": 1, "coi_risk": 0},
   "verdict": "reject",
   "verdict_reason": "Anecdotal, unattributed practitioner discussion summary with no systematic qualitative method and internal inconsistencies; LLM content (§7) is generic (hallucinated packages, poisoning, 'amnesia') and says nothing about agent harness design. Off-topic for harness decisions beyond background supply-chain context.",
-  "applicability": "Little transfers. For a Java healthcare-education ingestion team the only usable signals are background: hallucinated-package risk argues for dependency allow-lists / lockfile and SBOM checks on agent-generated Maven changes across the ≥4 ingestion repos, and 'paved path' supports a single shared harness config across mixed agent hosts. None of this is evidence; it does not inform spec-driven development.",
+  "applicability": "Little transfers. For a Java backend team the only usable signals are background: hallucinated-package risk argues for dependency allow-lists / lockfile and SBOM checks on agent-generated Maven changes across the several repositories, and 'paved path' supports a single shared harness config across mixed agent hosts. None of this is evidence; it does not inform spec-driven development.",
   "conflicts_with": []
 }

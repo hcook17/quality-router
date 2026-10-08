@@ -47,7 +47,7 @@
   "scores": {"rigor": 2, "reproducibility": 1, "generalizability": 2, "relevance": 1, "coi_risk": 2},
   "verdict": "reject",
   "verdict_reason": "off-topic: RL training and test-time selection for browser web agents, not software engineering harnesses; additionally SOTA claims rest on compute-mismatched comparisons, single runs, and an unvalidated LLM judge.",
-  "applicability": "Does not transfer to a backend Java team: the team will not RL-train web agents, and the method depends on URL-state traces and a frontier judge. The only portable idea is turning expensive LLM-judge feedback into a small calibrated checklist of verification questions reused across agent hosts; the paper's own discussion points to replacing such questions with executable assertions, which for a Java ingestion pipeline means tests and schema checks rather than this method.",
+  "applicability": "Does not transfer to a reference team: the team will not RL-train web agents, and the method depends on URL-state traces and a frontier judge. The only portable idea is turning expensive LLM-judge feedback into a small calibrated checklist of verification questions reused across agent hosts; the paper's own discussion points to replacing such questions with executable assertions, which for a Java the pipeline means tests and schema checks rather than this method.",
   "conflicts_with": [
     {"arxiv_id": "2607.24300", "detail": "That paper finds agent self-authored verification unreliable without exogenous checks; CLIFT relies on self-verification at test time, mitigated only by calibration against a training-time LLM judge."}
   ]

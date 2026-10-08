@@ -13,6 +13,6 @@
   "Chance baseline of 0.25 for satisfaction-level F1 assumes uniform four-class labels; no majority-class or label-distribution baseline is given, so 'modestly above chance' is not established.",
   "Agent outputs were 'manually extracted' from dialogues by the authors and compared to a ground truth also made by the authors' experts (§3.1, §4.1.1); no blinding.",
   "Post-selection inference: stepwise backward elimination invalidates the reported p-values.",
-  "Relevance overstated: the team does healthcare education content ingestion/delivery, not EHR HIPAA compliance; the paper studies chat dialogue satisfaction, not a harness component."
+  "Relevance overstated: the team does cross-repository work, not clinical compliance; the paper studies chat dialogue satisfaction, not a harness component."
  ],
  "note": "The review is accurate on facts and its code-location F1 inconsistency check is correct (mean per-item F1 cannot exceed (0.151+0.142)/2). I disagree on relevance (4→2), generalizability (one academic codebase, one model → 1), and on reading crowd-worker agreement as evidence against expert approval gates."}

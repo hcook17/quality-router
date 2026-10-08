@@ -28,6 +28,6 @@
   "scores": {"rigor": 3, "reproducibility": 4, "generalizability": 1, "relevance": 1, "coi_risk": 0},
   "verdict": "reject",
   "verdict_reason": "Off-topic. Collider-Bench measures whether agents can recast LHC searches, not software development, onboarding, or repository question answering. The three-run table is careful and the code is released, but ten survivorship-filtered tasks, a lenient threshold set by the human baseline, and an unvalidated judge that can change scores do not support a harness decision.",
-  "applicability": "Do not use these rankings to choose a coding agent or a discovery workflow for the Java ingestion repos. The only transferable caution is generic and already expected: a numeric answer can look plausible when the pipeline was abandoned or the values were copied from the source document, so an exploration agent that cites a paper should show the command that produced the number. That caution is not measured here outside particle-physics simulation.",
+  "applicability": "Do not use these rankings to choose a coding agent or a discovery workflow for the the repositories. The only transferable caution is generic and already expected: a numeric answer can look plausible when the pipeline was abandoned or the values were copied from the source document, so an exploration agent that cites a paper should show the command that produced the number. That caution is not measured here outside particle-physics simulation.",
   "conflicts_with": []
 }

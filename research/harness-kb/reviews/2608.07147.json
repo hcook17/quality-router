@@ -45,6 +45,6 @@
   "scores": {"rigor": 2, "reproducibility": 2, "generalizability": 1, "relevance": 1, "coi_risk": 0},
   "verdict": "admit_with_caveats",
   "verdict_reason": "Plausible RL credit-assignment idea with ablations and released code, but work-in-progress, single training seed, Python competitive programming only, abstract overstates gains, and it concerns model training rather than harness design.",
-  "applicability": "Does not transfer to the Java team's harness decisions. The team uses hosted models via mixed agent hosts and will not run RL on coding policies; the tasks studied (single-file Python algorithm problems) say nothing about multi-repo Java ingestion services or spec-driven workflows. At most, it is background on why vendor models may get better at multi-region edits.",
+  "applicability": "Does not transfer to the Java team's harness decisions. The team uses hosted models via mixed agent hosts and will not run RL on coding policies; the tasks studied (single-file Python algorithm problems) say nothing about multi-repo the services or spec-driven workflows. At most, it is background on why vendor models may get better at multi-region edits.",
   "conflicts_with": []
 }

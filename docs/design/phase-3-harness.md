@@ -41,7 +41,7 @@ findings[]}`. `--strict` (where offered) also fails on warnings.
   normalized events): removing a property, making one optional, widening a
   type, adding a property to a closed object → error. New enum values warn
   (exhaustive `switch` consumers). Loosened bounds warn.
-- JSON Schema, role `input` (we accept; ingestion endpoints): new required
+- JSON Schema, role `input` (we accept; service endpoints): new required
   property, newly required existing property, narrowed type, removed enum
   value, introduced enum, tightened bound, closing `additionalProperties`
   → error. `integer → number` is compatible.

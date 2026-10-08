@@ -53,6 +53,6 @@
   "scores": {"rigor": 2, "reproducibility": 3, "generalizability": 2, "relevance": 0, "coi_risk": 0},
   "verdict": "reject",
   "verdict_reason": "Off-topic: a scientometric dataset about biomedical journals, with no software development, coding agents, developer knowledge, or requirements content. It is also methodologically thin on its own LLM validation (author raters, 25 shared items, inter-rater kappa presented as LLM agreement).",
-  "applicability": "Does not transfer to the team's discovery or onboarding harness. The only tangential point for a healthcare-education ingestion team is that a small open model running a filter, extract, verify prompt chain was used to tag biomedical abstracts at scale. Its accuracy was checked only by the authors on 100 items, so it is not evidence for a content-tagging step either.",
+  "applicability": "Does not transfer to the team's discovery or onboarding harness. The only tangential point for a a Java backend team is that a small open model running a filter, extract, verify prompt chain was used to tag biomedical abstracts at scale. Its accuracy was checked only by the authors on 100 items, so it is not evidence for a content-tagging step either.",
   "conflicts_with": []
 }

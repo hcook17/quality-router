@@ -45,6 +45,6 @@
   "scores": {"rigor": 1, "reproducibility": 2, "generalizability": 0, "relevance": 1, "coi_risk": 0},
   "verdict": "reject",
   "verdict_reason": "One toy Python task, 16 participants, and a model-generation confound (GPT-3.5 vs GPT-5/Sonnet 4) between arms mean the comparison cannot isolate the interaction model; the 'agentic' arm did not perform TDD.",
-  "applicability": "Little transfer to a Java multi-repo ingestion team. The one usable hint — that autonomous agents add implementation decisions beyond the specification which the spec's tests then do not cover — argues for spec-driven development to pair every spec with acceptance tests and for a harness coverage check on agent-written branches, but this paper does not demonstrate it with credible evidence.",
+  "applicability": "Little transfer to a Java multi-repo work team. The one usable hint — that autonomous agents add implementation decisions beyond the specification which the spec's tests then do not cover — argues for spec-driven development to pair every spec with acceptance tests and for a harness coverage check on agent-written branches, but this paper does not demonstrate it with credible evidence.",
   "conflicts_with": []
 }

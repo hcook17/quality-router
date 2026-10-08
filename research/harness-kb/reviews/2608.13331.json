@@ -29,6 +29,6 @@
   "scores": {"rigor": 3, "reproducibility": 1, "generalizability": 1, "relevance": 2, "coi_risk": 3},
   "verdict": "admit_with_caveats",
   "verdict_reason": "Multiple rollouts, ablations, a prompt-optimisation control and two human studies make the work more careful than most system papers. Every headline number still rests on a self-built LLM judge with weak human agreement, the human preference study is selected, nothing is released, and the domain is ML-paper replication.",
-  "applicability": "A backend Java team will not RL-train a 27B director. The usable parts are the pattern of a planner directing an unmodified coding CLI through a wrapper with deadlines and resumable sessions, and the finding that a per-task rubric judge with several samples is less noisy than a fixed-prompt judge. Neither is shown on software-engineering tasks.",
+  "applicability": "A reference team will not RL-train a 27B director. The usable parts are the pattern of a planner directing an unmodified coding CLI through a wrapper with deadlines and resumable sessions, and the finding that a per-task rubric judge with several samples is less noisy than a fixed-prompt judge. Neither is shown on software-engineering tasks.",
   "conflicts_with": []
 }

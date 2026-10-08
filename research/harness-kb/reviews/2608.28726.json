@@ -43,6 +43,6 @@
   "scores": {"rigor": 2, "reproducibility": 3, "generalizability": 2, "relevance": 1, "coi_risk": 1},
   "verdict": "reject",
   "verdict_reason": "Off-topic: serving-layer routing for multimodal VQA with logit access to self-hosted models. It does not address coding agents or SE harnesses. Results also lack variance and rely on an unvalidated LLM judge.",
-  "applicability": "Does not transfer. The team consumes hosted frontier models through mixed agent hosts, and the repo invariants leave cheap-vs-expensive model choice to the host or an opt-in gateway, so a per-token-logit verifier inside a vLLM serving stack is not something the harness can or should own. The only generic lesson is that confidence-gated escalation from a cheap model to an expensive one can recover most quality at lower cost, which a gateway the host points at might use. Nothing here bears on Java, multi-repo ingestion or spec-driven development.",
+  "applicability": "Does not transfer. The team consumes hosted frontier models through mixed agent hosts, and the repo invariants leave cheap-vs-expensive model choice to the host or an opt-in gateway, so a per-token-logit verifier inside a vLLM serving stack is not something the harness can or should own. The only generic lesson is that confidence-gated escalation from a cheap model to an expensive one can recover most quality at lower cost, which a gateway the host points at might use. Nothing here bears on Java, multi-repo work or spec-driven development.",
   "conflicts_with": []
 }

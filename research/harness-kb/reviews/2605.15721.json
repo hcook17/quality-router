@@ -42,6 +42,6 @@
   "scores": {"rigor": 3, "reproducibility": 2, "generalizability": 1, "relevance": 1, "coi_risk": 0},
   "verdict": "reject",
   "verdict_reason": "off-topic: per-instance prompt/context optimization evaluated only on NLP QA and fact-verification datasets with one model; no coding, agent, or harness evaluation, so it does not inform a software-engineering harness decision.",
-  "applicability": "Does not transfer directly. A Java ingestion/delivery team would need tens of thousands of labeled evaluations per task to train such a router, and nothing shows the gains carry to multi-step coding agents, multi-repo work, or spec-driven workflows. At most, it is a weak hint that one global AGENTS.md/system prompt may underperform per-task context selection (which progressive-disclosure skills already approximate).",
+  "applicability": "Does not transfer directly. A Java services/delivery team would need tens of thousands of labeled evaluations per task to train such a router, and nothing shows the gains carry to multi-step coding agents, multi-repo work, or spec-driven workflows. At most, it is a weak hint that one global AGENTS.md/system prompt may underperform per-task context selection (which progressive-disclosure skills already approximate).",
   "conflicts_with": []
 }

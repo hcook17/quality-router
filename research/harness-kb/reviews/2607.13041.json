@@ -23,6 +23,6 @@
   "scores": {"rigor": 1, "reproducibility": 3, "generalizability": 1, "relevance": 1, "coi_risk": 0},
   "verdict": "reject",
   "verdict_reason": "off-topic for the harness KB and no evaluation: a lesson-plan dataset built with LLMs and an unspecified human review; the proposed benchmark is never run. Not about coding agents or software engineering.",
-  "applicability": "Only tangential: the team works in healthcare education content, so the ingestion recipe (HTML to Markdown, LLM cleanup with a 'preserve verbatim' prompt, LLM-structured metadata, human review) resembles a content-ingestion stage. But it gives no measured error rates for the LLM cleanup/structuring, which is exactly what a Java ingestion team would need before trusting LLM-transformed medical education content. Nothing here informs multi-repo coordination, mixed agent hosts, or spec-driven development; treat as a pointer, not evidence.",
+  "applicability": "Only tangential: the team works in domain data, so the ingestion recipe (HTML to Markdown, LLM cleanup with a 'preserve verbatim' prompt, LLM-structured metadata, human review) resembles a content-ingestion stage. But it gives no measured error rates for the LLM cleanup/structuring, which is exactly what a Java backend team would need before trusting LLM-transformed medical education content. Nothing here informs multi-repo coordination, mixed agent hosts, or spec-driven development; treat as a pointer, not evidence.",
   "conflicts_with": []
 }

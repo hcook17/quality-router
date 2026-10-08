@@ -41,7 +41,7 @@
   "scores": {"rigor": 2, "reproducibility": 3, "generalizability": 1, "relevance": 1, "coi_risk": 0},
   "verdict": "reject",
   "verdict_reason": "Off-topic for this knowledge base: a user-side browser CSS-repair agent with small local models, not a software-engineering agent harness. The verified loop was never run with a model, and Study 1 is a small single-rater null result.",
-  "applicability": "Does not transfer to backend Java ingestion or harness design. The only generic lesson is to accept agent edits only when a deterministic checker shows strict improvement with no new violation types, and roll back otherwise; that is already the execution-verifier pattern. If the team's front ends need accessibility checks for healthcare education content, an axe-core gate in the front-end CI is the relevant takeaway, and it belongs to the front-end teams, not this harness.",
+  "applicability": "Does not transfer to backend Java services or harness design. The only generic lesson is to accept agent edits only when a deterministic checker shows strict improvement with no new violation types, and roll back otherwise; that is already the execution-verifier pattern. If the team's callers need accessibility checks for domain data, an axe-core gate in the front-end CI is the relevant takeaway, and it belongs to the front-end teams, not this harness.",
   "conflicts_with": [
     {"arxiv_id": "2605.27716", "detail": "Reports LLM (Kimi K2.5) accessibility fixes improving compliance in 80.2% of instances, versus near-parity improve/regress here with 7-14B local models. The gap likely reflects model scale and source-level vs user-side CSS repair."}
   ]

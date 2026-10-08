@@ -30,6 +30,6 @@
   "scores": {"rigor": 3, "reproducibility": 1, "generalizability": 1, "relevance": 1, "coi_risk": 0},
   "verdict": "reject",
   "verdict_reason": "Off-topic. This is a BESIII analysis DSL, not software development, onboarding, or codebase exploration. The retry loop is a real measurement (about 45% to about 95% on 72 partial-stage packages), but the 93% effort cut is two character-count case studies, the DSL itself is not compared with direct code generation, and nothing is released.",
-  "applicability": "It does not transfer to the Java multi-repo team. The language, runtime, and success metric are experiment-specific particle-physics workflows. A shared grammar can be a domain contract in principle, but this paper does not show that such a contract beats ordinary code generation, and the team's ingestion services are not a single Ruby DSL over one stack.",
+  "applicability": "It does not transfer to the Java multi-repo team. The language, runtime, and success metric are experiment-specific particle-physics workflows. A shared grammar can be a domain contract in principle, but this paper does not show that such a contract beats ordinary code generation, and the team's the services are not a single Ruby DSL over one stack.",
   "conflicts_with": []
 }

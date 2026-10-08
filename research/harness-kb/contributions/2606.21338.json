@@ -2,7 +2,7 @@
   "arxiv_id": "2606.21338",
   "contributions": [
     {"kind": "test_practice",
-     "statement": "Add static taint rules (CodeQL/Semgrep) to in-house MCP servers that treat tool return values, exception messages and log calls as sinks for secrets and learner PII, and scan third-party servers before adoption, since more than 10% of 10,655 public MCP servers leaked in every language studied.",
+     "statement": "Add static taint rules (CodeQL/Semgrep) to in-house MCP servers that treat tool return values, exception messages and log calls as sinks for secrets and personal data, and scan third-party servers before adoption, since more than 10% of 10,655 public MCP servers leaked in every language studied.",
      "evidence": "§4.3 Fig. 6: leakage >10% per language (Java 19.1% on a small Java denominator, Python 15.4%); §4.2: 192/200 sampled flags confirmed, recall unmeasured; case 2 counts intended API-key use, so the leak definition is broad (review).",
      "strength": "moderate", "novelty": "refines",
      "relative_to": ["secret scanning / no secrets in logs (OWASP logging guidance)"],

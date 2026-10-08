@@ -47,6 +47,6 @@
   "scores": {"rigor": 0, "reproducibility": 0, "generalizability": 0, "relevance": 1, "coi_risk": 3},
   "verdict": "reject",
   "verdict_reason": "Evaluation is not real: Tables 2-5 and Figures 8, 10, 11 are explicitly captioned as placeholders 'pending measurement', so every quantitative claim in the abstract is unsupported; the domain (DNA sequencing) is also off-topic for a software-engineering harness.",
-  "applicability": "No evidence to transfer. The only reusable idea is architectural and untested: keep LLM agents in a judgment layer that configures and explains deterministic tools, with a ledger recording what each filter removed. A healthcare-education ingestion pipeline across ≥4 Java repos could log every content filter or transformation decision with its justification, but this paper gives no data that it works. It is a local-LLM-in-the-loop design with MCP servers per stage, which says nothing about mixed coding-agent hosts or spec-driven development.",
+  "applicability": "No evidence to transfer. The only reusable idea is architectural and untested: keep LLM agents in a judgment layer that configures and explains deterministic tools, with a ledger recording what each filter removed. A cross-repository work pipeline across ≥4 Java repos could log every content filter or transformation decision with its justification, but this paper gives no data that it works. It is a local-LLM-in-the-loop design with MCP servers per stage, which says nothing about mixed coding-agent hosts or spec-driven development.",
   "conflicts_with": []
 }

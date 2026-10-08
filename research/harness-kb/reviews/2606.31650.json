@@ -26,6 +26,6 @@
   "scores": {"rigor": 2, "reproducibility": 2, "generalizability": 2, "relevance": 1, "coi_risk": 1},
   "verdict": "reject",
   "verdict_reason": "off-topic: an RL training recipe for long-horizon web-search agents. The team will not train policies, and the headline rests on 83 held-out items with a single run and an unvalidated LLM-judge reward.",
-  "applicability": "Little transfers to a Java backend team using hosted agents across ≥4 repos. The team cannot apply RL credit routing to vendor models. The only weak harness-level hint is that keeping source-indexed, selectable records of past tool turns may beat rolling free-text summaries when compacting long sessions. Treat that as a hypothesis, not a finding for coding hosts, because the code evidence is Python-only and small.",
+  "applicability": "Little transfers to a Java backend team using hosted agents across several repositories. The team cannot apply RL credit routing to vendor models. The only weak harness-level hint is that keeping source-indexed, selectable records of past tool turns may beat rolling free-text summaries when compacting long sessions. Treat that as a hypothesis, not a finding for coding hosts, because the code evidence is Python-only and small.",
   "conflicts_with": []
 }

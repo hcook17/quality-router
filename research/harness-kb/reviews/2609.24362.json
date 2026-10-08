@@ -44,6 +44,6 @@
   "scores": {"rigor": 3, "reproducibility": 2, "generalizability": 2, "relevance": 1, "coi_risk": 0},
   "verdict": "reject",
   "verdict_reason": "off-topic: a visual-reasoning sandbox for VLMs on image QA and math benchmarks, with no software-engineering or code-agent tasks. The evaluation is reasonable, with matched controls and paired tests, but the gains are modest (1.8–2.5pp in controlled comparisons) and no code is released.",
-  "applicability": "Little transfers to a Java backend team ingesting and delivering healthcare-education content. The only portable idea is generic context hygiene: keep large intermediate artifacts in an addressable store outside the context, and expose a small bounded working set the agent explicitly promotes. That could inform how a harness handles large ingested documents or media assets, but this paper gives no evidence for that use, for multi-repo work or for spec-driven development.",
+  "applicability": "Little transfers to a Java backend team ingesting and delivering the domain. The only portable idea is generic context hygiene: keep large intermediate artifacts in an addressable store outside the context, and expose a small bounded working set the agent explicitly promotes. That could inform how a harness handles large incoming documents or media assets, but this paper gives no evidence for that use, for multi-repo work or for spec-driven development.",
   "conflicts_with": []
 }

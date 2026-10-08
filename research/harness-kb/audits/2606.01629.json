@@ -12,7 +12,7 @@
  "missed_issues": [
   "Scoring overflow and refusal failures as incorrect (App. B) confounds judge capability with context-window size and safety policy. The model-ranking and 'only slightly above random' framing both depend on it.",
   "The position-bias inconsistency rates are very high for several top-ranked judges (DeepSeek-V4-Flash 62.0% on WP-Bench, Table 4). Pairwise accuracy is averaged over both orders, which can hide near-coin-flip behaviour rather than fix it.",
-  "MA pairs are 90 comparisons duplicated by order swap. That is a small sample for the medical-domain conclusion (0.4983) which the review's applicability text leans on for healthcare content routing.",
-  "Relevance is somewhat overstated for a coding-harness decision. All outputs are natural-language documents (no code, specs or diffs), so transfer to judging specs or PRs is an extrapolation, though the healthcare-content angle is legitimate."
+  "MA pairs are 90 comparisons duplicated by order swap. That is a small sample for the medical-domain conclusion (0.4983) which the review's applicability text leans on for domain content routing.",
+  "Relevance is somewhat overstated for a coding-harness decision. All outputs are natural-language documents (no code, specs or diffs), so transfer to judging specs or PRs is an extrapolation, though the domain-specific content angle is legitimate."
  ],
  "note": "A sound academic, peer-reviewed meta-evaluation that rightly sets P18 to 'contradicts' for long-form judging. Its model-ranking claims are weaker than reported because failures count as wrong answers and there is no human ceiling."}

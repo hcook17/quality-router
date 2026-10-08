@@ -45,6 +45,6 @@
   "scores": {"rigor": 0, "reproducibility": 0, "generalizability": 1, "relevance": 1, "coi_risk": 0},
   "verdict": "reject",
   "verdict_reason": "Conceptual relabelling of the authors' prior AI technical-debt taxonomy with no primary evidence about agentic systems, no reported inter-rater agreement and no artifacts; provides vocabulary at most, nothing load-bearing for harness decisions.",
-  "applicability": "Little transfers to the Java team's harness choices. At most, its debt categories (glue-code turning into orchestration logic, hidden feedback loops, memory inconsistency, cross-agent dependency entanglement) are a checklist for reviewing a multi-host, ≥4-repo ingestion harness, e.g. auditing whether agent-written orchestration scripts and prompts become untracked glue code. It gives no evidence on which practices reduce such debt, and nothing specific to healthcare content, Java, or spec-driven development.",
+  "applicability": "Little transfers to the Java team's harness choices. At most, its debt categories (glue-code turning into orchestration logic, hidden feedback loops, memory inconsistency, cross-agent dependency entanglement) are a checklist for reviewing a multi-host, multi-repo service harness, e.g. auditing whether agent-written orchestration scripts and prompts become untracked glue code. It gives no evidence on which practices reduce such debt, and nothing specific to domain content, Java, or spec-driven development.",
   "conflicts_with": []
 }

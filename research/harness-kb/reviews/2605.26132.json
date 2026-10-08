@@ -33,7 +33,7 @@
   "scores": {"rigor": 3, "reproducibility": 2, "generalizability": 2, "relevance": 1, "coi_risk": 0},
   "verdict": "reject",
   "verdict_reason": "off-topic: LLM post-training on math/science/competitive-programming, not agents or software-engineering harnesses. The study is also weakened by an abstract that doubles reported gains, a single model family and single training runs.",
-  "applicability": "No direct transfer: a Java backend team adopting agent hosts will not fine-tune models. The only harness-relevant lesson is indirect. A decomposed verifier (back-translate the solution to the question, then check facts, then correctness) beat a single 'is this correct?' prompt. If the team uses an LLM to check generated healthcare education content against its source or spec, a structured multi-check cascade is preferable to one judge prompt, but deterministic checks should still gate.",
+  "applicability": "No direct transfer: a Java backend team adopting agent hosts will not fine-tune models. The only harness-relevant lesson is indirect. A decomposed verifier (back-translate the solution to the question, then check facts, then correctness) beat a single 'is this correct?' prompt. If the team uses an LLM to check generated domain data against its source or spec, a structured multi-check cascade is preferable to one judge prompt, but deterministic checks should still gate.",
   "conflicts_with": [
     {"arxiv_id": "2607.24300", "detail": "That paper (per its abstract) finds self-authored verification unreliable in self-improving agents, with self-scores near perfect while real performance degrades. Here self-verification is reported to improve held-out results, though the filter's precision is never measured."}
   ]

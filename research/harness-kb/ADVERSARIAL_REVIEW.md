@@ -217,7 +217,7 @@ marked (2nd) rest on secondary sources.
 | NIST | AI RMF 1.0 (under revision); CAISI AI Agent Standards Initiative (2026-02-17); NCCoE agent identity concept paper, whose first use case (2026-09-29) is agents in the SDLC; agent control overlays planned for 2027 | No final agent guidance yet. The NCCoE work is the one to watch for `qr policy` |
 | ISO/IEC 42001 | 2023 edition; SC 42 has no agentic work item | Management-system scope only |
 | Workflow graphs | No standards-body standard. CNCF Open Workflow Spec v1.0.3 (MCP/A2A call tasks); OpenAPI Arazzo 1.1; LangGraph is a library; GitHub Agentic Workflows in public preview (2026-06-11) | Supports `dag.md`: no portable graph format to adopt |
-| Healthcare and education | ONC HTI-1 decision-support rules in force, HTI-5 only proposed; FDA CDS guidance reissued 2026-01-29; no AI-specific HIPAA guidance; 45 CFR 92.210 in force; ED AI letter of July 2025 (FERPA) | None regulates coding agents directly. They apply where agent-built code touches ePHI, certified health IT or student records. Keep PHI and privacy checks executable |
+| Healthcare and education | ONC HTI-1 decision-support rules in force, HTI-5 only proposed; FDA CDS guidance reissued 2026-01-29; no AI-specific HIPAA guidance; 45 CFR 92.210 in force; ED AI letter of July 2025 (FERPA) | None regulates coding agents directly. They apply where agent-built code touches regulated records. Keep privacy checks executable |
 
 **The research lags the standards.** The KB has no evidence paper that
 evaluates MCP as an integration layer (P04: 0 supporting, 2 mixed), none

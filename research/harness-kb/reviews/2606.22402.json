@@ -84,6 +84,6 @@
   "scores": {"rigor": 2, "reproducibility": 0, "generalizability": 1, "relevance": 1, "coi_risk": 1},
   "verdict": "reject",
   "verdict_reason": "Off-topic for this KB: domain-model fine-tuning for building-regulation compliance scripts, not software-development practice with agents. Methodologically, checkpoints are selected on the test set, a headline metric is the training reward, and the abstract's 23.8% compares against a non-best SFT checkpoint.",
-  "applicability": "Does not transfer to the discovery and onboarding harness: the team will not fine-tune a 7B model on regulation-code pairs. The only loose lesson is that an intermediate code skeleton between regulatory text and implementation lets domain experts review structure before code is written, analogous to having agents emit a reviewable class/method outline from healthcare-education content rules. This paper rewards name overlap rather than correctness, so it is no evidence for that practice.",
+  "applicability": "Does not transfer to the discovery and onboarding harness: the team will not fine-tune a 7B model on regulation-code pairs. The only loose lesson is that an intermediate code skeleton between regulatory text and implementation lets domain experts review structure before code is written, analogous to having agents emit a reviewable class/method outline from the domain rules. This paper rewards name overlap rather than correctness, so it is no evidence for that practice.",
   "conflicts_with": []
 }

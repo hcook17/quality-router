@@ -32,7 +32,7 @@
   "scores": {"rigor": 1, "reproducibility": 0, "generalizability": 1, "relevance": 2, "coi_risk": 2},
   "verdict": "reject",
   "verdict_reason": "Evidence is a single unreplicated 15-feature case study with one model, a full-dump strawman baseline, no variance or ablations, a circular violations metric, unstated language, and no artifacts. The idea (on-demand skills + scoped guardrails) is reasonable but this paper does not provide evidence for it.",
-  "applicability": "The idea of small, scoped knowledge capsules with write-scope guardrails is relevant to a Java team spreading ingestion over ≥4 repos (per-repo/per-module skills instead of one huge instruction file, deny writes to core modules), and fits hosts that support skills. But the numbers should not be used to justify the decision: the comparison is against dumping everything into context, which no team would do. Prefer evidence from controlled context-file/skill studies in the corpus.",
+  "applicability": "The idea of small, scoped knowledge capsules with write-scope guardrails is relevant to a Java team spreading ingestion over several repositories (per-repo/per-module skills instead of one huge instruction file, deny writes to core modules), and fits hosts that support skills. But the numbers should not be used to justify the decision: the comparison is against dumping everything into context, which no team would do. Prefer evidence from controlled context-file/skill studies in the corpus.",
   "conflicts_with": [
     {"arxiv_id": "2607.27250", "detail": "MicroSkill reports large correctness gains from changing context strategy; the two-agent ablation reports context-injection strategy did not measurably move correctness (bounded ≤10-15pp) across 288 runs."}
   ]

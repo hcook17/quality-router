@@ -11,7 +11,7 @@
     {"id": "P08", "from": "contradicts", "to": "mixed", "reason": "One compression implementation (LLM summary at a 350K budget, keeping the last 20 messages) on one task type (from-scratch repository generation), single run. It lowered scores by 4.86 / 3.85 pp but cut prompt tokens by 54-77% (Table 7). That is a cost-quality trade-off for one configuration, not evidence that compaction fails in general. The paper itself frames it as task-dependent."}
   ],
   "missed_issues": [
-    "Relevance 5 is too high. All runs are single-repo benchmark tasks with open-weight models only. Java is one of five ProgramBench languages with no per-language breakdown, and the component winners are tailored to ProgramBench. It informs harness choices indirectly, not as a direct decision for a multi-repo Java ingestion team.",
+    "Relevance 5 is too high. All runs are single-repo benchmark tasks with open-weight models only. Java is one of five ProgramBench languages with no per-language breakdown, and the component winners are tailored to ProgramBench. It informs harness choices indirectly, not as a direct decision for a multi-repo Java backend team.",
     "The step-budget reduction (ProgramBench 1,000 -> 300 steps) is a cost control that interacts with every component comparison. Mechanisms that add steps or shift work off the parent loop, such as subagents, benefit from a tight parent cap, and this confound is not discussed.",
     "Claude Code and OpenCode are run with Qwen/DeepSeek models in non-thinking mode (Table 6), which is not the hosts' native configuration. The 'NanoHarness recovers most of the gap to product harnesses' comparison is against product harnesses in an atypical setup, and the 1-2 pp gaps have no variance estimate."
   ],

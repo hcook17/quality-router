@@ -39,9 +39,8 @@ and the arXiv metadata in `papers.jsonl`.
 6. **Conflicts with other papers.** If the paper's finding contradicts another
    paper you know is in the corpus (or in your batch), record it in
    `conflicts_with`.
-7. **Applicability** to the reference team: backend **Java** team, healthcare
-   education content ingestion and delivery to front ends, ingestion spans
-   **≥4 repositories**, mixed agent hosts, rolling out spec-driven development.
+7. **Applicability** to the reference team: a multi-repository Java
+   backend, mixed agent hosts, rolling out spec-driven development.
 
 ## Scores (integers 0–5)
 

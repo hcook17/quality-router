@@ -3,7 +3,7 @@
   "contributions": [
     {
       "kind": "constraint",
-      "statement": "Treat host ignore files (.cursorignore and similar), command allowlists and permission-required settings as convenience filters, not a security boundary: keep secrets and learner PII extracts out of every directory an agent can reach, and enforce deny rules at the OS, container or credential level.",
+      "statement": "Treat host ignore files (.cursorignore and similar), command allowlists and permission-required settings as convenience filters, not a security boundary: keep secrets and personal data extracts out of every directory an agent can reach, and enforce deny rules at the OS, container or credential level.",
       "evidence": "§3.2 C4: 8.4% of security posts report broken explicit constraints such as a bypassed .cursorignore, 7.1% unauthorized command execution (e.g. a git commit not on the allowlist), and 2.0% ignored permission-required settings (Claude Code auto-committing mid-session). §1 Fig. 1: the authors reproduced one report, in which Copilot read and tried to modify a restricted .env. Developer-reported and unverified, host versions and configurations not given, counts are discussion frequency rather than rates.",
       "strength": "weak",
       "novelty": "refines",

@@ -45,6 +45,6 @@
   "scores": {"rigor": 2, "reproducibility": 4, "generalizability": 1, "relevance": 1, "coi_risk": 0},
   "verdict": "reject",
   "verdict_reason": "off-topic: automated mathematical research in causal inference via Lean, not software engineering; the evaluation is also self-rated with no baselines.",
-  "applicability": "Does not transfer to a Java healthcare-education ingestion team. The only portable idea is architectural: separate a deterministic checker (here Lean; for the team, compilers, schema validators, contract tests) from LLM judgment, and keep a persisted claim-dependency record, but the team already gets this from build/test gates without any of this machinery.",
+  "applicability": "Does not transfer to a Java backend team. The only portable idea is architectural: separate a deterministic checker (here Lean; for the team, compilers, schema validators, contract tests) from LLM judgment, and keep a persisted claim-dependency record, but the team already gets this from build/test gates without any of this machinery.",
   "conflicts_with": []
 }

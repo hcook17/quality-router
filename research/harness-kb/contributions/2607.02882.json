@@ -1,7 +1,7 @@
 {"arxiv_id": "2607.02882",
  "contributions": [
   {"kind": "design_pattern",
-   "statement": "In a developer-defined workflow graph with LLM nodes (for example an ingestion pipeline that classifies or summarises content), log each node's inputs, outputs, status and config as a structured record and attach per-node contract assertions (required fields present, ordering after its upstream, consistency with upstream inputs); localize failures by checking those assertions, not by reading the raw run log.",
+   "statement": "In a developer-defined workflow graph with LLM nodes (for example an the pipeline that classifies or summarises content), log each node's inputs, outputs, status and config as a structured record and attach per-node contract assertions (required fields present, ordering after its upstream, consistency with upstream inputs); localize failures by checking those assertions, not by reading the raw run log.",
    "evidence": "§III-B, Table III: same GPT-5.2 pipeline with vs without the symbolic per-node trace and assertions; failure attribution 84.4% vs 59.8%, root cause 87.9% vs 58.3%, repair success 71.3% vs 47.0% on 443 human-labelled Dify/Coze/n8n failures. Three runs averaged, no spread, single model.",
    "strength": "weak", "novelty": "refines",
    "relative_to": ["P30 structured tracing/observability", "2606.16988 normalized cross-host trace vocabulary", "design-by-contract pre/postconditions"],

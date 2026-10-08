@@ -150,9 +150,8 @@ cloud gateway that breaks direct-connect is refused here.
 
 ## Consumer profile: multi-repo Java backend
 
-Reference case: a Java team whose content ingestion spans ≥4 repos
-(ingest → normalize → store/index → delivery API to front ends). The
-harness for that team is host-agnostic; `qr` stays Job B inside it.
+Reference case: several Java service repositories that share contracts.
+The harness for that team is host-agnostic; `qr` stays Job B inside it.
 
 - **Per repo:** `qr init` in each of the N repos. One `AGENTS.md` per
   repo (local build/test commands, module map). No fused Gortex
@@ -160,8 +159,8 @@ harness for that team is host-agnostic; `qr` stays Job B inside it.
 - **Cross-repo SoT** is a coordination repo the team owns (umbrella
   specs, contract index, merge order), not `qr`. Reads cross-repo,
   writes single-repo; one PR per repo linked to the umbrella spec.
-- **Contracts are the seam:** OpenAPI (delivery) and AsyncAPI/Avro
-  (ingestion events). Spectral lints them; breaking-change diffs and
+- **Contracts are the seam:** OpenAPI and AsyncAPI or Avro.
+  Spectral lints them; breaking-change diffs and
   Pact / schema-registry compatibility gate CI. Provider merges before
   consumer (expand → migrate → contract).
 - **Java sensors** (Spotless, Error Prone, ArchUnit, Semgrep, local

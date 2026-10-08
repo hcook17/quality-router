@@ -6,7 +6,7 @@ KB contribution gate.
 Contract: `src/quality_router/harness/report.py` (the gate result shape both
 parts reuse; new module API in section A).
 
-Problem: shared internal Java libraries cross the team's 4+ repos, and no
+Problem: shared internal Java libraries cross the team's several repositories, and no
 `qr` gate catches a binary or source break before a consumer pulls it. A
 static API diff finds 95% of what LLM-written client tests catch on
 dependency bumps (2608.20167). Separately, `qr init --graph gortex` writes a

@@ -35,6 +35,6 @@
   "scores": {"rigor": 2, "reproducibility": 2, "generalizability": 1, "relevance": 1, "coi_risk": 1},
   "verdict": "reject",
   "verdict_reason": "off-topic: supply-chain web research and knowledge-graph construction, not software engineering or coding harnesses. The evidence is also weak: an author-built 80-query benchmark, baselines without web search, single runs and an LLM judge.",
-  "applicability": "Does not transfer to a Java backend harness. A loosely related idea for content ingestion: attach per-fact provenance and confidence to extracted healthcare education facts and route low-confidence items to human review. But the paper's own limitations note that consensus across recycled web sources inflates confidence, which is exactly the risk for medical content. Nothing here informs repo, agent-host or spec-driven decisions.",
+  "applicability": "Does not transfer to a Java backend harness. A loosely related idea for cross-repository work: attach per-fact provenance and confidence to extracted the domain facts and route low-confidence items to human review. But the paper's own limitations note that consensus across recycled web sources inflates confidence, which is exactly the risk for medical content. Nothing here informs repo, agent-host or spec-driven decisions.",
   "conflicts_with": []
 }

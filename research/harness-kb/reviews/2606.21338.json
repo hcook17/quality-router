@@ -26,6 +26,6 @@
   "scores": {"rigor": 2, "reproducibility": 3, "generalizability": 4, "relevance": 3, "coi_risk": 0},
   "verdict": "admit_with_caveats",
   "verdict_reason": "Large, multi-language ecosystem measurement with released code and a useful threat model, but precision is self-assessed on 200 positives, recall is unmeasured, there are no baselines, and the leak definition is broad enough to inflate the >10% headline.",
-  "applicability": "Directly relevant to a healthcare-education team wiring mixed agent hosts to MCP servers: treat third-party MCP servers as untrusted code, and add CodeQL/Semgrep rules for secrets or learner PII flowing into tool return values, exceptions and logs in any in-house Java MCP servers (Java had the highest rate, 19.1%). Keep tokens in env/secret stores rather than mcp.json, and gate MCP server adoption across the ≥4 ingestion repos on a static scan. Treat the prevalence numbers as an upper bound.",
+  "applicability": "Directly relevant to a Java backend team wiring mixed agent hosts to MCP servers: treat third-party MCP servers as untrusted code, and add CodeQL/Semgrep rules for secrets or personal data flowing into tool return values, exceptions and logs in any in-house Java MCP servers (Java had the highest rate, 19.1%). Keep tokens in env/secret stores rather than mcp.json, and gate MCP server adoption across the several repositories on a static scan. Treat the prevalence numbers as an upper bound.",
   "conflicts_with": []
 }

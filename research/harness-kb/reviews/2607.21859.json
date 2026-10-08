@@ -92,6 +92,6 @@
   },
   "verdict": "reject",
   "verdict_reason": "Off-topic for this KB. The 'DAG' is a causal graph for epidemiological analysis, not a task or workflow graph, and the system is a literature-curation tool, not a coding-agent harness. The evaluation is also thin (three literature DAGs, one model), and the abstract's framing hides that a single direct prompt beats the pipeline on F1.",
-  "applicability": "This does not transfer to the DAG-workflow question; the shared word 'DAG' is coincidental. One tangential point for a healthcare-education ingestion team: when an LLM step must cite sources, extracting and verifying verbatim spans against a frozen snapshot made every citation checkable. The unconstrained baselines produced 0 verifiable quotes out of 1,023 and mostly cited the wrong PubMed IDs. That argues for deterministic citation verification in any content-ingestion step that attributes clinical claims, independent of how the workflow is structured.",
+  "applicability": "This does not transfer to the DAG-workflow question; the shared word 'DAG' is coincidental. One tangential point for a a Java backend team: when an LLM step must cite sources, extracting and verifying verbatim spans against a frozen snapshot made every citation checkable. The unconstrained baselines produced 0 verifiable quotes out of 1,023 and mostly cited the wrong PubMed IDs. That argues for deterministic citation verification in any content-ingestion step that attributes clinical claims, independent of how the workflow is structured.",
   "conflicts_with": []
 }

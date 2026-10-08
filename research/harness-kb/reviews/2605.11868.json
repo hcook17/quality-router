@@ -42,6 +42,6 @@
   "scores": {"rigor": 1, "reproducibility": 3, "generalizability": 1, "relevance": 2, "coi_risk": 1},
   "verdict": "reject",
   "verdict_reason": "Design description of a red-teaming tool with no empirical evaluation; usable as a pointer to an artifact but provides no evidence for the knowledge base.",
-  "applicability": "Low for the core harness. The team's agents mostly read repos and internal APIs, not the open web, but if agents ingest third-party healthcare-education HTML (publisher pages, CMS exports) during content ingestion, the threat model applies: untrusted ingested content can carry injected instructions into agent context. The idea of testing at the network/retrieval boundary is host-agnostic (works regardless of Cursor/Claude Code/Codex), but the paper gives no data on which defenses work; use evaluated IPI papers instead.",
+  "applicability": "Low for the core harness. The team's agents mostly read repos and internal APIs, not the open web, but if agents ingest third-party the domain HTML (publisher pages, CMS exports) during cross-repository work, the threat model applies: untrusted incoming data can carry injected instructions into agent context. The idea of testing at the network/retrieval boundary is host-agnostic (works regardless of Cursor/Claude Code/Codex), but the paper gives no data on which defenses work; use evaluated IPI papers instead.",
   "conflicts_with": []
 }

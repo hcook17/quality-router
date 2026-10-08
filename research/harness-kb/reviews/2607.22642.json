@@ -47,6 +47,6 @@
   "scores": {"rigor": 2, "reproducibility": 0, "generalizability": 1, "relevance": 2, "coi_risk": 4},
   "verdict": "admit_with_caveats",
   "verdict_reason": "Interesting design lesson (internalize stable schemas instead of stuffing prompts) with a seeded ablation, but evidence is relative-only, closed, judge-scored, and compared only against a weak schema-stuffing baseline by the vendor itself.",
-  "applicability": "Weak transfer. A Java team using third-party agent hosts will not post-train a 120B model, and its healthcare-education content schemas evolve across ≥4 repos — exactly the 'schema-novel' case the limitations say CRAFT does not cover. The practical takeaway is the opposite lever: don't stuff full schemas into prompts; expose schema/contract lookup as deterministic tools or on-demand skills, and gate agent output with execution and data-integrity checks before any LLM judge (the Tri-Gate ordering).",
+  "applicability": "Weak transfer. A Java team using third-party agent hosts will not post-train a 120B model, and its the domain schemas evolve across several repositories — exactly the 'schema-novel' case the limitations say CRAFT does not cover. The practical takeaway is the opposite lever: don't stuff full schemas into prompts; expose schema/contract lookup as deterministic tools or on-demand skills, and gate agent output with execution and data-integrity checks before any LLM judge (the Tri-Gate ordering).",
   "conflicts_with": []
 }

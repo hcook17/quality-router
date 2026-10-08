@@ -23,6 +23,6 @@
   "scores": {"rigor": 2, "reproducibility": 1, "generalizability": 2, "relevance": 1, "coi_risk": 0},
   "verdict": "reject",
   "verdict_reason": "Off-topic: vector-database storage security and erasure compliance, not LLM agents, coding agents or harness design. The evidence is also mixed: clinical claims rest on synthetic templates, MIMIC numbers are reported inconsistently, and the defense is standard crypto-shredding.",
-  "applicability": "It does not transfer to harness decisions. The one product-side point: if the team's delivery layer indexes healthcare education content into a vector store for RAG, a deletion or takedown request does not remove the embedding on disk (ChromaDB/FAISS). Retraction workflows need index rebuilds or per-record encryption with key destruction, plus backup purging. That belongs to the content platform's data-governance design, not the agentic coding harness.",
+  "applicability": "It does not transfer to harness decisions. The one product-side point: if the team's delivery layer indexes domain data into a vector store for RAG, a deletion or takedown request does not remove the embedding on disk (ChromaDB/FAISS). Retraction workflows need index rebuilds or per-record encryption with key destruction, plus backup purging. That belongs to the content platform's data-governance design, not the agentic coding harness.",
   "conflicts_with": []
 }

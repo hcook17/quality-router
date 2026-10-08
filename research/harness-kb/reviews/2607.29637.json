@@ -97,6 +97,6 @@
   "scores": {"rigor": 2, "reproducibility": 3, "generalizability": 2, "relevance": 1, "coi_risk": 0},
   "verdict": "admit_with_caveats",
   "verdict_reason": "On-topic for LLM code understanding with current baselines, an ablation and released code. But all main results are single-seed, the abstract's 71.2% is not reproduced by the paper's own ablation row, the reader is task-fine-tuned while baselines likely are not, and the tasks are snippet-level.",
-  "applicability": "Does not transfer to the team's discovery or onboarding harness. Agent hosts feed code as text through tools, and nothing here addresses repository-scale exploration of the Java ingestion services. The only usable signal is negative: generic text-token compressors (LLMLingua-style) badly degrade code question answering, so do not put such a compressor between the host and its code context to save tokens.",
+  "applicability": "Does not transfer to the team's discovery or onboarding harness. Agent hosts feed code as text through tools, and nothing here addresses repository-scale exploration of the the services. The only usable signal is negative: generic text-token compressors (LLMLingua-style) badly degrade code question answering, so do not put such a compressor between the host and its code context to save tokens.",
   "conflicts_with": []
 }

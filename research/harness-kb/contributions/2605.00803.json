@@ -8,7 +8,7 @@
      "relative_to": ["2609.39154 a single upfront DAG scored no better than a ReAct loop on the same model", "P36 static workflow graph"],
      "transfers": "indirect"},
     {"kind": "nuance",
-     "statement": "In pre-spec discovery or onboarding for an ingestion pipeline, have the agent or new developer execute the real artifacts (sample runs, fixtures, configs) rather than only read docs and code, because a read-only reader understood the target result (4.88/5) but missed execution-critical parameters on 28 of 85 tasks.",
+     "statement": "In pre-spec discovery or onboarding for an the pipeline, have the agent or new developer execute the real artifacts (sample runs, fixtures, configs) rather than only read docs and code, because a read-only reader understood the target result (4.88/5) but missed execution-critical parameters on 28 of 85 tasks.",
      "evidence": "App. I: Opus 4.6 no-execution baseline, claim comprehension 4.88/5, parameter fidelity 3.83/5, 28/85 high comprehension with low method/parameter scores. Single model, scores from an LLM evaluator not calibrated for this setting, and no comparison with an executing discovery step on the same claims. Fig. 5's from-paper vs from-artifact gap points the same way but is confounded by subdomain and by judge bias (audit).",
      "strength": "weak", "novelty": "refines",
      "relative_to": ["P38 pre-spec knowledge discovery", "P16 execution-based verification"],

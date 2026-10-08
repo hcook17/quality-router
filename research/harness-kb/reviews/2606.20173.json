@@ -27,6 +27,6 @@
   "scores": {"rigor": 1, "reproducibility": 1, "generalizability": 1, "relevance": 1, "coi_risk": 0},
   "verdict": "reject",
   "verdict_reason": "Small synthetic Python benchmark, single runs, inconsistent tables, and an abstract claim ('significantly reduces hallucinations') contradicted by its own discussion. Domain (quantum SDK migration) is distant from the team.",
-  "applicability": "Little transfer. The only portable idea for a Java multi-repo ingestion team is grounding migration suggestions in a curated, version-specific changelog/taxonomy (e.g., for Spring Boot or library upgrades across the ≥4 ingestion repos); but the evidence here is too weak to justify RAG over deterministic recipes (OpenRewrite-style) plus compile/test verification, which the paper never compares against.",
+  "applicability": "Little transfer. The only portable idea for a Java multi-repo work team is grounding migration suggestions in a curated, version-specific changelog/taxonomy (e.g., for Spring Boot or library upgrades across the several repositories); but the evidence here is too weak to justify RAG over deterministic recipes (OpenRewrite-style) plus compile/test verification, which the paper never compares against.",
   "conflicts_with": []
 }

@@ -26,6 +26,6 @@
   "scores": {"rigor": 1, "reproducibility": 1, "generalizability": 1, "relevance": 2, "coi_risk": 0},
   "verdict": "reject",
   "verdict_reason": "Practitioner-opinion summary with no systematic method; useful as an idea list (MCP default-deny, agent identities, tiered agent permissions) but provides no evidence that any of these controls work. Fails the rigor floor for a knowledge base meant to weight evidence.",
-  "applicability": "Idea-level only. For the Java team: treat MCP connectors that can read the ≥4 ingestion repos or internal docs as supply-chain surfaces (default-deny, explicit allow-list per repo), give agent runs distinct identities in CI so provenance of agent-authored commits is auditable across hosts (Cursor/Claude Code/Codex/Hermes), and consider read-only agent modes for less experienced contributors. Healthcare-adjacent data argues for zero-retention provider settings (§7.1). None of this is tested here; nothing on spec-driven development.",
+  "applicability": "Idea-level only. For the Java team: treat MCP connectors that can read the several repositories or internal docs as supply-chain surfaces (default-deny, explicit allow-list per repo), give agent runs distinct identities in CI so provenance of agent-authored commits is auditable across hosts (Cursor/Claude Code/Codex/Hermes), and consider read-only agent modes for less experienced contributors. Healthcare-adjacent data argues for zero-retention provider settings (§7.1). None of this is tested here; nothing on spec-driven development.",
   "conflicts_with": []
 }

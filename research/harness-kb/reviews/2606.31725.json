@@ -26,6 +26,6 @@
   "scores": {"rigor": 3, "reproducibility": 3, "generalizability": 1, "relevance": 1, "coi_risk": 0},
   "verdict": "admit_with_caveats",
   "verdict_reason": "Statistically careful (GLMMs, FDR correction, many runs), but on toy snippets, small models, and a 20-task human anchor. The headline reasoning-vs-coder alignment split is confounded with floor effects.",
-  "applicability": "Little for the discovery or onboarding harness. One caution transfers: model explanations of code with misleading or legacy names can be confidently wrong. An 'explain this module' step in onboarding to the ingestion repos should be paired with running the code or its tests, not accepted on the explanation alone. Nothing here measures frontier agents or developer learning.",
+  "applicability": "Little for the discovery or onboarding harness. One caution transfers: model explanations of code with misleading or legacy names can be confidently wrong. An 'explain this module' step in onboarding to the repositories should be paired with running the code or its tests, not accepted on the explanation alone. Nothing here measures frontier agents or developer learning.",
   "conflicts_with": []
 }

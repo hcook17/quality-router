@@ -2,7 +2,7 @@
   "arxiv_id": "2606.01629",
   "contributions": [
     {"kind": "constraint",
-     "statement": "Do not let an LLM judge be the sole gate on long natural-language artifacts (specs, design docs, healthcare-education content summaries): across 32 judge/setting combinations mean agreement with human labels was 0.56 and the best was 0.67.",
+     "statement": "Do not let an LLM judge be the sole gate on long natural-language artifacts (specs, design docs, long-form summaries): across 32 judge/setting combinations mean agreement with human labels was 0.56 and the best was 0.67.",
      "evidence": "§5.1 Table 3: mean accuracy 0.5639, best 0.6744 (Qwen3-Max + reference), 12/32 configs above 0.60; clinical meta-analysis set ~0.50. Audit: overflow/refusals scored as wrong and no human ceiling, so the gap is somewhat overstated; outputs are documents, not code.",
      "strength": "moderate", "novelty": "refines",
      "relative_to": ["known LLM-as-judge biases (position/length)", "2605.26156"],

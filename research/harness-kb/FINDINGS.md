@@ -1,9 +1,7 @@
 # Findings: agentic harness research, May–early October 2026
 
 Scope: arXiv papers **first submitted** (v1) from 2026-05-01 through
-2026-10-07, read for a backend Java team that ingests
-healthcare-education content across at least four repositories and
-delivers it to front-end applications. The team is rolling out
+2026-10-07, read for a multi-repository Java backend. The team is rolling out
 spec-driven development (SDD) through a Research → Frame → Spec → Gate
 sprint.
 
@@ -119,7 +117,7 @@ help.
      dependency bumps was crash-type breakage (missing classes and
      methods), the class japicmp targets. japicmp itself was not
      measured (2608.20167).
-6. **Healthcare and education content is still a research gap.**
+6. **Domain-specific content work is still a research gap.**
    - T56 has 1 evidence paper and T57 has none.
    - Reviewers agreed with 91–94% of an agent's NFR assessments, which
      scored only 0.38 F1 against experts (2606.24834). The same paper
@@ -335,8 +333,8 @@ Full list: `kb_tables.md` → "Hypotheses (not evidence)".
   favours spending on sensors.
 - **Constraint decay.** Each added prose constraint raises the failure
   rate, and failures concentrate in the data layer, so test against
-  the real database engine (2605.06445). This matters for ingestion
-  code, which is mostly data-layer code.
+  the real database engine (2605.06445). This matters for data-layer
+  code.
 - **Self-consistent wrongness.** When the same agent writes the code
   and the tests, they agree on wrong behaviour (2608.16742, 2607.24300).
   Hidden harness-owned oracles (2608.19799) and fresh post-commit
@@ -401,7 +399,7 @@ Bias codes across the 427 reviewed papers:
 | Does feeding errors back help? | Raw javac diagnostics help on compile errors (2609.00362) | Sanitized diagnostics = blind resampling (2609.22222) | Feed raw compiler output. Spend effort on validators. |
 | Fixed workflow or open agent loop? | Fixed incident-repair pipeline beat an open loop at 4% of the tokens (2608.17018); fixed repair solved more accessibility bugs (2606.21926) | Agentless-style pipeline far behind on multi-file localization (2605.16352); more side effects (2606.21926) | Fix the outer stages and gates; leave the code change to a bounded loop (`dag.md`). |
 
-## Implications for the Java multi-repo healthcare-content team
+## Implications for a multi-repository Java backend
 
 These map onto the team's SDD sprint stages. **[E]** marks
 recommendations backed by evidence papers. **[H]** marks
@@ -414,28 +412,27 @@ engineering judgment that fills a gap in the research.
   developer as the author (2605.22534, 2607.07980). Add an owner
   walkthrough to review (2607.26375).
 - **[J]** Start agents on narrow, well-specified changes. Treat changes
-  to content schemas and templates that ripple downstream as
+  to shared schemas and templates that ripple downstream as
   high-risk.
 
 **Spec (Design + Engineering)**
 - **[E]** A spec is acceptance criteria plus a contract: OpenAPI or
-  AsyncAPI for delivery endpoints, and a JSON Schema or Avro for the
-  content model.
+  AsyncAPI for the API, and a JSON Schema or Avro for the shared
+  schema.
   - Give each target its own acceptance test (2605.15846).
   - State the constraints and the verification step explicitly
     (2608.09072).
   - State the encoding of defaults and wildcards (2609.22259).
   - Keep layer, ORM and persistence rules in ArchUnit and static
     checks, not in prose (2605.06445).
-- **[E]** Put content semantics (field meanings, audience and
-  licensing rules, versioning) in a frozen, machine-readable card per
-  source. Agents look it up; it is not pasted into AGENTS.md
+- **[E]** Put field meanings and versioning in a frozen, machine-readable
+  card per source. Agents look it up; it is not pasted into AGENTS.md
   (2609.22222, 2609.22259).
 - **[E]** Require file:line requirement-to-code links that a
   deterministic check confirms. Agent links are unreliable
   (2606.24834).
-- **[J]** For the 4+ repos: write one umbrella spec that owns the
-  shared content contract, with per-repo specs that reference it by
+- **[J]** Across repositories: write one umbrella spec that owns the
+  shared contract, with per-repo specs that reference it by
   version. Run consumer-driven contract tests in every repo's CI. This
   is the cross-repo gate the research has not studied.
 - **[E]** For multi-repo changes, such as a shared library bump or a
@@ -466,11 +463,11 @@ engineering judgment that fills a gap in the research.
   the implementation or the coding agent's conversation. Tests written
   right after the code lost 8–18 points of fault detection on 5 of 5
   models (2607.05139).
-- **[E]** Compliance NFRs (learner and patient data privacy, no PHI in
-  logs) must be executable checks. Agent self-assessment does not
+- **[E]** Compliance NFRs (privacy, nothing sensitive in logs) must
+  be executable checks. Agent self-assessment does not
   count (2606.24834). Write security requirements as exploit tests,
   not principles (2606.25195). Keep deterministic SAST as the gate
-  for ingestion endpoints (2608.02001).
+  for service endpoints (2608.02001).
 - **[E]** LLM review is advisory only, anchored on golden references,
   and is never the merge gate (2606.01629, 2605.26156).
 - **[E]** Accessibility repair is gated on zero remaining violations
@@ -539,6 +536,5 @@ engineering judgment that fills a gap in the research.
 - **Preprints.** Most papers are not peer reviewed. The window closes
   on 2026-10-08, so very recent work is underrepresented. The discovery
   round is written up in `discovery.md`.
-- **Domain gap.** Almost nothing studies healthcare or education
-  content pipelines, or a team's own multi-repo systems.
-  Recommendations in those areas are marked [J].
+- **Domain gap.** Almost nothing studies a team's own multi-repo
+  systems. Recommendations in those areas are marked [J].

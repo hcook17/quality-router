@@ -146,9 +146,8 @@ Run on one service repo for one sprint, then decide.
 - A locked spec outside the checkout (coordination repo) is only
   hash-checked when CI checks it out at the same relative path; otherwise
   it warns `spec_not_checked_out`.
-- Healthcare/education specifics (PHI in logs, licensing semantics) have
-  almost no research behind them (T56/T57). Keep them as executable
-  checks, not spec prose.
+- Domain-specific rules have almost no research behind them (T56/T57).
+  Keep them as executable checks, not spec prose.
 
 ## Verify
 

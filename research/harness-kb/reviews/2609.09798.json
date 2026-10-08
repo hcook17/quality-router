@@ -11,7 +11,7 @@
   ],
   "patterns": [
     {"id": "P21", "stance": "contradicts", "note": "Classifier and prompt-strategy guardrails (LlamaGuard4, NemoGuard, SmoothLLM, PAT, etc.) are routinely bypassed by context-framed requests; guardrail-as-policy is weak as a sole control."},
-    {"id": "P22", "stance": "neutral", "note": "Studies direct jailbreak by a malicious user, not indirect prompt injection via ingested content; related but distinct threat."},
+    {"id": "P22", "stance": "neutral", "note": "Studies direct jailbreak by a malicious user, not indirect prompt injection via incoming data; related but distinct threat."},
     {"id": "P18", "stance": "mixed", "note": "Output classifiers (LLM judges of responses) do better than input classifiers on text-to-code but FSA drops F1 to 6.9%-72.3%; the benchmark's own LLM labeler is validated against ~97-sample human audits."}
   ],
   "methodology": {
@@ -47,7 +47,7 @@
   "scores": {"rigor": 3, "reproducibility": 2, "generalizability": 2, "relevance": 1, "coi_risk": 0},
   "verdict": "admit_with_caveats",
   "verdict_reason": "Reasonable breadth (10 guardrails, 7 models, validated LLM labeler), but best-of-5 ASR, figure-only results, an abstract number missing from the body, no artifact URL, and quantized models weaken it; the threat model (a malicious user asking for malware) is mostly tangential to a harness for a benign internal team.",
-  "applicability": "Low. A Java healthcare-education ingestion team is not primarily defending against its own developers asking for malware. The transferable lesson is negative: do not rely on an LLM guardrail classifier (LlamaGuard/NemoGuard-style) placed in front of agents as a security control, because context-framed requests bypass it; deterministic controls (sandboxing, policy-as-code permissions, network egress limits in the harness, enforced per-host by qr rather than by each agent host) are the right layer. It says nothing about multi-repo ingestion, spec-driven development, or Java code generation quality.",
+  "applicability": "Low. A Java backend team is not primarily defending against its own developers asking for malware. The transferable lesson is negative: do not rely on an LLM guardrail classifier (LlamaGuard/NemoGuard-style) placed in front of agents as a security control, because context-framed requests bypass it; deterministic controls (sandboxing, policy-as-code permissions, network egress limits in the harness, enforced per-host by qr rather than by each agent host) are the right layer. It says nothing about multi-repo work, spec-driven development, or Java code generation quality.",
   "conflicts_with": [
     {"arxiv_id": "2609.16287", "detail": "AgentGuard reports instruction-level learned guardrails substantially improving coding-agent behavior; CS-Guard shows LLM-based guardrails are easily bypassed under adversarial framing. Different threat models (benign misbehavior vs adversarial user) reconcile the two."}
   ]

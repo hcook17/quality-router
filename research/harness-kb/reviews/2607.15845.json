@@ -100,7 +100,7 @@
     "coi_risk": 1
   },
   "verdict": "reject",
-  "verdict_reason": "Off-topic: this is generation of image-generation workflows (ComfyUI), not agentic coding harness design. It does not inform a backend Java team's choice between DAG workflows and agent loops. The evaluation is also weak: 30 in-house tasks judged by unblinded manual inspection, untrained prompting baselines, and no variance or artifacts.",
+  "verdict_reason": "Off-topic: this is generation of image-generation workflows (ComfyUI), not agentic coding harness design. It does not inform a reference team's choice between DAG workflows and agent loops. The evaluation is also weak: 30 in-house tasks judged by unblinded manual inspection, untrained prompting baselines, and no variance or artifacts.",
   "applicability": "This does not transfer to the Java multi-repo team. The only loosely transferable observation is that having a model emit an intermediate skeleton and letting deterministic code expand it into the final graph or config gave more executable output than emitting the full JSON directly (Table 6). That is a weak argument for generating pipeline or workflow configs through a validated intermediate form if the team ever lets a model author a workflow graph.",
   "conflicts_with": []
 }
