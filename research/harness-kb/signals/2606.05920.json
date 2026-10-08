@@ -1,0 +1,281 @@
+{
+ "arxiv_id": "2606.05920",
+ "fulltext_chars": 75250,
+ "fulltext_lines": 1776,
+ "authors_block": "Xin Wang Liangtai Sun Affiliation: Independent researchers Affiliation: Equally contributed authors Yaoming Zhu Affiliation: Independent researchers Shuang Zhou Affiliation: Independent researchers Jiaxing Liu Affiliation: Independent researchers Fengjiao Chen Affiliation: Independent researchers Lin Qiu Affiliation: Independent researchers Xuezhi Cao Affiliation: Independent researchers Xunliang Cai Affiliation: Independent researchers Licheng Zhang Affiliation: University of Science and Technology of China Zhendong Mao Affiliation: University of Science and Technology of China Affiliation: Corresponding author",
+ "vendor_affiliation_hits": [],
+ "n_authors": 11,
+ "comment": "under review",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/coffeegrind123/gemini-for-claude-code"
+ ],
+ "hf_urls": [
+  "https://huggingface.co/MiniMaxAI/MiniMax-M2.7."
+ ],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Asuka-Bench: Benchmarking Code Agents on Underspecified User Intent and Multi-Round Refinement"
+  ],
+  [
+   68,
+   "###### Abstract"
+  ],
+  [
+   72,
+   "## 1 Introduction"
+  ],
+  [
+   98,
+   "## 2 Related Work"
+  ],
+  [
+   100,
+   "### 2.1 Code Generation Benchmarks"
+  ],
+  [
+   108,
+   "### 2.2 Web Generation Benchmarks"
+  ],
+  [
+   114,
+   "## 3 Asuka-Bench"
+  ],
+  [
+   116,
+   "### 3.1 Evaluation Framework"
+  ],
+  [
+   120,
+   "#### Task Specification"
+  ],
+  [
+   124,
+   "#### Code Agent"
+  ],
+  [
+   128,
+   "#### Automated Evaluation"
+  ],
+  [
+   132,
+   "#### Feedback-Driven Iterative Refinement"
+  ],
+  [
+   136,
+   "### 3.2 Dataset Construction"
+  ],
+  [
+   181,
+   "#### Query Sourcing"
+  ],
+  [
+   185,
+   "#### Task Formalization"
+  ],
+  [
+   189,
+   "#### Evaluation Criteria Generation"
+  ],
+  [
+   209,
+   "#### DAG-Based Evaluation Protocol"
+  ],
+  [
+   412,
+   "### 3.3 Dataset Statistics"
+  ],
+  [
+   418,
+   "## 4 Experiments and Results"
+  ],
+  [
+   420,
+   "### 4.1 Settings"
+  ],
+  [
+   422,
+   "#### Models and frameworks."
+  ],
+  [
+   426,
+   "#### Protocol and metrics."
+  ],
+  [
+   430,
+   "#### Confidence intervals."
+  ],
+  [
+   434,
+   "### 4.2 Results"
+  ],
+  [
+   445,
+   "#### Saturation Analysis."
+  ],
+  [
+   449,
+   "## 5 Analysis"
+  ],
+  [
+   453,
+   "#### RQ1: Multi-round refinement on an underspecified query vs. a single-round Clarified PRD."
+  ],
+  [
+   457,
+   "#### RQ2: Is repair-from-feedback ability a separable dimension of model capability?"
+  ],
+  [
+   463,
+   "#### RQ3: Does the closed-loop evaluation framework align with human judgment?"
+  ],
+  [
+   467,
+   "## 6 Conclusion"
+  ],
+  [
+   472,
+   "## Limitations"
+  ],
+  [
+   476,
+   "## References"
+  ],
+  [
+   688,
+   "## Appendix A DAG-Based Evaluation Analysis"
+  ],
+  [
+   690,
+   "#### Why a soft satisfaction threshold."
+  ],
+  [
+   794,
+   "#### DAG vs. Flat protocol."
+  ],
+  [
+   920,
+   "## Appendix B Framework Comparison"
+  ],
+  [
+   926,
+   "## Appendix C Implementation Details"
+  ],
+  [
+   930,
+   "#### Model–Framework Coverage."
+  ],
+  [
+   946,
+   "#### Evaluation Hyperparameters."
+  ],
+  [
+   962,
+   "#### Reproducibility."
+  ],
+  [
+   966,
+   "## Appendix D Per-Task-Type Performance Breakdown"
+  ],
+  [
+   1063,
+   "## Appendix E Per-Round Fix Rate"
+  ],
+  [
+   1196,
+   "## Appendix F Human Annotation Protocol"
+  ],
+  [
+   1274,
+   "## Appendix G Prompt used to synthesize the underspecified user query from a Clarified PRD"
+  ],
+  [
+   1280,
+   "# Task"
+  ],
+  [
+   1320,
+   "# Example underspecified Query"
+  ],
+  [
+   1324,
+   "# PRD content"
+  ],
+  [
+   1330,
+   "## Appendix H A Fully Compliant Implementation"
+  ],
+  [
+   1346,
+   "### H.1 1. Underspecified User Query"
+  ],
+  [
+   1350,
+   "### H.2 2. Clarified PRD"
+  ],
+  [
+   1354,
+   "### H.3 3. Evaluation Rubric"
+  ],
+  [
+   1465,
+   "#"
+  ],
+  [
+   1640,
+   "### H.4 4. Task-Dependency DAG"
+  ],
+  [
+   1663,
+   "### H.5 5. Resulting Page (Successful Implementation)"
+  ],
+  [
+   1682,
+   "## Appendix I Case Study: Progressive Repair Through Iterative Feedback"
+  ],
+  [
+   1686,
+   "#### Case 1: Rural-Stay Revenue Strategy Tool (Figure 14, Table 7)."
+  ],
+  [
+   1690,
+   "#### Case 2: Visual Social Media Platform (Figure 15, Table 8)."
+  ],
+  [
+   1696,
+   "#"
+  ],
+  [
+   1735,
+   "#"
+  ],
+  [
+   1772,
+   "## Appendix J AI Usage Statement"
+  ],
+  [
+   1776,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## Limitations\n\nAsuka-Bench has three main limitations that we wish to flag. First, in terms of domain coverage, the 50 tasks span six categories sampled to mirror our production traffic and target self-contained frontends with simulated data; 3D, real-time collaborative, and live-backend scenarios remain out of scope and would require non-trivial extensions to both the data pipeline and the deployment harness. Second, regarding evaluator dependence, both the UI Agent and the User LLM are instantiated with GPT-5.4: although our human-agreement study reports 93.35% accuracy with single-annotator labels, swapping the evaluator backbone may shift absolute scores, and a multi-annotator follow-up would tighten the upper bound on automated-evaluator quality. Third, like any static benchmark surface, Asuka-Bench’s underspecified queries and criterion DAGs can in principle be memorized by future training runs; long-term contamination resistance would require periodic refresh of the task pool, which we leave to future work.\n\n## References\n\nAnthropic (2025)\n\nAnthropic. 2025.\n\nIntroducing claude sonnet 4.6.\n\nhttps://www.anthropic.com/news/claude-sonnet-4-6.\n\nAccessed: 2026.\n\nAustin et al. (2021)\n\nJacob Austin, Augustus Odena, Maxwell Nye, Maarten Bosma, Henryk Michalewski, David Dohan, Ellen Jiang, Carrie Cai, Michael Terry, Quoc Le, and 1 others. 2021.\n\nProgram synthesis with large language models.\n\narXiv preprint arXiv:2108.07732.\n\nAwal et al. (2025)\n\nRabiul Awal, Mahsa Massoud, Aarash Feizi, Zichao Li, Suyuchen Wang, Christopher Pal, Aishwarya Agrawal, David Vazquez, Siva Reddy, Juan A Rodriguez, and 1 others. 2025.\n\nWebmmu: A benchmark for multimodal multilingual website understanding and code generation.\n\nIn Proceedings of the 2025 Conference on Empirical Methods in Natural Language Processing, pages 25129–25156.\n\nByteDance Seed Team (2025)\n\nByteDance Seed Team. 2025.\n\nSeed 2.0.\n\nhttps://seed.bytedance.com/en/seed2.",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 5,
+  "seeds_or_runs": 0,
+  "swe_bench": 3,
+  "contamination": 2,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

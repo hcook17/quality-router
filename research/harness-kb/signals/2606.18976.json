@@ -1,0 +1,133 @@
+{
+ "arxiv_id": "2606.18976",
+ "fulltext_chars": 59491,
+ "fulltext_lines": 1278,
+ "authors_block": "Marco Becattini Affiliation: Department of Information Engineering, University of Florence, Florence, Italy E-mail marco.becattini@unifi.it Niccolò Caselli Affiliation: Department of Information Engineering, University of Florence, Florence, Italy E-mail marco.becattini@unifi.it Matteo Minin Affiliation: Department of Information Engineering, University of Florence, Florence, Italy E-mail marco.becattini@unifi.it Roberto Verdecchia ††thanks: Corresponding author. Affiliation: Department of Information Engineering, University of Florence, Florence, Italy E-mail marco.becattini@unifi.it Enrico Vicario E-mail niccolo.caselli3@stud.unifi.it E-mail matteo.minin@stud.unifi.it E-mail roberto.verdecchia@unifi.it E-mail enrico.vicario@unifi.it Affiliation: Department of Information Engineering, University of Florence, Florence, Italy E-mail marco.becattini@unifi.it",
+ "vendor_affiliation_hits": [],
+ "n_authors": 5,
+ "comment": "Accepted for publication at the 38th International Conference on Software Engineering Education and Training",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# CAPRA: Scaling Feedback on Software Architecture Deliverables with a Multi-Agent LLM System"
+  ],
+  [
+   60,
+   "###### Abstract"
+  ],
+  [
+   64,
+   "###### Keywords:"
+  ],
+  [
+   67,
+   "## 1 Introduction"
+  ],
+  [
+   91,
+   "## 2 Related Work"
+  ],
+  [
+   177,
+   "### 2.1 Automated Assessment in SE Education"
+  ],
+  [
+   183,
+   "### 2.2 Multi-Agent Systems in SE"
+  ],
+  [
+   189,
+   "### 2.3 LLM-as-a-Judge for Open-Ended Tasks"
+  ],
+  [
+   193,
+   "## 3 The CAPRA Approach"
+  ],
+  [
+   242,
+   "### 3.1 Document Parsing and Extraction"
+  ],
+  [
+   250,
+   "### 3.2 Parallel Verification Agents"
+  ],
+  [
+   310,
+   "### 3.3 Evidence Anchoring and Deduplication"
+  ],
+  [
+   356,
+   "### 3.4 Report Generation"
+  ],
+  [
+   378,
+   "## 4 Exploratory Empirical Study Design"
+  ],
+  [
+   394,
+   "### 4.1 Study Design and Data Collection"
+  ],
+  [
+   470,
+   "## 5 Results"
+  ],
+  [
+   474,
+   "### 5.1 Accuracy and Reliability of Architectural Feedback"
+  ],
+  [
+   597,
+   "### 5.2 Processing Efficiency (RQ2)"
+  ],
+  [
+   612,
+   "### 5.3 System Customization (RQ3)"
+  ],
+  [
+   654,
+   "## 6 Discussion"
+  ],
+  [
+   699,
+   "## 7 Threats to Validity"
+  ],
+  [
+   757,
+   "## 8 Replication Package"
+  ],
+  [
+   761,
+   "## 9 Conclusion"
+  ],
+  [
+   770,
+   "## References"
+  ],
+  [
+   1278,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 7 Threats to Validity\n\nWe discuss the threats to validity of our study following established\ncategorizations [36].\n\nConstruct Validity.\nThe evaluation rubric (categories A1–D1) was designed by the authors to capture\nthe key quality dimensions of architectural deliverables. This rubric may not cover\nall relevant aspects of software architecture assessment, potentially causing relevant\nquality dimensions to go unmeasured and leading to an incomplete picture of system\nperformance. Furthermore, the binary Pass/Fail evaluation scale sacrifices\ngranularity compared to ordinal or continuous scales, which may obscure partial\ncorrectness by forcing borderline cases into fully positive or fully negative\njudgments. As a mitigation, the rubric was grounded in\nestablished software architecture quality criteria and refined through a pilot\nevaluation. Future work could adopt finer-grained rubrics (e.g., Likert scales)\nto capture partial compliance more accurately.\n\nInternal Validity.\nBoth raters were authors of this paper, which introduces a potential evaluator bias\ntoward favorable assessments of the system. This could have artificially inflated\npass rates and inter-rater agreement. To mitigate this risk, the two raters\nperformed their evaluations independently, without prior discussion, and Cohen’s\nKappa was adopted as the primary reliability metric to account for chance agreement.\nAn external replication with independent raters would further strengthen confidence\nin the results.\n\nAdditionally, the Evidence Anchoring thresholds ( \\tau_{min}=0.45 , confidence\nfilter at 0.65, trigram overlap at 0.27) were determined empirically through\npreliminary experiments. Different threshold configurations could yield different\nfiltering behaviors, potentially retaining more hallucinated findings or discarding\nvalid ones, thus directly affecting the pass rates reported for criteria such as C1.\nA systematic sensitivity analysis of these parameters is left as future work, as\nthe current dataset size does not provide sufficient statistical power to derive\nrobust optimal values.\n\nFurthermore, the exclusive use of top-scoring reports introduces an additional\nthreat to internal validity. This selection bias may have inflated pass rates and\nlimited the discriminative power of the evaluation, as the system is never\nchallenged with severely deficient deliverables, where hallucination rates and",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 4,
+  "p_value_or_ci": 5,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 1,
+  "human_study": 0,
+  "java": 1,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

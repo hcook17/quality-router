@@ -1,0 +1,173 @@
+{
+ "arxiv_id": "2606.17203",
+ "fulltext_chars": 43232,
+ "fulltext_lines": 1026,
+ "authors_block": "Mohamed Essam, Kareem Wael, Azza Hassan, Ahmed Haitham, Mahmoud Soliman*, Samer Saber, Ibrahim Habib Affiliation: CairoMotive Cairo, Egypt *mahmoud.soliman@cairomotive.com",
+ "vendor_affiliation_hits": [],
+ "n_authors": 7,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Trust-Aware Multi-Agent Traceability: Confidence-Calibrated Knowledge Graphs for Consistent Software Artifact Management"
+  ],
+  [
+   30,
+   "###### Abstract"
+  ],
+  [
+   34,
+   "###### Index Terms:"
+  ],
+  [
+   37,
+   "## I Introduction"
+  ],
+  [
+   66,
+   "## II Related Work"
+  ],
+  [
+   71,
+   "### II-A Software Traceability Recovery"
+  ],
+  [
+   86,
+   "### II-B Knowledge Graphs for Software Engineering"
+  ],
+  [
+   97,
+   "### II-C Multi-Agent Systems for Software Engineering"
+  ],
+  [
+   105,
+   "### II-D Confidence Calibration in Language Models"
+  ],
+  [
+   115,
+   "### II-E Summary and Positioning"
+  ],
+  [
+   175,
+   "## III Approach"
+  ],
+  [
+   187,
+   "### III-A Knowledge Graph Schema"
+  ],
+  [
+   203,
+   "### III-B Layered Graph Service Architecture"
+  ],
+  [
+   207,
+   "### III-C Agent Pipeline"
+  ],
+  [
+   219,
+   "### III-D Two-Stage Traceability Link Prediction"
+  ],
+  [
+   223,
+   "#### III-D1 Stage 1: Semantic Retrieval"
+  ],
+  [
+   237,
+   "#### III-D2 Stage 2: LLM-Based Multi-Criteria Analysis"
+  ],
+  [
+   251,
+   "### III-E Traceability Seeding and Validation"
+  ],
+  [
+   253,
+   "#### III-E1 Derivation-Time Seeding"
+  ],
+  [
+   263,
+   "#### III-E2 Global Validation Pass"
+  ],
+  [
+   273,
+   "### III-F Conflict Detection"
+  ],
+  [
+   277,
+   "#### III-F1 Confidence Divergence Conflict"
+  ],
+  [
+   287,
+   "#### III-F2 Cross-Cluster Ambiguity Conflict"
+  ],
+  [
+   297,
+   "#### III-F3 Conflict Materialization"
+  ],
+  [
+   305,
+   "### III-G Graph-Based Engineering Analysis"
+  ],
+  [
+   337,
+   "## IV Experiments"
+  ],
+  [
+   339,
+   "### IV-A Dataset Description"
+  ],
+  [
+   345,
+   "### IV-B Experiment 1: Two-Stage Pipeline Validation"
+  ],
+  [
+   397,
+   "#### Performance by Traceability Relationship"
+  ],
+  [
+   433,
+   "### IV-C Experiment 2: Conflict Detection Parameter Ablation"
+  ],
+  [
+   627,
+   "### IV-D Experiment 3: Consistency Control Ablation"
+  ],
+  [
+   695,
+   "### IV-E Experiment 4: Link Creation Threshold Ablation"
+  ],
+  [
+   771,
+   "## V Conclusion"
+  ],
+  [
+   777,
+   "## References"
+  ],
+  [
+   1026,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "",
+ "ethics_coi": "### III-F Conflict Detection\n\nThe co-existence of derivation-time and validation-time assessments enables structured conflict detection. Two categories of conflict are identified.\n\n#### III-F1 Confidence Divergence Conflict\n\nA confidence divergence conflict arises when the gap between seeded and validated confidence for the same edge exceeds a threshold \\delta :\n\n \\Delta c=c_{\\text{seed}}-c_{\\text{val}},\\quad\\text{conflict triggered if }|\\Delta c|>\\delta. \n\n(9)\n\nThis indicates that the Requirement Agent’s self-assessment disagrees with the Traceability Agent’s independent evaluation when the software requirement is considered in the context of all system requirements simultaneously. The divergence may reflect semantic drift introduced during derivation. The severity of the conflict is set to |\\Delta c| .\n\n#### III-F2 Cross-Cluster Ambiguity Conflict\n\nSystem requirements are grouped into semantic clusters based on embedding similarity. Let C(r) denote the cluster assignment of requirement r and d(C_{i},C_{j}) the inter-cluster semantic distance. A cross-cluster ambiguity conflict is triggered when a software requirement s holds valid REF_BY links to system requirements in semantically distant clusters:\n\n c_{\\text{val}}(s,r_{i})\\geq\\tau\\;\\land\\;c_{\\text{val}}(s,r_{j})\\geq\\tau\\;\\land\\;d(C(r_{i}),C(r_{j}))>\\epsilon, \n\n(10)\n\nwhere \\tau is the acceptance confidence threshold and \\epsilon is the inter-cluster distance threshold. This condition signals that the software requirement serves two unrelated system concerns, typically indicating a need for decomposition.\n\n#### III-F3 Conflict Materialization",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 3,
+  "seeds_or_runs": 4,
+  "swe_bench": 1,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

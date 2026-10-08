@@ -1,0 +1,177 @@
+{
+ "arxiv_id": "2606.15074",
+ "fulltext_chars": 22811,
+ "fulltext_lines": 600,
+ "authors_block": "for Multi-Model Technical Document Generation Zhiqiang Zhou Junliang Dai Xu Ling Affiliation: Hunan Chemical Industry Vocational and Technical College, Hunan, China Email: willenchow@126.com",
+ "vendor_affiliation_hits": [],
+ "n_authors": 3,
+ "comment": "12 pages, 7 figures, 5 tables",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# TriAdReview: Triangular Adversarial Review Architecture"
+  ],
+  [
+   34,
+   "###### Abstract"
+  ],
+  [
+   38,
+   "## 1 Introduction"
+  ],
+  [
+   78,
+   "## 2 Related Work"
+  ],
+  [
+   80,
+   "### 2.1 Multi-Agent LLM Systems"
+  ],
+  [
+   84,
+   "### 2.2 Adversarial and Debate-Based Approaches"
+  ],
+  [
+   88,
+   "### 2.3 Iterative Refinement"
+  ],
+  [
+   92,
+   "### 2.4 Code and Document Quality Assessment"
+  ],
+  [
+   96,
+   "## 3 Method"
+  ],
+  [
+   98,
+   "### 3.1 System Overview"
+  ],
+  [
+   118,
+   "### 3.2 Review Protocol"
+  ],
+  [
+   140,
+   "### 3.3 Triangular Judging Mechanism"
+  ],
+  [
+   170,
+   "### 3.4 Iterative Refinement"
+  ],
+  [
+   188,
+   "### 3.5 Experimental Configurations"
+  ],
+  [
+   214,
+   "## 4 Experimental Setup"
+  ],
+  [
+   216,
+   "### 4.1 Benchmark Tasks"
+  ],
+  [
+   252,
+   "### 4.2 Evaluation Metrics"
+  ],
+  [
+   278,
+   "### 4.3 Experimental Protocol"
+  ],
+  [
+   282,
+   "## 5 Results"
+  ],
+  [
+   284,
+   "### 5.1 Overall Performance"
+  ],
+  [
+   328,
+   "### 5.2 Task-Level Analysis"
+  ],
+  [
+   358,
+   "### 5.3 Dimension-Level Analysis"
+  ],
+  [
+   366,
+   "### 5.4 Process Metrics"
+  ],
+  [
+   386,
+   "### 5.5 Cost-Quality Tradeoff"
+  ],
+  [
+   394,
+   "## 6 Analysis"
+  ],
+  [
+   396,
+   "### 6.1 Why Adversarial Review Helps “De-Fatting” Tasks"
+  ],
+  [
+   414,
+   "### 6.2 Why Adversarial Review Harms Completeness Tasks"
+  ],
+  [
+   432,
+   "### 6.3 T5 Prompt Adaptation"
+  ],
+  [
+   442,
+   "### 6.4 Task-Type Framework"
+  ],
+  [
+   468,
+   "## 7 Discussion"
+  ],
+  [
+   470,
+   "### 7.1 Positioning within the Literature"
+  ],
+  [
+   474,
+   "### 7.2 Limitations"
+  ],
+  [
+   496,
+   "### 7.3 Future Work"
+  ],
+  [
+   518,
+   "## 8 Conclusion"
+  ],
+  [
+   526,
+   "## References"
+  ],
+  [
+   600,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "### 7.2 Limitations\n\n1. \n\nModerate sample size: n=5 per cell provides adequate power for the primary analysis (GPT scorer: p{<}0.05 ), though the MIMO scorer effect remains not significant. Cross-scorer agreement suggests the true effect lies between 2.7% and 10.1%.\n\n2. \n\nScorer bias: GPT-based scoring may favor the triple model due to its preference for structured, revised outputs. The MIMO scorer’s smaller effect (+2.7%) partially addresses this but introduces its own biases.\n\n3. \n\nLimited task diversity: Five tasks may not represent the full range of technical writing.\n\n4. \n\nLLM-as-Judge limitations: Automated scoring may not capture all dimensions of document quality.\n\n5. \n\nCost: The 7.0 \\times cost multiplier may be prohibitive for some use cases.\n\n### 7.3 Future Work\n\n1. \n\nTask-adaptive review: Automatically detect task type and adjust reviewer prompts accordingly.\n\n2. \n\nHuman evaluation: Validate LLM-as-Judge scores against human expert ratings.\n\n3. \n\nScaling: Test with larger models (70B+) to determine if review effectiveness scales with model capability.\n\n4. \n\nCost optimization: Explore selective review (only trigger adversarial review when initial output quality is below threshold).",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 5,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 1,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

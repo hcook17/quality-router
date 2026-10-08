@@ -1,0 +1,319 @@
+{
+ "arxiv_id": "2605.07068",
+ "fulltext_chars": 83264,
+ "fulltext_lines": 2700,
+ "authors_block": "Iterative Knowledge Compilation for LLM Wiki Systems Juan M. Huerta Affiliation: Zinnia Tech Solutions Affiliation: 600 Steamboat Road Affiliation: Greenwich, CT 06830, USA Email: juan.huerta@zinnia.com",
+ "vendor_affiliation_hits": [],
+ "n_authors": 1,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/ggml-org/llama.cpp"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# WiCER: Wiki-memory Compile, Evaluate, Refine"
+  ],
+  [
+   34,
+   "###### Abstract"
+  ],
+  [
+   57,
+   "## 1 Introduction"
+  ],
+  [
+   87,
+   "#### RAG baseline."
+  ],
+  [
+   95,
+   "#### Compilation gap."
+  ],
+  [
+   109,
+   "#### WiCER."
+  ],
+  [
+   138,
+   "## 2 Related Work"
+  ],
+  [
+   140,
+   "#### Retrieval-Augmented Generation."
+  ],
+  [
+   152,
+   "#### KV Cache Optimization."
+  ],
+  [
+   169,
+   "#### KV Cache Sharing and Disaggregation."
+  ],
+  [
+   182,
+   "#### Knowledge Compilation and Cache-Augmented Generation."
+  ],
+  [
+   199,
+   "#### Structured Knowledge Compilation."
+  ],
+  [
+   217,
+   "#### LLM-as-Judge Evaluation."
+  ],
+  [
+   225,
+   "## 3 Experimental Setup"
+  ],
+  [
+   227,
+   "### 3.1 Document Corpora"
+  ],
+  [
+   229,
+   "#### Policygenius (curated)."
+  ],
+  [
+   241,
+   "#### RepLiQA (raw, multi-domain)."
+  ],
+  [
+   255,
+   "### 3.2 Question-Answer Generation"
+  ],
+  [
+   268,
+   "### 3.3 System Configuration"
+  ],
+  [
+   279,
+   "### 3.4 Inference Configurations"
+  ],
+  [
+   281,
+   "#### Full-context."
+  ],
+  [
+   288,
+   "#### RAG."
+  ],
+  [
+   295,
+   "### 3.5 Evaluation Methodology"
+  ],
+  [
+   307,
+   "## 4 Full-Context KV Cache on Compiled Knowledge"
+  ],
+  [
+   309,
+   "### 4.1 Answer Quality"
+  ],
+  [
+   341,
+   "### 4.2 Timing: Full-Context vs. RAG"
+  ],
+  [
+   385,
+   "## 5 The Scalability Gap"
+  ],
+  [
+   395,
+   "### 5.1 Results"
+  ],
+  [
+   397,
+   "#### TTFT and quantization."
+  ],
+  [
+   406,
+   "#### RAG timing and retrieval accuracy."
+  ],
+  [
+   423,
+   "#### Quality: RAG outperforms full-context at 80 documents."
+  ],
+  [
+   465,
+   "## 6 The Compilation Gap"
+  ],
+  [
+   474,
+   "### 6.1 Motivation and Pipeline"
+  ],
+  [
+   488,
+   "### 6.2 Results"
+  ],
+  [
+   548,
+   "### 6.3 Analysis"
+  ],
+  [
+   561,
+   "## 7 WiCER: Wiki-memory Compile, Evaluate, Refine"
+  ],
+  [
+   570,
+   "### 7.1 Algorithm"
+  ],
+  [
+   640,
+   "### 7.2 Design Rationale"
+  ],
+  [
+   658,
+   "#### Convergence."
+  ],
+  [
+   669,
+   "### 7.3 Results"
+  ],
+  [
+   827,
+   "### 7.4 Analysis and Limitations"
+  ],
+  [
+   831,
+   "### 7.5 Ablation: Diagnosed vs. Random Pinning"
+  ],
+  [
+   946,
+   "## 8 Discussion and Conclusion"
+  ],
+  [
+   950,
+   "## References"
+  ],
+  [
+   1242,
+   "## NeurIPS Paper Checklist"
+  ],
+  [
+   1776,
+   "## Appendix A RAG Index Statistics"
+  ],
+  [
+   1818,
+   "## Appendix B Evaluation Rubric"
+  ],
+  [
+   1844,
+   "## Appendix C Reproducibility"
+  ],
+  [
+   1878,
+   "# Full-context benchmark"
+  ],
+  [
+   1888,
+   "# RAG benchmark (server already running)"
+  ],
+  [
+   1898,
+   "## Appendix D Hardware Architecture Projections"
+  ],
+  [
+   1905,
+   "### NVIDIA RTX 4090 (Desktop GPU)"
+  ],
+  [
+   1968,
+   "### AWS Inferentia2 (Cloud Accelerator)"
+  ],
+  [
+   2003,
+   "### Deployment Recommendations"
+  ],
+  [
+   2055,
+   "## Appendix E Customer Experience Metrics"
+  ],
+  [
+   2093,
+   "## Appendix F KV Cache Quantization Ablation"
+  ],
+  [
+   2153,
+   "## Appendix G Multi-Domain Detailed Results"
+  ],
+  [
+   2155,
+   "#### TTFT across topics."
+  ],
+  [
+   2305,
+   "#### KV cache quantization on RepLiQA."
+  ],
+  [
+   2315,
+   "#### Generalization summary."
+  ],
+  [
+   2434,
+   "#### Comparison to Policygenius."
+  ],
+  [
+   2442,
+   "## Appendix H Wiki Compilation Timing"
+  ],
+  [
+   2489,
+   "## Appendix I CEGAR–WiCER Mapping"
+  ],
+  [
+   2497,
+   "### Formal Mapping"
+  ],
+  [
+   2548,
+   "### Monotonicity Guarantee"
+  ],
+  [
+   2571,
+   "### Limitations of the Mapping"
+  ],
+  [
+   2575,
+   "#### Stochastic compiler."
+  ],
+  [
+   2584,
+   "#### Approximate verification."
+  ],
+  [
+   2592,
+   "#### Random knowledge displacement."
+  ],
+  [
+   2611,
+   "## Appendix J Human Evaluation Validation"
+  ],
+  [
+   2700,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "### 7.4 Analysis and Limitations\n\nTen of seventeen topics peak at iteration 2; the remaining seven peak at iteration 1 or show no gain, as the random knowledge displacement effect—fixing targeted facts displaces others—limits further improvement. One topic (local_education_systems) shows no WiCER improvement; its relatively high blind baseline (2.41) and low score-1 rate (38.8%) leave fewer catastrophic failures to diagnose. Recovery rates span 0–125% across the 15 topics with FC raw baselines, with three topics (news_stories at 101%, local_arts_and_culture at 116%, small_and_medium_enterprises at 125%) exceeding FC raw quality after two iterations. Topics with many entity-specific facts benefit most in absolute terms ( +1.96 for local_arts_and_culture, +1.54 for small_and_medium_enterprises). Two topics lack FC raw baselines because their 80 documents exceed the 96K context window; WiCER still improves both over blind compilation. Each iteration requires {\\sim}130 K API input tokens and {\\sim}17 K output tokens (one compilation call, {\\sim}80 judge calls, {\\sim}15 diagnosis calls); the 80 local inference probes run at zero API cost. At current Sonnet pricing this totals {\\sim}\\$1 – 2 per iteration, completing in {\\sim}50 minutes; cost scales linearly with corpus size.\n\n### 7.5 Ablation: Diagnosed vs. Random Pinning\n\nTo isolate the contribution of diagnosis, we run a random pinning\ncontrol: for each score-1 failure, a random 50–100 word passage from a\nrandom source document is pinned instead of the diagnosed critical facts.\nAll other parameters are identical to WiCER. Each topic uses an\nindependent blind compilation; blind baselines differ slightly from\nTable 4 due to LLM compiler non-determinism.\n\nTable 5: Ablation: WiCER (diagnosed pinning) vs. random pinning across\nall seventeen RepLiQA topics (best iteration per topic). Mean quality on 80 probes each.\n\nTopic\nBlind\nRandom Pin\nWiCER\n\ncompany_policies\n3.38\n3.38\n3.51\n\ncybersecurity_news\n2.08\n2.30\n3.06\n\nincident_report\n2.01\n2.06\n2.70\n\nlocal_arts_&_culture\n1.74\n2.58\n3.61",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 16,
+  "p_value_or_ci": 5,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 1,
+  "human_study": 2,
+  "java": 0,
+  "industrial": 3
+ },
+ "fulltext_source": "html"
+}

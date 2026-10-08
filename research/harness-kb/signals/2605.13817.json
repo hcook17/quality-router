@@ -1,0 +1,137 @@
+{
+ "arxiv_id": "2605.13817",
+ "fulltext_chars": 57705,
+ "fulltext_lines": 1379,
+ "authors_block": "Bethel Hall Affiliation: Stevens Institute of Technology Email: bhall2@stevens.edu William Eiers Affiliation: Stevens Institute of Technology Email: weiers@stevens.edu",
+ "vendor_affiliation_hits": [],
+ "n_authors": 2,
+ "comment": "10",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Neurosymbolic Auditing of Natural-Language Software Requirements"
+  ],
+  [
+   34,
+   "###### Abstract"
+  ],
+  [
+   39,
+   "## 1 Introduction"
+  ],
+  [
+   101,
+   "## 2 Methodology"
+  ],
+  [
+   103,
+   "### 2.1 Problem Formulation"
+  ],
+  [
+   213,
+   "### 2.2 Approach"
+  ],
+  [
+   297,
+   "### 2.3 Experimental Setup"
+  ],
+  [
+   325,
+   "### 2.4 Experiment 1: Requirement Autoformalization"
+  ],
+  [
+   483,
+   "### 2.5 Experiment 2: Counterexample-Guided Repair (CEGR)"
+  ],
+  [
+   522,
+   "### 2.6 Experiment 3: End-to-End Fault Detection"
+  ],
+  [
+   574,
+   "### 2.7 Experiment 4: Ambiguity Resolution"
+  ],
+  [
+   592,
+   "## 3 Limitations"
+  ],
+  [
+   618,
+   "## 4 Related Work"
+  ],
+  [
+   631,
+   "## 5 Conclusion and Future Work"
+  ],
+  [
+   643,
+   "## References"
+  ],
+  [
+   931,
+   "## Appendix A Generalizability Check: PCA Pump Requirements"
+  ],
+  [
+   991,
+   "## Appendix B Redundancy Analysis"
+  ],
+  [
+   1064,
+   "## Appendix C Tables"
+  ],
+  [
+   1237,
+   "#### Reading the table."
+  ],
+  [
+   1253,
+   "## Appendix D Prompt Templates"
+  ],
+  [
+   1258,
+   "### Experiment 1: Autoformalization"
+  ],
+  [
+   1300,
+   "### Experiment 2: CEGR"
+  ],
+  [
+   1342,
+   "### Exp3 — End-to-End Fault Detection"
+  ],
+  [
+   1348,
+   "### Experiment 4: Ambiguity Resolution & Clarification"
+  ],
+  [
+   1372,
+   "## Appendix E Compute Resources"
+  ],
+  [
+   1379,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 3 Limitations\n\nGeneralizability. Our evaluation targets hemodialysis machine\nrequirements, with a secondary evaluation on a PCA pump specification\n(Appendix A). Both are infusion-related\nmedical devices with shared structural features. We cannot establish\nthat our findings transfer to structurally different device classes\nor to non-medical domains, and we make no such claim.\n\nFaithfulness. Our approach does not directly measure whether an LLM-generated formalization is fully faithful to the intent of the original requirement. That is a non-trivial challenge.\nInstead, we use a collection of proxy signals, including consistency,\nmutation sensitivity, ambiguity detection, round-trip similarity, and\ndownstream repair performance. These signals are useful but incomplete: a\nformalization can pass some of them while still missing subtle aspects of the\nintended meaning.\n\nTemporal Requirements. A further limitation of our work is temporal expressiveness. Since we use SMT as our core formalism, temporal requirements are modeled using current\nstate conditions rather than a full temporal logic. For example, requirements\nsuch as “the blood pump stops and remains stopped” or “after 400 mL have\nbeen reinfused, the alarm shall activate” are approximated in terms of the\ncurrent system state instead of temporal relations across states.\n\nScalability and Deployment Risk. Industrial medical software requirements documents are often an order of\nmagnitude larger than the datasets used in this work. The result of this work should not be used in safety-critical\napplications without independent review by experts.\n\n## 4 Related Work\n\nAutoformalization\nSince [28] demonstrated LLM-based autoformalization for mathematical theorems, neurosymbolic research has focused on combining autoformalization with downstream verification [7, 17, 28, 1]. However, the autoformalization step itself is rarely scrutinized. In particular, existing work rarely evaluates whether the generated formalizations are consistent, correct, and unambiguous as specifications [23, 29, 14]. Prior work on autoformalization has largely focused on mathematical domains, where formal statements are well-defined and can be verified against proofs [2, 16, 10]. However, VeriMed operates on natural language software requirement specifications: theorems are self-contained and unambiguous by construction, while natural-language requirements often contain underspecification and ambiguity that the formalization step must surface rather than ignore. VeriMed addresses both gaps: it checks the correctness of the formalization itself, and uses verifier feedback to drive repair.\n\nAmbiguity Resolution. Ambiguity is a central obstacle in formalizing natural-language requirements. Recent work uses LLMs to detect and explain ambiguities [6], or surfaces them directly during code generation via clarifying questions [20, 26, 27]. These approaches treat ambiguity as a textual property to flag or paraphrase away without deterministic resolution. Our approach forces ambiguities to manifest in the form of multiple machine-checkable inequivalent encodings of the same requirement.\n\nRequirements Formalization with LLMs.\nRecent efforts evaluate correctness only at the artifact level. Cao et al. [9] benchmark ten LLMs across five proof targets, scoring outputs by whether the checker accepts the output; however, acceptance can conceal incorrect properties. Mandal et al. [18] synthesize configuration specifications from software manuals, but evaluate only against gold labels with no semantic check. Beg et al. [8] survey LLM-based specification tools and frame the open problem as bridging informal natural language and rigorous formal specifications, with no system closing the loop at the requirement level. VeriMed closes this loop, using SMT equivalence between the original encoding and a re-formalization of the LLM’s own informalization to detect semantic drift at the requirement level.\n\nFormal Analysis of Medical Devic",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 5,
+  "seeds_or_runs": 1,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 2
+ },
+ "fulltext_source": "html"
+}

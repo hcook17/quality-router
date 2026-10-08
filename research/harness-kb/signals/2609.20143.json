@@ -1,0 +1,309 @@
+{
+ "arxiv_id": "2609.20143",
+ "fulltext_chars": 161693,
+ "fulltext_lines": 2491,
+ "authors_block": "CCS: Social and professional topics Computing educationCCS: Human-centered computing HCI design and evaluation methods Sebastian Maier email: maier.sebastian@campus.lmu.de Note: Both authors contributed equally to this research. Affiliation: LMU Munich & Munich Center for Machine Learning (MCML), Munich, Germany , Kai Schwabe Affiliation: LMU Munich, Munich, Germany , Manuel Schneider Affiliation: LMU Munich, Munich, Germany and Stefan Feuerriegel Affiliation: LMU Munich & Munich Center for Machine Learning (MCML), Munich, Germany © none Figure 1. Study overview. Participants are tasked to solve exercises with fraction arithmetic; upon personal choice, the participants may offload the task to an LLM assistant that provides solutions only on request (left). To reduce offloading and subsequent deskilling, we compare two design interventions in a 2 \\times 2-plus-control design: (i) metacognitive feedback and (ii) an effort-based reward, together with a no-AI control (center). The preregistered outcomes are answer offloading and unaided test performance as a measure of deskilling (right). Our results show that metacognitive feedback reduced offloading and improved performance; the reward changed neither outcome (bottom).Three-panel diagram with a results strip below. Left panel, titled AI interaction: an example chat for the item 1/3 divided by 3/4, in which the request ``How do I start?'' receives the hint ``flip the second fraction'' and is marked not offloaded, while ``Give me",
+ "vendor_affiliation_hits": [],
+ "n_authors": 4,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Designing Against Deskilling: Metacognitive Feedback Reduces Cognitive Offloading to LLM Assistants"
+  ],
+  [
+   51,
+   "###### Abstract."
+  ],
+  [
+   55,
+   "###### Keywords:"
+  ],
+  [
+   58,
+   "## 1. Introduction"
+  ],
+  [
+   88,
+   "## 2. Related Work"
+  ],
+  [
+   124,
+   "### 2.1. AI assistance in learning"
+  ],
+  [
+   145,
+   "### 2.2. Cognitive offloading"
+  ],
+  [
+   155,
+   "### 2.3. Metacognition"
+  ],
+  [
+   163,
+   "### 2.4. Research gap"
+  ],
+  [
+   167,
+   "## 3. Hypotheses"
+  ],
+  [
+   171,
+   "### 3.1.  Access to AI"
+  ],
+  [
+   179,
+   "### 3.2.  Metacognitive feedback"
+  ],
+  [
+   192,
+   "### 3.3.  Effort-based reward"
+  ],
+  [
+   204,
+   "## 4. Method"
+  ],
+  [
+   211,
+   "### 4.1. Study procedure"
+  ],
+  [
+   215,
+   "### 4.2. Learning platform"
+  ],
+  [
+   217,
+   "#### 4.2.1. System architecture"
+  ],
+  [
+   223,
+   "#### 4.2.2. LLM assistant"
+  ],
+  [
+   227,
+   "#### 4.2.3. Classifying extent of LLM support for reward computation"
+  ],
+  [
+   233,
+   "#### 4.2.4. Task materials"
+  ],
+  [
+   241,
+   "### 4.3. Interventions"
+  ],
+  [
+   245,
+   "#### 4.3.1.  Metacognitive feedback"
+  ],
+  [
+   255,
+   "#### 4.3.2.  Effort-based reward"
+  ],
+  [
+   261,
+   "### 4.4. Measures"
+  ],
+  [
+   269,
+   "### 4.5. Participants"
+  ],
+  [
+   276,
+   "### 4.6. Ethics"
+  ],
+  [
+   280,
+   "### 4.7. Statistical analysis"
+  ],
+  [
+   284,
+   "## 5. Results"
+  ],
+  [
+   397,
+   "### 5.1. Main results"
+  ],
+  [
+   460,
+   "#### 5.1.1.  Unaided performance was not significantly affected by LLM access (H1)"
+  ],
+  [
+   464,
+   "#### 5.1.2.  Metacognitive feedback reduced answer offloading and improved unaided performance (H2)"
+  ],
+  [
+   468,
+   "#### 5.1.3.  Effort-based reward did not significantly affect answer offloading and unaided performance (H3)"
+  ],
+  [
+   472,
+   "### 5.2. Answer offloading was associated with lower unaided performance"
+  ],
+  [
+   476,
+   "### 5.3. Metacognitive feedback reduced repeated answer offloading"
+  ],
+  [
+   488,
+   "### 5.4. Patterns of LLM use across conditions"
+  ],
+  [
+   490,
+   "##### Form of requested LLM support."
+  ],
+  [
+   494,
+   "##### Amount of LLM use."
+  ],
+  [
+   498,
+   "##### Perceived mental effort."
+  ],
+  [
+   543,
+   "### 5.5. Individual differences in offloading and unaided performance"
+  ],
+  [
+   551,
+   "## 6. Discussion"
+  ],
+  [
+   553,
+   "### 6.1. Answer offloading as a source of deskilling risk"
+  ],
+  [
+   561,
+   "### 6.2. Interpreting the effects of metacognitive feedback and the effort-based reward"
+  ],
+  [
+   569,
+   "### 6.3. Theoretical implications"
+  ],
+  [
+   573,
+   "##### Deskilling depends on how AI is used"
+  ],
+  [
+   577,
+   "##### Reducing answer offloading may preserve learning."
+  ],
+  [
+   581,
+   "##### Learning with AI is a metacognitive challenge."
+  ],
+  [
+   585,
+   "### 6.4. Design recommendations"
+  ],
+  [
+   603,
+   "### 6.5. Limitations and potential for future work"
+  ],
+  [
+   611,
+   "## 7. Conclusion"
+  ],
+  [
+   615,
+   "## References"
+  ],
+  [
+   1516,
+   "## Appendix A Learning Items"
+  ],
+  [
+   1522,
+   "#"
+  ],
+  [
+   1632,
+   "## Appendix B System Prompt of the LLM Assistant"
+  ],
+  [
+   1680,
+   "## Appendix C Offloading Classifier"
+  ],
+  [
+   1690,
+   "### C.1. Prompt templates"
+  ],
+  [
+   1733,
+   "### C.2. Coding rubric"
+  ],
+  [
+   1763,
+   "## Appendix D Prompt for Generating Metacognitive Feedback"
+  ],
+  [
+   1936,
+   "## Appendix E Implementation Details for the Interventions"
+  ],
+  [
+   1940,
+   "### E.1. Metacognitive feedback"
+  ],
+  [
+   1944,
+   "### E.2. Effort-based reward"
+  ],
+  [
+   1950,
+   "## Appendix F Overview of Measures"
+  ],
+  [
+   2030,
+   "## Appendix G Conversation Transcripts"
+  ],
+  [
+   2112,
+   "## Appendix H Robustness Checks"
+  ],
+  [
+   2172,
+   "## Appendix I Exploratory Analyses"
+  ],
+  [
+   2174,
+   "### I.1. Overall assistant use and the levels of AI support"
+  ],
+  [
+   2210,
+   "### I.2. Perceived mental effort"
+  ],
+  [
+   2310,
+   "### I.3. Metacognitive accuracy and metacognitive sensitivity"
+  ],
+  [
+   2415,
+   "### I.4. Moderators of metacognitive feedback"
+  ],
+  [
+   2491,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "### 6.5. Limitations and potential for future work\n\nOur study assessed unaided performance immediately after a brief practice session. Thus, even though metacognitive feedback improved immediate unaided test performance, it remains unclear whether these effects translate into durable skill acquisition. Longitudinal studies with extended practice periods and delayed assessments are needed to determine whether these benefits are robust over longer time horizons. Our reward intervention also used symbolic points within a specific scoring structure. We varied this structure while holding financial compensation constant to maintain comparability across conditions. Future research could investigate whether stronger incentives (e.g., additional rewards for requesting guided help or linking points to monetary outcomes) produce different patterns of LLM use and subsequent performance.\n\nWe instructed the LLM assistant to provide complete answers only when explicitly requested. This allowed us to observe answer offloading as a deliberate decision and distinguish between different forms of requested support. Our findings therefore may not directly generalize to interactions with LLM assistants that provide complete answers without such an explicit request. Furthermore, our exploratory analyses of the relationship between answer offloading and the subsequent test performance are correlational, as experimental conditions were randomized, but offloading behavior was not, so unmeasured factors, such as prior ability, may partly account for the observed associations. Finally, the metacognitive feedback combined a specific design involving, e.g., a self-monitoring cue. Our experiment does not provide evidence about the relative effectiveness of the underlying design choices.\n\nMore broadly, our study introduces a novel approach for examining offloading behavior in human-AI interaction by making assistance requests explicit and distinguishing different levels of LLM support. Building on this approach, future work could test whether factors examined in intention offloading research, such as offloading costs, financial incentives, objective ability, and performance goals (Gilbert et al., 2023; Weis and Wiese, 2019), similarly shape offloading with LLM assistants. Additionally, metacognitive feedback offers a promising direction to support skill development without restricting access to LLM assistance. Future HCI research could examine how the content, timing, and presentation of this feedback help users decide when to seek AI assistance and what level of support to request. In particular, future research could investigate how interaction design can help individuals develop strategic offloading skills, for example, by encouraging requests that support learning while reducing those that displace the cognitive processing needed for it. Together, these directions can advance HCI research on how to design LLM assistance that supports task completion while preserving opportunities to develop and exercise independent skills.\n\n## 7. Conclusion\n\nWe show that whether LLM assistance supports or undermines learning may depend on how much cognitive work learners delegate. To the best of our knowledge, this is the first study to show that metacognitive feedback on users’ own LLM use can reduce answer offloading and improve subsequent test performance. More broadly, our study has direct implications for how HCI can design AI interactions with a focus on preserving skill development over time.\n\n## References\n\nAleven et al. (2016)\n\nVincent Aleven, Ido Roll, Bruce M. McLaren, and Kenneth R. Koedinger. 2016.\n\nHelp helps, but only so much: research on help seeking with intelligent tutoring systems.\n\nInternational Journal of Artificial Intelligence in Education 26, 1 (2016), 205–223.\n\ndoi:10.1007/s40593-015-0089-1\n\nBaker et al. (2004)\n\nRyan Shaun Baker, Albert T. Corbett, Kenneth R. Koedinger, and Angela Z. Wagner. 2004.\n\nOff-task behavior in the Cognitive Tutor classr",
+ "ethics_coi": "### 4.6. Ethics\n\nOur study received IRB approval from the ethics committee at LMU Munich School of Management (ETH-SOM-089; approved July 31, 2026). All participants provided their informed consent and could withdraw at any time. Participants were paid independent of their performance, meeting Prolific’s fair-pay policy. Data were collected and stored in accordance with local data privacy laws.\n\n### 4.7. Statistical analysis\n\nFollowing our preregistered analysis plan, all confirmatory tests were one-sided at \\alpha=.05 . Exploratory analyses used two-sided tests. Each estimate is accompanied by a two-sided 95% confidence interval (CI). Effect sizes are expressed as odds ratios. We used item-level mixed-effects logistic regression models for all primary confirmatory analyses, fitted with the lme4 package (Bates et al., 2015). This approach estimates the binary outcome and keeps each trial as its own observation while accounting for the fact that trials from the same participant are correlated. As a robustness check, we also report a participant-level t -test and ANOVAs in Appendix H (Table 8), which led to the same conclusions. All analyses were conducted using R 4.6.0.\n\n## 5. Results\n\nTable 2. Descriptive statistics by condition for the primary outcomes, AI use, learning-phase performance, and perceived mental effort.Table reporting, for each of the five conditions, the number of participants; the means and standard deviations of complete-answer offloading, unaided final-test performance, and learning performance; the number and percentage of participants who used the assistant at least once and who requested a complete answer at least once; and the means and standard deviations of self-reported mental effort during the learning phase and during the final test. The answer-offloading and unaided-performance columns are shaded.\n\nAnswer\nUnaided\nPerformance\nUsed AI\nOffloaded\nMental effort\nMental effort\n\noffloading\nperformance\n(learning phase)\n \\geq 1 item\n \\geq 1 item",
+ "counts": {
+  "self_reported": 4,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 37,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 102,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

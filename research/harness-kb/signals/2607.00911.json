@@ -1,0 +1,193 @@
+{
+ "arxiv_id": "2607.00911",
+ "fulltext_chars": 74649,
+ "fulltext_lines": 1279,
+ "authors_block": "Haoyu Gao Affiliation: The University of Melbourne Victoria, Australia haoyug1@student.unimelb.edu.au Jai Lal Lulla Affiliation: Singapore Management University Singapore jailal.l.2025@phdcs.smu.edu.sg Hong Yi Lin Affiliation: The University of Melbourne Victoria, Australia tom.lin@student.unimelb.edu.au Affiliation: Sebastian Baltes Affiliation: Heidelberg University Heidelberg, Germany sebastian.baltes@uni-heidelberg.de Christoph Treude Affiliation: Singapore Management University Singapore ctreude@smu.edu.sg Mansooreh Zahedi Affiliation: The University of Melbourne Victoria, Australia mansooreh.zahedi@unimelb.edu.au",
+ "vendor_affiliation_hits": [],
+ "n_authors": 6,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# From Registry to Repository: How AI Agent Skills Are Written, Adapted, and Maintained"
+  ],
+  [
+   78,
+   "###### Abstract"
+  ],
+  [
+   85,
+   "## I Introduction"
+  ],
+  [
+   112,
+   "## II Related Work"
+  ],
+  [
+   114,
+   "### II-A AI Agents and the Rise of Skills"
+  ],
+  [
+   120,
+   "### II-B Reuse and Evolution of Software Artefacts"
+  ],
+  [
+   130,
+   "## III Methodology"
+  ],
+  [
+   148,
+   "### III-A Dataset Collection and Construction"
+  ],
+  [
+   164,
+   "### III-B RQ1 Methodology"
+  ],
+  [
+   173,
+   "### III-C RQ2 Methodology"
+  ],
+  [
+   179,
+   "### III-D RQ3 Methodology"
+  ],
+  [
+   190,
+   "## IV Skill categories on the SWEBOK (RQ1)"
+  ],
+  [
+   198,
+   "## V Characteristics of AI agent skills (RQ2)"
+  ],
+  [
+   200,
+   "### V-A How AI Agent Skills Are Written and Packaged (RQ2.1)"
+  ],
+  [
+   288,
+   "### V-B Content of AI agent skills (RQ2.2)"
+  ],
+  [
+   298,
+   "#codes"
+  ],
+  [
+   428,
+   "#### V-B1 Scoping and orchestrating the task"
+  ],
+  [
+   433,
+   "#### V-B2 Running the execution lifecycle"
+  ],
+  [
+   439,
+   "#### V-B3 Ensuring output quality"
+  ],
+  [
+   443,
+   "#### V-B4 Governing agent conduct"
+  ],
+  [
+   449,
+   "#### V-B5 Grounding domain knowledge"
+  ],
+  [
+   453,
+   "#### V-B6 User/Agent Coordination"
+  ],
+  [
+   464,
+   "#codes"
+  ],
+  [
+   637,
+   "## VI Customisation and evolution of skills (RQ3)"
+  ],
+  [
+   639,
+   "### VI-A Modification at adoption (RQ3.1)"
+  ],
+  [
+   647,
+   "### VI-B The Nature of Skill Changes (RQ3.2)"
+  ],
+  [
+   651,
+   "#### VI-B1 Configuring skill metadata"
+  ],
+  [
+   655,
+   "#### VI-B2 Reworking operational specifications"
+  ],
+  [
+   660,
+   "#### VI-B3 Recalibrating behavioural constraints"
+  ],
+  [
+   664,
+   "#### VI-B4 Adapting knowledge and resources"
+  ],
+  [
+   668,
+   "#### VI-B5 Maintaining skill compatibility"
+  ],
+  [
+   674,
+   "#### VI-B6 Polishing presentation and wording"
+  ],
+  [
+   678,
+   "## VII Discussion and Implications"
+  ],
+  [
+   680,
+   "### VII-A Discussion"
+  ],
+  [
+   689,
+   "### VII-B Implications"
+  ],
+  [
+   697,
+   "## VIII Threats to Validity"
+  ],
+  [
+   708,
+   "## IX Conclusion"
+  ],
+  [
+   713,
+   "## X Replication Package"
+  ],
+  [
+   717,
+   "## References"
+  ],
+  [
+   1279,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## VIII Threats to Validity\n\nConstruct Validity: The first construct involves our use of SWEBOK KAs to capture the software engineering domain a skill covers. Although SWEBOK enumerates the discipline’s established KAs, these are not mutually exclusive, so a skill may touch several. For simplicity, we force each skill into a single KA, assigning only its primary one where it spans several. The second construct is our reliance on the frontmatter name field with a content-similarity distance to recover linkage between centralised and personal-use skills. This misses skills that are heavily edited or renamed, and assumes reuse runs from centralised to personal-use, not the reverse. The final construct concerns the customisation and evolution patterns, whose contrast combines two designs: an immediate registry-to-local adoption diff vs. an initial-to-final endpoint diff. The latter captures net change rather than every action, hiding intermediate additions, removals, and reversals.\n\nInternal Validity: The first concerns the reliability of our qualitative analysis; two authors coded jointly and discussed disagreements until reaching consensus. Second, our linking of personal-use to centralised skills may undercount connections, yielding a conservative estimate of single adoption without synchronisation. Some skills we treat as\nlocally authored may thus be undetected reuse from elsewhere, so the evolution arm is better described as unlinked than authored from scratch. Third, our 20-install threshold excludes less-downloaded skills, missing links and customisation in less popular repositories. Finally, KA labels rely on an LLM, sensitive to prompt, decoding settings, model\nversion, and reruns; we fixed temperature at 0 for reproducibility. Our gold standard was stratified by Qwen’s predicted labels, validating category-level correctness but not corpus-level accuracy or Non-SE prevalence, so reported KA proportions should be read as classifier-based estimates with possible labelling error.\n\nExternal Validity: The first threat is sampling bias. We collect from GitHub repositories that publish their skills, whereas many projects are not open source or do not publish these configurations. We do not claim generalisability to those settings, but use this subset as a proxy. Relatedly, capping repositories at Tukey’s fence removes aggregators but may exclude genuine projects that maintain in-house skill collections, biasing the personal-use sample towards smaller adopters.\nSecond, as skills are an emerging artefact, our study captures only a snapshot. Specifically, it covers skill content to 4 March and repository history to 4 May 2026. These practices will likely mature as the ecosystem evolves. Finally, we focus on a single centralised registry, skills.sh. Although alternative registries such as SkillMP draw on similar sources, they are a less representative proxy for downstream usage, relying on indirect signals such as repository stars. We therefore consider skills.sh a more reliable basis for studying reuse and expect our findings to generalise to broader reuse patterns.\n\n## IX Conclusion\n\nWe presented the first large-scale empirical study of AI agent skills as engineered, reused, and maintained software artefacts. We mined 18,463 skills from the skills.sh registry and 23,199 personal-use skills across 5,876 GitHub repositories, linked by 3,709 recovered reuse connections. Mapping skills onto the SWEBOK KAs, we found Software Construction dominant amid a long tail. Our thematic analysis of skill content yielded six categories.\nWe then qualitatively coded updates on 444 SKILL.md files under customisation and evolution into six edit categories, finding that reworking operational specifications and adapting knowledge and resources are the most frequently edited. Customisation re-grounds a skill to its host project, whereas evolution adds new inline domain knowledge. Edits skew heavily towards additions over removals, so locally maintained ",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 5,
+  "seeds_or_runs": 0,
+  "swe_bench": 1,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 1,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

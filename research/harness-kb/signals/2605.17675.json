@@ -1,0 +1,179 @@
+{
+ "arxiv_id": "2605.17675",
+ "fulltext_chars": 114015,
+ "fulltext_lines": 2001,
+ "authors_block": "Chaitanya Bhave ††thanks: Corresponding author Email: chaitanya.bhave@inl.gov Affiliation: Idaho National Laboratory, Idaho Falls, Idaho, USA Pierre-Clément A. Simon Affiliation: Idaho National Laboratory, Idaho Falls, Idaho, USA Casey Icenhour Affiliation: Idaho National Laboratory, Idaho Falls, Idaho, USA Lin Yang Affiliation: Idaho National Laboratory, Idaho Falls, Idaho, USA Cody J. Permann Affiliation: Idaho National Laboratory, Idaho Falls, Idaho, USA Daniel Schwen Affiliation: Idaho National Laboratory, Idaho Falls, Idaho, USA Christopher S. Ritter Affiliation: Idaho National Laboratory, Idaho Falls, Idaho, USA March 2026",
+ "vendor_affiliation_hits": [],
+ "n_authors": 7,
+ "comment": "11 figures, 25 main pages (42 total pages including supplementary materials)",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/idaholab/TMAP8."
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Bridging the Gap on AI-Assisted Scientific Software Development Through Transparency and Traceability"
+  ],
+  [
+   54,
+   "###### Abstract"
+  ],
+  [
+   58,
+   "## 1 Main"
+  ],
+  [
+   100,
+   "## 2 Identified best practices"
+  ],
+  [
+   180,
+   "## 3 Demonstration of validation case development with agents"
+  ],
+  [
+   207,
+   "### 3.1 Validation case 1"
+  ],
+  [
+   241,
+   "### 3.2 Validation case 2"
+  ],
+  [
+   311,
+   "## 4 Lessons learned, updated best practices, and discussion"
+  ],
+  [
+   315,
+   "### 4.1 AI agents as accelerators, not autonomous developers"
+  ],
+  [
+   329,
+   "### 4.2 Hallucination as a persistent and structurally important risk"
+  ],
+  [
+   339,
+   "### 4.3 Context limitations require structural countermeasures"
+  ],
+  [
+   349,
+   "### 4.4 Provenance, authorship, and log management"
+  ],
+  [
+   357,
+   "### 4.5 Implications for SQA, NQA-1 compliance, future governance, and ecosystem integrity"
+  ],
+  [
+   412,
+   "## 5 Conclusion"
+  ],
+  [
+   488,
+   "## Data availability"
+  ],
+  [
+   492,
+   "## Acknowledgements"
+  ],
+  [
+   498,
+   "## References"
+  ],
+  [
+   1260,
+   "## Supplementary material"
+  ],
+  [
+   1262,
+   "### Validation case 1: Tritium release from neutron-irradiated Li2TiO3"
+  ],
+  [
+   1267,
+   "#### Model description"
+  ],
+  [
+   1271,
+   "##### Diffusion of mobile species"
+  ],
+  [
+   1287,
+   "##### Defect annihilation"
+  ],
+  [
+   1305,
+   "##### Trapping and detrapping"
+  ],
+  [
+   1327,
+   "##### Boundary and initial conditions"
+  ],
+  [
+   1332,
+   "##### Case and model parameters"
+  ],
+  [
+   1403,
+   "#### Results"
+  ],
+  [
+   1407,
+   "##### Results before optimization"
+  ],
+  [
+   1413,
+   "##### Results after optimization"
+  ],
+  [
+   1517,
+   "### Validation case 2: Modeling the influence of thin surface oxide films on hydrogen isotope release from ion-irradiated tungsten"
+  ],
+  [
+   1519,
+   "#### Overall case description"
+  ],
+  [
+   1532,
+   "#### Sample history and dimensions"
+  ],
+  [
+   1552,
+   "#### Model description"
+  ],
+  [
+   1696,
+   "#### Case and model parameters"
+  ],
+  [
+   1919,
+   "#### Results"
+  ],
+  [
+   1982,
+   "#### Discussion and future work"
+  ],
+  [
+   2001,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgements\n\nThis work was supported through INL’s Laboratory Directed Research & Development (LDRD) Program under DOE Idaho Operations Office Contract DE-AC07-05ID14517. The United States Government retains, and the publisher, by accepting the article for publication, acknowledges that the United States Government retains a nonexclusive, paid-up, irrevocable, worldwide license to publish or reproduce the published form of this manuscript, or allow others to do so, for United States Government purposes.\n\nThis research made use of Idaho National Laboratory’s High Performance Computing systems located at the Collaborative Computing Center and supported by the Office of Nuclear Energy of the U.S. Department of Energy and the Nuclear Science User Facilities under Contract No. DE-AC07-05ID14517.\n\n## References\n\nAbdou et al. (2021)\nM. Abdou, M. Riva, A. Ying, C. Day, A. Loarte, L. Baylor, P. Humrickhouse, T. F. Fuerst, and S.-K. Cho\n\nPhysics and technology considerations for the deuterium–tritium fuel cycle and conditions for tritium fuel self sufficiency.\n\nNuclear Fusion 61 (1), pp. 013001.\n\nExternal Links: Document\n\nCited by: §1.\n\nAmerican Society of Mechanical Engineers (2017)\nAmerican Society of Mechanical Engineers\n\nQuality assurance requirements for nuclear facility applications.\n\nStandard",
+ "limitations": "### 4.3 Context limitations require structural countermeasures\n\nA recurring practical failure mode was the agent neglecting instructions that were explicitly documented in AGENTS.md, not because the instructions were absent, but because they fell outside the effective attention window during extended development sessions. This is a known limitation of current LLM architectures Huang et al. (2026), and the framework must account for it structurally rather than relying on developer vigilance alone. For example, the agent encountered more difficulty running tests in validation case 2 as the discussion size increased.\n\nSeveral mitigations are worth pursuing. First, AGENTS.md should be structured to distinguish instructions by criticality, so that the most consequential requirements appear prominently and are less likely to be de-prioritized under context pressure. Second, complex tasks should be decomposed across agent teams to reduce the context load on any single agent. Third — and most reliably — developers should use automated pre-commit hooks to enforce non-negotiable requirements at the point of submission rather than relying on the agent to remember them.\n\nThe distinction between agent-level instructions and repository-level pre-commit hooks is important here. Git pre-commit hooks operate outside the agent’s decision loop entirely; for requirements such as committing the machine-readable .jsonl session log in every pull request, a hook that auto-copies and git adds the file before commit is more reliable than an instruction the agent may overlook. Agent-level hooks and AGENTS.md instructions remain valuable for guiding agent behavior, but non-optional provenance requirements are better enforced at the infrastructure level. A related concern is agent scope: branch protection rules and access controls provide an important safeguard against agents taking destructive actions — such as merging to protected branches or modifying tracked artifacts outside their intended scope — and their configuration should be treated as a required component of any governance deployment.\n\nAs a validation case reaches a stable intermediate stage, condensing the agent’s context and explicitly prompting it to critically review the current model and documentation was found to be a valuable practice: it helps the agent clean up loose ends, identify inconsistencies, and establish a coherent base — both a model base and a context base — before continuing development. Unrelated or ongoing work in the repository may otherwise be inadvertently picked up and overanalyzed by the agent, so it is important to maintain a clean and well-scoped working environment throughout the development process.\n\n### 4.4 Provenance, authorship, and log management\n\nA principle that emerged clearly from this work is that the human directing the development activity is the author of the resulting contribution, regardless of what fraction of the code is mechanically produced by an AI agent. The person driving the change is responsible for the changes submitted for review. Under PLN-4005 Section 9.4.1, the contributor is responsible for change request content and the independent reviewer controls its disposition — an accountability structure this framing preserves directly. Simultaneously, NQA-1 SP 2.7-402.1 requires that verification be performed by an individual other than the originator. The human-as-author principle provides exactly that definition and preserves the accountability chain on which independent verification depends.\n\nRecording this provenance at the commit level through human-readable session logs linked to the corresponding development issue ensures that the development history is stochastically reconstructable from repository artifacts, without a reliance on external documentation. In practice, however, we observed that AI-generated human-readable summaries of these logs abbreviated or obscured the agent’s actual decision-making in notable ways. However, additio",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 4,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

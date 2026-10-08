@@ -1,0 +1,175 @@
+{
+ "arxiv_id": "2609.12576",
+ "fulltext_chars": 78050,
+ "fulltext_lines": 1028,
+ "authors_block": "Manal Binkhonain Email: mbinkhonain@ksu.edu.sa Affiliation: Department of Software Engineering, College of Computer and Information Sciences, King Saud University, P.O. Box 51178, Riyadh 11543, Saudi Arabia Ohoud Mosa Alharbi Affiliation: Department of Software Engineering, College of Computer and Information Sciences, King Saud University, P.O. Box 51178, Riyadh 11543, Saudi Arabia",
+ "vendor_affiliation_hits": [],
+ "n_authors": 2,
+ "comment": "28 pages, 9 figures",
+ "journal_ref": "Requirements Engineering 31, 14 (2026)",
+ "github_urls": [
+  "https://github.com/langchain-ai/langchainAccessed"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# A Retrieval-Augmented Automated Stakeholder for Requirements Elicitation Education: A Comparative Study"
+  ],
+  [
+   32,
+   "###### Abstract"
+  ],
+  [
+   36,
+   "###### keywords"
+  ],
+  [
+   39,
+   "## 1 Introduction"
+  ],
+  [
+   62,
+   "## 2 Background and Related Work"
+  ],
+  [
+   64,
+   "### 2.1 Role-Playing in teaching requirements elicitation"
+  ],
+  [
+   78,
+   "### 2.2 Automated Stakeholder Interviews"
+  ],
+  [
+   90,
+   "### 2.3 LangChain Framework"
+  ],
+  [
+   127,
+   "## 3 Research Design and Implementation"
+  ],
+  [
+   129,
+   "### 3.1 Goals and Research Questions"
+  ],
+  [
+   145,
+   "### 3.2 Methodology"
+  ],
+  [
+   173,
+   "### 3.3 Independent and Dependent Variables"
+  ],
+  [
+   198,
+   "### 3.4 Statistical Analysis and Hypotheses"
+  ],
+  [
+   212,
+   "### 3.5 Participants"
+  ],
+  [
+   218,
+   "### 3.6 Implementation"
+  ],
+  [
+   232,
+   "## 4 Results"
+  ],
+  [
+   236,
+   "### 4.1 Experiment 1: Undergraduate Students"
+  ],
+  [
+   238,
+   "#### 4.1.1 Quantitative Results"
+  ],
+  [
+   248,
+   "#### 4.1.2 Qualitative Data Analysis"
+  ],
+  [
+   256,
+   "### 4.2 Second Experiment: Graduate Students"
+  ],
+  [
+   258,
+   "#### 4.2.1 Quantitative Results"
+  ],
+  [
+   268,
+   "#### 4.2.2 Blind Paired Expert Review"
+  ],
+  [
+   284,
+   "#### 4.2.3 Qualitative Data Analysis"
+  ],
+  [
+   340,
+   "## 5 Discussion"
+  ],
+  [
+   344,
+   "### 5.1 Experiences with Invited and Automated Stakeholders"
+  ],
+  [
+   358,
+   "### 5.2 Comparison of Learning Outcomes"
+  ],
+  [
+   366,
+   "### 5.3 Implications for Curriculum Design"
+  ],
+  [
+   376,
+   "## 6 Threats to validity"
+  ],
+  [
+   380,
+   "### 6.1 Construct Validity"
+  ],
+  [
+   384,
+   "### 6.2 Internal Validity"
+  ],
+  [
+   392,
+   "### 6.3 External Validity"
+  ],
+  [
+   400,
+   "## 7 Conclusion"
+  ],
+  [
+   410,
+   "## References"
+  ],
+  [
+   864,
+   "## Appendix A Appendix"
+  ],
+  [
+   1028,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 6 Threats to validity\n\nThis section discusses the study’s threats to validity based on Wohlin et al.’s framework Wohlin et al. (2012).\n\n### 6.1 Construct Validity\n\nConstruct validity refers to the extent to which the employed measures accurately capture the intended theoretical constructs. This study strengthens construct validity by using multiple complementary measures: (1) perceived learning experience, engagement, and realism, assessed using a structured questionnaire, and (2) elicitation performance, evaluated through blind expert assessment using the Bano et al. Bano et al. (2019) taxonomy and ISO/IEC/IEEE 29148 criteria (2018). This combination of subjective and objective measures enables triangulation and reduces mono-method bias.\n\n### 6.2 Internal Validity\n\nInternal validity threats refer to factors that may influence the observed outcomes beyond the learning approaches themselves. A potential threat arises from the selection of participants. Although participants were randomly assigned to conditions in Experiment 1 and exposed to both conditions in Experiment 2, individual differences, such as prior experience with requirements elicitation, familiarity with conversational AI tools, and varying levels of technical proficiency may have affected performance. To mitigate these effects, Experiment 2 adopted a within-subjects design, allowing each participant to serve as their own control and thereby reducing the impact of individual variability.\n\nAnother potential threat concerns Instrumentation. Standardized tasks, instructions, and time constraints were applied across conditions to minimize procedural variability. However, the use of different underlying language models, GPT-3 in Experiment 1 and GPT-4 in Experiment 2, introduces an instrumentation threat, as differences in model capabilities may have influenced outcomes independently of the experimental conditions. Accordingly, the two experiments are treated as independent studies, and results are reported separately rather than through direct comparison.\n\nThe within-subjects design of Experiment 2 may introduce order, learning, and fatigue effects Wohlin et al. (2012). Participants completing one condition first may have developed strategies or familiarity that influenced performance in the subsequent condition.To mitigate this, the order of conditions was counterbalanced across participants, with each condition presented first for a subset of participants and then swapped in the second session. Nevertheless, residual learning and fatigue effects cannot be fully ruled out.\n\n### 6.3 External Validity\n\nExternal validity refers to the extent to which the findings can be generalized beyond the experimental setting Wohlin et al. (2012).\n\nInteraction of setting and treatment. The study was conducted with software engineering students in an academic environment, which may not fully represent professional requirements engineering practice. In addition, the domain and system specification used in the experiments were intentionally limited in scope to ensure experimental control, alignment with course objectives, and comparability between conditions. Although this supports internal validity, it may limit the generalizability of the findings to more complex, real-world elicitation contexts.\n\nAdditionally, the smaller sample size in Experiment 2 (19 participants) introduces greater sensitivity to variability and may reduce the precision of the estimates compared to Experiment 1 (50 participants). While the within-subjects design in Experiment 2 partially improves statistical efficiency by reducing inter-subject variability, the limited sample size may still affect the stability of the results. Therefore, replication with larger samples would further strengthen the robustness and generalizability of the findings.\n\n## 7 Conclusion\n\nThis study investigated the use of RAG to develop an automated conversational agent for RE education. By constraining model responses to domain-spec",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 1,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 5,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 99,
+  "java": 0,
+  "industrial": 1
+ },
+ "fulltext_source": "html"
+}

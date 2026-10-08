@@ -1,0 +1,263 @@
+{
+ "arxiv_id": "2608.01507",
+ "fulltext_chars": 99457,
+ "fulltext_lines": 1594,
+ "authors_block": "Amirkia Rafiei Oskooei E-mail: amirkia.oskooei@intellica.net Bora Ilci E-mail: bora.ilci@std.yildiz.edu.tr Alperen Kayim E-mail: alperen.kayim@std.yildiz.edu.tr Mehmet Egemen Uzun E-mail: egemen.uzun@std.yildiz.edu.tr Berat Can E-mail: berat.karakas@std.yildiz.edu.tr Kaan Emre Kara E-mail: kaan.kara@std.yildiz.edu.tr Ozan Orhan E-mail: ozan.orhan@std.yildiz.edu.tr Mehmet S. Aktas E-mail: aktas@yildiz.edu.tr Affiliation: Department of Computer Engineering, Yildiz Technical University, Istanbul, Turkey Intellica Business Intelligence, Istanbul, Turkey ORCID: 0009-0004-3490-550X , E-mail: amirkia.oskooei@std.yildiz.edu.tr Affiliation: Department of Computer Engineering, Yildiz Technical University, Istanbul, Turkey",
+ "vendor_affiliation_hits": [],
+ "n_authors": 8,
+ "comment": "41 pages, 21 figures, 6 tables. Under review at a journal",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/langchain-ai/deep-agents"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   22,
+   "# Deep Agentic Search for Repository-Level Code Question Answering: An Empirical Study"
+  ],
+  [
+   68,
+   "###### Abstract"
+  ],
+  [
+   72,
+   "###### Keywords:"
+  ],
+  [
+   77,
+   "## 1 Introduction"
+  ],
+  [
+   104,
+   "## 2 Background"
+  ],
+  [
+   108,
+   "### 2.1 LLMs for Repository-Level Code Question Answering"
+  ],
+  [
+   116,
+   "### 2.2 Agent Architectures and Search Paradigms"
+  ],
+  [
+   130,
+   "### 2.3 The Two Paradigms We Compare"
+  ],
+  [
+   136,
+   "## 3 Related Work"
+  ],
+  [
+   230,
+   "#### Benchmarks for repository-level code question answering."
+  ],
+  [
+   234,
+   "#### Systems that advance a single search paradigm."
+  ],
+  [
+   238,
+   "#### Direct comparisons of search paradigms."
+  ],
+  [
+   242,
+   "#### Positioning."
+  ],
+  [
+   246,
+   "## 4 Experimental Design"
+  ],
+  [
+   250,
+   "### 4.1 Agent Implementation"
+  ],
+  [
+   260,
+   "### 4.2 Models"
+  ],
+  [
+   264,
+   "### 4.3 Dataset"
+  ],
+  [
+   268,
+   "### 4.4 Evaluation"
+  ],
+  [
+   333,
+   "## 5 Results"
+  ],
+  [
+   337,
+   "### 5.1 Accuracy and answer quality"
+  ],
+  [
+   528,
+   "### 5.2 Computational cost and efficiency"
+  ],
+  [
+   548,
+   "### 5.3 Agent behaviour"
+  ],
+  [
+   552,
+   "#### Tool usage."
+  ],
+  [
+   558,
+   "#### Trajectory length and success."
+  ],
+  [
+   566,
+   "## 6 Failure Analysis"
+  ],
+  [
+   570,
+   "### 6.1 Failure Analysis Methodology"
+  ],
+  [
+   574,
+   "### 6.2 Failure taxonomy"
+  ],
+  [
+   578,
+   "### 6.3 Failure distributions"
+  ],
+  [
+   656,
+   "### 6.4 Key findings"
+  ],
+  [
+   658,
+   "#### The Semantic search signature."
+  ],
+  [
+   662,
+   "#### The Deep Agent signature."
+  ],
+  [
+   666,
+   "#### Silent and visible failures."
+  ],
+  [
+   670,
+   "## 7 Discussion"
+  ],
+  [
+   682,
+   "## 8 Threats to Validity"
+  ],
+  [
+   684,
+   "#### Construct validity."
+  ],
+  [
+   690,
+   "#### Internal validity."
+  ],
+  [
+   694,
+   "#### External validity."
+  ],
+  [
+   698,
+   "#### Conclusion validity."
+  ],
+  [
+   702,
+   "## 9 Conclusion and Future Work"
+  ],
+  [
+   710,
+   "###### Acknowledgements."
+  ],
+  [
+   714,
+   "## Appendix A Agent harnesses and tool contracts"
+  ],
+  [
+   716,
+   "### A.1 Semantic search (ReAct agent)"
+  ],
+  [
+   728,
+   "### A.2 Deep Agentic search (Deep Agent)"
+  ],
+  [
+   740,
+   "## Appendix B RAG ingestion and retrieval configuration"
+  ],
+  [
+   742,
+   "### B.1 Chunking strategy"
+  ],
+  [
+   756,
+   "### B.2 Embedding model"
+  ],
+  [
+   766,
+   "### B.3 Indexing and vector database"
+  ],
+  [
+   784,
+   "## Appendix C Model parameters and execution environment"
+  ],
+  [
+   786,
+   "### C.1 Inference hyperparameters"
+  ],
+  [
+   806,
+   "### C.2 API providers and endpoints"
+  ],
+  [
+   820,
+   "### C.3 Execution environment and software dependencies"
+  ],
+  [
+   838,
+   "## Appendix D Judge evaluation and rubric"
+  ],
+  [
+   840,
+   "### D.1 Judge prompt template"
+  ],
+  [
+   880,
+   "### D.2 Score harmonization and verdict"
+  ],
+  [
+   900,
+   "## Appendix E Cost of running the study"
+  ],
+  [
+   960,
+   "## References"
+  ],
+  [
+   1594,
+   "##"
+  ]
+ ],
+ "acknowledgments": "###### Acknowledgements.\n\nThis work is supported by the Scientific and Technological Research Council of Turkey (TUBITAK). The authors are grateful for the resources and opportunities provided by the council for this research. The study was carried out in collaboration between the R&D Center of Intellica Business Intelligence and researchers at Yildiz Technical University.\n\n## Appendix A Agent harnesses and tool contracts\n\n### A.1 Semantic search (ReAct agent)\n\nThe Semantic search agent uses the ReAct agent harness from LangChain (create_agent()) in the LangChain (version 0.3 and later) and LangGraph ecosystem.\n\n• \n\nLibrary reference. LangChain standard agent implementation (langchain.agents.create_agent).\n\n• \n\nTool contract. Restricted strictly to the three tools defined in the SWE-QA benchmark: get_repo_structure, search_rag, and read_file. The agent has no shell access, no filesystem writing, and no planning tools.\n\n### A.2 Deep Agentic search (Deep Agent)\n\nThe Deep Agentic search architecture uses the Deep Agent harness from the official langchain-deep-agents library.\n\n• \n\nLibrary reference. Official langchain-deep-agents repository (https://github.com/langchain-ai/deep-agents).",
+ "limitations": "## 8 Threats to Validity\n\n#### Construct validity.\n\nEach paradigm is instantiated through one harness. We deliberately chose widely used, general-purpose open-source implementations rather than a harness tuned by a model provider to its own family, so that neither paradigm benefited from provider-specific optimisation. Other harnesses implement delegation differently, and our results should be read as applying to this pairing rather than to every possible implementation of the two paradigms. The two paradigms differ in both their tool space and their orchestration, and these two aspects co-vary by design. We therefore read the comparison as one between two cohesive, real-world paradigm bundles, one standing for index-backed assistants and one for exploration-based assistants, rather than as a single-factor ablation, because that is the level at which the choice is made in practice.\n\nWithin that reading, a harness still carries design decisions that are not part of the paradigm it implements, including the wording of its system prompt, how its tool descriptions are phrased, how sub-agent results are summarised before they are returned, and how many steps it permits. These choices are known to affect agent behaviour, and configuration is itself an object of study for deployed coding agents (dos Santos et al., 2026; Liu et al., 2026), so a different implementation of the same paradigm could shift the size of the gap we report. We did not run a sensitivity analysis across alternative deep agent harnesses, such as other production agent frameworks (Wang et al., 2026c), and we do not claim that the magnitude we measure is invariant to that choice. Three things bound what this can explain. The harness is held constant across all four models within a paradigm, so any overhead it imposes is a fixed property of that arm rather than something that varies with the comparison. The direction of the result is the same for all four models and for both vendors, which a quirk of one model’s interaction with one prompt would not produce. And the failure analysis locates the dominant Deep mechanism at the planner to sub-agent hand-off, which is the defining structural feature of the paradigm rather than an incidental setting of the harness. We regard a systematic comparison across harnesses as the natural next study rather than as a gap this one silently leaves open.\n\n#### Internal validity.\n\nAnswers were graded by an automatic judge, which raises the risk that the judge rather than the answer drives the result. We addressed this in three ways: the judge is drawn from a different provider and a different model family than any answering model, so it can neither prefer its own outputs nor favour a family it belongs to, and the one comparison that a family preference could in principle distort, between models of different families, is not a comparison this study makes, since every contrast is paired within a single model; we validated it against an independent human panel on a stratified sample and found substantial to almost perfect agreement (Section 4, Table 2); and we report a non-parametric effect size alongside each significance test. Because every comparison is paired within a model and varies only the paradigm, incidental factors such as answer length act on both conditions at once, and in our data the deep agent scored lower rather than higher, so any preference of the judge for longer answers would work against our conclusion rather than for it. Latency was heavy-tailed and sensitive to the execution environment, so we base no conclusion on it.\n\n#### External validity.\n\nOur evidence comes from a single benchmark, SWE-QA, four language models, and Python repositories, so the findings may not transfer to other benchmarks, other models, or other languages. Covering more models would strengthen the claim, but running the benchmark and, more importantly, coding agent behaviour and failures from execution traces carry a substantial cost in compu",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 14,
+  "seeds_or_runs": 0,
+  "swe_bench": 4,
+  "contamination": 5,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

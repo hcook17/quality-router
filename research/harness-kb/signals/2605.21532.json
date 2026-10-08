@@ -1,0 +1,149 @@
+{
+ "arxiv_id": "2605.21532",
+ "fulltext_chars": 76368,
+ "fulltext_lines": 1731,
+ "authors_block": "Jesper Amilon Affiliation: KTH Royal Institute of Technology, Sweden E-mail {jamilon,palmskog}@kth.se Merlijn Sevenhuijsen Affiliation: KTH Royal Institute of Technology, Sweden E-mail {jamilon,palmskog}@kth.se Affiliation: TRATON AB, Sweden E-mail {merlijn.sevenhuijsen,mattias.nyberg}@scania.com Mattias Nyberg Affiliation: TRATON AB, Sweden E-mail {merlijn.sevenhuijsen,mattias.nyberg}@scania.com Karl Palmskog Affiliation: KTH Royal Institute of Technology, Sweden E-mail {jamilon,palmskog}@kth.se",
+ "vendor_affiliation_hits": [],
+ "n_authors": 4,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   25,
+   "# Contract Based Verification of Non-functional Requirements for Embedded Automotive C Code"
+  ],
+  [
+   55,
+   "###### Abstract"
+  ],
+  [
+   63,
+   "###### Keywords:"
+  ],
+  [
+   66,
+   "## 1 Introduction"
+  ],
+  [
+   105,
+   "## 2 Background"
+  ],
+  [
+   109,
+   "### 2.1 Embedded control software in Scania trucks"
+  ],
+  [
+   120,
+   "### 2.2 Modules and C code"
+  ],
+  [
+   130,
+   "### 2.3 ACSL and Frama-C"
+  ],
+  [
+   171,
+   "### 2.4 Non-functional requirements and C static checking"
+  ],
+  [
+   224,
+   "## 3 Interfaces: from Principles to Rules"
+  ],
+  [
+   228,
+   "### 3.1 Interface principles"
+  ],
+  [
+   352,
+   "### 3.2 Interface rules"
+  ],
+  [
+   359,
+   "## 4 Module Interface Specification Contract Language"
+  ],
+  [
+   624,
+   "### 4.1 Running example"
+  ],
+  [
+   642,
+   "### 4.2 Contract language syntax and semantics"
+  ],
+  [
+   670,
+   "## 5 VerNFR: A Frama-C Plugin for Non-Functional Verification"
+  ],
+  [
+   782,
+   "## 6 Toolchain for Module Development and Verification"
+  ],
+  [
+   842,
+   "## 7 Case Studies"
+  ],
+  [
+   846,
+   "### 7.1 Specification and verification approach and effort"
+  ],
+  [
+   858,
+   "### 7.2 Steering Fluid Level Detection (SFLD) case study"
+  ],
+  [
+   912,
+   "### 7.3 Safe Gearbox Maneuvering Module (SGMM) case study"
+  ],
+  [
+   966,
+   "### 7.4 Verification results"
+  ],
+  [
+   1021,
+   "### 7.5 Preliminary LLM experiments"
+  ],
+  [
+   1111,
+   "## 8 Discussion"
+  ],
+  [
+   1124,
+   "## 9 Related Work"
+  ],
+  [
+   1137,
+   "## 10 Conclusion"
+  ],
+  [
+   1145,
+   "#### Acknowledgements"
+  ],
+  [
+   1149,
+   "## References"
+  ],
+  [
+   1731,
+   "##"
+  ]
+ ],
+ "acknowledgments": "#### Acknowledgements\n\nThe authors thank Gustav Ung, Minal Suresh Patil, and Dilian Gurov for discussions on this work, and the anonymous reviewers for their comments. This work was supported by Vinnova through the FormAI project and by Digital Futures at KTH through the Open Sandbox project.\n\n## References\n\n[1]\nJ. Abella, C. Hernandez, E. Quiñones, F. J. Cazorla, P. R. Conmy, M. Azkarate-askasua, J. Perez, E. Mezzetti, and T. Vardanega (2015)\n\nWCET analysis methods: pitfalls and challenges on their trustworthiness.\n\nIn International Symposium on Industrial Embedded Systems,\n\npp. 1–10.\n\nExternal Links: Document\n\nCited by: §1.\n\n[2]\nA. Alshnakat, D. Gurov, C. Lidström, and P. Rümmer (2020)\n\nConstraint-based contract inference for deductive verification.\n\nIn Deductive Software Verification: Future Perspectives: Reflections on the Occasion of 20 Years of KeY, W. Ahrendt, B. Beckert, R. Bubel, R. Hähnle, and M. Ulbrich (Eds.),",
+ "limitations": "",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 2,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 1,
+  "industrial": 5
+ },
+ "fulltext_source": "html"
+}

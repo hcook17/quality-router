@@ -1,0 +1,137 @@
+{
+ "arxiv_id": "2606.28279",
+ "fulltext_chars": 46337,
+ "fulltext_lines": 639,
+ "authors_block": "Code Evolution Cunxi Yu ††thanks: Corresponding author: cunxiy@nvidia.com Affiliation: NVIDIA Research Chenhui Deng Affiliation: NVIDIA Research Nathaniel Pinckney Affiliation: NVIDIA Research Brucek Khailany Affiliation: NVIDIA Research",
+ "vendor_affiliation_hits": [
+  "NVIDIA"
+ ],
+ "n_authors": 4,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/SWE-bench/experiments"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Agentic Hardware Design as Repository-Level"
+  ],
+  [
+   40,
+   "###### Abstract"
+  ],
+  [
+   44,
+   "## 1 Introduction"
+  ],
+  [
+   56,
+   "## 2 Background and Related Work"
+  ],
+  [
+   58,
+   "#### Why RTL is hard for language models."
+  ],
+  [
+   62,
+   "#### RTL-specialized models and data."
+  ],
+  [
+   66,
+   "#### Iterative and agentic RTL."
+  ],
+  [
+   70,
+   "#### Benchmarks for RTL design and verification."
+  ],
+  [
+   76,
+   "#### Self-evolving agents over code repositories."
+  ],
+  [
+   80,
+   "#### Git as an agent substrate."
+  ],
+  [
+   84,
+   "## 3 The HORIZON Framework"
+  ],
+  [
+   86,
+   "#### System overview."
+  ],
+  [
+   90,
+   "#### From harness to executable task."
+  ],
+  [
+   104,
+   "#### Repository-traced formulation."
+  ],
+  [
+   145,
+   "#### Agent loop and trace buffer."
+  ],
+  [
+   149,
+   "#### Memory and session reuse."
+  ],
+  [
+   159,
+   "## 4 Experiments"
+  ],
+  [
+   161,
+   "#### Setup and protocol."
+  ],
+  [
+   294,
+   "### 4.1 Benchmark completion and pass-rate progression"
+  ],
+  [
+   308,
+   "### 4.2 Token Consumption Result"
+  ],
+  [
+   394,
+   "### 4.3 Detailed discussion on test-generation tasks"
+  ],
+  [
+   425,
+   "## 5 Discussion and Limitations"
+  ],
+  [
+   437,
+   "## 6 Conclusion"
+  ],
+  [
+   445,
+   "## References"
+  ],
+  [
+   639,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 5 Discussion and Limitations\n\nThe main takeaway of this work is that repository-managed executable feedback can make many RTL benchmark tasks converge. It is not that agentic hardware design is solved. The results should be read as benchmark convergence under the feedback made available to the agent. Real chip projects involve incomplete specifications, changing constraints, downstream integration, human review, PPA tradeoffs, and validation targets that are not fully represented by current RTL benchmarks Liu et al. (2023); Lu et al. (2024); Liu et al. (2025); Pinckney et al. (2025).\n\nThe most important limitation is the reward-feedback interface. In the current HORIZON setup, the agent can inspect the outputs of each iterative evaluation. In CVDP Pinckney et al. (2025), for example, this includes simulator messages, evaluation logs, failure traces, and other task-local artifacts exposed by the benchmark harness. This mirrors a realistic debug workflow: engineers normally inspect logs and counterexamples, and rich feedback is what makes long-horizon repair feasible. At the same time, full access to these signals can create an over-solving or reward-hacking failure mode. The agent may customize the generated RTL to match the observed failures, deterministic tests, or evaluator idiosyncrasies rather than implement the intended design semantics robustly. A passing result can therefore mean “satisfies the visible harness under the exposed traces” rather than “satisfies the specification under all reasonable tests.” This risk is especially relevant when benchmarks reveal detailed failure information or when the final acceptance test is the same harness used throughout the repair loop.\n\nThis raises a broader benchmarking issue. Existing RTL-agent benchmarks generally do not include a mechanism to detect over-solving or reward hacking Liu et al. (2023); Lu et al. (2024); Liu et al. (2025); Pinckney et al. (2025). They measure whether the submitted artifact passes the provided harness, but they usually do not separate debugging feedback from final hidden scoring, test robustness under randomized or perturbed stimuli, or audit whether a solution has specialized to artifacts of the evaluator. This is an open problem for the community. Future benchmarks for agentic hardware design should consider a two-level protocol: expose useful diagnostic feedback during repair, but reserve hidden randomized tests, independent reference models, formal equivalence checks, property suites, or held-out simulator configurations for final scoring. Reporting robustness to harness perturbations, coverage closure, and traces of what feedback the agent consumed would also make it easier to distinguish genuine design repair from benchmark-specific adaptation.\n\nThis tension has a direct parallel in software-engineering benchmarks. SWE-bench addresses it through structural test withholding Jimenez et al. (2024); Wang et al. (2026). Agents receive a GitHub issue description and a repository snapshot at a fixed commit, while the fail-to-pass and pass-to-pass tests used for evaluation are withheld during inference and executed only after a final patch is submitted. This separation between repair-time information and evaluation-time scoring reduces opportunities for reward hacking and benchmark-specific adaptation. Subsequent analyses have shown that benchmark design choices such as solution leakage and weak test suites can substantially inflate measured performance Aleithan et al. (2024), and that patches deemed successful by benchmark tests may still diverge from developer-intended behavior or contain latent correctness issues pengfeigao1 (2024). These findings suggest that future RTL-agent benchmarks should similarly separate diagnostic feedback from final scoring and incorporate robustness checks beyond the visible repair loop, such as hidden randomized tests, independent reference models, formal equivalence checking, or held-out verification environments.\n\nA",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 6,
+  "seeds_or_runs": 3,
+  "swe_bench": 6,
+  "contamination": 0,
+  "human_study": 3,
+  "java": 0,
+  "industrial": 1
+ },
+ "fulltext_source": "html"
+}

@@ -1,0 +1,186 @@
+{
+ "arxiv_id": "2607.25651",
+ "fulltext_chars": 72430,
+ "fulltext_lines": 2305,
+ "authors_block": "Xinyi Yuan Affiliation: Institute of Software, Chinese Academy of Sciences, University of Chinese Academy of Sciences, Beijing, China email: yuanxinyi22@otcaix.iscas.ac.cn , Wei Chen Note: Corresponding author. Affiliation: Institute of Software, Chinese Academy of Sciences, University of Chinese Academy of Sciences, Beijing, China email: wchen@otcaix.iscas.ac.cn , Jinyi Liu Affiliation: Institute of Software, Chinese Academy of Sciences, University of Chinese Academy of Sciences, Beijing, China email: liujinyi24@otcaix.iscas.ac.cn , Pengyu Chen Affiliation: Institute of Software, Chinese Academy of Sciences, University of Chinese Academy of Sciences, Beijing, China email: chenpengyu23@otcaix.iscas.ac.cn , Jun Wei Affiliation: Institute of Software, Chinese Academy of Sciences, University of Chinese Academy of Sciences, Beijing, China email: wj@otcaix.iscas.ac.cn , Guoquan Wu Affiliation: Institute of Software, Chinese Academy of Sciences, University of Chinese Academy of Sciences, Beijing, China email: gqwu@otcaix.iscas.ac.cn , Jiaxin Zhu Affiliation: Institute of Software, Chinese Academy of Sciences, University of Chinese Academy of Sciences, Beijing, China email: zhujiaxin@otcaix.iscas.ac.cn and Tao Huang Affiliation: Institute of Software, Chinese Academy of Sciences, University of Chinese Academy of Sciences, Beijing, China email: tao@otcaix.iscas.ac.cn",
+ "vendor_affiliation_hits": [],
+ "n_authors": 8,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/dpankratz/TVMFuzzAccessed",
+  "https://github.com/openvinotoolkit/openvinoAccessed",
+  "https://github.com/plaidml/plaidmlAccessed",
+  "https://github.com/pytorch/pytorch"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Demystifying Deep Learning Compiler Frontend Bugs: An LLM-Aided Empirical Study"
+  ],
+  [
+   79,
+   "###### Abstract."
+  ],
+  [
+   85,
+   "###### Keywords:"
+  ],
+  [
+   88,
+   "## 1. Introduction"
+  ],
+  [
+   115,
+   "## 2. Deep Learning Compiler"
+  ],
+  [
+   130,
+   "## 3. Motivation and Object"
+  ],
+  [
+   134,
+   "### 3.1. Problem Analysis"
+  ],
+  [
+   144,
+   "### 3.2. TorchDynamo"
+  ],
+  [
+   148,
+   "## 4. Methodology"
+  ],
+  [
+   167,
+   "### 4.1. Data & Knowledge Preparation"
+  ],
+  [
+   169,
+   "#### 4.1.1. Data preparation"
+  ],
+  [
+   194,
+   "#### 4.1.2. Knowledge preparation"
+  ],
+  [
+   216,
+   "### 4.2. LLM-Aided Bug Analysis"
+  ],
+  [
+   228,
+   "### 4.3. LLM-Aided Bug Detection"
+  ],
+  [
+   235,
+   "## 5. Study Result"
+  ],
+  [
+   239,
+   "### 5.1. Bug Distribution (RQ1)"
+  ],
+  [
+   540,
+   "### 5.2. Root Cause (RQ2)"
+  ],
+  [
+   1316,
+   "#176596"
+  ],
+  [
+   1321,
+   "#150765"
+  ],
+  [
+   1326,
+   "#176599"
+  ],
+  [
+   1330,
+   "#175610"
+  ],
+  [
+   1335,
+   "#176156"
+  ],
+  [
+   1339,
+   "#174166"
+  ],
+  [
+   1344,
+   "#175857"
+  ],
+  [
+   1349,
+   "#176851"
+  ],
+  [
+   1353,
+   "#176854"
+  ],
+  [
+   1361,
+   "### 5.3. Bug Detection (RQ3)"
+  ],
+  [
+   1382,
+   "## 6. Discussion"
+  ],
+  [
+   1384,
+   "### 6.1. LLM Aids Empirical Study"
+  ],
+  [
+   1390,
+   "### 6.2. Implications"
+  ],
+  [
+   1398,
+   "### 6.3. Threats to Validity"
+  ],
+  [
+   1406,
+   "### 6.4. Limitations and Future Work"
+  ],
+  [
+   1410,
+   "## 7. Related Works"
+  ],
+  [
+   1430,
+   "## 8. Conclusion"
+  ],
+  [
+   1434,
+   "## Data Availability"
+  ],
+  [
+   1438,
+   "## References"
+  ],
+  [
+   2305,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "### 6.3. Threats to Validity\n\nInternal threat.\nTo mitigate potential LLM hallucinations and ensure analysis accuracy, we integrate domain knowledge into prompt engineering and manually verify all LLM-generated outputs.\n\nExternal threat.\nWhile our study focuses on a single DLC, the identified root causes characterize graph IR transformations common across mainstream deep learning compilers. Furthermore, our LLM-aided methodology is transferable to other DLC frontends via prompt tuning.\n\n### 6.4. Limitations and Future Work\n\nFirst, our test case synthesis is guided by root causes from known fBugs; for unseen bugs that fall outside the identified categories, the effectiveness of root-cause-aware generation is a concern. Second, as the DLC ecosystem evolves and more issues are reported, the stability and representativeness of our categorization may shift. Future work would extend the study using larger, more diverse datasets to further broaden the generalizability of our findings.\n\n## 7. Related Works\n\nThe most related work includes testing and empirical studies of DL systems, especially DL frameworks and compilers. We also briefly review LLM-aided empirical study and traditional compiler testing.\n\nEmpirical studies on DL system bugs.\nResearch in this domain bifurcates into DL frameworks and compilers. For DL frameworks, existing studies (Islam et al., 2019; Humbatova et al., 2020; Morovati et al., 2024; Chen et al., 2023; Yin Ho et al., 2023; Tambon et al., 2023; Yu et al., 2024) manually categorize bug reports by root cause and symptom. They consistently identify training-phase algorithmic errors as primary, high-effort defects, mainly due to incorrect implementation of DL models and algorithms. Conversely, empirical research on DLCs is relatively sparse. Initial systematic analyses (Shen et al., 2021; Du et al., 2021) of mainstream DLCs (Chen et al., 2018; Rotem et al., 2018; Cyphers et al., 2018; plaidML Team, 2025; Vasilache et al., 2018) identified tensor-type issues as a major root cause, which led to the development of TVMfuzz (Du et al., 2021). More recently, Huang et al. (Huang et al., 2025) analyzed false-positive reports in TVM and OpenVINO (Team, 2025).\nIn contrast to these labor-intensive, broad-scope surveys, our study is more focused and can achieve greater analytical depth and scalability.\n\nDL system testing.\nDL frameworks and DLCs are two main types of objects under test.\nExisting testing approaches for DL frameworks predominantly leverage fuzzing, ranging from API- and operator-level tests (Deng et al., 2022; Xie et al., 2022; Wei et al., 2022; Shi et al., 2023), which target API behaviors and individual operator implementations, to model-level tests (Pham et al., 2019; Wang et al., 2020; Gu et al., 2022; Liu et al., 2023; Li et al., 2023; Xie et al., 2026), which synthesize diverse computation graphs to expose inconsistencies across frameworks.\nDLC testing evolves with the domain knowledge used. Early black-box strategies (Pankratz, 2020; Liu et al., 2022) mutate compiler IRs without internal insights. Subsequent approaches incorporate structural knowledge of computation graphs (Wang et al., 2023; Zhou et al., 2024) or operator specifications (Shen et al., 2025a) to guide test generation. More recently, white-box methods such as WhiteFox (Yang et al., 2024) and OATest (Shen et al., 2025b) utilize LLMs to extract optimization semantics from source code for optimization-aware testing.\nWhile progress has been made, current test generation relies on historical data. Our work, however, leverages in-depth analysis of the DLC mechanism to systematically characterize vulnerable compiler components and optimization stages, enabling LLMs to perform targeted testing.\n\nLLM-aided empirical study.\nRecent research uses LLMs to automate empirical studies (Liang et al., 2024; Ling et al., 2025; Yu et al., 2025). Despite GPT-4’s identified limitations in domain-specific reasoning (Liang et al., 2024), targeted pipelines like Aut",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

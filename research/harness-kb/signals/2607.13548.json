@@ -1,0 +1,265 @@
+{
+ "arxiv_id": "2607.13548",
+ "fulltext_chars": 53902,
+ "fulltext_lines": 779,
+ "authors_block": "Athira Gopal Affiliation: QPIAI India athira.g@qpiai.tech Ashwanth Krishnan Affiliation: QPIAI India ashwanth.krishnan@qpiai.tech",
+ "vendor_affiliation_hits": [],
+ "n_authors": 2,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# How Far Can Root Cause Analysis Go on Real-World Telemetry Data?"
+  ],
+  [
+   34,
+   "###### Abstract"
+  ],
+  [
+   38,
+   "###### Index Terms:"
+  ],
+  [
+   41,
+   "## I Introduction"
+  ],
+  [
+   63,
+   "## II Related Work"
+  ],
+  [
+   79,
+   "## III Methodology"
+  ],
+  [
+   81,
+   "### III-A Problem Statement"
+  ],
+  [
+   115,
+   "### III-B System Architecture"
+  ],
+  [
+   124,
+   "#### Phase 1: Threshold Pre-computation."
+  ],
+  [
+   146,
+   "#### Phase 2: Per-Window Anomaly Extraction."
+  ],
+  [
+   150,
+   "#### Phase 3: Structured Multi-Agent RCA."
+  ],
+  [
+   158,
+   "#### Stage 1: Structured Reasoning Process."
+  ],
+  [
+   188,
+   "#### Post-Stage-1 Processing."
+  ],
+  [
+   192,
+   "### III-C Evaluated Configurations"
+  ],
+  [
+   198,
+   "#### Simple LLM Call."
+  ],
+  [
+   204,
+   "#### Structured Multi-Agent RCA (DK OFF)."
+  ],
+  [
+   210,
+   "#### Structured Multi-Agent RCA (DK ON)."
+  ],
+  [
+   215,
+   "### III-D Error Analysis Pipeline"
+  ],
+  [
+   221,
+   "#### Reverse reasoning agent."
+  ],
+  [
+   256,
+   "### III-E Domain Knowledge Construction"
+  ],
+  [
+   258,
+   "#### Curated construction."
+  ],
+  [
+   262,
+   "#### Automated rule mining."
+  ],
+  [
+   291,
+   "## IV Experiments"
+  ],
+  [
+   296,
+   "### IV-A Datasets"
+  ],
+  [
+   306,
+   "### IV-B Evaluation Metrics"
+  ],
+  [
+   315,
+   "### IV-C Non-LLM Methods"
+  ],
+  [
+   321,
+   "### IV-D LLM Methods on OpenRCA"
+  ],
+  [
+   325,
+   "### IV-E Pipeline Configuration Comparison"
+  ],
+  [
+   329,
+   "### IV-F Error Analysis (Reverse Reasoning)"
+  ],
+  [
+   333,
+   "### IV-G Rule Mining"
+  ],
+  [
+   337,
+   "## V Results and Analysis"
+  ],
+  [
+   472,
+   "### V-A Non-LLM Methods"
+  ],
+  [
+   476,
+   "### V-B LLM-Based Methods"
+  ],
+  [
+   480,
+   "### V-C System Performance"
+  ],
+  [
+   510,
+   "### V-D Rule Mining"
+  ],
+  [
+   514,
+   "### V-E Leakage Control"
+  ],
+  [
+   540,
+   "### V-F Error Analysis"
+  ],
+  [
+   577,
+   "## VI Future Work"
+  ],
+  [
+   585,
+   "## Limitations"
+  ],
+  [
+   587,
+   "#### Anomaly pre-computation quality."
+  ],
+  [
+   591,
+   "#### Cost and latency."
+  ],
+  [
+   595,
+   "## References"
+  ],
+  [
+   704,
+   "## Appendix A Datasets"
+  ],
+  [
+   706,
+   "### A-A Market"
+  ],
+  [
+   710,
+   "### A-B Bank"
+  ],
+  [
+   714,
+   "### A-C Telecom"
+  ],
+  [
+   718,
+   "## Appendix B Baseline Method Analysis"
+  ],
+  [
+   720,
+   "### B-A Non-LLM Causal Discovery: Structural Limitations"
+  ],
+  [
+   724,
+   "### B-B RCLAgent"
+  ],
+  [
+   728,
+   "## Appendix C Mined Discrimination Rules: Worked Example"
+  ],
+  [
+   738,
+   "#### Stage A (Proposal)."
+  ],
+  [
+   745,
+   "#### Stage B (Clustering)."
+  ],
+  [
+   751,
+   "#### Stage C (Consolidation)."
+  ],
+  [
+   763,
+   "## Appendix D Prior-Window Screening Agents"
+  ],
+  [
+   767,
+   "#### Cross-window continuation agent."
+  ],
+  [
+   771,
+   "#### Recurring pattern detector."
+  ],
+  [
+   775,
+   "#### Revision agent."
+  ],
+  [
+   779,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## Limitations\n\n#### Anomaly pre-computation quality.\n\nPhases 1 and 2 introduce errors that propagate into Phase 3: KPIs with non-stationary, seasonal, or bimodal distributions may be mis-classified by the fixed threshold methods (P95, P5, Boolean, ROC). The per-KPI detection method is itself assigned by an LLM during offline pre-computation, so a single wrong assignment fixes an inappropriate threshold for that KPI across every window and can systematically corrupt the anomaly evidence the rest of the pipeline depends on.\n\n#### Cost and latency.\n\nThe Structured Multi-Agent RCA pipeline requires multiple sequential LLM calls per window (the Stage 1 reasoning process and the config agent), making full-benchmark processing expensive at current API pricing. The prior-window screening agents and the error-analysis pipeline (reverse reasoning and rule mining) are not part of the deployed system, so they add no production cost.\n\n## References\n\n[1]\nJ. Xu, Q. Zhang, Z. Zhong, S. He, C. Zhang, Q. Lin, D. Pei, P. He, D. Zhang, and Q. Zhang (2025)\n\nOpenRCA: can large language models locate the root cause of software failures?.\n\nIn The Thirteenth International Conference on Learning Representations,\n\nExternal Links: Link\n\nCited by: §I,\n§IV-B.\n\n[2]\nA. Bakhtin, J. Nyyssölä, Y. Wang, N. Ahmad, K. Ping, M. Esposito, M. Mäntylä, and D. Taibi (2025)\n\nLO2: microservice api anomaly dataset of logs and metrics.\n\nIn Proc. 21st Int. Conf. on Predictive Models and Data Analytics in Software Engineering (PROMISE),\n\nNote: arXiv:2504.12067\n\nExternal Links: Document\n\nCited by: §I.\n\n[3]\nL. Pham, H. Zhang, H. Ha, F. Salim, and X. Zhang (2025)",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 1,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 1
+ },
+ "fulltext_source": "html"
+}

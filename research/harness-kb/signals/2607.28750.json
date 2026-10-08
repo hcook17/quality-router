@@ -1,0 +1,205 @@
+{
+ "arxiv_id": "2607.28750",
+ "fulltext_chars": 67646,
+ "fulltext_lines": 1111,
+ "authors_block": "Conference: ; ; ase26ind-p2-pCCS: Software and its engineering Software testing and debuggingCCS: Computing methodologies Natural language processing Sowjanya Puligadda Note: Main authors. Contributed equally. Affiliation: Uber Technologies, Inc., San Francisco, CA, USA email: sowjanyap@uber.com , Mengdie Zhang Affiliation: Uber Technologies, Inc., San Francisco, CA, USA email: mengdiez@uber.com , Ali Zamani Affiliation: Uber Technologies, Inc., San Francisco, CA, USA email: azamani@uber.com , Dhruva Dixith Kurra Affiliation: Uber Technologies, Inc., San Francisco, CA, USA email: dkurra@uber.com , Eric Chen Note: Senior Advisors. Affiliation: Uber Technologies, Inc., San Francisco, CA, USA email: echen@uber.com and Juan Marcano Affiliation: Uber Technologies, Inc., San Francisco, CA, USA email: marcano@uber.com Received 2026-07-01",
+ "vendor_affiliation_hits": [],
+ "n_authors": 6,
+ "comment": "12 pages, 6 figures, 6 pages",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   22,
+   "# DragonCrawl: A Generative, Intent-Based Framework for Scalable Mobile End-to-End Testing"
+  ],
+  [
+   73,
+   "###### Abstract."
+  ],
+  [
+   77,
+   "###### Keywords:"
+  ],
+  [
+   83,
+   "## 1. Introduction"
+  ],
+  [
+   137,
+   "## 2. Background and Motivation"
+  ],
+  [
+   139,
+   "### 2.1. The Mobile Testing Challenge"
+  ],
+  [
+   145,
+   "### 2.2. DragonCrawl V1: Embedding-Based"
+  ],
+  [
+   157,
+   "### 2.3. The Promise of Generative AI"
+  ],
+  [
+   173,
+   "## 3. DragonCrawl V2 Architecture"
+  ],
+  [
+   179,
+   "### 3.1. Intent-Based Reasoning Engine"
+  ],
+  [
+   209,
+   "### 3.2. Multimodal End-State Detection"
+  ],
+  [
+   229,
+   "### 3.3. Prompt Engineering Strategy"
+  ],
+  [
+   275,
+   "### 3.4. Context Enhancement"
+  ],
+  [
+   287,
+   "### 3.5. Tool Calling for Backend Integration"
+  ],
+  [
+   339,
+   "### 3.6. Security and Access Control"
+  ],
+  [
+   351,
+   "## 4. Implementation and Scalability"
+  ],
+  [
+   355,
+   "### 4.1. CI/CD Pipeline Integration"
+  ],
+  [
+   389,
+   "### 4.2. Golden Dataset and Evaluation"
+  ],
+  [
+   429,
+   "### 4.3. Handling Model Errors"
+  ],
+  [
+   443,
+   "## 5. Evaluation"
+  ],
+  [
+   447,
+   "### 5.1. Model Performance: Action Prediction"
+  ],
+  [
+   482,
+   "### 5.2. Pass Rate Analysis"
+  ],
+  [
+   536,
+   "### 5.3. Comparison with External Systems"
+  ],
+  [
+   568,
+   "### 5.4. Latency Analysis"
+  ],
+  [
+   600,
+   "### 5.5. Ablation Study"
+  ],
+  [
+   640,
+   "### 5.6. Cost Optimization Through Caching"
+  ],
+  [
+   646,
+   "## 6. Operational Experience"
+  ],
+  [
+   650,
+   "### 6.1. Onboarding Efficiency"
+  ],
+  [
+   678,
+   "### 6.2. Coverage Growth Over Time"
+  ],
+  [
+   684,
+   "### 6.3. Maintenance Overhead Reduction"
+  ],
+  [
+   704,
+   "### 6.4. Estimated Developer-Year Savings"
+  ],
+  [
+   714,
+   "### 6.5. Impact on Engineering Teams"
+  ],
+  [
+   738,
+   "### 6.6. SDET Team Transformation"
+  ],
+  [
+   768,
+   "### 6.7. Bug Detection and Resolution"
+  ],
+  [
+   784,
+   "### 6.8. Adoption Challenges"
+  ],
+  [
+   796,
+   "### 6.9. Lessons Learned"
+  ],
+  [
+   810,
+   "## 7. Related Work"
+  ],
+  [
+   818,
+   "## 8. Limitations"
+  ],
+  [
+   830,
+   "## 9. Conclusion"
+  ],
+  [
+   840,
+   "## Data Availability Statement"
+  ],
+  [
+   844,
+   "###### Acknowledgements."
+  ],
+  [
+   848,
+   "## References"
+  ],
+  [
+   1111,
+   "##"
+  ]
+ ],
+ "acknowledgments": "###### Acknowledgements.\n\nThe authors thank the Uber Mobile Engineering and SDET teams for their contributions to DragonCrawl development and deployment. We thank the Mobile Foundations, Continuous Integration, and ML Platform teams for infrastructure support.\n\n## References\n\nAlshahwan et al. (2018)\nN. Alshahwan, X. Gao, M. Harman, Y. Jia, K. Mao, A. Mols, T. Tei, and I. Zorin\n\nDeploying search based software engineering with sapienz at Facebook.\n\nIn Proceedings of the 10th International Symposium on Search Based Software Engineering (SSBSE),\n\nCham, Switzerland, pp. 3–45.\n\nExternal Links: Document\n\nCited by: §7.\n\nCoppola et al. (2020)\nR. Coppola, L. Ardito, M. Morisio, and M. Torchiano\n\nMobile testing: new challenges and perceived difficulties from developers of the italian industry.\n\nIT Professional 22 (5), pp. 32–39.",
+ "limitations": "## 8. Limitations\n\nDespite significant successes, DragonCrawl V2 has several limitations that organizations should consider before adoption.\n\nExternal Dependencies and Coverage Gaps: DragonCrawl relies on GPT-4o, an external commercial model. This creates risks around model updates that may affect behavior, pricing changes that could impact ROI, and availability concerns during outages. Organizations with strict data residency requirements may not be able to use external LLM services and would need to explore self-hosted alternatives.\n\nCost and Scale Barriers: Even after aggressive optimization, inference costs roughly $200K annually, a budget few organizations can dedicate to testing tokens alone. The ROI case also depends on Uber’s scale: with a smaller test suite, the developer-years saved may not offset inference costs, engineering investment, and the evaluation infrastructure required. Similarly, our continuous evaluation relies on a curated dataset of roughly 10,000 validated trajectories accumulated over years of operation; organizations starting fresh cannot easily replicate this safety net.\n\nResidual Non-Determinism and Assertion Reliability: Despite constraint-based prompting, the agent occasionally takes valid but unintended paths, which can mask bugs on the specific path a test owner meant to exercise. Visual assertions, while robust to UI drift, inherit the failure modes of the underlying model: transient states such as loading screens can produce false verdicts, and low-priority assertion mismatches are by policy non-blocking, so some real but minor defects reach production by design.\n\nGeneralizability: Our results come from a single company, two first-party applications, and one model family. DragonCrawl benefits from Uber-specific infrastructure, including controlled test environments, backend tool templates, and mature CI/CD, that other organizations would need to build first. We have not evaluated the approach on third-party apps, other app categories such as games or canvas-heavy UIs where view hierarchies are uninformative, or smaller models, so the reported pass rates may not transfer.\n\n## 9. Conclusion\n\nDragonCrawl V2 demonstrates that intent-based AI-driven testing can address fundamental limitations of traditional mobile testing approaches. By leveraging generative reasoning with large language models, the system eliminates brittle element locators, reduces test maintenance overhead from 30–40% to approximately 5% of engineering time, and enables comprehensive coverage across languages, markets, and flow variations without per-variant test scripts.\n\nA key contribution is the shift from exploratory testing to continuous regression testing. Prior LLM-based testing research focused on maximizing coverage and discovering crashes. DragonCrawl instead validates specific user flows on every code change, blocking commits that break critical functionality. The system runs 1,013 tests in CI/CD pipelines, providing go/no-go signals for deployments rather than periodic bug reports.\n\nProduction deployment at Uber validates the approach at scale. With 91.6% pass rate on iOS and 92.2% on Android across 1,013 automated tests, DragonCrawl has saved an estimated 27 developer years in authorship and maintenance efforts while enabling test coverage expansion that would be impossible with traditional approaches. The organizational transformation deserves emphasis: SDET teams evolved from manual test executors to AI orchestrators, while engineers regained confidence in test signals as DragonCrawl’s robustness eliminated flaky test problems.\n\nKey lessons include starting with simple flows before tackling complex scenarios, investing in observability and logging, maintaining human-in-the-loop validation, and treating cost optimization as a first-class concern. The transition from similarity-based matching to generative reasoning represents a fundamental shift: rather than encoding specific interaction sequences, we specify wha",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 2
+ },
+ "fulltext_source": "html"
+}

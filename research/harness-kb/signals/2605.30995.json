@@ -1,0 +1,141 @@
+{
+ "arxiv_id": "2605.30995",
+ "fulltext_chars": 35867,
+ "fulltext_lines": 394,
+ "authors_block": "Thales Bertaglia Haoyang Gui Catalina Goanta Gerasimos Spanakis",
+ "vendor_affiliation_hits": [],
+ "n_authors": 4,
+ "comment": "This research has been supported by funding from the ERC Starting Grant HUMANads (ERC-2021-StG No 101041824)",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/executablebooks/markdown-it-py",
+  "https://github.com/thalesbertaglia/dfa-dashboard",
+  "https://github.com/thalesbertaglia/dfa-dashboard."
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Traceable by Design: An LLM Pipeline and Dashboard for EU Regulatory Consultation Analysis"
+  ],
+  [
+   30,
+   "###### Abstract"
+  ],
+  [
+   34,
+   "###### keywords"
+  ],
+  [
+   42,
+   "## 1 Introduction"
+  ],
+  [
+   54,
+   "## 2 Related Work"
+  ],
+  [
+   62,
+   "## 3 Dashboard"
+  ],
+  [
+   66,
+   "#### Sidebar: Filters and Provenance"
+  ],
+  [
+   70,
+   "#### Tabs"
+  ],
+  [
+   86,
+   "## 4 System Overview"
+  ],
+  [
+   131,
+   "### 4.1 Document Processing Pipeline"
+  ],
+  [
+   135,
+   "#### Dataset"
+  ],
+  [
+   139,
+   "#### OCR"
+  ],
+  [
+   146,
+   "#### Cleaning and Filtering"
+  ],
+  [
+   150,
+   "#### Chunking and Quality Scoring"
+  ],
+  [
+   159,
+   "### 4.2 LLM-Based Extraction"
+  ],
+  [
+   166,
+   "#### Prompt Design"
+  ],
+  [
+   174,
+   "#### Topic Post-Processing"
+  ],
+  [
+   180,
+   "## 5 Limitations and Practical Considerations"
+  ],
+  [
+   184,
+   "#### Transparency as a design requirement"
+  ],
+  [
+   188,
+   "#### OCR and chunking are the real bottlenecks"
+  ],
+  [
+   192,
+   "#### Emergent labels: a useful tradeoff with a real cost"
+  ],
+  [
+   196,
+   "#### Verbatim grounding"
+  ],
+  [
+   200,
+   "## 6 Conclusion"
+  ],
+  [
+   210,
+   "## 7 Acknowledgments"
+  ],
+  [
+   214,
+   "## References"
+  ],
+  [
+   394,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## 7 Acknowledgments\n\nThis research has been supported by funding from the ERC Starting Grant HUMANads (ERC-2021-StG No 101041824).\n\n## References\n\nBex et al. (2010)\nF. J. Bex, P. J. Van Koppen, H. Prakken, and B. Verheij\n\nA hybrid formal theory of arguments, stories and criminal evidence.\n\nArtificial Intelligence and Law 18 (2), pp. 123–152.\n\nCited by: §1,\n§2.\n\nChalkidis et al. (2019)\nI. Chalkidis, E. Fergadiotis, P. Malakasiotis, N. Aletras, and I. Androutsopoulos\n\nExtreme multi-label legal text classification: a case study in EU legislation.\n\nIn Proceedings of the Natural Legal Language Processing Workshop 2019, N. Aletras, E. Ash, L. Barrett, D. Chen, A. Meyers, D. Preotiuc-Pietro, D. Rosenberg, and A. Stent (Eds.),\n\nMinneapolis, Minnesota, pp. 78–87.",
+ "limitations": "## 5 Limitations and Practical Considerations\n\nBuilding and deploying the pipeline on a real consultation dataset surfaces observations not visible from the architecture alone. This section documents what we found in practice: where the design held up, where it created friction, and what we would recommend to anyone applying a similar approach.\n\n#### Transparency as a design requirement\n\nEvery pipeline parameter shapes what gets extracted: the meaning score threshold determines which paragraphs the model sees; the topic schema determines which issues are predefined versus emergent; the prompt’s negative rules determine what counts as substantive content. These are interpretive choices with real consequences in a policy context. Our recommendation is to treat transparency as a first-class requirement from the start. Concretely: retain intermediate outputs at every stage, version the prompt alongside the code, and surface pipeline configuration directly in any interface that presents results. The dashboard’s provenance expander operationalises this principle.\n\n#### OCR and chunking are the real bottlenecks\n\nLLM extraction quality is bounded by text quality, which is set upstream by OCR and chunking. These steps receive far less attention than prompt engineering in most LLM pipeline discussions, but in practice, they are where the most significant and least recoverable errors occur. OCR failures, such as reading-order errors in multi-column layouts, garbled tables, misidentified page boundaries, corrupt the text units that all subsequent steps operate on. No prompt refinement recovers a position paper whose columns were read across rather than down. Manual sampling of a representative subset of documents before running the full pipeline is worth the time. The flag/ bucketing mechanism surfaces problematic documents but does not fix them. Chunking introduces a second layer of loss: the meaning score heuristic handles standard narrative prose well but degrades on tables, itemised policy recommendations, and short formulaic statements that carry substantive content. We recommend treating the threshold as a tunable parameter and spot-checking excluded chunks on a sample of documents. LLM-assisted segmentation by content structure rather than typographic convention is the most promising longer-term improvement.\n\n#### Emergent labels: a useful tradeoff with a real cost\n\nThe raw extraction produced 1,458 unique emergent topic labels, consolidated to 224 after post-processing. Near-duplicate labels(such as Payment Processor Censorship, Payment Processor Gatekeeping, Payment Processor Pressure) are a direct consequence of processing each paragraph independently without a shared vocabulary across documents. This is a known tradeoff: the same independence that generates near-duplicates also surfaces genuine niche concerns that a more constrained approach would suppress, including policy signals such as Age Verification, Digital Ownership, and Enforcement Coordination that a fixed taxonomy would miss entirely. The practical implication is to plan for post-processing from the start, treat the cluster distance threshold as a parameter requiring calibration per dataset, and build a manual review step into the workflow for low-frequency labels. The dashboard exposes both raw and merged topic sets so users can inspect the consolidation rather than accept it uncritically.\n\n#### Verbatim grounding\n\nThe verbatim quote constraint is enforced through prompting and schema validation. Post-hoc verification via exact and fuzzy string matching against source paragraphs confirmed a 99.1% match rate across all extracted quotes. There are still some quotes that do not match the source text, indicating potential model hallucinations that should be further analysed.\n\n## 6 Conclusion\n\nWe presented an end-to-end NLP pipeline and interactive dashboard for structured evidence extraction from regulatory public consultation submissions, applied to the EU Digital Fai",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

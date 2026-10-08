@@ -1,0 +1,164 @@
+{
+ "arxiv_id": "2608.10290",
+ "fulltext_chars": 29353,
+ "fulltext_lines": 937,
+ "authors_block": "AI-Augmented Code Comprehension Costain Nachuma Affiliation: Department of Computer Science Idaho State University Pocatello, Idaho, USA costainnachuma@isu.edu Minhaz F. Zibran Affiliation: Department of Computer Science Idaho State University Pocatello, Idaho, USA zibran@isu.edu",
+ "vendor_affiliation_hits": [],
+ "n_authors": 2,
+ "comment": "5 pages, 2 figures. Accepted at ICSME 2026, Tool Demonstration and Data Showcase Track",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/features/copilotAccessed",
+  "https://github.com/usus/usus-plugins"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Comprendia:"
+  ],
+  [
+   44,
+   "###### Abstract"
+  ],
+  [
+   63,
+   "###### Index Terms:"
+  ],
+  [
+   66,
+   "## I Introduction"
+  ],
+  [
+   103,
+   "#### Contribution 1: A multi-edge-type structural substrate"
+  ],
+  [
+   115,
+   "#### Contribution 2: Graph-Aware Callee Pruning (GACP)"
+  ],
+  [
+   127,
+   "#### Contribution 3: Clone-refactoring discovery as a graph overlay"
+  ],
+  [
+   147,
+   "## II Related Work"
+  ],
+  [
+   149,
+   "### II-A IDE-Native LLM Code Explanation"
+  ],
+  [
+   157,
+   "### II-B Prompt Compression for Long Contexts"
+  ],
+  [
+   161,
+   "### II-C Structural Visualization in IDEs"
+  ],
+  [
+   165,
+   "### II-D Position of Comprendia"
+  ],
+  [
+   209,
+   "## III Tool Overview"
+  ],
+  [
+   211,
+   "### III-A User-Facing Workflow"
+  ],
+  [
+   250,
+   "### III-B Architecture and Infrastructure"
+  ],
+  [
+   266,
+   "### III-C Practical Use Scenarios"
+  ],
+  [
+   280,
+   "## IV Graph-Aware Callee Pruning"
+  ],
+  [
+   294,
+   "### IV-A Phase 1: Reachability Filter"
+  ],
+  [
+   308,
+   "### IV-B Phase 2: Topological Redundancy Elimination"
+  ],
+  [
+   323,
+   "### IV-C Phase 3: Edge-Type-Weighted Budget Allocation"
+  ],
+  [
+   335,
+   "## V Demonstration"
+  ],
+  [
+   381,
+   "### V-A Token Cost"
+  ],
+  [
+   498,
+   "## VI Limitations and Future Work"
+  ],
+  [
+   500,
+   "#### Single benchmark project"
+  ],
+  [
+   507,
+   "#### Coarse accuracy rubric"
+  ],
+  [
+   515,
+   "#### Token estimator"
+  ],
+  [
+   521,
+   "#### No human-comprehension claim"
+  ],
+  [
+   527,
+   "#### Personalization and graph granularity"
+  ],
+  [
+   533,
+   "#### Baseline and parameter scope"
+  ],
+  [
+   542,
+   "## VII Conclusion"
+  ],
+  [
+   563,
+   "## References"
+  ],
+  [
+   937,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## VI Limitations and Future Work\n\n#### Single benchmark project\n\nThe evaluation draws from one subject system, quickbite, chosen\nfor its seeded clone groups at three sizes ( k=2,3,4 ). The\nalgorithm is project-agnostic; running it on additional codebases is on\nour follow-on agenda.\n\n#### Coarse accuracy rubric\n\nThe keyword-match accuracy score saturates to 2/2 across all modes and\nLLM families. Quality claims in Section V therefore rest on\nthe algorithm-output comparison (callee-set composition and collapse\nbehaviour), which is LLM-independent. A behaviour-test rubric would\ndiscriminate more finely but is follow-on work.\n\n#### Token estimator\n\nPrompt tokens are estimated as character-count/4. Absolute counts under\nprovider-specific tokenizers differ by \\pm 10–15%, but relative\ncomparisons, which are the basis of every claim, are preserved.\n\n#### No human-comprehension claim\n\nThis paper measures the algorithm’s effect on the prompt, not whether\ndevelopers comprehend code faster. A controlled user study on\nquickbite is designed but postdates this submission.\n\n#### Personalization and graph granularity\n\nGACP treats every developer as equivalent and operates on a\nclass-level dependency graph. Method-level call graphs and\nexpertise-adaptive pruning are future directions.\n\n#### Baseline and parameter scope\n\nSection V compares GACP against Selection-only and a\nfixed-cap Legacy baseline, not against an embedding-retrieval system\n(e.g., Cody, RepoFuse); a head-to-head comparison on the same six",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 2,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 1,
+  "java": 8,
+  "industrial": 2
+ },
+ "fulltext_source": "html"
+}

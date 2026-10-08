@@ -1,0 +1,307 @@
+{
+ "arxiv_id": "2605.29277",
+ "fulltext_chars": 62884,
+ "fulltext_lines": 1771,
+ "authors_block": "in Repository-Level QA Jun Zhang JianYing Qu Hanwen Du Zhongkai Sun Yehua Yang Qiao Zhao Affiliation: Baidu Inc. May 27, 2026",
+ "vendor_affiliation_hits": [
+  "Baidu"
+ ],
+ "n_authors": 6,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Code-QA-Bench: Separating Code Reasoning from Documentation Memorization"
+  ],
+  [
+   40,
+   "###### Abstract"
+  ],
+  [
+   49,
+   "#### Keywords:"
+  ],
+  [
+   53,
+   "## 1 Introduction"
+  ],
+  [
+   76,
+   "## 2 Related Work"
+  ],
+  [
+   78,
+   "#### Function-level and repository-level code benchmarks."
+  ],
+  [
+   85,
+   "#### Repository-level code QA."
+  ],
+  [
+   92,
+   "#### Evaluation methodology."
+  ],
+  [
+   97,
+   "## 3 Benchmark Design"
+  ],
+  [
+   99,
+   "### 3.1 Repository Selection and Pinning"
+  ],
+  [
+   179,
+   "### 3.2 Documentation Removal"
+  ],
+  [
+   203,
+   "### 3.3 Task Categories"
+  ],
+  [
+   230,
+   "## 4 Task Generation Pipeline"
+  ],
+  [
+   240,
+   "### 4.1 Stage 1: Documentation Chunk Extraction"
+  ],
+  [
+   258,
+   "### 4.2 Stage 2: Chunk Scoring and Selection"
+  ],
+  [
+   357,
+   "### 4.3 Stage 3: Agentic Gold Answer Generation"
+  ],
+  [
+   368,
+   "### 4.4 Stage 4: Verification and Code-Only Verification"
+  ],
+  [
+   376,
+   "### 4.5 Dual Task Set Design"
+  ],
+  [
+   382,
+   "### 4.6 Stage 5: Question Generation"
+  ],
+  [
+   391,
+   "## 5 Evaluation"
+  ],
+  [
+   393,
+   "### 5.1 Three-Condition Experimental Design"
+  ],
+  [
+   432,
+   "### 5.2 Scoring"
+  ],
+  [
+   471,
+   "### 5.3 Judge Model"
+  ],
+  [
+   482,
+   "## 6 Experimental Setup"
+  ],
+  [
+   484,
+   "### 6.1 Agent Architecture"
+  ],
+  [
+   500,
+   "### 6.2 Models Evaluated"
+  ],
+  [
+   534,
+   "### 6.3 Evaluation Protocol"
+  ],
+  [
+   540,
+   "## 7 Results"
+  ],
+  [
+   547,
+   "### 7.1 Doc-Dependent Task Results"
+  ],
+  [
+   592,
+   "#### Documentation provides consistent, measurable benefit."
+  ],
+  [
+   598,
+   "#### Code access dominates over memorization."
+  ],
+  [
+   603,
+   "#### Significant parametric knowledge in closed-book."
+  ],
+  [
+   608,
+   "### 7.2 Code-Derivable Task Results"
+  ],
+  [
+   658,
+   "#### Claude Opus 4.6 leads across conditions."
+  ],
+  [
+   662,
+   "#### DeepSeek-V4-Pro: strong code reader, weak memorizer."
+  ],
+  [
+   666,
+   "#### Gemini shows a negative documentation effect."
+  ],
+  [
+   671,
+   "#### Closed-book scores are lower than on doc-dependent tasks."
+  ],
+  [
+   675,
+   "### 7.3 Axis-Level Analysis"
+  ],
+  [
+   765,
+   "### 7.4 Per-Category Breakdown"
+  ],
+  [
+   819,
+   "### 7.5 Ceiling Effects and Documentation Utility"
+  ],
+  [
+   828,
+   "## 8 Discussion"
+  ],
+  [
+   830,
+   "#### What “code-only” actually measures."
+  ],
+  [
+   840,
+   "#### Validation logic and circularity."
+  ],
+  [
+   848,
+   "#### Category balance."
+  ],
+  [
+   854,
+   "#### Limitations."
+  ],
+  [
+   865,
+   "## 9 Conclusion"
+  ],
+  [
+   874,
+   "## References"
+  ],
+  [
+   1140,
+   "## Appendix A Example Tasks"
+  ],
+  [
+   1144,
+   "#### Where / data_control_flow (sympy)"
+  ],
+  [
+   1166,
+   "#### How / system_design (pytest)"
+  ],
+  [
+   1188,
+   "#### What / architecture_exploration (xarray)"
+  ],
+  [
+   1210,
+   "#### Why / purpose_exploration (django)"
+  ],
+  [
+   1232,
+   "## Appendix B Documentation Removal Examples"
+  ],
+  [
+   1236,
+   "#### Example 1: Docstring and comment removal."
+  ],
+  [
+   1263,
+   "#### Example 2: Docstring-only body replaced with pass."
+  ],
+  [
+   1291,
+   "## Appendix C Judge Prompt"
+  ],
+  [
+   1297,
+   "## Question"
+  ],
+  [
+   1300,
+   "## Reference Answer (Gold)"
+  ],
+  [
+   1303,
+   "## Key Points the Answer Should Cover (Rubric)"
+  ],
+  [
+   1306,
+   "## Agent’s Answer"
+  ],
+  [
+   1309,
+   "## Instructions"
+  ],
+  [
+   1319,
+   "## Appendix D Comparison with SWE-QA and SWE-QA-Pro"
+  ],
+  [
+   1419,
+   "## Appendix E Code-Only Verification Prompt"
+  ],
+  [
+   1463,
+   "## Appendix F Answer Generation Prompt"
+  ],
+  [
+   1525,
+   "## Appendix G Question Generation Prompt"
+  ],
+  [
+   1575,
+   "## Appendix H Bootstrap Confidence Intervals"
+  ],
+  [
+   1692,
+   "## Appendix I Per-Repository Breakdown"
+  ],
+  [
+   1771,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "#### Limitations.\n\nThe benchmark has several known limitations.\nJudge reliability: We use a single LLM judge (GPT-5.4) without inter-judge agreement or human correlation analysis; a reliability study stratified by condition is needed.\nGenerator-evaluatee overlap: Claude generates gold answers and scores highest on some conditions, though the bias is negligible on the primary code-only metric (DeepSeek matches at 0.892 vs. 0.891).\nNo human validation: The pipeline relies on automated quality gates; a stratified human evaluation is planned.\nThe fact-check verification produces 38.4% pass and 61.6% warn verdicts; “warn” indicates minor discrepancies (e.g., slight imprecision) that do not rise to factual contradiction, and only “fail” verdicts are dropped.\nWhile warned tasks are retained, the high warn rate suggests future iterations should tighten the verification threshold or add human review for borderline cases.\nScope: The benchmark is Python-only (AST-based documentation removal is language-specific), uses single-commit snapshots, and removal may break tests that inspect __doc__ attributes.\nCeiling effects: Three of four models score 0.87–0.92 on code-derivable tasks in the code-only condition, with 5–12% of tasks at ceiling ( \\geq 0.95); periodic regeneration or tighter exploration budgets are needed to maintain discrimination as models improve.\n\n## 9 Conclusion\n\nWe presented Code-QA-Bench, a fully automated benchmark that separates code comprehension from documentation memorization via a three-condition experimental design and dual task set (528 code-derivable + 100 doc-dependent tasks across 10 repositories).\nExperiments on four frontier models show that code access is the dominant factor (+0.23 over closed-book), documentation provides consistent but moderate benefit (+0.071 on doc-dependent tasks, p<0.003 ), and code-only \\approx documented on code-derivable tasks validates the methodology.\n\nThe pipeline is repo-agnostic and can be applied to any well-documented Python repository, serving both as a reusable evaluation framework and as a source of verified training data [3].\nThe three-condition design complements SWE-QA’s [24] taxonomic coverage and SWE-QA-Pro’s [3] difficulty calibration by providing environment-level control with quantitative contamination analysis.\nCode and data are open-source.\n\n## References\n\n[1]\n\nAleithan, R., Kang, M.J., and Kamalloo, E.\n\nSWE-Bench+: Enhanced Coding Benchmark for LLMs.\n\narXiv preprint arXiv:2410.06992, 2024.\n\n[2]\n\nAustin, J., Odena, A., Nye, M., Bosma, M., Michalewski, H., Dohan, D., Jiang, E., Cai, C., Terry, M., Le, Q., and Sutton, C.\n\nProgram Synthesis with Large Language Models.\n\narXiv preprint arXiv:2108.07732, 2021.\n\n[3]",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 2,
+  "p_value_or_ci": 29,
+  "seeds_or_runs": 0,
+  "swe_bench": 8,
+  "contamination": 22,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

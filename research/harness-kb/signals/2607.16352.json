@@ -1,0 +1,512 @@
+{
+ "arxiv_id": "2607.16352",
+ "fulltext_chars": 132036,
+ "fulltext_lines": 2674,
+ "authors_block": "CCS: Computing methodologies Artificial intelligenceCCS: Computing methodologies Xiaoye Zhu Affiliation: South China University of Technology, Guangzhou, Guangdong, China email: xyzhu1225@foxmail.com , Weixin Li Affiliation: South China University of Technology, Guangzhou, Guangdong, China email: 3536761163@qq.com , Junan Huo Affiliation: South China University of Technology, Guangzhou, Guangdong, China email: huojunan0810@gmail.com , Bozhong Wang Affiliation: South China University of Technology, Guangzhou, Guangdong, China email: 1011361251@qq.com , Jia Zeng Affiliation: South China University of Technology, Guangzhou, Guangdong, China email: 1229239588@qq.com , Yi Yang Affiliation: South China University of Technology, Guangzhou, Guangdong, China email: ftyy@mail.scut.edu.cn , Cen Chen Affiliation: South China University of Technology, Guangzhou, Guangdong, China email: chencen@scut.edu.cn and Qi Liu Affiliation: South China University of Technology, Guangzhou, Guangdong, China email: drliuqi@scut.edu.cn Figure 1. Clare’s framework and self-evolving pipeline. (a-b) Comparison: Traditional agents execute blindly vs. Clare proactively clarifies before execution. (c) Architecture: Modular components for approval, summarization, feedback, and 3D-aware programming. (d) Self-Evolving Pipeline: From sampling to fine-tuning.The upper row contrasts a conventional agent that executes an underspecified 3D request before asking for missing details with CLARE, which clarifies first and",
+ "vendor_affiliation_hits": [],
+ "n_authors": 8,
+ "comment": "Accepted to ACM Multimedia 2026 (ACM MM 2026). 26 pages including appendix, 8 figures. Code: https://github.com/xyzhu1225/CLARE",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/ZiYang-xie/WorldGen",
+  "https://github.com/xyzhu1225/CLARE."
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   22,
+   "# Clarify Before Executing: A Self-Evolving Agent for Resolving Intent Asymmetry in 3D Tool Orchestration"
+  ],
+  [
+   86,
+   "###### Abstract."
+  ],
+  [
+   91,
+   "###### Keywords:"
+  ],
+  [
+   94,
+   "## 1. Introduction"
+  ],
+  [
+   120,
+   "## 2. Related Work"
+  ],
+  [
+   122,
+   "### 2.1. LLM-based Agents for 3D Tasks"
+  ],
+  [
+   128,
+   "### 2.2. Interactive Clarification"
+  ],
+  [
+   136,
+   "### 2.3. Self-Evolving Agents"
+  ],
+  [
+   142,
+   "## 3. Problem Formulation"
+  ],
+  [
+   168,
+   "## 4. The CLARE Framework: Coordination via Progressive Alignment"
+  ],
+  [
+   170,
+   "### 4.1. Architecture Overview"
+  ],
+  [
+   176,
+   "### 4.2. Core Components"
+  ],
+  [
+   178,
+   "##### Proactive Approver: The Cognitive Gatekeeper"
+  ],
+  [
+   182,
+   "##### Contextual Summarizer: Structured Intent Mining"
+  ],
+  [
+   186,
+   "##### 3D-Aware Programmer: Adaptive Tool Orchestration"
+  ],
+  [
+   190,
+   "##### Interaction Feedback Provider: Closing the Semantic Gap"
+  ],
+  [
+   194,
+   "### 4.3. Self-Evolution via Collaborative Simulation"
+  ],
+  [
+   198,
+   "#### 4.3.1. Interactive Forward Sampling"
+  ],
+  [
+   204,
+   "##### Simulated User with Hidden Goals"
+  ],
+  [
+   208,
+   "#### 4.3.2. Multi-turn Reward Formulation"
+  ],
+  [
+   230,
+   "#### 4.3.3. Policy Optimization"
+  ],
+  [
+   235,
+   "## 5. The 3D-Clarify Benchmark"
+  ],
+  [
+   239,
+   "### 5.1. Phase 1: Atomic Task Generation"
+  ],
+  [
+   341,
+   "### 5.2. Phase 2: Sequential Multi-Task Composition"
+  ],
+  [
+   575,
+   "### 5.3. Phase 3: Synthesizing Underspecified Requirements"
+  ],
+  [
+   579,
+   "## 6. Experiments"
+  ],
+  [
+   581,
+   "### 6.1. Experiment Setup"
+  ],
+  [
+   589,
+   "### 6.2. Baselines"
+  ],
+  [
+   593,
+   "### 6.3. Evaluation Metrics"
+  ],
+  [
+   601,
+   "### 6.4. Quantitative Results"
+  ],
+  [
+   607,
+   "##### Proactive Clarification is Essential for Underspecified Requirements."
+  ],
+  [
+   611,
+   "##### Self-Evolution via MR Optimization Substantially Improves Clarification Policies."
+  ],
+  [
+   615,
+   "##### Multi-Step Tasks Amplify the Advantage of Structured Clarification."
+  ],
+  [
+   619,
+   "##### Performance Analysis on Mistaken Details."
+  ],
+  [
+   623,
+   "### 6.5. Qualitative Evaluation of 3D Execution"
+  ],
+  [
+   630,
+   "### 6.6. Interaction Efficiency Analysis"
+  ],
+  [
+   640,
+   "### 6.7. Ablation Study"
+  ],
+  [
+   677,
+   "### 6.8. Effect of Training Data Scale"
+  ],
+  [
+   685,
+   "## 7. Conclusion"
+  ],
+  [
+   689,
+   "##### Limitations."
+  ],
+  [
+   693,
+   "###### Acknowledgements."
+  ],
+  [
+   697,
+   "## References"
+  ],
+  [
+   1142,
+   "## Appendix A Method Details"
+  ],
+  [
+   1144,
+   "### A.1. Architecture"
+  ],
+  [
+   1164,
+   "### A.2. Details and Prompts of CLARE Agents"
+  ],
+  [
+   1166,
+   "#### A.2.1. Proactive Approver"
+  ],
+  [
+   1172,
+   "# TASK"
+  ],
+  [
+   1196,
+   "# Reject Categories:"
+  ],
+  [
+   1216,
+   "# Rules:"
+  ],
+  [
+   1240,
+   "# Other Rules:"
+  ],
+  [
+   1256,
+   "#### A.2.2. Contextual Summarizer"
+  ],
+  [
+   1270,
+   "# TASK"
+  ],
+  [
+   1288,
+   "# Rules:"
+  ],
+  [
+   1316,
+   "# Other Rules:"
+  ],
+  [
+   1330,
+   "# Examples:"
+  ],
+  [
+   1380,
+   "#### A.2.3. 3D-Aware Programmer"
+  ],
+  [
+   1386,
+   "# TASK"
+  ],
+  [
+   1398,
+   "# Rules:"
+  ],
+  [
+   1420,
+   "# Most Relevant Executor Class Functions:"
+  ],
+  [
+   1424,
+   "# Model Selection Guide:"
+  ],
+  [
+   1674,
+   "#### A.2.4. Interaction Feedback Provider"
+  ],
+  [
+   1680,
+   "# TASK"
+  ],
+  [
+   1712,
+   "# RULES"
+  ],
+  [
+   1726,
+   "### A.3. Tools"
+  ],
+  [
+   1730,
+   "##### Trellis"
+  ],
+  [
+   1746,
+   "##### TriplaneTurbo"
+  ],
+  [
+   1762,
+   "##### WorldGen"
+  ],
+  [
+   1778,
+   "##### VGGT"
+  ],
+  [
+   1794,
+   "##### Hunyuan-3D"
+  ],
+  [
+   1810,
+   "##### Fast3R"
+  ],
+  [
+   1826,
+   "##### Concerto"
+  ],
+  [
+   1842,
+   "##### Open3D"
+  ],
+  [
+   1854,
+   "### A.4. Training Details"
+  ],
+  [
+   1856,
+   "#### A.4.1. Interactive Forward Sampling"
+  ],
+  [
+   1860,
+   "##### Candidate Generation and Deduplication"
+  ],
+  [
+   1864,
+   "##### Trajectory Rollout via Multi-Role Simulation"
+  ],
+  [
+   1876,
+   "##### Multi-turn Reward Evaluation and Back-propagation"
+  ],
+  [
+   1886,
+   "#### A.4.2. Self-Evolution Training Details"
+  ],
+  [
+   1890,
+   "##### Shared Hyperparameters"
+  ],
+  [
+   1894,
+   "##### Supervised Fine-Tuning (SFT) Setup"
+  ],
+  [
+   1898,
+   "##### Direct Preference Optimization (DPO) Setup"
+  ],
+  [
+   1902,
+   "## Appendix B 3D Clarify Benchmark Details"
+  ],
+  [
+   1904,
+   "### B.1. System Prompts for Simulated User"
+  ],
+  [
+   1908,
+   "# TASK"
+  ],
+  [
+   1916,
+   "# BEHAVIORAL STAGES (Follow this logic strictly)"
+  ],
+  [
+   1948,
+   "# CRITICAL RULES"
+  ],
+  [
+   1974,
+   "# OUTPUT FORMAT"
+  ],
+  [
+   1978,
+   "### B.2. Detailed Task Scenarios"
+  ],
+  [
+   2004,
+   "### B.3. Data Curation and Source Assets"
+  ],
+  [
+   2008,
+   "##### Single-Step Task Construction."
+  ],
+  [
+   2012,
+   "##### Multi-Step Task Construction."
+  ],
+  [
+   2016,
+   "##### Text-to-3D Generation."
+  ],
+  [
+   2020,
+   "##### Reconstruction Tasks."
+  ],
+  [
+   2032,
+   "##### Point Cloud Editing."
+  ],
+  [
+   2036,
+   "##### Post-Processing."
+  ],
+  [
+   2040,
+   "### B.4. Injection Details"
+  ],
+  [
+   2044,
+   "##### Ambiguity Injection (Semantic & Referential Vagueness):"
+  ],
+  [
+   2048,
+   "##### Missing Information (Value Masking):"
+  ],
+  [
+   2052,
+   "##### Mistaken Details (Constraint Violations):"
+  ],
+  [
+   2068,
+   "## Appendix C Extended Experimental Results"
+  ],
+  [
+   2070,
+   "### C.1. Baseline Implementation Details"
+  ],
+  [
+   2076,
+   "#### C.1.1. ZeroShot"
+  ],
+  [
+   2082,
+   "# TASK"
+  ],
+  [
+   2094,
+   "# Rules:"
+  ],
+  [
+   2116,
+   "# Most Relevant Executor Class Functions:"
+  ],
+  [
+   2120,
+   "# Output Format"
+  ],
+  [
+   2124,
+   "# Model Selection Guide:"
+  ],
+  [
+   2128,
+   "#### C.1.2. FewShot"
+  ],
+  [
+   2134,
+   "# TASK"
+  ],
+  [
+   2146,
+   "# Rules:"
+  ],
+  [
+   2168,
+   "# Most Relevant Executor Class Functions:"
+  ],
+  [
+   2172,
+   "# Examples"
+  ],
+  [
+   2206,
+   "# Output Format"
+  ],
+  [
+   2210,
+   "# Model Selection Guide:"
+  ],
+  [
+   2214,
+   "#### C.1.3. CoT"
+  ],
+  [
+   2220,
+   "# TASK"
+  ],
+  [
+   2232,
+   "# Rules:"
+  ],
+  [
+   2260,
+   "# Most Relevant Executor Class Functions:"
+  ],
+  [
+   2264,
+   "# Examples"
+  ]
+ ],
+ "acknowledgments": "###### Acknowledgements.\n\nThis work was supported in part by the GJYC program of Guangzhou under Grant 2024D01J0081, in part by the ZJ program of Guangdong under Grant 2023QN10X455, and in part by the Fundamental Research Funds for the Central Universities under Grant 2025ZYGXZR-053. Sponsored by CAAI-Lenovo Blue Sky Research Fund.\n\n## References\n\nAcikgoz et al. (2025a)\nE. C. Acikgoz, J. Oh, J. Hao, J. H. Jeon, H. Ji, D. Hakkani-Tür, G. Tur, X. Li, C. Ma, and X. Fan\n\nSpeakRL: synergizing reasoning, speaking, and acting in language models with reinforcement learning.\n\nExternal Links: 2512.13159,\nLink\n\nCited by: §2.2.\n\nAcikgoz et al. (2025b)\nE. C. Acikgoz, J. Oh, J. H. Jeon, J. Hao, H. Ji, D. Hakkani-Tür, G. Tur, X. Li, C. Ma, and X. Fan\n\nMAC: a multi-agent framework for interactive user clarification in multi-turn conversations.\n\nExternal Links: 2512.13154,\nLink\n\nCited by: §2.2.",
+ "limitations": "##### Limitations.\n\nThe overall execution success of Clare is inherently bounded by the capabilities of the backbone LLM and the integrated 3D toolchains. Additionally, while our simulated environment effectively optimizes clarification policies, fully capturing the diversity and unpredictability of real-world human queries remains an ongoing challenge.\n\n###### Acknowledgements.\n\nThis work was supported in part by the GJYC program of Guangzhou under Grant 2024D01J0081, in part by the ZJ program of Guangdong under Grant 2023QN10X455, and in part by the Fundamental Research Funds for the Central Universities under Grant 2025ZYGXZR-053. Sponsored by CAAI-Lenovo Blue Sky Research Fund.\n\n## References\n\nAcikgoz et al. (2025a)\nE. C. Acikgoz, J. Oh, J. Hao, J. H. Jeon, H. Ji, D. Hakkani-Tür, G. Tur, X. Li, C. Ma, and X. Fan\n\nSpeakRL: synergizing reasoning, speaking, and acting in language models with reinforcement learning.\n\nExternal Links: 2512.13159,\nLink\n\nCited by: §2.2.\n\nAcikgoz et al. (2025b)\nE. C. Acikgoz, J. Oh, J. H. Jeon, J. Hao, H. Ji, D. Hakkani-Tür, G. Tur, X. Li, C. Ma, and X. Fan\n\nMAC: a multi-agent framework for interactive user clarification in multi-turn conversations.\n\nExternal Links: 2512.13154,\nLink\n\nCited by: §2.2.\n\nAi et al. (2025)\nK. Ai, K. Tang, and C. Wang\n\nNLI4VolVis: natural language interaction for volume visualization via llm multi-agents and editable 3d gaussian splatting.\n\nExternal Links: 2507.12621,\nLink\n\nCited by: §2.1.",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 1,
+  "java": 0,
+  "industrial": 1
+ },
+ "fulltext_source": "html"
+}

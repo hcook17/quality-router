@@ -1,0 +1,127 @@
+{
+ "arxiv_id": "2607.02748",
+ "fulltext_chars": 35687,
+ "fulltext_lines": 965,
+ "authors_block": "Yusheng Zheng∗1,2, Zhengjie Ji∗3, Weichen Tao∗4, Xiangyu Gao5, Jianchang Su6, Wei Zhang6, Andi Quinn1, Dan Williams3 Affiliation: 1UC Santa Cruz 2eunomia-bpf 3Virginia Tech 4Telecom Paris 5University of Washington 6University of Connecticut",
+ "vendor_affiliation_hits": [],
+ "n_authors": 8,
+ "comment": "Yusheng Zheng, Zhengjie Ji, Weichen Tao have equal contribution to the paper",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/cilium/cilium.",
+  "https://github.com/eunomia-bpf/bpfix",
+  "https://github.com/eunomia-bpf/bpfix.",
+  "https://github.com/libbpf/bpfvv.",
+  "https://github.com/xdp-project/xdp-tools."
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   24,
+   "# Characterizing and Bridging the Diagnostic Gap in eBPF Verifier Rejections"
+  ],
+  [
+   30,
+   "###### Abstract."
+  ],
+  [
+   41,
+   "## 1. Introduction"
+  ],
+  [
+   172,
+   "## 2. An Empirical Study of Verifier Rejections"
+  ],
+  [
+   177,
+   "### 2.1. Background: The Verifier Rejection"
+  ],
+  [
+   207,
+   "### 2.2. Reproducing Real Rejections in bpfix-empirical"
+  ],
+  [
+   217,
+   "### 2.3. Characterizing the Rejections"
+  ],
+  [
+   276,
+   "### 2.4. Measuring the Log’s Localization Gap"
+  ],
+  [
+   314,
+   "## 3. bpfix Design and Implementation"
+  ],
+  [
+   322,
+   "### 3.1. Architecture and Data Flow"
+  ],
+  [
+   331,
+   "### 3.2. Reconstructing the Verifier-Visible Proof"
+  ],
+  [
+   344,
+   "### 3.3. Evidence-Aware Diagnostic Synthesis"
+  ],
+  [
+   352,
+   "## 4. Evaluation"
+  ],
+  [
+   357,
+   "### 4.1. Recovering the Missing Repair Information"
+  ],
+  [
+   417,
+   "### 4.2. Separating the Responsible Layer"
+  ],
+  [
+   505,
+   "## 5. bpfix-bench: A Benchmark for LLM Verifier Repair"
+  ],
+  [
+   509,
+   "### 5.1. Benchmark Construction"
+  ],
+  [
+   521,
+   "### 5.2. Results"
+  ],
+  [
+   598,
+   "## 6. Related Work"
+  ],
+  [
+   610,
+   "## 7. Conclusion"
+  ],
+  [
+   616,
+   "## References"
+  ],
+  [
+   965,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

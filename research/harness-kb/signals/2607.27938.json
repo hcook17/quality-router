@@ -1,0 +1,209 @@
+{
+ "arxiv_id": "2607.27938",
+ "fulltext_chars": 117539,
+ "fulltext_lines": 2466,
+ "authors_block": "\\authororcidNishaanthini Gnanavel0009-0005-6753-1732 and \\authororcidYong Wang0000-0002-0092-0793",
+ "vendor_affiliation_hits": [],
+ "n_authors": 2,
+ "comment": "Accepted by IEEE VIS 2026",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   33,
+   "# VizPilot: Automated Onboarding for SVG-based Composite Visualizations using Multimodal LLMs"
+  ],
+  [
+   39,
+   "###### Abstract"
+  ],
+  [
+   47,
+   "###### keywords"
+  ],
+  [
+   85,
+   "## 1 Related Work"
+  ],
+  [
+   89,
+   "### 1.1 Visualization Onboarding"
+  ],
+  [
+   97,
+   "### 1.2 Semantic Understanding of Visualization"
+  ],
+  [
+   107,
+   "### 1.3 LLM-Based Visualization Reasoning"
+  ],
+  [
+   115,
+   "## 2 VizPilot: Overview"
+  ],
+  [
+   133,
+   "## 3 Composite Visualization Analyzer"
+  ],
+  [
+   142,
+   "### 3.1 Semantic Inference"
+  ],
+  [
+   146,
+   "##### Visual Component Decomposition."
+  ],
+  [
+   160,
+   "##### Knowledge Extraction."
+  ],
+  [
+   195,
+   "##### Semantic-to-Text Generation."
+  ],
+  [
+   203,
+   "### 3.2 Semantic Mapping"
+  ],
+  [
+   226,
+   "## 4 Onboarding Interface"
+  ],
+  [
+   234,
+   "##### Narrative Scrollytelling Mode."
+  ],
+  [
+   238,
+   "##### Free Exploration Mode."
+  ],
+  [
+   242,
+   "## 5 Implementation"
+  ],
+  [
+   250,
+   "## 6 Evaluation"
+  ],
+  [
+   254,
+   "### 6.1 Comparative Analysis of Input Modalities"
+  ],
+  [
+   301,
+   "### 6.2 Usage Scenario: Authoring Workflow for a Composite Visualization"
+  ],
+  [
+   313,
+   "### 6.3 Gallery"
+  ],
+  [
+   385,
+   "### 6.4 User Study"
+  ],
+  [
+   397,
+   "#### 6.4.1 Quantitative Results"
+  ],
+  [
+   411,
+   "#### 6.4.2 Qualitative Results"
+  ],
+  [
+   421,
+   "## 7 Discussion"
+  ],
+  [
+   425,
+   "### 7.1 Deployment and Generalizability"
+  ],
+  [
+   430,
+   "### 7.2 Design Lessons"
+  ],
+  [
+   434,
+   "### 7.3 Limitations and Future Directions"
+  ],
+  [
+   439,
+   "## 8 Conclusion"
+  ],
+  [
+   443,
+   "## References"
+  ],
+  [
+   1266,
+   "## Appendix A Appendices"
+  ],
+  [
+   1270,
+   "### A.1 Semantic Inference"
+  ],
+  [
+   1482,
+   "### A.2 Intermediate Semantic Representation"
+  ],
+  [
+   1510,
+   "### A.3 Semantic Mapping"
+  ],
+  [
+   1662,
+   "### A.4 Mapped Semantic Representation"
+  ],
+  [
+   1696,
+   "### A.5 Visual Component Decomposition Justification"
+  ],
+  [
+   1706,
+   "#### Illustrative Example"
+  ],
+  [
+   1718,
+   "### A.6 Quantitative Evaluation of Gallery Visualizations: Metrics and Detailed Results for Each Composite Visualization"
+  ],
+  [
+   1722,
+   "#### Metric Definitions"
+  ],
+  [
+   1733,
+   "#### Detailed Results for Each Composite Visualization"
+  ],
+  [
+   2033,
+   "### A.7 Expert Interview"
+  ],
+  [
+   2037,
+   "### A.8 Results of Comparative Analysis of Input Modalities"
+  ],
+  [
+   2466,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "### 7.3 Limitations and Future Directions\n\nDespite the good performance of the onboarding by VizPilot, practical limitations remain. Our controlled study evaluated two visualizations selected for structural diversity, while the gallery evaluation provided broader coverage across all four design patterns. Future work should extend controlled studies to more visualization types and real-world sources. Furthermore, the subjective ratings of AI-enabled systems may be influenced by novelty and expectation effects [24]. We have mitigated this issue by including objective measures such as task accuracy and task completion time, but a more in-depth analysis of the potential bias introduced by expectation and novelty effects\nremains an avenue for future work. VizPilot currently assumes a single SVG container, limiting support for multi-view dashboards. Large SVGs may also exceed MLLM context limits, motivating targeted element selection. In addition, MLLM latency can hinder real-time interaction, making smaller or locally hosted models a promising direction. Future work also includes adaptive onboarding that adjusts pacing and detail based on users’ expertise and interaction patterns.\n\n## 8 Conclusion\n\nAs composite visualizations grow in complexity, the gap between developer intent and user comprehension widens. We present VizPilot, an automated onboarding approach implemented as a browser extension comprising a Composite Visualization Analyzer, a two-stage MLLM-driven pipeline performing Semantic Inference and Semantic Mapping over SVG-based composite visualizations, and an Onboarding Interface supporting Narrative Scrollytelling and Free Exploration. Our evaluation demonstrates improvements in analytical efficiency, reduced cognitive load, and strong pipeline robustness across diverse visualization structures. This work illustrates how multi-stage MLLM outputs can be effectively integrated to deliver scalable, generalizable onboarding for web-based composite visualizations, lowering barriers for both developers and end-users.\n\n## References\n\n[1]\nM. Z. I. Alam, S. Islam, and E. Hoque (2023)\n\nSeeChart: enabling accessible visualizations through interactive natural language interface for people with visual impairments.\n\nIn Proceedings of the 28th International Conference on Intelligent User Interfaces,\n\nIUI ’23, New York, NY, USA, pp. 46–64.\n\nExternal Links: ISBN 9798400701061,\nLink,\nDocument\n\nCited by: §1.2.\n\n[2]\nApache Software Foundation ()\n\nApache ECharts Examples: Candlestick on Mobile.\n\nNote: https://echarts.apache.org/examples/en/editor.html?c=candlestick-touch[Online].Accessed: 2026-06-24\n\nCited by: Table 4,\nTable 5.\n\n[3]\nApache Software Foundation ()\n\nApache ECharts Examples: Shanghai Index.",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 2,
+  "p_value_or_ci": 22,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 35,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

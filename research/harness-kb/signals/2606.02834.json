@@ -1,0 +1,134 @@
+{
+ "arxiv_id": "2606.02834",
+ "fulltext_chars": 48745,
+ "fulltext_lines": 1069,
+ "authors_block": "Florian Störtz Sandra Servia-Rodríguez CrowdStrike U.K. Catalin-Andrei Stan Alexandru Dinu Mihaela Gaman Calin Miron CrowdStrike Romania Edward Raff CrowdStrike USA Correspondence: florian.stoertz@crowdstrike.com",
+ "vendor_affiliation_hits": [],
+ "n_authors": 7,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/NVIDIA/cudnn-frontend",
+  "https://github.com/NVIDIA/cudnn-frontend.",
+  "https://github.com/mosaicml/llm-foundry",
+  "https://github.com/radare/radare2"
+ ],
+ "hf_urls": [
+  "https://huggingface.co/datasets/Magpie-Align",
+  "https://huggingface.co/datasets/ise-uiuc",
+  "https://huggingface.co/moonshotai/Kimi-K2-Instruct"
+ ],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Large Byte Model: Teaching Language Models About Compiled Code"
+  ],
+  [
+   37,
+   "###### Abstract"
+  ],
+  [
+   42,
+   "## 1 Introduction"
+  ],
+  [
+   58,
+   "## 2 Related Work"
+  ],
+  [
+   65,
+   "## 3 Dataset Composition"
+  ],
+  [
+   67,
+   "### 3.1 Real-world Data"
+  ],
+  [
+   200,
+   "### 3.2 Synthetic Data"
+  ],
+  [
+   210,
+   "## 4 Methodology"
+  ],
+  [
+   212,
+   "### 4.1 Model Architecture"
+  ],
+  [
+   216,
+   "### 4.2 Training"
+  ],
+  [
+   228,
+   "## 5 Evaluation"
+  ],
+  [
+   230,
+   "### 5.1 Byte Tokenizer"
+  ],
+  [
+   235,
+   "### 5.2 Evaluation Setup"
+  ],
+  [
+   244,
+   "### 5.3 Results"
+  ],
+  [
+   408,
+   "## 6 Limitations"
+  ],
+  [
+   412,
+   "## 7 Conclusion"
+  ],
+  [
+   421,
+   "## References"
+  ],
+  [
+   623,
+   "## Appendix A A Note On LLM Family Selection"
+  ],
+  [
+   632,
+   "## Appendix B Insights from Surveying Cybersecurity Analysts"
+  ],
+  [
+   638,
+   "## Appendix C Frontier Model Evaluation"
+  ],
+  [
+   642,
+   "## Appendix D Additional Figures and Tables"
+  ],
+  [
+   644,
+   "### Real World Dataset Composition"
+  ],
+  [
+   1069,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 6 Limitations\n\nOur current evaluation setup covers a set of tasks with an exact ground truth that can be evaluated fairly and safely at scale. Evaluating the model on complex reasoning tasks (e.g., vulnerability attribution, behavior prediction) is a valuable direction, but high quality data is scarce and costly to generate. The current classification tasks represent the highest priority identified in our survey conducted among malware researchers.\n\n## 7 Conclusion\n\nOur LLM-based solution to assist threat analysts with malware analysis combines byte-vocabulary expansion with a large curated repository of domain-specific training data, advances in large-scale training and thorough benchmarking of the models’ learned concept of byte semantics.\nTrade-offs of our solution include its upper limit of 256KB per chunk due to the GPU memory footprint during training.\nGiving users access to larger files is a focal point of ongoing development before taking this emerging solution from limited deployment to general availability.\n\nLearnings about model architecture, training process and data composition have the potential for considerable positive societal impact, since their application to malware analysis and detection can make it harder for adversaries to infiltrate computer systems.\nAs always in this field, improved algorithms can also lead to increasingly sophisticated detection evasion. A potentially negative societal impact lies in the over-reliance on automatic analysis systems without appropriate human supervision.\n\n## References\n\n[1]\n\nCrowdStrike.\n\nCrowdstrike 2025 global threat report.\n\nhttps://www.crowdstrike.com/explore/2025-global-threat-report-en-gb.\n\n[2]\n\nPengfei He, Ash Fox, Lesly Miculicich, Stefan Friedli, Daniel Fabian, Burak Gokturk, Jiliang Tang, Chen-Yu Lee, Tomas Pfister, and Long T. Le.\n\nCo-redteam: Orchestrated security discovery and exploitation with llm agents, 2026.\n\nURL https://arxiv.org/abs/2602.02164.\n\n[3]\n\nLili Yu, Dániel Simig, Colin Flaherty, Armen Aghajanyan, Luke Zettlemoyer, and Mike Lewis.\n\nMegabyte: Predicting million-byte sequences with multiscale transformers, 2023.\n\nURL https://arxiv.org/abs/2305.07185.\n\n[4]",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 1,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

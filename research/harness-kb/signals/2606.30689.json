@@ -1,0 +1,185 @@
+{
+ "arxiv_id": "2606.30689",
+ "fulltext_chars": 41089,
+ "fulltext_lines": 718,
+ "authors_block": "A Cross-Model Empirical Study of Output Determinism and Automated Hallucination Detection in LLM-Generated Code Subham Panda Email: iampandasubham@gmail.com June 2026",
+ "vendor_affiliation_hits": [],
+ "n_authors": 1,
+ "comment": "17 pages",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Citation Discipline in Spec-Driven Development:"
+  ],
+  [
+   32,
+   "###### Abstract"
+  ],
+  [
+   36,
+   "## 1 Introduction"
+  ],
+  [
+   48,
+   "## 2 Background and Related Work"
+  ],
+  [
+   50,
+   "### 2.1 Requirements Traceability in Software Engineering"
+  ],
+  [
+   54,
+   "### 2.2 LLM Code Generation and Hallucination"
+  ],
+  [
+   60,
+   "### 2.3 Output Determinism and Consistency in LLMs"
+  ],
+  [
+   64,
+   "### 2.4 Agentic Coding and Specification-Driven Development"
+  ],
+  [
+   68,
+   "## 3 Research Questions and Hypotheses"
+  ],
+  [
+   86,
+   "## 4 Experimental Design"
+  ],
+  [
+   88,
+   "### 4.1 Task Suites"
+  ],
+  [
+   94,
+   "### 4.2 Conditions"
+  ],
+  [
+   108,
+   "### 4.3 Metrics"
+  ],
+  [
+   118,
+   "### 4.4 Hallucination Injection Protocol"
+  ],
+  [
+   122,
+   "### 4.5 Statistical Methodology"
+  ],
+  [
+   126,
+   "## 5 Results: Output Determinism (RQ1)"
+  ],
+  [
+   128,
+   "### 5.1 Descriptive Statistics"
+  ],
+  [
+   204,
+   "### 5.2 Statistical Tests"
+  ],
+  [
+   206,
+   "#### 5.2.1 Citation Isolation (H4)"
+  ],
+  [
+   216,
+   "#### 5.2.2 traceSDD (Cited) vs External Baselines (H1)"
+  ],
+  [
+   310,
+   "### 5.3 Effect Size Analysis"
+  ],
+  [
+   316,
+   "### 5.4 Per-Task Distribution"
+  ],
+  [
+   322,
+   "### 5.5 Subgroup Analysis (GLM-5-turbo, N=50)"
+  ],
+  [
+   332,
+   "## 6 Results: Hallucination Detection (RQ2)"
+  ],
+  [
+   334,
+   "### 6.1 Detection Rate Comparison"
+  ],
+  [
+   410,
+   "### 6.2 The Uncited Condition as Critical Control"
+  ],
+  [
+   414,
+   "### 6.3 False Positive Rate"
+  ],
+  [
+   418,
+   "### 6.4 Functional Correctness (H3)"
+  ],
+  [
+   422,
+   "### 6.5 Per-Task Detection Breakdown (Claude Study)"
+  ],
+  [
+   426,
+   "## 7 Discussion"
+  ],
+  [
+   428,
+   "### 7.1 The Determinism-Detection Trade-off"
+  ],
+  [
+   436,
+   "### 7.2 Cross-Model Consistency"
+  ],
+  [
+   440,
+   "### 7.3 Practical Implications and Recommendations"
+  ],
+  [
+   444,
+   "### 7.4 Maintenance Posture"
+  ],
+  [
+   448,
+   "## 8 Threats to Validity"
+  ],
+  [
+   462,
+   "## 9 Conclusion and Future Work"
+  ],
+  [
+   486,
+   "## References"
+  ],
+  [
+   718,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 8 Threats to Validity\n\nTask scope and language. All implementations use Python and span moderate complexity (50–1,000 lines). Production-scale tasks (5,000+ lines) may show different dynamics, particularly for the citation overhead and hallucination detection scalability. The task suite, while diverse across 8 domains, may not represent all software engineering patterns equally.\n\nModel scope. While two models provide stronger evidence than single-model studies, they represent only a subset of the LLM landscape. Different models (GPT-4, Gemini, Llama, Mistral) may exhibit different determinism distributions and hallucination rates. The consistency of our findings across two architecturally distinct models is encouraging but not conclusive evidence of universality.\n\nHallucination injection methodology. Hallucinations are injected with known-fake REQ-099 IDs. Organic hallucinations may be subtler and harder to detect with a simple set-difference check. In particular, a model that omits citations entirely for hallucinated code (rather than citing fake REQ IDs) would bypass the orphan-REQ check. Our Claude data shows this occurs in approximately 12% of hallucination instances (T17–T20), suggesting that the orphan-REQ check should be supplemented with an uncited-line check for maximum coverage.\n\nMetric limitations. LSS measures lexical similarity, which conflates content similarity with formatting and style similarity. We mitigate this by normalizing source code (stripping all comments, blank lines, and whitespace) before comparison, but structural differences (e.g., different algorithmic approaches) still reduce LSS even when the functional output is identical. A complementary metric such as behavioral equivalence testing or abstract syntax tree (AST) similarity would strengthen the determinism analysis in future work.\n\nStudy 2 sample size for Claude comparison. The Claude study (N=20) was underpowered for some comparisons (e.g., traceSDD vs OpenSpec: d=0.18 , p=0.44 ). The GLM study (N=50) provides adequate power for all comparisons. A replication of the Claude study at N=50 would further strengthen cross-model comparisons.\n\nCold-start session independence. All three runs per task are independent cold-start LLM sessions with no shared context. However, the underlying model weights are fixed, and models may have implicit biases from training data that create correlated outputs even across independent sessions. This is an inherent limitation of studying a fixed model.\n\n## 9 Conclusion and Future Work\n\nThis paper presents the first cross-model controlled comparison of specification-driven development framework citation disciplines, conducted across Claude Sonnet 4.6 (20 tasks, 240 implementations) and GLM-5-turbo (50 tasks, 600 implementations). Our four key findings are:\n\n1. \n\nCitations reduce determinism. Mandatory inline citations significantly reduce output determinism compared to an identical uncited condition (mean d=-0.72 , p<0.001 across both models), establishing that citation annotations introduce rather than absorb lexical variability.\n\n2. \n\ntraceSDD outperforms Spec Kit but not OpenSpec on determinism. traceSDD (cited) significantly outperforms Spec Kit (mean d=0.44 , p<0.01 ) but not OpenSpec (mean d=0.16 , p=0.36 ) across both models.\n\n3. \n\nCited condition uniquely enables automated hallucination detection. The cited condition achieves 86–88% TDR with 0\\% FPR across both models, while all three alternatives achieve 0\\% . The uncited condition—using the identical REQ-format specification—also achieves 0\\% , proving that detection requires annotations in code, not just structured specifications.\n\n4. \n\nUncited REQ-format specs provide the best determinism anchor. The uncited condition significantly outperforms both external baselines (mean d=1.02 vs Spec Kit, mean d=0.91 vs OpenSpec), confirming that structured REQ-format specifications provide a determinism anchor independent of citation annotations.\n\nThese findings es",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 42,
+  "seeds_or_runs": 1,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 5
+ },
+ "fulltext_source": "html"
+}

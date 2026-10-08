@@ -1,0 +1,411 @@
+{
+ "arxiv_id": "2605.09698",
+ "fulltext_chars": 123280,
+ "fulltext_lines": 2928,
+ "authors_block": "Josefa Lia Stoisser Affiliation: Novo NordiskLondon, UK Marc Boubnovski Martell Affiliation: Novo NordiskLondon, UK Sidsel Boldsen Affiliation: Novo NordiskLondon, UK Kaspar Märtens Affiliation: Novo NordiskLondon, UK Robert Kitchen Affiliation: Novo NordiskLondon, UK",
+ "vendor_affiliation_hits": [],
+ "n_authors": 5,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/anomalyco/opencodeGitHub"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   24,
+   "# Ambig-DS: A Benchmark for Task-Framing Ambiguity in Data-Science Agents"
+  ],
+  [
+   46,
+   "###### Abstract"
+  ],
+  [
+   50,
+   "## 1 Introduction"
+  ],
+  [
+   60,
+   "#### Contributions."
+  ],
+  [
+   64,
+   "## 2 Related Work"
+  ],
+  [
+   66,
+   "#### Data Science / ML Benchmarks."
+  ],
+  [
+   70,
+   "#### Ambiguity, Clarification, and Ask-Before-Act Agents."
+  ],
+  [
+   77,
+   "#### Executable and Data-Centric Underspecification."
+  ],
+  [
+   81,
+   "## 3 Problem Setup"
+  ],
+  [
+   87,
+   "#### Two concrete instances."
+  ],
+  [
+   91,
+   "## 4 Benchmark Construction"
+  ],
+  [
+   144,
+   "### 4.1 Ambig-DS-Target Construction (DSBench)"
+  ],
+  [
+   152,
+   "### 4.2 Ambig-DS-Objective Construction (MLE-bench)"
+  ],
+  [
+   158,
+   "### 4.3 Verification and Filtering"
+  ],
+  [
+   180,
+   "### 4.4 Clarification Oracle"
+  ],
+  [
+   184,
+   "## 5 Experiments"
+  ],
+  [
+   186,
+   "### 5.1 Experimental Setup"
+  ],
+  [
+   188,
+   "#### Agent framework and models."
+  ],
+  [
+   195,
+   "#### Evaluation conditions."
+  ],
+  [
+   199,
+   "#### Task performance."
+  ],
+  [
+   203,
+   "#### Ask behavior."
+  ],
+  [
+   207,
+   "#### Framing diagnostics."
+  ],
+  [
+   327,
+   "### 5.2 Results: Ambig-DS-Target (DSBench)"
+  ],
+  [
+   329,
+   "#### Frontier agents silently commit to a wrong target."
+  ],
+  [
+   333,
+   "#### This translates to score loss."
+  ],
+  [
+   404,
+   "### 5.3 Results: Ambig-DS-Objective (MLE-bench)"
+  ],
+  [
+   406,
+   "#### Ambiguity degrades performance."
+  ],
+  [
+   410,
+   "#### Silent failures take two forms: misframing and abdication."
+  ],
+  [
+   494,
+   "### 5.4 Cross-Suite Observations"
+  ],
+  [
+   498,
+   "#### Agents can use clarification when obtained, but cannot reliably detect when to ask."
+  ],
+  [
+   521,
+   "## 6 Discussion and Limitations"
+  ],
+  [
+   531,
+   "#### Limitations."
+  ],
+  [
+   535,
+   "## References"
+  ],
+  [
+   1002,
+   "## Appendix A Extended Limitations"
+  ],
+  [
+   1006,
+   "#### Naturalistic ambiguity not captured."
+  ],
+  [
+   1010,
+   "#### Scope of framing variables ( T , M )."
+  ],
+  [
+   1014,
+   "#### Intended framing as a protocol scoring convention."
+  ],
+  [
+   1018,
+   "#### Idealized clarification oracle."
+  ],
+  [
+   1022,
+   "#### Axis–source-benchmark confound."
+  ],
+  [
+   1026,
+   "#### Construction- and oracle-family bias."
+  ],
+  [
+   1030,
+   "#### Dataset size and prevalence interpretation."
+  ],
+  [
+   1034,
+   "#### Open-weights replication."
+  ],
+  [
+   1038,
+   "#### Recognition–commitment confound under Ambig."
+  ],
+  [
+   1081,
+   "## Appendix B LLM Usage Statement"
+  ],
+  [
+   1085,
+   "## Appendix C Additional Experimental Details"
+  ],
+  [
+   1087,
+   "### C.1 Benchmark Comparison and Composition"
+  ],
+  [
+   1096,
+   "# Tasks for ML/DS"
+  ],
+  [
+   1206,
+   "### C.2 Decoy Analysis"
+  ],
+  [
+   1208,
+   "#### Construction."
+  ],
+  [
+   1212,
+   "#### Validation."
+  ],
+  [
+   1294,
+   "### C.3 Cross-Verifier Audit"
+  ],
+  [
+   1330,
+   "### C.4 Judge and Oracle Reliability"
+  ],
+  [
+   1334,
+   "#### Judge noise."
+  ],
+  [
+   1338,
+   "#### Human override."
+  ],
+  [
+   1342,
+   "#### Cross-family judge."
+  ],
+  [
+   1346,
+   "#### Cross-family oracle."
+  ],
+  [
+   1370,
+   "### C.5 Recognition Audit: Decomposing \\Delta_{\\text{ambig}}"
+  ],
+  [
+   1480,
+   "### C.6 Score Conditional on Diagnostic Category"
+  ],
+  [
+   1618,
+   "### C.7 Task Package"
+  ],
+  [
+   1636,
+   "### C.8 Statistical Significance Tests"
+  ],
+  [
+   1646,
+   "#### Normalization validity."
+  ],
+  [
+   1656,
+   "### C.9 Bootstrap Confidence Intervals"
+  ],
+  [
+   1660,
+   "## Appendix D Dataset Examples"
+  ],
+  [
+   1664,
+   "### D.1 Objective Ambiguity: aerial-cactus-identification"
+  ],
+  [
+   1678,
+   "#### Data package."
+  ],
+  [
+   1695,
+   "### D.2 Target Ambiguity: bike-sharing-demand"
+  ],
+  [
+   1703,
+   "#### Data package before ambiguity."
+  ],
+  [
+   1721,
+   "#### Data package after ambiguity."
+  ],
+  [
+   1743,
+   "## Appendix E Additional Results"
+  ],
+  [
+   1745,
+   "### E.1 Bootstrap CI"
+  ],
+  [
+   1806,
+   "### E.2 Ask–Act Failure Analysis"
+  ],
+  [
+   2110,
+   "## Appendix F Case Studies"
+  ],
+  [
+   2114,
+   "### F.1 Target Ambiguity: bike-sharing-demand"
+  ],
+  [
+   2126,
+   "### F.2 Objective Ambiguity: random-acts-of-pizza"
+  ],
+  [
+   2134,
+   "## Appendix G Prompts"
+  ],
+  [
+   2138,
+   "### G.1 Evaluation Prompt"
+  ],
+  [
+   2142,
+   "#### MLE-bench metric-ambiguity wrapper."
+  ],
+  [
+   2148,
+   "## Task instructions"
+  ],
+  [
+   2154,
+   "#### DSBench target-ambiguity wrapper."
+  ],
+  [
+   2170,
+   "### G.2 Clarification Protocol Prompts"
+  ],
+  [
+   2172,
+   "#### Ask-or-act instruction."
+  ],
+  [
+   2204,
+   "#### Target-ambiguity clarification oracle."
+  ],
+  [
+   2296,
+   "#### Objective-ambiguity clarification oracle."
+  ],
+  [
+   2428,
+   "#### Out-of-scope refusal template."
+  ],
+  [
+   2436,
+   "#### Conservative ask-policy ablation."
+  ],
+  [
+   2470,
+   "### G.3 Benchmark Construction Prompts"
+  ],
+  [
+   2474,
+   "#### Shared construction system prompt."
+  ],
+  [
+   2510,
+   "#### Target-ambiguity prompt rewriting."
+  ],
+  [
+   2542,
+   "#### Objective-ambiguity prompt rewriting."
+  ],
+  [
+   2572,
+   "#### LLM verification prompt (objective ambiguity)."
+  ],
+  [
+   2688,
+   "#### LLM verification prompt (target ambiguity)."
+  ],
+  [
+   2832,
+   "### G.4 Framing Diagnostic Annotation Prompt"
+  ],
+  [
+   2834,
+   "#### Objective-framing judge prompt."
+  ],
+  [
+   2928,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 6 Discussion and Limitations\n\nAmbig-DS isolates a failure mode that standard data-science benchmarks largely hide. In fully specified settings, a valid submission is often taken as evidence that the agent understood the task. Under task-framing ambiguity, this inference breaks down: an agent can produce a coherent artifact while committing to a plausible but unintended target or objective. This separates pipeline-execution competence from task-framing competence.\n\nThe two suites yield distinct silent-failure signatures. Ambig-DS-Target produces discrete wrong-target misframings; Ambig-DS-Objective splits between substantive misframings (commitment to a plausible alternative objective) and abdications (retreat to a degenerate baseline or constant submission). Both are unflagged commitments under ambiguity rather than execution failures.\n\nWithin each suite, the clarification oracle recovers much of the lost performance, indicating that missing framing information — not pipeline execution — drives the degradation. The non-trivial finding is not that recovery occurs but that agents cannot reliably detect when to invoke clarification.\n\nAmbig-DS yields actionable signals for three audiences. Users should specify framing variables (target, metric, output type, submission semantics) explicitly: omitting them produces reliable and often large performance drops even from capable agents. Builders should treat ask–act calibration as a concrete post-training or prompt-engineering target, since prompt wording shifts the operating point but does not yield robust sensitivity to decision-relevant ambiguity. Benchmark designers should pair fully specified tasks with diagnostic ambiguous variants: pipeline-execution scores on fully specified tasks overestimate competence when framing is not guaranteed.\n\n#### Limitations.\n\nAmbig-DS is a controlled diagnostic suite, not a census. We construct minimal interventions on existing benchmark tasks while preserving the original evaluator, and study only two framing variables ( T , M ); other framing variables (information boundaries, data leakage, temporal assumptions, prediction-time feature availability, permissible external information) and richer naturalistic ambiguity are kept for future work. Axis is confounded with source benchmark by design: target ambiguity is instantiated on DSBench (clean tabular targets), objective ambiguity on MLE-bench (metric-sensitive competitions), so effect-size differences across suites are not a causal comparison and we interpret each suite independently. Construction and oracle are model-assisted (Claude Opus generation/verification, Claude Haiku oracle); we mitigate via cross-family verifier audit (App. C.3), cross-family judge/oracle robustness (App. C.4), human review, and the non-Claude agent subset, but residual generation- and oracle-family effects cannot be fully ruled out. Finally, \\theta^{\\star} is a protocol scoring convention rather than the unique correct reading; the Ask oracle is intentionally idealized and should be read as an upper bound on recoverable performance; the dataset is modest in size; and because the Ambig. condition has no clarification channel, \\Delta_{\\text{ambig}} does not fully separate non-recognition from commitment-under-recognized-ambiguity, a confound bounded at the trace level by the recognition audit (Appendix C.5). Together these mean Ambig-DS estimates should be read as diagnostic evidence of failure modes under verified ambiguity rather than as prevalence over the space of all data-science tasks; full discussion in Appendix A.\n\n## References\n\nAnomalyCo (2026)\nAnomalyCo\n\nOpenCode.\n\nNote: https://github.com/anomalyco/opencodeGitHub repository, accessed 2 May 2026\n\nCited by: §5.1.\n\nBhaskar et al. (2023)\nA. Bhaskar, T. Tomar, A. Sathe, and S. Sarawagi\n\nBenchmarking and improving text-to-sql generation under ambiguity.\n\nIn Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing,\n\npp. 7053–7074.\n\nC",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 34,
+  "seeds_or_runs": 3,
+  "swe_bench": 0,
+  "contamination": 2,
+  "human_study": 4,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

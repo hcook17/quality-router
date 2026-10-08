@@ -1,0 +1,159 @@
+{
+ "arxiv_id": "2607.17686",
+ "fulltext_chars": 49716,
+ "fulltext_lines": 882,
+ "authors_block": "Mansur Arief Affiliation: Industrial and Systems Engineering, King Fahd University of Petroleum and Minerals (KFUPM), Saudi Arabia mansur.arief@kfupm.edu.sa Affiliation: Ali Akarma Affiliation: Faculty of Computer and Information Systems Islamic University of Madinah Madinah, Saudi Arabia 443059463@stu.iu.edu.sa Affiliation: Nur Ahmad Khatim Affiliation: Division of Information Science, Nara Institute of Science and Technology (NAIST), Japan nurahmadkhatim@gmail.com Affiliation: Ahmad Alfan Alfian Irfan Affiliation: Information Technology Universitas Muhammadiyah Yogyakarta Yogyakarta, Indonesia ahmad.alfan.ft23@mail.umy.ac.id",
+ "vendor_affiliation_hits": [],
+ "n_authors": 4,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/ai-vnv/vnvspec."
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Integrating High-Level Requirements to Low-Level Tests with Machine-Readable V&V Specifications"
+  ],
+  [
+   68,
+   "###### Abstract"
+  ],
+  [
+   72,
+   "## I Introduction"
+  ],
+  [
+   88,
+   "## II Related Work"
+  ],
+  [
+   90,
+   "### II-A Requirements Quality and Traceability"
+  ],
+  [
+   94,
+   "### II-B Model-Based Systems Engineering"
+  ],
+  [
+   98,
+   "### II-C Executable Specifications and Requirements-as-Code"
+  ],
+  [
+   102,
+   "### II-D Testing of ML-Enabled Systems and AI Standards"
+  ],
+  [
+   108,
+   "## III The Proposed Framework"
+  ],
+  [
+   112,
+   "### III-A The Specification Language"
+  ],
+  [
+   118,
+   "### III-B Requirement Quality Checking"
+  ],
+  [
+   122,
+   "### III-C Standards Registries and Requirement Catalogs"
+  ],
+  [
+   164,
+   "### III-D Traceability"
+  ],
+  [
+   168,
+   "### III-E Evidence Collection and Test Integration"
+  ],
+  [
+   190,
+   "### III-F Reporting and Export"
+  ],
+  [
+   194,
+   "## IV Workflow, Routes, and Evaluation"
+  ],
+  [
+   196,
+   "### IV-A Workflow Example"
+  ],
+  [
+   208,
+   "# Tier 1: user requirement + catalog baseline"
+  ],
+  [
+   236,
+   "# Tier 2: decomposition with a metric"
+  ],
+  [
+   274,
+   "### IV-B Choosing an Evidence Route: pytest, Jest, and CROWN"
+  ],
+  [
+   380,
+   "### IV-C Experimental Evaluation"
+  ],
+  [
+   384,
+   "#### IV-C1 Setup"
+  ],
+  [
+   388,
+   "#### IV-C2 RQ1: Self-Application"
+  ],
+  [
+   394,
+   "#### IV-C3 RQ2: Scalability"
+  ],
+  [
+   442,
+   "#### IV-C4 RQ3: Integration Overhead"
+  ],
+  [
+   446,
+   "#### IV-C5 RQ4: Quality Checker Under Seeded Defects"
+  ],
+  [
+   472,
+   "## V Discussion"
+  ],
+  [
+   480,
+   "## VI Limitations and Future Work"
+  ],
+  [
+   490,
+   "## VII Conclusion"
+  ],
+  [
+   494,
+   "## References"
+  ],
+  [
+   882,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## VI Limitations and Future Work\n\nWe identify three limitations along with future works.\n\nEvaluation validity: All evaluation in this paper was conducted by the framework’s own authors, on the framework itself, on a single machine, with seeded-defect operators of our own choosing. The measurements answer cost and scalability questions credibly, but they say nothing about authoring effort, defect-finding power relative to a baseline process, or audit-preparation time. The corresponding future work is a controlled study with external teams, measuring these three quantities against a documented baseline; the framework’s report-diffing facility provides the instrumentation, and we plan to conduct the study with community developers.\n\nDepth of the quality checker: The checker is heuristic, rule-based, and lexical, and RQ4 highlights its current state: it detects escape clauses and missing criteria perfectly but misses packed conditions entirely. More fundamentally, it inspects phrasing rather than correctness, so a precise, verifiable requirement can still be the wrong requirement; validation in the full sense still needs humans in the loop. The corresponding future work is a semantic tier for the checker, including conjunction analysis and language-model-assisted review, evaluated against the seeded-defect protocol.\n\nEcosystem coverage: The five catalogs encode best-practice judgments pinned to framework versions and will drift as those frameworks evolve; whether community contribution under the published inclusion gate scales is an open question. The largest future opportunity, however, is agentic development: an AI coding agent run inside the VNVSpec protocol must state the tier-1 requirements it believes the user has, pass them through the quality gate, decompose them with explicit metrics, and produce tests that trace back up, so that the human reviews requirements and verdicts rather than raw diffs, and an auditor receives the same compliance matrix a human team would produce. The current study provides the protocol and data model, and we deliberately left to future work to orchestrating agents against them.\n\n## VII Conclusion\n\nLow-level test tooling and systems-engineering V&V doctrine are both mature, but the connection between them has remained a manual and decaying artifact. This paper introduced VNVSpec, an open-source framework that makes that connection executable: typed requirements with quality checking, standards clauses and curated catalogs as importable data, an enforced traceability graph from user requirement to test evidence, evidence routes that span pytest, JUnit-emitting runners such as Jest, and formal bound-propagation tools such as CROWN, and role-specific exports generated from a single source of truth. The framework is self-hosting: it is developed against its own 36-requirement specification, verified by 449 tests under a 95% branch-coverage gate, with a rollback policy on self-assessment failures. The experiments show that this discipline costs little, with the full self-assessment gate at 0.54 s, per-test plugin overhead at 0.8 ms, and linear scaling to specification sizes well beyond practical need, while the seeded-defect study marks precisely where the quality checker’s rule-based approach ends and future semantic checking must begin. If AI systems and AI-written software are to be certified, the requirement-to-evidence chain has to become a first-class engineering object, and our work provides a concrete proposal to achieve it by combining software and systems engineering approaches.\n\n## References\n\n[1]\nH. Krekel et al. (2004)\n\nPytest: helps you write better programs.\n\nNote: https://docs.pytest.org\n\nCited by: §I.\n\n[2]\nD. R. MacIver Z. Hatfield-Dodds et al. (2019)\n\nHypothesis: a new approach to property-based testing.\n\nJournal of Open Source Software 4 (43), pp. 1891.\n\nCited by: §I.\n\n[3]\nINCOSE (2023)\n\nINCOSE systems engineering handbook: a guide for system life cycle processes and activities.\n\n5",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 3,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 1,
+  "java": 3,
+  "industrial": 1
+ },
+ "fulltext_source": "html"
+}

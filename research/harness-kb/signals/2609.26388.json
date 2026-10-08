@@ -1,0 +1,285 @@
+{
+ "arxiv_id": "2609.26388",
+ "fulltext_chars": 89318,
+ "fulltext_lines": 1880,
+ "authors_block": "CCS: Software and its engineeringCCS: Computing methodologies Artificial intelligence Xin Shen email: shenx@lamda.nju.edu.cn Affiliation: Nanjing University, Nanjing, China , Sanzhuo Xi email: xisz@lamda.nju.edu.cn Affiliation: Nanjing University, Nanjing, China , Yali Du email: duyl@lamda.nju.edu.cn Affiliation: Nanjing University, Nanjing, China and Ming Li Note: Corresponding author. email: lim@lamda.nju.edu.cn Affiliation: Nanjing University, Nanjing, China © none",
+ "vendor_affiliation_hits": [],
+ "n_authors": 4,
+ "comment": "27 pages, 9 figures, 12 tables. Submitted to an ACM journal in September 2025. Preprint; manuscript under review. Corresponding author: Ming Li",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# On the Lexical Superstition of Large Language Models for Code Comprehension: Re-evaluation on Code of Low Lexical Quality"
+  ],
+  [
+   55,
+   "###### Abstract."
+  ],
+  [
+   59,
+   "###### Keywords:"
+  ],
+  [
+   64,
+   "## 1. Introduction"
+  ],
+  [
+   82,
+   "## 2. Related Work"
+  ],
+  [
+   84,
+   "### 2.1. LLMs for Code"
+  ],
+  [
+   92,
+   "### 2.2. Code Naturalness, Shortcut Learning, and Program Comprehension"
+  ],
+  [
+   100,
+   "### 2.3. Code Perturbation"
+  ],
+  [
+   116,
+   "## 3. Experimental Setup"
+  ],
+  [
+   118,
+   "### 3.1. Research Questions"
+  ],
+  [
+   134,
+   "### 3.2. Terminologies"
+  ],
+  [
+   138,
+   "#### 3.2.1. Semantics of Code"
+  ],
+  [
+   142,
+   "#### 3.2.2. Lexical Information of Code"
+  ],
+  [
+   148,
+   "#### 3.2.3. \"Semantics\" of Non-Self-Contained Code Snippets"
+  ],
+  [
+   152,
+   "### 3.3. Method: Face/Off"
+  ],
+  [
+   178,
+   "### 3.4. Tasks"
+  ],
+  [
+   180,
+   "##### Code-Document Matching"
+  ],
+  [
+   186,
+   "##### Code Search"
+  ],
+  [
+   192,
+   "##### Code Summarization"
+  ],
+  [
+   198,
+   "##### Code Completion"
+  ],
+  [
+   204,
+   "### 3.5. Evaluated Models"
+  ],
+  [
+   208,
+   "##### Larger instruction-following models (in-context learning):"
+  ],
+  [
+   226,
+   "##### Smaller open-source models (fine-tuning):"
+  ],
+  [
+   244,
+   "### 3.6. Prompting"
+  ],
+  [
+   254,
+   "## 4. RQ1: Cross-Task Evaluation"
+  ],
+  [
+   256,
+   "### 4.1. Face/Off Main Results"
+  ],
+  [
+   323,
+   "#### 4.1.1. Code-Document Matching"
+  ],
+  [
+   363,
+   "#### 4.1.2. Code Search"
+  ],
+  [
+   397,
+   "#### 4.1.3. Code Summarization"
+  ],
+  [
+   461,
+   "#### 4.1.4. Code Completion"
+  ],
+  [
+   507,
+   "##### Comments on Prompt Setting"
+  ],
+  [
+   540,
+   "### 4.2. Impact of External Identifiers"
+  ],
+  [
+   544,
+   "##### Method: Extended Face/Off"
+  ],
+  [
+   557,
+   "##### Experiment Results"
+  ],
+  [
+   656,
+   "### 4.3. Targeted Type-Inference Semantic Control"
+  ],
+  [
+   660,
+   "##### Data and construction."
+  ],
+  [
+   666,
+   "##### Models and evaluation."
+  ],
+  [
+   695,
+   "##### Results."
+  ],
+  [
+   701,
+   "### 4.4. Section Summary"
+  ],
+  [
+   711,
+   "## 5. RQ2: Effect Analysis"
+  ],
+  [
+   715,
+   "### 5.1. Guiding Effect of Lexical Information"
+  ],
+  [
+   719,
+   "##### Code-Document Matching"
+  ],
+  [
+   751,
+   "##### Code Summarization"
+  ],
+  [
+   766,
+   "##### Code Completion"
+  ],
+  [
+   778,
+   "### 5.2. Impact of Identifier Type"
+  ],
+  [
+   786,
+   "##### Experiment Results"
+  ],
+  [
+   809,
+   "### 5.3. Section Summary"
+  ],
+  [
+   813,
+   "## 6. RQ3: Probing the Mitigability of Lexical Overemphasis"
+  ],
+  [
+   817,
+   "### 6.1. Prompt-Based Diagnostic Interventions"
+  ],
+  [
+   841,
+   "### 6.2. Fine-Tuning-Based Diagnostic Interventions"
+  ],
+  [
+   907,
+   "### 6.3. Section Summary"
+  ],
+  [
+   913,
+   "## 7. Discussion"
+  ],
+  [
+   917,
+   "### 7.1. Data Processing of LLMs"
+  ],
+  [
+   925,
+   "### 7.2. Training Tendencies of LLMs"
+  ],
+  [
+   961,
+   "### 7.3. Section Summary"
+  ],
+  [
+   965,
+   "## 8. Threats to Validity"
+  ],
+  [
+   967,
+   "### 8.1. Internal Validity"
+  ],
+  [
+   971,
+   "### 8.2. Construct Validity"
+  ],
+  [
+   979,
+   "### 8.3. External Validity"
+  ],
+  [
+   983,
+   "### 8.4. Ecological Validity"
+  ],
+  [
+   989,
+   "## 9. Conclusion and Implications"
+  ],
+  [
+   995,
+   "## References"
+  ],
+  [
+   1880,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 8. Threats to Validity\n\n### 8.1. Internal Validity\n\nFor the standard Face/Off conditions, we consistently rename eligible local bindings while retaining the program structure and operational behavior, which is designed to isolate identifier information. Residual threats include transformation errors and task-specific interactions between code and text; we address these through implementation checks and the documentation procedure in Section 3.3. In the type-inference control, parse, compile, binding-occurrence, and alpha-equivalence checks reduce transformation risk, and paired tests are clustered by project because multiple targets can come from the same project. However, target eligibility was established through conservative automatic analysis rather than an independent human identifier-independence review. We therefore present this experiment as a supplementary semantic control rather than a confirmatory estimate for a broader type-inference population. The extended external-identifier experiment is less controlled because it inserts a binding block. Its dead-code condition estimates part of the insertion effect but does not isolate decontextualization perfectly. Table 6 shows the same condition ordering across the tested prompts, but other prompts could yield different magnitudes or patterns. Finally, benchmark contamination (Magar and Schwartz, 2022; Golchin and Surdeanu, 2024) could affect both baseline performance and measured sensitivity, so the results should not be interpreted as contamination-free estimates.\n\n### 8.2. Construct Validity\n\nThe naming conditions and identifier roles operationalize lexical-information quality, but we lack a direct quantitative measure that captures every aspect of informativeness, naturalness, or ambiguity. The observed patterns are therefore conditional on the evaluated tasks, models, programs, and transformations.\n\nA potential concern is that tasks such as code summarization couple identifier words with ground-truth text through lexical-overlap metrics. For the CodeSearchNet-based tasks, explicit references to the subject function follow the corresponding code condition, while parameter words in natural-language prose are retained to preserve the description’s semantic content (Section 3.3). Exact subject-function names occur in only 2 of the 600 CodeSearchNet descriptions used in this evaluation. Consequently, condition-specific synchronization changes the accompanying text for only these cases; parameter names and randomly selected negative descriptions remain unchanged. This low incidence limits the extent to which the aggregate performance patterns can be attributed to reference-text rewriting. The targeted procedure does not make every identifier-like word lexically aligned. HumanEval does not present its natural-language description to the model. The directional analyses in Section 5.1 provide complementary evidence: donor-reference similarities exceed random-pair comparisons, which is less consistent with arbitrary label disruption than with influence from donor identifiers. These analyses reduce, but do not eliminate, the construct-validity concern because the tasks and metrics still differ in their lexical requirements.\n\nFinally, the mechanism-level discussion is based on output behavior and exploratory perturbations rather than direct access to internal causal processes. The proposed explanations should therefore be treated as hypotheses for future mechanistic and experimental work.\n\n### 8.3. External Validity\n\nWe evaluated models with different architectures, sizes, and access types across four code-comprehension tasks. Repeated patterns across these settings provide within-study replication, but they do not guarantee generalization to other models, languages, tasks, or repositories. In particular, the HumanEval code-completion problems are relatively small, and the controlled snippets do not capture dependencies and workflows found in large codebases. The type-inferenc",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 6,
+  "seeds_or_runs": 3,
+  "swe_bench": 0,
+  "contamination": 6,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

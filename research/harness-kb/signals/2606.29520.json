@@ -1,0 +1,149 @@
+{
+ "arxiv_id": "2606.29520",
+ "fulltext_chars": 71713,
+ "fulltext_lines": 1261,
+ "authors_block": "Tiziano Santilli* Francesco Daghero* Mayhar Tourchi Moghaddam Affiliation: University of Southern Denmark, Odense 5300, DK E-mail {tisa,fdag,mtmo}@mmmi.sdu.dk Affiliation: Affiliation: These authors contributed equally to this work.",
+ "vendor_affiliation_hits": [],
+ "n_authors": 3,
+ "comment": "25 pages",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# SAKE: Software Architectural Knowledge Evaluation Benchmark for Large Language Models"
+  ],
+  [
+   36,
+   "###### Abstract"
+  ],
+  [
+   52,
+   "###### Keywords:"
+  ],
+  [
+   55,
+   "## 1 Introduction"
+  ],
+  [
+   106,
+   "## 2 Background and Related work"
+  ],
+  [
+   108,
+   "### 2.1 Software Architectural Knowledge"
+  ],
+  [
+   137,
+   "### 2.2 Large Language Models in Software Architecture"
+  ],
+  [
+   160,
+   "### 2.3 Benchmarks for Large Language Models"
+  ],
+  [
+   177,
+   "#### Gap Analysis."
+  ],
+  [
+   186,
+   "## 3 Methodology"
+  ],
+  [
+   216,
+   "## 4 The SAKE Benchmark"
+  ],
+  [
+   218,
+   "### 4.1 Design Goals and Principles"
+  ],
+  [
+   233,
+   "### 4.2 Software Architectural Knowledge Categories"
+  ],
+  [
+   249,
+   "#Questions"
+  ],
+  [
+   303,
+   "### 4.3 Question Construction Methodology"
+  ],
+  [
+   340,
+   "## 5 Experimental Setup"
+  ],
+  [
+   348,
+   "#### Prompting and Metrics"
+  ],
+  [
+   379,
+   "## 6 Results"
+  ],
+  [
+   381,
+   "### 6.1 RQ1: Overall LLM Performance on SAKE"
+  ],
+  [
+   459,
+   "### 6.2 RQ2: Performance Across Software Architectural Knowledge Categories"
+  ],
+  [
+   774,
+   "### 6.3 RQ3: Performance Across Context Length"
+  ],
+  [
+   928,
+   "### 6.4 Lessons learned."
+  ],
+  [
+   937,
+   "### 6.5 Implications for Practitioners"
+  ],
+  [
+   945,
+   "### 6.6 Implications for Researchers"
+  ],
+  [
+   953,
+   "## 7 Threats to Validity"
+  ],
+  [
+   971,
+   "## 8 Conclusions"
+  ],
+  [
+   983,
+   "## References"
+  ],
+  [
+   1218,
+   "## Appendix 0.A Example Questions"
+  ],
+  [
+   1261,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 7 Threats to Validity\n\nConstruct Validity.\n\nA multiple-choice format, while standardized and reproducible, cannot capture the full complexity of real architectural decision-making, which often involves open-ended trade-off analysis and context-specific judgment. To mitigate this, we grounded all questions in two canonical reference works and required each question to pass a dual independent review before inclusion, reducing the risk that questions test surface recall rather than genuine understanding.\nThe reviewer pool was limited to the three authors. To reduce single-team bias, we\nrelease the full question set openly and invite community review through the repository,\nand we treat external validation as the natural next step for the benchmark.\nAn additional limitation concerns the benchmark’s scope, which is constrained to the eight selected categories. Although these categories are broad, they may not capture the full breadth of software architectural knowledge.\n\nInternal Validity.\n\nLLMs are sensitive to prompt formulation, and results may shift if questions are rephrased or presented in a different order. We address this by using a fixed, uniform prompt template across all models and runs.\n\nExternal Validity.\n\nWhile we selected a diverse set of both proprietary and open-weight models to maximize coverage, the landscape of LLMs evolves rapidly, and new models may exhibit different competency profiles. The findings should therefore be interpreted as a snapshot of the current state of LLM architectural reasoning rather than a permanent characterization of any model family. SAKE is fully open-source precisely to allow the community to re-run evaluations as new models emerge, ensuring that the benchmark remains a living baseline for tracking progress over time.\n\n## 8 Conclusions\n\nWe introduce SAKE, a benchmark for software architectural knowledge comprising 2154 multiple-choice questions across eight categories, from Quality Attributes to more recent ones such as Quantum Computing.\nThe benchmark has been designed to assess the knowledge and reasoning capabilities of modern large language models in the software architecture domain.\nBy leveraging a structured multiple-choice format, SAKE enables automated, quantitative, and reproducible evaluation, reducing the reliance on manual, small-scale qualitative assessment common in modern works in the domain.\n\nWe evaluate 11 state-of-the-art models in zero-shot and five-shot settings.\nResults show consistently high overall accuracy, ranging from 89.31% to 94.23%, while also revealing non-uniform performance across domains.\nIn particular, we show how prompt design and longer context length affect the accuracy depending on the specific category of the question, as additional information in complex scenarios does not always translate to better accuracy.\n\nOverall, SAKE represents an initial step toward a standardized and scalable evaluation framework for software architectural knowledge in large language models, and we expect it to gradually grow to feature more categories or different input data (e.g., diagrams) in the future.\n\n## References\n\n[1]\nM. Akhtar et al. (2026)\n\nWhen ai benchmarks plateau: a systematic study of benchmark saturation.\n\nExternal Links: 2602.16763\n\nCited by: §2.3,",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 2,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 1
+ },
+ "fulltext_source": "html"
+}

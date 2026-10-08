@@ -1,0 +1,257 @@
+{
+ "arxiv_id": "2605.14634",
+ "fulltext_chars": 106840,
+ "fulltext_lines": 3256,
+ "authors_block": "Minh Le-Anh Affiliation: FPT Software AI Center Affiliation: Ha Noi, Viet Nam Email: minhla4@fpt.com Anh Nguyen Hoang Affiliation: FPT Software AI Center Affiliation: Ha Noi, Viet Nam Email: anhnh2220@fpt.com Bach Le Affiliation: University of Melbourne Affiliation: Melbourne, Australia Email: bach.le@unimelb.edu.au Nghi D. Q. Bui Affiliation: Center of AI Research, VinUniversity Affiliation: Ha Noi, Viet Nam Email: bdqnghi@gmail.com",
+ "vendor_affiliation_hits": [],
+ "n_authors": 4,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Documentation-Guided Agentic Codebase Migration from C to Rust"
+  ],
+  [
+   54,
+   "###### Abstract"
+  ],
+  [
+   58,
+   "## 1 Introduction"
+  ],
+  [
+   84,
+   "## 2 Related Work"
+  ],
+  [
+   86,
+   "### 2.1 Rule-Based C-to-Rust Migration"
+  ],
+  [
+   90,
+   "### 2.2 LLM-Based Code Translation"
+  ],
+  [
+   94,
+   "### 2.3 Repository-Level Migration and Benchmarks"
+  ],
+  [
+   98,
+   "### 2.4 Multi-Agent Coding Frameworks and Repository Tooling"
+  ],
+  [
+   102,
+   "## 3 The RustPrint Framework"
+  ],
+  [
+   108,
+   "### 3.1 Documentation-Guided Code Translation"
+  ],
+  [
+   121,
+   "### 3.2 Requirement-Driven Code Refinement"
+  ],
+  [
+   134,
+   "### 3.3 Execution-Aware Code Revision"
+  ],
+  [
+   144,
+   "## 4 Experimental Setup"
+  ],
+  [
+   146,
+   "### 4.1 Dataset"
+  ],
+  [
+   150,
+   "### 4.2 Metrics"
+  ],
+  [
+   172,
+   "### 4.3 Baselines."
+  ],
+  [
+   176,
+   "### 4.4 Models"
+  ],
+  [
+   180,
+   "## 5 Evaluation"
+  ],
+  [
+   188,
+   "### 5.1 Project Compilability"
+  ],
+  [
+   191,
+   "#LoC"
+  ],
+  [
+   300,
+   "### 5.2 Feature Preservation"
+  ],
+  [
+   335,
+   "### 5.3 Functional Correctness"
+  ],
+  [
+   432,
+   "### 5.4 Safety Assessment"
+  ],
+  [
+   494,
+   "## Discussion & Limitations"
+  ],
+  [
+   500,
+   "## 6 Conclusions & Future Work"
+  ],
+  [
+   508,
+   "## References"
+  ],
+  [
+   1082,
+   "## Appendix A Algorithm"
+  ],
+  [
+   1084,
+   "##### Overview."
+  ],
+  [
+   1213,
+   "## Appendix B Implementation Details"
+  ],
+  [
+   1215,
+   "### B.1 Tool Design"
+  ],
+  [
+   1298,
+   "#### B.1.1 cargo_check"
+  ],
+  [
+   1393,
+   "#### B.1.2 cargo_single_test"
+  ],
+  [
+   1494,
+   "#### B.1.3 cargo_test_no_run"
+  ],
+  [
+   1610,
+   "#### B.1.4 copy_test"
+  ],
+  [
+   1682,
+   "#### B.1.5 find_code_component"
+  ],
+  [
+   1758,
+   "#### B.1.6 read_code_components"
+  ],
+  [
+   1822,
+   "#### B.1.7 read_dependencies"
+  ],
+  [
+   1894,
+   "#### B.1.8 read_documentation"
+  ],
+  [
+   1978,
+   "#### B.1.9 str_replace_editor"
+  ],
+  [
+   2094,
+   "#### B.1.10 unsafe_detect"
+  ],
+  [
+   2166,
+   "### B.2 Prompt Design"
+  ],
+  [
+   2172,
+   "#### B.2.1 Planner"
+  ],
+  [
+   2355,
+   "#### B.2.2 Translator"
+  ],
+  [
+   2482,
+   "#### B.2.3 Synthesizer"
+  ],
+  [
+   2532,
+   "#### B.2.4 RequirementRefiner"
+  ],
+  [
+   2705,
+   "#### B.2.5 TestTranslator"
+  ],
+  [
+   2828,
+   "#### B.2.6 ExecutionRevisor"
+  ],
+  [
+   2909,
+   "## Appendix C Cost Analysis"
+  ],
+  [
+   3038,
+   "##### Analysis."
+  ],
+  [
+   3054,
+   "## Appendix D Broader Impacts"
+  ],
+  [
+   3056,
+   "### D.1 Security benefits."
+  ],
+  [
+   3066,
+   "### D.2 Democratisation of code migration."
+  ],
+  [
+   3075,
+   "### D.3 Open-source release."
+  ],
+  [
+   3083,
+   "### D.4 Ethical considerations."
+  ],
+  [
+   3094,
+   "## NeurIPS Paper Checklist"
+  ],
+  [
+   3256,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## Discussion & Limitations\n\nThe results support three main takeaways about repository-level migration. First, planning and refinement matter more than one-shot translation at this scale: RustPrint compiles all eight repositories under both Kimi-K2-Instruct and GPT-5.4, while the simpler LLM baselines fail to produce a single compilable repository. This suggests that repository migration is less a raw code-generation problem and more a coordination problem across files, interfaces, and repair steps. Second, documentation is useful not just as background context but as an operational guide for refinement. The feature-preservation results show large gains over Claude Code, and the refinement curves indicate that much of that gain appears in the first one or two documentation-guided iterations. Third, the cross-suite test results are important because they show that these gains are not only documentary. RustPrint remains strong on tests written by another method, which indicates that the translated repositories preserve behavior beyond the particular tests generated inside the pipeline.\n\nAt the same time, the current study should be read as a strong first result rather than a complete map of the space. The benchmark covers realistic repositories, but broader validation on heavier FFI usage, less standardized build pipelines, and more concurrency-heavy systems would strengthen the claim further. Documentation comparison is also best understood as one useful signal among several: it works especially well when paired with compilation and translated tests, but future versions should combine it with stronger runtime and static checks for critical behaviors. A broader evaluation should also report time, tool usage, and model cost, since those factors matter in practice alongside quality. Framed this way, the present results show that documentation-guided migration is already viable on realistic repositories while leaving clear and actionable paths for improving both the method and its evaluation.\n\n## 6 Conclusions & Future Work\n\nThis paper presented RustPrint, a documentation-guided multi-agent framework for repository-level C-to-Rust migration. Rather than treating migration as one-shot code generation, RustPrint decomposes it into planning, translation, test revision, and repair stages grounded in repository documentation and execution feedback. Documentation serves as the migration blueprint, linking recovered requirements to implementation and validation across files. This design more closely matches how developers handle large migrations with build constraints and cross-file dependencies.\n\nAcross eight repositories, RustPrint outperforms strong baselines in compilability, cross-suite test pass rate, feature preservation, and safety, with especially strong results under GPT-5.4. Taken together, these results show that documentation-guided coordination is a practical way to scale LLM-based translation from isolated files to repository-level engineering tasks.\n\nFuture work should test this framework on mixed-language repositories, deeper external dependencies, and build systems that are less standardized than Cargo. It would also be valuable to combine documentation-guided planning with stronger verification signals, including differential testing, property-based testing, and static analysis for safety-critical modules. These extensions would clarify how far the approach generalizes beyond the current C-to-Rust setting.\n\n## References\n\nCai et al. [2025]\n\nXuemeng Cai, Jiakun Liu, Xiping Huang, Yijun Yu, Haitao Wu, Chunmiao Li,\nBo Wang, Imam Nur Bani Yusuf, and Lingxiao Jiang.\n\nRustmap: Towards project-scale c-to-rust migration via program\nanalysis and llm.\n\nArXiv, abs/2503.17741, 2025.\n\nURL https://api.semanticscholar.org/CorpusId:277272239.\n\nChen et al. [2024]\n\nXinyun Chen, Maxwell Lin, Nathanael Schärli, and Denny Zhou.\n\nTeaching large language models to self-debug.\n\nIn International Conference on Learning Representations\n(ICLR), 20",
+ "ethics_coi": "### D.4 Ethical considerations.\n\nAutomated code migration carries the risk of subtle functional regressions that\npass compilation and even unit tests yet silently alter program behaviour.\nPractitioners should treat RustPrint’s output as a first-pass migration aid subject\nto human code review rather than a fully autonomous replacement for expert\nengineering.\nFurthermore, LLM-generated code may inadvertently reproduce copyrighted patterns\nfrom training data; users should review the generated Rust code with appropriate\nlegal diligence before redistribution.\n\n## NeurIPS Paper Checklist\n\n1. \n\nClaims\n\nQuestion: Do the main claims made in the abstract and introduction accurately reflect the paper’s contributions and scope?\n\nAnswer: [Yes] \n\nJustification: The abstract and Section 1 state the four contributions claimed by the paper (a documentation-driven migration paradigm, a documentation-guided iterative refinement mechanism, an execution-aware code revision stage with test-driven feedback, and an evaluation on eight large-scale real-world C repositories), each of which is realised by Section 3.1–3.3 and supported by the empirical results in Section 5.1–5.4.\n\n2.",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 3,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 1,
+  "swe_bench": 2,
+  "contamination": 0,
+  "human_study": 3,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

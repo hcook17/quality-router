@@ -1,0 +1,212 @@
+{
+ "arxiv_id": "2608.19784",
+ "fulltext_chars": 71135,
+ "fulltext_lines": 1609,
+ "authors_block": "Xue Jiang1, Tianyu Zhang1, Lingwei Wu1, Ziyu Wang1, Ge Li1, Yuan Sui2, Hao Zhu1, Wenpin Jiao1, Zhi Jin1, Yihong Dong3 Affiliation: 1Key Laboratory of High Confidence Software Technologies (PKU), Ministry of Education; School of Computer Science, Peking University 2School of Computing, National University of Singapore 3School of Computer Science, Shanghai Jiao Tong University",
+ "vendor_affiliation_hits": [],
+ "n_authors": 10,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/anomalyco/opencodeAccessed",
+  "https://github.com/jiangxxxue/PRAXIS."
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# PRAXIS: Graph-Grounded Tacit Knowledge for Domain Code Generation"
+  ],
+  [
+   42,
+   "###### Abstract"
+  ],
+  [
+   48,
+   "###### Index Terms:"
+  ],
+  [
+   51,
+   "## I Introduction"
+  ],
+  [
+   94,
+   "## II Motivation"
+  ],
+  [
+   98,
+   "### II-A Preliminary Experiments"
+  ],
+  [
+   104,
+   "### II-B Case Analysis"
+  ],
+  [
+   112,
+   "# Agent’s implementation"
+  ],
+  [
+   120,
+   "# Ground truth"
+  ],
+  [
+   133,
+   "# Agent’s implementation"
+  ],
+  [
+   151,
+   "# Ground truth"
+  ],
+  [
+   171,
+   "### II-C Three Properties of Tacit Knowledge"
+  ],
+  [
+   187,
+   "## III PRAXIS"
+  ],
+  [
+   189,
+   "### III-A Problem Formulation"
+  ],
+  [
+   205,
+   "### III-B Overview"
+  ],
+  [
+   213,
+   "### III-C In-Domain Development Practice"
+  ],
+  [
+   238,
+   "### III-D Structured Knowledge Acquisition"
+  ],
+  [
+   256,
+   "### III-E Graph-Grounded Knowledge Organization"
+  ],
+  [
+   272,
+   "### III-F Tacit Knowledge Injection"
+  ],
+  [
+   298,
+   "## IV Experiments"
+  ],
+  [
+   345,
+   "### IV-A Experimental Setup"
+  ],
+  [
+   347,
+   "#### Benchmarks"
+  ],
+  [
+   361,
+   "#### Baselines"
+  ],
+  [
+   514,
+   "#### Implementation Details"
+  ],
+  [
+   526,
+   "### IV-B Overall Effectiveness and Component Contribution"
+  ],
+  [
+   528,
+   "#### RQ1: Overall Effectiveness"
+  ],
+  [
+   556,
+   "#### RQ2: Ablation Study"
+  ],
+  [
+   711,
+   "### IV-C Generalization and Adaptability"
+  ],
+  [
+   713,
+   "#### RQ3: Across Agent Frameworks and Base Models"
+  ],
+  [
+   728,
+   "#### RQ4: Across Benchmarks and Tasks"
+  ],
+  [
+   747,
+   "### IV-D Practice Scaling and Continual Evolution"
+  ],
+  [
+   751,
+   "#### RQ5: Practice Scaling"
+  ],
+  [
+   762,
+   "#### RQ6: Online Knowledge Evolution"
+  ],
+  [
+   777,
+   "### IV-E Further Analysis"
+  ],
+  [
+   779,
+   "#### RQ7: Cost Analysis"
+  ],
+  [
+   799,
+   "#### RQ8: Knowledge Quality and Typological Analysis"
+  ],
+  [
+   851,
+   "## V Related Work"
+  ],
+  [
+   853,
+   "### V-A Domain Code Generation"
+  ],
+  [
+   859,
+   "### V-B LLM Agents for Code Generation"
+  ],
+  [
+   865,
+   "### V-C Experience and Skill Evolution for Code Agents"
+  ],
+  [
+   871,
+   "## VI Threats to Validity"
+  ],
+  [
+   875,
+   "## VII Conclusion"
+  ],
+  [
+   879,
+   "## References"
+  ],
+  [
+   1609,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## VI Threats to Validity\n\nAgent-based methods typically involve several hyperparameter settings. Due to the significant cost of LLM APIs, we did not perform an exhaustive hyperparameter search. However, even with settings chosen by intuitive heuristics, PRAXIS consistently achieved the best results across all evaluated configurations, and further tuning would likely yield additional gains. Additionally, using agent workflows to simulate human workflows to extract tacit knowledge means that some gap may remain between the agent’s practice process and real human development. Nevertheless, the agent-based approach eliminates manual labor and readily scales performance through large-scale generation. Finally, our evaluation is conducted on KoCo-Bench and AInsteinBench, which collectively cover multiple real-world projects across diverse domains. While these benchmarks may not fully represent the complexity of all possible domain-specific codebases, extending PRAXIS to more domains remains a direction for future work.\n\n## VII Conclusion\n\nIn this paper, we identified tacit knowledge as the fundamental bottleneck in domain code generation and characterized three inherent properties that make it particularly resistant to existing approaches. We presented PRAXIS, a framework that systematically extracts, organizes, and delivers tacit knowledge for domain code generation. PRAXIS acquires tacit knowledge by simulating human development workflows within the target codebase, organizes it on the code dependency graph to preserve cross-component dependencies, and proactively surfaces it during the agent’s workflow without requiring the agent to recognize its own knowledge deficit. Experiments demonstrate that PRAXIS outperforms several representative agents and state-of-the-art experience-based and skill-based methods, generalizes across agent frameworks and LLMs, with performance continuing to scale as practice accumulates and online evolution proceeds. As general-purpose code generation capabilities advance rapidly, we believe that the ability to acquire and accumulate domain expertise through practice will become an essential capability for autonomous software engineering agents.\n\n## References\n\n[1]\nC. E. Jimenez, J. Yang, A. Wettig, S. Yao, K. Pei, O. Press, and K. R. Narasimhan (2024)\n\nSWE-bench: can language models resolve real-world github issues?.\n\nIn ICLR,\n\nCited by: §I,\n§V-A.\n\n[2]\nJ. Yang, C. E. Jimenez, A. Wettig, K. Lieret, S. Yao, K. Narasimhan, and O. Press (2024)\n\nSWE-agent: agent-computer interfaces enable automated software engineering.\n\nIn NeurIPS,\n\nCited by: §I,\n§IV-A,\n§IV-A,\n§V-B.\n\n[3]\nX. Wang, B. Li, Y. Song, F. F. Xu, X. Tang, M. Zhuge, J. Pan, Y. Song, B. Li, J. Singh, H. H. Tran, F. Li, R. Ma, M. Zheng, B. Qian, Y. Shao, N. Muennighoff, Y. Zhang, B. Hui, J. Lin, and et al. (2025)\n\nOpenHands: an open platform for AI software developers as generalist agents.\n\nIn ICLR,\n\nCited by: §I,",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 1,
+  "p_value_or_ci": 7,
+  "seeds_or_runs": 19,
+  "swe_bench": 2,
+  "contamination": 4,
+  "human_study": 0,
+  "java": 1,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

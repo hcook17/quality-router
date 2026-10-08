@@ -1,0 +1,423 @@
+{
+ "arxiv_id": "2605.10865",
+ "fulltext_chars": 97035,
+ "fulltext_lines": 2664,
+ "authors_block": "Haozhe Zhang Affiliation: University of Virginia Email: hz5sq@virginia.edu Kaichen Liu Affiliation: University of California, San Diego Email: hanjie@rice.edu Miaomiao Chen Affiliation: University of Virginia Lei Li Affiliation: University of Virginia Shaojie Yang Affiliation: University of California, San Diego Cheng Peng Affiliation: University of Virginia Hanjie Chen Affiliation: Rice University*Equal contribution.†Corresponding authors. May 2026",
+ "vendor_affiliation_hits": [],
+ "n_authors": 7,
+ "comment": "9 page 7 figures",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/CadQuery/cadquery"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   22,
+   "# BenchCAD: A Comprehensive, Industry-Standard Benchmark for Programmatic CAD"
+  ],
+  [
+   58,
+   "###### Abstract"
+  ],
+  [
+   67,
+   "## 1 Introduction"
+  ],
+  [
+   102,
+   "#### Contributions."
+  ],
+  [
+   109,
+   "## 2 Related Work"
+  ],
+  [
+   141,
+   "#### CAD code-generation models."
+  ],
+  [
+   148,
+   "#### CAD evaluation benchmarks."
+  ],
+  [
+   152,
+   "#### Position of BenchCAD."
+  ],
+  [
+   156,
+   "## 3 BenchCAD: Dataset and Tasks"
+  ],
+  [
+   160,
+   "### 3.1 Dataset"
+  ],
+  [
+   162,
+   "#### Design principles."
+  ],
+  [
+   170,
+   "#### Generation pipeline."
+  ],
+  [
+   176,
+   "#### Three released datasets."
+  ],
+  [
+   181,
+   "### 3.2 Tasks"
+  ],
+  [
+   186,
+   "#### Vision2Code."
+  ],
+  [
+   190,
+   "#### Code Edit."
+  ],
+  [
+   197,
+   "#### Vision QA and Code QA."
+  ],
+  [
+   210,
+   "## 4 Experiments"
+  ],
+  [
+   212,
+   "### 4.1 Setup"
+  ],
+  [
+   217,
+   "### 4.2 Models"
+  ],
+  [
+   224,
+   "### 4.3 Evaluation"
+  ],
+  [
+   235,
+   "### 4.4 Training"
+  ],
+  [
+   241,
+   "## 5 Results"
+  ],
+  [
+   251,
+   "### 5.1 Overall Performance of 4 Tasks"
+  ],
+  [
+   349,
+   "#### Vision2Code."
+  ],
+  [
+   355,
+   "#### Code Edit."
+  ],
+  [
+   359,
+   "#### Vision QA and Code QA."
+  ],
+  [
+   415,
+   "### 5.2 Error Analysis"
+  ],
+  [
+   445,
+   "### 5.3 BenchCAD as a Training Resource for Improving Model Capabilities"
+  ],
+  [
+   449,
+   "## 6 Conclusion"
+  ],
+  [
+   457,
+   "## References"
+  ],
+  [
+   741,
+   "## Appendix A Limitations"
+  ],
+  [
+   743,
+   "#### Standard-parametric coverage is not full industrial CAD."
+  ],
+  [
+   748,
+   "#### Standard-anchored does not mean standard-compliant."
+  ],
+  [
+   752,
+   "#### Industrial Common Sense Gap measurement."
+  ],
+  [
+   757,
+   "## Appendix B Extended Related Work: CAD Code-Generation and Editing Benchmarks"
+  ],
+  [
+   759,
+   "#### Code generation."
+  ],
+  [
+   763,
+   "#### Editing."
+  ],
+  [
+   767,
+   "## Appendix C Full Comparison Against Prior CAD Code-Generation Work"
+  ],
+  [
+   776,
+   "#Sam."
+  ],
+  [
+   777,
+   "#Fam."
+  ],
+  [
+   778,
+   "#Std"
+  ],
+  [
+   883,
+   "## Appendix D Standard Codes Covered"
+  ],
+  [
+   893,
+   "#Codes"
+  ],
+  [
+   894,
+   "#Fam."
+  ],
+  [
+   931,
+   "## Appendix E Dataset Generation Details"
+  ],
+  [
+   933,
+   "#### Subfamilies."
+  ],
+  [
+   937,
+   "#### Difficulty tiers."
+  ],
+  [
+   941,
+   "#### Sandbox failure-mode taxonomy."
+  ],
+  [
+   945,
+   "## Appendix F Model Training"
+  ],
+  [
+   947,
+   "#### SFT training mixture."
+  ],
+  [
+   954,
+   "#### OOD holdout selection."
+  ],
+  [
+   958,
+   "#### SFT training setup."
+  ],
+  [
+   962,
+   "#### RL training setup."
+  ],
+  [
+   1028,
+   "#### Model Generalization."
+  ],
+  [
+   1040,
+   "## Appendix G Full Per-Model Per-Task Results"
+  ],
+  [
+   1047,
+   "#Records"
+  ],
+  [
+   1048,
+   "#Families"
+  ],
+  [
+   1601,
+   "## Appendix H CAD Operational Blindspot: Per-Operation Recall"
+  ],
+  [
+   1772,
+   "## Appendix I Datasheet for BenchCAD"
+  ],
+  [
+   1776,
+   "#### Motivation."
+  ],
+  [
+   1782,
+   "#### Composition."
+  ],
+  [
+   1789,
+   "#### Collection process."
+  ],
+  [
+   1796,
+   "#### Preprocessing/cleaning/labeling."
+  ],
+  [
+   1802,
+   "#### Uses."
+  ],
+  [
+   1808,
+   "#### Distribution."
+  ],
+  [
+   1815,
+   "#### Maintenance."
+  ],
+  [
+   1820,
+   "## Appendix J Question Bank Construction"
+  ],
+  [
+   1827,
+   "## Appendix K QA System Prompts"
+  ],
+  [
+   1834,
+   "### K.1 Image-based QA System Prompt"
+  ],
+  [
+   1874,
+   "### K.2 Code-based QA System Prompt"
+  ],
+  [
+   1915,
+   "## Appendix L Code Generation System Prompts"
+  ],
+  [
+   1923,
+   "### L.1 Primary Vision-to-CAD System Prompt"
+  ],
+  [
+   1943,
+   "### L.2 Vision-to-CAD User Prompt"
+  ],
+  [
+   1949,
+   "### L.3 Cadrille Baseline System Prompt"
+  ],
+  [
+   1956,
+   "### L.4 Edit-task System Prompt"
+  ],
+  [
+   2083,
+   "## Appendix M Rotation-Invariant IoU"
+  ],
+  [
+   2114,
+   "## Appendix N Edit Protocol"
+  ],
+  [
+   2116,
+   "#### Pair construction."
+  ],
+  [
+   2122,
+   "#### Scoring."
+  ],
+  [
+   2126,
+   "#### Task taxonomy."
+  ],
+  [
+   2192,
+   "#### Failure taxonomy."
+  ],
+  [
+   2310,
+   "#### Image-conditioned variant."
+  ],
+  [
+   2314,
+   "#### Does adding the image really help?"
+  ],
+  [
+   2318,
+   "#### Supplementary results."
+  ],
+  [
+   2323,
+   "## Appendix O Scoring-Protocol Ablations"
+  ],
+  [
+   2413,
+   "## Appendix P CadQuery Operation Coverage"
+  ],
+  [
+   2478,
+   "#### Static analysis protocol."
+  ],
+  [
+   2482,
+   "#### Tier B (sketch+extrude IR works)."
+  ],
+  [
+   2486,
+   "#### CADEvolve caveat."
+  ],
+  [
+   2490,
+   "## Appendix Q Case Study: motor_end_cap_bore_widen (Case 167)"
+  ],
+  [
+   2492,
+   "#### Setup."
+  ],
+  [
+   2532,
+   "# --- the edit: a final cylinder cut on the assembled solid"
+  ],
+  [
+   2637,
+   "#### Failure pattern (F08, L4: spatial reasoning + code synthesis)."
+  ],
+  [
+   2641,
+   "## Appendix R Reproduction"
+  ],
+  [
+   2657,
+   "## Appendix S Ethical Considerations and Broader Impact"
+  ],
+  [
+   2664,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## Appendix A Limitations\n\n#### Standard-parametric coverage is not full industrial CAD.\n\nBenchCAD parts are generated from expert-authored standard-parametric families, not extracted from real engineering repositories.\nWe mitigate this by (i) anchoring 49% of families to published ISO/DIN/EN/ASME/IEC specification tables and (ii) including verified Fusion360 Gallery and DeepCAD subsets for OOD comparison, but our parts do not capture the full diversity of proprietary industrial design (e.g. hand-drawn manufacturing tolerances, undocumented design intent, assembly information).\n\n#### Standard-anchored does not mean standard-compliant.\n\nA family declared as standard = \"ISO 23509\" samples within ISO parameter ranges and enforces inter-parameter relations from the standard, but does not validate against the full set of manufacturing tolerances or material specifications mandated by that standard.\n\n#### Industrial Common Sense Gap measurement.\n\nOur non-target preservation metric uses voxel IoU on the spatial complement of the targeted feature; this captures most leakage modes but can miss small parametric shifts whose voxel footprint is subthreshold.\n§N discusses the protocol, including a complementary -AST diff metric we report alongside.\n\n## Appendix B Extended Related Work: CAD Code-Generation and Editing Benchmarks\n\n#### Code generation.\n\nDeepCAD [Wu et al., 2021] introduces a 178K-model corpus of Onshape parts encoded as discrete operation tokens; Text2CAD [Khan et al., 2024] extends DeepCAD with 660K natural-language annotations across four abstraction levels. CAD-Coder [Guan et al., 2025] reformulates the same data as CadQuery Python source and applies SFT + GRPO with chain-of-thought and Chamfer reward (mean CD 6.54{\\times}10^{-3} on Text2CAD). The CAD-Recode [Rukhovich et al., 2025]/cadrille [Kolodiazhnyi et al., 2026]/CADEvolve [Elistratov et al., 2026] lineage shares a Qwen2-VL-2B backbone: CAD-Recode fine-tunes on 1M sketch-and-extrude scripts; cadrille adds multi-modal inputs and Dr.CPPO online RL with piecewise IoU reward (DeepCAD IoU 92.2, Fusion360 IoU 84.6, 0.0% invalidity); CADEvolve expands the corpus to \\sim 1.3M scripts via an LLM-driven evolutionary loop covering extrude/revolve/loft/sweep/fillet/chamfer/shell/Boolean/patterns — broadening the operation distribution but still without helical sweeps or parametric involute-gear construction. The CADEvolve Hugging Face release contains only sentence embeddings (.npy), not the source code, so its full operation surface is not directly auditable; the public GitHub repo ships only 46 hand-written seed programs.\n\n#### Editing.\n\nDeepCAD [Wu et al., 2021] introduces a 178K-model corpus of Onshape parts encoded as discrete operation tokens; Text2CAD [Khan et al., 2024] extends DeepCAD with 660K natural-language annotations across four abstraction levels. CAD-Coder [Guan et al., 2025] reformulates the same data as CadQuery Python source and applies SFT + GRPO with chain-of-thought and Chamfer reward (mean CD 6.54{\\times}10^{-3} on Text2CAD). The CAD-Recode [Rukhovich et al., 2025]/cadrille [Kolodiazhnyi et al., 2026]/CADEvolve [Elistratov et al., 2026] lineage shares a Qwen2-VL-2B [Qwen Team, 2024] backbone: CAD-Recode fine-tunes on 1M sketch-and-extrude scripts; cadrille adds multi-modal inputs and Dr.CPPO online RL with piecewise IoU reward (DeepCAD IoU 92.2, Fusion360 IoU 84.6, 0.0% invalidity); CADEvolve expands the corpus to \\sim 1.3M scripts via an LLM-driven evolutionary loop covering extrude/revolve/loft/sweep/fillet/chamfer/shell/Boolean/patterns — broadening the operation distribution but still without helical sweeps or parametric involute-gear construction. The CADEvolve Hugging Face release contains only sentence embeddings (.npy), not the source code, so its full operation surface is not directly auditable; the public GitHub repo ships only 46 hand-written seed programs.\n\n## Appendix C Full Comparison Against Prior CAD Code-Generation Work\n\nTable 4 provides",
+ "ethics_coi": "## Appendix S Ethical Considerations and Broader Impact\n\nBenchCAD contains procedurally generated parametric CAD parts and references public engineering standards by code and name.\nThe dataset contains no personal data, no proprietary designs, and no safety-sensitive specifications.\nPotential risks of CAD-capable models more broadly — e.g. accelerated reverse-engineering of regulated components — are not specific to BenchCAD and are best addressed at the model-deployment layer rather than the benchmark layer.\nWe see no negative societal impact specific to this work that is not already present in the underlying open-source CAD ecosystem.\n\n##",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 1,
+  "swe_bench": 0,
+  "contamination": 1,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 39
+ },
+ "fulltext_source": "html"
+}

@@ -1,0 +1,117 @@
+{
+ "arxiv_id": "2609.29208",
+ "fulltext_chars": 47605,
+ "fulltext_lines": 851,
+ "authors_block": "Hugo Villamizar Affiliation: fortiss GmbH, Munich, Germany E-mail guarinvillamizar@fortiss.org Jannik Fischbach Affiliation: fortiss GmbH, Munich, Germany E-mail guarinvillamizar@fortiss.org Affiliation: Netlight Consulting, Munich, Germany E-mail jannik.fischbach@netlight.com Mert Şahin Affiliation: Technical University of Munich, Munich, Germany E-mail mert.sahin@tum.de Julian Frattini Affiliation: Chalmers University of Technology, Gothenburg, Sweden E-mail julian.frattini@chalmers.se Alessio Ferrari Affiliation: Trinity College Dublin, Dublin, Ireland E-mail aferrari@tcd.ie Alexander Korn Affiliation: University of Duisburg-Essen, Essen, Germany E-mail {alexander.korn,andreas.vogelsang}@uni-due.de Andreas Vogelsang Affiliation: University of Duisburg-Essen, Essen, Germany E-mail {alexander.korn,andreas.vogelsang}@uni-due.de Daniel Mendez Affiliation: fortiss GmbH, Munich, Germany E-mail guarinvillamizar@fortiss.org Affiliation: Blekinge Institute of Technology, Karlskrona, Sweden E-mail daniel.mendez@bth.se",
+ "vendor_affiliation_hits": [],
+ "n_authors": 8,
+ "comment": "This paper has been accepted for presentation at the 27th International Conference on Product-Focused Software Process Improvement (PROFES 2026)",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# On the Impact of Requirement Smells in LLM-Based Code Generation"
+  ],
+  [
+   78,
+   "###### Abstract"
+  ],
+  [
+   82,
+   "###### Keywords:"
+  ],
+  [
+   90,
+   "## 1 Introduction"
+  ],
+  [
+   105,
+   "## 2 Background and Related Work"
+  ],
+  [
+   116,
+   "## 3 Study Design"
+  ],
+  [
+   120,
+   "### 3.1 Research Goal"
+  ],
+  [
+   128,
+   "### 3.2 Research Questions"
+  ],
+  [
+   138,
+   "### 3.3 Experimental Factors and Variables"
+  ],
+  [
+   254,
+   "### 3.4 Game Applications and Objects of Study"
+  ],
+  [
+   353,
+   "### 3.5 Experimental Procedure"
+  ],
+  [
+   463,
+   "### 3.6 Evaluation Metrics and Analysis"
+  ],
+  [
+   471,
+   "## 4 Results"
+  ],
+  [
+   473,
+   "### 4.1 LLM Functional Correctness with Non-Smelly Requirements"
+  ],
+  [
+   487,
+   "### 4.2 Effect of Smell Density on LLM Functional Correctness"
+  ],
+  [
+   520,
+   "### 4.3 Effect of Smell Categories on LLM Functional Correctness"
+  ],
+  [
+   548,
+   "## 5 Discussion"
+  ],
+  [
+   564,
+   "## 6 Threats to Validity"
+  ],
+  [
+   575,
+   "## 7 Concluding Remarks"
+  ],
+  [
+   587,
+   "## References"
+  ],
+  [
+   851,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 6 Threats to Validity\n\nConstruct validity. Test-suite-based functional correctness, as measured by requirement-level unit tests, may not capture partial or alternative correct implementations that satisfy the requirements through different implementation strategies. While our use of predefined skeleton code aims to reduce ambiguity in implementation, it may also constrain LLM creativity and bias the results toward predefined structures. Additionally, the selected smell categories and injected variants may only partially represent the broader notion of requirement smells. While the smell injections were designed to resemble realistic defects reported in RE literature and industrial practice, they remain controlled experimental manipulations and may not fully capture the contextual complexity of naturally occurring requirement defects.\n\nInternal validity. Although we systematically injected smells using a controlled prompt structure, interactions between smells and residual LLM stochasticity may still have influenced the results. Requirements ordering may also influence results due to positional biases in LLMs. Additionally, because the selected games are common programming exercises with publicly available implementations on platforms such as GitHub, the evaluated LLMs may have been exposed during training to similar implementations or problem descriptions. Although we cannot determine whether such exposure occurred, it could have influenced baseline performance. Finally, all experiments employed a single prompt template and interaction strategy. Different prompting approaches (e.g., iterative prompting, chain-of-thought prompting, or agent-based workflows) may exhibit different levels of robustness to requirement smells.\n\nExternal validity. We used four game applications with relatively short and well-scoped functional requirements. While this setup enabled tight control and automated evaluation, it does not reflect the complexity of industrial-scale software systems. Additionally, only two LLMs were evaluated (GPT-4o and DeepSeek-V3), which limits generalizability across the broader landscape of foundation models. Caution should be exercised when applying these findings to other LLMs or domains without additional validation. Furthermore, the experiment used controlled smell injections rather than naturally occurring industrial requirements, which may limit the generalizability of the observed effects to real-world RE settings.\n\nConclusion validity.\nWe used Spearman’s rank-order correlation and chi-square tests of independence to analyze the relationships between requirement smells and test-suite-based functional correctness. Because the smell-density analysis was based on only five density levels and the smell-category analysis involved relatively small numbers of requirements, statistical power was limited. Consequently, non-significant results should not be interpreted as evidence of the absence of an effect. To reduce the likelihood of false positive findings, we applied exact permutation tests for boundary Spearman correlations and Bonferroni correction separately to the predefined families of comparisons. Finally, comparisons with prior studies on automated traceability should be interpreted cautiously because the studies investigated different SE tasks, evaluation metrics, and statistical analyses.\n\n## 7 Concluding Remarks\n\nThis paper presented a controlled experiment investigating how requirement quality influences the test-suite-based functional correctness of LLM-generated code. Building on prior work on automated traceability between requirements and code [19], we extended the investigation to a code generation task using four game applications while systematically varying requirement smell density and smell categories.\n\nRegarding RQ1, GPT-4o and DeepSeek-V3 achieved high pass rates when prompted with non-smelly requirements, particularly for Arkanoid. However, neither LLM consistently produced implementations th",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 5,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 1,
+  "java": 7,
+  "industrial": 5
+ },
+ "fulltext_source": "html"
+}

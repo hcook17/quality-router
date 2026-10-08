@@ -1,0 +1,199 @@
+{
+ "arxiv_id": "2607.26348",
+ "fulltext_chars": 85212,
+ "fulltext_lines": 2131,
+ "authors_block": "LLM-Simulated Human Survey Responses Thanks: This manuscript is currently under peer review. Code and data are publicly available at: https://github.com/ZihanChen1995/when-synthetic-users-fail-a-cross-domain-benchmark-of-llm-simulated-human-survey-responses Zihan Chen Affiliation: Stevens Institute of Technology Affiliation: Hoboken, NJ, USA Email: zchen61@stevens.edu Di Zhu Affiliation: Stevens Institute of Technology Affiliation: Hoboken, NJ, USA Email: dzhu1@stevens.edu Lei Nico Zheng Affiliation: University of Massachusetts Boston Affiliation: Boston, MA, USA Email: lei.zheng@umb.edu",
+ "vendor_affiliation_hits": [],
+ "n_authors": 3,
+ "comment": "19 pages, 5 figures, 4 tables. Preprint; under review. Code and data are publicly available at: https://github.com/ZihanChen1995/when-synthetic-users-fail-a-cross-domain-benchmark-of-llm-simulated-human-survey-responses",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/ZihanChen1995/when-synthetic-users-fail-a-cross-domain-benchmark-of-llm-simulated-human-survey-responses"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# When Synthetic Users Fail: A Cross-Domain Benchmark of"
+  ],
+  [
+   50,
+   "###### Abstract"
+  ],
+  [
+   84,
+   "## 1 Introduction"
+  ],
+  [
+   159,
+   "#### Research questions"
+  ],
+  [
+   194,
+   "#### Headline findings"
+  ],
+  [
+   225,
+   "#### Contributions"
+  ],
+  [
+   268,
+   "## 2 Related Work"
+  ],
+  [
+   274,
+   "### 2.1 LLMs as simulated survey respondents and participants"
+  ],
+  [
+   295,
+   "### 2.2 Survey-simulation benchmarks and cross-cultural value modeling"
+  ],
+  [
+   325,
+   "### 2.3 Persona prompting, silicon samples, and prompt artifacts"
+  ],
+  [
+   341,
+   "### 2.4 Social simulation and LLM agents"
+  ],
+  [
+   354,
+   "### 2.5 Algorithmic stereotyping, fairness, and subgroup validity"
+  ],
+  [
+   370,
+   "### 2.6 Decision-support validity and expert-system validation"
+  ],
+  [
+   391,
+   "### 2.7 What is missing"
+  ],
+  [
+   409,
+   "## 3 Data, Protocol, and Metrics"
+  ],
+  [
+   411,
+   "### 3.1 Domains and scope"
+  ],
+  [
+   432,
+   "### 3.2 Sampling for measurable distributions"
+  ],
+  [
+   443,
+   "### 3.3 Models and prompting"
+  ],
+  [
+   470,
+   "### 3.4 Non-LLM baselines"
+  ],
+  [
+   510,
+   "### 3.5 Metrics"
+  ],
+  [
+   629,
+   "### 3.6 Estimation choices and their robustness"
+  ],
+  [
+   671,
+   "## 4 Results"
+  ],
+  [
+   850,
+   "### 4.1 RQ1: LLMs do not beat, and on values fall well below, any non-LLM baseline"
+  ],
+  [
+   993,
+   "### 4.2 RQ2: Aggregate distributions are reproduced reasonably, especially under Style C"
+  ],
+  [
+   1010,
+   "### 4.3 RQ3: LLMs over-determine demographics (stereotyping), not flatten them"
+  ],
+  [
+   1053,
+   "### 4.4 Decision impact: over-determination produces wrong and spurious segment decisions"
+  ],
+  [
+   1092,
+   "### 4.5 RQ4: Capability does not fix it; outputs are unstable to format and prompt surface"
+  ],
+  [
+   1140,
+   "### 4.6 RQ5: Both failures transfer across domains"
+  ],
+  [
+   1150,
+   "## 5 Discussion"
+  ],
+  [
+   1168,
+   "#### Implications for decision support"
+  ],
+  [
+   1191,
+   "#### A validation protocol"
+  ],
+  [
+   1209,
+   "#### Limitations"
+  ],
+  [
+   1233,
+   "## 6 Conclusion"
+  ],
+  [
+   1257,
+   "## Appendix A Model call settings"
+  ],
+  [
+   1268,
+   "## Appendix B Exact questions and answer scales"
+  ],
+  [
+   1571,
+   "## Appendix C Prompt templates and demographic formatting"
+  ],
+  [
+   1625,
+   "## Appendix D Parser rules and invalid-output handling"
+  ],
+  [
+   1641,
+   "## Appendix E Baseline construction and back-off"
+  ],
+  [
+   1658,
+   "## Appendix F Estimation robustness"
+  ],
+  [
+   1701,
+   "## References"
+  ],
+  [
+   2131,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "#### Limitations\n\nOur claims are scoped to the data we used: GSS respondents 2016–2024 and WVS\nWave 7 across 63 countries, on the specific questions listed, with two prompt\nformats and two seeds, and to demographic prompting under survey-simulation\nprotocols, not to every elicitation strategy. The LLM-evaluated sample is about\n 100 respondents per question, but the individual-fidelity claims pool all rows in\na domain ( n\\approx 2{,}000 on GSS, n\\approx 2{,}900 on WVS) and every headline\ncomparison carries a paired-bootstrap 95\\% interval, so the conclusions rest on\nthose intervals rather than on any single question’s cell. We do not claim these\nnumbers characterize every model, prompt, or elicitation strategy; richer persona\nconstruction [21], few-shot conditioning, or fine-tuning\ncould shift the individual-fidelity and stereotyping numbers, and testing that is\nexactly the value of a fixed, reusable protocol. We estimate human targets without\nsurvey weights; because applying the official GSS and WVS weights moves those\ntargets by amounts one to three orders of magnitude smaller than the effects we\nreport (Appendix F), this choice does not affect any claim. Older public\nsurveys such as these may appear in model pretraining data; we mitigate this by\nscoping GSS to recent waves and by noting that memorization would, if anything,\nhelp aggregate fidelity while leaving the individual-level and\nover-determination failures intact. Finally, survey answers are stated opinions,\nnot behavior; extending the protocol to behavioral tasks and to interactive\nmulti-agent simulations [22, 24] is future work.\n\n## 6 Conclusion\n\nAcross two independent domains, four models, and two model families, and under the\ndemographic-prompting protocols we test, LLM synthetic users show two robust\nfailures: they do not beat, and on cross-cultural values fall well below, non-LLM\nbaselines at the individual level, and they systematically over-determine\ndemographics, treating identity as far more predictive of attitudes than it is\namong real people. The individual-level deficit survives distance-aware and proper\nscoring, and the over-determination survives a coding-invariant association measure;\nmodel capability does not fix either failure.\n\nThe contribution, however, is not merely the negative result that these systems\nfail. It is a reusable evaluation framework for intelligent synthetic-user\nsystems: the cross-domain benchmark, the suite of non-LLM baselines scored with\ndistance-aware and proper-scoring metrics, the stereotyping index and its\ncoding-invariant companion, and the validation protocol that ties them",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 28,
+  "seeds_or_runs": 5,
+  "swe_bench": 0,
+  "contamination": 2,
+  "human_study": 7,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

@@ -1,0 +1,395 @@
+{
+ "arxiv_id": "2608.24221",
+ "fulltext_chars": 93514,
+ "fulltext_lines": 2327,
+ "authors_block": "Weihan Peng Affiliation: Shanghai Jiao Tong University Yuling Shi Affiliation: Shanghai Jiao Tong University Yingwei Ma Affiliation: The Hong Kong University of Science and Technology Longfei Yun Affiliation: University of California San Diego Beijun Shen Affiliation: Shanghai Jiao Tong University Xiaodong Gu Affiliation: Shanghai Jiao Tong University",
+ "vendor_affiliation_hits": [],
+ "n_authors": 6,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/peng-weihan/DeepRepoQA"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   24,
+   "# DeepRepoQA: Code Repository Question Answering with Deep Agent Exploration"
+  ],
+  [
+   50,
+   "###### Abstract"
+  ],
+  [
+   59,
+   "## 1 Introduction"
+  ],
+  [
+   93,
+   "## 2 Related Work"
+  ],
+  [
+   103,
+   "## 3 Methodology"
+  ],
+  [
+   110,
+   "### 3.1 Repository Parsing and Representation"
+  ],
+  [
+   114,
+   "#### 3.1.1 Repository Parsing"
+  ],
+  [
+   123,
+   "#### 3.1.2 Repository Representation"
+  ],
+  [
+   137,
+   "### 3.2 Action Space"
+  ],
+  [
+   213,
+   "### 3.3 Agents"
+  ],
+  [
+   215,
+   "#### 3.3.1 Perception Agent"
+  ],
+  [
+   219,
+   "#### 3.3.2 Planning Agent"
+  ],
+  [
+   223,
+   "#### 3.3.3 Execution Agent"
+  ],
+  [
+   227,
+   "#### 3.3.4 Evaluation Agent"
+  ],
+  [
+   231,
+   "### 3.4 Monte-Carlo Tree Search Process"
+  ],
+  [
+   304,
+   "#### 3.4.1 Selection"
+  ],
+  [
+   315,
+   "#### 3.4.2 Expansion"
+  ],
+  [
+   319,
+   "#### 3.4.3 Simulation"
+  ],
+  [
+   323,
+   "#### 3.4.4 Back-propagation"
+  ],
+  [
+   327,
+   "#### 3.4.5 Answer Synthesis and Termination"
+  ],
+  [
+   563,
+   "## 4 Experimental Setup"
+  ],
+  [
+   565,
+   "### 4.1 Research Questions (RQs)"
+  ],
+  [
+   589,
+   "### 4.2 Baselines and Models"
+  ],
+  [
+   683,
+   "### 4.3 Dataset"
+  ],
+  [
+   687,
+   "### 4.4 Evaluation Metrics"
+  ],
+  [
+   715,
+   "### 4.5 Implementation Details"
+  ],
+  [
+   719,
+   "## 5 Results"
+  ],
+  [
+   721,
+   "### 5.1 RQ1: Main Results"
+  ],
+  [
+   734,
+   "### 5.2 RQ2: Ablation Study"
+  ],
+  [
+   798,
+   "### 5.3 RQ3: Impact of Exploration Iterations"
+  ],
+  [
+   814,
+   "### 5.4 RQ4: Efficiency Analysis"
+  ],
+  [
+   950,
+   "### 5.5 RQ5: Performance across Question Types"
+  ],
+  [
+   959,
+   "## 6 Discussion"
+  ],
+  [
+   961,
+   "### 6.1 Judge Reliability"
+  ],
+  [
+   982,
+   "### 6.2 Case Study"
+  ],
+  [
+   1004,
+   "### 6.3 Threats to Validity"
+  ],
+  [
+   1006,
+   "#### 6.3.1 Internal Validity"
+  ],
+  [
+   1020,
+   "#### 6.3.2 External Validity"
+  ],
+  [
+   1027,
+   "## 7 Conclusion"
+  ],
+  [
+   1032,
+   "## Data-Availability Statement"
+  ],
+  [
+   1036,
+   "## References"
+  ],
+  [
+   1418,
+   "## Appendix A MCTS Workflow Illustration"
+  ],
+  [
+   1428,
+   "## Appendix B Token Usage"
+  ],
+  [
+   1496,
+   "## Appendix C LLM-as-a-Judge Reliability"
+  ],
+  [
+   1502,
+   "### C.1 Intra-panel consistency — Krippendorff’s \\alpha (interval level)"
+  ],
+  [
+   1543,
+   "### C.2 Individual cross-group Spearman \\rho matrix (per-answer, all p < 0.001)"
+  ],
+  [
+   1580,
+   "### C.3 Panel-consensus agreement (mean-of-3 vs mean-of-3)"
+  ],
+  [
+   1601,
+   "### C.4 Pairwise preference agreement"
+  ],
+  [
+   1619,
+   "### C.5 Length-bias analysis"
+  ],
+  [
+   1653,
+   "### C.6 Inter-judge ranking consistency"
+  ],
+  [
+   1665,
+   "## Appendix D Cross-language Generalization — Java Results"
+  ],
+  [
+   1745,
+   "## Appendix E Failure Mode Case Studies"
+  ],
+  [
+   1747,
+   "### E.1 Handling of misleading retrievals"
+  ],
+  [
+   1751,
+   "### E.2 Failure modes"
+  ],
+  [
+   1787,
+   "### E.3 Success patterns"
+  ],
+  [
+   1791,
+   "### E.4 Representative success case — why/purpose"
+  ],
+  [
+   1803,
+   "### E.5 Representative failure case F1 — where/iden-loca"
+  ],
+  [
+   1827,
+   "### E.6 Representative failure case F2 — why/purpose"
+  ],
+  [
+   1851,
+   "### E.7 Representative failure case F3 — why/design-rationale"
+  ],
+  [
+   1857,
+   "### E.8 Representative failure case F4 — how/system-design"
+  ],
+  [
+   1881,
+   "## Appendix F Prompts"
+  ],
+  [
+   1892,
+   "# Action and ReAct Guidelines"
+  ],
+  [
+   1914,
+   "# Workflow Overview"
+  ],
+  [
+   1949,
+   "# Important Guidelines"
+  ],
+  [
+   1971,
+   "# Additional Notes"
+  ],
+  [
+   1981,
+   "# Examples"
+  ],
+  [
+   2006,
+   "## CRITICAL: ACTION AGENT LIMITATIONS"
+  ],
+  [
+   2017,
+   "## REQUIRED FEEDBACK STRUCTURE"
+  ],
+  [
+   2019,
+   "### 1. CURRENT NODE CONTEXT"
+  ],
+  [
+   2032,
+   "## CORRECT EXAMPLES"
+  ],
+  [
+   2042,
+   "## INCORRECT EXAMPLES --- DO NOT USE"
+  ],
+  [
+   2050,
+   "## INPUT STRUCTURE"
+  ],
+  [
+   2075,
+   "## YOUR TASK"
+  ],
+  [
+   2106,
+   "## Context"
+  ],
+  [
+   2115,
+   "## Your Task"
+  ],
+  [
+   2117,
+   "### 1. Understand the Search Request"
+  ],
+  [
+   2122,
+   "### 2. Evaluate Search Results"
+  ],
+  [
+   2127,
+   "### 3. Respond with the Identify Action"
+  ],
+  [
+   2145,
+   "## Task"
+  ],
+  [
+   2158,
+   "## Evaluation Criteria"
+  ],
+  [
+   2175,
+   "## Reward Scale"
+  ],
+  [
+   2185,
+   "## Feedback Structure"
+  ],
+  [
+   2194,
+   "## Available Actions"
+  ],
+  [
+   2196,
+   "### FindClass"
+  ],
+  [
+   2204,
+   "### FindFunction"
+  ],
+  [
+   2212,
+   "### FindCodeSnippet"
+  ],
+  [
+   2222,
+   "### SemanticSearch"
+  ],
+  [
+   2232,
+   "### ViewCode"
+  ],
+  [
+   2235,
+   "### Finish"
+  ],
+  [
+   2327,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "### 6.3 Threats to Validity\n\n#### 6.3.1 Internal Validity\n\nA primary threat to internal validity is data contamination: LLMs may have\nseen benchmark repositories or similar code during pre-training, achieving\nhigh performance through memorization rather than genuine reasoning. We\nmitigate this in three ways. First, we evaluate both open-weight and\nproprietary models, reducing the chance that all models memorized the same\nrepositories (Section 4.2). Second, we include a\nretrieval-free baseline that reflects each model’s unaided knowledge,\nisolating gains from our exploration and reasoning mechanisms rather than\nlatent knowledge (Section 4.2). Third, our dataset\ndraws on diverse, relatively less popular repositories, lowering the risk of\noverlap with pre-training corpora (Section 4.3).\n\n#### 6.3.2 External Validity\n\nFirst, in terms of model generalization, we evaluate four representative large models, covering both open-source and closed-source models, indicating that our findings are not limited to a single model type (Section 4.2). Second to mitigate potential bias in evaluation, we employ three different models as judges, compute the average score, and verify the correlation among them, ensuring that the scoring is robust and reliable (Section 6.1). Third, to test language generalization beyond Python, we evaluate DeepRepoQA on a Java subset (30 QA pairs over Strata, Fineract, and\nShiro). It ranks first among open-source methods and trails only the\ncommercial Cursor system, mirroring the Python ranking; full results are\nreported in Appendix D.\n\n## 7 Conclusion\n\nIn this paper, we introduced DeepRepoQA, a novel agent-based framework that reformulates repository-level code question answering as a planning problem solved with Monte-Carlo Tree Search. Comprehensive evaluations demonstrate that DeepRepoQA achieves consistent 4-7% improvements over SOTA agent baselines across multiple LLMs, with gains concentrated on Correctness, Completeness and Reasoning dimensions critical for multi-hop repository understanding. Ablation studies identify MCTS as the primary performance driver, while the design of Perception, Evaluation, and other agents also contributes to stability and efficiency. Our work shows the effectiveness of systematic tree\nsearch for repository-level reasoning with solid efficiency and provides a foundation for building more capable software engineering assistants.\n\n## Data-Availability Statement\n\nOur code and data are available at https://doi.org/10.5281/zenodo.21063159.\n\n## References\n\nAndryushchenko et al. (2024)\nG. Andryushchenko, V. Ivanov, V. Makharev, E. Tukhtina, and A. Valeev\n\nLeveraging large language models in code question answering: baselines and issues.\n\nIn NLP (CCIS),",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 5,
+  "p_value_or_ci": 7,
+  "seeds_or_runs": 0,
+  "swe_bench": 4,
+  "contamination": 4,
+  "human_study": 0,
+  "java": 4,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

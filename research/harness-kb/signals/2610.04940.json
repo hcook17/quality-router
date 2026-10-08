@@ -1,0 +1,461 @@
+{
+ "arxiv_id": "2610.04940",
+ "fulltext_chars": 91728,
+ "fulltext_lines": 2826,
+ "authors_block": "Tongli Su Affiliation: Emory University Yuntong Hu Affiliation: Emory University Liang Zhao Affiliation: Emory University Affiliation: CausalDynamics.com Bowen Zhu JayaSai Somasundaram Hasibul Haque Affiliation: CausalDynamics.com",
+ "vendor_affiliation_hits": [],
+ "n_authors": 6,
+ "comment": "29 pages, 9 figures, 13 tables",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Software World Models: From Consequence Prediction to Decision Value"
+  ],
+  [
+   40,
+   "###### Abstract"
+  ],
+  [
+   69,
+   "## 1 Introduction"
+  ],
+  [
+   160,
+   "## 2 Problem Formulation"
+  ],
+  [
+   162,
+   "### 2.1 The software world"
+  ],
+  [
+   175,
+   "### 2.2 Agent, actions and observations"
+  ],
+  [
+   196,
+   "### 2.3 Software world modeling"
+  ],
+  [
+   249,
+   "## 3 Explore, Learn, Act: The SWM Framework"
+  ],
+  [
+   316,
+   "### 3.1 Explore: branch from restored states where reachability fails"
+  ],
+  [
+   330,
+   "#### Counterfactual branching."
+  ],
+  [
+   356,
+   "#### Blind-spot acquisition."
+  ],
+  [
+   378,
+   "### 3.2 Learn: fine-tune a language model on executed consequences"
+  ],
+  [
+   380,
+   "#### Consequence predictor."
+  ],
+  [
+   394,
+   "#### Text input."
+  ],
+  [
+   415,
+   "#### Training on executed outcomes."
+  ],
+  [
+   435,
+   "#### Graph-conditioned variant."
+  ],
+  [
+   458,
+   "### 3.3 Act: consult the predictor before a change lands"
+  ],
+  [
+   466,
+   "#### Break probabilities."
+  ],
+  [
+   480,
+   "#### Ranking."
+  ],
+  [
+   492,
+   "#### Preventive migrations and paid checks."
+  ],
+  [
+   498,
+   "###### Proposition 1 (One-step decision rules under the belief)."
+  ],
+  [
+   520,
+   "## 4 Experiments"
+  ],
+  [
+   522,
+   "### 4.1 Experimental Setup"
+  ],
+  [
+   524,
+   "#### Models and comparisons."
+  ],
+  [
+   536,
+   "#### Matched synthetic evaluation."
+  ],
+  [
+   547,
+   "#### Metrics and uncertainty."
+  ],
+  [
+   562,
+   "### 4.2 Main Results: Does Learning a Software World Improve the Agent?"
+  ],
+  [
+   564,
+   "#### Exploration determines the experience available for learning."
+  ],
+  [
+   637,
+   "#### Learning executed consequences improves the same coding agent."
+  ],
+  [
+   644,
+   "#### The trained agent anticipates more failures before acting."
+  ],
+  [
+   652,
+   "#### The same performance pattern holds on real libraries."
+  ],
+  [
+   660,
+   "### 4.3 Ablation: What Makes Software-World Learning Work?"
+  ],
+  [
+   696,
+   "#### Targeted exploration helps most at the smaller tested budgets."
+  ],
+  [
+   705,
+   "#### Several exploration policies supply useful training data."
+  ],
+  [
+   713,
+   "#### Richer state helps only when relevant information remains accessible."
+  ],
+  [
+   721,
+   "### 4.4 Analysis: What Do We Learn About Software World Modeling?"
+  ],
+  [
+   723,
+   "#### Structure and learned experience resolve complementary uncertainty."
+  ],
+  [
+   731,
+   "#### Prediction accuracy alone does not determine decision value."
+  ],
+  [
+   740,
+   "#### The value of prediction depends on the alternatives to execution."
+  ],
+  [
+   749,
+   "## 5 Related Work"
+  ],
+  [
+   751,
+   "#### Agent World Models."
+  ],
+  [
+   763,
+   "#### Software Change Modeling."
+  ],
+  [
+   775,
+   "## 6 Conclusion"
+  ],
+  [
+   792,
+   "## AI Use Statement"
+  ],
+  [
+   802,
+   "## Ethics Statement"
+  ],
+  [
+   815,
+   "## Reproducibility Statement"
+  ],
+  [
+   827,
+   "## References"
+  ],
+  [
+   1218,
+   "## Appendix A Complete Evidence for Main Results"
+  ],
+  [
+   1301,
+   "### A.1 Exploration and consequence learning"
+  ],
+  [
+   1303,
+   "#### Acquisition protocol."
+  ],
+  [
+   1331,
+   "#### Companion prediction study."
+  ],
+  [
+   1344,
+   "### A.2 Matched agent improvement"
+  ],
+  [
+   1555,
+   "### A.3 Anticipation and post-change failures"
+  ],
+  [
+   1566,
+   "### A.4 Real-library results"
+  ],
+  [
+   1692,
+   "#### Exploration yields and probability quality."
+  ],
+  [
+   1703,
+   "## Appendix B Complete Ablations"
+  ],
+  [
+   1705,
+   "### B.1 Exploration policy and execution budget"
+  ],
+  [
+   1795,
+   "### B.2 State information and input budget"
+  ],
+  [
+   1805,
+   "#### Coverage and input budget."
+  ],
+  [
+   1814,
+   "### B.3 Training recipe and representation"
+  ],
+  [
+   1874,
+   "#### Three-seed consequence learning."
+  ],
+  [
+   1883,
+   "## Appendix C Analysis and Failure Modes"
+  ],
+  [
+   1885,
+   "### C.1 Direct and hidden propagation"
+  ],
+  [
+   1899,
+   "### C.2 Forecast errors and decision value"
+  ],
+  [
+   1920,
+   "### C.3 Execution costs and explicit-belief decisions"
+  ],
+  [
+   1922,
+   "#### Use consequence probabilities to choose preventive actions."
+  ],
+  [
+   1929,
+   "#### Measured consequences support better plans than reachability."
+  ],
+  [
+   1947,
+   "#### Evaluation protocol."
+  ],
+  [
+   1962,
+   "### C.4 Structural limits of consequence prediction"
+  ],
+  [
+   1979,
+   "###### Remark 1 (Structural predictors carry irreducible error)."
+  ],
+  [
+   2011,
+   "## Appendix D Worlds, Protocol, and Reproducibility"
+  ],
+  [
+   2020,
+   "### D.1 Software worlds"
+  ],
+  [
+   2078,
+   "### D.2 World construction and evolution"
+  ],
+  [
+   2097,
+   "### D.3 System-Surface Graph schema"
+  ],
+  [
+   2267,
+   "### D.4 Corpus generation"
+  ],
+  [
+   2269,
+   "#### Systems."
+  ],
+  [
+   2283,
+   "#### Extractor model."
+  ],
+  [
+   2296,
+   "#### Propagation."
+  ],
+  [
+   2310,
+   "#### Rollouts."
+  ],
+  [
+   2319,
+   "### D.5 Real-world corpora"
+  ],
+  [
+   2321,
+   "#### Sources and construction."
+  ],
+  [
+   2328,
+   "#### Real-library corpus and exploration."
+  ],
+  [
+   2342,
+   "#### Relation to the synthetic population."
+  ],
+  [
+   2352,
+   "### D.6 Comparison methods"
+  ],
+  [
+   2430,
+   "### D.7 Evaluation protocol and pre-registration"
+  ],
+  [
+   2432,
+   "#### Exploration yields."
+  ],
+  [
+   2441,
+   "#### Blast-set F1."
+  ],
+  [
+   2454,
+   "#### Decision accounting."
+  ],
+  [
+   2465,
+   "#### Ranking."
+  ],
+  [
+   2474,
+   "#### Agent exploration."
+  ],
+  [
+   2484,
+   "#### Training from acquired experience."
+  ],
+  [
+   2493,
+   "#### Companion decision protocols."
+  ],
+  [
+   2505,
+   "#### Prediction-noise diagnostic."
+  ],
+  [
+   2522,
+   "### D.8 Matched agent accounting and training protocol"
+  ],
+  [
+   2524,
+   "#### Evidence source and accounting."
+  ],
+  [
+   2542,
+   "#### Training and acting protocol."
+  ],
+  [
+   2550,
+   "### D.9 Implementation scope"
+  ],
+  [
+   2552,
+   "#### Training worlds reset; deployment does not."
+  ],
+  [
+   2568,
+   "### D.10 Training configuration and hyperparameters"
+  ],
+  [
+   2697,
+   "#### Node features."
+  ],
+  [
+   2706,
+   "#### R-GCN update rule."
+  ],
+  [
+   2724,
+   "#### Affected-node head."
+  ],
+  [
+   2736,
+   "#### Graph-token scaling."
+  ],
+  [
+   2744,
+   "### D.11 Prompt and output format"
+  ],
+  [
+   2760,
+   "### D.12 Prediction horizon"
+  ],
+  [
+   2767,
+   "### D.13 Factorization and the SC-GRPO update rule"
+  ],
+  [
+   2826,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "",
+ "ethics_coi": "## Ethics Statement\n\nThis work studies coding agents that predict the downstream consequences of\nsoftware changes. Our experiments use procedurally generated systems and\npermissively licensed open-source software; they involve no human subjects,\npersonal data, or user-generated content. The proposed techniques may help\nidentify cross-component failures before software changes are deployed, but\nsimilar capabilities could also reveal structural weaknesses in software\nsystems. Our experiments are restricted to systems and environments under the\nexperimenter’s control. We encourage deployment only with appropriate\nauthorization, access controls, and human oversight for consequential software\nchanges.\n\n## Reproducibility Statement\n\nTraining and evaluation\nworlds are disjoint, corpus generation is seeded, and each reported training\ncondition retains its data split, configuration, random seeds, and model\ncheckpoint. Executed transitions—rather than model-generated judgments—serve\nas supervision for downstream consequences. For the main agent experiments, we\nretain per-task outputs and report results across training seeds with\nworld-clustered uncertainty estimates. The appendices document the software\nworlds and graph schema, exploration and evaluation protocols, model training\ndetails, decision accounting, and complete experimental results.",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 8,
+  "seeds_or_runs": 19,
+  "swe_bench": 1,
+  "contamination": 1,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

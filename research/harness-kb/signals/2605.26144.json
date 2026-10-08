@@ -1,0 +1,273 @@
+{
+ "arxiv_id": "2605.26144",
+ "fulltext_chars": 57527,
+ "fulltext_lines": 1295,
+ "authors_block": "JunJia Guo Affiliation: University of Arizona Email: junjiaguo@arizona.edu Yuhang Yao Affiliation: Zoom Email: yuhangyao8@gmail.com Jiawei (Joe) Zhou Affiliation: Stony Brook University Email: jiawei.zhou.1@stonybrook.edu Jingdi Chen Affiliation: University of Arizona Email: jingdic@arizona.edu",
+ "vendor_affiliation_hits": [],
+ "n_authors": 5,
+ "comment": "Project page: https://kaboider.github.io/VIS_APP/",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   22,
+   "# VISTA: An End-to-End Benchmark for Visual Spec-to-Web-App Coding Agents"
+  ],
+  [
+   48,
+   "###### Abstract"
+  ],
+  [
+   60,
+   "## 1 Introduction"
+  ],
+  [
+   70,
+   "## 2 Related Work"
+  ],
+  [
+   72,
+   "##### Coding agents."
+  ],
+  [
+   76,
+   "##### Web, UI, and design-to-code benchmarks."
+  ],
+  [
+   80,
+   "## 3 Benchmark Construction"
+  ],
+  [
+   82,
+   "### 3.1 Task definition"
+  ],
+  [
+   130,
+   "### 3.2 Dataset collection"
+  ],
+  [
+   198,
+   "#### 3.2.1 Human annotation"
+  ],
+  [
+   204,
+   "#### 3.2.2 Template collection"
+  ],
+  [
+   210,
+   "### 3.3 Evaluation"
+  ],
+  [
+   212,
+   "#### 3.3.1 Reference-grounded structure and functionality"
+  ],
+  [
+   234,
+   "#### 3.3.2 Visual fidelity"
+  ],
+  [
+   238,
+   "#### 3.3.3 Agent trajectory and efficiency"
+  ],
+  [
+   246,
+   "## 4 Main Results"
+  ],
+  [
+   248,
+   "##### Setup."
+  ],
+  [
+   324,
+   "##### Three orthogonal factors shape per-condition quality."
+  ],
+  [
+   328,
+   "##### Visual fidelity and functional correctness diverge across agents."
+  ],
+  [
+   332,
+   "## 5 Agent Workflow Analysis"
+  ],
+  [
+   368,
+   "### 5.1 Surgical diff score"
+  ],
+  [
+   377,
+   "##### Editing style and task success are inversely ordered across models."
+  ],
+  [
+   442,
+   "##### Richer structural input licenses larger generative edits, but does not always help quality."
+  ],
+  [
+   508,
+   "## 6 Limitations"
+  ],
+  [
+   510,
+   "##### Coverage."
+  ],
+  [
+   523,
+   "##### Evaluation assumptions."
+  ],
+  [
+   539,
+   "##### Harness-coupled metrics and contamination."
+  ],
+  [
+   552,
+   "## References"
+  ],
+  [
+   750,
+   "## Appendix A Annotation Interface and Process"
+  ],
+  [
+   766,
+   "## Appendix B Evaluator Implementation Details"
+  ],
+  [
+   771,
+   "##### Inputs."
+  ],
+  [
+   779,
+   "##### Page-to-URL mapping."
+  ],
+  [
+   790,
+   "##### Coordinate alignment."
+  ],
+  [
+   808,
+   "##### DOM candidate extraction."
+  ],
+  [
+   816,
+   "##### Localization scoring."
+  ],
+  [
+   854,
+   "##### Behavior scoring."
+  ],
+  [
+   865,
+   "##### Aggregation."
+  ],
+  [
+   873,
+   "##### Reports."
+  ],
+  [
+   880,
+   "## Appendix C Workflow Trajectory Analysis"
+  ],
+  [
+   886,
+   "##### Action mix over progress."
+  ],
+  [
+   901,
+   "##### Action transitions."
+  ],
+  [
+   913,
+   "##### Additional patterns beyond the main text."
+  ],
+  [
+   926,
+   "##### Limitations of this view."
+  ],
+  [
+   935,
+   "## Appendix D Explicit Todo-List Mechanisms in Agent Workflows"
+  ],
+  [
+   946,
+   "##### Claude Code TodoWrite."
+  ],
+  [
+   986,
+   "##### GPT/Codex planning."
+  ],
+  [
+   1002,
+   "##### Relationship to leaderboard performance."
+  ],
+  [
+   1085,
+   "## Appendix E Workload-Weighted Action Raster"
+  ],
+  [
+   1094,
+   "##### Reading the figure: axes and row order."
+  ],
+  [
+   1110,
+   "##### Action colors."
+  ],
+  [
+   1128,
+   "##### Workload-weighted write blocks."
+  ],
+  [
+   1154,
+   "## Appendix F Per-Pick Breakdown of C_{1}"
+  ],
+  [
+   1192,
+   "## Appendix G Surgical Diff Score Details"
+  ],
+  [
+   1197,
+   "##### Action classification."
+  ],
+  [
+   1221,
+   "##### Run-level components."
+  ],
+  [
+   1246,
+   "##### Surgical and Strict Diff Scores."
+  ],
+  [
+   1267,
+   "##### Edit locality categories."
+  ],
+  [
+   1276,
+   "##### Correlation with task quality."
+  ],
+  [
+   1287,
+   "##### Normalization across harnesses."
+  ],
+  [
+   1295,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 6 Limitations\n\n##### Coverage.\n\nVISTA covers ten application categories, 128 pages,\n 3{,}253 interactive annotations, and four agent systems drawn from two\nharnesses. These categories span common web patterns but do not exhaustively\ncover the long tail of real-world applications (e.g., heavy native-platform\nintegration, real-time multiparty state, complex authentication). The three\ntech stacks evaluated under C_{1} and the single stack reused in C_{3} are\nalso proposed by an LLM rather than a human panel, which biases the benchmark\ntoward stacks that LLMs find plausible; absolute scores under C_{1} / C_{3} \nshould be read against this proposal pipeline rather than as evidence about\nspecific frameworks.\n\n##### Evaluation assumptions.\n\nThe DOM-grounded evaluator relies on a\nper-axis affine alignment, IoU and center-distance tiers, and\ninteraction-specific behavior probes (Appendix B);\npages with strongly non-affine layout shifts, scroll-bound behavior, or\nnon-standard custom controls can receive partial fallback credit, so we\ntreat S as a robust ranking signal rather than an absolute measure of\ncorrectness. CLIP captures high-level visual resemblance but does not verify\nexact spacing, typography, color tokens, or accessibility properties; a high\nCLIP score does not imply pixel- or design-system-faithful output. The\ntrajectory analysis (Appendix C) collapses\ntool calls into five categories for cross-harness comparability and\ntherefore loses finer distinctions, especially within the other\ncategory.\n\n##### Harness-coupled metrics and contamination.\n\nThe Surgical Diff\nScore is computed from harness-level file-mutation events. Because Codex\nfollows a patch-oriented workflow while the Claude Code harness exposes\nWrite, Edit, and MultiEdit tools, the score is an\nagent-system-level property rather than a claim about model-internal\npreferences; the same model paired with a different harness could obtain a\nmeaningfully different score. Although we do not crawl public HTML/CSS and",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 2,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 0,
+  "swe_bench": 3,
+  "contamination": 2,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

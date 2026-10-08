@@ -1,0 +1,173 @@
+{
+ "arxiv_id": "2606.29437",
+ "fulltext_chars": 36810,
+ "fulltext_lines": 802,
+ "authors_block": "Mohammed Bousmah Affiliation: LTI Laboratory, National School of Applied Sciences Chouaib Doukkali University El Jadida, Morocco Email: bousmah.m@ucd.ac.ma",
+ "vendor_affiliation_hits": [],
+ "n_authors": 1,
+ "comment": "Preliminary exploratory study; 19 anonymized student audit reports; includes prototype screenshots",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# LLMography: Transforming Human–AI Conversations into Traceability, Oversight, and Auditability Indicators"
+  ],
+  [
+   32,
+   "###### Abstract"
+  ],
+  [
+   44,
+   "## 1 Introduction"
+  ],
+  [
+   96,
+   "## 2 Conceptual Positioning: From Bibliography and Webography to LLMography"
+  ],
+  [
+   110,
+   "## 3 Related Work"
+  ],
+  [
+   114,
+   "### 3.1 Provenance and Traceability"
+  ],
+  [
+   120,
+   "### 3.2 Human–AI Interaction"
+  ],
+  [
+   126,
+   "### 3.3 Generative AI in Higher Education"
+  ],
+  [
+   132,
+   "### 3.4 Academic Integrity and AI Detection"
+  ],
+  [
+   138,
+   "## 4 The LLMography Framework"
+  ],
+  [
+   144,
+   "### 4.1 Core Principle"
+  ],
+  [
+   148,
+   "### 4.2 LLMography Labels"
+  ],
+  [
+   172,
+   "### 4.3 KPI Categories and Scoring"
+  ],
+  [
+   176,
+   "## 5 Methodology"
+  ],
+  [
+   178,
+   "### 5.1 Prototype System"
+  ],
+  [
+   192,
+   "### 5.2 Study Context"
+  ],
+  [
+   200,
+   "### 5.3 Dataset"
+  ],
+  [
+   204,
+   "### 5.4 Consent and Anonymization"
+  ],
+  [
+   212,
+   "### 5.5 KPI Extraction"
+  ],
+  [
+   216,
+   "## 6 Results and Discussion"
+  ],
+  [
+   218,
+   "### 6.1 Aggregate Conversation Statistics"
+  ],
+  [
+   245,
+   "### 6.2 Aggregate KPI Scores"
+  ],
+  [
+   270,
+   "### 6.3 Distribution of LLMography Labels"
+  ],
+  [
+   304,
+   "### 6.4 AI Dependency Levels and Privacy Risk"
+  ],
+  [
+   310,
+   "### 6.5 Qualitative Findings"
+  ],
+  [
+   320,
+   "### 6.6 Discussion"
+  ],
+  [
+   328,
+   "### 6.7 Threats to Validity"
+  ],
+  [
+   334,
+   "### 6.8 Ethical Considerations"
+  ],
+  [
+   342,
+   "## 7 Application of LLMography to the Writing of This Paper"
+  ],
+  [
+   394,
+   "## 8 Conclusion and Future Work"
+  ],
+  [
+   408,
+   "## Acknowledgments"
+  ],
+  [
+   414,
+   "## Declaration of AI-Assisted Writing and Human Intellectual Contribution"
+  ],
+  [
+   428,
+   "## Appendix A Preliminary KPI Summary"
+  ],
+  [
+   657,
+   "## References"
+  ],
+  [
+   802,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgments\n\nThe author would like to thank Doha Bousmah, a Computer Science student at Illinois Institute of Technology (IIT), for her careful reading of the manuscript and for providing valuable feedback on the clarity, positioning, and presentation of the LLMography concept, as well as on the discussion of Human–AI interaction in academic work.\n\nThe author also gratefully acknowledges the 19 engineering students who voluntarily participated in the preliminary LLMography experiment during their final-year project phase. Their participation and consent made it possible to conduct the initial exploratory analysis presented in this paper.\n\n## Declaration of AI-Assisted Writing and Human Intellectual Contribution\n\nThe author used ChatGPT as a writing and research-assistance tool during the preparation of this manuscript. The tool was used to help structure the article, reformulate sections, generate LaTeX drafts, prepare figures, and improve clarity. However, the intellectual origin and strategic direction of the work remain entirely human-led.\n\nThe human author initiated and defined the core concept of LLMography. The author chose the term LLMography, established its analogy with bibliography and webography, formulated the central slogan — “In the AI age, outputs are not enough. We need the history of interaction.” — and defined the general research direction, pedagogical motivation, experimental context, KPI-based approach, and audit methodology.\n\nThe author also designed the initial experimental setting, collected and provided the student audit reports, interpreted the educational relevance of the results, selected the arXiv orientation, and retained full responsibility for the scientific claims, methodological choices, ethical framing, and final manuscript.\n\nThe AI assistant contributed to the execution and acceleration of the work by supporting structuring, reformulation, drafting, LaTeX preparation, figure generation, code generation, and methodological refinement. These contributions were assistive and instrumental; they did not originate the concept, choose the name, define the slogan, determine the research agenda, or assume responsibility for the work.\n\nAll AI-assisted text was reviewed, edited, and validated by the author. The AI tool is not listed as an author because it cannot take responsibility for the content, approve the final manuscript, guarantee the integrity of the research, or be accountable for the work.\n\nConsistent with the LLM",
+ "limitations": "### 6.7 Threats to Validity\n\nThe current evaluation is based on 19 available audit reports. This is a small exploratory sample and should not be generalized without further studies. The conversations were submitted by students who agreed to participate, which may introduce selection bias. The analysis also relies on available conversation traces; external tools, deleted messages, unshared prompts, or offline edits may not be visible.\n\nSome KPI scores are estimated from qualitative evidence in the conversation. Future work should improve score calibration, inter-rater validation, and reproducibility of KPI computation. The present study does not compare LLMography scores against an independent human-coded ground truth. Future studies should involve multiple reviewers and compare automated KPI extraction with expert annotations.\n\n### 6.8 Ethical Considerations\n\nLLMography must be designed and used carefully. Conversation histories may contain sensitive information, private reasoning, project details, or personal data. Therefore, ethical use requires informed consent, anonymization, data minimization, clear purpose limitation, secure storage, right to withdraw before final anonymization, and non-punitive use in educational contexts.\n\nThe purpose of this study is not to accuse students of improper AI use. It is to better understand Human–AI collaboration in real academic and technical workflows.\n\nIn future versions, LLMography should include privacy-by-design mechanisms such as automatic redaction, local-first analysis, hashed evidence, selective disclosure, access-controlled reports, and separate public and private audit modes.\n\n## 7 Application of LLMography to the Writing of This Paper\n\nIn addition to the student audit reports, the preparation of this manuscript itself provides a real-world application of the LLMography approach. The author used a Human–AI conversation with ChatGPT to progressively develop the concept, structure the framework, refine the terminology, generate early drafts, organize the KPI model, prepare the LaTeX manuscript, and discuss ethical and publication-related issues.\n\nThis interaction was not treated as hidden assistance, but as a traceable Human–AI collaboration. The conversation history shows that the human author initiated the concept of LLMography, chose the term LLMography, formulated the central slogan — “In the AI age, outputs are not enough. We need the history of interaction.” — defined the analogy with bibliography and webography, provided the educational and experimental context, selected the research direction, supplied the student audit reports, validated the KPI interpretation, and retained final responsibility for the manuscript.\n\nThe AI assistant contributed by supporting structuring, reformulation, code generation, LaTeX preparation, figure generation, and methodological refinement. These contributions were assistive and instrumental. They did not originate the concept, choose the name, define the slogan, determine the research agenda, design the experimental context, or assume responsibility for the scientific claims.\n\nApplying LLMography to this author–AI conversation led to the qualitative classification shown in Table 5.\n\nTable 5: LLMographic self-application to the writing of this paper.\n\nIndicator\nValue\n\nConversation Type\nResearch ideation, prototype development, academic writing\n\nRecommended Label\nB — AI-assisted, human-directed\n\nPrecise characterization\nHuman-originated, human-directed, AI-assisted\n\nPrompt Quality Score\n88/100",
+ "ethics_coi": "### 6.8 Ethical Considerations\n\nLLMography must be designed and used carefully. Conversation histories may contain sensitive information, private reasoning, project details, or personal data. Therefore, ethical use requires informed consent, anonymization, data minimization, clear purpose limitation, secure storage, right to withdraw before final anonymization, and non-punitive use in educational contexts.\n\nThe purpose of this study is not to accuse students of improper AI use. It is to better understand Human–AI collaboration in real academic and technical workflows.\n\nIn future versions, LLMography should include privacy-by-design mechanisms such as automatic redaction, local-first analysis, hashed evidence, selective disclosure, access-controlled reports, and separate public and private audit modes.\n\n## 7 Application of LLMography to the Writing of This Paper\n\nIn addition to the student audit reports, the preparation of this manuscript itself provides a real-world application of the LLMography approach. The author used a Human–AI conversation with ChatGPT to progressively develop the concept, structure the framework, refine the terminology, generate early drafts, organize the KPI model, prepare the LaTeX manuscript, and discuss ethical and publication-related issues.\n\nThis interaction was not treated as hidden assistance, but as a traceable Human–AI collaboration. The conversation history shows that the human author initiated the concept of LLMography, chose the term LLMography, formulated the central slogan — “In the AI age, outputs are not enough. We need the history of interaction.” — defined the analogy with bibliography and webography, provided the educational and experimental context, selected the research direction, supplied the student audit reports, validated the KPI interpretation, and retained final responsibility for the manuscript.\n\nThe AI assistant contributed by supporting structuring, reformulation, code generation, LaTeX preparation, figure genera",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 1,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

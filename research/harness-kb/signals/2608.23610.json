@@ -1,0 +1,152 @@
+{
+ "arxiv_id": "2608.23610",
+ "fulltext_chars": 74647,
+ "fulltext_lines": 1775,
+ "authors_block": "Accountability Structures in Agentic Software Engineering Rashid Azarang Independent Researcher, San Pedro Garza García, Nuevo León, Mexico rashid@mentu.ai · rashidazarang.com · ORCID 0009-0008-5528-4246 Preprint · 2026-08-21",
+ "vendor_affiliation_hits": [],
+ "n_authors": 1,
+ "comment": "18 pages, 2 figures. Primary-data measurement study: a 47-platform two-pass graded documentation survey and a 30-repository depth measurement; not a literature survey. Replication package: https://github.com/mentu-ai/from-traceability-to-justifiability",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/OpenLineage/OpenLineage",
+  "https://github.com/in-toto/docs"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# From Traceability to Justifiability:"
+  ],
+  [
+   32,
+   "###### Abstract"
+  ],
+  [
+   79,
+   "## 1. Introduction"
+  ],
+  [
+   114,
+   "### 1.1 Three levels, and the standards’ own"
+  ],
+  [
+   183,
+   "### 1.2 Contributions"
+  ],
+  [
+   226,
+   "### 1.3 What would kill this"
+  ],
+  [
+   243,
+   "## 2. What existing frameworks cannot refuse, and"
+  ],
+  [
+   346,
+   "## 3. The specification"
+  ],
+  [
+   384,
+   "### 3.1 The partition that makes the behavioral condition"
+  ],
+  [
+   408,
+   "### 3.2 Nominal versus content-addressed"
+  ],
+  [
+   428,
+   "### 3.3 The default definition, and the"
+  ],
+  [
+   494,
+   "## 4. The instrument, in its public"
+  ],
+  [
+   522,
+   "### 4.1 The public depth study"
+  ],
+  [
+   608,
+   "## 5. The surveys"
+  ],
+  [
+   675,
+   "## 6. Results I: what the default record can"
+  ],
+  [
+   678,
+   "### 6.1 The CI/CD class, 20"
+  ],
+  [
+   798,
+   "### 6.2 The agent and model-serving class, 27"
+  ],
+  [
+   930,
+   "### 6.3 The ladder"
+  ],
+  [
+   953,
+   "## 7. Results II: the measured gap, and why it is"
+  ],
+  [
+   956,
+   "### 7.1 The public depth-gap"
+  ],
+  [
+   1145,
+   "### 7.2 The documentary finding, its corollary, and its"
+  ],
+  [
+   1212,
+   "### 7.3 What this paper has shown, per"
+  ],
+  [
+   1272,
+   "## 8. Threats to validity"
+  ],
+  [
+   1357,
+   "## 9. The registered test, deliberately not reported"
+  ],
+  [
+   1375,
+   "## 10. Conclusion"
+  ],
+  [
+   1398,
+   "## Data and artifact"
+  ],
+  [
+   1414,
+   "## AI usage disclosure"
+  ],
+  [
+   1428,
+   "## References"
+  ],
+  [
+   1775,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 8. Threats to validity\n\nGrader dependence. Documentation grading is judgment. The\nmitigations are structural: a fixed protocol with the label definitions\nprinted, every affirmative grade carrying a verbatim quote and pinned\npage, every absence bounded by named pages, and the entire grading\nrepeated blind with raw agreement reported (17 of 20, 55 of 60, 78 of\n108) and every divergence resolution recorded. The agreement figures are\nraw, over a skewed label space, and no chance-corrected statistic is\nclaimed; the sealed tables are exactly as auditable as their pins.\n\nDocumentation is not behavior. The survey grades what vendors\nstate, and records are known to diverge from practice\n[8,\n22]. The claim is scoped\naccordingly: it is a claim about what an operator can rely on the\nplatform to have recorded, which is what an after-the-fact justification\nhas to read. Where documentation overstates emission the survey errs\ngenerous, which only strengthens the negative cells, and insulates only\nthem. The same generosity inflates affirmative cells, so every\naffirmative count in Section 6, including the load-bearing 16 of 27\nnominal-versioning defaults, is an upper bound for exactly the reason\nthe absences are robust.\n\nThe measured population and the titled population, stated\nprecisely. The title names agentic software engineering, and the\npaper’s claim to it is specific: what is measured is the\naccountability structures that setting runs on: the record\nclasses its platforms emit by default (the 27-platform agent class is\nagentic engineering’s delivery surface, surveyed exhaustively at the\ndocumentation layer) and the realized assurance of release pipelines on\nthe CI/CD substrate agentic projects ship through, a frame that itself\ncontains agentic software (agent frameworks and agentic tools appear in\nthe stars-ranked stratum, so their delivery pipelines are measured at\nthe artifact layer). What is not measured is any pipeline in\nwhich the behavioral tuple is the deployable and an agent operates the\nloop: the agent-class evidence is documentation, not exhaust, and no\nsuch pipeline’s exhaust is graded outside the motivating case. This is\nnot an accident of frame selection but the paper’s own finding folded\nback on its method: the agent class emits no public exhaust surface on",
+ "ethics_coi": "## AI usage disclosure\n\nLarge language models (Anthropic Claude, including Claude Code) were\nused throughout this program as engineering and drafting instruments:\nfor the instrument code, the analysis scripts, the adversarial-audit\ntooling, the survey gradings and their blind repetitions, successive\nrounds of draft review against the record, and the prose of this\nmanuscript, all under written protocols, with every checkable claim\nverified before adoption and the dispositions archived in the program\nrepository. All claims, measurements, frames, and corrections were\nreviewed and are the responsibility of the human author. Every citation\nwas verified against its primary source; the verification record is in\nthe program repository.\n\n## References\n\nEvery entry was verified against its primary source; the per-entry\nverification record is archived in the program repository.\n\n1. \n\nAccountable Agents\nin Software Engineering: An Analysis of Terms of Service and a\nResearch Roadmap (2026). Proceedings of the 3rd ACM\nInternational Conference on AI-powered Software (AIware 2026).",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 1,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 1,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

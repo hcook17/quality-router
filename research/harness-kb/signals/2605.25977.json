@@ -1,0 +1,197 @@
+{
+ "arxiv_id": "2605.25977",
+ "fulltext_chars": 73060,
+ "fulltext_lines": 1773,
+ "authors_block": "Expert Tacit Knowledge Transfer via Chain-of-Thought Fine-Tuning Bo Zou Chao Xu 2026",
+ "vendor_affiliation_hits": [],
+ "n_authors": 2,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   24,
+   "# Creative Quality Alignment:"
+  ],
+  [
+   34,
+   "###### Abstract"
+  ],
+  [
+   87,
+   "## 1 Introduction"
+  ],
+  [
+   89,
+   "### 1.1 The Problem: Structural Limitations of Rubric-Based Creative Evaluation"
+  ],
+  [
+   124,
+   "### 1.2 Research Question and Scope"
+  ],
+  [
+   177,
+   "### 1.3 Three Types of Tacit Knowledge"
+  ],
+  [
+   221,
+   "### 1.4 Academic Precedents for Three-Dimensional Convergence"
+  ],
+  [
+   262,
+   "### 1.5 Contributions"
+  ],
+  [
+   310,
+   "## 2 Background and Related Work"
+  ],
+  [
+   312,
+   "### 2.1 Key Elements of the Calibrated Surprise Framework"
+  ],
+  [
+   371,
+   "### 2.2 Systematic Limitations of Existing Alignment Data"
+  ],
+  [
+   408,
+   "### 2.3 Additional Limitations of Rubric-Based Evaluation"
+  ],
+  [
+   435,
+   "### 2.4 Epistemological Parallel to the Jelinek Paradigm Shift"
+  ],
+  [
+   455,
+   "## 3 Method: The CQA Pipeline"
+  ],
+  [
+   468,
+   "### 3.1 Data Source: BC Protocol Dialogues"
+  ],
+  [
+   541,
+   "### 3.2 Data Quality"
+  ],
+  [
+   573,
+   "### 3.3 The Lossy Compression Perspective"
+  ],
+  [
+   616,
+   "#### 3.3.1 A Logprob-Based Training Efficiency Strategy"
+  ],
+  [
+   663,
+   "### 3.4 Fine-Tuning Setup"
+  ],
+  [
+   688,
+   "### 3.5 Design Rationale: From Multi-Level Tree Annotation to Natural-Language CoT"
+  ],
+  [
+   754,
+   "## 4 Experiments"
+  ],
+  [
+   756,
+   "### 4.1 Core Verification: Two Metrics — \\Delta(\\Delta I) and \\Delta\\log P"
+  ],
+  [
+   816,
+   "### 4.2 Comparison with Commercial State-of-the-Art"
+  ],
+  [
+   830,
+   "### 4.3 Methodological Stance on Three-Dimension Ablation"
+  ],
+  [
+   863,
+   "### 4.4 Scale Effects"
+  ],
+  [
+   877,
+   "### 4.5 External Hard Validation: Logprob Evaluation on Published Works"
+  ],
+  [
+   1019,
+   "## 5 Results"
+  ],
+  [
+   1021,
+   "### 5.1 Core Results"
+  ],
+  [
+   1195,
+   "### 5.2 Comparison Results"
+  ],
+  [
+   1200,
+   "### 5.3 Status of Ablation Experiments"
+  ],
+  [
+   1209,
+   "### 5.4 Scale Effect Analysis"
+  ],
+  [
+   1220,
+   "## 6 Discussion"
+  ],
+  [
+   1222,
+   "### 6.1 The Conditional Entropy Perspective"
+  ],
+  [
+   1266,
+   "### 6.2 Theoretical Position of the Lossy Compression Perspective"
+  ],
+  [
+   1286,
+   "### 6.3 Position within the Research System"
+  ],
+  [
+   1310,
+   "### 6.4 Applications: Paths from Research to Practice"
+  ],
+  [
+   1368,
+   "### 6.5 Why Learning to “Read” a Work Means Learning to “Write” One: The Duality of a Single P_{\\theta}"
+  ],
+  [
+   1485,
+   "### 6.6 Limitations"
+  ],
+  [
+   1538,
+   "## 7 Conclusion"
+  ],
+  [
+   1580,
+   "## References"
+  ],
+  [
+   1773,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "### 1.1 The Problem: Structural Limitations of Rubric-Based Creative Evaluation\n\nAlignment pipelines deployed at scale give an implicit answer to the\nquestion of how to measure creative judgment: the rubric paradigm. It\ndecomposes creative quality into discrete sub-dimensions, scores each\nindependently, and aggregates via weighted sum. Rubrics-as-Rewards is\none representative industrial implementation. This approach provides a\nquantifiable annotation interface, but it encodes a strong mathematical\nassumption: the evaluation dimensions are conditionally independent.\nUnder this assumption, the joint probability\n P(x|y_{1},y_{2},\\ldots,y_{n}) is approximated by the product of\nmarginals \\prod_{i}P(x|y_{i}) .\n\nIn real creative work, the dimensions are tightly coupled. Character\npsychology shapes causal logic. Causal logic constrains tone. Tone in\nturn defines thematic expression. Any linear weighting\n S=\\sum_{i}w_{i}\\cdot s_{i} systematically omits cross-dimension\ninteraction terms, regardless of how the weights are set. This parallels\na basic fact in statistics: knowing all marginal distributions is not\nenough to recover the joint distribution.\n\nRecent empirical work confirms this independently. Rubric evaluation\nfixes its dimension set at design time, while high-quality creative work\ncan demonstrate value on dimensions the evaluator never anticipated\n[Messick, 1994]. LLM evaluators under rubric decomposition also\nconfuse quality dimensions and cannot reliably distinguish independent\nsub-items [Hu et al., 2024, Howcroft et al., 2020, Kaufman et al., 2008].\n\nThe core problem is clear. In subjective domains like creative judgment,\nquality does not come from sub-item scores after decomposition. It comes\nfrom holistic judgment under full-dimensional constraints. Our own team\nwent through a similar path early in this project—designing a\nmulti-level tree-structured annotation scheme (§3.5) that was an extreme\nversion of the rubric paradigm—and it failed for the same reasons.\n\n### 1.2 Research Question and Scope\n\nCalibrated Surprise [Zou and Xu, 2026c] provides a\nformal definition of literary quality: I(X;Y)=H(X)-H(X|Y) , where\nquality improves as H(X|Y) is reduced under the full-dimensional",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 1,
+  "p_value_or_ci": 20,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 4,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 5
+ },
+ "fulltext_source": "html"
+}

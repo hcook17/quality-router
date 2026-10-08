@@ -1,0 +1,230 @@
+{
+ "arxiv_id": "2610.01769",
+ "fulltext_chars": 46089,
+ "fulltext_lines": 967,
+ "authors_block": "Zheng Fang Affiliation: Peking University Email: fangz@pku.edu.cn Yongmin Li Affiliation: Peking University Email: lige@pku.edu.cn Yichang Zhang Affiliation: Peking University Dongming Jin Affiliation: Peking University Haoyu Wang, Shuai Wang, Zhi Jin, Ge Li ††thanks: Corresponding author: Ge Li (lige@pku.edu.cn). Affiliation: Peking University Affiliation: Wuhan University",
+ "vendor_affiliation_hits": [],
+ "n_authors": 8,
+ "comment": "15 pages. Code: https://github.com/fangz-cs/Contra",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/anthropics/claude-code.",
+  "https://github.com/fangz-cs/Contra."
+ ],
+ "hf_urls": [
+  "https://huggingface.co/Qwen/Qwen3.8-27B."
+ ],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# CONTRA: Discovering and Qualifying Behavior-Changing Questions for Selective Clarification in LLM Code Generation"
+  ],
+  [
+   48,
+   "###### Abstract"
+  ],
+  [
+   56,
+   "## 1 Introduction"
+  ],
+  [
+   91,
+   "## 2 Related Work"
+  ],
+  [
+   93,
+   "#### Requirement clarification and specification refinement."
+  ],
+  [
+   97,
+   "#### Selective clarification."
+  ],
+  [
+   101,
+   "## 3 Methodology"
+  ],
+  [
+   103,
+   "### 3.1 Problem Formulation"
+  ],
+  [
+   113,
+   "### 3.2 Overview"
+  ],
+  [
+   119,
+   "### 3.3 Question Discovery"
+  ],
+  [
+   125,
+   "### 3.4 Question Qualification"
+  ],
+  [
+   131,
+   "#### Relevance and Resolution."
+  ],
+  [
+   135,
+   "#### Behavioral Verification."
+  ],
+  [
+   154,
+   "### 3.5 Adaptive Question Selection"
+  ],
+  [
+   164,
+   "## 4 Experiments"
+  ],
+  [
+   296,
+   "### 4.1 Experimental Setup"
+  ],
+  [
+   298,
+   "#### Benchmark and Evaluation."
+  ],
+  [
+   302,
+   "#### Baselines."
+  ],
+  [
+   306,
+   "#### Evaluation Metrics."
+  ],
+  [
+   310,
+   "#### Models and Implementation."
+  ],
+  [
+   314,
+   "### 4.2 Main Results"
+  ],
+  [
+   372,
+   "### 4.3 Effect of Discovery Rounds"
+  ],
+  [
+   388,
+   "### 4.4 Effect of Question Qualification"
+  ],
+  [
+   406,
+   "### 4.5 Effect of Adaptive Question Selection"
+  ],
+  [
+   420,
+   "### 4.6 Ablation Analysis"
+  ],
+  [
+   476,
+   "## 5 Practical Evaluation and Deployment"
+  ],
+  [
+   478,
+   "### 5.1 Effect on Downstream Code Generation"
+  ],
+  [
+   508,
+   "### 5.2 Comparison with Coding Harnesses"
+  ],
+  [
+   555,
+   "### 5.3 Efficient Clarification and Plugin Deployment"
+  ],
+  [
+   557,
+   "#### On-Demand Question Qualification."
+  ],
+  [
+   569,
+   "#### Efficiency and Clarification Quality."
+  ],
+  [
+   584,
+   "#### Integration with Claude Code."
+  ],
+  [
+   620,
+   "## 6 Conclusion"
+  ],
+  [
+   634,
+   "### AI use statement"
+  ],
+  [
+   638,
+   "### Reproducibility statement"
+  ],
+  [
+   644,
+   "## References"
+  ],
+  [
+   909,
+   "## Appendix A One Request, Five Decisions: An Illustrative Walkthrough"
+  ],
+  [
+   917,
+   "#### A reassuring completion report."
+  ],
+  [
+   921,
+   "#### The choice that surfaces later."
+  ],
+  [
+   925,
+   "#### Five decisions become reviewable."
+  ],
+  [
+   929,
+   "#### From an observation to executable evidence."
+  ],
+  [
+   933,
+   "## Appendix B Plugin Implementation and Evaluation Details"
+  ],
+  [
+   935,
+   "### B.1 Plugin Implementation"
+  ],
+  [
+   943,
+   "### B.2 Repository Evaluation"
+  ],
+  [
+   953,
+   "## Appendix C Plugin Interface and Operational Scope"
+  ],
+  [
+   959,
+   "#### Reading the report."
+  ],
+  [
+   963,
+   "#### Cost and applicability."
+  ],
+  [
+   967,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 4,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 1,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

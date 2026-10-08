@@ -1,0 +1,209 @@
+{
+ "arxiv_id": "2608.20887",
+ "fulltext_chars": 85545,
+ "fulltext_lines": 1382,
+ "authors_block": "Xubin Chen Affiliation: Macquarie University Email: xubin.chen@students.mq.edu.au Yipeng Zhou ††thanks: Corresponding author. Affiliation: Macquarie University Email: yipeng.zhou@mq.edu.au Wen Sun Affiliation: Beijing Intelligent Decision Medical Technology Co. Ltd. Email: sunwen@idmed.cn Chengkai Huang Affiliation: University of New South Wales Email: chengkay.huang@gmail.com Xiaoming Fu Affiliation: University of Göttingen Email: fu@cs.uni-goettingen.de Quan Z. Sheng Affiliation: Beijing Normal-Hong Kong Baptist University Email: michaelsheng@bnbu.edu.cn",
+ "vendor_affiliation_hits": [],
+ "n_authors": 6,
+ "comment": "Accepted at Findings of EMNLP 2026. Camera-ready version",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# KREL: Automatic Medical Coding via Knowledge-Guided Reasoning over Clinical Evidence with LLMs"
+  ],
+  [
+   58,
+   "###### Abstract"
+  ],
+  [
+   62,
+   "## 1 Introduction"
+  ],
+  [
+   89,
+   "## 2 Related Work"
+  ],
+  [
+   91,
+   "### 2.1 Automatic Medical Coding"
+  ],
+  [
+   97,
+   "### 2.2 Knowledge-guided AMC"
+  ],
+  [
+   103,
+   "## 3 KREL Framework"
+  ],
+  [
+   107,
+   "### 3.1 Problem Formulation"
+  ],
+  [
+   119,
+   "### 3.2 Framework Overview"
+  ],
+  [
+   123,
+   "### 3.3 Query Extractor"
+  ],
+  [
+   130,
+   "### 3.4 Knowledge-guided Candidate Selection"
+  ],
+  [
+   134,
+   "#### 3.4.1 ICD Knowledge Graph Construction"
+  ],
+  [
+   142,
+   "#### 3.4.2 Hierarchy-aware Candidate Recall"
+  ],
+  [
+   158,
+   "#### 3.4.3 Reranking"
+  ],
+  [
+   166,
+   "#### 3.4.4 Augmenting Candidate Codes with Rules"
+  ],
+  [
+   178,
+   "### 3.5 Evidence-grounded Code Verification"
+  ],
+  [
+   188,
+   "## 4 Experimental Setup"
+  ],
+  [
+   190,
+   "### 4.1 Datasets"
+  ],
+  [
+   198,
+   "### 4.2 Baselines"
+  ],
+  [
+   355,
+   "### 4.3 Implementation Details"
+  ],
+  [
+   359,
+   "### 4.4 Evaluation Metrics"
+  ],
+  [
+   364,
+   "## 5 Results and Analysis"
+  ],
+  [
+   366,
+   "### 5.1 Main Results"
+  ],
+  [
+   372,
+   "### 5.2 Ablation Study"
+  ],
+  [
+   450,
+   "### 5.3 Retrieval Strategy Analysis"
+  ],
+  [
+   456,
+   "### 5.4 Candidate Set Size Evolution"
+  ],
+  [
+   463,
+   "## 6 Conclusion"
+  ],
+  [
+   467,
+   "## Limitations"
+  ],
+  [
+   478,
+   "## Ethical Considerations"
+  ],
+  [
+   482,
+   "## Acknowledgments"
+  ],
+  [
+   486,
+   "## References"
+  ],
+  [
+   888,
+   "## Appendix"
+  ],
+  [
+   890,
+   "## Appendix A Experimental Environment"
+  ],
+  [
+   909,
+   "## Appendix B Implementation Details"
+  ],
+  [
+   943,
+   "### B.1 Dataset and Evaluation Scope"
+  ],
+  [
+   984,
+   "### B.2 Graph Construction"
+  ],
+  [
+   1016,
+   "### B.3 HBS Algorithm"
+  ],
+  [
+   1018,
+   "## Appendix C Experiment"
+  ],
+  [
+   1020,
+   "### C.1 Detailed Evaluation Metric"
+  ],
+  [
+   1071,
+   "### C.2 Error Analysis"
+  ],
+  [
+   1127,
+   "## Appendix D Evidence Alignment Analysis"
+  ],
+  [
+   1150,
+   "## Generative AI Usage"
+  ],
+  [
+   1157,
+   "## Appendix E Prompt Template"
+  ],
+  [
+   1382,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgments\n\nThis work was partially supported by DAAD23 (Nos. 57692192 and 57702286).\n\n## References\n\nBoyle et al. (2023)\nJ. S. Boyle, A. Kascenas, P. Lok, M. Liakata, and A. Q. O’Neil\n\nAutomated clinical coding using off-the-shelf large language models.\n\narXiv preprint arXiv:2310.06552.\n\nCited by: §3.4.2.\n\nCheng et al. (2023)\nH. Cheng, R. Jafari, A. Russell, R. Klopfer, E. Lu, B. Striner, and M. R. Gormley\n\nMDACE: mimic documents annotated with code evidence.\n\nIn Proceedings of the 61st Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers),\n\npp. 7534–7550.\n\nCited by: §B.1,",
+ "limitations": "## Limitations\n\nCandidate recall.\nKREL verifies codes from retrieved candidates, so missed candidates cannot be recovered by later stages except for explicitly triggered combination-code checks. Maintaining high candidate recall under a fixed verifier budget remains challenging in the full ICD-10-CM label space, especially for rare or highly specific codes.\n\nReliance on LLMs.\nOur framework relies on LLMs for query extraction and verification Ye et al. (2026); Huang et al. (2025); Cong et al. (2026). While this enables flexible evidence-grounded reasoning, it introduces cost, latency, and reproducibility considerations. Clinical deployment may require secure inference environments, locally hosted LLMs, or institution-approved LLM services.\n\nData Scarcity.\nOur evaluation is conducted on public EHR datasets using offline metrics. MDACE, ACI-Bench, and MIMIC-IV provide complementary benchmarks, but they do not capture the full diversity of institutional documentation styles or coding workflows. In addition, evidence annotations are not available for all datasets, limiting systematic evaluation of grounding quality. Future work should extend evaluation to more diverse clinical datasets and incorporate feedback from professional medical coders.\n\n## Ethical Considerations\n\nThis work uses publicly available or credentialed-access clinical datasets for automated medical coding research. MDACE and ACI-Bench are public benchmark datasets, while MIMIC-IV is accessed under PhysioNet credentialing and used within the authorised data-use scope. Since AMC is a high-stakes clinical documentation and billing task, the proposed system should not be used as a replacement for professional medical coders or clinicians. Its outputs are intended to support coding review and should be subject to human validation before any clinical, administrative, or billing use. Deployment in real clinical environments would also require secure inference infrastructure, institution-approved models or services, and safeguards to prevent protected health information from being exposed to unauthorised systems.\n\n## Acknowledgments\n\nThis work was partially supported by DAAD23 (Nos. 57692192 and 57702286).\n\n## References\n\nBoyle et al. (2023)\nJ. S. Boyle, A. Kascenas, P. Lok, M. Liakata, and A. Q. O’Neil\n\nAutomated clinical coding using off-the-shelf large language models.\n\narXiv preprint arXiv:2310.06552.\n\nCited by: §3.4.2.\n\nCheng et al. (2023)\nH. Cheng, R. Jafari, A. Russell, R. Klopfer, E. Lu, B. Striner, and M. R. Gormley\n\nMDACE: mimic documents annotated with code evidence.\n\nIn Proceedings of the 61st Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers),\n\npp. 7534–7550.\n\nCited by: §B.1,",
+ "ethics_coi": "## Ethical Considerations\n\nThis work uses publicly available or credentialed-access clinical datasets for automated medical coding research. MDACE and ACI-Bench are public benchmark datasets, while MIMIC-IV is accessed under PhysioNet credentialing and used within the authorised data-use scope. Since AMC is a high-stakes clinical documentation and billing task, the proposed system should not be used as a replacement for professional medical coders or clinicians. Its outputs are intended to support coding review and should be subject to human validation before any clinical, administrative, or billing use. Deployment in real clinical environments would also require secure inference infrastructure, institution-approved models or services, and safeguards to prevent protected health information from being exposed to unauthorised systems.\n\n## Acknowledgments\n\nThis work was partially supported by DAAD23 (Nos. 57692192 and 57702286).\n\n## References\n\nBoyle et al. (2023)\nJ. S. Boyle, A. Kascenas, P. Lok, M. Liakata, and A. Q. O’Neil\n\nAutomated clinical coding using off-the-shelf large language models.\n\narXiv preprint arXiv:2310.06552.\n\nCited by: §3.4.2.\n\nCheng et al. (2023)\nH. Cheng, R. Jafari, A. Russell, R. Klopfer, E. Lu, B. Striner, and M. R. Gormley\n\nMDACE: mimic documents annotated with code evidence.\n\nIn Proceedings of the 61st Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers),",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 8,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

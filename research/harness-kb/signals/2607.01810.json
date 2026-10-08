@@ -1,0 +1,157 @@
+{
+ "arxiv_id": "2607.01810",
+ "fulltext_chars": 70702,
+ "fulltext_lines": 621,
+ "authors_block": "Weiwei Xu, Xuanning Cui, Hengzhi Ye, Minghui Zhou2 ††thanks: 2Minghui Zhou is the corresponding author. Affiliation: School of Computer Science, Peking University, Beijing, China Key Laboratory of High Confidence Software Technologies, Ministry of Education, China {xuww, hzye}@stu.pku.edu.cn, {cxn, zhmh}@pku.edu.cn",
+ "vendor_affiliation_hits": [],
+ "n_authors": 4,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Decoupling Code Complexity from Newcomer Participation: A Causal Study of AI Coding Agent Adoption in OSS"
+  ],
+  [
+   30,
+   "###### Abstract"
+  ],
+  [
+   36,
+   "###### Index Terms:"
+  ],
+  [
+   39,
+   "## I Introduction"
+  ],
+  [
+   68,
+   "## II Related Work"
+  ],
+  [
+   72,
+   "### II-A Effects of AI coding assistants"
+  ],
+  [
+   78,
+   "### II-B Newcomers and onboarding in open source"
+  ],
+  [
+   84,
+   "### II-C Newcomer retention and project sustainability"
+  ],
+  [
+   92,
+   "### II-D Positioning"
+  ],
+  [
+   96,
+   "## III Research Questions"
+  ],
+  [
+   114,
+   "## IV Data and Study Design"
+  ],
+  [
+   118,
+   "### IV-A Finding projects that adopted an agent"
+  ],
+  [
+   126,
+   "### IV-B Corpus and descriptive statistics"
+  ],
+  [
+   176,
+   "### IV-C Building a comparison group"
+  ],
+  [
+   220,
+   "### IV-D Outcome measures"
+  ],
+  [
+   228,
+   "### IV-E Estimating the effect"
+  ],
+  [
+   240,
+   "### IV-F A necessary identification step"
+  ],
+  [
+   246,
+   "### IV-G Measuring code complexity"
+  ],
+  [
+   254,
+   "### IV-H Data and reproducibility"
+  ],
+  [
+   258,
+   "## V Results"
+  ],
+  [
+   310,
+   "### V-A RQ1: Does adoption narrow the newcomer pipeline?"
+  ],
+  [
+   346,
+   "### V-B RQ2: Code complexity in the field"
+  ],
+  [
+   382,
+   "### V-C RQ3: Does the complexity rise reach newcomers?"
+  ],
+  [
+   392,
+   "### V-D Sensitivity check: the full sample lacks a valid before-period"
+  ],
+  [
+   396,
+   "## VI Discussion"
+  ],
+  [
+   400,
+   "### VI-A A measured decoupling"
+  ],
+  [
+   406,
+   "### VI-B Implications"
+  ],
+  [
+   414,
+   "## VII Threats to Validity"
+  ],
+  [
+   428,
+   "## VIII Conclusion"
+  ],
+  [
+   433,
+   "## References"
+  ],
+  [
+   621,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## VII Threats to Validity\n\nConstruct validity.\nWe measure visible adoption (the first config-file commit), not usage intensity; if many adopters barely use the tool, effects attenuate toward zero, making the null conservative but precluding a precise dose-response. He et al. [1] use the same proxy, so this limitation is shared. To check the null is not an artifact of pooling genuine users with config-only non-users, we split treated projects at the median of a configuration-intensity proxy (commits revising the config file): inflow falls in neither half (light +1.2\\% , n.s.; heavy +11.0\\% , significant; pre-trends not rejected), so the crude dose-response runs opposite to crowding-out, hard to reconcile with a pure config-only artifact though the proxy is indirect. We reduce single-metric risk by measuring both cyclomatic and cognitive complexity. The beginner-task measure is sparse ( \\sim 92 projects), so the +27\\% is label-conditioned. The bot/agent exclusion uses stable numeric IDs; a missed bot only inflates human counts, conservative unless adopters use more uncounted automation than controls.\n\nInternal validity.\nDiD identifies an effect only under parallel pre-trends, which we test on the same panel as each headline estimate: the test does not reject for newcomers ( \\chi^{2}(5)=10.02 , p=0.075 ) or complexity ( p=0.126 ). Because adoption is staggered across calendar time, a confounder able to mimic our result would have to be common to the treated group yet time-locked to each project’s own adoption month; the clean placebo (every adoption moved twelve months early) and the non-rejected pre-trends reveal no such anomaly. We confirm our headline newcomer and complexity estimates across three estimators that fail in different ways [41, 42, 43] and stress-test with unit-specific trends, placebos, and honest-DiD [46]; for the identified sample the last includes zero at every sensitivity level (widening under weak restrictions), whereas the contaminated full-sample -16\\% breaks at \\bar{M}\\approx 0.35 . The residual activity imbalance ( |\\text{SMD}|\\approx 0.19 to 0.29 , treated slightly more active) would inflate newcomer counts, making the null more conservative. We therefore do not claim to have eliminated every confounder; we claim only that any able to overturn the result would have to be collective, time-locked to adoption, and larger than the honest-DiD bound admits.\n\nExternal validity.\nOur results identify effects for established projects with at least six months of pre-adoption history, not for born-with-the-tool projects, a separate population that a before/after design cannot address and that is nearly two-thirds of adopters. This trades external for internal validity: the before-period that lets us test parallel trends also leaves our sample the more mature, slower-growing adopters. We claim only that the full-sample negative is not credible as a causal estimate (its parallel-trends test fails and the decline sits entirely in projects with no valid before-period, Section V-D), not that born-with-the-tool projects are unaffected; that population needs a different design. We detect adoption through two configuration-file signals, so agents used without a committed file are invisible, and the findings need not transfer to closed source. The cognitive metric is Python-only, though the decoupling test runs across all languages on cyclomatic complexity. Our newcomer definition is subject to window-edge truncation, which adds symmetric noise rather than directional bias.\n\nConclusion validity.\nOur claims rest on agreement across estimators, with standard errors clustered at the project level. Clustering does not fully address interference (a SUTVA concern), since the same maintainer can own several repositories, but in the identified sample this overlap is small (56 of 603 repositories across 24 owners): clustering at the owner level leaves the newcomer effect unchanged (Sun–Abraham +4.0\\% , se 0.019 ), and keeping one r",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 1,
+  "p_value_or_ci": 12,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 4,
+  "human_study": 0,
+  "java": 1,
+  "industrial": 1
+ },
+ "fulltext_source": "html"
+}

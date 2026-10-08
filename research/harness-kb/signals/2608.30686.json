@@ -1,0 +1,363 @@
+{
+ "arxiv_id": "2608.30686",
+ "fulltext_chars": 107863,
+ "fulltext_lines": 3300,
+ "authors_block": "Fukang Zhu Affiliation: Zhejiang University Affiliation: State Key Laboratory of Internet Architecture, Tsinghua University Email: fkzhu@zju.edu.cn Binbin Zhao11 1 Corresponding author. Affiliation: Zhejiang University Email: binbinz@zju.edu.cn Ruixiao Lin Affiliation: Zhejiang University Email: linruixiao@zju.edu.cn Ping He Affiliation: Zhejiang University Email: gnip@zju.edu.cn Tianyu Du Affiliation: Zhejiang University Email: zjradty@zju.edu.cn Shouling Ji Affiliation: Zhejiang University Email: sji@zju.edu.cn",
+ "vendor_affiliation_hits": [],
+ "n_authors": 6,
+ "comment": "30 pages,7 figures, Accepted to EMNLP 2026 Main Conference",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/StarConnor/CIPR"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Beyond the Payload: How User Invocation Shapes Coding Agent Vulnerability to Repository Poisoning"
+  ],
+  [
+   63,
+   "###### Abstract"
+  ],
+  [
+   75,
+   "## 1 Introduction"
+  ],
+  [
+   120,
+   "## 2 Threat Model"
+  ],
+  [
+   134,
+   "### 2.1 User Side"
+  ],
+  [
+   140,
+   "### 2.2 Attacker Side"
+  ],
+  [
+   146,
+   "## 3 Benchmark"
+  ],
+  [
+   148,
+   "### 3.1 Overview"
+  ],
+  [
+   153,
+   "### 3.2 Prompt-Level Configurations"
+  ],
+  [
+   155,
+   "#### Repository Collection"
+  ],
+  [
+   170,
+   "#### Task Type."
+  ],
+  [
+   179,
+   "#### Prompt Expression."
+  ],
+  [
+   219,
+   "#### Skills and Rules."
+  ],
+  [
+   243,
+   "### 3.3 Attacker-Side Variables"
+  ],
+  [
+   255,
+   "### 3.4 Evaluation Oracles"
+  ],
+  [
+   261,
+   "#### Attack Success."
+  ],
+  [
+   269,
+   "#### Alert Success."
+  ],
+  [
+   277,
+   "## 4 Experiments"
+  ],
+  [
+   279,
+   "### 4.1 Experiment Setup"
+  ],
+  [
+   296,
+   "### 4.2 Main Results"
+  ],
+  [
+   308,
+   "### 4.3 Agent and Model Comparison"
+  ],
+  [
+   329,
+   "## 5 Case Study"
+  ],
+  [
+   392,
+   "### 5.1 Task Type"
+  ],
+  [
+   417,
+   "### 5.2 Prompt Expression Style"
+  ],
+  [
+   423,
+   "#### Execution depth (TIU)."
+  ],
+  [
+   436,
+   "#### Security salience (TNV)."
+  ],
+  [
+   450,
+   "## 6 Related Work"
+  ],
+  [
+   452,
+   "### 6.1 Coding Agent"
+  ],
+  [
+   456,
+   "### 6.2 Indirect Attacks on Coding Agents"
+  ],
+  [
+   460,
+   "### 6.3 Prompt Sensitivity"
+  ],
+  [
+   466,
+   "## 7 Discussion"
+  ],
+  [
+   482,
+   "## 8 Conclusion"
+  ],
+  [
+   486,
+   "## Limitations"
+  ],
+  [
+   490,
+   "## Ethics Statement"
+  ],
+  [
+   498,
+   "## LLM Usage Considerations"
+  ],
+  [
+   502,
+   "## Acknowledgement"
+  ],
+  [
+   506,
+   "## References"
+  ],
+  [
+   1036,
+   "## Appendix A Ethical Considerations"
+  ],
+  [
+   1038,
+   "### A.1 Risks"
+  ],
+  [
+   1048,
+   "### A.2 Artifact Usage"
+  ],
+  [
+   1060,
+   "## Appendix B Repo Collection and Selection"
+  ],
+  [
+   1066,
+   "### B.1 Repository Collection"
+  ],
+  [
+   1127,
+   "### B.2 Balanced Repository Selection"
+  ],
+  [
+   1286,
+   "### B.3 Repository Licenses"
+  ],
+  [
+   1427,
+   "## Appendix C Tasks"
+  ],
+  [
+   1453,
+   "## Appendix D Prompt Style Collection, Annotation, and Clustering"
+  ],
+  [
+   1457,
+   "### D.1 Implementation Details for Preprocessing and Clustering"
+  ],
+  [
+   1477,
+   "### D.2 Prompt Filtering"
+  ],
+  [
+   1517,
+   "### D.3 LLM-based Style Annotation"
+  ],
+  [
+   1876,
+   "### D.4 Dimension Independence Checks"
+  ],
+  [
+   1892,
+   "### D.5 Prompt Style Construction"
+  ],
+  [
+   2156,
+   "### D.6 Style-conditioned User-instruction Generation"
+  ],
+  [
+   2161,
+   "#### LLM configuration."
+  ],
+  [
+   2169,
+   "#### Task specification."
+  ],
+  [
+   2175,
+   "#### Style conditioning."
+  ],
+  [
+   2184,
+   "#### Generation objective."
+  ],
+  [
+   2194,
+   "#### System prompt."
+  ],
+  [
+   2223,
+   "#### User prompt template."
+  ],
+  [
+   2267,
+   "#### Post-processing and validation."
+  ],
+  [
+   2275,
+   "#### Use in evaluation."
+  ],
+  [
+   2281,
+   "## Appendix E Skills and Rules Collection"
+  ],
+  [
+   2285,
+   "#### Collection procedure."
+  ],
+  [
+   2305,
+   "#### Final pools."
+  ],
+  [
+   2309,
+   "#### Limitations."
+  ],
+  [
+   2313,
+   "## Appendix F Payload Construction and Crafting Methods"
+  ],
+  [
+   2315,
+   "### F.1 Overview"
+  ],
+  [
+   2331,
+   "### F.2 Payload"
+  ],
+  [
+   2357,
+   "### F.3 Direct Crafting Method"
+  ],
+  [
+   2409,
+   "### F.4 Direct-Deep Crafting Method"
+  ],
+  [
+   2453,
+   "#!/usr/bin/env bash"
+  ],
+  [
+   2473,
+   "### F.5 Comparison of Crafting Methods"
+  ],
+  [
+   2503,
+   "### F.6 Rationale for Including Direct-Deep"
+  ],
+  [
+   2511,
+   "### F.7 Implementation Notes"
+  ],
+  [
+   2535,
+   "## Appendix G Experiments Details"
+  ],
+  [
+   2539,
+   "### G.1 Human Validation of the LLM Judge"
+  ],
+  [
+   2545,
+   "### G.2 Statistical Analysis"
+  ],
+  [
+   2588,
+   "### G.3 Functional Metrics and Utility-Security Trade-off"
+  ],
+  [
+   2792,
+   "### G.4 Other Experiments"
+  ],
+  [
+   3265,
+   "## Appendix H Evaluation Metrics"
+  ],
+  [
+   3269,
+   "#### Attack success."
+  ],
+  [
+   3284,
+   "#### Alert success."
+  ],
+  [
+   3300,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgement\n\nThis work was partly supported by New Generation Artificial Intelligence-National Science and Technology Major Project under No. 2025ZD0123503, NSFC under No. U2441239, 62602575 and U24A20336, the China Postdoctoral Science Foundation under No. 2025M781523, the Postdoctoral Fellowship Program of CPSF under No. GZC20260880, Zhejiang Provincial Natural Science Foundation Exploration of China under No. LMS26F020003, the Zhejiang Provincial Natural Science Foundation under No. LD24F020002, the \"Pioneer and Leading Goose\" R&D Program of Zhejiang under No. 2025C02033 and 2025C01082, Zhejiang Key Laboratory of Decision Intelligence under No. 2025E10006, and State Key Laboratory of Cryptography and Digital Economy Security under No. KFYB2504.\n\n## References\n\nAkli et al. (2026)\nA. Akli, M. Papadakis, M. Cordy, and Y. L. Traon\n\nWhen prompt under-specification improves code correctness: an exploratory study of prompt wording and structure effects on llm-based code generation.\n\nCoRR abs/2604.24712.\n\nExternal Links: Link,\nDocument,\n2604.24712\n\nCited by: Table 7,\nTable 7,\nTable 7,\n§6.3.\n\nAnthropic (2026)\nAnthropic",
+ "limitations": "## Limitations\n\nFirst, CIPR focuses on prompt-level configurations rather than the full space of user-side configurations. Factors such as memory, MCP servers, tool permission policies, and IDE integrations may also influence agent security, but they are harder to normalize across agents and are left for future work. Second, our attacker goal is data exfiltration. This goal is measurable and security-critical, but it does not cover other harms such as destructive command execution and persistent compromise. Third, our evaluation uses the Unconstrained Automation Mode in which coding agents are allowed to perform all operations autonomously. While this setting reflects some real-world usage scenarios, other interaction and permission modes, such as human-in-the-loop approval, are not evaluated. We leave a systematic evaluation across different execution and permission modes to future work.\n\n## Ethics Statement\n\nWe consider this work on the safety of coding agents to follow ethical research practices. Through responsible disclosure, we aim to provide the community with meaningful insight into agent safety from the perspective of user-side variation. We hope this work contributes constructively to the coding agent product community by drawing attention to the impact of user-side factors (such as task type and expression style) on agent safety.\n\nAll experiments are conducted automatically within sandboxed environments, and the associated risks are fully simulated: we deploy a mock attacker-controlled server to receive simulated, non-sensitive \"leaked\" information, rather than any real user data. The exfiltration payload used throughout our experiments is a simple, publicly documented command (e.g., curl -X POST …), not a novel or obfuscated attack technique. As such, our experiments pose no risk to real systems, services, or users.\n\nOur benchmark is constructed entirely from publicly available data sources and model APIs, and we strictly adhere to the license terms of all collected repositories, including both code and associated metadata. For content originating from social media platforms, we do not release or redistribute the original screenshots; instead, we cluster and abstract the underlying expression styles into style descriptions, which are the only such artifacts included in our released benchmark.\n\n## LLM Usage Considerations\n\nWe used Claude Sonnet 4.6 (claude-sonnet-4-6) to assist with grammar checking and sentence-level polishing of the manuscript. The model was not involved in generating research ideas, designing experiments, performing analyses, or drafting substantive scientific content. All suggested edits were reviewed and verified by the authors before incorporation. The human authors take full responsibility for all scientific claims, experimental design choices, theoretical derivations, and the final content of this paper.\n\n## Acknowledgement\n\nThis work was partly supported by New Generation Artificial Intelligence-National Science and Technology Major Project under No. 2025ZD0123503, NSFC under No. U2441239, 62602575 and U24A20336, the China Postdoctoral Science Foundation under No. 2025M781523, the Postdoctoral Fellowship Program of CPSF under No. GZC20260880, Zhejiang Provincial Natural Science Foundation Exploration of China under No. LMS26F020003, the Zhejiang Provincial Natural Science Foundation under No. LD24F020002, the \"Pioneer and Leading Goose\" R&D Program of Zhejiang under No. 2025C02033 and 2025C01082, Zhejiang Key Laboratory of Decision Intelligence under No. 2025E10006, and State Key Laboratory of Cryptography and Digital Economy Security under No. KFYB2504.\n\n## References\n\nAkli et al. (2026)\nA. Akli, M. Papadakis, M. Cordy, and Y. L. Traon\n\nWhen prompt under-specification improves code correctness: an exploratory study of prompt wording and structure effects on llm-based code generation.\n\nCoRR abs/2604.24712.\n\nExternal Links: Link,\nDocument,\n2604.24712\n\nCited by: Table 7,\nTable 7,\nTable 7,\n§6.",
+ "ethics_coi": "## Ethics Statement\n\nWe consider this work on the safety of coding agents to follow ethical research practices. Through responsible disclosure, we aim to provide the community with meaningful insight into agent safety from the perspective of user-side variation. We hope this work contributes constructively to the coding agent product community by drawing attention to the impact of user-side factors (such as task type and expression style) on agent safety.\n\nAll experiments are conducted automatically within sandboxed environments, and the associated risks are fully simulated: we deploy a mock attacker-controlled server to receive simulated, non-sensitive \"leaked\" information, rather than any real user data. The exfiltration payload used throughout our experiments is a simple, publicly documented command (e.g., curl -X POST …), not a novel or obfuscated attack technique. As such, our experiments pose no risk to real systems, services, or users.\n\nOur benchmark is constructed entirely from publicly available data sources and model APIs, and we strictly adhere to the license terms of all collected repositories, including both code and associated metadata. For content originating from social media platforms, we do not release or redistribute the original screenshots; instead, we cluster and abstract the underlying expression styles into style descriptions, which are the only such artifacts included in our released benchmark.\n\n## LLM Usage Considerations\n\nWe used Claude Sonnet 4.6 (claude-sonnet-4-6) to assist with grammar checking and sentence-level polishing of the manuscript. The model was not involved in generating research ideas, designing experiments, performing analyses, or drafting substantive scientific content. All suggested edits were reviewed and verified by the authors before incorporation. The human authors take full responsibility for all scientific claims, experimental design choices, theoretical derivations, and the final content of this paper.\n\n## Acknowl",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 23,
+  "seeds_or_runs": 1,
+  "swe_bench": 1,
+  "contamination": 2,
+  "human_study": 1,
+  "java": 15,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

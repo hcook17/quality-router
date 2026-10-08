@@ -1,0 +1,164 @@
+{
+ "arxiv_id": "2609.24620",
+ "fulltext_chars": 40144,
+ "fulltext_lines": 1333,
+ "authors_block": "Angelo Ziletti* Leonardo D’Ambrosi Melanie Tuchardt Tim Kondziella Affiliation: Bayer AG, Germany Email: *angelo.ziletti@bayer.com",
+ "vendor_affiliation_hits": [],
+ "n_authors": 4,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/OHDSI/Atlas.",
+  "https://github.com/bayer-group/ascent-epi-demo",
+  "https://github.com/bayer-group/ascent-epi-demo.",
+  "https://github.com/danny-avila/LibreChat.",
+  "https://github.com/langchain-ai/langgraph.",
+  "https://github.com/strands-agents/harness-sdk."
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Ascent: An Agentic System over the Model Context Protocol for Real-World Clinical Data Analysis"
+  ],
+  [
+   34,
+   "###### Abstract"
+  ],
+  [
+   49,
+   "## 1 Introduction"
+  ],
+  [
+   163,
+   "##### Contributions."
+  ],
+  [
+   187,
+   "## 2 Related Work"
+  ],
+  [
+   189,
+   "##### Clinical conversational agents and MCP-native systems."
+  ],
+  [
+   205,
+   "##### RWD platforms and general-purpose text-to-SQL."
+  ],
+  [
+   220,
+   "##### Ambiguity and reflection."
+  ],
+  [
+   231,
+   "## 3 System Overview"
+  ],
+  [
+   239,
+   "### 3.1 Agent and MCP tool surface"
+  ],
+  [
+   296,
+   "##### Skills."
+  ],
+  [
+   328,
+   "### 3.2 Method services"
+  ],
+  [
+   341,
+   "#### 3.2.1 Native-format query builder"
+  ],
+  [
+   354,
+   "#### 3.2.2 Medical coder"
+  ],
+  [
+   363,
+   "### 3.3 Deployment and persistence"
+  ],
+  [
+   372,
+   "## 4 EpiTrap: An Epidemiological Dataset of Designed-In Reasoning Errors"
+  ],
+  [
+   417,
+   "## 5 Evaluation"
+  ],
+  [
+   422,
+   "### 5.1 Experimental setup"
+  ],
+  [
+   442,
+   "### 5.2 Results"
+  ],
+  [
+   604,
+   "##### Agentic tool use improves accuracy with capable models."
+  ],
+  [
+   612,
+   "##### Reflection adds cost without consistent gains."
+  ],
+  [
+   618,
+   "##### Specialized SQL tooling reduces tool calls without improving accuracy"
+  ],
+  [
+   631,
+   "## 6 Real-World Usage and Lessons Learned"
+  ],
+  [
+   637,
+   "##### Observed workflows."
+  ],
+  [
+   655,
+   "##### Observed analytical failure modes."
+  ],
+  [
+   690,
+   "##### Lessons learned."
+  ],
+  [
+   705,
+   "## 7 Conclusion"
+  ],
+  [
+   716,
+   "## Limitations"
+  ],
+  [
+   724,
+   "## Acknowledgments"
+  ],
+  [
+   729,
+   "## References"
+  ],
+  [
+   1333,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgments\n\nWe thank Amy Mulick, Pareen Vora, Elif Eroglu, and Nasreen Khan for feedback as\nsystem users.\n\n## References\n\nAetion, Inc. (2023)\n\nAetion, Inc. 2023.\n\nAetion evidence platform: Aetion substantiate software for real-world\ndata analysis.\n\nhttps://www.aetion.com.\n\nSoftware; accessed: 2026-08-07.\n\nAnthropic (2024)\n\nAnthropic. 2024.\n\nIntroducing the Model Context Protocol.\n\nhttps://www.anthropic.com/news/model-context-protocol.",
+ "limitations": "## Limitations\n\nThe evaluation uses a single Optum EHR data source and does not cover all\nepidemiological tasks. EpiTrap tests one error per item rather than\nend-to-end correctness. The fixed pipeline is not compute-matched to the agents,\nand grading uses LLMs rather than humans. Usage findings are preliminary and\nqualitative. Ascent does not estimate causal effects.\n\n## Acknowledgments\n\nWe thank Amy Mulick, Pareen Vora, Elif Eroglu, and Nasreen Khan for feedback as\nsystem users.\n\n## References\n\nAetion, Inc. (2023)\n\nAetion, Inc. 2023.\n\nAetion evidence platform: Aetion substantiate software for real-world\ndata analysis.\n\nhttps://www.aetion.com.\n\nSoftware; accessed: 2026-08-07.\n\nAnthropic (2024)\n\nAnthropic. 2024.\n\nIntroducing the Model Context Protocol.\n\nhttps://www.anthropic.com/news/model-context-protocol.\n\nAccessed: 2026-07-27.\n\nAnthropic (2026a)\n\nAnthropic. 2026a.",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 2,
+  "p_value_or_ci": 3,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 2
+ },
+ "fulltext_source": "html"
+}

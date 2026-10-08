@@ -1,0 +1,265 @@
+{
+ "arxiv_id": "2610.06910",
+ "fulltext_chars": 88127,
+ "fulltext_lines": 1121,
+ "authors_block": "Haoyue Yang Affiliation: Institute of Automation, Chinese Academy of Sciences Affiliation: Baidu Inc., Beijing, China Jingyao Li Affiliation: Baidu Inc., Beijing, China Zhengfan Wu Affiliation: Baidu Inc., Beijing, China Jing Liu Affiliation: Baidu Inc., Beijing, China Xuanle Zhao Affiliation: Institute of Automation, Chinese Academy of Sciences Kang Liu Affiliation: Institute of Automation, Chinese Academy of Sciences",
+ "vendor_affiliation_hits": [
+  "Baidu"
+ ],
+ "n_authors": 6,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/Haoyue-Yang/GameGo"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# GAMEGO: Training Game-Dev Agents with Synthetic Trajectories Anchored in Real-World Assets"
+  ],
+  [
+   48,
+   "###### Abstract"
+  ],
+  [
+   52,
+   "## 1 Introduction"
+  ],
+  [
+   72,
+   "## 2 Related Work"
+  ],
+  [
+   74,
+   "### 2.1 GameDev Benchmarks"
+  ],
+  [
+   78,
+   "### 2.2 GameDev Agents"
+  ],
+  [
+   82,
+   "## 3 GameGo: Constructing Game-Development Tasks"
+  ],
+  [
+   86,
+   "### 3.1 Game Seed Collection"
+  ],
+  [
+   101,
+   "### 3.2 From Game Seeds to Executable Specifications"
+  ],
+  [
+   119,
+   "### 3.3 Task-Adaptive Query Construction"
+  ],
+  [
+   125,
+   "## 4 GameGoData and GameGoBench"
+  ],
+  [
+   129,
+   "### 4.1 Trajectory Synthesis"
+  ],
+  [
+   138,
+   "### 4.2 GameGoBench"
+  ],
+  [
+   146,
+   "## 5 Experiments"
+  ],
+  [
+   148,
+   "### 5.1 Implementation Details"
+  ],
+  [
+   152,
+   "### 5.2 Evaluation Settings"
+  ],
+  [
+   280,
+   "### 5.3 Main Results"
+  ],
+  [
+   292,
+   "### 5.4 Ablation Studies"
+  ],
+  [
+   294,
+   "#### 5.4.1 Query Construction Ablations."
+  ],
+  [
+   338,
+   "#### 5.4.2 Model Ablations."
+  ],
+  [
+   370,
+   "## 6 Conclusion"
+  ],
+  [
+   374,
+   "## AI Use Statement"
+  ],
+  [
+   378,
+   "## Ethics Statement"
+  ],
+  [
+   382,
+   "## Reproducibility Statement"
+  ],
+  [
+   386,
+   "## References"
+  ],
+  [
+   621,
+   "## Appendix A Qualitative Game-Generation Showcase"
+  ],
+  [
+   629,
+   "## Appendix B Analytical Formulation"
+  ],
+  [
+   657,
+   "## Appendix C Data Construction Details"
+  ],
+  [
+   659,
+   "### C.1 Game Seed Sources and Screening"
+  ],
+  [
+   665,
+   "### C.2 Gameplay-Level Deduplication"
+  ],
+  [
+   675,
+   "### C.3 Specification Routes and Stage Validation"
+  ],
+  [
+   681,
+   "### C.4 Task-Adaptive Query Construction Policy"
+  ],
+  [
+   687,
+   "### C.5 React trajectory quality checks"
+  ],
+  [
+   697,
+   "### C.6 Corpus accounting"
+  ],
+  [
+   733,
+   "### C.7 GameGoBench Task Selection"
+  ],
+  [
+   737,
+   "## Appendix D Evaluation Design and Collection Cost"
+  ],
+  [
+   745,
+   "## Appendix E Training and Public Evaluation Details"
+  ],
+  [
+   747,
+   "### E.1 Model and Inference Settings"
+  ],
+  [
+   755,
+   "### E.2 Dense-model training configuration"
+  ],
+  [
+   791,
+   "### E.3 MoE training study"
+  ],
+  [
+   797,
+   "### E.4 Loss masking and serialization"
+  ],
+  [
+   801,
+   "### E.5 Public Benchmark Evaluation"
+  ],
+  [
+   805,
+   "### E.6 GameGoBench Verifier Sensitivity"
+  ],
+  [
+   892,
+   "### E.7 GameGoBench Trajectory Analysis"
+  ],
+  [
+   898,
+   "## Appendix F Human Pairwise Evaluation"
+  ],
+  [
+   906,
+   "##### Inter-reviewer agreement."
+  ],
+  [
+   916,
+   "## Appendix G GameGoBench Task-Representation Analysis"
+  ],
+  [
+   918,
+   "### G.1 Task matching and length measurement"
+  ],
+  [
+   924,
+   "### G.2 Clause selection and annotation"
+  ],
+  [
+   932,
+   "### G.3 Compression, coverage, and density"
+  ],
+  [
+   973,
+   "## Appendix H Task-Construction Compilers and Prompt Specifications"
+  ],
+  [
+   977,
+   "### H.1 End-to-end pipeline"
+  ],
+  [
+   1019,
+   "### H.2 Stage 1: seed distillation and routing"
+  ],
+  [
+   1062,
+   "### H.3 Stages 2 and 3: conditional planning and asset grounding"
+  ],
+  [
+   1098,
+   "### H.4 Canonical Compilation and Task-Adaptive Query Construction"
+  ],
+  [
+   1117,
+   "### H.5 Validation and implementation handoff"
+  ],
+  [
+   1121,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "",
+ "ethics_coi": "## Ethics Statement\n\nTo the best of our knowledge, this work does not raise additional ethical concerns beyond those addressed by the ICLR Code of Ethics. The study employs independent expert evaluators to compare generated game artifacts under the protocols described in the paper. The data and resources used in this work were obtained and used in accordance with their applicable licenses and terms of use. We have considered potential risks related to privacy, security, bias, fairness, misuse, and societal impact, and we are not aware of any unresolved issue that would prevent the responsible dissemination of the results. All authors have read and agree to adhere to the ICLR Code of Ethics.\n\n## Reproducibility Statement\n\nTo ensure the reproducibility of this work, comprehensive implementation details, dataset processing protocols, and evaluation environments are provided across the main text and appendices. Complete algorithmic procedures for specification expansion and dynamic constraint compression are detailed in the methodology section. Full details regarding training corpus curation, de-duplication filtering, and quality verification for GameGoData are documented in the dataset appendix. Exact training hyperparameters, prompt templates, model configurations, and interaction budgets are supplied in the training and evaluation appendix.\n\n## References\n\nAbbas et al. (2023)\nA. Abbas, K. Tirumala, D. Simig, S. Ganguli, and A. S. Morcos\n\nSemDeDup: data-efficient learning at web-scale through semantic deduplication.\n\narXiv preprint arXiv:2303.09540.\n\nCited by: §C.2.\n\nAnthropic (2026)\nAnthropic\n\nIntroducing claude opus 5.\n\nExternal Links: Link",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 19,
+  "swe_bench": 0,
+  "contamination": 1,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

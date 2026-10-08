@@ -1,0 +1,359 @@
+{
+ "arxiv_id": "2605.00803",
+ "fulltext_chars": 94130,
+ "fulltext_lines": 1555,
+ "authors_block": "Figure 1: Overview of AutoMat. Claims from domain experts are packaged into runnable tasks and executed by reproduction agents in an HPC environment. A separate evaluator agent then inspects the resulting trace and artifacts to assign a reproducibility judgment. Recent advances in large language models (LLMs) have driven rapid progress in code generation and agentic coding assistants, leading to a wave of agents that can write, run, and debug code in interactive environments (Chen et al., 2021; Yang et al., 2024). These systems have attracted substantial attention because they perform well on software engineering tasks, where requirements are explicit and where correctness is validated via tests, static checks (Jimenez et al., 2024), as well as other intermediate feedback (e.g., linting and compilation). An increasingly mature ecosystem of benchmarks reflects this focus, evaluating how well LLMs generate, modify, and execute code in realistic development settings (Jimenez et al., 2024; Shah et al., 2024; Jain et al., 2025). However, strong performance on software engineering tasks does not necessarily imply strong performance in reproducing scientific findings (Siegel et al., 2024; Xiang et al., 2025; Hu et al., 2025). Reproducing a scientific claim requires much more than merely implementing a well-specified function; agents must recover an end-to-end workflow from partial information, navigate domain-specific toolchains, and produce evidence that supports (or undermines) a ",
+ "vendor_affiliation_hits": [],
+ "n_authors": 18,
+ "comment": "COLM 2026. The second and third authors contributed equally to this work",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/JHU-CLSP/AutoMat",
+  "https://github.com/MoonshotAI/kimi-cli",
+  "https://github.com/OpenHands/OpenHands-CLI",
+  "https://github.com/anthropics/claude-agent-sdk-python",
+  "https://github.com/openai/codex"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "#"
+  ],
+  [
+   51,
+   "###### Abstract"
+  ],
+  [
+   67,
+   "## 1 Introduction"
+  ],
+  [
+   93,
+   "## 2 Related work"
+  ],
+  [
+   95,
+   "##### Reproducibility benchmarks"
+  ],
+  [
+   149,
+   "##### Computational materials science benchmarks for LLMs"
+  ],
+  [
+   153,
+   "##### Coding-agent interfaces"
+  ],
+  [
+   169,
+   "## 3 AutoMat benchmark"
+  ],
+  [
+   173,
+   "### 3.1 Overview"
+  ],
+  [
+   179,
+   "### 3.2 Benchmark curation"
+  ],
+  [
+   183,
+   "##### Claim collection and annotation"
+  ],
+  [
+   191,
+   "##### Quality control and solvability"
+  ],
+  [
+   195,
+   "##### Task packaging"
+  ],
+  [
+   202,
+   "### 3.3 Reproduction and verification types"
+  ],
+  [
+   208,
+   "## 4 Experiment and evaluation setup"
+  ],
+  [
+   212,
+   "### 4.1 Agent settings"
+  ],
+  [
+   218,
+   "### 4.2 Reproduction attempt"
+  ],
+  [
+   222,
+   "##### Task-specific orchestrated agent"
+  ],
+  [
+   226,
+   "### 4.3 Artifact collection and evaluation"
+  ],
+  [
+   234,
+   "### 4.4 Judge calibration against human SMEs"
+  ],
+  [
+   238,
+   "## 5 Findings and analysis"
+  ],
+  [
+   256,
+   "### 5.1 RQ1: How well can current LLM-based coding agents reproduce computational materials science claims end-to-end?"
+  ],
+  [
+   268,
+   "### 5.2 RQ2: Does task-specific orchestration improve performance over general-purpose coding agents?"
+  ],
+  [
+   278,
+   "### 5.3 RQ3: What failure modes tend to prevent successful reproductions on AutoMat?"
+  ],
+  [
+   286,
+   "## 6 Conclusion"
+  ],
+  [
+   290,
+   "##### Limitations"
+  ],
+  [
+   294,
+   "## Acknowledgments"
+  ],
+  [
+   298,
+   "## References"
+  ],
+  [
+   688,
+   "## Appendix A Quality control and solvability"
+  ],
+  [
+   696,
+   "## Appendix B Taxonomy"
+  ],
+  [
+   698,
+   "### B.1 Verification types"
+  ],
+  [
+   700,
+   "##### Scalar metric match"
+  ],
+  [
+   704,
+   "##### Range/bound verification"
+  ],
+  [
+   708,
+   "##### Comparative/ordering"
+  ],
+  [
+   712,
+   "##### Structural/qualitative"
+  ],
+  [
+   716,
+   "##### Figure reproduction"
+  ],
+  [
+   720,
+   "### B.2 Common failure modes"
+  ],
+  [
+   722,
+   "##### Procedural Incompleteness"
+  ],
+  [
+   726,
+   "##### Methodological Deviation"
+  ],
+  [
+   730,
+   "##### Resource & Execution Failure"
+  ],
+  [
+   734,
+   "##### Overconfident Assessment"
+  ],
+  [
+   738,
+   "##### Circular Reasoning (”Begging the Question”)"
+  ],
+  [
+   742,
+   "##### Under-training/Simplification"
+  ],
+  [
+   746,
+   "## Appendix C LLM and agent configuration"
+  ],
+  [
+   748,
+   "### C.1 Model identifiers"
+  ],
+  [
+   786,
+   "### C.2 Developer tools and agent interfaces"
+  ],
+  [
+   817,
+   "### C.3 Leakage prevention and sandbox isolation"
+  ],
+  [
+   821,
+   "### C.4 Design and implementation of orchestrated agent"
+  ],
+  [
+   823,
+   "##### Phase 1: read-only planning"
+  ],
+  [
+   827,
+   "##### Phase 2: environment preparation"
+  ],
+  [
+   831,
+   "##### Phase 3: deterministic orchestration with LLM diagnosis"
+  ],
+  [
+   835,
+   "##### Phase 4: result extraction and self-assessment"
+  ],
+  [
+   839,
+   "## Appendix D Runtime environment and hardware configuration"
+  ],
+  [
+   845,
+   "## Appendix E Prompts used in AutoMat"
+  ],
+  [
+   849,
+   "### E.1 System prompt"
+  ],
+  [
+   853,
+   "### E.2 Task prompt"
+  ],
+  [
+   860,
+   "### E.3 Evaluation prompt"
+  ],
+  [
+   898,
+   "## Appendix F Perspectives on subdomain-specific reproducibility challenges"
+  ],
+  [
+   936,
+   "### F.1 Density Functional Theory (DFT)"
+  ],
+  [
+   946,
+   "### F.2 Statistical/Machine Learning methods (Stat/ML)"
+  ],
+  [
+   956,
+   "### F.3 Molecular Dynamics (MD)"
+  ],
+  [
+   966,
+   "### F.4 Discrete Dislocation Dynamics (DDD)"
+  ],
+  [
+   970,
+   "## Appendix G Case studies"
+  ],
+  [
+   974,
+   "### G.1 Case study 1: procedural incompleteness"
+  ],
+  [
+   994,
+   "#### G.1.1 Task description"
+  ],
+  [
+   1002,
+   "#### G.1.2 Reproduction attempted"
+  ],
+  [
+   1072,
+   "#### G.1.3 Analysis of agent’s behavior"
+  ],
+  [
+   1134,
+   "### G.2 Case study 2: methodological deviation"
+  ],
+  [
+   1142,
+   "#### G.2.1 Task description"
+  ],
+  [
+   1170,
+   "#### G.2.2 Reproduction attempted"
+  ],
+  [
+   1224,
+   "### G.3 Case study 3: evaluation protocol drift"
+  ],
+  [
+   1232,
+   "#### G.3.1 Task description"
+  ],
+  [
+   1258,
+   "#### G.3.2 Reproduction attempted"
+  ],
+  [
+   1324,
+   "#### G.3.3 Analysis of agent’s behavior"
+  ],
+  [
+   1344,
+   "## Appendix H Evaluator reliability analyses"
+  ],
+  [
+   1346,
+   "### H.1 Agreement by reproduction type and score confusion"
+  ],
+  [
+   1454,
+   "### H.2 Multi-label failure-mode audit"
+  ],
+  [
+   1511,
+   "## Appendix I No-execution diagnostic baseline"
+  ],
+  [
+   1519,
+   "## Appendix J Additional statistical analyses"
+  ],
+  [
+   1555,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgments\n\nThis material is based upon work supported by Defense Advanced Research Projects Agency (DARPA) under Contract No. HR001125C0304 and ONR grant (N0001424-1-2089). Any opinions, findings and conclusions or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of DARPA. This work was carried out at the Advanced Research Computing at Hopkins (ARCH) core facility (rockfish.jhu.edu), which is supported by the National Science Foundation (NSF) grant number OAC1920103.\n\n## References\n\nAlhada-Lahbabi et al. (2024)\n\nKévin Alhada-Lahbabi, Damien Deleruyelle, and Brice Gautier.\n\nMachine learning surrogate for 3d phase-field modeling of ferroelectric tip-induced electrical switching.\n\nnpj Computational Materials, 10(1):197, 2024.\n\nAnthropic (2026a)\n\nAnthropic.\n\nIntroducing claude opus 4.6.\n\nhttps://www.anthropic.com/news/claude-opus-4-6, February 2026a.\n\nAccessed: 2026-03-25.\n\nAnthropic (2026b)",
+ "limitations": "##### Limitations\n\nDespite our best efforts, our study has several limitations. AutoMat currently covers 85 claims from a single (albeit broad) scientific domain, and the distribution of reproduction and verification types reflects the practical realities of expert data collection rather than exhaustive sampling. In addition, like many reproducibility benchmarks, AutoMat focuses on claims that have been identified as reproducible; it does not directly assess whether agents can recognize genuinely non-reproducible claims. Finally, while our evaluator agent is calibrated against human experts, automated judgment should be understood as a scalable approximation to expert assessment rather than a replacement for it. Future work should thus expand coverage across domains and claim types, explicitly incorporate non-reproducible or adversarial cases, and conduct large-scale human evaluations.\n\n## Acknowledgments\n\nThis material is based upon work supported by Defense Advanced Research Projects Agency (DARPA) under Contract No. HR001125C0304 and ONR grant (N0001424-1-2089). Any opinions, findings and conclusions or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of DARPA. This work was carried out at the Advanced Research Computing at Hopkins (ARCH) core facility (rockfish.jhu.edu), which is supported by the National Science Foundation (NSF) grant number OAC1920103.\n\n## References\n\nAlhada-Lahbabi et al. (2024)\n\nKévin Alhada-Lahbabi, Damien Deleruyelle, and Brice Gautier.\n\nMachine learning surrogate for 3d phase-field modeling of ferroelectric tip-induced electrical switching.\n\nnpj Computational Materials, 10(1):197, 2024.\n\nAnthropic (2026a)\n\nAnthropic.\n\nIntroducing claude opus 4.6.\n\nhttps://www.anthropic.com/news/claude-opus-4-6, February 2026a.\n\nAccessed: 2026-03-25.\n\nAnthropic (2026b)\n\nAnthropic.\n\nIntroducing claude sonnet 4.6.\n\nhttps://www.anthropic.com/news/claude-sonnet-4-6, February 2026b.\n\nAccessed: 2026-03-25.\n\nAntunes & Hill (2024)",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 9,
+  "seeds_or_runs": 1,
+  "swe_bench": 1,
+  "contamination": 1,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

@@ -1,0 +1,266 @@
+{
+ "arxiv_id": "2608.21531",
+ "fulltext_chars": 113463,
+ "fulltext_lines": 2452,
+ "authors_block": "Jacek Dąbrowski Email: jacek.dabrowski@lero.ie Affiliation: Lero, the Research Ireland Centre for Software, University of Limerick, Ireland Manjeshwar Aniruddh Mallya Email: mallyaaniruddh@gmail.com Affiliation: Lero, the Research Ireland Centre for Software, University of Limerick, Ireland Alessio Ferrari Email: alessio.ferrari@cnr.it Affiliation: Trinity College Dublin (TCD), Ireland Affiliation: Consiglio Nazionale delle Ricerche (CNR), Italy Mohammad Amin Zadenoori Email: amin.zadenoori@unipd.it Affiliation: University of Padova, Italy Yijun Yu Email: y.yu@open.ac.uk Affiliation: The Open University, UK",
+ "vendor_affiliation_hits": [],
+ "n_authors": 5,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/rust-lang/.",
+  "https://github.com/rust-lang/rust"
+ ],
+ "hf_urls": [
+  "https://huggingface.co/google/gemma-2-9b",
+  "https://huggingface.co/meta-llama/Llama-2-7b-hf",
+  "https://huggingface.co/meta-llama/Meta-Llama-3-8B",
+  "https://huggingface.co/microsoft/Phi-3-mini-4k-instruct",
+  "https://huggingface.co/mistralai/Mistral-7B-v0.3"
+ ],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   22,
+   "# Large Language Models for Requirements Engineering: A Cross-Task Empirical Evaluation"
+  ],
+  [
+   62,
+   "###### keywords"
+  ],
+  [
+   65,
+   "## 1 Introduction"
+  ],
+  [
+   101,
+   "## 2 Background"
+  ],
+  [
+   105,
+   "### 2.1 Large Language Models"
+  ],
+  [
+   198,
+   "### 2.2 Prompting Strategies"
+  ],
+  [
+   244,
+   "## 3 Related Works"
+  ],
+  [
+   248,
+   "### 3.1 Modern Requirements Engineering"
+  ],
+  [
+   260,
+   "### 3.2 Large Language Models for Requirements Engineering"
+  ],
+  [
+   272,
+   "### 3.3 Research Gap"
+  ],
+  [
+   322,
+   "## 4 Motivating Scenarios"
+  ],
+  [
+   357,
+   "### 4.1 Scenario 1: From User Feedback to Requirements"
+  ],
+  [
+   369,
+   "### 4.2 Scenario 2: Requirements Across Project Artefacts"
+  ],
+  [
+   395,
+   "## 5 Study I: From User Feedback to Requirements"
+  ],
+  [
+   399,
+   "### 5.1 Study Context"
+  ],
+  [
+   409,
+   "### 5.2 Empirical Study Design"
+  ],
+  [
+   413,
+   "#### 5.2.1 Research Questions"
+  ],
+  [
+   431,
+   "#### 5.2.2 Datasets"
+  ],
+  [
+   439,
+   "#### 5.2.3 Evaluation Metrics and Criteria"
+  ],
+  [
+   443,
+   "##### Evaluation Metrics for Classification (RQ1–RQ2)."
+  ],
+  [
+   447,
+   "##### Evaluation Criteria for Specification Generation (RQ3)."
+  ],
+  [
+   487,
+   "#### 5.2.4 Experimental Setup and Procedure"
+  ],
+  [
+   491,
+   "##### Computational Setup"
+  ],
+  [
+   495,
+   "##### Prompting Strategies"
+  ],
+  [
+   503,
+   "##### Evaluation Procedures"
+  ],
+  [
+   511,
+   "### 5.3 Results"
+  ],
+  [
+   952,
+   "### 5.4 Discussion"
+  ],
+  [
+   963,
+   "### 5.5 Threats to Validity"
+  ],
+  [
+   977,
+   "## 6 Study II: Requirements Across Project Artefacts"
+  ],
+  [
+   981,
+   "### 6.1 Industrial Study Context"
+  ],
+  [
+   1003,
+   "### 6.2 Empirical Study Design"
+  ],
+  [
+   1007,
+   "#### 6.2.1 Research Questions"
+  ],
+  [
+   1021,
+   "#### 6.2.2 Dataset"
+  ],
+  [
+   1152,
+   "#### 6.2.3 Pilot Study"
+  ],
+  [
+   1162,
+   "#### 6.2.4 Evaluation Metrics and Criteria"
+  ],
+  [
+   1166,
+   "##### Evaluation Metrics for Traceability Identification (RQ4)."
+  ],
+  [
+   1170,
+   "##### Evaluation Criteria for Explanation Generation (RQ5)."
+  ],
+  [
+   1230,
+   "#### 6.2.5 Experimental Setup and Procedure"
+  ],
+  [
+   1234,
+   "##### Computational Setup"
+  ],
+  [
+   1240,
+   "##### Prompting Strategies"
+  ],
+  [
+   1260,
+   "##### Evaluation Procedures"
+  ],
+  [
+   1272,
+   "### 6.3 Results"
+  ],
+  [
+   1397,
+   "### 6.4 Discussion"
+  ],
+  [
+   1410,
+   "### 6.5 Threats to Validity"
+  ],
+  [
+   1420,
+   "## 7 Cross-study Discussion"
+  ],
+  [
+   1424,
+   "### 7.1 Cross-Task Perspective on LLM Performance in RE"
+  ],
+  [
+   1460,
+   "### 7.2 Prompting Matters, but Depends on the RE Task"
+  ],
+  [
+   1464,
+   "### 7.3 Human Oversight Remains Essential"
+  ],
+  [
+   1470,
+   "### 7.4 Practical Implications for Requirements Engineering"
+  ],
+  [
+   1474,
+   "### 7.5 Future Research Directions"
+  ],
+  [
+   1478,
+   "## 8 Conclusion"
+  ],
+  [
+   1488,
+   "#### Supplementary information"
+  ],
+  [
+   1492,
+   "#### Acknowledgements"
+  ],
+  [
+   1496,
+   "## Declarations"
+  ],
+  [
+   1500,
+   "## References"
+  ],
+  [
+   2452,
+   "##"
+  ]
+ ],
+ "acknowledgments": "#### Acknowledgements\n\nStudy 1 was partially conducted within the MSc thesis of M. A. Mallya, supervised by J. Dąbrowski 46. Study 2 was largely conducted during a research visit by J. Dąbrowski to the Huawei Ireland Research Center in Dublin, Ireland. The results contribute to the Prompt Me project 19. This publication has emanated from research jointly funded by Taighde Éireann – Research Ireland under Grant Number 13/RC/2094_2 and co-funded by the European Union under the Systems, Methods, Context (SyMeCo) programme, Grant Agreement Number 101081459. Views and opinions expressed are, however, those of the author(s) only and do not necessarily reflect those of the European Union or the European Research Executive Agency. Neither the European Union nor the granting authority can be held responsible for them.\n\n## Declarations\n\nThe authors declare that they have no known competing financial interests or personal relationships that could have appeared to influence the work reported in this paper.\n\n## References\n\nAbualhaija et al. (2024)\nS. Abualhaija, F. B. Aydemir, F. Dalpiaz, D. Dell’Anna, A. Ferrari, X. Franch, and D. Fucci\n\nReplication in requirements engineering: the NLP for RE case.\n\nACM Trans. Softw. Eng. Methodol. 33 (6), pp. 151.\n\nExternal Links: Link,\nDocument\n\nCited by: §1,\n§3.3.\n\nAl-Subaihin et al. (2021)\nA. A. Al-Subaihin, F. Sarro, S. Black, L. Capra, and M. Harman",
+ "limitations": "### 5.5 Threats to Validity\n\nInternal Validity.\nThe main threat lies in the manual evaluation of generated requirement specification by a single evaluator, without validating its reliability. This introduces potential subjectivity. To mitigate this, we applied a systematic rubric with clear criteria and examples of both high- and low-quality specification. The rubric was used consistently across all outputs. In addition, prompts and model parameters were standardised to ensure uniform conditions.\n\nExternal Validity.\nWe used two publicly available datasets from different domains to reduce domain bias. Their diverse vocabulary helps generalisability, though an app review represents only one feedback type. Results may not generalise to industrial datasets or other contexts such as issue trackers. Moreover, the study focused on lightweight LLMs; larger models may yield different results.\n\nConstruct Validity.\nWe employed standard precision, recall, and F1-score metrics for classification and a rubric assessing completeness, consistency, and correctness for generation. As qualitative evaluation relied on one evaluator, some interpretation bias may persist. Prompt phrasing may also influence results; this was mitigated by systematically applying established prompting strategies.\n\nConclusion Validity.\nAll models were tested under identical settings and prompts. However, the limited sample size for specification generation lowers statistical power, and no inferential tests were applied, making results exploratory. While precision and recall were key metrics, tasks may favour one over the other, and F1 may not always be optimal 7. Our aim was to assess overall practical effectiveness rather than examine differences across RE-specific tasks.\n\n## 6 Study II: Requirements Across Project Artefacts\n\nIn the second study, we investigate whether frontier LLMs can support requirements traceability across heterogeneous software project artefacts. Unlike the controlled experiment presented in Study I (Sect. 5), Study II is designed as an exploratory industrial case study based on observations from a research visit at Huawei Research Centre. We evaluate two frontier LLMs on two complementary RE tasks: traceability link identification and traceability explanation generation 64. We first introduce the industrial study context, followed by the empirical study design, experimental findings, and their implications for RE practice.\n\n### 6.1 Industrial Study Context\n\nOur second study focuses on analysing requirements-related information distributed across software project artefacts. Specifically, we consider project goals00footnotemark: \n 0\n\n , GitHub tracking issues00footnotemark: \n 0\n\n , and Zulip messages00footnotemark: \n 0\n\n from the Rust open-source ecosystem00footnotemark: \n 0\n\n . These artefacts capture project objectives, implementation activities, technical decisions, and project evolution. As requirements-related information is distributed across multiple artefacts, reconstructing requirement evolution is labour-intensive, motivating automated support for traceability and rationale analysis.\n\nA project goal defines a high-level development objective, its motivation, and expected outcomes. A tracking issue describes the implementation of a project goal, including implementation tasks, milestones, dependencies, and progress updates. A Zulip message captures developer discussions on project goals or tracking issues, including technical reasoning, design decisions, and implementation details. A traceability link links a project goal or tracking issue with a related Zulip message describing the same development objective or implementation activity.\n\nThe study evaluates two RE tasks. The first, traceability link identification, identifies Zulip messages related to a given project goal or tracking issue. The second, traceability explanation generation, produces an evidence-grounded explanation describing the identified traceability link and its support",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 7,
+  "seeds_or_runs": 1,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 2,
+  "java": 0,
+  "industrial": 21
+ },
+ "fulltext_source": "html"
+}

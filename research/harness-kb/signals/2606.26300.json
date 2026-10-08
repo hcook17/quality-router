@@ -1,0 +1,353 @@
+{
+ "arxiv_id": "2606.26300",
+ "fulltext_chars": 164388,
+ "fulltext_lines": 3964,
+ "authors_block": "Qwen Team",
+ "vendor_affiliation_hits": [
+  "Qwen"
+ ],
+ "n_authors": 13,
+ "comment": "Authors are listed alphabetically by their first names",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/openclaw/openclawAccessed"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   26,
+   "# The Verification Horizon: No Silver Bullet for Coding Agent Rewards"
+  ],
+  [
+   30,
+   "###### Abstract"
+  ],
+  [
+   38,
+   "## 1 Introduction"
+  ],
+  [
+   95,
+   "## 2 Test-driven Rewards for SWE-like Tasks"
+  ],
+  [
+   99,
+   "### 2.1 Preliminary"
+  ],
+  [
+   115,
+   "### 2.2 Improving Reward Faithfulness"
+  ],
+  [
+   137,
+   "#Turns"
+  ],
+  [
+   178,
+   "### 2.3 Mitigating Reward Hacking"
+  ],
+  [
+   355,
+   "## 3 Interactive Judge for Frontend Tasks"
+  ],
+  [
+   395,
+   "### 3.1 Rubric-based Static Judge"
+  ],
+  [
+   407,
+   "### 3.2 Agentic Interactive Judge"
+  ],
+  [
+   435,
+   "## 4 User Feedback as Verifier for Real-World Agent Tasks"
+  ],
+  [
+   445,
+   "### 4.1 Feedback Annotation Pipeline"
+  ],
+  [
+   447,
+   "##### Data Source."
+  ],
+  [
+   451,
+   "##### Human Implicit Reward Signal."
+  ],
+  [
+   455,
+   "##### LLM-as-Judge Annotation."
+  ],
+  [
+   473,
+   "### 4.2 Dataset Analysis"
+  ],
+  [
+   493,
+   "### 4.3 Methods"
+  ],
+  [
+   495,
+   "##### Notation."
+  ],
+  [
+   499,
+   "##### Span Definition."
+  ],
+  [
+   511,
+   "##### Supervised Fine-Tuning (SFT)."
+  ],
+  [
+   521,
+   "##### Reweight SFT (RW-SFT)."
+  ],
+  [
+   539,
+   "##### Span-Level KTO."
+  ],
+  [
+   545,
+   "##### Span-Level Implicit Reward."
+  ],
+  [
+   555,
+   "##### Reference Point Estimation."
+  ],
+  [
+   565,
+   "##### Span-Level Preference Loss."
+  ],
+  [
+   580,
+   "##### Neutral Token Regularization."
+  ],
+  [
+   590,
+   "##### Overall Objective."
+  ],
+  [
+   600,
+   "### 4.4 Experiments"
+  ],
+  [
+   602,
+   "#### 4.4.1 Sensitivity Analysis of RW-SFT"
+  ],
+  [
+   610,
+   "#### 4.4.2 Main Results"
+  ],
+  [
+   620,
+   "#### 4.4.3 Negative Behavior Correction"
+  ],
+  [
+   626,
+   "##### Resolved Instances."
+  ],
+  [
+   630,
+   "##### Unresolved Instances."
+  ],
+  [
+   636,
+   "## 5 Dynamic Agent Judge for Long-horizon Tasks"
+  ],
+  [
+   640,
+   "### 5.1 Design of the Evaluation Agent"
+  ],
+  [
+   648,
+   "### 5.2 Dataset Construction and Metrics Design"
+  ],
+  [
+   656,
+   "##### Best-of- N Accuracy and Regret."
+  ],
+  [
+   668,
+   "##### Kendall’s \\tau ."
+  ],
+  [
+   672,
+   "##### Pearson r and Spearman \\rho ."
+  ],
+  [
+   676,
+   "##### Threshold-Conditioned UT Score."
+  ],
+  [
+   686,
+   "### 5.3 Designing Better Evaluator Agents"
+  ],
+  [
+   789,
+   "### 5.4 Evaluator Quality Under Different Training Objectives"
+  ],
+  [
+   916,
+   "## 6 Conclusion"
+  ],
+  [
+   933,
+   "## 7 Authors"
+  ],
+  [
+   971,
+   "## References"
+  ],
+  [
+   1516,
+   "## Appendix A System Prompt of the Agentic Judge for SWE-like Tasks"
+  ],
+  [
+   1522,
+   "#  Primary Goal"
+  ],
+  [
+   1524,
+   "#  Background Knowledge"
+  ],
+  [
+   1566,
+   "#  Evaluation Principles"
+  ],
+  [
+   1600,
+   "#  Output Format"
+  ],
+  [
+   1606,
+   "## Appendix B Examples of the Agentic Judge for SWE-like Tasks"
+  ],
+  [
+   1678,
+   "## Appendix C Reward Hacking Behaviors in SWE Tasks"
+  ],
+  [
+   1928,
+   "## Appendix D Detailed Rubrics Judge Prompts"
+  ],
+  [
+   2058,
+   "## Appendix E Ablation of the Interactive Judge"
+  ],
+  [
+   2062,
+   "##### Setup."
+  ],
+  [
+   2082,
+   "##### Results."
+  ],
+  [
+   2161,
+   "## Appendix F Trajectory-Level Dataset Statistics"
+  ],
+  [
+   2167,
+   "## Appendix G Human Feedback Annotation Examples"
+  ],
+  [
+   2643,
+   "## Appendix H Span-KTO Hyperparameter Ablation"
+  ],
+  [
+   2705,
+   "## Appendix I Human Feedback Annotation Judge Prompt"
+  ],
+  [
+   2709,
+   "### I.1 System Prompt"
+  ],
+  [
+   3332,
+   "### I.2 User Prompt Template"
+  ],
+  [
+   3336,
+   "## Appendix J Agent-as-Judge Behavioral Rubric"
+  ],
+  [
+   3340,
+   "### J.1 execution_error: Delivery Reliability and Evidence Discipline"
+  ],
+  [
+   3342,
+   "##### Behavioral Definition."
+  ],
+  [
+   3346,
+   "##### Cases That Should NOT Be Heavily Penalized."
+  ],
+  [
+   3360,
+   "##### Scoring Criteria."
+  ],
+  [
+   3406,
+   "##### Typical Visible Evidence."
+  ],
+  [
+   3432,
+   "### J.2 misunderstand: Intent, Constraints, and Working Style Misalignment"
+  ],
+  [
+   3434,
+   "##### Behavioral Definition."
+  ],
+  [
+   3496,
+   "##### Typical Visible Evidence."
+  ],
+  [
+   3518,
+   "### J.3 omission: Requirement Tracking, Step, and Coverage Gaps"
+  ],
+  [
+   3606,
+   "### J.4 overaction: Excessive Operations, Overreach, and Risk Control"
+  ],
+  [
+   3708,
+   "### J.5 inefficiency: Stagnation, Repetition, and Insufficient Autonomy"
+  ],
+  [
+   3810,
+   "### J.6 communication: Presentation, Format, and Collaboration Control"
+  ],
+  [
+   3926,
+   "### J.7 Primary Category Selection Rules"
+  ],
+  [
+   3956,
+   "### J.8 Judge Output Format"
+  ],
+  [
+   3964,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 3,
+  "p_value_or_ci": 17,
+  "seeds_or_runs": 0,
+  "swe_bench": 31,
+  "contamination": 2,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

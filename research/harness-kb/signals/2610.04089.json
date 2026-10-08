@@ -1,0 +1,279 @@
+{
+ "arxiv_id": "2610.04089",
+ "fulltext_chars": 52223,
+ "fulltext_lines": 1323,
+ "authors_block": "Coding agents given ambiguous, incomplete, or inconsistent task specifications must decide at each turn: ask a targeted clarifying question to recover missing information, or submit code directly and risk failure. Asking can be decisive on genuinely underspecified tasks, but each clarification turn costs user attention and system resources. Learning when to ask (and, jointly, what to ask) under an explicit, enforceable budget on expected clarification cost is the problem we address. Because a single policy generates both the routing decision and the clarifying question, our method optimizes the two together rather than treating question content as fixed. Prior work on clarifying questions (Rao and Daumé III, 2018; Aliannejadi et al., 2019; Wu and Fard, 2025; Curuksu, 2024) and constrained RL and LLM alignment (Altman, 1999; Stooke et al., 2020; Ouyang et al., 2022) does not train the ask-vs-answer routing policy (the decision at each turn whether to ask a clarifying question or submit code) end-to-end under an explicit per-episode clarification-cost budget. The CMDP framing naturally accommodates arbitrary budgets within a single training run, whereas penalty-based approaches require per-budget coefficient tuning. We formalize the ask-vs-answer decision as a Constrained Markov Decision Process (CMDP; Altman 1999), in which the agent maximizes pass@1 (defined as the average fraction of unit test cases passed per problem, a continuous score in [0,1] ) subject to a budget d_{1} ",
+ "vendor_affiliation_hits": [
+  "GitHub"
+ ],
+ "n_authors": 2,
+ "comment": "Accepted to the LMP Workshop at EMNLP 2026. 17 pages, 8 figures, 1 table. Abhinav Rajput and Acey Vogelstein contributed equally. Code: https://github.com/Abhinav0710rajput/coding_llms_cmdp",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   22,
+   "#"
+  ],
+  [
+   47,
+   "###### Abstract"
+  ],
+  [
+   56,
+   "## 1 Introduction"
+  ],
+  [
+   70,
+   "#### Contributions."
+  ],
+  [
+   91,
+   "## 2 Related Work"
+  ],
+  [
+   93,
+   "#### Clarifying questions in NLP."
+  ],
+  [
+   102,
+   "#### Constrained RL and alignment."
+  ],
+  [
+   108,
+   "## 3 Method"
+  ],
+  [
+   110,
+   "### 3.1 CMDP Formulation"
+  ],
+  [
+   116,
+   "#### Actions."
+  ],
+  [
+   125,
+   "#### Costs and budget."
+  ],
+  [
+   136,
+   "### 3.2 Interaction Protocol"
+  ],
+  [
+   142,
+   "### 3.3 PPO-Lagrangian Optimization"
+  ],
+  [
+   144,
+   "#### Policy and value heads."
+  ],
+  [
+   149,
+   "#### Generalized Advantage Estimation (Schulman et al., 2016)."
+  ],
+  [
+   159,
+   "#### Dual update."
+  ],
+  [
+   176,
+   "## 4 Experimental Setup"
+  ],
+  [
+   178,
+   "#### Benchmark and evaluation metric."
+  ],
+  [
+   198,
+   "## 5 Results"
+  ],
+  [
+   200,
+   "#### Budget compliance and the Pareto frontier."
+  ],
+  [
+   218,
+   "#### Diminishing returns and the value of clarification."
+  ],
+  [
+   233,
+   "#### Performance by degradation complexity."
+  ],
+  [
+   245,
+   "#### Quality over quantity: better questions and code."
+  ],
+  [
+   257,
+   "## 6 Conclusion"
+  ],
+  [
+   275,
+   "## Limitations"
+  ],
+  [
+   277,
+   "#### Run-to-run variance."
+  ],
+  [
+   284,
+   "#### Training scale and instability."
+  ],
+  [
+   296,
+   "#### LLM-based question simulator."
+  ],
+  [
+   307,
+   "#### Single benchmark and small training set."
+  ],
+  [
+   318,
+   "#### Scale."
+  ],
+  [
+   325,
+   "#### Discrete budget coverage."
+  ],
+  [
+   334,
+   "#### Disentangling question quality from code quality."
+  ],
+  [
+   344,
+   "## Acknowledgments"
+  ],
+  [
+   348,
+   "## References"
+  ],
+  [
+   579,
+   "## Appendix"
+  ],
+  [
+   581,
+   "## Appendix A Implementation Details"
+  ],
+  [
+   587,
+   "#### CMDP formal definitions."
+  ],
+  [
+   603,
+   "#### Policy and value heads."
+  ],
+  [
+   620,
+   "#### PPO surrogate and prefix exclusion."
+  ],
+  [
+   779,
+   "#### Routing gradient."
+  ],
+  [
+   803,
+   "#### Episode protocol."
+  ],
+  [
+   816,
+   "#### Atomic question counting."
+  ],
+  [
+   823,
+   "#### Prefix-scored routing."
+  ],
+  [
+   841,
+   "#### GAE recurrence (Schulman et al., 2016)."
+  ],
+  [
+   856,
+   "#### Double whitening."
+  ],
+  [
+   860,
+   "#### Full training objective."
+  ],
+  [
+   877,
+   "#### Dual update mechanics."
+  ],
+  [
+   887,
+   "#### Per-iteration training steps."
+  ],
+  [
+   898,
+   "#### Train/eval split."
+  ],
+  [
+   907,
+   "#### Training setup."
+  ],
+  [
+   912,
+   "#### Checkpoint selection."
+  ],
+  [
+   926,
+   "#### Pareto frontier and evaluation."
+  ],
+  [
+   947,
+   "#### d_{1}=0.25 run details."
+  ],
+  [
+   951,
+   "## Appendix B Training Curves"
+  ],
+  [
+   978,
+   "## Appendix C Degradation Type Breakdown"
+  ],
+  [
+   1022,
+   "## Appendix D Representative Episode Comparisons"
+  ],
+  [
+   1029,
+   "#### Episode 1. Interaction format; targeted vs. edge-case questioning"
+  ],
+  [
+   1101,
+   "#### Episode 2. Pareto efficiency: fewer questions, higher accuracy"
+  ],
+  [
+   1154,
+   "#### Episode 3. Multi-degradation problems require more questions"
+  ],
+  [
+   1238,
+   "## Appendix E System Prompts"
+  ],
+  [
+   1323,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgments\n\nThe authors used Claude (Anthropic) for assistance with writing and editing during this project. All experimental design, analysis, implementation, math, and final verification were performed by the authors.\n\n## References\n\nAliannejadi et al. (2019)\n\nMohammad Aliannejadi, Hamed Zamani, Fabio Crestani, and W. Bruce Croft. 2019.\n\nAsking clarifying questions\nin open-domain information-seeking conversations.\n\nCoRR, abs/1907.06554.\n\nAltman (1999)\n\nEitan Altman. 1999.\n\nConstrained Markov Decision Processes.\n\nChapman & Hall/CRC, Boca Raton, FL.\n\nChen et al. (2021)",
+ "limitations": "## Limitations\n\n#### Run-to-run variance.\n\nIndependent training runs at the same budget ( d_{1}\\in\\{0.5,0.75,1.0\\} ) converge to notably different mean pass@1 values (e.g., 0.683 vs. 0.719 at d_{1}{=}0.5 ; 0.778 vs. 0.764 at d_{1}{=}1.0 ),\nindicating sensitivity to random initialisation.\nThis limits the reliability of conclusions drawn from any single run and\nmotivates future work on more stable training procedures.\n\n#### Training scale and instability.\n\nAll policies were trained under significant compute constraints: only 80\niterations with a mini-batch size of 8 episodes and 32 episodes per\nrollout iteration.\nSmall batches produce high-variance gradient estimates, which destabilises\nthe dual-ascent updates for the Lagrange multipliers and likely contributes\nto the run-to-run variance noted above.\nLarger batch sizes, more iterations, and learning-rate schedules tuned for\nthe Lagrangian dynamics would likely improve both convergence reliability\nand final performance.\n\n#### LLM-based question simulator.\n\nThe oracle that answers clarifying questions is GPT-4o-mini running at\ntemperature 0, making its responses deterministic given the question and\nground-truth specification.\nThis eliminates answer inconsistency as a noise source, but a greedy\ndeterministic simulator may not reflect the variability of real human\nresponses: a human might paraphrase, hedge, or volunteer adjacent information\ndifferently across interactions, all of which would affect the policy’s\nlearned question-asking strategy.\n\n#### Single benchmark and small training set.\n\nAll results are on HumanEvalComm, a single code-generation benchmark with a\nspecific set of synthetic degradation types.\nWhether the learned strategies and efficiency gains generalise to other task\ntypes or to naturally occurring ambiguity is untested.\nThe training pool is also small: 303 degraded instances from 64 base problems,\nsmaller than the 417-problem held-out test set.",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 3,
+  "seeds_or_runs": 43,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

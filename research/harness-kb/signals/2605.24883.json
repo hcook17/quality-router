@@ -1,0 +1,319 @@
+{
+ "arxiv_id": "2605.24883",
+ "fulltext_chars": 80216,
+ "fulltext_lines": 2905,
+ "authors_block": "from Policy Specifications Xiaoyue Lu ††thanks: Equal contribution Affiliation: Shenzhen Campus of Sun Yat-sen University, Shenzhen, China Email: xiaoy367@mail.sysu.edu.cn Xianglin Yang11footnotemark: 1 ††thanks: Corresponding author Affiliation: National University of Singapore, Singapore Email: caicrext@gmail.com Haijun Liu Affiliation: Shenzhen Campus of Sun Yat-sen University, Shenzhen, China Jiahao Liu Affiliation: National University of Singapore, Singapore Kuntai Cai Affiliation: Independent Researcher{luxy236,liuhj75}@mail2.sysu.edu.cn,{xianglin,ljiahao,dcsdjs}nus.edu.sg Yan Xiao22footnotemark: 2 Affiliation: Shenzhen Campus of Sun Yat-sen University, Shenzhen, China Jin Song Dong Affiliation: National University of Singapore, Singapore",
+ "vendor_affiliation_hits": [],
+ "n_authors": 7,
+ "comment": "Accepted to the 64th Annual Meeting of the Association for Computational Linguistics (ACL 2026)",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/huac-lxy/POLARIS."
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   22,
+   "# Inverting the Shield: Systematically Generating Safety Tests"
+  ],
+  [
+   61,
+   "###### Abstract"
+  ],
+  [
+   73,
+   "## 1 Introduction"
+  ],
+  [
+   100,
+   "## 2 Related Work"
+  ],
+  [
+   104,
+   "##### LLM Safety Evaluation Benchmarks."
+  ],
+  [
+   108,
+   "##### Instruction and Prompt Generation."
+  ],
+  [
+   114,
+   "##### Specification-based test generation in software engineering."
+  ],
+  [
+   118,
+   "## 3 Methodology"
+  ],
+  [
+   127,
+   "### 3.1 Policy-to-Logic Compilation"
+  ],
+  [
+   131,
+   "##### Policy Preprocessing."
+  ],
+  [
+   135,
+   "##### Abstract Violation Templates (AVTs)."
+  ],
+  [
+   158,
+   "### 3.2 Scenario Discovery via Semantic Graph"
+  ],
+  [
+   163,
+   "##### Graph Construction."
+  ],
+  [
+   167,
+   "##### Semantic Densification."
+  ],
+  [
+   179,
+   "### 3.3 Query Instantiation"
+  ],
+  [
+   183,
+   "##### Stochastic Graph Traversal."
+  ],
+  [
+   191,
+   "##### Context-Aware Instantiation."
+  ],
+  [
+   205,
+   "###### Example 3.3.1 (Instantiation Pipeline)."
+  ],
+  [
+   223,
+   "## 4 Experiments"
+  ],
+  [
+   245,
+   "### 4.1 Experimental Setup"
+  ],
+  [
+   247,
+   "##### Target Models."
+  ],
+  [
+   251,
+   "##### Safety Policies."
+  ],
+  [
+   258,
+   "##### Baselines."
+  ],
+  [
+   270,
+   "##### Metrics."
+  ],
+  [
+   303,
+   "### 4.2 RQ1: Coverage & Novelty"
+  ],
+  [
+   305,
+   "##### Setup."
+  ],
+  [
+   313,
+   "##### Results."
+  ],
+  [
+   439,
+   "### 4.3 RQ2: Attack Efficacy"
+  ],
+  [
+   441,
+   "##### Setup."
+  ],
+  [
+   446,
+   "##### Results."
+  ],
+  [
+   588,
+   "### 4.4 RQ3: Efficiency"
+  ],
+  [
+   590,
+   "##### Setup."
+  ],
+  [
+   596,
+   "##### Analysis."
+  ],
+  [
+   634,
+   "### 4.5 RQ4: Validation of Intermediate Components"
+  ],
+  [
+   647,
+   "##### Results."
+  ],
+  [
+   737,
+   "### 4.6 Ablation Studies"
+  ],
+  [
+   1003,
+   "##### Impact of Logic Formalization."
+  ],
+  [
+   1018,
+   "##### Impact of Semantic Graph Traversal."
+  ],
+  [
+   1023,
+   "## 5 Conclusion"
+  ],
+  [
+   1027,
+   "## Limitations"
+  ],
+  [
+   1031,
+   "## Acknowledgments"
+  ],
+  [
+   1035,
+   "## References"
+  ],
+  [
+   1708,
+   "## Overview of the Appendix"
+  ],
+  [
+   1744,
+   "## Appendix A Details of the Experimental Setup"
+  ],
+  [
+   1746,
+   "### A.1 Metries"
+  ],
+  [
+   1767,
+   "### A.2 Hardware Configuration and Hyperparameter Setup."
+  ],
+  [
+   1774,
+   "## Appendix B Additional experimental details and comprehensive results"
+  ],
+  [
+   1776,
+   "### B.1 RQ1: Coverage & Novelty"
+  ],
+  [
+   1778,
+   "#### B.1.1 The result of internal fidelity."
+  ],
+  [
+   1995,
+   "#### B.1.2 Extended results on the GPT-OSS-20B model"
+  ],
+  [
+   2123,
+   "### B.2 RQ2: Attack Efficacy"
+  ],
+  [
+   2127,
+   "##### Evaluator Diversity."
+  ],
+  [
+   2139,
+   "##### Analysis of Complete Results."
+  ],
+  [
+   2474,
+   "##### Extension to Newer Target Model."
+  ],
+  [
+   2519,
+   "## Appendix C Extended Experiments"
+  ],
+  [
+   2521,
+   "### C.1 The influence of the K value"
+  ],
+  [
+   2553,
+   "### C.2 Adaptation Validation"
+  ],
+  [
+   2580,
+   "### C.3 Impact of Policy Granularity"
+  ],
+  [
+   2606,
+   "## Appendix D Workflow Execution"
+  ],
+  [
+   2657,
+   "## Appendix E Fine Grained Analysis of Query Diversity"
+  ],
+  [
+   2739,
+   "## Appendix F Qualitative Analysis of Novel Test Cases"
+  ],
+  [
+   2887,
+   "## Appendix G Prompt for adding node relationships"
+  ],
+  [
+   2889,
+   "### G.1 Containment relationship"
+  ],
+  [
+   2891,
+   "### G.2 Similarity relationship"
+  ],
+  [
+   2893,
+   "## Appendix H FOL Translation prompts"
+  ],
+  [
+   2895,
+   "### H.1 Prompt for subject logic formalization"
+  ],
+  [
+   2897,
+   "### H.2 Prompt for object logic formalization"
+  ],
+  [
+   2899,
+   "### H.3 Prompt for predicate logic formalization"
+  ],
+  [
+   2901,
+   "### H.4 Prompt for condition logic formalization"
+  ],
+  [
+   2903,
+   "### H.5 Prompt for extracting subject-predicate-object-condition elements from sentences"
+  ],
+  [
+   2905,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgments\n\nWe thank the anonymous reviewers for their helpful comments. This work was supported by the National Natural Science Foundation of China under Grant 62502550, Shenzhen Science and Technology Program (KJZD20240903095700001). This research is also supported by the National Research Foundation, Singapore, and Cyber Security Agency of Singapore under its National Cybersecurity R&D Programme and CyberSG R&D Cyber Research Programme Office. Any opinions, findings and conclusions or recommendations expressed in these materials are those of the author(s) and do not reflect the views of National Research Foundation, Singapore, Cyber Security Agency of Singapore as well as CyberSG R&D Programme Office, Singapore.\n\n## References\n\n[1]\nAnthropic\n\nAnthropic acceptable use policy.\n\nExternal Links: Link\n\nCited by: §4.1.\n\nBai et al. (2023)\nJ. Bai, S. Bai, Y. Chu, Z. Cui, K. Dang, X. Deng, Y. Fan, W. Ge, Y. Han, F. Huang, B. Hui, L. Ji, M. Li, J. Lin, R. Lin, D. Liu, G. Liu, C. Lu, K. Lu, J. Ma, R. Men, X. Ren, X. Ren, C. Tan, S. Tan, J. Tu, P. Wang, S. Wang, W. Wang, S. Wu, B. Xu, J. Xu, A. Yang, H. Yang, J. Yang, S. Yang, Y. Yao, B. Yu, H. Yuan, Z. Yuan, J. Zhang, X. Zhang, Y. Zhang, Z. Zhang, C. Zhou, J. Zhou, X. Zhou, and T. Zhu\n\nQwen technical report.\n\narXiv preprint arXiv:2309.16609.\n\nCited by: §4.1.\n\n[3]",
+ "limitations": "## Limitations\n\nOur framework’s primary limitations also define its future trajectory. First, the quality of our test generation is fundamentally dependent on the input policies, a classic “garbage-in, garbage-out” scenario. Second, our current implementation is limited to static, single-turn interactions. Extending our logical formalism to address the emergent, stateful risks of multi-turn dialogues and autonomous AI agents is therefore a crucial and primary direction for future research.\n\n## Acknowledgments\n\nWe thank the anonymous reviewers for their helpful comments. This work was supported by the National Natural Science Foundation of China under Grant 62502550, Shenzhen Science and Technology Program (KJZD20240903095700001). This research is also supported by the National Research Foundation, Singapore, and Cyber Security Agency of Singapore under its National Cybersecurity R&D Programme and CyberSG R&D Cyber Research Programme Office. Any opinions, findings and conclusions or recommendations expressed in these materials are those of the author(s) and do not reflect the views of National Research Foundation, Singapore, Cyber Security Agency of Singapore as well as CyberSG R&D Programme Office, Singapore.\n\n## References\n\n[1]\nAnthropic\n\nAnthropic acceptable use policy.\n\nExternal Links: Link\n\nCited by: §4.1.\n\nBai et al. (2023)\nJ. Bai, S. Bai, Y. Chu, Z. Cui, K. Dang, X. Deng, Y. Fan, W. Ge, Y. Han, F. Huang, B. Hui, L. Ji, M. Li, J. Lin, R. Lin, D. Liu, G. Liu, C. Lu, K. Lu, J. Ma, R. Men, X. Ren, X. Ren, C. Tan, S. Tan, J. Tu, P. Wang, S. Wang, W. Wang, S. Wu, B. Xu, J. Xu, A. Yang, H. Yang, J. Yang, S. Yang, Y. Yao, B. Yu, H. Yuan, Z. Yuan, J. Zhang, X. Zhang, Y. Zhang, Z. Zhang, C. Zhou, J. Zhou, X. Zhou, and T. Zhu\n\nQwen technical report.\n\narXiv preprint arXiv:2309.16609.\n\nCited by: §4.1.\n\n[3]\nBaidu\n\nBaidu ernie user agreement.\n\nExternal Links: Link\n\nCited by: §4.1.\n\nBose (2025)\nD. B. Bose",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 1,
+  "swe_bench": 0,
+  "contamination": 5,
+  "human_study": 1,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

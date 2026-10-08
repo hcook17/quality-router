@@ -1,0 +1,176 @@
+{
+ "arxiv_id": "2606.22247",
+ "fulltext_chars": 67324,
+ "fulltext_lines": 1398,
+ "authors_block": "DOI: 10.1145/3808211Journal: PACMSEVolume: 3FSEFSE2047fse26mainb-p2869-pCCS: Software and its engineering DocumentationCCS: Software and its engineering Software maintenance tools Aryaz Eghbali Affiliation: CISPA Helmholtz Center for Information Security, Stuttgart, Germany email: aryaz.egh@gmail.com , Zhongxin Liu Affiliation: Zhejiang University, Hangzhou, China email: liu_zx@zju.edu.cn and Michael Pradel Affiliation: CISPA Helmholtz Center for Information Security, Stuttgart, Germany email: michael@binaervarianz.de Received 2026-03-24",
+ "vendor_affiliation_hits": [],
+ "n_authors": 3,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/bndr/pipreqs.",
+  "https://github.com/sola-st/Documentary"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Natural Language-Focused Software Engineering via Code-Documentation Equivalence"
+  ],
+  [
+   46,
+   "###### Abstract."
+  ],
+  [
+   58,
+   "###### Keywords:"
+  ],
+  [
+   63,
+   "## 1. Introduction"
+  ],
+  [
+   198,
+   "## 2. Approach"
+  ],
+  [
+   203,
+   "### 2.1. Definition of Documentation-to-Code Equivalence"
+  ],
+  [
+   214,
+   "### 2.2. Generating Equivalent Documentation"
+  ],
+  [
+   234,
+   "#### 2.2.1. Core Algorithm"
+  ],
+  [
+   358,
+   "#### 2.2.2. Code Generation"
+  ],
+  [
+   406,
+   "#### 2.2.3. Equivalence Check"
+  ],
+  [
+   505,
+   "#### 2.2.4. Docstring Generation"
+  ],
+  [
+   611,
+   "## 3. Applications"
+  ],
+  [
+   615,
+   "### 3.1. Code Understanding via Output Prediction"
+  ],
+  [
+   667,
+   "### 3.2. Code Editing"
+  ],
+  [
+   704,
+   "## 4. Evaluation"
+  ],
+  [
+   732,
+   "### 4.1. Experimental Setup"
+  ],
+  [
+   734,
+   "#### 4.1.1. Datasets"
+  ],
+  [
+   763,
+   "#### 4.1.2. Baseline"
+  ],
+  [
+   791,
+   "#### 4.1.3. LLMs and Hardware"
+  ],
+  [
+   797,
+   "### 4.2. RQ1: Generating Equivalent Documentation"
+  ],
+  [
+   829,
+   "### 4.3. RQ2: Model Independence"
+  ],
+  [
+   845,
+   "### 4.4. RQ3: Ablation Study"
+  ],
+  [
+   862,
+   "### 4.5. RQ4: Costs"
+  ],
+  [
+   879,
+   "### 4.6. RQ5: Equivalent Documentation for LLMs (Code Understanding)"
+  ],
+  [
+   951,
+   "### 4.7. RQ6: Equivalent Documentation for Human Developers (Code Understanding and Code Editing)"
+  ],
+  [
+   1100,
+   "## 5. Related Work"
+  ],
+  [
+   1102,
+   "### 5.1. Improving Documentation"
+  ],
+  [
+   1109,
+   "### 5.2. LLM Evaluation via Self-consistency"
+  ],
+  [
+   1113,
+   "### 5.3. LLM-based Software Engineering"
+  ],
+  [
+   1119,
+   "## 6. Threats to Validity"
+  ],
+  [
+   1131,
+   "## 7. Conclusion"
+  ],
+  [
+   1140,
+   "## 8. Data Availability"
+  ],
+  [
+   1144,
+   "###### Acknowledgements."
+  ],
+  [
+   1148,
+   "## References"
+  ],
+  [
+   1398,
+   "##"
+  ]
+ ],
+ "acknowledgments": "###### Acknowledgements.\n\nThis work was supported by the German Research Foundation (DFG; projects 492507603, 516334526, and 526259073).\n\n## References\n\nAhmad et al. (2020)\n\nWasi Uddin Ahmad, Saikat Chakraborty, Baishakhi Ray, and Kai-Wei Chang. 2020.\n\nA Transformer-based Approach for Source Code Summarization. In Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics, ACL. 4998–5007.\n\ndoi:10.18653/v1/2020.acl-main.449\n\nAhmed et al. (2025)\n\nToufique Ahmed, Premkumar Devanbu, Christoph Treude, and Michael Pradel. 2025.\n\nCan LLMs Replace Manual Annotation of Software Engineering Artifacts?. In 2025 IEEE/ACM 22nd International Conference on Mining Software Repositories (MSR). 526–538.\n\ndoi:10.1109/MSR66628.2025.00086\n\nAllamanis et al. (2024)\n\nMiltiadis Allamanis, Sheena Panthaplackel, and Pengcheng Yin. 2024.",
+ "limitations": "## 6. Threats to Validity\n\nWe acknowledge the following threats to the validity of our findings.\nFirst, our evaluation relies on the test cases to determine the equivalence of code snippets.\nIf the test cases are not comprehensive, they may miss important aspects of the code’s behavior.\nFurthermore, flaky tests may lead to incorrect conclusions about the equivalence of code snippets.\nWe try to mitigate this threat, which is a difficult task and an ongoing research challenge (Bouzenia and Pradel, 2025; Souza and Pradel, 2025), by using large datasets for our evaluations.\nSecond, our evaluation focuses on Python code and docstrings.\nThe effectiveness of our approach may vary for other programming languages or documentation styles.\nHowever, the principles of our approach are language-agnostic and can be applied to other languages.\nThird, for our user study, we were only able to recruit 11 participants, which did not allow us to observe statistically significant differences for some metrics.\n\n## 7. Conclusion\n\nIn this paper, we present a novel property, called documentation-to-code equivalence, in which the documentation of a code snippet is considered equivalent if it contains sufficient information to generate the same code snippet.\nEquivalent documentation helps LLMs perform software engineering tasks that require understanding the code, such as output prediction.\nIt also allows developers to understand code better.\nWe propose an iterative approach, called Documentary, to generate equivalent documentation.\nOur evaluation on two datasets of Python projects shows that Documentary can generate equivalent documentation for 53.4% of functions, and that using equivalent documentation improves code comprehension for both human developers and LLMs.\nFurthermore, we show that equivalent documentation can be used by LLMs other than the one used to generate them, and that the cost of generating equivalent documentation is low enough to be practical for large codebases.\n\n## 8. Data Availability\n\nOur code, datasets, and scripts to reproduce the results are available at https://github.com/sola-st/Documentary, and as a stable snapshot also at https://doi.org/10.5281/zenodo.19514143.\n\n###### Acknowledgements.\n\nThis work was supported by the German Research Foundation (DFG; projects 492507603, 516334526, and 526259073).\n\n## References\n\nAhmad et al. (2020)\n\nWasi Uddin Ahmad, Saikat Chakraborty, Baishakhi Ray, and Kai-Wei Chang. 2020.\n\nA Transformer-based Approach for Source Code Summarization. In Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics, ACL. 4998–5007.\n\ndoi:10.18653/v1/2020.acl-main.449\n\nAhmed et al. (2025)",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 3,
+  "p_value_or_ci": 2,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 22,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

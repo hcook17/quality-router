@@ -1,0 +1,245 @@
+{
+ "arxiv_id": "2609.39383",
+ "fulltext_chars": 70961,
+ "fulltext_lines": 1816,
+ "authors_block": "Yilun Yuan Tianyu Zhou Zhenzhou Tang\\corresponding",
+ "vendor_affiliation_hits": [],
+ "n_authors": 3,
+ "comment": "18 pages, including supplementary material. Preprint",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# From Search to Signal: Online Post-Training in Automatic Heuristic Design"
+  ],
+  [
+   28,
+   "###### Abstract"
+  ],
+  [
+   36,
+   "## 1 Introduction"
+  ],
+  [
+   64,
+   "## 2 Related Work"
+  ],
+  [
+   66,
+   "### Search Procedures for LLM-Based AHD"
+  ],
+  [
+   70,
+   "### Model Adaptation from Search Experience"
+  ],
+  [
+   74,
+   "### Verifiable Feedback and Reward Construction"
+  ],
+  [
+   78,
+   "## 3 Search-Coupled Online AHD"
+  ],
+  [
+   105,
+   "## 4 Reward Constructions"
+  ],
+  [
+   159,
+   "#### Native CALM."
+  ],
+  [
+   163,
+   "#### Factorized Validity–Quality."
+  ],
+  [
+   173,
+   "#### Pre-Generation Tail Weighting."
+  ],
+  [
+   187,
+   "#### Search-Exposure Residual."
+  ],
+  [
+   197,
+   "## 5 Controlled Evaluation"
+  ],
+  [
+   199,
+   "#### Scope."
+  ],
+  [
+   203,
+   "#### Implementation."
+  ],
+  [
+   209,
+   "#### Attribution protocol."
+  ],
+  [
+   213,
+   "#### Metrics."
+  ],
+  [
+   243,
+   "## 6 Results"
+  ],
+  [
+   287,
+   "### Signal-Propagation Analysis"
+  ],
+  [
+   293,
+   "### Proposal-Stream Analysis"
+  ],
+  [
+   299,
+   "### Credit–Utility Alignment Analysis"
+  ],
+  [
+   305,
+   "### Live-Search Results"
+  ],
+  [
+   313,
+   "### Checkpoint and Search-State Attribution Analysis"
+  ],
+  [
+   319,
+   "## 7 Discussion, Limitations, and Conclusion"
+  ],
+  [
+   329,
+   "## References"
+  ],
+  [
+   700,
+   "## Appendix A Evidence Scope and Claim Hierarchy"
+  ],
+  [
+   823,
+   "## Appendix B Reward Construction and Normalizer Details"
+  ],
+  [
+   825,
+   "### Native CALM branch semantics"
+  ],
+  [
+   847,
+   "### Factorized Validity–Quality"
+  ],
+  [
+   863,
+   "### Pre-Generation Tail Weighting"
+  ],
+  [
+   891,
+   "### Search-Exposure Residual"
+  ],
+  [
+   922,
+   "### Implemented learner equivalence"
+  ],
+  [
+   951,
+   "## Appendix C Implementation and Reproducibility"
+  ],
+  [
+   953,
+   "### Source boundary and software"
+  ],
+  [
+   989,
+   "### Hardware"
+  ],
+  [
+   1035,
+   "### Final experimental parameters"
+  ],
+  [
+   1146,
+   "## Appendix D Complete Formal and Breadth Results"
+  ],
+  [
+   1148,
+   "### Seed-level formal cohort"
+  ],
+  [
+   1325,
+   "## Appendix E Search–Learning Interaction Diagnostics"
+  ],
+  [
+   1337,
+   "### Task and model breadth"
+  ],
+  [
+   1447,
+   "### Operators and proposal outcomes"
+  ],
+  [
+   1461,
+   "### Population admission is not learner credit"
+  ],
+  [
+   1471,
+   "### Credit allocation and base rates"
+  ],
+  [
+   1486,
+   "### Collapse and exact recurrence"
+  ],
+  [
+   1498,
+   "## Appendix F Checkpoint, Search-State, Generalization, and Resources"
+  ],
+  [
+   1500,
+   "### Live versus population-reset search"
+  ],
+  [
+   1516,
+   "### Held-out TSP sizes"
+  ],
+  [
+   1527,
+   "### Timing-derived Frozen-search anchors"
+  ],
+  [
+   1608,
+   "## Appendix G Common-Context Executable Checkpoint Probe"
+  ],
+  [
+   1688,
+   "## Appendix H API-Served Frozen-System Reference"
+  ],
+  [
+   1769,
+   "## Appendix I Provenance, Exclusions, and Reproduction Map"
+  ],
+  [
+   1816,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 7 Discussion, Limitations, and Conclusion\n\nAt the common horizon, all trained conditions improve live search over Frozen, but reward mappings trade validity, valid-only quality, signal density, and coverage. Tail-weighted retains an advantage over the initial model after reset without consistently reproducing its live endpoint. No mapping uniformly dominates, and timing-derived anchors show no consistent endpoint advantage over additional Frozen search.\n\nThe two-consumer view explains these differences. Search may retain a stepping stone without immediate frontier gain, while GRPO may reinforce the best member of an unproductive group. Archive admission, positive advantage, and strict discovery therefore answer different questions. Our residual construction shows that search-derived information can survive the normalizer, but establishes mechanism rather than efficacy.\n\nOur conclusions are limited to one co-evolutionary host. Multi-seed efficacy covers TSP and one 7B model; other task–model cells provide mechanism breadth only. Four-sample groups amplify ties, completion rewards cannot separate rationale from code, and coverage hashes are not semantic diversity. Matched updates test token probabilities on common contexts, while a supplementary two-seed CVRP probe evaluates final checkpoints with executable completions on a shared prompt bank but yields no stable ordering. Executable restarts subsequently diverge in context and therefore remain attribution tests rather than fixed-context capability estimates. Realized timing drift and missing prefix timestamps also preclude exact multiseed time-matched inference.\n\nOnline AHD should therefore be evaluated as a search-to-signal system: evaluated records separately reshape search and become learner credit through reward construction and normalization. Tracing both paths distinguishes parameter changes, reset-search behavior, and live gains. Reward construction is thus a testable component of search-coupled AHD rather than an implementation detail.\n\n## References\n\nAnthony et al. (2017)\nT. Anthony, Z. Tian, and D. Barber\n\nThinking fast and slow with deep learning and tree search.\n\nIn Advances in Neural Information Processing Systems,\n\nVol. 30.\n\nCited by: §2.\n\nBurke et al. (2013)\nE. K. Burke, M. Gendreau, M. Hyde, G. Kendall, G. Ochoa, E. Özcan, and R. Qu\n\nHyper-heuristics: a survey of the state of the art.\n\nJournal of the Operational Research Society 64 (12), pp. 1695–1724.\n\nExternal Links: Document\n\nCited by: §1.\n\nCobbe et al. (2021)\nK. Cobbe, V. Kosaraju, M. Bavarian, M. Chen, H. Jun, L. Kaiser, M. Plappert, J. Tworek, J. Hilton, R. Nakano, C. Hesse, and J. Schulman\n\nTraining verifiers to solve math word problems.\n\nExternal Links: 2110.14168",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 2,
+  "seeds_or_runs": 26,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

@@ -1,7 +1,7 @@
 {
   "window": {
     "from": "202605010000",
-    "to": "202610062359"
+    "to": "202610082359"
   },
   "categories": [
     "cs.SE",
@@ -654,6 +654,102 @@
         "agentic workflow search",
         "AFlow"
       ]
+    },
+    {
+      "id": "T62",
+      "cluster": "C05",
+      "name": "Codebase comprehension and developer onboarding",
+      "phrases": [
+        "onboarding",
+        "program comprehension",
+        "code comprehension",
+        "newcomers",
+        "codebase understanding"
+      ]
+    },
+    {
+      "id": "T63",
+      "cluster": "C05",
+      "name": "Requirement clarification and ambiguity handling by agents",
+      "phrases": [
+        "clarifying questions",
+        "requirement clarification",
+        "underspecified",
+        "ambiguous requirements",
+        "requirements elicitation"
+      ]
+    },
+    {
+      "id": "T64",
+      "cluster": "C02",
+      "name": "Domain knowledge and enterprise context for coding agents",
+      "phrases": [
+        "domain knowledge",
+        "domain-specific code generation",
+        "enterprise codebase",
+        "private library",
+        "knowledge-augmented code generation"
+      ]
+    },
+    {
+      "id": "T65",
+      "cluster": "C05",
+      "name": "Codebase question answering and exploration agents",
+      "phrases": [
+        "codebase question answering",
+        "repository question answering",
+        "code question answering",
+        "codebase exploration",
+        "code search agent"
+      ]
+    },
+    {
+      "id": "T66",
+      "cluster": "C02",
+      "name": "Documentation generation and knowledge capture",
+      "phrases": [
+        "documentation generation",
+        "code documentation",
+        "design rationale",
+        "architecture decision",
+        "tacit knowledge"
+      ]
+    },
+    {
+      "id": "T67",
+      "cluster": "C09",
+      "name": "Developer learning, skill formation and comprehension with AI",
+      "phrases": [
+        "novice programmers",
+        "junior developers",
+        "skill atrophy",
+        "deskilling",
+        "learning to program"
+      ]
+    },
+    {
+      "id": "T68",
+      "cluster": "C05",
+      "name": "Requirements traceability and specification recovery",
+      "phrases": [
+        "traceability",
+        "trace link recovery",
+        "specification mining",
+        "requirements recovery",
+        "reverse engineering requirements"
+      ]
+    },
+    {
+      "id": "T69",
+      "cluster": "C07",
+      "name": "Change impact analysis and issue understanding",
+      "phrases": [
+        "change impact analysis",
+        "impact analysis",
+        "issue understanding",
+        "bug report understanding",
+        "feature location"
+      ]
     }
   ],
   "patterns": {
@@ -693,6 +789,12 @@
     "P34": "Structured requirements / acceptance criteria",
     "P35": "Formal methods / verified generation",
     "P36": "Static workflow graph / state machine (developer-defined steps and gates)",
-    "P37": "LLM-generated task DAG (planner emits dependencies; parallel execution)"
+    "P37": "LLM-generated task DAG (planner emits dependencies; parallel execution)",
+    "P38": "Pre-spec knowledge discovery (explore code, docs and people before writing the spec)",
+    "P39": "Machine-readable domain context (cards, glossaries, ontologies, data contracts)",
+    "P40": "Agent asks clarifying questions before implementing",
+    "P41": "Comprehension and skill safeguards for developers (walkthroughs, explanations, learning modes)",
+    "P42": "Requirement-to-code traceability with verified links",
+    "P43": "Codebase question answering / exploration agents"
   }
 }

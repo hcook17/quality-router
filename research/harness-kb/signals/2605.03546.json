@@ -1,0 +1,195 @@
+{
+ "arxiv_id": "2605.03546",
+ "fulltext_chars": 133313,
+ "fulltext_lines": 3466,
+ "authors_block": "John Yang Affiliation: Meta FAIR Kilian Lieret Jeffrey Ma Affiliation: Meta FAIR Affiliation: Harvard University Parth Thakkar Affiliation: Meta FAIR Dmitrii Pedchenko Affiliation: Meta FAIR Sten Sootla Affiliation: Meta FAIR Emily McMilin Affiliation: Meta FAIR Pengcheng Yin Affiliation: Meta TBD Rui Hou Affiliation: Meta TBD Gabriel Synnaeve Affiliation: Meta FAIR Diyi Yang Affiliation: Stanford University Ofir Press Affiliation: Meta FAIR",
+ "vendor_affiliation_hits": [
+  "Meta"
+ ],
+ "n_authors": 12,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/SWE-bench/SWE-bench",
+  "https://github.com/facebookresearch/ProgramBench",
+  "https://github.com/nationalsecurityagency/ghidra."
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# ProgramBench: Can Language Models Rebuild Programs From Scratch?"
+  ],
+  [
+   70,
+   "###### Abstract"
+  ],
+  [
+   84,
+   "## 1 Introduction"
+  ],
+  [
+   125,
+   "## 2 ProgramBench"
+  ],
+  [
+   131,
+   "### 2.1 Task Formulation"
+  ],
+  [
+   146,
+   "### 2.2 Benchmark Construction"
+  ],
+  [
+   194,
+   "### 2.3 Dataset Statistics"
+  ],
+  [
+   256,
+   "### 2.4 Task Features"
+  ],
+  [
+   279,
+   "## 3 Experiments"
+  ],
+  [
+   299,
+   "## 4 Results"
+  ],
+  [
+   397,
+   "### 4.1 Ablations"
+  ],
+  [
+   422,
+   "## 5 Analysis"
+  ],
+  [
+   426,
+   "### 5.1 Test Suite Comparisons"
+  ],
+  [
+   526,
+   "### 5.2 Model-Generated Codebases"
+  ],
+  [
+   603,
+   "### 5.3 Agent Trajectories"
+  ],
+  [
+   680,
+   "## 6 Related Work"
+  ],
+  [
+   709,
+   "## 7 Discussion"
+  ],
+  [
+   731,
+   "## Acknowledgments"
+  ],
+  [
+   735,
+   "## References"
+  ],
+  [
+   1121,
+   "## Appendix A Benchmark"
+  ],
+  [
+   1125,
+   "### A.1 Task Collection Procedure"
+  ],
+  [
+   1146,
+   "### A.2 Inference Setting"
+  ],
+  [
+   1160,
+   "#### A.2.1 Motivation"
+  ],
+  [
+   1174,
+   "#### A.2.2 Early Mitigation Attempts"
+  ],
+  [
+   1213,
+   "#### A.2.3 Guidelines"
+  ],
+  [
+   1262,
+   "#### A.2.4 On the Feasability of ProgramBench"
+  ],
+  [
+   1338,
+   "### A.3 Test Generation"
+  ],
+  [
+   1363,
+   "#### A.3.1 Strategies"
+  ],
+  [
+   1407,
+   "#### A.3.2 Analyses"
+  ],
+  [
+   1433,
+   "#### A.3.3 Test Examples"
+  ],
+  [
+   1446,
+   "#### A.3.4 On Test Overspecification"
+  ],
+  [
+   1498,
+   "#### A.3.5 Assertion Lint Rules"
+  ],
+  [
+   1625,
+   "### A.4 Dataset Statistics"
+  ],
+  [
+   1855,
+   "## Appendix B Additional Results"
+  ],
+  [
+   1859,
+   "### B.1 Experimental Setup"
+  ],
+  [
+   1883,
+   "### B.2 Further Findings"
+  ],
+  [
+   1971,
+   "## Appendix C Miscellaneous"
+  ],
+  [
+   1973,
+   "### C.1 Repository Index"
+  ],
+  [
+   3466,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgments\n\nWe would like to thank Jordi Armengol-Estape, Quentin Carbonneaux, Jannik Kossen, Michel Meyer, Shengjia Zhao, Yang Song, Rob Fergus, Jiayi Pan, Ori Yoran, and Shuyan Zhou for their valuable discussions and infrastructure assistance.\n\n## References\n\nAdamczewski et al. (2026)\n\nTom Adamczewski, David Rein, David Owen, and Florian Brand.\n\nMirrorcode: Evidence AI can already do some weeks-long coding tasks.\n\nhttps://epoch.ai/blog/mirrorcode-preliminary-results, 2026.\n\nEpoch AI blog post.\n\nBadertdinov et al. (2025)\n\nIbragim Badertdinov, Alexander Golubev, Maksim Nekrashevich, Anton Shevtsov, Simon Karasik, Andrei Andriushchenko, Maria Trofimova, Daria Litvintseva, and Boris Yangel.\n\nSwe-rebench: An automated pipeline for task collection and decontaminated evaluation of software engineering agents.\n\narXiv preprint arXiv:2505.20411, 2025.\n\nBaumann et al. (2026)",
+ "limitations": "",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 6,
+  "seeds_or_runs": 0,
+  "swe_bench": 15,
+  "contamination": 1,
+  "human_study": 0,
+  "java": 4,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

@@ -1,0 +1,187 @@
+{
+ "arxiv_id": "2607.29637",
+ "fulltext_chars": 59925,
+ "fulltext_lines": 1351,
+ "authors_block": "Wenxin Tang1, Jingyu Xiao2, Zhenyu Liu3, Zipeng Xie4, Junliang Liu2, Wang Luo5, Yuan Jiang6, Yintong Huo7, Michael Lyu2 Affiliation: Affiliation: 1Tsinghua University 2The Chinese University of Hong Kong 3Northwestern Polytechnical University 4Xi’an Jiaotong University 5Sun Yat-sen University 6Harbin Institute of Technology 7Singapore Management University twx24@mails.tsinghua.edu.cn, whalexiao99@gmail.com",
+ "vendor_affiliation_hits": [],
+ "n_authors": 9,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/vinsontang1/CodeShrink."
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   24,
+   "# CodeShrink: Adaptive Visual Compression for Efficient Multimodal Code Understanding"
+  ],
+  [
+   52,
+   "###### Abstract"
+  ],
+  [
+   56,
+   "###### Index Terms:"
+  ],
+  [
+   59,
+   "## I Introduction"
+  ],
+  [
+   91,
+   "## II Background"
+  ],
+  [
+   93,
+   "### II-A Visual-based Code Understanding"
+  ],
+  [
+   97,
+   "### II-B MLLMs’ Process Pipeline for Code Intelligence"
+  ],
+  [
+   102,
+   "## III Preliminary Study"
+  ],
+  [
+   104,
+   "### III-A Visual Token Redundancy in Code Images"
+  ],
+  [
+   112,
+   "### III-B Compression Configuration Preferences Vary Across Samples"
+  ],
+  [
+   122,
+   "## IV Methodology"
+  ],
+  [
+   126,
+   "### IV-A Blank-Free Rendering"
+  ],
+  [
+   217,
+   "### IV-B Dominant Token Selection"
+  ],
+  [
+   229,
+   "### IV-C Adaptive Compression Configuration"
+  ],
+  [
+   501,
+   "## V Experiments"
+  ],
+  [
+   503,
+   "### V-A Experiment Setup"
+  ],
+  [
+   505,
+   "#### V-A1 Benchmark and Metrics"
+  ],
+  [
+   511,
+   "#### V-A2 Baselines"
+  ],
+  [
+   523,
+   "#### V-A3 Implementation Details"
+  ],
+  [
+   654,
+   "#### V-A4 Research Questions"
+  ],
+  [
+   678,
+   "### V-B Overall Performance (RQ1)"
+  ],
+  [
+   806,
+   "### V-C Rendering Quality (RQ2)"
+  ],
+  [
+   812,
+   "### V-D Ablation Study (RQ3)"
+  ],
+  [
+   820,
+   "### V-E ACC Deep Dive (RQ4)"
+  ],
+  [
+   824,
+   "#### V-E1 The scale ratio r_{\\delta}"
+  ],
+  [
+   828,
+   "#### V-E2 The pruning ratios r_{\\rho_{f}} and r_{\\rho_{b}}"
+  ],
+  [
+   832,
+   "#### V-E3 Task-dependent optimal configuration"
+  ],
+  [
+   838,
+   "### V-F Case Study (RQ5)"
+  ],
+  [
+   844,
+   "#### V-F1 Blank-Free Rendering (BFR)"
+  ],
+  [
+   850,
+   "#### V-F2 Dominant Token Selection (DTS)"
+  ],
+  [
+   856,
+   "#### V-F3 Adaptive Compression Configuration (ACC)"
+  ],
+  [
+   862,
+   "## VI Related Work"
+  ],
+  [
+   864,
+   "### VI-A Multimodal Large Language Models for Code"
+  ],
+  [
+   868,
+   "### VI-B Token Compression"
+  ],
+  [
+   872,
+   "## VII Threats to Validity"
+  ],
+  [
+   876,
+   "## VIII Conclusion"
+  ],
+  [
+   880,
+   "## References"
+  ],
+  [
+   1351,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## VII Threats to Validity\n\n(1) We evaluate CodeShrink on three representative code understanding tasks using widely adopted benchmarks and standard metrics. While these tasks cover a broad range of scenarios, evaluating CodeShrink on additional software engineering tasks could further demonstrate its applicability. (2) Our experiments are conducted on Python and Java, which represent two widely used programming languages. Extending the evaluation to more programming languages and larger real-world software repositories would provide additional evidence of the generalizability of CodeShrink.\n\n## VIII Conclusion\n\nIn this paper, we investigated visual token redundancy in code images for MLLM-based code understanding, finding that blank regions, task-irrelevant code, and fixed compression configurations lead to inefficient visual token usage. We proposed CodeShrink, an adaptive visual compression framework consisting of Blank-Free Rendering (BFR), which removes layout-induced blank tokens, Dominant Token Selection (DTS), which prunes instruction-irrelevant visual tokens, and Adaptive Compression Configuration (ACC), which predicts per-input compression configurations via reinforcement learning. Experiments on code question answering, clone detection, and code completion show that CodeShrink substantially reduces visual tokens while matching or even surpassing uncompressed text-only inputs, consistently outperforming both text-based and visual compression baselines.\n\n## References\n\n[1]\nY. Shi, C. Xie, Z. Sun, Y. Chen, C. Zhang, L. Yun, C. Wan, H. Zhang, D. Lo, and X. Gu (2026)\n\nCodeOCR: on the effectiveness of vision language models in code understanding.\n\narXiv preprint arXiv:2602.01785.\n\nCited by: §I,\n§I,\nTABLE I,\nTABLE II,\n§V-A1,\n§V-A2,\n§VI-B.\n\n[2]\nS. Rando, L. Romani, A. Sampieri, L. Franco, J. Yang, Y. Kyuragi, F. Galasso, and T. Hashimoto (2025)\n\nLongcodebench: evaluating coding llms at 1m context windows.\n\narXiv preprint arXiv:2505.07897.\n\nCited by: §I.\n\n[3]\nA. I. Alam, P. R. Roy, F. Al-Omari, C. K. Roy, B. Roy, and K. A. Schneider (2023)\n\nGPTCloneBench: a comprehensive benchmark of semantic clones and cross-language clones using gpt-3 model and semanticclonebench.\n\nIn 2023 IEEE International Conference on Software Maintenance and Evolution (ICSME),",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 2,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 7,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

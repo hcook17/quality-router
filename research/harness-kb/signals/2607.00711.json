@@ -1,0 +1,207 @@
+{
+ "arxiv_id": "2607.00711",
+ "fulltext_chars": 61040,
+ "fulltext_lines": 1230,
+ "authors_block": "##### Report GitHub Issue Title: Content selection saved. Describe the issue below: Description: arXiv is now an independent nonprofit! Learn more Back to arXiv License: arXiv.org perpetual non-exclusive license arXiv:2607.00711v2 [cs.SE] 31 Aug 2026 # ClarifyCodeBench: Evaluating LLMs on Clarifying Ambiguous Requirements for Code Generation Zheng Fang Affiliation: Peking University, Beijing, China email: fangz@pku.edu.cn , Dongming Jin Affiliation: Peking University, Beijing, China email: dmjin@stu.pku.edu.cn , Yihong Dong Affiliation: Peking University, Beijing, China email: dongyh@stu.pku.edu.cn , Yongmin Li Affiliation: Peking University, Beijing, China email: liyongmin@pku.edu.cn , Kechi Zhang Affiliation: Peking University, Beijing, China email: zhangkechi@pku.edu.cn , Zhi Jin Affiliation: Peking University, Beijing, China email: zhijin@pku.edu.cn and Ge Li Note: Corresponding author. Affiliation: Peking University, Beijing, China email: lige@pku.edu.cn © none",
+ "vendor_affiliation_hits": [
+  "GitHub"
+ ],
+ "n_authors": 7,
+ "comment": "Code: https://github.com/fangz-cs/ClarifyCodeBench",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "#"
+  ],
+  [
+   75,
+   "###### Abstract."
+  ],
+  [
+   80,
+   "###### Keywords:"
+  ],
+  [
+   83,
+   "## 1. Introduction"
+  ],
+  [
+   174,
+   "## 2. Background"
+  ],
+  [
+   176,
+   "### 2.1. Code Generation Benchmarks"
+  ],
+  [
+   188,
+   "### 2.2. Clarification under Ambiguous Requirements"
+  ],
+  [
+   193,
+   "## 3. Benchmark Construction"
+  ],
+  [
+   197,
+   "### 3.1. Motivation Experiment"
+  ],
+  [
+   201,
+   "### 3.2. Dataset Construction"
+  ],
+  [
+   203,
+   "##### Source Tasks."
+  ],
+  [
+   275,
+   "##### Ambiguity Annotation."
+  ],
+  [
+   281,
+   "##### Quality Control."
+  ],
+  [
+   285,
+   "##### Ambiguity Typing."
+  ],
+  [
+   293,
+   "##### Dataset Summary."
+  ],
+  [
+   297,
+   "### 3.3. Evaluation Metrics"
+  ],
+  [
+   301,
+   "#### 3.3.1. Turn-discounted Key Question Rate"
+  ],
+  [
+   323,
+   "#### 3.3.2. Optimal Round Adherence"
+  ],
+  [
+   339,
+   "### 3.4. Evaluation Protocol"
+  ],
+  [
+   396,
+   "##### Components."
+  ],
+  [
+   400,
+   "##### Multi-round Interaction."
+  ],
+  [
+   404,
+   "##### LLM-as-a-Judge."
+  ],
+  [
+   408,
+   "## 4. EXPERIMENTAL SETUP"
+  ],
+  [
+   432,
+   "### 4.1. Studied LLMs"
+  ],
+  [
+   436,
+   "### 4.2. Evaluation Metrics"
+  ],
+  [
+   440,
+   "### 4.3. Implementation Details"
+  ],
+  [
+   444,
+   "## 5. RESULTS"
+  ],
+  [
+   446,
+   "### 5.1. RQ1: Effectiveness of clarification question asking by LLMs."
+  ],
+  [
+   510,
+   "### 5.2. RQ2: Performance across ambiguity types"
+  ],
+  [
+   520,
+   "### 5.3. RQ3: Performance across difficulty levels"
+  ],
+  [
+   528,
+   "### 5.4. RQ4: Clarification depth on ClarifyCodeBench"
+  ],
+  [
+   592,
+   "### 5.5. RQ5: Error Analysis"
+  ],
+  [
+   660,
+   "##### Runtime Error."
+  ],
+  [
+   664,
+   "##### Wrong Answer."
+  ],
+  [
+   708,
+   "##### Time Limit Exceeded."
+  ],
+  [
+   815,
+   "## 6. Discussion"
+  ],
+  [
+   817,
+   "### 6.1. Agentic Workflows"
+  ],
+  [
+   821,
+   "### 6.2. Threats to Validity"
+  ],
+  [
+   823,
+   "##### Data Leakage."
+  ],
+  [
+   827,
+   "##### LLM-As-Judge."
+  ],
+  [
+   831,
+   "## 7. Conclusion"
+  ],
+  [
+   835,
+   "## References"
+  ],
+  [
+   1230,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "### 6.2. Threats to Validity\n\n##### Data Leakage.\n\nBecause our dataset is built from LiveCodeBench problems, data leakage remains a threat to validity. LiveCodeBench was designed to reduce contamination by continuously collecting new problems over time. To further limit this risk, we filtered the source problems and prioritized relatively recent ones during dataset construction. Even so, our ambiguity annotations are added to public problems, and the original problem statements may still have been included in the training data of closed-source LLMs. As a result, some models may infer the intended meaning of an ambiguous requirement from prior exposure rather than from a true ability to ask effective clarification questions. This concern is especially relevant for proprietary models, whose training data is not publicly available. Our results may therefore overestimate the ability of some LLMs to handle ambiguous requirements. Even under this favorable condition, current models still show limited clarification quality, which strengthens our main conclusion that ambiguity remains a major challenge for reliable code generation with LLMs.\n\n##### LLM-As-Judge.\n\nA threat to validity arises from our use of an LLM-as-judge to determine whether a clarification question matches the annotated key question. To validate this design, we randomly sampled a subset of instances for human evaluation and compared the human labels with the decisions of the LLM judge. The Cohen’s kappa (Cohen, 1960; Landis and Koch, 1977) between the two sets of labels is 0.89, indicating strong agreement. This result suggests that the judge is highly reliable for this task, although a small amount of residual noise may still remain in borderline cases.\n\n## 7. Conclusion\n\nIn this paper, we introduced ClarifyCodeBench, an interactive benchmark for evaluating how well LLMs clarify ambiguous requirements before generating code. Using an interactive evaluation protocol and two clarification-oriented metrics, TKQR and ORA, we showed that current LLMs still struggle to identify missing information and ask effective clarification questions. We also found that stronger reasoning does not consistently improve clarification behavior, and that performance drops sharply as ambiguity increases. These findings suggest that reliable LLM-based code generation requires not only stronger synthesis ability, but also better support for ambiguity-aware interaction. We hope that ClarifyCodeBench will support future research on interactive requirement elicitation for AI-assisted software engineering.\n\n## References\n\nAkhoroz and Yildirim (2025)\nM. Akhoroz and C. Yildirim\n\nConversational AI as a coding assistant: understanding programmers’ interactions with and expectations from large language models for coding.\n\nCoRR abs/2503.16508.\n\nCited by: §1.\n\nAnthropic (2025)\nAnthropic\n\nClaude sonnet 4.5 system card.\n\nTechnical report\n\n Anthropic.\n\nExternal Links: Link\n\nCited by: §4.1.\n\nAustin et al. (2021)\nJ. Austin, A. Odena, M. Nye, M. Bosma, H. Michalewski, D. Dohan, E. Jiang, C. Cai, M. Terry, Q. Le, et al.",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 5,
+  "p_value_or_ci": 2,
+  "seeds_or_runs": 12,
+  "swe_bench": 0,
+  "contamination": 5,
+  "human_study": 2,
+  "java": 0,
+  "industrial": 2
+ },
+ "fulltext_source": "html"
+}

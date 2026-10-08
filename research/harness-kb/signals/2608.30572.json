@@ -1,0 +1,155 @@
+{
+ "arxiv_id": "2608.30572",
+ "fulltext_chars": 48347,
+ "fulltext_lines": 727,
+ "authors_block": "Hidetake Tanaka Affiliation: Nara Institute of Science and Technology, 8916-5 Takayama-cho, Ikoma, Nara 630-0192, Japan E-mail tanaka.hidetake.te0@naist.ac.jp Hiroshi Igaki✉ Affiliation: Osaka Institute of Technology, 1-79-1 Kitayama, Hirakata, Osaka 573-0196, Japan E-mail {hiroshi.igaki,kiyoshi.honda,naoki.fukuyasu}@oit.ac.jp Kazumasa Shimari Affiliation: Wakayama University, Sakaedani 930, Wakayama, Wakayama 640-8510, Japan E-mail shimari@wakayama-u.ac.jp Kiyoshi Honda Affiliation: Osaka Institute of Technology, 1-79-1 Kitayama, Hirakata, Osaka 573-0196, Japan E-mail {hiroshi.igaki,kiyoshi.honda,naoki.fukuyasu}@oit.ac.jp Naoki Fukuyasu Affiliation: Osaka Institute of Technology, 1-79-1 Kitayama, Hirakata, Osaka 573-0196, Japan E-mail {hiroshi.igaki,kiyoshi.honda,naoki.fukuyasu}@oit.ac.jp",
+ "vendor_affiliation_hits": [],
+ "n_authors": 5,
+ "comment": "Accepted for publication in the 38th International Conference on Software Engineering Education and Training (CSEE&T 2026) : 18 pages, 1 table, 6 figures",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/kiyoshi-honda/InuzukiProject"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Practical Implementation Report on Introducing Spec-Driven Development Using AI Agents in Software Development PBL"
+  ],
+  [
+   52,
+   "###### Abstract"
+  ],
+  [
+   56,
+   "###### Keywords:"
+  ],
+  [
+   59,
+   "## 1 Introduction"
+  ],
+  [
+   105,
+   "## 2 Related Work"
+  ],
+  [
+   107,
+   "### 2.1 LLM-Based Software Development"
+  ],
+  [
+   118,
+   "### 2.2 AI Agent-Based Software Development"
+  ],
+  [
+   126,
+   "### 2.3 Spec-Driven Development"
+  ],
+  [
+   141,
+   "### 2.4 Generative AI and Software Development Education"
+  ],
+  [
+   147,
+   "## 3 Application of Spec-Driven Development to SDPBL"
+  ],
+  [
+   153,
+   "### 3.1 Overview of the SDPBL Course"
+  ],
+  [
+   173,
+   "### 3.2 Preparation and Lecture Content for Application of Spec-Driven Development"
+  ],
+  [
+   177,
+   "#### Lecture on Spec-Driven Development"
+  ],
+  [
+   190,
+   "#### Distribution of the Template Project"
+  ],
+  [
+   222,
+   "#### Demo of Spec-Driven Development"
+  ],
+  [
+   253,
+   "### 3.3 Evaluation Methodology"
+  ],
+  [
+   264,
+   "## 4 Results"
+  ],
+  [
+   266,
+   "### 4.1 RQ1. To what extent do students use AI in each phase of the development process in SDPBL with SDD?"
+  ],
+  [
+   277,
+   "### 4.2 RQ2. Does the widespread use of LLMs/AI agents affect student’s implementation throughput (added LOC) in SDPBL?"
+  ],
+  [
+   353,
+   "### 4.3 RQ3. How does the level of AI usage relate to students’ code comprehension?"
+  ],
+  [
+   383,
+   "## 5 Discussion"
+  ],
+  [
+   387,
+   "### 5.1 Considerations for Introducing AI Agents in SDPBL"
+  ],
+  [
+   391,
+   "#### Balancing Code Comprehension and AI Usage"
+  ],
+  [
+   413,
+   "#### Technical Infrastructure"
+  ],
+  [
+   419,
+   "### 5.2 Threats to Validity"
+  ],
+  [
+   431,
+   "## 6 Conclusion"
+  ],
+  [
+   440,
+   "#### Acknowledgements"
+  ],
+  [
+   444,
+   "#### Disclosure of Interests."
+  ],
+  [
+   448,
+   "## References"
+  ],
+  [
+   727,
+   "##"
+  ]
+ ],
+ "acknowledgments": "#### Acknowledgements\n\nThis work has been supported by JST BOOST, Japan Grant Number JPMJBS2423, JSPS KAKENHI Grant Number 26K15097 and 26K21197, and Support Center for Advanced Telecommunications Technology Research.\n\n#### Disclosure of Interests.\n\nThe authors have no competing interests to declare that are relevant to the content of this article.\n\n## References\n\n[1]\nF. Batole, D. OBrien, T. N. Nguyen, R. Dyer, and H. Rajan (2025)\n\nAn llm-based agent-oriented approach for automated code design issue localization.\n\nIn Proceedings of the IEEE/ACM 47th International Conference on Software Engineering,\n\npp. 1320–1332.\n\nExternal Links: ISBN 9798331505691,\nDocument\n\nCited by: §2.2.\n\n[2]",
+ "limitations": "### 5.2 Threats to Validity\n\nInternal Validity:\nIn this study, we did not conduct a controlled experiment with a concurrent control group that abstained from using AI agents. Although we compared the results with historical data from 2022 to 2024, we cannot rule out the possibility that year-to-year variations in student skill sets, differences in cohort size, or subtle changes in the educational environment served as confounding factors. Therefore, care must be taken in concluding that the observed changes are solely attributable to the introduction of AI agents.\n\nConstruct Validity:\nWe used “added LOC” as the primary metric for development efficiency. However, efficiency in software engineering is a multifaceted concept that encompasses class design quality, refactoring, and the removal of redundant code. Since added LOC cannot fully capture these qualitative activities, the results may not entirely reflect the comprehensive nature of software development efficiency.\nAdditionally, the code comprehension scores rely on instructors’ subjective evaluations. While this approach lacks the rigor of objective tests, it enables the assessment of the depth of students’ understanding through dialogue, which is difficult to capture with purely quantitative metrics.\n\nExternal Validity:\nThis study focuses on a specific course using Java and Spring Boot and is limited to an experiment involving only four teams. Consequently, the results cannot be fully generalized to all contexts. However, they provide relevant and informative guidance for similar PBL courses and team developments that employ widely adopted technologies.\n\n## 6 Conclusion\n\nThis study examined the integration of AI agents into our SDPBL course, analyzing student activities through self-reported AI usage, added lines of code, and code comprehension levels.\nOur findings provide several key insights. Students actively utilized AI agents across all development phases, with usage patterns varying between teams. We observed a notable increase in implementation throughput, with students in 2024–2025 adding more lines of code compared to those in 2022–2023. Regarding the relationship between AI usage and code comprehension, although mean values suggest that students with lower comprehension might rely more on AI, this trend was not statistically significant. The lack of a significant correlation may be attributed to our pedagogical approach, where one-on-one instructor interviews and timely interventions potentially encouraged students to maintain their comprehension of AI-generated code, thereby mitigating the risk of over-reliance.\n\nWe conclude that while AI agents can enhance implementation speed in SDPBL, their introduction should be accompanied by careful educational management. Regular monitoring of code comprehension and proactive feedback appear to be important for maintaining educational effectiveness. Providing proper guidance may help ensure that students use AI as a supportive tool rather than a substitute for deep understanding.\n\nFuture work should focus on three areas. First, developing effective methods to assess and improve students’ understanding of AI-generated code. Second, investigating optimal workflows that balance AI assistance with learning outcomes. Third, conducting longitudinal studies to examine how early exposure to AI agents affects students’ long-term software engineering skills.\n\n#### Acknowledgements\n\nThis work has been supported by JST BOOST, Japan Grant Number JPMJBS2423, JSPS KAKENHI Grant Number 26K15097 and 26K21197, and Support Center for Advanced Telecommunications Technology Research.\n\n#### Disclosure of Interests.\n\nThe authors have no competing interests to declare that are relevant to the content of this article.\n\n## References\n\n[1]\nF. Batole, D. OBrien, T. N. Nguyen, R. Dyer, and H. Rajan (2025)\n\nAn llm-based agent-oriented approach for automated code design issue localization.\n\nIn Proceedings of the IEEE/ACM 47th International Conference",
+ "ethics_coi": "#### Disclosure of Interests.\n\nThe authors have no competing interests to declare that are relevant to the content of this article.\n\n## References\n\n[1]\nF. Batole, D. OBrien, T. N. Nguyen, R. Dyer, and H. Rajan (2025)\n\nAn llm-based agent-oriented approach for automated code design issue localization.\n\nIn Proceedings of the IEEE/ACM 47th International Conference on Software Engineering,\n\npp. 1320–1332.\n\nExternal Links: ISBN 9798331505691,\nDocument\n\nCited by: §2.2.\n\n[2]\nI. Bouzenia, P. Devanbu, and M. Pradel (2025)\n\nRepairAgent: an autonomous, llm-based agent for program repair.",
+ "counts": {
+  "self_reported": 2,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 7,
+  "java": 2,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

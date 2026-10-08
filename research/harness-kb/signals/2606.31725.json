@@ -1,0 +1,143 @@
+{
+ "arxiv_id": "2606.31725",
+ "fulltext_chars": 66290,
+ "fulltext_lines": 1995,
+ "authors_block": "Jack Le1,*, Anh H.N. Nguyen1,*, and Tien N. Nguyen1 Affiliation: Department of Computer Science University of Texas at Dallas Richardson, Texas, USA 1{jvl210002, Tien.N.Nguyen}@utdallas.edu Affiliation:",
+ "vendor_affiliation_hits": [],
+ "n_authors": 3,
+ "comment": "13 pages, 15 figures",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [
+  "https://huggingface.co/blog/smollm3"
+ ],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Do Machines Struggle Where Humans Do? LLM and Human Comprehension of Obfuscated CodeThanks: *Jack Van Le and Anh H.N. Nguyen contributed equally to this work."
+  ],
+  [
+   34,
+   "###### Abstract"
+  ],
+  [
+   38,
+   "## I Introduction"
+  ],
+  [
+   66,
+   "## II Background"
+  ],
+  [
+   68,
+   "### II-A Code Obfuscation"
+  ],
+  [
+   80,
+   "### II-B Human Understanding of Obfuscated Code"
+  ],
+  [
+   84,
+   "## III Research Questions"
+  ],
+  [
+   121,
+   "## IV Experimental Methodology"
+  ],
+  [
+   123,
+   "### IV-A Datasets and Model Selection"
+  ],
+  [
+   125,
+   "#### IV-A1 Datasets"
+  ],
+  [
+   133,
+   "#### IV-A2 Models"
+  ],
+  [
+   210,
+   "### IV-B Prompt Design"
+  ],
+  [
+   225,
+   "### IV-C Evaluation Metrics and Block-Model Measures"
+  ],
+  [
+   278,
+   "## V LLM alignment with humans under code obfuscation (RQ1)"
+  ],
+  [
+   280,
+   "### V-A Accuracy under Obfuscation"
+  ],
+  [
+   484,
+   "### V-B Language Effects"
+  ],
+  [
+   674,
+   "### V-C Human–model Alignment"
+  ],
+  [
+   739,
+   "## VI How is model alignment with human experience? (RQ2)"
+  ],
+  [
+   988,
+   "## VII Chain of Thought (CoT) Trace Lengths (RQ3)"
+  ],
+  [
+   1058,
+   "## VIII Adversarial renaming (RQ4)"
+  ],
+  [
+   1254,
+   "## IX Threats to Validity"
+  ],
+  [
+   1263,
+   "## X Related Work"
+  ],
+  [
+   1278,
+   "## XI Implications and Conclusion"
+  ],
+  [
+   1280,
+   "### XI-A Implications for software engineering"
+  ],
+  [
+   1289,
+   "### XI-B Implications for software security"
+  ],
+  [
+   1301,
+   "## References"
+  ],
+  [
+   1995,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## IX Threats to Validity\n\nContamination Control. We use model release timing relative to our LeetCode dataset’s creation (May 2025) as a proxy to mitigate training data contamination. However, release dates are an imperfect indicator of training data cutoff, and some models post-date this threshold; thus, overlap with training corpora cannot be ruled out.\nDatasets may limit generalizability.\n\nTask and Evaluation Design. We restrict the study to deterministic, self-contained snippets, which may bias results toward simpler programs and omit real-world complexities like external dependencies. Variants such as adversarial renaming may not fully represent obfuscations.\n\nEvaluation Proxy. Output prediction imperfectly proxies code understanding. We address this through various metrics.\n\n## X Related Work\n\nObfuscation and Human Code Comprehension. [3] provides a taxonomy motivating our tiered design. Surveys establish obfuscation as a controlled probe of model robustness [30, 31].\nIdentifier renaming significantly reduces task performance [32], and program comprehension depends on working memory, attention, and semantic cues [33, 34]. Meaningful identifiers reduce cognitive load; poor naming increases it [35, 36]. Most directly, Nguyen et al. [1] measured human comprehension under these obfuscation tiers; we build on their paradigm and data to study whether LLMs exhibit the same difficulty patterns.\n\nLLM Reasoning and Cognitive Alignment.\nCoT prompting improves performance on difficult tasks [37, 38, 39], and reasoning effort scales with task difficulty [6, 40]. Reasoning traces may be post-hoc rather than faithful [41, 42]. Token-level uncertainty is linked to confusion in humans/models [43].\n\nResearchers capture human attention from eye movements and use it to improve neural code summarization [44]. EyeTrans [45] integrates human attention into Transformer-based code summarization. More recent work further explores training code models to mimic human visual attention [46]. The attention weights of neural models of code are compared with human visual attention during code summarization, asking whether models attend to the same tokens as developers [47].\n\nExpert–Novice Differences in Program Comprehension. Experts rely on plan-based and hierarchical reasoning, whereas novices tend to process code locally and line by line [48, 49]. Pennington [50] shows that expert understanding integrates control-flow and goal-oriented representations, while Corritore and Wiedenbeck [51] identify identifiers as semantic “beacons.”\n\nIdentifier Sensitivity and Adversarial Robustness in Code Models.\nIdentifiers carry rich semantics in programs [52, 53], yet adversarial renaming misleads models [54, 28, 55]. Code models often rely on surface cues over deep semantics [56], and identifier quality affects performance [57].\n\n## XI Implications and Conclusion\n\n### XI-A Implications for software engineering\n\n1. Our findings bear on human-AI collaboration in SE. Tasks like code review, debugging, and comprehension require developers to interpret and act on model outputs, so model selection should weigh not only accuracy but whether the model’s reasoning aligns with how developers understand code. Reasoning-tuned models are both more accurate and more aligned with developers’ difficulty patterns, making human alignment an additional criterion for developer-facing tools: a model whose difficulty profile resembles a developer’s yields reasoning traces and failure modes easier to inspect, calibrate, and supervise, especially when explaining unfamiliar code, assisting\ndebugging, or code comprehension and review.\n\n2. Our results also expose a concrete risk: adversarial or suspicious naming can cause high-confidence incorrect answers when semantic displacement and identifier-level disruption co-occur. Since developers often face poorly named, generated, minified, legacy, or unfamiliar code, tools should not treat confident explanations as evidence of understanding wh",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 1,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 15,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 3,
+  "human_study": 5,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

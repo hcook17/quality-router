@@ -1,0 +1,173 @@
+{
+ "arxiv_id": "2605.09055",
+ "fulltext_chars": 44001,
+ "fulltext_lines": 618,
+ "authors_block": "Quilee Simeon Affiliation: Massachusetts Institute of Technology qsimeon@mit.edu Justin Minggan Wei Affiliation: Harvard University mwei@fas.harvard.edu Yile Fan Affiliation: Harvard University yile_fan@mde.harvard.edu",
+ "vendor_affiliation_hits": [],
+ "n_authors": 3,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Octopus Protocol: One-Shot Hardware Discovery and Control for AI Agents via Infrastructure-as-Prompts"
+  ],
+  [
+   40,
+   "###### Abstract"
+  ],
+  [
+   44,
+   "###### Index Terms:"
+  ],
+  [
+   47,
+   "## I Introduction"
+  ],
+  [
+   61,
+   "#### Octopus"
+  ],
+  [
+   76,
+   "#### Contributions"
+  ],
+  [
+   82,
+   "## II Related Work"
+  ],
+  [
+   92,
+   "## III System Design"
+  ],
+  [
+   100,
+   "### III-A Overview and Design Goals"
+  ],
+  [
+   108,
+   "### III-B Semantic Observability and the Two-Layer Model"
+  ],
+  [
+   122,
+   "### III-C The Three Hardware Tiers"
+  ],
+  [
+   148,
+   "### III-D Architecture"
+  ],
+  [
+   152,
+   "#### Output contracts are the type system"
+  ],
+  [
+   156,
+   "#### Markov context propagation"
+  ],
+  [
+   160,
+   "#### Self-editing specifications"
+  ],
+  [
+   164,
+   "### III-E Lifecycle and Bounded Self-Healing"
+  ],
+  [
+   174,
+   "### III-F Safety and Threat Boundary"
+  ],
+  [
+   180,
+   "## IV Evaluation"
+  ],
+  [
+   244,
+   "### IV-A Contract-Free Onboarding Produces Working Interfaces"
+  ],
+  [
+   250,
+   "#### Coverage"
+  ],
+  [
+   254,
+   "#### The interfaces are correct, not merely present"
+  ],
+  [
+   258,
+   "### IV-B One Specification, Many Implementations"
+  ],
+  [
+   264,
+   "#### macOS is where a hardcoded implementation would have failed"
+  ],
+  [
+   268,
+   "#### The same variance appears across runs, and it is ordered"
+  ],
+  [
+   272,
+   "### IV-C The Semantic Boundary"
+  ],
+  [
+   274,
+   "#### Tier 2: a name, and what a name does not cover"
+  ],
+  [
+   280,
+   "#### Tier 3: a description, where no documentation exists"
+  ],
+  [
+   326,
+   "### IV-D Persistent Operation and Its Failure Mode"
+  ],
+  [
+   330,
+   "#### Diagnosis"
+  ],
+  [
+   334,
+   "#### Re-discovery"
+  ],
+  [
+   338,
+   "#### Eleven hours unattended"
+  ],
+  [
+   344,
+   "## V Discussion and Limitations"
+  ],
+  [
+   350,
+   "## VI Conclusion"
+  ],
+  [
+   356,
+   "## References"
+  ],
+  [
+   618,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## V Discussion and Limitations\n\nThree observations from the record seem durable. Semantic observability, not code generation, is the binding constraint: generation never failed in the five reference runs, and the failures that mattered were identity failures; across the tiers of §IV-C the code does not get harder, only the sentence a person must supply gets longer. Variance is stratified, and the ordering is favorable: what must be right was right every time, and the layers that move sit progressively further from the hardware (§IV-B), so a generative middle layer is compatible with a stable contract defined over identity and capability rather than strings. A living runtime writes policy that no library can ship: the thermal mitigation of §IV-D addressed no missing primitive (the SDK exposes those registers) but a missing policy, which depends on facts that do not exist when a library is written. Integration labour does not vanish under I=A(S,P) ; it moves up a level.\n\nThe escalation of §IV-D is the sharpest limitation, and it is architectural: the daemon’s memory is prose the agent both writes and reads, with no operation that retires a conclusion, so a monotone ratchet is that arrangement’s equilibrium rather than a surprise, benign here only by direction. The mitigation is cheap, because a ground-truth channel already existed and disagreed throughout but entered the prompt as a peer of the accumulated prose rather than as an authority over it; privileging direct observation, requiring each claim to cite its reading, expiring claims unless re-evidenced, and gating irreversible declarations behind human confirmation are all specification-level changes, none implemented here. The remaining bounds are stated rather than solved: reachability is authorization (§III-F); generated code is validated but never verified [19, 23]; healing covers the enumerated classes only; profiles are human-authored; and four hosts, small N , and a hosted model leave replication exposed to provider drift.\n\n## VI Conclusion\n\nBringing a physical device under agent control still begins, almost everywhere, with a human writing the integration. This paper asked whether that step can be delegated to the same kind of agent that will ultimately use the device. Octopus answers by construction: a five-stage, prompt-specified pipeline in which a coding agent discovers OS-visible hardware, infers what it can do, generates typed MCP tools and the code behind them, deploys them as a live endpoint, and then, as a persistent daemon invoking the same runtime, repairs defined classes of failure in what it built. The execution model, I=A(S,P) , makes the portable artifact a specification and the platform-specific artifact a deployment-time product.\n\nOne boundary organizes the system and its honesty: operating-system visibility does not guarantee semantic identifiability. What the platform or the user supplies is meaning; what the agent materializes is infrastructure. Where that meaning comes from is the question we would take up next: a zero-or-one-query policy, asking the user a single question wherever the evidence under-determines a device, would close the gap by a change of delivery rather than of mechanism. Compilers once let developers state intent and left processor-specific instruction to the machine. If hardware integration is undergoing the same transition, the artifact worth shipping is no longer the integration but the specification that produces it, and the runtime worth trusting is an agent that can read that specification on whatever machine it lands on, build what the machine needs, and keep it alive. In the deployments this paper reports, that is already the arrangement: the living coding agent was the software; the code was just the artifact.\n\n## References\n\n[1]\nD. Coleman, I. Şucan, S. Chitta, and N. Correll (2014)\n\nReducing the barrier to entry of complex robotic software: a MoveIt! case study.\n\nJournal of Software Engineering for Robotics 5 (1).\n\n",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 5,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 2,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

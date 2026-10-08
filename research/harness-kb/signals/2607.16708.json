@@ -1,0 +1,232 @@
+{
+ "arxiv_id": "2607.16708",
+ "fulltext_chars": 95910,
+ "fulltext_lines": 1981,
+ "authors_block": "Journal: TOSEMCCS: Software and its engineering Software design engineering Ran Wei Affiliation: Lancaster University, Lancaster, UK email: r.wei5@lancaster.ac.uk , Le Zhu Note: Corresponding Author email: l-zhu19@mails.tsinghua.edu.cn Affiliation: Tsinghua University, Beijing, China , Haochi Wang email: wanghaochi1222@gmail.com Affiliation: Harbin Institute of Technology, Harbin, China , Ruizhe Yang email: ruizheyang@mail.dlut.edu.cn Affiliation: Dalian University of Technology, Dalian, China , Jiapeng Guan email: jiapengguan9999@gmail.com Affiliation: Southeast University, Nanjing, China , Siyuan Ji email: s.ji@lboro.ac.uk Affiliation: Loughborough University, Loughborough, UK , Yuchen Hu email: yuchen_hu@seu.edu.cn Affiliation: Southeast University, Nanjing, China , Zhe Jiang email: zhejiang.uk@gmail.com Affiliation: Southeast University, Nanjing, China and Xiangyang Ji email: xyji@tsinghua.edu.cn Affiliation: Tsinghua University, Beijing, China",
+ "vendor_affiliation_hits": [],
+ "n_authors": 9,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/Systems-Modeling/SysML-v2-Pilot-Implementation",
+  "https://github.com/wrwei/RADIANT"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Model-Driven Discipline for Multi-Agent LLMs: Requirement-to-Verification Generation of Traceable System Models"
+  ],
+  [
+   88,
+   "###### Abstract."
+  ],
+  [
+   99,
+   "###### Keywords:"
+  ],
+  [
+   102,
+   "## 1. Introduction"
+  ],
+  [
+   162,
+   "## 2. Background"
+  ],
+  [
+   167,
+   "### 2.1. Model-Driven Engineering"
+  ],
+  [
+   178,
+   "### 2.2. Multi-Agent Large Language Models"
+  ],
+  [
+   188,
+   "### 2.3. Traceability and Automated Change Management"
+  ],
+  [
+   204,
+   "### 2.4. Case Study"
+  ],
+  [
+   254,
+   "## 3. Proposed Approach"
+  ],
+  [
+   262,
+   "### 3.1. The Multi-Agent LLM Layer"
+  ],
+  [
+   304,
+   "### 3.2. The Engineering Phases"
+  ],
+  [
+   312,
+   "#### 3.2.1. Phase 1: Requirement Modelling"
+  ],
+  [
+   329,
+   "#### 3.2.2. Phase 2: Concept Extraction"
+  ],
+  [
+   340,
+   "#### 3.2.3. Phase 3: DSML Generation"
+  ],
+  [
+   356,
+   "#### 3.2.4. Phase 4: Model Creation"
+  ],
+  [
+   367,
+   "#### 3.2.5. Phase 5: Behaviour Modelling"
+  ],
+  [
+   375,
+   "#### 3.2.6. Phase 6: Model Management"
+  ],
+  [
+   384,
+   "### 3.3. Implementation"
+  ],
+  [
+   455,
+   "## 4. Feasibility Demonstration"
+  ],
+  [
+   460,
+   "### 4.1. Research Questions"
+  ],
+  [
+   482,
+   "### 4.2. End-to-End Demonstration on the AUV"
+  ],
+  [
+   524,
+   "### 4.3. Evaluation Settings"
+  ],
+  [
+   526,
+   "#### 4.3.1. LLMs setting."
+  ],
+  [
+   533,
+   "#### 4.3.2. Statistical tests."
+  ],
+  [
+   538,
+   "#### 4.3.3. Metrics."
+  ],
+  [
+   627,
+   "### 4.4. RQ1: Accuracy"
+  ],
+  [
+   639,
+   "##### DeepSeek-V4 — the multi-agent decomposition helps at every stage."
+  ],
+  [
+   644,
+   "##### QWEN3-max — decisive gains on validity and executability, neutral on semantics."
+  ],
+  [
+   650,
+   "##### Claude Sonnet 4.6 — semantic gains absent and code generation the limiting factor."
+  ],
+  [
+   658,
+   "### 4.5. RQ2: Multi-Agent Necessity"
+  ],
+  [
+   674,
+   "### 4.6. RQ3: Traceability"
+  ],
+  [
+   683,
+   "##### Link correctness and completeness."
+  ],
+  [
+   690,
+   "##### Change-impact correctness."
+  ],
+  [
+   699,
+   "#"
+  ],
+  [
+   762,
+   "### 4.7. RQ4: Efficiency"
+  ],
+  [
+   892,
+   "### 4.8. RQ5: Generality"
+  ],
+  [
+   906,
+   "## 5. Discussion"
+  ],
+  [
+   908,
+   "### 5.1. Implications"
+  ],
+  [
+   915,
+   "### 5.2. Design Rationale"
+  ],
+  [
+   922,
+   "### 5.3. Generalisability"
+  ],
+  [
+   927,
+   "### 5.4. Related Work"
+  ],
+  [
+   956,
+   "#### 5.4.1. Traceability links"
+  ],
+  [
+   963,
+   "### 5.5. Threats to Validity"
+  ],
+  [
+   975,
+   "### 5.6. Reproducibility and Artefact Availability"
+  ],
+  [
+   983,
+   "## 6. A Research Agenda for the Community"
+  ],
+  [
+   995,
+   "## 7. Conclusion"
+  ],
+  [
+   1006,
+   "## References"
+  ],
+  [
+   1981,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "### 5.5. Threats to Validity\n\nInternal validity. LLM generation is stochastic, so a single run would not characterise accuracy or robustness; we therefore repeat RADIANT ten times per (model, configuration) and report distributions with statistical tests.\nA second internal threat is metric validity: rather than opaque embedding similarity, our metrics are transparent and inspectable — set-based precision/recall/F1 over extracted facts (with auditable alias matching), syntactic-validity checks, and, for the model-creation code, actual execution and EMF metamodel-conformance — so a score reflects which elements were correctly produced, missed, or hallucinated.\nThe MDE transformations themselves are deterministic, so variability is confined to the generation phase.\nRQ2’s fifteen stage–model p -values are uncorrected: the strongest effects survive a conservative Bonferroni adjustment, the marginal ones ( p\\approx 0.03 – 0.04 ) being indicative only.\n\nExternal validity. Our measured evaluation centres on a single case-study family (the AUV) and its behaviour controller, so broader system classes may exercise the layers differently; RQ5 partly mitigates this by transferring the unmodified pipeline to a second, independently-authored domain (SRanger).\nModel coverage spans three frontier LLMs (one open-weight, two proprietary) but is not exhaustive; in particular the model-dependent finding motivates a broader model sweep as future work.\nThe efficiency study involves only six participants, so its absolute figures are indicative rather than definitive.\nWe mitigate these by grounding both case studies (the AUV and SRanger) in externally authored material, by evaluating both open and closed models, and by hedging the generality claim above; the residual construct risk is that the AUV reference is hand-authored by us.\n\n### 5.6. Reproducibility and Artefact Availability\n\nRADIANT and all artefacts are open source1212\n 12\n\n https://github.com/wrwei/RADIANT: the requirement models, prompt and chain-of-thought assets, the Multi-Agent layer implementation (MALCOMp), the MDE transformations and metamodels (MALCOMj), the interactive UI, the per-model evaluation configurations, and the multi-model sweep results.\nAny artefact can be regenerated from the requirement model and the reported metrics re-computed with the included evaluation harness.\n\n## 6. A Research Agenda for the Community\n\nRADIANT answers an existence question—can a complete set of heterogeneous, traceable system models be generated from a single requirement model by combining MDE and Multi-Agent LLMs?—and in doing so surfaces follow-on questions for the wider community.\n\nCompliance and quality across model families. Our layers were tuned and evaluated on a fixed set of LLMs; how prompt assets, chain-of-thought guidance, and the generate–check–refactor decomposition behave across other model families and the many smaller open-weight models is an open, measurable question.\n\nBroader and more diverse case studies. Establishing domain generality, as opposed to the technical-space independence our generic layers target, requires evaluation across structurally different domains and system classes; community-contributed requirement models would accelerate this.\n\nDeeper assurance-case integration. The Bifrost traceability produced by construction is a natural basis for structured assurance cases (GSN, SACM); wiring the generated models and their links into a machine-checkable assurance argument would extend RADIANT toward a certification-oriented route.\n\nFuller automation and additional formalisms. Reducing the human review handoff, supporting additional DSMLs and downstream formalisms, and scaling change-impact analysis (e.g. via git history or model-indexing frameworks) each open a distinct line of work, with one generic front-end and several formal targets per system class.\n\n## 7. Conclusion\n\nWe presented RADIANT, a requirement-model-driven methodology that combines MDE with Multi-Agent L",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 12,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 13,
+  "java": 1,
+  "industrial": 2
+ },
+ "fulltext_source": "html"
+}

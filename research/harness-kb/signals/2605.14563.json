@@ -1,0 +1,231 @@
+{
+ "arxiv_id": "2605.14563",
+ "fulltext_chars": 78422,
+ "fulltext_lines": 2023,
+ "authors_block": "Suyoung Bae Affiliation: Sungkyunkwan University, South Korea Jaehoon Lee Affiliation: Sungkyunkwan University, South Korea Changkyu Choi YunSeok Choi ††thanks: Corresponding authors Affiliation: Sungkyunkwan University, South Korea Affiliation: University of Oslo, Norway Jee-Hyong Lee* Affiliation: Sungkyunkwan University, South Korea",
+ "vendor_affiliation_hits": [],
+ "n_authors": 5,
+ "comment": "Accepted to NeurIPS 2026",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/bsy99615/MemDocAgent."
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Remember Your Trace: Memory-Guided Long-Horizon Agentic Framework for Consistent and Hierarchical Repository-Level Code Documentation"
+  ],
+  [
+   41,
+   "###### Abstract"
+  ],
+  [
+   48,
+   "## 1 Introduction"
+  ],
+  [
+   73,
+   "## 2 Related work"
+  ],
+  [
+   75,
+   "##### Long-horizon coding agents."
+  ],
+  [
+   83,
+   "##### Repository-level code documentation."
+  ],
+  [
+   90,
+   "## 3 Preliminaries"
+  ],
+  [
+   92,
+   "##### Repository-level hierarchical documentation."
+  ],
+  [
+   102,
+   "##### Long-horizon reasoning trajectories."
+  ],
+  [
+   109,
+   "## 4 MemDocAgent"
+  ],
+  [
+   113,
+   "### 4.1 Dependency-aware traversal guiding"
+  ],
+  [
+   122,
+   "### 4.2 Memory-guided agentic interaction"
+  ],
+  [
+   151,
+   "#### 4.2.1 RepoMemory"
+  ],
+  [
+   155,
+   "#### 4.2.2 Action space"
+  ],
+  [
+   159,
+   "##### Read: Memory-guided adaptive retrieval."
+  ],
+  [
+   166,
+   "##### Write: Hierarchical document generation."
+  ],
+  [
+   170,
+   "##### Verify: Self-evaluation and cross-document conflict verification."
+  ],
+  [
+   177,
+   "##### Finish: Memory commit and trajectory continuation."
+  ],
+  [
+   181,
+   "## 5 Experimental setups"
+  ],
+  [
+   183,
+   "### 5.1 Evaluation metrics"
+  ],
+  [
+   187,
+   "##### Completeness."
+  ],
+  [
+   196,
+   "##### Truthfulness."
+  ],
+  [
+   205,
+   "##### Helpfulness."
+  ],
+  [
+   209,
+   "##### Information Sufficiency."
+  ],
+  [
+   222,
+   "#Doc"
+  ],
+  [
+   498,
+   "### 5.2 Baselines"
+  ],
+  [
+   508,
+   "### 5.3 Implementation details"
+  ],
+  [
+   517,
+   "## 6 Experimental results"
+  ],
+  [
+   519,
+   "### 6.1 Comparisons with baselines"
+  ],
+  [
+   521,
+   "##### Documentation quality comparisons."
+  ],
+  [
+   530,
+   "##### Information sufficiency comparisons."
+  ],
+  [
+   585,
+   "### 6.2 Ablation study"
+  ],
+  [
+   591,
+   "### 6.3 Efficiency analysis"
+  ],
+  [
+   603,
+   "### 6.4 Case study"
+  ],
+  [
+   607,
+   "### 6.5 Effectiveness of Verify attempts"
+  ],
+  [
+   615,
+   "## 7 Conclusion"
+  ],
+  [
+   619,
+   "## Limitation"
+  ],
+  [
+   624,
+   "## AI Use Statement"
+  ],
+  [
+   631,
+   "## References"
+  ],
+  [
+   1366,
+   "## Appendix Contents"
+  ],
+  [
+   1462,
+   "## Appendix A Additional details about MemDocAgent"
+  ],
+  [
+   1464,
+   "### A.1 Algorithms of dependency-aware traversal guiding"
+  ],
+  [
+   1597,
+   "### A.2 System prompts used in MemDocAgent"
+  ],
+  [
+   1867,
+   "## Summary:"
+  ],
+  [
+   1871,
+   "## Description:"
+  ],
+  [
+   1875,
+   "## Args:"
+  ],
+  [
+   1881,
+   "## Returns:"
+  ],
+  [
+   1885,
+   "## Raises:"
+  ],
+  [
+   2023,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## Limitation\n\nOperating over long agentic trajectories introduces several considerations worth discussing. First, long-horizon agentic documentation task requires computational resources because both input context and generated outputs can grow large over the trajectory. To prevent context explosion and excessive runtime, we impose a maximum trajectory length, which can cause rare failures where the agent terminates before completing a sub-task. Second, because the agent depends on the model’s reasoning ability, it may occasionally enter a repeated loop without completing the sub-task. Although the overall impact is minimal, with only 0.08% of components terminating without meeting the verification threshold in our experiments, this limitation should still be considered (Failure analysis in Appendix ). Future work should explore more efficient trajectory control, adaptive stopping criteria, and stronger recovery mechanisms.\nThird, beyond the agent’s runtime behavior, our evaluation itself has a scope limitation. We evaluate at the component level information sufficiency because DevEval’s human-curated unit tests exist only at the function level, enabling objective, execution-based verification via Pass@k; this is a deliberate choice for metric rigor. We acknowledge it does not directly measure the standalone utility of higher-level documents, but our results offer indirect evidence: regeneration performance increases monotonically as context widens (Figure 3), showing that higher-level documents carry architectural information that materially aids regeneration.\n\n## AI Use Statement\n\nWe used generative AI tools in the following ways:\n(i) code development, including implementation of the proposed method, baselines, and experiment scripts; (ii) translation and text editing, for improving clarity and consistency of the manuscript; and (iii) figure and table preparation, including generating plotting scripts and formatting tables.\nAll AI-generated code was reviewed and tested by the authors. All figures, tables, and reported numbers were checked against the raw experimental outputs, and all references were verified by the authors against their original sources.\nThe AI tools did not serve as authors. The authors take full responsibility for the entire content of this paper, including all text, claims, figures, tables, references, and artifacts produced with the aid of generative AI.\n\n## References\n\n[1]\nD. Yang, A. Simoulin, X. Qian, X. Liu, Y. Cao, Z. Teng, and G. Yang (2025)\n\nDocAgent: a multi-agent system for automated code documentation generation.\n\nIn Proceedings of the 63rd Annual Meeting of the Association for Computational Linguistics (ACL) (Volume 3: System Demonstrations), P. Mishra, S. Muresan, and T. Yu (Eds.),\n\npp. 460–471.\n\nCited by: §1,\n§1,\n§1,\n§2,\n§4.1,\n§5.1,\n§5.2.\n\n[2]\nA. N. Hoang, M. Le-Anh, B. Le, and N. D. Bui (2025)\n\nCodeWiki: evaluating ai’s ability to generate holistic documentation for large-scale codebases.\n\narXiv preprint arXiv:2510.24428.\n\nCited by: §1,\n§1,",
+ "ethics_coi": "##### Verify: Self-evaluation and cross-document conflict verification.\n\nRepository-level documentation often describes the same functionality from multiple perspectives across files, so without verification these descriptions easily drift apart and degrade overall consistency. Therefore, Verify assesses each draft \\hat{d}_{i} along two axes. First, a self-evaluation scores factual consistency, completeness, and helpfulness according to the agent’s system prompt instructions (See Table 4 in Appendix A.2), and second, a cross-conflict verification scores inconsistencies between \\hat{d}_{i} and its dependency-related documents, each on [0,1] .\n\nFor the cross-conflict verification, inspired by NLI-based inconsistency detection for text summarization [64, 65, 66], we decompose \\hat{d}_{i} into atomic claims via an LLM and verify each claim with a local NLI model against a trusted reference set from RepoMemory. This reference set contains only the dependency-related records whose verification score exceeds a threshold, so a low-quality document never becomes a conflict-checking criterion and early errors cannot propagate. The resulting contradiction rate serves as the cross-conflict score.\n \\hat{d}_{i} passes Verify only if the average of two verified scores exceeds a threshold. Otherwise, the detected conflicts are returned as a conflict report in the next turn’s observation, prompting the agent to issue an additional Read or to re-Write the draft. If \\hat{d}_{i} still fails to pass after the agent has reached its predefined maximum number of revisions, we commit the highest-scoring draft to RepoMemory to preserve coverage. More details are provided in Appendix .\n\n##### Finish: Memory commit and trajectory continuation.\n\nOnce \\hat{d}_{i} passes Verify, the agent finalizes it as d_{i} , invokes Finish to commit d_{i} to the corresponding granularity store, and refreshes its local context for the next sub-task. This loop repeats until all units in \\mathcal{U} are document",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 1,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 5,
+  "swe_bench": 1,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 1,
+  "industrial": 1
+ },
+ "fulltext_source": "html"
+}

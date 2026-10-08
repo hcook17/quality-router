@@ -1,0 +1,161 @@
+{
+ "arxiv_id": "2608.08038",
+ "fulltext_chars": 43888,
+ "fulltext_lines": 761,
+ "authors_block": "Aleksei Velsh, Nenad Petrovic and Alois Knoll Affiliation: Chair of Robotics, Artificial Intelligence and Real-Time Systems Technical University of Munich, Munich, Germany Email: { aleksei.velsh, nenad.petrovic, k}@tum.de",
+ "vendor_affiliation_hits": [],
+ "n_authors": 3,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Stateful Multi-Agent LLMs for Cross-View Interface Alignment in Automotive Model-Based Systems Engineering"
+  ],
+  [
+   30,
+   "###### Abstract"
+  ],
+  [
+   34,
+   "###### Index Terms:"
+  ],
+  [
+   37,
+   "## I Introduction"
+  ],
+  [
+   65,
+   "## II Background"
+  ],
+  [
+   67,
+   "### II-A MBSE, Interface Contracts, and the VSS"
+  ],
+  [
+   71,
+   "### II-B LLMs, RAG, and Architectural Hallucinations"
+  ],
+  [
+   75,
+   "### II-C Multi-Agent Systems and Cyclic Orchestration"
+  ],
+  [
+   79,
+   "### II-D Cross-View Consistency as a Deterministic Filter"
+  ],
+  [
+   83,
+   "## III Survey of Related Works"
+  ],
+  [
+   87,
+   "### III-A Single-Pass Generation and Context Limitations"
+  ],
+  [
+   142,
+   "### III-B Knowledge Grounding without Structural Grammar"
+  ],
+  [
+   148,
+   "### III-C The Gap in Generalized Agentic Frameworks"
+  ],
+  [
+   154,
+   "## IV Methodology"
+  ],
+  [
+   158,
+   "### IV-A Stateful Sequential Generation Matrix"
+  ],
+  [
+   166,
+   "### IV-B The Dual-Layer Validation Matrix and Error Taxonomy"
+  ],
+  [
+   184,
+   "## V Workflow Orchestration and State Management"
+  ],
+  [
+   188,
+   "### V-A Data Ingestion and Targeted Context Injection (RAG)"
+  ],
+  [
+   200,
+   "### V-B Cyclic Execution and Dynamic Backtracking"
+  ],
+  [
+   212,
+   "## VI Experimental Setup: Requirements and Compliance"
+  ],
+  [
+   216,
+   "### VI-A Scenario Requirements: Child Presence Detection"
+  ],
+  [
+   222,
+   "### VI-B Architectural Compliance and Evaluation Metrics"
+  ],
+  [
+   246,
+   "## VII Results: Ablation Study on Interface Alignment"
+  ],
+  [
+   287,
+   "### VII-A Baseline Vulnerabilities: Zero-Shot vs. RAG"
+  ],
+  [
+   293,
+   "### VII-B The Illusion of Syntactic Correctness"
+  ],
+  [
+   299,
+   "### VII-C Multi-Agent Convergence and Interface Alignment"
+  ],
+  [
+   305,
+   "### VII-D Error Distribution and Iteration Dynamics"
+  ],
+  [
+   313,
+   "## VIII Discussion and Limitations"
+  ],
+  [
+   349,
+   "## IX Conclusion and Future Work"
+  ],
+  [
+   357,
+   "## X Acknowledgment"
+  ],
+  [
+   361,
+   "## References"
+  ],
+  [
+   761,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## X Acknowledgment\n\nThis work has received funding from the European Chips Joint Undertaking under Framework Partnership Agreement No. 101139789 (HAL4SDV), including national funding from the Federal Ministry of Research, Technology and Space of Germany under grant number 16MEE00471K. The responsibility for the content of this publication lies with the authors.\n\n## References\n\n[1]\nL. Hou et al. (2024)\n\nTowards a unified data model for software-defined vehicles.\n\nSAE International Journal of Connected and Automated Vehicles 7 (3).\n\nExternal Links: Document\n\nCited by: §I,\n§II-A.\n\n[2]\nM. Broy, I. H. Krüger, A. Pretschner, and C. Salzmann (2019)\n\nEngineering automotive software.\n\n Springer.",
+ "limitations": "### III-A Single-Pass Generation and Context Limitations\n\nEarly approaches to LLM-driven MBSE, such as those by Stephan et al. [4], demonstrated the feasibility of translating natural language into SysML/UML syntax. However, these zero-shot, single-pass generation pipelines operate statelessly. While they succeed in generating isolated structural views, they suffer from immediate architectural drift when tasked with generating sequential behavioral views, rendering them incapable of preserving interface compatibility across complex system bounds.\n\nTABLE I: Summary of State-of-the-Art Approaches in LLM-driven Systems Engineering\n\nReference\nPrimary Focus / Domain\nOrchestration\nKnowledge Grounding\nUML/SysML Generation\nCross-View Interface Validation\n\nStephan et al. [4]\nPrompt-based SysML generation\nSingle-Pass LLM\nNone (Zero-Shot)\nYes (Isolated)\nNo\n\nHong et al. (MetaGPT) [9]\nMulti-agent software development\nStatic MAS\nContext Window\nPartial (Code-focused)\nNo\n\nYang et al. (SWE-agent) [10]\nAutomated repository issue resolution\nMAS with Tools\nRepository Search\nNo\nNo\n\nXu et al. [5]\nRAG for ADAS safety compliance\nSingle-Pass LLM\nVector DB (RAG)\nNo (Textual)\nNo",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 1,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 1
+ },
+ "fulltext_source": "html"
+}

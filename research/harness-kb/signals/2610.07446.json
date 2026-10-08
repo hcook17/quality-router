@@ -1,0 +1,325 @@
+{
+ "arxiv_id": "2610.07446",
+ "fulltext_chars": 77631,
+ "fulltext_lines": 1833,
+ "authors_block": "Conference: Make sure to enter the correct conference title from your rights confirmation email; June 03–05, 2018; Woodstock, NY Yueke Zhang Affiliation: Vanderbilt University, Nashville, Tennessee, USA , Zihan Fang Affiliation: Vanderbilt University, Nashville, Tennessee, USA , Kevin Leach Affiliation: Vanderbilt University, Nashville, Tennessee, USA and Yu Huang Affiliation: Vanderbilt University, Nashville, Tennessee, USA",
+ "vendor_affiliation_hits": [],
+ "n_authors": 4,
+ "comment": "22 pages, 6 figures",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# CogAdapt: Cognition-informed Sparse Adaptation of Code LLMs"
+  ],
+  [
+   45,
+   "###### Abstract."
+  ],
+  [
+   62,
+   "## 1. Introduction"
+  ],
+  [
+   122,
+   "## 2. Motivating Example"
+  ],
+  [
+   135,
+   "##### Humans devote more attention to difficult code regions."
+  ],
+  [
+   150,
+   "##### The model also responds more strongly around the same region."
+  ],
+  [
+   160,
+   "##### Human and model responses highlight similar code regions."
+  ],
+  [
+   177,
+   "## 3. Related Work"
+  ],
+  [
+   183,
+   "### 3.1. Large Language Models for Code"
+  ],
+  [
+   206,
+   "### 3.2. Measuring Human Code Comprehension"
+  ],
+  [
+   233,
+   "### 3.3. Cognitive Guidance for Language and Code Models"
+  ],
+  [
+   262,
+   "## 4. Methodology"
+  ],
+  [
+   275,
+   "### 4.1. Stage 1: Measuring Human and Model Responses to the Same Code"
+  ],
+  [
+   282,
+   "##### Human responses."
+  ],
+  [
+   290,
+   "##### Model responses."
+  ],
+  [
+   298,
+   "##### Alignment and preprocessing."
+  ],
+  [
+   312,
+   "### 4.2. Stage 2: Constructing Transferable Cognitive Priors"
+  ],
+  [
+   318,
+   "#### 4.2.1. Program-Level Demand Prior"
+  ],
+  [
+   345,
+   "#### 4.2.2. Token-Level Attention Prior"
+  ],
+  [
+   369,
+   "### 4.3. Stage 3: Selecting Blocks for Each Training Task"
+  ],
+  [
+   385,
+   "### 4.4. Stage 4: cognition-informed Sparse Fine-Tuning"
+  ],
+  [
+   392,
+   "##### Emphasizing cognitively demanding tasks."
+  ],
+  [
+   397,
+   "##### Emphasizing human-attended code."
+  ],
+  [
+   418,
+   "##### Restricting learning to selected blocks."
+  ],
+  [
+   432,
+   "### 4.5. Stage 5: Standard Inference without Human Signals"
+  ],
+  [
+   446,
+   "## 5. Evaluation"
+  ],
+  [
+   460,
+   "### 5.1. Datasets and Benchmarks"
+  ],
+  [
+   462,
+   "#### 5.1.1. Human Code-Comprehension Corpus."
+  ],
+  [
+   472,
+   "#### 5.1.2. Code-Generation Benchmarks"
+  ],
+  [
+   483,
+   "### 5.2. Metrics"
+  ],
+  [
+   485,
+   "#### 5.2.1. Model Computation Signals"
+  ],
+  [
+   487,
+   "##### LLM Signal Extraction and notation."
+  ],
+  [
+   502,
+   "##### Expert-choice confidence."
+  ],
+  [
+   518,
+   "##### Expert-choice change."
+  ],
+  [
+   535,
+   "##### Hidden-state shift."
+  ],
+  [
+   549,
+   "##### MoE write."
+  ],
+  [
+   563,
+   "##### Residual integration."
+  ],
+  [
+   585,
+   "#### 5.2.2. Human–Model Correspondence"
+  ],
+  [
+   587,
+   "##### Rank correlation."
+  ],
+  [
+   613,
+   "##### Depth–time correspondence."
+  ],
+  [
+   638,
+   "#### 5.2.3. Execution Accuracy and Statistical Comparison"
+  ],
+  [
+   647,
+   "#### 5.2.4. Adaptation Sparsity and Training Efficiency."
+  ],
+  [
+   656,
+   "### 5.3. Baselines and Ablations"
+  ],
+  [
+   663,
+   "#### 5.3.1. Baselines"
+  ],
+  [
+   665,
+   "##### Regular fine-tuning (Regular FT)."
+  ],
+  [
+   672,
+   "##### Representation-based block selection (CKA-K6)."
+  ],
+  [
+   693,
+   "#### 5.3.2. Ablations"
+  ],
+  [
+   701,
+   "##### All-Block."
+  ],
+  [
+   707,
+   "##### Rand-K6."
+  ],
+  [
+   714,
+   "##### Model-Only."
+  ],
+  [
+   721,
+   "##### No-EEG."
+  ],
+  [
+   727,
+   "##### No-Gaze."
+  ],
+  [
+   733,
+   "### 5.4. Training and Hardware Settings"
+  ],
+  [
+   735,
+   "##### Training configuration."
+  ],
+  [
+   747,
+   "## 6. Results"
+  ],
+  [
+   758,
+   "### 6.1. RQ1: Do Humans and MoE Models Respond More Strongly to the Same Code Regions?"
+  ],
+  [
+   760,
+   "##### Human reading responses and MoE computation are positively correlated across code categories."
+  ],
+  [
+   785,
+   "##### Answer to RQ1."
+  ],
+  [
+   800,
+   "### 6.2. RQ2: Where in the MoE Model Does Computation Correspond to Human Processing Demand?"
+  ],
+  [
+   802,
+   "##### Human–model correspondence forms structured patterns across model depth."
+  ],
+  [
+   839,
+   "##### The correspondence is distributed rather than tied to one special block."
+  ],
+  [
+   863,
+   "##### Answer to RQ2."
+  ],
+  [
+   1015,
+   "### 6.3. RQ3: Does CogAdapt Improve Code Generation with More Selective Adaptation?"
+  ],
+  [
+   1017,
+   "##### CogAdapt improves accuracy over both dense and fixed sparse adaptation."
+  ],
+  [
+   1032,
+   "##### Ablations show that both block selection and human guidance matter."
+  ],
+  [
+   1053,
+   "##### CogAdapt concentrates learning in only a small part of the model."
+  ],
+  [
+   1064,
+   "##### Answer to RQ3."
+  ],
+  [
+   1074,
+   "## 7. Discussion, Limitations, and Future Directions"
+  ],
+  [
+   1079,
+   "##### Why selective adaptation can improve accuracy."
+  ],
+  [
+   1088,
+   "##### From sparse adaptation toward sparse computation."
+  ],
+  [
+   1103,
+   "## 8. Conclusion"
+  ],
+  [
+   1124,
+   "## References"
+  ],
+  [
+   1833,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 7. Discussion, Limitations, and Future Directions\n\nOur results show that cognition-informed sparse adaptation can improve code generation while reducing the number of parameters updated during training. We next discuss why this selective adaptation may be effective, its current computational limitations, and directions\nfor extending sparsity beyond model adaptation.\n\n##### Why selective adaptation can improve accuracy.\n\nCogAdapt’s gains suggest that adaptation quality depends on where updates occur, not only on how many parameters receive gradients.\nModel responses identify blocks relevant to each task, while human-derived difficulty priors control the adaptation budget.\nRestricting each example’s updates to these blocks may reduce interference with representations useful for other tasks, while preserving the pretrained expert weights.\nHuman-derived task and token weights further concentrate supervision on examples and code regions associated with greater processing demand.\nTogether, these mechanisms may help a smaller per-example adaptation budget produce more useful updates.\nCogAdapt’s improvements over both all-block fine-tuning and fixed sparse baselines support the value of task-dependent selection.\n\n##### From sparse adaptation toward sparse computation.\n\nCogAdapt reduces the number of parameters that are eligible for gradients for each training example, but the full backbone still participates in the forward pass.\nConsequently, the reduction in wall-clock time and energy is smaller than the reduction in adaptation parameters.\nThis distinction suggests an important next step: connecting cognitively informed adaptation with conditional model execution.\nFor example, future systems could extend sparsity beyond standard MoE\nrouting. While an MoE model already selects only a subset of experts within\neach MoE block, the full sequence of transformer blocks still participates in\nthe forward pass. A future system could additionally use human-informed\nsignals to decide which blocks or adapters should participate for a given\ntask, or whether some block-level computation can be skipped entirely.\nCombining expert routing with conditional block or adapter activation, early\nexiting, or other forms of dynamic execution could therefore translate\nCogAdapt’s adaptation sparsity into larger training and inference savings.\n\n## 8. Conclusion\n\nWe present CogAdapt, a cognition-informed framework that uses human attention and EEG signals to guide task-dependent sparse adaptation of MoE code models.\nOur analysis shows that human processing and model computation correspond both at individual code regions and across model depth, although the specific patterns differ between architectures.\nRather than assuming a single universally aligned layer, CogAdapt transfers these cognitive signals as priors to guide what training examples and code regions receive more emphasis and where adaptation occurs within the model.\n\nAcross two MoE backbones and two code-generation benchmarks, CogAdapt\nachieves the best pass@1 among the evaluated methods.\nCompared with regular fine-tuning, it improves LiveCodeBench\npass@1 by 10.86 percentage points for Qwen and 6.29 points for GLM.\nOur ablations further show that these gains are not explained by sparse",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 8,
+  "seeds_or_runs": 11,
+  "swe_bench": 0,
+  "contamination": 1,
+  "human_study": 10,
+  "java": 10,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

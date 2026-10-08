@@ -1,0 +1,182 @@
+{
+ "arxiv_id": "2610.05860",
+ "fulltext_chars": 106290,
+ "fulltext_lines": 1942,
+ "authors_block": "as a Substrate for Cognitive Diagnosis Shrideep Tamboli Chiranjeevi Maddala Affiliation: AI Ready School Eshal Minhaj Affiliation: AI Ready School *Corresponding author: 27.tshrideep@gmail.com; Contributing authors: chirans@gmail.com; eshalminhaj12@gmail.com;",
+ "vendor_affiliation_hits": [],
+ "n_authors": 3,
+ "comment": "28 pages, 3 figures, 7 tables. Code: https://github.com/MaximusTitan/q-matrix-agents and https://github.com/MaximusTitan/q-matrix-kb-template. Dataset: https://github.com/MaximusTitan/q-matrix-dataset",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/MaximusTitan/q-matrix-agents",
+  "https://github.com/MaximusTitan/q-matrix-dataset",
+  "https://github.com/MaximusTitan/q-matrix-dataset.",
+  "https://github.com/MaximusTitan/q-matrix-kb-template"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Curriculum Brain: Constructing Curriculum Knowledge Graphs"
+  ],
+  [
+   41,
+   "###### Abstract"
+  ],
+  [
+   106,
+   "## 1 Introduction"
+  ],
+  [
+   169,
+   "## 2 Background & Related Work"
+  ],
+  [
+   171,
+   "### 2.1 Cognitive Diagnosis and the Q-Matrix Bottleneck"
+  ],
+  [
+   188,
+   "### 2.2 Automating Q-Matrix Construction"
+  ],
+  [
+   221,
+   "### 2.3 Curriculum Knowledge Graph Construction"
+  ],
+  [
+   284,
+   "### 2.4 Self-Improving Prompts in Agentic Pipelines"
+  ],
+  [
+   340,
+   "## 3 System Architecture"
+  ],
+  [
+   364,
+   "### 3.1 Knowledge Base"
+  ],
+  [
+   421,
+   "### 3.2 Agents"
+  ],
+  [
+   607,
+   "### 3.3 Downstream Visualization"
+  ],
+  [
+   622,
+   "## 4 Methodology"
+  ],
+  [
+   655,
+   "### 4.1 Starting a Chapter"
+  ],
+  [
+   692,
+   "### 4.2 Generating and Verifying a Candidate"
+  ],
+  [
+   751,
+   "### 4.3 Repair, Revision, and the Attempt Loop"
+  ],
+  [
+   837,
+   "### 4.4 Selection and Human-in-the-Loop"
+  ],
+  [
+   892,
+   "### 4.5 Prerequisite Mapping"
+  ],
+  [
+   946,
+   "## 5 Releasing the Framework and the Dataset"
+  ],
+  [
+   948,
+   "### 5.1 Framework Release"
+  ],
+  [
+   969,
+   "### 5.2 The Dataset Release"
+  ],
+  [
+   1006,
+   "#### 5.2.1 Coverage"
+  ],
+  [
+   1047,
+   "#### 5.2.2 Graph Statistics"
+  ],
+  [
+   1109,
+   "#### 5.2.3 Schema"
+  ],
+  [
+   1144,
+   "#### 5.2.4 Attribute Granularity and Downstream Use"
+  ],
+  [
+   1191,
+   "### 5.3 Reproducibility"
+  ],
+  [
+   1247,
+   "### 5.4 License and Citation"
+  ],
+  [
+   1259,
+   "## 6 Results"
+  ],
+  [
+   1287,
+   "### 6.1 Pass Rates"
+  ],
+  [
+   1400,
+   "### 6.2 Repair Mechanisms"
+  ],
+  [
+   1445,
+   "### 6.3 Escalation Rate and the Configuration Change"
+  ],
+  [
+   1536,
+   "### 6.4 Cost"
+  ],
+  [
+   1660,
+   "## 7 Discussion and Limitations"
+  ],
+  [
+   1784,
+   "## 8 Conclusion"
+  ],
+  [
+   1830,
+   "## References"
+  ],
+  [
+   1942,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 7 Discussion and Limitations\n\nThe results in §6 measure internal consistency rather than\ncorrectness. Check 1 tests compliance with a ruleset the system authored itself;\nCheck 2 tests coverage against a concept-skill map that Map Extraction produced and\nthat is not independently validated. Neither consults an external standard, and for\nmost of the run history the same model served as both Generator and Eval, so\nself-preference effects cannot be excluded in general. The ablation of\n§6.3 offers one data point against them: with Eval on\nclaude-sonnet-5, claude-sonnet-4-6’s first attempts passed Check 1 at least as often\nas claude-sonnet-5’s in every chapter, the opposite of what self-preference would\npredict, though the difference is not significant. We therefore report no agreement\nstatistic against an expert-authored Q-matrix, and claim no psychometric validity\nfor the released data. Most consequentially, we never fit a CDM: the paper’s premise\nis that the Q-matrix blocks cognitive diagnosis, but we hold no student response data\nand report no model fit, leaving the released mapping a candidate structure of\nuntested diagnostic utility. Nor do we establish that the released granularity suits\nany particular model: §5.2.4 reports the per-chapter attribute\ncounts and what they imply for different model families, but which granularity is\ndiagnostically appropriate is itself an empirical question we have not addressed.\nThe efficiency argument is likewise asserted rather than measured: $1.19 per chapter\ncounts API spend only, excludes all human review time, and has no manual baseline\nbeside it. Two further threats bound the results. The escalation rate’s fall from 84.2% to\n8.5% coincides with a single configuration boundary that changed the verification\ngate, the models, the attempt budget and the retry loop together\n(§6.3); a scoped ablation rules out the Generator’s model upgrade\nas the cause and is consistent with a partial budget effect, but leaves the rest\nunattributed, so no part of the fall can be credited to the system having learned\nanything. And we run no architectural ablation, so nothing establishes that eleven\nsingle-responsibility agents outperform one well-prompted call, though the choice\nfollows a broader pattern of decomposing educational and knowledge-graph tasks into\nspecialized agents rather than one generalist call (Santos et al., 2026; Zhao et al.,\n2025b).\n\nWithin the released artifact, the verification guarantee covers concept-skill mapping\nonly. None of L1, L2, or L3 passes through the Check 1/Check 2/repair loop: each\nissues a single LLM call and writes straight into the confirmed CSV, so all 7,448\nprerequisite edges lack that guarantee, and 1,442 of them (19.4%) are not\nmodel-judged at all but inferred in code from skill-level relations. On the one\nquality signal available to us, however, those inferred edges behave better than the",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 1,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

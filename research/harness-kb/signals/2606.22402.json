@@ -1,0 +1,137 @@
+{
+ "arxiv_id": "2606.22402",
+ "fulltext_chars": 75872,
+ "fulltext_lines": 1331,
+ "authors_block": "Jack Wei Lun Shi Minghao Dang Affiliation: Harbin Institute of Technology Wawan Solihin Affiliation: NovaCITYNETS Leong Hien Poh Justin K.W. Yeoh Affiliation: National University of Singapore",
+ "vendor_affiliation_hits": [],
+ "n_authors": 5,
+ "comment": "22 pages, 12 figures, 1 table",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Reinforcement learning to improve large language model-based automated code compliance systems"
+  ],
+  [
+   38,
+   "###### Abstract"
+  ],
+  [
+   49,
+   "## 1 Introduction"
+  ],
+  [
+   124,
+   "## 2 Literature Review"
+  ],
+  [
+   156,
+   "### 2.1 Natural Language Processing-Based Approaches in ACC"
+  ],
+  [
+   227,
+   "### 2.2 Transformer- and LLM-Based Approaches in ACC"
+  ],
+  [
+   280,
+   "### 2.3 Reinforcement Fine-Tuning"
+  ],
+  [
+   334,
+   "### 2.4 Research Gaps and Objectives"
+  ],
+  [
+   372,
+   "## 3 Methodology"
+  ],
+  [
+   388,
+   "### 3.1 Dataset"
+  ],
+  [
+   428,
+   "### 3.2 P4IR Framework"
+  ],
+  [
+   539,
+   "### 3.3 Reward Design for Refining Code Skeletons"
+  ],
+  [
+   610,
+   "### 3.4 Evaluation Metrics for Code Skeleton Comparison"
+  ],
+  [
+   672,
+   "### 3.5 Experimental Details for the Framework"
+  ],
+  [
+   693,
+   "### 3.6 Experimental Details Comparing the Framework to SOTA Models"
+  ],
+  [
+   728,
+   "## 4 Results and Discussion"
+  ],
+  [
+   745,
+   "### 4.1 Interplay Between SFT Maturity and GRPO Effectiveness"
+  ],
+  [
+   775,
+   "#### 4.1.1 Logit Entropy Across SFT Epochs for Model Interpretability"
+  ],
+  [
+   823,
+   "#### 4.1.2 Effect of GRPO on Semantics Learned During SFT"
+  ],
+  [
+   848,
+   "### 4.2 Reducing Model Hallucinations"
+  ],
+  [
+   870,
+   "### 4.3 Qualitative Analysis of Reference and Generated Code Skeletons"
+  ],
+  [
+   957,
+   "### 4.4 Comparative Results of P4IR Against SOTA Models"
+  ],
+  [
+   1120,
+   "## 5 Limitations and Future Work"
+  ],
+  [
+   1162,
+   "## 6 Conclusion"
+  ],
+  [
+   1191,
+   "## References"
+  ],
+  [
+   1331,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 5 Limitations and Future Work\n\nWhile P4IR improves the accuracy of code skeletons and reduces\nhallucinations, several limitations qualify these findings and highlight\ndirections for future work. First, P4IR rewards structural accuracy\nrather than functional correctness. Although the accuracy of the IRs\nbridging building regulations and the computer-processable rules is\nimproved, whether the model can be reinforced directly for functional\ncorrectness remains an open question. Future work could explore\nrewarding the model based on the outcomes of BIM unit tests (i.e.,\npass/fail results from a BIM sandbox environment) corresponding to the\ngenerated computer-processable rules. While this would more directly\noptimize for executable accuracy, it presents challenges, including the\nneed for extensive test-case datasets and the added complexity of\ncreating rule interpretation datasets.\n\nSecond, the framework relies on a labeled dataset of ground-truth code\nskeletons. This supervised approach may limit its applicability where\nsuch curated data is scarce, a common challenge in ACC. Despite just 732\nsamples, the dataset is substantial in the ACC context, as each sample\ntypically requires days of effort to convert a rule into a\ncomputer-processable format. In addition, while P4IR has been shown to\nreduce hallucinations via GRPO, comparison to other RL algorithms (e.g.,\nPPO/RLHF) remains to be tested. Future work could investigate\nsemi-supervised or self-supervised methods for instilling domain\nknowledge, potentially by leveraging an LLM already pre-trained on a\nlarge corpus of domain-specific data, thereby reducing the need for\ndomain-specific SFT.\n\nLastly, this paper focuses on a single form of IR (i.e., code skeleton),\nleaving its generalizability to other structured formats unexplored.\nBuilding regulations also differ widely across countries in structure\nand terminology, leading to semantic inconsistencies in vocabulary. P4IR\nhas not been tested on this variation due to the scarcity of labeled\nrule interpretation datasets, so its ability to generalize without\ncountry-specific training remains unknown. Future work could investigate\nadditional specialized reward functions and this GRPO-based approach on\nother IRs, such as atomic functions or ontologies, to assess its broader\nutility in ACC. P4IR could also be evaluated on schema-constrained IRs\n(e.g., LegalRuleML), where fixed syntax reduces stylistic variation and",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 10,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

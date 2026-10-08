@@ -1,0 +1,209 @@
+{
+ "arxiv_id": "2605.16933",
+ "fulltext_chars": 54377,
+ "fulltext_lines": 1233,
+ "authors_block": "Tsvetomila Mihaylova Affiliation: Aalto University, Department of Computer Science Evanfiya Logacheva Affiliation: Aalto University, Department of Computer Science Arto Hellas Affiliation: Aalto University, Department of Computer Science Jing Fan Affiliation: Aalto University, Department of Computer Science Francisco Castro Affiliation: New York University Bita Akram Affiliation: North Carolina State University Narges Norouzi Affiliation: UC Berkeley Peter Brusilovsky Affiliation: University of Pittsburgh Correspondence:tsvetomila.mihaylova@aalto.fi Juho Leinonen Affiliation: Aalto University, Department of Computer Science",
+ "vendor_affiliation_hits": [],
+ "n_authors": 9,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# The Effects of Structured LLM-Generated Feedback on Programming Assignment Performance"
+  ],
+  [
+   59,
+   "###### Abstract"
+  ],
+  [
+   67,
+   "## 1 Introduction"
+  ],
+  [
+   86,
+   "## 2 Background"
+  ],
+  [
+   88,
+   "### 2.1 Programming Feedback"
+  ],
+  [
+   97,
+   "### 2.2 Novice vs. Advanced Programmers"
+  ],
+  [
+   106,
+   "## 3 Methodology"
+  ],
+  [
+   108,
+   "### 3.1 Context"
+  ],
+  [
+   112,
+   "### 3.2 Prompt Design"
+  ],
+  [
+   120,
+   "### 3.3 Data"
+  ],
+  [
+   136,
+   "### 3.4 Approach"
+  ],
+  [
+   138,
+   "#### 3.4.1 Modeling approach"
+  ],
+  [
+   155,
+   "#### 3.4.2 Outcome variables"
+  ],
+  [
+   164,
+   "#### 3.4.3 General model structure"
+  ],
+  [
+   199,
+   "#### 3.4.4 Experiment 1: Overall effect of feedback on performance (RQ1)"
+  ],
+  [
+   213,
+   "#### 3.4.5 Experiment 2: Effect of feedback by student expertise (RQ2)"
+  ],
+  [
+   231,
+   "#### 3.4.6 Experiment 3: Effect of feedback across course parts (RQ3)"
+  ],
+  [
+   249,
+   "### 3.5 Ethics Statement"
+  ],
+  [
+   253,
+   "## 4 Results"
+  ],
+  [
+   255,
+   "### 4.1 Experiment 1: Effect of hint types on the student performance on the assignment."
+  ],
+  [
+   257,
+   "##### Time to Success"
+  ],
+  [
+   271,
+   "##### Attempts to Success"
+  ],
+  [
+   298,
+   "### 4.2 Experiment 2: Effect of the feedback for students with different expertise."
+  ],
+  [
+   300,
+   "##### Time to Success"
+  ],
+  [
+   308,
+   "##### Attempts to Success"
+  ],
+  [
+   361,
+   "### 4.3 Experiment 3: Effect of the content recency on the quality of the LLM-generated feedback."
+  ],
+  [
+   363,
+   "##### Time to Success"
+  ],
+  [
+   371,
+   "##### Attempts to Success"
+  ],
+  [
+   422,
+   "### 4.4 Qualitative Analysis"
+  ],
+  [
+   460,
+   "#Pairs"
+  ],
+  [
+   461,
+   "#Votes"
+  ],
+  [
+   501,
+   "## 5 Discussion"
+  ],
+  [
+   513,
+   "## 6 Conclusion and Future Work"
+  ],
+  [
+   523,
+   "## 7 Ethical Statement"
+  ],
+  [
+   529,
+   "## 8 Limitations"
+  ],
+  [
+   537,
+   "## 9 Acknowledgments"
+  ],
+  [
+   541,
+   "## References"
+  ],
+  [
+   775,
+   "## Appendix A Prompts and Examples of Feedback Messages"
+  ],
+  [
+   964,
+   "## Appendix B Data Stats"
+  ],
+  [
+   1114,
+   "## Appendix C Additional Results"
+  ],
+  [
+   1116,
+   "### C.1 Experiment 1 Additional Results: Effect of hint types on the student performance on the assignment."
+  ],
+  [
+   1144,
+   "### C.2 Experiment 2 Additional Results: Effect of the feedback for students with different expertise."
+  ],
+  [
+   1189,
+   "### C.3 Experiment 3 Additional Results: Effect of the content recency on the quality of the LLM-generated feedback."
+  ],
+  [
+   1233,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## 9 Acknowledgments\n\nThis work was supported by Research Council of Finland grants #356114 and #367787.\n\n## References\n\nBarros et al. (2025)\n\nJuliana Barros, Laura O. Moraes, Fernanda Oliveira, and Carla A. D. M. Delgado. 2025.\n\nLarge language models generating feedback for students of introductory programming courses.\n\nIn 26th International Conference on Artificial Intelligence in Education, AIED 2025, Part 2, volume 15877 of Lecture Notes in Computer Science, pages 421–433. Springer.\n\nBecker (2016)\n\nBrett A. Becker. 2016.\n\nAn effective approach to enhancing compiler error messages.\n\nIn Proceedings of the 47th ACM Technical Symposium on Computing Science Education, SIGCSE ’16, page 126–131, New York, NY, USA. Association for Computing Machinery.\n\nBoyle and Encarnacion (1994)\n\nCraig Boyle and Antonio O. Encarnacion. 1994.",
+ "limitations": "## 8 Limitations\n\nThis study has several limitations.\nFirst, students were exposed to different hint types across assignments, so assignment–user pairs are not independent. This design avoided disadvantaging students before knowing feedback effectiveness, but future work could assign a single hint type per student or systematically vary it to study personal preferences.\nSecond, student proficiency is based on self-reported experience, which may not accurately reflect actual ability.\nThird, the study is conducted in a single course, limiting generalizability, and excludes submissions over 2000 characters, potentially omitting more complex cases.\nFinally, we focus on short-term performance rather than long-term learning, which should be addressed in future longitudinal studies.\n\n## 9 Acknowledgments\n\nThis work was supported by Research Council of Finland grants #356114 and #367787.\n\n## References\n\nBarros et al. (2025)\n\nJuliana Barros, Laura O. Moraes, Fernanda Oliveira, and Carla A. D. M. Delgado. 2025.\n\nLarge language models generating feedback for students of introductory programming courses.\n\nIn 26th International Conference on Artificial Intelligence in Education, AIED 2025, Part 2, volume 15877 of Lecture Notes in Computer Science, pages 421–433. Springer.\n\nBecker (2016)\n\nBrett A. Becker. 2016.\n\nAn effective approach to enhancing compiler error messages.\n\nIn Proceedings of the 47th ACM Technical Symposium on Computing Science Education, SIGCSE ’16, page 126–131, New York, NY, USA. Association for Computing Machinery.\n\nBoyle and Encarnacion (1994)\n\nCraig Boyle and Antonio O. Encarnacion. 1994.\n\nMetadoc: an adaptive hypertext reading system.\n\nUser Modeling and User-Adapted Interaction, 4(1):1–19.\n\nBreslow and Clayton (1993)",
+ "ethics_coi": "### 3.5 Ethics Statement\n\nThe work followed the ethical procedures at Aalto University.\n\n## 4 Results\n\n### 4.1 Experiment 1: Effect of hint types on the student performance on the assignment.\n\n##### Time to Success\n\nFigure 1\nsummarizes the fixed effects of hint type on log-transformed time to success with the No Feedback condition as the reference level11\n 1\n\n Note: In all tables with results, we mark in bold the results that were statistically significant, i.e. the Confidence Interval (CI) for MixedLM or Highest Density Interval (HDI) for NB-GLMM excludes zero. Detailed numbers for time to success are given in the appendix..\nAll hint types were associated with a reduction in completion time relative to the No Feedback baseline. The largest average reduction was observed for Single-Issue Feedback ( \\beta=-0.214 ), followed by Diagnostic Feedback ( \\beta=-0.194 ) and General Feedback ( \\beta=-0.122 ). These effects are also reflected in the corresponding fixed-effect estimates shown in Figure 1.\nBeyond these average effects, the mixed-effects model accounted for substantial between-student and between-exercise variability. Random intercepts were included for both students and exercises, capturing baseline differences in performance. For time to success, the estimated variance of the student-level random intercept was \\sigma^{2}_{\\text{student}}=0.103 , while the exercise-level random intercept variance was larger ( \\sigma^{2}_{\\text{exercise}}=1.025 ), reflecting notable differences in task difficulty.\nIn addition to random intercepts, the models allowed the effect of hint type to vary across students via student-specific random slopes.\nA wide spread of slopes was observed, which indicates considerable heterogeneity in how individual students responded to hints: while the average effect of hints was beneficial, some students benefited substantially more than others, and a smaller subset showed little or no improvement. This variability suggests that the reported fixe",
+ "counts": {
+  "self_reported": 1,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 4,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

@@ -1,0 +1,171 @@
+{
+ "arxiv_id": "2607.18886",
+ "fulltext_chars": 81326,
+ "fulltext_lines": 1596,
+ "authors_block": "CCS: Software and its engineering Software development techniquesCCS: Computing methodologies Artificial intelligenceDOI: 10.1145/3832171Journal: PACMSEVolume: 3ISSTAISSTA08010issta26main-p753-p Mingyu Chen email: 220110123@stu.hit.edu.cn Affiliation: Harbin Institute of Technology, Shenzhen, Guangdong, China , Yakun Zhang Note: Corresponding author; † Equal contribution. email: zhangyk@hit.edu.cn Affiliation: Shenzhen Key Laboratory of Internet Information Collaboration, Harbin Institute of Technology, Shenzhen, China and State Key Laboratory of Novel Software Technology, Nanjing University, Nanjing, China , Zihao Xie email: 25s151153@stu.hit.edu.cn Affiliation: Shenzhen Key Laboratory of Internet Information Collaboration, Harbin Institute of Technology, Shenzhen, Guangdong, China , Yixing Luo email: luoyi_xing@126.com Affiliation: Beijing Institute of Control Engineering, Beijing, China , Jinrui Xu email: 220111026@stu.hit.edu.cn Affiliation: Harbin Institute of Technology, Shenzhen, Guangdong, China , Cuiyun Gao email: gaocuiyun@hit.edu.cn Affiliation: Harbin Institute of Technology, Shenzhen, Guangdong, China , Kaiqi Zhao email: zhaokaiqi@hit.edu.cn Affiliation: Shenzhen Key Laboratory of Internet Information Collaboration, Harbin Institute of Technology, Shenzhen, Guangdong, China and Yunming Ye email: yeyunming@hit.edu.cn Affiliation: Shenzhen Key Laboratory of Internet Information Collaboration, Harbin Institute of Technology, Shenzhen, Guangdong, China Received 2026-",
+ "vendor_affiliation_hits": [],
+ "n_authors": 8,
+ "comment": "Accepted by ISSTA 2026",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/ISSE-Lab/ISSTA2026-TraceDev."
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# TraceDev: A Traceability-Driven Multi-agent Framework for Requirement-to-Code Development"
+  ],
+  [
+   83,
+   "###### Abstract."
+  ],
+  [
+   89,
+   "###### Keywords:"
+  ],
+  [
+   94,
+   "## 1. Introduction"
+  ],
+  [
+   145,
+   "## 2. Motivational Example"
+  ],
+  [
+   149,
+   "### 2.1. Inadequacy of Existing Benchmarks for Complex Development Scenarios"
+  ],
+  [
+   165,
+   "### 2.2. Absence of Requirement Traceability"
+  ],
+  [
+   178,
+   "## 3. TraceDev"
+  ],
+  [
+   184,
+   "### 3.1. Overview"
+  ],
+  [
+   195,
+   "### 3.2. Requirement Refiner Agent"
+  ],
+  [
+   221,
+   "### 3.3. Designer Agent"
+  ],
+  [
+   284,
+   "### 3.4. Developer & Tester Agents"
+  ],
+  [
+   299,
+   "### 3.5. Validator Agent"
+  ],
+  [
+   364,
+   "#### 3.5.1. Traceability Graph."
+  ],
+  [
+   385,
+   "#### 3.5.2. Iterative Refinement via Multi-Agent Interaction."
+  ],
+  [
+   389,
+   "## 4. Experimental Setup"
+  ],
+  [
+   428,
+   "### 4.1. Datasets"
+  ],
+  [
+   440,
+   "### 4.2. Baselines"
+  ],
+  [
+   452,
+   "### 4.3. Metrics"
+  ],
+  [
+   456,
+   "#### 4.3.1. Automatic evaluation."
+  ],
+  [
+   473,
+   "#### 4.3.2. Human evaluation."
+  ],
+  [
+   500,
+   "#### 4.3.3. Statistical analysis."
+  ],
+  [
+   516,
+   "### 4.4. Implementation Details"
+  ],
+  [
+   525,
+   "## 5. evaluation"
+  ],
+  [
+   527,
+   "### 5.1. Effectiveness of TraceDev(RQ1)"
+  ],
+  [
+   677,
+   "### 5.2. Impact of Different Agents in TraceDev (RQ2)"
+  ],
+  [
+   811,
+   "### 5.3. Efficiency of TraceDev(RQ3)"
+  ],
+  [
+   831,
+   "### 5.4. Threats to Validity"
+  ],
+  [
+   844,
+   "## 6. discussion"
+  ],
+  [
+   889,
+   "## 7. Related Work"
+  ],
+  [
+   916,
+   "## 8. Conclusion"
+  ],
+  [
+   923,
+   "## 9. Data Availability"
+  ],
+  [
+   927,
+   "## References"
+  ],
+  [
+   1596,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "### 5.4. Threats to Validity\n\nExternal Validity. A primary threat to external validity is the generalizability to other datasets and foundation models. To mitigate the threat regarding the dataset, we utilize the ETOUR and SMOS datasets, which are widely recognized in the requirements engineering domain and simulate real-world industrial settings.\nRegarding model selection, we employed DeepSeek-V3.2 (Liu et al., 2025) and Gemini-2.5-Flash (Comanici et al., 2025) as the foundation LLMs.\nThese two models are representative in terms of code generation and reasoning capabilities.\n\nInternal Validity. A potential threat to internal validity arises from possible errors in our implementation, prompt design, and experimental execution.\nTo mitigate these threats, we have open-sourced our entire implementation, experimental data, and all prompt templates, facilitating external validation and community feedback for continuous improvement. As for the human evaluation, we invited three experienced developers and provided them with a clear and standardized evaluation process to minimize subjective bias.\n\nConstruct Validity. A possible threat to construct validity is related to evaluation metrics. To mitigate this threat, we evaluate the effectiveness of the generated code from three complementary aspects rather than relying on a single metric.\nSpecifically, these aspects include automatic evaluation, human evaluation, and statistical analysis.\nAll the evaluation metrics follow prior works (Hong et al., 2023; Zhang et al., 2025; Luo et al., 2025), providing a reliable and objective basis for assessing the quality of code produced by both TraceDev and the baseline approaches.\n\n## 6. discussion\n\nPractical Implications.\nIn requirement-driven software development, traceability plays a crucial role by linking requirements to their corresponding design and implementation (Jin et al., 2025; Borg et al., 2014).\nIt helps reduce the complexity of various development tasks, such as change impact analysis (Falessi et al., 2020; Guo et al., 2025), bug localization (Rath et al., 2018), and software maintenance (Mäder and Egyed, 2012; Mäder and Egyed, 2015).\nAs multi-agent systems gradually gain the ability to generate large-scale software projects, human engineers responsible for subsequent maintenance often face the “cold start” problem (Bhattacharjee et al., 2022). The cold start refers to the difficulty of understanding and operating a new system due to a lack of sufficient context or prior knowledge. Without traceability that links requirements to implementations, understanding the logic of code or locating bugs becomes a high-cognitive-load task (Gotel and Finkelstein, 1994; Cleland-Huang et al., 2014). Existing code generation approaches mainly focus on functional correctness but neglect constructing traceability during generation. As a result, although the generated code may be useful, it lacks explicit links to the underlying requirements, which makes later maintenance difficult.\nHowever, according to related study(Boehm, 1984), coding accounts for only about 20% of the software lifecycle while maintenance occupies roughly 80%. TraceDev provides clear guidance and support for this 80% maintenance phase, substantially reducing the effort required for understanding and iterative development.\n\nTable 4. Evaluation results of TraceDev and baseline approaches using GPT-5-mini.\n\nModel\nApproach\nAutomatic Evaluation\n\nSemantic-coverage Rate(%)\nSuccess Rate(%)\n\nGPT-5-mini\nChatDev\n43.06%\n7.14%\n\nMetagpt\n37.96%\n25.51%\n\nTraceDev",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 2,
+  "p_value_or_ci": 4,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 2,
+  "java": 0,
+  "industrial": 3
+ },
+ "fulltext_source": "html"
+}

@@ -1,0 +1,201 @@
+{
+ "arxiv_id": "2605.15334",
+ "fulltext_chars": 83226,
+ "fulltext_lines": 3848,
+ "authors_block": "Yihong Dong Affiliation: School of Computer Science, Peking University Affiliation: Tongyi Lab, Alibaba Group Jiaru Qian Affiliation: Wuhan University Haoran Zhang Affiliation: Renmin University of China Peixu Wang Affiliation: National University of Singapore Binhua Li Affiliation: Tongyi Lab, Alibaba Group Zhi Jin Affiliation: School of Computer Science, Peking University Affiliation: Wuhan University Yongbin Li Affiliation: Tongyi Lab, Alibaba Group Ge Li Affiliation: School of Computer Science, Peking University Xiaokang Yang Affiliation: Shanghai Jiaotong University Xue Jiang Affiliation: School of Computer Science, Peking University Affiliation: Tongyi Lab, Alibaba Group",
+ "vendor_affiliation_hits": [
+  "Alibaba"
+ ],
+ "n_authors": 10,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/JiaruQian/IO2Code."
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# From I/O to Code with Discovery Agent"
+  ],
+  [
+   68,
+   "###### Abstract"
+  ],
+  [
+   77,
+   "## 1 Introduction"
+  ],
+  [
+   93,
+   "## 2 Motivation Example"
+  ],
+  [
+   109,
+   "#### The Overfitting Trap."
+  ],
+  [
+   127,
+   "#### The Blind Mutation Trap."
+  ],
+  [
+   131,
+   "#### From Specific to General."
+  ],
+  [
+   136,
+   "#### Levels 1–2: Constant and Variable."
+  ],
+  [
+   152,
+   "#### Level 3: Conditional."
+  ],
+  [
+   176,
+   "#### Level 4: Iteration."
+  ],
+  [
+   204,
+   "## 3 Methodology"
+  ],
+  [
+   208,
+   "#### Formalization of IO2Code."
+  ],
+  [
+   218,
+   "#### DIO-Agent Backbone."
+  ],
+  [
+   228,
+   "### 3.1 Curriculum-wise Evolution"
+  ],
+  [
+   242,
+   "### 3.2 Transformation-priority Guided Mutation"
+  ],
+  [
+   251,
+   "### 3.3 Error-Grounded Feedback"
+  ],
+  [
+   266,
+   "## 4 Experiments"
+  ],
+  [
+   347,
+   "### 4.1 Main Results"
+  ],
+  [
+   351,
+   "### 4.2 Performance Across Different LLMs"
+  ],
+  [
+   466,
+   "### 4.3 Ablation Study"
+  ],
+  [
+   475,
+   "### 4.4 Comparison with Test-Time Scaling Methods."
+  ],
+  [
+   492,
+   "### 4.5 Further Analysis"
+  ],
+  [
+   505,
+   "### 4.6 Autonomous Discovery via Active Exploration"
+  ],
+  [
+   536,
+   "## 5 Related Work"
+  ],
+  [
+   542,
+   "## 6 Conclusion"
+  ],
+  [
+   546,
+   "## References"
+  ],
+  [
+   848,
+   "## Appendix A Stage-wise Analysis of Curriculum Refinement"
+  ],
+  [
+   874,
+   "## Appendix B Comprehensive results"
+  ],
+  [
+   3519,
+   "## Appendix C Hyperparameter Impact"
+  ],
+  [
+   3532,
+   "## Appendix D Detailed Ablation Results"
+  ],
+  [
+   3583,
+   "## Appendix E Detailed Behavioral Analysis"
+  ],
+  [
+   3770,
+   "## Appendix F Case Study"
+  ],
+  [
+   3776,
+   "## Appendix G Limitation"
+  ],
+  [
+   3781,
+   "## Appendix H IO2CodeBench"
+  ],
+  [
+   3785,
+   "### H.1 Benchmark Composition"
+  ],
+  [
+   3797,
+   "### H.2 Example Generation"
+  ],
+  [
+   3803,
+   "### H.3 Train–Test Split Construction"
+  ],
+  [
+   3818,
+   "### H.4 Evaluation Protocol"
+  ],
+  [
+   3832,
+   "### H.5 Search-Time vs. Final Evaluation"
+  ],
+  [
+   3836,
+   "## Appendix I Experimental Setup"
+  ],
+  [
+   3848,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## Appendix G Limitation\n\nOur work has two main limitations. First, although the proposed IO2CodeBench covers multiple difficulty levels ranging from basic data operations to complex algorithmic reasoning (e.g., geometric computation and multimodal tasks), the landscape of code generation includes numerous specialized fields yet to be fully explored. Expanding the domain coverage would enable a more comprehensive evaluation of different methods, and this constitutes an important direction for our future work.\nSecond, the current experimental setup uniformly provides fixed visible I/O examples per task for search. However, in real-world applications, the number of available I/O examples may vary considerably, and different examples can differ significantly in their informativeness for revealing the underlying rule. Certain well-chosen boundary cases may be far more discriminative than a large number of routine examples. The impact of the quantity, diversity, and informational coverage of I/O examples on search effectiveness warrants further systematic investigation.\n\n## Appendix H IO2CodeBench\n\nThis appendix describes the construction of the IO2CodeBench used in our experiments. The benchmark is programmatically generated from deterministic oracle functions, therefore every example pair is produced automatically rather than annotated by humans.\n\n### H.1 Benchmark Composition\n\nWe establish our IO2CodeBench for experiments, informed by (Michaud et al., 2024). The IO2CodeBench includes Base, Algorithm, Geometry, and Multi-modal levels. Each task corresponds to a deterministic target program defined in a task registry and spans a different transformation pattern over structured inputs. At a high level, the benchmark covers cumulative arithmetic operations, memory-style sequence transductions, parity and bitwise reasoning, multi-stream operations such as base- k addition and binary dot products, and several small symbolic reasoning tasks.\n\nEach task is defined by a ground-truth function f^{*} together with a task-specific input domain. For the core benchmark, the domain type is one of five categories: integer sequences, bit sequences, paired integer sequences, paired bit sequences, or floating-point sequences. The labels are always generated by executing the oracle,\n\n y=f^{*}(x), \n\n(4)\n\nso each task is fully specified by executable semantics rather than by natural-language annotation.\n\n### H.2 Example Generation\n\nFor the core sequence tasks, inputs are sampled automatically according to the task type and range constraints stored in the registry. Sequence lengths are drawn uniformly between 3 and 10. Integer-valued tasks sample each element from a task-specific bounded interval, bit-valued tasks sample each element from \\{0,1\\} , floating-point tasks sample from a bounded real interval, and two-stream tasks generate two aligned sequences of the same length. The target output is then obtained by directly applying the hidden oracle function to the sampled input.\n\nFor the extended tasks, we use task-specific generators. These include bounded integer problems, strings, integer lists, reverse-Polish-expression sequences, bit-vector problems, and simple geometry tasks over points and paths. To improve coverage, the generator first inserts a small set of canonical edge cases and then fills the remaining examples with random samples from the corresponding domain. This produces a benchmark that is still automatically generated, but less homogeneous than simple iid random sampling.\n\n### H.3 Train–Test Split Construction\n\nBy default, we construct 8 visible training examples and 15 hidden test examples per task, where each set ensures the 100% test coverage of the task. The training set is generated with random seed 42 and the test set with random seed 999. This separation is hard-coded in the generation pipeline and is also stated explicitly in the prompt shown to the model.\n\nThe split procedure is designed to avoid leakage at the input level. ",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 3,
+  "swe_bench": 0,
+  "contamination": 8,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

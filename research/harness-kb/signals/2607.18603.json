@@ -1,0 +1,250 @@
+{
+ "arxiv_id": "2607.18603",
+ "fulltext_chars": 78020,
+ "fulltext_lines": 2736,
+ "authors_block": "Sam O’Nuallain ††thanks: Equal contribution. Affiliation: University of Massachusetts Amherst Email: samonuall@gmail.com Nithya Rajkumar11footnotemark: 1 Affiliation: University of Massachusetts Amherst Email: nithyaraj1506@gmail.com Ramya Narayanasamy11footnotemark: 1 Affiliation: University of Massachusetts Amherst Email: rnarayanasam@umass.edu Hanna Jiang11footnotemark: 1 Affiliation: University of Massachusetts Amherst Email: hannajiangg@gmail.com Shreyas Chaudhari Andrew Drozdov Affiliation: University of Massachusetts Amherst Affiliation: Databricks Mosaic Research Email: schaudhari@umass.edu Email: andrew.drozdov@databricks.com",
+ "vendor_affiliation_hits": [
+  "Databricks"
+ ],
+ "n_authors": 6,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/auto-index/autoindex",
+  "https://github.com/auto-index/autoindex."
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# AutoIndex: Learning Representation Programs for Retrieval"
+  ],
+  [
+   59,
+   "###### Abstract"
+  ],
+  [
+   63,
+   "## 1 Introduction"
+  ],
+  [
+   87,
+   "## 2 Related Work"
+  ],
+  [
+   89,
+   "##### Adaptive chunking and document representation."
+  ],
+  [
+   93,
+   "##### Index enrichment."
+  ],
+  [
+   97,
+   "##### Agentic program optimization."
+  ],
+  [
+   103,
+   "## 3 AutoIndex"
+  ],
+  [
+   107,
+   "### 3.1 Formalization"
+  ],
+  [
+   120,
+   "### 3.2 Agentic Program Synthesis"
+  ],
+  [
+   124,
+   "##### Analysis Agent."
+  ],
+  [
+   140,
+   "##### Code Agent."
+  ],
+  [
+   155,
+   "##### Program Selection."
+  ],
+  [
+   159,
+   "## 4 Experimental Setup"
+  ],
+  [
+   161,
+   "##### Dataset and splits."
+  ],
+  [
+   165,
+   "##### Metrics and baselines."
+  ],
+  [
+   169,
+   "##### Experimental design."
+  ],
+  [
+   173,
+   "## 5 Experimental Results"
+  ],
+  [
+   186,
+   "# Queries"
+  ],
+  [
+   265,
+   "# Queries"
+  ],
+  [
+   333,
+   "##### Main results."
+  ],
+  [
+   337,
+   "##### Comparison to uniform chunking."
+  ],
+  [
+   341,
+   "##### Preliminary dense retrieval result."
+  ],
+  [
+   409,
+   "## 6 Framework Analysis and Discussion"
+  ],
+  [
+   411,
+   "### 6.1 Role of Iteration, Search History, and Analysis"
+  ],
+  [
+   417,
+   "### 6.2 Search Dynamics across Iterations"
+  ],
+  [
+   427,
+   "### 6.3 Learned Representation Behaviors"
+  ],
+  [
+   435,
+   "### 6.4 Limitations and Future Work"
+  ],
+  [
+   439,
+   "## 7 Conclusion"
+  ],
+  [
+   443,
+   "## References"
+  ],
+  [
+   763,
+   "## Appendix A Appendix"
+  ],
+  [
+   765,
+   "### A.1 Claude Sonnet 4.6 Results"
+  ],
+  [
+   780,
+   "# Queries"
+  ],
+  [
+   869,
+   "### A.2 Design Decisions and Implementation Notes"
+  ],
+  [
+   871,
+   "##### Optimization target."
+  ],
+  [
+   880,
+   "##### Validation/evaluation split ratio."
+  ],
+  [
+   894,
+   "##### Choice of BM25."
+  ],
+  [
+   919,
+   "##### Why two agents."
+  ],
+  [
+   929,
+   "##### Analysis agent tools."
+  ],
+  [
+   933,
+   "##### Curated candidate queries."
+  ],
+  [
+   941,
+   "##### Prompt iteration."
+  ],
+  [
+   951,
+   "### A.3 Case Studies"
+  ],
+  [
+   953,
+   "##### Computational cost."
+  ],
+  [
+   1004,
+   "#### A.3.1 More information on the TipOfTheTongue Case Study"
+  ],
+  [
+   1008,
+   "##### The code agent’s strategy was based on the analysis agent’s findings."
+  ],
+  [
+   1012,
+   "#### A.3.2 StackExchange Case Study"
+  ],
+  [
+   1022,
+   "### A.4 Prompts"
+  ],
+  [
+   1024,
+   "#### A.4.1 Code Agent Prompt"
+  ],
+  [
+   1142,
+   "##### Clarification on MaxP and additional chunks."
+  ],
+  [
+   1151,
+   "#### A.4.2 Analysis Agent Prompt"
+  ],
+  [
+   1247,
+   "### A.5 Query Splits"
+  ],
+  [
+   1288,
+   "### A.6 Case Study Generated Code Implementations"
+  ],
+  [
+   2736,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "### 6.4 Limitations and Future Work\n\nAutoIndex currently optimizes primarily for Recall@100 with a fixed BM25 retriever, limited iteration budget, and small number of seeds. This leaves open how reliably gains converge, how to balance recall against nDCG, latency, index size, and preprocessing cost, and how learned programs interact with dense, hybrid, learned sparse, late-interaction, or reranking-based systems. Future work should also study generalization beyond per-corpus optimization: program transfer, where a learned representation program is applied directly to unseen datasets; adaptive programs, where the program inspects a new corpus or performs lightweight calibration before indexing; and optimizer transfer, where the AutoIndex procedure is initially tuned then frozen and evaluated across many datasets and domains.\n\n## 7 Conclusion\n\nWe introduced AutoIndex, a framework for learning executable document representation programs for retrieval. Rather than tuning the retriever, AutoIndex optimizes the corpus representation itself: the chunks, context, normalization, and transformations exposed to a fixed retrieval system. On CRUMB, AutoIndex improves BM25 retrieval across heterogeneous tasks without retriever training, embedding updates, or online feedback. These results suggest that indexing should be treated as an optimization target in its own right, and that program synthesis is a promising mechanism for adapting corpus representations to retrieval objectives.\n\n## References\n\nAgrawal et al. (2025)\nL. A. Agrawal, S. Tan, D. Soylu, N. Ziems, R. Khare, K. Opsahl-Ong, A. Singhvi, H. Shandilya, M. J. Ryan, M. Jiang, C. Potts, K. Sen, A. G. Dimakis, I. Stoica, D. Klein, M. Zaharia, and O. Khattab\n\nGEPA: reflective prompt evolution can outperform reinforcement learning.\n\nExternal Links: 2507.19457,\nLink\n\nCited by: §2.\n\nChang et al. (2026)\nJ. D. Chang, A. Drozdov, S. Toshniwal, O. Oertell, A. Trott, J. Portes, A. Gupta, P. Koppol, A. Baheti, S. Kulinski, I. Zhou, I. Dea, K. Opsahl-Ong, S. Favreau-Lessard, S. Owen, J. J. G. Ortiz, A. Singhvi, X. Andrade, C. Wang, K. K. Sreenivasan, S. Havens, J. Liu, P. J. Deniro, W. Sun, M. Bendersky, and J. Frankle\n\nKARL: knowledge agents via reinforcement learning.\n\nArXiv abs/2603.05218.\n\nExternal Links: Link\n\nCited by: §2.\n\nChen et al. (2021)\nM. Chen, J. Tworek, H. Jun, Q. Yuan, H. P. de Oliveira Pinto, J. Kaplan, H. Edwards, Y. Burda, N. Joseph, G. Brockman, A. Ray, R. Puri, G. Krueger, M. Petrov, H. Khlaaf, G. Sastry, P. Mishkin, B. Chan, S. Gray, N. Ryder, M. Pavlov, A. Power, L. Kaiser, M. Bavarian, C. Winter, P. Tillet, F. P. Such, D. Cummings, M. Plappert, F. Chantzis, E. Barnes, A. Herbert-Voss, W. H. Guss, A. Nichol, A. Paino, N. Tezak, J. Tang, I. Babuschkin, S. Balaji, S. Jain, W. Saunders, C. Hesse, A. N. Carr, J. Leike, J. Achiam, V. Misra, E. Morikawa, A. Radford, M. Knight, M. Brundage, M. Murati, K. Mayer, P. Welinder, B. McGrew, D. Amodei, S. McCandlish, I. Sutskever, and W. Zaremba\n\nEvaluating large language models trained on code.\n\nExternal Links: 2107.03374,\nLink\n\nCited by: §2.",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 6,
+  "swe_bench": 0,
+  "contamination": 2,
+  "human_study": 1,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

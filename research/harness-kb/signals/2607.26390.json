@@ -1,0 +1,129 @@
+{
+ "arxiv_id": "2607.26390",
+ "fulltext_chars": 73449,
+ "fulltext_lines": 1042,
+ "authors_block": "Uncovering Security and Privacy Issues in LLM-native IDEs DOI: XXXXXXX.XXXXXXXConference: ; **, 20**; Woodstock, NYISBN: 978-1-4503-XXXX-X/2026/06CCS: Security and privacy Mostafijur Rahman Akhond Affiliation: York University, Toronto, ON, CANADA email: mostafij@yorku.ca , Md Afif Al Mamun Affiliation: University of Calgary, Calgary, AB, CANADA email: afif.mamun@ucalgary.ca , Gias Uddin Affiliation: York University, Toronto, ON, CANADA email: guddin@yorku.ca and Song Wang Affiliation: York University, Toronto, ON, CANADA email: wangsong@yorku.ca 2026",
+ "vendor_affiliation_hits": [],
+ "n_authors": 4,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# “Impossible to hide secret …”:"
+  ],
+  [
+   56,
+   "###### Abstract."
+  ],
+  [
+   62,
+   "###### Keywords:"
+  ],
+  [
+   67,
+   "## 1. Introduction"
+  ],
+  [
+   99,
+   "## 2. Study Setup"
+  ],
+  [
+   105,
+   "### 2.1. Data Collection"
+  ],
+  [
+   109,
+   "### 2.2. Data Preprocessing"
+  ],
+  [
+   182,
+   "### 2.3. Data Analysis"
+  ],
+  [
+   209,
+   "#"
+  ],
+  [
+   212,
+   "#"
+  ],
+  [
+   215,
+   "#"
+  ],
+  [
+   256,
+   "## 3. Reported Security and Privacy Issues"
+  ],
+  [
+   260,
+   "### 3.1. IDEs with Security & Privacy Issues"
+  ],
+  [
+   264,
+   "### 3.2. Reported Security Issues in the IDEs"
+  ],
+  [
+   330,
+   "### 3.3. Reported Privacy Issues in the IDEs"
+  ],
+  [
+   385,
+   "### 3.4. Distribution of the Issues Across the IDEs"
+  ],
+  [
+   392,
+   "## 4. Reported Mitigation Strategies"
+  ],
+  [
+   526,
+   "## 5. Recommendations from Lessons Learned"
+  ],
+  [
+   601,
+   "## 6. Related Works"
+  ],
+  [
+   612,
+   "## 7. Threats to Validity"
+  ],
+  [
+   616,
+   "## 8. Concluding Remarks"
+  ],
+  [
+   626,
+   "## 9. Data Availability Statement"
+  ],
+  [
+   631,
+   "## References"
+  ],
+  [
+   1042,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 7. Threats to Validity\n\nConstruct validity may be affected by inferring security/privacy concerns from informal Reddit posts lacking configuration detail or root-cause evidence; results are thus developer-reported, not confirmed vulnerabilities. We therefore interpret our results as developer-reported issues rather than independently confirmed vulnerabilities in every case. We mitigated this via manual validation of all posts, preserved Reddit identifiers, reproduction attempts to selected posts, and a clarified security/privacy boundary from the end-user perspective. Internal validity risks LLM-filtering misclassification, especially false negatives for implicit issues; we mitigated this by freezing the filtering prompt, evaluating it on a balanced unseen validation, manually validating all LLM-positive candidates, and auditing LLM-negative samples. Taxonomy validity may suffer from overlapping/multi-label categories, addressed by defining boundaries via action, asset, and mitigation implication, with multi-labeling only for explicitly distinct issues. External and temporal validity is limited by reliance on Reddit data, which may not represent enterprise use, proprietary deployments, or developers who do not publicly report issues; Counts reflect discussion patterns, not vulnerability rates or trends. Reliability may vary with evolving discussions; we report coder agreement, resolve disagreements by consensus, and share all scripts, prompts, codebooks, and artifacts. Data Availability: To ensure replication, we share all collected Reddit data. This mitigates the data availability threats that arise when/if Reddit removes/edits the posts.\n\n## 8. Concluding Remarks\n\nWe present 32 security and privacy issues reported by developers in Reddit against popular LLM-native IDEs, aka LIDEs. We observe prevalent mistrust among the developers against the LIDEs, as they attempted 13 different strategies to mitigate the occurrence of such risks. We offer six recommendations to support a more secure and privacy-aware design of LIDEs.\n\nMessage to LIDEs Designers: LLM outputs should undergo extensive automated verification before being recommended to developers. The LIDEs designers must treat a LIDE as a software system first, instead of developing it as simply a medium of LLM outputs. Easy access to execution logs and task planning is needed to improve transparency and traceability.\n\nMessage to LIDEs Users: Developers should verify LIDE-suggested code changes before approval. They must follow established software and security engineering practices such as code review rather than “vibecoding” only. Evidence suggests that vibecoding is prone to insecure programming (Databricks, 2024).\n\nMessage to LIDEs Researchers: The academic and industrial researchers can produce benchmarks to enable robust testing of LIDEs, by taking inspiration from LLM coding benchmarks like SWE-bench (Jimenez et al., 2023).\n\n## 9. Data Availability Statement\n\nThe replication package with data, code, and supplementary discussion (appendix) is available at\nhttps://zenodo.org/records/21381379\n\n## References\n\nAbiha et al. (2025)\nN. Abiha, J. Apeksha, G. Avisha, and V. Ankita\n\nUnderstanding code quality: a qualitative evaluation of llm-generated vs. human-written code.\n\nInt. J. Perform. Eng. 21, pp. 559.\n\nCited by: §6.\n\nAgarwal et al. (2024)\nA. Agarwal, A. Chan, S. Chandel, J. Jang, S. Miller, R. Z. Moghaddam, Y. Mohylevskyy, N. Sundaresan, and M. Tufano\n\nCopilot evaluation harness: evaluating llm-guided software programming.\n\narXiv preprint arXiv:2402.14261.\n\nCited by: §6.\n\nAI IDE List (2025)",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 0,
+  "swe_bench": 2,
+  "contamination": 5,
+  "human_study": 1,
+  "java": 0,
+  "industrial": 2
+ },
+ "fulltext_source": "html"
+}

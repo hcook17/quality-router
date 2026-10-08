@@ -1,0 +1,163 @@
+{
+ "arxiv_id": "2605.30353",
+ "fulltext_chars": 46273,
+ "fulltext_lines": 561,
+ "authors_block": "AI Development of Scientific Software Nhat-Minh Nguyen Affiliation: Kavli IPMU (WPI), UTIAS, The University of Tokyo, 5-1-5 Kashiwanoha, Kashiwa, Chiba 277-8583, Japan Affiliation: Center for Data-Driven Discovery, Kavli IPMU (WPI), UTIAS, The University of Tokyo, Kashiwa, Chiba 277-8583, Japan Affiliation: Institute For Interdisciplinary Research in Science and Education, ICISE, Quy Nhon, 55121, Vietnam Correspondence to: nhat.minh.nguyen@ipmu.jp",
+ "vendor_affiliation_hits": [],
+ "n_authors": 1,
+ "comment": "10 pages, 2 figures, 2 tables, 1 physicist and a few AI agents. Accepted by ICML 2026 AI for Science Workshop. Code and development log are available at this repo: https://github.com/MinhMPA/clax-pt",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/Michalychforever/CLASS-PT"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   22,
+   "# Physics Is All You Need? A Case Study in Physicist-Supervised"
+  ],
+  [
+   36,
+   "###### Abstract"
+  ],
+  [
+   46,
+   "###### Keywords:"
+  ],
+  [
+   49,
+   "## 1 Introduction"
+  ],
+  [
+   59,
+   "## 2 The Project"
+  ],
+  [
+   61,
+   "### 2.1 What Was Built"
+  ],
+  [
+   89,
+   "### 2.2 The Supervision Protocol"
+  ],
+  [
+   111,
+   "## 3 Bug Taxonomy: The Autonomy Spectrum"
+  ],
+  [
+   117,
+   "### 3.1 Autonomous and Human-Accelerated Issues"
+  ],
+  [
+   125,
+   "### 3.2 Case Study: The Redshift-Space Multipoles"
+  ],
+  [
+   127,
+   "#### The accuracy wall."
+  ],
+  [
+   150,
+   "#### The fudge factor."
+  ],
+  [
+   168,
+   "## 4 Lessons and Limitations"
+  ],
+  [
+   172,
+   "### 4.1 Managing Autonomy in Scientific Software"
+  ],
+  [
+   174,
+   "#### P1: Oracle testing verifies what, not why."
+  ],
+  [
+   180,
+   "#### P2: Shared memory prevents re-exploration but not architectural loops."
+  ],
+  [
+   186,
+   "#### P3: The irreducible human role is architectural and physical judgment."
+  ],
+  [
+   196,
+   "### 4.2 Credit, Attribution, and Responsibility"
+  ],
+  [
+   204,
+   "### 4.3 What This Case Study Cannot Show"
+  ],
+  [
+   208,
+   "#### Counterexamples not observed."
+  ],
+  [
+   212,
+   "#### Inference cost not recoverable."
+  ],
+  [
+   216,
+   "#### Retrieval-vs-agency limitation."
+  ],
+  [
+   220,
+   "#### Single case study ( N=1 )."
+  ],
+  [
+   224,
+   "## 5 Related Work"
+  ],
+  [
+   234,
+   "## 6 Conclusion"
+  ],
+  [
+   238,
+   "## 7 Code and Data Availability"
+  ],
+  [
+   244,
+   "## Acknowledgments"
+  ],
+  [
+   248,
+   "## References"
+  ],
+  [
+   419,
+   "## Appendix A Issue-Level Classification"
+  ],
+  [
+   423,
+   "#### Scope note."
+  ],
+  [
+   429,
+   "#"
+  ],
+  [
+   561,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgments\n\nI am grateful to Siddharth Mishra-Sharma for sharing about his work and for his collaboration on clax, the building block of clax-pt. I thank Ben Horowitz and Kazuyuki Akitsu for helpful discussions, and the two anonymous referees for useful, constructive feedback. I acknowledge support from the Japan Foundation for Promotion of Astronomy Research Grant and the JSPS KAKENHI Grant Numbers 25K23373 and 26H00404. This work was supported by World Premier International Research Center Initiative (WPI Initiative), MEXT, Japan.\n\n## References\n\nBaumann et al. (2012)\nD. Baumann, A. Nicolis, L. Senatore, and M. Zaldarriaga\n\nCosmological Non-Linearities as an Effective Fluid.\n\nJCAP 07, pp. 051.\n\nExternal Links: Document,\n1004.2488\n\nCited by: §2.1.\n\nCarlini (2026)\nN. Carlini\n\nBuilding a C compiler with a team of parallel Claudes.\n\nNote: Anthropic Engineering Blog, https://www.anthropic.com/engineering/building-c-compiler",
+ "limitations": "## 4 Lessons and Limitations\n\nThe case study suggests three patterns observed in this project, each grounded in a specific failure mode we encountered. We organize them around the failure mode and the supervision practice that emerged in response; we do not claim these are universal principles.\n\n### 4.1 Managing Autonomy in Scientific Software\n\n#### P1: Oracle testing verifies what, not why.\n\nAn oracle test compares numerical output at fixed input parameters. It answers the question “does the code produce the right numbers here?” but not “does the code produce the right numbers for the right reasons?” The fudge factor \\alpha=0.27 passed every oracle test (nine spectra, hundreds of k -modes, relative errors below 1%) because it was calibrated to the same fiducial cosmology used for testing. The oracle provides no signal that the underlying model is wrong when the calibration point happens to coincide with the test point.\n\nMulti-cosmology testing was active from project inception, but it was not what caught \\alpha=0.27 . The catch came from a limiting-case stress test: setting the tuned coefficient to \\alpha=0 and observing that real-space errors exceeded 1%, which exposed the calibration as compensating for a structural defect rather than encoding a physical correction. The fix was a re-derivation from the class-pt source code, implementing anisotropic damping \\Sigma^{2}_{\\mathrm{tot}}(\\mu) inside the existing Gauss–Legendre loop and dropping \\alpha entirely (Section 3.2). The short interval between the fudge-factor commit and its replacement shows that the supervision practice—operationalizing “no fudge factors” into a parameter-boundary probe—worked in this instance, but as an ad-hoc check rather than as an automated pre-commit gate. Two complementary defenses follow: test at diverse parameter points beyond the fiducial calibration so single-point calibrations are exposed when parameters shift, and automate limiting-case probes (set each tuned coefficient to a boundary value, re-run the oracle) as a mandatory pre-commit step so the fudge-rejection mechanism does not depend on a supervisor noticing.\n\n#### P2: Shared memory prevents re-exploration but not architectural loops.\n\nThe CHANGELOG protocol successfully prevented the agent from re-exploring solved bugs across sessions. When the DST k -grid issue (logarithmic vs. linear spacing) was resolved on day 3, no subsequent session revisited it—the CHANGELOG entry served as shared memory. However, the same protocol did not prevent 33 sessions of coherent but futile work within the wrong architecture. Sessions during the RSD crisis logged their attempts faithfully, showing no contradiction or repetition—only incremental, methodical exploration within a space that contained no solution.\n\nThe shared memory prevented literal re-exploration (trying the same coefficient twice) but could not surface structural stagnation (trying different coefficients within the same doomed architecture). The defense we adopted was a session-count trigger. When progress stalls for approximately 5–10 sessions with no monotonic improvement in the target metric, escalate to human review. This heuristic would have caught the RSD crisis at session 30 rather than session 56.\n\n#### P3: The irreducible human role is architectural and physical judgment.\n\nThe agent excelled at tasks with clear specifications and verifiable outputs: transcribing equations from a reference source, comparing intermediate numerical values to localize discrepancies, adjusting coefficients to match a known target, implementing a well-specified algorithm. These tasks, which constituted the bulk of the project’s session-time, the agent performed autonomously and correctly (10 of 15 documented issues; see Appendix A).\n\nThe agent failed at two specific tasks. First, recognizing when a code architecture is fundamentally incompatible with the target physics rather than merely mis-parameterized. This requires understanding what the physics s",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 4,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

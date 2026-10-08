@@ -1,0 +1,137 @@
+{
+ "arxiv_id": "2609.37405",
+ "fulltext_chars": 53395,
+ "fulltext_lines": 1501,
+ "authors_block": "1st Ali Mohammadi Esfahani Affiliation: Systems and computer Engineering Carleton University Ottawa, Canada alimohammadiesfahani@cmail.carleton.ca 2nd Nafiseh Kahani Affiliation: Systems and computer Engineering Carleton University Ottawa, Canada kahani@sce.carleton.ca 3rd Samuel A.Ajila Affiliation: Systems and computer Engineering Carleton University Ottawa, Canada samuel.ajila@cunet.carleton.ca Affiliation:",
+ "vendor_affiliation_hits": [],
+ "n_authors": 3,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Complexity-Aware Evaluation of LLM Comprehension"
+  ],
+  [
+   54,
+   "###### Abstract"
+  ],
+  [
+   58,
+   "###### Index Terms:"
+  ],
+  [
+   63,
+   "## I Introduction"
+  ],
+  [
+   97,
+   "## II Related Work"
+  ],
+  [
+   161,
+   "## III Complexity-Aware Evaluation Method"
+  ],
+  [
+   173,
+   "### III-A Dataset Construction"
+  ],
+  [
+   227,
+   "### III-B Automatic Comprehension Tasks"
+  ],
+  [
+   271,
+   "### III-C Manual Comprehension Tasks"
+  ],
+  [
+   311,
+   "## IV Study Design"
+  ],
+  [
+   315,
+   "### IV-A Complexity Annotation"
+  ],
+  [
+   319,
+   "#### IV-A1 Complexity Metrics"
+  ],
+  [
+   365,
+   "#### IV-A2 Complexity Bands"
+  ],
+  [
+   397,
+   "### IV-B Model Evaluation Protocol"
+  ],
+  [
+   405,
+   "### IV-C Evaluation Metric"
+  ],
+  [
+   419,
+   "### IV-D Complexity-Aware Analysis"
+  ],
+  [
+   433,
+   "### IV-E Statistical Analysis"
+  ],
+  [
+   447,
+   "## V Results"
+  ],
+  [
+   451,
+   "### V-A RQ1: Effect of Benchmark Complexity Distribution"
+  ],
+  [
+   563,
+   "### V-B RQ2: Structural Characteristics of Incorrect Predictions"
+  ],
+  [
+   628,
+   "### V-C RQ3: Manual Semantic Comprehension"
+  ],
+  [
+   908,
+   "### V-D Statistical Significance of Complexity Effects"
+  ],
+  [
+   1033,
+   "## VI Discussion and Threats to Validity"
+  ],
+  [
+   1094,
+   "## VII Conclusion"
+  ],
+  [
+   1131,
+   "## References"
+  ],
+  [
+   1501,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## VI Discussion and Threats to Validity\n\nThe results demonstrate that benchmark composition is an important factor\nin interpreting LLM code-comprehension performance. HumanEval,\nMBPP-sanitized, and CRUXEval contain only Low- and Medium-complexity\nfunctions in the constructed benchmark and consequently produce higher\nmodel accuracy. In contrast, LeetCode and BigCodeBench-Hard contain most\nof the High-complexity functions and expose substantially lower\nreliability. This indicates that differences between benchmark scores\ncannot always be attributed only to model capability. They may also\nreflect differences in the structural-complexity distribution of the\nevaluated code. Reporting benchmark-level accuracy without this\ndistribution can therefore conceal important reliability limitations.\n\nThe metric-level findings provide a complementary interpretation.\nCyclomatic complexity, nesting depth, branching factor, and Halstead\nvolume were all negatively associated with prediction correctness.\nAlthough cyclomatic complexity and branching factor had numerically large\nassociations, their confidence intervals overlapped with those of the\nother metrics. The results therefore do not establish a single dominant\nmeasure of LLM comprehension difficulty. Instead, the four metrics capture\ndifferent but related reasoning demands: execution-path diversity,\nhierarchical control flow, decision density, and symbolic processing\nload. Their joint use provides a more complete indication of when an LLM\nresponse may require verification.\n\nThe difference between automatic and manual performance also provides\ninsight into how models process source code. Automatic input–output\nprediction showed a larger Low-to-High accuracy decline than manual\nsemantic comprehension. Exact prediction requires the model to follow a\nspecific execution path and preserve every intermediate state until the\nfinal return value is produced. A single error in loop simulation,\nconditional evaluation, or variable updating leads to an incorrect\nanswer. Manual questions may sometimes be answered through recognition\nof the function’s overall structure or algorithmic pattern. Nevertheless,\ntheir accuracy also declined with complexity, confirming that the effect\nextends beyond exact-match scoring to semantic understanding.\n\nThese findings have practical implications for LLM-assisted software\nengineering. Structural metrics can be computed before an LLM is asked",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 8,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 2,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

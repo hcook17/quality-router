@@ -1,0 +1,255 @@
+{
+ "arxiv_id": "2605.04637",
+ "fulltext_chars": 107142,
+ "fulltext_lines": 2693,
+ "authors_block": "Application Platforms as Virtual Software Agencies Siddhant Saxena Nilesh Trivedi Affiliation: BaseThesis Labs QwikBuild Vinayaka Jyothi Affiliation: BaseThesis Labs QwikBuild March 2026",
+ "vendor_affiliation_hits": [],
+ "n_authors": 3,
+ "comment": "35 pages, 12 figures, 18 tables",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/snowmountainAi/webdevbench"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# SWE-WebDevBench: Evaluating Coding Agent"
+  ],
+  [
+   49,
+   "## 1 Introduction"
+  ],
+  [
+   85,
+   "## 2 Related Work"
+  ],
+  [
+   199,
+   "### 2.1 Code Generation Benchmarks"
+  ],
+  [
+   207,
+   "### 2.2 Web Application Generation Benchmarks"
+  ],
+  [
+   213,
+   "### 2.3 Visual and Multimodal Evaluation"
+  ],
+  [
+   217,
+   "### 2.4 Agent Evaluation Methodology"
+  ],
+  [
+   221,
+   "### 2.5 LLM-as-Judge Evaluation"
+  ],
+  [
+   227,
+   "### 2.6 Benchmark Governance and Maintenance"
+  ],
+  [
+   231,
+   "## 3 The SWE-WebDev Bench Framework"
+  ],
+  [
+   233,
+   "### 3.1 Design Principles"
+  ],
+  [
+   245,
+   "### 3.2 Evaluation Cube: Three Orthogonal Dimensions"
+  ],
+  [
+   263,
+   "### 3.3 Metric Taxonomy: 25 Primary + 43 Diagnostic"
+  ],
+  [
+   273,
+   "#"
+  ],
+  [
+   349,
+   "#### 3.3.1 Metric Group Rationale"
+  ],
+  [
+   367,
+   "#### 3.3.2 Diagnostic Metrics"
+  ],
+  [
+   373,
+   "### 3.4 Judging Taxonomy"
+  ],
+  [
+   383,
+   "#### 3.4.1 Target Threshold Calibration"
+  ],
+  [
+   387,
+   "## 4 Experimental Design"
+  ],
+  [
+   389,
+   "### 4.1 Platform Selection"
+  ],
+  [
+   432,
+   "### 4.2 Prompt Suite and Snorkel Alignment"
+  ],
+  [
+   436,
+   "#### 4.2.1 Domain Selection Rationale"
+  ],
+  [
+   448,
+   "#### 4.2.2 Prompt Style Variation"
+  ],
+  [
+   468,
+   "### 4.3 AMR Prompts: Escalating Mutations"
+  ],
+  [
+   500,
+   "### 4.4 Canary Requirements"
+  ],
+  [
+   540,
+   "### 4.5 Evaluation Protocol"
+  ],
+  [
+   576,
+   "## 5 Results"
+  ],
+  [
+   578,
+   "##### Statistical scope and interpretive note."
+  ],
+  [
+   582,
+   "### 5.1 Cross-Platform Engineering Scores"
+  ],
+  [
+   644,
+   "#### 5.1.1 Comprehensive Per-Metric Breakdown"
+  ],
+  [
+   1081,
+   "#### 5.1.2 Per-Prompt Results"
+  ],
+  [
+   1267,
+   "### 5.2 Finding 1: The Specification Bottleneck"
+  ],
+  [
+   1365,
+   "#### 5.2.1 PM Agent Interaction Traces"
+  ],
+  [
+   1404,
+   "#### 5.2.2 Contradiction Handling: The P2 Trap"
+  ],
+  [
+   1454,
+   "#### 5.2.3 Per-Prompt PM Scores"
+  ],
+  [
+   1643,
+   "### 5.3 Finding 2: The Frontend-Backend Decoupling Problem"
+  ],
+  [
+   1703,
+   "### 5.4 Finding 3: The Production Readiness Cliff"
+  ],
+  [
+   1772,
+   "### 5.5 Finding 4: Widespread Security and Infrastructure Failures"
+  ],
+  [
+   1818,
+   "### 5.6 Preliminary AMR Analysis: Single-Platform Methodology Demonstration"
+  ],
+  [
+   2058,
+   "#### 5.6.1 AMR-Specific Diagnostic Metrics"
+  ],
+  [
+   2128,
+   "#### 5.6.2 Canary Survival Under Modification"
+  ],
+  [
+   2140,
+   "## 6 Case Studies"
+  ],
+  [
+   2150,
+   "## 7 Discussion"
+  ],
+  [
+   2152,
+   "### 7.1 Why Existing Benchmarks Cannot Capture This"
+  ],
+  [
+   2156,
+   "### 7.2 Closed-Loop Code Generation as an Architectural Pattern"
+  ],
+  [
+   2164,
+   "### 7.3 Why These Metrics Matter for the Vibe Coding Era"
+  ],
+  [
+   2178,
+   "### 7.4 Three Domains as Orthogonal Diagnostic Probes"
+  ],
+  [
+   2184,
+   "### 7.5 Benchmark Governance and Maintenance Plan"
+  ],
+  [
+   2188,
+   "### 7.6 Limitations and Bias Mitigation"
+  ],
+  [
+   2206,
+   "## 8 Conclusion"
+  ],
+  [
+   2237,
+   "## References"
+  ],
+  [
+   2425,
+   "## Appendix A Complete Per-Metric Scores: P1 ExamEdge"
+  ],
+  [
+   2612,
+   "## Appendix B PM Agent Behavioral Analysis"
+  ],
+  [
+   2665,
+   "## Appendix C Metric Independence Analysis"
+  ],
+  [
+   2693,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "### 7.6 Limitations and Bias Mitigation\n\nAuthor affiliation with an evaluated platform. Two of the three authors are affiliated with QwikBuild, one of the six evaluated platforms. This creates a structural conflict of interest that affects multiple aspects of this work: the benchmark’s emphasis on PM behavior and requirement elicitation may inherently advantage platforms with dedicated PM agents (QwikBuild’s primary differentiator); and the AMR evaluation asymmetry (QwikBuild-only) creates additional exposure for the affiliated platform. We note that the canary requirements and AMR prompts were designed by the non-affiliated author (Saxena), who had no prior knowledge of QwikBuild’s architecture or capabilities. We take the following measures to mitigate potential bias: (1) all prompts, rubrics, and scoring protocols are released for independent replication; (2) G1 metrics use a three-person expert panel including one external evaluator; (3) we report QwikBuild’s failures, including its worst-of-field SWS (9.3%), below-target CLS (42%), lowest Code Hygiene among top platforms (52.8%), and poor External Service Reliability (28.3% against an 80% target); and (4) the benchmark framework is designed to be platform-agnostic—any party can evaluate any platform using the released materials. Blinded evaluation is recommended for future evaluations to further reduce the potential for unconscious bias.\n\nSingle evaluator for some metrics. While G1 metrics use a three-person expert panel, most code quality metrics rely on LLM-assisted evaluation with human validation. Future work should expand to multiple independent evaluators with formal inter-rater reliability assessment.\n\nSmall sample size. Six prompts across three domains, while varied in style and complexity, represent a limited sample. No statistical significance tests or confidence intervals are reported. Larger prompt suites and repeated evaluations are needed to establish robust rankings.\n\nPlatform version sensitivity. AI platforms evolve rapidly. Our evaluation captures a snapshot from February–March 2026. Scores may differ substantially on subsequent versions.\n\nLimited AMR cross-platform data. AMR evaluation is comprehensive only for QwikBuild, creating an asymmetry in the evaluation. Extension to all six platforms is essential before drawing comparative AMR conclusions.\n\nPrompt engineering sensitivity. Prompt wording may favor certain architectures. We mitigate this by using three prompt styles (specific, vague, semi-vague) across domains, but additional prompt variation would strengthen the evaluation.\n\nNo blinding. Evaluators were aware of which platform produced each output, which is a significant limitation given the author affiliation with one evaluated platform. We note that full blinding is operationally challenging for platform evaluation: platforms have distinctive UIs, deployment URLs, conversation patterns, and framework choices that make anonymization non-trivial. However, partial blinding is feasible and should be adopted in future evaluations. Specifically, code quality metrics (G2: SDS, BLS, FES, CHS, ARC) can be scored on anonymized codebases with platform-specific comments, deployment URLs, and distinctive framework identifiers stripped. We estimate that approximately 40% of the Engineering Score derives from Tier 0 fully automated metrics (Lighthouse, k6, npm audit) that are unaffected by evaluator awareness. The remaining 60% includes Tier 1–3 metrics where unconscious bias could influence scores. We recommend that future evaluations adopt a blinded protocol for at minimum Tier 2 and Tier 3 metrics, and we will provide anonymization scripts in the benchmark repository to facilitate this.\n\nBenchmark design may favor certain architectures. The benchmark’s emphasis on PM behavior, requirement elicitation, and canary retention as first-class evaluation dimensions may structurally advantage platforms with dedicated PM agents over single-pass generation approache",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 2,
+  "llm_as_judge": 2,
+  "p_value_or_ci": 4,
+  "seeds_or_runs": 0,
+  "swe_bench": 10,
+  "contamination": 0,
+  "human_study": 2,
+  "java": 0,
+  "industrial": 5
+ },
+ "fulltext_source": "html"
+}

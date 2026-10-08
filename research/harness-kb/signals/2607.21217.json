@@ -1,0 +1,421 @@
+{
+ "arxiv_id": "2607.21217",
+ "fulltext_chars": 88260,
+ "fulltext_lines": 2295,
+ "authors_block": "Zhongyuan Peng*,1,2, Dan Huang*,3, Chuyu Zhang2, Caijun Xu1,4, Changyi Xiao1, Shibo Hong1 David Lo3, Lin Qiu2, Xuezhi Cao2, Jiyuan He†,2, Yixin Cao†,1,4 Affiliation: 1Fudan University 2Meituan Group 3Singapore Management University 4Shanghai Innovation Institute",
+ "vendor_affiliation_hits": [],
+ "n_authors": 11,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/ALEX-nlp/ICAE-EVAL",
+  "https://github.com/anthropics/claude-agent-sdk-python",
+  "https://github.com/openclaw/openclaw"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   22,
+   "# ICAE-Bench: Evaluating Coding Agents as Interactive Project Builders"
+  ],
+  [
+   39,
+   "###### Abstract"
+  ],
+  [
+   47,
+   "###### Index Terms:"
+  ],
+  [
+   55,
+   "## I Introduction"
+  ],
+  [
+   83,
+   "#Proj."
+  ],
+  [
+   180,
+   "## II Related Work"
+  ],
+  [
+   182,
+   "### II-A Software-Agent Benchmarks"
+  ],
+  [
+   191,
+   "### II-B 0-to-1 Repository Generation"
+  ],
+  [
+   199,
+   "### II-C Ambiguity and Clarification"
+  ],
+  [
+   208,
+   "## III ICAE-Bench"
+  ],
+  [
+   216,
+   "### III-A Benchmark Instance Definition"
+  ],
+  [
+   274,
+   "### III-B Benchmark Construction"
+  ],
+  [
+   278,
+   "##### Repository Selection and Test Refactoring"
+  ],
+  [
+   284,
+   "##### GroundPRD Synthesis and Fuzzification"
+  ],
+  [
+   300,
+   "##### Enhanced Behavioral Cases"
+  ],
+  [
+   304,
+   "##### Ultimate Image Generation"
+  ],
+  [
+   362,
+   "### III-C Artifact Verification"
+  ],
+  [
+   370,
+   "##### Generation Harness"
+  ],
+  [
+   432,
+   "### III-D Benchmark Statistics"
+  ],
+  [
+   436,
+   "##### Golden LOC."
+  ],
+  [
+   440,
+   "##### Golden File Count."
+  ],
+  [
+   448,
+   "### III-E Interactive User Agent"
+  ],
+  [
+   456,
+   "### III-F Evaluation Metrics"
+  ],
+  [
+   458,
+   "##### Functional Correctness"
+  ],
+  [
+   462,
+   "##### Agentic Evaluation"
+  ],
+  [
+   466,
+   "##### Structural Assessment"
+  ],
+  [
+   470,
+   "##### Interaction Quality"
+  ],
+  [
+   476,
+   "## IV Experiments"
+  ],
+  [
+   480,
+   "### IV-A Experimental Settings"
+  ],
+  [
+   482,
+   "##### Datasets and metrics."
+  ],
+  [
+   488,
+   "##### Models and execution."
+  ],
+  [
+   492,
+   "### IV-B Main Results"
+  ],
+  [
+   898,
+   "### IV-C Analysis"
+  ],
+  [
+   902,
+   "#### IV-C1 Failure Mode Taxonomy"
+  ],
+  [
+   912,
+   "#### IV-C2 Effect of Test Scaffolding"
+  ],
+  [
+   940,
+   "#### IV-C3 Impact of Agent Frameworks"
+  ],
+  [
+   1030,
+   "#### IV-C4 Impact of User Agent Capability"
+  ],
+  [
+   1084,
+   "#### IV-C5 Impact of Interaction Budgets"
+  ],
+  [
+   1092,
+   "#### IV-C6 Impact of Thinking Configuration"
+  ],
+  [
+   1136,
+   "#### IV-C7 Impact of Execution Environment"
+  ],
+  [
+   1165,
+   "#### IV-C8 Cross-lingual Generalization"
+  ],
+  [
+   1225,
+   "## V Discussion"
+  ],
+  [
+   1229,
+   "### V-A Validity of ICAE-Bench-Lite."
+  ],
+  [
+   1233,
+   "### V-B Reliability of Subjective Metrics."
+  ],
+  [
+   1273,
+   "### V-C Runtime and Token Usage."
+  ],
+  [
+   1279,
+   "## VI Conclusion and Future Work"
+  ],
+  [
+   1285,
+   "## References"
+  ],
+  [
+   1661,
+   "## Appendix A Prompt for Test Refactoring and GroundPRD Construction"
+  ],
+  [
+   1665,
+   "## Task Description"
+  ],
+  [
+   1667,
+   "## Inputs"
+  ],
+  [
+   1669,
+   "## Outputs"
+  ],
+  [
+   1691,
+   "## Workflow"
+  ],
+  [
+   1709,
+   "## Requirements"
+  ],
+  [
+   1751,
+   "## PRD Template"
+  ],
+  [
+   1753,
+   "## Deliverables"
+  ],
+  [
+   1767,
+   "## Appendix B Prompt for Enhanced Test Case Generation"
+  ],
+  [
+   1771,
+   "## Role"
+  ],
+  [
+   1773,
+   "## Inputs (File Paths)"
+  ],
+  [
+   1791,
+   "## Instructions"
+  ],
+  [
+   1838,
+   "## Final Output Requirement"
+  ],
+  [
+   1852,
+   "## Appendix C Prompts for Fuzzy L1/L2 PRD Construction"
+  ],
+  [
+   1856,
+   "## Role Definition"
+  ],
+  [
+   1858,
+   "## Generation Rules"
+  ],
+  [
+   1891,
+   "## Input Data"
+  ],
+  [
+   1905,
+   "## Output Requirement"
+  ],
+  [
+   1927,
+   "## Appendix D Prompts for Fuzzy PRD Semantic Equivalence Judge"
+  ],
+  [
+   1931,
+   "## Role"
+  ],
+  [
+   1933,
+   "## Inputs"
+  ],
+  [
+   1944,
+   "## Key outputs"
+  ],
+  [
+   1968,
+   "## Appendix E Prompts for Fuzzy L3 PRD Construction"
+  ],
+  [
+   1972,
+   "## Role"
+  ],
+  [
+   1974,
+   "## Task"
+  ],
+  [
+   2022,
+   "## Role"
+  ],
+  [
+   2024,
+   "## Task"
+  ],
+  [
+   2049,
+   "## Appendix F Coding Agent Task Instruction"
+  ],
+  [
+   2053,
+   "## Task"
+  ],
+  [
+   2055,
+   "## Inputs"
+  ],
+  [
+   2069,
+   "## How to enter the container"
+  ],
+  [
+   2077,
+   "## Requirements"
+  ],
+  [
+   2095,
+   "## Environment & dependencies (must read)"
+  ],
+  [
+   2121,
+   "## Appendix G Clarification Block for Fuzzy PRDs"
+  ],
+  [
+   2125,
+   "## Clarification"
+  ],
+  [
+   2133,
+   "## Appendix H INIT for User Agent"
+  ],
+  [
+   2137,
+   "## Role and Task"
+  ],
+  [
+   2140,
+   "## Your Persona: Strict Tech Lead"
+  ],
+  [
+   2154,
+   "## Hard Rules of Interaction"
+  ],
+  [
+   2162,
+   "## Response Format (Output Schema)"
+  ],
+  [
+   2186,
+   "## Appendix I Critic Model for Agentic Evaluation"
+  ],
+  [
+   2190,
+   "## Subjective Code Comparison"
+  ],
+  [
+   2192,
+   "## Inputs"
+  ],
+  [
+   2211,
+   "## Output schema"
+  ],
+  [
+   2254,
+   "## How to score semantic_similarity (0.0 to 1.0)"
+  ],
+  [
+   2273,
+   "## How to score api_similarity (0.0 to 1.0)"
+  ],
+  [
+   2275,
+   "## How to score design_quality (0.0 to 1.0)"
+  ],
+  [
+   2277,
+   "## Rules"
+  ],
+  [
+   2295,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 0,
+  "swe_bench": 7,
+  "contamination": 0,
+  "human_study": 2,
+  "java": 5,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

@@ -1,0 +1,331 @@
+{
+ "arxiv_id": "2605.08366",
+ "fulltext_chars": 80375,
+ "fulltext_lines": 1693,
+ "authors_block": "Miguel Romero Calvo Affiliation: 1Scale AI ∗Equal contribution Yannis Yiming He1 Affiliation: 1Scale AI ∗Equal contribution Johannes Baptist Mols1 Affiliation: 1Scale AI ∗Equal contribution Gautam Anand1 Affiliation: 1Scale AI ∗Equal contribution Cole McCollum1 Affiliation: 1Scale AI ∗Equal contribution Edgar Arakelyan1 Affiliation: 1Scale AI ∗Equal contribution Vijay Bharadwaj1 Affiliation: 1Scale AI ∗Equal contribution Andrew Park1 Affiliation: 1Scale AI ∗Equal contribution Jeff Da1 Affiliation: 1Scale AI ∗Equal contribution MohammadHossein Rezaei1 Affiliation: 1Scale AI ∗Equal contribution Bing Liu1 Affiliation: 1Scale AI ∗Equal contribution Brad Kenstler1 Affiliation: 1Scale AI ∗Equal contribution Yunzhong He1 Affiliation: 1Scale AI ∗Equal contribution",
+ "vendor_affiliation_hits": [],
+ "n_authors": 15,
+ "comment": "10 pages",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/scaleapi/SWE-Atlas"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   22,
+   "# SWE Atlas: Benchmarking Coding Agents Beyond Issue Resolution"
+  ],
+  [
+   76,
+   "###### Abstract"
+  ],
+  [
+   86,
+   "## 1 Introduction"
+  ],
+  [
+   108,
+   "## 2 Dataset Overview"
+  ],
+  [
+   116,
+   "##### Expert authored problems"
+  ],
+  [
+   120,
+   "##### Diverse, real-world task categories"
+  ],
+  [
+   124,
+   "##### Hybrid programmatic- and rubric-based verifiers"
+  ],
+  [
+   130,
+   "### 2.1 Task Categories and Evaluation"
+  ],
+  [
+   132,
+   "#### 2.1.1 Codebase Q&A"
+  ],
+  [
+   136,
+   "##### Evaluation"
+  ],
+  [
+   140,
+   "#### 2.1.2 Test Writing"
+  ],
+  [
+   144,
+   "##### Evaluation"
+  ],
+  [
+   160,
+   "#### 2.1.3 Refactoring"
+  ],
+  [
+   164,
+   "##### Evaluation"
+  ],
+  [
+   180,
+   "### 2.2 Quality Control"
+  ],
+  [
+   184,
+   "##### Problem and Evaluation Coherence"
+  ],
+  [
+   188,
+   "##### Independent Expert Review"
+  ],
+  [
+   192,
+   "## 3 Experimental Results"
+  ],
+  [
+   309,
+   "## 4 Analysis"
+  ],
+  [
+   311,
+   "### 4.1 Beyond functional correctness: where models fail as professional engineers"
+  ],
+  [
+   325,
+   "##### Test Writing"
+  ],
+  [
+   329,
+   "##### Refactoring"
+  ],
+  [
+   333,
+   "### 4.2 Failure Mode breakdown"
+  ],
+  [
+   335,
+   "#### 4.2.1 Codebase Q&A"
+  ],
+  [
+   343,
+   "##### Frontier models are becoming execution oriented on runtime analysis tasks"
+  ],
+  [
+   347,
+   "##### The best models still fail to provide complete information and runtime evidence"
+  ],
+  [
+   355,
+   "### 4.3 Test Writing"
+  ],
+  [
+   363,
+   "##### Writing more tests \\neq writing good tests"
+  ],
+  [
+   371,
+   "##### Agents write tests that mainly test happy paths"
+  ],
+  [
+   375,
+   "### 4.4 Refactoring"
+  ],
+  [
+   383,
+   "##### Models struggle on multi-file refactors"
+  ],
+  [
+   391,
+   "### 4.5 Multi-agent case-study on Codebase Q&A"
+  ],
+  [
+   419,
+   "### 4.6 Additional findings"
+  ],
+  [
+   427,
+   "## 5 Related Work"
+  ],
+  [
+   437,
+   "## 6 Conclusion"
+  ],
+  [
+   441,
+   "## 7 Acknowledgments"
+  ],
+  [
+   445,
+   "## References"
+  ],
+  [
+   727,
+   "## Appendix A Limitations"
+  ],
+  [
+   731,
+   "##### Task category choice"
+  ],
+  [
+   735,
+   "##### LLM-as-a-judge grading"
+  ],
+  [
+   739,
+   "##### Risk of contamination"
+  ],
+  [
+   743,
+   "##### Broader impacts and risks"
+  ],
+  [
+   747,
+   "## Appendix B Model performance over time"
+  ],
+  [
+   753,
+   "## Appendix C Trajectory Analysis"
+  ],
+  [
+   775,
+   "## Appendix D Dataset construction and statistics"
+  ],
+  [
+   792,
+   "### D.1 Extended example task with full trajectory"
+  ],
+  [
+   810,
+   "## Appendix E Pass@k breakdown"
+  ],
+  [
+   816,
+   "## Appendix F Performance by task category and language"
+  ],
+  [
+   858,
+   "## Appendix G Cost vs. Capability"
+  ],
+  [
+   866,
+   "## Appendix H Rubric Evaluation Quality"
+  ],
+  [
+   868,
+   "##### Judge agreement."
+  ],
+  [
+   890,
+   "##### Rubric Flakiness Study."
+  ],
+  [
+   894,
+   "##### Human - LLM rubric grading alignment"
+  ],
+  [
+   916,
+   "## Appendix I Data Contamination Check"
+  ],
+  [
+   942,
+   "##### Test Writing."
+  ],
+  [
+   970,
+   "## Appendix J Experimental Setting"
+  ],
+  [
+   1015,
+   "# Instructions"
+  ],
+  [
+   1021,
+   "## Rating Object"
+  ],
+  [
+   1031,
+   "## Grading Logic"
+  ],
+  [
+   1041,
+   "### Clarification (Rubric Statement Example Listing)"
+  ],
+  [
+   1047,
+   "### Grading Examples"
+  ],
+  [
+   1071,
+   "## Final Instructions"
+  ],
+  [
+   1101,
+   "# Prompt"
+  ],
+  [
+   1105,
+   "# Response"
+  ],
+  [
+   1109,
+   "#Rubric Criteria"
+  ],
+  [
+   1117,
+   "## Appendix K Example Problems"
+  ],
+  [
+   1121,
+   "### K.1 Codebase Q&A - task 6905333b74f22949d97ba9b5"
+  ],
+  [
+   1245,
+   "### K.2 Test Writing - task 6902ef3ab97fe23e2ad27276"
+  ],
+  [
+   1335,
+   "# 1. Comprehensiveness --- must-have"
+  ],
+  [
+   1427,
+   "### K.3 Refactoring"
+  ],
+  [
+   1573,
+   "# 1. Code Maintainability --- must-have"
+  ],
+  [
+   1665,
+   "# 3. Artifact Cleanup --- must-have"
+  ],
+  [
+   1679,
+   "# 4. Negative Rubrics --- must-have (failure if YES)"
+  ],
+  [
+   1693,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## 7 Acknowledgments\n\nWe are grateful to the expert software engineers who authored and reviewed the SWE Atlas tasks, and to the operations and quality-control teams whose support made the data construction pipeline possible. We also thank Daniel Yue Zhang for his thoughtful feedback on the manuscript.\n\n## References\n\n[1]\nA. F. Akyürek, A. Gosai, C. B. C. Zhang, V. Gupta, J. Jeong, A. Gunjal, T. Rabbani, M. Mazzone, D. Randolph, M. Mahmoudi Meymand, G. Chattha, P. Rodriguez, D. Mares, P. Singh, M. Liu, S. Chawla, P. Cline, L. Ogaz, E. Hernandez, Z. Wang, P. Bhatter, M. Ayestaran, B. Liu, and Y. He (2025)\n\nPRBench: large-scale expert rubrics for evaluating high-stakes professional reasoning.\n\narXiv preprint arXiv:2511.11562.\n\nCited by: §2.2,\n§5.\n\n[2]\nAnthropic (2026)\n\nIntroducing claude opus 4.7.\n\nNote: Accessed: 2026-05-04\n\nExternal Links: Link",
+ "limitations": "## Appendix A Limitations\n\nSWE-Atlas was created with specific design choices and, as a result, has a few limitations.\n\n##### Task category choice\n\nSWE Atlas covers distinct new aspects of Software Engineering that has been understudied in the context of agentic coding setting. However, there are other key capabilities that are important and underrepresented that we left out from this work like DevOps, Infrastructure, Networking, Security, etc. We also restrict to single-turn tasks, in line with prior coding-agent benchmarks, and leave multi-turn evaluation (clarification, iterative review, human-in-the-loop steering) to future work. We hope that future work expands this evaluation suite to encompass broader slices of software engineering.\n\n##### LLM-as-a-judge grading\n\nWe also use LLM-as-a-judge for certain parts of the evaluation. This makes assumptions on grading biases, robustness and variability. However, the community has designed best practices to limit these, and several previous works advocate for rubrics, designed specifically to be atomic and self-contained, to make grading objective and robust. We adopt these based on established prior work, and add additional experiments to validate the robustness in grading as detailed in the Appendix. However, we recommend model builders to pin the LLM judge version when discussing scores, and compare against other models under the same judge model grading.\n\n##### Risk of contamination\n\nThe work builds on open-source repositories that are explicitly copyleft licensed. While this makes it unlikely to appear in the training data of proprietary models, it can’t be completely ruled out. They still carry some risk of training data contamination, and thus, solution memorization. In the appendix, we describe our study on memorization risk on Test Writing and Refactoring, whose solution patches are available in the upstream repository. We found no clear evidence of memorization, with very little similarity in the correct solution patches of the agent’s submission and the gold patch.\n\n##### Broader impacts and risks\n\nSWE Atlas is intended to improve transparent evaluation of coding agents by exposing engineering-quality gaps before such systems are deployed in real software engineering workflows. Models that score well on SWE Atlas should be understood as demonstrating capability on a curated set of single-turn engineering tasks, not as certified safe for production deployment in safety-critical, security-sensitive, or compliance-bounded settings; teams adopting SWE Atlas-tested agents should retain code review, audit logging, and human approval gates appropriate to their environment. Finally, like any benchmark that becomes an optimization target, SWE Atlas is susceptible to gaming: future model releases may overfit to the rubric vocabulary or the specific repository set, and we encourage the community (and model builders) to treat SWE Atlas as a held out signal of progress than as an eval set to maximize.\n\n## Appendix B Model performance over time\n\nFigure 6: Resolve rate (Pass@1) on a 30-task subset of each workflow across the Claude Opus 4.1 – 4.7 family, an 8-month window. All three workflows improve monotonically.\n\nSince benchmarks can signal model performance progression over time, we trace the Claude Opus family from Opus 4.1 (Aug 2025) to Opus 4.7 (Apr 2026) on a 30-task subset of each workflow (Figure 6). All three workflows climb steadily across the eight-month window and each release improves on the last, indicating rapid-but-smooth progress of the model capabilities.\n\n## Appendix C Trajectory Analysis\n\nFigure 7: Average tool calls per trial under the minimal mini-SWE-agent scaffold versus the native Claude Code / Codex scaffold, pooled across all three workflows. Native scaffolds perform \\sim 1.5–2 \\times more tool calls; Meta captures sub-agent delegation, planning, and TODO-list operations available only on the native scaffolds.\n\nWhen evaluating models, we observed that usi",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 5,
+  "p_value_or_ci": 3,
+  "seeds_or_runs": 22,
+  "swe_bench": 18,
+  "contamination": 19,
+  "human_study": 0,
+  "java": 1,
+  "industrial": 1
+ },
+ "fulltext_source": "html"
+}

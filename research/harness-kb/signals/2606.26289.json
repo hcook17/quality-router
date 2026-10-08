@@ -1,0 +1,169 @@
+{
+ "arxiv_id": "2606.26289",
+ "fulltext_chars": 61823,
+ "fulltext_lines": 817,
+ "authors_block": "1st Weixing Zhang Affiliation: Karlsruhe Institute of Technology Karlsruhe, Germany weixing.zhang@kit.edu 2nd Bowen Jiang Affiliation: Karlsruhe Institute of Technology Karlsruhe, Germany bowen.jiang@kit.edu 3rd Anne Koziolek Affiliation: Karlsruhe Institute of Technology Karlsruhe, Germany koziolek@kit.edu",
+ "vendor_affiliation_hits": [],
+ "n_authors": 3,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Augmentation with Dilution: A Large-Scale Empirical Study of Human Contributor Ecosystems After AI Coding Agent Adoption"
+  ],
+  [
+   46,
+   "###### Abstract"
+  ],
+  [
+   50,
+   "###### Index Terms:"
+  ],
+  [
+   53,
+   "## I Introduction"
+  ],
+  [
+   75,
+   "## II Related Work"
+  ],
+  [
+   77,
+   "#### AI Coding Agents in Open-Source Development"
+  ],
+  [
+   82,
+   "#### Human Contributor Ecosystems in Open-Source Software"
+  ],
+  [
+   88,
+   "## III Research Design"
+  ],
+  [
+   90,
+   "### III-A Dataset and Treatment Identification"
+  ],
+  [
+   132,
+   "### III-B Data Collection and Panel Construction"
+  ],
+  [
+   158,
+   "### III-C Control Group Construction"
+  ],
+  [
+   216,
+   "### III-D Outcome Variables"
+  ],
+  [
+   222,
+   "### III-E Causal Inference Strategy"
+  ],
+  [
+   233,
+   "### III-F Moderator Variables"
+  ],
+  [
+   245,
+   "## IV Results"
+  ],
+  [
+   247,
+   "### IV-A RQ1: Human Contributor Participation After AI Agent Adoption"
+  ],
+  [
+   249,
+   "#### Descriptive statistics."
+  ],
+  [
+   298,
+   "#### Parallel trends assessment."
+  ],
+  [
+   312,
+   "#### Dynamic effects."
+  ],
+  [
+   318,
+   "### IV-B RQ2: Newcomer Relative Participation After AI Agent Adoption"
+  ],
+  [
+   320,
+   "#### Descriptive statistics."
+  ],
+  [
+   366,
+   "#### Parallel trends assessment."
+  ],
+  [
+   374,
+   "#### Main results."
+  ],
+  [
+   378,
+   "#### Dynamic effects."
+  ],
+  [
+   384,
+   "### IV-C RQ3: Maintainer Review Effort After AI Agent Adoption"
+  ],
+  [
+   396,
+   "### IV-D RQ4: Heterogeneous Effects Across Project Characteristics"
+  ],
+  [
+   484,
+   "## V Discussion"
+  ],
+  [
+   493,
+   "## VI Threats to Validity"
+  ],
+  [
+   495,
+   "#### Construct Validiy"
+  ],
+  [
+   509,
+   "#### Internal Validity"
+  ],
+  [
+   513,
+   "#### External Validity"
+  ],
+  [
+   517,
+   "## VII Conclusion"
+  ],
+  [
+   521,
+   "## References"
+  ],
+  [
+   817,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## VI Threats to Validity\n\n#### Construct Validiy\n\nWe use pull request submissions as a proxy for human contributor activity. Contributors who submit commits directly without opening pull requests are not captured in our measurements, which may lead to an underestimation of human contributor counts. However, as pull-request-based contribution workflows are the dominant practice in modern open-source projects [28], we expect the impact of this limitation to be minimal. Human contributor density is defined as the ratio of human contributors to total pull requests in a given repository-month, where the denominator includes both human- and AI-generated pull requests. As a result, its decline following AI agent adoption is partly mechanical: AI-generated pull request volume growth expands the denominator independently of any change in human behavior. This construct is therefore best interpreted as capturing the relative share of human participation in total project activity, rather than an absolute measure of human contributor effort.\n\nOur bot filtering relies on string matching against contributor login names, specifically excluding accounts containing “[bot]” or “bot” and three commonly used automation accounts. Bot accounts that do not conform to these naming conventions may be incorrectly counted as human contributors; this residual threat cannot be eliminated without manual inspection of all accounts.\n\nWe extended the historical window for newcomer identification back to January 2020 to mitigate left-truncation bias. However, for contributors who had contribution history in a repository prior to January 2020, our data may still incorrectly classify them as newcomers, potentially leading to a slight overestimation of newcomer counts.\n\nThe primary programming language of control repositories was obtained via the GitHub REST API rather than from GHArchive, as GHArchive event data does not include repository-level language metadata. Of the 8,289 control repositories, 594 (7.2%) have missing language values: 229 due to API request failures caused by repository deletion or privatization, and 365 because no primary language is recorded for these repositories on GitHub. We consider the impact of this missingness on our conclusions to be limited. First, the missing rate is low (7.2%), and missing data at this level does not warrant imputation under standard empirical practice. Second, the language field is used exclusively as a moderator in RQ4 and has no bearing on the main effect estimates in RQ1 through RQ3. For observations with missing language values, the analysis of programming language as a moderator in RQ4 will be conducted on the valid data subset, with the sample scope clearly reported alongside the results.\n\nOur RQ3 outcome, review depth, is defined as the ratio of review comments to review events and is therefore undefined for repo-months with no review activity. As a result, 268,000 observations (58.9% of the panel) are excluded from the RQ3 estimation, and our finding applies to the subsample of repo-months with observed review activity rather than the full panel. This restriction reflects the construct itself rather than missing data, but it narrows the scope of the RQ3 conclusion to projects and periods with active review processes.\n\nOur treatment onset is defined as the calendar month of each repository’s first observed agent-authored pull request in the AIDev dataset. This operationalization is subject to measurement error: a repository may have begun using AI coding agents prior to the appearance of its first AIDev-recorded pull request, either because earlier agent-authored contributions were not captured by AIDev’s detection heuristics or because the repository adopted an agent that generated contributions outside the scope of the dataset. This measurement error implies that our treatment onset is a lower bound on true adoption timing, and that the pre-treatment period for some repositories may in fact contain pos",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 29,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 2,
+  "java": 3,
+  "industrial": 1
+ },
+ "fulltext_source": "html"
+}

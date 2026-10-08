@@ -1,0 +1,289 @@
+{
+ "arxiv_id": "2609.39909",
+ "fulltext_chars": 78829,
+ "fulltext_lines": 1791,
+ "authors_block": "Frances Liu Manny Silva Paige Calvert Ayu Adiati ††thanks: frances@promptless.ai Affiliation: Promptless Promptless / Doc Detective Helm Mautic PostHog Note: Item helm-helm-www-pr1926, Claude Sonnet 4.6+Claude Code. Note: Item strawberry-graphql-strawberry-pr4045, GPT-5.5+Codex.",
+ "vendor_affiliation_hits": [],
+ "n_authors": 5,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# DoGBench: Can Agents Meet Expert Standards for User-Facing Documentation?"
+  ],
+  [
+   38,
+   "###### Abstract"
+  ],
+  [
+   42,
+   "## 1 Introduction"
+  ],
+  [
+   56,
+   "## 2 Related Work"
+  ],
+  [
+   58,
+   "### 2.1 Documentation generation benchmarks"
+  ],
+  [
+   62,
+   "### 2.2 Scoring open-ended edits"
+  ],
+  [
+   66,
+   "## 3 Benchmark Design"
+  ],
+  [
+   72,
+   "### 3.1 Dataset construction"
+  ],
+  [
+   76,
+   "#### Constructing the trigger"
+  ],
+  [
+   100,
+   "### 3.2 Contamination controls"
+  ],
+  [
+   104,
+   "## 4 Evaluation Protocol"
+  ],
+  [
+   110,
+   "### 4.1 Criterion types and priorities"
+  ],
+  [
+   152,
+   "### 4.2 Score construction"
+  ],
+  [
+   167,
+   "### 4.3 Rubric construction"
+  ],
+  [
+   169,
+   "#### Research and synthesis"
+  ],
+  [
+   173,
+   "#### Differential review"
+  ],
+  [
+   177,
+   "#### Audit and debate"
+  ],
+  [
+   181,
+   "### 4.4 Human validation"
+  ],
+  [
+   187,
+   "## 5 Experimental Setup"
+  ],
+  [
+   205,
+   "#### Why the environment is sealed"
+  ],
+  [
+   209,
+   "#### Data splits"
+  ],
+  [
+   213,
+   "## 6 Results"
+  ],
+  [
+   337,
+   "### 6.1 Patch or abstention decision performance"
+  ],
+  [
+   387,
+   "### 6.2 Documentation quality results"
+  ],
+  [
+   441,
+   "### 6.3 Ablations"
+  ],
+  [
+   494,
+   "## 7 Failure Analysis"
+  ],
+  [
+   496,
+   "### 7.1 Patch/abstention decision failures"
+  ],
+  [
+   536,
+   "### 7.2 Documentation quality failures"
+  ],
+  [
+   602,
+   "#### Hallucinations often distort real behavior"
+  ],
+  [
+   608,
+   "#### Agent patches often lack a model of the reader’s task"
+  ],
+  [
+   616,
+   "### 7.3 Trajectory analysis of failure root causes"
+  ],
+  [
+   683,
+   "## 8 Discussion"
+  ],
+  [
+   685,
+   "### 8.1 Missing context about the reader"
+  ],
+  [
+   689,
+   "### 8.2 Coarse training rewards"
+  ],
+  [
+   693,
+   "### 8.3 Knowing when to stop investigating"
+  ],
+  [
+   697,
+   "### 8.4 Additional guidance and scaffolding"
+  ],
+  [
+   701,
+   "## 9 Limitations"
+  ],
+  [
+   703,
+   "### 9.1 Measurement"
+  ],
+  [
+   711,
+   "### 9.2 No internet access"
+  ],
+  [
+   717,
+   "### 9.3 Asymmetric label construction"
+  ],
+  [
+   721,
+   "### 9.4 Single-run evaluation"
+  ],
+  [
+   725,
+   "### 9.5 Low-information prose may be under-penalized"
+  ],
+  [
+   729,
+   "## Disclosure"
+  ],
+  [
+   733,
+   "## 10 Conclusion"
+  ],
+  [
+   739,
+   "## References"
+  ],
+  [
+   934,
+   "## Appendix A Dataset Construction and Task Examples"
+  ],
+  [
+   936,
+   "### A.1 Additional dataset details"
+  ],
+  [
+   942,
+   "### A.2 Task, patch, and evaluation case studies"
+  ],
+  [
+   1268,
+   "## Appendix B Rubric Construction and Human Validation"
+  ],
+  [
+   1270,
+   "### B.1 Research, audit, and debate"
+  ],
+  [
+   1274,
+   "#### Research and synthesis"
+  ],
+  [
+   1278,
+   "#### Audit and debate"
+  ],
+  [
+   1282,
+   "#### Example: distinguishing useful detail from required coverage"
+  ],
+  [
+   1300,
+   "### B.2 Human validation for the rubrics and scorer"
+  ],
+  [
+   1390,
+   "### B.3 Direct criterion-verdict validation"
+  ],
+  [
+   1411,
+   "### B.4 Remaining P0 failures on human merged patches"
+  ],
+  [
+   1489,
+   "## Appendix C Additional Results and Robustness Analyses"
+  ],
+  [
+   1491,
+   "### C.1 Population-specific robustness results"
+  ],
+  [
+   1569,
+   "#### Patch or abstention decision errors"
+  ],
+  [
+   1607,
+   "#### Repository-footprint ablation"
+  ],
+  [
+   1662,
+   "## Appendix D Failure Taxonomy: Additional Categories"
+  ],
+  [
+   1664,
+   "### D.1 Additional artifact-level failure categories"
+  ],
+  [
+   1718,
+   "### D.2 Less common trajectory-level causes"
+  ],
+  [
+   1791,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 9 Limitations\n\n### 9.1 Measurement\n\nTask-specific rubrics and LLM judges (Section ) let us score open-ended documentation patches at scale. Because human validation covers only part of the evaluation, automated rubric generation and scoring may still introduce errors. We check commands and examples against the available evidence instead of running every documented procedure in its repository’s native build and runtime environment. As a result, the benchmark has no deterministic checks for code samples and links.\n\nWe find that generated rubrics tend to contain more criteria than maintainer-authored rubrics. Many of these additional criteria identify valid documentation improvements, but maintainers may consider them less important. During human calibration, reviewers prioritized the noncritical P1–P3 criteria differently. Depending on repository norms, some emphasized style, while others placed less weight on it. Some preferred comprehensive documentation, whereas others favored a simple, easy-to-follow user path over broader coverage. These preferences do not support a single universal weighting of P1–P3 criteria. The score therefore weights all criteria equally in the mean and handles P0 failures separately through the score cap. The published dataset retains the P0–P3 labels, and the accompanying scoring code lets practitioners apply other weights.\n\nManual review found that some rubric criteria overlap and are not fully independent. Some overlap is warranted, because a single documentation failure can cause several related problems. In a later audit, we tried to merge overlapping criteria. Merging sometimes lost important distinctions, so we kept the overlapping criteria.\n\n### 9.2 No internet access\n\nWe evaluated agents without internet access (Sections and ). To assess how this restriction affected performance, we reviewed 683 trajectories from items on which no agent produced a mergeable patch. We found blocked network requests in 73 runs (10.7%). In 63 of these runs, network access was not necessary to produce a correct patch. The requests mostly involved setup or validation, such as installing dependencies, building documentation, running formatters or linters, and parsing YAML or JSON configuration files. Only 10 runs (1.5% of all audited trajectories) tried to retrieve external evidence that a correct patch required and the supplied inputs lacked.\n\nInternet access might therefore have helped on a small number of items. However, in an earlier web-enabled pilot, 26 of 85 runs (30.6%) retrieved the item’s upstream pull request and its merged documentation. Given this contamination risk, we kept the reported evaluation sealed.\n\n### 9.3 Asymmetric label construction\n\nThe evidence for the abstention and patch labels (Section ) is not equally strong. Documentation-needed items often have direct evidence. Some abstention labels, by contrast, rely only on the absence of a related documentation change within a 90-day audit window. That absence does not necessarily show that documentation was unnecessary. An update may have been forgotten, or it may have happened after 90 days without a link to the code pull request. As a result, some items that needed documentation may be mislabeled as abstention items. This asymmetric label noise could distort the measured decision performance.\n\n### 9.4 Single-run evaluation\n\nFor budget and time reasons, we run each agent on each item once (Section ). We therefore do not report pass@k, pass^k, best-of- k performance, or within-item run-to-run variance. The results characterize one sampled trajectory per agent and item. They do not measure the probability that an agent reliably produces the same decision or documentation quality across repeated attempts.\n\n### 9.5 Low-information prose may be under-penalized\n\nThe rubric-based scoring (Section ) and the patch-level failure rates (Section ) may miss low-information prose. A general instruction to identify coherent but low-information prose flagg",
+ "ethics_coi": "## Disclosure\n\nTwo authors are affiliated with Promptless, a company that builds documentation agents.\n\n## 10 Conclusion\n\nDoGBench shows that even frontier models paired with frontier coding harnesses cannot yet reliably produce expert-level user-facing documentation in one attempt. The highest composite score on the 117-item held-out split is 47.3 out of 100. Agents still misjudge whether documentation is needed, and when they do edit, their patches may be factually correct but miss what readers need. Fluent prose and capable repository tooling do not yet close this gap.\n\nDoGBench measures this gap with 292 real items, drawn from software changes and reported documentation gaps, and it shows where decisions and patches fail. We release the evaluation harness, item schema, dataset card, and development examples so that others can build on the benchmark. Benchmark materials and release information are available at https://dogbench.ai.\n\n## References\n\n[1]\n\nChoudhury, S.\n\nProcess reward models for LLM agents: Practical framework and directions.\n\narXiv preprint arXiv:2502.10325, 2025.\n\n[2]\n\nGao, L., Schulman, J., and Hilton, J.\n\nScaling laws for reward model overoptimization.",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 9,
+  "seeds_or_runs": 0,
+  "swe_bench": 4,
+  "contamination": 5,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

@@ -1,0 +1,145 @@
+{
+ "arxiv_id": "2605.18684",
+ "fulltext_chars": 59049,
+ "fulltext_lines": 1123,
+ "authors_block": "Sanderson Oliveira de Macedo Affiliation: Federal Institute of Goias - Brazil Email: sanderson.macedo@ifg.edu.br Affiliation: ORCID: 0000-0002-5255-596X Ronaldo Martins da Costa Affiliation: Federal University of Goias - Brazil Email: ronaldocosta@ufg.br Affiliation: ORCID: 0000-0003-1892-9080 May 18, 2026",
+ "vendor_affiliation_hits": [],
+ "n_authors": 2,
+ "comment": "Preprint. Includes a generative AI use statement",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Reversa: A Reverse Documentation Engineering Framework for Converting Legacy Software into Operational Specifications for AI Agents"
+  ],
+  [
+   40,
+   "###### Abstract"
+  ],
+  [
+   46,
+   "## 1 Introduction"
+  ],
+  [
+   78,
+   "## 2 Background and Related Work"
+  ],
+  [
+   82,
+   "### 2.1 Reverse engineering and program comprehension"
+  ],
+  [
+   88,
+   "### 2.2 Repository documentation and summarization with LLMs"
+  ],
+  [
+   94,
+   "### 2.3 Requirements and specification generation with LLMs"
+  ],
+  [
+   100,
+   "### 2.4 Software agents and multi-agent workflows"
+  ],
+  [
+   106,
+   "### 2.5 Positioning synthesis"
+  ],
+  [
+   154,
+   "## 3 The Reversa Framework"
+  ],
+  [
+   158,
+   "### 3.1 Design goals"
+  ],
+  [
+   164,
+   "### 3.2 General architecture"
+  ],
+  [
+   174,
+   "### 3.3 Portable installation and manifest-based preservation"
+  ],
+  [
+   180,
+   "### 3.4 Agent teams"
+  ],
+  [
+   250,
+   "### 3.5 Confidence, gaps, and traceability model"
+  ],
+  [
+   258,
+   "### 3.6 Closed loop: discovery, migration, and evolution"
+  ],
+  [
+   266,
+   "## 4 Evaluation Methodology"
+  ],
+  [
+   348,
+   "## 5 Exploratory Case Study: ATM COBOL to Go"
+  ],
+  [
+   352,
+   "### 5.1 Legacy characterization"
+  ],
+  [
+   386,
+   "### 5.2 Pipeline execution"
+  ],
+  [
+   396,
+   "### 5.3 Confidence, gaps, and reconstruction"
+  ],
+  [
+   500,
+   "### 5.4 Case interpretation"
+  ],
+  [
+   506,
+   "## 6 Discussion"
+  ],
+  [
+   518,
+   "## 7 Threats to Validity"
+  ],
+  [
+   530,
+   "## 8 Conclusion"
+  ],
+  [
+   542,
+   "## Generative AI Use Statement"
+  ],
+  [
+   546,
+   "## References"
+  ],
+  [
+   1123,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 7 Threats to Validity\n\nThis section summarizes threats to the validity of the study and delimits the scope of the conclusions. Because the paper presents a framework with a first exploratory instantiation, these threats are central to interpreting the results.\n\nInternal validity. The ATM study was conducted without a controlled comparison against a single agent, a conventional documentation tool, or an execution without prior specifications. Therefore, it is not possible to isolate how much of the observed progress resulted from Reversa, stakeholder knowledge, domain simplicity, or human decisions made during migration. The internal confidence index was also computed from the classification produced by the pipeline itself, not by an independent audit.\n\nConstruct validity. Metrics such as confidence distribution, gaps, and completed tasks capture operational properties of the artifacts, but they do not directly measure factual accuracy, utility for agents, or final migration success. In the ATM case, expert precision and utility in downstream tasks were proposed as protocol metrics, but have not yet been measured in a controlled way.\n\nExternal validity. The analyzed case involves an educational system in a simplified banking domain, with a single stakeholder, no production use, no preexisting tests, and a reduced scope of COBOL modules. Therefore, the results should not be generalized automatically to industrial legacy systems, regulated domains, larger teams, codebases with production-dependent behavior, or projects with complex external integrations.\n\nConclusion validity. The Go reconstruction was partial at inventory time: 9 of 11 tasks were completed, parity with Docker was in progress, and cutover remained pending. Consequently, the study supports only exploratory evidence of plausibility and process structuring, not conclusive evidence of final parity, cost reduction, improved agent performance, or superiority over alternatives.\n\n## 8 Conclusion\n\nLegacy systems concentrate operational knowledge that frequently does not exist as explicit specification. At the same time, coding agents depend on context, correctness criteria, and behavioral contracts to perform maintenance, migration, or evolution with lower risk. This combination creates a practical gap: before automating changes in legacy systems, it is necessary to recover and organize operational knowledge in a traceable and reviewable way.\n\nThis paper presented Reversa, a reverse documentation engineering framework for transforming legacy software into traceable operational specifications for AI agents. The proposal combines an installable CLI, support for multiple agent engines, specialized agentic teams, artifacts under _reversa_sdd/, SHA-256 manifest-based preservation, and an explicit model of confidence, inference, and gaps. We also reported an exploratory case study on migrating an ATM from COBOL to Go, in which the pipeline produced specifications, gaps, a confidence report, parity scenarios, and a reconstruction plan. Final parity and cutover were not completed in this version of the study. The central contribution is not to generate more documentation, but to reposition recovered documentation as an operational contract for agents that will act on the system.\n\nThe paper makes five contributions. First, we define reverse documentation engineering in the context of legacy systems and AI agents. Second, we describe Reversa as a multi-agent framework for converting existing code into operational specifications. Third, we present a confidence and gaps model to prevent fragile inferences from being treated as facts. Fourth, we detail an architecture that is portable across engines and preserves the legacy project. Fifth, we propose an evaluation protocol and instantiate it in an exploratory COBOL–Go case study.\n\nThe main limitation of this version is the absence of broad empirical validation. Therefore, Reversa should be interpreted as a framework with first explo",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 0,
+  "swe_bench": 2,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 2
+ },
+ "fulltext_source": "html"
+}

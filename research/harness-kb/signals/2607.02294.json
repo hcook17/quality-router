@@ -1,0 +1,157 @@
+{
+ "arxiv_id": "2607.02294",
+ "fulltext_chars": 65478,
+ "fulltext_lines": 1949,
+ "authors_block": "Zimo Ji1,*, Zekai Zhang2,*, Congying Xu1,3,†, Yujia Tian1, Zongjie Li1, Yudong Gao1, Shuai Wang1,†, Shing-Chi Cheung1,3 Affiliation: 1Hong Kong University of Science and Technology 2Tongji University 3Guangzhou HKUST Fok Ying Tung Research Institute, China {zjiag, zligo, shuaiw, scc}@cse.ust.hk, {congying.xu, ytianbn, ygaodj}@connect.ust.hk, 2151789@tongji.edu.cn *Equal contribution. †Corresponding authors.",
+ "vendor_affiliation_hits": [],
+ "n_authors": 7,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/AndyMik90/Aperant",
+  "https://github.com/anthropics/claude-code",
+  "https://github.com/gitleaks/gitleaksAccessed",
+  "https://github.com/golang/go",
+  "https://github.com/google-gemini/gemini-cliAccessed",
+  "https://github.com/istio/istio",
+  "https://github.com/johnagan/clean-webpack-plugin",
+  "https://github.com/junit-team/junit5",
+  "https://github.com/kubernetes/kubernetes",
+  "https://github.com/npm/cli",
+  "https://github.com/pypa/virtualenv"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Coding Agents Are Guessing: Measuring Action-Boundary Violations in Underspecified DevOps Instructions"
+  ],
+  [
+   40,
+   "###### Abstract"
+  ],
+  [
+   54,
+   "###### Index Terms:"
+  ],
+  [
+   57,
+   "## I Introduction"
+  ],
+  [
+   136,
+   "## II Background and Motivation"
+  ],
+  [
+   138,
+   "### II-A LLM-based Coding Agents"
+  ],
+  [
+   158,
+   "### II-B Coding Agents in DevOps"
+  ],
+  [
+   180,
+   "## III Benchmark Design"
+  ],
+  [
+   260,
+   "### III-A Task Families"
+  ],
+  [
+   314,
+   "### III-B The three underspecification axes"
+  ],
+  [
+   372,
+   "### III-C Test Oracles"
+  ],
+  [
+   387,
+   "### III-D Implementation"
+  ],
+  [
+   416,
+   "## IV Metrics"
+  ],
+  [
+   424,
+   "###### Definition 1 (Per-run boundary signals)."
+  ],
+  [
+   508,
+   "## V Empirical Study"
+  ],
+  [
+   532,
+   "### V-A Experimental Setup"
+  ],
+  [
+   613,
+   "### V-B RQ1: Action Propensity"
+  ],
+  [
+   719,
+   "### V-C RQ2: Action Quality"
+  ],
+  [
+   752,
+   "### V-D RQ3: The Meaning of Non-action"
+  ],
+  [
+   843,
+   "### V-E RQ4: OverScope"
+  ],
+  [
+   885,
+   "## VI Discussion & Limitations"
+  ],
+  [
+   891,
+   "### VI-A Lessons Learned"
+  ],
+  [
+   914,
+   "### VI-B Possible Mitigations"
+  ],
+  [
+   947,
+   "### VI-C Limitations of UnderSpecBench"
+  ],
+  [
+   984,
+   "## VII Related Work"
+  ],
+  [
+   1014,
+   "## VIII Conclusion"
+  ],
+  [
+   1029,
+   "## References"
+  ],
+  [
+   1949,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## VI Discussion & Limitations\n\nOur findings translate into guidance at three levels: what practitioners can do today\nwhen using agents, how the ecosystem can mitigate the failure mode, and where UnderSpecBench\nitself stops short.\n\n### VI-A Lessons Learned\n\nPrefer gated modes over full autonomy on high-stakes surfaces. Agents\nstay action-biased under underspecification and barely respond to blast radius\n(Section V-B), so the autonomous no-confirmation path is exactly where mis-scoped\nactions concentrate. Full autonomy is reasonable for bounded-object tasks, but shared\ncontrol planes (deployment, traffic, capacity), where OverScope Rate reaches 60–77%\n(Section V-E), should keep a human in the loop.\n\nSpecify the target, not just the intent. Target underspecification is\nthe dominant driver of Wrong Target and OverScope outcomes, whereas weak intent wording is\nrecoverable when the target is unique (Section V-C). Naming the exact resource\nremoves the ambiguity agents are least able to resolve on their own, and it is the\ncheapest lever a user controls.\n\nChoose a harness with a first-class Ask-User affordance. Whether an\nagent’s hesitation surfaces as a clarifying question is set partly by the scaffold: the\nsame Codex-5.1-mini asks in 31.8% of runs under its first-party Codex harness but only\n10.5% under OpenCode, where its stops collapse into silent dry-runs (Section V-D).\nA harness that exposes an explicit clarification tool, which in our study is the\ncorresponding first-party harness, turns restraint into a useful question instead of a silent\nfailure.\n\n### VI-B Possible Mitigations\n\nBeyond user practice, the failure mode is a missing competency that can be supplied at\nthree layers of the stack. None is sufficient alone: the model can be taught to hesitate,\nthe harness can make hesitating cheap and asking easy, and the system can enforce a hard\nboundary when the first two fail.\n\nModel layer: aligning for calibrated restraint. The cleanest fix is to\nmake restraint a learned behavior through RLHF or RLAIF. Capability and restraint are\nseparate competencies, and completion-style reward selects for the action bias we want to\nsuppress. Alignment data should instead reward calibrated clarification (asking",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 1,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 0,
+  "swe_bench": 1,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}
