@@ -1,7 +1,7 @@
 # Findings: agentic harness research, May–early October 2026
 
 Scope: arXiv papers **first submitted** (v1) from 2026-05-01 through
-2026-10-06, read for a backend Java team that ingests
+2026-10-07, read for a backend Java team that ingests
 healthcare-education content across at least four repositories and
 delivers it to front-end applications. The team is rolling out
 spec-driven development (SDD) through a Research → Frame → Spec → Gate
@@ -143,36 +143,52 @@ help.
    - **Isolation is the edge that matters most:** tests generated after
      seeing the code lost 8–18 points of fault detection (2607.05139).
    - Details are in `dag.md`.
+8. **The completed workflow adds a frame and a read-only question
+   pass in front of the spec. It does not add an agent that writes
+   the spec.**
+   - Pre-spec discovery (P38) is leaning, on one paper: two cited
+     repository answers before the edit raised Pass@1 by 3.8 and 4.4
+     points, and a root-cause proposal did not (2607.11111). That
+     label is none on Java and when SWE-bench papers are removed.
+   - Clarifying questions (P40) are unresolved. Empty slots should
+     force one question to a person (2605.09698, 2607.02294). More
+     questions did not help. Runnable acceptance fixtures did: 37.4%
+     to 61.8% (2607.21217).
+   - Domain cards (P39) are conditional. Codebase exploration (P43)
+     is consensus and falls to unresolved without SWE-bench.
+     Explanations (P41) are contested. Verified trace links (P42)
+     have no evidence paper.
+   - Details are in `discovery.md`.
 
 ## Method
 
 | Stage | Result |
 | --- | --- |
-| Research topics | 61 topics in 11 clusters (`taxonomy.json`), each with phrase queries across 11 arXiv categories. T59–T61 (DAGs, workflow graphs, workflow generation) were added for the DAG question |
-| Harvest | 5,926 unique papers in the window; 4,219 passed the relevance gate |
-| Selection | 278 candidates: 228 from the first 58 topics (4 per topic, ranked by relevance; T26/T57 had only 2), 12 cited by the architecture lock, 30 for T59–T61 (10 per topic) and 8 DAG-relevant software-engineering papers the ranking missed (`etl.py add --reason dag-supplement`) |
-| Date audit | v1 `published` date inside the window, rechecked live against arXiv for all 278 (`etl.py recheck`); withdrawn papers rejected (see below) |
+| Research topics | 69 topics in 11 clusters (`taxonomy.json`), each with phrase queries across 11 arXiv categories. T59–T61 were added for the DAG question. T62–T69 were added for discovery, onboarding, clarification, comprehension and traceability |
+| Harvest | 7,235 unique papers in the window; 4,940 passed the relevance gate |
+| Selection | 427 candidates: 278 from the earlier rounds, then 149 for T62–T69 (ranked by relevance, with a code-term filter on the second pick). See `discovery.md` |
+| Date audit | v1 `published` date inside the window, rechecked live against arXiv for all 427 (`etl.py recheck`); withdrawn or author-discarded papers rejected (see below) |
 | Full text | Read from arXiv HTML, with a pdftotext fallback |
 | Pre-review signals | Vendor affiliations, artifact URLs, and limitations/ethics/acknowledgment sections, extracted deterministically |
 | Adversarial review | Each paper reviewed against `REVIEW_RUBRIC.md`: 5 scores (0–5), bias codes, COI severity, claim strength, per-pattern stance |
-| Blind audit | 138 papers, including every one of the 112 evidence papers. Each was re-reviewed before reading the first review. Merged conservatively: lowest score, strictest verdict, weakest claim strength and the auditor's stance changes win |
+| Blind audit | 223 papers, including every one of the 152 evidence papers. Each was re-reviewed before reading the first review. Merged conservatively: lowest score, strictest verdict, weakest claim strength and the auditor's stance changes win |
 | Hallucination check | 4,815 numbers cited in the first 240 reviews matched against the paper text; 53 (1.1%) not found, mostly derived values. The script was not committed and was not rerun for the 38 DAG-batch reviews. A separate agent checked the numbers in this file, `dag.md` and `ADVERSARIAL_REVIEW.md` against the texts (`ADVERSARIAL_REVIEW.md` §9) |
 | Review gate | Deterministic code (`etl.py admission`), not LLM judgment |
 | Contribution gate | Each review-passing paper classified against `CONTRIBUTION_RUBRIC.md`, then gated by code (`etl.py contribution_gate`). Strength is capped at the paper's strongest audited claim. A paper with no assessment loads as `unassessed`, not evidence |
 | Pattern labels | Fixed rule (`pattern_label`), stress-tested on subsets in `kb_robustness.md` |
 
-Outcome for the 278 reviews:
+Outcome for the 427 reviews:
 
 | Status | Papers | Mean rigor | Meaning |
 | --- | --- | --- | --- |
-| Evidence (caveated) | 112 | 2.80 | Passed both gates |
-| Hypothesis | 36 | 2.39 | A transferable idea, but on weak evidence, or the paper is self-declared preliminary |
-| No contribution | 40 | 2.48 | Restates known practice, duplicates a stronger paper, or does not transfer |
-| Rejected | 90 | 1.53 | Failed review: 54 with relevance ≤ 1 (off-topic), the rest on quality; 1 withdrawn |
+| Evidence (caveated) | 152 | 2.84 | Passed both gates |
+| Hypothesis | 65 | 2.32 | A transferable idea, but on weak evidence, or the paper is self-declared preliminary |
+| No contribution | 43 | 2.44 | Restates known practice, duplicates a stronger paper, or does not transfer |
+| Rejected | 167 | 1.56 | Failed review, including off-topic keyword matches; 1 withdrawn and 1 whose authors discarded the experiments |
 
 No paper cleared every check cleanly, and the best scored rigor 4 of
 5. Rigor alone does not separate volume papers from useful ones:
-dropped papers averaged rigor 2.48, close to the hypotheses. Most were
+dropped papers averaged rigor 2.44, close to the hypotheses. Most were
 competent work that told this team nothing new. Treat everything below
 as directional evidence, not settled science.
 
@@ -189,33 +205,31 @@ before May 2026 and only revised inside the window does not qualify.
 
 | Check | Result |
 | --- | --- |
-| v1 dates of the 278 reviewed papers | 2026-05-02 … 2026-10-06 |
+| v1 dates of the 427 reviewed papers | 2026-05-01 … 2026-10-07 |
 | v1 before 2026-05-01 | 0 |
-| Revised on arXiv since we reviewed them (live recheck of all 278, 2026-10-07) | 0 |
-| Withdrawn | 1: 2606.14066, a lock citation, now rejected |
-| `published` month earlier than the ID month | 363 of 5,926 harvested (6%), never later; consistent with arXiv moderation holds. `published` is the stricter check |
-| Evidence papers first posted after 2026-09-30 | 3 (2610.02932, 2610.02952, 2610.07851). Dropping them changes one label (P28) |
+| Revised on arXiv since we reviewed them (live recheck of all 427, 2026-10-08) | 0 |
+| Withdrawn or discarded | 2: 2606.14066, a lock citation, and 2608.28421, whose authors discarded the experiments. Both rejected |
+| Evidence papers first posted after 2026-09-30 | 5 (2610.01769, 2610.02932, 2610.02952, 2610.04940, 2610.07851). Dropping them changes one label (P28). P38–P43 do not change |
 | Self-declared work in progress | 8 flagged `self_declared_incomplete`; capped at hypothesis |
 
 ### Contribution audit
 
-Of the 188 papers that passed review, 76 (40%) added nothing the team
+Of the 260 papers that passed review, 108 (42%) added nothing the team
 can use on adequate evidence. Quantity-over-quality flags:
 
 | Flag | Papers | What it catches |
 | --- | --- | --- |
-| numbers_without_mechanism | 19 | Gains reported without the ablation that says why |
-| system_description_only | 10 | "We built X" with no outcome measure |
-| leaderboard_only | 8 | Rankings with no transferable lesson |
-| self_declared_incomplete | 8 | Authors call it preliminary or WIP |
-| survey_restatement | 7 | Reorganises known advice |
-| position_without_evidence | 6 | Argument only |
-| renamed_known_idea | 4 | A new name for established practice |
+| numbers_without_mechanism | 23 | Gains reported without the ablation that says why |
+| position_without_evidence | 17 | Argument only |
+| system_description_only | 13 | "We built X" with no outcome measure |
+| survey_restatement | 11 | Reorganises known advice |
+| self_declared_incomplete | 11 | Authors call it preliminary or WIP |
+| leaderboard_only | 11 | Rankings with no transferable lesson |
+| renamed_known_idea | 7 | A new name for established practice |
 
-Qualifying contributions from the 112 evidence papers: 43 test
-practices, 42 nuances, 28 heuristics, 17 design patterns, 17
-anti-patterns and 16 constraints. Each one is listed in
-`kb_contributions.md`.
+Qualifying contributions from the 152 evidence papers: 64 nuances,
+53 test practices, 49 heuristics, 23 constraints, 21 anti-patterns
+and 18 design patterns. Each one is listed in `kb_contributions.md`.
 
 ## Where each pattern lands
 
@@ -235,6 +249,9 @@ pattern's top paper.
 | P24 Token and cost budgets | 4 / 0 / 2 | An explicit cumulative budget capped worst-case overspend (2610.02932). Billed cost cross-checked against provider dashboards (2606.22263). On one model, a selector plus intermediate form used 0.55× the tokens at equal or better validity (2608.30250). |
 | P17 Static analysis in the loop | 3 / 0 / 1 | Rule-based compile repair beat LLM repair loops for Java test generation (2607.19682, Huawei, medium COI). Static-analysis output drives the loop on cross-service Java flows (2605.15569). A deterministic checker as the repair oracle (2606.21926). Thin: falls to leaning on the Java and no-SWE-bench subsets. |
 | P30 Observability and audit | 3 / 0 / 2 | Functional CI passed while token cost rose 52–131% (2607.03691). Trajectory audits exposed reward hacking (2609.08149). Event streams show whether a declared workflow actually happened (2609.38345). |
+| P43 Codebase question answering / exploration | 5 / 0 / 4 | Two cited repository answers before the edit raised Pass@1 by 3.8 and 4.4 points; a root-cause proposal did not (2607.11111). Exploration beat one-shot embedding QA, including 59–63 vs 47–49 on a 30-question Java subset (2608.24221). Line recall stayed 0.05–0.19 while file hit looked fine (2606.07297). Falls to unresolved on Java-evaluated papers and without SWE-bench. See `discovery.md`. |
+| P15 TDD with agents | 3 / 1 / 2 | Tests written first from the spec, or by an author isolated from the implementation, help (2605.17242, 2607.05139). Runnable tests available before implementation added 24.4 points in one intervention (2607.21217, single model). Agent-authored tests did not help, and self-scores saturated (2607.24300). Flips to contested without SWE-bench and without its top paper. |
+| P20 OS sandboxing | 3 / 0 / 1 | Prompt prohibitions left 20–36% of runs looking up source (2605.03546). A networked eval fetched the upstream answer in 26 of 85 runs (2609.39909). Unresolved on Java, and none when SWE-bench papers are removed. |
 
 P25 (RL fine-tuning, 4/0/1) and P32 (field evaluation, 5/0/1) also reach
 the bar. P25 belongs to the agent host (Job A). P32 is a study method,
@@ -248,13 +265,14 @@ not a harness choice.
 | P05 Lexical/deterministic retrieval | 3 / 0 / 7 | Deterministic AST/PSI or CodeQL retrieval beat model inference of context (2607.19682, 2605.15569). Lexical grounding cut contract-alarm false positives from 60.5% to 13.9% (2607.00555). Alone, lexical search is the weakest retriever; it helps in fusion or anchored to structure (2605.16352). |
 | P02 Skills loaded on demand | 2 / 0 / 7 | Selective loading of standards text beat always-on (2606.21926). Procedural skills recovered pass rate at lower cost (2607.16617). |
 | P36 Static workflow graph | 2 / 0 / 8 | Wins when stages carry domain signals or deterministic rules (2608.17018, 2608.19854). Cheap but behind open loops on multi-file work (2605.16352); more side effects (2606.21926). See `dag.md`. |
+| P39 Machine-readable domain context | 4 / 0 / 6 | A fetched YAML contract beat the same knowledge pasted as a manual (2609.22259). A fault taxonomy plus symptom-to-cause rules gained 8.6–21.6 points (2607.13548). Security-guideline records and issue-specific cards each won an ablation (2608.25457, 2609.31176). Unresolved on the Java subset. See `discovery.md`. |
 
 ### Contested: use narrowly and measure
 
 | Pattern | S / C / M | Why it is contested |
 | --- | --- | --- |
-| P15 TDD with agents | 2 / 1 / 2 | Tests written first from the spec, or by an author isolated from the implementation, help (2605.17242, 2607.05139). Agent-authored tests did not help in any condition, and self-scores saturated (2607.24300). The separation is what works, not "tests first" as a prompt. |
 | P18 LLM-as-judge or AI reviewer | 1 / 2 / 12 | Mean judge accuracy is 0.56 on long-form outputs (2606.01629). Style edits raise judge scores (2605.26156). Advisory only. |
+| P41 Comprehension and skill safeguards | 0 / 1 / 3 | Explanations did not improve accuracy at judging assertions, and underspecified ones raised confidence (2607.08885). Agent users recall less of their own code (2607.26375). See `discovery.md`. |
 | P08 Context compaction | 0 / 2 / 9 | Learned compression hurt resolution (2605.11051). Native compaction lost an exact 256-entry contract (2607.17937). If you compress, keep it extractive with a byte-exact read path (2608.24188). |
 | P11 Multi-agent role teams | 0 / 1 / 5 | Generic role teams hurt (2609.32459). A model-directed team realized its declared organization in only 47.2% of runs (2609.38345). |
 | P06 Embedding RAG over code | 2 / 1 / 4 | Code embedding indexes are poisonable (2608.26031). Dense eager candidates helped one repair setup (2607.25431). |
@@ -269,13 +287,16 @@ not a harness choice.
 | Pattern | S / C / M | Status |
 | --- | --- | --- |
 | P37 Model-generated task DAG | 2 / 0 / 2 | Leaning. Only when grown from evaluated results (2609.39154) or checked by deterministic rules (2608.19854). See `dag.md`. |
+| P38 Pre-spec knowledge discovery | 1 / 0 / 1 | Leaning, and only for a read-only question pass before a fix (2607.11111). No evidence paper supports an agent that explores and then writes the spec. None on Java and when SWE-bench papers are removed. See `discovery.md`. |
+| P40 Clarifying questions | 0 / 0 / 4 | Unresolved. Asking wins against an oracle and is miscalibrated (2605.09698). More questions did not raise pass rate (2607.21217). Force a question when a required slot is empty (2607.02294). |
+| P42 Verified requirement-to-code links | 0 / 0 / 0 | No evidence paper. TraceDev (2607.18886) is a hypothesis: its success rate counts tests an unvalidated judge passed first. |
 | P35 Formal and independent checkers | 2 / 0 / 2 | Leaning (was consensus before the full audit). TLA+ model checking found real bugs (2607.25333). Fuzz agent-inferred contracts (2605.27531). |
 | P12 Task-specific subagents | 1 / 0 / 5 | Unresolved (was consensus). A persistent lookup-only search subagent (2605.27787). Pre-inject retrieved files only when retriever precision is high (2608.05886). |
 | P14 Spec-driven development as a methodology | 1 / 0 / 2 | Unresolved. The specific spec practices under P34 carry the evidence; SDD adoption has none. |
 | P27 Cross-repo coordination | 0 / 0 / 3 | Unresolved on 5 reviewed of 59 harvested papers. |
 | P28 Deterministic codemods | 1 / 0 / 2 | Unresolved. One paper (2606.24446), but it is Java-specific and direct. |
 | P10 Single-agent loop, P19 human approval gates, P23 model routing, P31 benchmark evaluation, P04 MCP | 0–1 / 0 / 2–4 | Unresolved: mixed papers outnumber supporting ones. |
-| P20 OS sandboxing, P29 parallel worktrees | 1 / 0 / 0–1 | Leaning, one paper each. |
+| P29 parallel worktrees | 1 / 0 / 1 | Leaning, one paper. |
 | P01 Instruction files, P03 small tool catalog | 0 / 0 / 0 | No evidence paper. P03's only support (2607.15593) was rejected in the full audit (rigor 2, high COI). |
 
 ## Hypotheses worth testing locally
@@ -330,42 +351,41 @@ Full list: `kb_tables.md` → "Hypotheses (not evidence)".
 
 ## Biases and conflicts of interest in the literature
 
-Bias codes across the 278 reviewed papers:
+Bias codes across the 427 reviewed papers:
 
 | Bias | Papers | Share |
 | --- | --- | --- |
-| No variance reported | 135 | 49% |
-| Self-evaluation (authors' own system and metric) | 129 | 46% |
-| Metric does not measure the claim | 128 | 46% |
-| Small sample | 127 | 46% |
-| Closed artifacts | 105 | 38% |
-| Hype language | 79 | 28% |
-| Single model | 74 | 27% |
-| Strawman baseline | 70 | 25% |
-| Contamination risk | 67 | 24% |
-| Toy tasks | 61 | 22% |
+| Metric does not measure the claim | 216 | 51% |
+| No variance reported | 205 | 48% |
+| Small sample | 200 | 47% |
+| Self-evaluation (authors' own system and metric) | 192 | 45% |
+| Closed artifacts | 162 | 38% |
+| Hype language | 144 | 34% |
+| Single model | 115 | 27% |
+| Strawman baseline | 114 | 27% |
+| Contamination risk | 106 | 25% |
+| Toy tasks | 92 | 22% |
 
 - **Conflicts of interest.**
-  - 11 papers had a high COI: 8 rejected, 1 hypothesis, 2 evidence.
-  - 19 had a medium COI: 7 rejected, 5 hypothesis or no contribution,
-    7 evidence.
+  - 18 papers had a high COI: 15 rejected, 1 hypothesis, 2 evidence.
+  - 34 had a medium COI: 15 rejected, 9 hypothesis or no contribution,
+    10 evidence.
   - High- and medium-COI papers averaged rigor of about 1.9, against
     about 2.3 for low or no COI.
-- **Claim strength.** Of 1,206 claims extracted, 62 (5%) were rated
-  strong, 510 moderate, 520 weak and 114 unsupported by the paper's own
+- **Claim strength.** Of 1,872 claims extracted, 79 (4%) were rated
+  strong, 689 moderate, 868 weak and 236 unsupported by the paper's own
   evidence.
 - **Contribution type predicts quality.** Of 16 position papers, 15
   were rejected and one is a hypothesis. Surveys fared little better: 4
   of 6 that passed review were dropped. Of the larger types, benchmark
   papers were the most likely to contribute (19 of 25 that passed
   review).
-- **Language skew.** SWE-bench appears in 22.2% of coding-agent
-  abstracts, Python in 8.3% and Java in 2.9%. 21 of the 112 evidence
-  papers mention Java at least 5 times. On that subset only P16
-  (conditional) and P32 (consensus) keep a consensus or conditional
-  label (`kb_robustness.md`).
-- **Auditor calibration.** Blind auditors changed 63% of first-pass
-  `supports` stances (139 of 219): 63 to neutral, 47 to mixed and 29 to
+- **Language skew.** SWE-bench appears in 21.4% of coding-agent
+  abstracts, Python in 8.2% and Java in 2.7% (`landscape.md`). 25 of
+  the 152 evidence papers mention Java at least 5 times. On that
+  subset, P43 and P38 lose their labels (`kb_robustness.md`).
+- **Auditor calibration.** Blind auditors changed 59% of first-pass
+  `supports` stances (157 of 266): 63 to neutral, 61 to mixed and 33 to
   introduces. The contribution checker merges the audit before capping
   strength.
 
@@ -502,7 +522,7 @@ engineering judgment that fills a gap in the research.
   were until T59–T61 were added, and P27 has only 5 reviewed papers of
   59 harvested.
 - **Reviewers are LLMs.** Each review and contribution classification
-  is one LLM pass. All 112 evidence papers have a blind audit, but
+  is one LLM pass. All 152 evidence papers have a blind audit, but
   reviewer and auditor are the same model family, so shared blind spots
   remain. Agreement is lowest on relevance (66 of 138 exact). The gates
   are deterministic, but their inputs are not.
@@ -517,7 +537,8 @@ engineering judgment that fills a gap in the research.
 - **Extraction losses.** HTML-to-text conversion dropped some tables,
   and 1.1% of cited numbers could not be found in the text.
 - **Preprints.** Most papers are not peer reviewed. The window closes
-  on 2026-10-06, so very recent work is underrepresented.
+  on 2026-10-08, so very recent work is underrepresented. The discovery
+  round is written up in `discovery.md`.
 - **Domain gap.** Almost nothing studies healthcare or education
   content pipelines, or a team's own multi-repo systems.
   Recommendations in those areas are marked [J].
