@@ -41,6 +41,11 @@ SOFTWARE = re.compile(
     r"APIs?|pipelines?|engineering|bugs?|tests?|compil\w+|devops)\b",
     re.I,
 )
+CODE = re.compile(
+    r"\b(code|codes|coding|codebases?|software|repositor(y|ies)|developers?|programmers?|"
+    r"programming|source[- ]code|SWE)\b",
+    re.I,
+)
 VENDORS = [
     "Anthropic", "OpenAI", "Google", "DeepMind", "Microsoft", "GitHub", "Meta", "Amazon", "AWS",
     "Alibaba", "Qwen", "ByteDance", "Tencent", "Huawei", "Baidu", "DeepSeek", "Moonshot", "Zhipu",
@@ -186,7 +191,8 @@ def cmd_select(args: argparse.Namespace) -> None:
         if args.only and tid not in args.only:
             continue
         pool = [p for p in papers if p["topic_hits"].get(tid, {}).get("relevance", 0) > 0
-                and len(SOFTWARE.findall(f"{p['title']} {p['abstract']}")) >= args.min_software]
+                and len(SOFTWARE.findall(f"{p['title']} {p['abstract']}")) >= args.min_software
+                and len(CODE.findall(f"{p['title']} {p['abstract']}")) >= args.min_code]
         pool.sort(key=lambda p: (-(p["topic_hits"][tid]["relevance"] - 0.02 * p["topic_hits"][tid]["api_rank"]),))
         n = 0
         for p in pool:
@@ -1176,6 +1182,8 @@ def main() -> None:
     s.add_argument("--only", nargs="*")
     s.add_argument("--min-software", type=int, default=0,
                    help="Require at least N software-term matches in title+abstract.")
+    s.add_argument("--min-code", type=int, default=0,
+                   help="Require at least N code-specific matches (code, repository, developer, ...).")
     sub.add_parser("recheck")
     rb = sub.add_parser("robustness")
     rb.add_argument("--cutoff", default="2026-09-30")
