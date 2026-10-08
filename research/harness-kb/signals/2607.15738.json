@@ -1,0 +1,161 @@
+{
+ "arxiv_id": "2607.15738",
+ "fulltext_chars": 44447,
+ "fulltext_lines": 1035,
+ "authors_block": "CCS: Applied computing Interactive learning environmentsCCS: Human-centered computing Human computer interaction (HCI)CCS: Computing methodologies Natural language processing S M Asif Hossain , Ruksat Khan Shayoni , M. F. Mridha and Jungpil Shin © none",
+ "vendor_affiliation_hits": [],
+ "n_authors": 4,
+ "comment": "Accepted at ACM ICCA 2026",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# EduGuard: A Safe RAG-Based LLM Tutor for Programming Education"
+  ],
+  [
+   37,
+   "###### Abstract."
+  ],
+  [
+   41,
+   "###### Keywords:"
+  ],
+  [
+   44,
+   "## 1. Introduction"
+  ],
+  [
+   74,
+   "## 2. Related Works"
+  ],
+  [
+   138,
+   "## 3. Methodology"
+  ],
+  [
+   142,
+   "### 3.1. Dataset Description"
+  ],
+  [
+   150,
+   "### 3.2. Data Preprocessing"
+  ],
+  [
+   156,
+   "### 3.3. System Architecture: EduGuard"
+  ],
+  [
+   162,
+   "#### 3.3.1. Query Understanding Module."
+  ],
+  [
+   166,
+   "#### 3.3.2. Pedagogical Strategy Selector."
+  ],
+  [
+   176,
+   "#### 3.3.3. Feedback Generation Module."
+  ],
+  [
+   180,
+   "#### 3.3.4. Hallucination Verification Module."
+  ],
+  [
+   190,
+   "### 3.4. Inference Algorithm"
+  ],
+  [
+   268,
+   "### 3.5. Baselines"
+  ],
+  [
+   272,
+   "### 3.6. Evaluation Metrics and Statistical Analysis"
+  ],
+  [
+   300,
+   "## 4. Results"
+  ],
+  [
+   304,
+   "### 4.1. Setup for Our Experiment"
+  ],
+  [
+   308,
+   "### 4.2. Implemented Results on BILearn-CS"
+  ],
+  [
+   370,
+   "### 4.3. External Course-Forum Validation"
+  ],
+  [
+   401,
+   "### 4.4. Undergraduate Student Pilot"
+  ],
+  [
+   435,
+   "### 4.5. Ablation and Verifier Robustness"
+  ],
+  [
+   505,
+   "## 5. Discussion"
+  ],
+  [
+   509,
+   "### 5.1. Strengths of the Proposed System"
+  ],
+  [
+   555,
+   "### 5.2. Limitations and Areas for Improvement"
+  ],
+  [
+   561,
+   "### 5.3. Failure Analysis"
+  ],
+  [
+   593,
+   "### 5.4. Interpretation of Educational Impact"
+  ],
+  [
+   597,
+   "### 5.5. Reproducibility Details"
+  ],
+  [
+   601,
+   "### 5.6. Ethics, Reproducibility, and Deployment"
+  ],
+  [
+   605,
+   "## 6. Conclusions"
+  ],
+  [
+   609,
+   "## References"
+  ],
+  [
+   1035,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "### 5.2. Limitations and Areas for Improvement\n\nThe 10-student pilot is useful but underpowered. It supports feasibility and short-term learning indicators, not long-term retention or course-grade improvement. Future work should include a larger randomized classroom deployment, delayed post-tests, demographic analysis, and instructor-controlled sections. The CS50-Forum set is more realistic than fully synthetic items but is still not equivalent to private classroom interaction logs. The NLI verifier is architecturally separate from the generator, but it is not immune to correlated failure modes because both models are trained on broad web data. Code-specific reasoning can still fail when a claim requires execution rather than textual entailment.\n\nThe leakage metric also has a tautology risk because policy-based leakage depends on instructor assistance labels. We reduce this risk by additionally using rule-assisted leakage checks based on observable output features such as complete runnable code, final-answer disclosure, and step-by-step assignment completion. Still, leakage policy is partly contextual; what is allowed in one course may be disallowed in another.\n\n### 5.3. Failure Analysis\n\nWe examined 80 randomly sampled errors from BILearn-CS and 30 errors from CS50-Forum. Table 8 summarizes the main failure categories. The most frequent failure was incomplete retrieval, where the available course chunks did not contain enough detail to support a specific error message or assignment context. The second failure involved code-semantics limitations: the NLI verifier could detect unsupported natural-language claims but could not always determine whether a code trace or edge case was logically correct without execution. Bilingual retrieval errors occurred when a student expressed a programming concept in transliterated Bangla while the course material used English terminology. Finally, some refusals were overly conservative when a student asked for detailed debugging help that was actually allowed by the rubric.\n\nTable 8. Observed failure categories from manual error analysis.\n\nFailure category\nShare\nTypical cause\n\nIncomplete retrieval\n31%\nMissing or vague evidence chunk\n\nCode-semantics error\n24%\nReasoning needs execution/trace\n\nBilingual retrieval gap\n18%\nTransliteration or mixed terminology\n\nOver-conservative refusal\n15%\nPolicy threshold too strict\n\nPedagogical mismatch\n12%\nHint too broad or too narrow\n\nThis analysis clarifies the remaining gap between safe response control and full educational intelligence. EduGuard is effective at reducing unsupported and over-direct answers, but it does not fully understand a student’s evolving knowledge state. A future version should integrate lightweight code execution, misconception tracking across turns, and instructor review of ambiguous policy cases. In particular, code execution would complement NLI verification by checking whether generated debugging claims match actual program behavior.\n\n### 5.4. Interpretation of Educational Impact",
+ "ethics_coi": "### 5.6. Ethics, Reproducibility, and Deployment\n\nFor the pilot, participants gave consent, no grades were affected, and logs were anonymized. Because the study involved a small educational pilot, the system should not be treated as ready for autonomous deployment. Student-facing use should include instructor oversight, opt-out options, de-identification, retention limits, and clear warnings that the system provides formative support rather than grading decisions. To avoid overstating reproducibility during double-blind review, we provide model names, decoding parameters, retrieval settings, prompt categories, metric definitions, and qualitative examples in the paper; a public release of non-sensitive benchmark items and scripts can occur after review if institutional and copyright constraints allow it.\n\n## 6. Conclusions\n\nThis paper presented EduGuard, a safe RAG-based LLM tutoring framework for programming education. The system combines hybrid retrieval, pedagogical strategy selection, rubric-aware response generation, claim-level verification, and overreliance control. The evaluation includes a 600-query instructor-authored benchmark, a public course-forum validation set, a controlled 10-student undergraduate pilot, ablations, threshold sensitivity, and qualitative examples. EduGuard improves correctness, grounding, rubric alignment, and expert-rated usefulness while reducing hallucination and direct-answer leakage compared with GPT-4o-mini Tutor, Llama Socratic Tutor, Basic RAG, LPITutor-style RAG, RAG + Rubric, and RAG + Self-Check. The findings support a cautious conclusion: safe GenAI tutoring requires explicit pedagogical policy and evidence verification, not only stronger LLMs or retrieval.\n\n## References\n\nAnderson et al. (1995)\nJ. R. Anderson, A. T. Corbett, K. R. Koedinger, and R. Pelletier\n\nCognitive tutors: lessons learned.\n\nThe Journal of the Learning Sciences 4 (2), pp. 167–207.\n\nExternal Links: Document\n\nCited by: §1.\n\nBang et al. (2023)\nY. Bang, S. ",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 27,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 3,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

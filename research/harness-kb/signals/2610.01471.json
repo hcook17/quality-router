@@ -1,0 +1,229 @@
+{
+ "arxiv_id": "2610.01471",
+ "fulltext_chars": 70227,
+ "fulltext_lines": 1097,
+ "authors_block": "Cross-Model Review in LLM Verification Song Tae-Eun Affiliation: Daejeon Jungang Cheonggua Co., Ltd. Email: higheun@gmail.com",
+ "vendor_affiliation_hits": [],
+ "n_authors": 1,
+ "comment": "16 pages, 2 figures, 7 tables. Follow-up to arXiv:2603.12123 and arXiv:2603.21454. v2: corrects two condition labels in Table 1 (CCR sees the artifact only; SA runs in a new session) and dependent interpretations; adds review prompts, a TP/FP breakdown by severity, and limitations; states how each reviewer was run; softens case studies. Numbers unchanged except removed B5 percentages",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# When Does a Second Model Help?"
+  ],
+  [
+   30,
+   "###### Abstract"
+  ],
+  [
+   34,
+   "## 1 Introduction"
+  ],
+  [
+   50,
+   "## 2 Background"
+  ],
+  [
+   52,
+   "### 2.1 Context Independence"
+  ],
+  [
+   56,
+   "### 2.2 Temporal Independence"
+  ],
+  [
+   60,
+   "### 2.3 Structural Independence"
+  ],
+  [
+   64,
+   "### 2.4 The Remaining Dimension: Model Independence"
+  ],
+  [
+   70,
+   "### 2.5 Related Work"
+  ],
+  [
+   84,
+   "## 3 A Framework for Independence in LLM Verification"
+  ],
+  [
+   86,
+   "### 3.1 Dimensions of Independence"
+  ],
+  [
+   100,
+   "### 3.2 Experimental Conditions as Dimension Combinations"
+  ],
+  [
+   183,
+   "### 3.3 Hypotheses"
+  ],
+  [
+   199,
+   "## 4 Experimental Setup"
+  ],
+  [
+   201,
+   "### 4.1 Experiment A: Controlled Code Review"
+  ],
+  [
+   233,
+   "### 4.2 Reproducibility"
+  ],
+  [
+   237,
+   "## 5 Results"
+  ],
+  [
+   239,
+   "### 5.1 Overall Performance"
+  ],
+  [
+   350,
+   "### 5.2 Complementary Detection (H1, H2)"
+  ],
+  [
+   360,
+   "### 5.3 Bias Orthogonality (H3)"
+  ],
+  [
+   370,
+   "### 5.4 Domain Specialization (H5)"
+  ],
+  [
+   402,
+   "### 5.5 Error Type Analysis"
+  ],
+  [
+   448,
+   "### 5.6 Information Restriction Effect"
+  ],
+  [
+   454,
+   "### 5.7 Reviewer Model Capability"
+  ],
+  [
+   458,
+   "### 5.8 Model Bias False Positives"
+  ],
+  [
+   464,
+   "### 5.9 Case Studies"
+  ],
+  [
+   482,
+   "## 6 Discussion"
+  ],
+  [
+   484,
+   "### 6.1 Why Different Models Find Different Things"
+  ],
+  [
+   490,
+   "### 6.2 Practical Guidelines"
+  ],
+  [
+   494,
+   "## 7 Conclusion"
+  ],
+  [
+   498,
+   "## Limitations"
+  ],
+  [
+   508,
+   "## Ethical Considerations"
+  ],
+  [
+   512,
+   "## Use of AI Assistants"
+  ],
+  [
+   516,
+   "## Acknowledgments"
+  ],
+  [
+   520,
+   "## Data and Code Availability"
+  ],
+  [
+   524,
+   "## Appendix A Benchmark, Ground Truth, and Matching"
+  ],
+  [
+   534,
+   "## Appendix B Review Prompts"
+  ],
+  [
+   556,
+   "## Appendix C Severity Labels of True and False Positives"
+  ],
+  [
+   593,
+   "## Appendix D External-Data Check on ReaLMistake"
+  ],
+  [
+   597,
+   "## Appendix E Additional Figure"
+  ],
+  [
+   603,
+   "## Appendix F Values With Failed Sessions Scored as Zero"
+  ],
+  [
+   666,
+   "## Appendix G Additional Discussion"
+  ],
+  [
+   668,
+   "### G.1 Beyond Two Models: Diminishing Returns"
+  ],
+  [
+   672,
+   "### G.2 Perspective Diversification"
+  ],
+  [
+   676,
+   "## Appendix H Case Studies in Full"
+  ],
+  [
+   678,
+   "### H.1 Setup"
+  ],
+  [
+   690,
+   "### H.2 Results"
+  ],
+  [
+   728,
+   "## References"
+  ],
+  [
+   1097,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgments\n\nWe thank Evgenii Arsentev for a public review of version 1 (PREreview, https://doi.org/10.5281/zenodo.23132634), which prompted the additions in version 2.\n\n## Data and Code Availability\n\nThe per-session review records, the 30 artifacts with their 150 ground-truth defect annotations, and the matching, aggregation, and audit scripts are available from the author on request. They include the per-session sets of detected ground-truth identifiers, which are what the union and Jaccard figures in Section 5.2 are computed from, so every set-level number in this paper can be recomputed independently.\n\n## Appendix A Benchmark, Ground Truth, and Matching\n\nArtifacts. The generator produced 30 artifacts from fixed prompts, all in Korean: ten Python functions or classes (C1–C10; e.g., CSV statistics, business-day calculation, an LRU cache), ten technical tutorials (D1–D10; e.g., Docker Compose, a FastAPI CRUD service, JWT authentication), and ten presentation scripts (S1–S10; talks on AI tooling, open data, and automation).\n\nError injection and ground truth. Into each artifact, exactly five errors were injected, one of each type (FACT, CONS, CTXT, RCVR, MISS), giving 150 errors: 30 Critical, 60 Major, and 60 Minor. According to our run logs, injection was performed by the generator model in dedicated injection sessions. Each ground-truth record stores the location, the original and injected text, the type, the severity, a description, and the correct answer. The records were written at injection time; we did not run an independent annotation study, so the ground truth is a set of planted errors rather than an exhaustive list of all defects in each artifact.\n\nMatching. Each finding is scored against every ground-truth error of its artifact and assigned to the highest-scoring one if the score is at least 2.0: +3 if a line number in the finding’s location equals one in the error’s location, otherwise +1 if any are within five lines; plus 4\\times the fraction of ground-truth keywords (tokens of three or more characters from the description, injected text, and correct answer) that appear in the finding’s description; plus 1 if the finding’s error type matches. Within one review, each ground-truth error is credited at most once, in the order findings are listed. Unmatched findings are counted as false positives, so precision and F1 are measured against the planted errors only; a finding that correctly identifies a pre-existing defect also counts as a fals",
+ "limitations": "## Limitations\n\nDesign. All artifacts came from a single generator, and each capability tier is represented by one reviewer model (three models from two developers), so reviewer capability and model identity are confounded. All cross-model conditions also include context independence, so H4 (an interaction between context and model independence) cannot be identified; a factorial design is left to future work. CCR and SR differ both in context and in whether the reviewer sees the original request, so their comparison does not isolate context independence. The GPT-5.4 reviews ran through the Codex CLI agent, which can read files in its working directory; we have no record of which directory that was. No GPT-5.4 finding mentions a ground-truth identifier or file, but that absence does not rule out access.\n\nData and measurement. The ground truth consists of planted errors written at injection time and was not independently annotated, and the matcher was not audited by hand. The same-model baselines reuse data collected before the cross-model conditions; their records cannot be checked against raw model output, and we treat them as unverified rather than clean (Section 4.1). The union comparison is retrospective: CCR runs differ widely (56, 37, and 29 matched errors), the headline pairing is among the higher of the reused run combinations, and whether the matcher treats the reviewers’ output styles equally is unmeasured. The per-error-type and per-category comparisons are descriptive and were not tested for significance. Token counts were recorded only for the four Gemini conditions, so we cannot report cost per review or per detected error across conditions; the two-review-call comparison matches calls, not compute.\n\nLanguage. All artifacts and ground-truth annotations are in Korean, and review output language was not fixed across conditions: in run 1, 20 of 30 CCR reviews are in English while the other conditions’ reviews are mostly in Korean. Because the matcher’s keyword component compares findings with Korean ground-truth text (Appendix A), it may under-credit English-language reviews. Other languages are untested.\n\nGeneralization. The case studies are small: B1 and B2 showed ceiling effects, B3 has 12 articles from a single source, and in B5 one model returned no findings for one target. Our results are a snapshot of early-2026 models. A partial external-data check on ReaLMistake detector outputs (Appendix D) neither replicates nor contradicts our main comparison.\n\n## Ethical Considerations\n\nImproved verification can catch errors in AI-generated code and analysis before they cause harm, but over-reliance is a risk: even our union approach matches only 56.7% of the planted errors under our automated matcher. We emphasize that our framework is intended to augment, not replace, human review; the undetected planted errors and the model-bias false positives (Section 5.8) underscore the continued importance of human judgment for high-stakes applications.\n\n## Use of AI Assistants\n\nAI tools were used throughout this work, and we report their use as part of the method. The artifacts, the injected errors, and the same-model baseline reviews were produced by Claude Opus 4.6 through the Claude Code agent tool; the cross-model reviews were produced by the listed reviewer models, Gemini through its API and GPT-5.4 through the Codex CLI agent. Claude Code was also used to write the analysis and audit scripts, to recompute every reported number from the per-session records, to check the manuscript against the raw data (which led to the corrections described in Section 4.1), and to draft and revise substantial parts of the text under the author’s direction. Every reference was checked for existence against bibliographic databases, and unresolved entries were checked by hand. The author reviewed the final text and takes full responsibility for all of its content.\n\n## Acknowledgments\n\nWe thank Evgenii Arsentev for a public review of version 1 (",
+ "ethics_coi": "## Ethical Considerations\n\nImproved verification can catch errors in AI-generated code and analysis before they cause harm, but over-reliance is a risk: even our union approach matches only 56.7% of the planted errors under our automated matcher. We emphasize that our framework is intended to augment, not replace, human review; the undetected planted errors and the model-bias false positives (Section 5.8) underscore the continued importance of human judgment for high-stakes applications.\n\n## Use of AI Assistants\n\nAI tools were used throughout this work, and we report their use as part of the method. The artifacts, the injected errors, and the same-model baseline reviews were produced by Claude Opus 4.6 through the Claude Code agent tool; the cross-model reviews were produced by the listed reviewer models, Gemini through its API and GPT-5.4 through the Codex CLI agent. Claude Code was also used to write the analysis and audit scripts, to recompute every reported number from the per-session records, to check the manuscript against the raw data (which led to the corrections described in Section 4.1), and to draft and revise substantial parts of the text under the author’s direction. Every reference was checked for existence against bibliographic databases, and unresolved entries were checked by hand. The author reviewed the final text and takes full responsibility for all of its content.\n\n## Acknowledgments\n\nWe thank Evgenii Arsentev for a public review of version 1 (PREreview, https://doi.org/10.5281/zenodo.23132634), which prompted the additions in version 2.\n\n## Data and Code Availability\n\nThe per-session review records, the 30 artifacts with their 150 ground-truth defect annotations, and the matching, aggregation, and audit scripts are available from the author on request. They include the per-session sets of detected ground-truth identifiers, which are what the union and Jaccard figures in Section 5.2 are computed from, so every set-level number in this paper can ",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 3,
+  "p_value_or_ci": 16,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 3,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 1
+ },
+ "fulltext_source": "html"
+}

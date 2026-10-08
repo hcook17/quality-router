@@ -1,0 +1,229 @@
+{
+ "arxiv_id": "2609.19199",
+ "fulltext_chars": 70564,
+ "fulltext_lines": 1666,
+ "authors_block": "Conference: Proceedings of the 35th ACM International Conference on Information and Knowledge Management; November 7–11, 2026; Rome, Italy.Proceedings of the 35th ACM International Conference on Information and Knowledge Management (CIKM ’26), November 7–11, 2026, Rome, ItalyISBN: 979-8-4007-2539-5/2026/11DOI: 10.1145/3799682.3840569CCS: Computing methodologies Knowledge representation and reasoningCCS: Applied computing LawCCS: Security and privacy Privacy protections Jisoo Kim Affiliation: Sungkyunkwan University, Suwon, Republic of Korea email: clrdln@g.skku.edu , Taeyoon Kwack Affiliation: Sungkyunkwan University, Suwon, Republic of Korea email: njj05043@g.skku.edu , Jinwoo Jang Affiliation: Sungkyunkwan University, Suwon, Republic of Korea email: jinustar@g.skku.edu , Woo Kyung Kim Affiliation: Sungkyunkwan University, Suwon, Republic of Korea email: kwk2696@g.skku.edu and Honguk Woo Affiliation: Sungkyunkwan University, Suwon, Republic of Korea Note: Corresponding author. email: hwoo@skku.edu © cc",
+ "vendor_affiliation_hits": [],
+ "n_authors": 5,
+ "comment": "12 pages. Accepted at the 35th ACM International Conference on Information and Knowledge Management (CIKM '26), November 7-11, 2026, Rome, Italy",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Code-as-Auditor: Executable Compliance Reasoning via Regulation-to-Code"
+  ],
+  [
+   62,
+   "###### Abstract."
+  ],
+  [
+   71,
+   "###### Keywords:"
+  ],
+  [
+   76,
+   "## 1. Introduction"
+  ],
+  [
+   130,
+   "## 2. Related Work"
+  ],
+  [
+   132,
+   "##### Compliance Reasoning"
+  ],
+  [
+   139,
+   "##### Code-Based Reasoning"
+  ],
+  [
+   145,
+   "##### Structured Normative Representations"
+  ],
+  [
+   166,
+   "## 3. Code-as-Auditor"
+  ],
+  [
+   183,
+   "### 3.1. Regulation-to-Code Reformulation"
+  ],
+  [
+   305,
+   "##### Code template."
+  ],
+  [
+   316,
+   "##### Checklist."
+  ],
+  [
+   322,
+   "##### Executable code."
+  ],
+  [
+   334,
+   "##### Self-verification loop."
+  ],
+  [
+   385,
+   "##### Code executor and Compliance decision tree."
+  ],
+  [
+   405,
+   "### 3.2. Case-Grounded Checklist Refinement"
+  ],
+  [
+   529,
+   "### 3.3. Implementation Prompts"
+  ],
+  [
+   533,
+   "## 4. PIPA Evaluation Dataset"
+  ],
+  [
+   542,
+   "### 4.1. Preprocessing and Verification"
+  ],
+  [
+   608,
+   "## 5. Experiments"
+  ],
+  [
+   610,
+   "### 5.1. Experimental Settings"
+  ],
+  [
+   612,
+   "##### Datasets."
+  ],
+  [
+   618,
+   "##### Metrics."
+  ],
+  [
+   622,
+   "##### Baselines."
+  ],
+  [
+   631,
+   "##### Implementation Details."
+  ],
+  [
+   636,
+   "### 5.2. Overall Performance"
+  ],
+  [
+   640,
+   "### 5.3. Analysis"
+  ],
+  [
+   642,
+   "#### 5.3.1. Inference Model Scale"
+  ],
+  [
+   696,
+   "#### 5.3.2. Self-Verification Loop Scale"
+  ],
+  [
+   703,
+   "#### 5.3.3. Analysis of Checklist Refinement"
+  ],
+  [
+   712,
+   "#### 5.3.4. Ablation Study"
+  ],
+  [
+   716,
+   "##### Checklist refinement."
+  ],
+  [
+   720,
+   "##### Code template."
+  ],
+  [
+   724,
+   "##### Self-verification loop."
+  ],
+  [
+   735,
+   "### 5.4. Framework Generality"
+  ],
+  [
+   799,
+   "## 6. Qualitative Evaluation"
+  ],
+  [
+   803,
+   "##### Multi-granular logical reasoning."
+  ],
+  [
+   810,
+   "##### Multi-dimensional assessment."
+  ],
+  [
+   817,
+   "##### Context-robust evaluation."
+  ],
+  [
+   823,
+   "## 7. Conclusion"
+  ],
+  [
+   829,
+   "## 8. Discussion"
+  ],
+  [
+   831,
+   "##### Analogical Reasoning."
+  ],
+  [
+   835,
+   "##### Verifiable Logic."
+  ],
+  [
+   839,
+   "##### Missing Evidence."
+  ],
+  [
+   843,
+   "##### Dataset Bias."
+  ],
+  [
+   847,
+   "###### Acknowledgements."
+  ],
+  [
+   860,
+   "## GenAI Usage Disclosure"
+  ],
+  [
+   864,
+   "## References"
+  ],
+  [
+   1666,
+   "##"
+  ]
+ ],
+ "acknowledgments": "###### Acknowledgements.\n\nThis work was supported by\nthe TIPS(Tech Incubator Program for Startup) R&D Program (RS-2024-00508880), funded by the Ministry of SMEs, Republic of Korea,\nInstitute of Information & communications Technology Planning & Evaluation(IITP) grant funded by the Korea government(MSIT) (RS-2019-II190421, AI Graduate School Support Program(Sungkyunkwan University),\nRS-2022-II221045 (2022-0-01045), Self-directed multi-modal Intelligence for solving unknown, open domain problems,\nRS2022-II220043, Adaptive Personality for Intelligent Agents,\nNo.RS-2025-25442569, AI Star Fellowship Support Program(Sungkyunkwan Univ.),\nRS-2025-02218768, Accelerated Insight Reasoning via Continual Learning),\nSamsung Electronics Co., Ltd,\nInstitute of Information & Communications Technology Planning & Evaluation(IITP)-ITRC(Information Technology Research Center) grant funded by the Korea government(MSIT) (IITP-2026-RS-2024-00437633),\nNational Research Foundation of Korea (NRF) grant funded by the Korea government (MSIT) (No. RS-2026-25474409).\n\n## GenAI Usage Disclosure\n\nBeyond their role within the proposed methodology, the GPT-5 and Claude 4 model families were used solely for clarity improvements in writing and functional suggestions in code. All results were reviewed, verified, and finalized by the authors.\n\n## References\n\nAnthropic (2025)\nAnthropic\n\nClaude 4 system card: claude opus 4 and claude sonnet 4.\n\nNote: https://www.anthropic.com/claude-4-system-card",
+ "limitations": "",
+ "ethics_coi": "## GenAI Usage Disclosure\n\nBeyond their role within the proposed methodology, the GPT-5 and Claude 4 model families were used solely for clarity improvements in writing and functional suggestions in code. All results were reviewed, verified, and finalized by the authors.\n\n## References\n\nAnthropic (2025)\nAnthropic\n\nClaude 4 system card: claude opus 4 and claude sonnet 4.\n\nNote: https://www.anthropic.com/claude-4-system-card\n\nCited by: §5.4,\nTable 6,\nTable 6.\n\nAustin et al. (2021)\nJ. Austin, A. Odena, M. Nye, M. Bosma, H. Michalewski, D. Dohan, E. Jiang, C. Cai, M. Terry, Q. Le, et al.\n\nProgram synthesis with large language models.\n\narXiv preprint arXiv:2108.07732.\n\nCited by: §2.",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 1,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 0,
+  "swe_bench": 1,
+  "contamination": 0,
+  "human_study": 1,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

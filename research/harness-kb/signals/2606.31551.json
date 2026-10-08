@@ -1,0 +1,511 @@
+{
+ "arxiv_id": "2606.31551",
+ "fulltext_chars": 82745,
+ "fulltext_lines": 2312,
+ "authors_block": "Zhaojian Yu , Penghao Yin*, Shuzheng Gao*, Shilin He, Kai Cai, Xiao-Ping Zhang ††thanks: ˜˜Equal contribution.††thanks: ˜˜Corresponding author. Email: zhaojian.yu01@gmail.com Affiliation: Tsinghua University Affiliation: The Chinese University of Hong Kong Affiliation: Simple Agent Lab",
+ "vendor_affiliation_hits": [],
+ "n_authors": 6,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/simple-agent-lab/AutoTrainess.."
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   72,
+   "# AutoTrainess: Teaching Language Models to Improve Language Models Autonomously"
+  ],
+  [
+   85,
+   "###### Abstract"
+  ],
+  [
+   96,
+   "## 1 Introduction"
+  ],
+  [
+   118,
+   "## 2 AutoTrainess"
+  ],
+  [
+   166,
+   "## 3 Experiments"
+  ],
+  [
+   240,
+   "### 3.1 Evaluation Setup"
+  ],
+  [
+   261,
+   "### 3.2 Main Results"
+  ],
+  [
+   265,
+   "### 3.3 Ablations"
+  ],
+  [
+   323,
+   "### 3.4 Exploration vs. Exploitation"
+  ],
+  [
+   364,
+   "### 3.5 Analysis of Agent Behavior"
+  ],
+  [
+   395,
+   "## 4 Related Work"
+  ],
+  [
+   397,
+   "##### Automatic research agents."
+  ],
+  [
+   401,
+   "##### Benchmarks for research and experimentation agents."
+  ],
+  [
+   405,
+   "## 5 Conclusion"
+  ],
+  [
+   409,
+   "## References"
+  ],
+  [
+   769,
+   "## Appendix A Case Study on the Effects of Different Skills"
+  ],
+  [
+   773,
+   "##### Data skill helps the agent align training data with benchmark format and distribution."
+  ],
+  [
+   777,
+   "##### Eval skill helps the agent use evaluation evidence to drive targeted optimization."
+  ],
+  [
+   785,
+   "## Appendix B Detailed Explanation of the Agent Behavior Taxonomy"
+  ],
+  [
+   789,
+   "### B.1 Evaluation Strategy"
+  ],
+  [
+   791,
+   "##### E1 Subset Eval."
+  ],
+  [
+   795,
+   "##### E2 Full Eval."
+  ],
+  [
+   799,
+   "##### E3 Fine-grained Eval."
+  ],
+  [
+   803,
+   "### B.2 Input Format Strategy"
+  ],
+  [
+   805,
+   "##### T1 Prompt Alignment."
+  ],
+  [
+   809,
+   "##### T2 Template Adjustment."
+  ],
+  [
+   813,
+   "##### T3 Prompt Style Change."
+  ],
+  [
+   817,
+   "### B.3 Output Format Strategy"
+  ],
+  [
+   819,
+   "##### O1 Direct Answer."
+  ],
+  [
+   823,
+   "##### O2 Rationale + Answer."
+  ],
+  [
+   827,
+   "##### O3 Targeted Format."
+  ],
+  [
+   831,
+   "### B.4 Data Strategy"
+  ],
+  [
+   833,
+   "##### D1 Benchmark-related Data Source Selection."
+  ],
+  [
+   837,
+   "##### D2 Training Dataset Expansion."
+  ],
+  [
+   841,
+   "##### D3 Data Difficulty Improvement."
+  ],
+  [
+   845,
+   "##### D4 Data Synthesis."
+  ],
+  [
+   849,
+   "##### D5 Data Augmentation."
+  ],
+  [
+   853,
+   "##### D6 Data Cleanup/Dedup/Rebalance."
+  ],
+  [
+   857,
+   "### B.5 Training Strategy"
+  ],
+  [
+   859,
+   "##### U1 Full SFT."
+  ],
+  [
+   863,
+   "##### U2 PEFT."
+  ],
+  [
+   867,
+   "##### U3 DPO-style Training."
+  ],
+  [
+   871,
+   "##### U4 Self-distillation."
+  ],
+  [
+   875,
+   "##### U5 Continual Training."
+  ],
+  [
+   879,
+   "##### U6 Train from Base Model."
+  ],
+  [
+   883,
+   "##### U7 Annealing Training."
+  ],
+  [
+   887,
+   "### B.6 Planning Strategy"
+  ],
+  [
+   889,
+   "##### P1 Baseline-based Planning."
+  ],
+  [
+   893,
+   "##### P2 Error Pattern Diagnosis."
+  ],
+  [
+   897,
+   "##### P3 Hypothesis Testing."
+  ],
+  [
+   901,
+   "##### P4 Failure Case Diagnosis."
+  ],
+  [
+   905,
+   "## Appendix C Instructions of AutoTrain Hub Workflow"
+  ],
+  [
+   907,
+   "### C.1 AGENTS.md"
+  ],
+  [
+   911,
+   "# AGENTS.md"
+  ],
+  [
+   913,
+   "## Objective"
+  ],
+  [
+   919,
+   "## Hard Constraints"
+  ],
+  [
+   933,
+   "## Experiment Guidance"
+  ],
+  [
+   943,
+   "## Stage Rules"
+  ],
+  [
+   953,
+   "## Iteration Execution"
+  ],
+  [
+   971,
+   "## Procedure"
+  ],
+  [
+   973,
+   "### Stage 0: Task Definition"
+  ],
+  [
+   979,
+   "### Stage 1: Base Model Evaluation"
+  ],
+  [
+   997,
+   "### Stage 2: Local Diagnosis and Optimization"
+  ],
+  [
+   1013,
+   "### Stage 3: Evidence-Guided Exploration"
+  ],
+  [
+   1033,
+   "## Logging"
+  ],
+  [
+   1037,
+   "## File Organization"
+  ],
+  [
+   1055,
+   "## Stop Conditions"
+  ],
+  [
+   1059,
+   "## Completion Criteria"
+  ],
+  [
+   1066,
+   "### C.2 Plan"
+  ],
+  [
+   1082,
+   "# iteration_plan"
+  ],
+  [
+   1084,
+   "## Purpose"
+  ],
+  [
+   1088,
+   "## Inputs"
+  ],
+  [
+   1096,
+   "## Required outputs"
+  ],
+  [
+   1110,
+   "## Rules"
+  ],
+  [
+   1122,
+   "## Procedure"
+  ],
+  [
+   1137,
+   "### C.3 Data Process"
+  ],
+  [
+   1153,
+   "# data"
+  ],
+  [
+   1155,
+   "## Purpose"
+  ],
+  [
+   1159,
+   "## Core principles"
+  ],
+  [
+   1171,
+   "## Workflow"
+  ],
+  [
+   1183,
+   "## Required outputs"
+  ],
+  [
+   1192,
+   "#### C.3.1 Selection"
+  ],
+  [
+   1196,
+   "# Data Selection"
+  ],
+  [
+   1198,
+   "## Purpose"
+  ],
+  [
+   1202,
+   "## Required outputs"
+  ],
+  [
+   1210,
+   "## Rules"
+  ],
+  [
+   1216,
+   "## Procedure"
+  ],
+  [
+   1229,
+   "#### C.3.2 Construction"
+  ],
+  [
+   1233,
+   "# Data Construction"
+  ],
+  [
+   1235,
+   "## Purpose"
+  ],
+  [
+   1239,
+   "## Required outputs"
+  ],
+  [
+   1245,
+   "## Rules"
+  ],
+  [
+   1261,
+   "## Construction actions"
+  ],
+  [
+   1281,
+   "## Procedure"
+  ],
+  [
+   1297,
+   "## Decision standard"
+  ],
+  [
+   1304,
+   "#### C.3.3 Validation"
+  ],
+  [
+   1308,
+   "# Data Validation"
+  ],
+  [
+   1310,
+   "## Purpose"
+  ],
+  [
+   1314,
+   "## Required outputs"
+  ],
+  [
+   1320,
+   "## Validation dimensions"
+  ],
+  [
+   1322,
+   "### 1. Structural validity"
+  ],
+  [
+   1334,
+   "### 2. Benchmark alignment"
+  ],
+  [
+   1350,
+   "### 3. Content quality"
+  ],
+  [
+   1364,
+   "## Rules"
+  ],
+  [
+   1376,
+   "## Procedure"
+  ],
+  [
+   1398,
+   "## Decision standard"
+  ],
+  [
+   1405,
+   "### C.4 Training"
+  ],
+  [
+   1421,
+   "# train"
+  ],
+  [
+   1423,
+   "## Purpose"
+  ],
+  [
+   1427,
+   "## When to use"
+  ],
+  [
+   1435,
+   "## Core rules"
+  ],
+  [
+   1449,
+   "## Run caution"
+  ],
+  [
+   1453,
+   "## Workflow"
+  ],
+  [
+   1468,
+   "#### C.4.1 SFT"
+  ],
+  [
+   1472,
+   "# SFT Stage"
+  ],
+  [
+   1474,
+   "## Purpose"
+  ],
+  [
+   1478,
+   "## Inputs"
+  ],
+  [
+   1488,
+   "## Rules"
+  ],
+  [
+   1502,
+   "## Procedure"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 1,
+  "p_value_or_ci": 2,
+  "seeds_or_runs": 1,
+  "swe_bench": 1,
+  "contamination": 4,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

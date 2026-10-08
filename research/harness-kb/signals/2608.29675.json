@@ -1,0 +1,235 @@
+{
+ "arxiv_id": "2608.29675",
+ "fulltext_chars": 65617,
+ "fulltext_lines": 1155,
+ "authors_block": "DOI: 10.1145/3843282.3844422ISBN: 979-8-4007-2985-0/2026/10Conference: Proceedings of the 1st International Workshop on Agentic AI for Next-Generation Software Development; October 12–16, 2026; Munich, GermanyProceedings of the 1st International Workshop on Agentic AI for Next-Generation Software Development (AgenticDev ’26), October 12–16, 2026, Munich, Germanyasews26agenticdevmain-p18-pCCS: Software and its engineering Software defect analysisCCS: Computing methodologies Intelligent agentsCCS: Software and its engineering Software maintenance toolsCCS: Information systems Evaluation of retrieval results Mohammad Nour Al Awad Affiliation: ITMO University, Saint Petersburg, Russian Federation email: mohammadnouralawad@itmo.ru and Sergey Ivanov Affiliation: ITMO University, Saint Petersburg, Russian Federation email: svivanov@itmo.ru Received 2026-08-20",
+ "vendor_affiliation_hits": [],
+ "n_authors": 2,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/mohammad-nour-alawad/IssueLoc-bench"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   22,
+   "# Cost-Effective Repository Exploration for Agentic Issue Localization"
+  ],
+  [
+   41,
+   "###### Abstract."
+  ],
+  [
+   45,
+   "###### Keywords:"
+  ],
+  [
+   50,
+   "## 1. Introduction"
+  ],
+  [
+   96,
+   "### 1.1. Research Questions"
+  ],
+  [
+   116,
+   "#### Contributions."
+  ],
+  [
+   138,
+   "## 2. Background and Related Work"
+  ],
+  [
+   140,
+   "### 2.1. Issue Localization and Evaluation"
+  ],
+  [
+   149,
+   "### 2.2. Repository Exploration in Repair Pipelines"
+  ],
+  [
+   159,
+   "## 3. Task Definition"
+  ],
+  [
+   161,
+   "### 3.1. Task and Formalization"
+  ],
+  [
+   175,
+   "### 3.2. Interactive Explorer and Handoff"
+  ],
+  [
+   185,
+   "## 4. Benchmark Construction and Evaluation Arms"
+  ],
+  [
+   189,
+   "### 4.1. IssueLoc Collection and Manifest Design"
+  ],
+  [
+   201,
+   "### 4.2. Evaluation Arms and Characteristics"
+  ],
+  [
+   229,
+   "## 5. Evaluation Protocol"
+  ],
+  [
+   231,
+   "### 5.1. Discovery and Set-Recovery Metrics"
+  ],
+  [
+   267,
+   "### 5.2. Scoring and Operational Metrics"
+  ],
+  [
+   285,
+   "### 5.3. Paired Uncertainty Quantification"
+  ],
+  [
+   291,
+   "## 6. Experimental Setup"
+  ],
+  [
+   293,
+   "### 6.1. Artifact and Serving Environment"
+  ],
+  [
+   299,
+   "### 6.2. Models and Interactive Runner"
+  ],
+  [
+   329,
+   "### 6.3. Implementation and Evaluation Procedure"
+  ],
+  [
+   335,
+   "## 7. Results"
+  ],
+  [
+   339,
+   "### 7.1. Evaluation-Arm Results"
+  ],
+  [
+   341,
+   "#### SWE-bench Verified-Derived Arm."
+  ],
+  [
+   443,
+   "#### Random-Repository Arm."
+  ],
+  [
+   543,
+   "### 7.2. Paired Model-Comparison Uncertainty"
+  ],
+  [
+   623,
+   "### 7.3. Quality Retention and Cost Reduction"
+  ],
+  [
+   723,
+   "### 7.4. Answers to the Research Questions"
+  ],
+  [
+   725,
+   "#### RQ1: Quality Retention."
+  ],
+  [
+   729,
+   "#### RQ2: Operational Cost."
+  ],
+  [
+   733,
+   "#### RQ3: Handoff Contract."
+  ],
+  [
+   737,
+   "#### RQ4: Cross-Arm Consistency."
+  ],
+  [
+   741,
+   "## 8. Analysis and Discussion"
+  ],
+  [
+   743,
+   "### 8.1. Explorer Operating Points and Handoff Contracts"
+  ],
+  [
+   755,
+   "### 8.2. Cross-Arm Generality and Repository Dependence"
+  ],
+  [
+   763,
+   "### 8.3. Escalation-Oriented Explorer Design"
+  ],
+  [
+   775,
+   "### 8.4. Trajectory Cost and Practical Model Selection"
+  ],
+  [
+   785,
+   "## 9. Threats to Validity"
+  ],
+  [
+   787,
+   "#### Historical-Footprint Supervision."
+  ],
+  [
+   791,
+   "#### Repository and Model Sampling."
+  ],
+  [
+   795,
+   "#### Operational Measurements."
+  ],
+  [
+   799,
+   "#### Pipeline Scope."
+  ],
+  [
+   803,
+   "## 10. Conclusion"
+  ],
+  [
+   809,
+   "#### Future Work."
+  ],
+  [
+   813,
+   "## 11. Data Availability Statement"
+  ],
+  [
+   817,
+   "###### Acknowledgements."
+  ],
+  [
+   821,
+   "## References"
+  ],
+  [
+   1155,
+   "##"
+  ]
+ ],
+ "acknowledgments": "###### Acknowledgements.\n\nThis work is supported by the Ministry of Economic Development of the Russian Federation (IGK 000000C313925P4C0002), agreement No139-15-2025-010.\n\n## References\n\nAkbar and Kak (2020)\nS. A. Akbar and A. C. Kak\n\nA large-scale comparative evaluation of ir-based tools for bug localization.\n\nIn Proceedings of the 17th International Conference on Mining Software Repositories,\n\nMSR ’20, New York, NY, USA, pp. 21–31.\n\nExternal Links: ISBN 9781450375177,\nLink,\nDocument\n\nCited by: §2.1.\n\nAwad and Ivanov (2026)\nM. N. A. Awad and S. Ivanov\n\nLoc2Repair: a framework for evaluating the impact of file-level issue localization in repo-level LLM repair.",
+ "limitations": "## 9. Threats to Validity\n\n#### Historical-Footprint Supervision.\n\nGold files are the filtered historical commit footprint, not a proof that every touched file is necessary or that another valid repair would modify the same set. This makes exact match deliberately strict and gives ranking and coverage metrics an important complementary role. The code-focused view also excludes newly added, removed, binary-like, and entirely text-like targets; conclusions therefore concern localization of existing implementation artifacts.\n\n#### Repository and Model Sampling.\n\nThe SWE-derived arm contains many issues from relatively few repositories; the random arm covers more repositories but has its own IssueLoc linkage and filtering criteria. We therefore avoid pooling the arms and report repository-clustered sensitivity alongside instance-level intervals. Both arms use public repositories, so possible exposure during model training cannot be measured from the artifact. Transfer to private codebases, very large monorepos, other language distributions, and other agent interfaces remains a separate empirical question.\n\n#### Operational Measurements.\n\nTime and token use describe the complete recorded operating points: model, serving stack, tool interaction, stopping behavior, and timeout policy. They are deployment-relevant totals, not isolated measures of model throughput. Token comparisons are pairwise-complete when usage metadata is present for both runs, and the API-cost view applies contemporaneous public prices rather than observed invoices. The paired bootstrap quantifies variation across recorded instances or repositories; repeated executions would be needed to quantify stochastic trajectory variation.\n\n#### Pipeline Scope.\n\nThe experiment isolates localization so that explorer choice can be compared under a fixed interface. Its rankings therefore guide stage allocation: end-to-end benefit also depends on the repair model, candidate budget, context format, and escalation policy. Evaluating those components in a factorial explorer–repair study would connect the present stage metrics to resolved rate and total pipeline cost.\n\n## 10. Conclusion\n\nEmpirically, under the fixed read-only interface, the highest-quality explorer leads the localization metrics, while the alternatives provide substantially lower-time and lower-token operating points. IssueLoc-Bench makes this upstream allocation visible through early ranking, top-three gold coverage, historical set recovery, trajectory length, agent time, and tokens across two complementary arms. Paired comparisons establish the task-level trade-offs, while repository-clustered sensitivity appropriately tempers several SWE-derived quality contrasts.\n\nInterpretively, no alternative dominates across ranking quality, strict recovery, time, and tokens. The preferred explorer depends on how localization is consumed: Hit@3, R@3, and MRR characterize a recoverable candidate handoff, whereas F1 and exact match characterize a restrictive file gate. Architecturally, these results support treating repository exploration as a separately measurable and budgetable stage in modular coding-agent pipelines, with an explicit output contract and observable trajectory cost.\n\n#### Future Work.\n\nDetermining whether these localization trade-offs translate into end-to-end repair trade-offs requires a fixed-repairer evaluation and is left to future work. Such an evaluation can vary the explorer, top- k budget, and escalation rule while measuring resolved rate, recovery beyond the initial handoff, and total pipeline cost. Further directions include adaptive candidate budgets, symbol- and test-level handoffs, temporally filtered issue context, private-repository evaluation, and supervision that distinguishes minimal causal files from the broader historical commit footprint.\n\n## 11. Data Availability Statement\n\nThe artifact at https://github.com/mohammad-nour-alawad/IssueLoc-bench contains task and label manifests, the paren",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 6,
+  "seeds_or_runs": 0,
+  "swe_bench": 28,
+  "contamination": 1,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

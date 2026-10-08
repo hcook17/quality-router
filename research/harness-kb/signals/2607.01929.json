@@ -1,0 +1,195 @@
+{
+ "arxiv_id": "2607.01929",
+ "fulltext_chars": 67737,
+ "fulltext_lines": 1511,
+ "authors_block": "Jiayi Zhang Affiliation: Nanyang Technological University jiayi043@e.ntu.edu.sg Kai Huang1 ††thanks: 1Corresponding author: Kai Huang (kai-kevin.huang@tum.de). Affiliation: TU Munich kai-kevin.huang@tum.de Yang Liu Affiliation: Nanyang Technological University yangliu@ntu.edu.sg Chunyang Chen Affiliation: TU Munich chun-yang.chen@tum.de",
+ "vendor_affiliation_hits": [],
+ "n_authors": 4,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/SWE-agent/mini-swe-agent"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Beyond Textual Repository Exploration: Dual-Modal Structural Reasoning for Agentic Issue Resolution"
+  ],
+  [
+   46,
+   "###### Abstract"
+  ],
+  [
+   54,
+   "###### Index Terms:"
+  ],
+  [
+   57,
+   "## I Introduction"
+  ],
+  [
+   116,
+   "## II Approach"
+  ],
+  [
+   189,
+   "### II-A Multi-Grained Structural Views"
+  ],
+  [
+   204,
+   "#### II-A1 Module Coupling Graph"
+  ],
+  [
+   229,
+   "#### II-A2 Function Call Graph"
+  ],
+  [
+   252,
+   "#### II-A3 Class Hierarchy Graph"
+  ],
+  [
+   265,
+   "#### II-A4 Program Dependence Graph"
+  ],
+  [
+   287,
+   "### II-B Dual-Modal Structural Observations"
+  ],
+  [
+   292,
+   "#### II-B1 Visual Structural Representation"
+  ],
+  [
+   315,
+   "#### II-B2 Textual Structural Representation"
+  ],
+  [
+   343,
+   "#### II-B3 Dual-Modal Observation in Practice"
+  ],
+  [
+   352,
+   "### II-C Adaptive Structural Reasoning"
+  ],
+  [
+   380,
+   "### II-D Integration with Existing Agents"
+  ],
+  [
+   385,
+   "## III Experiment Setup"
+  ],
+  [
+   387,
+   "### III-A Research Questions"
+  ],
+  [
+   397,
+   "### III-B Benchmarks"
+  ],
+  [
+   404,
+   "### III-C Baselines"
+  ],
+  [
+   413,
+   "### III-D Experimental Configurations"
+  ],
+  [
+   423,
+   "## IV Evaluation"
+  ],
+  [
+   425,
+   "### IV-A RQ1: Overall Effectiveness"
+  ],
+  [
+   546,
+   "#Total Resolved (731)"
+  ],
+  [
+   562,
+   "#### IV-A1 Controlled Study"
+  ],
+  [
+   570,
+   "#### IV-A2 Baseline Comparison"
+  ],
+  [
+   735,
+   "#### IV-A3 Cost Efficiency"
+  ],
+  [
+   739,
+   "### IV-B RQ2: Ablation Study"
+  ],
+  [
+   788,
+   "#Avg. Step"
+  ],
+  [
+   885,
+   "#### IV-B1 Benefit of Dual-Modal Structural Reasoning"
+  ],
+  [
+   894,
+   "#### IV-B2 Contribution of Visual and Textual Modalities"
+  ],
+  [
+   912,
+   "#### IV-B3 Contribution of Individual Graph Views"
+  ],
+  [
+   918,
+   "#### IV-B4 Complementarity of Multiple Graph Views"
+  ],
+  [
+   927,
+   "#### IV-B5 Summary"
+  ],
+  [
+   935,
+   "### IV-C RQ3: Generalizability Study"
+  ],
+  [
+   986,
+   "## V Threats to Validity"
+  ],
+  [
+   994,
+   "## VI Related Work"
+  ],
+  [
+   1010,
+   "## VII Conclusion"
+  ],
+  [
+   1014,
+   "## References"
+  ],
+  [
+   1511,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## V Threats to Validity\n\nExperimental variance.\nLLM-based agents are inherently nondeterministic, while each benchmark instance in our evaluation was executed once due to the high computational cost of repository-level issue resolution. Although this follows common practice in recent SWE-bench evaluations, future work could further reduce potential variance by averaging results over multiple independent runs.\n\nVisual rendering.\nThe effectiveness of visual reasoning may depend on how repository structures are rendered. To reduce this threat, all graph views are generated using deterministic Graphviz layouts with fixed rendering parameters across all experiments. Although these settings may not be optimal, DualView consistently improves repair performance without renderer-specific tuning, suggesting that our conclusions are robust to the chosen visualization configuration.\n\n## VI Related Work\n\nAgentic Program Repair for Issue Resolution.\nDriven by the SWE-bench family of benchmarks [10, 11, 12], a variety of issue-resolution agents have been proposed, including SWE-agent [1], AutoCodeRover [4], OpenHands [2], etc. These systems improve repair performance through tool use, retrieval mechanisms, planning strategies, and workflow design. However, repository exploration remains primarily based on textual observations, such as source files, search results, and command outputs. In contrast, DualView augments existing issue-resolution agents with visual structural representations that make repository relationships directly observable.\n\nRepository Structure Modeling for Agent Reasoning.\nRecent work has explored modeling repository structure to support agent reasoning. Representative approaches construct repository graphs, code graphs, or knowledge graphs to capture dependencies among files, functions, classes, and symbols, enabling more effective retrieval and context acquisition [17, 16, 41, 19, 18, 42, 43]. While these approaches provide valuable structural information, the resulting relationships are typically consumed through retrieval results, graph serialization, or symbolic queries. In contrast, DualView treats repository structure as a first-class reasoning artifact by externalizing repository relationships into visual graph representations and integrating them directly into the agentic reasoning loop.\n\nVisual Reasoning for Code Comprehension.\nRecent MLLMs have demonstrated\nvisual reasoning capabilities, motivating researchers to explore visual representations for SE tasks. Prior work has leveraged\nUI artifacts for\nvisual\nissue resolution [44, 45], while\nrecent studies investigate representing source code itself as images to improve code understanding and long-context processing [46, 47, 48]. Our work differs from these efforts in both representation and objective. Rather than visualizing raw code, DualView visualizes repository structure through SE graphs that expose module dependencies, call relationships, inheritance hierarchies, and program dependencies. This enables agents to reason directly over repository topology and long-range dependency chains during issue resolution.\n\n## VII Conclusion\n\nWe presented DualView, a dual-modal structural reasoning framework that exposes repository structure through complementary visual and textual graph representations. Our results show that repository graphs serve more effectively as reasoning artifacts than retrieval artifacts, highlighting the potential of multimodal repository reasoning for agent systems.\n\n## References\n\n[1]\nJ. Yang, C. E. Jimenez, A. Wettig, K. Lieret, S. Yao, K. Narasimhan, and O. Press (2024)\n\nSwe-agent: agent-computer interfaces enable automated software engineering.\n\nAdvances in Neural Information Processing Systems 37, pp. 50528–50652.\n\nCited by: §I,\n§I,\n§I,",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 1,
+  "swe_bench": 23,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 1
+ },
+ "fulltext_source": "html"
+}

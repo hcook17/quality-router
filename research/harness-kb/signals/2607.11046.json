@@ -1,0 +1,238 @@
+{
+ "arxiv_id": "2607.11046",
+ "fulltext_chars": 103559,
+ "fulltext_lines": 1882,
+ "authors_block": "Genevieve Caumartin 1,* Tse-Hsun (Peter) Chen 1 Diego Elias Costa 1 Affiliation: E-mail: genevieve.caumartin@mail.concordia.ca Affiliation: E-mail: peterc@encs.concordia.ca Affiliation: E-mail: diego.costa@concordia.ca Affiliation: 1Department of Computer Science and Software Engineering, Gina Cody School of Engineering and Computer Science, Concordia University, Montreal, QC, Canada *Corresponding author Received: date / Accepted: date",
+ "vendor_affiliation_hits": [],
+ "n_authors": 4,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/gencau/code-representations"
+ ],
+ "hf_urls": [
+  "https://huggingface.co/buckets/gencau",
+  "https://huggingface.co/spaces/mteb"
+ ],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   22,
+   "# Retrieval-Oriented Code Representations in Agentic Bug Localization"
+  ],
+  [
+   48,
+   "###### Abstract"
+  ],
+  [
+   60,
+   "###### Keywords:"
+  ],
+  [
+   63,
+   "## 1 Introduction"
+  ],
+  [
+   124,
+   "## 2 Related Work"
+  ],
+  [
+   128,
+   "### 2.1 Information Retrieval-Based Fault Localization (IRFL)."
+  ],
+  [
+   137,
+   "### 2.2 Textual Code Representations for Repository-scale Tasks."
+  ],
+  [
+   145,
+   "### 2.3 Synthetic Queries and Document Expansion for Code Retrieval."
+  ],
+  [
+   153,
+   "## 3 Methodology"
+  ],
+  [
+   176,
+   "### 3.1 Datasets"
+  ],
+  [
+   183,
+   "# Tasks"
+  ],
+  [
+   218,
+   "### 3.2 Project Code Representations"
+  ],
+  [
+   286,
+   "#"
+  ],
+  [
+   310,
+   "### 3.3 Efficiency and Cost Analysis"
+  ],
+  [
+   337,
+   "### 3.4 Combining retrieved results"
+  ],
+  [
+   344,
+   "### 3.5 Metrics"
+  ],
+  [
+   358,
+   "### 3.6 Experimental Environment"
+  ],
+  [
+   364,
+   "## 4 Repository Representation and Traditional Retrievers"
+  ],
+  [
+   370,
+   "### 4.1 Traditional Retrievers"
+  ],
+  [
+   412,
+   "### 4.2 Results"
+  ],
+  [
+   635,
+   "#### Combining Representation Results"
+  ],
+  [
+   935,
+   "## 5 Repository Representation and Large Language Models"
+  ],
+  [
+   942,
+   "### 5.1 Retrieval Prompts"
+  ],
+  [
+   953,
+   "### 5.2 Large Language Models"
+  ],
+  [
+   960,
+   "### 5.3 Results"
+  ],
+  [
+   1112,
+   "#### Combining representations"
+  ],
+  [
+   1237,
+   "## 6 Post-Retrieval Ranking and Representations"
+  ],
+  [
+   1243,
+   "### 6.1 Ranking Settings"
+  ],
+  [
+   1253,
+   "### 6.2 Ranking Prompts"
+  ],
+  [
+   1264,
+   "### 6.3 Results"
+  ],
+  [
+   1366,
+   "#### Files viewed per representation"
+  ],
+  [
+   1380,
+   "## 7 Discussion"
+  ],
+  [
+   1382,
+   "### 7.1 Case Study: Impact of representations on Agentless."
+  ],
+  [
+   1406,
+   "#### Results"
+  ],
+  [
+   1446,
+   "### 7.2 Representation and Retriever Costs"
+  ],
+  [
+   1448,
+   "#### Indexing Time"
+  ],
+  [
+   1519,
+   "#### Cost of Generating Summaries"
+  ],
+  [
+   1527,
+   "### 7.3 Complementarity of Representations"
+  ],
+  [
+   1539,
+   "#### Complementarity with Qwen 3"
+  ],
+  [
+   1551,
+   "#### Complementarity with Large Language Models"
+  ],
+  [
+   1563,
+   "#### Example of Representation Complementarity"
+  ],
+  [
+   1593,
+   "### 7.4 Implications"
+  ],
+  [
+   1595,
+   "#### Insights for Practitioners"
+  ],
+  [
+   1614,
+   "#### Insights for Researchers"
+  ],
+  [
+   1620,
+   "## 8 Threats to Validity"
+  ],
+  [
+   1640,
+   "## 9 Conclusion"
+  ],
+  [
+   1644,
+   "## Data Availability Statement"
+  ],
+  [
+   1648,
+   "## Author Contributions"
+  ],
+  [
+   1652,
+   "## References"
+  ],
+  [
+   1882,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 8 Threats to Validity\n\nOutput variability. Large language models remain slightly non-deterministic, even when the temperature is set to 0. Ideally we would execute every experiment multiple times, but the full repository-scale runs were limited by time and compute budget.\nTo keep the residual variance small we set the temperature to 0, and log every intermediate ranking and model response; these artifacts are released with the paper.\n\nFile summaries generation. File summaries’ quality highly affects retrieval quality. The model used to generate the file summaries can significantly impact the results. For this study, due to the computational and monetary implications, we generated summaries using GPT-OSS 20B, available via the Grok API.\n\nMetrics. This threat relates to whether the metrics accurately measure the performance of retrieval for bug localization. We use widely accepted metrics (MAP and Hit@k), which are commonly used in previous studies. However, different development practices could influence the effectiveness of our evaluation.\n\nDuplicates in embeddings retrieval. For a single file, there may be multiple embeddings, depending on the model sequence length. Thus, a similarity search might return several chunks of the same file. As the results are de-duplicated, we may obtain fewer than k results than what was originally requested, which can impact the extracted MAP and Hit@k metrics. We mitigate this threat by retrieving all matches, then de-duplicating the results and finally, retrieving the top-5 results.\n\nDataset contamination.\nThe LLMs we evaluate are pretrained on web-scale code corpora that may include the projects used in LCA and SWE-bench. Observed gains could stem from memorization rather than effective retrieval, and should be interpreted as an upper bound of real-world performance. Given that our experiment is meant to compare context composition strategies and their relative impact on the model’s performance, we believe the results will hold.\n\nOllama-related crashes. After a required update of Ollama, ten instances of SWE-bench crash the Ollama server when running the Files Summaries experiment for our replication. We record these as empty results, which likely underestimates true recall.\n\nGeneralizability. Our experiments were run with three different models of sizes 7-32B on two large datasets spanning three programming languages: Java, Python and Kotlin. Our results already show a large variation of the context composition strategies across models, but we expect that the results may not hold for commercial code, other programming languages, or bug trackers with different writing styles.\n\nSmall LLM-retrieved candidate set. In our experiments, the behavior of LLM-based retrievers raises an evaluation issue. The 32B model achieved strong localization performance, but it often returned very few candidate files. This makes standard top- k comparisons incomplete: a retriever that returns one highly ranked file may perform well on Hit@ k , but provides little opportunity for downstream ranking. For this reason, we did not use LLM-retrieved candidates as input to Section 6.\n\n## 9 Conclusion\n\nWe study how textual code representations affect file-level retrieval for agentic bug localization. Our findings indicate that no single representation dominates across models, datasets, and workflow stages. Raw source code can provide strong retrieval signals, but its large footprint makes it costly and difficult to use in ranking contexts. File paths are lightweight and often useful as a baseline, but lack semantic detail. Generated bug report summaries can capture failure-oriented descriptions, but their performance is inconsistent. Role-aware summaries provide the most robust cost-effectiveness tradeoff: they compress source files into a compact representation that preserves file responsibilities and improves alignment with natural-language bug reports. Our case study with Agentless strengthens the practical applica",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 0,
+  "swe_bench": 15,
+  "contamination": 2,
+  "human_study": 0,
+  "java": 4,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

@@ -1,0 +1,185 @@
+{
+ "arxiv_id": "2607.09054",
+ "fulltext_chars": 69146,
+ "fulltext_lines": 1412,
+ "authors_block": "Conference: 2026 IEEE/ACM 48th International Conference on Software Engineering; April 12–18, 2026; Rio de Janeiro, Brazil2026 IEEE/ACM 48th International Conference on Software Engineering (ICSE ’26), April 12–18, 2026, Rio de Janeiro, BrazilDOI: 10.1145/3744916.3764565ISBN: 979-8-4007-2025-3/26/04CCS: Software and its engineering Software maintenance tools Zhipeng Xue Affiliation: The State Key Laboratory of Blockchain and Data Security, Zhejiang University, Hangzhou, China email: zhipengxue@zju.edu.cn , Zhipeng Gao Note: Corresponding Authors Affiliation: Shanghai Institute for Advanced Study, Zhejiang University, Shanghai, China email: zhipeng.gao@zju.edu.cn , Xing Hu Affiliation: The State Key Laboratory of Blockchain and Data Security, Zhejiang University, Hangzhou, China email: xinghu@zju.edu.cn , Jingyuan Chen Affiliation: College of Education, Zhejiang University, Hangzhou, China email: jingyuanchen@zju.edu.cn , Xin Xia Affiliation: The State Key Laboratory of Blockchain and Data Security, Zhejiang University, Hangzhou, China email: xin.xia@acm.org and Shanping Li Affiliation: The State Key Laboratory of Blockchain and Data Security, Zhejiang University, Hangzhou, China email: shan@zju.edu.cn © rightsretained",
+ "vendor_affiliation_hits": [],
+ "n_authors": 6,
+ "comment": "12 pages, accepted by ICSE 2026",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Automating Just-In-Time Python Type Annotation Updating"
+  ],
+  [
+   69,
+   "###### Abstract."
+  ],
+  [
+   81,
+   "###### Keywords:"
+  ],
+  [
+   84,
+   "## 1. Introduction"
+  ],
+  [
+   191,
+   "## 2. Problem and Usage Scenario"
+  ],
+  [
+   193,
+   "### 2.1. Problem Formulation"
+  ],
+  [
+   200,
+   "### 2.2. Usage Scenario"
+  ],
+  [
+   212,
+   "## 3. Approach"
+  ],
+  [
+   223,
+   "### 3.1. Knowledge Database Building"
+  ],
+  [
+   227,
+   "#### 3.1.1. Dataset Preparation"
+  ],
+  [
+   239,
+   "#### 3.1.2. Database Construction"
+  ],
+  [
+   248,
+   "### 3.2. Augmented Information Retrieval"
+  ],
+  [
+   252,
+   "#### 3.2.1. Guiding Examples Retrieval"
+  ],
+  [
+   264,
+   "#### 3.2.2. Annotation Candidates Retrieval"
+  ],
+  [
+   277,
+   "### 3.3. Type Annotation Updating"
+  ],
+  [
+   281,
+   "#### 3.3.1. Guiding Example Reasoning"
+  ],
+  [
+   291,
+   "#### 3.3.2. Type Annotation Updating"
+  ],
+  [
+   301,
+   "### 3.4. Implementation"
+  ],
+  [
+   309,
+   "## 4. Evaluation"
+  ],
+  [
+   325,
+   "### 4.1. Dataset Overview"
+  ],
+  [
+   365,
+   "### 4.2. Baselines"
+  ],
+  [
+   395,
+   "### 4.3. Evaluation Metrics"
+  ],
+  [
+   416,
+   "### 4.4. RQ1: Effectiveness of TypeUp"
+  ],
+  [
+   546,
+   "### 4.5. RQ2: Ablation Study"
+  ],
+  [
+   604,
+   "### 4.6. RQ3: Sensitivity Analysis"
+  ],
+  [
+   628,
+   "### 4.7. Manual Analysis"
+  ],
+  [
+   655,
+   "## 5. Practical Application"
+  ],
+  [
+   660,
+   "### 5.1. Experimental Setup"
+  ],
+  [
+   677,
+   "### 5.2. Practical Evaluation Results"
+  ],
+  [
+   786,
+   "## 6. Discussion"
+  ],
+  [
+   832,
+   "### 6.1. Threats to Validity"
+  ],
+  [
+   849,
+   "## 7. Related Work"
+  ],
+  [
+   853,
+   "### 7.1. Type Inference"
+  ],
+  [
+   863,
+   "### 7.2. Type Error Fixing"
+  ],
+  [
+   875,
+   "## 8. Conclusion"
+  ],
+  [
+   881,
+   "###### Acknowledgements."
+  ],
+  [
+   887,
+   "## References"
+  ],
+  [
+   1412,
+   "##"
+  ]
+ ],
+ "acknowledgments": "###### Acknowledgements.\n\nThis research is supported by the National Science Foundation of China (No. 62572322).\nThis research is partially sponsored by the Shanghai Sailing Program (23YF1446900) and the CCF-Tencent Rhino-Bird Open Research Fund.\nWe also thank the anonymous reviewers for their insightful comments and suggestions.\n\n## References\n\nAllamanis et al. (2020)\nM. Allamanis, E. T. Barr, S. Ducousso, and Z. Gao\n\nTypilus: neural type hints.\n\nIn Proceedings of the 41st acm sigplan conference on programming language design and implementation,\n\npp. 91–105.\n\nCited by: §1.\n\nAn et al. (2011)\nJ. An, A. Chaudhuri, J. S. Foster, and M. Hicks\n\nDynamic inference of static types for ruby.\n\nACM SIGPLAN Notices 46 (1), pp. 459–472.",
+ "limitations": "### 6.1. Threats to Validity\n\nExternal Validity.\nThe external validity relates to the generalization of our dataset.\nOur dataset is built from Python projects and only contains the updates of method argument and return type annotations, which may not be representative of all dynamic programming languages and types of annotations.\nHowever, our proposed model is independent of programming languages and type annotation types, it can be easily applied to projects in other languages and update other types of annotations.\n\nConstruct Validity.\nThe construct validity concerns the relation between theory and observation.\nWe collected code-type co-change samples from the same commit due to challenges in identifying the fix commit for outdated type annotations.\nThis construction method differs from our expected usage scenario, where updated type annotations may be forgotten by developers.\nTo validate the effectiveness of TypeUp in assisting developers with these overlooked outdated type annotations, we conducted a practical application study with real-world projects.\n\nModel Validity. The model validity relates to the model selection that could affect the performance of our approach.\nGiven that the GPT-3.5 model has been pre-trained on a vast corpus, including code from GitHub, this raises potential concerns about data leakage between our constructed dataset and LLM’s training data.\nNonetheless, the significant enhancements achieved by TypeUp over the baseline TypeGen, which is also implemented by GPT-3.5 model, demonstrate that TypeUp’s effectiveness is not merely a result of data memorization.\n\n## 7. Related Work\n\nIn this section, we describe the related studies on type inference and type error fixing.\n\n### 7.1. Type Inference\n\nDue to the importance of type annotation in Python, previous studies have attempted to automatically infer type annotations from the code. These approaches can be categorized into two types: rule-based methods and learning-based methods. Rule-based methods predict types based on predefined rules. They typically generate and resolve type constraints from the source code through static analysis (Furr et al., 2009; Hassan et al., 2018; Hu et al., 2021), dynamic analysis (An et al., 2011; Ren et al., 2013), or probabilistic rules (Kazerounian et al., 2020; Xu et al., 2016). Tools like pytype (, 2024), Pysonar2 (, 2024), and Pyre (, 2024) are designed to be accurate and perform well for simple built-in and generic types. However, the dynamic nature of programming languages (Richards et al., 2010) makes it difficult for these tools to handle user-defined types and more complex generic types effectively.\nThe learning-based approach involves training a deep learning model on a dataset of collected type annotations, such as ManyTypes4Py (Mir et al., 2021).\nGiven a query code snippet, the model predicts the most likely type based on the proximity of high-dimensional vectors. Some studies treat type inference as a classification problem (Peng et al., 2022; Mir et al., 2022; Yan et al., 2023; Jesse et al., 2021; Wei et al., 2020).\nFor instance, DLInfer (Yan et al., 2023) employs static analysis combined with a bidirectional gated recurrent unit (GRU) model to accurately infer variable types.\nTypeWriter (Pradel et al., 2020) integrates probabilistic type prediction with search-based refinement to enhance the accuracy of type inference. However, these approaches are limited in their ability to predict user-defined types, which restricts their practical utility in real-world projects. Generation-based models are built upon large language models (LLMs).\nThese LLMs, pre-trained on vast corpora, exhibit a strong general understanding and generation capability. TypeT5 (Wei et al., ) fine-tunes the CodeT5 (Wang et al., 2021) model to enhance type inference accuracy. TypeGen (Peng et al., 2023) constructs a chain-of-thought (CoT) prompt to guide the GPT-3.5 (, 2024) model in inferring types. TIGER (Wang et al., 2024) designed a two-s",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 3,
+  "human_study": 0,
+  "java": 1,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

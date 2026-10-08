@@ -1,0 +1,132 @@
+{
+ "arxiv_id": "2610.09901",
+ "fulltext_chars": 60235,
+ "fulltext_lines": 1177,
+ "authors_block": "Large language models (LLMs) have become increasingly popular in recent years, particularly for writing-related tasks [20, 21]. In addition, various tools using artificial intelligence (AI) and AI-driven approaches using LLMs have been developed for a wide range of disciplines [36, 35, 22]. Also, the field of visual analytics has adopted and evaluated the use of LLMs [33, 4, 5]. Recently, the first LLM-driven approaches in the field of software visualization have been presented, for example to generate UML diagrams [7, 28, 29]. Most of the LLM-driven approaches focus on 2D visualizations, and as of now, there is only limited work on the use of LLMs in the context of 3D software visualization tools [6]. Traditional computer program interaction and use can be frustrating and time-consuming [18]. Therefore, we consider the use of intuitive, textual, LLM-based interfaces for visualization tools to be a promising way to improve usability. In this paper, we present the integration of a chat assistant powered by LLMs into our 3D software visualization tool ExplorViz [9, 11]. ExplorViz is a web-based tool that employs the city metaphor [14, 31]. The chat assistant is integrated into the frontend of ExplorViz using CopilotKit11 1 https://www.copilotkit.ai/ such that the user can interact with it via a chat window that is typical for LLM usage. Our chat assistant can request data about the state of the visualization as context and modify the visualization by using provided frontend too",
+ "vendor_affiliation_hits": [],
+ "n_authors": 3,
+ "comment": "11 pages, 5 figures, accepted at VISSOFT 2026",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/inspectIT/inspectit-ocelot",
+  "https://github.com/spring-petclinic/spring-petclinic-microservices"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "#"
+  ],
+  [
+   55,
+   "###### Abstract"
+  ],
+  [
+   72,
+   "###### Index Terms:"
+  ],
+  [
+   75,
+   "## I Introduction"
+  ],
+  [
+   103,
+   "## II Background"
+  ],
+  [
+   155,
+   "## III Related Work"
+  ],
+  [
+   157,
+   "#### Chat assistants in software engineering"
+  ],
+  [
+   166,
+   "#### Tool-augmented LLM agents"
+  ],
+  [
+   183,
+   "#### Program comprehension and usability evaluations"
+  ],
+  [
+   194,
+   "## IV Chat Assistant Implementation"
+  ],
+  [
+   372,
+   "## V Visualization Example"
+  ],
+  [
+   391,
+   "## VI Evaluation"
+  ],
+  [
+   395,
+   "### VI-A Research Questions"
+  ],
+  [
+   412,
+   "### VI-B Setup"
+  ],
+  [
+   438,
+   "### VI-C Participants"
+  ],
+  [
+   469,
+   "### VI-D Methodology"
+  ],
+  [
+   532,
+   "### VI-E Results"
+  ],
+  [
+   629,
+   "### VI-F Discussion"
+  ],
+  [
+   680,
+   "### VI-G Threats to Validity"
+  ],
+  [
+   699,
+   "## VII Conclusions and Future Work"
+  ],
+  [
+   722,
+   "## VIII Supplementary Materials"
+  ],
+  [
+   734,
+   "## Acknowledgments"
+  ],
+  [
+   738,
+   "## References"
+  ],
+  [
+   1177,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgments\n\nWe want to thank all participants of our empirical evaluation for their time and valuable feedback.\n\n## References\n\n[1]\nE. A. AlOmar, L. Xu, S. Martinez, A. Peruma, M. W. Mkaouer, C. D. Newman, and A. Ouni (2025)\n\nChatGPT for code refactoring: analyzing topics, interaction, and effective prompts.\n\nIn 2025 IEEE International Conference on Collaborative Advances in Software and COmputiNg (CASCON),\n\npp. 389–398.\n\nExternal Links: Document\n\nCited by: §III,\n§III.\n\n[2]\nAnthropic PBC (2025)\n\nIntroduction: model context protocol.",
+ "limitations": "### VI-G Threats to Validity\n\nThe participants of our evaluation were mostly computer science students and thus are not representative of the group of professional software developers.\nThe relatively small sample of eleven people limits the significance of our results.\n\nSome of the participants knew the study’s conductor personally, and they were offered the chance to be compensated with a €15 gift card.\nIn addition, a number of participants have already worked on ExplorViz or have taken part in earlier evaluations of ExplorViz.\nTherefore, some participants may already be familiar with the Spring PetClinic, which could result in contamination of the training data.\nDue to previous exposure to ExplorViz and other studies, participants may have been influenced by demand characteristics, leading them to believe that the chat assistant is superior to manual use of ExplorViz.\n\nThe employed software landscape and tasks were designed to foster interaction with the visualization and our implemented chat assistant, without the need for prior knowledge about ExplorViz.\nThus, we did not consider complex and arguably more realistic tasks that include more in-depth software engineering activities on the employed software landscape.\n\nSince the manual version of the task was always completed before the chat assistant was used, ordering effects may have influenced the responses due to fatigue, practice effects, or the carryover of knowledge.\n\nWith Claude Sonnet 4.5 we employed only one of many available LLMs.\nIn the meantime, updated and more expressive models are available, too.\nThe extent to which the gathered results can be transferred to other LLMs is unclear.\n\n## VII Conclusions and Future Work\n\nThis work explored integrating a chat assistant into 3D software visualization tools such as ExplorViz to improve program comprehension and reduce interaction overhead.\nThe implemented chat assistant can request contextual data from the visualization and use tool calls to trigger changes to it.\nVia this, the chat assistant can request data about the visualized software system such as package hierarchies and trigger actions such as highlighting visual entities or changing the structure of the visualized software system.\nA modular backend service connects the assistant to various model providers.\n\nWe conducted an evaluation involving eleven participants who assessed the assistant’s usability in tasks related to program comprehension, action execution, and the special case of software restructuring.\nParticipants generally found the generated summaries and explanations accurate and the tool calls, triggered by natural language, easy to use.\nThese findings suggest that chat assistants could effectively complement interactive software visualization tools, particularly when operating within well-defined operations and provided with relevant context about the visualization.\n\nHowever, the study highlighted limitations when the assistant was employed for open-ended tasks such as executing software restructuring actions in the visualized software system.\nParticipants’ ratings for expectation alignment in editing were notably lower, indicating that such software restructuring workflows require stronger guardrails for the chat assistant and clearer previews and improved control mechanisms for the user.\nOverall, the assistant was considered usable and promising, but its benefits hinge on its grounding in application state and the predictability of its actions.\n\nWe would like to stress that our evaluation should only be seen as an indication that the field of combining software visualization and artificial intelligence is promising.\nMore research should be conducted to explore the integration of chat assistants in different kinds of software visualization tools.\nAlso, quantitative results that compare effectiveness of chat assistants to manual user interactions with industry professionals are highly needed.\nAs our evaluation could only explore the short-term use",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 1,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 1,
+  "human_study": 65,
+  "java": 2,
+  "industrial": 1
+ },
+ "fulltext_source": "html"
+}

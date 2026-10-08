@@ -1,0 +1,371 @@
+{
+ "arxiv_id": "2608.23619",
+ "fulltext_chars": 89716,
+ "fulltext_lines": 3359,
+ "authors_block": "Shraddha Surana p20220031@goa.bits-pilani.ac.in Ashwin Srinivasan ashwin@goa.bits-pilani.ac.in Michael Bain m.bain@unsw.edu.au organization=Department of Computer Science and Information Systems, BITS Pilani, K. K. Birla Goa Campus, addressline=NH 17B, Zuarinagar, postcode=403726, city=Goa, country=India organization=School of Computer Science and Engineering, UNSW Sydney, city=Sydney, state=NSW, postcode=2052, country=Australia",
+ "vendor_affiliation_hits": [],
+ "n_authors": 3,
+ "comment": "18 pages",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/ShraddhaSurana/iProg"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   24,
+   "# Identifying Latent Declarative Representations of Code for Assisting Repository Migration"
+  ],
+  [
+   50,
+   "###### Abstract"
+  ],
+  [
+   80,
+   "###### keywords"
+  ],
+  [
+   86,
+   "## Glossary"
+  ],
+  [
+   115,
+   "## 1 Introduction"
+  ],
+  [
+   235,
+   "## 2 Background and Related Work"
+  ],
+  [
+   237,
+   "##### Legacy Code Modernization"
+  ],
+  [
+   294,
+   "##### LLM-Based Code Translation"
+  ],
+  [
+   317,
+   "##### Repository-level translation"
+  ],
+  [
+   341,
+   "##### Data Flow Diagrams (DFDs) in Software Engineering"
+  ],
+  [
+   353,
+   "##### LLM-Based Coding Agents"
+  ],
+  [
+   371,
+   "## 3 Our Approach"
+  ],
+  [
+   423,
+   "### 3.1 Implementation"
+  ],
+  [
+   434,
+   "#### 3.1.1 Constructing and Checking the Source ADFD"
+  ],
+  [
+   552,
+   "#### 3.1.2 Target-Code Generation and Source–Target ADFD Alignment"
+  ],
+  [
+   771,
+   "## 4 Empirical Evaluation"
+  ],
+  [
+   791,
+   "### 4.1 Materials"
+  ],
+  [
+   793,
+   "##### f2x50: Benchmark Corpus"
+  ],
+  [
+   862,
+   "### 4.2 Method"
+  ],
+  [
+   991,
+   "#### 4.2.1 Evaluation"
+  ],
+  [
+   996,
+   "##### Porting soundness: behavioral agreement."
+  ],
+  [
+   1011,
+   "##### Porting completeness: migration outcome index."
+  ],
+  [
+   1022,
+   "## 5 Results"
+  ],
+  [
+   1032,
+   "### 5.1 Porting Soundness: Behavioral Agreement"
+  ],
+  [
+   1161,
+   "### 5.2 Porting Completeness: Migration Outcome Index"
+  ],
+  [
+   1234,
+   "### 5.3 Supporting Analysis: Mechanism and Practicality"
+  ],
+  [
+   1262,
+   "## 6 Discussion"
+  ],
+  [
+   1264,
+   "### 6.1 Additional Questions and Answers"
+  ],
+  [
+   1294,
+   "### 6.2 Limitations and Threats to Validity"
+  ],
+  [
+   1336,
+   "## 7 Conclusion"
+  ],
+  [
+   1360,
+   "## Data Availability Statement"
+  ],
+  [
+   1366,
+   "## CRediT authorship contribution statement"
+  ],
+  [
+   1375,
+   "## Declaration of competing interests"
+  ],
+  [
+   1381,
+   "## Funding"
+  ],
+  [
+   1386,
+   "## Appendix A Full ADFD-Migrate Architecture"
+  ],
+  [
+   1399,
+   "##### Recovering the source representation."
+  ],
+  [
+   1415,
+   "##### Using the ADFD as a semantic bottleneck."
+  ],
+  [
+   1431,
+   "##### Checking and refining the target."
+  ],
+  [
+   1439,
+   "##### Evaluation boundary."
+  ],
+  [
+   1450,
+   "## Appendix B Worked ADFD Example: MINPACK"
+  ],
+  [
+   1472,
+   "## Appendix C Experimental Details"
+  ],
+  [
+   1478,
+   "### C.1 Model Configurations"
+  ],
+  [
+   1480,
+   "##### Generation models."
+  ],
+  [
+   1495,
+   "##### Judge model."
+  ],
+  [
+   1504,
+   "### C.2 Baseline and Ablation Descriptions"
+  ],
+  [
+   1506,
+   "##### Direct baseline."
+  ],
+  [
+   1511,
+   "##### Repository-context baseline."
+  ],
+  [
+   1516,
+   "##### Static-profile ablation (no ADFD)."
+  ],
+  [
+   1524,
+   "##### Dependency-chunking ablation (no ADFD)."
+  ],
+  [
+   1532,
+   "### C.3 Alignment Scoring"
+  ],
+  [
+   1539,
+   "##### Structural alignment (AlignDiff)."
+  ],
+  [
+   1557,
+   "##### Semantic alignment ( S_{\\text{sem}} )."
+  ],
+  [
+   1570,
+   "### C.4 Probe Curation"
+  ],
+  [
+   1592,
+   "##### Comparison modes and tolerances."
+  ],
+  [
+   1606,
+   "### C.5 Prompts"
+  ],
+  [
+   1608,
+   "##### ADFD inference."
+  ],
+  [
+   1631,
+   "##### Target generation."
+  ],
+  [
+   1645,
+   "##### Direct baseline."
+  ],
+  [
+   1655,
+   "##### Repository-context baseline."
+  ],
+  [
+   1666,
+   "##### Static-profile ablation (no ADFD)."
+  ],
+  [
+   1676,
+   "##### Dependency-chunking ablation (no ADFD)."
+  ],
+  [
+   1687,
+   "##### Baseline and ablation generation harness."
+  ],
+  [
+   1696,
+   "### C.6 Why Not Reference-Based Metrics"
+  ],
+  [
+   1707,
+   "### C.7 Migration Outcome Index"
+  ],
+  [
+   1713,
+   "##### Component definitions."
+  ],
+  [
+   1749,
+   "### C.8 Generated Tests"
+  ],
+  [
+   1757,
+   "### C.9 Structural Comparison"
+  ],
+  [
+   1768,
+   "## Appendix D Supporting Results and Diagnostics"
+  ],
+  [
+   1770,
+   "### D.1 Behavioral Agreement by Tier"
+  ],
+  [
+   1812,
+   "### D.2 Extended Baseline and Ablation Comparisons"
+  ],
+  [
+   1905,
+   "### D.3 Generated Tests and Import Reconciliation"
+  ],
+  [
+   1927,
+   "### D.4 Outcome Index Versus Behavioral Agreement"
+  ],
+  [
+   1963,
+   "### D.5 Sensitivity of the Migration Outcome Index"
+  ],
+  [
+   2008,
+   "### D.6 Model Scale, ADFD Construction, and Generation"
+  ],
+  [
+   2065,
+   "### D.7 Cost Analysis"
+  ],
+  [
+   2077,
+   "### D.8 Human-in-the-Loop Potential"
+  ],
+  [
+   2087,
+   "## Appendix E Repository-Level Results"
+  ],
+  [
+   2817,
+   "## Appendix F Reproducibility Details"
+  ],
+  [
+   2819,
+   "### F.1 Representative Behavioral Outputs"
+  ],
+  [
+   2941,
+   "### F.2 Computational Environment"
+  ],
+  [
+   2950,
+   "## Acknowledgements"
+  ],
+  [
+   2958,
+   "## Declaration of generative AI and AI-assisted technologies in the manuscript preparation process"
+  ],
+  [
+   2965,
+   "## References"
+  ],
+  [
+   3359,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Funding\n\nThis research did not receive any specific grant from funding agencies\nin the public, commercial, or not-for-profit sectors.\n\n## Appendix A Full ADFD-Migrate Architecture\n\nFigure A.1 maps the porting workflow of\nFigure 1 to the implemented system, expanding its three\nsteps (convert source code to an ADFD, inspect or revise the ADFD,\ngenerate target code from it) into the automatic components used in the\nexperiments.\n\nFigure A.1: Full ADFD-Migrate system architecture. Static-analysis coverage\nrefines the inferred source ADFD; dependency-aware chunks guide generation; source–target ADFD differences\nguide regeneration. The LLM judge supplies supporting\nrepresentation-level evidence. Behavioral agreement is the primary evaluation.\n\n##### Recovering the source representation.\n\nThe left-hand stage implements A_{S}=\\mathit{Construct}_{S}(R_{S}) . A\ndeterministic static-analysis agent parses R_{S} to produce the\nrepository profile \\Sigma_{S} : files, definitions, module relationships,\ncall edges, procedure signatures, and input/output information. The\nprofile is used in two ways. A bounded projection of it, together with",
+ "limitations": "### 6.2 Limitations and Threats to Validity\n\nConstruct: \nThe 382 probes are targeted case-level checks, not exhaustive system\ntests, so behavioral agreement bounds correctness from below rather than\ncertifying it. Exhaustive equivalence testing is not currently feasible\nacross this corpus: many repositories need large scientific inputs,\nMPI/HDF5 or compiler-specific runtimes, and project-specific output\noracles that do not exist uniformly. The outcome index is a separate\nmatter: it encodes a preference for complete, importable, maintainable\ndraft migrations, and sensitivity analysis supports its comparative use\nwithout making it a correctness percentage. The two ablations\nshow the ADFD contributes beyond static metadata and dependency-only\nchunking, but a component-by-component ablation remains future work.\nHuman expert verification of the ported code has not been possible: the\nbenchmark spans scientific domains (e.g., quantum chemistry, finite\nelement analysis, weather modeling) that require specialized expertise\nthe authors do not have and this expertise has been difficult to find,\nso probe-based and LLM-judged evaluation are\nthe only correctness signals reported here.\n\nInternal: \nTemperature 0.3 makes generation non-deterministic; we mitigate this by\nevaluating 50 diverse repositories rather than repeated runs of a few.\nThe Claude Opus 4.6 judge is independent of the Qwen generators but\nshares a model family with the complex-tier Sonnet 4.5 generator, so its\nscores may carry family bias; no correctness claim depends on it. Prompt\neffort favors the baselines and ablations, whose prompts were hand-refined to their\nbest obtainable results while ADFD-Migrate ran with fixed prompts and no\nper-repository tuning (Section 4.2).\n\nExternal: \nOnly Fortran-to-Python porting was evaluated, and the approach suits\nnumerically oriented software where data-flow structure dominates\ncontrol-flow complexity; heavy I/O, event-driven, or GUI logic may\nbenefit less. The ADFD and chunking algorithms are language-agnostic,\nbut construction needs language-specific analyzers, generation needs\ntarget-language instructions, and import reconciliation is Python-specific,\nso a pair such as COBOL-to-Java requires new adapters. The three model\nconfigurations (Qwen-3-Coder 30B, Qwen-3-Coder 480B, and Claude",
+ "ethics_coi": "## Declaration of competing interests\n\nThe authors declare that they have no known competing financial interests\nor personal relationships that could have appeared to influence the work\nreported in this paper.\n\n## Funding\n\nThis research did not receive any specific grant from funding agencies\nin the public, commercial, or not-for-profit sectors.\n\n## Appendix A Full ADFD-Migrate Architecture\n\nFigure A.1 maps the porting workflow of\nFigure 1 to the implemented system, expanding its three\nsteps (convert source code to an ADFD, inspect or revise the ADFD,\ngenerate target code from it) into the automatic components used in the\nexperiments.\n\nFigure A.1: Full ADFD-Migrate system architecture. Static-analysis coverage\nrefines the inferred source ADFD; dependency-aware chunks guide generation; source–target ADFD differences\nguide regeneration. The LLM judge supplies supporting\nrepresentation-level evidence. Behavioral agreement is the primary evaluation.\n\n##### Recovering the source representation.",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 5,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 2,
+  "human_study": 0,
+  "java": 6,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

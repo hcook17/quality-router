@@ -1,0 +1,127 @@
+{
+ "arxiv_id": "2609.30863",
+ "fulltext_chars": 48173,
+ "fulltext_lines": 575,
+ "authors_block": "Viktor Kjellberg✉ Srijita Basu Simin Sun Farnaz Fotrousi Miroslaw Staron Affiliation: University of Gothenburg and Chalmers University of Technology E-mail {viktor.kjellberg,srijita.basu,simin.sun,farnaz.fotrousi,miroslaw.staron}@gu.se",
+ "vendor_affiliation_hits": [],
+ "n_authors": 5,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/viktorkjellberg/Developing_a_Roadmap_to_an_AI-first_Organization."
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Developing a Roadmap to an AI-first Organization: A Case Study in Embedded Software Development"
+  ],
+  [
+   36,
+   "###### Abstract"
+  ],
+  [
+   40,
+   "###### Keywords:"
+  ],
+  [
+   43,
+   "## 1 Introduction"
+  ],
+  [
+   73,
+   "## 2 Background: Evolution of Software"
+  ],
+  [
+   83,
+   "## 3 Methodology"
+  ],
+  [
+   87,
+   "### 3.1 Data Collection"
+  ],
+  [
+   160,
+   "### 3.2 Data Analysis: Mentimeter Answers"
+  ],
+  [
+   171,
+   "### 3.3 Data Analysis: Open-ended discussion"
+  ],
+  [
+   185,
+   "## 4 Findings"
+  ],
+  [
+   191,
+   "### 4.1 RQ1.1: Which technical, organizational, and human factors are expected to be affected by the transition?"
+  ],
+  [
+   195,
+   "#### Organizational Trends"
+  ],
+  [
+   219,
+   "#### Technical Needs"
+  ],
+  [
+   228,
+   "#### Human Openness and Engagement toward AI"
+  ],
+  [
+   239,
+   "### 4.2 RQ1.2: What challenges should be considered when developing the roadmap for such a transition?"
+  ],
+  [
+   261,
+   "### 4.3 RQ1: How do embedded software development engineers envision the transition to an AI-first organization?"
+  ],
+  [
+   285,
+   "## 5 Limitation"
+  ],
+  [
+   289,
+   "## 6 Discussion"
+  ],
+  [
+   307,
+   "## 7 Threats to Validity"
+  ],
+  [
+   315,
+   "## 8 Conclusion and Future Work"
+  ],
+  [
+   325,
+   "## Acknowledgment"
+  ],
+  [
+   329,
+   "## References"
+  ],
+  [
+   575,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgment\n\nThe Swedish Research Council partially funded this study under grant number 2024-04687.\n\n## References\n\n[1]\nS. M. Abtahi and A. Azim (2025)\n\nSecuring llm-generated embedded firmware through ai agent-driven validation and patching.\n\nIn 2025 IEEE International Conference on Collaborative Advances in Software and COmputiNg (CASCON),\n\nVol. , pp. 210–218.\n\nExternal Links: Document\n\nCited by: §1,\n§6.\n\n[2]\nS. A. Apostolou, J. Bosch, and H. H. Olsson (2026)\n\nAgentic ai in industry: adoption level and deployment barriers.",
+ "limitations": "## 5 Limitation\n\nThe roadmap was developed from a prospective viewpoint of the organization’s vision to become an AI-first organization. This means we can’t validate its applicability until the transformation has occurred. Therefore, the proposed roadmap remains conceptual until the transformation begins.\n\n## 6 Discussion\n\nThe overarching goal of moving towards becoming an AI-first organization is to take advantage of the potential gains in productivity shown when AI-supported tools and AI agents are used in software engineering organizations [5, 7, 16]. However, to achieve this gained productivity, the whole organization needs to adapt [3]. Our proposed roadmap therefore includes actions across three separate factors.\n\nRegarding the Technical Factors, our recommendation to establish a sandbox environment aligns with prior work on LLM-based development in embedded systems to ensure a safe environment for developers to test their implementations [1]. In the context of an embedded software system, such environments are particularly important because agentic AI might interact not only with source code but also with sensitive build systems. Alongside the sandbox environment, there will also be an increase in computational resources needed. The implemented agents can be costly due to the added need for both CPU and GPU resources [4]. Without a scalable infrastructure, agentic workflows might remain local experiments and fragmented across the organization.\n\nThe Human Factors identified in the roadmap point to a second important tension that agentic AI might increase development capacity but also change engineers’ responsibilities. Prior studies highlight the need for targeted training as software engineering roles evolve and AI-based tools become part of everyday work [13]. Our findings extend this argument by showing that in embedded software organizations, competence development should focus on engineers’ ability to evaluate AI-generated outputs in relation to domain constraints and verification. This is especially important because current agentic systems still require human oversight [2]. As AI-generated code and content becomes more common, responsibility for the resulting artifact might become unclear. Previous work emphasizes that developers might feel less accountable for AI-generated content [6]. The roadmap therefore focuses on explicit human-in-the-loop checkpoints and clarified accountability structures.\n\nWhen it comes to Organizational Factors, the roadmap highlights the need for a centralized strategy to define shared frameworks and common metrics. However, a purely centralized AI function might become detached and separated from the rest of the organization. On the other hand, a fully decentralized process might lead to duplicated effort and errors in the intersections between teams. The recommended federated structures address this by combining shared standards with team-level implementation through AI ambassadors, which brings capabilities closer to practical implementations.\n\nSeveral participants warned against interpreting local productivity gains as organizational value. This concern is important in embedded systems, where faster code generation can increase the workload, requiring more reviews or testing further down the production chain. Therefore, the proposed roadmap recommends unified metrics that evaluate impact across the whole development cycle. This perspective aligns with previous studies about the effect of AI agents in software engineering [17, 19].\n\nThe roadmap also supports a gradual and risk-aware adoption of agents. The processes should, as a start, be low-risk activities, such as documentation, pull request support, or failure analysis [17, 14, 13]. The organization should also consider activities with a high manual workload, which could benefit from automation. As the organization matures, more and more complex activities can be considered, and the focus should shift toward focusing on activitie",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 3,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 57,
+  "java": 1,
+  "industrial": 4
+ },
+ "fulltext_source": "html"
+}

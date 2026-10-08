@@ -1,0 +1,227 @@
+{
+ "arxiv_id": "2606.09956",
+ "fulltext_chars": 56113,
+ "fulltext_lines": 1801,
+ "authors_block": "Efficient Inference with Auxiliary Decoding Heads Nikolai Rozanov11 1 This work was partially accomplished at Recurse Ltd., London UK. Affiliation: Department of Computing, Imperial College London, London, UK Correspondence:nikolai.rozanov13@imperial.ac.uk",
+ "vendor_affiliation_hits": [],
+ "n_authors": 1,
+ "comment": "8 pages, 6 pages appendix",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [
+  "https://huggingface.co/Qwen/Qwen2.5-Coder-7B."
+ ],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Multi-task LLMs for Bug Classification:"
+  ],
+  [
+   32,
+   "###### Abstract"
+  ],
+  [
+   36,
+   "## 1 Introduction"
+  ],
+  [
+   57,
+   "## 2 Background and related Work"
+  ],
+  [
+   68,
+   "## 3 Method"
+  ],
+  [
+   74,
+   "### 3.1 Token-line alignment algorithm"
+  ],
+  [
+   82,
+   "### 3.2 Multi-task bug classification head"
+  ],
+  [
+   89,
+   "#### 3.2.1 LLM backbone"
+  ],
+  [
+   96,
+   "#### 3.2.2 Token aggregation"
+  ],
+  [
+   106,
+   "#### 3.2.3 Decoding (classification) head"
+  ],
+  [
+   122,
+   "### 3.3 Training recipe"
+  ],
+  [
+   153,
+   "### 3.4 Summary of method & hyper-parameters"
+  ],
+  [
+   157,
+   "## 4 Experimental setup"
+  ],
+  [
+   159,
+   "### 4.1 Datasets"
+  ],
+  [
+   165,
+   "#### 4.1.1 Function-level predictions and shorter context"
+  ],
+  [
+   174,
+   "### 4.2 Models"
+  ],
+  [
+   180,
+   "### 4.3 Baselines"
+  ],
+  [
+   184,
+   "### 4.4 Metrics"
+  ],
+  [
+   196,
+   "### 4.5 Hardware setup"
+  ],
+  [
+   200,
+   "## 5 Results"
+  ],
+  [
+   204,
+   "### 5.1 Defects4J results"
+  ],
+  [
+   277,
+   "### 5.2 PypiBugs results"
+  ],
+  [
+   338,
+   "### 5.3 Comparison against function-level and shorter context"
+  ],
+  [
+   392,
+   "### 5.4 Summary of results"
+  ],
+  [
+   398,
+   "## 6 Analysis & ablations"
+  ],
+  [
+   402,
+   "### 6.1 Generalization"
+  ],
+  [
+   444,
+   "### 6.2 Analysis of key hyper-parameters"
+  ],
+  [
+   550,
+   "### 6.3 Summary of analysis"
+  ],
+  [
+   555,
+   "## 7 Conclusion"
+  ],
+  [
+   560,
+   "## Limitations"
+  ],
+  [
+   568,
+   "## Ethical considerations"
+  ],
+  [
+   572,
+   "## Acknowledgments"
+  ],
+  [
+   576,
+   "## References"
+  ],
+  [
+   901,
+   "## Appendix A Model hyper-parameters"
+  ],
+  [
+   973,
+   "## Appendix B Token alignment algorithm"
+  ],
+  [
+   1472,
+   "## Appendix C SFT prompt"
+  ],
+  [
+   1538,
+   "## Appendix D Dataset statistics"
+  ],
+  [
+   1565,
+   "## Appendix E Inference settings"
+  ],
+  [
+   1729,
+   "## Appendix F Reproducibility"
+  ],
+  [
+   1747,
+   "## Appendix G Licenses"
+  ],
+  [
+   1751,
+   "### G.1 Dataset"
+  ],
+  [
+   1757,
+   "### G.2 Software"
+  ],
+  [
+   1772,
+   "## Appendix H Annotator instructions"
+  ],
+  [
+   1778,
+   "## Appendix I Impact and risk discussion"
+  ],
+  [
+   1784,
+   "## Appendix J AI usage disclosure"
+  ],
+  [
+   1792,
+   "## Appendix K BugsEval dataset"
+  ],
+  [
+   1797,
+   "## Appendix L Future work"
+  ],
+  [
+   1801,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgments\n\nTo be included in the camera-ready version.\n\n## References\n\nAllamanis et al. (2021)\nM. Allamanis, H. Jackson-Flux, and M. Brockschmidt\n\nSelf-supervised bug detection and repair.\n\nExternal Links: 2105.12787,\nLink\n\nCited by: §G.1,\n§4.1.\n\nAsad et al. (2026)\nM. Asad, R. M. Yasir, and S. Malek\n\nTowards explorative irbl: combining semantic retrieval with llm-driven iterative code exploration.\n\nExternal Links: 2508.00253,\nLink",
+ "limitations": "## Limitations\n\nOur paper proposes a multi-channel LLM that is able to both do the next token prediction as well as bug classification. Multi-channel LLMs can form a powerful new paradigm for future research as a way of efficiently capturing multiple tasks with conflicting distributions, while sharing many parameters for general purpose knowledge. A conference paper as this one is unable to capture a full study of such multi-channel LLMs, therefore one limitation of our paper is that we are unable to provide a comprehensive analysis of what multi-channel LLMs can really do and what their effect is. We believe such a study would be better suited over several works in any case.\n\nAnother limitation of our work, due to practical compute limitations is that we are unable to study much larger LLMs for this particular multi-channel LLM adaptation. This would require a large compute budget which unfortunately we cannot afford. Overall, we expect the efficiency gains to remain as we require a single forward pass only; additionally stronger LLMs will likely have stronger classification performance as well.\n\nFinally, another limitation we identify in our paper is that function-level granularity (i.e. coarser than our study), which is more common with agentic bug identification approaches, requires future work for the study as it requires a different token alignment algorithm that can efficiently capture function boundaries for different programming languages. Therefore, we believe this is an interesting study, yet a study best suited for future work.\n\n## Ethical considerations\n\nDataset privacy we used previously published datasets and public repositories that contain code only and no personally identifiable information.\n\n## Acknowledgments\n\nTo be included in the camera-ready version.\n\n## References\n\nAllamanis et al. (2021)\nM. Allamanis, H. Jackson-Flux, and M. Brockschmidt\n\nSelf-supervised bug detection and repair.\n\nExternal Links: 2105.12787,\nLink\n\nCited by: §G.1,\n§4.1.\n\nAsad et al. (2026)\nM. Asad, R. M. Yasir, and S. Malek\n\nTowards explorative irbl: combining semantic retrieval with llm-driven iterative code exploration.\n\nExternal Links: 2508.00253,\nLink\n\nCited by: §1,\n§2.",
+ "ethics_coi": "## Ethical considerations\n\nDataset privacy we used previously published datasets and public repositories that contain code only and no personally identifiable information.\n\n## Acknowledgments\n\nTo be included in the camera-ready version.\n\n## References\n\nAllamanis et al. (2021)\nM. Allamanis, H. Jackson-Flux, and M. Brockschmidt\n\nSelf-supervised bug detection and repair.\n\nExternal Links: 2105.12787,\nLink\n\nCited by: §G.1,\n§4.1.\n\nAsad et al. (2026)\nM. Asad, R. M. Yasir, and S. Malek\n\nTowards explorative irbl: combining semantic retrieval with llm-driven iterative code exploration.",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 1,
+  "human_study": 0,
+  "java": 3,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

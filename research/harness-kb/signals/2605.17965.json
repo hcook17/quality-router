@@ -1,0 +1,353 @@
+{
+ "arxiv_id": "2605.17965",
+ "fulltext_chars": 160792,
+ "fulltext_lines": 2818,
+ "authors_block": "CCS: Software and its engineering Software maintenance toolsCCS: Software and its engineering Software testing and debuggingCCS: Computing methodologies Natural language processing Md Afif Al Mamun email: afif.mamun@ucalgary.ca Affiliation: University of Calgary, Department of Electrical and Software Engineering, Calgary, Canada and Gias Uddin email: guddin@yorku.ca Affiliation: York University, Department of Electrical Engineering and Computer Science, Toronto, Canada © none",
+ "vendor_affiliation_hits": [],
+ "n_authors": 2,
+ "comment": "Accepted for publication in ACM Transactions on Software Engineering and Methodology (TOSEM)",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/afifaniks/BLAgent."
+ ],
+ "hf_urls": [
+  "https://huggingface.co/nomic-ai/nomic-embed-text-v1"
+ ],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# BLAgent: Agentic RAG for File-Level Bug LocalizationNote: Accepted for publication in ACM Transactions on Software Engineering and Methodology (TOSEM)."
+  ],
+  [
+   39,
+   "###### Abstract."
+  ],
+  [
+   43,
+   "###### Keywords:"
+  ],
+  [
+   46,
+   "## 1. Introduction"
+  ],
+  [
+   74,
+   "## 2. BLAgent Methodology"
+  ],
+  [
+   96,
+   "### 2.1. Repository Encoding"
+  ],
+  [
+   245,
+   "### 2.2. Query Transformation"
+  ],
+  [
+   265,
+   "### Example"
+  ],
+  [
+   312,
+   "### Example"
+  ],
+  [
+   330,
+   "### 2.3. Candidate File Retrieval"
+  ],
+  [
+   351,
+   "### 2.4. Agentic Reranking"
+  ],
+  [
+   486,
+   "## 3. Accuracy Assessment of Bug Localization in BLAgent (RQ1)"
+  ],
+  [
+   526,
+   "### 3.1. Experimental Setup"
+  ],
+  [
+   528,
+   "#### 3.1.1. Localization Baselines."
+  ],
+  [
+   534,
+   "#### 3.1.2. Evaluation Metrics"
+  ],
+  [
+   556,
+   "#### 3.1.3. Dataset"
+  ],
+  [
+   560,
+   "#### 3.1.4. Large Language Models."
+  ],
+  [
+   567,
+   "#### 3.1.5. Embedding Model."
+  ],
+  [
+   575,
+   "#### 3.1.6. System Configuration"
+  ],
+  [
+   579,
+   "### 3.2. RQ1.1 Can BLAgent outperform state-of-the-art baselines?"
+  ],
+  [
+   581,
+   "#### 3.2.1. Approach."
+  ],
+  [
+   686,
+   "#### 3.2.2. Results"
+  ],
+  [
+   698,
+   "#### 3.2.3. Discussion"
+  ],
+  [
+   757,
+   "### 3.3. RQ1.2 How do different retrieval and RAG configurations influence file-level localization accuracy?"
+  ],
+  [
+   761,
+   "#### 3.3.1. Approach."
+  ],
+  [
+   881,
+   "#### 3.3.2. Results."
+  ],
+  [
+   893,
+   "#### 3.3.3. Discussion."
+  ],
+  [
+   910,
+   "### 3.4. RQ1.3 Can agentic reranking improve over traditional RAG?"
+  ],
+  [
+   912,
+   "#### 3.4.1. Approach."
+  ],
+  [
+   953,
+   "#### 3.4.2. Results."
+  ],
+  [
+   957,
+   "#### 3.4.3. Discussion."
+  ],
+  [
+   963,
+   "### 3.5. RQ1.4 Can query transformation further improve localization effectiveness?"
+  ],
+  [
+   965,
+   "#### 3.5.1. Approach."
+  ],
+  [
+   969,
+   "#### 3.5.2. Results."
+  ],
+  [
+   1067,
+   "#### 3.5.3. Discussion."
+  ],
+  [
+   1095,
+   "### 3.6. RQ1.5 Does the choice of LLM variant affect the performance of the agent?"
+  ],
+  [
+   1097,
+   "#### 3.6.1. Approach."
+  ],
+  [
+   1106,
+   "#Parameters"
+  ],
+  [
+   1162,
+   "#### 3.6.2. Results."
+  ],
+  [
+   1168,
+   "#### 3.6.3. Discussion."
+  ],
+  [
+   1176,
+   "### 3.7. RQ1.6 Can BLAgent be extended to function-level localization?"
+  ],
+  [
+   1232,
+   "#### 3.7.1. Approach."
+  ],
+  [
+   1236,
+   "#### 3.7.2. Results."
+  ],
+  [
+   1291,
+   "#### 3.7.3. Discussion."
+  ],
+  [
+   1299,
+   "## 4. Impact Assessment of BLAgent Bug Location on Automated Bug Repair (RQ2)"
+  ],
+  [
+   1315,
+   "### 4.1. Experimental Setup"
+  ],
+  [
+   1317,
+   "#### 4.1.1. Agentless APR Framework."
+  ],
+  [
+   1325,
+   "#### 4.1.2. Evaluation Metrics"
+  ],
+  [
+   1335,
+   "### 4.2. RQ2.1 Does localizing with BLAgent improve program repair?"
+  ],
+  [
+   1337,
+   "#### 4.2.1. Approach."
+  ],
+  [
+   1346,
+   "#Instances"
+  ],
+  [
+   1347,
+   "#Resolved"
+  ],
+  [
+   1384,
+   "#### 4.2.2. Results."
+  ],
+  [
+   1400,
+   "#### 4.2.3. Discussion."
+  ],
+  [
+   1429,
+   "### 4.3. RQ2.2 At which stage does the repair process fail even with correct localization?"
+  ],
+  [
+   1431,
+   "#### 4.3.1. Approach."
+  ],
+  [
+   1465,
+   "#### 4.3.2. Results."
+  ],
+  [
+   1643,
+   "#### 4.3.3. Discussion."
+  ],
+  [
+   1777,
+   "## 5. Impact of Key Design Decisions in BLAgent"
+  ],
+  [
+   1779,
+   "### 5.1. Cost Analysis"
+  ],
+  [
+   1835,
+   "### 5.2. ReAct Agents for Iterative Reasoning"
+  ],
+  [
+   1843,
+   "### 5.3. Code Skeletons for Efficient Context Management"
+  ],
+  [
+   1853,
+   "### 5.4. Query Transformation for Retrieval in Agentic Pipeline"
+  ],
+  [
+   1861,
+   "### 5.5. Effect of Context Size on EAR Performance"
+  ],
+  [
+   1867,
+   "#Files"
+  ],
+  [
+   1868,
+   "#Chunks"
+  ],
+  [
+   1871,
+   "#Prompt Tokens"
+  ],
+  [
+   1901,
+   "## 6. Recommendations"
+  ],
+  [
+   1905,
+   "### 6.1. Theme 1. Retrieval Quality and Pipeline Architecture"
+  ],
+  [
+   2001,
+   "### 6.2. Theme 2. Hierarchical Localization and Fine-Grained Reasoning"
+  ],
+  [
+   2009,
+   "### 6.3. Theme 3. Practical Utility"
+  ],
+  [
+   2021,
+   "## 7. Threats to Validity"
+  ],
+  [
+   2029,
+   "## 8. Related Work"
+  ],
+  [
+   2033,
+   "### 8.1. Bug Localization"
+  ],
+  [
+   2051,
+   "### 8.2. Automated Program Repair"
+  ],
+  [
+   2057,
+   "## 9. Conclusion & Future Work"
+  ],
+  [
+   2063,
+   "## 10. Data Availability"
+  ],
+  [
+   2067,
+   "## References"
+  ],
+  [
+   2818,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 7. Threats to Validity\n\nInternal Validity.\nInternal validity concerns whether the observed improvements can be confidently attributed to the proposed agentic RAG framework rather than uncontrolled factors. To mitigate potential confounding effects, we maintained consistent experimental conditions across all pipelines, including identical retrieval databases, model configurations, and prompt templates. The ReAct agent’s reasoning cycles were constrained by a fixed step limit and identical prompting protocol to improve reproducibility. Nevertheless, since LLM inference remains stochastic under the selected temperature settings, intermediate reasoning behaviors may vary across runs. Future work could further reduce this variance by incorporating repeated trials and statistical aggregation of results.\n\nExternal Validity.\nOur evaluation relied primarily on the SWE-bench-Lite benchmark, which, while representative of Python-based GitHub projects and issues, may not fully reflect the diversity of industrial-scale software development. Projects with highly domain-specific APIs, sparse documentation, or unconventional code organization could produce different outcomes. Moreover, the agent’s effectiveness was assessed under specific model and retrieval settings (e.g., medium-sized LLMs with static retrieval backends). Extending the evaluation to other programming languages, larger repositories, and alternative retrieval or agent architectures would enhance the generalizability of our findings. Furthermore, our evaluation uses APR as a representative downstream task. While APR provides an objective and scalable setting, bug localization is also used in developer-centric tasks such as debugging and root-cause analysis, where evaluation typically requires user studies. Thus, our findings may not fully generalize to all usage scenarios. We leave broader evaluations as future work.\n\n## 8. Related Work\n\nOur work bridges two active research areas: bug localization and automated program repair, with a particular emphasis on leveraging retrieval-augmented generation and agentic reasoning for repository-level bug localization. We review representative work in these areas and position our contributions.\n\n### 8.1. Bug Localization\n\nBug localization techniques aim to identify buggy code locations to assist debugging. These approaches can be categorized into spectrum-based, information retrieval-based, and learning-based methods.\n\nSpectrum-Based Fault Localization (SBFL).\nSBFL techniques (Wong et al., 2016; Jones et al., 2002; Abreu et al., 2007) leverage program execution spectra—coverage information collected from passing and failing test cases—to compute a suspiciousness score for each program entity. Classic formulas such as Tarantula (Jones et al., 2002), Ochiai (Abreu et al., 2007), and Dstar (Wong et al., 2013) quantify the likelihood that a statement or function is faulty. To improve on these traditional methods, Zhang et al. (Zhang et al., 2019) proposed PRFL, which incorporates a PageRank-based reweighting mechanism to better capture the relative contribution of individual tests, achieving notable accuracy gains over conventional SBFL formulations.\n\nInformation Retrieval (IR)-Based Localization.\nIR-based approaches (Zhou et al., 2012; Saha et al., 2013; Lam et al., 2017; Wang and Lo, 2014; Wang et al., 2015) model localization as a retrieval problem, ranking source files according to their textual similarity to bug reports. BugLocator (Zhou et al., 2012) pioneered this direction by introducing a revised Vector Space Model (rVSM) that integrates historical bug-fix information to enhance ranking. Subsequent work, such as Pathidea (Chen et al., 2021), augmented IR-based retrieval with execution path reconstruction from log data, demonstrating that runtime information can significantly complement textual similarity in identifying faulty files.\n\nLearning-Based Localization.\nMore recently, deep learning methods have become increasingly prevale",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 4,
+  "seeds_or_runs": 0,
+  "swe_bench": 27,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 2,
+  "industrial": 2
+ },
+ "fulltext_source": "html"
+}

@@ -1,0 +1,177 @@
+{
+ "arxiv_id": "2605.21943",
+ "fulltext_chars": 67578,
+ "fulltext_lines": 1360,
+ "authors_block": "Najam Nazar Christoph Treude",
+ "vendor_affiliation_hits": [],
+ "n_authors": 2,
+ "comment": "20 pages, 1 figure, 8 Tables, ESEM conference",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   23,
+   "# Deterministic vs. Probabilistic Summarisation: An Empirical Trade-off Study in Design Pattern Centric Java Code"
+  ],
+  [
+   29,
+   "###### Abstract"
+  ],
+  [
+   41,
+   "###### ccs"
+  ],
+  [
+   44,
+   "###### ccs"
+  ],
+  [
+   47,
+   "###### keywords"
+  ],
+  [
+   52,
+   "## 1 Introduction"
+  ],
+  [
+   84,
+   "## 2 Related Work"
+  ],
+  [
+   88,
+   "### 2.1 Large Language Models (LLMs) for Code Summarisation"
+  ],
+  [
+   94,
+   "### 2.2 Design Pattern-Oriented Summarisation"
+  ],
+  [
+   103,
+   "### 2.3 Our Contribution"
+  ],
+  [
+   107,
+   "## 3 Research Questions"
+  ],
+  [
+   133,
+   "## 4 Methodology & Approach"
+  ],
+  [
+   135,
+   "### 4.1 Corpus"
+  ],
+  [
+   173,
+   "### 4.2 DPS"
+  ],
+  [
+   177,
+   "#### 4.2.1 SWUM driven DPS Summarisation"
+  ],
+  [
+   183,
+   "#### 4.2.2 LLM driven DPS Summarisation"
+  ],
+  [
+   203,
+   "## 5 Results and Evaluation"
+  ],
+  [
+   207,
+   "### 5.1 RQ1: How do deterministic and probabilistic approaches compare for intent-oriented, design-pattern-centric code summarisation?"
+  ],
+  [
+   264,
+   "### 5.2 RQ2: What trade-offs emerge between conciseness and semantic quality when using probabilistic summarisation approaches for design-pattern-centric code artefacts?"
+  ],
+  [
+   320,
+   "#### 5.2.1 LLM Judge Consistency Analysis"
+  ],
+  [
+   325,
+   "### 5.3 RQ3: Do the observed trade-offs between deterministic and probabilistic summarisation approaches vary across different software design patterns?"
+  ],
+  [
+   630,
+   "### 5.4 RQ4: How stable are probabilistic summaries compared to deterministic ones when summarising design-pattern-centric code artefacts?"
+  ],
+  [
+   767,
+   "## 6 Implications"
+  ],
+  [
+   771,
+   "##### Implications for tool builders"
+  ],
+  [
+   777,
+   "##### Implications for researchers studying code summarisation"
+  ],
+  [
+   783,
+   "##### Implications for evaluation and benchmarking practices"
+  ],
+  [
+   789,
+   "##### Implications for hybrid and adaptive summarisation strategies"
+  ],
+  [
+   793,
+   "## 7 Threats to Validity"
+  ],
+  [
+   797,
+   "##### Internal Validity"
+  ],
+  [
+   803,
+   "##### Construct Validity"
+  ],
+  [
+   809,
+   "##### Conclusion Validity"
+  ],
+  [
+   813,
+   "##### External Validity"
+  ],
+  [
+   819,
+   "## 8 Conclusion & Future Direction"
+  ],
+  [
+   825,
+   "## 9 Data Availability"
+  ],
+  [
+   851,
+   "## References"
+  ],
+  [
+   1360,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 7 Threats to Validity\n\nThis study is subject to several threats to validity, which we discuss below.\n\n##### Internal Validity\n\nAlthough DPS_NLG, DPS_SWUM, and DPS_LLM share identical preprocessing and pattern identification steps, they differ in how summaries are generated. Variations in rule sets, linguistic realisers, and prompt wording may therefore introduce confounds that are not strictly attributable to the intended distinction between deterministic and probabilistic summarisation paradigms. In addition, although the LLM is configured with temperature set to zero and fixed token limits, the absence of a controllable random seed and external factors such as API behaviour, infrastructure-level variation, or unannounced model updates may affect exact surface-level reproducibility. Prompt design itself is another potential confound: alternative prompt formulations, role instructions, or length constraints could lead to different trade-offs in LLM-based summarisation.\n\nA further internal validity concern arises from our use of an LLM as an automated evaluator. Although randomising summary labels (A/B/C) reduces direct bias toward specific methods, the rubric-based judge (Llama 3) may encode stylistic or structural preferences that systematically favour certain forms of expression. As a result, rankings may partially reflect alignment with the judge’s implicit norms rather than purely objective summary quality.\n\n##### Construct Validity\n\nWe operationalise semantic quality using BERTScore, Cosine Similarity, and LLM-assisted rubric rankings. While these measures are widely adopted in prior work, they remain proxies for human judgement and may not fully capture developer-perceived usefulness or task-specific effectiveness in real maintenance or comprehension scenarios. Human-written reference summaries are treated as the gold standard, yet these references may vary in style, level of abstraction, or completeness across repositories, which can influence similarity-based metrics.\n\nConstruct validity is further affected by the subjectivity of rubric criteria such as adequacy and code context awareness. Even when applied consistently, these constructs are inherently interpretive. Using an LLM as a judge improves scalability and consistency but does not eliminate ambiguity in how these concepts are operationalised, reinforcing the need to interpret rubric-based results as comparative rather than absolute assessments.\n\n##### Conclusion Validity\n\nAlthough we use statistical tests for the main comparisons, the interpretation of practical significance remains sensitive to corpus composition, metric choice, and evaluator configuration. Repeated LLM runs demonstrate stable mean behaviour, yet rare outliers or failure cases may not be fully reflected in aggregate statistics. In addition, while the reported trade-offs hold across the examined configurations, alternative model sizes, decoding strategies, or future LLM versions could alter the balance between semantic quality, conciseness, and stability.\n\n##### External Validity\n\nThe evaluation corpus consists of 150 Java files drawn from two educational and one commercial open-source repository. Results may not generalise to other programming languages, paradigms, or large-scale industrial systems with deeper architectural layering. Only nine common design patterns are included; less common patterns, pattern variants, or classes participating in multiple interacting patterns may exhibit different summarisation behaviour.\n\nFinally, the DPS framework relies on JavaParser, SimpleNLG, and a Java-based SWUM implementation. Porting the approach to other ecosystems or tooling stacks may affect both determinism and output quality. More broadly, our findings reflect current LLM capabilities and deployment practices; changes in model architectures, training data, or API behaviour may influence future reproducibility and performance.\n\n## 8 Conclusion & Future Direction\n\nThis paper presented a control",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 1,
+  "p_value_or_ci": 5,
+  "seeds_or_runs": 1,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 22,
+  "industrial": 4
+ },
+ "fulltext_source": "html"
+}

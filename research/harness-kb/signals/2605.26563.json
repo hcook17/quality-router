@@ -1,0 +1,243 @@
+{
+ "arxiv_id": "2605.26563",
+ "fulltext_chars": 67686,
+ "fulltext_lines": 1284,
+ "authors_block": "1st Minxing Wang Affiliation: Singapore Management University Singapore, Singapore mx.wang.2026@phdcs.smu.edu.sg 2nd Xiaofei Xie Affiliation: Singapore Management University Singapore, Singapore xfxie@smu.edu.sg 3rd Yintong Huo Affiliation: Singapore Management University Singapore, Singapore ythuo@smu.edu.sg",
+ "vendor_affiliation_hits": [],
+ "n_authors": 3,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/LogAnalysisTech/TrajAudit."
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# TrajAudit: Automated Failure Diagnosis for Agentic Coding Systems"
+  ],
+  [
+   46,
+   "###### Abstract"
+  ],
+  [
+   52,
+   "###### Index Terms:"
+  ],
+  [
+   55,
+   "## I Introduction"
+  ],
+  [
+   98,
+   "## II Preliminaries"
+  ],
+  [
+   102,
+   "### II-A Execution Trajectory"
+  ],
+  [
+   112,
+   "### II-B Failure Diagnosis"
+  ],
+  [
+   118,
+   "## III Related Work"
+  ],
+  [
+   120,
+   "### III-A Failure Diagnosis Methods"
+  ],
+  [
+   122,
+   "#### III-A1 LLM-based"
+  ],
+  [
+   127,
+   "#### III-A2 Spectrum-based"
+  ],
+  [
+   133,
+   "#### III-A3 Learning-based"
+  ],
+  [
+   137,
+   "### III-B Failure Diagnosis Benchmarks for Agentic Systems"
+  ],
+  [
+   142,
+   "## IV The RootSE Benchmark"
+  ],
+  [
+   154,
+   "### IV-A Task Description"
+  ],
+  [
+   162,
+   "### IV-B Data Collection"
+  ],
+  [
+   164,
+   "#### IV-B1 Agentic System Selection"
+  ],
+  [
+   170,
+   "#### IV-B2 Task Selection"
+  ],
+  [
+   174,
+   "#### IV-B3 Trajectory Generation"
+  ],
+  [
+   180,
+   "### IV-C Annotation Procedure"
+  ],
+  [
+   205,
+   "### IV-D Benchmark Analysis"
+  ],
+  [
+   209,
+   "#### IV-D1 Failure Phase Distribution Analysis"
+  ],
+  [
+   216,
+   "#### IV-D2 Complexity and Diversity Analysis"
+  ],
+  [
+   230,
+   "#Task Desc. Chars"
+  ],
+  [
+   234,
+   "#Steps"
+  ],
+  [
+   238,
+   "#Chars per Step"
+  ],
+  [
+   248,
+   "## V TrajAudit Methodology"
+  ],
+  [
+   250,
+   "### V-A Overview"
+  ],
+  [
+   256,
+   "### V-B Prior Failure Reasoning"
+  ],
+  [
+   263,
+   "### V-C Semantic Saliency Folding"
+  ],
+  [
+   304,
+   "### V-D Investigator Agent"
+  ],
+  [
+   312,
+   "## VI Experimental Setup"
+  ],
+  [
+   332,
+   "### VI-A Dataset"
+  ],
+  [
+   336,
+   "### VI-B Baselines"
+  ],
+  [
+   344,
+   "### VI-C Evaluation Settings"
+  ],
+  [
+   350,
+   "### VI-D Metrics"
+  ],
+  [
+   354,
+   "### VI-E Implementation Details"
+  ],
+  [
+   361,
+   "## VII Evaluation"
+  ],
+  [
+   363,
+   "### VII-A RQ1. How effective is TrajAudit?"
+  ],
+  [
+   367,
+   "#### VII-A1 Exact Step-level Accuracy"
+  ],
+  [
+   446,
+   "#### VII-A2 Tolerated Step-level Accuracy"
+  ],
+  [
+   498,
+   "#### VII-A3 Performance across Varying Trajectory Lengths"
+  ],
+  [
+   504,
+   "#### VII-A4 Justification Accuracy"
+  ],
+  [
+   523,
+   "### VII-B RQ2. How does TrajAudit balance localization effectiveness and token cost compared with baselines?"
+  ],
+  [
+   532,
+   "### VII-C RQ3. How robust is TrajAudit across different backbones?"
+  ],
+  [
+   582,
+   "### VII-D RQ4. How does each component contribute to TrajAudit?"
+  ],
+  [
+   634,
+   "## VIII TrajAudit Error Analysis"
+  ],
+  [
+   644,
+   "## IX Threats to Validity"
+  ],
+  [
+   650,
+   "## X Conclusion"
+  ],
+  [
+   654,
+   "## Data Availability"
+  ],
+  [
+   658,
+   "## References"
+  ],
+  [
+   1284,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## IX Threats to Validity\n\nInternal validity. The main internal threats concern annotation reliability and the nondeterminism of LLM-based methods. We mitigate annotation subjectivity by using a unified guideline, independent annotation by two annotators, and arbitration by a third validator. For LLM-based methods and evaluators, we set the temperature to 0 across all experiments to reduce sampling variance.\n\nExternal validity. The main external threat concerns generalizability. First, RootSE contains 102 instances filtered from 500 trajectories, excluding cases primarily attributable to external factors such as ambiguous task descriptions. This filtering improves annotation reliability and aligns with our focus on agent reasoning and action failures, but may bias the dataset away from failures caused by task ambiguity or other external conditions. Second, RootSE currently covers bug fixing and feature implementation tasks, and does not include other repository-level coding tasks such as test case generation [50], which may limit the generalizability of our findings. At the same time, RootSE is comparable in scale to related benchmarks, including Who&When [20] with 184 instances and the study by Bouzenia et al. [19] with 120 trajectories. Future work will extend the benchmark to broader task types and failure sources.\n\n## X Conclusion\n\nIn this paper, we present TrajAudit, an automated failure diagnosis framework for repository-level coding agentic trajectories. By combining semantic saliency folding with prior failure reasoning, TrajAudit filters irrelevant context and guides an investigator agent toward likely causal steps in noisy trajectories. We also construct RootSE, a benchmark of 102 failed repository-level coding task trajectories with step-level earliest-error annotations. Experimental results demonstrate that TrajAudit consistently outperforms all baselines on RootSE, demonstrating its effectiveness.\n\n## Data Availability\n\nThe complete RootSE benchmark, the TrajAudit implementation, and all artifacts required to reproduce the reported results are publicly available at: https://github.com/LogAnalysisTech/TrajAudit.\n\n## References\n\n[1]\nS. V. Albrecht and P. Stone (2018)\n\nAutonomous agents modelling other agents: a comprehensive survey and open problems.\n\nArtificial Intelligence 258, pp. 66–95.\n\nExternal Links: ISSN 0004-3702,\nDocument,\nLink\n\nCited by: §I.\n\n[2]\nS. Franklin and A. Graesser (1996)\n\nIs it an agent, or just a program? a taxonomy for autonomous agents.\n\nIn Proceedings of the Workshop on Intelligent Agents III, Agent Theories, Architectures, and Languages,\n\nECAI ’96, Berlin, Heidelberg, pp. 21–35.\n\nExternal Links: ISBN 3540625070",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 3,
+  "p_value_or_ci": 2,
+  "seeds_or_runs": 0,
+  "swe_bench": 8,
+  "contamination": 2,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

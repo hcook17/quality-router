@@ -1,0 +1,129 @@
+{
+ "arxiv_id": "2606.12425",
+ "fulltext_chars": 41876,
+ "fulltext_lines": 589,
+ "authors_block": "Muntasir Hoq Affiliation: North Carolina State University, Raleigh, NC, USA E-mail {mhoq, wgpitts, bwmott, sylee, jvanden2, sjiao2, lester, bakram}@ncsu.edu Griffin Pitts Affiliation: North Carolina State University, Raleigh, NC, USA E-mail {mhoq, wgpitts, bwmott, sylee, jvanden2, sjiao2, lester, bakram}@ncsu.edu Bradford Mott Affiliation: North Carolina State University, Raleigh, NC, USA E-mail {mhoq, wgpitts, bwmott, sylee, jvanden2, sjiao2, lester, bakram}@ncsu.edu Seung Lee Affiliation: North Carolina State University, Raleigh, NC, USA E-mail {mhoq, wgpitts, bwmott, sylee, jvanden2, sjiao2, lester, bakram}@ncsu.edu Jessica Vandenberg Affiliation: North Carolina State University, Raleigh, NC, USA E-mail {mhoq, wgpitts, bwmott, sylee, jvanden2, sjiao2, lester, bakram}@ncsu.edu Shuyin Jiao Affiliation: North Carolina State University, Raleigh, NC, USA E-mail {mhoq, wgpitts, bwmott, sylee, jvanden2, sjiao2, lester, bakram}@ncsu.edu Narges Norouzi Affiliation: University of California, Berkeley, CA, USA E-mail norouzi@berkeley.edu James Lester Affiliation: North Carolina State University, Raleigh, NC, USA E-mail {mhoq, wgpitts, bwmott, sylee, jvanden2, sjiao2, lester, bakram}@ncsu.edu Bita Akram Affiliation: North Carolina State University, Raleigh, NC, USA E-mail {mhoq, wgpitts, bwmott, sylee, jvanden2, sjiao2, lester, bakram}@ncsu.edu",
+ "vendor_affiliation_hits": [],
+ "n_authors": 9,
+ "comment": "Full paper accepted to the 27th International Conference on AI in Education (AIED 2026)",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# An Explainable AI Assistant for Introductory Programming Education: Improving Feedback Reliability with Instructor-AI Collaboration"
+  ],
+  [
+   76,
+   "###### Abstract"
+  ],
+  [
+   80,
+   "###### Keywords:"
+  ],
+  [
+   83,
+   "## 1 Introduction"
+  ],
+  [
+   108,
+   "## 2 Related Work"
+  ],
+  [
+   114,
+   "## 3 INSIGHT Classroom Assistant"
+  ],
+  [
+   126,
+   "## 4 Feedback Framework and Offline Evaluation"
+  ],
+  [
+   132,
+   "### 4.1 Dataset"
+  ],
+  [
+   136,
+   "### 4.2 Model Preparation"
+  ],
+  [
+   138,
+   "#### Subtree-based Attention Neural Network (SANN)."
+  ],
+  [
+   142,
+   "#### Model Training."
+  ],
+  [
+   187,
+   "### 4.3 Error Localization"
+  ],
+  [
+   191,
+   "### 4.4 Feedback Selection"
+  ],
+  [
+   197,
+   "#### Feedback Selection Performance."
+  ],
+  [
+   211,
+   "#### Explainability of Feedback Propagation."
+  ],
+  [
+   217,
+   "## 5 Classroom Deployment"
+  ],
+  [
+   221,
+   "### 5.1 Student Perceptions"
+  ],
+  [
+   229,
+   "### 5.2 Comparison with GPT-generated Feedback"
+  ],
+  [
+   237,
+   "## 6 Discussion"
+  ],
+  [
+   245,
+   "## 7 Limitations and Future Work"
+  ],
+  [
+   253,
+   "## 8 Conclusion"
+  ],
+  [
+   257,
+   "#### Acknowledgements"
+  ],
+  [
+   261,
+   "## References"
+  ],
+  [
+   589,
+   "##"
+  ]
+ ],
+ "acknowledgments": "#### Acknowledgements\n\nThis research was supported by the National Science Foundation (NSF) under Grants DUE-2236195 and DUE-2331965. Any opinions, findings, and conclusions expressed in this material are those of the authors and do not necessarily reflect the views of the NSF.\n\n## References\n\n[1]\nB. Akram, W. Min, E. Wiebe, B. Mott, K. E. Boyer, and J. Lester (2019)\n\nAssessing middle school students’ computational thinking through programming trajectory analysis.\n\nIn Proceedings of the 50th ACM technical symposium on Computer science education,\n\npp. 1269–1269.\n\nCited by: §6.\n\n[2]\nJ. R. Anderson, F. G. Conrad, and A. T. Corbett (1989)\n\nSkill acquisition and the lisp tutor.\n\nCognitive Science 13 (4), pp. 467–505.\n\nCited by: §7.",
+ "limitations": "## 7 Limitations and Future Work\n\nThe work has several limitations and important directions for future research. First, the effectiveness of the feedback-matching mechanism depends strongly on the quality and coverage of instructor-authored incorrect solutions, creating a trade-off between instructor authoring time and comprehensive coverage of logical errors in students’ code. Our initial interviews have revealed instructors’ enthusiasm regarding engaging with Insight to reinforce their key instructional points. A promising direction for future work is therefore to incorporate LLM-based feedback generation specifically for uncovered errors. Following this approach, instructors can spend less time ensuring the most critical misconceptions are reliably covered through instructor-verified feedback, while other errors in students’ code are covered by an LLM. Instructors verify unseen error patterns and LLM-generated feedback ad hoc and add them to the repository of verified feedback, thereby expanding coverage while preserving instructional control.\n\nSecond, our current framework sometimes struggles to identify all issues present in a submission (completeness). Our preliminary analysis showed that once the identified issues are addressed, the system can successfully recall the remaining issues. Future work should include a formal evaluation of the system’s ability to retrieve all instructor-identified errors sequentially. It is important to note that sequential, step-by-step, and immediate feedback could support cognitive load management [2]. Thus, future work will also include studying whether iteratively addressing errors, one at a time, can improve learning outcomes compared to addressing all issues simultaneously.\n\nFinally, during classroom deployment, while the system matched identified logical errors to instructor-verified feedback, code with runtime or uncovered errors received a generic message prompting students to ask the teaching staff for help. We hypothesize that these “no-feedback” cases negatively affected students’ reported perceptions of the feedback usability and specificity. Given this limitation, the overall positive perception of students on the AI engine’s feedback shows much promise. Furthermore, our current classroom evidence is limited to a single exercise. Future work will involve larger-scale empirical classroom studies to evaluate learning gains, behavioral outcomes, and longer-term usability associated with receiving AI-assisted, instructor-verified feedback. This will ensure that the system is not only technically reliable but also pedagogically impactful.\n\n## 8 Conclusion\n\nThis paper has presented a novel student programming feedback framework that combines explainable AI models, LLMs, and instructor expertise to deliver scalable, explainable, and reliable feedback on student programming submissions. By fine-tuning a pretrained model on synthetic data for unseen problems, incorporating LLM-based verification, and centering instructor-identified misconceptions as focal instructional points, the framework supports trustworthy feedback during active learning sessions even in the absence of historical student data. Our evaluation demonstrated the effectiveness of this approach in predicting program correctness and propagating appropriate feedback and an overall positive perception from students in a preliminary classroom implementation. This work lays a foundation for future AI-assisted feedback systems that balance scalability with instructional control and transparency.\n\n#### Acknowledgements\n\nThis research was supported by the National Science Foundation (NSF) under Grants DUE-2236195 and DUE-2331965. Any opinions, findings, and conclusions expressed in this material are those of the authors and do not necessarily reflect the views of the NSF.\n\n## References\n\n[1]\nB. Akram, W. Min, E. Wiebe, B. Mott, K. E. Boyer, and J. Lester (2019)\n\nAssessing middle school students’ computational thinking through pr",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 1,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 2,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

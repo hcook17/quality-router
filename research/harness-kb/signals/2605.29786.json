@@ -1,0 +1,517 @@
+{
+ "arxiv_id": "2605.29786",
+ "fulltext_chars": 120453,
+ "fulltext_lines": 3474,
+ "authors_block": "Omar Benjelloun ††thanks: Authors listed in alphabetical order. Corresponding author: benjello@google.com Affiliation: Google DeepMind, Paris, France Leonardo Martins Bianco Affiliation: Google DeepMind, Paris, France Isabelle Guyon Affiliation: Google DeepMind, Paris, France Affiliation: ChaLearn, CA, USA Thanh Gia Hieu Khuong Affiliation: Université Paris-Saclay, Gif-sur-Yvette, France Jonathan Lebensold Affiliation: Jetty, Montreal, QC, Canada Affiliation: Mila, Quebec AI Institute, Montreal, QC, Canada Sebastian Lobentanzer Affiliation: Inst. of Computational Biology, Helmholtz Munich, Germany Affiliation: German Center for Diabetes Research, Munich, Germany Affiliation: School of CIT, TUM, Munich, Germany Affiliation: Helmholtz AI, Munich, Germany Luis Oala Affiliation: Brickroad, New York, NY, USA Benedictus Kent Rachmat Affiliation: Université Paris-Saclay, Gif-sur-Yvette, France Ihsan Ullah Affiliation: ChaLearn, CA, USA Peyman Vahidi Affiliation: Inst. of Computational Biology, Helmholtz Munich, Germany Affiliation: German Center for Diabetes Research, Munich, Germany Affiliation: School of CIT, TUM, Munich, Germany Joaquin Vanschoren Affiliation: Eindhoven Univ. of Technology, Eindhoven, The Netherlands",
+ "vendor_affiliation_hits": [
+  "DeepMind",
+  "Google"
+ ],
+ "n_authors": 11,
+ "comment": "10 pages, 4 figures",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/mlcommons/croissant",
+  "https://github.com/open-compass/opencompass"
+ ],
+ "hf_urls": [
+  "https://huggingface.co/datasets/cais"
+ ],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Croissant Tasks: A Metadata Format for Reproducible Machine Learning Evaluations"
+  ],
+  [
+   80,
+   "###### Abstract"
+  ],
+  [
+   86,
+   "## 1 Introduction"
+  ],
+  [
+   172,
+   "## 2 Related Work"
+  ],
+  [
+   174,
+   "##### Technical replication vs. conceptual reproducibility."
+  ],
+  [
+   178,
+   "##### Sources of irreproducibility."
+  ],
+  [
+   182,
+   "##### Documentation artifacts: cards, checklists, and READMEs."
+  ],
+  [
+   186,
+   "##### Workflow languages and experiment tooling."
+  ],
+  [
+   192,
+   "##### Benchmarking platforms and leaderboards."
+  ],
+  [
+   198,
+   "## 3 The Croissant Tasks Vocabulary"
+  ],
+  [
+   202,
+   "### 3.1 Core Concepts and JSON-LD Representation"
+  ],
+  [
+   230,
+   "#### 3.1.1 A Concrete Example: The MMLU Task"
+  ],
+  [
+   382,
+   "### 3.2 Decoupling Problems and Solutions"
+  ],
+  [
+   436,
+   "##### MMLU as a TaskProblem."
+  ],
+  [
+   440,
+   "##### Corresponding TaskSolution."
+  ],
+  [
+   900,
+   "## 4 Empirical Validation"
+  ],
+  [
+   934,
+   "### 4.1 Expressivity and Automated Extraction of Croissant Tasks Files"
+  ],
+  [
+   962,
+   "### 4.2 Agentic Code Generation for Automated Reproduction"
+  ],
+  [
+   1002,
+   "## 5 Discussion and Future Work"
+  ],
+  [
+   1004,
+   "### 5.1 Other Benefits of Croissant Tasks"
+  ],
+  [
+   1008,
+   "##### Interoperability."
+  ],
+  [
+   1012,
+   "##### Evolution and Reuse."
+  ],
+  [
+   1016,
+   "##### Discoverability."
+  ],
+  [
+   1020,
+   "### 5.2 Limitations and Challenges"
+  ],
+  [
+   1024,
+   "##### Adoption and Ease of Use."
+  ],
+  [
+   1028,
+   "##### Fidelity and Quality of Metadata."
+  ],
+  [
+   1032,
+   "##### Generalization and the Vision of Reproducible Science."
+  ],
+  [
+   1036,
+   "## 6 Conclusion"
+  ],
+  [
+   1040,
+   "## References"
+  ],
+  [
+   1497,
+   "## Appendix A Croissant Tasks Turtle Schema"
+  ],
+  [
+   1511,
+   "# Top-level classes"
+  ],
+  [
+   1551,
+   "# Task properties"
+  ],
+  [
+   1613,
+   "# Evaluation properties"
+  ],
+  [
+   1665,
+   "# Reusing schema:isBasedOn to link a TaskSolution or EvaluationTask to the TaskProblem it addresses."
+  ],
+  [
+   1673,
+   "# Spec Classes"
+  ],
+  [
+   1711,
+   "# Spec properties"
+  ],
+  [
+   1743,
+   "# Test Classes"
+  ],
+  [
+   1751,
+   "# Test properties"
+  ],
+  [
+   1763,
+   "# Execution Classes"
+  ],
+  [
+   1787,
+   "# Execution properties"
+  ],
+  [
+   1799,
+   "# External properties reused or formalized here"
+  ],
+  [
+   1811,
+   "## Appendix B Skill File and Prompt for Agentic Writing of Croissant Tasks"
+  ],
+  [
+   1827,
+   "# PDF to MLCommons Croissant **Tasks** - Agent Runbook"
+  ],
+  [
+   1829,
+   "## Objective"
+  ],
+  [
+   1843,
+   "## Croissant Mapping Guidance"
+  ],
+  [
+   1865,
+   "## REQUIRED OUTPUT FILES (MANDATORY)"
+  ],
+  [
+   1887,
+   "## Parameters"
+  ],
+  [
+   1905,
+   "## Dependencies"
+  ],
+  [
+   1925,
+   "## Step 1: Environment Setup"
+  ],
+  [
+   1929,
+   "# Install SHACL validator and RDF toolkit"
+  ],
+  [
+   1933,
+   "# Output directories"
+  ],
+  [
+   1937,
+   "# Download the Croissant Tasks shapes + ontology at the pinned commit"
+  ],
+  [
+   1939,
+   "# Use the latest commit in PR #1017"
+  ],
+  [
+   1949,
+   "# Verify the PDF exists (local path) or download it if it’s a URL"
+  ],
+  [
+   1951,
+   "# The location will be specified in the user prompt."
+  ],
+  [
+   1953,
+   "# Example for local file: ls -la {{pdf_location}}"
+  ],
+  [
+   1955,
+   "# Example for URL: curl -fsSL {{pdf_location}} -o paper.pdf"
+  ],
+  [
+   1963,
+   "## Step 2: Read and Analyze the Paper"
+  ],
+  [
+   1967,
+   "### Task Identity"
+  ],
+  [
+   1977,
+   "### Inputs"
+  ],
+  [
+   1983,
+   "### Outputs"
+  ],
+  [
+   1989,
+   "### Evaluation"
+  ],
+  [
+   1995,
+   "### Subtasks"
+  ],
+  [
+   1999,
+   "### Baselines Reported"
+  ],
+  [
+   2015,
+   "## Step 3: Derive the ‘@id‘ base"
+  ],
+  [
+   2029,
+   "## Step 4: Build the ‘TaskProblem‘ JSON-LD"
+  ],
+  [
+   2033,
+   "### ‘@context‘ (copy verbatim)"
+  ],
+  [
+   2049,
+   "### Required structure"
+  ],
+  [
+   2081,
+   "### SHACL constraints you MUST satisfy (from ‘croissant-tasks-shapes.ttl‘)"
+  ],
+  [
+   2109,
+   "### Output schema patterns"
+  ],
+  [
+   2191,
+   "### Evaluation block"
+  ],
+  [
+   2209,
+   "### Subtasks (if the benchmark has sub-categories)"
+  ],
+  [
+   2237,
+   "### Reference Examples"
+  ],
+  [
+   2243,
+   "## Step 5: Build ‘TaskSolution‘ JSON-LDs (one per reported baseline)"
+  ],
+  [
+   2249,
+   "### Required structure"
+  ],
+  [
+   2335,
+   "### SHACL constraints you MUST satisfy (TaskSolutionShape)"
+  ],
+  [
+   2347,
+   "### Tips"
+  ],
+  [
+   2361,
+   "## Step 6: Evaluate Outputs (programmatic)"
+  ],
+  [
+   2369,
+   "# Example usage (adjust path to validator.py as needed)"
+  ],
+  [
+   2391,
+   "## Step 7: Iterate on Errors (max 3 rounds)"
+  ],
+  [
+   2405,
+   "### Common fixes"
+  ],
+  [
+   2439,
+   "## Step 8: Write Executive Summary"
+  ],
+  [
+   2445,
+   "# Croissant Tasks Report: <Benchmark Name>"
+  ],
+  [
+   2447,
+   "## Overview"
+  ],
+  [
+   2461,
+   "## Files emitted"
+  ],
+  [
+   2471,
+   "## TaskProblem extraction"
+  ],
+  [
+   2473,
+   "### High-confidence fields (explicitly stated)"
+  ],
+  [
+   2491,
+   "### Inferred fields (medium confidence)"
+  ],
+  [
+   2499,
+   "### Skipped (paper was silent)"
+  ],
+  [
+   2507,
+   "## Solutions extracted"
+  ],
+  [
+   2515,
+   "## Validation results"
+  ],
+  [
+   2525,
+   "## Limitations / caveats"
+  ],
+  [
+   2535,
+   "## Step 9: Write Validation Report"
+  ],
+  [
+   2609,
+   "## Step 10: Final Checklist (MANDATORY - do not skip)"
+  ],
+  [
+   2611,
+   "### Verification Script"
+  ],
+  [
+   2619,
+   "# Required files"
+  ],
+  [
+   2635,
+   "# Solutions (0+ files allowed, but if any exist they must be non-empty)"
+  ],
+  [
+   2645,
+   "# JSON validity"
+  ],
+  [
+   2659,
+   "# SHACL re-check using official validator"
+  ],
+  [
+   2679,
+   "### Checklist"
+  ],
+  [
+   2695,
+   "## Tips"
+  ],
+  [
+   2721,
+   "# Request: Convert ML Benchmark Paper to Croissant Tasks"
+  ],
+  [
+   2729,
+   "## USER INPUT: Paper Details"
+  ],
+  [
+   2737,
+   "## What I Expect"
+  ],
+  [
+   2751,
+   "## Appendix C Skill File and Prompt for Agentic Code Generation"
+  ],
+  [
+   2767,
+   "# Croissant Tasks to Code - Agent Runbook"
+  ],
+  [
+   2769,
+   "## Objective"
+  ],
+  [
+   2787,
+   "## Guidance"
+  ],
+  [
+   2789,
+   "### Step 1: Analyze the ‘TaskProblem‘ File"
+  ],
+  [
+   2801,
+   "### Step 2: Gather Baseline Information"
+  ],
+  [
+   2813,
+   "### Step 3: Generate Implementation Code"
+  ],
+  [
+   2817,
+   "#### 3.1 Data Loading"
+  ],
+  [
+   2823,
+   "#### 3.2 Processing and Sub-tasks"
+  ],
+  [
+   2829,
+   "#### 3.3 Baseline Execution"
+  ],
+  [
+   2837,
+   "#### 3.4 Evaluation"
+  ],
+  [
+   2863,
+   "#### 3.5 Output and Solution Generation"
+  ],
+  [
+   2873,
+   "### Step 4: Generate ‘TaskSolution‘ File"
+  ],
+  [
+   2891,
+   "## Verification Plan for the Generated Code"
+  ],
+  [
+   2909,
+   "## 1. Task Problem"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "### 5.2 Limitations and Challenges\n\nA number of factors need to be tackled to realize the full potential of Croissant Tasks:\n\n##### Adoption and Ease of Use.\n\nTo become a community standard, Croissant Tasks must overcome several adoption challenges. First, to minimize overhead, creating specifications must not burden researchers. While LLM agents can automate generation, robust visualizers, editors, and validation tools are needed for ease of use. Second, institutional incentives are needed; adoption likely requires mandates from top-tier conferences, such as adding Croissant Task files to reproducibility checklists. Finally, achieving scale requires platform integration. Mirroring Croissant Datasets’ adoption by platforms like Hugging Face and Kaggle, we envision benchmark platforms natively hosting and executing Croissant Tasks.\n\n##### Fidelity and Quality of Metadata.\n\nReproducibility and other benefits depend heavily on metadata fidelity and completeness. A task file must accurately capture all critical details, such as specific data splits, evaluation settings, and environment requirements. To ensure this completeness without adding manual burden, Croissant Tasks can be integrated with experiment tracking libraries (e.g., Weights & Biases) to automatically capture the required metadata as the researcher is developing their implementation. High-fidelity metadata is also essential for defining the bounds of functional reproducibility; since we target functional equivalence rather than exact replication, precise metadata is required to set acceptable tolerances for verification and to enable the reliable reuse of components.\n\n##### Generalization and the Vision of Reproducible Science.\n\nWhile this work focuses specifically on benchmarks and evaluations, the long-term vision of Croissant Tasks is to encompass the full spectrum of machine learning tasks. Benchmarks are relatively simple to model because they typically involve fixed datasets and static evaluation protocols. Other tasks, such as training pipelines, data augmentation strategies, or complex multi-stage workflows, present significantly higher complexity. We do not aim to prescribe rigid representations for all possible tasks; rather, we believe that conventions for describing them should emerge organically within their respective research communities. By providing a foundation for machine-actionable task descriptions, we hope to contribute to the broader vision of reproducible science. Shifting the focus from brittle technical replication to verifiable, high-level specifications will allow the community to accelerate progress in a principled and trusted way.\n\n## 6 Conclusion\n\nIn this paper, we presented Croissant Tasks, a metadata format designed to enable conceptual reproducibility in machine learning by representing evaluations as structured, machine-actionable data. We demonstrated its potential through agentic flows that (1) extract task descriptions from benchmark papers and (2) generate the necessary artifacts to implement and run these evaluations, achieving a high success rate. To realize the full potential of this approach, future work will focus on further refining the agentic workflows for more robust extraction and implementation, conducting thorough evaluations across a broader set of benchmarks, and extending it to a wider spectrum of machine learning tasks.\n\n## References\n\nAdamczewski (2025)\nT. Adamczewski\n\nA more systematic and transparent ai benchmarking hub.\n\nNote: Accessed: 2026-04-24\n\nExternal Links: Link\n\nCited by: §2.\n\nAkhtar et al. (2024)\nM. Akhtar, O. Benjelloun, C. Conforti, P. Gijsbers, J. Giner-Miguelez, N. Jain, M. Kuchnik, Q. Lhoest, P. Marcenac, M. Maskey, P. Mattson, L. Oala, P. Ruyssen, R. Shinde, E. Simperl, G. Thomas, S. Tykhonov, J. Vanschoren, J. van der Velde, S. Vogler, and C. Wu\n\nCroissant: a metadata format for ml-ready datasets.\n\nIn Proceedings of the Eighth Workshop on Data Management for End-to-End Machine Learning,",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 2,
+  "p_value_or_ci": 24,
+  "seeds_or_runs": 0,
+  "swe_bench": 4,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

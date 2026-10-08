@@ -1,0 +1,239 @@
+{
+ "arxiv_id": "2607.15205",
+ "fulltext_chars": 54526,
+ "fulltext_lines": 1518,
+ "authors_block": "Shaoxiong Zhan ††thanks: Equal contribution. Affiliation: Tsinghua University Affiliation: JD.com Email: zhansx24@mails.tsinghua.edu.cn Shi Hu11footnotemark: 1 Affiliation: JD.com Email: hushi.5@jd.com Boyu Feng Affiliation: JD.com Email: zheng.haitao@sz.tsinghua.edu.cn Hai Lin Affiliation: Tsinghua University Andrew Gong Affiliation: JD.com Zhengda Zhou Affiliation: JD.com Jiaying Zhou Affiliation: JD.com Yunyun Hou Affiliation: JD.com Hao Su Affiliation: JD.com Hai-Tao Zheng ††thanks: Corresponding author. Affiliation: Tsinghua University",
+ "vendor_affiliation_hits": [],
+ "n_authors": 10,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/Jasaxion/MM-IssueLoc-Bench"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# MM-IssueLoc: A Controlled Benchmark for Evaluating Visual Evidence in Multimodal Repository-Level Issue Localization"
+  ],
+  [
+   71,
+   "###### Abstract"
+  ],
+  [
+   79,
+   "## 1 Introduction"
+  ],
+  [
+   94,
+   "## 2 Related Work"
+  ],
+  [
+   96,
+   "#### Repository-level SE benchmarks."
+  ],
+  [
+   100,
+   "#### Repository Search and Localization agents."
+  ],
+  [
+   104,
+   "#### Code retrieval and embedding models."
+  ],
+  [
+   108,
+   "#### Multimodal code understanding."
+  ],
+  [
+   150,
+   "## 3 Benchmark Construction"
+  ],
+  [
+   154,
+   "### 3.1 Task Definition"
+  ],
+  [
+   183,
+   "### 3.2 Data Collection and Annotation"
+  ],
+  [
+   191,
+   "### 3.3 Function-Level Gold and Harmful-Image Controls"
+  ],
+  [
+   199,
+   "### 3.4 Training Data and Controlled Retriever"
+  ],
+  [
+   229,
+   "## 4 Experimental Setup"
+  ],
+  [
+   231,
+   "### 4.1 Baselines"
+  ],
+  [
+   248,
+   "### 4.2 Visual Context Extraction (VCE)"
+  ],
+  [
+   252,
+   "### 4.3 Evaluation Granularities and Metrics"
+  ],
+  [
+   270,
+   "## 5 Results and Analysis"
+  ],
+  [
+   272,
+   "### 5.1 RQ1: How Well Do Current Systems Localize Multimodal Repository Issues?"
+  ],
+  [
+   486,
+   "### 5.2 RQ2: Is Visual Evidence Useful, and Do Systems Use It Reliably?"
+  ],
+  [
+   537,
+   "### 5.3 RQ3: Does Localization Depend on Image Content or Raw Image Format?"
+  ],
+  [
+   601,
+   "## 6 Discussion, Limitations, and Future Work"
+  ],
+  [
+   603,
+   "#### Discussion."
+  ],
+  [
+   614,
+   "#### Limitations."
+  ],
+  [
+   627,
+   "#### Future work."
+  ],
+  [
+   636,
+   "## 7 Conclusion"
+  ],
+  [
+   640,
+   "## References"
+  ],
+  [
+   895,
+   "## Appendix A Training and Evaluation Setup"
+  ],
+  [
+   897,
+   "### A.1 Training Hyperparameters"
+  ],
+  [
+   987,
+   "### A.2 Agent Evaluation Parameters"
+  ],
+  [
+   998,
+   "## Appendix B Extended Results"
+  ],
+  [
+   1000,
+   "### B.1 Stratified Evaluation Slices"
+  ],
+  [
+   1120,
+   "### B.2 Controlled Retriever Training Ablations"
+  ],
+  [
+   1209,
+   "### B.3 External Image Ablation on SWE-bench-MM"
+  ],
+  [
+   1270,
+   "### B.4 Cross-benchmark Localization Results"
+  ],
+  [
+   1394,
+   "## Appendix C Benchmark Details"
+  ],
+  [
+   1396,
+   "### C.1 Released Views and Statistics"
+  ],
+  [
+   1434,
+   "### C.2 Benchmark Examples"
+  ],
+  [
+   1443,
+   "### C.3 AI Annotation Gate"
+  ],
+  [
+   1447,
+   "### C.4 Harmful-Image Synthesis"
+  ],
+  [
+   1451,
+   "## Appendix D Visual Content Evidence Extraction"
+  ],
+  [
+   1453,
+   "### D.1 VCE Mechanism"
+  ],
+  [
+   1469,
+   "### D.2 VCE Extraction Examples"
+  ],
+  [
+   1480,
+   "### D.3 VCE Prompt"
+  ],
+  [
+   1486,
+   "## Appendix E Prompt Templates"
+  ],
+  [
+   1488,
+   "### E.1 AI-Driven Harmful Impact Prompt"
+  ],
+  [
+   1494,
+   "### E.2 AgentLess Prompt"
+  ],
+  [
+   1500,
+   "### E.3 LocAgent Prompt"
+  ],
+  [
+   1506,
+   "### E.4 OpenHands Prompt"
+  ],
+  [
+   1512,
+   "### E.5 Mini-SWE-Agent Prompt"
+  ],
+  [
+   1518,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 6 Discussion, Limitations, and Future Work\n\n#### Discussion.\n\nMM-IssueLoc follows prior issue-resolving benchmarks by using merged pull\nrequest diffs as localization gold labels. Although such labels are not minimal\ncausal explanations, they provide a scalable and auditable proxy for code\nlocations modified by human developers. We therefore use strict all-gold Acc@K\nto measure whether a method recovers the full edit scope, and provide\nfunction-level labels when tree-sitter can reliably map edits to pre-existing\nfunctions. We also release per-instance predictions to support reanalysis under\nalternative scoring rules.\n\n#### Limitations.\n\nMM-IssueLoc is designed for controlled diagnosis, and its results should be\ninterpreted within this scope. The harmful-image subset is primarily\nrule-constructed and human-reviewed, so it serves as a robustness stress test\nrather than an estimate of real-world frequency. VCE is a diagnostic protocol,\nnot an upper bound on visual reasoning, since it uses fixed extraction fields\nand a fixed downstream localization setting. Function-level labels may be noisy\nfor language features that are difficult for tree-sitter to resolve, such as\nmacros, templates, or generated code. Our retriever also uses at most two images\nper issue, leaving many-image issues as a future stress case. Finally, MM-IssueLoc evaluates localization only, rather than end-to-end\nsoftware repair or downstream patch generation.\n\n#### Future work.\n\nFuture work can extend MM-IssueLoc along three directions: collecting more\nnaturally occurring misleading images and many-image issues, improving\nfunction-level annotation with language-specific parsers or hybrid static\nanalysis, and studying whether better multimodal localization improves broader\nsoftware-engineering workflows such as repository understanding, debugging,\ntriage, and downstream repair.\n\n## 7 Conclusion\n\nMM-IssueLoc shows that multimodal repository-level issue localization is a distinct and under-evaluated capability. Cross-benchmark results indicate that strong localization performance on text-dominant SWE benchmarks is not sufficient evidence of multimodal issue localization ability. By pairing real issue-PR instances with file-level and function-level gold labels, image-category and relevance annotations, and controlled text-only, with-image, VCE, and VCE+image modes, MM-IssueLoc makes visual evidence an explicit evaluation variable. Our results show that visual evidence can provide useful localization signal, but current agents and retrievers use it unevenly. Overall, MM-IssueLoc provides a controlled basis for evaluating how visual evidence affects repository-level localization.\n\n## References",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 0,
+  "swe_bench": 38,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 2,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

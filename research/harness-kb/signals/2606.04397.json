@@ -1,0 +1,171 @@
+{
+ "arxiv_id": "2606.04397",
+ "fulltext_chars": 32701,
+ "fulltext_lines": 644,
+ "authors_block": "for LLM-Generated Developer Documentation Ameya Gawde Vyzantinos Repantis Harshvardhan Singh Lucy Moys Affiliation: Meta Platforms, Inc. Affiliation: {ameyagawde, vrepantis, harshvardhan, ljm}@meta.com",
+ "vendor_affiliation_hits": [
+  "Meta"
+ ],
+ "n_authors": 4,
+ "comment": "8 pages, 2 figures, 4 tables",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Context-as-AI-Service: Surfacing Cross-File Dependency Chains"
+  ],
+  [
+   36,
+   "###### Abstract"
+  ],
+  [
+   40,
+   "## 1 Introduction"
+  ],
+  [
+   68,
+   "## 2 Related Work"
+  ],
+  [
+   70,
+   "#### Retrieval-Augmented Generation."
+  ],
+  [
+   74,
+   "#### Code Documentation Generation."
+  ],
+  [
+   78,
+   "#### LLM Agents for Software Engineering."
+  ],
+  [
+   82,
+   "## 3 System Architecture"
+  ],
+  [
+   88,
+   "### 3.1 Source Ingestion"
+  ],
+  [
+   106,
+   "### 3.2 Storage and Indexing"
+  ],
+  [
+   112,
+   "### 3.3 Retrieval Interface"
+  ],
+  [
+   126,
+   "### 3.4 Review Layer"
+  ],
+  [
+   130,
+   "## 4 Case-Study Protocol"
+  ],
+  [
+   152,
+   "## 5 Case Studies"
+  ],
+  [
+   154,
+   "### 5.1 Case Study 1: API Reference Improvement"
+  ],
+  [
+   156,
+   "#### Task."
+  ],
+  [
+   160,
+   "#### Baseline."
+  ],
+  [
+   164,
+   "#### With CAIS."
+  ],
+  [
+   170,
+   "#### Finding."
+  ],
+  [
+   174,
+   "### 5.2 Case Study 2: Tutorial Generation and Validation"
+  ],
+  [
+   176,
+   "#### Task."
+  ],
+  [
+   180,
+   "#### Baseline."
+  ],
+  [
+   184,
+   "#### With CAIS."
+  ],
+  [
+   190,
+   "#### Finding."
+  ],
+  [
+   194,
+   "## 6 Results and Discussion"
+  ],
+  [
+   196,
+   "### 6.1 Summary of Findings"
+  ],
+  [
+   236,
+   "### 6.2 Evidence Trail"
+  ],
+  [
+   332,
+   "### 6.3 Dependency-Chain Taxonomy"
+  ],
+  [
+   350,
+   "### 6.4 Efficiency"
+  ],
+  [
+   422,
+   "## 7 Conclusion and Future Work"
+  ],
+  [
+   430,
+   "## Limitations"
+  ],
+  [
+   436,
+   "## Ethics Statement"
+  ],
+  [
+   444,
+   "## References"
+  ],
+  [
+   644,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## Limitations\n\nThis work is a case study, not a broad benchmark. We evaluate two documentation workflows on one production SDK, and the findings may not generalize to other languages, repositories, documentation genres, or agent designs. The SDK and full logs are proprietary, so we anonymize identifiers and cannot release the underlying corpus. The evidence trail is therefore self-contained at the level of finding type and retrieved evidence, but not independently reproducible from public data.\n\nOur baseline was a single coding agent (Claude Code v2.1.154 and model Sonnet 4.6) with its native repository tools on one SDK, not an exhaustive set of baselines. A stronger future evaluation would broaden beyond this to alternative retrieval models, different exploration budgets, and large-context models explicitly prompted to trace cross-file dependencies. We also evaluate documentation quality through retained review findings rather than a controlled human-subject study of developer impact. Finally, the current retrieval layer operates mostly at document or file granularity; symbol-level retrieval improves precision and reduces the number of queries needed to reach actionable evidence.\n\n## Ethics Statement\n\nOur work focuses on improving the accuracy of developer-facing documentation through retrieval-augmented LLM workflows. The case studies used internal, non-public SDK source code with authorization from the codebase owners. No human participants were recruited, no crowd-sourced annotations were collected, and no personally identifiable information was accessed or generated as part of the study.\n\nThe LLM agent used in the case studies was accessed through a licensed API under the provider’s standard terms of service. We anonymize internal system names, file paths, and identifiable product details, and we present CAIS as a review aid rather than a replacement for human approval.\n\nAutomated documentation tools can affect technical writing and developer education workflows. In the deployment context studied here, the bottleneck was documentation freshness and correctness rather than writing capacity; CAIS was used to surface evidence for review, not to remove human oversight.\n\n## References\n\nAhmad et al. (2020)\nW. U. Ahmad, S. Chakraborty, B. Ray, and K. Chang\n\nA transformer-based approach for source code summarization.\n\nIn Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics, D. Jurafsky, J. Chai, N. Schluter, and J. Tetreault (Eds.),\n\nOnline, pp. 4998–5007.\n\nExternal Links: Document,\nLink\n\nCited by: §2.\n\nChen et al. (2021)\nM. Chen, J. Tworek, H. Jun, Q. Yuan, H. P. d. O. Pinto, J. Kaplan, H. Edwards, Y. Burda, N. Joseph, G. Brockman, A. Ray, R. Puri, G. Krueger, M. Petrov, H. Khlaaf, G. Sastry, P. Mishkin, B. Chan, S. Gray, N. Ryder, M. Pavlov, A. Power, L. Kaiser, M. Bavarian, C. Winter, P. Tillet, F. P. Such, D. Cummings, M. Plappert, F. Chantzis, E. Barnes, A. Herbert-Voss, W. H. Guss, A. Nichol, A. Paino, N. Tezak, J. Tang, I. Babuschkin, S. Balaji, S. Jain, W. Saunders, C. Hesse, A. N. Carr, J. Leike, J. Achiam, V. Misra, E. Morikawa, A. Radford, M. Knight, M. Brundage, M. Murati, K. Mayer, P. Welinder, B. McGrew, D. Amodei, S. McCandlish, I. Sutskever, and W. Zaremba\n\nEvaluating large language models trained on code.\n\narXiv preprint arXiv:2107.03374.\n\nExternal Links: 2107.03374,\nDocument,\nLink",
+ "ethics_coi": "## Ethics Statement\n\nOur work focuses on improving the accuracy of developer-facing documentation through retrieval-augmented LLM workflows. The case studies used internal, non-public SDK source code with authorization from the codebase owners. No human participants were recruited, no crowd-sourced annotations were collected, and no personally identifiable information was accessed or generated as part of the study.\n\nThe LLM agent used in the case studies was accessed through a licensed API under the provider’s standard terms of service. We anonymize internal system names, file paths, and identifiable product details, and we present CAIS as a review aid rather than a replacement for human approval.\n\nAutomated documentation tools can affect technical writing and developer education workflows. In the deployment context studied here, the bottleneck was documentation freshness and correctness rather than writing capacity; CAIS was used to surface evidence for review, not to remove human oversight.\n\n## References\n\nAhmad et al. (2020)\nW. U. Ahmad, S. Chakraborty, B. Ray, and K. Chang\n\nA transformer-based approach for source code summarization.\n\nIn Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics, D. Jurafsky, J. Chai, N. Schluter, and J. Tetreault (Eds.),\n\nOnline, pp. 4998–5007.\n\nExternal Links: Document,\nLink\n\nCited by: §2.\n\nChen et al. (2021)",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 0,
+  "swe_bench": 1,
+  "contamination": 0,
+  "human_study": 1,
+  "java": 1,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

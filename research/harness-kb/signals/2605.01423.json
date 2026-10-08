@@ -1,0 +1,225 @@
+{
+ "arxiv_id": "2605.01423",
+ "fulltext_chars": 62922,
+ "fulltext_lines": 954,
+ "authors_block": "Scientific discovery is undergoing a profound paradigm shift toward an AI-driven fifth paradigm [26], where AI is expected to transform from a mere tool to an autonomous research collaborator [16]. Recent advances in Large Language Models (LLMs) [21] make this prospect tangible for data-intensive disciplines like High-Energy Physics (HEP), where the petabytes to exabytes of raw data accumulated annually [27, 9] fuel a growing aspiration for higher analytical efficiency, making AI automation a promising and perhaps necessary strategy. However, for LLM-powered agents to be practically useful, they must move beyond simple task automation to comprehending, planning, and executing complete multi-step scientific workflows. This remains a fundamental challenge, as LLMs often struggle with long-horizon planning [17], lack the deep, tacit domain knowledge required to structure these workflows, and cannot reliably interact with production environments without strictly predefined interfaces. HEP data analysis provides an ideal yet demanding testbed for autonomous AI capabilities. The workflows are intricate—spanning data collection, selection, visualization, interpretation, and statistical inference—and are tightly coupled to complex, experiment-specific software frameworks (e.g., BASF2 [19]). Because nearly all workflow procedures can be expressed as coding tasks, they are naturally well-suited for LLMs. However, our early exploration with the Beijing Spectrometer III (BESIII) experime",
+ "vendor_affiliation_hits": [],
+ "n_authors": 9,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "#"
+  ],
+  [
+   61,
+   "###### Abstract"
+  ],
+  [
+   65,
+   "## 1 Introduction"
+  ],
+  [
+   75,
+   "### 1.1 Contributions"
+  ],
+  [
+   95,
+   "### 1.2 Related Works"
+  ],
+  [
+   101,
+   "## 2 Design and Evolution of HepScript"
+  ],
+  [
+   103,
+   "### 2.1 Code Generation Architecture"
+  ],
+  [
+   114,
+   "### 2.2 LLM-assisted HepScript Design"
+  ],
+  [
+   143,
+   "## 3 Implementation"
+  ],
+  [
+   171,
+   "## 4 Generating HepScript: In-context Learning"
+  ],
+  [
+   175,
+   "### 4.1 Limits of Semantic Similarity Retrieval for HEP Workflows"
+  ],
+  [
+   181,
+   "### 4.2 A Baseline: Comprehensive Single-Shot Grounding"
+  ],
+  [
+   187,
+   "## 5 Evaluation"
+  ],
+  [
+   191,
+   "### 5.1 Experimental Setup"
+  ],
+  [
+   199,
+   "### 5.2 Evaluating HepScript Processor"
+  ],
+  [
+   212,
+   "### 5.3 Evaluation Results"
+  ],
+  [
+   296,
+   "### 5.4 Limitations of the Evaluation"
+  ],
+  [
+   304,
+   "## 6 Discussion and Future Work"
+  ],
+  [
+   306,
+   "### 6.1 Expressiveness vs. Abstraction"
+  ],
+  [
+   310,
+   "### 6.2 Toward Structure-Aware Retrieval for LLM Generation"
+  ],
+  [
+   314,
+   "### 6.3 Development of an Agentic Memory Mechanism"
+  ],
+  [
+   318,
+   "## 7 Conclusion"
+  ],
+  [
+   324,
+   "## Acknowledgments and Disclosure of Funding"
+  ],
+  [
+   328,
+   "## References"
+  ],
+  [
+   686,
+   "## Technical appendices and supplementary material"
+  ],
+  [
+   688,
+   "## Appendix A HepScript Example"
+  ],
+  [
+   694,
+   "## Appendix B Storing Variables for Kinematic Fit"
+  ],
+  [
+   698,
+   "## Appendix C HepScript Syntax Reference in YARD"
+  ],
+  [
+   702,
+   "## Appendix D Prompt for Generating HepScript Specification"
+  ],
+  [
+   706,
+   "# Role: You are an expert in high energy physics (HEP) data analysis and software engineering, specialized at BESIII experiment and tasked with translating analysis workflows from BESIII published papers into structured Ruby DSL codes.\""
+  ],
+  [
+   708,
+   "# Task: Translate HEP Analysis Workflow to Ruby DSL"
+  ],
+  [
+   722,
+   "## 1. Scope & Endpoint"
+  ],
+  [
+   724,
+   "### Dataset Preparation"
+  ],
+  [
+   766,
+   "### Event Selection"
+  ],
+  [
+   778,
+   "## 2. Translation Guidelines"
+  ],
+  [
+   788,
+   "## 3. Translation Process"
+  ],
+  [
+   800,
+   "## 4. Multiple Signal Processes"
+  ],
+  [
+   808,
+   "### Special Case: Shared Final States"
+  ],
+  [
+   816,
+   "## 5. Special DSL Rules (Error Prone)"
+  ],
+  [
+   872,
+   "## 6. Particle List and Candidate Tracking"
+  ],
+  [
+   876,
+   "### List Creation and Modification Methods"
+  ],
+  [
+   900,
+   "### Important Note"
+  ],
+  [
+   908,
+   "## 7. Output Format"
+  ],
+  [
+   916,
+   "## 8. Validation Checks (Before Output)"
+  ],
+  [
+   934,
+   "# DSL Code Structure Example"
+  ],
+  [
+   940,
+   "# DSL Manual"
+  ],
+  [
+   946,
+   "# Paper to be Translated"
+  ],
+  [
+   954,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgments and Disclosure of Funding\n\nThis project is supported by the Strategic Priority Research Program of Chinese Academy of Sciences under Grant XDA0480600; Program of Science and Technology Development Plan of Jilin Province of China under Contract No. 20230101021JC. The authors declare no competing interests. We would like to thank the BESIII Collaboration for their support on test datasets and softwares; the IHEP computing center for their support on computing resources; Yu-Zhe Shi (from School of Advanced Manufacturing and Robotics, PKU), Kun He and Ming-Chen Liu (from School of Computer Science and Technology, HUST) for their innovative, pioneering works on automatical DSL design, which inspires us to develop HepScript; Jie Liu, Liang-Yi Kang, and Shuai Wang (from Institute of Software, CAS) for the helpful discussions.\n\n## References\n\n[1]\nM. Ablikim, Z.H. An, J.Z. Bai, N. Berger, J.M. Bian, X. Cai, G.F. Cao, X.X. Cao, J.F. Chang, C. Chen, G. Chen, H.C. Chen, H.X. Chen, J. Chen, J.C. Chen, L.P. Chen, P. Chen, X.H. Chen, Y.B. Chen, M.L. Chen, Y.P. Chu, X.Z. Cui, H.L. Dai, Z.Y. Deng, M.Y. Dong, S.X. Du, Z.Z. Du, J. Fang, C.D. Fu, C.S. Gao, M.Y. Gong, W.X. Gong, S.D. Gu, B.J. Guan, J. Guan, Y.N. Guo, J.F. Han, K.L. He, M. He, X. He, Y.K. Heng, Z.L. Hou, H.M. Hu, T. Hu, B. Huang, J. Huang, S.K. Huang, Y.P. Huang, Q. Ji, X.B. Ji, X.L. Ji, L.K. Jia, L.L. Jiang, X.S. Jiang, D.P. Jin, S. Jin, Y. Jin, Y.F. Lai, G.K. Lei, F. Li, G. Li, H.B. Li, H.S. Li, J. Li, J. Li, J.C. Li, Q.J. Li, L. Li, L. Li, R.B. Li, R.Y. Li, W.D. Li, W.G. Li, X.N. Li, X.P. Li, X.R. Li, Y.R. Li, W. Li, D.X. Lin, B.J. Liu, C.X. Liu, F. Liu, G.M. Liu, H. Liu, H.M. Liu, H.W. Liu, J.B. Liu, L.F. Liu, Q. Liu, Q.G. Liu, S.D. Liu, W.J. Liu, X. Liu, X.Z. Liu, Y. Liu, Y.J. Liu, Z.A. Liu, Z.Q. Liu, Z.X. Liu, J.G. Lu, T. Lu, Y.P. Lu, X.L. Luo, H.L. Ma, Q.M. Ma, X. Ma, X.Y. Ma, Z.P. Mao, J. Min, X.H. Mo, J. Nie, Z.D. Nie, R.G. Ping, S. Qian, Q. Qiao, G. Qin, Z.H. Qin, J.F. Qiu, R.G. Liu, Z.Y. Ren, G. Rong, L. Shang, D.L. Shen, X.Y. Shen, H.Y. Sheng, Y.F. Shi, L.W. Song, W.Y. Song, D.H. Sun, G.X. Sun, H.S. Sun, L.J. Sun, S.S. Sun, X.D. Sun, Y.Z. Sun, Z.J. Sun, J.P. Tan, S.Q. Tang, X. Tang, N. Tao, H.L. Tian, Y.R. Tian, X. Wan, D.Y. Wang, J.K. Wang, J.Z. Wang, K. Wang, K.X. Wang, L. Wang, L. Wang, L.J. Wang, L.S. Wang, M. Wang, N. Wang, P. Wang, P.L. Wang, Q. Wang, Y.F. Wang, Z. Wang, Z. Wang, Z.G. Wang, Z.Y. Wang, C.L. Wei, S.J. Wei, S.P. Wen, J.J. Wu, L.H. Wu, N. Wu, Y.H. Wu, Y.M. Wu, Z",
+ "limitations": "### 5.4 Limitations of the Evaluation\n\nBenchmark Scope. Our corpus of 45 papers, while representative of typical BESIII measurements, does not cover the full diversity of HEP workflows. Notably absent are complex analyses such as cross-section measurements and amplitude analyses, which may require additional language constructs. This reveals a critical need for the community: a structured benchmark for HEP analysis workflows.\n\nAnalysis Logic Evaluation. Assessing the logical correctness of LLM-generated HepScript specifications requires an expert review process, which is neither scalable nor objective. However, this manual evaluation remains unavoidable, as it demands deep HEP knowledge that cannot yet be automated.\n\nComputational Cost. Full execution-based evaluation, particularly for ROOT scripts, requires preparing large datasets and running computationally intensive simulations. This limits our ROOT evaluation to two case studies. Developing lightweight surrogate metrics that correlate with execution correctness, or creating small-scale \"toy\" datasets that preserve the essential structure of analyses while reducing computational demands, would enable broader validation.\n\n## 6 Discussion and Future Work\n\n### 6.1 Expressiveness vs. Abstraction\n\nA fundamental challenge in designing a dual-use DSL is balancing expressiveness against LLM-generability. Higher abstraction simplifies LLM generation, but necessarily reduces fine-grained control over the workflow; lower abstraction preserves flexibility but increases the risk of LLM hallucination. Finding the optimal balance requires iterative refinements guided by real-world analysis requirements. The current HepScript covers a subset of BESIII analysis types but lacks constructs for systematic uncertainty estimation, a critical component of any physics result. Future work will expand HepScript’s expressiveness to support more sophisticated analyses including systematic uncertainty estimation. We will further explore a self-evolutionary mechanism that autonomously extends HepScript’s grammar. The mechanism would ingest domain papers and identify coverage gaps from practical usage, as depicted in Fig. 2. Initially, human experts would validate and integrate the proposed syntax extensions, with the system moving toward full automation as it matures.\n\n### 6.2 Toward Structure-Aware Retrieval for LLM Generation\n\nOur current approach of HepScript generation (a comprehensive example and YARD syntax reference) is not a scalable long-term solution as HepScript grows. This work therefore identifies a clear research agenda: the development of structure-aware retrieval mechanisms that operate on the formal topology of particle physics processes rather than semantic text similarity. We believe that developing structure-aware embeddings or domain-specific retrieval algorithms for scientific workflows is a crucial next step for any multi-agent system for scientific discovery, and is our top priority.\n\n### 6.3 Development of an Agentic Memory Mechanism\n\nEach HepScript specification formalizes a complete BESIII analysis pipeline, collectively forming a highly structured knowledge database. Viewed through the lens of harness engineering, this repository extends beyond a static reference to become a dynamic memory module for future multi-agent systems [20]. We envision a self-reinforcing cognitive loop where memory, skills, and protocols continuously interact [29]. Specifically, the database would supply structural evidence and successful execution trajectories, allowing agents to distill stored experience into reusable analytical procedures (skills) for new workflows. These skills would then transition from abstract reasoning into governed action via HepScript’s constrained grammar and the processor’s validation loop, which act as strict protocols providing typed interfaces and boundary checks that ensure safe, verified execution. Finally, closing the loop through result assimilation, successfully ",
+ "ethics_coi": "## Acknowledgments and Disclosure of Funding\n\nThis project is supported by the Strategic Priority Research Program of Chinese Academy of Sciences under Grant XDA0480600; Program of Science and Technology Development Plan of Jilin Province of China under Contract No. 20230101021JC. The authors declare no competing interests. We would like to thank the BESIII Collaboration for their support on test datasets and softwares; the IHEP computing center for their support on computing resources; Yu-Zhe Shi (from School of Advanced Manufacturing and Robotics, PKU), Kun He and Ming-Chen Liu (from School of Computer Science and Technology, HUST) for their innovative, pioneering works on automatical DSL design, which inspires us to develop HepScript; Jie Liu, Liang-Yi Kang, and Shuai Wang (from Institute of Software, CAS) for the helpful discussions.\n\n## References\n\n[1]\nM. Ablikim, Z.H. An, J.Z. Bai, N. Berger, J.M. Bian, X. Cai, G.F. Cao, X.X. Cao, J.F. Chang, C. Chen, G. Chen, H.C. Chen, H.X. Chen, J. Chen, J.C. Chen, L.P. Chen, P. Chen, X.H. Chen, Y.B. Chen, M.L. Chen, Y.P. Chu, X.Z. Cui, H.L. Dai, Z.Y. Deng, M.Y. Dong, S.X. Du, Z.Z. Du, J. Fang, C.D. Fu, C.S. Gao, M.Y. Gong, W.X. Gong, S.D. Gu, B.J. Guan, J. Guan, Y.N. Guo, J.F. Han, K.L. He, M. He, X. He, Y.K. Heng, Z.L. Hou, H.M. Hu, T. Hu, B. Huang, J. Huang, S.K. Huang, Y.P. Huang, Q. Ji, X.B. Ji, X.L. Ji, L.K. Jia, L.L. Jiang, X.S. Jiang, D.P. Jin, S. Jin, Y. Jin, Y.F. Lai, G.K. Lei, F. Li, G. Li, H.B. Li, H.S. Li, J. Li, J. Li, J.C. Li, Q.J. Li, L. Li, L. Li, R.B. Li, R.Y. Li, W.D. Li, W.G. Li, X.N. Li, X.P. Li, X.R. Li, Y.R. Li, W. Li, D.X. Lin, B.J. Liu, C.X. Liu, F. Liu, G.M. Liu, H. Liu, H.M. Liu, H.W. Liu, J.B. Liu, L.F. Liu, Q. Liu, Q.G. Liu, S.D. Liu, W.J. Liu, X. Liu, X.Z. Liu, Y. Liu, Y.J. Liu, Z.A. Liu, Z.Q. Liu, Z.X. Liu, J.G. Lu, T. Lu, Y.P. Lu, X.L. Luo, H.L. Ma, Q.M. Ma, X. Ma, X.Y. Ma, Z.P. Mao, J. Min, X.H. Mo, J. Nie, Z.D. Nie, R.G. Ping, S. Qian, Q. Qiao, G. Qin, Z.H. Qin, J.F. Qiu, R.G. Liu, Z.Y. Ren",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 5,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

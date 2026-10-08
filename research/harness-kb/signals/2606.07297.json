@@ -1,0 +1,393 @@
+{
+ "arxiv_id": "2606.07297",
+ "fulltext_chars": 69245,
+ "fulltext_lines": 1777,
+ "authors_block": "Shaoqiu Zhang ††thanks: Equal contribution Affiliation: Shanghai Jiao Tong University Yuhang Wang11footnotemark: 1 Affiliation: Shanghai Jiao Tong University Jialiang Liang11footnotemark: 1 Affiliation: Xinjiang University Yuling Shi Affiliation: Shanghai Jiao Tong University Wenhao Zeng Affiliation: Shanghai Jiao Tong University Maoquan Wang Affiliation: Independent Researcher Shilin He Affiliation: The Chinese University of Hong Kong Ningyuan Xu Affiliation: Independent Researcher Siyu Ye Affiliation: University of Illinois at Urbana-Champaign Kai Cai Affiliation: Independent Researcher Xiaodong Gu ††thanks: Corresponding author: Xiaodong Gu, xiaodong.gu@sjtu.edu.cn Affiliation: Shanghai Jiao Tong University",
+ "vendor_affiliation_hits": [],
+ "n_authors": 11,
+ "comment": "20 pages, 5 figures",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/Qiushao-E/SWE-Explore-Bench"
+ ],
+ "hf_urls": [
+  "https://huggingface.co/datasets/SWE-Explore-Bench"
+ ],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   22,
+   "# SWE-Explore: Benchmarking How Coding Agents Explore Repositories"
+  ],
+  [
+   70,
+   "###### Abstract"
+  ],
+  [
+   78,
+   "## 1 Introduction"
+  ],
+  [
+   108,
+   "## 2 Related Work"
+  ],
+  [
+   110,
+   "### 2.1 Coding Benchmarks"
+  ],
+  [
+   203,
+   "### 2.2 Explorer Methods"
+  ],
+  [
+   209,
+   "## 3 SWE-Explore Benchmark"
+  ],
+  [
+   211,
+   "### 3.1 Task Formulation"
+  ],
+  [
+   219,
+   "### 3.2 Data Sources"
+  ],
+  [
+   223,
+   "### 3.3 Ground-Truth Annotation"
+  ],
+  [
+   227,
+   "#### Trajectory Source."
+  ],
+  [
+   245,
+   "# Files"
+  ],
+  [
+   250,
+   "# Regions"
+  ],
+  [
+   254,
+   "# Lines"
+  ],
+  [
+   259,
+   "# Source Trajectories"
+  ],
+  [
+   263,
+   "# Modified-by-Patch Files"
+  ],
+  [
+   268,
+   "# Files (non-test)"
+  ],
+  [
+   272,
+   "# Lines (non-test)"
+  ],
+  [
+   279,
+   "#### Extracting reads."
+  ],
+  [
+   285,
+   "#### Generating regions."
+  ],
+  [
+   291,
+   "### 3.4 Metrics"
+  ],
+  [
+   295,
+   "#### Coverage and accuracy."
+  ],
+  [
+   304,
+   "#### Ranking under budget."
+  ],
+  [
+   312,
+   "#### Efficiency and noise."
+  ],
+  [
+   316,
+   "#### Validation by downstream repair."
+  ],
+  [
+   320,
+   "## 4 Experiments"
+  ],
+  [
+   322,
+   "### 4.1 Setup"
+  ],
+  [
+   324,
+   "#### Explorers."
+  ],
+  [
+   328,
+   "#### Metrics."
+  ],
+  [
+   332,
+   "#### Choice of K ."
+  ],
+  [
+   542,
+   "### 4.2 Downstream validation."
+  ],
+  [
+   546,
+   "#### Stable signals."
+  ],
+  [
+   550,
+   "#### Useful but incomplete signals."
+  ],
+  [
+   740,
+   "### 4.3 Exploration Quality"
+  ],
+  [
+   744,
+   "#### Agentic exploration is a clear step above non-agentic retrieval."
+  ],
+  [
+   748,
+   "#### Low F1 is mostly a recall problem."
+  ],
+  [
+   752,
+   "#### LLM choice shifts the operating point, but not the bottleneck."
+  ],
+  [
+   756,
+   "#### General coding agents behave surprisingly similarly."
+  ],
+  [
+   760,
+   "#### Specialized localizers only help when they broaden search."
+  ],
+  [
+   764,
+   "#### Line-level evaluation adds information beyond file hits."
+  ],
+  [
+   770,
+   "### 4.4 Controlled Context Degradation"
+  ],
+  [
+   774,
+   "#### Missing context is the dominant failure mode."
+  ],
+  [
+   778,
+   "#### The easier-subset dip suggests caution with empty-context baselines."
+  ],
+  [
+   782,
+   "## 5 Conclusion"
+  ],
+  [
+   786,
+   "## References"
+  ],
+  [
+   1124,
+   "## Appendix A Dataset Details"
+  ],
+  [
+   1130,
+   "#### Source benchmarks and filtering."
+  ],
+  [
+   1141,
+   "#### Benchmark composition."
+  ],
+  [
+   1148,
+   "#### Language distribution."
+  ],
+  [
+   1204,
+   "#### Benchmark record schema."
+  ],
+  [
+   1242,
+   "#### Repository snapshots."
+  ],
+  [
+   1250,
+   "## Appendix B Ground-Truth Construction and Refinement Details"
+  ],
+  [
+   1257,
+   "#### Read extraction."
+  ],
+  [
+   1278,
+   "#### Path normalization."
+  ],
+  [
+   1286,
+   "#### Line-interval normalization."
+  ],
+  [
+   1295,
+   "#### Core and optional context."
+  ],
+  [
+   1315,
+   "#### LLM-assisted refinement."
+  ],
+  [
+   1338,
+   "#### Human audit."
+  ],
+  [
+   1358,
+   "#### Context variants."
+  ],
+  [
+   1365,
+   "## Appendix C Metric Definitions and Ideal-Order Implementation"
+  ],
+  [
+   1372,
+   "#### Line universe."
+  ],
+  [
+   1384,
+   "#### Coverage metrics."
+  ],
+  [
+   1394,
+   "#### Hit rates."
+  ],
+  [
+   1406,
+   "#### Budgeted prefixes."
+  ],
+  [
+   1415,
+   "#### nDCG."
+  ],
+  [
+   1427,
+   "#### Ideal-ordering for nDCG."
+  ],
+  [
+   1437,
+   "#### First useful hit."
+  ],
+  [
+   1448,
+   "#### Efficiency and noise."
+  ],
+  [
+   1458,
+   "#### Aggregation."
+  ],
+  [
+   1465,
+   "## Appendix D Restricted-Context Validation Protocol"
+  ],
+  [
+   1472,
+   "#### Context materialization."
+  ],
+  [
+   1481,
+   "#### Fixed patch scaffold."
+  ],
+  [
+   1489,
+   "#### Patch application and harness evaluation."
+  ],
+  [
+   1497,
+   "#### Failure diagnostics."
+  ],
+  [
+   1505,
+   "## Appendix E Explorer Implementation Details"
+  ],
+  [
+   1513,
+   "#### Retrieval baselines."
+  ],
+  [
+   1520,
+   "#### Agentic explorers."
+  ],
+  [
+   1529,
+   "#### Output validation."
+  ],
+  [
+   1536,
+   "## Appendix F Case Study: scikit-learn/scikit-learn#10844"
+  ],
+  [
+   1540,
+   "#### Issue (scikit-learn/scikit-learn#10844, from SWE-Bench Verified)."
+  ],
+  [
+   1548,
+   "#### Ground truth."
+  ],
+  [
+   1564,
+   "#### Per-explorer outputs."
+  ],
+  [
+   1721,
+   "#### Discussion."
+  ],
+  [
+   1737,
+   "## Appendix G Reproducibility, Compute, and Limitations"
+  ],
+  [
+   1742,
+   "#### Reproducibility."
+  ],
+  [
+   1750,
+   "#### Compute."
+  ],
+  [
+   1759,
+   "#### Limitations."
+  ],
+  [
+   1770,
+   "#### Responsible release."
+  ],
+  [
+   1777,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## Appendix G Reproducibility, Compute, and Limitations\n\nThis appendix collects implementation information that is not central to the\nmain argument but is needed to interpret the released artifact and compute cost.\n\n#### Reproducibility.\n\nThe released artifact contains benchmark records, the common explorer-output\nschema, metric computation scripts, and restricted-context validation scripts.\nEach instance records source provenance, repository metadata, and line-level\ncontext annotations. The evaluation pipeline consumes ranked-region predictions\nand produces both per-instance metrics and aggregate tables.\n\n#### Compute.\n\nSparse retrieval baselines run on CPU workers after repository indexing. Dense\nretrieval additionally requires embedding computation but no fine-tuning.\nAgentic explorers and restricted-context validation are the most expensive\ncomponents because they require LLM calls and executable harness runs. For each\ndownstream run, we log the model, prompt, tool budget, wall-clock time, patch\nstatus, and resolved status.\n\n#### Limitations.\n\nSWE-Explore covers instances solved by at least one agent in our pool, so it does\nnot represent the full distribution of unsolved repository-level issues. Its\ntrajectory-derived ground truth is an empirical approximation of useful context,\nnot a proof that no other evidence could support a valid solution. Some valid\nsolution paths may rely on different evidence than the successful trajectories we\nobserve. The restricted-context protocol should therefore be read as a controlled\nvalidation of exploration metrics, rather than as an absolute measure of\npatch-generation ability.\n\n#### Responsible release.\n\nSWE-Explore is derived from public software-engineering benchmarks and public\nrepository metadata. The release excludes private repositories, credentials, and\nuser data. Benchmark records preserve source attribution and include\ndocumentation for schema, provenance, and intended use.",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 1,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 0,
+  "swe_bench": 28,
+  "contamination": 3,
+  "human_study": 0,
+  "java": 1,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

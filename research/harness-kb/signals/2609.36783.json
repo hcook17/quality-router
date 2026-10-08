@@ -1,0 +1,161 @@
+{
+ "arxiv_id": "2609.36783",
+ "fulltext_chars": 32074,
+ "fulltext_lines": 510,
+ "authors_block": "Correctness Signals in Diffusion Language Models Angad Miglani Samrath Singh Chadha Kevin Li Manas Venkata Sai Ravulapalli angad.miglani@duke.edu samrath@perseus.so kevin.li3@duke.edu manas@perseus.so Efficient Computation Inc",
+ "vendor_affiliation_hits": [],
+ "n_authors": 4,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   25,
+   "# A Heckler in the Hidden State:"
+  ],
+  [
+   41,
+   "###### Abstract"
+  ],
+  [
+   45,
+   "## 1 Introduction"
+  ],
+  [
+   55,
+   "## 2 Background and related work"
+  ],
+  [
+   57,
+   "### 2.1 Diffusion and language generation"
+  ],
+  [
+   63,
+   "### 2.2 Reading representations and changing behaviour"
+  ],
+  [
+   71,
+   "## 3 Methods"
+  ],
+  [
+   73,
+   "### 3.1 Tasks, models, and correctness labels"
+  ],
+  [
+   81,
+   "### 3.2 Probes and confidence controls"
+  ],
+  [
+   120,
+   "### 3.3 Perturbations and steering"
+  ],
+  [
+   126,
+   "## 4 Results"
+  ],
+  [
+   128,
+   "### 4.1 Correctness is readable beyond surface features"
+  ],
+  [
+   138,
+   "### 4.2 Confidence provides a competitive readout"
+  ],
+  [
+   166,
+   "### 4.3 Noise affects the read more than generation"
+  ],
+  [
+   174,
+   "### 4.4 Tested steering procedures do not provide a dependable gain"
+  ],
+  [
+   184,
+   "## 5 Discussion and limitations"
+  ],
+  [
+   186,
+   "### 5.1 A useful readout need not be a useful intervention"
+  ],
+  [
+   192,
+   "### 5.2 Depth and architecture require matched comparisons"
+  ],
+  [
+   198,
+   "### 5.3 Limitations"
+  ],
+  [
+   204,
+   "## 6 Conclusion"
+  ],
+  [
+   208,
+   "## Data availability"
+  ],
+  [
+   212,
+   "## Code availability"
+  ],
+  [
+   218,
+   "## References"
+  ],
+  [
+   324,
+   "## Appendix A Model comparison and vocabulary interpretation"
+  ],
+  [
+   371,
+   "## Appendix B Capture protocol, scoring, and uncertainty"
+  ],
+  [
+   418,
+   "#### Null distributions."
+  ],
+  [
+   422,
+   "#### Intervals."
+  ],
+  [
+   426,
+   "## Appendix C Perturbation controls"
+  ],
+  [
+   434,
+   "## Appendix D Steering configuration and results"
+  ],
+  [
+   480,
+   "## Appendix E Final-layer measurements and the compression hypothesis"
+  ],
+  [
+   498,
+   "## Appendix F Diffusion versus autoregressive models"
+  ],
+  [
+   510,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "## 5 Discussion and limitations\n\n### 5.1 A useful readout need not be a useful intervention\n\nThe steering results suggest that a general correctness verdict may be too coarse to repair code. A failing program may require a different boundary condition, a missing update, or a change in algorithm. These errors share a pass/fail label but require different edits. An intervention tied to the location and type of error may therefore be more useful than a single direction averaged across many failures.\n\nAnother possibility is that later computation modifies or compensates for the activation edit. Both explanations fit the observed asymmetry: a perturbation can damage working code without supplying what a broken program needs. Successful refusal and attribute steering in diffusion models provides a reason to investigate more specific targets and denoising schedules.9, 10\n\n### 5.2 Depth and architecture require matched comparisons\n\nIs a readable correctness signal special to diffusion models? The autoregressive comparisons suggest otherwise: Qwen3-Coder supports a clear read, while GLM-4.5-Air is much closer to its shuffled-label baseline. In the Qwen2.5-Coder comparison, the probe reaches an AUC of 0.677 and the model’s own log-probability confidence reaches 0.703. Even with three autoregressive models, architecture cannot be separated from training. Appendix F develops this comparison and the different opportunities for using a signal during generation.\n\nThe final-layer measurements resist a simple scaling explanation. The LLaDA-flash curve prompted a compression hypothesis, but DiffuCoder’s read remains strong at the final block. Stable-DiffCoder also shows a final-layer decline, so the pattern is not confined to the 102B model. Appendix E compares the raw and normalized states and the different measurement protocols.\n\n### 5.3 Limitations\n\nThe experiments use different groups of tasks and generation settings. Probe evaluation is restricted to mixed problems, and the 16-step and 32-step DiffuCoder experiments contain different cohorts. Their AUC difference therefore cannot be attributed to denoising steps alone. Exact reruns also require capture helpers and activation arrays that are not included in the supplementary package, as well as model and dataset revisions that were not consistently recorded.\n\nThe follow-up permutation analysis holds fitted probe scores fixed while shuffling labels. Its bootstrap resamples problem identifiers but merges repeated draws, losing the multiplicity required for a cluster bootstrap. Layer selection also lacks a separate holdout, and AUC ranks do not explicitly average ties. We therefore compare point estimates rather than make significance or equivalence claims from those uncertainty estimates. Appendix B gives the procedures; recalibration requires refitting under permutation, preserving repeated bootstrap draws, and evaluating layer choice separately.\n\n## 6 Conclusion\n\nLinear probes read correctness-related information from all six diffusion code models tested. The confidence comparisons offer no consistent advantage for the probe, and the tested positive steering interventions provide no dependable gain. A next step is to target representations of particular errors and repairs, and to test when those representations become available during denoising.\n\n## Data availability\n\nThe supplementary package includes the measurements used to draw the figures, experiment summaries, and per-task steering outcomes. The data guide maps these files to the reported results. Large activation arrays and model weights are not included.\n\n## Code availability\n\nThe supplementary package contains the probe and steering scripts, figure-generation code, and instructions for using each component. The figures can be rebuilt from the included measurements without running a model. Repeating the model experiments requires additional inputs and dependencies, which are described in the reproduction guide.\n\nProject repository: ",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 8,
+  "seeds_or_runs": 11,
+  "swe_bench": 1,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

@@ -1,0 +1,192 @@
+{
+ "arxiv_id": "2609.00365",
+ "fulltext_chars": 46830,
+ "fulltext_lines": 869,
+ "authors_block": "Dingjie Song Affiliation: Lehigh University Hanrong Zhang Affiliation: University of Illinois Chicago Dawei Liu Affiliation: University of Pennsylvania Yixin Liu Affiliation: Lehigh University Zongxia Li Affiliation: University of Maryland Zhengqing Yuan Affiliation: University of Notre Dame Siqi Zhang Affiliation: Lehigh University Henry Peng Zou Affiliation: University of Illinois Chicago Zhiling Yan Affiliation: Lehigh University Yuxuan Zhang Affiliation: University of British Columbia Yanfang Ye Affiliation: University of Notre Dame Philip S. Yu Affiliation: University of Illinois Chicago Lichao Sun Affiliation: Lehigh University",
+ "vendor_affiliation_hits": [],
+ "n_authors": 13,
+ "comment": "Accepted to EMNLP 2026 System Demonstrations. Code: https://github.com/OpenLAIR/dr-claw",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/FlowiseAI/FlowiseOpen-source",
+  "https://github.com/OpenLAIR/dr-claw"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Dr. Claw: An AI Scientist Workspace for Vibe Research"
+  ],
+  [
+   74,
+   "###### Abstract"
+  ],
+  [
+   80,
+   "## 1 Introduction"
+  ],
+  [
+   105,
+   "## 2 Related Work"
+  ],
+  [
+   232,
+   "### 2.1 Research Agents and End-to-End Automation"
+  ],
+  [
+   236,
+   "### 2.2 Human–AI Collaboration and Context-Switching Costs"
+  ],
+  [
+   240,
+   "## 3 System Overview"
+  ],
+  [
+   246,
+   "### 3.1 Design Goals and System Abstraction"
+  ],
+  [
+   256,
+   "### 3.2 Three-Layer System Architecture"
+  ],
+  [
+   274,
+   "### 3.3 Workflow-Centric Interaction Loop"
+  ],
+  [
+   278,
+   "### 3.4 Skill-Based Capabilities and Multi-Executor Coordination"
+  ],
+  [
+   284,
+   "### 3.5 Safety and Controllability Mechanisms"
+  ],
+  [
+   294,
+   "## 4 Demo Scenario"
+  ],
+  [
+   298,
+   "### 4.1 Main Interface Demonstration"
+  ],
+  [
+   304,
+   "### 4.2 Skills Interface Demonstration"
+  ],
+  [
+   322,
+   "### 4.3 Task List Interface Demonstration"
+  ],
+  [
+   326,
+   "## 5 Evaluation"
+  ],
+  [
+   330,
+   "### 5.1 Research Completeness Under Open-Ended Goals"
+  ],
+  [
+   356,
+   "#### What the open-ended test shows."
+  ],
+  [
+   369,
+   "#### Triggering reliability."
+  ],
+  [
+   378,
+   "#### Auditability is an architectural affordance, not a score."
+  ],
+  [
+   396,
+   "### 5.2 Non-Destructive Failure Recovery Under Audit"
+  ],
+  [
+   402,
+   "#### Failure and recovery."
+  ],
+  [
+   406,
+   "### 5.3 Human Study"
+  ],
+  [
+   417,
+   "## 6 Conclusion"
+  ],
+  [
+   421,
+   "## Limitations"
+  ],
+  [
+   425,
+   "## Acknowledgments"
+  ],
+  [
+   429,
+   "## Ethics Statement"
+  ],
+  [
+   433,
+   "## References"
+  ],
+  [
+   805,
+   "## Appendix A Human-Study Evaluation (Retrospective Three-Condition Study)"
+  ],
+  [
+   817,
+   "#### Results."
+  ],
+  [
+   821,
+   "### A.1 Participants and Data Collection"
+  ],
+  [
+   825,
+   "### A.2 Stage Definitions and Rubrics"
+  ],
+  [
+   829,
+   "#### Logging and statistics."
+  ],
+  [
+   833,
+   "### A.3 Detailed Statistical Results"
+  ],
+  [
+   855,
+   "## Appendix B System Overview Details"
+  ],
+  [
+   857,
+   "### B.1 Formal Model"
+  ],
+  [
+   861,
+   "### B.2 Implementation, Recovery, and Reproducibility"
+  ],
+  [
+   869,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgments\n\nThis work was partially supported by the National Science Foundation Grants CRII-2246067, ATD-2427915, NSF POSE-2346158, and NSF POSE-2449280.\n\n## Ethics Statement\n\nDr. Claw is designed to assist research under sustained human control, not to autonomize it. A recurring concern with AI research systems is that they may flood the literature with unverified or low-quality output. Our design responds to this concern directly rather than amplifying it: every stage passes through explicit human checkpoints, final acceptance rests with the researcher, and the Decision Log and Execution Trace keep a complete, auditable record of what was generated, approved, revised, or rejected. We view this human-in-the-loop, fully-traceable structure as a safeguard for verifiability, not a shortcut around it. Critical content (citations, experimental conclusions, and manuscript claims) requires human verification before use. When sensitive data are involved, users should follow least-privilege permission settings and retain operation traces; in our own study, the medical datasets remain on the authors’ server and are not redistributed, and no patient-level data are released. For high-risk domains such as healthcare, system outputs must not be used directly for real-world clinical decisions. Human participation in the user study was voluntary and based on informed consent. We used AI-based coding assistants as part of the system under study and for writing assistance, consistent with venue policy.\n\n## References\n\nBaek et al. (2025)\nJ. Baek, S. K. Jauhar, S. Cucerzan, and S. J. Hwang\n\nResearchAgent: iterative research idea generation over scientific literature with large language models.\n\nIn Proceedings of the 2025 Conference of the Nations of the Americas Chapter of the Association for Computational Linguistics: Human Language Technologies (Volume 1: Long Papers),\n\nAlbuquerque, New Mexico, pp. 6709–6738.\n\nExternal Links: Link,\nDocument\n\nCited by: §1,\n§2.1.",
+ "limitations": "## Limitations\n\nOur evaluation is a small-scale, exploratory demonstration rather than a powered comparative study: the pilot uses a limited number of tasks and participants, so the reported differences are directional evidence about workflow orchestration, not causal or statistically powered effects. Three limits deserve to be stated plainly. First, holding the backend executor fixed is not an ablation: Dr. Claw adds a task graph, persistent state objects, a skill library, and workflow instructions as one bundle, so the observed gap cannot be attributed to any single component, and a skill-only versus orchestration-only ablation remains the natural next experiment. Second, completeness counts how many of 21 expected research components a run produces; it is a coverage measure, not a correctness check, and establishing scientific soundness would require expert per-artifact review. Third, our comparison target is the bare executor that Dr. Claw wraps: the matched control for what the wrapper adds, but not a state-of-the-art orchestration framework. Other confounds remain, such as prior familiarity with either interface, and the operator-facing context-switch and intervention reductions are measured separately in the human study (Appendix A). Our tasks also come from a single domain (medical), so transfer of the skill library and the structured Task Graph abstraction to other research areas, particularly open-ended work where rigid structure may add friction, remains to be shown. We do not claim model-level innovation; our contribution is workflow integration, and observed gains depend on configuration choices (backend model, permission settings, and skill coverage).\n\n## Acknowledgments\n\nThis work was partially supported by the National Science Foundation Grants CRII-2246067, ATD-2427915, NSF POSE-2346158, and NSF POSE-2449280.\n\n## Ethics Statement\n\nDr. Claw is designed to assist research under sustained human control, not to autonomize it. A recurring concern with AI research systems is that they may flood the literature with unverified or low-quality output. Our design responds to this concern directly rather than amplifying it: every stage passes through explicit human checkpoints, final acceptance rests with the researcher, and the Decision Log and Execution Trace keep a complete, auditable record of what was generated, approved, revised, or rejected. We view this human-in-the-loop, fully-traceable structure as a safeguard for verifiability, not a shortcut around it. Critical content (citations, experimental conclusions, and manuscript claims) requires human verification before use. When sensitive data are involved, users should follow least-privilege permission settings and retain operation traces; in our own study, the medical datasets remain on the authors’ server and are not redistributed, and no patient-level data are released. For high-risk domains such as healthcare, system outputs must not be used directly for real-world clinical decisions. Human participation in the user study was voluntary and based on informed consent. We used AI-based coding assistants as part of the system under study and for writing assistance, consistent with venue policy.\n\n## References\n\nBaek et al. (2025)\nJ. Baek, S. K. Jauhar, S. Cucerzan, and S. J. Hwang\n\nResearchAgent: iterative research idea generation over scientific literature with large language models.\n\nIn Proceedings of the 2025 Conference of the Nations of the Americas Chapter of the Association for Computational Linguistics: Human Language Technologies (Volume 1: Long Papers),\n\nAlbuquerque, New Mexico, pp. 6709–6738.\n\nExternal Links: Link,\nDocument\n\nCited by: §1,\n§2.1.\n\nBarke et al. (2022)\nS. Barke, M. B. James, and N. Polikarpova\n\nGrounded copilot: how programmers interact with code-generating models.\n\narXiv preprint arXiv:2206.15000.\n\nExternal Links: Link\n\nCited by: §1.",
+ "ethics_coi": "## Ethics Statement\n\nDr. Claw is designed to assist research under sustained human control, not to autonomize it. A recurring concern with AI research systems is that they may flood the literature with unverified or low-quality output. Our design responds to this concern directly rather than amplifying it: every stage passes through explicit human checkpoints, final acceptance rests with the researcher, and the Decision Log and Execution Trace keep a complete, auditable record of what was generated, approved, revised, or rejected. We view this human-in-the-loop, fully-traceable structure as a safeguard for verifiability, not a shortcut around it. Critical content (citations, experimental conclusions, and manuscript claims) requires human verification before use. When sensitive data are involved, users should follow least-privilege permission settings and retain operation traces; in our own study, the medical datasets remain on the authors’ server and are not redistributed, and no patient-level data are released. For high-risk domains such as healthcare, system outputs must not be used directly for real-world clinical decisions. Human participation in the user study was voluntary and based on informed consent. We used AI-based coding assistants as part of the system under study and for writing assistance, consistent with venue policy.\n\n## References\n\nBaek et al. (2025)\nJ. Baek, S. K. Jauhar, S. Cucerzan, and S. J. Hwang\n\nResearchAgent: iterative research idea generation over scientific literature with large language models.\n\nIn Proceedings of the 2025 Conference of the Nations of the Americas Chapter of the Association for Computational Linguistics: Human Language Technologies (Volume 1: Long Papers),\n\nAlbuquerque, New Mexico, pp. 6709–6738.\n\nExternal Links: Link,\nDocument\n\nCited by: §1,\n§2.1.\n\nBarke et al. (2022)\nS. Barke, M. B. James, and N. Polikarpova\n\nGrounded copilot: how programmers interact with code-generating models.",
+ "counts": {
+  "self_reported": 1,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 3,
+  "seeds_or_runs": 0,
+  "swe_bench": 1,
+  "contamination": 0,
+  "human_study": 7,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

@@ -1,0 +1,161 @@
+{
+ "arxiv_id": "2606.14790",
+ "fulltext_chars": 37137,
+ "fulltext_lines": 754,
+ "authors_block": "\\equalcontributionHanqi Li \\equalcontributionJing Peng \\equalcontributionZijian Wang Lu Chen \\correspondencekai.yu@sjtu.edu.cnKai Yu",
+ "vendor_affiliation_hits": [],
+ "n_authors": 5,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   40,
+   "# XFlow: An Executable Protocol Programming System for Reliable Multi-Agent Workflows"
+  ],
+  [
+   52,
+   "###### Abstract"
+  ],
+  [
+   66,
+   "######"
+  ],
+  [
+   70,
+   "## 1 Introduction"
+  ],
+  [
+   140,
+   "## 2 Design Philosophy"
+  ],
+  [
+   150,
+   "### 2.1 Occupying an Intermediate Regime"
+  ],
+  [
+   167,
+   "### 2.2 Making the Formal/Informal Boundary Explicit"
+  ],
+  [
+   186,
+   "### 2.3 Governing Uncertainty with Symbols"
+  ],
+  [
+   213,
+   "## 3 XFlow Architecture"
+  ],
+  [
+   226,
+   "### 3.1 Specification Phase"
+  ],
+  [
+   302,
+   "#### 3.1.1 Symbol Space ( \\Sigma )"
+  ],
+  [
+   358,
+   "#### 3.1.2 Derivations ( \\Delta )"
+  ],
+  [
+   404,
+   "#### 3.1.3 Actor Interfaces ( \\Lambda )"
+  ],
+  [
+   428,
+   "## Draft Brief {#draft-brief}"
+  ],
+  [
+   442,
+   "#### 3.1.4 Control Flow ( \\mathcal{F} )"
+  ],
+  [
+   470,
+   "#### 3.1.5 Responsibility Transfer ( \\mathcal{H} )"
+  ],
+  [
+   494,
+   "### 3.2 Compilation Phase"
+  ],
+  [
+   506,
+   "#### 3.2.1 Parse the Literate Surface"
+  ],
+  [
+   514,
+   "# source surface"
+  ],
+  [
+   520,
+   "## Draft Brief {#draft-brief}"
+  ],
+  [
+   534,
+   "# parsed surface"
+  ],
+  [
+   554,
+   "#### 3.2.2 Resolve Names and Check Commitments"
+  ],
+  [
+   569,
+   "# unresolved flow text"
+  ],
+  [
+   579,
+   "# resolved and checked references"
+  ],
+  [
+   603,
+   "#### 3.2.3 Lower to Typed IR"
+  ],
+  [
+   649,
+   "### 3.3 Execution Phase"
+  ],
+  [
+   665,
+   "#### 3.3.1 Interface-Mediated Actor Action"
+  ],
+  [
+   684,
+   "#### 3.3.2 Governed State Commitment"
+  ],
+  [
+   699,
+   "#### 3.3.3 Persisting Execution Context"
+  ],
+  [
+   719,
+   "## 4 Experimental Results"
+  ],
+  [
+   728,
+   "### 4.1 Constrained Interaction: \\tau^{3} -bench"
+  ],
+  [
+   754,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 0,
+  "swe_bench": 1,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

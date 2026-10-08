@@ -1,0 +1,287 @@
+{
+ "arxiv_id": "2607.11111",
+ "fulltext_chars": 78872,
+ "fulltext_lines": 1586,
+ "authors_block": "Haotian Lin1, Silin Chen1, Xiaodong Gu1*, Yuling Shi1, Chengxi Pan2, Jiaqi Ge3, Mengfan Li1, Jianghong Huang1, MENGCHIEH CHUANG1, Beijun Shen1, and Haibing Guan1 Affiliation: 1Shanghai Jiao Tong University, Shanghai, China Affiliation: 2University of Pittsburgh, Pittsburgh, PA, USA Affiliation: 3Guangdong Technion–Israel Institute of Technology, Shantou, China Affiliation: {hyperlynnx, xiaodong.gu, yuling.shi, lmf2951510526, jh.huang, Zhuangmengjie, bjshen, hbguan}@sjtu.edu.cn, csl2457029646@163.com, chp252@pitt.edu, ge24876@gtiit.edu.cn Affiliation:",
+ "vendor_affiliation_hits": [],
+ "n_authors": 11,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/LionLin2003/ACQUIRE."
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Know Before Fix: QA-Driven Repository Knowledge Acquisition for Software Issue ResolutionThanks: * Xiaodong Gu is the corresponding author."
+  ],
+  [
+   49,
+   "###### Abstract"
+  ],
+  [
+   53,
+   "###### Index Terms:"
+  ],
+  [
+   58,
+   "## I Introduction"
+  ],
+  [
+   85,
+   "## II Motivation"
+  ],
+  [
+   101,
+   "## III Methodology"
+  ],
+  [
+   103,
+   "### III-A Overview"
+  ],
+  [
+   107,
+   "### III-B Stage 1: Question-Driven Knowledge Acquisition"
+  ],
+  [
+   111,
+   "#### III-B1 Question Generation"
+  ],
+  [
+   133,
+   "#### III-B2 Evidence-Grounded Answering"
+  ],
+  [
+   137,
+   "#### III-B3 Parallel Knowledge Acquisition"
+  ],
+  [
+   143,
+   "### III-C Stage 2: Knowledge-Informed Repair"
+  ],
+  [
+   149,
+   "## IV Experimental Setup"
+  ],
+  [
+   151,
+   "### IV-A Research Questions"
+  ],
+  [
+   162,
+   "### IV-B Datasets and Models"
+  ],
+  [
+   178,
+   "### IV-C Evaluation Metrics"
+  ],
+  [
+   194,
+   "### IV-D Baseline Methods"
+  ],
+  [
+   218,
+   "### IV-E Implementation Details"
+  ],
+  [
+   220,
+   "#### IV-E1 Baseline Method Configurations"
+  ],
+  [
+   224,
+   "#### IV-E2 ACQUIRE Configurations"
+  ],
+  [
+   302,
+   "## V Results"
+  ],
+  [
+   304,
+   "### V-A RQ1: Effectiveness of ACQUIRE"
+  ],
+  [
+   316,
+   "### V-B RQ2: Quality and Influence of QA Knowledge"
+  ],
+  [
+   320,
+   "#### V-B1 QA Factual Reliability"
+  ],
+  [
+   328,
+   "#### V-B2 Influence on Repair Behavior"
+  ],
+  [
+   338,
+   "#### V-B3 Pass-to-Fail Regression Analysis"
+  ],
+  [
+   366,
+   "### V-C RQ3: Ablation on Key Design Choices"
+  ],
+  [
+   380,
+   "#### V-C1 QA Decomposition vs. Proposal"
+  ],
+  [
+   421,
+   "#### V-C2 Category-Guided vs. Free Question Generation"
+  ],
+  [
+   429,
+   "### V-D RQ4: Sensitivity to the Number of QA Pairs"
+  ],
+  [
+   441,
+   "### V-E Case Study"
+  ],
+  [
+   462,
+   "## VI Discussion"
+  ],
+  [
+   464,
+   "### VI-A Strengths"
+  ],
+  [
+   472,
+   "### VI-B Limitations and Future Work"
+  ],
+  [
+   480,
+   "## VII Threats to Validity"
+  ],
+  [
+   493,
+   "## VIII Related Work"
+  ],
+  [
+   495,
+   "### VIII-A Software Issue Resolution"
+  ],
+  [
+   507,
+   "### VIII-B Repository QA and Knowledge Acquisition"
+  ],
+  [
+   517,
+   "## IX Conclusion"
+  ],
+  [
+   525,
+   "## Data Availability"
+  ],
+  [
+   529,
+   "## References"
+  ],
+  [
+   1211,
+   "## I Prompt Templates"
+  ],
+  [
+   1213,
+   "### I-A Questioner Prompt"
+  ],
+  [
+   1219,
+   "### I-B Answerer Instance Template"
+  ],
+  [
+   1223,
+   "### I-C Question-Quality Evaluation Prompts"
+  ],
+  [
+   1225,
+   "#### I-C1 Scoring – Individual Question"
+  ],
+  [
+   1231,
+   "#### I-C2 Scoring – Question Set (Coverage)"
+  ],
+  [
+   1237,
+   "#### I-C3 Voting"
+  ],
+  [
+   1243,
+   "## II Supplementary Experimental Analysis"
+  ],
+  [
+   1245,
+   "### II-A Stage-wise Cost and Time Analysis"
+  ],
+  [
+   1371,
+   "### II-B Agent Round and API-call Analysis"
+  ],
+  [
+   1373,
+   "#### II-B1 Agent Round Distribution"
+  ],
+  [
+   1379,
+   "#### II-B2 API-call Shift by Transition Type"
+  ],
+  [
+   1386,
+   "#Cases"
+  ],
+  [
+   1422,
+   "### II-C Characterization of Generated QA"
+  ],
+  [
+   1480,
+   "## III Human Audit and Regression Details"
+  ],
+  [
+   1484,
+   "### III-A Minor Deviation Breakdown"
+  ],
+  [
+   1509,
+   "### III-B Cases Containing Ungrounded Claims"
+  ],
+  [
+   1536,
+   "### III-C Pass-to-Fail Regression Details"
+  ],
+  [
+   1540,
+   "#### III-C1 Misleading Cases"
+  ],
+  [
+   1548,
+   "#"
+  ],
+  [
+   1578,
+   "#### III-C2 Non-misleading Cases"
+  ],
+  [
+   1586,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "### VI-B Limitations and Future Work\n\nDespite these strengths, the current framework still has room for further improvement.\n\nThe four-category question template, while practical and effective, can be further refined for broader coverage. Future work can explore hierarchical categories, issue-type-adaptive templates, or automatically learned category schemas from large-scale repair trajectories.\n\nAdditionally, knowledge is currently injected as pre-generated QA context before repair, which has proven simple and stable in practice. A promising extension is to couple knowledge acquisition with the repair trajectory itself, allowing the agent to dynamically request and refresh knowledge as new hypotheses emerge during debugging. However, dynamic acquisition would inevitably introduce additional cost; exploring how to balance knowledge freshness and computational cost remains an open challenge.\n\n## VII Threats to Validity\n\nWe discuss potential validity threats from three perspectives.\n\nConstruct validity.\nA key threat is whether our metrics fully capture repair quality. We use Pass@1 on SWE-bench Verified as the primary effectiveness metric, and complement it with time, cost, and trajectory-step analyses that provide an efficiency perspective on the repair process.\n\nInternal validity.\nObserved gains could be influenced by confounding factors such as prompt design, tool behavior, or hyperparameter choices rather than the proposed QA-driven mechanism itself. To reduce this risk, we keep the repair backbone and evaluation protocol consistent across methods, and conduct targeted ablations that remove core components (question decomposition and category-guided question generation). The consistent performance drops in these ablations support the causal contribution of our key design choices. Additionally, the question-quality evaluation in RQ3 relies on LLM-as-a-judge; to mitigate potential scoring bias, we adopt both scoring and pairwise voting perspectives, repeat each judgment 10 times, and apply position-bias mitigation following established practices [27].\n\nExternal validity.\nOur current prompt design and evaluation are tailored to Python repositories. While the QA-driven paradigm itself is language-agnostic, adapting the prompt design to other programming languages and validating its effectiveness across them remains future work.\n\n## VIII Related Work\n\n### VIII-A Software Issue Resolution\n\nRepository-level issue resolution addresses real-world software bugs by reasoning over cross-file dependencies and generating patches within full repositories. Unlike function-level repair, it demands broader context understanding and robust handling of ambiguous descriptions. Recent progress is driven by the SWE-bench benchmarks [19, 13, 32] and supporting infrastructure such as Repo2Run for scalable environment construction [33], while agentic frameworks like SWE-agent enable models to interact with realistic software environments [4]. Alongside these advances, a growing body of work scrutinizes benchmark reliability, examining issues such as test overfitting, label quality, evaluation inflation, and benchmark extensibility [34, 35, 36, 37, 38, 39, 40, 41].\n\nExisting approaches follow three main directions. First, structured workflow decomposition improves controllability and reasoning. For instance, Agentless splits repair into localization, repair, and validation stages [5]. AutoCodeRover and LingmaAgent enhance repository search and multi-step reasoning [6, 12], while SWE-Debate introduces structured debate into the repair pipeline [1].\n\nSecond, effective repository exploration and context management are critical. LocAgent uses graph-guided multi-hop reasoning for localization [3], and RepoGraph leverages structural representations for better traversal [42]. Additionally, EET and SWE-Pruner emphasize efficiency control and context pruning to streamline search and reading processes [21, 2], and recent work further explores compressing code c",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 4,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 20,
+  "swe_bench": 25,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

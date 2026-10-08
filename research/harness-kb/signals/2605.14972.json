@@ -1,0 +1,273 @@
+{
+ "arxiv_id": "2605.14972",
+ "fulltext_chars": 54810,
+ "fulltext_lines": 1435,
+ "authors_block": "Haoze Wu Affiliation: Amherst College Broadcom Email: hwu@amherst.edu Rocky Klopfenstein Email: rklopfenstein27@amherst.edu Keith Farkas Affiliation: Amherst College Broadcom Email: keith.farkas@broadcom.com Nina Narodytska Affiliation: Amherst College Broadcom Email: nina.narodytska@broadcom.com",
+ "vendor_affiliation_hits": [],
+ "n_authors": 4,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Viverra: Text-to-Code with Guarantees"
+  ],
+  [
+   44,
+   "###### Abstract"
+  ],
+  [
+   48,
+   "## 1 Introduction"
+  ],
+  [
+   84,
+   "## 2 Preliminaries"
+  ],
+  [
+   94,
+   "###### Definition 1 (Program/Call graph)."
+  ],
+  [
+   102,
+   "###### Definition 2 (Assertion)."
+  ],
+  [
+   111,
+   "###### Definition 3 ( k -Bounded Execution)."
+  ],
+  [
+   119,
+   "###### Definition 4 (Bounded Invariant)."
+  ],
+  [
+   131,
+   "###### Definition 5 (Assumption)."
+  ],
+  [
+   147,
+   "###### Definition 6 (Verification Status)."
+  ],
+  [
+   171,
+   "## 3 Methodology"
+  ],
+  [
+   198,
+   "### 3.1 The Viverra Pipeline"
+  ],
+  [
+   350,
+   "### 3.2 Compositional Verification"
+  ],
+  [
+   386,
+   "###### Theorem 1 (Soundness of VerifyAll)."
+  ],
+  [
+   402,
+   "###### Proof."
+  ],
+  [
+   410,
+   "### 3.3 Fact Generation"
+  ],
+  [
+   414,
+   "###### Definition 7 (Dependency Closure)."
+  ],
+  [
+   427,
+   "###### Theorem 2 (Sound assumptions)."
+  ],
+  [
+   433,
+   "###### Proof."
+  ],
+  [
+   520,
+   "## 4 Implementation"
+  ],
+  [
+   563,
+   "## 5 Experimental Evaluation"
+  ],
+  [
+   578,
+   "### 5.1 Experimental Setup"
+  ],
+  [
+   582,
+   "### 5.2 Performance of Viverra on program-annotation co-synthesis"
+  ],
+  [
+   623,
+   "#Assert"
+  ],
+  [
+   774,
+   "### 5.3 Can verified annotations aid comprehension?"
+  ],
+  [
+   790,
+   "## 6 Related Work"
+  ],
+  [
+   792,
+   "#### LLM-based code synthesis."
+  ],
+  [
+   801,
+   "#### Verified code generation."
+  ],
+  [
+   813,
+   "#### Specification generation."
+  ],
+  [
+   823,
+   "## 7 Conclusion"
+  ],
+  [
+   833,
+   "#### Limitations and future work."
+  ],
+  [
+   838,
+   "## References"
+  ],
+  [
+   1004,
+   "## Appendix A Proofs"
+  ],
+  [
+   1008,
+   "###### Proof."
+  ],
+  [
+   1019,
+   "###### Proof."
+  ],
+  [
+   1072,
+   "## Appendix B Benchmark Descriptions"
+  ],
+  [
+   1079,
+   "#### bubblesort."
+  ],
+  [
+   1088,
+   "#### connected_component."
+  ],
+  [
+   1098,
+   "#### shortest_path."
+  ],
+  [
+   1106,
+   "#### knapsack."
+  ],
+  [
+   1115,
+   "#### sudoku."
+  ],
+  [
+   1124,
+   "#### tictactoe."
+  ],
+  [
+   1133,
+   "#### connect4."
+  ],
+  [
+   1143,
+   "#### numberle."
+  ],
+  [
+   1153,
+   "#### condorcet."
+  ],
+  [
+   1162,
+   "#### gaussian_elimination."
+  ],
+  [
+   1172,
+   "#### simplex."
+  ],
+  [
+   1182,
+   "#### log_timestamp_filter."
+  ],
+  [
+   1190,
+   "#### sort_timestamp."
+  ],
+  [
+   1199,
+   "#### shift_letter."
+  ],
+  [
+   1208,
+   "#### base_addition."
+  ],
+  [
+   1218,
+   "#### cellular_automata."
+  ],
+  [
+   1222,
+   "# = alive) from stdin."
+  ],
+  [
+   1227,
+   "#### maze."
+  ],
+  [
+   1237,
+   "## Appendix C LLM Prompts"
+  ],
+  [
+   1243,
+   "### C.1 Property Elicitation"
+  ],
+  [
+   1268,
+   "### C.2 Verification-Friendly Program Synthesis"
+  ],
+  [
+   1337,
+   "### C.3 Assertion Generation"
+  ],
+  [
+   1402,
+   "### C.4 Verified Fact Translation"
+  ],
+  [
+   1435,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "#### Limitations and future work.\n\nA fundamental limitation of Viverra is that it only provides guarantees up to a certain depth. This is a deliberate trade-off that keeps verification feasible for complex programs. In the future, it might be interesting to consider invoking AI-driven proof assistants to fully verify properties in a best-effort manner.\nWhile the scalability of bounded model checkers has improved significantly in the past two decades, Viverra can still be bottlenecked by the underlying verifiers and can only work with programs supported by the verifiers. Extending the approach to richer languages such as Python or Rust, and to heap properties and quantified invariants, are natural next steps. Finally, the quality of verified annotations depends on the LLM generating meaningful assertions. In the future, it would be interesting to consider alternative property elicitation strategies or design metrics to evaluate the quality of the generated assertions. Due to budget constraints, the human study was conducted with crowdworkers and at a relatively small scale. While the patterns we observed are clear and consistent, expanding the user study with professional developers in an offline setting on a larger set of questions would further establish the effectiveness of Viverra.\n\n## References\n\nAustin et al. (2021)\nJ. Austin, A. Odena, M. Nye, M. Bosma, H. Michalewski, D. Dohan, E. Jiang, C. Cai, M. Terry, Q. Le, et al.\n\nProgram synthesis with large language models.\n\narXiv preprint arXiv:2108.07732.\n\nCited by: §1,\n§6.\n\nBouras et al. (2025)\nD. S. Bouras, Y. Dai, T. Wang, Y. Xiong, and S. Mechtaev\n\nHoarePrompt: structural reasoning about program correctness in natural language.\n\narXiv preprint arXiv:2503.19599.\n\nCited by: §6.\n\nBursuc et al. (2025)\nS. Bursuc, T. Ehrenborg, S. Lin, L. Astefanoaei, I. E. Chiosa, J. Kukovec, A. Singh, O. Butterley, A. Bizid, Q. Dougherty, et al.\n\nA benchmark for vericoding: formally verified program synthesis.\n\narXiv preprint arXiv:2509.22908.\n\nCited by: §6.\n\nChen et al. (2021)\nM. Chen, J. Tworek, H. Jun, Q. Yuan, H. P. D. O. Pinto, J. Kaplan, H. Edwards, Y. Burda, N. Joseph, G. Brockman, et al.\n\nEvaluating large language models trained on code.",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 3,
+  "seeds_or_runs": 0,
+  "swe_bench": 1,
+  "contamination": 0,
+  "human_study": 15,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

@@ -1,0 +1,205 @@
+{
+ "arxiv_id": "2605.20456",
+ "fulltext_chars": 35733,
+ "fulltext_lines": 693,
+ "authors_block": "Christopher Koch Affiliation: Independent Researcher",
+ "vendor_affiliation_hits": [],
+ "n_authors": 1,
+ "comment": "7 pages, 1 figure",
+ "journal_ref": "",
+ "github_urls": [],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Agentic Agile-V: From Vibe Coding to Verified Engineering in Software and Hardware Development"
+  ],
+  [
+   26,
+   "###### Abstract"
+  ],
+  [
+   30,
+   "###### Index Terms:"
+  ],
+  [
+   33,
+   "## I Introduction"
+  ],
+  [
+   63,
+   "## II Background and Evidence Base"
+  ],
+  [
+   65,
+   "### II-A From Assistants to Agents"
+  ],
+  [
+   71,
+   "### II-B Productivity Is Context-Dependent"
+  ],
+  [
+   77,
+   "### II-C GitHub Evidence and Repository Configuration"
+  ],
+  [
+   85,
+   "### II-D Repository Execution Remains Hard"
+  ],
+  [
+   91,
+   "### II-E Hardware and Firmware Raise the Bar"
+  ],
+  [
+   97,
+   "## III Method: Bounded Evidence Synthesis"
+  ],
+  [
+   121,
+   "## IV Problem Statement"
+  ],
+  [
+   123,
+   "### IV-A The Limits of Conversational Development"
+  ],
+  [
+   149,
+   "### IV-B Verification Debt"
+  ],
+  [
+   153,
+   "### IV-C The Missing Bridge"
+  ],
+  [
+   157,
+   "## V The Agentic Agile-V Framework"
+  ],
+  [
+   159,
+   "### V-A Overview"
+  ],
+  [
+   185,
+   "### V-B The SCOPE-V Micro-Cycle"
+  ],
+  [
+   201,
+   "### V-C Agile-V as Lifecycle Backbone"
+  ],
+  [
+   209,
+   "## VI Minimum Input Artifact Model"
+  ],
+  [
+   263,
+   "## VII Conversational Discovery vs. Structured Execution"
+  ],
+  [
+   265,
+   "### VII-A When Conversation Helps"
+  ],
+  [
+   269,
+   "### VII-B When Structure Is Mandatory"
+  ],
+  [
+   279,
+   "## VIII Task Workflows"
+  ],
+  [
+   281,
+   "### VIII-A Feature Development"
+  ],
+  [
+   321,
+   "### VIII-B Bug Fixing"
+  ],
+  [
+   359,
+   "### VIII-C Testing and Review"
+  ],
+  [
+   381,
+   "### VIII-D Hardware, Firmware, and Embedded Development"
+  ],
+  [
+   385,
+   "## IX Risk-Adaptive Acceptance Gates"
+  ],
+  [
+   435,
+   "### IX-A Evidence Bundle"
+  ],
+  [
+   469,
+   "## X Discussion"
+  ],
+  [
+   471,
+   "### X-A Implications for Teams"
+  ],
+  [
+   499,
+   "### X-B Implications for Tool Builders"
+  ],
+  [
+   503,
+   "### X-C Implications for Hardware and Embedded Engineering"
+  ],
+  [
+   507,
+   "### X-D Threats to Validity"
+  ],
+  [
+   511,
+   "## XI Practical Templates"
+  ],
+  [
+   513,
+   "### XI-A Feature Brief Template"
+  ],
+  [
+   517,
+   "### XI-B Bug Brief Template"
+  ],
+  [
+   521,
+   "### XI-C Hardware/Firmware Brief Template"
+  ],
+  [
+   525,
+   "## XII Research Agenda"
+  ],
+  [
+   553,
+   "## XIII Conclusion"
+  ],
+  [
+   559,
+   "## References"
+  ],
+  [
+   693,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "### X-D Threats to Validity\n\nThis paper is a synthesis and process proposal, not a new benchmark. The field is moving quickly, and point estimates from 2024 to 2026 may change as models and tools evolve. Productivity studies vary by task type, developer experience, codebase maturity, tool generation, and organizational culture. Hardware benchmarks differ in design complexity and verification rigor. The framework should therefore be validated empirically in future studies across multiple teams, repositories, tools, and hardware domains.\n\n## XI Practical Templates\n\n### XI-A Feature Brief Template\n\nA feature brief should include: objective, user-visible behavior, non-goals, affected modules, interface contracts, migration needs, compatibility constraints, security considerations, acceptance criteria, tests to add or update, and rollback path.\n\n### XI-B Bug Brief Template\n\nA bug brief should include: observed behavior, expected behavior, reproduction steps, input data, logs/traces, environment, affected version, suspected area, failing test if available, constraints on fix scope, and regression-test requirement.\n\n### XI-C Hardware/Firmware Brief Template\n\nA hardware or firmware brief should include: board revision, chip or FPGA variant, datasheet excerpts, register map, pinout, clock tree, bus/protocol rules, memory map, RTOS/bare-metal assumptions, timing and power constraints, safety states, toolchain, simulator, HIL setup, and acceptance evidence.\n\n## XII Research Agenda\n\nFuture work should evaluate Agentic Agile-V empirically. Key questions include:\n\n1. \n\nDo structured execution briefs improve agent success compared with conversational prompts?\n\n2. \n\nWhat is the minimum useful content of repository instructions?\n\n3. \n\nDoes independent agentic test generation reduce defect escape?\n\n4. \n\nWhich task classes benefit from Agile-V/SCOPE-V and which are slowed by overhead?\n\n5.",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 0,
+  "seeds_or_runs": 1,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 4,
+  "java": 0,
+  "industrial": 5
+ },
+ "fulltext_source": "html"
+}

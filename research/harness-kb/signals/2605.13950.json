@@ -1,0 +1,218 @@
+{
+ "arxiv_id": "2605.13950",
+ "fulltext_chars": 80234,
+ "fulltext_lines": 1674,
+ "authors_block": "Benchmarking AI Agents with Particle Physics Analysis Reproduction Darius A. Faroughy Affiliation: New High Energy Theory Center Affiliation: Department of Physics & Astronomy Affiliation: Rutgers University Email: darius.faroughy@rutgers.edu Sofia Palacios Schweitzer Affiliation: New High Energy Theory Center Affiliation: Department of Physics & Astronomy Affiliation: Rutgers University Email: spalacios@physics.rutgers.edu Ian Pang Affiliation: New High Energy Theory Center Affiliation: Department of Physics & Astronomy Affiliation: Rutgers University Email: ian.pang@physics.rutgers.edu Siddharth Mishra-Sharma Affiliation: Faculty of Computing & Data Sciences Affiliation: Boston University Email: smishras@bu.edu David Shih Affiliation: New High Energy Theory Center Affiliation: Department of Physics & Astronomy Affiliation: Rutgers University Email: shih@physics.rutgers.edu",
+ "vendor_affiliation_hits": [],
+ "n_authors": 5,
+ "comment": "23 pages | 9 figures | 4 tables | Code: https://github.com/dfaroughy/Collider-Bench | Task Corpus: https://huggingface.co/datasets/Dariusfar/ColliderBench",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/dfaroughy/Collider-Bench."
+ ],
+ "hf_urls": [
+  "https://huggingface.co/datasets/Dariusfar",
+  "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro"
+ ],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Collider-Bench:"
+  ],
+  [
+   72,
+   "###### Abstract"
+  ],
+  [
+   76,
+   "## 1 Introduction"
+  ],
+  [
+   92,
+   "## 2 Related Work"
+  ],
+  [
+   94,
+   "#### LLM Benchmarks for Science"
+  ],
+  [
+   98,
+   "#### Agent Benchmarks for multi-step Workflows"
+  ],
+  [
+   102,
+   "#### Recasting and AI Agents in Particle Physics"
+  ],
+  [
+   106,
+   "## 3 Collider-Bench"
+  ],
+  [
+   112,
+   "### 3.1 Problem Formulation"
+  ],
+  [
+   125,
+   "#### Task definition"
+  ],
+  [
+   137,
+   "### 3.2 Task Corpus Design"
+  ],
+  [
+   254,
+   "### 3.3 Model Evaluation"
+  ],
+  [
+   256,
+   "#### Fidelity Metrics"
+  ],
+  [
+   282,
+   "#### Provenance Judge"
+  ],
+  [
+   298,
+   "#### Cost and Efficiency"
+  ],
+  [
+   302,
+   "## 4 Experiments"
+  ],
+  [
+   306,
+   "### 4.1 Experimental Setup"
+  ],
+  [
+   310,
+   "#### Agents"
+  ],
+  [
+   314,
+   "#### Physicist-in-the-loop Baseline"
+  ],
+  [
+   323,
+   "### 4.2 Main Results"
+  ],
+  [
+   341,
+   "### 4.3 Shape–Normalization Diagnosis"
+  ],
+  [
+   355,
+   "### 4.4 Task Ablation"
+  ],
+  [
+   363,
+   "### 4.5 Provenance Test"
+  ],
+  [
+   382,
+   "## 5 Conclusion"
+  ],
+  [
+   386,
+   "## Acknowledgments"
+  ],
+  [
+   392,
+   "## References"
+  ],
+  [
+   791,
+   "## Appendix A Brief Primer on Collider Physics"
+  ],
+  [
+   805,
+   "### A.1 Recasting toolbox"
+  ],
+  [
+   809,
+   "### A.2 Glossary"
+  ],
+  [
+   958,
+   "## Appendix B Benchmark Construction Details"
+  ],
+  [
+   960,
+   "### B.1 Event-selection specification to code"
+  ],
+  [
+   964,
+   "### B.2 Task Interface"
+  ],
+  [
+   1107,
+   "# Pythia: write a small Python driver (‘import pythia8‘)"
+  ],
+  [
+   1206,
+   "### B.3 Representative Output Template"
+  ],
+  [
+   1261,
+   "### B.4 From Shape to Absolute Event Yields"
+  ],
+  [
+   1305,
+   "### B.5 Agent Workspace and Sandboxing"
+  ],
+  [
+   1309,
+   "#### Controlled information surface and provenance."
+  ],
+  [
+   1315,
+   "## Appendix C Experimental Details"
+  ],
+  [
+   1317,
+   "### C.1 Agent Systems"
+  ],
+  [
+   1323,
+   "### C.2 Run Protocol"
+  ],
+  [
+   1331,
+   "### C.3 Physicist-in-the-loop Baseline"
+  ],
+  [
+   1339,
+   "## Appendix D Additional Results"
+  ],
+  [
+   1644,
+   "### D.1 Tool Ablation Test"
+  ],
+  [
+   1652,
+   "## Appendix E LLM Judge"
+  ],
+  [
+   1674,
+   "##"
+  ]
+ ],
+ "acknowledgments": "## Acknowledgments\n\nWe are grateful to Sabine Kraml for discussions and early collaboration on this project. We thank Gregor Kasieczka and Aman Upadhyay for helpful discussions.\nDAF, SPS, IP and DS were supported by DOE grant DOE-SC0010008. This research used resources of the National Energy Research Scientific Computing Center, a DOE Office of Science User Facility supported by the Office of Science of the U.S. Department of Energy under Contract\nNo. DE-AC02-05CH11231 using NERSC award HEPERCAP0027491.\n\n## References\n\nAbdallah et al. (2020)\nW. Abdallah et al.\n\nReinterpretation of LHC Results for New Physics: Status and Recommendations after Run 2.\n\nSciPost Phys. 9 (2), pp. 022.\n\nExternal Links: 2003.07868,\nDocument\n\nCited by: §2.\n\nAgrawal et al. (2026)\nP. Agrawal, N. Craig, A. Madden, and I. V. Lombera\n\nThe FERMIACC: Agents for Particle Theory.",
+ "limitations": "",
+ "ethics_coi": "",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 1,
+  "p_value_or_ci": 2,
+  "seeds_or_runs": 5,
+  "swe_bench": 1,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 0
+ },
+ "fulltext_source": "html"
+}

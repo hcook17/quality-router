@@ -1,0 +1,260 @@
+{
+ "arxiv_id": "2605.10133",
+ "fulltext_chars": 67199,
+ "fulltext_lines": 1619,
+ "authors_block": "via Usability Requirements Yue Li Affiliation: National Key Lab for Novel Software Technology, Nanjing University Xiao Li Affiliation: National Key Lab for Novel Software Technology, Nanjing University Hao Wu Affiliation: National Key Lab for Novel Software Technology, Nanjing University Yue Zhang Affiliation: Shandong University Yechao Zhang Affiliation: Nanyang Technological University Yating Liu Affiliation: National Key Lab for Novel Software Technology, Nanjing University Fengyuan Xu Affiliation: National Key Lab for Novel Software Technology, Nanjing University Correspondence to: Sheng Zhong Affiliation: National Key Lab for Novel Software Technology, Nanjing University",
+ "vendor_affiliation_hits": [],
+ "n_authors": 8,
+ "comment": "",
+ "journal_ref": "",
+ "github_urls": [
+  "https://github.com/features/copilot",
+  "https://github.com/features/issuesAccessed"
+ ],
+ "hf_urls": [],
+ "headings": [
+  [
+   3,
+   "##### Report GitHub Issue"
+  ],
+  [
+   20,
+   "# Usability as a Weapon: Attacking the Safety of LLM-Based Code Generation"
+  ],
+  [
+   57,
+   "###### Abstract"
+  ],
+  [
+   63,
+   "###### Keywords:"
+  ],
+  [
+   66,
+   "## 1 Introduction"
+  ],
+  [
+   91,
+   "#### Contributions."
+  ],
+  [
+   107,
+   "## 2 Background and Related Work"
+  ],
+  [
+   111,
+   "### 2.1 LLM-based Secure Code Generation"
+  ],
+  [
+   120,
+   "### 2.2 Reward Hacking of LLMs"
+  ],
+  [
+   126,
+   "## 3 Usability-Pressure Attacks (UPAttack)"
+  ],
+  [
+   128,
+   "### 3.1 Threat Model"
+  ],
+  [
+   134,
+   "### 3.2 Key Idea and Case Study"
+  ],
+  [
+   154,
+   "### 3.3 Attack Formulation"
+  ],
+  [
+   213,
+   "## 4 The U-Sploit Attack Framework"
+  ],
+  [
+   225,
+   "### 4.1 Target Selection"
+  ],
+  [
+   229,
+   "### 4.2 Attack Generation"
+  ],
+  [
+   242,
+   "### 4.3 Attack Verification"
+  ],
+  [
+   255,
+   "## 5 Experiments"
+  ],
+  [
+   259,
+   "### 5.1 Experimental Setup"
+  ],
+  [
+   261,
+   "#### Dataset Construction."
+  ],
+  [
+   266,
+   "#### Model Configuration."
+  ],
+  [
+   271,
+   "#### Metrics."
+  ],
+  [
+   297,
+   "### 5.2 Attack Effectiveness (RQ1)"
+  ],
+  [
+   483,
+   "### 5.3 Cross-Model Transferability (RQ2)"
+  ],
+  [
+   505,
+   "### 5.4 Mechanism Efficacy (RQ3)"
+  ],
+  [
+   541,
+   "## 6 Conclusion"
+  ],
+  [
+   548,
+   "## Impact Statement"
+  ],
+  [
+   556,
+   "## References"
+  ],
+  [
+   874,
+   "## Appendix A Case study"
+  ],
+  [
+   947,
+   "# Parse XML securely (defuse external entities)"
+  ],
+  [
+   950,
+   "# Construct XPath query to find student with matching username AND name"
+  ],
+  [
+   951,
+   "# Using string concatenation in XPath is safe here as we are using lxml’s path variables"
+  ],
+  [
+   959,
+   "# Parse XML"
+  ],
+  [
+   962,
+   "# Construct XPath based on query mode"
+  ],
+  [
+   972,
+   "# Execute search"
+  ],
+  [
+   979,
+   "# Parse XML"
+  ],
+  [
+   981,
+   "# Construct XPath to find the specific student"
+  ],
+  [
+   982,
+   "# Logic: find student where child username matches AND child name matches"
+  ],
+  [
+   990,
+   "# Parse the XML data"
+  ],
+  [
+   993,
+   "# To support ’Power User’ custom XPath syntax logic within fields,"
+  ],
+  [
+   994,
+   "# we construct the XPath query by injecting the parameters directly."
+  ],
+  [
+   995,
+   "# This allows multi-condition searches and cross-node relationship queries."
+  ],
+  [
+   1000,
+   "## Appendix B Dataset Details"
+  ],
+  [
+   1004,
+   "### B.1 Dataset Construction"
+  ],
+  [
+   1013,
+   "#### Vulnerability verification adjustments."
+  ],
+  [
+   1023,
+   "### B.2 Task Specification Format"
+  ],
+  [
+   1051,
+   "### B.3 Dataset Stats"
+  ],
+  [
+   1106,
+   "## Appendix C Results by CWE"
+  ],
+  [
+   1110,
+   "### C.1 CWE Categorization Summary"
+  ],
+  [
+   1142,
+   "### C.2 Detailed Results by CWE"
+  ],
+  [
+   1396,
+   "## Appendix D Potential Defense Methods"
+  ],
+  [
+   1400,
+   "#### (1) Constrained Decoding."
+  ],
+  [
+   1406,
+   "#### (2) Fine-tuning on Secure Code."
+  ],
+  [
+   1430,
+   "#### (3) Prompting with Security Instructions."
+  ],
+  [
+   1437,
+   "## Appendix E Manual Verification"
+  ],
+  [
+   1446,
+   "## Appendix F Prompt Details"
+  ],
+  [
+   1619,
+   "##"
+  ]
+ ],
+ "acknowledgments": "",
+ "limitations": "",
+ "ethics_coi": "## Impact Statement\n\nThis paper identifies a fundamental tension in current Large Language Models: the tendency to compromise implicit security knowledge when incentivized by usability rewards. We introduce U-Sploit to demonstrate how this vulnerability can be systematically exploited. We acknowledge that the techniques described in this work could theoretically be misused to introduce subtle vulnerabilities into software supply chains. However, we believe that disclosing this attack surface is critical for the safety of AI-assisted software development.\n\nOur goal is to characterize a realistic failure mode and inform defenses for AI-assisted software development. To reduce misuse risk, we (i) evaluate vulnerabilities only in controlled benchmarks and sandboxed environments, (ii) avoid releasing exploit payloads that target real systems, and (iii) will release artifacts in an anonymized form during review and a full version after acceptance.\n\nBy exposing how usability pressures can override learned security practices, our work aims to shift the community’s focus from superficial refusal mechanisms to robust preservation of the model’s inherent security capabilities. We urge developers to treat LLM-generated code with increased scrutiny, particularly when complex functional or operational constraints are involved, and we call for future research into defense methods that enforce security as a non-negotiable constraint.\n\n## References\n\nAtlassian (2024a)\nAtlassian\n\nJira.\n\nNote: https://www.atlassian.com/software/jiraAccessed: 2026-01-28\n\nCited by: §1.\n\nAtlassian (2024b)\nAtlassian\n\nRovo dev.\n\nNote: https://www.atlassian.com/software/rovo-devAccessed: 2026-01-28",
+ "counts": {
+  "self_reported": 0,
+  "llm_as_judge": 0,
+  "p_value_or_ci": 2,
+  "seeds_or_runs": 0,
+  "swe_bench": 0,
+  "contamination": 0,
+  "human_study": 0,
+  "java": 0,
+  "industrial": 1
+ },
+ "fulltext_source": "html"
+}
