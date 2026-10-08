@@ -15,7 +15,8 @@
     {"id": "P21", "stance": "supports", "note": "Declared forbidden operations plus table allow-list: 166 -> 0 mutating statements; enforcement layer never needed to fire."},
     {"id": "P34", "stance": "supports", "note": "Machine-readable data contract (semantics + rules) as the agent's source of truth."},
     {"id": "P04", "stance": "neutral", "note": "Nine governed tools expose the warehouse; the paper shows the tool surface alone (hollow arm) adds little on flash models."},
-    {"id": "P24", "stance": "supports", "note": "Per-arm cost reported; contract arm is the cheapest per correct answer on three of four models."}
+    {"id": "P24", "stance": "supports", "note": "Per-arm cost reported; contract arm is the cheapest per correct answer on three of four models."},
+    {"id": "P39", "stance": "supports", "note": "[retag 2026-10-08] Tables 4-5: a YAML data contract (metric definitions with executable SQL, column and relationship descriptions, forbidden operations) is fetched rule by rule through tools. With the tools held fixed, the contract's prose content lifts hard-task accuracy 19.3->55.1, 22.6->56.6, 38.0->68.4 and 51.2->77.4 on four models (hollow vs contract, McNemar p<=8e-17). The contract also beats the same knowledge pasted as a 24k-character manual by +13.7 to +44.6 pp on hard tasks, and scores 51.9% vs 18.8% on withheld golds for one model (§4.4). Caveats: seven INTERPRETATION clauses resolve ambiguities for the contract arm only (§8.2; flipping one changes 87/97 payments answers), the manual wins the easy split on all four models, runs are single, the benchmark is one analytics set, and the author maintains the contract library."}
   ],
   "methodology": {
     "sample": "DABStep 401 of 450 tasks with reconstructed golds (332 hard, 69 easy); DeepSeek complete-case 279 tasks after 29% loss to rate limits; 6,416 transcripts.",

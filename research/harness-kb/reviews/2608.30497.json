@@ -11,7 +11,8 @@
   "patterns": [
     {"id": "P28", "stance": "supports", "note": "Mined API update mappings and client examples are positioned as inputs for recipe-based migration (OpenRewrite/Moderne cited in §5.1). The low LLM accuracy argues for deterministic, validated mappings over free LLM recall."},
     {"id": "P16", "stance": "neutral", "note": "Recommends a workflow where replacement selection is made explicit, then availability is checked against the target library version, then compile/type-check/test validation (§5.1). The workflow itself is not evaluated."},
-    {"id": "P05", "stance": "supports", "note": "Validating against authoritative library artifacts (deterministic signature resolution and deprecation checks) raised precision by 40+pp over similarity matching alone."}
+    {"id": "P05", "stance": "supports", "note": "Validating against authoritative library artifacts (deterministic signature resolution and deprecation checks) raised precision by 40+pp over similarity matching alone."},
+    {"id": "P39", "stance": "neutral", "note": "[retag 2026-10-08] Table 7, Fig. 8: without mapping data, LLMs recall the replacement for a Java API at best 37.1% FQN / 27.5% full signature (GPT-5.4), and 15.4-21.1% for single-instance long-tail mappings. Adding client call context does not help (Java FQN 37.1->36.1). This argues for giving agents machine-readable API-update mappings (Bridge mines 18,900 Java mappings), but supplying them to an agent is never tested. The probe also disables thinking, caps output at 128 tokens, and scores against Bridge-mined references (~90% precision)."}
   ],
   "methodology": {
     "sample": "Ground truth: 638 Java / 609 Python API call change records (2,283 / 1,988 call pairs) from 100 libraries per language. Dataset: 2,557 Java and 999 Python libraries. LLM study: 18,166 Java and 4,360 Python examples.",

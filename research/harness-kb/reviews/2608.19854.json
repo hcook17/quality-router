@@ -85,7 +85,8 @@
       "id": "P31",
       "stance": "neutral",
       "note": "RepoCraft with paraphrased repository names; pass rate uses LLM-adapted ground-truth tests, cross-model between the two backbones. The Gold Project reaches only 94-96% pass, a measure of adaptation noise."
-    }
+    },
+    {"id": "P42", "stance": "introduces", "note": "[retag 2026-10-08] §II-A to §II-D: a many-to-many alignment relation links each sub-requirement to the components that realize it. It is updated through every split and merge, re-checked by a final LLM semantic-alignment pass, and supplies the requirement nodes each component's tests are synthesized from. The links are LLM-written and LLM-checked, and their accuracy is never measured. The nearest ablation (w/o Requirement Context, Table III: pass rate -10.0 django, -5.6 requests, 0 statsmodels) removes neighbouring requirement nodes, not the links. Greenfield Python only."}
   ],
   "methodology": {
     "sample": "RepoCraft: 6 Python repositories (requests, statsmodels, django in the body; scikit-learn, pandas, sympy in the supplement), with 50-236 evaluation tasks each; task descriptions revised by two engineers to remove structural cues.",

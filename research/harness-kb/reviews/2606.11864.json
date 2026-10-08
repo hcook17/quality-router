@@ -12,7 +12,8 @@
   "patterns": [
     {"id": "P06", "stance": "mixed", "note": "Off-the-shelf embedding retrieval is weak for issue-to-edit localization (L2 NDCG@10 ~3-22 for base models); domain SFT helps but stays far below L1."},
     {"id": "P05", "stance": "mixed", "note": "BM25 L2 average 13.0/38.8 (Table 17) beats several dense models (bge-m3, gte-Qwen2, CodeRankEmbed) but trails Qwen3-Embedding-8B; grep/ls-style agent exploration itself is not benchmarked."},
-    {"id": "P31", "stance": "neutral", "note": "Built entirely from SWE-bench-family data; inherits its repo/language skew."}
+    {"id": "P31", "stance": "neutral", "note": "Built entirely from SWE-bench-family data; inherits its repo/language skew."},
+    {"id": "P43", "stance": "mixed", "note": "[retag 2026-10-08] Table 11 (App. F.2): mini-SWE-agent limited to Level-3 context mined from its own grep/cat exploration traces resolves more than when limited to Level-2 edit-site files (SWE-bench Verified 69.0% vs 62.0%, Multilingual 59.0 vs 43.0, Pro 43.2 vs 36.9, Multi-SWE-bench 39.5 vs 23.3). Unrestricted exploration scores higher still (73.0/65.0/46.1/42.0). So exploration finds useful context beyond the lines that get edited. But the labels come from the same agent's traces after an LLM vote (circular), with one agent and backbone, and embedding retrievers reach only ~34 NDCG@10 on that context (Table 3). No exploration agent is compared with a non-agent alternative."}
   ],
   "methodology": {
     "sample": "L1: ~172K queries from 8 existing datasets; L2: 5,061 queries over 632 repos and 9.38M chunks; L3: 2,580 queries, 106K qrels; SFT: 53,301 queries from 628 repos disjoint from SWE-bench",

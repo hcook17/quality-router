@@ -13,7 +13,8 @@
     {"id": "P31", "stance": "introduces", "note": "New version-upgrade, multi-target benchmark with partial-credit Completion Score."},
     {"id": "P34", "stance": "supports", "note": "Roadmap instructions specify API signatures, defaults, exception behavior per target; partial-credit scoring per target shows agents complete several targets then stall at integration."},
     {"id": "P16", "stance": "neutral", "note": "Execution-based grading; strong models' trajectories spend more on edit+execute than exploration (§5.2), suggestive not causal."},
-    {"id": "P10", "stance": "neutral", "note": "Single-agent OpenHands/Terminus 2 loops only; no multi-agent or planner harness tested."}
+    {"id": "P10", "stance": "neutral", "note": "Single-agent OpenHands/Terminus 2 loops only; no multi-agent or planner harness tested."},
+    {"id": "P40", "stance": "neutral", "note": "[retag 2026-10-08] Agents have no clarification channel; task defects are repaired by the benchmark builders instead. Rollout QC (App. G.3, Table 4) found task-side defects in 45/115 tasks (instruction gaps, brittle tests, environment and grading errors; average 3.1 fix rounds). Repairing them raised Claude-Opus-4.6 from 19.1% to 30.4% resolved, GLM-5.1 +3.0 and Kimi-K2.5 +1.0. This shows the cost of unstated requirements, not whether an agent asking about them helps."}
   ],
   "methodology": {
     "sample": "115 tasks, 17 repos, 5 languages; 13 models.",

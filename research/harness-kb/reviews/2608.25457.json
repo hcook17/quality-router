@@ -16,7 +16,8 @@
     {"id": "P18", "stance": "mixed", "note": "An LLM Reviewer checks functionality and security against the guidelines. The final judge is the benchmark oracles, not the reviewer, and the reviewer's accuracy is never measured on its own."},
     {"id": "P06", "stance": "supports", "note": "Embedding retrieval over a normalized CERT/OWASP guideline KB. Removing standards-driven generation degrades F&S@1 (Table 5)."},
     {"id": "P17", "stance": "neutral", "note": "Only a syntax checker is in the loop. The Limitations section names static analyzers and pentest tooling as future work, so there is no SAST feedback."},
-    {"id": "P24", "stance": "neutral", "note": "Reports tokens, cost and latency (Table 3), and caps refinement at M=2 iterations."}
+    {"id": "P24", "stance": "neutral", "note": "Reports tokens, cost and latency (Table 3), and caps refinement at M=2 iterations."},
+    {"id": "P39", "stance": "supports", "note": "[retag 2026-10-08] Table 5 (CWEval, 119 tasks): the Security Advisor retrieves from a KB of OWASP ASVS, SEI CERT and OpenSSF guidance normalized into WHAT/WHY/HOW/EXAMPLE records. Removing that retrieval, so guidelines come from inferred CWEs alone, cuts F&S@1 70.59->62.18 (GPT-4o) and 66.39->57.14 (GPT-4o-mini). The internal ablation is clean, but it covers two models with single temperature-0 runs and differences of about 10 tasks. The normalized format itself is not compared with raw text."}
   ],
   "methodology": {
     "sample": "CWEval: 119 tasks. BaxBench: 392 tasks (28 scenarios × 14 frameworks). Plus HumanEval/HumanEval+ and LLMSecEval (150 tasks) in the appendices. Cost analysis on 25 Python tasks only.",
