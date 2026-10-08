@@ -1183,7 +1183,7 @@ def main() -> None:
     s.add_argument("--min-software", type=int, default=0,
                    help="Require at least N software-term matches in title+abstract.")
     s.add_argument("--min-code", type=int, default=0,
-                   help="Require at least N code-specific matches (code, repository, developer, ...).")
+                   help="Require at least N code-specific matches (code, repository, ...).")
     sub.add_parser("recheck")
     rb = sub.add_parser("robustness")
     rb.add_argument("--cutoff", default="2026-09-30")
