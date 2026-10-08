@@ -22,7 +22,7 @@ Interfaces: `Policy.roles` maps a name to a role with `write_allow`
 strict=False) -> GateResult` (gate name `holdout`). Rules are reported in
 `Decision.rule` and as `denied_<rule>` codes by `qr policy check`.
 
-### AC-1 Roles are declared in policy.json
+### AC-7.1 Roles are declared in policy.json
 
 `roles` is optional and maps a role name to an object with optional
 `write_allow`, `read_deny` and `deny_commands` (same shape as the
@@ -38,7 +38,7 @@ list means the role may write nothing. A malformed `roles` value makes
 | `{"reviewer": "x"}` | 2 |
 | `{"r": {"deny_commands": ["("]}}` | 2 |
 
-### AC-2 The active role comes from flag, environment, then file
+### AC-7.2 The active role comes from flag, environment, then file
 
 The role is `--role NAME` on `qr policy check` and `qr policy hook`, else
 the `QR_ROLE` environment variable, else the first non-empty line of
@@ -55,7 +55,7 @@ summary as `role` (empty string when none).
 | (none) | (unset) | (absent) | none |
 | `ghost` | (unset) | (absent) | denied `unknown_role` |
 
-### AC-3 `write_allow` limits where a role may write
+### AC-7.3 `write_allow` limits where a role may write
 
 With an active role that has `write_allow`, a file write outside every
 glob is denied with rule `role_write_allow`, and so is a shell command
@@ -73,7 +73,7 @@ matches at the root.
 | reviewer (`[]`) | write `README.md` | deny `role_write_allow` |
 | implementer (no key) | write `src/main/java/A.java` | allow |
 
-### AC-4 `read_deny` hides paths from a role
+### AC-7.4 `read_deny` hides paths from a role
 
 A file read or write of a path matching a role's `read_deny` glob is
 denied with rule `role_read_deny`, and so is any shell command with a
@@ -86,7 +86,7 @@ path argument that matches.
 | implementer (same) | read `src/test/java/ATest.java` | allow |
 | test-author (`[]`) | read `holdout/ItemHoldoutTest.java` | allow |
 
-### AC-5 Roles add command rules
+### AC-7.5 Roles add command rules
 
 A role's `deny_commands` apply after the top-level ones, with rule
 `role_deny_commands`.
@@ -97,7 +97,7 @@ A role's `deny_commands` apply after the top-level ones, with rule
 | implementer (none) | `git commit -m x` | allow |
 | reviewer (same) | `git log -1` | allow |
 
-### AC-6 The harness's own files are write-protected
+### AC-7.6 The harness's own files are write-protected
 
 When a policy file is found, writes to `.quality-router/policy.json`,
 `.quality-router/role` and `.quality-router/acceptance.lock.json` are
@@ -111,7 +111,7 @@ tools and by shell write commands. Reads are allowed.
 | test-author | write `.quality-router/acceptance.lock.json` | deny |
 | (none) | read `.quality-router/policy.json` | allow |
 
-### AC-7 A new policy stamps four default roles
+### AC-7.7 A new policy stamps four default roles
 
 `qr init --policy` writes `roles` into a new policy only:
 `spec-author` (`write_allow`: `specs/**`, `docs/**`, `**/*.md`),
@@ -128,7 +128,7 @@ is not changed.
 | implementer | `src/main/java/A.java` | allow |
 | reviewer | `specs/item-v2.md` | deny |
 
-### AC-8 The lock records held-out tests by hash
+### AC-7.8 The lock records held-out tests by hash
 
 `qr spec lock --holdout PATH...` (paths or globs under `--root`) adds a
 `holdout` map to the lock: relative path to `sha256` and the criteria ids
@@ -145,7 +145,7 @@ that is not a git work tree counts as untracked). A lock without
 | also passed to `--tests` | 2 | not written |
 | (no `--holdout`) | 0 | no `holdout` key |
 
-### AC-9 Held-out tests are hidden from every role but test-author
+### AC-7.9 Held-out tests are hidden from every role but test-author
 
 When the lock has `holdout` entries, reads and writes of those paths, and
 shell commands naming them, are denied with rule `holdout` unless the
@@ -158,7 +158,7 @@ active role is `test-author`.
 | test-author | read a holdout path | allow |
 | implementer | read a locked visible test | allow |
 
-### AC-10 `qr gate holdout` checks held-out tests ran unmodified and passed
+### AC-7.10 `qr gate holdout` checks held-out tests ran unmodified and passed
 
 `qr gate holdout [--root .] --reports GLOB... [--base REF] [--json]
 [--strict]` reads the lock and JUnit XML. A file's tests are the
@@ -184,7 +184,7 @@ lock's holdout entries) and `reports`.
 | --- | --- |
 | one holdout file, 2 passing testcases, AC-1 | `holdout_files=1 holdout_tests=2 holdout_failed=0 holdout_skipped=0 criteria=["AC-1"] reports=1` |
 
-### AC-11 Existing locks and gates behave as before
+### AC-7.11 Existing locks and gates behave as before
 
 `qr gate acceptance` ignores the `holdout` key and does not need holdout
 files present. Locks without `holdout` load and protect files as before.
@@ -194,7 +194,7 @@ files present. Locks without `holdout` load and protect files as before.
 | with `holdout`, visible files unchanged | no | pass |
 | without `holdout`, visible files unchanged | (n/a) | pass |
 
-### AC-12 Help shows the new options
+### AC-7.12 Help shows the new options
 
 | argv | stdout contains |
 | --- | --- |

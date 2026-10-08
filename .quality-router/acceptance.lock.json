@@ -1,7 +1,7 @@
 {
-  "approved_by": "test-author subagent bc-71bccebd (spec-only input)",
+  "approved_by": "test-author subagents bc-71bccebd (phase 6), bc-63e93933 (phase 7); spec-only input",
   "id_pattern": "AC-\\d+(?:\\.\\d+)?",
-  "locked_at": "2026-10-06T23:46:05+00:00",
+  "locked_at": "2026-10-08T00:04:54+00:00",
   "owned": [
     "AC-1",
     "AC-2",
@@ -25,7 +25,19 @@
     "AC-20",
     "AC-21",
     "AC-22",
-    "AC-23"
+    "AC-23",
+    "AC-7.1",
+    "AC-7.2",
+    "AC-7.3",
+    "AC-7.4",
+    "AC-7.5",
+    "AC-7.6",
+    "AC-7.7",
+    "AC-7.8",
+    "AC-7.9",
+    "AC-7.10",
+    "AC-7.11",
+    "AC-7.12"
   ],
   "specs": {
     "docs/design/phase-6-api-compat-and-gortex.md": {
@@ -55,6 +67,23 @@
         "AC-23"
       ],
       "sha256": "1911737ca611583b463019b9943051c94401b58c4ef1939cfbbc376473803f1a"
+    },
+    "specs/phase-7-roles-holdout.md": {
+      "criteria": [
+        "AC-7.1",
+        "AC-7.2",
+        "AC-7.3",
+        "AC-7.4",
+        "AC-7.5",
+        "AC-7.6",
+        "AC-7.7",
+        "AC-7.8",
+        "AC-7.9",
+        "AC-7.10",
+        "AC-7.11",
+        "AC-7.12"
+      ],
+      "sha256": "0bbd94c557e3c16ecdbb72c0ab9864cab7adecb38b90932ce94e3133043570c1"
     }
   },
   "tests": {
@@ -76,6 +105,30 @@
         "AC-9"
       ],
       "sha256": "e702622739aeae871b12b09d59e477a12617c62ed314e0a56110a7f555bb02d2"
+    },
+    "tests/harness/test_holdout.py": {
+      "criteria": [
+        "AC-1",
+        "AC-2",
+        "AC-7.10",
+        "AC-7.11",
+        "AC-7.12",
+        "AC-7.8",
+        "AC-7.9"
+      ],
+      "sha256": "393e1157ff3147e1a6f4587e29b65b878c2b16de4e1f37e6fcbae8f818333dc3"
+    },
+    "tests/harness/test_roles.py": {
+      "criteria": [
+        "AC-7.1",
+        "AC-7.2",
+        "AC-7.3",
+        "AC-7.4",
+        "AC-7.5",
+        "AC-7.6",
+        "AC-7.7"
+      ],
+      "sha256": "3739ee472f19de9e95f92667c11f0ea907be0e09e1c8a7df4472146a45d1a414"
     },
     "tests/test_init.py": {
       "criteria": [],
