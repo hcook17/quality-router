@@ -36,8 +36,9 @@ DEFAULT_POLICY: dict[str, Any] = {
         {"pattern": r"\bgit\s+reset\s+--hard\s+origin/", "reason": "discards remote-tracked work"},
         {"pattern": r"\brm\s+-[a-zA-Z]*r[a-zA-Z]*f[a-zA-Z]*\s+(/|~|\$HOME)(\s|$)",
          "reason": "recursive delete of a root or home directory"},
-        {"pattern": r"\b(mvnw?|gradlew?)\b.*\b(deploy|publish)\b",
-         "reason": "artifact publish belongs to CI, not the agent"},
+        {"pattern": r"\b(mvnw?|gradlew?)\b.*\s(?:[\w:-]*publish[\w:-]*|deploy(?::[\w-]+)?"
+                    r"|release(?::[\w-]+)?)(?=\s|$)",
+         "reason": "artifact publish or release belongs to CI, not the agent"},
         {"pattern": r"\b(kubectl|helm)\b.*\b(apply|delete|upgrade|install)\b",
          "reason": "cluster mutation belongs to CI/CD"},
         {"pattern": r"\b(psql|mysql|sqlcmd)\b.*\b(drop|truncate|delete\s+from)\b",
