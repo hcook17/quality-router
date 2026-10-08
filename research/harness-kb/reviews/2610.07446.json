@@ -1,0 +1,39 @@
+{
+  "arxiv_id": "2610.07446",
+  "contribution_type": "empirical",
+  "summary": "CogAdapt takes an existing EEG and eye-tracking dataset (37 participants reading 32 Java programs) and turns it into priors that weight training examples and tokens. Combined with the frozen model's per-task block responses, these priors choose about 6 of 47-48 transformer blocks to LoRA-tune per training example in two MoE code models (Qwen3-Coder-30B-A3B, GLM-4.7-Flash). On LiveCodeBench (175 tasks) it reaches 29.71% vs 18.86% for all-block fine-tuning (Qwen) and 24.00% vs 17.71% (GLM); BigCodeBench gains are 1-3 points. Each condition is a single generation pass, no un-fine-tuned base model is reported, and there are no significance tests.",
+  "claims": [
+    {"claim": "Human reading responses and MoE computation correlate at the same code regions (75.0-83.3% of regions positive)", "evidence": "Figure 4: median Spearman 0.18-0.24 with resampling intervals that account for participants and programs; the EEG-Qwen interval reaches 0.000. 81 regions over 32 Java programs.", "strength": "moderate", "location": "Section 6.1, Figure 4"},
+    {"claim": "CogAdapt achieves the best pass@1 on LiveCodeBench and BigCodeBench, +10.86 and +6.29 points over matched regular fine-tuning on LiveCodeBench", "evidence": "Table 1: single pass per condition; on 175 LCB tasks the gains are 19 and 11 tasks; BigCodeBench gains are +1.37 (3 of 220 tasks) for Qwen and +3.18 for GLM; ties No-Gaze on Qwen-BCB. No untuned base is reported, so the all-block baseline may simply be degrading the model; no significance test despite the section title 'Statistical Comparison'.", "strength": "weak", "location": "Section 6.3, Table 1, Section 5.2.3"},
+    {"claim": "Ablations show both block selection and human guidance contribute", "evidence": "Table 1: All-Block, Rand-K6, Model-Only, No-EEG and No-Gaze fall below the full method in most cells, by 0-6 tasks; Rand-K6 is the only condition with variance (SD 0.57-1.51 over 3 masks).", "strength": "weak", "location": "Section 6.3, Table 1"},
+    {"claim": "Gradient-eligible adaptation parameters drop by 86.21-87.21%", "evidence": "Table 2: 3.32-3.73M vs 25.95-27.06M parameters is straightforward accounting; wall-clock time falls only 2.5-5.9% and GPU energy 2.1-4.6% because the full backbone still runs forward.", "strength": "strong", "location": "Table 2"}
+  ],
+  "patterns": [
+    {"id": "P25", "stance": "mixed", "note": "Task-dependent sparse LoRA beats all-block LoRA and fixed CKA-selected blocks on the same data, but results are single-pass, no untuned base is reported, and differences are a few tasks on 175/220-task test sets."},
+    {"id": "P41", "stance": "neutral", "note": "Uses developers' comprehension measurements (EEG, eye tracking) as a training signal for models; it does not measure or protect developers' own comprehension."}
+  ],
+  "methodology": {
+    "sample": "Human data: 37 participants, 32 Java programs, 81 semantic regions (NoviceVsExpert corpus). Training: 534 LiveCodeBench v1-4 Python solutions; BigCodeBench split 760 train / 160 dev / 220 test. Evaluation: 175 LiveCodeBench v6 tasks and 220 BigCodeBench tasks.",
+    "baselines": "Regular FT (all blocks, same LoRA and router settings) and CKA-K6 fixed sparse selection; no untuned base model and no other PEFT or layer-selection baselines such as LISA or AdaLoRA.",
+    "models": "Qwen3-Coder-30B-A3B-Instruct and GLM-4.7-Flash.",
+    "variance": "Single generation pass per condition; SD only for Rand-K6 over three masks; no training seeds and no significance tests.",
+    "ablations": "All-Block, Rand-K6, Model-Only, No-EEG, No-Gaze.",
+    "contamination_controls": "LiveCodeBench v6 evaluation separated from v1-4 training data; pretraining contamination not discussed.",
+    "languages": "Human data in Java; training and evaluation in Python."
+  },
+  "standards": {"peer_review": "arXiv preprint (ACM template with placeholder conference)", "limitations_section": true, "artifacts": "No code, priors, masks or checkpoints released", "preregistration": "n/a"},
+  "biases": [
+    {"type": "strawman_baseline", "detail": "The only dense baseline is all-block LoRA on 534 examples; without the untuned model's score, gains may reflect less forgetting rather than better adaptation."},
+    {"type": "no_variance_reported", "detail": "Single generation pass and single training run per condition."},
+    {"type": "small_sample", "detail": "175 and 220 test tasks, so one task is 0.57 or 0.45 points; the EEG prior is a ridge regression fitted to 32 programs."},
+    {"type": "novelty_inflation", "detail": "The program-level 'EEG prior' is a ridge regression from eight static code metrics (length, nesting, operator and call counts), i.e. a code-complexity weighting presented as cognition."},
+    {"type": "single_language_python", "detail": "Code-generation evaluation is Python only; the human data are Java."},
+    {"type": "closed_artifacts", "detail": "Nothing released."}
+  ],
+  "coi": {"affiliations": "Vanderbilt University", "vendor_products_evaluated": "None", "funding": "Not stated", "severity": "none", "detail": "Academic authors; open-weight models from third parties."},
+  "scores": {"rigor": 2, "reproducibility": 0, "generalizability": 2, "relevance": 1, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "A reasonable ablation design on two MoE models, but every number is one generation pass on small test sets, the untuned base is missing (so the all-block baseline may be a strawman), the human 'EEG prior' reduces to static complexity metrics, and nothing is released. It is a model-training paper with no bearing on harness design, admitted at low weight in line with other code-model training papers.",
+  "applicability": "None for the discovery and onboarding harness. It is a fine-tuning technique for teams that train MoE code models, and the team uses hosted models through agent hosts. Despite the developer-learning topic hit, it does not study developer comprehension, onboarding or deskilling; it reuses developers' EEG and eye-tracking data as a training signal for models.",
+  "conflicts_with": []
+}

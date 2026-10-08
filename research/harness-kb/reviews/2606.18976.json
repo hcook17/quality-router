@@ -1,0 +1,99 @@
+{
+  "arxiv_id": "2606.18976",
+  "contribution_type": "system",
+  "summary": "CAPRA turns student software-architecture reports (PDF, 10-70 pages) into formative LaTeX feedback. PyMuPDF plus gpt-4o vision transcribe text and UML; parallel LLM agents audit the specification, the test plan, rubric features (mined from 10 top-graded past reports via SALLMA and HDBSCAN) and a requirement -> use case -> design -> test matrix; a deterministic step drops findings whose quoted evidence does not fuzzy-match the source. Two author-raters judged outputs for 10 top-graded reports on 8 binary criteria: 88.8% pass under the strict rule, but only 50-65% on 'grounded issues'. The abstract's kappa=0.582 is agreement between the two raters, not between CAPRA and humans.",
+  "claims": [
+    {
+      "claim": "CAPRA satisfied 88.8% of evaluation criteria under strict two-rater aggregation",
+      "evidence": "Table 3 over 10 reports x 8 binary criteria; raters are two of the authors; rubric is the authors' own; evaluation reports are all top-graded, so 4 of 8 criteria are unanimous passes (kappa undefined). The substantive criterion C1 (real, grounded issues; no missed HIGH-severity problems) is 65% lenient / 50% strict.",
+      "strength": "weak",
+      "location": "§4.1, §5.1, Table 3"
+    },
+    {
+      "claim": "CAPRA achieved moderate inter-rater agreement with human evaluators (kappa = 0.582)",
+      "evidence": "§4.1 and §5.1 compute Cohen's kappa between the two human raters to gauge the reliability of the reference. No CAPRA-vs-human agreement is computed. The abstract and conclusion misstate what kappa measures.",
+      "strength": "unsupported",
+      "location": "Abstract, §5.1, §9"
+    },
+    {
+      "claim": "Deterministic evidence anchoring proved particularly effective at grounding findings and mitigating hallucinations",
+      "evidence": "No ablation without anchoring, no count of findings discarded by the 0.45 similarity / 0.65 confidence filters, and thresholds were set empirically (§7). The grounding criterion is the weakest in Table 3. Two anecdotes (UC-7 actor contradiction, missing ORM mapping) show catches, not effectiveness.",
+      "strength": "unsupported",
+      "location": "§3.3, §5.1, §9"
+    },
+    {
+      "claim": "CAPRA processes a report in about 4 minutes for about $0.44, a 7.2-10.8x speedup over manual review",
+      "evidence": "Processing time measured (mean 248 s, SD 73.1 s, n=10). The 30-45 minute manual baseline is an estimate, not measured. Model inconsistency: the abstract names gpt-4o, while costs and limitations refer to gpt-5.1.",
+      "strength": "weak",
+      "location": "§5.2, §6"
+    },
+    {
+      "claim": "The automatically mined knowledge base lets the feature agent correctly judge feature presence (100% on B1)",
+      "evidence": "7 coarse features survive clustering (e.g. 'Use of UML diagrams', 'DAO pattern'); top-graded evaluation reports likely contain all of them, so a 100% pass is near a ceiling and says little about detecting absences.",
+      "strength": "weak",
+      "location": "§5.3, Table 4"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P18",
+      "stance": "introduces",
+      "note": "LLM agents review long design documents with verbatim-quote evidence plus a deterministic fuzzy-match filter that discards ungrounded findings; no comparison to a single-prompt reviewer and no ablation of the filter."
+    },
+    {
+      "id": "P11",
+      "stance": "introduces",
+      "note": "Parallel specialized auditors plus a ConsistencyManager that merges duplicates; no single-agent baseline."
+    },
+    {
+      "id": "P42",
+      "stance": "introduces",
+      "note": "A Traceability Matrix agent links requirements, use cases, design and tests inside one document; not separately evaluated, and links do not reach code."
+    },
+    {
+      "id": "P39",
+      "stance": "introduces",
+      "note": "Rubric checklist auto-mined from exemplary past artifacts and fed to an agent as structured domain context; only evaluated on top-graded reports where it scores at ceiling."
+    },
+    {
+      "id": "P41",
+      "stance": "neutral",
+      "note": "Feedback is meant to help students learn architecture, but no learning or comprehension outcome is measured; student-side evaluation is listed as future work."
+    }
+  ],
+  "methodology": {
+    "sample": "10 top-graded student reports for evaluation plus 10 top-graded reports for knowledge-base mining; one course at one university",
+    "baselines": "None (no single-LLM reviewer, no human-feedback comparison)",
+    "models": "gpt-4o vision for diagram parsing; gpt-5.1 for agents per §5.2 and limitations (abstract says gpt-4o); claude-haiku-4.5 for narrative summaries",
+    "variance": "Processing-time SD only; temperature 0 with seed; no repeated runs",
+    "ablations": "None; anchoring thresholds set empirically and not varied",
+    "contamination_controls": "n/a",
+    "languages": "Student reports in Italian and English; replication package includes a Java/Spring AI reimplementation"
+  },
+  "standards": {
+    "peer_review": "Accepted at CSEE&T 2026 per arXiv comment",
+    "limitations_section": true,
+    "artifacts": "Zenodo package: Java/Spring AI reimplementation, mined-features CSV, 10 generated feedback reports, rater spreadsheet, 1 of 10 input reports (others withheld for privacy)",
+    "preregistration": "none"
+  },
+  "biases": [
+    {"type": "self_evaluation", "detail": "Both raters are authors; acknowledged in threats to validity."},
+    {"type": "selection_bias_participants", "detail": "Only top-graded reports were evaluated, inflating pass rates and never testing deficient documents where false positives would be likelier."},
+    {"type": "small_sample", "detail": "10 reports, 80 binary decisions."},
+    {"type": "metric_mismatch", "detail": "Rater-rater kappa is presented in the abstract as agreement between CAPRA and human evaluators."},
+    {"type": "single_model", "detail": "One model configuration; acknowledged."},
+    {"type": "hype_language", "detail": "Conclusion says evidence anchoring 'proved particularly effective' without any measurement of its effect."}
+  ],
+  "coi": {
+    "affiliations": "University of Florence",
+    "vendor_products_evaluated": "None owned; OpenAI and Anthropic models used",
+    "funding": "not stated",
+    "severity": "none",
+    "detail": "Academic group evaluating its own teaching tool; no vendor interest."
+  },
+  "scores": {"rigor": 2, "reproducibility": 3, "generalizability": 1, "relevance": 2, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Peer-reviewed, candid threats-to-validity section and a real replication package, but the evaluation is 10 top-graded reports judged by two authors with no baseline or ablation. The abstract misreports kappa as system-human agreement, and the anchoring-effectiveness claim is unmeasured. Admit only as a design description.",
+  "applicability": "Two ideas transfer to a discovery harness that reads specs, ADRs and wiki pages: (1) make every agent finding carry a verbatim quote and drop findings whose quote does not fuzzy-match the source, a cheap deterministic check against invented facts in onboarding summaries; (2) mine a checklist of expected sections and features from exemplary past artifacts and check new specs against it. This paper does not show that either works. The replication package's Spring AI reimplementation is a readable Java reference. Grading student documents is otherwise far from onboarding developers to healthcare-education ingestion.",
+  "conflicts_with": []
+}

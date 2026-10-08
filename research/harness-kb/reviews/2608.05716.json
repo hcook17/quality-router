@@ -1,0 +1,68 @@
+{
+  "arxiv_id": "2608.05716",
+  "contribution_type": "system",
+  "summary": "Design report (AIED 2026 Interactive Event track) for BlockPython, a Blockly-to-Python tutoring platform for lower-secondary students. Learners move through four stages: task decomposition, rebuilding a Python program in blocks, writing Python from read-only blocks, and an extension task. Deterministic rules own program execution, objective evaluation and stage unlocking. An LLM assistant gives graduated hints, explanations and 'explain why it worked' questions grounded in verified artifacts and run traces, and teachers get process reports. There is no evaluation of any kind, and the language models are not named.",
+  "claims": [
+    {
+      "claim": "Process evidence plus deterministic diagnosis lets the platform distinguish difficulties in computational understanding from difficulties in Python expression",
+      "evidence": "Design description only (§2.3, §4); no learner data, diagnosis accuracy, or case study reported.",
+      "strength": "unsupported",
+      "location": "Abstract, §2.3, §4"
+    },
+    {
+      "claim": "The language model cannot mark an incorrect program correct or unlock a stage; its statements are validated against the current artifact and retried or replaced by template guidance if invalid",
+      "evidence": "Architectural description in §4; no measurement of how often validation fails or how often guidance is wrong.",
+      "strength": "weak",
+      "location": "§4"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P41",
+      "stance": "introduces",
+      "note": "Learning-mode safeguards: hints escalate from 'where to look' to a specific location to a task-independent micro-example, never supplying the target program; after success the learner is asked to explain why the structure worked; reference code is hidden once the learner starts writing. No learner outcome or comparison is measured."
+    },
+    {
+      "id": "P16",
+      "stance": "introduces",
+      "note": "A deterministic runtime and objective evaluator decide correctness and stage gates, and the LLM only explains verified results; not evaluated."
+    },
+    {
+      "id": "P30",
+      "stance": "neutral",
+      "note": "Every run and agent request is bound to an artifact version, and research exports keep raw events, hashes and model audit information; described, not evaluated."
+    }
+  ],
+  "methodology": {
+    "sample": "None; six designed tasks (eight lessons), no participants",
+    "baselines": "None",
+    "models": "Not named (separate model configurations for the student assistant and the summarisation agent)",
+    "variance": "n/a",
+    "ablations": "None",
+    "contamination_controls": "n/a",
+    "languages": "Restricted Python subset and Blockly"
+  },
+  "standards": {
+    "peer_review": "AIED 2026 Interactive Event track (demo-level venue)",
+    "limitations_section": false,
+    "artifacts": "None released",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "other:no_evaluation", "detail": "No user study, logs, diagnosis accuracy, or comparison of any kind."},
+    {"type": "toy_tasks", "detail": "Six introductory tasks (print, variables, if/else, for-range) for children."},
+    {"type": "closed_artifacts", "detail": "No code or prompts released; models unnamed."}
+  ],
+  "coi": {
+    "affiliations": "East China Normal University; Tsinghua University; University of Washington",
+    "vendor_products_evaluated": "None",
+    "funding": "Not stated",
+    "severity": "none",
+    "detail": "Academic system description."
+  },
+  "scores": {"rigor": 0, "reproducibility": 0, "generalizability": 0, "relevance": 1, "coi_risk": 0},
+  "verdict": "reject",
+  "verdict_reason": "No evaluation at all, unnamed models, and the domain is K-12 programming education rather than professional software development with agents. It reads as a system design note.",
+  "applicability": "Only the role split is worth borrowing for a developer onboarding mode. Deterministic checks own correctness and gates, and the LLM explains using verified evidence only. Hints escalate from 'where to look' to a task-independent example without giving the answer, and the learner is asked to explain why something worked. This paper provides no evidence that this improves learning even for children, let alone for backend developers learning a healthcare-education domain, so any such mode would need its own measurement.",
+  "conflicts_with": []
+}

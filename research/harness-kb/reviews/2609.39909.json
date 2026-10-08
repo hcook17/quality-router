@@ -1,0 +1,109 @@
+{
+  "arxiv_id": "2609.39909",
+  "contribution_type": "benchmark",
+  "summary": "Benchmark from Promptless / Doc Detective authors, with maintainers from Helm, Mautic and PostHog as co-authors. It has 292 items from open-source repositories: an agent gets a pre-change repo and a trigger (a code PR with its doc changes stripped, or a reported doc gap), must decide whether user-facing documentation needs updating (87 items require abstention), and if so writes one patch. Patches are scored against LLM-generated task-specific rubrics, with a 60-point cap on any blocking (P0) defect. Seven agent lanes (OpenCode, Claude Code and Codex with seven models) score at most 47.3/100 on a 117-item private held-out split. A trajectory audit attributes failures mainly to premature closure during investigation.",
+  "claims": [
+    {
+      "claim": "The best agent reaches only 47.3/100 on the held-out split.",
+      "evidence": "Table 1: Qwen3.8 Max+OpenCode 47.3, GPT-5.6 Sol+Codex 46.2, GLM 5.2 44.2 ... GPT-5.5+Codex 34.0. Single run per agent-item. The composite is a harmonic mean of delivered quality and abstention recall, so the ranking is driven largely by abstention recall (28.6-85.7%); GPT-5.6 Sol leads on P0-clean delivery (39.0) and conditional quality (46.3). Bootstrap CIs are given only for conditional quality (Table 3) and overlap heavily. No aggregate score is reported for the human merged patches, and the four shown in App. B.4 score 31-56 and fail P0 criteria, so '47.3' cannot be read against an expert baseline.",
+      "strength": "moderate",
+      "location": "§6, Tables 1-3, App. B.4"
+    },
+    {
+      "claim": "Task-specific rubrics are validated with project maintainers.",
+      "evidence": "App. B.2-B.3: on 42 maintainer-reviewed items the documentation-need gate agrees on 41; generated rubrics cover 90.9% of 242 maintainer criteria (23 items; §4.4 reports 0.892 weighted recall on 21 items), but only 59.8% of 361 generated criteria appear in maintainer rubrics; generated vs maintainer rubric scores Spearman 0.755, alpha 0.805. The scorer (GPT-5.6 Terra) agrees on 310/330 criteria (93.9%) with a human reference that one paper author adjudicated after seeing disagreements (not blinded). One maintainer per item.",
+      "strength": "moderate",
+      "location": "§4.4, App. B.2-B.3"
+    },
+    {
+      "claim": "The most common patch failures are task-completion gaps (45.5%), technical inaccuracies (36.6%) and incomplete coverage (32.5%); only 6.1% contain fabricated content.",
+      "evidence": "Table 5, computed over 1,267 submissions 'audited before the reruns', i.e. a different population from the scored runs in Table 1. Who or what assigned the labels (humans, LLM, or both) and their inter-rater reliability are not reported.",
+      "strength": "weak",
+      "location": "§7.2, Table 5, App. D.1"
+    },
+    {
+      "claim": "Failures trace to how agents investigate: describing interfaces without checking usage (36.0%), not reaching decisive evidence and filling gaps with plausible assumptions (33.1%), and stopping at the first plausible documentation surface (30.1%).",
+      "evidence": "Table 6 on the same 1,267 pre-rerun trajectories, multi-label, with no labelling protocol or agreement statistic. Effort does not rise with item difficulty (rank correlation about +0.03, CIs include zero). The proposed remedy (stopping rules, reader-goal prompts, skills) was explored only informally (§8.4).",
+      "strength": "weak",
+      "location": "§7.3, Table 6, §8.4"
+    },
+    {
+      "claim": "Results are not driven by contamination.",
+      "evidence": "Table 4: pre- vs post-knowledge-cutoff deltas -0.3 to -3.7 with repository-clustered CIs spanning zero; repo-popularity and doc-size ablations null; sealed containers without network. An earlier networked pilot found 26/85 runs (30.6%) retrieved the upstream PR and 6% copied from other agents on a shared host.",
+      "strength": "moderate",
+      "location": "§3.2, §5, §6.3, §9.2"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P38",
+      "stance": "neutral",
+      "note": "Diagnostic only: the trajectory audit blames incomplete investigation (stopping before the controlling code, schema or test; committing early to a narrow interpretation; missing other affected doc surfaces) for most failures. No discovery intervention (stopping rule, coverage checklist, exploration subagent) is compared against a baseline; §8.4 says these were tried informally only."
+    },
+    {
+      "id": "P43",
+      "stance": "neutral",
+      "note": "Agents explore a repo to understand a code change before writing. Exploration failures are characterised, but no exploration strategy is compared, and the labels come from an unspecified audit of pre-rerun trajectories."
+    },
+    {
+      "id": "P39",
+      "stance": "neutral",
+      "note": "§8.1 hypothesises that missing context about readers and their workflows (not given to the agent) explains audience-framing and task-completion gaps; not tested."
+    },
+    {
+      "id": "P18",
+      "stance": "mixed",
+      "note": "LLM rubric research, an LLM-council debate and an LLM scorer. Scorer agreement is 91-94% against a single-adjudicator, non-blinded human reference on 20 items; generated rubrics have only 59.8% overlap precision with maintainer rubrics. The rubric researcher (GPT-5.6 Sol) and scorer (GPT-5.6 Terra) are GPT-family while GPT lanes top conditional quality, and no self-preference check is reported."
+    },
+    {
+      "id": "P31",
+      "stance": "introduces",
+      "note": "New benchmark with a stratified private held-out split and a public development split."
+    },
+    {
+      "id": "P20",
+      "stance": "neutral",
+      "note": "Sealed Docker with model-provider-only egress. Useful negative finding for eval harnesses: with network access 30.6-31% of runs fetched the upstream answer, and 6% copied other agents' trajectories on a shared host."
+    },
+    {
+      "id": "P01",
+      "stance": "neutral",
+      "note": "Reader-goal instructions and documentation skills were explored informally and not compared, so no evidence for or against instruction files."
+    }
+  ],
+  "methodology": {
+    "sample": "292 items (205 documentation-needed: 139 code-triggered, 66 reported gaps; 87 abstention) from OSS repositories; held-out 117 (82/35), development 175; 3,273 rubric criteria (798 P0); failure audit over 1,267 pre-rerun submissions.",
+    "baselines": "Seven agent lanes compared with each other; no aggregate human-merged-patch score and no non-agent baseline.",
+    "models": "GLM 5.2, Qwen3.8 Max, Kimi K2.7 Code (OpenCode); Claude Opus 4.8, Claude Sonnet 4.6 (Claude Code); GPT-5.5, GPT-5.6 Sol (Codex). Scorer GPT-5.6 Terra; rubric researcher GPT-5.6 Sol.",
+    "variance": "One run per agent-item (acknowledged §9.4); bootstrap CIs over repositories for conditional quality and ablations only.",
+    "ablations": "Knowledge-cutoff split, repository popularity, documentation size; no harness or scaffolding ablations.",
+    "contamination_controls": "Identity-masked repos, sealed network, trajectory inspection, overlap detector with manual review, cutoff ablation.",
+    "languages": "English user-facing docs across multiple OSS ecosystems (Helm, PostHog, Mautic, Strawberry GraphQL, Pants, dlt, OpenCost, ...); per-language breakdown not given."
+  },
+  "standards": {
+    "peer_review": "None stated (arXiv preprint, empty comment).",
+    "limitations_section": true,
+    "artifacts": "Evaluation harness, item schema, dataset card and development split released via dogbench.ai; held-out rubrics, references and item-level scores private by design.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "llm_judge_unvalidated", "detail": "Judge validation exists but is partial: 20 items, a post-adjudication reference resolved by one author, one maintainer per item, and rubric precision against maintainers of only 59.8%."},
+    {"type": "other:judge_self_preference_risk", "detail": "Rubric research and scoring both use GPT-5.6 models; GPT lanes have the highest conditional quality; no cross-family scorer comparison on the full results."},
+    {"type": "no_variance_reported", "detail": "Single trajectory per agent-item; no run-to-run variance."},
+    {"type": "metric_mismatch", "detail": "Title asks whether agents meet expert standards, but the 60-point P0 cap and equal criterion weights are policy choices not calibrated to maintainer acceptance, and human merged patches are not scored in aggregate."},
+    {"type": "other:audit_population_mismatch", "detail": "Abstract failure-mode percentages come from pre-rerun submissions, not the runs in Table 1, with no labelling protocol or reliability statistic."},
+    {"type": "missing_cost_reporting", "detail": "No per-lane cost or token totals for the reported runs."}
+  ],
+  "coi": {
+    "affiliations": "Two authors at Promptless (builds documentation agents); one at Promptless / Doc Detective (doc-testing tool); co-authors listed with Helm, Mautic, PostHog.",
+    "vendor_products_evaluated": "General coding harnesses (OpenCode, Claude Code, Codex) and seven models; Promptless's own product is not evaluated. The paper reports 'only the seven reproducible agents', which leaves open whether other systems were run.",
+    "funding": "Not stated.",
+    "severity": "low",
+    "detail": "Disclosed vendor affiliation. A benchmark showing general coding agents fall short on documentation favours the market for specialised documentation agents, but no vendor product is graded favourably."
+  },
+  "scores": {"rigor": 3, "reproducibility": 3, "generalizability": 3, "relevance": 3, "coi_risk": 2},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "A carefully built benchmark (held-out private split, contamination ablations, maintainer validation, explicit abstention task) with a credible headline that current agents produce mediocre user-facing doc patches. The investigation-failure analysis that matters most for this KB is weak: it rests on a pre-rerun population, has an unspecified labelling process and tests no intervention. The judge is same-family as top lanes, there is no human baseline, and each item ran once.",
+  "applicability": "Two transferable lessons for the team's 'capture knowledge back' step, where an agent proposes updates to docs, domain cards or ADRs after a PR. First, gate the edit decision explicitly: over-editing was common (abstention recall 28.6-85.7%), so the harness should ask 'does this change alter a documented contract?' and route proposed knowledge edits through human review rather than auto-merge. Second, require a cross-surface checklist, because stopping at the first plausible page was a top failure; across 4+ ingestion repos that means enumerating every doc, card and contract file that references the changed field or endpoint before drafting. For pre-spec discovery agents, the premature-closure finding argues for an explicit evidence-sufficiency step (cite the controlling code, schema or test for each claim), but this paper did not test whether that helps. For their own evals: seal the sandbox, since networked runs fetched the answer about 31% of the time.",
+  "conflicts_with": []
+}

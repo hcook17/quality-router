@@ -1,0 +1,117 @@
+{
+  "arxiv_id": "2605.09698",
+  "contribution_type": "benchmark",
+  "summary": "Novo Nordisk authors build Ambig-DS, paired fully-specified and deliberately ambiguous versions of 51 DSBench tabular tasks (prediction target hidden behind a calibrated decoy column) and 61 MLE-bench tasks (evaluation metric removed from the prompt), scored with the original evaluators. Five models (Gemini 3 Flash/3.1 Pro, GPT-5.4 Nano/5.4, Claude Haiku 4.5) run in OpenCode under three conditions: full, ambiguous, and ambiguous with one clarifying question answered by a scoped, truthful Claude oracle. Ambiguity lowers scores significantly for every model. One idealized question recovers much of the loss. But the agents' decision of when to ask is badly calibrated and swings with prompt wording.",
+  "claims": [
+    {
+      "claim": "Under ambiguity, agents fail by silently committing to a plausible wrong framing rather than by execution errors.",
+      "evidence": "Table 2: alternative-target submissions on 39-63% of ambiguous Target runs; invalid/timeout runs stay at 2-8%. Table 3: on Objective, 5-18% misframing plus 8-49% degenerate 'abdication'. Recognition audit (Table 10): user-overridable flagging in the final answer is 0-4%. The intro's 'do not flag the ambiguity in any of them' is slightly overstated: GPT-5.4 flags 4% of the time, and 42-64% of some models' traces explicitly acknowledge the ambiguity before committing anyway.",
+      "strength": "strong",
+      "location": "§5.2-5.3, Tables 2-3, App. C.5 Table 10"
+    },
+    {
+      "claim": "Ambiguity lowers task performance for every model on both suites.",
+      "evidence": "Table 1: Delta_ambig -0.10 to -0.29 (Target) and -0.04 to -0.09 (Objective). All one-sided paired Wilcoxon tests are p<0.05 and all paired-bootstrap 95% CIs exclude zero (Table 12). Ambiguity is constructed: the Target decoy is calibrated to be near-indistinguishable (inferability audit: all selectors' CIs include chance, Table 7), so the Target drop is close to guaranteed by design. The Objective suite (metric simply removed) is the more naturalistic test.",
+      "strength": "strong",
+      "location": "§5.2-5.3, Table 1, App. C.2, C.9"
+    },
+    {
+      "claim": "Allowing one clarifying question recovers much of the loss under idealized conditions.",
+      "evidence": "Table 1: Delta_ask +0.06 to +0.20 (Target), +0.03 to +0.09 (Objective), all significant. Alternative-objective rate falls to <=4% under Ask (Table 3), but degenerate submissions persist for weaker models. The oracle is truthful, scoped and always available; swapping to a GPT-5.4 oracle changes Haiku's Delta_ask from +0.20 to +0.18. Ask is scored under the permissive policy, where agents also ask on 51-100% of fully specified tasks (Table 13), and the protocol charges no cost for unnecessary questions. So the recovery reflects having the information, not calibrated asking.",
+      "strength": "moderate",
+      "location": "§5.4, Table 1, App. C.4, Table 13"
+    },
+    {
+      "claim": "Agents cannot reliably tell when to ask: permissive prompts cause over-asking, conservative prompts cause silent defaulting.",
+      "evidence": "Table 13 (5 models x 2 policies x 2 suites): permissive Ask-on-Full is 33-100%; conservative Ask-on-Ambig on Objective is 0-16% for four models. Gemini 3.1 Pro under the conservative policy is close to calibrated on both suites (94%/0% Target, 70%/0% Objective; CalibScore 0.97/0.82), and Gemini 3 Flash reaches 0.97 on Target. 'Cannot reliably' is therefore true of most cells but not all. Over-asking categories come from an LLM judge with only 'a subset' manually inspected (Table 14).",
+      "strength": "moderate",
+      "location": "§5.4, App. E.2, Tables 13-15"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P40",
+      "stance": "mixed",
+      "note": "Comparison: ambiguous task with versus without a one-question channel. The channel wins significantly for all 5 models, but the answers come from an idealized truthful oracle. When to ask is miscalibrated: under the permissive policy agents ask on 51-100% of clear tasks (mostly style or out-of-scope questions), and under the conservative policy several models never ask on metric-ambiguous tasks. Only Gemini 3.1 Pro (conservative) is near-calibrated on both suites."
+    },
+    {
+      "id": "P34",
+      "stance": "supports",
+      "note": "Comparison: fully specified framing (explicit target column and evaluation metric) versus the same task with the metric removed or target hidden. Explicit framing wins for all 5 models with CIs excluding zero. The Objective suite (metric sentence removed) is the more realistic contrast; the Target decoy is built to be unresolvable, so that drop is partly by construction."
+    },
+    {
+      "id": "P38",
+      "stance": "neutral",
+      "note": "The ask protocol allows a 'quick inspection' of headers, rows and sample submission before writing the question; exploration before asking is not varied or measured."
+    },
+    {
+      "id": "P18",
+      "stance": "neutral",
+      "note": "LLM judge (5-call majority) classifies objective-framing outcomes; validated with Fleiss kappa 0.78, cross-family Cohen kappa 0.74 and a 5.9% human override rate. Used as an instrument, not evaluated as a pattern."
+    },
+    {
+      "id": "P31",
+      "stance": "introduces",
+      "note": "New paired ambiguity benchmark layered on DSBench and MLE-bench with the original evaluators."
+    }
+  ],
+  "methodology": {
+    "sample": "112 paired tasks (51 DSBench target-ambiguity, 61 MLE-bench objective-ambiguity); 5 models x 3 conditions, plus 2 ask policies for the calibration study.",
+    "baselines": "Within-task paired conditions (Full, Ambig, Ask) on the same agent framework (OpenCode); no clarification-specialized agent or trained ask policy is compared.",
+    "models": "Gemini 3 Flash, Gemini 3.1 Pro, GPT-5.4 Nano, GPT-5.4, Claude Haiku 4.5 (three families). Construction by Claude Opus 4.7, oracle Claude Haiku 4.6.",
+    "variance": "Task-level paired Wilcoxon tests and paired-bootstrap 95% CIs (B=10,000). Appears to be one agent run per task x condition; run-to-run variance is not reported.",
+    "ablations": "Permissive versus conservative ask policy; cross-family judge and oracle swaps; recognition audit separating trace acknowledgment from answer flagging; non-Claude subset check.",
+    "contamination_controls": "Target inferability audit (marginal, CV and three LLM selectors, all CIs include chance). The Objective suite uses well-known Kaggle competitions whose metrics models may remember, which would bias against finding an effect.",
+    "languages": "Python data-science pipelines on tabular, image and text Kaggle-style data."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint v1; no venue in comment or journal_ref.",
+    "limitations_section": true,
+    "artifacts": "Paper states task packages, evaluators, oracle protocol and judge prompts are released and prints all prompts in App. G, but no repository or dataset URL appears in the text.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {
+      "type": "metric_mismatch",
+      "detail": "Ask-condition recovery is scored only on ambiguous variants and charges nothing for unnecessary questions, while the permissive policy that produces it asks on 51-100% of fully specified tasks. The headline recovery therefore measures 'the information helps', not 'the agent asks well'."
+    },
+    {
+      "type": "other:idealized_oracle",
+      "detail": "A truthful, scoped, always-available one-shot oracle; the authors call Delta_ask an upper bound, not a deployment estimate. Real stakeholders are slower, noisier and sometimes unsure."
+    },
+    {
+      "type": "other:construction_model_family",
+      "detail": "Claude Opus 4.7 generates and verifies variants and Claude Haiku 4.6 answers questions while Claude Haiku 4.5 is an evaluated agent. Mitigated by cross-family verifier (78-89% agreement), judge and oracle swaps, but generator bias in the candidate distribution remains."
+    },
+    {
+      "type": "single_language_python",
+      "detail": "All tasks are Python data-science pipelines; nothing on service code, Java or requirements for backend systems."
+    },
+    {
+      "type": "other:single_run_per_cell",
+      "detail": "CIs capture task sampling but not agent run-to-run variance, which matters with 2 h and 24 h agent budgets."
+    },
+    {
+      "type": "hype_language",
+      "detail": "The intro calls all five models 'frontier' (it later calls three of them 'efficient') and says agents flag ambiguity in none of the runs; Table 10 shows up to 4% overridable flags and frequent trace-level acknowledgment."
+    }
+  ],
+  "coi": {
+    "affiliations": "Novo Nordisk, London (all five authors).",
+    "vendor_products_evaluated": "OpenCode framework; Google, OpenAI and Anthropic models. Authors are affiliated with none of them.",
+    "funding": "No acknowledgments or funding statement.",
+    "severity": "none",
+    "detail": "Pharma-company authors evaluating third-party models; the benchmark does not favor any product of theirs. Several cited prior works are the first author's own."
+  },
+  "scores": {
+    "rigor": 4,
+    "reproducibility": 2,
+    "generalizability": 2,
+    "relevance": 4,
+    "coi_risk": 0
+  },
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Statistically careful (paired tests, bootstrap CIs, three model families, cross-family judge and oracle audits, a recognition audit) and honest about the idealized oracle. Caveats: the ambiguity is synthetic and in Python data science; the Ask recovery comes from a policy that also over-asks on clear tasks, with no cost charged for it; run-to-run variance is unreported; and no artifact URL is given despite the release claim.",
+  "applicability": "Directly relevant to requirement clarification before the spec. (1) Do not rely on the agent to notice ambiguity on its own: valid-looking output under a wrong framing was the dominant failure, and final answers almost never flagged the assumption. For ingestion work, the framing variables are things like which source field maps to which content-model field, which consumer front end is the target, and what counts as 'done'. Make the harness require them explicitly as structured slots in the pre-spec template or spec (P34), not discovered by the agent. (2) A clarification channel is worth having, but a prompt-only 'ask if unsure' policy will either spam humans with style questions or stay silent, depending on wording and model. Prefer a deterministic checklist that requires a question when any required slot is empty. (3) Require the agent's output to list its assumptions in a form a human can override, since that almost never happened unprompted. Transfer limits: Python data science with a truthful oracle; Java service code, multi-repo context and real domain experts are untested.",
+  "conflicts_with": []
+}

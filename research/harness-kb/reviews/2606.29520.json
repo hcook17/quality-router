@@ -1,0 +1,31 @@
+{
+  "arxiv_id": "2606.29520",
+  "contribution_type": "benchmark",
+  "summary": "SAKE: 2,154 author-written, four-option multiple-choice questions on software architecture knowledge, in eight categories derived from Bass et al. and the Gang of Four: three pattern families, quality attributes, architectural solutions/tactics, scalable practices, styles, and quantum. Eleven models were queried once via OpenRouter at temperature 0, zero-shot and five-shot. All models score 89-94%. Architectural Solutions is the weakest category (about 88%). Longer Architectural Solutions questions score lower, but question length is confounded with LLM-augmented wording.",
+  "claims": [
+    {"claim": "Overall accuracy is high and tightly clustered (89.31-94.23%), so models are close to interchangeable on this knowledge", "evidence": "Table 2. Single run, no CIs; most model gaps are 0.1-2 points, within sampling noise for 2,114 items. Descriptively solid as a saturation result.", "strength": "moderate", "location": "§6.1, Table 2"},
+    {"claim": "Performance varies markedly across categories, revealing competency gaps central to professional practice", "evidence": "Tables 3-4: Quality Attributes and Creational Patterns about 97%, Architectural Solutions about 88%. With about 250 items per category, CIs are roughly +/-4 points, so only the extreme gaps are clear. Calling 88% on textbook MCQs a 'competency gap central to practice' is overstated.", "strength": "moderate", "location": "§6.2, Tables 3-4"},
+    {"claim": "More context helps recall categories but hurts trade-off reasoning (Architectural Solutions)", "evidence": "Table 5. 'Context length' is the question's word count, and §4.3 says longer questions were 'optionally enhanced via an LLM' (model unstated), so length is confounded with LLM-written augmentation. Architectural Solutions length bins hold about 60 items each; no significance tests.", "strength": "weak", "location": "§4.3, §6.3, Table 5"},
+    {"claim": "Five-shot examples help large models and hurt smaller ones", "evidence": "Table 2: changes of -4.21 to +0.66 points, single run, no tests.", "strength": "weak", "location": "§6.1"},
+    {"claim": "Questions are expert-curated and validated (95.6% first-pass agreement)", "evidence": "§4.3. The reviewers are the three authors; 'agreement' is an acceptance rate, not kappa; there is no external validation (the authors concede this in §7).", "strength": "weak", "location": "§4.3, §7"}
+  ],
+  "patterns": [
+    {"id": "P38", "stance": "neutral", "note": "§2.1 notes that architectural knowledge is largely tacit and lost when architects leave. The benchmark tests textbook knowledge, not discovery of a project's own architecture or decisions."},
+    {"id": "P43", "stance": "neutral", "note": "Question answering without any codebase. Says nothing about exploring or answering questions over a real repository."},
+    {"id": "P31", "stance": "neutral", "note": "A new benchmark that is already near saturation for all eleven models at release."}
+  ],
+  "methodology": {"sample": "2,154 MCQs (2,114 scored; 40 held out as five-shot exemplars)", "baselines": "None beyond model-to-model comparison; no human baseline", "models": "11: Claude Haiku/Sonnet/Opus 4.x, DeepSeek v3.2, Gemini 3.1 Flash Lite, GPT 5.4 and Nano, Grok 4.1 Fast and 4.2, Mistral Small 4, Qwen3 235B", "variance": "Single run at temperature 0; no CIs or tests", "ablations": "Zero- vs five-shot; question-length quartiles", "contamination_controls": "Questions are original (not copied from the books), but the public release invites future contamination; no canary string", "languages": "n/a (natural-language MCQ)"},
+  "standards": {"peer_review": "Not stated (25-page preprint)", "limitations_section": true, "artifacts": "Questions, evaluation scripts and results on an anonymous.4open.science link", "preregistration": "n/a"},
+  "biases": [
+    {"type": "metric_mismatch", "detail": "MCQ recall is not architectural decision-making on a concrete system (conceded in §1 and §7)."},
+    {"type": "no_variance_reported", "detail": "One run per model and setting, so model rankings within 1-2 points are not meaningful."},
+    {"type": "other:llm_augmented_items", "detail": "Longer questions were extended by an unnamed LLM, which confounds the length analysis and may favour that model family."},
+    {"type": "other:author_only_validation", "detail": "The three authors wrote and cross-reviewed all items."}
+  ],
+  "coi": {"affiliations": "University of Southern Denmark", "vendor_products_evaluated": "Eleven third-party models; none favoured", "funding": "not stated", "severity": "none", "detail": "No vendor ties."},
+  "scores": {"rigor": 2, "reproducibility": 3, "generalizability": 2, "relevance": 1, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "An open, reasonably sized benchmark with released items. However, it is saturated at release, single-run, and validated only by its authors, and its context-length finding is confounded by LLM-augmented questions. The defensible takeaway is limited to 'frontier models score about 90-94% on textbook architecture MCQs, lowest on tactics and trade-offs'.",
+  "applicability": "A weak signal for the discovery harness. Frontier models already know textbook architecture vocabulary, so a domain glossary of GoF or quality-attribute terms adds little. What developers who lack domain knowledge need is the team's own architecture decisions, ingestion data contracts and healthcare-content rules (P39), which this benchmark does not touch. The lower score on tactic and trade-off questions is a mild reason to keep human review on agent-proposed architecture changes across the ingestion repos.",
+  "conflicts_with": []
+}

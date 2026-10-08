@@ -1,0 +1,84 @@
+{
+  "arxiv_id": "2609.29208",
+  "contribution_type": "empirical",
+  "summary": "Controlled experiment (PROFES 2026) that extends a prior requirement-smell/traceability study to code generation. The authors manually inject semantic, syntactic and lexical smells into the 74 functional requirements of four small Java 8 games (Dice, Arkanoid, Snake, Scopa), prompt GPT-4o and DeepSeek-V3 (temperature 0, five runs per condition) with a fixed task description and Java skeleton, and score the generated programs with author-written requirement-level JUnit tests. Pass rates fall descriptively with smell density in some game/model cells, but no correlation and no smell-category association survives Bonferroni correction.",
+  "claims": [
+    {
+      "claim": "Increasing smell density is generally associated with lower test-suite-based functional correctness.",
+      "evidence": "Fig. 2(b) and §4.2: decreases in some cells (DeepSeek-V3 Dice 88.0 -> 77.6%, Snake 64.3 -> 52.9%; GPT-4o Scopa 72.5 -> 57.5%, Snake 71.4 -> 67.1%), but Arkanoid stays >88-90% for both models, GPT-4o Dice fluctuates 74.4-80.0% and DeepSeek-V3 Scopa 81.3-90.0% with no trend. Each Spearman rho uses only five density points; the strongest (GPT-4o Snake rho=-0.97, p=0.033; DeepSeek Dice/Snake rho=-1.00, p=0.0167) all fail the Bonferroni threshold alpha*=0.0033. The abstract states the association without saying none of it is significant.",
+      "strength": "weak",
+      "location": "§4.2, Fig. 2(b)"
+    },
+    {
+      "claim": "Different smell categories (semantic, syntactic, lexical) have similar effects.",
+      "evidence": "§4.3: no aggregate chi-square association is significant (weak Cramér's V); smallest application-level p=0.0098 (DeepSeek-V3 lexical, Snake, V=0.577) fails alpha*=0.0021. Only 2-4 smells per category per game, so 'similar' is an absence of detectable difference under very low power, which the authors concede in conclusion validity.",
+      "strength": "weak",
+      "location": "§4.3, Fig. 3, §6"
+    },
+    {
+      "claim": "Clean (non-smelly) requirements alone do not guarantee correct code.",
+      "evidence": "§4.1, Fig. 2(a): neither model passes all tests on Dice (17-23 of 25), both consistently fail some Snake timed-event requirements, GPT-4o Scopa averages 72.5% (SD 15.0 pp). Recurring failures cluster on requirements that share a skeleton method or have ordered dependencies, which the authors treat as uncontrolled confounds.",
+      "strength": "moderate",
+      "location": "§4.1"
+    },
+    {
+      "claim": "Code generation appears more sensitive to requirement smells than automated traceability.",
+      "evidence": "§5 compares descriptive drops here with the earlier traceability study's small effects; different tasks, metrics and analyses, and neither study has significant corrected effects. The authors themselves label the comparison exploratory, yet it is a headline sentence in the abstract.",
+      "strength": "weak",
+      "location": "§5, abstract"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P34",
+      "stance": "mixed",
+      "note": "Compares clean versus smell-injected versions of the same requirements (a fair within-task contrast), but degradation is descriptive, inconsistent across games/models and never significant after correction; clean requirements still fail on shared-method and ordered-dependency requirements. Says nothing about acceptance-criteria format."
+    },
+    {
+      "id": "P42",
+      "stance": "neutral",
+      "note": "Evaluation device maps each requirement to exactly one skeleton method and to requirement-level JUnit tests (a hand-built requirement-to-code-to-test trace). Trace links are given, not generated or verified by an agent; the traceability results belong to the prior study [19]."
+    },
+    {
+      "id": "P14",
+      "stance": "neutral",
+      "note": "Requirements-as-prompt with a fixed skeleton; motivates checking requirement quality before generation but evaluates no spec-driven workflow, iterative prompting or agent loop (single prompt template, acknowledged in §6)."
+    }
+  ],
+  "methodology": {
+    "sample": "4 game applications, 74 functional requirements (Dice 25, Arkanoid 19, Snake 14, Scopa 16); 5 density sets plus 3 category sets per game; 2 LLMs x 5 runs per configuration.",
+    "baselines": "Non-smelly version of the same requirements (within-subject control). No other prompting strategy or model compared.",
+    "models": "GPT-4o and DeepSeek-V3 via API, temperature 0 (both 2024-era; no current or reasoning models).",
+    "variance": "SD/variance over five runs reported for RQ1; Spearman on five aggregate points per cell; Bonferroni-corrected tests, none significant.",
+    "ablations": "None beyond the manipulated factors (density, category). Requirement ordering and skeleton structure not manipulated.",
+    "contamination_controls": "None; authors note that classic games have public implementations that may be in training data.",
+    "languages": "Java 8 code generation from English requirements; JUnit + Mockito tests."
+  },
+  "standards": {
+    "peer_review": "Accepted at PROFES 2026 (arXiv comment).",
+    "limitations_section": true,
+    "artifacts": "Replication package on Zenodo (doi 10.5281/zenodo.17441075) stated to include source code, experimental data and prompts.",
+    "preregistration": "none (controlled experiment, not preregistered)"
+  },
+  "biases": [
+    {"type": "small_sample", "detail": "Five density points per correlation and 2-4 smells per category per game; statistical power is very low, as the authors concede."},
+    {"type": "toy_tasks", "detail": "Four short, well-known game programs with a predefined skeleton; no industrial or multi-file requirements."},
+    {"type": "contamination_risk", "detail": "Dice/Arkanoid/Snake/Scopa implementations are common on GitHub; exposure not controlled."},
+    {"type": "other:stale_models", "detail": "Only GPT-4o and DeepSeek-V3 at temperature 0 with one prompt template; authors note newer models may resolve ambiguity differently."},
+    {"type": "other:abstract_omits_nonsignificance", "detail": "Abstract reports 'generally associated' and 'more sensitive' without stating that no effect survives multiple-comparison correction."}
+  ],
+  "coi": {
+    "affiliations": "fortiss GmbH (research institute), Netlight Consulting, TU Munich, Chalmers, Trinity College Dublin, University of Duisburg-Essen, Blekinge Institute of Technology.",
+    "vendor_products_evaluated": "GPT-4o, DeepSeek-V3 (no author affiliation with either).",
+    "funding": "Not stated.",
+    "severity": "none",
+    "detail": "No vendor interest in the outcome; one author at a consultancy that does not sell an evaluated product."
+  },
+  "scores": {"rigor": 2, "reproducibility": 4, "generalizability": 1, "relevance": 3, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Careful, honestly reported design (within-task control, five runs, Bonferroni correction, released package) in Java, but it is underpowered and returns null results after correction on toy programs with 2024 models. Admit as weak evidence that intent-preserving requirement smells are not a dominant driver of code-correctness loss; the abstract's 'generally associated' and 'more sensitive than traceability' outrun the body.",
+  "applicability": "For the pre-spec stage, this does not justify a blocking requirement-smell linter on the expectation of large correctness gains: the measured effects of passive voice, weak verbs and vague phrasing were small and indistinguishable from noise. More useful for the Java team is the measurement template: a fixed Java skeleton where each requirement maps to one method and to requirement-level JUnit tests, which they could reuse on their own ingestion specs to test whether their clarification and spec gates change correctness. The recurring failures on requirements that share a method or depend on ordering suggest putting harness effort into requirement-level tests and dependency notes in the spec, not just prose quality.",
+  "conflicts_with": [
+    {"arxiv_id": "2608.09072", "detail": "Partial tension, not a direct contradiction: SWE-RPG attributes 24.5-46% of failed agent runs to unrecovered implicit requirements, implying requirement content gaps matter a lot, while here injected smells that preserve intent produce no significant correctness loss. The two are reconcilable (missing information versus degraded wording), but should not be cited together as 'requirement quality matters' without that distinction."}
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "arxiv_id": "2607.17532",
+  "contribution_type": "system",
+  "summary": "A course-project-style paper: QLoRA fine-tune of Mistral-7B-Instruct on CommitPackFT, then decoding capped at 20 tokens (temperature 0.1) and a string post-processor that keeps the first line and strips pre-colon filler, to produce Conventional-Commits-style messages. On the first 50 CommitPackFT test examples it reports 98% format compliance vs 22% for vanilla Mistral, and LLM-judge 3.68 vs 1.97. But the final pipeline was judged by a different, smaller model (Llama-3.1-8B) than the other two arms (Llama-3.3-70B), and the compliance metric was rewritten after inspecting outputs.",
+  "claims": [
+    {"claim": "98% format compliance vs 22% for vanilla Mistral", "evidence": "Table 1, §5.2: the metric was redefined after looking at outputs. The new rules accept any '[a-zA-Z0-9-]+: .+' or any single line starting with a capital or digit, which is exactly the shape the post-processor emits (first line only). Vanilla was not given the same post-processing.", "strength": "weak", "location": "§5.1-5.2, Table 1"},
+    {"claim": "LLM-judge score rises 1.97 -> 2.20 -> 3.68 out of 5", "evidence": "§1.4, §2.1 and §4.2: vanilla and raw outputs were judged by llama-3.3-70b-versatile, but cleaned pipeline outputs by llama-3.1-8b-instant after a free-tier token limit. The scores come from different judges and are not comparable; the judge has no human validation.", "strength": "unsupported", "location": "§1.4, §2.1, §4.2, Table 1"},
+    {"claim": "Post-processing contributes more to quality than fine-tuning", "evidence": "Rests on the mixed-judge comparison above plus BERTScore (0.8129 -> 0.8259 -> 0.8688). There is no vanilla + post-processing arm to separate the two contributions, and the authors attribute the BERTScore gain to shorter output (§5.4).", "strength": "weak", "location": "§3.2, §5.1, §5.4"},
+    {"claim": "The whole system runs on one T4 GPU", "evidence": "§3.1: one-epoch QLoRA run took about 40 minutes on a Colab T4; plausible and consistent with the QLoRA setup.", "strength": "moderate", "location": "§1.3, §3.1"}
+  ],
+  "patterns": [
+    {"id": "P42", "stance": "neutral", "note": "Commit history is motivated as a record for review and onboarding. The model fabricates plausible issue IDs ('132: Add ...') learned from training data, and the corrected compliance metric counts these as compliant (§5.2, §6). This is a hazard if generated commit messages serve as trace links."},
+    {"id": "P25", "stance": "mixed", "note": "Fine-tuning vs the same untuned model gives small gains (BERTScore +0.013, compliance 22% -> 36%); the larger post-processing effect is not separated, because no vanilla + pipeline arm exists."},
+    {"id": "P18", "stance": "neutral", "note": "LLM judge used without validation and swapped between arms."}
+  ],
+  "methodology": {"sample": "First 50 of 1,200 CommitPackFT test examples", "baselines": "Vanilla Mistral-7B-Instruct (adapter disabled) and raw fine-tuned model; no prior commit-message generators, no frontier model, no vanilla + post-processing arm", "models": "Mistral-7B-Instruct-v0.2 (generator); Llama-3.3-70B and Llama-3.1-8B judges via Groq", "variance": "None; single run, no CIs", "ablations": "Fine-tune vs full pipeline only; constrained decoding and post-processing not separated", "contamination_controls": "None; CommitPackFT is mined from public GitHub", "languages": "Diffs from CommitPackFT (languages not broken down)"},
+  "standards": {"peer_review": "None ('7 pages, 4 figures')", "limitations_section": false, "artifacts": "No code or adapter link; the post-processing function is printed in the paper", "preregistration": "n/a"},
+  "biases": [
+    {"type": "metric_mismatch", "detail": "Judge model swapped between arms; the compliance metric was redefined after inspecting outputs to accept the shapes the post-processor produces, including fabricated issue-ID prefixes."},
+    {"type": "llm_judge_unvalidated", "detail": "No human ratings; authors list human evaluation as future work."},
+    {"type": "small_sample", "detail": "50 examples, chosen as the first 50 of the test split."},
+    {"type": "single_model", "detail": "One generator model."},
+    {"type": "no_variance_reported", "detail": "Single run, no intervals."},
+    {"type": "strawman_baseline", "detail": "Vanilla model gets neither the constrained decoding nor the post-processing, so the comparison mixes model and pipeline effects."},
+    {"type": "closed_artifacts", "detail": "No code, adapter or evaluation outputs released."}
+  ],
+  "coi": {"affiliations": "University of Illinois Chicago", "vendor_products_evaluated": "None", "funding": "Not stated", "severity": "none", "detail": "No vendor or product interest."},
+  "scores": {"rigor": 1, "reproducibility": 1, "generalizability": 1, "relevance": 1, "coi_risk": 0},
+  "verdict": "reject",
+  "verdict_reason": "The headline quality claim compares judge scores from two different judge models, the compliance metric was rewritten post hoc to fit the pipeline's output shape, the sample is 50 examples with no variance, and no human evaluation was done. Commit-message generation is also only marginally relevant to discovery and onboarding.",
+  "applicability": "Commit messages are one way to capture knowledge back, but this paper provides no usable evidence on it. Two cautions transfer. First, enforcing an output shape with deterministic code is cheap, but here the deterministic check was tuned to accept whatever the post-processor emits, so the check proves nothing; any qr verification step must be fixed before outputs are seen. Second, small models fine-tuned on public commits fabricate issue IDs, so any harness step that writes commit messages or requirement references must verify IDs against the tracker rather than trust the model.",
+  "conflicts_with": []
+}

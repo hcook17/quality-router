@@ -1,0 +1,31 @@
+{
+  "arxiv_id": "2606.31725",
+  "contribution_type": "empirical",
+  "summary": "Runs twelve open models (0.5B-8B; reasoning-, instruct- and coder-tuned) on output prediction for short Python/JavaScript functions under five obfuscation tiers: renaming, misleading renaming, control-flow flattening, and combined. Per-task accuracy is compared with the same group's earlier study of 50 undergraduates, and chain-of-thought length and token confidence are analysed. Small reasoning-tuned models' per-task accuracy correlates with human accuracy (rho 0.30-0.47); instruct and coder models do not, but those sit at 9-23% accuracy. No frontier models are tested.",
+  "claims": [
+    {"claim": "Reasoning-tuned models align with human difficulty patterns; instruction- and coder-tuned models show near-zero correlation", "evidence": "Table IV: rho 0.30-0.47 (p<=0.003) vs 0.02-0.10. Coder and instruct models are near the floor (9-23% accuracy, Table II), so a lack of correlation may be a floor effect. Yet Phi-4-mini, at 3-6% accuracy, shows the highest rho (0.47), which is hard to interpret. The comparison is with a 20-task human study by the same group. Dataset A uses HumanEval-X, which predates every model tested.", "strength": "weak", "location": "§V-C, Tables II and IV"},
+    {"claim": "Alignment holds across human experience levels", "evidence": "Fig. 8: mean rho about 0.24-0.30 for every tier, with no tier distinguishable and an unstable leave-one-model-out ordering. Models do not reproduce the human language effect or the expert inversion under misleading renaming (§VI). The correlation is generic, not specific to experience level.", "strength": "weak", "location": "§VI, Fig. 7-8"},
+    {"claim": "Accuracy declines with control-flow flattening in proportion to dispatcher complexity", "evidence": "GLMM tier effect chi2(4)=45.4; Python state count r=-0.196 (q<1e-22) across all seven models; JavaScript effects are weaker.", "strength": "moderate", "location": "§V-A, Table II"},
+    {"claim": "Chain-of-thought trace length tracks task difficulty", "evidence": "Spearman rho=-0.52 between per-question accuracy and CoT length (about 50 questions, Fig. 9). Correct and incorrect lengths do not differ once snippet and model are controlled (p=0.33).", "strength": "moderate", "location": "§VII, Table VIII"},
+    {"claim": "Misleading identifiers cause high-confidence wrong answers only when semantic displacement and identifier-level uncertainty co-occur", "evidence": "Tables IX-X: post-hoc top-20% tail subsets with no significance tests (21.25% accuracy and 10.0% HCI in the joint tail); the direction of the confidence shift is split 26/24 across tasks.", "strength": "weak", "location": "§VIII"}
+  ],
+  "patterns": [
+    {"id": "P41", "stance": "neutral", "note": "Studies model comprehension, not developer comprehension. Its implication that confident model explanations of poorly or misleadingly named code are unreliable bears on agent-written code walkthroughs for onboarding, but it is not tested with developers."},
+    {"id": "P43", "stance": "neutral", "note": "Snippet-level output prediction (under 15 lines for the human-aligned set), not question answering or exploration over a codebase."}
+  ],
+  "methodology": {"sample": "Dataset A: 20 snippets x 5 tiers with human labels from a prior 50-undergraduate study; Dataset B: 50 snippets x 5 tiers; 28,750 model runs", "baselines": "Human accuracy and response time from Nguyen et al. (same group)", "models": "12 open models from 0.5B to 8B (DeepSeek-R1 distills, Phi, SmolLM3, Qwen, Llama-3.1, CodeLlama, DeepSeek-Coder); no frontier models", "variance": "Binomial GLMMs with crossed random effects, Wilson CIs, BH-FDR; five repeats for one self-consistency condition", "ablations": "21 prompt conditions (simulation, token caps, memory load, one-shot, hints)", "contamination_controls": "Release-date proxy against LeetCode items from May 2025; HumanEval-X and CruxEval are public and older than all models", "languages": "Python, JavaScript"},
+  "standards": {"peer_review": "Not stated", "limitations_section": true, "artifacts": "Replication package on Zenodo (anonymised reference)", "preregistration": "n/a"},
+  "biases": [
+    {"type": "contamination_risk", "detail": "The human-aligned tasks come from HumanEval-X; obfuscation only partly mitigates memorisation."},
+    {"type": "toy_tasks", "detail": "Self-contained functions under 15 lines with cyclomatic complexity 4-8."},
+    {"type": "small_sample", "detail": "Human alignment rests on 20 tasks and 50 undergraduates."},
+    {"type": "metric_mismatch", "detail": "Correlating per-task accuracy for models near the floor does not measure 'alignment of comprehension'."},
+    {"type": "other:no_frontier_models", "detail": "All models are 8B or smaller, so conclusions about which model types to pick for developer tools do not reach models teams actually use."}
+  ],
+  "coi": {"affiliations": "University of Texas at Dallas", "vendor_products_evaluated": "Open models; none favoured", "funding": "not stated", "severity": "none", "detail": "No vendor ties; the human baseline is the authors' own prior study."},
+  "scores": {"rigor": 3, "reproducibility": 3, "generalizability": 1, "relevance": 1, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Statistically careful (GLMMs, FDR correction, many runs), but on toy snippets, small models, and a 20-task human anchor. The headline reasoning-vs-coder alignment split is confounded with floor effects.",
+  "applicability": "Little for the discovery or onboarding harness. One caution transfers: model explanations of code with misleading or legacy names can be confidently wrong. An 'explain this module' step in onboarding to the ingestion repos should be paired with running the code or its tests, not accepted on the explanation alone. Nothing here measures frontier agents or developer learning.",
+  "conflicts_with": []
+}

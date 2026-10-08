@@ -1,0 +1,31 @@
+{
+  "arxiv_id": "2608.14944",
+  "contribution_type": "system",
+  "summary": "SkillComposer lets non-programmers program a simulated caregiving robot (RCareWorld) in natural language. A coder LLM emits JSON function-call programs over five primitives, an evaluator LLM plus a static schema validator gate each program (up to five revisions), and accepted programs are compressed by the Stitch library-learning algorithm into macros that an LLM documents and adds to the schema. It is evaluated with a 2x2 ablation (40 prompts x 5 runs) and a 12-person within-subjects study. The LLMs used are never named. The paper is about end-user robot programming, not software development.",
+  "claims": [
+    {"claim": "Evaluator-guided generation improves task success", "evidence": "Table I: Coder+Eval beats Coder alone in 5 of 6 prompt categories (e.g. multi-step HRI 0.02 -> 0.98, goal planning 0.08 -> 0.68), at roughly 4-5x generation time. Success is judged by simulator outcome over 5 runs with SDs.", "strength": "moderate", "location": "§V-A, Table I"},
+    {"claim": "Learned abstractions improve success rates", "evidence": "Table I contradicts this: Coder+Stitch matches or trails Coder alone (goal planning 0.00 vs 0.08), and full SkillComposer trails Coder+Eval on spatial reasoning (0.40 vs 0.76). The authors concede macro learning 'primarily affected program complexity rather than success rate'.", "strength": "unsupported", "location": "§V-A, Table I"},
+    {"claim": "SkillComposer improves usability and reduces user effort versus a baseline coding LLM", "evidence": "Table II: fewer prompts on all three tasks, higher success on 1 of 3 tasks, lower on feeding (0.67 vs 0.75). SUS 72.1 vs 61.4 (d=0.46), but paired t-tests p>0.05 on every subjective metric; 11/12 preferred it. The baseline also lacks the evaluator loop, so effects cannot be attributed to macros.", "strength": "weak", "location": "§V-B, Table II, Fig. 6"},
+    {"claim": "Macro use grows as more prompts are processed", "evidence": "Fig. 5 only, descriptive, 20 prompts per environment.", "strength": "weak", "location": "§V-A, Fig. 5"}
+  ],
+  "patterns": [
+    {"id": "P18", "stance": "mixed", "note": "An evaluator LLM before execution vs no evaluator wins on simulated success in 5/6 categories, at 4-5x latency. The only comparison is against no verification at all; there is no simulator-feedback (execution) baseline, and the domain is robot JSON programs."},
+    {"id": "P26", "stance": "mixed", "note": "An online library of learned macros shortens programs but does not raise success alone or with the evaluator (Table I)."},
+    {"id": "P02", "stance": "neutral", "note": "All learned macros go into every prompt's schema (not on demand). The authors expect degradation as the library grows and suggest retrieval as future work."}
+  ],
+  "methodology": {"sample": "40 natural-language prompts (20 Objects, 20 Feeding) x 4 variants x 5 runs; user study with 12 non-programmers, 3 tasks per system, within-subjects, counterbalanced", "baselines": "Coder-only LLM (ablation and user study); no execution-feedback or prior robot-programming system", "models": "Not named anywhere in the paper (coder, evaluator and documentation LLMs)", "variance": "Mean +/- SD over 5 runs; user study paired t-tests, all p>0.05", "ablations": "2x2 evaluator x macro learning", "contamination_controls": "n/a", "languages": "JSON function-call robot programs in a Unity/Python simulator"},
+  "standards": {"peer_review": "Submitted to IEEE Humanoids 2026; not peer-reviewed", "limitations_section": false, "artifacts": "None released (no code, prompts, or model identity)", "preregistration": "none (IRB-approved user study)"},
+  "biases": [
+    {"type": "toy_tasks", "detail": "Simulated tabletop and feeding tasks over five primitives."},
+    {"type": "small_sample", "detail": "12 participants; 20 prompts per environment."},
+    {"type": "closed_artifacts", "detail": "No artifacts and the LLMs are unnamed, so nothing can be reproduced."},
+    {"type": "hype_language", "detail": "Abstract says learned abstractions improve success and usability; Table I and the non-significant tests do not support this."},
+    {"type": "strawman_baseline", "detail": "User-study baseline has no verification at all, conflating the evaluator effect with the macro effect."}
+  ],
+  "coi": {"affiliations": "Arizona State University", "vendor_products_evaluated": "none", "funding": "not stated", "severity": "none", "detail": "Academic authors; no vendor product."},
+  "scores": {"rigor": 2, "reproducibility": 1, "generalizability": 1, "relevance": 0, "coi_risk": 0},
+  "verdict": "reject",
+  "verdict_reason": "Off-topic: natural-language robot programming for non-programmers in simulation, not software development with LLM agents or its human side. The abstract's headline (learned abstractions improve success and usability) is not supported by its own Table I or by its non-significant user-study tests, and the models are never named.",
+  "applicability": "Does not transfer to a backend Java team's discovery or onboarding harness. The only faint echo: in this toy domain, auto-mined skill libraries shortened outputs without improving success. That is a reason not to assume automatically learned skills help unless measured.",
+  "conflicts_with": []
+}

@@ -1,0 +1,58 @@
+{
+  "arxiv_id": "2608.05227",
+  "contribution_type": "dataset",
+  "summary": "Emory authors build a journal-level dataset of 2,744 biomedical journals from 1.74M PubMed Central open-access articles. It joins JCR/CiteFactor bibliometrics (collected via ResearchGate), collaboration features parsed from article XML, and an 'AI engagement rate' produced by a three-prompt Gemma-3-12B classifier over abstracts. Mixed-effects or OLS regressions find that larger author teams go with higher impact factor in both periods, and that AI share goes with impact factor only in the 2016-2019 subset. The LLM labels were checked by three author-team members on 100 abstracts. This is scientometrics, not software development.",
+  "claims": [
+    {
+      "claim": "Journals with larger author teams tend to have higher citation impact",
+      "evidence": "Tables 3-4: Avg_Authors coefficients 0.882 (2019 subset) and 0.534 (2023 subset), Bonferroni p_adj<0.001. Correlational; the random-effect variance sometimes collapses and the models are refit as OLS.",
+      "strength": "moderate",
+      "location": "§4, Tables 3-4"
+    },
+    {
+      "claim": "AI engagement rate is positively associated with Impact Factor only in the 2019 subset",
+      "evidence": "Table 3: AI_Engagement_Rate_2018 beta=19.38, p_adj<0.01; not significant in 2023. AI indicators exist for only 902 of 1,367 journals in 2019, and the handling of missing values is not described.",
+      "strength": "weak",
+      "location": "§4, Table 3, §3.2.2"
+    },
+    {
+      "claim": "Human evaluation confirms substantial agreement in AI relevance detection (abstract)",
+      "evidence": "§5.2: the reported kappa>0.8 is agreement among three author-team raters on 25 shared abstracts about whether the LLM label was right, not a measured LLM-vs-human accuracy on a held-out set; the accuracy itself appears only in a figure. The authors concede author involvement may introduce confirmation bias.",
+      "strength": "weak",
+      "location": "§5.2, Fig. 5"
+    }
+  ],
+  "patterns": [],
+  "methodology": {
+    "sample": "2,744 journals; 1,740,112 abstracts labelled by the LLM; human check on 100 abstracts (50 predicted positive, 50 negative), 25 triple-annotated",
+    "baselines": "None for the AI-relevance classifier (no keyword or supervised-classifier comparison)",
+    "models": "Gemma-3-12B",
+    "variance": "Regression CIs reported; no repeated LLM labelling runs",
+    "ablations": "None (the three pipeline stages are not ablated)",
+    "contamination_controls": "n/a",
+    "languages": "English biomedical abstracts; no code"
+  },
+  "standards": {
+    "peer_review": "Not stated",
+    "limitations_section": false,
+    "artifacts": "Code and journal-level dataset on GitHub (JonathanWry/BioMedJImpact)",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "self_evaluation", "detail": "LLM labels were validated by members of the author team."},
+    {"type": "small_sample", "detail": "100 abstracts validated, agreement computed on 25."},
+    {"type": "metric_mismatch", "detail": "Inter-rater kappa among humans is presented as confirming the LLM's agreement with humans."}
+  ],
+  "coi": {
+    "affiliations": "Emory University",
+    "vendor_products_evaluated": "None",
+    "funding": "Not stated",
+    "severity": "none",
+    "detail": "Academic dataset paper with no commercial interest."
+  },
+  "scores": {"rigor": 2, "reproducibility": 3, "generalizability": 2, "relevance": 0, "coi_risk": 0},
+  "verdict": "reject",
+  "verdict_reason": "Off-topic: a scientometric dataset about biomedical journals, with no software development, coding agents, developer knowledge, or requirements content. It is also methodologically thin on its own LLM validation (author raters, 25 shared items, inter-rater kappa presented as LLM agreement).",
+  "applicability": "Does not transfer to the team's discovery or onboarding harness. The only tangential point for a healthcare-education ingestion team is that a small open model running a filter, extract, verify prompt chain was used to tag biomedical abstracts at scale. Its accuracy was checked only by the authors on 100 items, so it is not evidence for a content-tagging step either.",
+  "conflicts_with": []
+}

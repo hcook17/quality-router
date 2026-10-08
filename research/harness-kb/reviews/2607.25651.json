@@ -1,0 +1,68 @@
+{
+  "arxiv_id": "2607.25651",
+  "contribution_type": "empirical",
+  "summary": "An empirical study of 123 closed TorchDynamo (PyTorch 2 compiler frontend) bugs filed between June 2024 and June 2025. GPT-5 fills a structured template (related task, trigger, symptom, summary) guided by a hand-written description of TorchDynamo's four internal tasks; two LLMs plus two authors then produce a 7-category / 15-subcategory root-cause taxonomy. GPT-5 writes 10 root-cause-guided eager-vs-compiled differential tests per (sub)category (170 total), which triggered 23 new failures on PyTorch 2.10, 15 confirmed by maintainers. It is a deep-learning-compiler bug study, not a study of LLM-assisted software development practice.",
+  "claims": [
+    {
+      "claim": "fBugs fall into 7 root-cause categories and 15 subcategories, dominated by Python dynamic features",
+      "evidence": "Table 2 and §5.2 on 123 manually filtered issues. LLM annotations were reviewed by two authors with disagreements resolved by discussion; no inter-rater statistics.",
+      "strength": "moderate",
+      "location": "§5.1-5.2"
+    },
+    {
+      "claim": "Root-cause-aware LLM test generation finds new bugs (23 failures, 15 confirmed, 8/17 (sub)categories)",
+      "evidence": "§5.3, Table 3: maintainer confirmation and 10 fixes merged are real external evidence that the tests find bugs. There is no baseline (unguided LLM generation, WhiteFox, or existing fuzzers), so 'root causes are what helps' (Implication #9) is not isolated.",
+      "strength": "moderate",
+      "location": "§5.3"
+    },
+    {
+      "claim": "The LLM pipeline cuts analysis time by about 80%",
+      "evidence": "Based on one illustrative issue (about 1 h manual vs <30 s LLM plus <10 min human check). No timing study.",
+      "strength": "weak",
+      "location": "§6.1"
+    },
+    {
+      "claim": "LLMs improve categorization consistency and the method is LLM-agnostic with conclusions robust across models",
+      "evidence": "No agreement metrics, no cross-model comparison and no domain-knowledge on/off ablation reported.",
+      "strength": "unsupported",
+      "location": "§6.1"
+    }
+  ],
+  "patterns": [
+    {"id": "P39", "stance": "introduces", "note": "A structured, named-task description of the subsystem's internals is injected into prompts to ground bug-report analysis. No ablation with vs without this domain context."},
+    {"id": "P19", "stance": "neutral", "note": "Every LLM annotation is human-reviewed by two authors; the LLM acts as an accelerator, not a decider."}
+  ],
+  "methodology": {
+    "sample": "123 TorchDynamo bugs (PyTorch 2.1-2.6); 170 generated tests on PyTorch 2.10",
+    "baselines": "None for test generation or for LLM-aided analysis",
+    "models": "GPT-5 (analysis, test generation), Claude-Sonnet-4 (second annotator)",
+    "variance": "n/a; single generation pass",
+    "ablations": "None",
+    "contamination_controls": "None; the 2024-25 public issues and fixes may be in GPT-5's training data",
+    "languages": "Python (PyTorch)"
+  },
+  "standards": {
+    "peer_review": "None stated",
+    "limitations_section": true,
+    "artifacts": "Code and data on Zenodo (10.5281/zenodo.19229496)",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "other:no_baseline", "detail": "The test-generation success is not compared with unguided generation or existing DLC fuzzers."},
+    {"type": "contamination_risk", "detail": "The LLM may recall the public issues it is asked to analyze."},
+    {"type": "cherry_picked_examples", "detail": "The 80% time saving is extrapolated from one issue."},
+    {"type": "single_language_python", "detail": "One Python project."}
+  ],
+  "coi": {
+    "affiliations": "Institute of Software, Chinese Academy of Sciences",
+    "vendor_products_evaluated": "None",
+    "funding": "Not stated",
+    "severity": "none",
+    "detail": "Academic authors; no own product evaluated."
+  },
+  "scores": {"rigor": 2, "reproducibility": 4, "generalizability": 1, "relevance": 1, "coi_risk": 0},
+  "verdict": "reject",
+  "verdict_reason": "Off-topic for the harness KB: a root-cause taxonomy of PyTorch compiler-frontend bugs. The LLM-related claims (time savings, consistency, model-agnosticism, the value of root-cause guidance) are anecdotal or untested, although the 15 maintainer-confirmed new bugs are genuine evidence that the generated tests find defects.",
+  "applicability": "Does not transfer to the Java team's discovery/onboarding harness. The only tangential idea: giving the LLM a short structured card describing a subsystem's internal stages before it triages bug reports, with every output human-verified. A team could try this for recurring defect classes in ingestion parsers, but this paper does not isolate its benefit.",
+  "conflicts_with": []
+}

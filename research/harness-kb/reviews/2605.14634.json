@@ -1,0 +1,142 @@
+{
+  "arxiv_id": "2605.14634",
+  "contribution_type": "system",
+  "summary": "RustPrint (FPT Software AI Center, University of Melbourne, VinUniversity) migrates whole C repositories to Rust. It first generates hierarchical, feature-oriented documentation of the C code (adapted from the authors' CodeWiki), then runs Planner, Translator and Synthesizer agents with cargo check and unsafe detection. Next it regenerates documentation for the Rust output and repairs gaps flagged by an LLM-judged documentation comparison, and finally repairs code against LLM-translated maintainer tests. On eight C libraries (11K-84K LoC) it compiles every target with Kimi-K2-Instruct and GPT-5.4 and beats Claude Code on the documentation-equivalence score and test pass rates. Both headline metrics partly measure what the pipeline optimizes, and no ablation removes the documentation.",
+  "claims": [
+    {
+      "claim": "RustPrint compiles all eight repositories with both backbones while Self-Repair and EvoC2Rust compile none.",
+      "evidence": "Table 1: cargo check passes 8/8 for RustPrint (both models), Claude Code and C2Rust; 0/8 for Self-Repair and EvoC2Rust. Compilation is objective. The LLM baselines are function- or file-level translators run at a scale they were not designed for, and there is no detail on tuning.",
+      "strength": "strong",
+      "location": "§5.1, Table 1"
+    },
+    {
+      "claim": "RustPrint preserves far more features than Claude Code (FCV 93.26% vs 52.52% with Kimi; 97.76% vs 48.87% with GPT-5.4).",
+      "evidence": "Fig. 2 (per-repo bars, no table). FCV is the CodeWikiBench LLM-as-judge comparison of regenerated Rust docs against source docs, which is the same signal the RequirementRefiner iterates on, and the best-FCV iteration is selected (§3.2-3.3). The judge appears to be RustPrint's own backbone ('under Kimi-K2-Instruct evaluation'). CodeWikiBench is the authors' own benchmark, the judge has no human validation, and Claude Code (model and configuration unstated) never sees this signal.",
+      "strength": "weak",
+      "location": "§3.2, §5.2, Fig. 2-3"
+    },
+    {
+      "claim": "On cross-evaluated test suites RustPrint passes 95.17% (Kimi) / 98.70% (GPT-5.4) versus 79.85% for Claude Code.",
+      "evidence": "Table 2; the averages recompute correctly over 16 cells. Half the cells are RustPrint's own LLM-translated suite, which its ExecutionRevisor repairs code against. On Claude Code's suite the gap is 98.2% (Kimi) vs 93.5%. On RustPrint's suite it is 92.2% vs 66.2%, which may reflect features Claude Code dropped but is not independent. Tests are LLM-translated and LLM-adapted (copy_test agent), not maintainer tests run unchanged. Single run.",
+      "strength": "moderate",
+      "location": "§5.3, Table 2"
+    },
+    {
+      "claim": "Documentation-guided coordination is what makes repository-scale migration work.",
+      "evidence": "No ablation removes DocGen or the documentation-guided planning. The only comparisons are against different systems (Claude Code, Self-Repair, EvoC2Rust) that differ in many ways, plus refinement curves (Fig. 3) on the circular FCV metric. The attribution to documentation is asserted, not isolated.",
+      "strength": "unsupported",
+      "location": "§5, Discussion"
+    },
+    {
+      "claim": "RustPrint achieves the highest safe rates (GPT-5.4: 99.41% API-level, 98.47% file-level).",
+      "evidence": "Fig. 4 table; these are deterministic unsafe counts. Claude Code reaches 99.09% / 91.10% and Self-Repair-GPT 99.19% / 97.71% (on code that does not compile), so differences at the API level are small.",
+      "strength": "moderate",
+      "location": "§5.4, Fig. 4-5"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P38",
+      "stance": "introduces",
+      "note": "Whole-repo documentation is generated before planning as a 'migration blueprint', the closest analogue in this batch to building understanding before writing a plan. There is no isolating comparison (no RustPrint-without-docs arm), so the benefit is not shown."
+    },
+    {
+      "id": "P14",
+      "stance": "introduces",
+      "note": "Generated docs plus an IMPLEMENTATION_PLAN.md act as the spec that agents implement against; spec-first is not compared with a plan-free variant of the same pipeline."
+    },
+    {
+      "id": "P42",
+      "stance": "introduces",
+      "note": "Leaf-level requirements recovered from source docs are checked against regenerated target docs to find missing features. The links are LLM-judged document equivalence, not verified requirement-to-code links."
+    },
+    {
+      "id": "P18",
+      "stance": "introduces",
+      "note": "An LLM judge (CodeWikiBench) is both the repair signal and the headline evaluation metric, apparently using the same backbone; no validation against humans or tests."
+    },
+    {
+      "id": "P16",
+      "stance": "introduces",
+      "note": "cargo check after every edit plus translated-test repair; the execution stage's contribution is not reported separately, and its own tests are part of the evaluation."
+    },
+    {
+      "id": "P11",
+      "stance": "introduces",
+      "note": "Six role agents (Planner, Translator, Synthesizer, RequirementRefiner, TestTranslator, ExecutionRevisor). The comparison against single-agent Claude Code confounds roles, docs, model and loops."
+    },
+    {
+      "id": "P28",
+      "stance": "neutral",
+      "note": "C2Rust transpilation compiles everything but leaves 0% safe code; used only as a reference point."
+    }
+  ],
+  "methodology": {
+    "sample": "Eight manually curated C libraries with tests/ directories (11.4K-83.7K LoC).",
+    "baselines": "C2Rust (rule-based), Self-Repair and EvoC2Rust (LLM translators, both 0/8 compiling), Claude Code (model, version, prompt and budget unstated).",
+    "models": "Kimi-K2-Instruct and GPT-5.4 as backbones; GPT-5.4 for the cross-test adaptation agent; the FCV judge appears to be the backbone model.",
+    "variance": "Single run per configuration (NeurIPS checklist item 7 says no error bars due to cost).",
+    "ablations": "None on documentation, roles or execution stage; refinement-iteration curves only (on FCV).",
+    "contamination_controls": "None; all eight libraries are popular public GitHub projects likely present in training data.",
+    "languages": "C to Rust."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint; includes a NeurIPS checklist but no acceptance noted in comment or journal_ref.",
+    "limitations_section": true,
+    "artifacts": "'We plan to release' RustPrint, CodeWikiBench and scripts (App. D.3); tool and prompt designs are printed in App. B. Per-stage cost table for RustPrint only (App. C: up to $87.80 for one translation phase and $7-37 per execution-refinement iteration on GPT-5.4).",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {
+      "type": "metric_mismatch",
+      "detail": "Feature preservation is LLM-judged documentation similarity, which is the pipeline's own optimization target; the 'cross-evaluation' average includes RustPrint's own repaired-against test suite."
+    },
+    {
+      "type": "self_evaluation",
+      "detail": "CodeWikiBench and CodeWiki are the authors' own prior work, used as both the generator template and the evaluation oracle, with the backbone as judge."
+    },
+    {
+      "type": "llm_judge_unvalidated",
+      "detail": "No agreement study between the CodeWikiBench judge and humans or executable behaviour."
+    },
+    {
+      "type": "strawman_baseline",
+      "detail": "Self-Repair and EvoC2Rust fail to compile anything at this scale (likely out of design scope); Claude Code's model and configuration are unspecified and it gets no doc-comparison or test-translation loop."
+    },
+    {
+      "type": "no_variance_reported",
+      "detail": "Single run per method x model x repository."
+    },
+    {
+      "type": "missing_cost_reporting",
+      "detail": "Cost is reported for RustPrint only; no cost or time comparison against Claude Code, despite RustPrint's multi-stage loops."
+    },
+    {
+      "type": "closed_artifacts",
+      "detail": "Code and benchmark release is only planned."
+    }
+  ],
+  "coi": {
+    "affiliations": "FPT Software AI Center (Hanoi), University of Melbourne, VinUniversity.",
+    "vendor_products_evaluated": "Claude Code (Anthropic) as baseline; uses the authors' own CodeWiki/CodeWikiBench as generator and evaluator.",
+    "funding": "No acknowledgments or funding statement.",
+    "severity": "low",
+    "detail": "Industry-lab authors evaluate their own pipeline using their own benchmark as the oracle; no commercial product is being promoted, but there is no independent evaluation."
+  },
+  "scores": {
+    "rigor": 2,
+    "reproducibility": 2,
+    "generalizability": 2,
+    "relevance": 3,
+    "coi_risk": 1
+  },
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Compilation and safe-rate results are objective, and the cross-suite design is a step in the right direction. But the headline feature-preservation gap is measured with the pipeline's own optimization signal, judged by its own backbone on the authors' benchmark. The test-pass headline mixes in RustPrint's own repaired-against suite (on Claude Code's suite the gap is 98.2% vs 93.5%). Documentation is never ablated, Claude Code is unspecified, and everything is single-run.",
+  "applicability": "Relevant as a pattern for discovery before large changes such as Spring Boot upgrades or ingestion-pipeline rewrites across the team's repositories: generate a feature-level map of the existing system first, derive the plan from it, then use 'what features did the old docs list that the new code no longer has?' as a gap checklist. Use that checklist to prompt human review or tests, not as evidence of equivalence. This paper cannot show that the documentation step causes the gains. Its own results also illustrate the risk of trusting checks the agent generated alongside its code; compare the GAMESS case study (2608.12249), where only externally anchored tests caught real defects. For Java the transfer is moderate: the same doc-first plan works, but equivalence should come from running the existing JUnit and contract tests unchanged.",
+  "conflicts_with": [
+    {
+      "arxiv_id": "2608.12249",
+      "detail": "The GAMESS Fortran modernization study finds that checks generated alongside the artifact (self-captured goldens, agent-written tests) were blind to real defects and only externally anchored reference tests caught them. RustPrint presents its own LLM-translated tests and LLM-judged doc equivalence as evidence of functional preservation."
+    }
+  ]
+}

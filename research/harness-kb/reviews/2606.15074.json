@@ -1,0 +1,87 @@
+{
+  "arxiv_id": "2606.15074",
+  "contribution_type": "empirical",
+  "summary": "TriAdReview has DeepSeek v4 Pro write technical documents (architecture design, code, proposal review, security audit, requirements analysis) while two other models (agnes-2.0-flash, mimo-v2.5-pro) critique them as a 'devil's advocate' and a 'proposal destroyer'; a third model adjudicates suggestions the generator rejects. Over 75 runs (5 tasks x 3 configurations x 5 repetitions) the full system scores 26.2/50 vs 23.8 for the single model, but the primary scorer is DeepSeek v4 Pro, the generator itself; the second scorer (mimo, also Reviewer B) shows a non-significant +2.7%. The one requirements-analysis task gets worse (-7.5%; completeness 4.4 -> 2.8).",
+  "claims": [
+    {
+      "claim": "The triple-model configuration improves overall document quality by 10.1% (p<0.05, Cohen's d=0.43)",
+      "evidence": "Table 3: 26.2 vs 23.8 total on the 'GPT scorer', which §4.2 identifies as DeepSeek v4 Pro, the same model that generated and revised the documents. No blinding to configuration is described, the pairing used for the paired t-test is not stated, and the independent-sounding second scorer is Reviewer B (mimo) whose own critiques shaped Config C. No human ratings.",
+      "strength": "weak",
+      "location": "§4.2, §5.1, Table 3"
+    },
+    {
+      "claim": "A second scorer confirms the direction, indicating moderate inter-rater agreement",
+      "evidence": "mimo scorer: C=30.2 vs A=29.4 (+2.7%), explicitly not significant. No agreement statistic (kappa, ICC, correlation) is computed anywhere; 'moderate agreement' and 'true effect lies between 2.7% and 10.1%' are asserted, not measured.",
+      "strength": "unsupported",
+      "location": "§5.1, §7.2"
+    },
+    {
+      "claim": "Adversarial review harms completeness-oriented tasks (requirements analysis -7.5%)",
+      "evidence": "One task (T5), n=5 per cell, scored by the generator model; completeness 4.4 -> 2.8 and output length -17% are given in text, per-task means and SDs only in figures. The 'task-type framework' (Table 4) generalizes from one task per type.",
+      "strength": "weak",
+      "location": "§5.2, §6.2, Table 4"
+    },
+    {
+      "claim": "Reviewer prompt adaptation partially mitigates the requirements-analysis degradation",
+      "evidence": "§6.3 says the C vs A gap 'narrowed' but then reports the same -7.5% as before adaptation; no adapted-run numbers appear in the text. Internally inconsistent.",
+      "strength": "unsupported",
+      "location": "§6.3, Fig. 7"
+    },
+    {
+      "claim": "The triple model costs 7.0x more per run for 10.1% more quality",
+      "evidence": "$0.117 vs $0.017 per run (§5.5). The authors' own cost-per-quality-point figures ($0.0045 vs $0.0007) show 6.4x worse efficiency, yet they conclude quality 'is not purely a function of spending more tokens', a non sequitur.",
+      "strength": "moderate",
+      "location": "§5.5, Fig. 6"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P18",
+      "stance": "mixed",
+      "note": "Both evaluation judges are participants in the system (generator and Reviewer B); the only significant effect comes from the generator scoring its own revised output, the other judge shows +2.7% n.s. The triangular adjudication step is not isolated: Config B vs C changes reviewer count, rounds, auto-adopt vs judging all at once."
+    },
+    {
+      "id": "P11",
+      "stance": "mixed",
+      "note": "Multi-model review vs a single model: reported gains on architecture, code and security tasks, a loss on requirements analysis, no change on proposal review. Compared against a reasonable single-model baseline, but evaluation is self-scored and the configuration comparison is confounded."
+    }
+  ],
+  "methodology": {
+    "sample": "5 author-designed technical-writing tasks (one per category except three 'de-fatting'; a single 'completeness' task), 3 configurations, 5 repetitions = 75 runs; proposals truncated to 3,000 characters before review",
+    "baselines": "Single DeepSeek v4 Pro; dual model with one reviewer and auto-adopted suggestions for one round",
+    "models": "DeepSeek v4 Pro (generator and primary scorer), agnes-2.0-flash (Reviewer A), mimo-v2.5-pro (Reviewer B and second scorer); §4.3 also mentions an RTX 3090 for 'local model inference' although all three models are described as API models",
+    "variance": "5 repetitions per cell; SDs only as figure error bars; paired t-test on primary scorer only; second scorer not significant",
+    "ablations": "None that isolate a component: Config B and C differ in reviewer count, rounds and dispute handling simultaneously",
+    "contamination_controls": "n/a",
+    "languages": "English technical prose; programming language of the code-generation task not stated"
+  },
+  "standards": {
+    "peer_review": "arXiv preprint (cs.LG), not peer-reviewed",
+    "limitations_section": true,
+    "artifacts": "None: no task prompts, reviewer prompts, outputs, scores or code released",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "self_evaluation", "detail": "Primary quality judge is the generator model; second judge is one of the system's own reviewers."},
+    {"type": "llm_judge_unvalidated", "detail": "No human ratings; human validation listed as future work; no inter-judge agreement statistic."},
+    {"type": "small_sample", "detail": "Five tasks, n=5 per cell; the help-vs-harm 'framework' rests on one task per type."},
+    {"type": "toy_tasks", "detail": "Single-prompt document tasks with 3,000-character truncation for review; no real project context."},
+    {"type": "metric_mismatch", "detail": "'Novelty' counts toward quality and supplies the largest gain (+1.1); quality of engineering decisions is not checked against any ground truth."},
+    {"type": "hype_language", "detail": "Claims 'the first empirical characterization of when multi-model adversarial review helps versus harms'."},
+    {"type": "closed_artifacts", "detail": "Nothing released to reproduce tasks, prompts or scores."}
+  ],
+  "coi": {
+    "affiliations": "Hunan Chemical Industry Vocational and Technical College, China",
+    "vendor_products_evaluated": "None owned by the authors; DeepSeek, agnes and mimo models used via API",
+    "funding": "not stated",
+    "severity": "none",
+    "detail": "No vendor affiliation or product interest disclosed."
+  },
+  "scores": {"rigor": 1, "reproducibility": 0, "generalizability": 1, "relevance": 2, "coi_risk": 0},
+  "verdict": "reject",
+  "verdict_reason": "The headline +10.1% comes from the generator grading its own revised documents; the only other judge is a system participant and finds no significant effect, and no human check exists. The requirements-analysis harm rests on one task, and the claimed mitigation is reported with the same -7.5% figure as the unmitigated run. Nothing is released.",
+  "applicability": "Weak caution only for the discovery harness: if the team adds a critique pass over discovery notes or requirement drafts, a 'challenge and simplify' critic may prune needed items, so prompt it to look for gaps and measure completeness against a checklist of known requirements. The paper does not justify any multi-model review architecture, and nothing here concerns Java, multi-repo context or onboarding.",
+  "conflicts_with": [
+    {"arxiv_id": "2607.09101", "detail": "TriAdReview claims reviewer agents carry a structural bias toward simplification that harms completeness. In TestAgent, removing the reviewer agent cost 8.09% mutation score, a completeness-type metric, which suggests the harm comes from ungrounded 'devil's advocate' prompting rather than from review itself (TestAgent's reviewer is grounded in execution feedback)."}
+  ]
+}

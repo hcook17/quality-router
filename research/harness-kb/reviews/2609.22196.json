@@ -1,0 +1,30 @@
+{
+  "arxiv_id": "2609.22196",
+  "contribution_type": "empirical",
+  "summary": "Two authors (a UMD student and an independent researcher) run an AlphaEvolve-style LLM-guided evolutionary loop (SkyDiscover/AdaEvolve) over learning-to-rank code for the 2013 Expedia hotel-search dataset. Evolving only the LambdaMART gradient gave selection-fold gains that vanished on 60k held-out queries: random search did as well and a tuned baseline beat both. Seeded domain knowledge sped up the search but did not change what transferred. Evolving the whole feature/model/ensemble pipeline, after a pre-spend 'headroom gate', gave held-out gains (+0.0057 NDCG@10) in all three runs at about $10 each.",
+  "claims": [
+    {"claim": "Campaign 1 (evolved objectives) gains were selection noise", "evidence": "§4: held-out gains +0.0004 to +0.0014 NDCG@10. Best vs start +0.0002 (p=0.76). Equal-budget random search equal or better (p=0.03). The tuned baseline beats all (p<0.001). Component effects of 0.0005-0.008 sit within fold noise of ±0.007-0.009. Three runs.", "strength": "strong", "location": "§4, Fig. 4"},
+    {"claim": "Campaign 2 pipelines beat an Optuna-tuned LambdaMART on held-out queries and at full scale", "evidence": "Table 1: best run +0.0057 NDCG@10 [0.0041,0.0073]; revenue within noise. Table 2: at full scale the small-fold-tuned pipeline (0.4490) loses to the full-scale-tuned baseline (0.4544). It wins (0.4619) only after inheriting the baseline's tuned settings and dropping a member. The abstract's 'persists at full data scale' depends on that capacity-matched variant.", "strength": "moderate", "location": "§5, Tables 1-2"},
+    {"claim": "Seeded domain knowledge makes the search faster, not truer", "evidence": "§4: in 2 of 3 seeded runs, the loop matches random-search best in 1-3 iterations vs 7-23 unseeded. Held-out transfer is unchanged. A richer diagnostic-feedback channel also changed nothing measurable. Three runs per arm.", "strength": "moderate", "location": "§4"},
+    {"claim": "A headroom gate predicts before LLM spend whether the loop will pay off", "evidence": "Shown on exactly two search spaces, one negative and one positive. Intermediate spaces are untested (acknowledged).", "strength": "weak", "location": "§3.4, §5, §6"},
+    {"claim": "The discovered pipeline places in the top 6% of the 2013 competition", "evidence": "One Kaggle late submission: 0.5196 private NDCG@38, 20th of 340. Benefits from hindsight because the winners' published lessons were in the seeded knowledge (authors disclose).", "strength": "moderate", "location": "§5"}
+  ],
+  "patterns": [
+    {"id": "P26", "stance": "mixed", "note": "The same LLM-guided search loop selects noise in one search space (random search matches it; the tuned baseline beats it) and finds transferable structure in another. A held-out transfer audit decided which. The paper is about ML pipelines, not agent harnesses."},
+    {"id": "P39", "stance": "mixed", "note": "Seeded curated domain knowledge vs unseeded, three runs each: faster search and a better selection-fold frontier, but no change in held-out transfer."},
+    {"id": "P24", "stance": "neutral", "note": "Reports about $10 per 50-iteration run. The LLM used is not named in the paper body."}
+  ],
+  "methodology": {"sample": "One public dataset (Expedia ICDM 2013: 9.9M impressions, 399k queries); 8k-query fitness fold; ~60k held-out queries; two campaigns x three runs, plus guidance and feedback ablation arms", "baselines": "XGBoost LambdaMART with 40 Optuna trials, re-tuned at each data size; equal-budget random search; recalibrated AdaEvolve and EvoX variants", "models": "LLM mutation model not named in the body; GBDT learners (XGBoost, LightGBM, sklearn ERT)", "variance": "Three runs per condition; paired query bootstrap (10,000 resamples) for held-out comparisons", "ablations": "Seeded knowledge, diagnostic feedback, fitness-fold size, component removal, search-algorithm swaps", "contamination_controls": "None for the LLM. The 2013 winners' solutions are public and were partly seeded (disclosed).", "languages": "Python ML pipeline code"},
+  "standards": {"peer_review": "Workshop paper (GenAIECommerce'26 at RecSys, per the paper's venue note); arXiv comment empty", "limitations_section": true, "artifacts": "Code, configs, seeds, logs, discovered programs and audit scripts on GitHub", "preregistration": "n/a"},
+  "biases": [
+    {"type": "contamination_risk", "detail": "Thirteen-year-old public competition whose winning recipes were seeded and are likely in LLM training data."},
+    {"type": "small_sample", "detail": "One dataset, three runs per condition, and two search spaces behind the headroom-gate claim."},
+    {"type": "other:off_topic", "detail": "AutoML for e-commerce ranking, not software development with LLM agents or the developers using them."}
+  ],
+  "coi": {"affiliations": "University of Maryland, College Park; independent researcher", "vendor_products_evaluated": "None", "funding": "not stated", "severity": "none", "detail": "Independent; open release of the system and audit tools."},
+  "scores": {"rigor": 3, "reproducibility": 4, "generalizability": 1, "relevance": 1, "coi_risk": 0},
+  "verdict": "reject",
+  "verdict_reason": "Off-topic. This is an LLM-guided AutoML search over learning-to-rank pipelines for hotel search, not software development with agents or its human side. The study is honest and well audited (held-out transfer, random-search control, equal tuning), but nothing in it concerns codebases, specs, developer onboarding or harness design.",
+  "applicability": "Does not inform the discovery or onboarding harness. Two indirect cautions apply if the team ever auto-tunes prompts, skills or harness settings against a small eval set. First, measure that eval set's noise and audit winners on held-out tasks, because selection-fold gains can be pure noise. Second, seeded domain context sped up the search here without improving what generalized, a reminder that domain cards may buy speed rather than correctness.",
+  "conflicts_with": []
+}

@@ -1,0 +1,88 @@
+{
+  "arxiv_id": "2607.21217",
+  "contribution_type": "benchmark",
+  "summary": "ICAE-Bench has 480 from-scratch repository-building tasks (40 per language across 12 languages, including Java 17 and Kotlin) derived from real open-source repositories. A full 'GroundPRD' is synthesized from each repository's verified behavior, then 'fuzzified' into a ~276-token PM-style request. Hidden constraints can be recovered only by asking a DeepSeek-V3.2 User Agent that may return only pre-authored records, within a 16-question budget. Scoring uses language-agnostic black-box cases. The best Overall pass rate is 38.2% (Claude-Opus-4.8 under Claude Code). Asking more questions or recovering more constraints does not raise pass rates monotonically, whereas putting the same public examples in the workspace as runnable files lifts GLM-5.1 from 37.4% to 61.8%.",
+  "claims": [
+    {
+      "claim": "Building repositories from fuzzy requirements remains hard for current agents",
+      "evidence": "Table VI (full benchmark, Claude Code): Overall pass 38.2 (Opus 4.8), 37.2 (GPT-5.5), 27.0 (Gemini 3.1 Pro), 26.6 (GLM-5.1), 21.8 (Sonnet 4.6), 0.8 (MiniMax). Only 1-13 of 480 repositories per model pass every case. Single run, so the top-two ordering is not separable.",
+      "strength": "strong",
+      "location": "§IV-B, Table VI, §IV-C1"
+    },
+    {
+      "claim": "Agents reproduce visible behavior but struggle with hidden constraints and boundary cases",
+      "evidence": "Public > Native > Enhanced pass rates for every model (Tables VI-VII). Partly expected by construction, because Public cases are exactly what the agent can recover verbatim and self-check against.",
+      "strength": "moderate",
+      "location": "§IV-B"
+    },
+    {
+      "claim": "Interaction recovers only part of the gap to GroundPRD",
+      "evidence": "Fig. 6 only (no numbers in text). GroundPRD beats RecoveredPRD (L1 plus all Q&A records appended) for 4/6 models, with Gemini and MiniMax as exceptions, and fuzzy-level trends are non-monotonic. There is no Fuzzy-L1-without-interaction control, so the size of interaction's own contribution is never measured.",
+      "strength": "weak",
+      "location": "§IV-B, Fig. 6"
+    },
+    {
+      "claim": "Higher constraint coverage and larger question budgets do not translate into higher pass rates",
+      "evidence": "Table XI: the Gemini-3.1-Flash-Lite user agent yields the highest coverage (75.2%) but the lowest pass (27.4%) vs DeepSeek-V3.2 (63.8% / 37.4%). Fig. 10: budgets 8/16/24 give 22.9/37.4/34.4 pass while coverage rises 57.9 -> 71.4. Table X: GPT-5.5 under OpenHands has higher coverage but -21.8 pass. All on ICAE-Bench-Lite (n=50), GLM-5.1 for the user-agent and budget ablations, single runs.",
+      "strength": "moderate",
+      "location": "§IV-C3-IV-C5"
+    },
+    {
+      "claim": "Executable public examples help far more than the same information obtained through questions",
+      "evidence": "Table IX: GLM-5.1 think-8k, Lite, with ready-to-run Public case files 61.8 vs 37.4 Overall, while constraint coverage is 61.2 vs 63.8. One model, one run, n=50.",
+      "strength": "moderate",
+      "location": "§IV-C2, Table IX"
+    },
+    {
+      "claim": "Critic-model semantic/API/design scores are useful diagnostics",
+      "evidence": "Table XVI: against 3 graduate annotators on 200 repos, Pearson 0.37-0.47 and ICC(A,1) 0.22-0.27. This is low agreement, which the authors call 'moderate'.",
+      "strength": "weak",
+      "location": "§V-B, Table XVI"
+    }
+  ],
+  "patterns": [
+    {"id": "P40", "stance": "mixed", "note": "Clarification is measured (constraint coverage, fallback rate), but there is no no-clarification control (budgets tested are 8/16/24, never 0). More questions (24 vs 16) and higher-coverage user agents lower or do not raise pass rates (Fig. 10, Table XI). Asking is necessary to recover hidden records, but the evidence says asking more is not the lever."},
+    {"id": "P14", "stance": "mixed", "note": "Same information delivered as a coherent written spec (GroundPRD) beats fragmented Q&A appended to the request (RecoveredPRD) for 4/6 models (Fig. 6, figure-only). Gemini and MiniMax are exceptions; single runs."},
+    {"id": "P34", "stance": "supports", "note": "Isolating comparison: identical public examples as runnable case files vs recoverable via questions, 61.8 vs 37.4 Overall (Table IX). One model, one run, Lite split."},
+    {"id": "P15", "stance": "supports", "note": "Same Table IX intervention: tests available before implementation for self-checking gives +24.4 pp. Same single-model caveat."},
+    {"id": "P38", "stance": "mixed", "note": "Discovery of hidden stakeholder constraints is scored, but higher discovered coverage is decoupled from correctness (Tables X-XI). The bottleneck is retaining and executing what was discovered. This covers only discovery from people (simulated); code and doc exploration is not tested."},
+    {"id": "P18", "stance": "mixed", "note": "The paper validates its own LLM critic: correlation with humans is only 0.37-0.47, so the critic metrics are weak diagnostics, not ground truth."},
+    {"id": "P31", "stance": "introduces", "note": "New interactive 0-to-1 benchmark with 12 languages and grounded user simulation."}
+  ],
+  "methodology": {
+    "sample": "480 tasks (40 per language x 12 languages); ICAE-Bench-Lite 50 smallest tasks for ablations",
+    "baselines": "GroundPRD upper bound, RecoveredPRD, Fuzzy L1/L2/L3. No Fuzzy-L1-without-interaction condition",
+    "models": "6 coding models (GPT-5.5, Claude-Opus-4.8, Claude-Sonnet-4.6, GLM-5.1, Gemini-3.1-Pro, MiniMax-M2.5) under Claude Code; same 6 under OpenHands on Lite; user agent DeepSeek-V3.2 plus 2 Gemini variants",
+    "variance": "Single run per configuration; no seeds, CIs or significance tests",
+    "ablations": "Framework, user-agent backbone, question budget, thinking mode, execution image, public test scaffolding, cross-language reimplementation. Mostly GLM-5.1 on Lite",
+    "contamination_controls": "Repository identity, golden code and original tests removed from the image; the user agent can return only authored records. Source repos are public and may be memorized. GroundPRD and cases were repaired iteratively against Claude-Opus-4.8 reimplementations",
+    "languages": "C#, C++, Dart, Go, Java, JavaScript, Kotlin, PHP, Python, Ruby, Rust, TypeScript"
+  },
+  "standards": {
+    "peer_review": "None stated (arXiv preprint)",
+    "limitations_section": false,
+    "artifacts": "Benchmark, data and evaluation code at github.com/ALEX-nlp/ICAE-EVAL; construction, user-agent and critic prompts in appendices",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "no_variance_reported", "detail": "Single runs; several ablation deltas are 3 points or less on n=50."},
+    {"type": "single_model", "detail": "User-agent, budget, scaffolding, thinking-budget and environment ablations use GLM-5.1 only."},
+    {"type": "llm_judge_unvalidated", "detail": "Fuzzy-PRD equivalence judged by GPT-5.5 on Lite only (L2 not reported). The critic model agrees weakly with humans."},
+    {"type": "contamination_risk", "detail": "Tasks come from public repositories that models may have seen."},
+    {"type": "other:construction_model_bias", "detail": "GroundPRD and cases were made consistent by iterating on Claude-Opus-4.8 implementations, which may tilt the benchmark toward that model; it ranks first on the full split."}
+  ],
+  "coi": {
+    "affiliations": "Fudan University, Meituan Group, Singapore Management University, Shanghai Innovation Institute",
+    "vendor_products_evaluated": "None of Meituan's models evaluated; third-party models and frameworks only",
+    "funding": "Not stated",
+    "severity": "low",
+    "detail": "Vendor-affiliated co-authors and corresponding author; no own product ranked."
+  },
+  "scores": {"rigor": 3, "reproducibility": 4, "generalizability": 4, "relevance": 3, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "A broad, well-artefacted benchmark: 12 languages, 6 models, 2 frameworks, grounded user simulation with leakage controls. Its negative findings (coverage and question budget are decoupled from correctness; executable examples help most) are informative. However, every result is a single run, most ablations use one model on 50 tasks, there is no no-clarification control, and the RQ2 headline is figure-only.",
+  "applicability": "For the pre-spec harness, a clarification step alone will not deliver correctness. What moved outcomes was turning the answers into a coherent spec (GroundPRD > RecoveredPRD) and into runnable acceptance examples (+24 pp). The team's SDD flow should require the agent to consolidate clarifications into the committed spec plus executable fixtures (request/response JSON, contract tests for ingestion endpoints) before implementation starts, rather than leaving the answers in chat. Cap questions rather than raising budgets: 24 questions did worse than 16. Java/Kotlin difficulty matches other languages (Opus 39.1% Java). Host choice changes results (Claude Code beat OpenHands by 5.5-21.8 pp for every model), so a mixed-host team should measure its own hosts. Limits: greenfield and single-repo, a simulated stakeholder that answers only pre-written records, and no test of code or doc exploration in existing multi-repo systems.",
+  "conflicts_with": [
+    {"arxiv_id": "2605.09698", "detail": "Ambig-DS reports that allowing one clarifying question recovers much of the ambiguity loss, i.e., missing framing information drives degradation. ICAE-Bench finds more questions and higher constraint coverage do not monotonically help, and the information-to-execution gap dominates. The difference may be scale: one framing decision vs ~20 ambiguity points per repository."}
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "arxiv_id": "2607.02748",
+  "contribution_type": "tool",
+  "summary": "Study and tool for the 'diagnostic gap' in Linux eBPF verifier rejections (UC Santa Cruz, eunomia-bpf, Virginia Tech, Telecom Paris, UW, UConn). From 936 candidate rejections, 235 are reproduced on kernel 6.15.11 with clang 18; 191 are real bugs across 12 root causes (10 eBPF-specific) and 44 are correct source rejected because of the compiler (18), environment (14) or verifier (12). 167 distinct error strings collapse to 82 templates, and one template covers 9 causes. The authors build bpfix (about 23k lines of Rust), which reconstructs the verifier's proof state from the log to localize where a safety proof was lost and emits a structured diagnostic. On bpfix-bench (75 tasks: 40 author-built, 35 minimized from Cilium, xdp-tools, bpftime), they compare LLM repair from the raw log vs the bpfix diagnostic for three models.",
+  "claims": [
+    {"claim": "Verifier error messages poorly identify root causes.", "evidence": "167 strings -> 82 templates; 15 templates are multi-cause and the top template spans 9 causes / 28 cases; EINVAL accounts for 47%. Characterisation by the authors on 235 reproduced cases, with no reported inter-rater agreement for root-cause labels.", "strength": "moderate", "location": "§3, Tables 1-2"},
+    {"claim": "bpfix diagnostics improve one-shot LLM repair by 11-21 percentage points.", "evidence": "Qwen3.6 27B 22 -> 38/75 (+21.3pp), GLM 5.2 28 -> 38 (+13.3pp), Qwen2.5 3B 0 -> 8 (+10.7pp). Temperature 0, single run, 75 tasks of which 40 are author-built; no competing diagnostic tool (e.g. Pretty Verifier) as baseline.", "strength": "moderate", "location": "§6, Table 3"},
+    {"claim": "Locating where the proof was lost is the key to effective diagnosis.", "evidence": "No ablation separates proof-loss localization from the added help text, source mapping or prompt length; diagnostic quality itself is shown only through 2-3 case studies, with no localization accuracy metric.", "strength": "weak", "location": "§4, §6"},
+    {"claim": "Gains persist with one retry.", "evidence": "Qwen3.6 27B 30 (raw) vs 44 (bpfix). For GLM 5.2 the text says '52 against 47 with the retry'; if read in the same raw-then-bpfix order as the Qwen sentence, the raw log beats bpfix after a retry. Ambiguous reporting on a single run.", "strength": "weak", "location": "§6, line 525"},
+    {"claim": "bpfix accurately reconstructs register types, scalar ranges and pointer provenance from verifier output.", "evidence": "Asserted from design; no quantitative validation of reconstruction against kernel ground truth.", "strength": "weak", "location": "§4"}
+  ],
+  "patterns": [
+    {"id": "P17", "stance": "supports", "note": "Raw verifier log vs bpfix structured diagnostic fed to the same LLM: diagnostic wins one-shot for all three models (+10.7 to +21.3pp). Caveats: authors' own benchmark (40/75 author-built), single run, no competing diagnostic tool, GLM retry result possibly reversed."},
+    {"id": "P16", "stance": "neutral", "note": "The verifier acts as the pass/fail oracle for repair; the retry loop is a minimal verifier-feedback loop."},
+    {"id": "P41", "stance": "introduces", "note": "Diagnostics are motivated as helping developers understand rejections, but only LLM repair is evaluated; no human-developer study."},
+    {"id": "P39", "stance": "neutral", "note": "Root-cause taxonomy and template-to-cause mapping are a form of machine-readable domain knowledge; not evaluated as agent context separately from the tool."}
+  ],
+  "methodology": {
+    "sample": "235 reproduced rejections (characterisation); bpfix-bench of 75 tasks (40 author-built, 35 minimized from Cilium, xdp-tools, bpftime).",
+    "baselines": "Raw verifier log given to the same model; no Pretty Verifier or other diagnostic baseline.",
+    "models": "Qwen3.6 27B, GLM 5.2, Qwen2.5 3B.",
+    "variance": "Temperature 0, single run; no CIs.",
+    "ablations": "None separating localization, help text and prompt length; failure-stage breakdown only (Table 3).",
+    "contamination_controls": "Not discussed; 35 tasks derive from public projects whose fixes may be in training data.",
+    "languages": "C (eBPF) with Rust tooling."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint; no venue stated.",
+    "limitations_section": false,
+    "artifacts": "Code at https://github.com/eunomia-bpf/bpfix.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "self_evaluation", "detail": "Authors build the tool, author 40 of 75 benchmark tasks and evaluate on their own benchmark."},
+    {"type": "other:no_competing_tool_baseline", "detail": "Pretty Verifier is discussed in related work but not compared."},
+    {"type": "no_variance_reported", "detail": "Single temperature-0 run on 75 tasks; differences of a few tasks are within plausible noise."},
+    {"type": "cherry_picked_examples", "detail": "Diagnostic quality is illustrated through 2-3 case studies only."},
+    {"type": "small_sample", "detail": "75 benchmark tasks; 12 root causes with small per-cause counts."},
+    {"type": "contamination_risk", "detail": "Minimized tasks from public repositories may have fixes in model training data."},
+    {"type": "other:no_ablation", "detail": "The claimed mechanism (proof-loss localization) is not isolated from added hints and longer context."}
+  ],
+  "coi": {
+    "affiliations": "UC Santa Cruz, eunomia-bpf (open-source organisation hosting bpfix and bpftime), Virginia Tech, Telecom Paris, University of Washington, University of Connecticut.",
+    "vendor_products_evaluated": "bpfix (own tool); bpftime tasks from an affiliated project.",
+    "funding": "No funding statement found.",
+    "severity": "low",
+    "detail": "Authors evaluate their own open-source tool on a benchmark partly drawn from their affiliated project; no commercial product."
+  },
+  "scores": {"rigor": 2, "reproducibility": 3, "generalizability": 1, "relevance": 2, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Useful characterisation and a real raw-vs-structured diagnostic comparison with released code, but the evaluation is a single run on a mostly author-built 75-task benchmark, with no competing diagnostic tool, no ablation of the claimed mechanism, an ambiguous retry result and no limitations section. Kernel eBPF has little direct relevance to Java ingestion work.",
+  "applicability": "Kernel eBPF itself does not transfer. The transferable idea is a deterministic post-processor that maps opaque domain-tool errors to a failure family, a source location and the violated invariant before an agent or a domain-novice developer sees them. For the ingestion services, candidates are content and schema validator failures, Spring application-context startup failures and Flyway/Liquibase migration errors. The paper only shows gains for LLM repair, not for human understanding, and with a single run.",
+  "conflicts_with": []
+}

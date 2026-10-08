@@ -1,0 +1,30 @@
+{
+  "arxiv_id": "2609.02149",
+  "contribution_type": "system",
+  "summary": "OmegaUse-SOP (Baidu, with a power-sector client) is a demo-track system for GUI agents. It records an expert's mouse and keyboard demonstration in desktop software, has a VLM rewrite each low-level event as a semantic step instruction, lets the expert add domain rules and task parameters, and executes the result step by step with screenshot-comparison verification and optional human intervention. Evaluated on 5 PVsyst photovoltaic-simulation tasks with Qwen3-VL-235B, GPT-5.5 and Opus-4.7, reporting the best of three trials.",
+  "claims": [
+    {"claim": "OmegaUse-SOP improves GUI-agent task completion across all evaluated models", "evidence": "Table 2: pass rates go from 1/5, 3/5, 2/5 to 5/5 for all three models. Five tasks, best of three trials, success judged by the client's domain experts. Each SOP is recorded from a demonstration of the same task being evaluated, and App. B shows guidance was added after watching the model fail during trials. No held-out tasks.", "strength": "weak", "location": "§3, Table 2, App. B"},
+    {"claim": "The Reason module is important for converting demonstrations into reusable SOPs", "evidence": "Table 3: Qwen3-VL only, 2/5 to 5/5, best of three trials.", "strength": "weak", "location": "§3, Table 3"},
+    {"claim": "Highlights a practical path toward deploying GUI agents in professional software", "evidence": "No deployment metrics, maintenance cost or out-of-distribution tasks; the human-in-the-loop component is 'deployed in our client's environment' without data.", "strength": "unsupported", "location": "abstract, §4"}
+  ],
+  "patterns": [
+    {"id": "P39", "stance": "introduces", "note": "Expert-authored 'domain SOP guidance' and task parameters as editable agent context. The guidance was written after observing failures on the evaluation tasks themselves, so its effect is not separable from tuning on the test."},
+    {"id": "P02", "stance": "introduces", "note": "Step-wise progressive disclosure of SOP information, explicitly inspired by Claude Code skills. Not ablated against loading the whole SOP."},
+    {"id": "P19", "stance": "neutral", "note": "A human can continue, retry or stop when verification detects deviation. Not evaluated."}
+  ],
+  "methodology": {"sample": "5 PVsyst 7.2 tasks from one client workflow", "baselines": "Same VLMs given only the high-level instruction", "models": "Qwen3-VL-235B-A22B-Instruct, GPT-5.5, Opus-4.7", "variance": "Best of three trials reported; no per-trial rates", "ablations": "Reason module removed (Qwen3-VL only)", "contamination_controls": "none; demonstrations and guidance come from the evaluation tasks", "languages": "n/a (GUI automation)"},
+  "standards": {"peer_review": "Accepted to EMNLP 2026 demo track", "limitations_section": false, "artifacts": "Code open-sourced (baidu-frontier-research/omegause-sop); tasks and demonstrations not described as released", "preregistration": "n/a"},
+  "biases": [
+    {"type": "benchmark_overfit", "detail": "SOPs are demonstrations of the very tasks evaluated, and the guidance was refined after seeing failures on them."},
+    {"type": "small_sample", "detail": "Five tasks in one application."},
+    {"type": "cherry_picked_examples", "detail": "Best of three trials reported instead of success rates."},
+    {"type": "self_evaluation", "detail": "Authors' own system, judged by domain experts of the co-authoring client."},
+    {"type": "no_variance_reported", "detail": "No per-trial outcomes."}
+  ],
+  "coi": {"affiliations": "Baidu, Inc.; Ningxia Electric Power Engineering Co., Ltd. (client)", "vendor_products_evaluated": "OmegaUse-SOP (Baidu's own system, part of its OmegaUse GUI-agent line)", "funding": "NSFC Grant 92370204", "severity": "medium", "detail": "A vendor and its client evaluate the vendor's own system on the client's tasks without independent replication. Backbone models are third-party, which limits the self-promotion."},
+  "scores": {"rigor": 1, "reproducibility": 2, "generalizability": 1, "relevance": 1, "coi_risk": 2},
+  "verdict": "reject",
+  "verdict_reason": "Off-topic: GUI automation of photovoltaic simulation software, not software development. The evaluation (5 tasks, best of 3, SOPs recorded and tuned on the test tasks) cannot support even its own claim.",
+  "applicability": "Does not transfer as evidence. The only portable idea for 'capturing knowledge back' is the loop it describes: an expert demonstrates a procedure, a model rewrites the trace as step instructions, the expert edits rules and parameters, and the result becomes a reusable skill refined after observed agent failures. For the Java team this would mean turning a senior developer's walkthrough of an ingestion runbook into a reviewed skill. This paper gives no evidence that such skills generalise beyond the demonstrated instance.",
+  "conflicts_with": []
+}

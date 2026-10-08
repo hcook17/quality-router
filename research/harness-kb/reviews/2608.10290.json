@@ -1,0 +1,92 @@
+{
+  "arxiv_id": "2608.10290",
+  "contribution_type": "tool",
+  "summary": "ICSME 2026 tool demo of Comprendia, an Eclipse plugin for Java comprehension. It provides an interactive JDT dependency graph with five edge types, an 'Explain with AI' action whose prompt adds project-internal callees selected deterministically by Graph-Aware Callee Pruning (at most 2 hops, sibling classes collapsed to their shared parent, edge-type weights), a clone overlay, and an OSV.dev CVE overlay. The demonstration on six method selections in one 33-class project measures only prompt size: GACP adds 7.5% tokens in signature mode and 109% in full-body mode on non-collapse fixtures vs a fixed-cap baseline. The answer-quality rubric saturated for all modes, and no developer study was run.",
+  "claims": [
+    {
+      "claim": "The unified graph substrate supports comprehension while keeping the developer in control (abstract)",
+      "evidence": "No comprehension, task-time or answer-quality measurement. The limitations section states 'No human-comprehension claim' and that the user study postdates the submission.",
+      "strength": "unsupported",
+      "location": "Abstract, §VI"
+    },
+    {
+      "claim": "GACP produces prompts that are reproducible across LLM families",
+      "evidence": "Table III: identical token counts across Claude Sonnet 4.6, GPT-4o-mini and Llama 3. This is true by construction, since the prompt is assembled before any model call, and says nothing about whether explanations are consistent or better across models.",
+      "strength": "weak",
+      "location": "§V-A, Table III"
+    },
+    {
+      "claim": "Inheritance collapse reshapes clone-touching prompts to parent contract plus one delegate, and the distance cutoff admits helpers that a fixed cap drops",
+      "evidence": "Tables III-IV on 3 collapse and 3 non-collapse fixtures; deterministic and correct as described, but tiny, and with no shown effect on explanation quality (the keyword rubric scores 2/2 in every mode, including selection-only).",
+      "strength": "moderate",
+      "location": "§V, Tables III-IV, §VI"
+    },
+    {
+      "claim": "Copilot Chat and Cursor send only the developer's selection, with no project context",
+      "evidence": "Asserted in §I and §II-A without evidence or a version; it misdescribes 2026 assistants that index or explore the codebase.",
+      "strength": "unsupported",
+      "location": "§I, §II-A, Table I"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P41",
+      "stance": "introduces",
+      "note": "Explanations for onboarding developers cite each included callee as a clickable node on the graph the developer is viewing, positioned against knowledge erosion. No user study (designed, not run)."
+    },
+    {
+      "id": "P43",
+      "stance": "introduces",
+      "note": "In-IDE 'explain this code' with graph-grounded context; answer quality is not measured (the rubric saturated in all modes)."
+    },
+    {
+      "id": "P07",
+      "stance": "introduces",
+      "note": "The class-level dependency graph is the relevance signal for prompt context. It is compared with selection-only and a fixed 5-callee cap on token counts only; no quality difference was detectable, and there is no embedding-retrieval baseline."
+    },
+    {
+      "id": "P05",
+      "stance": "introduces",
+      "note": "Deterministic AST/JDT-based callee selection with an inclusion reason per callee; no comparison on outcomes."
+    },
+    {
+      "id": "P38",
+      "stance": "neutral",
+      "note": "Onboarding onto an unfamiliar module is a stated use scenario; not evaluated."
+    }
+  ],
+  "methodology": {
+    "sample": "6 method selections from one 33-class, 6-package open-source Java project (quickbite) with seeded clone groups",
+    "baselines": "Selection-only and a 'Legacy' fixed cap of 5 callees; no embedding-retrieval (Cody, RepoFuse) comparison",
+    "models": "Claude Sonnet 4.6, GPT-4o-mini, Llama 3 (Ollama)",
+    "variance": "None; tokens estimated as characters/4",
+    "ablations": "Four prompt modes; K_max and edge weights not swept",
+    "contamination_controls": "None",
+    "languages": "Java"
+  },
+  "standards": {
+    "peer_review": "Accepted at ICSME 2026 Tool Demonstration and Data Showcase track",
+    "limitations_section": true,
+    "artifacts": "Plugin, benchmark fixtures and replay harness on Zenodo (doi 10.5281/zenodo.20436759); screencast",
+    "preregistration": "n/a (user study designed, not run)"
+  },
+  "biases": [
+    {"type": "toy_tasks", "detail": "One 33-class project and six fixtures."},
+    {"type": "metric_mismatch", "detail": "Prompt-token counts and a saturated keyword rubric do not measure comprehension, which is the headline benefit."},
+    {"type": "strawman_baseline", "detail": "Competing assistants are characterised as selection-only; the measured baselines are internal variants, not an embedding or agentic context system."},
+    {"type": "novelty_inflation", "detail": "Claims to be among the first to use the dependency graph as the relevance signal for prompts, while graph-based context selection for code LLMs is well established."},
+    {"type": "self_evaluation", "detail": "The authors' own tool, building on their own clone engine, demonstrated on fixtures they chose."}
+  ],
+  "coi": {
+    "affiliations": "Idaho State University",
+    "vendor_products_evaluated": "The authors' own academic tool (Comprendia, CloMan); no commercial product",
+    "funding": "Not stated",
+    "severity": "low",
+    "detail": "Academic tool demo by its authors with no independent check; no commercial interest."
+  },
+  "scores": {"rigor": 1, "reproducibility": 4, "generalizability": 1, "relevance": 3, "coi_risk": 1},
+  "verdict": "reject",
+  "verdict_reason": "A tool demo whose only measurements are prompt sizes on six fixtures in one toy project. The quality rubric could not distinguish any mode from selection-only, and no developer study was run, so the comprehension headline has no evidence. The artifact release is good, and the design is relevant to Java onboarding, but there is nothing here to weight.",
+  "applicability": "Java-specific and aimed squarely at onboarding, so the design is worth noting for the team's discovery harness. Build code explanations from a deterministic dependency-graph slice (at most 2 hops, with the parent contract instead of sibling copies), and make every included callee a citation the developer can click and check. It is cheap to prototype with JDT or a Java LSP in the existing harness. But the paper gives no evidence that explanations improve or that developers understand faster, so treat it as a design to A/B test with the team's own new hires, not as evidence.",
+  "conflicts_with": []
+}

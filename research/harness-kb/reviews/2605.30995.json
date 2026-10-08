@@ -1,0 +1,70 @@
+{
+  "arxiv_id": "2605.30995",
+  "contribution_type": "system",
+  "summary": "A pipeline and dashboard for analysing 4,322 submissions to the EU Digital Fairness Act public consultation. The pipeline runs Mistral OCR, heuristic page cleaning and paragraph quality scoring, gpt-5-nano topic extraction against a seven-topic schema plus 'emergent' topics, and clustering of 1,458 raw emergent labels into 224. Each annotation must carry a verbatim quote. The only quantitative check is that 99.1% of quotes string-match their source paragraph. Topic extraction accuracy and the consolidation step are not evaluated. The paper is about policy-document analysis, not software development.",
+  "claims": [
+    {
+      "claim": "Every extraction is grounded in a verbatim quote (99.1% match rate).",
+      "evidence": "§4.2 and §5: exact and fuzzy string matching against source paragraphs. This shows the quotes exist in the source, not that they support the assigned topic.",
+      "strength": "moderate",
+      "location": "§4.2; §5"
+    },
+    {
+      "claim": "The pipeline surfaced stakeholder concerns that a fixed-taxonomy approach would have missed.",
+      "evidence": "No fixed-taxonomy run and no expert assessment of the emergent topics. The examples are hand-picked from 224 clustered labels.",
+      "strength": "unsupported",
+      "location": "Abstract; §5; §6"
+    },
+    {
+      "claim": "The pipeline is domain-generic; adapting it requires only a prompt update and a new dataset.",
+      "evidence": "Only one consultation is processed. §5 itself says the cluster threshold and chunk-score threshold need per-dataset calibration and that manual review is required.",
+      "strength": "unsupported",
+      "location": "Abstract; §4; §5"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P42",
+      "stance": "neutral",
+      "note": "Verified links run from each extracted claim to a source quote (deterministic string match), not from a requirement to code. Grounding correctness is not evaluated beyond quote presence."
+    },
+    {
+      "id": "P38",
+      "stance": "neutral",
+      "note": "Stakeholder-input mining before drafting regulation is analogous to pre-spec discovery. There is no software context and no evaluation of whether analysts reached better or faster conclusions."
+    }
+  ],
+  "methodology": {
+    "sample": "4,322 submissions to one consultation (259 PDFs, 4,066 web-form texts).",
+    "baselines": "None. Prior clustering work is discussed but not run.",
+    "models": "gpt-5-nano at temperature 1.0 via LiteLLM; Mistral OCR.",
+    "variance": "None; a single extraction run at temperature 1.0.",
+    "ablations": "None.",
+    "contamination_controls": "n/a",
+    "languages": "Natural-language submissions (languages not quantified). Not about code."
+  },
+  "standards": {
+    "peer_review": "None stated (CC BY copyright block; venue not named).",
+    "limitations_section": true,
+    "artifacts": "Code and processed data on GitHub (thalesbertaglia/dfa-dashboard); live demo.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "metric_mismatch", "detail": "Quote-match rate is reported as validation of grounding, but it measures copy fidelity, not whether the topic label is correct or the quote supports it."},
+    {"type": "cherry_picked_examples", "detail": "Emergent topics (Age Verification, Payment Processor Censorship, Digital Ownership) are highlighted without any evaluation of the 224 consolidated topics."},
+    {"type": "single_model", "detail": "One extraction model at one temperature."},
+    {"type": "other:off_topic", "detail": "Policy consultation analysis; not software development with LLMs or agents."}
+  ],
+  "coi": {
+    "affiliations": "Utrecht University; Maastricht University.",
+    "vendor_products_evaluated": "None evaluated comparatively. OpenAI and Mistral APIs are used.",
+    "funding": "ERC Starting Grant HUMANads (ERC-2021-StG No 101041824).",
+    "severity": "none",
+    "detail": "Independent academics."
+  },
+  "scores": {"rigor": 1, "reproducibility": 3, "generalizability": 1, "relevance": 1, "coi_risk": 0},
+  "verdict": "reject",
+  "verdict_reason": "Off-topic for a software-development harness KB. It is also a system description without an evaluation of extraction quality: the only number is a string-match rate, and the generality and 'fixed taxonomy would miss' claims are untested.",
+  "applicability": "Does not transfer as evidence. By analogy only: if the team's pre-spec harness has an agent extract requirements or domain rules from stakeholder documents (content-provider specs, accreditation or clinical guidance), requiring a verbatim source quote per item and checking it deterministically is cheap and catches fabricated quotes. This paper also shows that such a check does not verify the interpretation; a human or test still has to.",
+  "conflicts_with": []
+}

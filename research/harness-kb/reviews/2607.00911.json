@@ -1,0 +1,54 @@
+{
+  "arxiv_id": "2607.00911",
+  "contribution_type": "empirical",
+  "summary": "Academic mining study (Melbourne, SMU, Heidelberg) of how agent skills (SKILL.md) move from a central registry into repositories and are maintained there. It collects 18,463 skills.sh registry skills (>=20 installs, 4 Mar 2026) and 23,199 personal-use skills in 5,876 GitHub repos (>=10 stars, aggregators filtered), links 3,709 repo skills to registry origins (YAML name plus LCS similarity, audited), classifies software-engineering knowledge areas with Qwen3.6-27B (kappa 0.82 vs 285 gold labels), thematically codes 180 skill bodies, and codes 444 endpoint diffs (188 linked, 256 unlinked) for evolution and customisation edits.",
+  "claims": [
+    {"claim": "Skills are mostly copied once and not maintained: most linked copies are near-verbatim and never updated locally, and many miss upstream updates.", "evidence": "1,841/2,462 SE links near-verbatim; 70.3% of all links have similarity >= 0.99; 1,295 (52.6%) never locally updated; 40.2% of those missed upstream changes; 62.3% (429/689) of updated copies diverged from the registry. Link audit: 30+30 pairs, 90% agreement, 93% genuine.", "strength": "strong", "location": "§V, RQ2"},
+    {"claim": "Maintenance is additive: edits accrete content far more than they remove it.", "evidence": "Additions:removals 586:221 (2.7:1) overall; 6.1:1 for evolution vs 1.1:1 for customisation. Based on 444 first-vs-last endpoint diffs, so intermediate churn is invisible; content-type coding of diffs has no reported agreement.", "strength": "moderate", "location": "§VI, RQ3"},
+    {"claim": "Customisation primarily adapts skills to local environments, while evolution accumulates domain knowledge.", "evidence": "Table III (Fisher with BH): repackaging 12.2% vs 0% (h=0.71), reformatting 48.9% vs 20.4%, revising inline knowledge 19.7% vs 32.5%, renames 5.3% vs 24.3%. The most frequent customisation edit is reformatting, not environment adaptation, so the 'local environment' framing is partly an interpretation.", "strength": "moderate", "location": "§VI, Table III"},
+    {"claim": "The behavioural contract (user interaction, monitoring, failure handling) is rarely edited.", "evidence": "User-interaction content edited in 1.6%/1.2% of diffs, monitoring 0.5%/0.0%, failure handling 5.9%/7.1%. Absence of edits is not shown to be absence of need; no reliability statistic for the content-type labels.", "strength": "moderate", "location": "§VI"},
+    {"claim": "Software Construction dominates SE skills in both registry and repositories.", "evidence": "28.3% registry, 22.1% repositories; LLM classifier validated at kappa 0.82 on 285 stratified gold labels.", "strength": "moderate", "location": "§IV, RQ1"}
+  ],
+  "patterns": [
+    {"id": "P02", "stance": "neutral", "note": "Descriptive data on how on-demand SKILL.md skills are distributed, copied and edited; no outcome comparison of skills vs no skills."},
+    {"id": "P39", "stance": "neutral", "note": "85% of coded skill bodies 'ground domain knowledge', so skills are a de facto channel for machine-readable domain context; the paper shows this knowledge goes stale and accretes, but does not measure effect on agent behaviour."},
+    {"id": "P01", "stance": "neutral", "note": "Skills co-located with repo instruction files; conformance to the SKILL.md spec is high (mandatory fields >= 99%, name format 95-96%)."},
+    {"id": "P19", "stance": "neutral", "note": "Some skills encode consent gating ('ask before ...'), but such behavioural-contract content is almost never edited; no evaluation."},
+    {"id": "P40", "stance": "neutral", "note": "63% of coded skills include interacting-with-the-user content and 22% gathering input, including front-door alignment/clarification skills; descriptive only, no comparison."}
+  ],
+  "methodology": {
+    "sample": "18,463 registry skills (skills.sh, >=20 installs) and 23,199 repository skills in 5,876 public GitHub repos (>=10 stars, aggregator filters, Tukey cap of 18 skills per repo); 3,709 registry-to-repo links; 180 coded bodies; 444 coded diffs.",
+    "baselines": "Linked (registry-derived) vs unlinked (locally authored) skills; registry vs repository distributions. No outcome baseline.",
+    "models": "Qwen3.6-27B for knowledge-area classification only; no agent runs.",
+    "variance": "Fisher exact tests with Benjamini-Hochberg correction and effect sizes for edit categories; classifier kappa 0.82; link audit agreement 90%.",
+    "ablations": "Link similarity threshold sensitivity discussed; no other ablations (not applicable to a mining study).",
+    "contamination_controls": "n/a (mining study).",
+    "languages": "Natural-language SKILL.md files across public GitHub repos of all languages; no per-language breakdown."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint; no venue stated.",
+    "limitations_section": true,
+    "artifacts": "Replication package on Zenodo (https://zenodo.org/records/21032973).",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "survivorship", "detail": "Only public repos with >=10 stars and registry skills with >=20 installs; 1,367 inaccessible skills dropped. Private enterprise repos, where domain-knowledge skills matter most, are absent."},
+    {"type": "other:endpoint_diff", "detail": "Edits are coded from first-vs-last snapshots, hiding intermediate add-then-remove churn and possibly overstating the additive pattern."},
+    {"type": "other:unmeasured_agreement", "detail": "Thematic coding of 180 bodies and content-type coding of 444 diffs report no inter-rater agreement, unlike the link audit and classifier."},
+    {"type": "other:no_outcome_link", "detail": "No measurement of whether stale, diverged or accreted skills change agent behaviour or task success; maintenance 'problems' are inferred from text alone."}
+  ],
+  "coi": {
+    "affiliations": "University of Melbourne, Singapore Management University, Heidelberg University (academic).",
+    "vendor_products_evaluated": "skills.sh registry and SKILL.md ecosystem; no vendor affiliation found.",
+    "funding": "No funding statement found.",
+    "severity": "none",
+    "detail": "Independent academic mining study."
+  },
+  "scores": {"rigor": 3, "reproducibility": 4, "generalizability": 3, "relevance": 3, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Large, careful and replicable descriptive study; the copy-once/never-update finding is well supported by audited links. Caveats: public starred repos only, endpoint diffs, unreported agreement for the qualitative coding, the 'local environment' customisation framing over-reads a reformatting-dominated distribution, and no evidence about agent outcomes.",
+  "applicability": "Directly relevant to capturing knowledge back: domain knowledge written into SKILL.md or AGENTS.md files is copied once and drifts silently, and edits mostly add content. For four or more ingestion repos with mixed agent hosts: keep healthcare-education domain knowledge (glossary, content-type rules, accreditation constraints) in one versioned source and reference it by pointer instead of copying it into each repo; record provenance and version in each consuming skill and fail CI when the upstream version has moved; schedule pruning reviews because accretion is the default; use an agent-neutral layout (e.g. .agents/skills) since repackaging between host formats was 12.2% of customisation edits. The study is descriptive, so it says nothing about whether better-maintained skills improve agent results.",
+  "conflicts_with": [
+    {"arxiv_id": "2608.08453", "detail": "That study reports 89.3% of 138,133 SKILL.md files violate the spec, whereas this one finds >=95-99% conformance on mandatory fields; the difference likely comes from population (starred repos vs all files) and which spec rules are counted."}
+  ]
+}

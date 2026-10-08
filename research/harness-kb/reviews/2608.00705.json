@@ -1,0 +1,95 @@
+{
+  "arxiv_id": "2608.00705",
+  "contribution_type": "empirical",
+  "summary": "Turkish Aerospace / TUM authors compare five RAG pipelines (dense top-k, an agentic LangGraph loop, agentic plus a typed-graph tool, a typed-edge graph walk they call GraphRAG, and a rule or learned router) on a synthetic 1,132-requirement DO-178C-style trace corpus (296 hop-stratified queries x 3 seeds x 2 embedders) and a 200-query MuSiQue subset. Answers are scored by citation F1 against gold requirement IDs, and faithfulness by GPT-5.4 and GPT-4.1 judges. The graph walk ties dense retrieval on 1-2-hop trace questions and leads on 3+-hop (significant only with the local embedder), but 3+-hop citation F1 never exceeds 0.25 on requirements; the LLM judges disagree with each other and with themselves over time (same-input re-judge after 11 weeks: kappa 0.14 and -0.05).",
+  "claims": [
+    {
+      "claim": "Scoring the retrieved set instead of the answer's citations inverts the architecture ranking (GraphRAG context precision 0.12-0.23 vs citation precision 0.48-0.65)",
+      "evidence": "Table 2 top block across v2, v3 and MuSiQue: 11-15 context IDs at 0.120/0.129/0.227 precision vs 3.4-5.0 cited IDs at 0.480/0.493/0.654. The inversion follows directly from the reported numbers; it is a measurement-point effect that holds in all three settings.",
+      "strength": "strong",
+      "location": "§5.2 C2a, Table 2"
+    },
+    {
+      "claim": "Answer-level winners are corpus- and stratum-conditional but embedder-robust; agentic pipelines lead only on 3+-hop requirement queries",
+      "evidence": "Table 1: vanilla and GraphRAG tie on 1-2-hop DO-178C (Wilcoxon p=0.12/0.65); on 3+-hop the local embedder gives agentic-graph 0.219 vs vanilla 0.089 (Holm p<1e-6), but under the Azure embedder no 3+-hop pair passes the joint significance criterion and GraphRAG 0.253, adaptive 0.254 and agentic-graph 0.251 are tied. C1 is not replicated cross-corpus for the agentic arms (MuSiQue ran only three pipelines).",
+      "strength": "moderate",
+      "location": "§5.1, Table 1, Fig. 2"
+    },
+    {
+      "claim": "On DO-178C, faithfulness declines with hop distance (trend p<0.05 in three of four judge x embedder combinations); on Wikipedia it does not collapse",
+      "evidence": "Table 2 C2b and Cochran-Armitage tests. The 11-week replication batch reproduces the decline under GPT-5.4 only, while GPT-4.1 then rates 93-95% of everything faithful; which judge carries the trend swaps with the judging date. No human faithfulness labels exist, so the trend rests on judges the paper itself shows are unstable.",
+      "strength": "weak",
+      "location": "§5.2 C2b, Table 2"
+    },
+    {
+      "claim": "Single-judge LLM faithfulness is fragile to retrieval state: GPT-5.4 self-kappa across embedders is 0.137 vs a same-day test-retest floor of 0.76; re-judging frozen inputs 11 weeks later gives kappa <= 0.14 for both judges",
+      "evidence": "Table 3 same-judge controls on 300 paired tuples. The embedder-swap figure is confounded: the swap changed retrieved contexts and answers on 94% of tuples, so it measures output change plus judge response, as the authors concede. The frozen-input 11-week re-judge (kappa 0.138 GPT-5.4; -0.05/-0.00 GPT-4.1, binomial p<1e-44 against stationarity) is the clean evidence for judge drift.",
+      "strength": "moderate",
+      "location": "§5.3 C3, Table 3"
+    },
+    {
+      "claim": "A learned router on dense embeddings alone reaches macro-F1 0.86 on hop classification",
+      "evidence": "Table 4: 50-fold CV 0.78±0.08 (local) and 0.86±0.05 (Azure). The queries are LLM-generated, the per-stratum routing target is derived once from the full matrix rather than per fold, and the authors say transfer to human-authored queries is untested.",
+      "strength": "weak",
+      "location": "§5.3 C4, Table 4"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P07",
+      "stance": "mixed",
+      "note": "Isolating comparison (same generator, prompt and embedder; only retrieval differs): a typed-edge graph walk ties dense top-k on 1-2-hop trace questions and leads on 3+-hop (significant only with the local embedder), and wins every MuSiQue stratum even with distractor edges added. But it floods the context (precision 0.12-0.23), and on the requirements corpus faithfulness falls with hop count, which the authors attribute to expansion pulling in contradicting cross-module requirements."
+    },
+    {
+      "id": "P06",
+      "stance": "mixed",
+      "note": "Dense top-k is co-best on 1-2-hop trace questions (F1 0.69-0.76) and worst or near-worst on 3+-hop (0.09-0.20). No lexical/BM25 or reranker baseline was run."
+    },
+    {
+      "id": "P42",
+      "stance": "mixed",
+      "note": "Pipelines answer trace-chain questions over an explicit typed link store (derives_from/satisfies/traces_to), with cited IDs checked against gold IDs. Using the verified links (graph arms) helps multi-hop recall vs dense retrieval, but 3+-hop citation F1 stays <= 0.25 on requirements in every pipeline: LLM-assembled multi-hop trace answers are mostly wrong unless each cited link is checked against the store. Links are requirement-to-requirement/verification, not to code."
+    },
+    {
+      "id": "P18",
+      "stance": "contradicts",
+      "note": "Direct evidence against relying on a single LLM judge across time or pipeline changes: same-input re-judging 11 weeks apart gives kappa 0.14 (GPT-5.4) and about 0 (GPT-4.1, +41 pp leniency shift) vs a same-day floor of 0.76; inter-judge kappa is 0.02 on MuSiQue. No human labels, so which judge is right is unknown."
+    }
+  ],
+  "methodology": {
+    "sample": "Synthetic DO-178C-style corpus (1,132 requirements, 32 modules, generated by GPT-5.4 from a hand-authored taxonomy); 296 hop-stratified queries x 5 pipelines x 3 seeds x 2 embedders = 8,880 runs; MuSiQue 200 queries x 3 pipelines x 1 seed plus a 200-run distractor-edge control; >5,000 faithfulness judgments on paired 300-tuple subsets",
+    "baselines": "Dense top-k vanilla RAG; no BM25/lexical baseline, no cross-encoder reranker, and none of the cited traceability systems (LiSSA, TVR) run; 'GraphRAG' is a local typed-edge walk, not Edge et al.'s community-summary system",
+    "models": "GPT-5.4 (2026-03-05) generator and judge; GPT-4.1 judge and a 332-row generator-swap control; embedders multilingual-e5-small and text-embedding-3-small",
+    "variance": "3 seeds; paired BCa bootstrap CIs, Holm-corrected Wilcoxon with Cliff's delta threshold; Wilson CIs and trend tests for faithfulness; per-stratum n 95-111",
+    "ablations": "Embedder swap, corpus swap, judge pairing, generator swap, distractor-edge control; rule vs learned router",
+    "contamination_controls": "Corpus is synthetic but generated by the same model family that answers and judges (circular rather than clean); MuSiQue is public",
+    "languages": "Natural-language requirements and Wikipedia paragraphs; no code"
+  },
+  "standards": {
+    "peer_review": "Not stated; 6-page short-paper format, journal extension mentioned",
+    "limitations_section": true,
+    "artifacts": "Corpus described as publicly released and the pipeline as regenerable from one make target, but the paper gives no URL; no code link found",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "contamination_risk", "detail": "The DO-178C corpus was generated by GPT-5.4, which also generates answers and judges faithfulness; the authors acknowledge the corpus-author leg of the circularity remains."},
+    {"type": "llm_judge_unvalidated", "detail": "Faithfulness has no human reference labels; the paper's own controls show the two judges disagree (kappa 0.02 on MuSiQue) and drift over 11 weeks."},
+    {"type": "single_model", "detail": "One generator family (GPT-5.4, with a GPT-4.1 swap on 332 rows); both judges from the same vendor."},
+    {"type": "metric_mismatch", "detail": "Faithfulness is judged against the full retrieved block, so pipelines that flood the context are penalised for material their answer did not cite (§6)."},
+    {"type": "closed_artifacts", "detail": "Release is claimed but no link is provided in the paper."}
+  ],
+  "coi": {
+    "affiliations": "Turkish Aerospace Industries (3 authors); Technical University of Munich (corresponding author)",
+    "vendor_products_evaluated": "Azure OpenAI models and embeddings used as components; no author product evaluated",
+    "funding": "Not stated",
+    "severity": "none",
+    "detail": "No commercial interest in any pipeline or model compared."
+  },
+  "scores": {"rigor": 3, "reproducibility": 2, "generalizability": 2, "relevance": 3, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Careful statistics (3 seeds, paired bootstrap, Holm correction, test-retest and 11-week judge controls) and an honest threats section. Caveats: synthetic corpus written by the same model family that answers and judges, no human faithfulness labels, one generator family, no lexical baseline, and no artifact link. The judge-drift result and the measurement-point inversion are the robust takeaways; the per-stratum winner claims are partly non-significant under the second embedder.",
+  "applicability": "Two things transfer to a discovery and traceability harness across the team's 4+ repos. First, if the team keeps a requirement/spec-to-code link store (P42), answer trace questions by walking explicit typed links, and check every ID the model cites against the store: even with graph help, 3+-hop answers here were mostly wrong (citation F1 <= 0.25). Second, do not use one LLM judge's score as a regression gate across weeks or retrieval changes. Pin the judge snapshot, measure same-day test-retest agreement first, and keep a small human-labelled set to re-anchor it. The aerospace corpus is synthetic, so the absolute numbers do not transfer.",
+  "conflicts_with": [
+    {"arxiv_id": "2608.01507", "detail": "That study validates a Claude Sonnet 4.6 judge against three blind engineers (kappa 0.74) and treats it as a reliable proxy, while this paper shows GPT-5.4/GPT-4.1 judges agree with their own earlier verdicts only at kappa 0.14 / ~0 after 11 weeks. The tasks differ (graded QA rubric vs binary faithfulness), so judge validity has to be re-established per task and per date, not assumed."}
+  ]
+}

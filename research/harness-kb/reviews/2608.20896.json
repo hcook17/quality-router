@@ -1,0 +1,30 @@
+{
+  "arxiv_id": "2608.20896",
+  "contribution_type": "empirical",
+  "summary": "A crowdsourced Prolific study (N=103 people with some Python experience). Each participant fixes one of four short synthetic buggy Python snippets, shown either the standard interpreter message or an llama-3.1-8B rewrite in one of two styles: pragmatic (concise, action-oriented) or contingent (scaffolded explanation). The rewrites, especially pragmatic, were rated clearer and lower in cognitive load, but fix rate, attempts and time-to-fix showed no statistically significant differences. Per-cell samples were 3-6 and no inferential test of fix rate is reported.",
+  "claims": [
+    {"claim": "LLM-rewritten messages significantly improve subjective ratings, with pragmatic messages rated clearer and less cognitively demanding", "evidence": "§4.1.2, Figs. 6-9: Kruskal-Wallis plus Holm-adjusted Dunn, e.g. pragmatic vs standard intrinsic load p=0.0017, extraneous p=0.0064, vocabulary p=0.0063. Holm adjusts only the three pairwise contrasts within each metric, across about 10 metrics and 3 groupings. Tone/authoritativeness is a single item.", "strength": "moderate", "location": "§4.1.2"},
+    {"claim": "Perceived gains did not translate into better objective debugging performance (a 'human-AI complementarity gap')", "evidence": "Table 3 pooled fix rates: experts 68% / 82% / 90% (standard / pragmatic / contingent), novices 46 / 54 / 42%. No significance test of fix rate is reported. Time-to-fix tests are non-significant with only 5-7 novice successes per arm. Snippet x style x skill cells hold 3-6 people and there is no power analysis. Non-significance in an underpowered design is not evidence of no effect, and the expert trend points toward a benefit.", "strength": "weak", "location": "§4.1.1, Tables 2-5, Figs. 3-5"},
+    {"claim": "Scaffolded explanations do not consistently help lower-proficiency programmers", "evidence": "Table 3: novices 42% fixed with contingent vs 46% standard (38 novices total across three arms); descriptive only.", "strength": "weak", "location": "§4.1.1, §5.2"},
+    {"claim": "The custom 8-item proficiency assessment predicts debugging success", "evidence": "§4.1.3: point-biserial r=0.368, p=0.0001 between MCQ score and fixing the snippet.", "strength": "moderate", "location": "§4.1.3"}
+  ],
+  "patterns": [
+    {"id": "P41", "stance": "mixed", "note": "Comparison: LLM explanation rewrites (two styles) vs the standard interpreter message, randomized between subjects. Subjective clarity and cognitive load improve significantly, but objective repair success shows no significant gain (underpowered; experts trend up, novices flat, scaffolding not helping novices). For explanation or learning-mode features, perceived helpfulness is not a valid proxy for effectiveness."}
+  ],
+  "methodology": {"sample": "N=103 Prolific participants (35/35/33 per style; 38 lower and 65 higher assessed proficiency); 4 synthetic single-fault Python snippets; one task per participant, up to 3 attempts", "baselines": "Standard Python interpreter message", "models": "llama-3.1-8B-Instruct, zero-shot, temperature 0", "variance": "SDs for time-to-fix; Kruskal-Wallis and Dunn (Holm) on Likert items; no test reported for fix rate; time-to-fix tests non-significant", "ablations": "Two explanation styles x two proficiency groups", "contamination_controls": "n/a; snippets written for the study", "languages": "Python (NameError, TypeError, SyntaxError snippets using only the standard library)"},
+  "standards": {"peer_review": "arXiv preprint, no venue stated", "limitations_section": true, "artifacts": "Prompts, snippets, assessment items and survey wording in appendices; no code or data release", "preregistration": "none mentioned; no ethics-approval statement in the text"},
+  "biases": [
+    {"type": "small_sample", "detail": "3-6 participants per snippet x style x skill cell; 5-7 novice successes per arm for time-to-fix; no power analysis behind the headline null."},
+    {"type": "toy_tasks", "detail": "Four short synthetic snippets with one fault each; the authors concede limited ecological validity."},
+    {"type": "single_model", "detail": "All rewrites from llama-3.1-8B with one prompt per style."},
+    {"type": "single_language_python", "detail": "Python interpreter errors only."},
+    {"type": "selection_bias_participants", "detail": "Crowd workers classified by a new unvalidated 8-item test plus self-reported experience, not learners or professional developers in context."},
+    {"type": "hype_language", "detail": "A 'critical human-AI complementarity gap' is framed from non-significance in an underpowered design without a fix-rate test."}
+  ],
+  "coi": {"affiliations": "Delft University of Technology", "vendor_products_evaluated": "none", "funding": "not stated", "severity": "none", "detail": "Academic HCI authors; open-weight model; no product."},
+  "scores": {"rigor": 2, "reproducibility": 2, "generalizability": 1, "relevance": 2, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Properly randomized, with calibrated tasks, sensible non-parametric statistics and honest limitations. But the load-bearing null rests on tiny cells, has no fix-rate test, and uses novice-level Python errors with an 8B model. What it contributes is mainly methodological: measure behaviour, not perceived clarity, when judging explanation features.",
+  "applicability": "Relevant to comprehension and skill safeguards for developers without domain knowledge. If the harness adds walkthroughs, explanations or a learning mode for the ingestion domain, judge them by behaviour: can the developer make a correct change, localize a fault, and answer questions about code they just shipped. Satisfaction or clarity ratings moved here while repair success did not measurably. Static targeting by skill level was too coarse; adapt depth to observed struggle (repeated failed attempts, time stuck). The evidence comes from syntax and type errors in toy Python, so it does not speak directly to domain onboarding of experienced Java developers.",
+  "conflicts_with": []
+}

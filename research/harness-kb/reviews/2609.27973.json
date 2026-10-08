@@ -1,0 +1,36 @@
+{
+  "arxiv_id": "2609.27973",
+  "contribution_type": "empirical",
+  "summary": "Mixed-methods Prolific survey of 75 self-identified early-career software engineers (up to 2 years' experience; 110 responses before filtering) who use LLMs at work. Two authors inductively coded the open-ended answers. Respondents use LLMs daily for coding, tests, debugging and explaining unfamiliar code, and say effective use requires prompting and context-setting, output verification, debugging and architecture knowledge, and critical thinking. 41 of 75 said university taught little or nothing about LLMs, or left the question blank. The quantitative content is frequency counts only.",
+  "claims": [
+    {"claim": "LLMs are embedded in novices' routine software work (77.3% daily use)", "evidence": "Q1 frequencies, self-reported. Active LLM use at work was an inclusion criterion, so high usage is partly guaranteed by sampling.", "strength": "weak", "location": "§III-C, §V-B"},
+    {"claim": "Effective use depends on traditional SE competencies plus critical thinking, verification and prompting", "evidence": "Coded counts of skills respondents perceive as needed (critical thinking n=44, communication n=42, prompting n=30, verification n=27, debugging n=23). Effectiveness is never measured, so 'depends on' restates perceptions as a determinant.", "strength": "weak", "location": "§V-C, Abstract"},
+    {"claim": "There is a gap between university preparation and workplace expectations", "evidence": "41 respondents reported little or nothing, minimal or theoretical coverage, or did not answer; non-response is counted toward the gap. Preferred formats are counts (hands-on projects n=57).", "strength": "weak", "location": "§V-D"},
+    {"claim": "Novices mostly use LLMs in a controlled, validated way", "evidence": "35 of 75 responses coded 'Controlled and Validated Usage', self-described. No behavioural data.", "strength": "weak", "location": "§V-B"},
+    {"claim": "The survey included closed-ended Likert items on practices and perceptions", "evidence": "Stated in §III-A, but the questionnaire in Table I has no Likert items and no Likert results are reported.", "strength": "unsupported", "location": "§III-A, Table I, §V"}
+  ],
+  "patterns": [
+    {"id": "P41", "stance": "neutral", "note": "Respondents report using LLMs to explain unfamiliar code and voice over-reliance concerns. Comprehension and skill are not measured."},
+    {"id": "P43", "stance": "neutral", "note": "'Explain parts of the codebase I'm not familiar with' appears among coding-support uses. No count or outcome specific to codebase questions."},
+    {"id": "P38", "stance": "neutral", "note": "Recommends structured onboarding, mentorship and AI-aware code review. Not evaluated."},
+    {"id": "P19", "stance": "neutral", "note": "'Continuous human oversight' is self-reported as a practice, not observed."}
+  ],
+  "methodology": {"sample": "75 of 110 Prolific respondents after eligibility and quality filtering; 86.7% with 1-2 years' experience; multinational (Egypt, India and Poland largest); roles mostly full-stack (28%) and backend (17%)", "baselines": "None; no comparison with experienced engineers", "models": "n/a (ChatGPT, Copilot and Gemini named as tools)", "variance": "Descriptive counts only; no inferential statistics", "ablations": "n/a", "contamination_controls": "Attention checks, domain validation questions, and an AI-generated-text detector (no hits)", "languages": "n/a"},
+  "standards": {"peer_review": "none stated (arXiv preprint)", "limitations_section": true, "artifacts": "Coding data on figshare", "preregistration": "none"},
+  "biases": [
+    {"type": "self_reported_numbers", "detail": "All findings are self-reported perceptions; no observed behaviour or outcomes."},
+    {"type": "selection_bias_participants", "detail": "Prolific convenience sample, with active LLM use at work required for inclusion."},
+    {"type": "metric_mismatch", "detail": "Perceived necessary skills are presented as what effective use depends on."},
+    {"type": "small_sample", "detail": "75 respondents spread across more than 20 countries and many roles; no subgroup analysis possible."},
+    {"type": "other:restates_prior_findings", "detail": "The discussion states that the findings align with existing literature; the only new angle is the novice-transition framing."},
+    {"type": "other:no_interrater_reliability", "detail": "Two coders resolved disagreements by consensus; no agreement statistic reported."}
+  ],
+  "coi": {"affiliations": "CESAR School; UFRPE; University of Calgary; University of Hawaii at Manoa", "vendor_products_evaluated": "None", "funding": "not stated", "severity": "none", "detail": "Independent academic survey."},
+  "scores": {"rigor": 2, "reproducibility": 3, "generalizability": 2, "relevance": 2, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "A legitimate but thin descriptive survey: 75 self-selected respondents, perceptions only, and themes the authors say match prior literature. The abstract's 'effective use depends on...' and the stated Likert component are not backed by the body. It is weak context on how juniors learn AI-assisted work; it is not evidence about any onboarding practice.",
+  "applicability": "A weak signal for onboarding. Junior engineers already use LLMs daily to explain unfamiliar code, and most say they learned AI-assisted practices on the job, not at university. The team's onboarding harness is therefore where verification habits get formed, for example review checklists for AI-generated changes or having the developer explain the change back. The survey cannot say which practice works: it has no Java or domain-knowledge questions, no observed behaviour, and no comparison. Do not take its 'controlled and validated usage' self-reports at face value; observational studies in the KB show auto-accepting behaviour.",
+  "conflicts_with": [
+    {"arxiv_id": "2607.26375", "detail": "Here, 35 of 75 novices describe controlled, validated LLM use and rank verification as a core skill. There, observed students often copy-pasted acceptance criteria as prompts and auto-accepted agent edits, and comprehended their own code less. The populations differ, but the contrast points to a gap between self-report and behaviour."}
+  ]
+}

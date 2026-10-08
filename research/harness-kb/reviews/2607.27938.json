@@ -1,0 +1,91 @@
+{
+  "arxiv_id": "2607.27938",
+  "contribution_type": "system",
+  "summary": "VizPilot (Nanyang Technological University; IEEE VIS 2026) is a browser extension that uses GPT-5 to reverse-engineer SVG composite data visualizations into atomic explanation units, binds each unit to SVG DOM selectors, and presents them as a guided scrollytelling tour plus free exploration. It is evaluated by manual inspection of four visualizations across input modalities, an LLM-judge robustness check on 18 gallery examples, and a 16-person within-subjects study against static text descriptions. The 'onboarding' is for readers of charts, not software developers.",
+  "claims": [
+    {
+      "claim": "VizPilot reduces users' cognitive load and speeds comprehension relative to a text baseline.",
+      "evidence": "§6.4.1: task accuracy at ceiling in both conditions (3.62 vs 3.75 of 4), so comprehension is not shown to differ. Completion time 262.9s -> 194.4s (Wilcoxon p=0.039, n=16, no multiple-comparison correction). NASA-TLX and PSSUQ are large but subjective, and the authors note novelty effects. The baseline is static paper text with no highlighting, so medium and content are confounded.",
+      "strength": "weak",
+      "location": "§6.4, Figs 5-6"
+    },
+    {
+      "claim": "The pipeline is robust across all four composite design patterns.",
+      "evidence": "Table 3: decomposition F1 0.92-0.97 and E2E 0.83-0.94 on 18 author-curated gallery visualizations, scored by an LLM-as-judge panel (GPT-5.5, Gemini 3.1 Pro, Claude 3.5 Sonnet). Low-confidence cases (5/18) were escalated to the authors. No human ground-truth agreement for the judges is reported.",
+      "strength": "weak",
+      "location": "§6.3, Table 3, App. A.6"
+    },
+    {
+      "claim": "Each input modality (SVG, image, interaction code) is essential.",
+      "evidence": "§6.1, Table 2: qualitative manual inspection of four visualizations; no quantitative scores.",
+      "strength": "weak",
+      "location": "§6.1, Table 2"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P41",
+      "stance": "neutral",
+      "note": "Guided, element-highlighted walkthrough vs static text saved about 68s on two charts for 16 students, with accuracy at ceiling. This concerns chart-reader onboarding, not developer comprehension of code or domain."
+    },
+    {
+      "id": "P42",
+      "stance": "neutral",
+      "note": "Design analogue only: the MLLM proposes explanation-to-element links that are then programmatically verified against the SVG DOM before display. Not requirement-to-code traceability."
+    },
+    {
+      "id": "P18",
+      "stance": "neutral",
+      "note": "A three-model LLM-judge panel with confidence-based human escalation is used for the gallery evaluation; the judges are not validated against human labels."
+    }
+  ],
+  "methodology": {
+    "sample": "4 visualizations (modality analysis), 18 gallery visualizations (LLM-judged), 16 participants on 2 visualizations (MatrixWave, PrettiSmart) with 4 questions each.",
+    "baselines": "Static text descriptions from the original papers. No comparison with existing onboarding tools (D-Tour, DashGuide, LEVA).",
+    "models": "GPT-5 for generation; GPT-5.5, Gemini 3.1 Pro and Claude 3.5 Sonnet as judges.",
+    "variance": "SDs reported for user-study measures; none for the pipeline.",
+    "ablations": "Qualitative input-modality comparison only.",
+    "contamination_controls": "none; the gallery visualizations are published systems likely present in training data.",
+    "languages": "SVG/D3/Vega-Lite web visualizations; not applicable to code."
+  },
+  "standards": {
+    "peer_review": "Accepted at IEEE VIS 2026.",
+    "limitations_section": true,
+    "artifacts": "Online example gallery only; no code, prompts or study data released.",
+    "preregistration": "none (IRB-approved user study)"
+  },
+  "biases": [
+    {
+      "type": "other:off_topic",
+      "detail": "Visualization literacy and chart onboarding; no software-development or coding-agent content."
+    },
+    {
+      "type": "strawman_baseline",
+      "detail": "Static paper text vs an interactive highlighted tour; no competing onboarding system."
+    },
+    {
+      "type": "small_sample",
+      "detail": "16 participants, two visualizations, ceiling-effect accuracy."
+    },
+    {
+      "type": "llm_judge_unvalidated",
+      "detail": "Gallery robustness numbers come from LLM judges plus author review of escalations."
+    },
+    {
+      "type": "closed_artifacts",
+      "detail": "No code or prompts released."
+    }
+  ],
+  "coi": {
+    "affiliations": "Nanyang Technological University",
+    "vendor_products_evaluated": "GPT-5 used as a component",
+    "funding": "Not stated",
+    "severity": "none",
+    "detail": "Academic authors. Some study visualizations (e.g. PrettiSmart, PonziLens) may come from the senior author's own prior work, which is a minor self-selection issue."
+  },
+  "scores": {"rigor": 2, "reproducibility": 1, "generalizability": 1, "relevance": 1, "coi_risk": 0},
+  "verdict": "reject",
+  "verdict_reason": "Off-topic: onboarding readers to data visualizations, not developers to code or domains. Its evidence is also weak (n=16, ceiling accuracy, strawman text baseline, unvalidated LLM-judge robustness numbers).",
+  "applicability": "Does not transfer as evidence. The design idea worth noting for a developer walkthrough feature is that the LLM proposes explanation steps but every step's anchor is checked deterministically before it is shown. For code walkthroughs that would mean each step cites a file and line or symbol that the harness verifies exists. This paper does not test that for code.",
+  "conflicts_with": []
+}

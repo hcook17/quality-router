@@ -1,0 +1,68 @@
+{
+  "arxiv_id": "2606.15943",
+  "contribution_type": "theory",
+  "summary": "Short CAIN '26 paper proposing 'Generation Networks', a notation for documenting LLM-native application designs as data-dependency graphs mapped to Bayesian networks. It adds distribution-control and domain-selector variables plus first-order formulas over probabilistic and interventional queries, so designers can state prescriptions (e.g. P(judged correct | benchmark) >= 1 - epsilon), parameter searches and design-improvement assertions. Three use cases are sketched; there is no tool, no inference procedure and no evaluation.",
+  "claims": [
+    {
+      "claim": "Generation Networks provide a principled framework for communicating, documenting and reasoning about LLM-native architectures",
+      "evidence": "Only illustrative diagrams (RCA agent, intent verbalization, few-shot selection, coverage-targeted input generation). No case study, user study or comparison with existing documentation practice.",
+      "strength": "unsupported",
+      "location": "§3-§5, §7"
+    },
+    {
+      "claim": "The notation can express design improvement and no-regression as probabilistic predicates over paired outcomes",
+      "evidence": "§5.3 defines B_NoRegr and B_imp and their marginal probabilities; correct by construction as a definitional exercise, but never instantiated with data.",
+      "strength": "moderate",
+      "location": "§5.3"
+    },
+    {
+      "claim": "GNs can serve as a foundation for design-level analysis and tool support",
+      "evidence": "Future work only; §6 states the language is primarily for communication, not automated inference or verification.",
+      "strength": "unsupported",
+      "location": "§6"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P35",
+      "stance": "introduces",
+      "note": "Probabilistic specification notation for LLM pipeline components (prescriptions as bounds on conditional and interventional probabilities); no verification, tooling or evaluation."
+    },
+    {
+      "id": "P14",
+      "stance": "neutral",
+      "note": "Specifies behavior of LLM components inside an application; not about agents developing software from a spec."
+    }
+  ],
+  "methodology": {
+    "sample": "None; three illustrative examples",
+    "baselines": "None",
+    "models": "None run",
+    "variance": "n/a",
+    "ablations": "n/a",
+    "contamination_controls": "n/a",
+    "languages": "n/a"
+  },
+  "standards": {
+    "peer_review": "Published at CAIN '26 (IEEE/ACM) per arXiv comment",
+    "limitations_section": false,
+    "artifacts": "None",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "toy_tasks", "detail": "Hypothetical diagrams only; no system documented or analyzed in practice."},
+    {"type": "novelty_inflation", "detail": "The notation is Bayesian networks with interventions applied to LLM pipeline variables, close to the cited language-model cascades and DSPy-style programs."}
+  ],
+  "coi": {
+    "affiliations": "Universidad de Buenos Aires / ICC UBA-CONICET",
+    "vendor_products_evaluated": "None",
+    "funding": "Amazon Research Award (Automated Reasoning, Fall 2023); UBACyT grants",
+    "severity": "none",
+    "detail": "Amazon funding, but no Amazon product is evaluated or promoted."
+  },
+  "scores": {"rigor": 0, "reproducibility": 0, "generalizability": 0, "relevance": 1, "coi_risk": 0},
+  "verdict": "reject",
+  "verdict_reason": "Position/notation paper with no evaluation. It is about designing LLM-based applications, not about how developers or agents build software, so it is off-topic for the harness question.",
+  "applicability": "Does not transfer to the discovery and onboarding harness: it documents the internals of LLM-powered applications rather than supporting developers who use agents, and it has no tool or evidence. At most, if the team's ingestion pipeline contains LLM steps (e.g. content tagging), the idea of writing acceptance criteria as probability bounds over a labelled benchmark could shape those steps' tests.",
+  "conflicts_with": []
+}

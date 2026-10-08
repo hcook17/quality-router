@@ -1,0 +1,101 @@
+{
+  "arxiv_id": "2606.22247",
+  "contribution_type": "system",
+  "summary": "Defines documentation-to-code equivalence (an LLM can regenerate the function body from the docstring plus file context) and Documentary, a loop in which gpt-4.1-nano regenerates the body from the docstring, judges equivalence against the original, and revises the docstring (capped at the function's length). On 238 Python functions from 12 projects it produces test-verified equivalent docstrings for 53.4% vs 34.0% for a one-shot docstring prompt; the same-model judge is right 66.4% of the times it says 'equivalent'. Equivalent docstrings raise LLM output prediction without seeing code (74.2% of assertions vs 70.2% with one-shot LLM docstrings and 58.3% with original docstrings). In a user study, 11 developers rated them more helpful, with no change in task time; edit correctness is not reported.",
+  "claims": [
+    {
+      "claim": "Documentary generates equivalent documentation for 53.4% of function-level snippets",
+      "evidence": "Table 2: 127/238 vs baseline 81/238, with equivalence checked by running the project's tests on code regenerated from the docstring. One model, one run, functions with at least 50% test coverage.",
+      "strength": "moderate",
+      "location": "§4.2, Table 2"
+    },
+    {
+      "claim": "Equivalent documentation lets an LLM predict function outputs with 12.8-24.5% higher accuracy than human-written and baseline documentation",
+      "evidence": "No computation in the body yields 12.8-24.5%. Table 3 gives +4.0 / +15.9 pp on assertions, +0.6 / +17.3 pp on per-test average and +5.6 / +19.0 pp on fully correct tests (vs baseline / vs original). Many 'original' docstrings are missing (only 47% of RQ1 functions are documented), so 'vs human-written' partly means 'vs no docstring'.",
+      "strength": "unsupported",
+      "location": "Abstract, §1, §4.6, Table 3"
+    },
+    {
+      "claim": "Equivalent docstrings beat one-shot LLM docstrings for LLM code understanding",
+      "evidence": "Table 3: 356 vs 337 of 480 assertions, 153 vs 139 of 253 tests, 70.8% vs 70.2% per-test average. A modest gain on a reasonable baseline, single model, no variance; Documentary falls back to the baseline docstring when its loop fails, so the arms overlap.",
+      "strength": "weak",
+      "location": "§4.6, Table 3"
+    },
+    {
+      "claim": "Equivalent documentation transfers across LLMs",
+      "evidence": "§4.3: gpt-5-nano regenerates equivalent code for 89.6% and gemini-2.5-flash-lite for 74.7% of docstrings Documentary marked equivalent, compared against 'Documentary's precision of 88.9%', which contradicts the 66.4% precision in Table 2.",
+      "strength": "weak",
+      "location": "§4.3"
+    },
+    {
+      "claim": "Human developers find equivalent docstrings more useful and understand code better",
+      "evidence": "Table 5, 11 participants (mostly students/early-career), 6 tasks within-subject: Likert helpfulness rises for understanding (2.58 -> 3.76, p=0.0004) and modifying (2.15 -> 2.85, p=0.04); confidence, difficulty and times are not significant; total time is identical (6.48 min). Edit correctness is never reported although tests were selected to check it; Mann-Whitney U is applied to within-subject data; participants were not blinded to which docstring was generated.",
+      "strength": "weak",
+      "location": "§4.7, Table 5, §7"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P41",
+      "stance": "mixed",
+      "note": "Generated 'equivalent' docstrings vs the original docstrings (often absent or terse) for 11 developers working in unfamiliar Python files: self-rated helpfulness up, but time, difficulty and confidence unchanged and edit correctness unreported. Evidence of perceived help, not measured comprehension (compare 2607.26375, where task success and comprehension diverged)."
+    },
+    {
+      "id": "P39",
+      "stance": "mixed",
+      "note": "Test-verified complete docstrings given to an LLM as context let it predict function outputs without the body: +4.0 pp assertions and +5.6 pp tests vs one-shot LLM docstrings (a reasonable baseline), +0.6 pp per-test average. Code-level rather than domain-level context; single small model, one run, artificial no-code setting."
+    },
+    {
+      "id": "P18",
+      "stance": "mixed",
+      "note": "A same-model LLM equivalence judge drives the loop; against test ground truth its 'equivalent' verdicts are correct 66.4% of the time (Table 2), so a third of accepted docstrings are not equivalent. The judge-driven loop still beats one-shot generation (53.4% vs 34.0%)."
+    },
+    {
+      "id": "P42",
+      "stance": "introduces",
+      "note": "Round-trip regeneration is a checkable link between a natural-language description and code at function level; not requirement-level traceability and not evaluated as such."
+    },
+    {
+      "id": "P16",
+      "stance": "neutral",
+      "note": "Tests serve only as evaluation ground truth; the loop uses an LLM judge because executing arbitrary code is not always feasible."
+    }
+  ],
+  "methodology": {
+    "sample": "238 functions from 12 executable projects (CoDocBench and DyPyBench union) for RQ1-4; 253 tests / 480 assertions for RQ5; 6 single-function commits from 5 projects with 11 participants for RQ6",
+    "baselines": "One-shot docstring prompt with the same model; original human docstrings (often missing)",
+    "models": "gpt-4.1-nano for generation and judging; gpt-5-nano and gemini-2.5-flash-lite only for RQ2 regeneration",
+    "variance": "Single run; no CIs; Mann-Whitney U in the user study",
+    "ablations": "Iteration count; docstring size limit 0.5x-3x (1x best)",
+    "contamination_controls": "Popular GitHub projects likely in training data; RQ5 keeps only tests the model can solve given the code; user-study commits are the latest available to reduce prior exposure",
+    "languages": "Python only"
+  },
+  "standards": {
+    "peer_review": "FSE 2026 (PACMSE, DOI 10.1145/3808211)",
+    "limitations_section": true,
+    "artifacts": "Code, datasets and scripts on GitHub (sola-st/Documentary) and Zenodo",
+    "preregistration": "none for the user study"
+  },
+  "biases": [
+    {"type": "single_language_python", "detail": "All experiments on Python functions and docstrings."},
+    {"type": "single_model", "detail": "Main pipeline uses only gpt-4.1-nano; other models appear only as regenerators in RQ2."},
+    {"type": "small_sample", "detail": "11 user-study participants, 6 tasks; several metrics underpowered (acknowledged)."},
+    {"type": "self_reported_numbers", "detail": "Human-side wins are Likert self-reports; objective measures (time) show no difference."},
+    {"type": "metric_mismatch", "detail": "Conclusion claims improved human comprehension from helpfulness ratings; edit correctness is not reported."},
+    {"type": "strawman_baseline", "detail": "'Original docstring' condition includes many functions with no docstring."},
+    {"type": "no_variance_reported", "detail": "LLM experiments are single runs without CIs."},
+    {"type": "contamination_risk", "detail": "Popular open-source repositories likely seen in pretraining."}
+  ],
+  "coi": {
+    "affiliations": "CISPA Helmholtz Center for Information Security; Zhejiang University",
+    "vendor_products_evaluated": "None owned; OpenAI and Google models used",
+    "funding": "German Research Foundation (DFG)",
+    "severity": "none",
+    "detail": "Academic authors with public funding; no vendor interest."
+  },
+  "scores": {"rigor": 3, "reproducibility": 4, "generalizability": 2, "relevance": 3, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Peer-reviewed, test-grounded and fully released, with a reasonable one-shot baseline and an ablation. But the abstract's 12.8-24.5% LLM gain is not traceable to Table 3, RQ2 cites a precision that contradicts Table 2, and the human-comprehension claim rests on helpfulness ratings with no correctness measure. Python and a nano model only.",
+  "applicability": "For onboarding and capturing knowledge back into the repos: a round-trip check (regenerate code from the doc, compare, confirm with existing tests) is a concrete gate for whether agent-written docs are complete enough to stand in for reading the code. Expect about half of functions to pass even with the loop, and do not trust a same-model judge alone (a third of its 'equivalent' verdicts are wrong). Porting to Java/Javadoc would need test-based confirmation, and the team should measure developer outcomes (correct edits, time to first change) rather than helpfulness ratings before claiming better comprehension.",
+  "conflicts_with": []
+}

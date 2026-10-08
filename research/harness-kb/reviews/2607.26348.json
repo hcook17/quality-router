@@ -1,0 +1,79 @@
+{
+  "arxiv_id": "2607.26348",
+  "contribution_type": "benchmark",
+  "summary": "Academic benchmark of LLMs used as synthetic survey respondents (Claude Haiku 4.5, Sonnet 4.6, Llama-3.1-8B, Llama-3.3-70B) on two real survey datasets: the U.S. General Social Survey and the 63-country World Values Survey. Under demographic prompting, no model beats a demographic lookup table at predicting individual answers, every model exaggerates how much demographics determine attitudes, and on a segment-targeting task the models inflate between-segment gaps 2-4x and pick the wrong segment in 50-72% of cases. The paper is about social-science and market-research simulation, not software development.",
+  "claims": [
+    {
+      "claim": "At the individual level no LLM beats the strongest non-LLM baseline; on cross-cultural values every model is 11-22 points worse.",
+      "evidence": "Table 1 and Fig. 2: GSS best margin -0.001 (Sonnet Style C, paired-bootstrap CI [-0.028, 0.022]), logistic baseline 0.622 vs best LLM 0.589 (Table 2). WVS margins -0.111 to -0.218 with CIs strictly below zero. Holds under MAE, EMD, log-loss and Brier (Table 2), and under a cluster bootstrap (App. F). Roughly 2,000 GSS and 2,900 WVS pooled rows.",
+      "strength": "strong",
+      "location": "§4.1, Tables 1-2, Fig. 2"
+    },
+    {
+      "claim": "Models systematically over-determine demographics (stereotyping), robust to a coding-invariant measure.",
+      "evidence": "Table 1: median Δη² positive in every cell, significant for most question-group pairs (e.g. Sonnet WVS 31/32), and largely unchanged after Benjamini-Hochberg correction. Cramér's V replication: median ΔV +0.11 to +0.17, with the CI excluding zero for 22/40 (GSS) and 23/32 (WVS) Sonnet pairs. The coding-invariant replication is reported for some model/domain cells only.",
+      "strength": "strong",
+      "location": "§4.3, Table 1, Figs 3-4"
+    },
+    {
+      "claim": "Larger, more capable models do not fix either failure.",
+      "evidence": "§4.5: Sonnet's stereotyping index exceeds Haiku's (+0.104 vs +0.059 GSS Style C); Llama-70B has the highest WVS index. Only two families and four models, so 'capability' is a coarse two-point contrast within each family.",
+      "strength": "moderate",
+      "location": "§4.5"
+    },
+    {
+      "claim": "On segment targeting, models inflate gaps 2-4x, choose the wrong segment in 50-72% of cases, and invent splits in up to 41% of WVS pairs.",
+      "evidence": "§4.4, Fig. 5: Sonnet median gap inflation 2.3x GSS / 2.5x WVS; wrong-target 50% GSS / 72% WVS; spurious splits 28% (Sonnet) and up to 41% (Haiku, Llama-70B). The spurious-split thresholds (≤0.10 human, ≥0.25 model) are author-chosen with no sensitivity analysis.",
+      "strength": "moderate",
+      "location": "§4.4, Fig. 5"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P38",
+      "stance": "neutral",
+      "note": "Does not test pre-spec discovery. Mentions product teams using synthetic personas to prioritise features. Its evidence (no individual-level signal beyond demographics; group differences exaggerated 2-4x) cautions against replacing stakeholder or user interviews with LLM-simulated stakeholders, but only for survey-style attitudes."
+    }
+  ],
+  "methodology": {
+    "sample": "GSS 2016-2024 (10 questions, ~993 sampled rows) and WVS Wave 7 (16 questions, 63 countries, ~1,458 rows). About 100 respondents per question, cell-stratified. Human distributions and baselines are estimated on the full in-scope pools (14,704 and 91,774 respondents).",
+    "baselines": "Four non-LLM baselines fit on a disjoint 50% hash split: question marginal, demographic lookup with back-off, multinomial logistic regression, random forest. These are strong, appropriate yardsticks, not strawmen.",
+    "models": "Claude Haiku 4.5, Claude Sonnet 4.6, Llama-3.1-8B-Instruct, Llama-3.3-70B-Instruct; two prompt styles (single answer, distribution).",
+    "variance": "Two decoding seeds; paired-bootstrap 95% CIs (500 resamples) on every headline margin; cluster bootstrap; BH-FDR correction for the stereotyping index.",
+    "ablations": "Prompt-surface perturbations (option order reversal, persona phrasing) give 9-23% prediction flips vs a 1-3% seed-noise floor. Robustness to survey weights, scoring rule and invalid-output accounting.",
+    "contamination_controls": "GSS restricted to recent waves. The authors argue memorisation would help aggregate fidelity, not the individual-level or stereotyping failures. No direct memorisation probe.",
+    "languages": "Survey questions in English; no code."
+  },
+  "standards": {
+    "peer_review": "Preprint, under review (arXiv comment).",
+    "limitations_section": true,
+    "artifacts": "Code, data and prompts released on GitHub; prompts, parser rules and baselines specified in appendices.",
+    "preregistration": "none (secondary analysis of public survey data)"
+  },
+  "biases": [
+    {
+      "type": "other:off_topic",
+      "detail": "Survey and market-research simulation; no software-engineering task, agent or developer is involved."
+    },
+    {
+      "type": "metric_mismatch",
+      "detail": "Results are scoped to demographic-only prompting; richer persona construction, few-shot or fine-tuned simulators are explicitly untested, so 'synthetic users fail' is narrower than the title implies."
+    },
+    {
+      "type": "single_model",
+      "detail": "Only two model families (Anthropic, Meta); no OpenAI or Google models."
+    }
+  ],
+  "coi": {
+    "affiliations": "Stevens Institute of Technology; University of Massachusetts Boston",
+    "vendor_products_evaluated": "Claude Haiku 4.5 / Sonnet 4.6 and Llama models, evaluated unfavourably",
+    "funding": "Not stated",
+    "severity": "none",
+    "detail": "Independent academic authors; the result is negative for every vendor evaluated."
+  },
+  "scores": {"rigor": 4, "reproducibility": 4, "generalizability": 2, "relevance": 1, "coi_risk": 0},
+  "verdict": "reject",
+  "verdict_reason": "Off-topic for this KB. This is a careful survey-simulation benchmark with strong baselines and CIs, but it does not concern software development, coding agents, or developers. Rejected on relevance, not quality.",
+  "applicability": "Nothing transfers directly to the Java discovery/onboarding harness. The one indirect lesson: if anyone proposes having an LLM 'role-play' clinicians, educators or learners to answer pre-spec requirement questions in place of asking real stakeholders, this paper is evidence that such simulated stakeholders add no individual-level information and exaggerate group differences. Treat their output as hypotheses to confirm with real people, never as requirements evidence.",
+  "conflicts_with": []
+}

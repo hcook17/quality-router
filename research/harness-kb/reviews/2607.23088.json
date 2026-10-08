@@ -1,0 +1,71 @@
+{
+  "arxiv_id": "2607.23088",
+  "contribution_type": "benchmark",
+  "summary": "A short poster paper with 2,700 prompt pairs: 3 risk scenarios (ambiguous requirements, under-specified operational context, security-functionality conflict) x 9 languages x 50 pairs. Prompts come from GitHub issues, Stack Overflow, 'anonymized internal developer logs' and hand-written CWE-guided prompts. Each risk-inducing prompt is paired with a version that adds security guidance or rewrites the request. Outputs from 8 LLMs (5 samples at T=1) are labeled secure/vulnerable using CodeQL/Clang plus GPT-5-assisted 'expert review'. It reports baseline vulnerability above 56% for every model (66% for ambiguous requirements) and 37-45% reductions with security-aware prompts, with regressions up to 19% in the conflict scenario. Results appear only in figures, and the dataset is unreleased.",
+  "claims": [
+    {
+      "claim": "All eight models have average vulnerability rates above 56% under realistic risk scenarios",
+      "evidence": "Fig. 3(a), figure only. Labels come from static analyzers plus GPT-5-assisted expert review. The number of experts, sampling, agreement and per-language coverage are unreported (CodeQL/Clang cover Bash, HTML and SQL poorly). Expert review of ~216k outputs (2,700 x 2 rounds x 5 samples x 8 models) is not plausible without a sampling protocol, and none is described.",
+      "strength": "weak",
+      "location": "Abstract; §3.1-3.2"
+    },
+    {
+      "claim": "Security-aware prompting improves security by up to 45%",
+      "evidence": "§3.3: Claude-Sonnet-4 shows a 'vulnerability-rate reduction of up to 45%' and Qwen3-4B 37%; it is unclear whether these are absolute pp or relative. The treatment adds the missing security requirements (and for SC3 reformulates the request), so this compares an under-specified prompt with a specified one, not a mitigation technique with an alternative.",
+      "strength": "weak",
+      "location": "Abstract; §3.3, Fig. 3"
+    },
+    {
+      "claim": "Ambiguous requirements are the riskiest scenario (66%) and security-functionality conflict the lowest (52%)",
+      "evidence": "Fig. 3(b); no intervals or tests.",
+      "strength": "weak",
+      "location": "§3.2"
+    },
+    {
+      "claim": "Security prompting regresses in conflict scenarios (regression up to 19%, net gain 0.12)",
+      "evidence": "Text in §3.3; figure-only support, same labeling caveats.",
+      "strength": "weak",
+      "location": "§3.3"
+    }
+  ],
+  "patterns": [
+    {"id": "P34", "stance": "mixed", "note": "Making security requirements explicit in the prompt lowers vulnerability rates for all 8 models, but regresses up to 19% when the request conflicts with security. Paired within-prompt design, figure-only numbers, unvalidated labels. No comparison against analyzer-in-the-loop or agent scaffolds."},
+    {"id": "P40", "stance": "neutral", "note": "The ambiguous-requirement scenario (66% vulnerable) motivates eliciting security requirements before generation; asking is never tested."},
+    {"id": "P17", "stance": "neutral", "note": "CodeQL and Clang Static Analyzer are used only as labeling aids, not as feedback in the generation loop."}
+  ],
+  "methodology": {
+    "sample": "2,700 prompt pairs (50 per scenario x language); 5 samples per prompt per model",
+    "baselines": "Risk-inducing vs security-augmented prompt (within-pair); no scaffold, agent or analyzer-feedback condition",
+    "models": "Qwen3-Max, Claude-Sonnet-4, DeepSeek-V3-0324, GPT-5, Grok-4, Gemini-2.5-Pro, Qwen3-4B, GLM-Z1-Air",
+    "variance": "5 samples at T=1.0 but no intervals or tests reported",
+    "ablations": "None",
+    "contamination_controls": "None; prompts are partly drawn from public GitHub and Stack Overflow",
+    "languages": "Bash, HTML, JavaScript, C++, Java, PHP, Go, SQL, Python"
+  },
+  "standards": {
+    "peer_review": "Poster; venue not stated in arXiv metadata",
+    "limitations_section": false,
+    "artifacts": "None; dataset 'will be released upon publication'",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "llm_judge_unvalidated", "detail": "GPT-5-assisted labeling with an undescribed expert-review protocol and no agreement statistics."},
+    {"type": "metric_mismatch", "detail": "The 'mitigation' supplies the missing requirement or rewrites the task, so the improvement measures specification completeness rather than a prompting technique."},
+    {"type": "no_variance_reported", "detail": "No intervals despite 5 samples."},
+    {"type": "closed_artifacts", "detail": "Benchmark and labels unreleased; 'internal developer logs' of unstated provenance."}
+  ],
+  "coi": {
+    "affiliations": "Zhejiang University; University College London; CAICT AI Institute (government-affiliated); MetaX Integrated Circuit Co.",
+    "vendor_products_evaluated": "None",
+    "funding": "Not stated; disclosure states no competing interests",
+    "severity": "none",
+    "detail": "No author organization's model or product is evaluated."
+  },
+  "scores": {"rigor": 2, "reproducibility": 0, "generalizability": 3, "relevance": 2, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "On-topic and broad (8 models, 9 languages, paired prompts), and the direction agrees with prior work that under-specified prompts yield insecure code. But it is a poster with figure-only results, an opaque and implausible-at-scale labeling protocol, no released data, and a 'mitigation' that is really a fuller specification. Use only as weak corroboration.",
+  "applicability": "For pre-spec work: when requirements are ambiguous, models do not default to secure code (66% vulnerable in that scenario). The team's spec template or clarification checklist should therefore elicit security and operational-context requirements explicitly (authentication, PHI/PII handling for healthcare-education content, public vs internal exposure, Spring Boot/Spring Security versions) before generation. Enforce them with deterministic checks (Semgrep/Sonar rules already in qr), not prompt text alone. The poster's own conflict-scenario regressions, and 2606.25195's finding that scaffolds and executable feedback beat security prompting, both argue against relying on prompts.",
+  "conflicts_with": [
+    {"arxiv_id": "2606.25195", "detail": "Finds executable feedback and agent scaffolding give larger secure-code gains than security prompting. This poster presents security-aware prompting as the mitigation without comparing it with scaffolds or analyzer-in-the-loop."}
+  ]
+}

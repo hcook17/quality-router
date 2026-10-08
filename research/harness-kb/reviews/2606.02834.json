@@ -1,0 +1,85 @@
+{
+  "arxiv_id": "2606.02834",
+  "contribution_type": "system",
+  "summary": "CrowdStrike extends Llama-3.1-8B and Mistral-7B with 5,120 BPE byte tokens and continues training on about 630k malware, adware and benign binaries, plus 3.2M synthetic compiled-C chunks explained by an LLM. It then instruction-tunes on template-generated metadata Q&A. On its own random file-level test split it reports 89-98% file-info accuracy, 71-89% label F1 and 39-69% malware-family accuracy. Three frontier models were scored on a different 400-sample subset with fuzzy matching. The subject is malware binary classification, not software development.",
+  "claims": [
+    {
+      "claim": "LBM is the first byte-native LLM.",
+      "evidence": "The related-work section itself cites byte-level models (MEGABYTE, BLT, byteGPT). The novelty is vocabulary expansion of a text LLM with byte tokens.",
+      "strength": "unsupported",
+      "location": "Abstract; §2"
+    },
+    {
+      "claim": "Accuracies range from 69% (malware family) to 98% (architecture).",
+      "evidence": "Table 4. The 98% is Mistral's file-info score and the 69% is Llama's family score. These are in-distribution results on a random split of company data, with no variance. Family accuracy depends on family size in training (Fig. 4).",
+      "strength": "moderate",
+      "location": "§5.3, Table 4"
+    },
+    {
+      "claim": "Off-the-shelf models lack both accuracy and insight; domain knowledge during training is essential.",
+      "evidence": "Table 5 evaluates frontier models on 400 balanced samples with fuzzy matching at a 45% threshold, with family judged manually, while LBM is evaluated on the full test set. Claude Sonnet 4.5 label F1 (77%) exceeds the real-world-only Llama LBM (71%). 'Insight' is never measured. The LoRA baseline is a weak comparator. Prompts and scripts are available only 'upon request'.",
+      "strength": "weak",
+      "location": "§5.3, Table 5; App. C"
+    },
+    {
+      "claim": "Adding synthetic data consistently improves classification.",
+      "evidence": "Table 4: RW vs RW+Syn for both base models on all three classification tasks. Opcode outlier detection stays near chance (27-41%), and the caption calls it 'choose-one-of-four' (25% chance) although §5.2 describes five opcodes.",
+      "strength": "moderate",
+      "location": "§5.3, Table 4"
+    },
+    {
+      "claim": "Deployed to a limited number of analysts.",
+      "evidence": "No usage, feedback or outcome data is reported.",
+      "strength": "unsupported",
+      "location": "Abstract; §1"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P39",
+      "stance": "neutral",
+      "note": "Domain knowledge is injected through fine-tuning data (templated analyst metadata), not supplied to an agent as runtime context. There is no comparison with runtime context."
+    },
+    {
+      "id": "P32",
+      "stance": "neutral",
+      "note": "Internal deployment is mentioned with no field results."
+    }
+  ],
+  "methodology": {
+    "sample": "631,759 files (505k train / 126k test) and 3.16M synthetic chunks from 44 open-source C projects.",
+    "baselines": "Base models, a LoRA fine-tune, and three frontier models (Nemotron 3 Super, Claude Sonnet 4.5, Llama-4 Maverick) on a different 400-sample subset.",
+    "models": "Llama-3.1-8B and Mistral-7B-Instruct-v0.2 with byte-vocabulary expansion.",
+    "variance": "None.",
+    "ablations": "Real-world vs real-world plus synthetic data; tokenizer training mix.",
+    "contamination_controls": "Random file-level split. Near-duplicate malware variants across the split are not controlled.",
+    "languages": "Binaries (PE/ELF/MachO); synthetic data compiled from C."
+  },
+  "standards": {
+    "peer_review": "None stated.",
+    "limitations_section": true,
+    "artifacts": "None released. Proprietary data and model; evaluation scripts on request.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "novelty_inflation", "detail": "Claims 'first byte-native LLM' while citing prior byte-level LLMs."},
+    {"type": "metric_mismatch", "detail": "Baselines and LBM are scored on different samples with different matching (fuzzy vs exact), and label results mix F1 with weighted accuracy."},
+    {"type": "strawman_baseline", "detail": "Frontier models receive raw bytes as text with no disassembly tooling, and the PEFT baseline is a minimal LoRA."},
+    {"type": "contamination_risk", "detail": "A random split of malware families likely leaks near-identical variants into the test set."},
+    {"type": "closed_artifacts", "detail": "Nothing is released."},
+    {"type": "self_evaluation", "detail": "The vendor's own system is evaluated on the vendor's own data and metrics."},
+    {"type": "other:off_topic", "detail": "Malware analysis, not software development with LLMs or agents."}
+  ],
+  "coi": {
+    "affiliations": "CrowdStrike (UK, Romania, USA).",
+    "vendor_products_evaluated": "LBM, CrowdStrike's own system (presented at its Fal.Con conference), compared favorably against competitors' models.",
+    "funding": "CrowdStrike (implied).",
+    "severity": "high",
+    "detail": "The vendor evaluates its own product favorably on closed data with no independent replication."
+  },
+  "scores": {"rigor": 2, "reproducibility": 0, "generalizability": 1, "relevance": 0, "coi_risk": 4},
+  "verdict": "reject",
+  "verdict_reason": "Off-topic (malware classification). It also has high COI, mismatched baseline evaluation, a novelty claim contradicted by its own related work, and nothing released.",
+  "applicability": "No transfer to the team's discovery or onboarding harness. The appendix analyst survey lists generic onboarding wishes (an at-a-glance summary, pointers to the sections worth reading, a single Q&A assistant), but none are evaluated.",
+  "conflicts_with": []
+}

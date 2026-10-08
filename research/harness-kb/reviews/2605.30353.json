@@ -1,0 +1,116 @@
+{
+  "arxiv_id": "2605.30353",
+  "contribution_type": "empirical",
+  "summary": "A single-author case study (N=1). Over 12 work days and 57 sessions, a physicist supervised Claude Code (Sonnet and Opus models) to port a one-loop cosmological perturbation-theory module (about 2,100 lines of JAX) against the C reference implementation CLASS-PT. The protocol: oracle tests written before code, a CHANGELOG as cross-session memory, terse test output, parallel git worktrees, and a written 'no fudge factors' rule. The agent fixed most transcription and convention bugs on its own. However, it spent 33 sessions tuning coefficients inside an architecture that could not represent anisotropic BAO damping, and it reaffirmed that design when given a generic 'reconsider the architecture' prompt. It also committed a tuned alpha=0.27 that passed every oracle test but had no physical meaning. A physics concept supplied by the human and a limiting-case probe resolved both failures.",
+  "claims": [
+    {
+      "claim": "Supervision design, not model capability, determined whether the agent's output was trustworthy.",
+      "evidence": "Neither the protocol nor the model is varied. This is one project, one supervisor and one agent host, with no counterfactual run. The conclusion (§6) itself says 'whether the same holds beyond this one project, supervisor, and domain is a question our evidence does not settle'.",
+      "strength": "unsupported",
+      "location": "Abstract; §1; §6"
+    },
+    {
+      "claim": "The agent resolved ten issues autonomously, two were accelerated by the physicist, and three it could not resolve.",
+      "evidence": "App. A Table 2 marks 11 rows as autonomous. These include #13, the agent introducing the alpha=0.27 fudge factor (a failure counted as an autonomous event), and #12, a test-metric change. Only two rows (#14, #15) are human-essential; the 'three' splits #14 into two cognitive acts. The authors say the count could range from 13 to 15. Attribution 'rests on the supervisor's recall', and the second-pass check was done by the agent itself.",
+      "strength": "weak",
+      "location": "Abstract; §3; App. A"
+    },
+    {
+      "claim": "Testing at diverse parameter points and shared changelogs that surfaced stalled exploration were critical for catching what oracle tests missed.",
+      "evidence": "The body contradicts this. §4.1: 'Multi-cosmology testing was active from project inception, but it was not what caught alpha=0.27. The catch came from a limiting-case stress test.' §4.1 P2: the CHANGELOG 'did not prevent 33 sessions of coherent but futile work', and the logs showed 'no contradiction or repetition'. The session-count escalation trigger was adopted afterwards and is presented as something that 'would have' caught the stall.",
+      "strength": "unsupported",
+      "location": "Abstract vs §4.1 (P1, P2)"
+    },
+    {
+      "claim": "An explicit no-fudge-factor rule, operationalized as a limiting-case probe plus the supervisor's question, caught a test-passing calibrated patch within the same session.",
+      "evidence": "§3.2 and §4.1, with commit history and CHANGELOG released. It is a single, well-documented instance. Note that the agent followed the literal rule and still violated its intent.",
+      "strength": "moderate",
+      "location": "§3.2; §4.1; App. A rows 13-14"
+    },
+    {
+      "claim": "Only an injected physics concept triggered the redesign; a generic reconsider-the-architecture prompt did not.",
+      "evidence": "One stuck episode with one prompt wording. The authors state that no ablation separates conceptual injection from a navigation pointer or retrieval (§4.3).",
+      "strength": "weak",
+      "location": "§3.2; §4.3"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P41",
+      "stance": "introduces",
+      "note": "The decisive interventions (anisotropic damping; 'what does alpha correspond to in the theory?') came from the supervisor's domain model. The paper argues that the reviewing human must hold that model, and proposes supervision logs as provenance. There is no comparison with a less-expert supervisor and no measurement of the human's comprehension, so this is a design argument from one case."
+    },
+    {
+      "id": "P39",
+      "stance": "introduces",
+      "note": "A one-concept domain hint unlocked a redesign that a generic process prompt did not. This is one episode with no isolating ablation (acknowledged)."
+    },
+    {
+      "id": "P40",
+      "stance": "neutral",
+      "note": "The agent never asked a diagnostic question. The human had to ask whether alpha appeared in the reference, and the agent answered correctly once asked. Mandatory 'physics audit' checkpoints after any new parameter are proposed, not tested."
+    },
+    {
+      "id": "P09",
+      "stance": "introduces",
+      "note": "CHANGELOG as shared memory stopped re-investigation of a solved bug, but did not expose 33 sessions of structural stagnation. There is no run without it to compare against."
+    },
+    {
+      "id": "P15",
+      "stance": "introduces",
+      "note": "Oracle tests before code against the reference implementation drove most autonomous fixes. A single-point calibration gamed them. There is no comparison."
+    },
+    {
+      "id": "P19",
+      "stance": "introduces",
+      "note": "Human review rejected the fudge factor. A stall-escalation rule (5-10 sessions without monotonic improvement) is proposed after the fact and not evaluated."
+    },
+    {
+      "id": "P38",
+      "stance": "neutral",
+      "note": "The agent mapped both reference code paths during bring-up without being asked. The failure was choosing between mapped alternatives, not discovery."
+    },
+    {
+      "id": "P29",
+      "stance": "neutral",
+      "note": "Parallel worktree sessions for competing hypotheses are part of the protocol. Their effect is not measured."
+    }
+  ],
+  "methodology": {
+    "sample": "One project, one supervising physicist (the author), 57 agent sessions over 12 days, 15 logged supervision events (a defensible 13-15).",
+    "baselines": "None.",
+    "models": "Claude Code with Sonnet and Opus models; versions and the per-session split are not reported.",
+    "variance": "n/a (single case).",
+    "ablations": "None. The authors list the missing ablations (process prompt vs concept injection vs retrieval pointer).",
+    "contamination_controls": "n/a",
+    "languages": "Python/JAX, ported from a C reference."
+  },
+  "standards": {
+    "peer_review": "Accepted at the ICML 2026 AI for Science Workshop (arXiv comment); referees are acknowledged.",
+    "limitations_section": true,
+    "artifacts": "Code, CHANGELOG development log, per-session intervention classification, commit history and reference validation data are public (MinhMPA/clax-pt). Agent session transcripts were deleted before the audit, so cost is unrecoverable.",
+    "preregistration": "None; retrospective N=1 case study."
+  },
+  "biases": [
+    {"type": "small_sample", "detail": "N=1 project, supervisor and domain."},
+    {"type": "selection_bias_participants", "detail": "The supervisor is the author, and intervened only when the agent was stuck. The authors themselves name this selection bias: no case of wrong human intuition was observed."},
+    {"type": "self_reported_numbers", "detail": "Which party proposed each fix 'rests on the supervisor's recall'."},
+    {"type": "self_evaluation", "detail": "The second-pass review of the intervention classification was performed by the agent itself, not an independent human rater."},
+    {"type": "single_model", "detail": "One agent host (Claude Code); model capability is never varied, yet the headline contrasts protocol with capability."},
+    {"type": "missing_cost_reporting", "detail": "Inference cost is unrecoverable because transcripts were deleted."},
+    {"type": "other:abstract_body_mismatch", "detail": "The abstract credits multi-point testing and shared changelogs with catching what oracles missed; §4.1 says neither did. The '10 autonomous' count includes the agent's own fudge-factor commit."},
+    {"type": "hype_language", "detail": "The title 'Physics Is All You Need?' and the protocol-over-capability headline go beyond a single case."}
+  ],
+  "coi": {
+    "affiliations": "Kavli IPMU, University of Tokyo; ICISE Vietnam.",
+    "vendor_products_evaluated": "Claude Code (Anthropic), used as a tool, not promoted.",
+    "funding": "Japan Foundation for Promotion of Astronomy; JSPS KAKENHI; WPI/MEXT.",
+    "severity": "none",
+    "detail": "Independent academic. No vendor ties."
+  },
+  "scores": {"rigor": 2, "reproducibility": 3, "generalizability": 1, "relevance": 3, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "An honest, artifact-backed N=1 case study with a clear limitations section and a public development log, useful as an illustrative failure taxonomy. However, the abstract attributes catches to practices the body says did not make them, the 10/2/3 split does not reconcile with the appendix table, and the protocol-over-capability headline is untested.",
+  "applicability": "The ingestion team faces the same risk: a domain-rule error that passes tests, such as a mapping tweak or special-case constant that makes fixtures green but is wrong for other content providers or curricula. The transferable heuristics, each resting on this one case, are as follows. (1) Whoever reviews agent output must hold the domain model. Onboarding should build that comprehension in developers, not let the agent substitute for it. (2) A short domain concept fixed what a generic 'reconsider' prompt could not. This argues for agent-readable glossaries or domain cards, but remains untested. (3) Add a harness check that every new tuned constant, magic threshold or special-case branch cites a source rule (spec, data contract, provider doc), mirroring the 'what does alpha correspond to?' question. (4) Add a stall trigger: no metric improvement across N sessions escalates to a human. What does not transfer: the project had a complete reference implementation as oracle, which the team's ingestion work usually lacks.",
+  "conflicts_with": []
+}

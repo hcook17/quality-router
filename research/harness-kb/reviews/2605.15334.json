@@ -1,0 +1,135 @@
+{
+  "arxiv_id": "2605.15334",
+  "contribution_type": "system",
+  "summary": "DIO-Agent treats program synthesis from input-output examples ('IO2Code') as LLM-mutated evolutionary search. It adds three components: a curriculum that reveals visible examples in stages with replay, a 'Transformation Priority Premise' prior that pushes mutations from constants to conditionals to loops, and prompts carrying concrete execution failures. The authors build IO2CodeBench: 125 oracle-generated Python tasks at four levels, each with 8 visible and 15 hidden examples. With DeepSeek-v3.2 they report 58.63 versus 49.60 for CodeEvolve and 47.29 for AlphaEvolve. Despite the title, 'discovery' means inducing a hidden function from I/O pairs, not exploring a codebase or a domain.",
+  "claims": [
+    {
+      "claim": "DIO-Agent consistently outperforms traditional PBE and state-of-the-art evolution-agent baselines across all difficulty levels and various LLMs.",
+      "evidence": "Table 1 (DeepSeek-v3.2): DIO ties CodeEvolve on Base (61.29, 38/62 tasks each) and ties TDD-guided generation on Geometry (61.11, 11/18 each). Table 2 (Claude-Sonnet-4.6): DIO loses the Algorithm level to AlphaEvolve (65.71 vs 68.57). The overall margin over CodeEvolve is about 8 task-equivalents of 125 (micro-average 62.5 vs 56.2), from one unseeded run per cell. 'Consistently across all levels and LLMs' is contradicted by the paper's own tables.",
+      "strength": "weak",
+      "location": "Abstract, §4.1-4.2, Tables 1-2"
+    },
+    {
+      "claim": "DIO-Agent substantially surpasses test-time scaling strategies with equivalent sampling budgets.",
+      "evidence": "Fig. 3 / §4.4 gives Best-of-N (N=40) 40.28 vs DIO 63.66, and Direct 14.56. Table 1 reports DIO at 58.63 and Direct at 32.18, and the sensitivity study (App. C) reports a 64.61 peak at 20 iterations and 3 islands. The paper never says which configuration or subset produced Fig. 3. 'Equivalent budget' equates candidate counts, not tokens: DIO spends 3,738 tokens per iteration on structured prompts.",
+      "strength": "weak",
+      "location": "§4.4, Fig. 3, App. C Fig. 7"
+    },
+    {
+      "claim": "Every component contributes, and the curriculum contributes most.",
+      "evidence": "Table 3: without the curriculum 51.33, without TPP 53.80, without error feedback 54.61, full 58.63. Single runs, no variance. The average is a macro mean over levels, so one Geometry task (of 18) moves the average by about 1.4 points and Multimodal (10 tasks) carries 25% of the weight. The 4-7 point gaps are the same size as the paper's own unexplained spread for the full system (58.63 / 63.66 / 64.61).",
+      "strength": "weak",
+      "location": "§4.3, Table 3, App. D"
+    },
+    {
+      "claim": "Letting the agent design its own inputs and query an oracle acts as a 'powerful catalyst' that resolves ambiguity better than passive learning.",
+      "evidence": "Table 4 compares only DIO and AlphaEvolve, both in active mode, on a 25% per-level subset (about 31 tasks): 60.84 vs 46.61. There is no passive-versus-active comparison on the same subset, so the 'catalyst' and 'better than passive learning' wording has no supporting contrast. Fractional level scores on 2-16 tasks per level imply averaging or a sample-level metric the paper does not describe. The oracle is an always-correct function.",
+      "strength": "unsupported",
+      "location": "§4.6, Table 4, App. I"
+    },
+    {
+      "claim": "Perfect accuracy on visible examples is not a reliable indicator that the rule was recovered; overfit programs are longer.",
+      "evidence": "§4.5 and Tables 9-10: 36 of 42 held-out failures scored 1.0 on the final curriculum stage, and failed programs averaged 833.9 characters vs 249.8 for successes. This is descriptive data from the authors' own runs, but it is a direct count and plausible.",
+      "strength": "moderate",
+      "location": "§4.5, App. E Tables 9-10"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P16",
+      "stance": "mixed",
+      "note": "There are isolating comparisons the execution-feedback loop wins. Removing concrete failure cases drops the score from 58.63 to 54.61, and DIO beats N=40 Best-of-N (63.66 vs 40.28) and Direct (32.18). But the error-feedback ablation keeps execution fitness, so it only isolates failure text in the prompt. All numbers are single unseeded runs, and the paper's own figure for the full system varies by 6 points across sections."
+    },
+    {
+      "id": "P15",
+      "stance": "neutral",
+      "note": "Borrows TDD vocabulary: the Transformation Priority Premise and a 'TDD-guided Generation' baseline described in one sentence. This is not test-first agent development. The TPP ablation (58.63 vs 53.80) isolates a simplicity prior for I/O program induction, not TDD."
+    },
+    {
+      "id": "P40",
+      "stance": "neutral",
+      "note": "In §4.6 the agent picks inputs and queries a ground-truth program oracle. This is the machine analogue of asking discriminating questions, but the 'answerer' is an always-correct function, not a stakeholder. There is no active-versus-passive comparison on the same tasks, so it is neither clarification of requirements nor evidence for it."
+    },
+    {
+      "id": "P38",
+      "stance": "neutral",
+      "note": "Keyword false positive. 'Discovery agent' means inducing a hidden function from I/O pairs, not exploring code, docs or people before writing a spec."
+    },
+    {
+      "id": "P31",
+      "stance": "introduces",
+      "note": "New self-built benchmark IO2CodeBench (125 oracle-generated tasks, 8 visible / 15 hidden examples each) on which the authors' system ranks first."
+    }
+  ],
+  "methodology": {
+    "sample": "125 oracle-generated tasks: Base 62, Algorithm 35, Geometry 18, Multimodal 10. Each has 8 visible and 15 hidden I/O examples (seeds 42 / 999). Active exploration runs on a 25% per-level subset of about 31 tasks.",
+    "baselines": "Direct prompting, classical PBE (Gulwani 2016), E-PBE, TDD-guided generation, FunSearch, AlphaEvolve and CodeEvolve; Best-of-N and Self-Consistency at N=40. The paper does not say how the closed AlphaEvolve or the classical PBE were implemented. Classical PBE scores 0 on Geometry, which suggests a DSL mismatch rather than a fair competitor.",
+    "models": "DeepSeek-v3.2 (main), Qwen-3.6-Plus, Claude-Sonnet-4.6; a Qwen multimodal model is the image-extraction tool at the Multimodal level.",
+    "variance": "None. One run per configuration with no search seeds or CIs. The full system is reported as 58.63 (Table 1), 63.66 (Fig. 3) and 64.61 (App. C) without reconciliation.",
+    "ablations": "Leave-one-out removal of the curriculum, TPP and error feedback; sensitivity to island count and iteration count; comparison against test-time scaling methods.",
+    "contamination_controls": "Visible and hidden inputs are deduplicated and disjoint. The target functions are canonical (running sum, parity, base-k addition, edit distance) and likely known to every backbone. This affects all methods equally but inflates absolute numbers. No explicit check.",
+    "languages": "Python only."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint; no venue or journal_ref, empty comment field.",
+    "limitations_section": true,
+    "artifacts": "GitHub repo (JiaruQian/IO2Code) linked; the benchmark generator has fixed seeds; prompts in Fig. 11. Whether the repo contains the baseline implementations was not verified.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {
+      "type": "self_evaluation",
+      "detail": "The authors' own benchmark, generated by their own oracle registry, with baselines they re-implemented; their method ranks first."
+    },
+    {
+      "type": "no_variance_reported",
+      "detail": "Single unseeded runs. Headline and ablation gaps (4-9 points) are smaller than or equal to the paper's own spread for the full system across sections."
+    },
+    {
+      "type": "metric_mismatch",
+      "detail": "'Average' is a macro mean that mixes three task-level all-pass rates with a sample-level pass ratio (Multimodal). It weights the 10 Multimodal and 18 Geometry tasks equally with 62 Base tasks."
+    },
+    {
+      "type": "small_sample",
+      "detail": "Geometry has 18 tasks and Multimodal 10; active exploration uses about 31 tasks. One task flips a Geometry score by 5.6 points."
+    },
+    {
+      "type": "toy_tasks",
+      "detail": "Base rules fit in 1-3 lines of Python (reverse a list, running sum). Everything is a pure function over short sequences or images."
+    },
+    {
+      "type": "single_language_python",
+      "detail": "All tasks and synthesized programs are Python."
+    },
+    {
+      "type": "hype_language",
+      "detail": "'Holy grail of computer science' and 'consistently outperforms ... across all difficulty levels and various LLMs', despite two level-ties in Table 1 and an Algorithm loss to AlphaEvolve with Claude."
+    },
+    {
+      "type": "strawman_baseline",
+      "detail": "Classical PBE scores 0 on Geometry and 14.58 overall with an unspecified implementation. The stronger evolutionary baselines are reasonable, but their implementations, especially of the closed AlphaEvolve, are not described."
+    },
+    {
+      "type": "other:internal_inconsistency",
+      "detail": "The full system appears as 58.63 / 63.66 / 64.61 and Direct as 32.18 / 14.56. The §4.2 text says Direct scores '17.00%' on Algorithm where Table 2 gives 48.57 (17 is the task count). Claude's Direct average is printed as 44.38, but its four level scores average 36.45."
+    }
+  ],
+  "coi": {
+    "affiliations": "Peking University; Tongyi Lab, Alibaba Group; Wuhan University; Renmin University of China; National University of Singapore; Shanghai Jiao Tong University.",
+    "vendor_products_evaluated": "Qwen-3.6-Plus (Alibaba) is one of three backbones, and a Qwen multimodal model is the image tool. The headline uses DeepSeek-v3.2, and Qwen is not favoured: its DIO average of 55.45 is the lowest of the three.",
+    "funding": "No acknowledgments or funding statement in the available text.",
+    "severity": "low",
+    "detail": "Alibaba co-authors and Qwen components appear, but the claims are about a model-agnostic search method and do not promote a vendor product. The main self-interest is the authors' own benchmark and method."
+  },
+  "scores": {
+    "rigor": 2,
+    "reproducibility": 3,
+    "generalizability": 1,
+    "relevance": 1,
+    "coi_risk": 1
+  },
+  "verdict": "reject",
+  "verdict_reason": "Off-topic for this KB: this is inductive program synthesis on oracle-generated toy functions, not software-development practice or a harness for pre-spec discovery. It would be weak evidence even in its own domain. The runs are single and unseeded, the 'Average' mixes metrics, the full system's score is unreconciled across sections (58.63 / 63.66 / 64.61), the Claude Direct average is miscomputed, and the 'consistently outperforms across all levels and LLMs' headline is contradicted by ties and a loss in its own tables.",
+  "applicability": "Does not transfer to the discovery or onboarding harness for a Java/Spring Boot healthcare-education ingestion team. Its 'discovery' is inferring a pure function from 8 I/O pairs, not building domain knowledge, clarifying requirements or onboarding people. Two loose analogies survive, both from the authors' own toy runs. First, programs that pass every visible example but keep growing special cases usually fail held-out cases (36 of 42 failures were visible-perfect, and 3x longer). If the harness ever infers legacy ingestion behaviour from captured examples, it should hold some examples back and treat growing special-case code as a smell. Second, the active-probing setup is the machine version of asking discriminating questions. But the oracle is always right and active probing was never compared with passive learning, so it gives no evidence for clarifying questions with human domain experts.",
+  "conflicts_with": []
+}

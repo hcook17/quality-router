@@ -1,0 +1,77 @@
+{
+  "arxiv_id": "2605.24883",
+  "contribution_type": "system",
+  "summary": "POLARIS (ACL 2026) generates LLM safety red-teaming queries from natural-language usage policies. An LLM splits policies into atomic rules and compiles them into first-order-logic violation templates. These populate a semantic policy graph, densified with embedding merges and LLM link prediction, and random walks on it are instantiated by an uncensored generator into masked harmful prompts. Against six 2023-2024 7B chat models it reports more successful attacks than static safety benchmarks and a curiosity-driven red-teaming baseline. The paper is about LLM safety evaluation, not software development.",
+  "claims": [
+    {
+      "claim": "POLARIS achieves higher policy coverage and attack success counts than established baselines.",
+      "evidence": "Table 2 compares raw success counts from a generator that produced 28,660 queries (§4.4) against fixed-size static benchmarks (e.g. AdvBench, JBB, HarmBench with hundreds of items). Volume matching applies only to the dynamic Curiosity baseline. Targets are older 7B models (Llama-2-7B, Vicuna-7B, Mistral-7B-v0.2). Counts are not normalised for set size.",
+      "strength": "weak",
+      "location": "Abstract; §4.3, Table 2"
+    },
+    {
+      "claim": "100% policy clause coverage.",
+      "evidence": "§4.2. Clauses come from the authors' own decomposition, and the generator is built to emit at least one query per clause, so 100% holds by construction.",
+      "strength": "weak",
+      "location": "§4.2"
+    },
+    {
+      "claim": "Policy-to-logic compilation is high-fidelity (92.06% binary accuracy, 9.10/10).",
+      "evidence": "Table 4 is judged by an 'expert LLM judge' with no human agreement reported. Entity extraction is checked against 50 clauses labelled by two humans (84.7% exact match), which is the only human-grounded check.",
+      "strength": "weak",
+      "location": "§4.5, Table 4"
+    },
+    {
+      "claim": "The logic layer improves adherence to target policies.",
+      "evidence": "Table 6: policy-compliance rate 92.9% vs 88.9% without logic, from a single run with no variance.",
+      "strength": "weak",
+      "location": "§4.6, Table 6"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P42",
+      "stance": "neutral",
+      "note": "Each generated test carries the policy clause it came from, so it is traceable by construction. The clause-to-logic step is checked only by an LLM judge. These are policy-to-test links, not requirement-to-code links."
+    },
+    {
+      "id": "P18",
+      "stance": "neutral",
+      "note": "Attack success and logic fidelity are judged by LLMs (GPT-5-mini, DeepSeek-R1, Llama-Guard and others), with multiple evaluators in the appendix."
+    }
+  ],
+  "methodology": {
+    "sample": "16 company usage policies plus 4 Chinese regulatory documents; 28,660 generated queries; 6 target models",
+    "baselines": "Six static safety benchmarks and one curiosity-driven red-teaming method; static sets are not size-matched",
+    "models": "Generator Llama-3-8B-Lexi-Uncensored (GPT-OSS-20B in appendix); GPT-4-Turbo for pipeline API calls; targets Llama-2-7B, Llama-3.1-8B, Mistral-7B-v0.2, Qwen-7B, Gemma-7B, Vicuna-7B",
+    "variance": "Not reported",
+    "ablations": "Without logic, without graph",
+    "contamination_controls": "Argued as an advantage of generating fresh queries; not tested",
+    "languages": "Natural-language prompts (no code)"
+  },
+  "standards": {
+    "peer_review": "Accepted to ACL 2026 (per arXiv comment)",
+    "limitations_section": true,
+    "artifacts": "Code released (github.com/huac-lxy/POLARIS)",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "metric_mismatch", "detail": "Raw success counts reward volume when compared with fixed-size static benchmarks."},
+    {"type": "strawman_baseline", "detail": "Static benchmarks of a few hundred items are compared with a 28k-query generator. The targets are dated 7B models."},
+    {"type": "llm_judge_unvalidated", "detail": "Logic fidelity is graded by an LLM judge with no human agreement figure."},
+    {"type": "no_variance_reported", "detail": "Single runs throughout."},
+    {"type": "hype_language", "detail": "'Verifiable traceability', 'verifiably safe and trustworthy AI systems'."}
+  ],
+  "coi": {
+    "affiliations": "Sun Yat-sen University; National University of Singapore; independent researcher",
+    "vendor_products_evaluated": "None",
+    "funding": "NSFC; Shenzhen S&T Program; Singapore NRF / CSA",
+    "severity": "none",
+    "detail": "Academic, no vendor ties."
+  },
+  "scores": {"rigor": 2, "reproducibility": 3, "generalizability": 2, "relevance": 1, "coi_risk": 0},
+  "verdict": "reject",
+  "verdict_reason": "Off-topic. This is LLM safety red-teaming, not software development with LLMs or agents, and not the human side of it. In its own field the headline comparison is volume-confounded against fixed-size benchmarks, and logic fidelity is LLM-judged.",
+  "applicability": "Does not transfer to the team's discovery or onboarding harness. The only generic idea, splitting natural-language rules into atomic clauses and tagging each generated test with its source clause to report clause coverage, is ordinary requirements-based testing practice. It is better covered by software-engineering work on acceptance criteria.",
+  "conflicts_with": []
+}

@@ -1,0 +1,86 @@
+{
+  "arxiv_id": "2605.16933",
+  "contribution_type": "empirical",
+  "summary": "Field study in one online introductory web-development course (Aalto). When a student submitted failing code, each assignment-student pair was randomly given compiler and test output only, or GPT-4o feedback of one of three kinds: up to three issues with fix hints (General), one issue with a hint (Single-Issue), or up to three issues located but no fix hints (Diagnostic). Mixed-effects models over 3,153 solved assignment-student pairs (223 students, 47 assignments) show that all three hint types shorten time and attempts to the first correct submission. Differences between hint types are small and the ranking changes with the metric. Learning and comprehension are not measured.",
+  "claims": [
+    {
+      "claim": "LLM-generated feedback is associated with faster time to solution and fewer attempts than compiler/test output alone.",
+      "evidence": "Table 9 (log time to success, reference = No Feedback): General -0.122 [-0.243, -0.002] p=0.046; Single-Issue -0.214 [-0.333, -0.096]; Diagnostic -0.194 [-0.312, -0.075]. Table 1 (attempts, NB-GLMM): all three 94% HDIs below zero. Random assignment per assignment-student pair. But the analysis keeps only engaged pairs solved within 30 minutes and drops submissions over 2000 characters. Solve rates are 98-99% in every arm (Table 8), so the conditioning probably matters little.",
+      "strength": "moderate",
+      "location": "§3.3-3.4, §4.1, Tables 1, 8, 9"
+    },
+    {
+      "claim": "Less guided feedback shows slightly stronger effects ('simple hints being more efficient').",
+      "evidence": "On time, Single-Issue (-0.214) and Diagnostic (-0.194) beat General (-0.122), but the CIs overlap heavily and no pairwise contrast between hint types is reported. On attempts the order flips: Diagnostic -0.200, General -0.175, Single-Issue -0.090 is the weakest. The direction depends on which metric is used.",
+      "strength": "weak",
+      "location": "Abstract; §1 contribution (1); Tables 1, 9"
+    },
+    {
+      "claim": "Hint effects differ between novice and advanced students.",
+      "evidence": "Time interactions all include zero (Table 10). One attempts interaction, Single-Issue x Novice +0.174 [0.030, 0.316], is credible (Table 2). Experience is self-reported, and only 149 of 223 students answered (111 novice, 38 advanced). The authors say this gives no strong evidence for level-specific feedback.",
+      "strength": "weak",
+      "location": "§4.2, §5, Tables 2, 10"
+    },
+    {
+      "claim": "Content released after the model's knowledge cutoff degrades hint quality.",
+      "evidence": "Course part stands in for recency, but it is confounded with topic (client-side vs server-side) and difficulty. The Old Content main effect is -0.203 [-0.339, -0.067] even in the No Feedback reference (Table 11). Only the Single-Issue x Old Content interaction is credible. Qualitatively, 12 of 31 'Poor'-voted hints suggested fixes for an older technology version, but only 45 votes were cast in total.",
+      "strength": "weak",
+      "location": "§1 contribution (3); §4.3-4.4; Tables 3, 4, 11"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P41",
+      "stance": "mixed",
+      "note": "The Diagnostic arm (say what and where is wrong, withhold the fix) is a 'learning mode' design. It was compared with full-guidance hints and with compiler-only output. On short-term time and attempts it is not worse than full guidance, but no pairwise test is reported. No learning, retention or comprehension outcome is measured, and the authors state that task performance does not imply understanding. The study shows a constrained hint costs little speed. It does not show that it protects skill."
+    },
+    {
+      "id": "P39",
+      "stance": "neutral",
+      "note": "Poor-voted hints often relied on stale model knowledge of the taught technology (12/31). The authors suggest putting current course materials in the prompt but do not test it."
+    },
+    {
+      "id": "P06",
+      "stance": "neutral",
+      "note": "Retrieval of up-to-date course materials is proposed as future work only."
+    }
+  ],
+  "methodology": {
+    "sample": "3,153 solved assignment-student pairs (11,163 submissions), 223 students, 47 assignments, one online web-development course over two months; 45 student quality votes",
+    "baselines": "No Feedback arm (compiler/test output only), a reasonable baseline for the setting; no comparison against human tutor hints",
+    "models": "GPT-4o only",
+    "variance": "Mixed-effects models with student and assignment random intercepts and student random slopes; 95% CIs (LMM) and 94% HDIs (NB-GLMM) reported",
+    "ablations": "Three prompt structures are the manipulation; no pairwise contrasts between hint types",
+    "contamination_controls": "n/a; the 'new content' proxy is confounded with course part",
+    "languages": "Web development course (client-side and server-side); programming language not stated"
+  },
+  "standards": {
+    "peer_review": "None stated (arXiv preprint, empty comment)",
+    "limitations_section": true,
+    "artifacts": "Prompts and example feedback messages in Appendix A; no data or analysis code",
+    "preregistration": "none (university ethics approval; consenting students only)"
+  },
+  "biases": [
+    {"type": "single_model", "detail": "All feedback generated by GPT-4o."},
+    {"type": "metric_mismatch", "detail": "Time and attempts to first passing submission measure short-term task efficiency, not learning or comprehension. The authors concede this in the ethics statement."},
+    {"type": "selection_bias_participants", "detail": "Only consenting, 'engaged' students. Expertise is self-reported and missing for about a third of students."},
+    {"type": "other:post_treatment_selection", "detail": "Analysis is conditioned on solving within 30 minutes, which is itself an outcome. Solve rates are similar across arms, which limits the damage."},
+    {"type": "other:confounded_proxy", "detail": "Course part is used as a proxy for content recency but differs in topic and baseline difficulty."},
+    {"type": "small_sample", "detail": "45 quality votes; 38 advanced students."}
+  ],
+  "coi": {
+    "affiliations": "Aalto University, NYU, NC State, UC Berkeley, University of Pittsburgh",
+    "vendor_products_evaluated": "GPT-4o used as a generator, not promoted",
+    "funding": "Research Council of Finland",
+    "severity": "none",
+    "detail": "Academic course study with no vendor ties."
+  },
+  "scores": {"rigor": 3, "reproducibility": 2, "generalizability": 1, "relevance": 2, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "A properly randomized field study with mixed models and reported intervals. The 'LLM hints beat compiler output' result is credible for short-term speed in one course with one model. The secondary claims (less guidance is better, expertise effects, stale-knowledge effect) are weak or confounded, and nothing measures learning.",
+  "applicability": "Indirect. The subjects are students in a web-development course, not professional Java developers learning a healthcare-education domain. Two points transfer to an onboarding or explanation mode in the harness. (1) A hint that says what and where is wrong without giving the fix cost no short-term speed. That makes it a cheap default for a learning mode, but this paper gives no evidence that it preserves comprehension, so the team should measure that separately. (2) The commonest bad hint was advice anchored on an outdated version of the technology. Explanations for Spring Boot and library versions should be grounded in the team's pinned versions and internal docs, not in model memory.",
+  "conflicts_with": [
+    {"arxiv_id": "2609.29995", "detail": "That CS1 RCT found Socratic, less direct GPT-4o guidance was rated significantly lower for helping complete tasks. Here the least directive arm (Diagnostic) was as fast as full guidance on time and attempts. The designs and outcomes differ (perceived help vs measured time), so the tension is partial."},
+    {"arxiv_id": "2607.26375", "detail": "That study found agent users finished faster but scored much lower on comprehension of their own code. The speed gains measured here therefore say nothing about comprehension, which this paper does not test."}
+  ]
+}

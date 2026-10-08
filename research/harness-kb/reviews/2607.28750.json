@@ -1,0 +1,121 @@
+{
+  "arxiv_id": "2607.28750",
+  "contribution_type": "empirical",
+  "summary": "Industrial experience report (Uber; ASE-Industry 2026) on DragonCrawl V2, a GPT-4o mobile end-to-end regression gate. Test owners write a natural-language intent, steps and mid-state assertions. The model picks each next UI action from a canonicalised view hierarchy and judges end states from screenshots, and backend tool calls set up states such as driver-document approval. The paper reports 91.6% iOS / 92.2% Android pass rates over 1,013 production flows, per-flow authoring time of 2.5h median vs about 4 days for the embedding-based V1, a component ablation (5 runs x 1,013 flows), and an estimated 27 developer-years saved.",
+  "claims": [
+    {
+      "claim": "V2 reaches 91.6% (iOS) / 92.2% (Android) pass rate vs 80-82% for V1.",
+      "evidence": "Table 2. V1 was measured on about 48 low-complexity flows in 2023 and V2 on 1,013 flows aggregated over months of CI, so the populations differ. A 'pass' means the agent reached the end state; the false-pass rate (real defects the gate missed) is never measured. VQA accuracy is asserted 'near-perfect' by citing the authors' prior work.",
+      "strength": "weak",
+      "location": "§5.2, Table 2"
+    },
+    {
+      "claim": "Test onboarding drops from 96-120 hours to under 4 hours.",
+      "evidence": "Table 6 reports V1 as 4 days median (5 days p75/p90) and V2 as 2.5h median (4h p90). The abstract's '96-120 hours' converts days at 24 h/day while V2 is in working hours, which inflates the ratio. At an 8-hour working day V1 is 32-40 h, a reduction of about 13x, not 30-40x. The V1 sample is 'small and limited to low-complexity flows'.",
+      "strength": "weak",
+      "location": "Abstract, §6.1, Table 6"
+    },
+    {
+      "claim": "Prompt constraints and view-hierarchy canonicalisation each contribute.",
+      "evidence": "Table 5: 5,065 executions per configuration (5 runs x 1,013 flows) on a frozen app build: full 95.9% success, without prompt constraints 89.6%, without canonicalisation 91.7%, with action counts and time also reported. Variance across the five runs is not reported, but n is large. This is the only controlled result.",
+      "strength": "moderate",
+      "location": "§5.5, Table 5"
+    },
+    {
+      "claim": "About 27 developer-years saved; feature velocity +15%; bug escape rate decreased.",
+      "evidence": "§6.4: a counterfactual with assumed constants (16 h authoring plus 20 h maintenance per manual test, 1,380 h/year) times 1,013 tests, not measured effort. The +15% velocity and the lower bug-escape rate (§6.5) come with no method or data. The bug-resolution median of 30.4 h vs 'approximately 5 days' has an unsourced baseline and is confounded by auto-filing tickets to the PR owner.",
+      "strength": "unsupported",
+      "location": "§6.4-6.7"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P34",
+      "stance": "introduces",
+      "note": "Tests are authored as a natural-language intent plus steps plus explicit mid-state and end-state assertions with priorities. The V1 -> V2 comparison changes model, history and assertions at once, so the structured-criteria format itself is not isolated."
+    },
+    {
+      "id": "P18",
+      "stance": "introduces",
+      "note": "A GPT-4o screenshot judge decides end-state and mid-state assertions and blocks commits. No false-pass or false-fail rates are reported here; validity is asserted from the authors' prior work."
+    },
+    {
+      "id": "P08",
+      "stance": "supports",
+      "note": "Deterministic canonicalisation of the raw view hierarchy (e.g. 144 nodes -> 51 actions) vs the raw hierarchy: 95.9% vs 91.7% success, fewer actions, less time, over 5,065 executions per arm. This is structural filtering, not LLM summarisation; Uber apps and one model only."
+    },
+    {
+      "id": "P32",
+      "stance": "neutral",
+      "note": "A real production deployment, but all impact numbers are uncontrolled before/after comparisons or counterfactual estimates."
+    },
+    {
+      "id": "P39",
+      "stance": "neutral",
+      "note": "SDETs repositioned as 'context engineers' who curate personas, environment parameters, tool-call templates and MCPs for the agent. Anecdotal; not measured."
+    },
+    {
+      "id": "P19",
+      "stance": "neutral",
+      "note": "Daily divergence detection against a 10,000-trajectory golden set, with weekly deduplicated human triage (about 5% of reviewer time). Not evaluated against an alternative."
+    },
+    {
+      "id": "P41",
+      "stance": "neutral",
+      "note": "Reports a learning curve (intent definitions too vague or too specific) and SDET upskilling in prompt engineering. Anecdotal; no comprehension measure."
+    }
+  ],
+  "methodology": {
+    "sample": "1,013 production flows on two Uber apps (iOS, Android); ablation 5,065 executions per configuration; 98 high-priority bugs for resolution time.",
+    "baselines": "Own V1 (embedding plus K-D tree) on a different, smaller flow set; external tools' self-reported completion rates (Table 3), which the authors call not like-for-like.",
+    "models": "GPT-4o only (through LangChain).",
+    "variance": "None reported; ablation uses 5 runs per flow, but the spread is not given.",
+    "ablations": "Prompt constraints and view canonicalisation; backend tool calling argued to be non-ablatable (23.1% of flows depend on it).",
+    "contamination_controls": "n/a (proprietary apps)",
+    "languages": "Mobile apps (iOS, Android); implementation languages not stated; Python test-definition tooling."
+  },
+  "standards": {
+    "peer_review": "Accepted at ASE-Industry 2026 (author-accepted manuscript).",
+    "limitations_section": true,
+    "artifacts": "None: code, prompts, models and data are proprietary to Uber.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {
+      "type": "self_reported_numbers",
+      "detail": "Developer-years saved, velocity +15% and maintenance overhead 30-40% -> 5% are internal estimates with no stated method."
+    },
+    {
+      "type": "metric_mismatch",
+      "detail": "Pass rate measures that the agent completes the flow, not that the gate catches regressions; the miss rate for real defects is never reported."
+    },
+    {
+      "type": "strawman_baseline",
+      "detail": "Compared only with its own deprecated V1 on a different flow population; no scripted Appium/Espresso suite or current LLM-agent baseline on the same flows."
+    },
+    {
+      "type": "single_model",
+      "detail": "GPT-4o only."
+    },
+    {
+      "type": "closed_artifacts",
+      "detail": "Nothing released."
+    },
+    {
+      "type": "hype_language",
+      "detail": "'Paradigm shift from pattern matching to genuine understanding', and the onboarding hours inflated by a days-to-hours conversion."
+    }
+  ],
+  "coi": {
+    "affiliations": "Uber Technologies (all authors)",
+    "vendor_products_evaluated": "Uber's internal DragonCrawl (not sold); OpenAI GPT-4o as a component",
+    "funding": "Uber",
+    "severity": "low",
+    "detail": "Company engineers evaluate their own internal system with no independent check. It is not a commercial product, so the incentive is reputational rather than sales."
+  },
+  "scores": {"rigor": 2, "reproducibility": 1, "generalizability": 2, "relevance": 2, "coi_risk": 2},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "A real, large-scale industrial deployment with one solid controlled ablation. The headline numbers are uncontrolled before/after comparisons, counterfactual estimates or unit-inflated: '96-120 hours' converts days at 24 h/day, and the 27 developer-years is assumption-driven. The gate's false-pass rate is never measured.",
+  "applicability": "Only marginal for discovery and onboarding: 'onboarding' here means authoring a new test flow, not onboarding developers. Two things transfer to the Java team's spec-driven work. (1) Writing acceptance as a natural-language intent plus explicit prioritised mid-state and end-state assertions, with tool calls to set backend state, is a workable format for API-level acceptance checks of ingestion flows. Pair it with a measured false-pass rate, which this paper lacks. (2) Deterministically trimming large structured context (here a view hierarchy) to the actionable elements before the model sees it measurably helped; the analogue is pre-filtering ingestion schemas or service graphs before handing them to an exploration agent.",
+  "conflicts_with": []
+}

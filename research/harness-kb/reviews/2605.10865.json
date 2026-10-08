@@ -1,0 +1,103 @@
+{
+  "arxiv_id": "2605.10865",
+  "contribution_type": "benchmark",
+  "summary": "BenchCAD is a benchmark of 17,900 procedurally generated, execution-checked CadQuery (Python CAD) programs across 106 mechanical part families, with 2,400 paired image/code QA items and 748 code-edit pairs. It scores 10+ multimodal models on image-to-code generation, code editing and QA, and fine-tunes Qwen3-VL-2B on it. Models recover coarse shapes but miss fine features, standard-driven parameters and advanced operations; fine-tuning helps in-distribution with a large gap on held-out families.",
+  "claims": [
+    {
+      "claim": "Current frontier models recover coarse geometry but fail to produce faithful parametric CAD programs.",
+      "evidence": "Table 10 (Vision2Code leaderboard, best frontier total 0.318 for gemini-3.1-pro-thinking) and §5.2 error analysis built on four hand-picked examples (hex bolt, bearing cap, twisted bracket, DIN 2095 spring). Single run per model, no variance.",
+      "strength": "moderate",
+      "location": "§5.1-5.2, Table 10, Fig. 6"
+    },
+    {
+      "claim": "Code access makes parametric questions much easier than images (Code QA about 0.838 vs Vision QA 0.587).",
+      "evidence": "Table 2 (qa_img) versus Appendix G Table 9 (qa_code) on the same 2,400 questions; blank-image baseline is 0.375, so frontier Vision QA gains over the prior are modest (0.07-0.21). No CIs.",
+      "strength": "moderate",
+      "location": "§5.1, Table 2, App. G"
+    },
+    {
+      "claim": "BenchCAD is industry-standard and domain-expert verified.",
+      "evidence": "Only 52/106 families (49%) are anchored to ISO/DIN/EN/ASME/IEC tables, and the limitations state 'standard-anchored does not mean standard-compliant' (App. A). Parts are procedurally generated, not drawn from real engineering repositories. The expert check is a visual sign-off on renders, and the number of experts and their agreement are not reported. The title overstates this.",
+      "strength": "weak",
+      "location": "§3.1, App. A, App. I"
+    },
+    {
+      "claim": "Training on BenchCAD improves in-distribution generation and transfers partially to held-out families.",
+      "evidence": "§5.3, Table 10 bottom block (Qwen3-VL-2B CodeGen 0.7631 in-distribution) and Table 11 per-operation recall. The OOD curve is evaluated on n=30 (App. F), and 10 held-out families are chosen at random. Single training run per setting.",
+      "strength": "weak",
+      "location": "§5.3, App. F, Table 11"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P31",
+      "stance": "introduces",
+      "note": "New domain benchmark for CAD code generation, editing and QA."
+    },
+    {
+      "id": "P25",
+      "stance": "neutral",
+      "note": "SFT and GRPO on BenchCAD for a 2B VLM; matched-compute comparison against no-BenchCAD data, single run, small OOD eval."
+    },
+    {
+      "id": "P43",
+      "stance": "neutral",
+      "note": "Code QA asks questions about a single CadQuery program, not a repository; no exploration agent or tooling is involved."
+    }
+  ],
+  "methodology": {
+    "sample": "17,900 parts / 106 families; 2,400 QA pairs (x2 modalities); 748 edit pairs. It is not stated whether Vision2Code is scored on all 17,900 parts or a subset.",
+    "baselines": "Blind baselines (black images, no code, unchanged program) plus CAD-specialist models (cadrille-RL, CADEvolve v3).",
+    "models": "GPT-4o, GPT-5.3 (thinking/non-thinking), Claude Opus 4.7, Gemini 3.1 Pro, o3, Moonshot Kimi, Qwen3-VL, InternVL3, gpt-oss-120b, Nemotron-3; fine-tuned Qwen3-VL-2B.",
+    "variance": "No seeds, repeated runs, CIs or significance tests reported.",
+    "ablations": "Image-versus-code QA contrast; image-conditioned edit variant; scoring-protocol ablations (rotation/scale-invariant IoU); SFT/RL data-composition comparison.",
+    "contamination_controls": "Procedurally generated programs are new, though families such as gears, springs and bolts are well known; no explicit check.",
+    "languages": "Python (CadQuery DSL) only."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint (comment '9 page 7 figures'); no venue.",
+    "limitations_section": true,
+    "artifacts": "Data on Hugging Face (CC-BY-4.0) with Croissant metadata and a datasheet; evaluation code on GitHub (MIT); prompts in App. K-L.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {
+      "type": "hype_language",
+      "detail": "'Industry-Standard' and 'industrial readiness' in the title and abstract, versus 49% standard-anchored families that the authors concede are not standard-compliant."
+    },
+    {
+      "type": "no_variance_reported",
+      "detail": "Single run per model; leaderboard gaps of a few hundredths are reported without uncertainty."
+    },
+    {
+      "type": "cherry_picked_examples",
+      "detail": "The failure taxonomy is illustrated with four selected parts."
+    },
+    {
+      "type": "toy_tasks",
+      "detail": "Procedural single-part families; no assemblies, tolerances or design intent from real engineering work, as the authors note."
+    },
+    {
+      "type": "self_evaluation",
+      "detail": "Authors' fine-tuned model tops the in-distribution leaderboard on their own benchmark."
+    }
+  ],
+  "coi": {
+    "affiliations": "University of Virginia, UC San Diego, Rice University.",
+    "vendor_products_evaluated": "Third-party frontier and open models; no author affiliation with any of them.",
+    "funding": "No acknowledgments or funding statement.",
+    "severity": "none",
+    "detail": "Academic benchmark; the only self-interest is the authors' own fine-tuned model ranking first in-distribution."
+  },
+  "scores": {
+    "rigor": 2,
+    "reproducibility": 4,
+    "generalizability": 1,
+    "relevance": 0,
+    "coi_risk": 0
+  },
+  "verdict": "reject",
+  "verdict_reason": "Off-topic for this KB. It evaluates multimodal generation of mechanical CAD programs, not software development practice, agent harnesses, or the human side of development. It would also be weak as evidence: single runs, cherry-picked failure cases, and an 'industry-standard' title the limitations section undercuts.",
+  "applicability": "Does not transfer to a backend Java team's discovery or onboarding harness. The tasks are image-to-CadQuery generation and single-program QA for mechanical parts. The one generic observation is that models answered parametric questions better from code than from rendered images. That the source artifact beats a lossy view of it is unsurprising, and it says nothing about codebase exploration or developer comprehension.",
+  "conflicts_with": []
+}

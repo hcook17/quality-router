@@ -1,0 +1,109 @@
+{
+  "arxiv_id": "2608.01507",
+  "contribution_type": "empirical",
+  "summary": "Yildiz Technical University / Intellica compare two repository question-answering agents on 720 SWE-QA questions (15 Python repos) with four models (Gemini 2.5 Flash, Gemini 2.5 Pro, Gemini 3 Flash, Qwen3-235B), one run each at temperature 0. One arm is a LangChain ReAct agent with vector retrieval (SWE-QA's tools: repo structure, vector search over 500-token chunks, file read). The other is a LangChain Deep Agent: a planner with a todo list that delegates grep/glob/ls/read exploration to a same-model sub-agent, with no index. A Claude Sonnet 4.6 judge, validated against three blind engineers on 800 answers (kappa 0.74), grades the answers. The retrieval agent wins for every model (pooled pass 65.2% vs 46.2%; per-model gaps 5.6-49.6 pp) at about 2.3x lower cost per correct answer. 41.8% of Deep failures were coded as planner-to-sub-agent hand-off breakdowns, and 91% of those still produced a fluent answer.",
+  "claims": [
+    {
+      "claim": "The vector-retrieval agent beats the delegating Deep Agent on every model",
+      "evidence": "Table 4: paired pass-rate gaps 5.6 [1.3, 9.8], 10.0, 49.6 and 10.6 pp, all FDR-significant on McNemar and Wilcoxon; direction holds at every pass threshold from 50 to 90 (Fig. 4), on 14/15 repos, all four question types, and under a repository-level bootstrap.",
+      "strength": "strong",
+      "location": "§5.1, Table 4, Fig. 4, §8 conclusion validity"
+    },
+    {
+      "claim": "Semantic search answered 65.2% of questions correctly vs 46.2% for deep agentic search (abstract headline)",
+      "evidence": "Table 3 pooled numbers are correct, but the pooled gap is dominated by Gemini 3 Flash (89.3% vs 39.7%, with 44.6 tool calls per Deep run, which looks like a harness-model interaction). For the other three models the gap averages about 8.7 pp, with Cliff's delta about 0.14 for the Gemini 2.5 pair. The authors themselves call the effect modest except for Gemini 3 Flash.",
+      "strength": "moderate",
+      "location": "§5.1, Table 3"
+    },
+    {
+      "claim": "Retrieval produced each correct answer at less than half the cost",
+      "evidence": "Table 3 and Fig. 14: pooled $0.32 vs $0.74 per pass; Deep costs more per question for every model (Qwen3: 34k vs 761k input tokens). Index-building cost is excluded but stated as under $1 for all 15 repos; prices come from one sheet, and token counts are also reported.",
+      "strength": "strong",
+      "location": "§5.2, Table 3, Fig. 14"
+    },
+    {
+      "claim": "Deep agentic search introduced a new failure class: 41.8% of its failures occurred at the planner-to-sub-agent hand-off, usually silently",
+      "evidence": "Table 5: 414 of 990 Deep failures coded as coordination breakdown; 91% of these produced a fluent answer. Coding was done by Claude Sonnet 4.6 and checked on a 400-failure stratified sample (two authors: kappa 0.78 on mechanism; consensus vs automatic: 0.82). The category exists only for Deep and may absorb sub-agent search misses. Notably, Deep had fewer retrieval/localization-miss failures than Semantic (242 vs 338), so the deficit comes from coordination and loops, not from grep localizing worse.",
+      "strength": "moderate",
+      "location": "§6, Table 5"
+    },
+    {
+      "claim": "For read-only questions over an indexable repository, retrieval is the stronger and cheaper option, and this bears on Claude Code, Codex and Antigravity-style designs",
+      "evidence": "Only one harness per paradigm (LangChain defaults) was run. Tools and orchestration co-vary, with no flat grep agent and no compute-matched arm. None of the named products and no Claude/GPT answering model were tested; the repos are Python only, on frozen snapshots (the best case for an index). The authors scope the conclusion narrowly in §7-§8; the abstract's product framing goes beyond the evidence.",
+      "strength": "moderate",
+      "location": "Abstract, §7, §8"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P43",
+      "stance": "mixed",
+      "note": "Repository QA agents answer 40-89% of SWE-QA questions at Pass depending on model and design. In both designs the largest failure symptom is a confident answer about the wrong entity or mechanism (48%/42% of failures), and 9-15% of failures wrongly deny that the code exists. No human-developer or no-agent baseline in this paper, so this measures how far to trust the answers, not whether a QA agent beats reading the code."
+    },
+    {
+      "id": "P06",
+      "stance": "mixed",
+      "note": "Bundle-level win: the vector-index ReAct agent beats the grep+sub-agent Deep Agent on all 4 models and 14/15 repos at lower cost. But retrieval/localization misses were its largest failure class (338 failures, 11.7% of runs, vs 242 / 8.4% for grep-based Deep), so the win comes from avoiding delegation failures, not from better retrieval. One embedder and one chunking scheme, Python, frozen snapshots."
+    },
+    {
+      "id": "P12",
+      "stance": "contradicts",
+      "note": "Sub-agent-delegated exploration lost on accuracy and cost for every model. 68.8% of Deep tool calls ran in sub-agent context the planner never saw, and 41.8% of Deep failures were hand-off breakdowns (91% silent). Caveats: the comparison is a bundle (delegation plus dropping the index); the harness is the untuned LangChain Deep Agents default, not Claude Code; and single-question sessions cannot show the context-hygiene benefit of long sessions (the authors' own boundary). The failure counts argue the loss is from delegation, since grep localization failed less often than vector retrieval."
+    },
+    {
+      "id": "P05",
+      "stance": "neutral",
+      "note": "grep/glob exploration appears only inside the delegating arm, so it is not isolated. The failure data hint that lexical exploration localized no worse than vector search (fewer localization-miss failures)."
+    },
+    {
+      "id": "P18",
+      "stance": "supports",
+      "note": "The Claude Sonnet 4.6 rubric judge was validated against 3 blind external engineers on 800 stratified answers: kappa 0.74, Pearson 0.83, MAD 5.2/100; weaker on longer Deep answers (kappa 0.69). An LLM also coded failure mechanisms with kappa 0.82 vs author consensus. This applies to graded repo-QA answers in this setting only."
+    },
+    {
+      "id": "P38",
+      "stance": "neutral",
+      "note": "Frames repository QA as what developers and agents do to understand unfamiliar code before extending it; no study of people doing pre-spec discovery."
+    }
+  ],
+  "methodology": {
+    "sample": "720 SWE-QA questions (15 Python repos x 48; 12 from SWE-bench, 3 from SWE-bench-Live; 13k-861k LOC) x 4 models x 2 designs; 5,758 runs (2,878 of 2,880 Deep runs reported); 1,621 coded failures; 800-answer human validation panel",
+    "baselines": "The two designs against each other; no flat grep agent without sub-agent, no BM25, no direct-prompting baseline, no production harness (Claude Code, Codex) despite the abstract's framing; Deep Agent run with untuned defaults, Semantic agent with the benchmark's own tool contract",
+    "models": "Gemini 2.5 Flash, Gemini 2.5 Pro, Gemini 3 Flash, Qwen3-235B (planner and sub-agent same model); judge Claude Sonnet 4.6; embeddings text-embedding-3-small",
+    "variance": "Single run per question at temperature 0; bootstrap CIs over questions, repository-level bootstrap, Benjamini-Hochberg correction, pass-threshold sweep 50-90",
+    "ablations": "None within either design (no harness sensitivity, no compute-matched arm); provenance split SWE-bench vs SWE-bench-Live as a descriptive check",
+    "contamination_controls": "Paired within-model design; 3 later SWE-bench-Live repos as a descriptive leakage check (Semantic advantage larger there); contamination not excluded",
+    "languages": "Python only"
+  },
+  "standards": {
+    "peer_review": "Under review at a journal (arXiv comment); not yet peer-reviewed",
+    "limitations_section": true,
+    "artifacts": "No code, traces, judge outputs or failure codes released; the benchmark and both LangChain harnesses are public and configurations plus the judge rubric are in the appendices",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "single_language_python", "detail": "All 15 repositories are Python; the authors flag language transfer as untested."},
+    {"type": "other:confounded_arms", "detail": "Tool space (vector index vs grep) and orchestration (flat vs delegated) change together; without a flat grep agent the loss cannot be formally split between them. The authors acknowledge this as a bundle comparison."},
+    {"type": "strawman_baseline", "detail": "The losing Deep arm runs with untuned LangChain defaults (recursion limit 80, 900 s cap, runs hitting a bound counted as failures; 13.5% of Deep failures are non-terminating loops), while the winning arm uses SWE-QA's native tool contract. Gemini 3 Flash collapsing from 89% to 40% suggests a harness-model incompatibility rather than a property of the paradigm."},
+    {"type": "no_variance_reported", "detail": "One run per question per condition; CIs are across questions, not across repeated runs."},
+    {"type": "contamination_risk", "detail": "SWE-bench repositories are likely in training data; only 3 later repos serve as a check."},
+    {"type": "hype_language", "detail": "The abstract ties the result to Claude Code, Codex and Antigravity, none of which were tested, and leads with a pooled gap driven mostly by one model."},
+    {"type": "closed_artifacts", "detail": "No replication package despite the study's cost-heavy trace coding."}
+  ],
+  "coi": {
+    "affiliations": "Yildiz Technical University; Intellica Business Intelligence R&D Center (Istanbul)",
+    "vendor_products_evaluated": "Third-party LangChain harnesses and Gemini/Qwen models; no author product evaluated",
+    "funding": "TUBITAK",
+    "severity": "low",
+    "detail": "Industry co-affiliation with a BI/analytics firm; no stake in either paradigm's tooling is disclosed or apparent."
+  },
+  "scores": {"rigor": 4, "reproducibility": 2, "generalizability": 2, "relevance": 4, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Strong for a single-benchmark study: four models from two vendors, 720 paired questions, a human-validated judge from a different vendor, FDR-corrected paired tests, threshold sweep, repository bootstrap, and a validated failure taxonomy. Caveats: one run per question, Python only, untuned default harness on the losing side, arms confounded, no artifacts, and a headline magnitude inflated by Gemini 3 Flash. Direction is credible for read-only QA over a frozen, indexable repo; the product-level framing is not tested.",
+  "applicability": "Directly relevant to the 'ask the codebase' part of a discovery and onboarding harness across the team's 4+ Java repos. For read-only developer questions, keep an index-backed retrieval path as the default, rebuilt or incrementally updated per commit so it does not go stale on active branches. If a sub-agent explores on the main agent's behalf, make it hand back evidence (file:line spans) rather than a condensed prose answer, because hand-off failures here were silent and fluent. Whatever the design, onboarding answers should carry clickable citations a developer verifies: about half of all failures in both designs were confident answers about the wrong code. Not measured: Java, cross-repo questions, long multi-question sessions, or the team's actual hosts.",
+  "conflicts_with": [
+    {"arxiv_id": "2605.12493", "detail": "There, a flat coding agent exploring files (Codex) beat RAG baselines by about 20 points on memory questions over agent trajectories; here index retrieval beat delegated exploration on code QA. The corpus differs, and the exploring agent there did not delegate to a sub-agent."},
+    {"arxiv_id": "2608.11386", "detail": "An NLSearch exploration sub-agent left SWE-bench Live resolve rates broadly unchanged (issue repair with 10 rollouts), whereas delegation cost 5.6-49.6 pp here on single-shot read-only QA; the task type and harness differ."},
+    {"arxiv_id": "2605.27787", "detail": "A lookup-only sub-agent that returns file:line pointers kept pass rates non-inferior, which suggests the condensed-prose hand-off format, not delegation as such, may explain much of the coordination failure here."}
+  ]
+}

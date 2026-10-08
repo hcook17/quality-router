@@ -1,0 +1,87 @@
+{
+  "arxiv_id": "2607.18886",
+  "contribution_type": "system",
+  "summary": "TraceDev is a five-agent pipeline (Requirement Refiner, Designer emitting PlantUML class and sequence diagrams, Developer, Tester with up to 5 repair rounds, Validator) that builds a requirement-to-design-to-code traceability graph. Requirement-to-design links come from LLM semantic matching; design-to-code links come from tree-sitter AST matching. Missing links are fed back for up to 3 repair rounds. On the CoEST eTour (58 use cases) and SMOS (67) datasets, with Gemini-2.5-Flash and DeepSeek-V3.2, it beats 2023-era ChatDev and MetaGPT on LLM-judged semantic coverage (55-72% vs 31-47%) and on success against LLM-generated tests (45-57% vs 13-25%). Removing the Validator lowers coverage 54.78 -> 39.91 and success 47.19 -> 28.37 (single run, eTour + DeepSeek only). The accuracy of the trace links themselves is never measured.",
+  "claims": [
+    {
+      "claim": "Success rate 53.63% on eTour and 56.82% on SMOS, beating baselines by up to 186.63% and 340.80%",
+      "evidence": "Table 2 (Gemini-2.5-Flash): 53.63 vs 23.40/18.71 and 56.82 vs 24.74/12.89; the relative figures are against the weakest baseline. 'Success' counts LLM-generated tests (written from ground-truth code) that first pass an LLM semantic check and are then 'adapted' to the generated code by an unspecified process. Single run. Baselines are ChatDev/MetaGPT run at defaults, designed for toy apps, with no modern coding-agent harness included. Direction is consistent across 2 models x 2 datasets plus a GPT-5-mini subset.",
+      "strength": "moderate",
+      "location": "Abstract; §5.1, Table 2"
+    },
+    {
+      "claim": "The Validator's traceability graph is what maintains requirement completeness",
+      "evidence": "Fig. 8 ablation: without the Validator, coverage 54.78 -> 39.91 and success 47.19 -> 28.37. Only eTour with DeepSeek-V3.2, single run. Coverage is judged by DeepSeek-V3.2, the same model that generated the code in this ablation.",
+      "strength": "weak",
+      "location": "§5.2, Fig. 8"
+    },
+    {
+      "claim": "The traceability graph serves as efficient memory management that compresses context",
+      "evidence": "Table 3 tokens: 47k vs 71k (ChatDev) on DeepSeek, but 109.5k vs 98.8k on Gemini eTour. There is no ablation of graph-as-context against passing full artifacts, so the token differences cannot be attributed to the graph.",
+      "strength": "unsupported",
+      "location": "§3.5.1, §5.3, Table 3"
+    },
+    {
+      "claim": "Human-rated executability is 3.6+ for TraceDev vs below 3.0 for baselines",
+      "evidence": "20 sampled use cases, 3 developers with 4+ years of experience, Krippendorff alpha 0.94. Blinding to the generating system not stated.",
+      "strength": "moderate",
+      "location": "§4.3.2, §5.1"
+    },
+    {
+      "claim": "Effectiveness does not depend on the LLM backbone",
+      "evidence": "Third model (GPT-5-mini) run on a random 20% subset only (Table 4, mislabeled 'Table 2' in the text). Three models total, single runs.",
+      "strength": "weak",
+      "location": "§6, Table 4"
+    }
+  ],
+  "patterns": [
+    {"id": "P42", "stance": "supports", "note": "Isolating ablation: the same pipeline without the Validator's missing-link feedback loses 14.9 pp coverage and 18.8 pp success (Fig. 8; single run, eTour + DeepSeek only). The 'verified links' half is weak. Design-to-code links are AST-checked, but requirement-to-design links are LLM-asserted, and link precision/recall is never scored, even though eTour/SMOS are standard trace-recovery datasets with gold links."},
+    {"id": "P34", "stance": "supports", "note": "The Refiner normalizes use cases into a Cockburn schema with Subject+Verb+Object steps, checked by a syntactic parser in a regenerate loop. Without it, success drops 47.19 -> 28.27 (Fig. 8; single run, one model/dataset)."},
+    {"id": "P14", "stance": "supports", "note": "A design-first step (UML class/sequence diagrams before code) beats the same pipeline without it: success 47.19 -> 36.79, files 15.1 -> 4.8 (Fig. 8; single run). The input use case is given, not authored."},
+    {"id": "P16", "stance": "supports", "note": "Without the Tester's execute-and-repair loop, success falls to 13.92% (Fig. 8). Same single-run caveat."},
+    {"id": "P40", "stance": "neutral", "note": "Ambiguity (missing subjects, inconsistent terminology) is resolved by LLM inference, never by asking a stakeholder. The paper does not test asking."},
+    {"id": "P11", "stance": "introduces", "note": "Five role agents. Compared only to other multi-agent frameworks; no single-agent or single-LLM-with-test-loop baseline, so the multi-agent structure itself is not isolated."},
+    {"id": "P09", "stance": "introduces", "note": "Traceability graph claimed as compact shared memory; not isolated by ablation."},
+    {"id": "P07", "stance": "introduces", "note": "Heterogeneous artifact graph (requirement, design and code nodes) used as structured context for the Validator."},
+    {"id": "P18", "stance": "neutral", "note": "Semantic coverage is a DeepSeek-V3.2 judge with 3-vote majority, not validated against humans; DeepSeek-V3.2 is also a generator."}
+  ],
+  "methodology": {
+    "sample": "125 use cases (eTour 58, SMOS 67) from two small academic systems; 962 / 1,179 LLM-generated test cases retained if they pass on ground-truth code; human evaluation on 20 use cases",
+    "baselines": "ChatDev and MetaGPT open-source implementations at default settings (temperature 0.2 / dynamic vs TraceDev 0). No Claude Code/OpenHands/SWE-agent-style harness and no single-LLM + test-repair baseline",
+    "models": "Gemini-2.5-Flash, DeepSeek-V3.2 (full); GPT-5-mini (20% subset); DeepSeek-V3.2 also the evaluation judge",
+    "variance": "Single run per configuration; no seeds, intervals or significance tests",
+    "ablations": "Remove each of Refiner, Designer, Tester, Validator (eTour, DeepSeek-V3.2 only)",
+    "contamination_controls": "None. eTour/SMOS and their code have been public for over a decade; retry limits were tuned on ~20% of the same use cases",
+    "languages": "Target language of generated code not stated; the ground-truth systems are Java"
+  },
+  "standards": {
+    "peer_review": "Accepted at ISSTA 2026 (PACMSE)",
+    "limitations_section": true,
+    "artifacts": "Code, data and prompt templates claimed at github.com/ISSE-Lab/ISSTA2026-TraceDev",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "strawman_baseline", "detail": "2023 multi-agent frameworks built for single-sentence toy apps, run at defaults; no current coding agent."},
+    {"type": "metric_mismatch", "detail": "Claims traceability maintains consistency but never measures link correctness. Success uses tests 'adapted' to the generated code by an unspecified procedure."},
+    {"type": "llm_judge_unvalidated", "detail": "DeepSeek-V3.2 majority-vote judge for semantic coverage; no human agreement check; same model also generates."},
+    {"type": "no_variance_reported", "detail": "Single runs everywhere, including the ablation that carries the traceability claim."},
+    {"type": "contamination_risk", "detail": "Long-public datasets with reference implementations."},
+    {"type": "self_evaluation", "detail": "Authors generate the test oracle with an LLM from the ground-truth code and define both metrics."},
+    {"type": "hype_language", "detail": "'Up to 340.80%' relative improvement over the weakest baseline."}
+  ],
+  "coi": {
+    "affiliations": "Harbin Institute of Technology (Shenzhen), Nanjing University state key lab, Beijing Institute of Control Engineering",
+    "vendor_products_evaluated": "None",
+    "funding": "Not stated",
+    "severity": "none",
+    "detail": "Academic authors; no vendor product evaluated favorably."
+  },
+  "scores": {"rigor": 3, "reproducibility": 4, "generalizability": 2, "relevance": 3, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Peer-reviewed, two models x two datasets plus a subset third model, per-agent ablations, a human evaluation with high agreement, and released artifacts. The headline relative gains are inflated by weak 2023 baselines and an LLM-built, LLM-adapted test oracle. The traceability claim rests on one single-run ablation, and the links themselves are never scored despite available gold trace matrices.",
+  "applicability": "For the team, the transferable half is the deterministic one. Check every spec acceptance criterion against code symbols with an AST or symbol index (JavaParser, tree-sitter, or Gortex over the Spring classes and methods across the 4+ ingestion repos), and turn 'requirement with no linked symbol or test' into a blocking finding before review. Treat LLM-proposed requirement-to-design links as proposals that qr or a human verifies (propose/verify/commit), not as ground truth. TraceDev is greenfield generation from use cases. The team mostly edits existing services, so links must attach to existing code, and the paper does not link tests to requirements, which the team would need. A persisted requirement-to-class-to-test graph is a plausible onboarding artifact, but its value for comprehension is not evaluated here. The Refiner silently infers missing actors; for healthcare-education domain rules, ambiguity should become a question rather than a guess.",
+  "conflicts_with": [
+    {"arxiv_id": "2608.00705", "detail": "Finds single-judge LLM faithfulness on requirements-traceability queries fragile (self-kappa ~0.14 across embedders and over time). TraceDev's semantic-coverage metric and its requirement-to-design links both rest on single-model LLM judgments with no validation."},
+    {"arxiv_id": "2606.17203", "detail": "Reports that confidence calibration of LLM trace links is essential for multi-agent pipeline coordination. TraceDev uses uncalibrated binary LLM links and argues an approximate graph is sufficient."}
+  ]
+}

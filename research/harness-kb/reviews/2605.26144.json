@@ -1,0 +1,99 @@
+{
+  "arxiv_id": "2605.26144",
+  "contribution_type": "benchmark",
+  "summary": "VISTA asks coding agents to build and launch multi-page web apps for 10 Figma-designed application categories (128 pages) under five input conditions: text only, text plus screenshots, and text plus screenshots plus pruned Figma JSON, each with a fixed or free tech stack. Humans annotated 3,253 interactive targets and 458 visual anchors. A DOM-grounded evaluator scores localization times behaviour, alongside CLIP similarity and an edit-style 'Surgical Diff Score'. Four agent systems are tested: GPT-5.4/5.5 only inside Codex and Claude Sonnet/Opus only inside Claude Code. Combined scores fall in a narrow 0.22-0.26 band, and each cell is a single run with no variance reported.",
+  "claims": [
+    {
+      "claim": "Visual fidelity and functional correctness are partially decoupled across input conditions and agents.",
+      "evidence": "Table 3: GPT-5.5 has the best localization (0.602) and CLIP (0.853) but the lowest behaviour (0.283). Opus has the best behaviour (0.336) and Combined (0.261) but CLIP 0.764. The rank orders differ across metrics. However, this rests on 10 tasks, one run per cell and no CIs, and the Combined spread across agents is only 0.223-0.261.",
+      "strength": "moderate",
+      "location": "§4, Table 3"
+    },
+    {
+      "claim": "Removing the stack constraint gives the largest quality jump (C1->C2: 0.229->0.264), and rich Figma structure pays off only with stack freedom.",
+      "evidence": "C1 averages three LLM-proposed stacks, including the weaker pick B (0.212). Pick A alone scores 0.240 (Table 8), so the 'stack freedom' effect partly reflects averaging in a poor LLM-chosen stack. The differences are 0.02-0.035 with no variance estimate, and the limitations section concedes the stacks were proposed by an LLM rather than a human panel.",
+      "strength": "weak",
+      "location": "§4; App. F Table 8; §6"
+    },
+    {
+      "claim": "Agent editing style (patch vs rewrite) is largely orthogonal to task quality.",
+      "evidence": "Pearson rho = -0.145 (Surgical) and -0.078 (Strict) across runs (App. G). However, editing style is fully confounded with harness: Codex is patch-oriented, while Claude Code exposes Write/Edit/MultiEdit. The authors acknowledge this in §6.",
+      "strength": "moderate",
+      "location": "§5.1, Table 4; App. G"
+    },
+    {
+      "claim": "VISTA establishes a rigorous and reproducible foundation for agent-based SE research.",
+      "evidence": "The body offers no repeated runs, no variance, no CIs and no cost reporting. Model is never separated from harness: no GPT model runs in Claude Code and no Claude model runs in Codex. Only 10 tasks are used. The appendix leaderboard (Table 7) lists systems not evaluated in the paper (Claude fable-5, Opus 4.8, Composer 2.5, Haiku 4.5).",
+      "strength": "unsupported",
+      "location": "Abstract; §4; App. D Table 7"
+    },
+    {
+      "claim": "Explicit externally maintained todo state (TodoWrite) is associated with stronger benchmark performance.",
+      "evidence": "Table 7 pairs todo-event counts with C4 leaderboard rank. The authors call this correlational and confounded by model, harness version and workflow.",
+      "strength": "weak",
+      "location": "App. D"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P39",
+      "stance": "mixed",
+      "note": "The closest analogue is machine-readable design context (pruned Figma JSON with layout, component hierarchy and labels). Isolating comparison at free stack (C2 vs C4): localization 0.507->0.600 and CLIP 0.728->0.827, but behaviour 0.322->0.329 and Combined 0.264->0.261, i.e. flat. With a fixed template (C3), Combined is 0.236, below the screenshot-only C2. So structured context improved structural conformance but not working behaviour. One run per cell on 10 tasks, with no CI."
+    },
+    {
+      "id": "P40",
+      "stance": "neutral",
+      "note": "Inputs are described as 'underspecified', but the harness has no channel for the agent to ask. Clarification is never an arm."
+    },
+    {
+      "id": "P38",
+      "stance": "neutral",
+      "note": "Trajectory analysis shows a shared inspect-early, write-middle, verify-late pattern, and Claude-family agents show more inspect->inspect and failure->inspect transitions. This is not linked to quality. Scaffolds are deliberately tiny 'rather than on its ability to understand a large pre-existing codebase', so no real codebase discovery is tested."
+    },
+    {
+      "id": "P13",
+      "stance": "neutral",
+      "note": "Explicit todo-list state correlates with leaderboard rank (App. D). The authors flag this as confounded, and there is no controlled comparison."
+    },
+    {
+      "id": "P31",
+      "stance": "introduces",
+      "note": "New front-end benchmark with human-annotated DOM targets as the grader."
+    }
+  ],
+  "methodology": {
+    "sample": "10 application categories, 128 pages, 3,253 interactive annotations, 458 visual anchors. Five input conditions, with C1 run once per each of three stacks.",
+    "baselines": "None beyond the four agent systems. No harness-swapped controls.",
+    "models": "GPT-5.4 and GPT-5.5 in Codex; Claude Sonnet and Claude Opus in Claude Code. Exact Claude versions are not given in the main text (Opus 4.7 appears in an appendix example).",
+    "variance": "None. One run per cell; medians reported alongside means.",
+    "ablations": "The input-condition factorial (visual fidelity x stack constraint) is the ablation. Stack options were proposed by an LLM.",
+    "contamination_controls": "Ground truth starts from Figma designs rather than crawled HTML. The authors concede that similar UI patterns are likely in pretraining.",
+    "languages": "Web front-end stacks (Next.js/TypeScript and similar). No backend or Java."
+  },
+  "standards": {
+    "peer_review": "None stated (arXiv v1; project page only).",
+    "limitations_section": true,
+    "artifacts": "The abstract and project page link code (kaboider/VISTA_Bench) and a dataset. Not verified here. The appendix leaderboard contains systems absent from the paper's experiments.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "no_variance_reported", "detail": "Single run per (agent, condition) cell. Cross-condition differences of 0.02-0.035 are interpreted without any uncertainty estimate."},
+    {"type": "small_sample", "detail": "Ten tasks (application categories)."},
+    {"type": "other:model_harness_confound", "detail": "Each model family appears in only one harness, so 'model' and 'harness' effects (including the edit-style findings) cannot be separated."},
+    {"type": "hype_language", "detail": "The abstract calls VISTA 'a rigorous and reproducible foundation', which the single-run, ten-task design does not support."},
+    {"type": "missing_cost_reporting", "detail": "No token, time or dollar cost per run, although trajectories were logged."},
+    {"type": "other:llm_chosen_conditions", "detail": "The three stacks per task were proposed by an LLM, and the weakest one drags down the C1 average that underpins the 'stack freedom' claim."}
+  ],
+  "coi": {
+    "affiliations": "University of Arizona, Stony Brook University; one author lists Zoom.",
+    "vendor_products_evaluated": "Codex/GPT-5.x (OpenAI) and Claude Code/Claude (Anthropic). No author affiliation with either.",
+    "funding": "Not stated.",
+    "severity": "none",
+    "detail": "The Zoom affiliation has no stake in the evaluated systems. The benchmark authors do not ship a ranked system."
+  },
+  "scores": {"rigor": 2, "reproducibility": 3, "generalizability": 1, "relevance": 1, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "A reasonably built grader: human-annotated DOM targets beat LLM-judge scoring for UI behaviour. But the experiment is ten tasks with one run per cell, model and harness are confounded, Combined differences are small, and the 'rigorous and reproducible foundation' headline is not backed by variance or repeated runs. Admit only as weak evidence about structured design input and edit style.",
+  "applicability": "Little transfers to the Java ingestion team's discovery or onboarding harness. The tasks are greenfield front-end builds from tiny scaffolds and explicitly exclude understanding an existing codebase. The one transferable signal concerns machine-readable domain artifacts. Here a structured artifact (pruned Figma JSON) improved structural conformance but not behaviour. So when the team feeds agents content schemas, data contracts or glossary cards, those artifacts should be judged by behavioural acceptance tests on ingestion output, not by whether generated code 'matches the structure'. 'Underspecified' in this paper never meant the agent could ask, so it says nothing about clarifying-question gates.",
+  "conflicts_with": []
+}

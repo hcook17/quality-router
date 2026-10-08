@@ -1,0 +1,35 @@
+{
+  "arxiv_id": "2608.28421",
+  "contribution_type": "empirical",
+  "summary": "A single-author method paper proposing Program Learning with Verifiable Rewards (PLVR). Instead of fine-tuning weights, it searches for explicit programs built from deterministic and neural primitives, using 'symbolic backpropagation' (typed ontologies propagated backward by type inference) for per-step credit assignment. The abstract claims +27.8 points over RL at matched budget on LiveCodeBench v6 and Tau2Bench. The v2 arXiv comment says the benchmark and baseline numbers contain errors and the authors are discarding the experiments. No full text was fetched; this review uses only the metadata and abstract.",
+  "claims": [
+    {"claim": "30B base models with PLVR outperform RL at matched budget by 27.8 points on average on LiveCodeBench v6 and Tau2Bench", "evidence": "No body text available; the v2 comment states errors in the benchmark and baseline numbers and that the experiments are being discarded by the authors.", "strength": "unsupported", "location": "Abstract; arXiv comment (v2, 2026-09-30)"},
+    {"claim": "PLVR outperforms frontier models an order of magnitude larger by 13.6 points", "evidence": "Same experiments, discarded by the authors.", "strength": "unsupported", "location": "Abstract"},
+    {"claim": "Replacing loss-guided search with uniform sampling collapses the median program from 65.6 to 17.5, so the backward pass is the source of the advantage", "evidence": "Ablation from the discarded experimental section; not verifiable.", "strength": "unsupported", "location": "Abstract"},
+    {"claim": "The marginal cost of a new task is 100 examples of program search and no new fine-tuning data", "evidence": "Asserted in the abstract only; depends on the discarded experiments.", "strength": "unsupported", "location": "Abstract"}
+  ],
+  "patterns": [
+    {"id": "P25", "stance": "neutral", "note": "Claims to beat RL post-training at matched budget, but the authors have discarded the experiments; no usable comparison."},
+    {"id": "P35", "stance": "neutral", "note": "Per-step typed contract verdicts as dense reward are proposed; no surviving evidence."}
+  ],
+  "methodology": {
+    "sample": "Unknown; the abstract cites LiveCodeBench v6 and Tau2Bench.",
+    "baselines": "RL at matched budget and larger frontier models; the authors' own comment says the baseline numbers were in error.",
+    "models": "Unnamed 30B base models (abstract).",
+    "variance": "Unknown.",
+    "ablations": "Uniform sampling vs loss-guided search (claimed, discarded).",
+    "contamination_controls": "Unknown.",
+    "languages": "Unknown."
+  },
+  "standards": {"peer_review": "None; the v2 arXiv comment discards the experiments", "limitations_section": false, "artifacts": "Abstract promises a symbolic-backpropagation library and conformance checker; no URL in the metadata and no full text fetched", "preregistration": "n/a"},
+  "biases": [
+    {"type": "other:results_discarded_by_authors", "detail": "arXiv v2 comment: 'Errors in the benchmarks and experimental sections on the baseline numbers. The experiments in the paper are being discarded by the authors.'"},
+    {"type": "strawman_baseline", "detail": "The authors themselves report the baseline numbers were wrong, so the claimed margins over RL and frontier models are void."}
+  ],
+  "coi": {"affiliations": "Not available (single author, Vishvesh Bhat; full text not fetched)", "vendor_products_evaluated": "None identifiable", "funding": "Unknown", "severity": "none", "detail": "No vendor product evaluated as far as the metadata shows; affiliation could not be checked."},
+  "scores": {"rigor": 0, "reproducibility": 0, "generalizability": 0, "relevance": 1, "coi_risk": 0},
+  "verdict": "reject",
+  "verdict_reason": "The authors have discarded the paper's experiments because of errors in the benchmark and baseline numbers, so none of its quantitative claims can be used. It is also off the discovery and onboarding question: an LLM post-training method, with the developer-learning topic hit coming only from the phrase 'program learning'.",
+  "applicability": "None. Do not cite any of its numbers. The idea of keeping reasoning in an inspectable program of typed, verifiable steps rather than in model weights is loosely related to the team's 'deterministic CLI verifies, LLM proposes' stance, but this paper provides no surviving evidence for it.",
+  "conflicts_with": []
+}

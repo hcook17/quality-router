@@ -1,0 +1,110 @@
+{
+  "arxiv_id": "2610.01769",
+  "contribution_type": "system",
+  "summary": "Peking University method for selective clarification before code generation. An LLM first generates candidate questions in rounds, each with two plausible answers. It drops questions that are irrelevant or already resolved by the requirement (the judgment must cite supporting text), then keeps only questions where three programs generated under each answer give stably different outputs on shared inputs, and finally picks questions adaptively from the answer history. On the authors' ClarifyCodeBench (419 underspecified + 80 fully specified Python tasks, five-question budget, GPT-4o question matching) it beats three published clarification methods on F1 for four models, and beats Claude Code and OpenHands when all run Qwen3.8-27B. A Claude Code plugin reports post-hoc implementation decisions with distinguishing tests.",
+  "claims": [
+    {
+      "claim": "Contra achieves the highest F1 with all four coding agents, exceeding the best baseline macro-average F1 by 13.88 pp.",
+      "evidence": "Tables 1-2: macro F1 41.20 vs 27.32 (Ask-or-Assume), TKQR 38.32 vs 25.99; wins in every model column. Baselines (Direct Prompting, Ask-or-Assume, ClarifyGPT) use the same LLM and budget, which is a fair comparison. However, it is a single run with no variance, on a benchmark from an overlapping author group (Fang et al. 2026), and matching to gold questions is done by a GPT-4o majority-of-three judge whose human agreement is not reported in this paper.",
+      "strength": "moderate",
+      "location": "§4.2, Tables 1-2"
+    },
+    {
+      "claim": "Under the same LLM and protocol, Contra has higher clarification recall and F1 than Claude Code and OpenHands.",
+      "evidence": "Table 5: F1 19.86 vs 9.63 / 10.61, recall 20.73 vs 6.26 / 8.42, but precision lower than Claude Code (19.05 vs 20.86); FPR 5% equals Claude Code. All three run on Qwen3.8-27B, not the harnesses' native models, and the paper does not describe how the harnesses were prompted to ask questions within the budget. Absolute F1 is about 20%.",
+      "strength": "weak",
+      "location": "§5.2, Table 5"
+    },
+    {
+      "claim": "Each component (relevance, resolution, behavioural verification, adaptive selection) contributes.",
+      "evidence": "Table 3 (GPT-5-mini only): F1 35.36 full vs 32.54 w/o REL, 29.13 w/o RES, 32.58 w/o BV, 26.69 w/o AQS. Removing behavioural verification raises recall (38.88) and TKQR (37.10). One model, one run; Fig. 3 stage-wise gains cover all four models.",
+      "strength": "moderate",
+      "location": "§4.4-4.6, Table 3, Fig. 3"
+    },
+    {
+      "claim": "Effective clarification improves downstream program correctness.",
+      "evidence": "Table 4: pass@1 57.32 vs 56.10 (Gemini 3.1 Pro, vs Direct Prompting) and 64.63 vs 64.02 (GPT-5.5, vs ClarifyGPT): +0.6 to +1.2 pp, two models, no variance, and no no-clarification arm. The large question-F1 gain barely moves correctness.",
+      "strength": "weak",
+      "location": "§5.1, Table 4"
+    },
+    {
+      "claim": "The Claude Code plugin surfaces unreported decisions and makes unresolved choices explicit.",
+      "evidence": "Table 6 / App. B.2: 40 single-function commits from six Python repos, one run each. Report completeness is judged by claude-opus-5; the baseline is Claude Code asked to 'briefly explain the change' (4.3% vs 59.7% for 'unspecified information'). 116 of 262 decisions came only from the independent review. There is no check that surfaced decisions are correct or useful to developers, and no user study.",
+      "strength": "weak",
+      "location": "§5.3, Table 6, App. B"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P40",
+      "stance": "mixed",
+      "note": "Fair comparison on question quality: with the same LLM and budget, Contra's selective clarification beats Direct Prompting, Ask-or-Assume and ClarifyGPT on F1 and TKQR for all four models. But the outcome that matters, correct intended behaviour, improves only 0.6-1.2 pp over the best alternative clarification method, with no no-clarification arm, a single run, the authors' own benchmark and a GPT-4o matcher. The harness comparison ran Claude Code on a non-native 27B model."
+    },
+    {
+      "id": "P16",
+      "stance": "mixed",
+      "note": "Execution-based qualification (run answer-conditioned program groups on shared inputs) raises precision 28.04 -> 36.20 and F1 32.58 -> 35.36 in the GPT-5-mini ablation, but lowers recall and TKQR; one model, one run."
+    },
+    {
+      "id": "P42",
+      "stance": "introduces",
+      "note": "Plugin generates a distinguishing test per unresolved decision that passes on the implemented behaviour and fails on an executable alternative, and can be kept in the repo as a record linking the requirement gap to code. Accuracy and usefulness of these links are not evaluated."
+    },
+    {
+      "id": "P41",
+      "stance": "introduces",
+      "note": "Plugin explains to the developer what was unspecified, what was implemented and a plausible alternative. It is evaluated only for report-element completeness by claude-opus-5 against a 'briefly explain' baseline, a strawman that measures report format rather than developer comprehension."
+    },
+    {
+      "id": "P18",
+      "stance": "neutral",
+      "note": "GPT-4o majority-of-three question matcher for all clarification metrics and claude-opus-5 for plugin report grading; no human agreement reported."
+    },
+    {
+      "id": "P19",
+      "stance": "neutral",
+      "note": "Plugin lets the developer accept, revise or defer each surfaced decision; not evaluated."
+    },
+    {
+      "id": "P24",
+      "stance": "neutral",
+      "note": "Contra-Flash cuts qualification evaluations by 65.7-96.0% with F1 within 1.8 pp on three of four models; plugin demo costs $0.70 and about 130 s in a single run. No token or cost comparison against baselines in the main experiments."
+    }
+  ],
+  "methodology": {
+    "sample": "ClarifyCodeBench: 419 underspecified + 80 fully specified tasks; plugin study: 40 single-function commits (20 underspecified / 20 fully specified) from Rich, Flask, Requests, Click, HTTPX, Typer.",
+    "baselines": "Direct Prompting, Ask-or-Assume, ClarifyGPT (same LLM, same five-question budget); Claude Code and OpenHands on Qwen3.8-27B; plugin vs Claude Code without plugin.",
+    "models": "GPT-5-mini, GPT-5.5, Grok 4.5, Gemini 3.1 Pro (low reasoning effort); Qwen3.8-27B for harness comparison; claude-opus-5 and claude-haiku-4.5 in the plugin; GPT-4o as evaluator.",
+    "variance": "None; single run per configuration; no CIs or significance tests.",
+    "ablations": "Component ablation (GPT-5-mini only), discovery-round curves, stage-wise F1/TKQR for all four models.",
+    "contamination_controls": "None discussed.",
+    "languages": "Python (benchmark and plugin verification via pytest; other languages get reports only)."
+  },
+  "standards": {
+    "peer_review": "None stated (arXiv comment: '15 pages. Code: github.com/fangz-cs/Contra').",
+    "limitations_section": false,
+    "artifacts": "Qualification and adaptive-selection code plus the Claude Code plugin on GitHub; benchmark data and experiment records not included.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "self_evaluation", "detail": "Evaluated on ClarifyCodeBench and its TKQR metric, built by an overlapping author group."},
+    {"type": "llm_judge_unvalidated", "detail": "GPT-4o question matching and claude-opus-5 report grading without reported human agreement in this paper."},
+    {"type": "no_variance_reported", "detail": "Single run per method-model cell, including the 0.6-1.2 pp downstream pass@1 differences."},
+    {"type": "single_language_python", "detail": "All benchmark tasks and plugin verification are Python."},
+    {"type": "strawman_baseline", "detail": "Plugin baseline is Claude Code asked to 'briefly explain'; harness comparison runs Claude Code on Qwen3.8-27B rather than its native models."},
+    {"type": "metric_mismatch", "detail": "Headline metric is question-matching F1; the motivating outcome (code that matches intent) barely changes."},
+    {"type": "missing_cost_reporting", "detail": "Contra issues many more LLM calls (multi-round discovery, six programs and seven or more inputs per candidate) than baselines; no token or latency comparison in the main results."}
+  ],
+  "coi": {
+    "affiliations": "Peking University, Wuhan University.",
+    "vendor_products_evaluated": "Claude Code and OpenHands as comparators; Claude Code plugin implementation. No vendor affiliation.",
+    "funding": "Not stated.",
+    "severity": "low",
+    "detail": "No vendor conflict, but the benchmark and metric come from an overlapping author group that also ships the top-ranked method."
+  },
+  "scores": {"rigor": 3, "reproducibility": 3, "generalizability": 2, "relevance": 4, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Reasonable method comparison: four current models, published same-LLM baselines and component ablations, and the question-F1 headline matches the tables. Caveats: single runs, an own-group benchmark with an unvalidated GPT-4o matcher, a downstream correctness gain of about 1 pp with no no-clarification arm, a non-native-model harness comparison, and a strawman plugin evaluation.",
+  "applicability": "The most directly useful P40 evidence in this batch for a pre-spec clarification step. Generate candidate questions broadly; drop those the ticket or spec already answers, requiring a cited span; and prioritise questions whose alternative answers would change observable behaviour. That combination produced better question sets than letting the model decide when to ask. Do not expect it alone to raise correctness much. Execution-based qualification needs runnable harnesses: for Spring Boot ingestion services it means generating two JUnit-tested alternative implementations per candidate question, which is expensive across 4+ repos, so start with the cheap relevance and resolution filters. The post-implementation decision report with distinguishing tests is a good pattern for capturing knowledge back, keeping tests as executable records of resolved ambiguities. It ships as a Claude Code plugin (hook snapshots of the working tree), so a host-agnostic harness would need its own hook-based port, and its verification is Python-only today.",
+  "conflicts_with": []
+}

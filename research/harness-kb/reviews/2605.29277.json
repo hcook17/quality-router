@@ -1,0 +1,110 @@
+{
+  "arxiv_id": "2605.29277",
+  "contribution_type": "benchmark",
+  "summary": "Baidu authors build an automated generator of repository-level code-understanding questions for 10 SWE-bench Python repositories. A tool agent (read_file, list_directory, regex search_code) starts from a selected documentation chunk and writes a code-grounded gold answer. LLM checks strip claims that only the documentation supports, and a question plus rubric are then derived from the answer. Four frontier models answer 528 'code-derivable' and 100 'doc-dependent' questions with the same agent under three conditions: closed-book, code-only (docstrings, comments and doc files stripped) and documented. A GPT-5.4 judge scores the answers. Code access adds about +0.23 to +0.36 over closed-book. Documentation adds +0.071 on doc-dependent tasks and roughly nothing on code-derivable tasks.",
+  "claims": [
+    {
+      "claim": "Code access is the dominant factor (+0.23 mean gain over closed-book).",
+      "evidence": "Table 5 (doc-dependent): 0.629->0.860 (+0.231). Table 6 (code-derivable): 0.500->0.857 (+0.357). Paired bootstrap over tasks gives p<0.001 for all models. Caveats: one run per model and condition, a single unvalidated LLM judge, and famous repositories, so closed-book is inflated by memorization (0.44-0.68). Closed-book is a weak comparator for a private codebase.",
+      "strength": "moderate",
+      "location": "§7.1-7.2, Tables 5-6, App. H"
+    },
+    {
+      "claim": "Documentation provides a modest additional benefit (+0.071 on doc-dependent tasks, p<0.003).",
+      "evidence": "Table 5 shows +0.053 to +0.091 across models. But doc-dependent gold answers were 'produced in a single LLM turn from documentation only (no code tools)' and were not code-verified (§4.5), so the documented arm is graded against doc-derived text by construction. The documented condition also gets a different system prompt telling the agent to search the docs first (§6.1), which confounds doc presence with instructions.",
+      "strength": "weak",
+      "location": "§4.5, §6.1, §7.1"
+    },
+    {
+      "claim": "Code-only is about equal to documented on code-derivable tasks (delta < 0.01), validating the design.",
+      "evidence": "The mean delta is +0.006 (Table 6), but Claude scores +0.026 (p<0.001, attributed to generator advantage) and Gemini -0.018 (p=0.004). The authors concede in §8 that the near-zero delta is 'partially self-confirming', because the tasks were filtered to be code-answerable.",
+      "strength": "weak",
+      "location": "§7.2, §8"
+    },
+    {
+      "claim": "Answer-first generation ensures every task is grounded in real code structure with verified gold answers.",
+      "evidence": "Verification is LLM-only. The fact-check passes 38.4% of answers and gives 61.6% 'warn', and warned tasks are retained. There is no human validation of gold answers (Limitations).",
+      "strength": "weak",
+      "location": "§4.3-4.4; Limitations"
+    },
+    {
+      "claim": "Generator-evaluatee bias is negligible on the primary metric.",
+      "evidence": "The only evidence is DeepSeek 0.892 vs Claude 0.891 in code-only on code-derivable tasks. Claude (the gold-answer generator) leads in the documented and closed-book conditions, and the authors attribute its significant +0.026 to generator advantage.",
+      "strength": "weak",
+      "location": "§6.2, Table 6"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P43",
+      "stance": "mixed",
+      "note": "Comparison: a 60-turn tool agent with read/list/regex search vs closed-book (no repository). The agent wins by +0.23 to +0.36 on famous Python libraries, reaching 0.77-0.89 on a judged 0-1 scale. Closed-book is a weak alternative for private code, where memorization would be near zero. There is no comparison against RAG, code graphs, a different agent design or human answers. Scores sit near ceiling."
+    },
+    {
+      "id": "P39",
+      "stance": "mixed",
+      "note": "Comparison: prose documentation (docstrings, comments, README/docs) present vs stripped, same agent. Doc-dependent tasks gain +0.071, partly by construction because their gold answers were written from the docs. Code-derivable tasks gain about 0; the only significant category is 'Where' (+0.011, d=0.13), suggesting docs act as a navigation index. Gemini drops -0.018 with docs present, which the authors attribute to turn budget spent reading docs. This is natural-language docs, not structured cards or contracts."
+    },
+    {
+      "id": "P05",
+      "stance": "neutral",
+      "note": "Retrieval is regex search plus file reads only. It is sufficient for high scores here, but no alternative retrieval is compared."
+    },
+    {
+      "id": "P18",
+      "stance": "neutral",
+      "note": "A single GPT-5.4 rubric judge with no inter-judge or human agreement study (acknowledged). The specificity axis saturates at >=4.78/5 whenever the agent has repository access."
+    },
+    {
+      "id": "P38",
+      "stance": "neutral",
+      "note": "The What/Why/Where/How taxonomy matches the questions a developer asks before writing a spec, but the paper measures answer quality only, not whether discovery improves downstream specs or code."
+    },
+    {
+      "id": "P31",
+      "stance": "introduces",
+      "note": "Automated benchmark synthesis over SWE-bench repositories with a three-condition contamination design."
+    }
+  ],
+  "methodology": {
+    "sample": "528 code-derivable and 100 doc-dependent tasks across 10 pinned SWE-bench Python repositories, balanced 25% per What/Why/Where/How category.",
+    "baselines": "Closed-book (no repository) and documented vs code-only conditions. No alternative agent or retrieval design.",
+    "models": "Claude Opus 4.6 (also the task generator), DeepSeek-V4-Pro, Kimi-K2.6, Gemini-3.1-Pro, all with the same built-in agent (60 turns, 4,096 max tokens). The judge is GPT-5.4.",
+    "variance": "Paired bootstrap CIs over tasks with Bonferroni correction. Single run per model and condition. No judge-repeat variance.",
+    "ablations": "The three conditions, a per-axis breakdown, and a 2-axis composite without specificity (App. I). No identifier-obfuscation ablation (left to future work).",
+    "contamination_controls": "Doc stripping plus a closed-book condition to quantify memorization. The repositories are famous, and closed-book reaches 0.44-0.68.",
+    "languages": "Python only (AST-based doc stripping)."
+  },
+  "standards": {
+    "peer_review": "None stated (arXiv v1).",
+    "limitations_section": true,
+    "artifacts": "The paper says the framework is open-source but gives no URL. The code-only verification prompt is in App. E.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "llm_judge_unvalidated", "detail": "A single GPT-5.4 judge with no human correlation or inter-judge agreement (authors' own limitation)."},
+    {"type": "metric_mismatch", "detail": "Doc-dependent gold answers are derived from the documentation, so 'documentation utility' is measured against doc-authored answers. Specificity saturates and adds no signal in agentic conditions."},
+    {"type": "other:prompt_confound", "detail": "The documented condition tells the agent to search the docs first, while code-only tells it docs were stripped. Condition deltas therefore mix doc presence with instructions."},
+    {"type": "other:generator_evaluatee_overlap", "detail": "Claude Opus 4.6 generates the gold answers and is also evaluated. It leads two of the three conditions."},
+    {"type": "contamination_risk", "detail": "SWE-bench repositories are heavily represented in pretraining. Closed-book scores of 0.44-0.68 show substantial memorization, which inflates every condition."},
+    {"type": "single_language_python", "detail": "Ten Python repositories. The doc-stripping method is Python-AST-specific."},
+    {"type": "closed_artifacts", "detail": "'Open-source' is claimed without a repository link."}
+  ],
+  "coi": {
+    "affiliations": "Baidu Inc.",
+    "vendor_products_evaluated": "Anthropic, DeepSeek, Moonshot and Google models. No Baidu model is evaluated.",
+    "funding": "Not stated.",
+    "severity": "low",
+    "detail": "Vendor affiliation only. The authors do not rank a product of their own."
+  },
+  "scores": {"rigor": 3, "reproducibility": 2, "generalizability": 2, "relevance": 3, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "A useful design idea (closed-book / code-only / documented deltas) with task-level CIs across four models. But the documentation-utility headline is partly built in, because doc-dependent gold answers come from the docs and the documented arm gets a different prompt. The validation delta is self-confirming, gold answers and scoring rest on unvalidated LLMs, and everything is Python on famous repositories.",
+  "applicability": "For onboarding developers who lack domain knowledge, the transferable finding is that a plain tool agent (grep-style search plus file reads, no index) answers What/Where/How questions about large repositories well when it reads the code. Prose documentation mainly adds completeness on rationale and caveat questions, and helps locate features. A codebase-QA agent across the 4+ ingestion repositories is therefore worth piloting before writing agent-facing documentation in bulk. The doc-dependent category (design rationale, deprecations, edge-case caveats) is exactly where healthcare-education domain rules and upstream content-provider contracts live, so code alone will fall short there. That shortfall will likely be larger in private Java code, where models have memorized nothing. The answer-first recipe (an agent explores code, writes an answer with file evidence, then derives the question) is a cheap way to build an onboarding quiz or eval set from the team's own repositories, but answers need human checking: this paper's gold answers were 61.6% 'warn'. Gemini's negative doc effect is a caution against harness prompts that force 'read the docs first' under a turn budget.",
+  "conflicts_with": [
+    {
+      "arxiv_id": "2607.27250",
+      "detail": "Apparent tension. In that paper, delivering AGENTS.md context (always-on or via on-demand wiki) had no detectable effect on patch correctness. Here, documentation significantly improves answers on doc-dependent questions (+0.071). The two reconcile by task type: repository docs help when the needed fact (rationale, caveats) is absent from code, and add about nothing when the code itself suffices, which is the code-derivable result here."
+    }
+  ]
+}

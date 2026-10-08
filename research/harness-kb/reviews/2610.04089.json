@@ -1,0 +1,84 @@
+{
+  "arxiv_id": "2610.04089",
+  "contribution_type": "empirical",
+  "summary": "NYU workshop paper (LMP @ EMNLP 2026) that post-trains Qwen2.5-Coder-7B-Instruct with LoRA PPO-Lagrangian. The policy decides between asking a clarifying question and answering, maximising HumanEvalComm pass@1 subject to a budget on expected questions per episode, while a GPT-4o-mini oracle answers questions from the original spec. At a budget of 0.75 the trained policy (two seeds) asks fewer questions than the untrained model (0.72-0.78 vs 0.856) and passes more tests (+5.8 to +7.1 points). Budgets of 0.25 or below fall below baseline, and budgets above 1.0 add nothing.",
+  "claims": [
+    {
+      "claim": "Untuned clarification behaviour is Pareto-inefficient: a budget-constrained policy achieves higher accuracy with fewer questions.",
+      "evidence": "§5: d1=0.75 is the only budget that Pareto-dominates the baseline in both seeds (pass@1 +5.8 / +7.1 points, both p<0.01; question rate 0.719 / 0.782 vs 0.856, both p<0.01; paired t-tests on 417 held-out instances split by base problem). The only comparator is the same model untrained; there is no prompted 'ask only when needed' baseline and no penalty-based RL baseline, although the paper motivates itself against penalty methods.",
+      "strength": "moderate",
+      "location": "§5, Fig. 1, App. A"
+    },
+    {
+      "claim": "The accuracy-clarification frontier is log-shaped with diminishing returns.",
+      "evidence": "Fig. 1 fits a log curve through five budget levels (two seeds only at 0.5/0.75/1.0); above 1.0 the multiplier is slack and pass@1 is flat. Authors acknowledge the interpolation between budgets is unverified, and one d1=1.0 run violates its budget at test time.",
+      "strength": "weak",
+      "location": "§5, Limitations"
+    },
+    {
+      "claim": "Gains come from better question targeting and code generation, not from asking more.",
+      "evidence": "1Q->1Q episodes: +7.1 points (p<0.001, n=490). But App. C shows zero-question episodes also improve (73.7 -> 81.1% at d1=1.0), slack-budget runs with lambda about 0 also improve, and the Limitations section concedes question quality and code quality are not disentangled. Better code from PPO on HumanEval-family tasks explains part of the gain.",
+      "strength": "weak",
+      "location": "§5, App. C, Limitations"
+    },
+    {
+      "claim": "Trained policies allocate more questions to harder multi-degradation tasks without supervision.",
+      "evidence": "Fig. 2 and Fig. 6 descriptive breakdowns with SEM bars; no test against the baseline's own allocation; small cells (e.g. 3acp) flagged by the authors.",
+      "strength": "weak",
+      "location": "§5, App. C"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P40",
+      "stance": "mixed",
+      "note": "On synthetic HumanEval degradations with one 7B model, training clarification toward zero (d1 <= 0.25) fell below the untrained baseline, while a budget of about 0.75 questions per task Pareto-dominated it, so targeted asking helps and suppressing it hurts in this setting. The comparison is only against the untrained model (no prompted or penalty-RL alternative), and the user is a GPT-4o-mini oracle that answers from the full spec."
+    },
+    {
+      "id": "P25",
+      "stance": "mixed",
+      "note": "PPO-Lagrangian LoRA post-training beats the untrained model, but slack-budget runs (lambda about 0) also gain, so much of the improvement is generic PPO on HumanEval-family tasks. Seed variance is notable (0.683 vs 0.719 at d1=0.5) and there is no penalty-based RL baseline."
+    },
+    {
+      "id": "P24",
+      "stance": "neutral",
+      "note": "Expected question-count budget enforced by a Lagrange multiplier during training only; at evaluation the policy runs free and compliance is checked post hoc (d1=0.25 and one d1=1.0 run violate it)."
+    }
+  ],
+  "methodology": {
+    "sample": "HumanEvalComm: 772 degraded instances; 303 train (64 base problems), 52 validation, 417 held-out test, with all variants of a base problem kept in one split; 7 degradation types.",
+    "baselines": "Untrained Qwen2.5-Coder-7B-Instruct under identical multi-turn protocol only.",
+    "models": "Qwen2.5-Coder-7B-Instruct (LoRA r=16) as policy; GPT-4o-mini (temperature 0) as user simulator.",
+    "variance": "Two seeds at d1 in {0.5, 0.75, 1.0}, one seed elsewhere; paired t-tests and SEM bars; run-to-run differences acknowledged.",
+    "ablations": "Budget sweep over 7 levels; slack-budget runs as an approximate unconstrained-PPO control; no frozen-code-head ablation.",
+    "contamination_controls": "Split by base problem prevents train/test leakage; HumanEval pretraining exposure for Qwen2.5-Coder not discussed.",
+    "languages": "Python."
+  },
+  "standards": {
+    "peer_review": "Accepted to the LMP Workshop at EMNLP 2026 (arXiv comment).",
+    "limitations_section": true,
+    "artifacts": "Code and trained checkpoints on GitHub (github.com/Abhinav0710rajput/coding_llms_cmdp).",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "single_model", "detail": "One 7B policy model."},
+    {"type": "toy_tasks", "detail": "HumanEval functions with synthetic ambiguity, inconsistency and truncation degradations."},
+    {"type": "strawman_baseline", "detail": "Only the untrained model is compared; no prompted selective-clarification or penalty-RL baselines."},
+    {"type": "contamination_risk", "detail": "HumanEval is likely in Qwen2.5-Coder pretraining; not addressed."},
+    {"type": "single_language_python", "detail": "Python only."},
+    {"type": "small_sample", "detail": "Training pool of 303 instances from 64 base problems; two seeds at three budgets."},
+    {"type": "other:simulated_user", "detail": "Deterministic GPT-4o-mini oracle with full-spec access stands in for human answers."}
+  ],
+  "coi": {
+    "affiliations": "Center for Data Science, New York University.",
+    "vendor_products_evaluated": "Qwen2.5-Coder (open weights), GPT-4o-mini as simulator; no affiliation.",
+    "funding": "Not stated.",
+    "severity": "none",
+    "detail": "Academic; no product interest."
+  },
+  "scores": {"rigor": 3, "reproducibility": 4, "generalizability": 1, "relevance": 2, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Clean held-out split, two seeds with paired tests, honest limitations and released code and checkpoints support the narrow claim that one budget-trained 7B policy dominates its untrained self on HumanEvalComm. The comparator is weak, the setting is toy and simulated, and the 'better targeting' explanation is not isolated.",
+  "applicability": "The method does not transfer: the team does not post-train models, since model choice belongs to the agent host and qr stays off the LLM path. Two directional signals are worth a harness default, both untested beyond HumanEval with a simulated user. Never asking hurt. Returns flattened after about one targeted question per ambiguous task. A pre-spec clarification step could therefore start with a small blocking-question budget (one or two questions per ticket, with further questions deferred into a written open-questions list) rather than unbounded questioning, and measure on the team's own tickets whether more questions pay off.",
+  "conflicts_with": []
+}

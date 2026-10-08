@@ -1,0 +1,118 @@
+{
+  "arxiv_id": "2605.18684",
+  "contribution_type": "system",
+  "summary": "Reversa is a Node.js CLI (npx reversa) that installs agent skills for many coding-agent hosts. Its 'Discovery team' (scout, archaeologist, detective, architect, writer, reviewer) reverse-engineers a legacy repo into specs. Each claim is tagged confirmed, inferred or gap, and the outputs include questions.md, gaps.md, code-to-spec traceability matrices and requirements/design/tasks files. The only evaluation is one educational COBOL ATM migrated partly to Go by a single stakeholder. That run produced 517 self-classified claims, 10 gaps, 53 Gherkin scenarios that were not yet executed, and 9 of 11 tasks done. There is no baseline, no accuracy audit, and the model is not reported.",
+  "claims": [
+    {
+      "claim": "Confidence marking separates confirmed behaviour from inference and absence of evidence (internal confidence index 97.1%).",
+      "evidence": "Table 5: 490 confirmed, 24 inferred, 3 gaps, all assigned by the pipeline itself. §5.3 says the index 'should not be interpreted as factual precision, because there was no external audit'. Expert precision is 'Not measured' (Table 3).",
+      "strength": "unsupported",
+      "location": "§3.5, §5.3, Tables 3, 5"
+    },
+    {
+      "claim": "Traceability between code and spec keeps agent-generated specs from hiding uncertainty (RQ2).",
+      "evidence": "Design argument only. Traceability density was 'observed qualitatively', and the 'verification' is an LLM reviewer re-reading code. No check of whether cited evidence actually supports the claims.",
+      "strength": "unsupported",
+      "location": "§3.5, Table 3"
+    },
+    {
+      "claim": "Separating agent roles covers distinct stages of understanding, synthesis, writing and review (RQ3).",
+      "evidence": "There is no comparison against a single agent or a single documentation prompt, and §6 says the decomposition 'does not claim that multiple agents are always superior'.",
+      "strength": "unsupported",
+      "location": "§3.4, §6"
+    },
+    {
+      "claim": "The generated artifacts structured a reconstruction plan and parity tests for the Go migration.",
+      "evidence": "Table 7: 9 of 11 tasks completed. Docker parity was in progress and cutover pending. The 53 Gherkin scenarios had not been executed against the legacy system. It cannot be separated from stakeholder knowledge and domain simplicity (§7).",
+      "strength": "weak",
+      "location": "§5.2-5.3, Tables 6-7"
+    },
+    {
+      "claim": "Registered gaps turned uncertainty into prioritised items resolved by human decision.",
+      "evidence": "Table 6: 10 gaps, of which 5 were resolved by documented human decision, 3 remained residual and 2 were taken out of scope. With a single stakeholder, there is no evidence that these were the right or complete set of gaps.",
+      "strength": "weak",
+      "location": "§5.3, Table 6"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P38",
+      "stance": "introduces",
+      "note": "A dedicated discovery phase (surface map, module analysis, rule extraction, architecture) runs before any spec or migration. There is no comparison with a single prompt, no discovery step, or a static-analysis tool."
+    },
+    {
+      "id": "P39",
+      "stance": "introduces",
+      "note": "Produces a domain model, state machines, data model and dependency artifacts under _reversa_sdd/ for later agents to consume. Neither their accuracy nor their downstream effect is measured."
+    },
+    {
+      "id": "P40",
+      "stance": "introduces",
+      "note": "The reviewer agent consolidates questions.md and gaps.md for the human. Ten gaps were raised and five resolved by human decision. There is no comparison with an agent that does not ask, and no measure of whether the questions were the important ones."
+    },
+    {
+      "id": "P42",
+      "stance": "introduces",
+      "note": "Code-spec and spec-impact matrices, with each claim tagged confirmed, inferred or gap. 'Confirmed' means an LLM found evidence; links are not checked deterministically and there is no human audit."
+    },
+    {
+      "id": "P11",
+      "stance": "introduces",
+      "note": "Six-role discovery team. The authors explicitly disclaim superiority over a single agent. Untested."
+    },
+    {
+      "id": "P14",
+      "stance": "introduces",
+      "note": "Writes requirements.md, design.md and tasks.md for each unit, in the Kiro SDD layout. Not evaluated."
+    },
+    {
+      "id": "P34",
+      "stance": "introduces",
+      "note": "53 Gherkin parity scenarios were derived from the recovered specs, but they had not been executed at inventory time."
+    },
+    {
+      "id": "P01",
+      "stance": "neutral",
+      "note": "Installs host-specific entry files (AGENTS.md, CLAUDE.md, GEMINI.md, rules) and keeps a SHA-256 manifest so user-modified files survive updates."
+    }
+  ],
+  "methodology": {
+    "sample": "One educational COBOL ATM (five modules; size in LOC not reported), single stakeholder, no production use, no pre-existing tests",
+    "baselines": "None. Baselines are proposed (single documentation prompt, agent without specs, conventional documentation tool) but not run",
+    "models": "Not reported; the engine and model used in the case study are not stated",
+    "variance": "None; single run",
+    "ablations": "None",
+    "contamination_controls": "None",
+    "languages": "COBOL with a C helper, migrated to Go"
+  },
+  "standards": {
+    "peer_review": "Preprint",
+    "limitations_section": true,
+    "artifacts": "Tool referenced as an npm package (npx reversa); no repository URL in the paper; case-study artifact package not released",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "self_evaluation", "detail": "The headline 97.1% confidence index is the pipeline grading its own claims."},
+    {"type": "toy_tasks", "detail": "Educational single-user ATM in a simplified banking domain."},
+    {"type": "small_sample", "detail": "One system and one stakeholder."},
+    {"type": "metric_mismatch", "detail": "Claim counts, self-confidence and tasks completed do not measure the accuracy of the specs or their usefulness to an agent. The authors acknowledge this as a construct-validity threat."},
+    {"type": "closed_artifacts", "detail": "Model and engine unreported; no case artifacts released; no repository link."},
+    {"type": "missing_cost_reporting", "detail": "Cost metrics (time, human interactions, review effort) are proposed but none are reported."},
+    {"type": "novelty_inflation", "detail": "'Reverse documentation engineering' renames specification recovery and reverse engineering aimed at agents. The authors acknowledge the lineage."},
+    {"type": "other:no_baseline", "detail": "No comparison of any kind."}
+  ],
+  "coi": {
+    "affiliations": "Federal Institute of Goias; Federal University of Goias (Brazil)",
+    "vendor_products_evaluated": "The authors' own Reversa tool",
+    "funding": "Not stated",
+    "severity": "low",
+    "detail": "Academic authors present their own open tool. No commercial vendor is involved, but the evaluation is entirely self-graded."
+  },
+  "scores": {"rigor": 1, "reproducibility": 1, "generalizability": 0, "relevance": 4, "coi_risk": 1},
+  "verdict": "reject",
+  "verdict_reason": "A design description with one self-graded toy case study, no baseline, an unreported model, and a migration whose parity was never verified. The abstract is honest about this ('we do not claim broad empirical superiority'), but there is no evidence to admit. The design ideas are relevant and worth recording as hypotheses to test.",
+  "applicability": "The design maps directly onto the team's pre-spec discovery need across 4+ Spring repositories. It suggests three artifacts: tag every recovered rule as confirmed (with file:line evidence), inferred, or gap; keep a questions file that routes to domain owners; and keep a code-to-spec matrix. Nothing here shows those artifacts are accurate or help a downstream agent. AgentModernize (2605.17535) found role-split spec extraction lost to a single prompt with strong models, so start with one strong-model discovery pass rather than six roles. If the team adopts the confirmed/inferred/gap scheme, 'confirmed' should be checked deterministically: the cited class or method exists and the cited lines contain the rule, for example via grep, LSP or an AST query. An LLM reviewer re-reading the code is not enough. Java and Spring code (annotations, OpenAPI, JPA mappings) makes such evidence checks easier than COBOL does.",
+  "conflicts_with": [
+    {"arxiv_id": "2605.17535", "detail": "AgentModernize's multi-agent spec-extraction pipeline for COBOL/PL-SQL modernization beat single-prompt baselines only with GPT-4o-mini. With GPT-4o and GPT-5.3-codex a single prompt won. This undercuts Reversa's unmeasured case for role decomposition."}
+  ]
+}

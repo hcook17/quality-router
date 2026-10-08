@@ -1,0 +1,108 @@
+{
+  "arxiv_id": "2607.26390",
+  "contribution_type": "empirical",
+  "summary": "Mixed-methods mining study of security and privacy problems that developers report on Reddit about LLM-native IDEs (Cursor, Claude Code, Codex, Copilot, Windsurf and others). An LLM recall filter plus full manual screening yields 446 posts and 6,280 comments (Jan 2023-Mar 2026). Open coding produces 32 issues in 10 categories (unauthorized file operations 43.1% of security posts, constraint violations such as ignored .cursorignore and allowlists 16.5%, unauthorized secret access, cross-session context leakage) and 13 developer mitigation strategies. The issues are developer-reported, not confirmed vulnerabilities.",
+  "claims": [
+    {
+      "claim": "Developers report 32 security and privacy issues in 10 categories across 16 LIDEs.",
+      "evidence": "Figs 6 and 9, Table 3: 446 manually validated posts (two coders, κ=0.967 on relevance), open plus axial coding anchored to ISO/IEC 27001/29100. Counts are discussion frequency, not incident rates (acknowledged in §7). Only one incident (Copilot reading .env despite restrictions) was reproduced by the authors (Fig. 1).",
+      "strength": "moderate",
+      "location": "§3, Figs 6, 9"
+    },
+    {
+      "claim": "Most issues stem from system-level design choices rather than the underlying LLM.",
+      "evidence": "§5, Fig. 11: '7 out of 10' categories labelled system-level by the authors. This counts categories, not posts, and Reddit posts lack the configuration and root-cause detail needed for this attribution. The attribution procedure is deferred to the replication package.",
+      "strength": "weak",
+      "location": "§5, Fig. 11"
+    },
+    {
+      "claim": "Developers rely on external safeguards (sandboxing, manual review) rather than built-in protections, showing mistrust.",
+      "evidence": "Table 4: 1,318 actionable comments. The most frequent strategy is S1 Secure IDE Configuration (345), which is a built-in control, ahead of manual review (239), version control (232) and sandboxing (105). The 'external rather than built-in' framing is only partly supported; 'mistrust' is interpretation.",
+      "strength": "weak",
+      "location": "§4, Table 4"
+    },
+    {
+      "claim": "Corpus of 1.1M posts from 29 subreddits.",
+      "evidence": "The figure appears only in the abstract and introduction. §2.1 reports downloading 15.4M posts and comments from 46 subreddits; 29 is the number of subreddits contributing to the final 446 posts. The 1.1M figure is never derived in the methods. Smaller inconsistencies: 383 vs 376 LIDE-naming posts, O3 18.2% vs 17.8%.",
+      "strength": "unsupported",
+      "location": "Abstract, §1 vs §2.1, §3.1"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P21",
+      "stance": "mixed",
+      "note": "Existence reports (8.4% 'breaking explicit user constraints', 7.1% unauthorized command execution) of agents bypassing in-host allowlists and .cursorignore via raw filesystem access, plus one author reproduction. No rates and no test of enforcement outside the agent loop. Implies ignore files and allowlists inside the host are not a security boundary."
+    },
+    {
+      "id": "P19",
+      "stance": "neutral",
+      "note": "Developer reports of permission-required settings being ignored mid-session (2.0%), e.g. Claude Code auto-committing. Manual verification is the second most-cited mitigation. Anecdotal; no comparison."
+    },
+    {
+      "id": "P20",
+      "stance": "neutral",
+      "note": "Sandboxing (VMs, containers, dedicated OS users) recommended in 105 comments as a mitigation for destructive actions; not evaluated."
+    },
+    {
+      "id": "P09",
+      "stance": "neutral",
+      "note": "Cross-session leakage (4.6%) and cross-conversation context contamination (4.1%), including a case where findings from one project showed up in another project's FINDINGS.md. Memory/context isolation suggested in 56 comments. Anecdotal."
+    },
+    {
+      "id": "P01",
+      "stance": "neutral",
+      "note": "Users report explicit rules ('NEVER push to GitHub') being ignored. Instruction text is not an enforcement mechanism; no measurement."
+    },
+    {
+      "id": "P04",
+      "stance": "neutral",
+      "note": "MCP server risks and tool poisoning are 2.0% and 2.4% of security posts; the authors call for app-store-style vetting of agents and extensions."
+    }
+  ],
+  "methodology": {
+    "sample": "15.4M posts and comments from 46 subreddits (Jan 2023-Mar 2026) -> 3,801 LLM-flagged -> 446 posts manually retained, plus 6,280 comments.",
+    "baselines": "n/a (qualitative taxonomy study). The LLM filter was audited on 200 balanced unseen posts (recall 1.00, precision 0.21) plus 200 extra LLM-negatives (0 misses).",
+    "models": "GPT-OSS:20B for filtering and mitigation extraction, with every output manually verified (κ=0.99 on mitigation labels, 91 corrections).",
+    "variance": "n/a; inter-rater agreement reported.",
+    "ablations": "none",
+    "contamination_controls": "n/a",
+    "languages": "Tool-agnostic. Posts span all languages; Python-specific dependency anecdotes appear."
+  },
+  "standards": {
+    "peer_review": "Not stated; ACM template placeholders (DOI XXXXXXX, 'Woodstock, NY') indicate a pre-submission draft.",
+    "limitations_section": true,
+    "artifacts": "Zenodo replication package with collected Reddit data, scripts, prompts and codebooks (https://zenodo.org/records/21381379).",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {
+      "type": "selection_bias_participants",
+      "detail": "Reddit posters self-select toward dramatic incidents. Cursor dominates (130 posts) partly because of discussion volume; enterprise users are absent."
+    },
+    {
+      "type": "self_reported_numbers",
+      "detail": "Incidents are developer-reported and unverified; only one was reproduced."
+    },
+    {
+      "type": "metric_mismatch",
+      "detail": "Post percentages measure discussion salience, not vulnerability prevalence, yet §5 draws design priorities from them (e.g. the feature-to-issue mapping in Fig. 12, where ubiquitous features such as DEBUG and AUTOCOMPLETE are confounded with exposure)."
+    },
+    {
+      "type": "hype_language",
+      "detail": "The title quote 'Impossible to hide secret' and 'prevalent mistrust' overstate what discussion counts can show."
+    }
+  ],
+  "coi": {
+    "affiliations": "York University; University of Calgary",
+    "vendor_products_evaluated": "Cursor, Copilot, Claude Code, Codex, Windsurf and others, discussed critically",
+    "funding": "Not stated",
+    "severity": "none",
+    "detail": "Independent academic authors with no vendor ties; findings are critical of all vendors."
+  },
+  "scores": {"rigor": 3, "reproducibility": 4, "generalizability": 3, "relevance": 2, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "A transparent qualitative mining study with good screening reliability and released data, useful as a catalogue of failure modes. But every issue is developer-reported and unconfirmed, the 'system-level not LLM-level' headline rests on category counts, and the abstract's 1.1M/29-subreddit corpus figure does not match the 15.4M/46 reported in the methods.",
+  "applicability": "Not a discovery-method paper, but it constrains how a discovery and knowledge-capture harness should be deployed across the team's 4+ repositories. (1) Exploration and question-answering agents get broad read access, so keep secrets out of the working tree and enforce deny rules at the OS or container level rather than through host ignore files or prompt rules. Agents were reported to bypass .cursorignore and allowlists. (2) Captured knowledge (notes, findings files, memory) must be scoped per repository or project; the paper reports cross-project contamination of a FINDINGS.md. (3) In healthcare-education content, assume anything in agent context may leave the machine unless the host's retention settings are verified.",
+  "conflicts_with": []
+}

@@ -1,0 +1,83 @@
+{
+  "arxiv_id": "2608.12025",
+  "contribution_type": "position",
+  "summary": "Fraunhofer IESE position paper (ISSRE 2026 AISQ workshop) arguing that LLM support for medical-device safety work (ISO 14971, IEC 62304) should be framed as source-linked safety-knowledge support rather than text generation. It summarises a structured but non-systematic review of 90 papers, classified by safety task and dominant method. It then proposes a framework around a 'source-linked safety item' carrying evidence links, assumptions, uncertainty flags, the reviewer's decision and justification, and change history, with mandatory expert review and lifecycle updates. It outlines, but does not run, an evaluation on non-public cases against expert references.",
+  "claims": [
+    {
+      "claim": "Current LLM safety-engineering studies mostly address isolated methods, rely on prompting, and use public examples",
+      "evidence": "Table I: 38 of 90 papers are prompt-engineering-dominant and 26 are discussion papers; only three address medical devices directly. The review is explicitly not systematic; classification is by the authors' judgement with no inter-rater check. The paper list is on Zenodo.",
+      "strength": "moderate",
+      "location": "§III, Table I"
+    },
+    {
+      "claim": "The central research problem is source-linked safety-knowledge support, not safety-text generation",
+      "evidence": "An argument drawn from the review and regulatory requirements; no empirical test.",
+      "strength": "unsupported",
+      "location": "Abstract, §IV"
+    },
+    {
+      "claim": "The framework can reduce search, drafting and consistency-checking effort while keeping experts responsible",
+      "evidence": "No implementation or evaluation; the evaluation plan (prompt-only vs retrieval vs full framework, expert-reference metrics) is future work in the MedSafe project.",
+      "strength": "unsupported",
+      "location": "§V-VII"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P42",
+      "stance": "introduces",
+      "note": "Every generated safety item must link to versioned requirements, design elements, risk controls and verification evidence, and the share of linked items is proposed as a metric. Nothing is implemented or measured."
+    },
+    {
+      "id": "P39",
+      "stance": "introduces",
+      "note": "A structured 'source-linked safety item' schema (Table III), plus knowledge graphs or structured tables for hazards, causes, controls and evidence, given to the LLM as domain context; untested."
+    },
+    {
+      "id": "P19",
+      "stance": "introduces",
+      "note": "Mandatory expert accept, reject, edit, merge or split with a recorded justification, and re-approval after lifecycle changes; untested."
+    },
+    {
+      "id": "P18",
+      "stance": "neutral",
+      "note": "LLM critique, defeater generation and cross-model disagreement are proposed as review aids that 'cannot prove correctness'."
+    },
+    {
+      "id": "P38",
+      "stance": "neutral",
+      "note": "An evidence-intake step gathers requirements, design files, complaints and post-market data before generation; described, not evaluated."
+    }
+  ],
+  "methodology": {
+    "sample": "No experiments; a non-systematic literature review of 90 papers (2023-2026)",
+    "baselines": "None run (planned: prompt-only, retrieval-grounded, full framework)",
+    "models": "None",
+    "variance": "n/a",
+    "ablations": "None",
+    "contamination_controls": "Planned use of non-public or newly built device cases",
+    "languages": "n/a"
+  },
+  "standards": {
+    "peer_review": "ISSRE 2026 AISQ workshop",
+    "limitations_section": false,
+    "artifacts": "List of reviewed papers on Zenodo (doi 10.5281/zenodo.21346684)",
+    "preregistration": "An evaluation plan is outlined but not formally preregistered"
+  },
+  "biases": [
+    {"type": "other:no_evaluation", "detail": "The framework is neither implemented nor tested; the threats to validity cover only the planned evaluation."},
+    {"type": "other:non_systematic_review", "detail": "Screening and method classification were done by the authors without reported inter-rater agreement."}
+  ],
+  "coi": {
+    "affiliations": "Fraunhofer IESE; RPTU Kaiserslautern-Landau",
+    "vendor_products_evaluated": "None",
+    "funding": "Horizon Europe Grant Agreement 101169197",
+    "severity": "none",
+    "detail": "Applied-research institute motivating its own funded MedSafe project; no product evaluated."
+  },
+  "scores": {"rigor": 0, "reproducibility": 1, "generalizability": 1, "relevance": 2, "coi_risk": 0},
+  "verdict": "reject",
+  "verdict_reason": "Position paper with a non-systematic review and an unexecuted evaluation plan; no evidence on any pattern. The proposed artifact schema is sensible but untested.",
+  "applicability": "Not evidence, but the 'source-linked item' schema is a usable template for the team's knowledge-capture step. When an agent or developer records a domain fact or requirement during discovery (for example a content rule from a healthcare-education subject-matter expert), store it with: source document and version, assumptions, uncertainty flag, reviewer decision and justification, and change history. Specs and code can then link back to it, and it can be queued for re-review when the source changes. The team is not under ISO 14971 or IEC 62304, so the regulatory machinery does not transfer.",
+  "conflicts_with": []
+}

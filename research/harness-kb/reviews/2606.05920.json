@@ -1,0 +1,120 @@
+{
+  "arxiv_id": "2606.05920",
+  "contribution_type": "benchmark",
+  "summary": "Asuka-Bench has 50 front-end web tasks built by an LLM pipeline. Each seed request (from a production web-development service, GitHub projects or existing websites) is rewritten into a 'Clarified PRD'. From the PRD come a deliberately vague query, mock data and 784 DAG-ordered browser test criteria. The code agent sees only the vague query. After each round, a GPT-5.4 UI agent runs the hidden criteria in a browser and a GPT-5.4 'User LLM' turns the failures into natural-language feedback, for up to three rounds. Across the reported model-framework configurations (OpenHands, Claude Code), weighted task pass rises from 25-57% at round 1 to 52-90% at round 3. Full-project completion tops out at 52%.",
+  "claims": [
+    {
+      "claim": "The benchmark separates models clearly (38 pp range in weighted Task Pass Rate) and is far from saturated (best Project Completion Rate 52%).",
+      "evidence": "Table 1, with CLT 95% CIs over 50 projects, non-overlapping at the extremes. Each cell is a single run (App. C). GPT-5.4 is both the evaluator and a top-ranked competitor.",
+      "strength": "moderate",
+      "location": "§4.2, Table 1; App. C"
+    },
+    {
+      "claim": "Multi-round refinement from an underspecified query matches and exceeds a fully specified one-shot prompt (RQ1).",
+      "evidence": "Fig. 5 compares three rounds with feedback against one round given the PRD (Claude Code, six models). The budgets differ, and the feedback is synthesized from the hidden test criteria derived from the same PRD, so the grader tells the agent what is missing. There is no PRD-plus-feedback arm. The narrower result is better supported: round 1 on the vague query loses 9-18 pp against the PRD.",
+      "strength": "weak",
+      "location": "§5 RQ1, Fig. 5"
+    },
+    {
+      "claim": "Repair-from-feedback is a separable capability from first-round generation (RQ2).",
+      "evidence": "Illustrated by Kimi-K2.6 (44.3 -> 74.7 -> 86.6) and per-round fix rates (App. E). No correlation statistic is reported, runs are single, and App. E concedes that fix-rate denominators differ across models, so cross-row comparisons are confounded.",
+      "strength": "weak",
+      "location": "§5 RQ2; App. E"
+    },
+    {
+      "claim": "DAG-aware evaluation yields 10.5 pp higher task fix rates while cutting evaluation tokens by 23-26%.",
+      "evidence": "App. A Table 3 compares current DAG runs with Flat numbers 'reported as in the previous version of this work', i.e. different code-agent runs. Flat Seed-2.0-Pro scores 69.6% vs DAG 51.8%, although DAG blocking on identical outputs costs at most 1.6 pp (Table 2). Run-to-run differences therefore exceed the claimed effect. Only 4 models, Claude Code only.",
+      "strength": "weak",
+      "location": "§1 contributions; App. A Tables 2-3"
+    },
+    {
+      "claim": "The automated evaluator aligns with human judgment (93.35% accuracy, 96.52% F1).",
+      "evidence": "RQ3: 50 projects and 3,576 criteria. There is one annotator per criterion, only the final round is annotated, F1 is on the majority Pass class, and no kappa is reported.",
+      "strength": "moderate",
+      "location": "§5 RQ3; App. F"
+    },
+    {
+      "claim": "All tasks are solvable, and feedback adds no noise or regression (saturation analysis).",
+      "evidence": "One model (Claude Sonnet 4.6), one run, eight rounds reaching 100%. The plotted metric is labelled 'cumulative' and its carry-over rule is not defined. If passes accumulate across rounds, a monotone curve is guaranteed by construction and cannot show the absence of regressions.",
+      "strength": "weak",
+      "location": "§4.2 Saturation; Fig. 4"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P34",
+      "stance": "supports",
+      "note": "Comparison at equal rounds (round 1), same model and framework: a Clarified PRD (functional modules plus exception-handling rules) beats the vague query by 9-18 pp for all six Claude Code models (Fig. 5). Caveats: the hidden tests are derived from the same PRD, no CI is given for this contrast, and there is no PRD-plus-feedback arm. So the benefit of up-front acceptance criteria once a feedback loop exists is unmeasured."
+    },
+    {
+      "id": "P16",
+      "stance": "mixed",
+      "note": "Comparison: rounds 2-3 with browser-executed test feedback vs round 1 (one-shot). Weighted pass rises 33-45 pp. But the feedback channel is the hidden grader's own failures, and compute is not matched."
+    },
+    {
+      "id": "P40",
+      "stance": "neutral",
+      "note": "There is no channel for the agent to ask. 'Clarification' arrives only as post-hoc feedback from a simulated user who already holds the full PRD. The round-1 loss of 9-18 pp quantifies the cost of not clarifying, but asking is never an arm."
+    },
+    {
+      "id": "P36",
+      "stance": "introduces",
+      "note": "Developer-defined dependency DAG over acceptance criteria: run in topological order, skip children of failed parents, and send only root-cause failures. The soft threshold T=0.5 is justified by a same-output gap analysis (Table 2). The claimed fix-rate benefit over flat feedback is not isolated, because it is compared with previous-version runs."
+    },
+    {
+      "id": "P18",
+      "stance": "introduces",
+      "note": "A GPT-5.4 browser agent judges the criteria. It is validated against one human annotator per criterion (93.35% accuracy) on round 3 only. The judge model also competes and ranks first on OpenHands."
+    },
+    {
+      "id": "P38",
+      "stance": "neutral",
+      "note": "Agents work from the query and feedback only. There is no existing codebase, documentation or people to explore, and no pre-implementation discovery step is measured."
+    },
+    {
+      "id": "P31",
+      "stance": "introduces",
+      "note": "New interactive web benchmark with LLM-generated PRDs and criteria."
+    }
+  ],
+  "methodology": {
+    "sample": "50 tasks, 784 evaluation tasks, 2,402 expected outcomes, 6 categories weighted to 'our production user traffic'. PRDs, vague queries and criteria are all LLM-generated.",
+    "baselines": "PRD-1R (one round with the full PRD) for six Claude Code models; a Flat feedback protocol from a previous version of the paper.",
+    "models": "GPT-5.4, Gemini-3.1-Pro, Claude-4.6-Sonnet, GLM-5, Kimi-K2.6, Seed-2.0-Pro, MiniMax-M2.7, Qwen3.5-Plus on OpenHands and/or Claude Code. Table 1 also contains two LongCat rows that the text's model list and '13 configurations' count omit.",
+    "variance": "CLT CIs over 50 projects. One run per (model, framework, round) cell.",
+    "ablations": "DAG threshold (T=1.0 vs 0.5 on the same outputs); DAG vs Flat (mismatched runs); PRD vs vague query at round 1.",
+    "contamination_controls": "New tasks. The authors note that future memorization would require refreshing the pool.",
+    "languages": "Front-end web (HTML/CSS/JS frameworks) with mock data; no backend."
+  },
+  "standards": {
+    "peer_review": "Under review (arXiv comment).",
+    "limitations_section": true,
+    "artifacts": "No code or data link. The query-synthesis prompt (App. G) and one full worked task (App. H) are included.",
+    "preregistration": "n/a; the human study is evaluator validation with a single annotator."
+  },
+  "biases": [
+    {"type": "strawman_baseline", "detail": "RQ1 pits three feedback rounds against one PRD round. The feedback is generated from the PRD-derived hidden tests, and no budget-matched PRD arm exists."},
+    {"type": "metric_mismatch", "detail": "The DAG-vs-Flat fix-rate claim compares different agent runs from different paper versions. The 'cumulative' pass metric is used to argue that no regression occurs."},
+    {"type": "other:evaluator_is_competitor", "detail": "GPT-5.4 is the UI judge and the User LLM, and is also a ranked code agent (first on OpenHands)."},
+    {"type": "other:single_run_per_cell", "detail": "CIs reflect task sampling only. Run-to-run variance is unreported and appears large (Flat vs DAG Seed-2.0-Pro)."},
+    {"type": "closed_artifacts", "detail": "No released benchmark data or harness."},
+    {"type": "other:undisclosed_affiliation", "detail": "Most authors are listed as 'Independent researchers', yet the text refers to 'our production web development service', 'our in-house Claude Code sandbox' and 'previous version of this work'. Unreported LongCat rows appear in Table 1."}
+  ],
+  "coi": {
+    "affiliations": "Listed as independent researchers plus USTC. Several author names match the authors of a cited prior benchmark (Fu et al. 2025), and the text describes an in-house production service and sandbox.",
+    "vendor_products_evaluated": "Third-party models, plus two LongCat rows (a Meituan model family) that are not described in the text. LongCat is mid-ranked.",
+    "funding": "Not stated.",
+    "severity": "low",
+    "detail": "There is likely an undisclosed industry affiliation, but the possibly in-house model is not ranked favorably. The concern is about disclosure and task sourcing rather than result inflation."
+  },
+  "scores": {"rigor": 3, "reproducibility": 1, "generalizability": 2, "relevance": 3, "coi_risk": 2},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "A sensible interactive design across 8+ models and 2 frameworks, with task-level CIs and a human-agreement check. However, every headline beyond 'models differ' rests on non-isolating comparisons: 3 feedback rounds vs 1 PRD round, DAG vs Flat across different paper versions, and a cumulative curve offered as proof of no regression. Runs are single, the evaluator is also a competitor, and nothing is released.",
+  "applicability": "For the team's pre-spec harness, the usable number is the round-1 cost of a vague request: 9-18 pp lower pass rate than the same agent given a structured PRD that spells out exception-handling rules. Robustness (edge-case) criteria were the weakest category for every model (App. D). Both support writing acceptance criteria, including failure and edge rules, before implementation. The headline 'iterate instead of specifying' does not transfer. The feedback that rescues vague starts comes from hidden tests written from the full PRD, so someone already had the spec. In ingestion pipelines, where there is no rendered UI to eyeball and a wrong mapping is costly, the equivalent loop needs executable acceptance tests anyway. The DAG-ordered, root-cause-first feedback (report only failures whose prerequisites pass) is a cheap design for multi-step ingestion test suites, but this paper's evidence for it is not isolating. The paper says nothing about agents asking clarifying questions.",
+  "conflicts_with": [
+    {
+      "arxiv_id": "2605.09698",
+      "detail": "Tension on deferring clarification. Ambig-DS finds that an ask-one-question channel improves ambiguous data-science tasks for all five models, because a hidden target or metric cannot be recovered without asking. Asuka-Bench argues that clarification can be deferred to post-output feedback. That only works here because the simulated user's feedback is generated from the full hidden spec."
+    }
+  ]
+}

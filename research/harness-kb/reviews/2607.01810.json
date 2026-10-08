@@ -1,0 +1,53 @@
+{
+  "arxiv_id": "2607.01810",
+  "contribution_type": "empirical",
+  "summary": "Peking University causal study of whether AI coding-agent adoption in open-source projects (proxied by the first commit of a .cursorrules or CLAUDE.md file) affects newcomer participation and code complexity. From 1,888 adopters, 603 with at least 6 months of pre-adoption history are matched 1:3 by propensity score to 1,784 never-adopters (55,666 project-months). Staggered difference-in-differences (Borusyak-Jaravel-Spiess primary; Callaway-Sant'Anna and Sun-Abraham confirmatory) with unit trends, 12-month placebo, honest-DiD sensitivity and power analysis estimates effects on newcomer inflow, first-PR acceptance, retention, good-first-issue labelling, and cyclomatic/cognitive complexity.",
+  "claims": [
+    {"claim": "Agent adoption does not crowd out newcomers; inflow rises modestly.", "evidence": "BJS +5.3% (CI +2.9 to +7.8), SA +4.0%, CS +2.8-3.7%; but unit-trend specification gives -1.5% (n.s.), pre-trend test p=0.075, and honest-DiD bounds include zero ([-0.3, +6.7] at M=0; [-10.3, +18.3] at M=0.5). Supports 'no crowding-out' better than 'increase'.", "strength": "moderate", "location": "§5.1, Tables 4-6"},
+    {"claim": "Newcomer onboarding and retention are unchanged.", "evidence": "First-PR acceptance +2.7pp n.s.; retention +2.2/+1.4pp n.s.; power analysis gives MDE 4.8-4.9pp retention and 5.2pp acceptance, so moderate effects cannot be ruled out. Good-first-issue +27% rests on 92 projects with untestable pre-trends.", "strength": "moderate", "location": "§5.1-5.2"},
+    {"claim": "Agent adoption increases code complexity.", "evidence": "Cyclomatic complexity +4.3 raw, +3.3 trend-robust, but placebo also shows +1.6 (p=0.026); cognitive complexity (Python only, 128/407 projects) +18.5 raw, +10.8 trend-robust, placebo +6.8 (p=0.062). Size measures (+74-86%) dropped because pre-trends were violated.", "strength": "moderate", "location": "§5.3"},
+    {"claim": "Complexity and newcomer participation are decoupled within the same fixed units.", "evidence": "RQ3 restricted to Python projects: inflow +3.4% n.s., retention +5.7/+7.7pp while complexity rises; all-language inflow +3.3%. Decoupling is an absence of a detected negative association, bounded by the stated MDEs.", "strength": "moderate", "location": "§5.4"},
+    {"claim": "The feared trade-off between AI-induced complexity and community health 'does not materialize'.", "evidence": "Overgeneralised from null results in a matched OSS subsample: two-thirds of adopters (born with the tool, <6 months history) are excluded, the full-sample estimate (-11.1% to -16%) is discarded because its pre-trends fail, and power is limited (timing 36-41%).", "strength": "weak", "location": "Abstract, §7"}
+  ],
+  "patterns": [
+    {"id": "P41", "stance": "neutral", "note": "Complexity is a project-level proxy for comprehensibility; no developer comprehension or skill is measured and no safeguard is tested."},
+    {"id": "P32", "stance": "neutral", "note": "Field evidence from public OSS project histories rather than a controlled harness evaluation."},
+    {"id": "P01", "stance": "neutral", "note": "A committed .cursorrules/CLAUDE.md file is used only as the adoption marker, not evaluated as an intervention."},
+    {"id": "P17", "stance": "introduces", "note": "Authors recommend readability/complexity linting on agent-generated code as a mitigation; not evaluated."}
+  ],
+  "methodology": {
+    "sample": "603 adopter projects (first .cursorrules/CLAUDE.md commit, >=6 months pre-history) vs 1,784 PSM-matched never-adopters (1:3, caliper 0.2, star strata); 55,666 project-months.",
+    "baselines": "Matched never-adopter projects; multiple staggered-DiD estimators.",
+    "models": "n/a (observational; agents identified by config-file type).",
+    "variance": "Owner-clustered standard errors, CIs, pre-trend tests, 12-month placebo, honest-DiD bounds, power/MDE analysis.",
+    "ablations": "Estimator choice, unit trends, dose split (light +1.2% n.s. vs heavy +11.0%), Python-only cognitive complexity, full-sample vs restricted.",
+    "contamination_controls": "n/a.",
+    "languages": "Mixed OSS languages; cognitive complexity only for Python; Java a minority with no Java-specific cognitive metric."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint; no venue stated.",
+    "limitations_section": true,
+    "artifacts": "No URL for released code, project lists or panels found in the text.",
+    "preregistration": "none"
+  },
+  "biases": [
+    {"type": "metric_mismatch", "detail": "Adoption = first commit of an agent config file (misses non-committed use, overcounts abandoned files); newcomer = first commit author, which conflates drive-by bots and maintainers' alt accounts."},
+    {"type": "other:sample_restriction", "detail": "About two-thirds of adopters (projects born with the tool) are excluded for lack of pre-history; the full-sample estimate, which is negative (-11% to -16%), is discarded for failing pre-trends, so the headline is about older projects only."},
+    {"type": "other:residual_imbalance", "detail": "Post-matching SMDs remain non-trivial (age -0.20, commits +0.24, trend +0.29); pre-trend p=0.075 for inflow."},
+    {"type": "hype_language", "detail": "Abstract frames null and model-dependent results as 'a causal answer' and says the trade-off 'does not materialize'."}
+  ],
+  "coi": {
+    "affiliations": "Peking University (academic).",
+    "vendor_products_evaluated": "Cursor and Claude Code inferred via config files; no vendor affiliation found.",
+    "funding": "No funding statement found.",
+    "severity": "none",
+    "detail": "Independent academic observational study."
+  },
+  "scores": {"rigor": 4, "reproducibility": 2, "generalizability": 3, "relevance": 2, "coi_risk": 0},
+  "verdict": "admit",
+  "verdict_reason": "Careful modern staggered-DiD design with multiple estimators, placebo, honest-DiD bounds and explicit power analysis; the authors drop measures that fail pre-trends. Main findings (no detectable newcomer harm, modest complexity rise) are supported within their bounds. The final abstract sentence overgeneralises, and relevance to an internal team is limited.",
+  "applicability": "Weak transfer: internal developers on a healthcare-education ingestion team are assigned, not volunteers, so OSS newcomer inflow and retention do not map to onboarding. What transfers is the modest but persistent readability cost of agent-written code, which matters for developers who lack domain knowledge and must read it. A cheap response is a complexity/readability gate in the Spring Boot repos (e.g. cognitive-complexity thresholds on changed methods via local Sonar or PMD) as a pre-merge check on agent changes. This mitigation is untested here, Java is a minority of the sample and no Java cognitive-complexity metric was used.",
+  "conflicts_with": [
+    {"arxiv_id": "2607.26375", "detail": "That study reports individual comprehension loss among agent users; this one finds no project-level participation loss. Different constructs (individual comprehension vs community participation), so this is tension rather than direct contradiction."}
+  ]
+}

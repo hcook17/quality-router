@@ -1,0 +1,65 @@
+{
+  "arxiv_id": "2609.39383",
+  "contribution_type": "empirical",
+  "summary": "Wenzhou University study of how evaluated heuristic programs are converted into GRPO rewards when a small (7B) LLM is post-trained online inside the CALM co-evolutionary automatic heuristic design (AHD) loop for combinatorial optimisation (TSP, CVRP, OBP, OP). It compares four reward mappings against a frozen generator with search held fixed. On TSP with Qwen2.5-7B over three seeds, all trained arms beat the frozen generator at a 500-group horizon, but none dominates, and under timing-derived budgets online updating does not reliably beat simply running more frozen search.",
+  "claims": [
+    {
+      "claim": "Every trained reward mapping improves live search over the frozen generator at a common 500-group horizon.",
+      "evidence": "Table 2 / Fig. 3(b): final best -6.209 (Native), -6.204 (Factorized), -6.196 (Tail-weighted) vs -6.233 (Frozen) on TSP, three seeds each; validity 85-96% vs 60.85%. One task and one model in the efficacy cohort.",
+      "strength": "moderate",
+      "location": "§6 Live-Search Results, Table 2"
+    },
+    {
+      "claim": "No reward mapping uniformly dominates; mappings trade validity, valid-only performance and contextual improvement yield.",
+      "evidence": "Table 2 and §6: Native has best valid-only performance, Tail-weighted best improve yield but lower validity; paired seed directions are mixed.",
+      "strength": "moderate",
+      "location": "§6, Table 2"
+    },
+    {
+      "claim": "Online updating does not reliably beat extra frozen search under resource-matched budgets.",
+      "evidence": "§6: Native and Factorized each beat the time-anchored Frozen prefix in only 1 of 3 seeds (mean diffs -0.0113 and +0.0035); budgets are timing-derived anchors, not exact time matches.",
+      "strength": "moderate",
+      "location": "§6 Checkpoint and Search-State Attribution"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P25",
+      "stance": "mixed",
+      "note": "Online RL of the program generator beats a frozen generator at equal horizon but not reliably at matched compute. The domain is optimisation-heuristic search, not software-engineering agents, so this does not carry over to coding-agent fine-tuning."
+    }
+  ],
+  "methodology": {
+    "sample": "Live efficacy cohort: TSP x Qwen2.5-7B-Instruct x 3 seeds x 500 groups (2,000 completions per run); mechanism audits on 4 tasks; matched updates on 2 tasks x 2 model families, one seed each.",
+    "baselines": "Frozen CALM (no updates) and released Native CALM reward; no other AHD systems by design.",
+    "models": "Qwen2.5-7B-Instruct plus a second 7B family for mechanism probes; rank-32 LoRA.",
+    "variance": "Seed-level mean +- SD over three seeds; no significance tests.",
+    "ablations": "Reward mapping is the manipulated factor; population-reset restarts and time-anchored frozen search for attribution.",
+    "contamination_controls": "n/a (optimisation tasks with executable evaluators).",
+    "languages": "Python heuristics for combinatorial optimisation."
+  },
+  "standards": {
+    "peer_review": "Preprint (arXiv comment: '18 pages, including supplementary material. Preprint').",
+    "limitations_section": true,
+    "artifacts": "arXiv source package only; experiment code, configs and raw records are described as retained but not included.",
+    "preregistration": "Internally pre-specified frozen-search budgets; no public registry."
+  },
+  "biases": [
+    {"type": "small_sample", "detail": "Three seeds on one task-model cell for all efficacy claims."},
+    {"type": "single_model", "detail": "Live efficacy cohort uses only Qwen2.5-7B-Instruct."},
+    {"type": "closed_artifacts", "detail": "Code and run records not publicly released."},
+    {"type": "other:off_topic", "detail": "Automatic heuristic design for combinatorial optimisation; not software development with agents or its human side."}
+  ],
+  "coi": {
+    "affiliations": "Wenzhou University.",
+    "vendor_products_evaluated": "None.",
+    "funding": "Not stated.",
+    "severity": "none",
+    "detail": "Academic; no product interest."
+  },
+  "scores": {"rigor": 3, "reproducibility": 1, "generalizability": 1, "relevance": 0, "coi_risk": 0},
+  "verdict": "reject",
+  "verdict_reason": "Off-topic for this KB: it studies RL reward construction for evolving TSP/CVRP heuristics, not software development with LLM agents or developer knowledge discovery. The experiment is careful (three seeds, held-fixed search, time-anchored frozen baseline, restrained claims), but it carries no evidence for any harness decision the team faces.",
+  "applicability": "None for the discovery and onboarding harness. The team also does not post-train models (model choice belongs to the agent host), so even the general RL-for-code insight does not transfer.",
+  "conflicts_with": []
+}

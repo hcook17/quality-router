@@ -1,0 +1,74 @@
+{
+  "arxiv_id": "2605.25977",
+  "contribution_type": "empirical",
+  "summary": "The authors LoRA-tune Qwen2.5-7B-Base on about 105 expert chain-of-thought annotations of narrative-fiction judgments, produced with their own BC Protocol. They test whether this raises the model's 'sensitivity to literary constraints', measured by a change in conditional mutual information on 20 paired items from their own benchmark. The headline result is from epoch 5, which was chosen after the fact out of seven checkpoints. Their external log-probability check on real published continuations moves the opposite way. This is creative-writing alignment, not software development.",
+  "claims": [
+    {
+      "claim": "Fine-tuning significantly increases sensitivity to literary constraints (Delta(Delta I) +9.58, Wilcoxon one-sided p=0.041, d=0.50, n=20).",
+      "evidence": "§4.1 says the epoch-5 checkpoint was selected 'based on the Wilcoxon p-value and Cohen's d' out of 7 evaluated epochs, with no multiplicity correction. p is about 0.06-0.10 at later epochs (§5.1). The benchmark and the metric's framework are both the authors' own.",
+      "strength": "weak",
+      "location": "Abstract; §4.1, §5.1"
+    },
+    {
+      "claim": "Calibration is domain-selective (factual control null, p=0.689).",
+      "evidence": "The factual control has 20 paired items. The contrast is between one significant and one null test, not a test of the interaction.",
+      "strength": "weak",
+      "location": "§5.1"
+    },
+    {
+      "claim": "By 'architectural duality', calibrating appreciation automatically transfers to generation, which explains why about 100 examples suffice.",
+      "evidence": "Asserted in §6.5. The paper's own external check (§4.5, Table 2) shows the LoRA model's per-token log P on real literary continuations falls by -0.813 [-0.894, -0.731], more than on factual text (-0.670). The authors explain this away instead of treating it as disconfirming. There is no blind evaluation of generation (§6.6).",
+      "strength": "unsupported",
+      "location": "Abstract; §4.5, §6.5, Table 2"
+    },
+    {
+      "claim": "All three tacit-knowledge types must be present in the corpus, and public alignment data under-covers two of them.",
+      "evidence": "§4.3 explicitly refuses to run the ablation. The support offered is literary theory and the domain contrast. The dataset diagnosis is descriptive, with no counts across named datasets.",
+      "strength": "unsupported",
+      "location": "§1.3, §4.3, §5.3"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P25",
+      "stance": "neutral",
+      "note": "LoRA SFT of a creative-writing model on about 100 expert CoTs. Not a coding agent; the only comparison is base vs tuned on a self-built metric."
+    }
+  ],
+  "methodology": {
+    "sample": "About 105 training CoTs (11 held out); evaluation on 20+20 paired items and 20+20 continuation passages",
+    "baselines": "Base model only; commercial comparison deferred to v2",
+    "models": "Qwen2.5-7B-Base (LoRA)",
+    "variance": "Single training run; tests over 20 items; checkpoint chosen by p-value",
+    "ablations": "Refused (§4.3); scale sweep deferred",
+    "contamination_controls": "Continuation passages published after the base model's cutoff (author-verified)",
+    "languages": "Narrative fiction (natural language)"
+  },
+  "standards": {
+    "peer_review": "None (arXiv preprint)",
+    "limitations_section": true,
+    "artifacts": "Training data 'will be released'; not available",
+    "preregistration": "none"
+  },
+  "biases": [
+    {"type": "other:post_hoc_checkpoint_selection", "detail": "The primary checkpoint was picked from 7 by p-value, with no correction."},
+    {"type": "self_evaluation", "detail": "Authors' own benchmark, metric framework and annotation protocol."},
+    {"type": "small_sample", "detail": "n=20 paired items per group; about 100 training examples."},
+    {"type": "single_model", "detail": "One 7B base model, one run."},
+    {"type": "hype_language", "detail": "'Direct evidence', 'mathematical prediction, not an empirical coincidence'."},
+    {"type": "novelty_inflation", "detail": "'Creative Quality Alignment' labels LoRA SFT on expert CoTs."},
+    {"type": "closed_artifacts", "detail": "Data not released."}
+  ],
+  "coi": {
+    "affiliations": "Not stated",
+    "vendor_products_evaluated": "None",
+    "funding": "Not stated",
+    "severity": "none",
+    "detail": "No vendor ties visible. The evaluation relies heavily on the authors' own prior frameworks."
+  },
+  "scores": {"rigor": 1, "reproducibility": 1, "generalizability": 0, "relevance": 0, "coi_risk": 0},
+  "verdict": "reject",
+  "verdict_reason": "Off-topic (creative-writing alignment). Within its own scope, the primary result comes from a checkpoint chosen post hoc with no correction. The ablation is refused, and the paper's own external check contradicts its central transfer claim.",
+  "applicability": "Does not transfer. The title mentions 'tacit knowledge transfer', but this is about fine-tuning a writing model, not about capturing developers' domain knowledge or giving it to coding agents.",
+  "conflicts_with": []
+}

@@ -1,0 +1,116 @@
+{
+  "arxiv_id": "2605.17675",
+  "contribution_type": "position",
+  "summary": "Idaho National Laboratory authors propose governance rules for AI-assisted development under NQA-1 software QA. The rules are commit-level AI-disclosure metadata, issue-linked commits, agent session logs (.jsonl) committed to the repo, a mandatory independent human reviewer, the full V&V suite in CI, and pre-commit hooks for provenance. They are encoded in an AGENTS.md for the open-source TMAP8 fusion code. The demonstration is two validation cases, one built with Claude Code (Opus 4.6) and one with Codex (GPT-5.4). Each was done by a different developer with no controlled comparison, and the report consists of lessons learned.",
+  "claims": [
+    {
+      "claim": "Structured guidance in AGENTS.md reduced hallucination frequency.",
+      "evidence": "No count of hallucinations and no run without AGENTS.md. The two cases used different tools, models and developers. §4.3 itself reports that the agent neglected instructions that were explicitly in AGENTS.md as sessions grew.",
+      "strength": "unsupported",
+      "location": "§4.2; §5"
+    },
+    {
+      "claim": "Agent-assisted development cut a comparable validation case from about 4-5 days to about 6 hours, by a developer with limited familiarity with the physical model.",
+      "evidence": "Single anecdote that compares a different case, developer and era. The authors say it 'is not controlled and should not be interpreted as a rigorous benchmark'. No token, cost or review-time accounting.",
+      "strength": "weak",
+      "location": "§4.1"
+    },
+    {
+      "claim": "Agents reproduce omissions of their source documents, and independent human review is needed to catch them.",
+      "evidence": "Case 1: the agent left out the defect-annihilation term, mirroring an ambiguity in Kobayashi et al., and only human review and testing caught it. Case 2: the agent hallucinated digitized experimental data without expressing doubt, so the data was re-digitized by hand. Both incidents are concrete and traceable to merged PRs, but n=2 and there is no measurement of detection rates.",
+      "strength": "moderate",
+      "location": "§3.1, §4.2"
+    },
+    {
+      "claim": "Non-negotiable provenance requirements are better enforced by git pre-commit hooks than by AGENTS.md instructions.",
+      "evidence": "Based on observed instruction neglect in long sessions (§4.3). No comparison of compliance rates with and without hooks.",
+      "strength": "weak",
+      "location": "§4.3"
+    },
+    {
+      "claim": "The governance practices satisfy specific NQA-1 / PLN-4005 clauses.",
+      "evidence": "Table 1 maps practices to clauses by argument. There is no audit or assessment by a QA authority.",
+      "strength": "weak",
+      "location": "§2, Table 1"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P01",
+      "stance": "introduces",
+      "note": "AGENTS.md is used as the governance spec, with no with/without comparison. The paper's own observations cut both ways: it asserts reduced hallucination but reports that instructions fell out of attention in long sessions. Its fix is to rank instructions by criticality and move hard rules into hooks."
+    },
+    {
+      "id": "P38",
+      "stance": "introduces",
+      "note": "Before /plan, the developer had the agent read the source paper and answer fixed questions: what is observed, which mechanisms govern it, how to represent them in TMAP8. The stated purpose was to verify the agent's comprehension. There is no comparison, and the step did not surface the omitted annihilation term the agent inherited from the source."
+    },
+    {
+      "id": "P42",
+      "stance": "introduces",
+      "note": "Issue-linked commits, AI-involvement metadata and committed session logs give requirement-to-commit provenance. Hooks enforce that the artifacts are present but do not check that the links are correct. The authors observed that AI-written summaries of session logs 'abbreviated or obscured' the agent's decisions. No measurement."
+    },
+    {
+      "id": "P19",
+      "stance": "introduces",
+      "note": "A mandatory independent human reviewer is required by the QA plan. Two anecdotes show humans catching errors that automated checks missed. No comparison."
+    },
+    {
+      "id": "P30",
+      "stance": "introduces",
+      "note": "Raw .jsonl session logs are committed as the audit trail, with notes on storage growth and retention. Not evaluated."
+    },
+    {
+      "id": "P41",
+      "stance": "neutral",
+      "note": "Argues the human must keep subject-matter oversight and that 'the cognitive cost of maintaining scientific oversight ... is not' reduced. Says nothing measured about what the less-familiar developer learned."
+    },
+    {
+      "id": "P16",
+      "stance": "neutral",
+      "note": "The full V&V suite runs in CI as an objective gate. It did not catch the inherited omission."
+    },
+    {
+      "id": "P32",
+      "stance": "neutral",
+      "note": "Real project with merged artifacts, but an uncontrolled two-case report."
+    }
+  ],
+  "methodology": {
+    "sample": "Two validation cases in one repository (TMAP8 on MOOSE); case 2 involved about 70 commits",
+    "baselines": "None. The time comparison is an uncontrolled recollection",
+    "models": "Claude Code with Opus 4.6 (case 1); Codex with GPT-5.4 (case 2). Tool, model, developer and task are all confounded",
+    "variance": "None",
+    "ablations": "None",
+    "contamination_controls": "n/a",
+    "languages": "MOOSE input files, C++, Python scripts"
+  },
+  "standards": {
+    "peer_review": "None indicated (arXiv preprint with supplementary material)",
+    "limitations_section": false,
+    "artifacts": "TMAP8 is open source; AGENTS.md, input files, scripts and .jsonl session logs are linked in merged PRs",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "small_sample", "detail": "Two cases, each by a different developer with a different tool and model."},
+    {"type": "self_evaluation", "detail": "The authors judge their own governance framework on their own code base."},
+    {"type": "self_reported_numbers", "detail": "The 4-5 days vs 6 hours figure is a recollection, not a measurement."},
+    {"type": "hype_language", "detail": "'Dramatically accelerated', 'transformative', 'validated in practice' with no measured outcome."},
+    {"type": "missing_cost_reporting", "detail": "No token, cost or review-effort accounting."},
+    {"type": "other:no_baseline", "detail": "There is no run without AGENTS.md, without hooks, or without the agent."}
+  ],
+  "coi": {
+    "affiliations": "Idaho National Laboratory (DOE)",
+    "vendor_products_evaluated": "Claude Code and Codex used as tools, not compared or promoted",
+    "funding": "INL LDRD (DOE contract DE-AC07-05ID14517)",
+    "severity": "low",
+    "detail": "No vendor ties. The authors maintain TMAP8 and propose and grade their own framework."
+  },
+  "scores": {"rigor": 2, "reproducibility": 3, "generalizability": 1, "relevance": 3, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "The governance claims are unmeasured, and 'AGENTS.md reduced hallucination' is unsupported. The value is a documented field report from a QA-regulated open-source project with public artifacts. It shows concrete failure modes (inherited source omissions, hallucinated data, instructions ignored in long sessions, AI summaries hiding decisions) and a hooks-over-instructions lesson. Admit as hypothesis-level field evidence only.",
+  "applicability": "Several items transfer to a Java multi-repo team working on regulated healthcare-education content. (1) Enforce issue linkage, an AI-disclosure trailer and session-log capture in git hooks and CI, not only in AGENTS.md. This matters more with mixed agent hosts, because each host attends to instruction files differently. (2) A 'read the source and explain it back' step before planning is cheap pre-spec discovery. This case shows it does not catch errors inherited from the source document, so domain owners must check the spec against the source, not against the agent's paraphrase. (3) Do not accept AI-generated summaries of session logs as the audit record. The V&V-with-known-answer property rarely exists for content ingestion, but golden-output comparisons of ingested content can fill a similar role.",
+  "conflicts_with": [
+    {"arxiv_id": "2607.27250", "detail": "That controlled ablation (288 runs, two agents) found no detectable correctness effect from delivering AGENTS.md versus none. This paper's claim that AGENTS.md reduced hallucination rests on no comparison."}
+  ]
+}

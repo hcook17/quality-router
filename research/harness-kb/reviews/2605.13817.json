@@ -1,0 +1,133 @@
+{
+  "arxiv_id": "2605.13817",
+  "contribution_type": "system",
+  "summary": "VeriMed (Stevens Institute of Technology) has Claude Sonnet 4.6 translate 64 hemodialysis-machine safety requirements into one SMT model over a fixed 85-variable typed schema. Z3 then checks it for consistency, vacuousness, violatability and redundancy. The system flags requirements as ambiguous when five sampled formalizations are not SMT-equivalent, and has the LLM rewrite them until the samples agree. It also repairs answers to 65 scenario questions using solver counterexamples. All metrics are self-referential (round-trip consistency, verifier-defined accuracy, encoding disagreement), and no human judges whether the flagged ambiguities or the rewritten requirements are right.",
+  "claims": [
+    {
+      "claim": "Disagreement across independently sampled formalizations, checked by bidirectional SMT equivalence, is a signal of requirement ambiguity.",
+      "evidence": "§2.7, Fig. 6: 12/64 requirements (18.8%) produce more than one inequivalent encoding (N=5, T=1.0). Examples such as the shared 200 mL/min endpoint in r23/r24 are genuinely ambiguous. There is no human-labelled ambiguity set, so neither precision nor recall of the signal is measured, and requirements that are ambiguous but consistently misread by the model would be missed.",
+      "strength": "weak",
+      "location": "§2.1, §2.7, App. C Table 5"
+    },
+    {
+      "claim": "SMT-guided clarification eliminates ambiguity (12 to 0 ambiguity-sensitive requirements; pairwise agreement 44% to 100%).",
+      "evidence": "§2.7: convergence is reached by the same LLM rewriting the requirement 'until repeated formalization converges'. No human answered questions and no expert checked the rewrites. App. C Table 5 shows r3 'at the set rate or set volume' rewritten to 'at exactly the set rate ... while the patient is connected and anti-coagulant delivery is active', which drops one alternative and adds conditions. Convergence measures that the model now reads the text one way, not that the reading is the intended one. The abstract's 'successfully reduces ambiguity-sensitive requirements' depends on this.",
+      "strength": "unsupported",
+      "location": "§2.7, App. C Table 5, App. D"
+    },
+    {
+      "claim": "Concrete SMT counterexamples raise verified QA accuracy from 55.4% to 98.5%, beating requirement-only feedback (80.0%) and generic self-repair (58.5%).",
+      "evidence": "§2.5, Fig. 4: 65 LLM-drafted, manually reviewed questions; one model; one run at T=0; up to 5 repairs. 'Correct' means the verifier finds no counterexample against the LLM-generated SMT model. The repair loop is fed counterexamples from the same verifier that defines correctness, so it optimizes against the grader. The ranking of feedback types is a fair isolating comparison, but the 98.5% is agreement with the model, not ground truth.",
+      "strength": "moderate",
+      "location": "§2.5, Fig. 4"
+    },
+    {
+      "claim": "The pipeline detects requirement faults (97.3% of 256 mutations; 63/64 end-to-end injected defects).",
+      "evidence": "Table 1b and §2.6, with Wilson CIs. Detection means the mutant's encoding differs from the original. There is no negative control (for example, semantics-preserving paraphrases that should not be flagged), so the false-positive rate is unknown. The end-to-end set is dominated by limit (34) and mode-transition (24) mutants, numeric or guard changes that SMT equivalence distinguishes almost by construction.",
+      "strength": "weak",
+      "location": "§2.4, §2.6, Table 1, Fig. 5"
+    },
+    {
+      "claim": "Autoformalization is faithful (64/64 round-trip SMT equivalence; 144/144 on a PCA pump after one repair).",
+      "evidence": "Table 1a, App. A: the same LLM informalizes and re-formalizes under the same schema, so this tests self-consistency. The authors concede faithfulness is not directly measured (§3).",
+      "strength": "weak",
+      "location": "§2.4, App. A, §3"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P40",
+      "stance": "introduces",
+      "note": "Solver-checked disagreement among sampled formalizations is proposed as a trigger for clarification. In the evaluation, though, the 'clarification' is the LLM rewriting the requirement itself, with no question to a human. There is no comparison against asking a stakeholder or against other ambiguity detectors."
+    },
+    {
+      "id": "P35",
+      "stance": "mixed",
+      "note": "SMT audits find structural issues (2/64 redundant) and counterexample feedback outperforms the alternatives. But every success metric is defined by the solver over an LLM-generated model, with no gold formalization or false-positive control."
+    },
+    {
+      "id": "P16",
+      "stance": "mixed",
+      "note": "Isolating comparison of four feedback types (none, generic, violated requirements, requirements plus counterexample) with prompt and model fixed: counterexample feedback wins (98.5% vs 80.0/58.5/55.4). However, accuracy is judged by the same verifier that supplies the feedback; one model, one run, 65 items."
+    },
+    {
+      "id": "P39",
+      "stance": "introduces",
+      "note": "A fixed 85-variable typed schema plus global domain constraints is injected into every prompt so independent formalizations compose. This is effectively a machine-readable data contract, but it is never ablated, and the authors list automated schema construction as future work."
+    },
+    {
+      "id": "P34",
+      "stance": "introduces",
+      "note": "Rewrites requirements into explicit, checkable conditional form (for example, explicit range endpoints). No downstream implementation or test outcome is measured."
+    },
+    {
+      "id": "P42",
+      "stance": "neutral",
+      "note": "Unsat cores and violated-requirement lists link answers back to requirement IDs, but there is no link to code."
+    }
+  ],
+  "methodology": {
+    "sample": "64 hemodialysis safety requirements (one public ABZ case study); 256 generated plus 64 hand-written mutants; 65 scenario QA items; 144-requirement PCA pump for round-trip only.",
+    "baselines": "Only internal feedback variants for QA repair. No other ambiguity detector, no human-written formalization (several exist for this case study in Event-B, Circus and ASM) and no alternative LLM.",
+    "models": "claude-sonnet-4-6 for all generation; claude-haiku-4-5 for answer-to-assignment translation. Single model family.",
+    "variance": "Wilson CIs on binomial rates; no repeated runs or seeds for the QA or audit experiments.",
+    "ablations": "Feedback granularity in CEGR only; schema and domain constraints not ablated.",
+    "contamination_controls": "None; the hemodialysis case study and its formalizations have been public since 2016.",
+    "languages": "Natural-language requirements to SMT-LIB2 (QF linear real arithmetic); Python/Z3 tooling."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint (comment '10'); no venue.",
+    "limitations_section": true,
+    "artifacts": "'Code and data will be released upon acceptance'; partial prompts in App. D, the clarification prompt is deferred to the unreleased code.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {
+      "type": "self_evaluation",
+      "detail": "Round-trip faithfulness, ambiguity convergence and QA accuracy are all judged by the same LLM-plus-solver system that is being evaluated; no human or gold formalization is used."
+    },
+    {
+      "type": "metric_mismatch",
+      "detail": "'Ambiguity resolved' means the model's samples converge after the model rewrote the text, not that the intended meaning was recovered (r3 lost 'or set volume'). 'Verified accuracy' means entailed by the generated model."
+    },
+    {
+      "type": "single_model",
+      "detail": "Claude Sonnet 4.6 for every generation step."
+    },
+    {
+      "type": "small_sample",
+      "detail": "64 requirements from one device and 65 QA items; the authors note real specifications are an order of magnitude larger."
+    },
+    {
+      "type": "other:no_negative_control",
+      "detail": "Mutation detection reports only detected mutants; no semantics-preserving rewrites are tested, so the false-alarm rate of the detector is unknown."
+    },
+    {
+      "type": "closed_artifacts",
+      "detail": "Code and data are withheld until acceptance."
+    }
+  ],
+  "coi": {
+    "affiliations": "Stevens Institute of Technology (both authors).",
+    "vendor_products_evaluated": "Uses Anthropic Claude models and Z3; no vendor affiliation.",
+    "funding": "No acknowledgments or funding statement.",
+    "severity": "none",
+    "detail": "Academic authors evaluating their own pipeline; no commercial interest is evident."
+  },
+  "scores": {
+    "rigor": 2,
+    "reproducibility": 1,
+    "generalizability": 1,
+    "relevance": 3,
+    "coi_risk": 0
+  },
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "The isolating feedback-granularity comparison and the sample-disagreement idea are worth keeping. But the headline ambiguity result is self-referential: the LLM rewrites requirements until its own samples agree, in one case dropping a stated alternative, and no human checks this. QA accuracy is graded by the same verifier that supplies the repair feedback, mutation detection has no false-positive control, and everything uses one model on 64 requirements with code withheld.",
+  "applicability": "One idea is usable for pre-spec requirement clarification: sample several independent formalizations of a requirement and treat disagreement as a reason to ask a human. For a Java ingestion team that could mean executable acceptance tests, JSON-schema constraints or mapping rules for healthcare-education content fields. Two warnings. First, do not let the agent resolve the disagreement by rewriting the requirement itself; this paper shows that silently changes meaning. Send the solver or test witness (the concrete input on which the readings differ) to the requirement owner as the clarifying question. Second, the typed shared schema that made independent formalizations composable is the kind of machine-readable domain contract (P39) worth maintaining for content models. SMT over linear arithmetic fits numeric device limits much better than ingestion mapping rules, so expect to use tests or schema validation as the 'solver' instead.",
+  "conflicts_with": [
+    {
+      "arxiv_id": "2605.09698",
+      "detail": "Ambig-DS finds that LLM agents silently commit to one reading under ambiguity and that recovery needs information from the requester. VeriMed reports ambiguity 'resolved' (12 to 0) by letting the same LLM pick a reading, with no external input, which is the failure mode Ambig-DS measures."
+    }
+  ]
+}

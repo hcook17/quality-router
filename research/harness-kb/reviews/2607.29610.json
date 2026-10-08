@@ -1,0 +1,98 @@
+{
+  "arxiv_id": "2607.29610",
+  "contribution_type": "position",
+  "summary": "Single-author conceptual synthesis (SDAIA, Saudi Arabia) proposing ACCEL, an education framework for 'agentic engineers'. It has five competency pillars (intent specification, orchestration, verification, ethical governance, self-directed learning), three delivery vectors (curricula, collaboration, continuous learning), a delegation-verification teaching loop, staged AI autonomy that depends on demonstrated verification skill, and assessment of judgment rather than artifacts. It cites external evidence on perceived vs measured AI productivity and novice over-reliance, but implements and evaluates nothing.",
+  "claims": [
+    {
+      "claim": "ACCEL mitigates automation bias, deskilling, superficial engagement and diffuse accountability.",
+      "evidence": "§10.2 itself says these are 'design intentions with empirical warrant, not demonstrated effects'. No implementation, pilot or evaluation exists.",
+      "strength": "unsupported",
+      "location": "§10.2, §11"
+    },
+    {
+      "claim": "AI benefits are uneven and misperceived (experienced developers 19% slower yet believing they were 20% faster).",
+      "evidence": "An accurate citation of an external RCT [10] and observational work [11]; not the paper's own evidence.",
+      "strength": "moderate",
+      "location": "§1, §3.1"
+    },
+    {
+      "claim": "Intent specification is an isolable bottleneck: underspecified content, not vocabulary, drives novice prompt failure.",
+      "evidence": "Rests on one cited causal-intervention study of beginning students [53]. Plausible, but a single study of novices, not of professional developers working with agents.",
+      "strength": "weak",
+      "location": "§3.3, §4.1 P1"
+    },
+    {
+      "claim": "Over-reliance produced superficial learning in about two-thirds of 58 studies of AI agents in programming education.",
+      "evidence": "Second-hand figure from a cited review [32]; the inclusion criteria and how 'superficial learning' was coded are not reported here.",
+      "strength": "weak",
+      "location": "§3.3"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P41",
+      "stance": "introduces",
+      "note": "Proposes comprehension and skill safeguards: an AI-restricted 'foundational core' assessment, AI autonomy granted only after verification skill is shown, seeded-defect exercises, and reliance calibration measured against ground truth rather than self-report. Untested; it relies on cited deskilling and illusion-of-competence findings."
+    },
+    {
+      "id": "P14",
+      "stance": "neutral",
+      "note": "Treats intent and specification discipline (constraints, acceptance criteria, guardrails) as the key upstream competency; no evidence about spec-driven agent workflows."
+    },
+    {
+      "id": "P40",
+      "stance": "neutral",
+      "note": "Cites requirement disambiguation as a documented weak point of current agents [4], as an argument for human specification skill; no data on agents asking questions."
+    },
+    {
+      "id": "P19",
+      "stance": "neutral",
+      "note": "Accountability sign-off gates on irreversible integrations in the delegation-verification loop; prescriptive only."
+    }
+  ],
+  "methodology": {
+    "sample": "None. A literature corpus from Scopus, WoS, ACM DL and IEEE Xplore (1983-2026) plus citation chaining; corpus size not reported.",
+    "baselines": "n/a",
+    "models": "n/a",
+    "variance": "n/a",
+    "ablations": "n/a",
+    "contamination_controls": "n/a",
+    "languages": "n/a"
+  },
+  "standards": {
+    "peer_review": "None stated (arXiv preprint).",
+    "limitations_section": true,
+    "artifacts": "none",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {
+      "type": "other:no_primary_evidence",
+      "detail": "A conceptual synthesis with single-author coding and no inter-rater check (acknowledged in §11)."
+    },
+    {
+      "type": "novelty_inflation",
+      "detail": "The 'agentic engineer' and the delegation-verification loop repackage known supervisory-control and human-in-the-loop review ideas (Bainbridge, Parasuraman) under new names."
+    },
+    {
+      "type": "other:self_citation",
+      "detail": "§11 admits a portion of the sources characterising AI-native practice are the author's own recent work, some only as preprints."
+    },
+    {
+      "type": "hype_language",
+      "detail": "'This era's central educational objective', and 'systemic transformation rather than incremental addition' asserted without comparative evidence."
+    }
+  ],
+  "coi": {
+    "affiliations": "Saudi Data and Artificial Intelligence Authority (SDAIA)",
+    "vendor_products_evaluated": "none",
+    "funding": "Not stated",
+    "severity": "none",
+    "detail": "Government AI-authority author with no vendor product evaluated. Self-citation is noted as a bias, not a commercial conflict."
+  },
+  "scores": {"rigor": 1, "reproducibility": 0, "generalizability": 1, "relevance": 3, "coi_risk": 0},
+  "verdict": "reject",
+  "verdict_reason": "Position paper with no implementation or evaluation. Its central mitigation claims are explicitly design hypotheses. It is useful as a structured list of comprehension safeguards to test, but it is not evidence.",
+  "applicability": "Aimed at university curricula, but several hypotheses map onto a team harness that wants to keep developer comprehension while onboarding people who lack healthcare-education domain knowledge. (1) Grant agent autonomy per developer in stages, gated on demonstrated review skill. (2) Keep some no-agent comprehension checks, such as a new developer explaining an ingestion flow before the agent changes it. (3) Measure reliance calibration from logged accept/reject decisions against later test or review outcomes, not self-report. (4) Capture the rationale at the end of each delegation loop as team knowledge. All are untested here. The KB's empirical anchor for the deskilling premise is a separate user study (2607.26375: agent users scored lower on comprehension of their own code), not this paper.",
+  "conflicts_with": []
+}

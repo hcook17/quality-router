@@ -1,0 +1,92 @@
+{
+  "arxiv_id": "2606.06563",
+  "contribution_type": "survey",
+  "summary": "Kitchenham-style review of AI/NLP test-case generation from natural-language requirements (2000 to Oct 2025): 26 primary studies (21 from the PRISMA flow plus 5 from a later supplementary search), nine of them LLM-based. It groups work into formalism, statistical-NLP and hybrid/LLM eras, codes eight hand-picked studies Low/Medium/High on six criteria, and concludes that no approach is simultaneously automated, ambiguity-robust, domain-broad, traceable, well evaluated and hallucination-controlled. It proposes a test-generation hallucination benchmark, a requirements-to-test traceability matrix pipeline, a complexity-stratified benchmark and on-premises deployment blueprints, none of which are built.",
+  "claims": [
+    {
+      "claim": "No existing approach satisfies all six quality dimensions",
+      "evidence": "Table IV codes only 8 purposively selected studies with the authors' own Low/Medium/High judgments; no second coder or agreement statistic; criteria defined after reading the corpus. With 8 studies and 6 trade-off-laden criteria, the result is close to guaranteed.",
+      "strength": "weak",
+      "location": "§VI, Table IV"
+    },
+    {
+      "claim": "Formal traceability is traded for input flexibility: only controlled-input or model-based approaches produce requirements-to-test traceability, and fully generative LLM studies produce none",
+      "evidence": "§VI-D gap finding 1 and §VII-B: NAT2TESTSCR/CPN and UMTG yield traceability artifacts; CiRA keeps partial links; the LLM studies listed report none. Plausible corpus-level observation, but the corpus has only nine LLM studies and stops at Oct 2025.",
+      "strength": "moderate",
+      "location": "§VI-D, §VII-B"
+    },
+    {
+      "claim": "Effective hallucination control requires external anchoring (formal layers, cause-effect graphs, retrieval)",
+      "evidence": "Inferred from the authors' own K6 ratings; the quantitative support is HaluEval (general QA, not test generation) and a 10-document GPT-4 vs Mistral-7B correctness gap, which measures model capability rather than hallucination or anchoring.",
+      "strength": "weak",
+      "location": "§VI-D gap finding 2, §VII-A"
+    },
+    {
+      "claim": "Test-generation accuracy degrades with requirement complexity",
+      "evidence": "Medeshetty et al.: rule-based extraction 95% -> 75% -> 60% by signal count; Korraprolu et al.: six LLMs at most 50.2% MCDC vs ~79% decision coverage. The survey also cites the GPT-4/Mistral-7B gap on identical inputs as a complexity effect, which it is not.",
+      "strength": "moderate",
+      "location": "§V-B, §V-C, §VII-C"
+    },
+    {
+      "claim": "The survey is the first focused, LLM-era-inclusive synthesis of NL-requirements-to-test generation",
+      "evidence": "The core query ANDs three exact phrases ('Test Case Generation', 'Artificial Intelligence', 'Natural Language Requirements'); 5 qualifying studies were missed by it and added later; only nine LLM-based studies are included, CiRA (RoBERTa extraction) is counted among them, and §VI-A is titled 'twenty-one' while analyzing twenty-six.",
+      "strength": "weak",
+      "location": "§I, §III-B to III-D, §VI-A"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P34",
+      "stance": "mixed",
+      "note": "Secondary synthesis, no comparison of its own: structured inputs (CNL, EARS/Rupp boilerplates, RUCM use cases, acceptance criteria) enable deterministic, traceable test derivation in primary studies (UMTG, NAT2TEST, SPECMATE 56% and CiRA 71.8% of manual tests generated in industry) but restrict authoring, and boilerplate extraction falls to 10% on one PURE dataset."
+    },
+    {
+      "id": "P42",
+      "stance": "introduces",
+      "note": "Recommendation R2 proposes an auditable requirements-to-test traceability matrix pipeline; nothing is implemented or evaluated. Reports that no fully generative LLM study in its corpus emits a traceability artifact."
+    },
+    {
+      "id": "P31",
+      "stance": "neutral",
+      "note": "Calls for a test-generation hallucination benchmark and a complexity-stratified benchmark; neither is built."
+    },
+    {
+      "id": "P35",
+      "stance": "neutral",
+      "note": "Formal back-ends (SCR tables, Coloured Petri Nets, OCL constraint solving) appear as the anchoring layer in the most traceable primary studies."
+    }
+  ],
+  "methodology": {
+    "sample": "26 primary studies (539 records -> 136 full texts -> 21 included, plus 5 from a supplementary search outside the PRISMA flow); Table IV codes 8",
+    "baselines": "n/a (survey)",
+    "models": "n/a; primary studies span GPT-3.5/4, Gemini, Claude, LLaMA-3, Mistral, fine-tuned GPT-3.5",
+    "variance": "n/a; no inter-coder agreement for screening, quality scoring or six-criterion coding",
+    "ablations": "n/a",
+    "contamination_controls": "n/a",
+    "languages": "Requirements mostly English (one bilingual German/English study); target test languages vary"
+  },
+  "standards": {
+    "peer_review": "arXiv preprint; no venue stated",
+    "limitations_section": false,
+    "artifacts": "Search string and PRISMA counts given; no extraction sheet, per-study quality scores or coding data released",
+    "preregistration": "none (no registered protocol)"
+  },
+  "biases": [
+    {"type": "cherry_picked_examples", "detail": "Central gap analysis uses 8 purposively chosen studies; the authors assert but do not show that the full corpus agrees."},
+    {"type": "small_sample", "detail": "26 studies over 25 years, nine LLM-based; narrow exact-phrase search."},
+    {"type": "metric_mismatch", "detail": "Compares incommensurable metrics (business-scenario coverage, mutation score, OCL accuracy, coverage) to argue a common ceiling; uses general-QA HaluEval rates for test-generation hallucination."},
+    {"type": "hype_language", "detail": "'First', 'evidence-based', 'strict' framing for a subjective single-team coding exercise."}
+  ],
+  "coi": {
+    "affiliations": "University of North Dakota",
+    "vendor_products_evaluated": "None",
+    "funding": "not stated",
+    "severity": "none",
+    "detail": "Academic survey; no vendor interest."
+  },
+  "scores": {"rigor": 2, "reproducibility": 1, "generalizability": 2, "relevance": 2, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Usable as a pointer list to primary studies (UMTG, CiRA, SPECMATE, RAGTAG, LLM4Fin), but the search is narrow, LLM-era coverage is thin, the headline gap matrix is a subjective coding of 8 hand-picked studies with no second coder, and the hallucination argument leans on non-test-generation evidence. Low weight.",
+  "applicability": "For pre-spec clarification, the useful pointer is that requirement form decides what can be automated and traced later: requirements written as conditionals or acceptance criteria (EARS, cause-effect, Gherkin) yielded tests with links back to requirement IDs in industrial studies, while free-text-to-LLM pipelines produced tests with no link back. A discovery harness should therefore push clarified requirements into structured, ID-bearing form that tests and code can cite. The survey says nothing about discovery, onboarding, Java or multi-repo work, and its LLM coverage ends in Oct 2025.",
+  "conflicts_with": []
+}

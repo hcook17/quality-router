@@ -1,0 +1,103 @@
+{
+  "arxiv_id": "2605.21532",
+  "contribution_type": "tool",
+  "summary": "KTH and Scania authors define rules for non-functional requirements of embedded C modules: permitted external calls, call order, and data-flow restrictions. They add an interface-specification (IS) contract language and VerNFR, a Frama-C plugin that checks a module against its IS contract. A toolchain chains GCC, Frama-C Wp (ACSL functional proofs), Cppcheck MISRA-C and VerNFR as critics on untrusted code. It is applied to two small Scania truck modules (88 and 138 LOC). A side experiment prompts Claude Sonnet 4.6 and GPT-4o to generate the modules, with six 'representative' runs reported.",
+  "claims": [
+    {
+      "claim": "VerNFR and the toolchain can specify and verify module interface contracts and ACSL contracts on real automotive modules.",
+      "evidence": "Table 7: both reference modules compile, all Wp proof obligations are proven (86/86, 80/80), and VerNFR passes. Cppcheck flags MISRA-C violations, which the authors attribute to Scania's tailored rule set. Only two small modules were checked.",
+      "strength": "moderate",
+      "location": "§7.4, Table 7"
+    },
+    {
+      "claim": "Preliminary experiments with two popular LLMs produced implementations that satisfy all verification checks (Introduction).",
+      "evidence": "Table 8 is a 'representative subset' of an unreported number of runs. Only Sonnet 4.6 on SGMM passed every critic. All three SFLD runs timed out in Wp and failed Cppcheck, and GPT-4o on SGMM failed Cppcheck. One run per configuration.",
+      "strength": "weak",
+      "location": "§1; §7.5, Table 8"
+    },
+    {
+      "claim": "Writing IS contracts is cheap compared with functional ACSL specification.",
+      "evidence": "§7.1: self-reported estimate of about one person-day for the IS contract within about two person-weeks per case study. n=2, one verification engineer.",
+      "strength": "weak",
+      "location": "§7.1"
+    },
+    {
+      "claim": "High-quality requirements are likely important for LLM-agent workflows; implicit house conventions are a bottleneck.",
+      "evidence": "§8: SFLD's natural-language requirements were poor and assumed Scania conventions (e.g. RTDB status-field semantics). The authors resolved these by reading the reference implementation and harvested permitted calls from it, noting that an agent generating from the spec would lack this. This is an observation, not a measurement.",
+      "strength": "weak",
+      "location": "§8"
+    },
+    {
+      "claim": "Without the IS contract in the prompt, models often still respected the intended interface because header files carried enough context.",
+      "evidence": "§7.5 and Table 8 report two paired runs (Sonnet on SGMM passed with and without; Sonnet on SFLD failed Wp both ways) plus 'several cases' that are not counted.",
+      "strength": "weak",
+      "location": "§7.5"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P35",
+      "stance": "introduces",
+      "note": "Deductive verification (ACSL + Wp) plus a contract checker gate the generated code. Not compared with test-only or review-only gating."
+    },
+    {
+      "id": "P17",
+      "stance": "introduces",
+      "note": "VerNFR and Cppcheck run as critics. Off-the-shelf MISRA rules failed the human production code because of company rule adaptations, so static gates need local tailoring before they are trusted."
+    },
+    {
+      "id": "P39",
+      "stance": "mixed",
+      "note": "The machine-readable interface contract was given or withheld in the prompt. In the two paired runs reported it made no observable difference, because headers sufficed. Its demonstrated value is as a checkable oracle, not as context. The sample is tiny."
+    },
+    {
+      "id": "P34",
+      "stance": "introduces",
+      "note": "Informal requirements were turned into ACSL contracts. The cost is reported (about two person-weeks per module), which is rare."
+    },
+    {
+      "id": "P42",
+      "stance": "introduces",
+      "note": "Formal contracts are machine-checked against code, a verified spec-to-code link. The link from natural-language requirement to ACSL is manual and unverified."
+    },
+    {
+      "id": "P38",
+      "stance": "neutral",
+      "note": "The humans writing the specs needed to read the existing implementation to resolve ambiguous requirements and find permitted calls. The authors flag that an agent working from the spec alone lacks this context."
+    }
+  ],
+  "methodology": {
+    "sample": "Two proprietary Scania ECU modules (SFLD 88 LOC, SGMM 138 LOC); six reported LLM generations",
+    "baselines": "Human reference implementations; no alternative verification approach compared",
+    "models": "Claude Sonnet 4.6 (AWS Bedrock), GPT-4o",
+    "variance": "None; one run per configuration, and the total number of runs is not reported",
+    "ablations": "IS contract with vs without in the prompt (minimal)",
+    "contamination_controls": "Proprietary modules, unlikely to be in training data",
+    "languages": "C (embedded, MISRA-like subset)"
+  },
+  "standards": {
+    "peer_review": "Acknowledges anonymous reviewers; the artifact is titled 'VerNFR v1.0 for ISoLA 2026'",
+    "limitations_section": false,
+    "artifacts": "VerNFR released on Zenodo; modules, specifications, requirements and prompts not released (proprietary)",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "small_sample", "detail": "Two small modules; six LLM runs."},
+    {"type": "cherry_picked_examples", "detail": "Table 8 is described as a 'representative subset' of an unreported total."},
+    {"type": "no_variance_reported", "detail": "One generation per configuration."},
+    {"type": "metric_mismatch", "detail": "The Cppcheck MISRA verdict, which the authors say does not indicate incorrect behaviour, is used to contrast LLM output with the human reference."},
+    {"type": "closed_artifacts", "detail": "Proprietary modules and specifications; prompts not published."}
+  ],
+  "coi": {
+    "affiliations": "KTH Royal Institute of Technology; TRATON AB / Scania",
+    "vendor_products_evaluated": "The authors' own open-source VerNFR plugin; LLMs used, not promoted",
+    "funding": "Vinnova (FormAI project); Digital Futures at KTH",
+    "severity": "low",
+    "detail": "Industry co-authors on their own code. The tool is open source and not a commercial product."
+  },
+  "scores": {"rigor": 2, "reproducibility": 2, "generalizability": 1, "relevance": 2, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "A sound tool paper on a real industrial target with honest discussion. The LLM side experiment is tiny and cherry-picked, and the introduction's 'satisfy all verification checks' overstates Table 8. Admit for the contract-as-oracle and requirements-quality observations only.",
+  "applicability": "Indirect for a Java Spring team. (1) Module interface rules (allowed cross-module calls and call order) can be written as machine-checkable contracts, in Java via ArchUnit, Spring Modulith or jMolecules. They work as a deterministic gate on agent code across the 4+ repos. Their value here was as a check, not as prompt context. (2) The expensive step was turning poor natural-language requirements with implicit house conventions into precise specs. The humans had to read existing code to resolve them. The team's pre-spec discovery step should explicitly harvest such conventions (status-field meanings, content-model invariants) into a glossary or data contract before an agent writes a spec. (3) Off-the-shelf static rule sets flagged the company's own accepted code, so they need tailoring before they can gate anything.",
+  "conflicts_with": []
+}

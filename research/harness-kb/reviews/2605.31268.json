@@ -1,0 +1,89 @@
+{
+  "arxiv_id": "2605.31268",
+  "contribution_type": "system",
+  "summary": "JetBrains' technical report for Mellum 2, an open-weight 12B Mixture-of-Experts code model with 2.5B active parameters. The architecture was chosen by ablation to match Qwen2.5-7B latency on one H100. Pre-training covered about 10.6T tokens in three phases with Muon/FP8, context was extended to 128K via layer-selective YaRN, and SFT then RLVR produced Instruct and Thinking variants. Evaluation covers function-level coding (LiveCodeBench v6, EvalPlus, MultiPL-E in 7 languages), BFCL tool use, math, knowledge, safety, and a JetBrains-internal pairwise win rate judged by GPT-5.2. No repository-level or agentic software-engineering benchmark is reported.",
+  "claims": [
+    {
+      "claim": "Mellum 2 is a general-purpose SE model spanning code editing, debugging, agentic coding and conversational assistance.",
+      "evidence": "No SWE-bench-family, repository-level or multi-step agentic coding evaluation appears. Agentic trajectories are only part of the SFT mix (§5.1.1), and 'pushing Mellum 2 further into SWE RL' is listed as future work (§7).",
+      "strength": "unsupported",
+      "location": "Abstract; §5.1.1; §5.3; §7"
+    },
+    {
+      "claim": "Competitive with open-weight baselines in the 4B-14B range at 2.5B-dense per-token compute.",
+      "evidence": "Table 9 (instruct): Mellum 2-RL leads EvalPlus (78.4). Qwen3.5-4B beats it on LiveCodeBench (51.0 vs 37.2), BFCL v4 (52.0 vs 44.2), GPQA (76.8 vs 40.9), MMLU-Redux, IFEval and BS-Bench. Table 10 (thinking): it leads LiveCodeBench (SFT 75.1) and BFCL v4 (45.6). All results are a single greedy run with no CIs and no decontamination audit.",
+      "strength": "weak",
+      "location": "§5.3, Tables 9-10"
+    },
+    {
+      "claim": "Matches Qwen2.5-7B single-request speed and delivers 21% higher throughput on one H100.",
+      "evidence": "§6, Fig. 13: 192 vs 193 tokens/s sync; 5,179 tokens/s throughput. A self-run, fixed-container benchmark at a single workload shape (2,304/256 tokens).",
+      "strength": "moderate",
+      "location": "§6"
+    },
+    {
+      "claim": "Each architectural choice was validated by ablation under the inference budget.",
+      "evidence": "§2.1 and App. A describe dense vs MoE, expert sparsity, GQA, SWA and MTP ablations. These are proxy-scale with single runs, and 'our evaluation benchmarks' are not always specified.",
+      "strength": "moderate",
+      "location": "§2.1; App. A"
+    },
+    {
+      "claim": "Leads the panel on JetBrains-style developer interaction (69.5% pairwise win rate).",
+      "evidence": "An internal, unreleased prompt set scored by a GPT-5.2 judge against a Qwen2.5-7B reference. It is not independently checkable.",
+      "strength": "weak",
+      "location": "§5.3 'Conversational'"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P25",
+      "stance": "mixed",
+      "note": "Comparison: same model, SFT vs SFT+RLVR. RL lifts BFCL v3 from 43.1 to 66.3 (instruct) and AIME from 20.0 to 58.4 (thinking), but raises HarmBench harmful rate from 8.4 to 23.1 and lowers BS-Bench from 24 to 18. Single runs."
+    },
+    {
+      "id": "P40",
+      "stance": "neutral",
+      "note": "BS-Bench (false-premise pushback) is 14-24 vs 56-70 for Qwen3.5; the authors say SFT/RL 'leans toward compliance'. This is a proxy for challenging inputs, not a clarifying-question measurement."
+    },
+    {
+      "id": "P31",
+      "stance": "neutral",
+      "note": "No SWE-bench-family evaluation, despite the agentic-coding framing."
+    }
+  ],
+  "methodology": {
+    "sample": "Public benchmark suites (LiveCodeBench v6, EvalPlus, MultiPL-E restricted to 7 of 18 languages, BFCL v3/v4, AIME 2025+2026 = 60 problems, GSM-Plus, MMLU-Redux, GPQA Diamond, IFEval, MixEval, BS-Bench, HarmBench, XSTest) plus an internal pairwise set.",
+    "baselines": "Qwen3.5-4B/9B, OLMo-3-7B, Ministral-3-14B, Seed-Coder-8B. Current and reasonable.",
+    "models": "Mellum 2 SFT/RL x Instruct/Thinking.",
+    "variance": "None; greedy, single run.",
+    "ablations": "Architecture ablations at proxy scale; SFT vs RL checkpoints.",
+    "contamination_controls": "None described beyond citing LiveCodeBench as contamination-resistant.",
+    "languages": "MultiPL-E: C++, Java, PHP, TypeScript, C#, Shell, JavaScript; Python via EvalPlus/LiveCodeBench."
+  },
+  "standards": {
+    "peer_review": "None (vendor technical report).",
+    "limitations_section": false,
+    "artifacts": "Base, instruct and thinking weights (Apache 2.0) on Hugging Face. Training data and the internal pairwise benchmark are not released.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "self_evaluation", "detail": "The vendor evaluates its own model, partly on an internal benchmark it designed."},
+    {"type": "metric_mismatch", "detail": "'Agentic coding' is claimed, but only function-level synthesis and function-calling benchmarks are reported."},
+    {"type": "llm_judge_unvalidated", "detail": "GPT-5.2 judges the pairwise, BS-Bench, HarmBench and XSTest scores, with no agreement check reported."},
+    {"type": "no_variance_reported", "detail": "Single greedy runs; AIME has only 60 problems."},
+    {"type": "contamination_risk", "detail": "No decontamination procedure for a 10.6T-token corpus weighted toward code."},
+    {"type": "closed_artifacts", "detail": "The internal evaluation set and training data are closed."}
+  ],
+  "coi": {
+    "affiliations": "JetBrains (all authors; two also Constructor University).",
+    "vendor_products_evaluated": "Mellum 2, JetBrains' own model, intended for JetBrains IDEs.",
+    "funding": "JetBrains (implied).",
+    "severity": "high",
+    "detail": "A product announcement in report form. The vendor grades its own model, including on an internal benchmark, with no independent replication yet."
+  },
+  "scores": {"rigor": 2, "reproducibility": 2, "generalizability": 2, "relevance": 1, "coi_risk": 4},
+  "verdict": "reject",
+  "verdict_reason": "A vendor model card with no harness, discovery or repository-level evidence. The agentic-coding framing is unevaluated, and results are single-run self-evaluations including an internal judge-scored benchmark.",
+  "applicability": "Nothing here informs the team's pre-spec discovery or onboarding harness. The only link is that a Java team on IntelliJ may meet Mellum-family models in the IDE. The report gives no repository-level or Java-repository evidence. Its weak knowledge scores (GPQA 40.9 instruct) and low false-premise pushback (BS-Bench 14-24) argue against using a small local model as the agent that answers domain questions for newcomers. Model choice is the host's decision under this tree's invariants anyway.",
+  "conflicts_with": []
+}

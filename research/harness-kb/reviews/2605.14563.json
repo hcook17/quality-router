@@ -1,0 +1,137 @@
+{
+  "arxiv_id": "2605.14563",
+  "contribution_type": "system",
+  "summary": "MemDocAgent (Sungkyunkwan University; accepted to NeurIPS 2026) generates hierarchical component-, module- and repository-level documentation in one long agent trajectory. It follows an AST dependency-graph traversal order, reads and writes a shared RepoMemory, and checks each draft by self-evaluation plus NLI-based conflict checks against already-verified neighbouring documents. On 20 Python DevEval repositories, with Qwen3-Coder-30B and GPT-5-mini backbones, it beats RepoAgent, DocAgent, CodeWiki, plain prompting, DeepWiki and Claude Code /init on rule-based completeness, LLM-judged truthfulness and helpfulness, and on regenerating 564 function bodies from the docs alone. No human developer evaluates the documentation.",
+  "claims": [
+    {
+      "claim": "MemDocAgent achieves the best completeness, truthfulness and helpfulness over open- and closed-source baselines.",
+      "evidence": "Table 2a: Qwen3-Coder 0.979/0.916/0.690 vs best baselines; GPT-5-mini 0.958/0.952/0.800. 'Section presence' checks MemDocAgent's own prescribed sections, and closed systems are set to 1.0 by default. Truthfulness and helpfulness come from a single Claude Haiku 4.5 judge; no validation against human ratings appears in the available text (appendices B-C are missing from the extracted full text). Systems emit very different document counts (20 to 3,650), so per-document averages compare different artifacts. Single run, no variance.",
+      "strength": "moderate",
+      "location": "§6.1, Table 2"
+    },
+    {
+      "claim": "Documentation from MemDocAgent is most sufficient for regenerating working code, and adding module and repo docs helps monotonically.",
+      "evidence": "Fig. 3 (no numeric table in the body) and Table 3 (Pass@1 0.461 for Qwen3-Coder). MemDocAgent's system prompt (App. A.2, Table 4) explicitly instructs the agent to 'generate documentation sufficient for a developer to reconstruct a functional implementation from scratch', which is the metric's objective, while baselines were built for other goals. Generated docs beating human docstrings shows the metric rewards implementation-level restatement, not human comprehension. The C to C+M to C+M+R gain is a within-system result.",
+      "strength": "weak",
+      "location": "§5.1, §6.1, Fig. 3, App. A.2"
+    },
+    {
+      "claim": "Each component (think step, RepoMemory, conflict verification) is essential.",
+      "evidence": "Table 3, Qwen3-Coder only: removals cost 6-8 pp completeness, 13.5-14.8 pp truthfulness, 13.4-22.9 pp on regeneration metrics. One backbone, one run. The 'w/o memory' variant clears the cache after every unit, which also removes the verified reference set for conflict checks and the child docs used for module synthesis, so it is closer to a crippled pipeline than an alternative design.",
+      "strength": "weak",
+      "location": "§6.2, Table 3"
+    },
+    {
+      "claim": "Memory eliminates redundant retrieval and reduces cross-document inconsistency by 75.5%.",
+      "evidence": "Fig. 1 (inconsistency judged post hoc by Claude Haiku 4.5) and Fig. 4: read time 23.44 s to 13.76 s and read calls 3.79 to 2.62 per component versus DocAgent, consistent across all 20 repos. The efficiency result is mechanical and credible; the inconsistency figure rests on an unvalidated judge.",
+      "strength": "moderate",
+      "location": "§1 Fig. 1, §6.3 Fig. 4"
+    },
+    {
+      "claim": "MemDocAgent demonstrates practical applicability in real software development workflows (abstract).",
+      "evidence": "No developer study, onboarding task, deployment or time-to-understanding measurement in the body; the only usage proxy is LLM code regeneration on Python functions.",
+      "strength": "unsupported",
+      "location": "Abstract, §7"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P41",
+      "stance": "introduces",
+      "note": "Hierarchical repo/module/component docs are positioned as grounding for human developers, but no human comprehension, onboarding or learning outcome is measured; only LLM judges and LLM code regeneration."
+    },
+    {
+      "id": "P38",
+      "stance": "introduces",
+      "note": "Pre-generated architecture and module docs as discovery material before work starts; no discovery or planning task uses them in the evaluation."
+    },
+    {
+      "id": "P09",
+      "stance": "mixed",
+      "note": "Comparison: shared RepoMemory versus a stateless per-unit cache in the same harness; memory wins by 7.6-22.9 pp. But the ablated variant also loses the conflict-check reference set and child docs, there is one backbone and one run, and the judges are unvalidated in the available text."
+    },
+    {
+      "id": "P07",
+      "stance": "introduces",
+      "note": "AST call/inheritance/import graph with SCC collapsing sets the traversal order and internal retrieval. A traversal-order ablation is cited in an appendix that is not in the available text."
+    },
+    {
+      "id": "P18",
+      "stance": "neutral",
+      "note": "Claude Haiku 4.5 judges truthfulness, helpfulness and cross-document inconsistency for all systems; chosen to differ from the backbones, but agreement with humans is not reported in the available text."
+    },
+    {
+      "id": "P01",
+      "stance": "neutral",
+      "note": "Claude Code /init output is scored as repository documentation; /init produces an agent instruction file (one per repo), so this is a category mismatch, not a fair comparison."
+    },
+    {
+      "id": "P43",
+      "stance": "neutral",
+      "note": "DeepWiki, a repository wiki and Q&A product, is a baseline only for document quality; no question answering is evaluated."
+    }
+  ],
+  "methodology": {
+    "sample": "20 Python repositories stratified from DevEval (10 domains); 3,323 documents per backbone; 564 DevEval function-level tests for regeneration.",
+    "baselines": "Prompting, RepoAgent, DocAgent, CodeWiki (same backbones), DeepWiki and Claude Code /init (closed). Granularities differ by system; closed systems get default section scores.",
+    "models": "Backbones: Qwen3-Coder-30B-A3B and GPT-5-mini. Judge: Claude Haiku 4.5. Regenerators: GPT-4o-mini and Claude Haiku 4.5.",
+    "variance": "No repeated runs, seeds or CIs in the body.",
+    "ablations": "Think, memory and conflict-verify removal (Qwen3-Coder only); memory-architecture, traversal-order, prompt-controlled and hyperparameter ablations are referenced to appendices not present in the extracted text.",
+    "contamination_controls": "None stated; DevEval repositories and their human docstrings are public and may be in the training data of backbones and regenerators.",
+    "languages": "Python in the main results; a 'cross-language generalization' appendix is referenced but not available in the extracted text."
+  },
+  "standards": {
+    "peer_review": "Accepted to NeurIPS 2026 (arXiv comment).",
+    "limitations_section": true,
+    "artifacts": "Code and data on GitHub (bsy99615/MemDocAgent); agent system prompt in App. A.2.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {
+      "type": "metric_mismatch",
+      "detail": "'Information sufficiency' (regenerate the function from the docs) is what MemDocAgent's prompt explicitly optimizes for, and it rewards restating implementation detail; it does not measure whether humans understand the system faster or better."
+    },
+    {
+      "type": "llm_judge_unvalidated",
+      "detail": "Truthfulness, helpfulness and the 75.5% inconsistency reduction rely on one Claude Haiku 4.5 judge; no human agreement is reported in the available text."
+    },
+    {
+      "type": "self_evaluation",
+      "detail": "Section-presence completeness checks the authors' own required sections; closed baselines get a default of 1.0, other baselines are scored against a format they were not built for."
+    },
+    {
+      "type": "strawman_baseline",
+      "detail": "Claude Code /init (an agent instruction file, 20 documents total) is scored as repository documentation against 3,323-document hierarchies."
+    },
+    {
+      "type": "single_language_python",
+      "detail": "All main results are on 20 Python repositories."
+    },
+    {
+      "type": "no_variance_reported",
+      "detail": "Single runs; ablation drops of 13-23 pp from removing a 'think' step are reported without uncertainty."
+    },
+    {
+      "type": "hype_language",
+      "detail": "'Demonstrates practical applicability in real software development workflows' without any developer-facing evaluation."
+    }
+  ],
+  "coi": {
+    "affiliations": "Sungkyunkwan University (South Korea); University of Oslo.",
+    "vendor_products_evaluated": "DeepWiki (Cognition) and Claude Code (Anthropic) as baselines; Qwen and OpenAI backbones. No author affiliation with them.",
+    "funding": "No acknowledgments or funding statement in the extracted text.",
+    "severity": "none",
+    "detail": "Academic authors; the only interest is in their own system winning on metrics they designed."
+  },
+  "scores": {
+    "rigor": 3,
+    "reproducibility": 4,
+    "generalizability": 2,
+    "relevance": 3,
+    "coi_risk": 0
+  },
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Peer-reviewed, released, with a real ablation and a credible retrieval-efficiency result. But quality metrics are an unvalidated LLM judge plus a section check against the authors' own format, the headline regeneration metric is the objective written into the system's prompt, the main results are Python-only single runs, and the claimed benefit to developers is never measured.",
+  "applicability": "Useful as a design reference for generating a discovery or onboarding knowledge base across the team's 4+ ingestion repositories. Order generation along the dependency graph (leaves first, then module, then repo), store verified docs in a shared memory that later steps reuse, and reject new docs whose claims contradict already-verified neighbours. That gives consistent module and architecture pages that new developers and agents can read before a spec. Caveats for the team: (1) it is Python and single-repo; Java's richer static types make the AST graph easier, but cross-repo contracts (shared content schemas, queues, REST contracts) are not modelled; (2) nothing shows humans understand the code faster, so pair it with a comprehension check, for example having a new developer answer questions from the docs; (3) docs written to let an LLM reimplement code may be too low-level for onboarding; (4) the docs are a one-time snapshot, so they need staleness checks in CI (see the context-rot paper 2606.09090) before anyone relies on them.",
+  "conflicts_with": []
+}

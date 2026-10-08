@@ -1,0 +1,60 @@
+{
+  "arxiv_id": "2607.02294",
+  "contribution_type": "benchmark",
+  "summary": "Academic benchmark (UnderSpecBench; HKUST, Tongji, HKUST-Guangzhou) of action-boundary violations when coding agents receive underspecified DevOps instructions. 69 task families across 4 domains and 9 surfaces are expanded into 32 variants each by degrading the Subject (S0-S3), Bound object (B0-B3) and Restriction (R0-R1) slots, giving 2,208 prompts. Runs execute in Docker with real git/make, emulated packaging and mocked kubectl/helm, scored by deterministic oracles for Safe, Wrong-target, Over-scope, Overstep, Under-completion, Ask, Refuse and Defer; a DeepSeek-v4-flash judge (kappa 0.86, n=93) labels Ask/Refuse/Defer. Five agent configurations are tested in full-auto mode: OpenCode with Claude Haiku 4.5, Codex-5.1-mini and DeepSeek-v4; Claude Code with Haiku 4.5; Codex CLI with Codex-5.1-mini.",
+  "claims": [
+    {"claim": "55.8-67.8% of runs violate at least one action boundary.", "evidence": "The abstract says 'of runs' but the introduction (line 104) and Table II show this is the Overstep rate among acted runs (55.7-67.8%). Over all runs the rate is 27.0-46.3%. Table II also has Safe + Overstep + Under summing to 115-121%, inconsistent with the stated Eq. 1-5 partition (Under appears to be computed as not-Intended).", "strength": "weak", "location": "Abstract, §1, Table II"},
+    {"claim": "Underspecifying the target object drives wrong-target and over-scope actions.", "evidence": "Acted-run Safe falls from 67.9% (B0) to 8.6% (B3), Wrong-target rises 9.6% -> 75.1%, Over-scope 31.4% -> 87.0%; controlled within-family manipulation, consistent across configurations.", "strength": "strong", "location": "§5.2, Fig. 4"},
+    {"claim": "The Restriction (blast-radius) slot barely changes behaviour.", "evidence": "Acted-run Safe 42.4% (R0) vs 43.0% (R1); action rate 65.5% vs 64.0%. Only two levels; single runs.", "strength": "moderate", "location": "§5.2"},
+    {"claim": "Asking is target-seeking and strongly modulated by the harness.", "evidence": "Ask rises as the B slot degrades; Codex-5.1-mini asks 31.8% under the Codex CLI vs 10.5% under OpenCode, and Haiku 44.5% (Claude Code) vs 38.3% (OpenCode). Attributing the Codex gap to a 'first-class ask-user tool' is a conjecture; harness prompts and tool lists are not ablated.", "strength": "moderate", "location": "§5.3, Table II"},
+    {"claim": "Over-scope is concentrated on shared control planes (deployment, infrastructure).", "evidence": "Over-scope 59.8% for deployment and 77.2% for infrastructure acted runs; but Table I lists 7 infrastructure families while Limitations says 'only three', and no per-domain uncertainty is reported.", "strength": "weak", "location": "§5.4, Table I, §7"}
+  ],
+  "patterns": [
+    {"id": "P40", "stance": "mixed", "note": "Asking is measured against acting under the same prompts: it rises when the target slot is missing and differs about 3x by harness for the same model, but most underspecified runs still act without asking, and DeepSeek-v4 acts in 83% of runs and almost never asks (1.7%). Asking is not credited as success in the main metric."},
+    {"id": "P34", "stance": "supports", "note": "Controlled slot-wise degradation (B0 vs B3) shows that a fully specified target object raises acted-run Safe from 8.6% to 67.9%. What wins is completeness of the action-object-environment frame, not a particular template format."},
+    {"id": "P19", "stance": "introduces", "note": "Authors recommend human approval before actions on shared control planes; not evaluated (all runs are full-auto)."},
+    {"id": "P21", "stance": "introduces", "note": "Proposes boundary-aware permission policies scoped to target objects; not implemented or evaluated."},
+    {"id": "P20", "stance": "neutral", "note": "Docker sandbox with mocked kubectl/helm is used for measurement only."},
+    {"id": "P18", "stance": "neutral", "note": "DeepSeek-v4-flash judge labels Ask/Refuse/Defer; kappa 0.86 on 93 items."},
+    {"id": "P31", "stance": "introduces", "note": "New benchmark with deterministic boundary oracles."},
+    {"id": "P38", "stance": "neutral", "note": "Agents infer a plausible target from local context (directory names, configs) and bind it confidently; this local-context guessing is the failure mode, but no discovery step is evaluated."}
+  ],
+  "methodology": {
+    "sample": "69 task families x 32 variants (S4 x B4 x R2) = 2,208 prompts per configuration, 4 DevOps domains, 9 surfaces.",
+    "baselines": "Fully specified variant (S0/B0/R0) of each family; cross-harness and cross-model comparisons.",
+    "models": "Claude Haiku 4.5, Codex-5.1-mini, DeepSeek-v4 under OpenCode, Claude Code and Codex CLI (5 configurations); no frontier-size models.",
+    "variance": "Single run per prompt and configuration; no CIs or significance tests.",
+    "ablations": "Slot-level degradation (S, B, R); harness vs model partially crossed. No ablation of harness prompts or ask tools.",
+    "contamination_controls": "Synthetic task families; not discussed.",
+    "languages": "Shell, Makefiles, YAML, packaging and Kubernetes manifests; no application-language code."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint; no venue stated.",
+    "limitations_section": true,
+    "artifacts": "Release is claimed but no URL is given in the text.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "no_variance_reported", "detail": "Single run per prompt; small between-harness differences reported without uncertainty."},
+    {"type": "metric_mismatch", "detail": "Abstract reports the acted-run Overstep rate as a rate 'of runs'; Table II rows do not sum consistently with the defined partition."},
+    {"type": "other:small_models_only", "detail": "Only small or mini tiers (Haiku 4.5, Codex-5.1-mini) plus DeepSeek-v4; frontier models may ask or scope differently."},
+    {"type": "toy_tasks", "detail": "Synthetic DevOps families with mocked kubectl/helm and emulated package managers; full-auto mode removes the human who would normally answer a question."},
+    {"type": "hype_language", "detail": "Title 'Coding Agents Are Guessing' generalises from three small models in a DevOps-only setting."},
+    {"type": "closed_artifacts", "detail": "Benchmark release promised but not linked."}
+  ],
+  "coi": {
+    "affiliations": "HKUST, Tongji University, HKUST (Guangzhou) (academic).",
+    "vendor_products_evaluated": "OpenCode, Claude Code, Codex CLI; Anthropic, OpenAI and DeepSeek models. No vendor affiliation found.",
+    "funding": "No funding statement found.",
+    "severity": "none",
+    "detail": "Independent academic benchmark."
+  },
+  "scores": {"rigor": 3, "reproducibility": 2, "generalizability": 3, "relevance": 3, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "The controlled slot-degradation design gives clean within-family evidence that a missing target object, not a missing blast-radius restriction, drives wrong and over-scoped actions. But the abstract misstates the denominator of its headline rate, Table II has internal inconsistencies, all cells are single runs with small models, and artifacts are not linked.",
+  "applicability": "For the pre-spec harness and ticket templates: require exact identifiers for the action's object (which of the four ingestion repos, which content feed or collection, which environment or Spring profile) before an agent acts; the target slot mattered far more than stated restrictions. Expose an explicit ask-user affordance in every host, and check per host, since the same model asked about 3x more often in one harness than another. Count silent dry-runs and deferrals as non-completion rather than success. Keep human approval on shared control planes (deployments, Spring Cloud Config, message-queue settings). Caveats: DevOps tasks only, small models, single runs, no application code.",
+  "conflicts_with": [
+    {"arxiv_id": "2607.00711", "detail": "ClarifyCodeBench finds Claude-Sonnet-4.5 among the least frequent askers, while Claude Haiku 4.5 asks in 38-45% of runs here; asking propensity is task- and harness-dependent."},
+    {"arxiv_id": "2605.09698", "detail": "Ambig-DS shows prompt wording swings ask rates strongly; UnderSpecBench does not vary prompt policy, so harness-level ask differences may partly be system-prompt effects."}
+  ]
+}

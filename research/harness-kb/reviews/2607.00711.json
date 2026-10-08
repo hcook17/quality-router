@@ -1,0 +1,60 @@
+{
+  "arxiv_id": "2607.00711",
+  "contribution_type": "benchmark",
+  "summary": "Peking University benchmark (ClarifyCodeBench) for whether LLMs ask the right clarifying questions before generating code. 419 LiveCodeBench v6 problems are made ambiguous by deleting 1-3 requirement fragments (199/169/51 tasks), with annotated key questions, ground-truth answers and a 10-type ambiguity taxonomy. Models interact with a simulated user for up to 6 rounds (one question or one code submission per round); a GPT-4o judge decides whether a question matches an annotated key question. Two metrics: Turn-discounted Key Question Rate (TKQR) and Optimal Round Adherence (ORA). Seven model configurations (GPT-4o, GPT-5 thinking, Claude-Sonnet-4.5 with/without thinking, Gemini-2.5-Flash, DeepSeek-V3.2, Qwen3-235B) are evaluated in a single-prompt, single-agent, non-agentic setting.",
+  "claims": [
+    {"claim": "Current LLMs have limited ability to resolve requirement ambiguity through clarification.", "evidence": "Table 3: TKQR 0.07-0.30 and ORA 0.13-0.50 across seven configurations; pass@1 after clarification remains 7.8-19.8 points below the full-specification run. Consistent across models, but measured with one prompt policy, temperature 0, one run, and a judge that credits only annotated key questions.", "strength": "moderate", "location": "§5.1, Table 3"},
+    {"claim": "Reasoning Paradox: more 'thinking' does not improve clarification and can make models less inclined to ask.", "evidence": "Only one paired comparison: Claude-Sonnet-4.5 thinking vs no-thinking has identical TKQR 0.12, ask turns 0.24 vs 0.29, ambiguous pass@1 34.3 vs 38.2 (full 50.0 vs 48.8). GPT-5 is thinking-only with no non-thinking counterpart. A one-model, one-run difference of a few points is presented as a general paradox.", "strength": "weak", "location": "§5.2, Tables 3-4"},
+    {"claim": "Capability Decoupling: strong code-generation performance does not translate to effective clarification.", "evidence": "Rank comparison across seven configurations only; no correlation statistic. DeepSeek-V3.2, among the strongest non-thinking coders in Table 3, is also among the top askers (1.54 ask turns), which partly cuts against the claim. GPT-5's high full-spec pass@1 with moderate TKQR is the main supporting case.", "strength": "weak", "location": "§5.1, Table 3"},
+    {"claim": "Performance degrades sharply as the number of simultaneous ambiguities rises.", "evidence": "Fig. 7: best TKQR about 0.30 for 1 ambiguity, 0.08 for 2, about 0 for 3. Direction is mechanically expected because TKQR requires all key questions within the turn budget; the 3-ambiguity bucket has only 51 tasks.", "strength": "moderate", "location": "§5.3, Fig. 7"},
+    {"claim": "ClarifyCodeBench features high-quality manual annotations including 'N unique ambiguity types'.", "evidence": "The abstract literally says 'N unique ambiguity types' (unfilled placeholder); Table 2 lists 10 types. Annotation is by two PhD students reaching consensus, with no inter-annotator agreement reported. 'High quality' is asserted, not measured.", "strength": "weak", "location": "Abstract, §3.2, Table 2"},
+    {"claim": "Interactive clarification closes much of the gap between ambiguous and full specifications (motivating study).", "evidence": "Fig. 2 bars only (no numbers in text) compare ambiguous, interactive and oracle-clarified prompts; an oracle answering every question favours the clarification channel by construction.", "strength": "weak", "location": "§1, Fig. 2"}
+  ],
+  "patterns": [
+    {"id": "P40", "stance": "mixed", "note": "Comparison exists: Fig. 2 and Table 3 show clarified runs beat the ambiguous no-ask condition on pass@1, so the channel helps when a simulated user answers perfectly. But models rarely ask the right question unprompted (TKQR <= 0.30, mostly ask < 1.3 turns, net Diff negative for 6/7 configs), and thinking mode does not fix it. Simulated oracle user; no real stakeholder."},
+    {"id": "P34", "stance": "neutral", "note": "The 10-type ambiguity taxonomy (Terminology, Units/precision, Ordering and Atomicity, Collection semantics, Edge cases...) could serve as a requirement checklist, but no condition tests a checklist or structured template. The full vs deleted-fragment comparison is tautological (removing information hurts), not evidence for structured requirements."},
+    {"id": "P18", "stance": "neutral", "note": "GPT-4o judge decides whether a model question matches an annotated key question (3 samples, majority); kappa 0.89 reported against humans on a subset of unstated size."},
+    {"id": "P31", "stance": "introduces", "note": "New interactive benchmark derived from LiveCodeBench v6 with turn-discounted metrics (TKQR, ORA)."},
+    {"id": "P38", "stance": "neutral", "note": "Only the dialogue channel is studied; repository exploration, docs lookup and agentic workflows are explicitly out of scope (§6.1), so nothing here informs code/doc discovery before the spec."}
+  ],
+  "methodology": {
+    "sample": "419 LiveCodeBench v6 competitive-programming tasks with 1/2/3 deleted requirement fragments (199/169/51).",
+    "baselines": "Full-specification and ambiguous (no-clarification) runs per model; no comparison against alternative prompting policies, ask-forcing, or checklist-guided clarification.",
+    "models": "GPT-4o, GPT-5 (thinking only), Claude-Sonnet-4.5 (thinking and non-thinking), Gemini-2.5-Flash, DeepSeek-V3.2, Qwen3-235B.",
+    "variance": "Temperature 0, single run per configuration; no CIs or significance tests. Judge sampled 3 times with majority vote.",
+    "ablations": "Number of ambiguities (Fig. 7) and ambiguity type breakdown; thinking on/off only for Claude-Sonnet-4.5. No prompt-policy ablation.",
+    "contamination_controls": "LiveCodeBench v6 chosen for recency, but the original (unambiguous) problems are public and could be recalled, letting a model fill deleted fragments without asking.",
+    "languages": "Python (competitive programming)."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint (v2); no venue stated.",
+    "limitations_section": true,
+    "artifacts": "Code and data at https://github.com/fangz-cs/ClarifyCodeBench per arXiv comment.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "toy_tasks", "detail": "Self-contained competitive-programming puzzles with a single hidden fact deleted; real requirement ambiguity in product work involves stakeholders, domain conventions and existing code."},
+    {"type": "single_language_python", "detail": "All tasks are Python competitive programming; no Java, no multi-file or multi-repo work."},
+    {"type": "no_variance_reported", "detail": "Single temperature-0 run per configuration; 'reasoning paradox' rests on a few-point difference in one model pair."},
+    {"type": "contamination_risk", "detail": "Source problems are public LiveCodeBench items; a model that has seen the original statement can 'resolve' ambiguity from memory."},
+    {"type": "metric_mismatch", "detail": "Only questions matching annotated key questions are credited; other legitimate questions get the scripted reply 'no ambiguity exists', which can actively mislead the model and penalises reasonable but unannotated clarification."},
+    {"type": "other:judge_validation_sample_unreported", "detail": "Judge kappa 0.89 is reported without stating the size or sampling of the human-labelled subset."},
+    {"type": "hype_language", "detail": "'Reasoning Paradox' and 'Capability Decoupling' framed as general findings from seven configurations and one paired model; abstract contains an unfilled 'N unique ambiguity types' placeholder."},
+    {"type": "other:single_prompt_policy", "detail": "One system prompt and one ask/answer protocol; asking propensity is known to swing with prompt wording, so model rankings may reflect the prompt rather than capability."}
+  ],
+  "coi": {
+    "affiliations": "Peking University (academic).",
+    "vendor_products_evaluated": "OpenAI, Anthropic, Google, DeepSeek and Qwen models; no author affiliation with any vendor found. The 'GitHub' vendor signal is arXiv page chrome (code link).",
+    "funding": "No funding statement found.",
+    "severity": "none",
+    "detail": "Academic benchmark authors; only interest is in the benchmark's adoption."
+  },
+  "scores": {"rigor": 3, "reproducibility": 3, "generalizability": 1, "relevance": 3, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Main measurement (low key-question rates, residual gap to full specification) is reported and consistent across seven configurations with released data. But the 'reasoning paradox' and 'capability decoupling' headlines rest on one paired model and rank-eyeballing, the abstract has an unfilled placeholder, every cell is a single run with one prompt policy, and tasks are Python puzzles with deleted sentences.",
+  "applicability": "For the pre-spec harness: do not rely on the model to decide on its own when to ask; models here usually guessed instead of asking, even with thinking on. Add an explicit, mandatory clarification step before spec drafting, driven by a checklist that maps the paper's ambiguity taxonomy to ingestion concerns: Terminology -> healthcare-education glossary terms (credit hours, accreditation bodies, content types); Units/precision -> durations, scores, CE credits; Ordering and Atomicity -> batch vs per-item ingestion and transaction boundaries in the Spring Boot services; Collection semantics -> which items belong to a content set or curriculum; Edge cases -> missing/duplicate source records. Terminology was the most common ambiguity type, which makes a machine-readable glossary (P39) plausible, but the paper does not test that. Evidence is Python puzzles with an oracle user, with no Java, no multi-repo context and no real domain expert, so treat it as motivation, not calibration.",
+  "conflicts_with": [
+    {"arxiv_id": "2605.09698", "detail": "Ambig-DS shows ask rates swing strongly with prompt policy; ClarifyCodeBench uses a single prompt and attributes asking differences to model capability, which may be prompt-dependent."},
+    {"arxiv_id": "2607.02294", "detail": "UnderSpecBench finds Claude Haiku 4.5 asks in 38-45% of runs on underspecified DevOps tasks, whereas Claude-Sonnet-4.5 is among the least frequent askers here (0.24-0.29 ask turns); propensity appears task-, harness- and prompt-dependent."}
+  ]
+}

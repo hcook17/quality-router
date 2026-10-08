@@ -1,0 +1,88 @@
+{
+  "arxiv_id": "2610.00555",
+  "contribution_type": "system",
+  "summary": "Extension of the open-source Tether desktop assistant for software engineers with ADHD (Electron/React + Flask, SQLite conversation memory, FAISS RAG over ADHD literature, Gemini 2.5 Flash, window/idle activity monitoring). It adds four prompt-defined modes: Planner asks clarifying questions and emits a checklist, Builder explains concepts, Detective debugs by guided questioning or direct fixes, and Reviewer handles completion. Evaluation is 16 purposively and snowball-sampled respondents (mostly researchers; 2 disclose ADHD) rating a recorded demo video on Likert items, plus one engineer with ADHD who used it for about two weeks and gave a 25-minute interview.",
+  "claims": [
+    {
+      "claim": "Tether 2.0 supports requirement clarification, task decomposition, incremental implementation, debugging and completion.",
+      "evidence": "The survey instrument (Table I) has no item on requirement clarification, implementation or debugging. Likert means from respondents who watched a demo video: decomposition 4.00, initiation 3.81, overwhelm reduction 3.75, completion 3.31. No task outcomes are measured, and the one end user's quotes concern planning and notifications. The conclusion still says 'Anonymous Tool 2.0', a leftover from blinding.",
+      "strength": "unsupported",
+      "location": "§III-B, §IV-B, Table I, §VI"
+    },
+    {
+      "claim": "Users can maintain progress and resume work after interruptions.",
+      "evidence": "Re-engagement Likert mean 3.63 from video viewers, plus one participant's interview ('positive notifications pushed me back to work'). Perception only; n=1 for actual use.",
+      "strength": "weak",
+      "location": "§IV-B1, §IV-B3"
+    },
+    {
+      "claim": "LLM assistants designed this way can support learning in software development.",
+      "evidence": "Learning is never measured. Respondents raised the opposite concern: juniors may 'implement the provided suggestions and [be] less likely to ask a senior dev' (P06) and 'develop a dependency on the tool' (P09).",
+      "strength": "unsupported",
+      "location": "abstract, §IV-B2"
+    },
+    {
+      "claim": "Perceived distraction risk is comparable to adoption likelihood.",
+      "evidence": "Distraction-risk mean 3.19 vs adoption 3.13, honestly reported; perception from a demo video.",
+      "strength": "weak",
+      "location": "§IV-B1"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P40",
+      "stance": "introduces",
+      "note": "Planner mode asks clarifying questions about goals, scope and technical decisions before producing a checklist. Not evaluated on its own or against any alternative, and no survey item asks about it."
+    },
+    {
+      "id": "P41",
+      "stance": "introduces",
+      "note": "Builder explanations and Detective's guided-questioning 'teaching companion' mode are learning-oriented features. Comprehension and learning are not measured; respondents' only evidence-like content is opinion warning of deskilling and over-reliance for junior developers."
+    },
+    {
+      "id": "P09",
+      "stance": "introduces",
+      "note": "Shared session memory across modes and persisted checklists for resumption; supported only by perception ratings and one user's interview."
+    },
+    {
+      "id": "P13",
+      "stance": "neutral",
+      "note": "Planner produces a time-bounded checklist consumed by the Builder mode; no comparison with unstructured use."
+    }
+  ],
+  "methodology": {
+    "sample": "16 survey respondents (6 SE researchers, 4 psychology/healthcare, 3 HCI, 3 industry/early-career; 2 with disclosed ADHD) who watched a demo video; 1 software engineer with ADHD for about 2 weeks of use plus a 25-minute interview.",
+    "baselines": "None (no comparison with the original Tether, a generic assistant or no tool).",
+    "models": "Gemini 2.5 Flash; Google embedding-001.",
+    "variance": "Likert means only; no dispersion reported in the text.",
+    "ablations": "None.",
+    "contamination_controls": "n/a",
+    "languages": "n/a (tool-agnostic assistant)."
+  },
+  "standards": {
+    "peer_review": "None stated (arXiv preprint, empty comment).",
+    "limitations_section": true,
+    "artifacts": "Code, survey and evaluation data, and demo video on figshare.",
+    "preregistration": "none; institutional ethics approval obtained"
+  },
+  "biases": [
+    {"type": "small_sample", "detail": "One actual user; 16 respondents who only watched a video."},
+    {"type": "selection_bias_participants", "detail": "Purposive and snowball sampling including the authors' institution; 14/16 without disclosed ADHD and mostly researchers rather than practising engineers."},
+    {"type": "self_reported_numbers", "detail": "All quantitative evidence is Likert perception of anticipated usefulness."},
+    {"type": "self_evaluation", "detail": "Authors evaluate their own tool with their own study-specific instrument."},
+    {"type": "metric_mismatch", "detail": "Perceived usefulness from a demo is reported as the tool 'supporting' clarification, debugging and learning."},
+    {"type": "hype_language", "detail": "Abstract: 'results indicate that Tether 2.0 supports requirement clarification ... debugging, and completion' and 'learning', none of which is measured."}
+  ],
+  "coi": {
+    "affiliations": "University of Calgary, University of Hawaii at Manoa, UFRPE, Federal University of Pernambuco.",
+    "vendor_products_evaluated": "Gemini 2.5 Flash used as backend; no affiliation.",
+    "funding": "Not stated.",
+    "severity": "none",
+    "detail": "Academic authors evaluating their own open-source extension; this is a self-evaluation bias, not a vendor conflict."
+  },
+  "scores": {"rigor": 1, "reproducibility": 3, "generalizability": 1, "relevance": 2, "coi_risk": 0},
+  "verdict": "reject",
+  "verdict_reason": "The evaluation is perception of a demo video by mostly non-target respondents plus one end user, with no baseline and no outcome measures. The abstract's headline (supports requirement clarification, debugging, completion and learning) is not measured anywhere in the body. Rigor 1.",
+  "applicability": "No usable evidence for the discovery and onboarding harness. As design inspiration only: a planner mode that asks clarifying questions before producing a checklist, and a 'guided questioning' debugging mode, are cheap prompt-level features a host-agnostic harness could offer to developers new to the healthcare-education domain, but nothing here shows they help. The respondents' worry that juniors over-rely on suggestions instead of asking seniors is consistent with KB evidence on comprehension loss (e.g. 2607.26375). The window-title activity monitoring would also raise privacy concerns in a healthcare organisation.",
+  "conflicts_with": []
+}

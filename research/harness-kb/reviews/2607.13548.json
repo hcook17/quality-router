@@ -1,0 +1,58 @@
+{
+  "arxiv_id": "2607.13548",
+  "contribution_type": "system",
+  "summary": "Two-author industry system paper (QpiAI, India) on root cause analysis over OpenRCA telemetry (Bank, Telecom, Market cloudbed-1/2). Phase 1 has an LLM assign a per-KPI anomaly method (P95, P5, Boolean, ROC) using dataset root-cause patterns; Phase 2 extracts anomalous rows; Phase 3 is a single structured GPT-5.2 call (Enumerate, Cluster, Analyze, Select, Reflect) with tools and a configuration agent. It compares 'domain knowledge ON' (inference rules plus fault taxonomy, curated with Claude Code against labelled windows) and 'OFF' (topology metadata only), a mined-knowledge variant, and baselines (OpenRCA agent, GALA, RCLAgent, causal discovery). An unvalidated reverse-reasoning agent given the ground truth classifies 70 failures.",
+  "claims": [
+    {"claim": "The pipeline outperforms prior methods in both knowledge-on and knowledge-off modes.", "evidence": "Table III Full-match: DK ON 25.71/24.36/36.76/56.86 vs OpenRCA agent 11.43/16.67/27.90/29.41 (CB1/CB2/Bank/Telecom) supports the DK-ON claim. DK OFF 17.14/14.10/27.94/35.29 is below OpenRCA on CB2 (-2.6) and ties on Bank, so 'both modes' does not hold. GALA (2.56) and RCLAgent (0) fail mainly because of exact pod-level matching against service-level outputs; causal-discovery baselines all score 0; the plain-LLM baseline ('12 Full') is text-only; OpsAgent excluded.", "strength": "weak", "location": "§5, Table III"},
+    {"claim": "Domain knowledge is the dominant factor in RCA accuracy.", "evidence": "DK ON vs OFF: +8.6 (CB1), +10.3 (CB2), +8.8 (Bank), +21.6 (Telecom) Full-match; held-out windows (Table VI) mostly retain the gain (Telecom 56.86 -> 51.61, CB1 25.71 -> 23.53, Bank 36.76 -> 38.14). Single run, single model; knowledge was curated against labelled windows from the same datasets.", "strength": "moderate", "location": "§5.2, Tables III, VI"},
+    {"claim": "Automatically mined domain knowledge beats hand-curated knowledge.", "evidence": "CB2 held-out: mined 35.90/55.03 vs curated 24.36/45.63 Full/Partial. One dataset, one split, one run.", "strength": "moderate", "location": "§5.3"},
+    {"claim": "Evidence is usually present; reasoning is the bottleneck.", "evidence": "Table VII on 70 CB1 DK-OFF cases: 20% correct, 40% Type 1, 1.4% Type 2, 38.6% mixed, labelled by a reverse-reasoning LLM agent given the ground truth, with no human validation.", "strength": "weak", "location": "§6, Table VII"},
+    {"claim": "Stronger models will improve results; progress is model-limited.", "evidence": "Table V (Gemma) shows '00.0' in every cell while the caption claims an ordering; prior-window oracle test (Table IV) adds at most +2.56. No cross-model scaling evidence.", "strength": "unsupported", "location": "§5.4, Tables IV-V"}
+  ],
+  "patterns": [
+    {"id": "P39", "stance": "supports", "note": "Same pipeline with vs without inference rules plus fault taxonomy: +8.6 to +21.6 Full-match across four datasets, mostly persisting on held-out windows. Caveats: one model, one run, knowledge curated on labelled windows of the same systems."},
+    {"id": "P26", "stance": "supports", "note": "Rules mined automatically from labelled windows beat hand-curated rules on held-out CB2 (35.90 vs 24.36 Full). One dataset, one split, single run."},
+    {"id": "P36", "stance": "mixed", "note": "Fixed three-phase structured pipeline without domain knowledge vs OpenRCA agent: +5.7 (CB1), +5.9 (Telecom), -2.6 (CB2), tie (Bank)."},
+    {"id": "P11", "stance": "neutral", "note": "Described as agentic/multi-agent, but the core reasoning is a single structured LLM call plus a configuration agent."},
+    {"id": "P18", "stance": "neutral", "note": "Failure taxonomy assigned by an LLM agent that sees the ground truth; no human agreement reported."}
+  ],
+  "methodology": {
+    "sample": "OpenRCA datasets: Market cloudbed-1, cloudbed-2, Bank, Telecom; Table VII error analysis on 70 CB1 cases.",
+    "baselines": "OpenRCA agent, GALA, RCLAgent, causal discovery methods, a plain LLM call; OpsAgent excluded. Several baselines are mismatched to the scoring granularity.",
+    "models": "GPT-5.2 for the main pipeline; Claude Code for knowledge curation; Gemma table empty.",
+    "variance": "Single run; no CIs or seeds.",
+    "ablations": "DK ON/OFF, mined vs curated knowledge, prior-window ground-truth oracle, held-out windows.",
+    "contamination_controls": "Held-out windows (Table VI); OpenRCA is public and may be in training data.",
+    "languages": "n/a (telemetry: metrics, logs, traces)."
+  },
+  "standards": {
+    "peer_review": "arXiv preprint; no venue stated.",
+    "limitations_section": true,
+    "artifacts": "No code, prompts, rules or outputs released.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "single_model", "detail": "All main results use GPT-5.2; the second-model table is empty."},
+    {"type": "no_variance_reported", "detail": "Single run per cell; a few-case difference on CB1 (35 cases) is several points."},
+    {"type": "llm_judge_unvalidated", "detail": "Error taxonomy (Table VII) produced by a ground-truth-aware LLM with no human validation."},
+    {"type": "strawman_baseline", "detail": "GALA and RCLAgent are scored on exact pod-level matches although they output service-level candidates; causal-discovery baselines all 0."},
+    {"type": "closed_artifacts", "detail": "No code, prompts or knowledge files released."},
+    {"type": "missing_cost_reporting", "detail": "Authors state cost is unquantified."},
+    {"type": "other:placeholder_results", "detail": "Table V reports '00.0' in every cell while the caption describes an ordering."},
+    {"type": "novelty_inflation", "detail": "Single structured LLM call framed as an agentic multi-phase system; 'outperforms in both modes' not borne out on two of four datasets."}
+  ],
+  "coi": {
+    "affiliations": "QpiAI (Indian AI company).",
+    "vendor_products_evaluated": "Own RCA pipeline; GPT-5.2 and Claude Code used as tools. No evidence the pipeline is a QpiAI commercial product.",
+    "funding": "No funding statement found.",
+    "severity": "low",
+    "detail": "Industry authors evaluating their own system on a public benchmark; possible product interest, not declared."
+  },
+  "scores": {"rigor": 2, "reproducibility": 0, "generalizability": 2, "relevance": 2, "coi_risk": 1},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "The DK ON vs OFF ablation within one pipeline, including held-out windows, is a usable comparison for the value of explicit domain rules, and mined-vs-curated is an interesting single data point. But results are single-run, single-model and unreleased; baselines are mismatched; one results table is empty; the error taxonomy is unvalidated; and two headline claims (outperforms in both modes, model-limited progress) are not supported. Borderline; kept only for the controlled knowledge ablation.",
+  "applicability": "Transferable lesson for capturing knowledge back: a fault taxonomy plus explicit inference rules given as context helped the same pipeline substantially, and rules mined from labelled historical cases with cited evidence beat hand-curated ones on held-out data. For the ingestion team: mine past ingestion incidents and defect post-mortems into evidence-cited rules (symptom -> likely cause -> check) in a versioned domain-rules file the agent loads during diagnosis and pre-spec discovery, and test on a held-out repo or time window before promoting a rule. Caveats: telemetry RCA rather than code, one model, single run, no released artifacts.",
+  "conflicts_with": [
+    {"arxiv_id": "2607.27250", "detail": "That study finds no detectable correctness effect from AGENTS.md-delivered knowledge on coding tasks, while explicit domain rules here add 9-22 points on RCA; differing task type (diagnosis vs code changes) and knowledge type (inference rules vs repository conventions) likely explain the gap."}
+  ]
+}

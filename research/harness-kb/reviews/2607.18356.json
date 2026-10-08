@@ -1,0 +1,86 @@
+{
+  "arxiv_id": "2607.18356",
+  "contribution_type": "system",
+  "summary": "CODENS scans a Ruby on Rails repository into 1,739 typed skeleton nodes (controller, model, service, policy, ...), then replays pull requests in order: for each changed file GPT-4 receives the diff plus the node's current semantic state (purpose, behavioral_flow, business_logic, relations) and returns schema-validated updates, with per-PR history and provenance; 622 typed edges are added and everything is stored in Neo4j with embeddings. A Streamlit chatbot answers developer questions via vector, multi-hop, or ReAct graph-traversal (GET_NODE/GET_NEIGHBORS/CYPHER) modes. The only evaluation is 11 questions on one client codebase in agent mode, rated by the client's lead developer, with no baseline.",
+  "claims": [
+    {
+      "claim": "CODENS produces highly relevant and well-grounded answers",
+      "evidence": "Table 2: one rater (the client project's lead developer, who also reviewed the questions) gives mean relevance 4.09, completeness 4.45, document relevance 4.91 over 11 questions (arithmetic checks). 'Well-grounded' rests on context precision = 1.00 and faithfulness = 1.00 for all 11 queries from unnamed automatic RAG metrics whose judge model and tool are not stated; a uniform ceiling with no calibration. No comparison to any other answering method.",
+      "strength": "weak",
+      "location": "Abstract; §3, Table 2"
+    },
+    {
+      "claim": "Agent mode produces the most complete answers of the three retrieval modes",
+      "evidence": "Only agent mode is evaluated (§3: 'We focus on the agent mode'); standard vector and multi-hop modes are never scored, so the ordering is asserted, not measured.",
+      "strength": "unsupported",
+      "location": "§2.4"
+    },
+    {
+      "claim": "State injection preserves earlier knowledge so node descriptions accumulate across PRs",
+      "evidence": "Design rationale with a single illustrative controller example; no ablation without state injection and no accuracy check of the LLM-extracted attributes or the 622 edges against the code.",
+      "strength": "weak",
+      "location": "§2.2"
+    },
+    {
+      "claim": "Preliminary observations suggest operational advantages in cost, tokens and response time",
+      "evidence": "Table 2 reports agent-mode costs only (13.6k-64.4k tokens, $0.03-0.14, 11.8-38.5 s, 4-24 steps per query); nothing to compare against. Authors state a comparative benchmark is future work.",
+      "strength": "unsupported",
+      "location": "§4"
+    },
+    {
+      "claim": "The main remaining problem is answer presentation, not retrieval",
+      "evidence": "Table 3 qualitative feedback: most comments say answers are too long, too code-centric, cite code line-by-line, or lack a user-facing flow (page, button). The 'retrieval is fine' half rests on the ceiling automatic metrics above.",
+      "strength": "weak",
+      "location": "§3, Table 3"
+    }
+  ],
+  "patterns": [
+    {"id": "P43", "stance": "introduces", "note": "Repository QA chatbot with a ReAct agent traversing a code knowledge graph. 11 questions, one rater, agent mode only; no comparison against its own vector/multi-hop modes or against plain grep/LSP exploration."},
+    {"id": "P07", "stance": "introduces", "note": "Typed software knowledge graph built from framework conventions plus LLM-extracted relations from PR diffs; graph accuracy never measured."},
+    {"id": "P09", "stance": "introduces", "note": "PR replay with state injection turns history into a persistent per-component memory with provenance (first/last/all PRs). No ablation of state injection."},
+    {"id": "P39", "stance": "introduces", "note": "JSON schema per component type (purpose, behavioral_flow, business_logic, invoked_models) yields machine-readable component cards. The cards are LLM-generated and unverified; no test of whether they help an agent or a developer."},
+    {"id": "P38", "stance": "neutral", "note": "Positioned as living documentation for understanding a legacy codebase, which is a discovery substrate, but never evaluated in a pre-change or pre-spec task."},
+    {"id": "P41", "stance": "neutral", "note": "Rater feedback says answers are too code-centric and not synthetic enough for documentation, which is a comprehension-utility signal from one person."},
+    {"id": "P06", "stance": "neutral", "note": "Vector retrieval (all-mpnet-base-v2) is one mode and seeds the agent; it is not evaluated separately."},
+    {"id": "P42", "stance": "neutral", "note": "Tracks PR-to-component provenance, not requirement-to-code links."},
+    {"id": "P18", "stance": "neutral", "note": "Automatic context precision/faithfulness/answer-relevancy scores (likely LLM-judged; tool unstated) all at or near ceiling; not validated against the human rater."},
+    {"id": "P32", "stance": "neutral", "note": "Single production client codebase, but 11 questions and one evaluator. A pilot, not a field evaluation."}
+  ],
+  "methodology": {
+    "sample": "One confidential production Rails app (~1,700 source files, 1,739 nodes, 622 edges, 'hundreds' of PRs); 11 anonymized questions; one human rater",
+    "baselines": "None. No comparison across CODENS's own three modes, and none against grep/IDE search, plain RAG over files, or an off-the-shelf coding agent",
+    "models": "GPT-4 for extraction; answering LLM not named; all-mpnet-base-v2 embeddings",
+    "variance": "Single run per question; no repeats or intervals",
+    "ablations": "None (no state-injection ablation, no mode comparison)",
+    "contamination_controls": "n/a (private codebase); no check of extracted node content against code",
+    "languages": "Ruby (Rails conventions hard-wired into the 17-type scanner)"
+  },
+  "standards": {
+    "peer_review": "Accepted at ACM DocEng 2026 (short paper)",
+    "limitations_section": false,
+    "artifacts": "None: no code, schema, prompts or questions released; client codebase confidential",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "small_sample", "detail": "11 questions, one rater, one codebase."},
+    {"type": "self_evaluation", "detail": "Authors' own tool. The single rater also vetted the questions; no blinding or second rater."},
+    {"type": "other:no_baseline", "detail": "No comparison condition at all, yet it claims agent mode is the most complete and suggests operational advantages."},
+    {"type": "llm_judge_unvalidated", "detail": "Automatic metrics of unstated provenance are uniformly 1.00 on context precision and faithfulness."},
+    {"type": "single_model", "detail": "GPT-4 only for extraction."},
+    {"type": "closed_artifacts", "detail": "Nothing released."}
+  ],
+  "coi": {
+    "affiliations": "CAPSENS (Paris software agency); all authors",
+    "vendor_products_evaluated": "CODENS, the authors' own tool, evaluated on a CAPSENS client's codebase",
+    "funding": "Not stated",
+    "severity": "medium",
+    "detail": "Agency evaluating its own tool favorably on its own client's project. The rater is the client's lead developer, which is partly independent, but there is no independent replication or comparison."
+  },
+  "scores": {"rigor": 1, "reproducibility": 0, "generalizability": 1, "relevance": 3, "coi_risk": 2},
+  "verdict": "reject",
+  "verdict_reason": "A design description with an 11-question, single-rater pilot and no baseline. Its comparative statements (agent mode most complete, operational advantages) are unmeasured, and the 'well-grounded' headline rests on ceiling automatic metrics of unstated provenance. The PR-replay-with-state-injection idea is a reasonable hypothesis for knowledge capture, but this paper provides no evidence that it works better than alternatives.",
+  "applicability": "The design maps onto Spring Boot conventions (@RestController/@Service/@Repository/@Entity, Kafka listeners) as directly as onto Rails. It suggests a capture-back hook: on PR merge, update a per-component card (purpose, flow, business rule, callers) with provenance, and let onboarding developers or agents query it. Nothing here shows it beats letting the agent grep/LSP the code (2608.01507 found plain semantic retrieval beat agentic search for repo QA). It covers one repository; cross-repo edges across the team's 4+ ingestion repos are not addressed. LLM-written business_logic fields for healthcare-education content need human verification before being trusted as domain context. If prototyped, evaluate the three modes against a grep/Gortex baseline on held-out onboarding questions, and measure card accuracy and staleness.",
+  "conflicts_with": [
+    {"arxiv_id": "2608.01507", "detail": "On SWE-QA, plain semantic (vector) retrieval answered 65.2% vs 46.2% for deep agentic search at under half the cost. CODENS asserts its agentic traversal mode gives the most complete answers without ever scoring it against its own vector mode."}
+  ]
+}

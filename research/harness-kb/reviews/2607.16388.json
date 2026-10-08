@@ -1,0 +1,38 @@
+{
+  "arxiv_id": "2607.16388",
+  "contribution_type": "system",
+  "summary": "Meta and Binghamton authors describe a three-agent pipeline (bill-of-materials domain classifier, failure-mode extractor, test-case author) that turns hardware self-healing validation documents and bills of materials into structured fault-injection test plans for two production AI-datacenter rack platforms. The plans add 23 and 19 generated cases to 31 and 37 extracted spec entries, reported as '+74.2% / +51.4% coverage'. A three-Claude judge panel passes 75-83% of the additions, and one engineer per platform accepts 18/23 and 13/19. This is hardware validation, not software development; the generator model, prompts and data are proprietary.",
+  "claims": [
+    {"claim": "Coverage expansions of 74.2% and 51.4% over manually authored baselines", "evidence": "Table IV: test-case counts 31 -> 54 and 37 -> 56. The 'baseline' is the framework's own extraction of the input document, so the increase is non-negative by construction, and no failure-mode or component coverage metric is computed. Counting only human-accepted additions gives +58% and +35%.", "strength": "weak", "location": "§V-A, Table IV"},
+    {"claim": "100% extraction fidelity for existing specifications", "evidence": "Fig. 4: judged only by the three Claude reviewers (31/31, 37/37 in all replications); human annotators reviewed only generated entries.", "strength": "weak", "location": "§V-A, Fig. 4"},
+    {"claim": "Authoring burden reduced from days to hours", "evidence": "No timing, effort or cost measurement appears anywhere in the body; the claim is asserted in the abstract and §V-A prose.", "strength": "unsupported", "location": "Abstract, §V-A"},
+    {"claim": "High expert acceptance of new scenarios, and the LLM judge panel is calibrated to experts", "evidence": "Table VI: 18/23 (78.3%) and 13/19 (68.4%) accepted. §IV-C promises two annotators and inter-annotator agreement, but §V-B reports one engineer per platform and no agreement figure. Calibration is inferred only from aggregate rates falling inside the judge range; no item-level human-LLM agreement is given.", "strength": "weak", "location": "§IV-C, §V-B, Table VI, Fig. 10"},
+    {"claim": "Fully traceable mapping from each test case to its source specification", "evidence": "§III-C5: each case carries a provenance tag (from spec vs agent-generated); link correctness is never verified or measured.", "strength": "weak", "location": "§III-C5"}
+  ],
+  "patterns": [
+    {"id": "P42", "stance": "introduces", "note": "A per-item provenance tag (source spec vs generated) is called 'full traceability'; it is a label, not a verified link, and link accuracy is not measured."},
+    {"id": "P39", "stance": "introduces", "note": "A platform-specific domain enumeration and sample part descriptions per sub-category constrain the classifier; not compared with an unconstrained run."},
+    {"id": "P18", "stance": "mixed", "note": "Three-Claude majority-vote panel run 3 times (per-model SD up to 10.2 pp; Sonnet 4.6 passes 94.7% vs Opus 4.5 71.9% on Platform B). Aggregate pass rates bracket the single human rater's, but no item-level agreement is reported."},
+    {"id": "P11", "stance": "introduces", "note": "Three-agent decomposition with parallel classifier and extractor; no single-agent or single-prompt comparison."},
+    {"id": "P19", "stance": "neutral", "note": "Framed as a human-in-the-loop draft; engineers rejected 11/42 additions (redundant, unsafe to inject, physically untestable)."},
+    {"id": "P32", "stance": "neutral", "note": "Production inputs from two real platforms, but no field outcome: generated tests are not reported as executed and no defects found are reported."}
+  ],
+  "methodology": {"sample": "2 production platforms; 68 extracted spec entries; 42 generated test cases (23 + 19)", "baselines": "The input specification's own entries; no manually authored plan from the same inputs, no single-agent or prompt-only baseline", "models": "Generator LLM undisclosed (hosted in-house); judges Claude Opus 4.6, Sonnet 4.6, Opus 4.5", "variance": "Judge panel replicated 3 times (mean +/- SD); generator run once per platform", "ablations": "None", "contamination_controls": "n/a (proprietary inputs)", "languages": "n/a (hardware test plans)"},
+  "standards": {"peer_review": "None indicated", "limitations_section": false, "artifacts": "None; internal orchestration tools, models and data are proprietary (§III-D)", "preregistration": "n/a"},
+  "biases": [
+    {"type": "metric_mismatch", "detail": "'Coverage' is a count of test cases, not coverage of failure modes or components; about a quarter of the added cases are rejected by humans."},
+    {"type": "strawman_baseline", "detail": "The baseline is the pipeline's own input, so any addition counts as expansion."},
+    {"type": "llm_judge_unvalidated", "detail": "Extraction fidelity is judged by LLMs only; judge calibration is argued from aggregate rates, not item-level agreement."},
+    {"type": "small_sample", "detail": "42 generated items, one human rater per platform, generator run once."},
+    {"type": "closed_artifacts", "detail": "Generator model, prompts, inputs and outputs unavailable."},
+    {"type": "self_evaluation", "detail": "Meta authors evaluate a Meta-internal tool with Meta engineers as raters."},
+    {"type": "missing_cost_reporting", "detail": "No tokens, runtime or engineer-hours reported, despite the 'days to hours' claim."},
+    {"type": "hype_language", "detail": "Table VII: 'All rejections are scope decisions, not quality failures', yet one rejection is a physically untestable case and two are unsafe injections."}
+  ],
+  "coi": {"affiliations": "Meta Platforms (3 authors, including the corresponding author); Binghamton University (3 authors)", "vendor_products_evaluated": "Meta-internal agentic tooling (not a sold product); Anthropic models used only as judges", "funding": "Not stated", "severity": "medium", "detail": "Company team evaluating its own internal tool on its own platforms with its own engineers; no independent replication."},
+  "scores": {"rigor": 2, "reproducibility": 0, "generalizability": 1, "relevance": 1, "coi_risk": 2},
+  "verdict": "reject",
+  "verdict_reason": "Off-topic for this KB: hardware fault-injection test planning, not software development with agents. Its headline numbers also rest on test-case counts against its own input, an unmeasured time saving and a single human rater per platform.",
+  "applicability": "Does not transfer as evidence. A loose analogy: converting domain source documents into schema-conforming structured records with a per-item provenance tag resembles content ingestion. The rejection taxonomy (redundant with existing coverage, needs institutional or safety knowledge) is a reminder that generated artifacts still need someone with domain knowledge to filter them, which is exactly what new developers lack.",
+  "conflicts_with": []
+}

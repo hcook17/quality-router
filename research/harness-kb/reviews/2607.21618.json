@@ -1,0 +1,63 @@
+{
+  "arxiv_id": "2607.21618",
+  "contribution_type": "system",
+  "summary": "LeafData is a chatbot that collects data-migration settings (source and destination connector, host, port, database, schedule, column mappings) one field at a time. It tracks known/missing/invalid fields, validates them with Apache Avro schemas plus rule checks, and emits JSON artifacts (connections, DAG, trigger, validation report) that Apache Airflow consumes. The 'case study' shows three demo pipelines (S3, MongoDB and a REST API into MySQL) on toy medical-record files. There is no evaluation of any kind; the LLM (GPT-5.4 mini) is mentioned once and its role is not described.",
+  "claims": [
+    {
+      "claim": "LeafData converts user intent into validated, executable JSON configuration for heterogeneous data migration",
+      "evidence": "Figs. 3-8: screenshots of three successful demo runs (S3, MongoDB, REST API to MySQL). Oracle, MariaDB, SFTP and Excel are listed but not demonstrated. No task set, failure rate or users.",
+      "strength": "weak",
+      "location": "§7"
+    },
+    {
+      "claim": "The approach improves usability by reducing configuration effort",
+      "evidence": "Asserted in the conclusion; no user study, timing or comparison with Airflow forms or hand-written JSON.",
+      "strength": "unsupported",
+      "location": "§8"
+    },
+    {
+      "claim": "Early schema validation reduces configuration errors and ensures reproducible pipelines",
+      "evidence": "Validation and the JSON builder are deterministic by construction, so the 'same inputs give the same artifacts' property is a design property. No error measurements, and the LLM's part in parsing is unspecified.",
+      "strength": "unsupported",
+      "location": "§1, §5.1"
+    }
+  ],
+  "patterns": [
+    {"id": "P39", "stance": "introduces", "note": "Avro schemas define the required fields, types and dependencies and drive what the chatbot asks next. Not evaluated."},
+    {"id": "P40", "stance": "neutral", "note": "Asks for missing fields one at a time (slot filling) and offers @ask explanations. This is form completion against a fixed schema, not clarifying ambiguous requirements; not evaluated."},
+    {"id": "P41", "stance": "neutral", "note": "@ask gives short explanations of terms like 'object key' for non-expert users; no measurement."}
+  ],
+  "methodology": {
+    "sample": "Three demo pipelines on toy files",
+    "baselines": "None",
+    "models": "GPT-5.4 mini (role unspecified)",
+    "variance": "None",
+    "ablations": "None",
+    "contamination_controls": "n/a",
+    "languages": "Python/Airflow implied (utils.py operator mapping)"
+  },
+  "standards": {
+    "peer_review": "None stated",
+    "limitations_section": false,
+    "artifacts": "None linked; footnote 'LeafData codebase with Morphus' has no URL",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "cherry_picked_examples", "detail": "Three successful demos are the only evidence."},
+    {"type": "toy_tasks", "detail": "Single-source, single-destination linear pipelines on small CSV/JSON files (admitted)."},
+    {"type": "novelty_inflation", "detail": "A schema-validated configuration wizard is presented as an 'agentic system'."},
+    {"type": "closed_artifacts", "detail": "No code, prompts or data released."}
+  ],
+  "coi": {
+    "affiliations": "University of Houston-Clear Lake; Infodat International Inc.; Fontus Labs Inc. (morphusdata.com); Cardinal Health; Stockton University",
+    "vendor_products_evaluated": "LeafData itself, apparently built with the Morphus product of a co-author's company",
+    "funding": "Not stated",
+    "severity": "medium",
+    "detail": "Reads as a product description by vendor co-authors. There is no favorable evaluation only because there is no evaluation."
+  },
+  "scores": {"rigor": 0, "reproducibility": 0, "generalizability": 1, "relevance": 1, "coi_risk": 3},
+  "verdict": "reject",
+  "verdict_reason": "No evaluation: three demos and design prose only, and the LLM's contribution is unspecified. It is also off-topic for the KB: a natural-language-to-configuration wizard for Airflow data migration, not software development with LLM agents.",
+  "applicability": "Little transfers. The team's ingestion is Spring Boot code, not Airflow JSON configs. The only reusable idea is to let a deterministic schema (JSON Schema/Avro) with known/missing/invalid field state decide when the agent must ask for more input, rather than the LLM judging completeness. That is ordinary form validation and is untested here. It is also an anti-pattern for the team's secrets invariant: §5.1 writes raw credentials into generated JSON files on disk.",
+  "conflicts_with": []
+}

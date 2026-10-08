@@ -1,0 +1,33 @@
+{
+  "arxiv_id": "2606.28279",
+  "contribution_type": "system",
+  "summary": "NVIDIA Research's HORIZON: a user-written Markdown harness (objective, domain knowledge, evaluator, acceptance predicate) is compiled by a bootstrap agent into a 'project pack'. A hands-free GPT-5.3 loop then edits an isolated git worktree, runs the evaluator, and commits or logs each attempt, with git history serving as the trace. A single run reaches 100% on ChipBench, RTLLM-2.0, Verilog-Eval v2 and nine CVDP categories. The acceptance gate is each benchmark's own scoring harness, whose failure logs the agent can read, so the 100% means the agent converged on the visible grader.",
+  "claims": [
+    {"claim": "HORIZON achieves 100% benchmark completion across all suites", "evidence": "Table 1, single run. The acceptance predicate is the benchmark's pass condition, and the agent sees the harness's simulator messages and failure traces (§4, §5). No hidden or held-out tests exist, which the authors call an 'over-solving or reward-hacking failure mode'. ChipBench shows 100.0 with footnote (a): one task still fails, and 'counting it as resolved yields 100%'.", "strength": "unsupported", "location": "Table 1, §4.1, §5"},
+    {"claim": "First agentic system to complete all evaluated RTL suites end-to-end without human intervention", "evidence": "No baseline is run. The prior agentic RTL systems listed in §2 (AutoChip, VerilogCoder, MAGE, ACE-RTL) are not evaluated under the same unlimited-iteration, grader-visible protocol. Iteration-0 numbers are explicitly not Pass@1.", "strength": "unsupported", "location": "§2, §6"},
+    {"claim": "Token cost is concentrated in a few hard CVDP categories, and about 91% of tokens are cached input", "evidence": "Table 2: 209.9M tokens in total, CID 002 alone 56.0M, the three legacy suites 6.0M. Single run; no dollar cost.", "strength": "moderate", "location": "§4.2, Table 2"},
+    {"claim": "Generated testbench stimulus is substantive: coverage rises from 86.5% to 97.9% on CID 012", "evidence": "Table 3 and Fig. 4 cover two categories; for CID 014, coverage is averaged over the 60 parsed logs only.", "strength": "moderate", "location": "§4.3, Table 3"}
+  ],
+  "patterns": [
+    {"id": "P39", "stance": "introduces", "note": "Domain knowledge (invariants, tool conventions, failure modes) is written in the Markdown harness and compiled into 'domain skills'. There is no ablation without the domain knowledge."},
+    {"id": "P16", "stance": "introduces", "note": "An evaluator-gated commit/reject loop. Because the gate is the benchmark grader, the paper cannot separate genuine repair from fitting to the grader. No comparison is made with a single attempt under the same budget."},
+    {"id": "P29", "stance": "neutral", "note": "Each task runs in an isolated git worktree. All reported results are single-agent; no parallel agents are evaluated."},
+    {"id": "P30", "stance": "introduces", "note": "Git commits and notes store evaluator verdicts as a replayable trace. Not evaluated."},
+    {"id": "P31", "stance": "neutral", "note": "The authors themselves argue RTL benchmarks need hidden randomized tests or formal checks separated from repair-time feedback (§5)."}
+  ],
+  "methodology": {"sample": "ChipBench, RTLLM-2.0, Verilog-Eval v2, CVDP CID 002-016 (nine categories); per-suite task counts are not tabulated", "baselines": "None (iteration-0 state only)", "models": "GPT-5.3 only", "variance": "Single run per suite", "ablations": "None", "contamination_controls": "None. Final scoring uses the same harness the agent repaired against", "languages": "Verilog/SystemVerilog RTL and testbenches"},
+  "standards": {"peer_review": "Not peer-reviewed", "limitations_section": true, "artifacts": "None released; the only link is the public SWE-bench experiments repo", "preregistration": "n/a"},
+  "biases": [
+    {"type": "benchmark_overfit", "detail": "The agent iterates against the scoring harness and reads its failure output, and the headline is the pass rate on that same harness."},
+    {"type": "metric_mismatch", "detail": "'100% completion' means the visible harness passes, not that the specification is met (the authors concede this in §5)."},
+    {"type": "single_model", "detail": "GPT-5.3 only."},
+    {"type": "no_variance_reported", "detail": "One run; the iteration count to convergence is a single trajectory."},
+    {"type": "novelty_inflation", "detail": "Repository-as-state with an evaluator gate restates the authors' SATLUTION/ABCEvo loop on RTL artifacts; the 'first to complete all suites' claim rests on the unbounded, grader-visible protocol."}
+  ],
+  "coi": {"affiliations": "NVIDIA Research", "vendor_products_evaluated": "GPT-5.3 (OpenAI) as backbone; CVDP benchmark", "funding": "NVIDIA (implicit)", "severity": "medium", "detail": "Three of the four authors co-authored the CVDP benchmark (Pinckney et al. 2025) and report their own system topping it, with no independent replication. The backbone model is not an NVIDIA product."},
+  "scores": {"rigor": 1, "reproducibility": 1, "generalizability": 1, "relevance": 1, "coi_risk": 2},
+  "verdict": "reject",
+  "verdict_reason": "The headline 100% is convergence against the scoring harness itself, with no hidden tests, no baselines, one model and one run, and a ChipBench task that fails but is counted as resolved. The candid limitations section does not repair this: no claim beyond 'the loop can be driven until the visible grader passes' is supported. The domain is also hardware RTL.",
+  "applicability": "Does not transfer as evidence. The design resembles what a harness stamps: a Markdown spec compiled into domain notes, an executable evaluator, an acceptance predicate and a git policy. The useful lesson is the authors' own warning. If the agent can read the acceptance tests' failure output during repair, a green gate only means it passes the visible tests. For the team's spec-driven flow, keep a held-out acceptance check (for example contract or acceptance tests the agent cannot see or edit) separate from the repair loop.",
+  "conflicts_with": []
+}

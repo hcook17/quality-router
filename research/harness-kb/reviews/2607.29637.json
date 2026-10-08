@@ -1,0 +1,102 @@
+{
+  "arxiv_id": "2607.29637",
+  "contribution_type": "system",
+  "summary": "CodeShrink renders source code as images for a multimodal LLM and compresses them in three ways: removing layout whitespace with explicit structure markers (BFR), pruning instruction-irrelevant visual tokens (DTS), and a small Qwen3.5-0.8B policy trained with SFT and GRPO to choose a per-input resolution and pruning setting (ACC). On snippet-level tasks (300 Python code-QA, 200 clone-detection and 200 completion samples per language, Python and Java), a LoRA-fine-tuned Qwen3.5-27B with CodeShrink matches or beats uncompressed text input while using 21-71% fewer visual tokens than a text-length-matched rendering.",
+  "claims": [
+    {
+      "claim": "CodeShrink reduces visual tokens by up to 71.2% while matching or exceeding uncompressed text-only input.",
+      "evidence": "71.2% is Java clone detection in Table II (Acc 71.0 vs text-only 69.0). The ablation's full-system row for the same task (Table IV) reports R=53.5% and Acc 70.5, so the headline reduction is not reproduced within the paper. Other reductions: 39.7% (Python QA), 21.1% and 32.4% (completion). Single seed, greedy decoding, no CIs. Python QA 82.3 vs 81.0 is 4 of 300 questions.",
+      "strength": "weak",
+      "location": "Abstract, Tables I, II, IV"
+    },
+    {
+      "claim": "CodeShrink consistently outperforms text-based and visual compression baselines.",
+      "evidence": "Tables I-II: e.g. Python QA 82.3 vs LongCodeZip 62.7, FastV 66.0, CodeOCR 51.7. But CodeShrink's downstream model is LoRA fine-tuned on in-task samples for OCR (§V-A3), and nothing indicates baselines received equivalent tuning. Without SFT, Python QA drops to 78.5 (Table IV), below text-only.",
+      "strength": "moderate",
+      "location": "§V-B, Tables I-II, IV"
+    },
+    {
+      "claim": "Blank-free rendering improves code-image reading across models without adaptation.",
+      "evidence": "Table III: Qwen3-VL, GPT-5-mini and Gemini-3-Flash at 1-8x, averaged over five runs. Mostly better, with large gains on completion and at high compression (GPT-5-mini QA at 8x: 52.5 -> 69.3), but GPT-5-mini is worse at low compression (QA 1x 76.4 -> 71.8; clone 2x 69.0 -> 65.7).",
+      "strength": "moderate",
+      "location": "§V-C, Table III"
+    },
+    {
+      "claim": "Per-sample adaptive configuration (ACC) is the most important component.",
+      "evidence": "Table IV: removing ACC lowers Python QA 81.5 -> 75.0 and Java clone 70.5 -> 64.5, and R roughly halves. The fixed configuration used for 'w/o ACC' is unspecified, and RQ4 shows per-task optima differ, so a per-task-tuned fixed setting (the obvious cheaper alternative) is not tested.",
+      "strength": "moderate",
+      "location": "§V-D, §V-E, Table IV"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P08",
+      "stance": "mixed",
+      "note": "Compressing code input: text-token compressors (LLMLingua family, LongCodeZip) lose 18-21 points on Python code QA vs uncompressed text. Visual compression matches text only with task-specific LoRA fine-tuning of the reader model. Snippet-level inputs, single seed."
+    },
+    {
+      "id": "P43",
+      "stance": "neutral",
+      "note": "'Code QA' here is answering questions about a single given snippet (CodeOCR set), not repository-level exploration or onboarding questions."
+    },
+    {
+      "id": "P25",
+      "stance": "introduces",
+      "note": "A 0.8B policy trained with SFT and GRPO picks compression settings. It is compared only against an unspecified fixed configuration, not a per-task-tuned one."
+    },
+    {
+      "id": "P24",
+      "stance": "neutral",
+      "note": "Efficiency is reported as a visual-token reduction rate relative to text-length-matched rendering; no wall-clock or dollar cost, and the config-agent overhead is not counted."
+    }
+  ],
+  "methodology": {
+    "sample": "300 Python code-QA (CodeOCR), 200 balanced Type-4 clone pairs (GPTCloneBench), 200 completion samples (LongCodeCompletion) per language; Java has no QA. Training uses 100 instances per task.",
+    "baselines": "Text-only, no-context, LLMLingua, LongLLMLingua, LLMLingua-2, LongCodeZip, FastV, VisionZip, CodeOCR: current and relevant, but probably run without the task fine-tuning CodeShrink's reader receives.",
+    "models": "Qwen3.5-27B reader (LoRA-tuned) and Qwen3.5-0.8B config agent for the main results; Qwen3-VL-235B, GPT-5-mini and Gemini-3-Flash for the rendering study only.",
+    "variance": "Main and ablation results single seed (42), greedy decoding. Five-run averages only for Table III, with no spread shown.",
+    "ablations": "Per-component (BFR, DTS, ACC, SFT) on Python and Java; configuration sweeps (Fig. 3).",
+    "contamination_controls": "None. Public benchmarks such as GPTCloneBench and LongCodeCompletion may be in pretraining data.",
+    "languages": "Python and Java."
+  },
+  "standards": {
+    "peer_review": "None stated (arXiv preprint).",
+    "limitations_section": true,
+    "artifacts": "Code at github.com/vinsontang1/CodeShrink; benchmarks public.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {
+      "type": "no_variance_reported",
+      "detail": "Single seed for every main and ablation number; full-system numbers differ between Table II and Table IV (Java clone R 71.2 vs 53.5)."
+    },
+    {
+      "type": "strawman_baseline",
+      "detail": "The reader model is fine-tuned on in-task samples while compression baselines and text-only appear to use an untuned model; the 'w/o ACC' fixed configuration is unspecified."
+    },
+    {
+      "type": "toy_tasks",
+      "detail": "Snippet-level QA, clone and completion tasks; no repository-scale or agentic setting."
+    },
+    {
+      "type": "small_sample",
+      "detail": "200-300 instances per task; differences of 1-2 points are a handful of items."
+    },
+    {
+      "type": "single_model",
+      "detail": "The full pipeline is evaluated on one reader model (Qwen3.5-27B)."
+    }
+  ],
+  "coi": {
+    "affiliations": "Tsinghua, CUHK, NWPU, XJTU, SYSU, HIT, Singapore Management University",
+    "vendor_products_evaluated": "Qwen models as components",
+    "funding": "Not stated",
+    "severity": "none",
+    "detail": "Academic authors with no vendor affiliation."
+  },
+  "scores": {"rigor": 2, "reproducibility": 3, "generalizability": 2, "relevance": 1, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "On-topic for LLM code understanding with current baselines, an ablation and released code. But all main results are single-seed, the abstract's 71.2% is not reproduced by the paper's own ablation row, the reader is task-fine-tuned while baselines likely are not, and the tasks are snippet-level.",
+  "applicability": "Does not transfer to the team's discovery or onboarding harness. Agent hosts feed code as text through tools, and nothing here addresses repository-scale exploration of the Java ingestion services. The only usable signal is negative: generic text-token compressors (LLMLingua-style) badly degrade code question answering, so do not put such a compressor between the host and its code context to save tokens.",
+  "conflicts_with": []
+}

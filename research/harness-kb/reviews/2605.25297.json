@@ -1,0 +1,84 @@
+{
+  "arxiv_id": "2605.25297",
+  "contribution_type": "system",
+  "summary": "Eureka (Alibaba Cloud; DASFAA 2026) is an LLM pipeline for tabular feature engineering. An SFT-tuned 'expert' model writes JSON feature plans, a second LLM turns plans into Python feature code, and GRPO with a metric-plus-GPT-4-ranking reward refines the planner. It reports ROC-AUC on seven public classification datasets and one proprietary GPU-demand dataset. It also reports production gains at Alibaba Cloud (+16% demand fulfilment, -33% server migration, 91% of 165 warnings adopted) with no method or baseline. This is ML feature engineering, not software development.",
+  "claims": [
+    {
+      "claim": "Eureka consistently outperforms traditional AutoFE and LLM-based baselines on 7 public benchmarks.",
+      "evidence": "Table 2 (single numbers, best of LightGBM/TabPFN, no seeds or variance). On Heart, CAAFE 0.941 beats the best Eureka variant (0.940). On Diabetes, TabPFN 0.888 beats the best Eureka (0.886). On EGS the best Eureka is 0.699 vs TabPFN 0.694, and Eureka-Qwen at 0.679 is below several baselines. Most margins are 0.001-0.01 AUC with no intervals.",
+      "strength": "weak",
+      "location": "Abstract; §4.2, Table 2"
+    },
+    {
+      "claim": "In production at Alibaba Cloud, Eureka raised demand fulfilment 16%, cut migration 33%, and 91% of its warnings were adopted.",
+      "evidence": "Table 4 lists the three numbers. No baseline period, metric definition, counterfactual or interval is given; the 91% is over 165 warnings.",
+      "strength": "unsupported",
+      "location": "Abstract; §5, Table 4"
+    },
+    {
+      "claim": "Eureka achieves a 4.95% AUC improvement on GPU burst demand prediction.",
+      "evidence": "No table or section reports 4.95. Table 2's EGS column gives 0.699 for the best Eureka vs 0.694 for the best baseline.",
+      "strength": "unsupported",
+      "location": "§6 Conclusion"
+    },
+    {
+      "claim": "SFT-injected domain knowledge and the self-evolving engine are critical.",
+      "evidence": "Table 3 ablation on the proprietary EGS set only, single run. Without the Expert: -4.06 AUC points. Without the self-evolving engine: -0.52, within plausible noise.",
+      "strength": "weak",
+      "location": "§4.3, Table 3"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P25",
+      "stance": "introduces",
+      "note": "SFT on fewer than 2K domain Q&A pairs plus GRPO with an LLM-ranked reward. The single-run ablation on one proprietary dataset shows -0.52 AUC without RL, which is not a demonstrated benefit."
+    },
+    {
+      "id": "P39",
+      "stance": "neutral",
+      "note": "Business context and feature metadata are passed to the planner as structured input. Domain knowledge is put into weights by SFT, not supplied as machine-readable context, and the two are not compared."
+    },
+    {
+      "id": "P18",
+      "stance": "neutral",
+      "note": "A GPT-4 group-ranking reward with shuffle and agreement checks. Agreement values are not reported."
+    }
+  ],
+  "methodology": {
+    "sample": "7 public tabular datasets (748-48,842 rows) plus 1 proprietary EGS dataset; 165 production warnings",
+    "baselines": "DFS, AutoFE, OpenFE, TabPFN, CAAFE, FeatLLM",
+    "models": "Qwen, Qwen3-32B (fine-tuned), GPT-4o, Grok-2 variants; GPT-4 as reward ranker",
+    "variance": "None; single numbers, best-of-two predictors",
+    "ablations": "Three component removals on EGS only",
+    "contamination_controls": "None; public UCI and Kaggle datasets are likely in pretraining data",
+    "languages": "Python feature code"
+  },
+  "standards": {
+    "peer_review": "DASFAA 2026 (LNCS vol. 16540) and NeurIPS 2025 workshop",
+    "limitations_section": false,
+    "artifacts": "No code, SFT data or EGS data released",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "self_reported_numbers", "detail": "Production gains with no method or baseline."},
+    {"type": "no_variance_reported", "detail": "AUC margins of 0.001-0.01 with no seeds or intervals."},
+    {"type": "self_evaluation", "detail": "The vendor evaluates its own deployed system on its own proprietary data."},
+    {"type": "closed_artifacts", "detail": "Nothing released."},
+    {"type": "contamination_risk", "detail": "Public UCI and Kaggle datasets with LLM-generated features."},
+    {"type": "hype_language", "detail": "'Consistent superiority' despite losses in Table 2."},
+    {"type": "other:abstract_body_mismatch", "detail": "The abstract cites 7 benchmarks while the body has 8 datasets. The conclusion's 4.95% figure appears nowhere in the results."}
+  ],
+  "coi": {
+    "affiliations": "Alibaba Cloud Computing (authors and interns); Fudan University; Tongji University",
+    "vendor_products_evaluated": "Eureka, deployed in Alibaba Cloud's GPU resource management",
+    "funding": "Not stated",
+    "severity": "high",
+    "detail": "The vendor reports favourable production impact for its own system with no independent replication and no released artifacts."
+  },
+  "scores": {"rigor": 1, "reproducibility": 0, "generalizability": 1, "relevance": 0, "coi_risk": 4},
+  "verdict": "reject",
+  "verdict_reason": "Off-topic: tabular ML feature engineering, not software development with agents. Within its own field the headline 'consistently outperforms' is contradicted by Table 2, the production and 4.95% figures are unsupported, nothing is released, and COI is high.",
+  "applicability": "Does not transfer. The team will not fine-tune models, and the paper's only tangential point, that domain knowledge helps (put into weights by SFT here), comes from a single-run ablation on one proprietary dataset. It does not inform how to give domain context to coding agents.",
+  "conflicts_with": []
+}

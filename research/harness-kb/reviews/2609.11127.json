@@ -1,0 +1,28 @@
+{
+  "arxiv_id": "2609.11127",
+  "contribution_type": "system",
+  "summary": "Kuaishou GameMind Lab's technical report on KuaiRP, small Qwen3-based (4B/8B) role-playing models for game NPCs. The pipeline is SFT on simulated dialogues distilled from a commercial model, GRPO with format/length/diversity rewards, and two-stage on-policy self-distillation (domain model as teacher, original base as student) with a 'Cumulative-Divergence Decay' token weighting. The goal is to inject game-world knowledge while recovering the tool-calling ability lost in SFT. Evaluation uses BFCL v4 plus the lab's own TRACEbench and in-house domain and safety sets.",
+  "claims": [
+    {"claim": "KuaiRP matches state-of-the-art proprietary models in role-playing fidelity within target domains", "evidence": "Table 7, 8B OPD2+CDD vs M2-HER: Char-Consistency 92.08 +/- 1.45 vs 89.22 +/- 1.96; Mem-Consistency 72.5 vs 60.0 +/- 23.6. Scored on the lab's own TRACEbench domain subset by an unspecified judge and agentic user. Base models received extra length limits in their prompts.", "strength": "weak", "location": "§6, Table 7, §7"},
+    {"claim": "General agent capabilities degraded by SFT are fully recovered by on-policy distillation", "evidence": "Table 5, BFCL v4 overall accuracy: base 24.83, SFT 12.53, OPD1 24.83, OPD2+CDD 24.78. Single run, public benchmark.", "strength": "moderate", "location": "§6.1, Table 5"},
+    {"claim": "CDD makes world-knowledge injection more thorough and stable", "evidence": "Table 8: 8B domain knowledge is 32.86 with and without CDD (no change). 4B goes 17.14 to 20.00, still below SFT's 26.67. Table 7: the 4B CDD standard deviation is larger (2.52 vs 1.71). The claim is not supported for 8B, and the stability claim fails for 4B.", "strength": "unsupported", "location": "§6.1-6.2, Tables 7-8"}
+  ],
+  "patterns": [
+    {"id": "P25", "stance": "introduces", "note": "SFT then RL then self-distillation to keep tool-calling while adding domain knowledge to model weights. Role-play domain, not coding agents."},
+    {"id": "P18", "stance": "neutral", "note": "Binary judge and 'agentic user' checklist scoring on the lab's own benchmark; the judge model and its validation are not described."}
+  ],
+  "methodology": {"sample": "50 character prompts for data; in-house single- and multi-turn evaluation sets of unstated size; BFCL v4", "baselines": "Qwen3 base models (with extra length limits); M2-HER API", "models": "Qwen3-8B, Qwen3-4B", "variance": "Five runs only for Table 7; others single run", "ablations": "Stage-by-stage, with/without CDD, with/without reverse profile filtering", "contamination_controls": "none described", "languages": "n/a (Chinese role-play dialogue)"},
+  "standards": {"peer_review": "none (technical report)", "limitations_section": false, "artifacts": "No code, data or weights linked", "preregistration": "n/a"},
+  "biases": [
+    {"type": "self_evaluation", "detail": "Own models scored on own TRACEbench and in-house sets, with an unspecified judge."},
+    {"type": "closed_artifacts", "detail": "No released weights, data or evaluation sets."},
+    {"type": "llm_judge_unvalidated", "detail": "The judge and agentic-user scoring are not validated against humans."},
+    {"type": "hype_language", "detail": "'Full recovery' and 'thorough' knowledge injection go beyond Table 8 (8B unchanged with CDD)."}
+  ],
+  "coi": {"affiliations": "Kuaishou GameMind Lab", "vendor_products_evaluated": "KuaiRP (own models), TRACEbench (own benchmark)", "funding": "Kuaishou (implied)", "severity": "high", "detail": "A vendor reports its own model on its own benchmark as matching the market leader, with no independent replication. It is a product report formatted as a paper."},
+  "scores": {"rigor": 1, "reproducibility": 0, "generalizability": 0, "relevance": 0, "coi_risk": 4},
+  "verdict": "reject",
+  "verdict_reason": "Off-topic (game role-play model training, not software development). It is also a vendor self-evaluation on a closed in-house benchmark, and its key CDD claim is contradicted by its own Table 8.",
+  "applicability": "Does not transfer. Nothing here bears on pre-spec discovery, requirement clarification or developer comprehension. Its premise, putting domain knowledge into model weights, is the opposite of the team's approach of supplying domain context at runtime through files and tools.",
+  "conflicts_with": []
+}

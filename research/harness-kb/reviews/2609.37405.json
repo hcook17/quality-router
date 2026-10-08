@@ -1,0 +1,87 @@
+{
+  "arxiv_id": "2609.37405",
+  "contribution_type": "empirical",
+  "summary": "Carleton University study of two code LLMs (DeepSeek-Coder-V2, size unstated, and CodeLlama-7B-Instruct; the abstract just says 'Llama') predicting exact return values of 300 short, self-contained Python functions from HumanEval, MBPP, CRUXEval, LeetCode and BigCodeBench-Hard, binned into Low/Medium/High complexity by cyclomatic complexity and nesting depth, plus 60 author-written purpose/variable-role/edge-case questions graded manually. Zero-shot prompts forbid reasoning; accuracy drops about 40 pp from Low to High for output prediction and 25-30 pp for the semantic questions.",
+  "claims": [
+    {
+      "claim": "Output-prediction accuracy falls from 93.52% to 52.78% (DeepSeek-Coder-V2) and 87.04% to 47.22% (CodeLlama) from Low to High complexity, so aggregate benchmark accuracy overstates reliability.",
+      "evidence": "Table III matches the abstract. But Table I shows the High band comes only from LeetCode (48) and BigCodeBench-Hard (24) and Low only from HumanEval/MBPP/CRUXEval, so complexity is confounded with source, length and problem type; prompts forbid any reasoning ('Return only the final output value'); one run at temperature 0; no CIs on accuracies.",
+      "strength": "moderate",
+      "location": "§V-A, Tables I, III, IV"
+    },
+    {
+      "claim": "Incorrect predictions are associated with higher values of all four metrics, and logistic regression confirms comparable negative associations.",
+      "evidence": "Table V (mean CC 3.84 vs 7.42 etc.), Table VI (Spearman -0.33 to -0.43, all p<0.001), Table XI (all four ORs 0.66-0.79 significant jointly). Cyclomatic complexity and branching factor both count decision points and should be near-collinear, yet both are reported as independently significant with no correlation matrix or VIF; function length and identifier quality are not controlled.",
+      "strength": "moderate",
+      "location": "§V-B, §V-D, Tables V, VI, XI"
+    },
+    {
+      "claim": "Manual semantic comprehension shows the same degradation (100 -> 75% and 90 -> 60%).",
+      "evidence": "Table IX on 20 functions per band, one question each. Chi-square p=0.046 for DeepSeek-Coder-V2 and p=0.074 (not significant) for CodeLlama (Table XII); Cohen's kappa 0.86 on a 20% double-scored subset. The abstract presents both as the same pattern without noting one is non-significant.",
+      "strength": "weak",
+      "location": "§V-C, Tables IX, XII"
+    },
+    {
+      "claim": "Complexity-aware evaluation is more diagnostic than aggregate accuracy.",
+      "evidence": "Shown only by stratifying the same results; no comparison against other stratifications (length, CRUXEval-style difficulty, model-perceived complexity) and no downstream use of the diagnosis.",
+      "strength": "weak",
+      "location": "§VI, §VII"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P43",
+      "stance": "neutral",
+      "note": "Measures how reliably a bare LLM explains or predicts single Python functions; no agent, tools, repository context or execution. Compares complexity bands, not any codebase-QA approach against an alternative, so it says little about exploration agents that can run code."
+    },
+    {
+      "id": "P41",
+      "stance": "neutral",
+      "note": "Implies that LLM explanations of complex functions are less reliable (High-band semantic accuracy 75% / 60%), relevant to explanation-based onboarding, but no developers are studied and comprehension or deskilling is not measured."
+    },
+    {
+      "id": "P17",
+      "stance": "introduces",
+      "note": "§VI proposes computing static complexity metrics before trusting an LLM explanation or review and routing high-complexity cases to tests or human review; this gate is not implemented or evaluated."
+    }
+  ],
+  "methodology": {
+    "sample": "300 functions for output prediction (108 Low / 120 Medium / 72 High); 60 functions (20 per band) with one manual question each.",
+    "baselines": "None; two models compared with each other.",
+    "models": "DeepSeek-Coder-V2 (variant unstated) and CodeLlama-7b-Instruct-hf, zero-shot, temperature 0, reasoning explicitly disallowed.",
+    "variance": "Single query per instance; no CIs on accuracy; CIs only for logistic-regression ORs.",
+    "ablations": "None (no length control, no prompting/CoT variant, no tool use).",
+    "contamination_controls": "None; all sources are public benchmarks, acknowledged in one sentence.",
+    "languages": "Python only."
+  },
+  "standards": {
+    "peer_review": "None stated (arXiv preprint, empty comment).",
+    "limitations_section": true,
+    "artifacts": "None released: no code, selected function list, inputs, manual questions or reference answers.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "single_language_python", "detail": "Python functions only, computed with the ast module."},
+    {"type": "toy_tasks", "detail": "Short self-contained standard-library functions; no repository, cross-file or framework code."},
+    {"type": "contamination_risk", "detail": "HumanEval, MBPP, CRUXEval and LeetCode are very likely in both models' training data."},
+    {"type": "small_sample", "detail": "Manual task has 20 functions per band and one question each; the CodeLlama association is not significant."},
+    {"type": "no_variance_reported", "detail": "One deterministic run per item; no CIs on the headline accuracies."},
+    {"type": "closed_artifacts", "detail": "No benchmark subset, questions or analysis scripts released."},
+    {"type": "other:confounded_design", "detail": "Complexity band is almost perfectly aligned with source dataset (High = LeetCode + BigCodeBench-Hard), so source, length and problem-type effects cannot be separated from structural complexity."},
+    {"type": "other:stale_models", "detail": "2023-2024 code models with reasoning forbidden; the results do not describe current reasoning or tool-using hosts."}
+  ],
+  "coi": {
+    "affiliations": "Carleton University (all authors).",
+    "vendor_products_evaluated": "DeepSeek-Coder-V2, CodeLlama (no affiliation).",
+    "funding": "Not stated.",
+    "severity": "none",
+    "detail": "Academic study with no product interest."
+  },
+  "scores": {"rigor": 2, "reproducibility": 1, "generalizability": 1, "relevance": 2, "coi_risk": 0},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "The descriptive finding (bare LLMs predict and explain structurally complex snippets less accurately) is supported by the tables, but complexity is confounded with source dataset, the models are obsolete, reasoning was prohibited and nothing is released. Admit only as weak, narrow evidence; do not cite the magnitudes for current hosts.",
+  "applicability": "Weak support for a deterministic guard in a codebase-QA or onboarding assistant: before presenting an LLM explanation of a Java method as fact, compute its complexity (the team's local Sonar constituent already reports cognitive and cyclomatic complexity) and, above a threshold, attach a test-backed check or flag it for human walkthrough. The paper did not test this gate, and its numbers come from 7B-class models answering Python snippets without reasoning or tools. Do not use the 40 pp drop to size risk for current agents exploring Spring Boot services.",
+  "conflicts_with": [
+    {"arxiv_id": "2609.26388", "detail": "Competing explanation: Face/Off reports that LLM code comprehension leans heavily on identifier names and degrades when names are removed or misleading. This paper attributes failures to structural complexity without controlling naming or length, so part of its effect may be lexical or source-related."}
+  ]
+}

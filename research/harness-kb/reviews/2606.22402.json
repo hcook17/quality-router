@@ -1,0 +1,89 @@
+{
+  "arxiv_id": "2606.22402",
+  "contribution_type": "empirical",
+  "summary": "P4IR fine-tunes Mistral-7B-Instruct to turn Singapore building-regulation clauses into Python code skeletons for automated code compliance, using SFT followed by GRPO with a Jaccard-overlap reward on class/function signatures plus syntax and length penalties. On a 68-item test split of 732 proprietary regulation-skeleton pairs, GRPO from the epoch-10 SFT checkpoint lowers tree edit distance from 28.38 to 21.63 (the abstract's 23.8%), and the final model beats few-shot RAG prompting of Claude Opus/Sonnet 4.5, GPT-5.2, Qwen-3-Max and GLM-4.7 on edit-distance, Jaccard and CodeBERTScore. The domain is building regulation, not software-development practice.",
+  "claims": [
+    {
+      "claim": "GRPO reduces tree edit distance by up to 23.8% and token-level Levenshtein by 38.6% relative to SFT baselines",
+      "evidence": "Fig. 6 / §4.1: measured against the epoch-10 SFT checkpoint (28.38 -> minimum 21.63 over GRPO checkpoints). The best SFT checkpoint (epoch 12) already reaches 23.07, so against the strongest SFT the gain is about 6%. There is no validation split; the 'minimum' and the 'optimal policy' are picked from the 68-item test set; single seed.",
+      "strength": "weak",
+      "location": "Abstract, §4.1, Fig. 6"
+    },
+    {
+      "claim": "Zero-shot P4IR outperforms leading frontier LLMs given few-shot RAG examples",
+      "evidence": "Table 1: tree edit distance 20.49 vs 22.56 (GLM-4.7, 2-shot) and 22.78 (Qwen-3-Max, 2-shot), a small single-run margin. The large gaps are on Jaccard distance (0.71 vs >= 0.87), which is the training reward, and on identifier-sensitive metrics where the fine-tuned model has learned the project's proprietary naming conventions that 1-2 retrieved examples cannot convey. No CIs.",
+      "strength": "weak",
+      "location": "§3.6, §4.4, Table 1"
+    },
+    {
+      "claim": "GRPO yields a small but statistically significant reduction in hallucinated classes/functions",
+      "evidence": "§4.2: mean false-positive definitions 21.60 -> 18.60, Wilcoxon p<0.001, paired t p=0.005, Cohen's d=0.127; aggregated across all SFT epochs; small effect acknowledged.",
+      "strength": "moderate",
+      "location": "§4.2"
+    },
+    {
+      "claim": "GRPO is effective only within an SFT-maturity window of about 8-10 epochs",
+      "evidence": "Fig. 6 heatmaps and logit-entropy analysis (Fig. 7); one model, one dataset, one seed, test-set evaluation.",
+      "strength": "weak",
+      "location": "§4.1, §4.1.1"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P25",
+      "stance": "mixed",
+      "note": "GRPO after SFT vs SFT alone (a reasonable alternative): improves on the best SFT checkpoint by roughly 6-11% tree edit distance only when started mid-training; selected on the test set, one seed, one 7B model, reward equals an evaluation metric."
+    },
+    {
+      "id": "P06",
+      "stance": "mixed",
+      "note": "Frontier models with 1-2 embedding-retrieved examples trail the fine-tuned model only slightly on structure (22.6 vs 20.5 tree edit distance) and lose heavily on identifier-exact metrics; more examples hurt Claude/GPT. Confounded by metric choice."
+    },
+    {
+      "id": "P39",
+      "stance": "neutral",
+      "note": "Domain knowledge is instilled by fine-tuning rather than supplied as glossary or ontology context; baselines were not given the project's naming conventions."
+    },
+    {
+      "id": "P42",
+      "stance": "neutral",
+      "note": "Regulation-to-code-skeleton generation as a reviewable intermediate step; links are not verified and functional correctness is not rewarded (acknowledged)."
+    }
+  ],
+  "methodology": {
+    "sample": "732 regulation-skeleton pairs from one proprietary Singapore rule-interpretation project; 664 train / 68 test; no validation split",
+    "baselines": "SFT checkpoints (epochs 4-14); Claude Opus 4.5, Claude Sonnet 4.5, GPT-5.2, Qwen-3-Max, GLM-4.7 with 1- and 2-shot RAG",
+    "models": "Mistral 7B Instruct v0.3 (trained with LoRA GRPO)",
+    "variance": "Single seed; significance test only for the false-positive analysis",
+    "ablations": "SFT epoch x GRPO step grid; no reward-component ablation; no alternative RL algorithm",
+    "contamination_controls": "Test regulations unseen in training; baselines lack project identifier conventions",
+    "languages": "Python code skeletons generated from English regulatory text"
+  },
+  "standards": {
+    "peer_review": "arXiv preprint; no venue stated",
+    "limitations_section": true,
+    "artifacts": "None; dataset proprietary, no code or checkpoints released",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {"type": "metric_mismatch", "detail": "Jaccard similarity is both the RL reward and a headline metric; edit distances measure structural and name overlap, not functional correctness (acknowledged)."},
+    {"type": "benchmark_overfit", "detail": "Best checkpoint and 'optimal policy' chosen on the 68-item test set."},
+    {"type": "strawman_baseline", "detail": "Few-shot frontier models cannot know the project's proprietary identifier conventions that the metrics reward."},
+    {"type": "cherry_picked_examples", "detail": "Headline 23.8% is relative to a mid-training SFT checkpoint, not the best SFT result; qualitative figures show selected failures of SFT."},
+    {"type": "single_model", "detail": "Only Mistral 7B trained."},
+    {"type": "no_variance_reported", "detail": "Single seed; no CIs on Table 1."},
+    {"type": "closed_artifacts", "detail": "Proprietary data, no code."}
+  ],
+  "coi": {
+    "affiliations": "Harbin Institute of Technology; National University of Singapore; NovaCITYNETS",
+    "vendor_products_evaluated": "None owned; frontier LLMs used as baselines",
+    "funding": "not stated",
+    "severity": "low",
+    "detail": "One author is at NovaCITYNETS, a building-compliance technology company; dataset built with industry stakeholders. No product evaluated favorably."
+  },
+  "scores": {"rigor": 2, "reproducibility": 0, "generalizability": 1, "relevance": 1, "coi_risk": 1},
+  "verdict": "reject",
+  "verdict_reason": "Off-topic for this KB: domain-model fine-tuning for building-regulation compliance scripts, not software-development practice with agents. Methodologically, checkpoints are selected on the test set, a headline metric is the training reward, and the abstract's 23.8% compares against a non-best SFT checkpoint.",
+  "applicability": "Does not transfer to the discovery and onboarding harness: the team will not fine-tune a 7B model on regulation-code pairs. The only loose lesson is that an intermediate code skeleton between regulatory text and implementation lets domain experts review structure before code is written, analogous to having agents emit a reviewable class/method outline from healthcare-education content rules. This paper rewards name overlap rather than correctness, so it is no evidence for that practice.",
+  "conflicts_with": []
+}

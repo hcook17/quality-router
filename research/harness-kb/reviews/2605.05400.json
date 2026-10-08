@@ -1,0 +1,39 @@
+{
+  "arxiv_id": "2605.05400",
+  "contribution_type": "position",
+  "summary": "Single-author (LinearB) workshop paper proposing 'mise en place' for agentic coding: three phase-gated preparation steps before agents write code (externalize tacit domain knowledge into briefing documents, co-write a specification with an agent, decompose it into dependency-aware task records with acceptance criteria) and the notion of 'context fluency' as a developer skill. The only evidence is the author's own five-hour hackathon: about 2 hours of preparation (10 docs, 9,386 words; 64 task records), then four parallel subagents built an 8,496-line TypeScript education platform with no architectural refactoring. There is no control condition, the competition outcome is not reported, and the model is never named.",
+  "claims": [
+    {"claim": "About two hours of preparation enabled rapid parallel implementation by concurrent agents", "evidence": "Table 1 and Fig. 2: 43 of 64 task records closed, median 5.9 min each, 184 min of agent implementation, 9 deploy commits. No comparison condition; the 11 other teams were not instrumented and the hackathon result is not reported.", "strength": "weak", "location": "§4.2-4.3, Table 1, Fig. 2"},
+    {"claim": "Near-zero architectural rework is consistent with rich upfront context reducing agent misalignment", "evidence": "Author's own observation that post-build bugs were integration and styling issues; the paper itself says causation cannot be established from one case.", "strength": "weak", "location": "§4.3, §6.1"},
+    {"claim": "Twenty minutes of dictated pedagogical intuition substantially reduced iteration on the tutor component", "evidence": "No iteration count, comparison or measurement of the tutor component is reported.", "strength": "unsupported", "location": "§5"},
+    {"claim": "Preparation-first workflows front-load alignment work that iterative 'vibe coding' pays later as rework", "evidence": "Argument only; the paper lists this as open research question RQ1 and states there was no iteration-first comparison.", "strength": "unsupported", "location": "§2.4, §6.2"}
+  ],
+  "patterns": [
+    {"id": "P38", "stance": "introduces", "note": "Phase 1 'contextual grounding' (API exploration notes, competitive analysis, dictated tacit knowledge) precedes the specification. One uncontrolled case by the author; no comparison against starting without it."},
+    {"id": "P39", "stance": "introduces", "note": "Markdown briefing documents encoding domain knowledge and design philosophy serve as persistent agent context. Not compared with a no-briefing run."},
+    {"id": "P14", "stance": "introduces", "note": "Collaborative specification through human-agent dialogue, with value judgments encoded as constraints. No comparison."},
+    {"id": "P37", "stance": "introduces", "note": "The spec is decomposed into 64 dependency-tagged task records (Beads; authorship split between human and agent unclear) and dispatched to four parallel subagents. Median 5.9 min per record; no comparison with any other decomposition or a single agent."},
+    {"id": "P34", "stance": "introduces", "note": "Task records carry acceptance criteria; not evaluated."},
+    {"id": "P40", "stance": "neutral", "note": "In Phase 2 the agent proposes details for the human to accept or reject; agent-initiated clarifying questions are neither specified nor measured."},
+    {"id": "P41", "stance": "neutral", "note": "'Context fluency' is proposed as a developer skill to teach and hire for; developer comprehension or deskilling is not measured."}
+  ],
+  "methodology": {"sample": "One practitioner (the author), one five-hour hackathon, one product", "baselines": "None; 11 other teams described qualitatively from public pitches and event observation", "models": "Not reported", "variance": "n/a (single case)", "ablations": "None", "contamination_controls": "n/a", "languages": "TypeScript/TSX"},
+  "standards": {"peer_review": "Accepted at the VibeX 2026 workshop (co-located with EASE 2026), 5 pages", "limitations_section": true, "artifacts": "Zenodo bundle (anonymized hackathon artifacts, MIT-licensed code), doi 10.5281/zenodo.19868258", "preregistration": "none"},
+  "biases": [
+    {"type": "small_sample", "detail": "n=1 practitioner, n=1 project, five hours."},
+    {"type": "self_evaluation", "detail": "The author evaluates his own method on his own project using his own observations."},
+    {"type": "self_reported_numbers", "detail": "Timings and 'near-zero rework' come from the author's own logs and judgment."},
+    {"type": "selection_bias_participants", "detail": "Operator expertise in both education and software engineering is an acknowledged confound."},
+    {"type": "novelty_inflation", "detail": "The paper concedes the ingredients are established (Research-Plan-Implement, Spec Kit, Beads); the culinary framing and 'context fluency' rename known practice."},
+    {"type": "missing_cost_reporting", "detail": "No model, token or cost information."}
+  ],
+  "coi": {"affiliations": "LinearB (engineering-metrics vendor)", "vendor_products_evaluated": "None of LinearB's products; third-party open-source Beads is used", "funding": "Not stated", "severity": "low", "detail": "Vendor affiliation without evaluating a vendor product. The main bias is the author grading his own method."},
+  "scores": {"rigor": 1, "reproducibility": 2, "generalizability": 1, "relevance": 3, "coi_risk": 1},
+  "verdict": "reject",
+  "verdict_reason": "A practice proposal backed by a single uncontrolled self-report with no outcome measure; the efficacy statements are unsupported by the body. The gate rejects at rigor 1. The method description itself is on-topic and can inform hypotheses, not decisions.",
+  "applicability": "On-topic as a practice description: write domain briefing documents before the spec, co-author the spec with the agent, decompose into dependency-tagged tasks with acceptance criteria. The team could trial the 'dictate tacit domain knowledge into a briefing file' step for healthcare-education ingestion rules and content conventions, but this paper gives no evidence that it helps; the matched preparation-first vs iteration-first comparison (its RQ1) is what the team would have to run itself. A five-hour greenfield hackathon by one expert does not resemble multi-repo Java service evolution by developers who lack domain knowledge.",
+  "conflicts_with": [
+    {"arxiv_id": "2609.39154", "detail": "DAGent reports that growing the plan as evidence arrives beats committing a full plan upfront and patching it (deep-research tasks); Mise en Place prescribes completing all preparation phases before implementation. Different domain, and Mise en Place has no comparison."},
+    {"arxiv_id": "2605.04637", "detail": "SWE-WebDev Bench argues closed-loop planning-execution feedback matters more than any upfront phase; Mise en Place insists on phase-gated preparation completed before implementation. Neither has controlled evidence."}
+  ]
+}

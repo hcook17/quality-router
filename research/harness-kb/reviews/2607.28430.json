@@ -1,0 +1,126 @@
+{
+  "arxiv_id": "2607.28430",
+  "contribution_type": "system",
+  "summary": "AgentRadio (Coral AI Labs with Luxembourg, King's College London and Hull) is a message server plus three shell-script primitives (create_thread, send_message, wait_for_mention) that let several Claude Code agents message each other. Run as a background task, wait_for_mention lets mid-task findings reach teammates without stopping their work. On SWE-Atlas QnA (124 expert codebase-understanding questions over 11 production repos in 4 languages, graded per rubric by the benchmark's Claude Opus 4.5 judge), a ladder of single agent -> 4 agents with division -> plus negotiation/review -> plus passive messaging raises task accuracy from 32.3% to 62.1% (Opus 4.6) and from 29.0% to 50.8% (DeepSeek V4 Pro), at roughly 6x the cost per task.",
+  "claims": [
+    {
+      "claim": "Four agents with AgentRadio resolve 62.1% of tasks, 29.8 points above a single agent.",
+      "evidence": "Table 1: 40 -> 77 of 124 tasks (Opus 4.6), 36 -> 63 (DeepSeek V4 Pro); rubric pass rate 84.2 -> 93.1%. Single run per configuration on the full set. A 3-run, 30-task subset (Table 3, Opus only) preserves the ordering (B0 35.6±5.1, L3 64.4±2.0).",
+      "strength": "moderate",
+      "location": "Table 1, Table 3"
+    },
+    {
+      "claim": "Passive awareness alone (L2 -> L3, communication mode changed) adds 10.5 / 11.3 points and is significant.",
+      "evidence": "Table 1, exact McNemar on paired tasks: 15 wins / 2 losses (p=0.0023, Opus) and 17 / 3 (p=0.0026, DeepSeek). §Contributions admits that one phase prompt also changes, so this is not purely 'a single bit'. Rubric churn: +47 / -23 (Fig. 4). This is the best-isolated result in the paper.",
+      "strength": "moderate",
+      "location": "Table 1, Fig. 4"
+    },
+    {
+      "claim": "The gain is structure rather than compute, and four Opus 4.6 agents beat single-agent Opus 4.8.",
+      "evidence": "Table 2: compute-matched B1 (best of six whole single-agent runs, $17.76/task) reaches 37.9% vs L3 62.1% at $19.45. B1 picks the best whole run, not per-task pass@6 or majority vote. The 57.2% Opus 4.8 figure is copied from the public leaderboard (different runs, cost not reported) and compares a 4-agent stack with a single agent.",
+      "strength": "moderate",
+      "location": "Table 2"
+    },
+    {
+      "claim": "The benefit grows with task difficulty, consistent with mid-course correction as the mechanism.",
+      "evidence": "Fig. 5: among the 60 tasks L2 leaves unresolved, per-task gain rises from 0.3-0.5 to 1.2 and 2.0 rubrics, but the top groups have 4 and 3 tasks. Tasks with more missed rubrics have more headroom by construction. The mechanism rests on one favourable case (MinIO) and one null case (Grafana).",
+      "strength": "weak",
+      "location": "Fig. 5, Figs 6-7"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "P43",
+      "stance": "mixed",
+      "note": "Directly on codebase question answering. A single Claude Code agent fully answers only 29-32% of expert questions (81-84% of individual rubric facts). The best 4-agent stack reaches 51-62%, so even at about $19/task, 38%+ of answers contain at least one wrong or missing fact. 'Code onboarding' category: 11 -> 18 of 28 (Opus), 7 -> 13 (DeepSeek)."
+    },
+    {
+      "id": "P11",
+      "stance": "supports",
+      "note": "Four-agent negotiated team beats a single agent and a compute-matched best-of-six on two models, with McNemar significance for the messaging step. Caveats: single-run main table, authors' own system (vendor), no comparison with host-native subagents/agent teams or majority-vote ensembles, and answer length (which a rubric judge may reward) not reported."
+    },
+    {
+      "id": "P12",
+      "stance": "mixed",
+      "note": "L1 (four clean-context agents, naive partition, merge without review) vs a single agent: +7.2 / +2.4 points but noisy (84 rubrics gained, 59 lost). Architecture questions regress (15 -> 13, 14 -> 13) because partitioning fragments cross-cutting questions."
+    },
+    {
+      "id": "P38",
+      "stance": "neutral",
+      "note": "The benchmark targets understanding a system before changing it (build, run, trace). The paper measures how well that discovery step is done, not whether doing discovery before a spec improves downstream work."
+    },
+    {
+      "id": "P18",
+      "stance": "neutral",
+      "note": "Grading relies on the benchmark's Claude Opus 4.5 rubric judge, from the same vendor family as the Opus 4.6 agents. Judge accuracy is not re-validated here."
+    },
+    {
+      "id": "P24",
+      "stance": "neutral",
+      "note": "Per-task API cost reported: $2.96 single agent vs $19.45 full stack (Opus), $0.42 vs $2.46 (DeepSeek)."
+    },
+    {
+      "id": "P31",
+      "stance": "neutral",
+      "note": "All evidence is from one benchmark (SWE-Atlas QnA)."
+    }
+  ],
+  "methodology": {
+    "sample": "124 tasks / 1,306 rubrics, 11 production repos (from SWE-Bench Pro), 4 languages. Variance subset: 30 tasks x 3 runs.",
+    "baselines": "Single Claude Code (B0); best of six single runs (B1, compute-matched); own ladder L1/L2; leaderboard Opus 4.8. No external multi-agent baseline and no host-native subagent configuration.",
+    "models": "Claude Opus 4.6 and DeepSeek V4 Pro inside Claude Code; judge Claude Opus 4.5.",
+    "variance": "Main results single-run (temperature 0, thinking high). Three runs on a 30-task subset for Opus only. Exact McNemar for L2 vs L3.",
+    "ablations": "Cumulative ladder (division, negotiation, passive messaging) on two models; rubric-level gain/loss attribution.",
+    "contamination_controls": "Relies on the benchmark's copyleft repos and commit-pinned images; no further checks.",
+    "languages": "Four languages per the benchmark (not itemised in the paper); not Java-specific."
+  },
+  "standards": {
+    "peer_review": "None stated (arXiv preprint).",
+    "limitations_section": false,
+    "artifacts": "Code at github.com/Coral-Protocol/AgentRadio; benchmark public. Agent prompts are described but their release is not stated in the text.",
+    "preregistration": "n/a"
+  },
+  "biases": [
+    {
+      "type": "self_evaluation",
+      "detail": "Authors from a multi-agent coordination vendor evaluate their own layer and design every ablation rung."
+    },
+    {
+      "type": "no_variance_reported",
+      "detail": "The full 124-task table is single-run; variance comes only from a 30-task, Opus-only subset."
+    },
+    {
+      "type": "llm_judge_unvalidated",
+      "detail": "A same-vendor rubric judge, and the assembled four-agent answers are likely longer. Answer length and verbosity effects on rubric coverage are not reported."
+    },
+    {
+      "type": "hype_language",
+      "detail": "'A single degree of freedom worth more than a model generation': the comparison with Opus 4.8 is the whole stack, not the single passive-awareness bit, against a leaderboard number."
+    },
+    {
+      "type": "cherry_picked_examples",
+      "detail": "Mechanism argued from one success case (MinIO). A null case (Grafana) is shown, which partly offsets this."
+    }
+  ],
+  "coi": {
+    "affiliations": "Coral AI Labs (Coral Protocol), Université du Luxembourg SnT, King's College London, University of Hull",
+    "vendor_products_evaluated": "AgentRadio, released under the Coral-Protocol GitHub organisation, a vendor of multi-agent coordination infrastructure; Claude Code and DeepSeek as runtimes",
+    "funding": "Not stated",
+    "severity": "medium",
+    "detail": "A vendor whose business is agent-to-agent communication reports large gains for its own messaging layer, with no independent replication. Mitigated by a third-party benchmark with a fixed judge and open-sourced code."
+  },
+  "scores": {"rigor": 3, "reproducibility": 3, "generalizability": 3, "relevance": 4, "coi_risk": 3},
+  "verdict": "admit_with_caveats",
+  "verdict_reason": "Paired ablation on two models, a compute-matched baseline and a significance test for the key step make this better than typical multi-agent papers. But the main table is single-run, the authors are a coordination vendor grading their own layer, the Opus 4.8 comparison is a leaderboard number, there is no host-native subagent baseline, and no limitations section.",
+  "applicability": "This is the closest evidence in the batch on codebase question answering for onboarding. (1) A single agent answering deep 'how does this system behave' questions over production repos is wrong or incomplete on about 70% of questions at the whole-answer level, so onboarding Q&A output must carry cited evidence (commands run, files, logs) and be treated as a draft for a human to verify, not as documentation. (2) For cross-cutting architecture questions spanning the team's 4+ ingestion repos, naive splitting of the question across agents hurt. Joint exploration before partitioning, plus a review round, gave the largest single gain. (3) The full setup costs about $19 and tens of minutes per question on Opus, so reserve it for high-value discovery questions and keep cheap single-agent Q&A for routine lookups. The messaging layer is a few shell scripts plus a server, so it is host-agnostic, but it has been tested only inside Claude Code.",
+  "conflicts_with": [
+    {
+      "arxiv_id": "2608.23740",
+      "detail": "AgentRoom finds concurrent-agent quality peaking at N=2 and declining at N=3-4 as broadcast traffic grows super-linearly. AgentRadio reports four messaging agents beating a single agent by about 30 points. The task types differ (Express.js implementation vs read-only codebase QA), so the conflict is about when more agents plus messaging helps."
+    },
+    {
+      "arxiv_id": "2609.38345",
+      "detail": "OpenCollab finds model-directed teams often do not collaborate as declared, and higher adherence often lowers SWE-bench Pro pass rate; its gains come from a code-scripted two-agent workflow. AgentRadio relies on prompt-instructed protocol adherence and never measures whether agents actually followed the five phases."
+    }
+  ]
+}
