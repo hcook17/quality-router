@@ -185,7 +185,8 @@ def cmd_select(args: argparse.Namespace) -> None:
         tid = topic["id"]
         if args.only and tid not in args.only:
             continue
-        pool = [p for p in papers if p["topic_hits"].get(tid, {}).get("relevance", 0) > 0]
+        pool = [p for p in papers if p["topic_hits"].get(tid, {}).get("relevance", 0) > 0
+                and len(SOFTWARE.findall(f"{p['title']} {p['abstract']}")) >= args.min_software]
         pool.sort(key=lambda p: (-(p["topic_hits"][tid]["relevance"] - 0.02 * p["topic_hits"][tid]["api_rank"]),))
         n = 0
         for p in pool:
@@ -453,7 +454,8 @@ def validate(r: dict, known_patterns: set[str]) -> list[str]:
 
 
 def withdrawn(meta: dict) -> bool:
-    return bool(re.search(r"\bwithdra(wn|w)\b", meta.get("comment") or "", re.I))
+    return bool(re.search(r"\bwithdra(wn|w)\b|\bretract(ed|ion)?\b|\bdiscarded by the authors\b",
+                          meta.get("comment") or "", re.I))
 
 
 def admission(r: dict, meta: dict | None = None) -> str:
@@ -1172,6 +1174,8 @@ def main() -> None:
     s = sub.add_parser("select")
     s.add_argument("--per-topic", type=int, default=4)
     s.add_argument("--only", nargs="*")
+    s.add_argument("--min-software", type=int, default=0,
+                   help="Require at least N software-term matches in title+abstract.")
     sub.add_parser("recheck")
     rb = sub.add_parser("robustness")
     rb.add_argument("--cutoff", default="2026-09-30")
