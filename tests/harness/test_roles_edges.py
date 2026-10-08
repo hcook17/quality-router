@@ -33,6 +33,15 @@ def as_role(policy: Policy, root: Path, role: str, command: str) -> str:
     ("FOO=1 ./tools/fmt.sh > src/test/out.txt", "allow"),
     ("sed -i 's/a/b/' src/test/java/ATest.java", "allow"),
     ("echo 'unbalanced > src/main/A.java", "role_write_allow"),
+    ("echo hi > README.md", "role_write_allow"),
+    ("rm build.gradle", "role_write_allow"),
+    ("cp fixtures/item.json src/test/resources/item.json", "allow"),
+    ("cp src/test/x.java pom.xml", "role_write_allow"),
+    ("sed -i -e '1d' -e '/x/d' src/test/java/ATest.java", "allow"),
+    ("perl -i -pe 's/a/b/' pom.xml", "role_write_allow"),
+    ("chmod 755 src/test/run.sh", "allow"),
+    ("dd if=/dev/zero of=big.bin", "role_write_allow"),
+    ("git checkout -- src/main/A.java", "role_write_allow"),
 ])
 def test_test_author_shell_writes(policy: Policy, tmp_path: Path, command: str,
                                   expected: str) -> None:

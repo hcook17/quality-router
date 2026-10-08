@@ -345,10 +345,16 @@ def _operands(command: str) -> list[str]:
             if part and not part.startswith("-")]
 
 
-def _path_words(command: str) -> list[tuple[str, bool]]:
-    """Path-like words as (word, is_program); sed scripts, options and URLs are skipped."""
-    words: list[tuple[str, bool]] = []
-    expect_program, redirect = True, False
+_WRITE_OPERANDS = {"rm", "mv", "tee", "truncate", "shred", "unlink", "patch"}
+_COPY_TO_LAST = {"cp", "install", "ln"}
+_MODE_FIRST = {"chmod", "chown", "chgrp"}
+
+
+def _segments(command: str) -> list[list[tuple[str, bool]]]:
+    """Words per command segment (split at ; | &), each flagged as a redirect target or not."""
+    segments: list[list[tuple[str, bool]]] = []
+    current: list[tuple[str, bool]] = []
+    redirect = False
     for token in _shell_tokens(command):
         for piece in re.split(r"([<>|;&]+)", token):
             if not piece:
@@ -356,18 +362,72 @@ def _path_words(command: str) -> list[tuple[str, bool]]:
             if re.fullmatch(r"[<>|;&]+", piece):
                 if "<" in piece or ">" in piece:
                     redirect = True
-                else:
-                    expect_program = True
+                elif current:
+                    segments.append(current)
+                    current = []
                 continue
-            program = expect_program and not redirect
-            if program and re.fullmatch(r"[A-Za-z_]\w*=.*", piece):
-                continue
-            expect_program = expect_program and not program and not redirect
+            current.append((piece, redirect))
             redirect = False
-            if (piece.startswith("-") or "://" in piece or _SED_SCRIPT.match(piece)
-                    or not ("/" in piece or piece.startswith((".", "~")))):
-                continue
-            words.append((piece, program))
+    if current:
+        segments.append(current)
+    return segments
+
+
+def _shaped(word: str) -> bool:
+    return ("/" in word or word.startswith((".", "~"))) and "://" not in word \
+        and not _SED_SCRIPT.match(word)
+
+
+def _script_free(program: str, args: list[str]) -> list[str]:
+    """Operands of sed/perl without their inline scripts."""
+    operands, skip_next, script_option = [], False, False
+    for arg in args:
+        if skip_next:
+            skip_next = False
+            continue
+        if arg.startswith("-"):
+            takes_code = (arg in ("-e", "-f", "--expression", "--file") if program == "sed"
+                          else "e" in arg.lstrip("-"))
+            script_option = script_option or takes_code
+            skip_next = takes_code
+            continue
+        operands.append(arg)
+    return operands if script_option or program == "perl" else operands[1:]
+
+
+def _path_words(command: str) -> list[tuple[str, bool]]:
+    """Path arguments as (word, written).
+
+    Redirect targets and the files a write verb changes (rm, mv, tee, sed -i, the
+    destination of cp, ...) count whatever their shape; other words only when they look
+    like paths, and only as reads.
+    """
+    words: list[tuple[str, bool]] = []
+    for segment in _segments(command):
+        words += [(word, True) for word, target in segment if target]
+        plain = [word for word, target in segment if not target]
+        while plain and re.fullmatch(r"[A-Za-z_]\w*=.*", plain[0]):
+            plain.pop(0)
+        if not plain:
+            continue
+        program, args = plain[0], plain[1:]
+        if _shaped(program):
+            words.append((program, False))
+        name = PurePosixPath(program).name
+        operands = [a for a in args if not a.startswith("-")]
+        if name in _WRITE_OPERANDS:
+            words += [(a, True) for a in operands]
+        elif name in _COPY_TO_LAST:
+            words += [(a, i == len(operands) - 1) for i, a in enumerate(operands)]
+        elif name in _MODE_FIRST:
+            words += [(a, True) for a in operands[1:]]
+        elif name in ("sed", "perl"):
+            words += [(a, True) for a in _script_free(name, args)]
+        elif name == "dd":
+            words += [(a.split("=", 1)[1], a.startswith("of=")) for a in operands
+                      if a.startswith(("of=", "if="))]
+        else:
+            words += [(a, name == "git") for a in operands if _shaped(a)]
     return words
 
 
@@ -402,7 +462,7 @@ def _check_role(event: HookEvent, name: str, role: Role, root: Path, cwd: Path) 
     else:
         words = _path_words(event.value)
         reads = [_rel_posix(_absolute(w, cwd), root) for w, _ in words]
-        writes = ([_rel_posix(_absolute(w, cwd), root) for w, program in words if not program]
+        writes = ([_rel_posix(_absolute(w, cwd), root) for w, written in words if written]
                   if _SHELL_WRITE.search(event.value) else [])
     for posix in reads:
         pattern = _glob_match(posix, role.read_deny)
