@@ -17,6 +17,7 @@ import json
 import os
 import re
 import subprocess
+import xml.etree.ElementTree as ET
 from datetime import UTC, datetime
 from pathlib import Path, PurePosixPath
 from typing import Any
@@ -46,12 +47,28 @@ def _ids_in(text: str, id_pattern: str) -> list[str]:
     return sorted({m.group(1) for m in bounded.finditer(text)})
 
 
+def _tracked(root: Path, rel: str) -> bool:
+    return bool((_git(root, "ls-files", "--", rel) or "").strip())
+
+
 def build_lock(root: Path, specs: list[Path], tests: list[Path], owned: list[str] | None,
-               id_pattern: str = DEFAULT_ID_PATTERN, approved_by: str = "") -> dict[str, Any]:
-    """Lock document for `specs` + `tests`; raises when an owned criterion has no locked test."""
-    missing = [str(p) for p in [*specs, *tests] if not p.is_file()]
+               id_pattern: str = DEFAULT_ID_PATTERN, approved_by: str = "",
+               holdout: list[Path] | None = None) -> dict[str, Any]:
+    """Lock document for `specs` + `tests` (+ held-out tests by hash only).
+
+    Raises when an owned criterion has no locked test, or a held-out test is
+    missing, also a visible test, or tracked by git in `root`.
+    """
+    missing = [str(p) for p in [*specs, *tests, *(holdout or [])] if not p.is_file()]
     if missing:
         raise AcceptanceError(f"not found: {missing}")
+    visible = {p.resolve() for p in tests}
+    for path in holdout or []:
+        if path.resolve() in visible:
+            raise AcceptanceError(f"{path} is both a locked test and a held-out test")
+        if _tracked(root, _rel(path, root)):
+            raise AcceptanceError(f"held-out test is tracked by git: {_rel(path, root)}; "
+                                  "keep held-out tests out of the service repo")
     if not tests:
         raise AcceptanceError("no test files to lock")
     spec_entries: dict[str, dict[str, Any]] = {}
@@ -75,7 +92,7 @@ def build_lock(root: Path, specs: list[Path], tests: list[Path], owned: list[str
     uncovered = [ac for ac in wanted if ac not in covered]
     if uncovered:
         raise AcceptanceError(f"owned criteria with no locked test: {uncovered}")
-    return {
+    lock: dict[str, Any] = {
         "version": LOCK_VERSION,
         "id_pattern": id_pattern,
         "owned": wanted,
@@ -84,6 +101,15 @@ def build_lock(root: Path, specs: list[Path], tests: list[Path], owned: list[str
         "approved_by": approved_by,
         "locked_at": datetime.now(UTC).isoformat(timespec="seconds"),
     }
+    if holdout:
+        lock["holdout"] = {
+            _rel(path, root): {
+                "sha256": sha256_file(path),
+                "criteria": [i for i in _ids_in(path.read_text(encoding="utf-8",
+                                                               errors="replace"), id_pattern)
+                             if i in defined],
+            } for path in holdout}
+    return lock
 
 
 def write_lock(root: Path, lock: dict[str, Any]) -> Path:
@@ -100,7 +126,9 @@ def load_lock(path: Path) -> dict[str, Any]:
         raise AcceptanceError(f"{path}: invalid JSON: {exc}") from exc
     if not isinstance(data, dict) or data.get("version") != LOCK_VERSION:
         raise AcceptanceError(f"{path}: not a version-{LOCK_VERSION} acceptance lock")
-    for key in ("specs", "tests"):
+    for key in ("specs", "tests", "holdout"):
+        if key == "holdout" and key not in data:
+            continue
         entries = data.get(key)
         if not isinstance(entries, dict) or not all(
                 isinstance(v, dict) and isinstance(v.get("sha256"), str) for v in entries.values()):
@@ -124,6 +152,12 @@ def locked_files(lock_path: Path) -> set[Path]:
     for key in ("tests", "specs"):
         paths.update((root / rel).resolve() for rel in lock[key])
     return paths
+
+
+def holdout_files(lock_path: Path) -> set[Path]:
+    """Absolute paths of the held-out tests the lock records (hidden from all but test-author)."""
+    root = lock_path.parent.parent
+    return {(root / rel).resolve() for rel in load_lock(lock_path).get("holdout", {})}
 
 
 def _is_implementation(path: str) -> bool:
@@ -215,4 +249,77 @@ def gate_acceptance(root: Path, base: str | None = None, strict: bool = False) -
         "owned": lock.get("owned", []),
         "approved_by": lock.get("approved_by", ""),
     })
+    return result
+
+
+def _junit_cases(reports: list[Path]) -> list[tuple[str, str, str]]:
+    """(classname, method, pass|fail|skip) for every testcase in the reports."""
+    cases = []
+    for report in reports:
+        for case in ET.parse(report).getroot().iter("testcase"):
+            tags = {child.tag for child in case}
+            outcome = ("fail" if tags & {"failure", "error"} else
+                       "skip" if "skipped" in tags else "pass")
+            cases.append((case.get("classname", ""), case.get("name", ""), outcome))
+    return cases
+
+
+def _belongs(classname: str, stem: str) -> bool:
+    return (classname == stem or classname.endswith("." + stem)
+            or classname.startswith(stem + "$") or f".{stem}$" in classname)
+
+
+def _touched_since(root: Path, base: str, rels: list[str]) -> set[str]:
+    prefix = (_git(root, "rev-parse", "--show-prefix") or "").strip()
+    names = _git(root, "log", "--format=", "--name-only", f"{base}..HEAD", "--",
+                 *(prefix + rel for rel in rels))
+    if names is None:
+        raise AcceptanceError(f"cannot list commits {base}..HEAD (fetch the base, "
+                              "or use fetch-depth: 0)")
+    touched = {line.strip() for line in names.splitlines() if line.strip()}
+    return {rel for rel in rels if prefix + rel in touched}
+
+
+def gate_holdout(root: Path, reports: list[Path], base: str | None = None,
+                 strict: bool = False) -> GateResult:
+    """Held-out tests: present, unmodified, never in the service repo, ran and passed."""
+    result = GateResult(gate="holdout", strict=strict)
+    lock_path = root / LOCK_PATH
+    entries = load_lock(lock_path).get("holdout", {}) if lock_path.is_file() else {}
+    counts = {"holdout_tests": 0, "holdout_failed": 0, "holdout_skipped": 0}
+    result.summary.update({"holdout_files": len(entries), **counts,
+                           "criteria": sorted({c for e in entries.values()
+                                               for c in e.get("criteria", [])}),
+                           "reports": len(reports)})
+    if not entries:
+        result.add("warning", "no_holdout",
+                   "no held-out tests in the lock; record them with `qr spec lock --holdout`")
+        return result
+    cases = _junit_cases(reports)
+    touched = _touched_since(root, base, list(entries)) if base else set()
+    for rel, entry in entries.items():
+        path = root / rel
+        if not path.is_file():
+            result.add("error", "holdout_missing",
+                       "held-out test not present; copy it in before the build", rel)
+        elif sha256_file(path) != entry["sha256"]:
+            result.add("error", "holdout_modified",
+                       "held-out test differs from the locked version", rel)
+        if _tracked(root, rel) or rel in touched:
+            result.add("error", "holdout_exposed",
+                       "held-out test is in the service repo's history; the implementer could "
+                       "see it", rel)
+        stem = PurePosixPath(rel).stem
+        mine = [case for case in cases if _belongs(case[0], stem)]
+        ran = [case for case in mine if case[2] != "skip"]
+        failed = [f"{cls}.{name}" for cls, name, outcome in mine if outcome == "fail"]
+        counts["holdout_tests"] += len(ran)
+        counts["holdout_failed"] += len(failed)
+        counts["holdout_skipped"] += len(mine) - len(ran)
+        if not ran:
+            result.add("error", "holdout_not_run",
+                       f"no executed testcase for {stem} in the JUnit reports", rel)
+        elif failed:
+            result.add("error", "holdout_failed", f"failed: {', '.join(failed)}", rel)
+    result.summary.update(counts)
     return result

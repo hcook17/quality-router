@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import glob
 import json
+import os
 import re
 import sys
 import textwrap
@@ -42,6 +43,7 @@ GATE_EPILOG = textwrap.dedent(
       qr gate api-compat --report '**/target/japicmp/*.xml'
       qr gate api-compat --report build/japicmp.xml --level binary --ignore 'com.acme.internal.*'
       qr gate api-compat --report target/japicmp/japicmp.xml --allow-major-bump --strict
+      qr gate holdout --base origin/main --reports '**/build/test-results/**/TEST-*.xml'
 
     Exit 0 pass, 1 gate failed, 2 usage error. Reads reports; never runs Maven/Gradle.
     """
@@ -107,7 +109,9 @@ POLICY_EPILOG = textwrap.dedent(
       qr policy check --command 'git push --force origin main'
       qr policy check --path src/main/resources/.env
       qr policy check --write --path src/test/java/com/acme/ItemV2AcceptanceTest.java
+      qr policy check --role test-author --write --path src/main/java/com/acme/Item.java
       echo '{"command":"curl https://x.io"}' | qr policy hook --host cursor
+      QR_ROLE=implementer claude   # the hook reads the role: --role, QR_ROLE, .quality-router/role
 
     Policy: .quality-router/policy.json (stamp with `qr init --policy`).
     No policy file -> hook allows (disconnected no-op). Bad policy or bad
@@ -209,6 +213,17 @@ def _gate(subparsers) -> None:
     _common(api)
     api.set_defaults(handler=cmd_api_compat)
 
+    hold = _sub(gates, "holdout",
+                "Held-out acceptance tests ran unmodified, unseen by the implementer, and passed.",
+                GATE_EPILOG)
+    hold.add_argument("--root", default=".", help="Repository root holding the lock.")
+    hold.add_argument("--reports", nargs="+", action="extend", required=True,
+                      help="JUnit XML paths or globs (copy the held-out tests in, then build).")
+    hold.add_argument("--base", default=None,
+                      help="Also fail if a commit in REF..HEAD touched a held-out test.")
+    _common(hold)
+    hold.set_defaults(handler=cmd_gate_holdout)
+
 
 def _lint(subparsers) -> None:
     lint = _sub(subparsers, "lint", "Lint agent-facing files.", LINT_EPILOG)
@@ -292,6 +307,9 @@ def _spec(subparsers) -> None:
                       help="Criteria this repo owns (default: all in the spec).")
     lock.add_argument("--id-pattern", default=specdoc.DEFAULT_ID_PATTERN)
     lock.add_argument("--approved-by", default="", help="Recorded in the lock (e.g. reviewer).")
+    lock.add_argument("--holdout", nargs="+", default=None,
+                      help="Held-out tests (untracked) recorded by hash only; hidden from "
+                           "every role but test-author.")
     lock.add_argument("--dry-run", action="store_true", help="Print the lock; write nothing.")
     lock.set_defaults(handler=cmd_spec_lock)
 
@@ -355,6 +373,9 @@ def _policy(subparsers) -> None:
                        help="Decide --path as a write (locked acceptance files are read-only).")
     check.add_argument("--policy", default=None, help="Policy file (default: repo policy).")
     check.add_argument("--root", default=".", help="Repository root.")
+    check.add_argument("--role", default=None,
+                       help="SDD role from policy.json roles (default: QR_ROLE, then "
+                            ".quality-router/role).")
     _common(check, strict=False)
     check.set_defaults(handler=cmd_policy_check)
 
@@ -363,6 +384,8 @@ def _policy(subparsers) -> None:
     hook.add_argument("--host", choices=["cursor", "claude-code"], required=True)
     hook.add_argument("--policy", default=None, help="Policy file (default: search upward).")
     hook.add_argument("--audit", default=None, help="Append decisions to this JSONL file.")
+    hook.add_argument("--role", default=None,
+                      help="SDD role (default: QR_ROLE, then .quality-router/role).")
     hook.set_defaults(handler=cmd_policy_hook)
 
 
@@ -616,9 +639,12 @@ def cmd_spec_lock(args: Namespace) -> int:
             print(f"  {line}", file=sys.stderr)
         return EXIT_FAIL
     tests = _expand(args.tests, Path.cwd())
+    holdout = _expand(args.holdout, Path.cwd()) if args.holdout else None
+    if args.holdout and not holdout:
+        return _usage(f"held-out test not found: {args.holdout}", f"{example} --holdout <path>")
     try:
         lock = acceptance.build_lock(root, specs, tests, args.ac or None, args.id_pattern,
-                                     args.approved_by)
+                                     args.approved_by, holdout)
     except acceptance.AcceptanceError as exc:
         return _usage(str(exc), example)
     if args.dry_run:
@@ -654,6 +680,22 @@ def cmd_gate_acceptance(args: Namespace) -> int:
     except acceptance.AcceptanceError as exc:
         return _usage(str(exc), "git fetch origin main  # then: qr gate acceptance --base "
                                 "origin/main")
+    return _emit(result, args)
+
+
+def cmd_gate_holdout(args: Namespace) -> int:
+    root = Path(args.root)
+    reports = [p for p in _expand(args.reports, Path.cwd()) if p.is_file()]
+    if not reports:
+        return _usage(f"JUnit report not found: {args.reports}",
+                      "copy the held-out tests in, ./gradlew test, then: qr gate holdout "
+                      "--reports '**/build/test-results/**/TEST-*.xml'")
+    try:
+        result = acceptance.gate_holdout(root, reports, args.base, args.strict)
+    except acceptance.AcceptanceError as exc:
+        return _usage(str(exc), "git fetch origin main  # then: qr gate holdout --base origin/main")
+    except ET.ParseError as exc:
+        return _usage(f"not JUnit XML: {exc}", "--reports 'build/test-results/test/TEST-*.xml'")
     return _emit(result, args)
 
 
@@ -713,7 +755,7 @@ def cmd_policy_check(args: Namespace) -> int:
     except (json.JSONDecodeError, KeyError, ValueError) as exc:
         return _usage(f"invalid policy: {exc}", "python -m json.tool .quality-router/policy.json")
     try:
-        locked = _locked_for(root)
+        locked, holdout = _lock_sets(root)
     except acceptance.AcceptanceError as exc:
         return _usage(str(exc), "git show origin/main:.quality-router/acceptance.lock.json")
     if args.shell_command is not None:
@@ -721,11 +763,13 @@ def cmd_policy_check(args: Namespace) -> int:
     else:
         event = policy_mod.HookEvent("path", args.path, str(root),
                                      "write" if args.write else "read")
-    decision = policy_mod.decide(event, policy, root, locked)
+    role = policy_mod.resolve_role(root, args.role, os.environ)
+    decision = policy_mod.decide(event, policy, root, locked, role=role, holdout=holdout)
     result = GateResult(gate="policy")
     if not decision.allow:
         result.add("error", f"denied_{decision.rule}", decision.reason)
     result.summary["decision"] = "allow" if decision.allow else "deny"
+    result.summary["role"] = role or ""
     return _emit(result, args)
 
 
@@ -737,9 +781,12 @@ def _find_policy(start: Path) -> Path | None:
     return None
 
 
-def _locked_for(start: Path) -> set[Path]:
+def _lock_sets(start: Path) -> tuple[set[Path], set[Path]]:
+    """(write-protected locked files, hidden held-out tests) from the nearest lock."""
     lock = acceptance.find_lock(start.resolve())
-    return acceptance.locked_files(lock) if lock else set()
+    if lock is None:
+        return set(), set()
+    return acceptance.locked_files(lock), acceptance.holdout_files(lock)
 
 
 def cmd_policy_hook(args: Namespace) -> int:
@@ -752,14 +799,17 @@ def cmd_policy_hook(args: Namespace) -> int:
         event = policy_mod.parse_hook_event(payload)
         start = Path(event.cwd) if event and event.cwd else Path.cwd()
         path = Path(args.policy) if args.policy else _find_policy(start)
-        locked = _locked_for(start)
+        locked, holdout = _lock_sets(start)
         if (path is None or not path.is_file()) and not locked:
             decision = policy_mod.Decision(True, "no policy file (disconnected)", "none")
         elif path is None or not path.is_file():
-            decision = policy_mod.decide(event, policy_mod.Policy(), start, locked)
+            decision = policy_mod.decide(event, policy_mod.Policy(), start, locked,
+                                         holdout=holdout)
         else:
             root = path.parent.parent if path.parent.name == ".quality-router" else start
-            decision = policy_mod.decide(event, policy_mod.Policy.load(path), root, locked)
+            role = policy_mod.resolve_role(root, args.role, os.environ)
+            decision = policy_mod.decide(event, policy_mod.Policy.load(path), root, locked,
+                                         role=role, holdout=holdout)
     except (json.JSONDecodeError, ValueError, KeyError, TypeError, OSError) as exc:
         event = None
         decision = policy_mod.Decision(False, f"policy hook failed closed: {exc}", deny.rule)
