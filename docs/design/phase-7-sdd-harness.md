@@ -1,7 +1,16 @@
 # Phase 7: the spec-driven development harness
 
-Status: in progress. Branch `cursor/sdd-roles-holdout-5429`. Criteria (locked):
+Status: done. Branch `cursor/sdd-roles-holdout-5429`. Criteria (locked):
 `specs/phase-7-roles-holdout.md`.
+
+Built the way the harness asks teams to work:
+- A test-author agent wrote 108 visible and 195 held-out tests from the
+  criteria alone.
+- The visible tests were locked before any code.
+- An independent agent ran the held-out set. It caught one defect the
+  visible tests missed: `echo hi > README.md` passed a role's
+  `write_allow`. After the fix, all 195 pass.
+- The held-out tests are now in `tests/holdout/`.
 
 This phase makes the spec-driven flow from phases 4–6 a harness: each step
 runs as a separate agent session with its own role and worktree. The policy
